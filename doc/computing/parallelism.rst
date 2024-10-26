@@ -1,269 +1,248 @@
-Parallelism, resource management, and configuration
+
+التوازي وإدارة الموارد والتهيئة
 ===================================================
 
 .. _parallelism:
 
-Parallelism
+التوازي
 -----------
 
-Some scikit-learn estimators and utilities parallelize costly operations
-using multiple CPU cores.
+يقوم بعض المقدرين والمرافقين في scikit-learn بتوازي العمليات المكلفة
+باستخدام عدة وحدات معالجة مركزية.
 
-Depending on the type of estimator and sometimes the values of the
-constructor parameters, this is either done:
+اعتمادًا على نوع المقدر وأحيانًا على قيم معلمات الباني، يتم ذلك إما:
 
-- with higher-level parallelism via `joblib <https://joblib.readthedocs.io/en/latest/>`_.
-- with lower-level parallelism via OpenMP, used in C or Cython code.
-- with lower-level parallelism via BLAS, used by NumPy and SciPy for generic operations
-  on arrays.
+- مع التوازي عالي المستوى عبر `joblib <https://joblib.readthedocs.io/en/latest/>`_.
+- مع التوازي منخفض المستوى عبر OpenMP، المستخدم في كود C أو Cython.
+- مع التوازي منخفض المستوى عبر BLAS، المستخدم بواسطة NumPy وSciPy للعمليات العامة
+  على المصفوفات.
 
-The `n_jobs` parameters of estimators always controls the amount of parallelism
-managed by joblib (processes or threads depending on the joblib backend).
-The thread-level parallelism managed by OpenMP in scikit-learn's own Cython code
-or by BLAS & LAPACK libraries used by NumPy and SciPy operations used in scikit-learn
-is always controlled by environment variables or `threadpoolctl` as explained below.
-Note that some estimators can leverage all three kinds of parallelism at different
-points of their training and prediction methods.
+معلمات `n_jobs` للمقدرين تتحكم دائمًا في مقدار التوازي
+الذي يديره joblib (العمليات أو الخيوط اعتمادًا على backend joblib).
+التوازي على مستوى الخيوط الذي يديره OpenMP في كود Cython الخاص بـ scikit-learn
+أو بواسطة BLAS & LAPACK الذي تستخدمه مكتبات NumPy وSciPy المستخدمة في scikit-learn
+يتم التحكم فيه دائمًا بواسطة متغيرات البيئة أو `threadpoolctl` كما هو موضح أدناه.
+لاحظ أن بعض المقدرين يمكنهم الاستفادة من جميع أنواع التوازي الثلاثة في نقاط مختلفة
+من طرق التدريب والتنبؤ الخاصة بهم.
 
-We describe these 3 types of parallelism in the following subsections in more details.
+نصف هذه الأنواع الثلاثة من التوازي في الفقرات الفرعية التالية بمزيد من التفاصيل.
 
-Higher-level parallelism with joblib
+التوازي عالي المستوى مع joblib
 ....................................
 
-When the underlying implementation uses joblib, the number of workers
-(threads or processes) that are spawned in parallel can be controlled via the
-``n_jobs`` parameter.
+عندما يستخدم التنفيذ joblib، يمكن التحكم في عدد العمال
+(الخيوط أو العمليات) التي يتم إنشاؤها بالتوازي عبر
+المعلمة ``n_jobs``.
 
 .. note::
 
-    Where (and how) parallelization happens in the estimators using joblib by
-    specifying `n_jobs` is currently poorly documented.
-    Please help us by improving our docs and tackle `issue 14228
+    أين (وكيف) يحدث التوازي في المقدرين الذين يستخدمون joblib عن طريق
+    تحديد `n_jobs` موثق حاليًا بشكل سيئ.
+    يرجى مساعدتنا من خلال تحسين وثائقنا والتعامل مع `issue 14228
     <https://github.com/scikit-learn/scikit-learn/issues/14228>`_!
 
-Joblib is able to support both multi-processing and multi-threading. Whether
-joblib chooses to spawn a thread or a process depends on the **backend**
-that it's using.
+يمكن لـ joblib دعم كل من المعالجة المتعددة والتعدد الخيطي. ما إذا كان
+joblib يختار إنشاء خيط أو عملية يعتمد على **backend**
+الذي يستخدمه.
 
-scikit-learn generally relies on the ``loky`` backend, which is joblib's
-default backend. Loky is a multi-processing backend. When doing
-multi-processing, in order to avoid duplicating the memory in each process
-(which isn't reasonable with big datasets), joblib will create a `memmap
+يعتمد scikit-learn بشكل عام على backend ``loky``، وهو backend الافتراضي لـ joblib. Loky هو backend متعدد العمليات. عند القيام
+بالمعالجة المتعددة، من أجل تجنب تكرار الذاكرة في كل عملية
+(الذي ليس معقولًا مع مجموعات البيانات الكبيرة)، سيقوم joblib بإنشاء `memmap
 <https://docs.scipy.org/doc/numpy/reference/generated/numpy.memmap.html>`_
-that all processes can share, when the data is bigger than 1MB.
+يمكن لجميع العمليات مشاركته، عندما تكون البيانات أكبر من 1MB.
 
-In some specific cases (when the code that is run in parallel releases the
-GIL), scikit-learn will indicate to ``joblib`` that a multi-threading
-backend is preferable.
+في بعض الحالات المحددة (عندما يطلق الكود الذي يتم تشغيله بالتوازي GIL)، سيشير scikit-learn إلى ``joblib`` بأن backend متعدد الخيوط
+يفضل.
 
-As a user, you may control the backend that joblib will use (regardless of
-what scikit-learn recommends) by using a context manager::
+كمستخدم، يمكنك التحكم في backend الذي سيستخدمه joblib (بغض النظر
+عن ما يوصي به scikit-learn) باستخدام context manager::
 
     from joblib import parallel_backend
 
     with parallel_backend('threading', n_jobs=2):
         # Your scikit-learn code here
 
-Please refer to the `joblib's docs
+يرجى الرجوع إلى `joblib's docs
 <https://joblib.readthedocs.io/en/latest/parallel.html#thread-based-parallelism-vs-process-based-parallelism>`_
-for more details.
+لمزيد من التفاصيل.
 
-In practice, whether parallelism is helpful at improving runtime depends on
-many factors. It is usually a good idea to experiment rather than assuming
-that increasing the number of workers is always a good thing. In some cases
-it can be highly detrimental to performance to run multiple copies of some
-estimators or functions in parallel (see oversubscription below).
+في الممارسة العملية، ما إذا كان التوازي مفيدًا في تحسين وقت التشغيل يعتمد
+على العديد من العوامل. عادة ما تكون فكرة جيدة للتجربة بدلاً من افتراض
+أن زيادة عدد العمال هي دائمًا أمر جيد. في بعض الحالات
+يمكن أن يكون ضارًا للغاية بالأداء لتشغيل عدة نسخ من بعض
+المقدرين أو الوظائف بالتوازي (انظر الإفراط في الاشتراك أدناه).
 
-Lower-level parallelism with OpenMP
+التوازي منخفض المستوى مع OpenMP
 ...................................
 
-OpenMP is used to parallelize code written in Cython or C, relying on
-multi-threading exclusively. By default, the implementations using OpenMP
-will use as many threads as possible, i.e. as many threads as logical cores.
+يستخدم OpenMP لتوازي الكود المكتوب في Cython أو C، معتمدًا على
+التعدد الخيطي حصريًا. بشكل افتراضي، ستستخدم التنفيذات التي تستخدم OpenMP
+أكبر عدد ممكن من الخيوط، أي عدد الخيوط مثل وحدات المعالجة المركزية المنطقية.
 
-You can control the exact number of threads that are used either:
+يمكنك التحكم في العدد الدقيق للخيوط المستخدمة إما:
 
-- via the ``OMP_NUM_THREADS`` environment variable, for instance when:
-  running a python script:
+- عبر متغير البيئة ``OMP_NUM_THREADS``، على سبيل المثال عند:
+  تشغيل نص برمجي بايثون:
 
   .. prompt:: bash $
 
       OMP_NUM_THREADS=4 python my_script.py
 
-- or via `threadpoolctl` as explained by `this piece of documentation
+- أو عبر `threadpoolctl` كما هو موضح بواسطة `هذه القطعة من الوثائق
   <https://github.com/joblib/threadpoolctl/#setting-the-maximum-size-of-thread-pools>`_.
 
-Parallel NumPy and SciPy routines from numerical libraries
+الروتينات الموازية NumPy وSciPy من المكتبات العددية
 ..........................................................
 
-scikit-learn relies heavily on NumPy and SciPy, which internally call
-multi-threaded linear algebra routines (BLAS & LAPACK) implemented in libraries
-such as MKL, OpenBLAS or BLIS.
+يعتمد scikit-learn بشكل كبير على NumPy وSciPy، والذي يستدعي داخليًا
+الروتينات الخطية المتوازية (BLAS & LAPACK) المنفذة في المكتبات
+مثل MKL وOpenBLAS أو BLIS.
 
-You can control the exact number of threads used by BLAS for each library
-using environment variables, namely:
+يمكنك التحكم في العدد الدقيق للخيوط التي تستخدمها BLAS لكل مكتبة
+باستخدام متغيرات البيئة، على وجه التحديد:
 
-- ``MKL_NUM_THREADS`` sets the number of thread MKL uses,
-- ``OPENBLAS_NUM_THREADS`` sets the number of threads OpenBLAS uses
-- ``BLIS_NUM_THREADS`` sets the number of threads BLIS uses
+- ``MKL_NUM_THREADS`` يحدد عدد الخيوط التي يستخدمها MKL،
+- ``OPENBLAS_NUM_THREADS`` يحدد عدد الخيوط التي يستخدمها OpenBLAS
+- ``BLIS_NUM_THREADS`` يحدد عدد الخيوط التي يستخدمها BLIS
 
-Note that BLAS & LAPACK implementations can also be impacted by
-`OMP_NUM_THREADS`. To check whether this is the case in your environment,
-you can inspect how the number of threads effectively used by those libraries
-is affected when running the following command in a bash or zsh terminal
-for different values of `OMP_NUM_THREADS`:
+لاحظ أن BLAS & LAPACK يمكن أن تتأثر أيضًا بـ
+`OMP_NUM_THREADS`. للتحقق مما إذا كان هذا هو الحال في بيئتك،
+يمكنك فحص كيفية تأثير عدد الخيوط المستخدمة بشكل فعال بواسطة هذه المكتبات
+عند تشغيل الأمر التالي في محيط bash أو zsh
+للقيم المختلفة لـ `OMP_NUM_THREADS`:
 
 .. prompt:: bash $
 
     OMP_NUM_THREADS=2 python -m threadpoolctl -i numpy scipy
 
 .. note::
-    At the time of writing (2022), NumPy and SciPy packages which are
-    distributed on pypi.org (i.e. the ones installed via ``pip install``)
-    and on the conda-forge channel (i.e. the ones installed via
-    ``conda install --channel conda-forge``) are linked with OpenBLAS, while
-    NumPy and SciPy packages packages shipped on the ``defaults`` conda
-    channel from Anaconda.org (i.e. the ones installed via ``conda install``)
-    are linked by default with MKL.
+    في وقت الكتابة (2022)، حزم NumPy وSciPy التي يتم توزيعها على pypi.org (أي تلك المثبتة عبر ``pip install``)
+    وعلى قناة conda-forge (أي تلك المثبتة عبر
+    ``conda install --channel conda-forge``) مرتبطة بـ OpenBLAS، بينما
+    حزم NumPy وSciPy packages الموزعة على قناة conda الافتراضية من Anaconda.org (أي تلك المثبتة عبر ``conda install``)
+    مرتبطة افتراضيًا بـ MKL.
 
 
-Oversubscription: spawning too many threads
+الإفراط في الاشتراك: إنشاء الكثير من الخيوط
 ...........................................
 
-It is generally recommended to avoid using significantly more processes or
-threads than the number of CPUs on a machine. Over-subscription happens when
-a program is running too many threads at the same time.
+من المستحسن عمومًا تجنب استخدام عدد أكبر بكثير من العمليات أو
+الخيوط من عدد وحدات المعالجة المركزية على الجهاز. يحدث الإفراط في الاشتراك عندما
+يقوم برنامج بتشغيل الكثير من الخيوط في نفس الوقت.
 
-Suppose you have a machine with 8 CPUs. Consider a case where you're running
-a :class:`~sklearn.model_selection.GridSearchCV` (parallelized with joblib)
-with ``n_jobs=8`` over a
-:class:`~sklearn.ensemble.HistGradientBoostingClassifier` (parallelized with
-OpenMP). Each instance of
-:class:`~sklearn.ensemble.HistGradientBoostingClassifier` will spawn 8 threads
-(since you have 8 CPUs). That's a total of ``8 * 8 = 64`` threads, which
-leads to oversubscription of threads for physical CPU resources and thus
-to scheduling overhead.
+لنفترض أن لديك جهازًا به 8 وحدات معالجة مركزية. ضع في اعتبارك حالة تقوم فيها بتشغيل
+:class:`~sklearn.model_selection.GridSearchCV` (موازاة مع joblib)
+مع ``n_jobs=8`` على
+:class:`~sklearn.ensemble.HistGradientBoostingClassifier` (موازاة مع
+OpenMP). ستقوم كل مثيل من
+:class:`~sklearn.ensemble.HistGradientBoostingClassifier` بإنشاء 8 خيوط
+(نظرًا لأن لديك 8 وحدات معالجة مركزية). هذا ما مجموعه ``8 * 8 = 64`` خيوط، مما
+يؤدي إلى الإفراط في الاشتراك في الموارد المادية لوحدات المعالجة المركزية وبالتالي
+إلى زيادة وقت الجدولة.
 
-Oversubscription can arise in the exact same fashion with parallelized
-routines from MKL, OpenBLAS or BLIS that are nested in joblib calls.
+يمكن أن يحدث الإفراط في الاشتراك بنفس الطريقة بالضبط مع الروتينات الموازية
+من MKL أو OpenBLAS أو BLIS المضمنة في مكالمات joblib.
 
-Starting from ``joblib >= 0.14``, when the ``loky`` backend is used (which
-is the default), joblib will tell its child **processes** to limit the
-number of threads they can use, so as to avoid oversubscription. In practice
-the heuristic that joblib uses is to tell the processes to use ``max_threads
-= n_cpus // n_jobs``, via their corresponding environment variable. Back to
-our example from above, since the joblib backend of
-:class:`~sklearn.model_selection.GridSearchCV` is ``loky``, each process will
-only be able to use 1 thread instead of 8, thus mitigating the
-oversubscription issue.
+بدءًا من ``joblib >= 0.14``، عندما يتم استخدام backend ``loky`` (الذي
+هو الافتراضي)، سيخبر joblib عملياته **الفرعية** بتحديد عدد الخيوط التي يمكنهم استخدامها، وذلك لتجنب الإفراط في الاشتراك. في الممارسة
+الخوارزمية التي يستخدمها joblib هي إخبار العمليات باستخدام ``max_threads
+= n_cpus // n_jobs``، عبر متغير البيئة الخاص بهم. عودة إلى
+مثالنا من الأعلى، نظرًا لأن backend joblib من
+:class:`~sklearn.model_selection.GridSearchCV` هو ``loky``، فإن كل عملية ستتمكن
+فقط من استخدام خيط واحد بدلاً من 8، وبالتالي التخفيف من مشكلة الإفراط في الاشتراك.
 
-Note that:
+لاحظ أنه:
 
-- Manually setting one of the environment variables (``OMP_NUM_THREADS``,
-  ``MKL_NUM_THREADS``, ``OPENBLAS_NUM_THREADS``, or ``BLIS_NUM_THREADS``)
-  will take precedence over what joblib tries to do. The total number of
-  threads will be ``n_jobs * <LIB>_NUM_THREADS``. Note that setting this
-  limit will also impact your computations in the main process, which will
-  only use ``<LIB>_NUM_THREADS``. Joblib exposes a context manager for
-  finer control over the number of threads in its workers (see joblib docs
-  linked below).
-- When joblib is configured to use the ``threading`` backend, there is no
-  mechanism to avoid oversubscriptions when calling into parallel native
-  libraries in the joblib-managed threads.
-- All scikit-learn estimators that explicitly rely on OpenMP in their Cython code
-  always use `threadpoolctl` internally to automatically adapt the numbers of
-  threads used by OpenMP and potentially nested BLAS calls so as to avoid
-  oversubscription.
+- تعيين أحد متغيرات البيئة (``OMP_NUM_THREADS``،
+  ``MKL_NUM_THREADS``، ``OPENBLAS_NUM_THREADS``، أو ``BLIS_NUM_THREADS``)
+  سيكون له الأسبقية على ما يحاول joblib القيام به. سيكون العدد الإجمالي للخيوط
+  ``n_jobs * <LIB>_NUM_THREADS``. لاحظ أن تعيين هذا
+  الحد سيؤثر أيضًا على حساباتك في العملية الرئيسية، والتي ستستخدم فقط ``<LIB>_NUM_THREADS``. يعرض joblib context manager للتحكم الدقيق في عدد الخيوط في عماله (انظر وثائق joblib المرتبطة أدناه).
+- عندما يتم تكوين joblib لاستخدام backend ``threading``، لا توجد
+آلية لتجنب الإفراط في الاشتراك عند استدعاء المكتبات الأصلية الموازية في الخيوط التي يديرها joblib.
+- جميع المقدرين في scikit-learn الذين يعتمدون صراحة على OpenMP في كود Cython الخاص بهم
+  يستخدمون `threadpoolctl` داخليًا لتكييف أعداد الخيوط المستخدمة بواسطة OpenMP وربما BLAS المضمنة بحيث يتم تجنب الإفراط في الاشتراك.
 
-You will find additional details about joblib mitigation of oversubscription
-in `joblib documentation
+ستجد تفاصيل إضافية حول تخفيف joblib للإفراط في الاشتراك
+في `وثائق joblib
 <https://joblib.readthedocs.io/en/latest/parallel.html#avoiding-over-subscription-of-cpu-resources>`_.
 
-You will find additional details about parallelism in numerical python libraries
-in `this document from Thomas J. Fan <https://thomasjpfan.github.io/parallelism-python-libraries-design/>`_.
+ستجد تفاصيل إضافية حول التوازي في المكتبات بايثون العددية
+في `هذه الوثيقة من Thomas J. Fan <https://thomasjpfan.github.io/parallelism-python-libraries-design/>`_.
 
-Configuration switches
+مفاتيح التهيئة
 -----------------------
 
 Python API
 ..........
 
-:func:`sklearn.set_config` and :func:`sklearn.config_context` can be used to change
-parameters of the configuration which control aspect of parallelism.
+يمكن استخدام :func:`sklearn.set_config` و :func:`sklearn.config_context` لتغيير
+معلمات التهيئة التي تتحكم في جانب التوازي.
 
 .. _environment_variable:
 
-Environment variables
+متغيرات البيئة
 .....................
 
-These environment variables should be set before importing scikit-learn.
+يجب تعيين متغيرات البيئة هذه قبل استيراد scikit-learn.
 
 `SKLEARN_ASSUME_FINITE`
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-Sets the default value for the `assume_finite` argument of
+يحدد القيمة الافتراضية لحجة `assume_finite` لـ
 :func:`sklearn.set_config`.
 
 `SKLEARN_WORKING_MEMORY`
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Sets the default value for the `working_memory` argument of
+يحدد القيمة الافتراضية لحجة `working_memory` لـ
 :func:`sklearn.set_config`.
 
 `SKLEARN_SEED`
 ~~~~~~~~~~~~~~
 
-Sets the seed of the global random generator when running the tests, for
-reproducibility.
+يحدد البذرة للمولد العشوائي العالمي عند تشغيل الاختبارات، من أجل
+القابلية للتكرار.
 
-Note that scikit-learn tests are expected to run deterministically with
-explicit seeding of their own independent RNG instances instead of relying on
-the numpy or Python standard library RNG singletons to make sure that test
-results are independent of the test execution order. However some tests might
-forget to use explicit seeding and this variable is a way to control the initial
-state of the aforementioned singletons.
+لاحظ أنه من المتوقع أن تعمل اختبارات scikit-learn بشكل حتمي مع
+الاستخدام الصريح للبذور المستقلة الخاصة بها بدلاً من الاعتماد على
+مولدات الأرقام العشوائية للبايثون أو مكتبة المعايير القياسية للبايثون للتأكد من أن نتائج الاختبار مستقلة عن ترتيب تنفيذ الاختبار. ومع ذلك، قد تنسى بعض الاختبارات استخدام البذر الصريح وهذه المتغير هي وسيلة للتحكم في الحالة الأولية للمولدات المذكورة أعلاه.
 
 `SKLEARN_TESTS_GLOBAL_RANDOM_SEED`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Controls the seeding of the random number generator used in tests that rely on
-the `global_random_seed`` fixture.
+يتحكم في بذر مولد الأرقام العشوائية المستخدم في الاختبارات التي تعتمد على
+الـ `global_random_seed` fixture.
 
-All tests that use this fixture accept the contract that they should
-deterministically pass for any seed value from 0 to 99 included.
+تعتمد جميع الاختبارات التي تستخدم هذا الـ fixture على العقد بأن تمر بشكل حتمي
+لأي قيمة بذرة من 0 إلى 99.
 
-In nightly CI builds, the `SKLEARN_TESTS_GLOBAL_RANDOM_SEED` environment
-variable is drawn randomly in the above range and all fixtured tests will run
-for that specific seed. The goal is to ensure that, over time, our CI will run
-all tests with different seeds while keeping the test duration of a single run
-of the full test suite limited. This will check that the assertions of tests
-written to use this fixture are not dependent on a specific seed value.
+في عمليات بناء CI الليلية، يتم رسم `SKLEARN_TESTS_GLOBAL_RANDOM_SEED`
+بيئة متغير عشوائيًا في النطاق المذكور أعلاه وتعمل جميع الاختبارات
+التي تستخدم هذا الـ fixture على تلك البذرة المحددة. الهدف هو التأكد من أنه، مع مرور الوقت، سيقوم CI الخاص بنا بتشغيل
+جميع الاختبارات مع بذور مختلفة مع الحفاظ على مدة الاختبار لتشغيل واحد
+من مجموعة الاختبارات الكاملة محدودة. هذا سيتحقق من أن تأكيدات الاختبارات
+التي تم كتابتها لاستخدام هذا الـ fixture ليست معتمدة على قيمة بذرة محددة.
 
-The range of admissible seed values is limited to [0, 99] because it is often
-not possible to write a test that can work for any possible seed and we want to
-avoid having tests that randomly fail on the CI.
+يقتصر نطاق قيم البذور المقبولة على [0، 99] لأنه غالبًا ما يكون
+من غير الممكن كتابة اختبار يمكن أن يعمل لأي بذرة ممكنة ونريد
+تجنب وجود اختبارات تفشل عشوائيًا في CI.
 
-Valid values for `SKLEARN_TESTS_GLOBAL_RANDOM_SEED`:
+القيم الصالحة لـ `SKLEARN_TESTS_GLOBAL_RANDOM_SEED`:
 
-- `SKLEARN_TESTS_GLOBAL_RANDOM_SEED="42"`: run tests with a fixed seed of 42
-- `SKLEARN_TESTS_GLOBAL_RANDOM_SEED="40-42"`: run the tests with all seeds
-  between 40 and 42 included
-- `SKLEARN_TESTS_GLOBAL_RANDOM_SEED="all"`: run the tests with all seeds
-  between 0 and 99 included. This can take a long time: only use for individual
-  tests, not the full test suite!
+- `SKLEARN_TESTS_GLOBAL_RANDOM_SEED="42"`: تشغيل الاختبارات مع بذرة ثابتة من 42
+- `SKLEARN_TESTS_GLOBAL_RANDOM_SEED="40-42"`: تشغيل الاختبارات مع جميع البذور
+  بين 40 و 42.
+- `SKLEARN_TESTS_GLOBAL_RANDOM_SEED="all"`: تشغيل الاختبارات مع جميع البذور
+  بين 0 و 99. يمكن أن يستغرق هذا وقتًا طويلاً: استخدمه فقط لاختبارات فردية، وليس لمجموعة الاختبارات الكاملة!
 
-If the variable is not set, then 42 is used as the global seed in a
-deterministic manner. This ensures that, by default, the scikit-learn test
-suite is as deterministic as possible to avoid disrupting our friendly
-third-party package maintainers. Similarly, this variable should not be set in
-the CI config of pull-requests to make sure that our friendly contributors are
-not the first people to encounter a seed-sensitivity regression in a test
-unrelated to the changes of their own PR. Only the scikit-learn maintainers who
-watch the results of the nightly builds are expected to be annoyed by this.
+إذا لم يتم تعيين المتغير، فسيتم استخدام 42 كبذرة عالمية بطريقة حتمية. هذا يضمن أن
+مجموعة اختبارات scikit-learn تكون حتمية قدر الإمكان لتجنب إزعاج مُحسني الطرف الثالث الودودين لدينا. وبالمثل، لا ينبغي تعيين هذا المتغير في
+تكوين CI لسحب الطلبات للتأكد من أن مُحسنينا الودودين ليسوا أول من يواجه مشكلة حساسية البذور في اختبار غير مرتبط بتغييرات PR الخاصة بهم. فقط مُحسنو scikit-learn الذين يشاهدون نتائج عمليات البناء الليلية يتوقع أن يزعجهم هذا.
 
-When writing a new test function that uses this fixture, please use the
-following command to make sure that it passes deterministically for all
-admissible seeds on your local machine:
+عند كتابة اختبار جديد يستخدم هذا الـ fixture، يرجى استخدام
+الأمر التالي للتأكد من أنه يمر بشكل حتمي لجميع
+البذور المقبولة على جهازك المحلي:
 
 .. prompt:: bash $
 
@@ -272,65 +251,56 @@ admissible seeds on your local machine:
 `SKLEARN_SKIP_NETWORK_TESTS`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-When this environment variable is set to a non zero value, the tests that need
-network access are skipped. When this environment variable is not set then
-network tests are skipped.
+عندما يتم تعيين هذه البيئة إلى قيمة غير صفرية، يتم تخطي الاختبارات التي تحتاج
+إلى الوصول إلى الشبكة. عندما لا يتم تعيين هذه البيئة، يتم تخطي اختبارات الشبكة.
 
 `SKLEARN_RUN_FLOAT32_TESTS`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-When this environment variable is set to '1', the tests using the
-`global_dtype` fixture are also run on float32 data.
-When this environment variable is not set, the tests are only run on
-float64 data.
+عندما يتم تعيين هذه البيئة إلى '1'، يتم أيضًا تشغيل الاختبارات التي تستخدم
+`global_dtype` fixture على بيانات float32.
+عندما لا يتم تعيين هذه البيئة، يتم تشغيل الاختبارات فقط على
+بيانات float64.
 
 `SKLEARN_ENABLE_DEBUG_CYTHON_DIRECTIVES`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-When this environment variable is set to a non zero value, the `Cython`
-derivative, `boundscheck` is set to `True`. This is useful for finding
+عندما يتم تعيين هذه البيئة إلى قيمة غير صفرية، يتم تعيين المشتق `Cython`،
+`boundscheck` إلى `True`. هذا مفيد للعثور على
 segfaults.
 
 `SKLEARN_BUILD_ENABLE_DEBUG_SYMBOLS`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-When this environment variable is set to a non zero value, the debug symbols
-will be included in the compiled C extensions. Only debug symbols for POSIX
-systems is configured.
+عندما يتم تعيين هذه البيئة إلى قيمة غير صفرية، سيتم تضمين رموز التصحيح
+في الإضافات C المجمّعة. يتم تكوين رموز التصحيح فقط لأنظمة POSIX.
 
 `SKLEARN_PAIRWISE_DIST_CHUNK_SIZE`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This sets the size of chunk to be used by the underlying `PairwiseDistancesReductions`
-implementations. The default value is `256` which has been showed to be adequate on
-most machines.
+يحدد هذا حجم الجزء الذي سيتم استخدامه بواسطة التطبيقات الأساسية لـ `PairwiseDistancesReductions`. القيمة الافتراضية هي `256` والتي ثبت أنها كافية على
+معظم الأجهزة.
 
-Users looking for the best performance might want to tune this variable using
-powers of 2 so as to get the best parallelism behavior for their hardware,
-especially with respect to their caches' sizes.
+قد يرغب المستخدمون الذين يبحثون عن أفضل أداء في ضبط هذا المتغير باستخدام
+أسس 2 بحيث يحصلون على أفضل سلوك للتوازي لمعداتهم، خاصة فيما يتعلق
+بحجم ذاكرتهم المخبئية.
 
 `SKLEARN_WARNINGS_AS_ERRORS`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This environment variable is used to turn warnings into errors in tests and
-documentation build.
+يتم استخدام متغير البيئة هذا لتحويل التحذيرات إلى أخطاء في الاختبارات وبناء الوثائق.
 
-Some CI (Continuous Integration) builds set `SKLEARN_WARNINGS_AS_ERRORS=1`, for
-example to make sure that we catch deprecation warnings from our dependencies
-and that we adapt our code.
+يحدد بعض عمليات CI (Continuous Integration) `SKLEARN_WARNINGS_AS_ERRORS=1`، على سبيل المثال للتأكد من أننا نلتقط تحذيرات الإلغاء التدريجي من التبعيات الخاصة بنا وأننا نكيف كودنا.
 
-To locally run with the same "warnings as errors" setting as in these CI builds
-you can set `SKLEARN_WARNINGS_AS_ERRORS=1`.
+لتشغيل مع نفس إعداد "التحذيرات كأخطاء" كما في عمليات بناء CI هذه
+يمكنك تعيين `SKLEARN_WARNINGS_AS_ERRORS=1`.
 
-By default, warnings are not turned into errors. This is the case if
-`SKLEARN_WARNINGS_AS_ERRORS` is unset, or `SKLEARN_WARNINGS_AS_ERRORS=0`.
+بشكل افتراضي، لا يتم تحويل التحذيرات إلى أخطاء. هذا هو الحال إذا
+تم إلغاء تعيين `SKLEARN_WARNINGS_AS_ERRORS`، أو `SKLEARN_WARNINGS_AS_ERRORS=0`.
 
-This environment variable use specific warning filters to ignore some warnings,
-since sometimes warnings originate from third-party libraries and there is not
-much we can do about it. You can see the warning filters in the
-`_get_warnings_filters_info_list` function in `sklearn/utils/_testing.py`.
+يستخدم هذا متغير البيئة مرشحات تحذير محددة لتجاهل بعض التحذيرات،
+نظرًا لأنه في بعض الأحيان تنشأ التحذيرات من مكتبات تابعة ولا يمكننا فعل الكثير حيالها. يمكنك الاطلاع على مرشحات التحذير في
+الدالة `_get_warnings_filters_info_list` في `sklearn/utils/_testing.py`.
 
-Note that for documentation build, `SKLEARN_WARNING_AS_ERRORS=1` is checking
-that the documentation build, in particular running examples, does not produce
-any warnings. This is different from the `-W` `sphinx-build` argument that
-catches syntax warnings in the rst files.
+لاحظ أنه بالنسبة لبناء الوثائق، يتحقق `SKLEARN_WARNING_AS_ERRORS=1`
+من أن بناء الوثائق، خاصة تشغيل الأمثلة، لا ينتج أي تحذيرات. هذا يختلف عن `-W` `sphinx-build` الذي يلتقط تحذيرات بناء الجملة في ملفات rst.
