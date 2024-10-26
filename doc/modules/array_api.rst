@@ -1,116 +1,35 @@
-.. _array_api:
-
-================================
-Array API support (experimental)
-================================
-
-.. currentmodule:: sklearn
-
-The `Array API <https://data-apis.org/array-api/latest/>`_ specification defines
-a standard API for all array manipulation libraries with a NumPy-like API.
-Scikit-learn's Array API support requires
-`array-api-compat <https://github.com/data-apis/array-api-compat>`__ to be installed.
-
-Some scikit-learn estimators that primarily rely on NumPy (as opposed to using
-Cython) to implement the algorithmic logic of their `fit`, `predict` or
-`transform` methods can be configured to accept any Array API compatible input
-datastructures and automatically dispatch operations to the underlying namespace
-instead of relying on NumPy.
-
-At this stage, this support is **considered experimental** and must be enabled
-explicitly as explained in the following.
-
-.. note::
-    Currently, only `array-api-strict`, `cupy`, and `PyTorch` are known to work
-    with scikit-learn's estimators.
-
-Example usage
-=============
-
-Here is an example code snippet to demonstrate how to use `CuPy
-<https://cupy.dev/>`_ to run
-:class:`~discriminant_analysis.LinearDiscriminantAnalysis` on a GPU::
-
-    >>> from sklearn.datasets import make_classification
-    >>> from sklearn import config_context
-    >>> from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
-    >>> import cupy
-
-    >>> X_np, y_np = make_classification(random_state=0)
-    >>> X_cu = cupy.asarray(X_np)
-    >>> y_cu = cupy.asarray(y_np)
-    >>> X_cu.device
-    <CUDA Device 0>
-
-    >>> with config_context(array_api_dispatch=True):
-    ...     lda = LinearDiscriminantAnalysis()
-    ...     X_trans = lda.fit_transform(X_cu, y_cu)
-    >>> X_trans.device
-    <CUDA Device 0>
-
-After the model is trained, fitted attributes that are arrays will also be
-from the same Array API namespace as the training data. For example, if CuPy's
-Array API namespace was used for training, then fitted attributes will be on the
-GPU. We provide a experimental `_estimator_with_converted_arrays` utility that
-transfers an estimator attributes from Array API to a ndarray::
-
-    >>> from sklearn.utils._array_api import _estimator_with_converted_arrays
-    >>> cupy_to_ndarray = lambda array : array.get()
-    >>> lda_np = _estimator_with_converted_arrays(lda, cupy_to_ndarray)
-    >>> X_trans = lda_np.transform(X_np)
-    >>> type(X_trans)
-    <class 'numpy.ndarray'>
-
-PyTorch Support
----------------
-
-PyTorch Tensors are supported by setting `array_api_dispatch=True` and passing in
-the tensors directly::
-
-    >>> import torch
-    >>> X_torch = torch.asarray(X_np, device="cuda", dtype=torch.float32)
-    >>> y_torch = torch.asarray(y_np, device="cuda", dtype=torch.float32)
-
-    >>> with config_context(array_api_dispatch=True):
-    ...     lda = LinearDiscriminantAnalysis()
-    ...     X_trans = lda.fit_transform(X_torch, y_torch)
-    >>> type(X_trans)
-    <class 'torch.Tensor'>
-    >>> X_trans.device.type
-    'cuda'
 
 .. _array_api_supported:
 
-Support for `Array API`-compatible inputs
+دعم المدخلات المتوافقة مع `Array API`
 =========================================
 
-Estimators and other tools in scikit-learn that support Array API compatible inputs.
+المقدرات والأدوات الأخرى في scikit-learn التي تدعم المدخلات المتوافقة مع واجهة برمجة تطبيقات المصفوفة.
 
-Estimators
+المقدرات
 ----------
 
-- :class:`decomposition.PCA` (with `svd_solver="full"`,
-  `svd_solver="randomized"` and `power_iteration_normalizer="QR"`)
-- :class:`linear_model.Ridge` (with `solver="svd"`)
-- :class:`discriminant_analysis.LinearDiscriminantAnalysis` (with `solver="svd"`)
+- :class:`decomposition.PCA` (مع `svd_solver="full"`،
+  `svd_solver="randomized"` و `power_iteration_normalizer="QR"`)
+- :class:`linear_model.Ridge` (مع `solver="svd"`)
+- :class:`discriminant_analysis.LinearDiscriminantAnalysis` (مع `solver="svd"`)
 - :class:`preprocessing.KernelCenterer`
 - :class:`preprocessing.MaxAbsScaler`
 - :class:`preprocessing.MinMaxScaler`
 - :class:`preprocessing.Normalizer`
 
-Meta-estimators
----------------
+المقدرات الوصفية
+-------------------
 
-Meta-estimators that accept Array API inputs conditioned on the fact that the
-base estimator also does:
+المقدرات الوصفية التي تقبل مدخلات واجهة برمجة تطبيقات المصفوفة بشرط أن يقوم المقدر الأساسي بذلك أيضًا:
 
 - :class:`model_selection.GridSearchCV`
 - :class:`model_selection.RandomizedSearchCV`
 - :class:`model_selection.HalvingGridSearchCV`
 - :class:`model_selection.HalvingRandomSearchCV`
 
-Metrics
--------
+المقاييس
+---------
 
 - :func:`sklearn.metrics.cluster.entropy`
 - :func:`sklearn.metrics.accuracy_score`
@@ -119,103 +38,83 @@ Metrics
 - :func:`sklearn.metrics.mean_absolute_error`
 - :func:`sklearn.metrics.mean_absolute_percentage_error`
 - :func:`sklearn.metrics.mean_gamma_deviance`
-- :func:`sklearn.metrics.mean_poisson_deviance` (requires `enabling array API support for SciPy <https://docs.scipy.org/doc/scipy/dev/api-dev/array_api.html#using-array-api-standard-support>`_)
+- :func:`sklearn.metrics.mean_poisson_deviance` (يتطلب `تمكين دعم واجهة برمجة تطبيقات المصفوفة لـ SciPy <https://docs.scipy.org/doc/scipy/dev/api-dev/array_api.html#using-array-api-standard-support>`_)
 - :func:`sklearn.metrics.mean_squared_error`
-- :func:`sklearn.metrics.mean_squared_log_error`
 - :func:`sklearn.metrics.mean_tweedie_deviance`
 - :func:`sklearn.metrics.pairwise.additive_chi2_kernel`
 - :func:`sklearn.metrics.pairwise.chi2_kernel`
 - :func:`sklearn.metrics.pairwise.cosine_similarity`
 - :func:`sklearn.metrics.pairwise.cosine_distances`
-- :func:`sklearn.metrics.pairwise.euclidean_distances` (see :ref:`device_support_for_float64`)
+- :func:`sklearn.metrics.pairwise.euclidean_distances` (انظر :ref:`device_support_for_float64`)
 - :func:`sklearn.metrics.pairwise.linear_kernel`
 - :func:`sklearn.metrics.pairwise.paired_cosine_distances`
 - :func:`sklearn.metrics.pairwise.paired_euclidean_distances`
 - :func:`sklearn.metrics.pairwise.polynomial_kernel`
-- :func:`sklearn.metrics.pairwise.rbf_kernel` (see :ref:`device_support_for_float64`)
+- :func:`sklearn.metrics.pairwise.rbf_kernel` (انظر :ref:`device_support_for_float64`)
 - :func:`sklearn.metrics.pairwise.sigmoid_kernel`
 - :func:`sklearn.metrics.r2_score`
-- :func:`sklearn.metrics.root_mean_squared_error`
-- :func:`sklearn.metrics.root_mean_squared_log_error`
 - :func:`sklearn.metrics.zero_one_loss`
 
-Tools
------
+الأدوات
+-------
 
 - :func:`model_selection.train_test_split`
 
-Coverage is expected to grow over time. Please follow the dedicated `meta-issue on GitHub
-<https://github.com/scikit-learn/scikit-learn/issues/22352>`_ to track progress.
+من المتوقع أن تنمو التغطية بمرور الوقت. يرجى اتباع `مشكلة التعريف على GitHub <https://github.com/scikit-learn/scikit-learn/issues/22352>`_ لتتبع التقدم.
 
-Type of return values and fitted attributes
+نوع قيم الإرجاع والسمات المناسبة
 -------------------------------------------
 
-When calling functions or methods with Array API compatible inputs, the
-convention is to return array values of the same array container type and
-device as the input data.
+عند استدعاء الدوال أو الطرق مع مدخلات متوافقة مع واجهة برمجة تطبيقات المصفوفة، فإن الاصطلاح هو إرجاع قيم المصفوفة من نفس نوع حاوية المصفوفة والجهاز مثل بيانات الإدخال.
 
-Similarly, when an estimator is fitted with Array API compatible inputs, the
-fitted attributes will be arrays from the same library as the input and stored
-on the same device. The `predict` and `transform` method subsequently expect
-inputs from the same array library and device as the data passed to the `fit`
-method.
+وبالمثل، عندما يتم ملاءمة مقدر مع مدخلات متوافقة مع واجهة برمجة تطبيقات المصفوفة، ستكون السمات المناسبة عبارة عن مصفوفات من نفس المكتبة مثل الإدخال ويتم تخزينها على نفس الجهاز.
+تتوقع طريقة `predict` و `transform` لاحقًا مدخلات من نفس مكتبة المصفوفة والجهاز مثل البيانات التي تم تمريرها إلى طريقة `fit`.
 
-Note however that scoring functions that return scalar values return Python
-scalars (typically a `float` instance) instead of an array scalar value.
+لاحظ مع ذلك أن وظائف التسجيل التي تُرجع قيمًا عددية تُرجع عدديًا Python (عادةً مثيل `float`) بدلاً من قيمة عددية للمصفوفة.
 
-Common estimator checks
+فحوصات المقدر الشائعة
 =======================
 
-Add the `array_api_support` tag to an estimator's set of tags to indicate that
-it supports the Array API. This will enable dedicated checks as part of the
-common tests to verify that the estimators result's are the same when using
-vanilla NumPy and Array API inputs.
+أضف علامة `array_api_support` إلى مجموعة علامات المقدر للإشارة إلى أنه يدعم واجهة برمجة تطبيقات المصفوفة.
+سيؤدي ذلك إلى تمكين عمليات فحص مخصصة كجزء من الاختبارات الشائعة للتحقق من أن نتائج المقدرات هي نفسها عند استخدام مدخلات NumPy و Array API العادية.
 
-To run these checks you need to install
-`array_api_compat <https://github.com/data-apis/array-api-compat>`_ in your
-test environment. To run the full set of checks you need to install both
-`PyTorch <https://pytorch.org/>`_ and `CuPy <https://cupy.dev/>`_ and have
-a GPU. Checks that can not be executed or have missing dependencies will be
-automatically skipped. Therefore it's important to run the tests with the
-`-v` flag to see which checks are skipped:
+لتشغيل هذه الفحوصات، تحتاج إلى تثبيت `array_api_compat <https://github.com/data-apis/array-api-compat>`_ في بيئة الاختبار الخاصة بك.
+لتشغيل مجموعة الفحوصات الكاملة، تحتاج إلى تثبيت كل من `PyTorch <https://pytorch.org/>`_ و `CuPy <https://cupy.dev/>`_ ولديك وحدة معالجة رسومات.
+سيتم تخطي عمليات الفحص التي لا يمكن تنفيذها أو التي تفتقد إلى تبعيات تلقائيًا.
+لذلك من المهم تشغيل الاختبارات باستخدام علامة `-v` لمعرفة عمليات الفحص التي تم تخطيها:
 
 .. prompt:: bash $
 
-    pip install array-api-compat  # and other libraries as needed
+    pip install array-api-compat  # والمكتبات الأخرى حسب الحاجة
     pytest -k "array_api" -v
 
 .. _mps_support:
 
-Note on MPS device support
+ملاحظة حول دعم جهاز MPS
 --------------------------
 
-On macOS, PyTorch can use the Metal Performance Shaders (MPS) to access
-hardware accelerators (e.g. the internal GPU component of the M1 or M2 chips).
-However, the MPS device support for PyTorch is incomplete at the time of
-writing. See the following github issue for more details:
+على macOS، يمكن لـ PyTorch استخدام Metal Performance Shaders (MPS) للوصول إلى مسرعات الأجهزة (على سبيل المثال، مكون وحدة معالجة الرسومات الداخلية لرقائق M1 أو M2).
+ومع ذلك، فإن دعم جهاز MPS لـ PyTorch غير مكتمل في وقت كتابة هذا التقرير. راجع مشكلة github التالية لمزيد من التفاصيل:
 
 - https://github.com/pytorch/pytorch/issues/77764
 
-To enable the MPS support in PyTorch, set the environment variable
-`PYTORCH_ENABLE_MPS_FALLBACK=1` before running the tests:
+لتمكين دعم MPS في PyTorch، قم بتعيين متغير البيئة `PYTORCH_ENABLE_MPS_FALLBACK=1` قبل تشغيل الاختبارات:
 
 .. prompt:: bash $
 
     PYTORCH_ENABLE_MPS_FALLBACK=1 pytest -k "array_api" -v
 
-At the time of writing all scikit-learn tests should pass, however, the
-computational speed is not necessarily better than with the CPU device.
+في وقت كتابة هذا التقرير، يجب أن تجتاز جميع اختبارات scikit-learn، ومع ذلك، فإن سرعة الحساب ليست بالضرورة أفضل من سرعة جهاز وحدة المعالجة المركزية.
 
 .. _device_support_for_float64:
 
-Note on device support for ``float64``
+ملاحظة حول دعم الجهاز لـ ``float64``
 --------------------------------------
 
-Certain operations within scikit-learn will automatically perform operations
-on floating-point values with `float64` precision to prevent overflows and ensure
-correctness (e.g., :func:`metrics.pairwise.euclidean_distances`). However,
-certain combinations of array namespaces and devices, such as `PyTorch on MPS`
-(see :ref:`mps_support`) do not support the `float64` data type. In these cases,
-scikit-learn will revert to using the `float32` data type instead. This can result in
-different behavior (typically numerically unstable results) compared to not using array
-API dispatching or using a device with `float64` support.
+ستؤدي عمليات معينة داخل scikit-learn تلقائيًا إلى إجراء عمليات على قيم الفاصلة العائمة بدقة `float64` لمنع الفائض وضمان الصحة (على سبيل المثال، :func:`metrics.pairwise.euclidean_distances`).
+ومع ذلك، فإن مجموعات معينة من مساحات أسماء المصفوفة والأجهزة، مثل `PyTorch on MPS` (انظر :ref:`mps_support`) لا تدعم نوع البيانات `float64`.
+في هذه الحالات، سيعود scikit-learn إلى استخدام نوع البيانات `float32` بدلاً من ذلك.
+يمكن أن يؤدي ذلك إلى سلوك مختلف (عادةً نتائج غير مستقرة عدديًا) مقارنة بعدم استخدام إرسال واجهة برمجة تطبيقات المصفوفة أو استخدام جهاز يدعم `float64`.
+
+
+

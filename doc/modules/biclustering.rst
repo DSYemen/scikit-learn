@@ -1,16 +1,15 @@
+
 .. _biclustering:
 
-============
-Biclustering
-============
+=================
+التجميع الثنائي
+=================
 
-Biclustering algorithms simultaneously
-cluster rows and columns of a data matrix. These clusters of rows and
-columns are known as biclusters. Each determines a submatrix of the
-original data matrix with some desired properties.
+تقوم خوارزميات التجميع الثنائي بتجميع صفوف وأعمدة مصفوفة البيانات في وقت واحد.
+تُعرف مجموعات الصفوف والأعمدة هذه باسم التجميعات الثنائية.
+يحدد كل منها مصفوفة فرعية من مصفوفة البيانات الأصلية ببعض الخصائص المطلوبة.
 
-For instance, given a matrix of shape ``(10, 10)``, one possible bicluster
-with three rows and two columns induces a submatrix of shape ``(3, 2)``::
+على سبيل المثال، بالنظر إلى مصفوفة من الشكل ``(10، 10)``، فإن أحد التجميعات الثنائية المحتملة بثلاثة صفوف وعمودين يحث مصفوفة فرعية من الشكل ``(3، 2)``::
 
     >>> import numpy as np
     >>> data = np.arange(100).reshape(10, 10)
@@ -21,64 +20,47 @@ with three rows and two columns induces a submatrix of shape ``(3, 2)``::
            [21, 22],
            [31, 32]])
 
-For visualization purposes, given a bicluster, the rows and columns of
-the data matrix may be rearranged to make the bicluster contiguous.
+لأغراض التصور، بالنظر إلى التجميع الثنائي، قد يتم إعادة ترتيب صفوف وأعمدة مصفوفة البيانات لجعل التجميع الثنائي متجاورًا.
 
-Algorithms differ in how they define biclusters. Some of the
-common types include:
+تختلف الخوارزميات في كيفية تعريف التجميعات الثنائية. بعض الأنواع الشائعة تشمل:
 
-* constant values, constant rows, or constant columns
-* unusually high or low values
-* submatrices with low variance
-* correlated rows or columns
+* قيم ثابتة أو صفوف ثابتة أو أعمدة ثابتة
+* قيم عالية أو منخفضة بشكل غير عادي
+* مصفوفات فرعية ذات تباين منخفض
+* صفوف أو أعمدة مترابطة
 
-Algorithms also differ in how rows and columns may be assigned to
-biclusters, which leads to different bicluster structures. Block
-diagonal or checkerboard structures occur when rows and columns are
-divided into partitions.
+تختلف الخوارزميات أيضًا في كيفية تعيين الصفوف والأعمدة للتجميعات الثنائية، مما يؤدي إلى هياكل تجميع ثنائي مختلفة.
+تحدث هياكل الكتل القطرية أو رقعة الشطرنج عندما يتم تقسيم الصفوف والأعمدة إلى أقسام.
 
-If each row and each column belongs to exactly one bicluster, then
-rearranging the rows and columns of the data matrix reveals the
-biclusters on the diagonal. Here is an example of this structure
-where biclusters have higher average values than the other rows and
-columns:
+إذا كان كل صف وكل عمود ينتمي إلى مجموعة ثنائية واحدة بالضبط، فإن إعادة ترتيب صفوف وأعمدة مصفوفة البيانات تكشف عن التجميعات الثنائية على القطر.
+فيما يلي مثال على هذا الهيكل حيث تحتوي التجميعات الثنائية على قيم متوسطة أعلى من الصفوف والأعمدة الأخرى:
 
 .. figure:: ../auto_examples/bicluster/images/sphx_glr_plot_spectral_coclustering_003.png
    :target: ../auto_examples/bicluster/images/sphx_glr_plot_spectral_coclustering_003.png
    :align: center
    :scale: 50
 
-   An example of biclusters formed by partitioning rows and columns.
+   مثال على التجميعات الثنائية التي تم تشكيلها عن طريق تقسيم الصفوف والأعمدة.
 
-In the checkerboard case, each row belongs to all column clusters, and
-each column belongs to all row clusters. Here is an example of this
-structure where the variance of the values within each bicluster is
-small:
+في حالة رقعة الشطرنج، ينتمي كل صف إلى جميع مجموعات الأعمدة، وينتمي كل عمود إلى جميع مجموعات الصفوف.
+فيما يلي مثال على هذا الهيكل حيث يكون تباين القيم داخل كل مجموعة ثنائية صغيرًا:
 
 .. figure:: ../auto_examples/bicluster/images/sphx_glr_plot_spectral_biclustering_003.png
    :target: ../auto_examples/bicluster/images/sphx_glr_plot_spectral_biclustering_003.png
    :align: center
    :scale: 50
 
-   An example of checkerboard biclusters.
+   مثال على التجميعات الثنائية رقعة الشطرنج.
 
-After fitting a model, row and column cluster membership can be found
-in the ``rows_`` and ``columns_`` attributes. ``rows_[i]`` is a binary vector
-with nonzero entries corresponding to rows that belong to bicluster
-``i``. Similarly, ``columns_[i]`` indicates which columns belong to
-bicluster ``i``.
+بعد ملاءمة نموذج، يمكن العثور على عضوية مجموعة الصفوف والأعمدة في سمات ``rows_`` و ``columns_``. ``rows_[i]`` هو متجه ثنائي مع إدخالات غير صفرية تقابل الصفوف التي تنتمي إلى التجميع الثنائي ``i``. وبالمثل، يشير ``columns_[i]`` إلى الأعمدة التي تنتمي إلى التجميع الثنائي ``i``.
 
-Some models also have ``row_labels_`` and ``column_labels_`` attributes.
-These models partition the rows and columns, such as in the block
-diagonal and checkerboard bicluster structures.
+تحتوي بعض النماذج أيضًا على سمات ``row_labels_`` و ``column_labels_``.
+تقسم هذه النماذج الصفوف والأعمدة، كما هو الحال في هياكل التجميع الثنائي للكتل القطرية ورقعة الشطرنج.
 
 .. note::
 
-    Biclustering has many other names in different fields including
-    co-clustering, two-mode clustering, two-way clustering, block
-    clustering, coupled two-way clustering, etc. The names of some
-    algorithms, such as the Spectral Co-Clustering algorithm, reflect
-    these alternate names.
+    للتجميع الثنائي العديد من الأسماء الأخرى في مجالات مختلفة بما في ذلك التجميع المشترك، والتجميع ثنائي الوضع، والتجميع ثنائي الاتجاه، والتجميع الكتلي، والتجميع ثنائي الاتجاه المقترن، إلخ.
+    تعكس أسماء بعض الخوارزميات، مثل خوارزمية التجميع المشترك الطيفي، هذه الأسماء البديلة.
 
 
 .. currentmodule:: sklearn.cluster
@@ -86,163 +68,119 @@ diagonal and checkerboard bicluster structures.
 
 .. _spectral_coclustering:
 
-Spectral Co-Clustering
-======================
+التجميع المشترك الطيفي
+=========================
 
-The :class:`SpectralCoclustering` algorithm finds biclusters with
-values higher than those in the corresponding other rows and columns.
-Each row and each column belongs to exactly one bicluster, so
-rearranging the rows and columns to make partitions contiguous reveals
-these high values along the diagonal:
+تجد خوارزمية :class:`SpectralCoclustering` مجموعات ثنائية ذات قيم أعلى من تلك الموجودة في الصفوف والأعمدة الأخرى المقابلة.
+ينتمي كل صف وكل عمود إلى مجموعة ثنائية واحدة بالضبط، لذا فإن إعادة ترتيب الصفوف والأعمدة لجعل الأقسام متجاورة يكشف عن هذه القيم العالية على طول القطر:
 
 .. note::
 
-    The algorithm treats the input data matrix as a bipartite graph: the
-    rows and columns of the matrix correspond to the two sets of vertices,
-    and each entry corresponds to an edge between a row and a column. The
-    algorithm approximates the normalized cut of this graph to find heavy
-    subgraphs.
+    تعامل الخوارزمية مصفوفة بيانات الإدخال على أنها رسم بياني ثنائي: تتوافق صفوف وأعمدة المصفوفة مع مجموعتي الرؤوس، ويتوافق كل إدخال مع حافة بين صف وعمود.
+    تقوم الخوارزمية بتقريب القطع الطبيعي لهذا الرسم البياني للعثور على رسوم بيانية فرعية ثقيلة.
 
 
-Mathematical formulation
-------------------------
+الصيغة الرياضية
+------------------
 
-An approximate solution to the optimal normalized cut may be found via
-the generalized eigenvalue decomposition of the Laplacian of the
-graph. Usually this would mean working directly with the Laplacian
-matrix. If the original data matrix :math:`A` has shape :math:`m
-\times n`, the Laplacian matrix for the corresponding bipartite graph
-has shape :math:`(m + n) \times (m + n)`. However, in this case it is
-possible to work directly with :math:`A`, which is smaller and more
-efficient.
+يمكن إيجاد حل تقريبي للقطع الطبيعي الأمثل من خلال تحليل القيمة الذاتية المعمم لـ Laplacian للرسم البياني.
+عادةً ما يعني هذا العمل مباشرةً مع مصفوفة Laplacian.
+إذا كانت مصفوفة البيانات الأصلية :math:`A` لها شكل :math:`m \times n`، فإن مصفوفة Laplacian للرسم البياني الثنائي المقابل لها شكل :math:`(m + n) \times (m + n)`.
+ومع ذلك، في هذه الحالة، من الممكن العمل مباشرةً مع :math:`A`، وهو أصغر وأكثر كفاءة.
 
-The input matrix :math:`A` is preprocessed as follows:
+يتم معالجة مصفوفة الإدخال :math:`A` مسبقًا على النحو التالي:
 
 .. math::
     A_n = R^{-1/2} A C^{-1/2}
 
-Where :math:`R` is the diagonal matrix with entry :math:`i` equal to
-:math:`\sum_{j} A_{ij}` and :math:`C` is the diagonal matrix with
-entry :math:`j` equal to :math:`\sum_{i} A_{ij}`.
+حيث :math:`R` هي المصفوفة القطرية مع الإدخال :math:`i` يساوي :math:`\sum_{j} A_{ij}` و :math:`C` هي المصفوفة القطرية مع الإدخال :math:`j` يساوي :math:`\sum_{i} A_{ij}`.
 
-The singular value decomposition, :math:`A_n = U \Sigma V^\top`,
-provides the partitions of the rows and columns of :math:`A`. A subset
-of the left singular vectors gives the row partitions, and a subset
-of the right singular vectors gives the column partitions.
+يوفر تحليل القيمة المفردة، :math:`A_n = U \Sigma V^\top`،
+أقسام صفوف وأعمدة :math:`A`.
+تعطي مجموعة فرعية من المتجهات المفردة اليسرى أقسام الصف، وتعطي مجموعة فرعية من المتجهات المفردة اليمنى أقسام العمود.
 
-The :math:`\ell = \lceil \log_2 k \rceil` singular vectors, starting
-from the second, provide the desired partitioning information. They
-are used to form the matrix :math:`Z`:
+:math:`\ell = \lceil \log_2 k \rceil` المتجهات المفردة، بدءًا من الثانية، توفر معلومات التقسيم المطلوبة.
+يتم استخدامها لتشكيل المصفوفة :math:`Z`:
 
 .. math::
     Z = \begin{bmatrix} R^{-1/2} U \\\\
                         C^{-1/2} V
           \end{bmatrix}
 
-where the columns of :math:`U` are :math:`u_2, \dots, u_{\ell +
-1}`, and similarly for :math:`V`.
+حيث أعمدة :math:`U` هي :math:`u_2, \dots, u_{\ell + 1}`، وبالمثل لـ :math:`V`.
 
-Then the rows of :math:`Z` are clustered using :ref:`k-means
-<k_means>`. The first ``n_rows`` labels provide the row partitioning,
-and the remaining ``n_columns`` labels provide the column partitioning.
+ثم يتم تجميع صفوف :math:`Z` باستخدام :ref:`k-means <k_means>`. توفر التسميات ``n_rows`` الأولى تقسيم الصف، وتوفر التسميات ``n_columns`` المتبقية تقسيم العمود.
 
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_bicluster_plot_spectral_coclustering.py`: A simple example
-  showing how to generate a data matrix with biclusters and apply
-  this method to it.
+* :ref:`sphx_glr_auto_examples_bicluster/plot_spectral_coclustering.py`: مثال بسيط يوضح كيفية إنشاء مصفوفة بيانات مع مجموعات ثنائية وتطبيق هذه الطريقة عليها.
 
-* :ref:`sphx_glr_auto_examples_bicluster_plot_bicluster_newsgroups.py`: An example of finding
-  biclusters in the twenty newsgroup dataset.
+* :ref:`sphx_glr_auto_examples_bicluster/plot_bicluster_newsgroups.py`: مثال على إيجاد مجموعات ثنائية في مجموعة بيانات مجموعات الأخبار العشرين.
 
 
-.. rubric:: References
+.. rubric:: المراجع
 
-* Dhillon, Inderjit S, 2001. :doi:`Co-clustering documents and words using
-  bipartite spectral graph partitioning
-  <10.1145/502512.502550>`
+* Dhillon، Inderjit S، 2001. :doi:`Co-clustering documents and words using bipartite spectral graph partitioning <10.1145/502512.502550>`
 
 
 .. _spectral_biclustering:
 
-Spectral Biclustering
-=====================
+التجميع الثنائي الطيفي
+=========================
 
-The :class:`SpectralBiclustering` algorithm assumes that the input
-data matrix has a hidden checkerboard structure. The rows and columns
-of a matrix with this structure may be partitioned so that the entries
-of any bicluster in the Cartesian product of row clusters and column
-clusters are approximately constant. For instance, if there are two
-row partitions and three column partitions, each row will belong to
-three biclusters, and each column will belong to two biclusters.
+تفترض خوارزمية :class:`SpectralBiclustering` أن مصفوفة بيانات الإدخال لها بنية رقعة شطرنج مخفية.
+قد يتم تقسيم صفوف وأعمدة المصفوفة ذات هذا الهيكل بحيث تكون إدخالات أي مجموعة ثنائية في حاصل الضرب الديكارتي لمجموعات الصفوف ومجموعات الأعمدة ثابتة تقريبًا.
+على سبيل المثال، إذا كان هناك قسمان للصفوف وثلاثة أقسام للأعمدة، فسينتمي كل صف إلى ثلاث مجموعات ثنائية، وسينتمي كل عمود إلى مجموعتين ثنائيتين.
 
-The algorithm partitions the rows and columns of a matrix so that a
-corresponding blockwise-constant checkerboard matrix provides a good
-approximation to the original matrix.
+تقوم الخوارزمية بتقسيم صفوف وأعمدة المصفوفة بحيث توفر مصفوفة رقعة الشطرنج الثابتة الكتلية المقابلة تقريبًا جيدًا للمصفوفة الأصلية.
 
 
-Mathematical formulation
-------------------------
+ الصيغة الرياضية
+--------------------
 
-The input matrix :math:`A` is first normalized to make the
-checkerboard pattern more obvious. There are three possible methods:
+يتم أولاً تطبيع مصفوفة الإدخال :math:`A` لجعل نمط رقعة الشطرنج أكثر وضوحًا.
+هناك ثلاث طرق ممكنة:
 
-1. *Independent row and column normalization*, as in Spectral
-   Co-Clustering. This method makes the rows sum to a constant and the
-   columns sum to a different constant.
+1. *تطبيع الصفوف والأعمدة المستقلة*، كما هو الحال في التجميع المشترك الطيفي.
+   تجعل هذه الطريقة مجموع الصفوف ثابتًا ومجموع الأعمدة ثابتًا مختلفًا.
 
-2. **Bistochastization**: repeated row and column normalization until
-   convergence. This method makes both rows and columns sum to the
-   same constant.
+2. **Bistochastization**: تطبيع الصفوف والأعمدة المتكرر حتى التقارب.
+   تجعل هذه الطريقة كل من الصفوف والأعمدة مجموعًا إلى نفس الثابت.
 
-3. **Log normalization**: the log of the data matrix is computed: :math:`L =
-   \log A`. Then the column mean :math:`\overline{L_{i \cdot}}`, row mean
-   :math:`\overline{L_{\cdot j}}`, and overall mean :math:`\overline{L_{\cdot
-   \cdot}}` of :math:`L` are computed. The final matrix is computed
-   according to the formula
+3. **تطبيع السجل**: يتم حساب سجل مصفوفة البيانات: :math:`L = \log A`. ثم متوسط العمود :math:`\overline{L_{i \cdot}}`، متوسط الصف
+   :math:`\overline{L_{\cdot j}}`، والمتوسط الإجمالي :math:`\overline{L_{\cdot \cdot}}` من :math:`L` يتم حسابها.
+   يتم حساب المصفوفة النهائية وفقًا للصيغة
 
 .. math::
-    K_{ij} = L_{ij} - \overline{L_{i \cdot}} - \overline{L_{\cdot
-    j}} + \overline{L_{\cdot \cdot}}
+    K_{ij} = L_{ij} - \overline{L_{i \cdot}} - \overline{L_{\cdot j}} + \overline{L_{\cdot \cdot}}
 
-After normalizing, the first few singular vectors are computed, just
-as in the Spectral Co-Clustering algorithm.
+بعد التطبيع، يتم حساب المتجهات المفردة القليلة الأولى، تمامًا كما هو الحال في خوارزمية التجميع المشترك الطيفي.
 
-If log normalization was used, all the singular vectors are
-meaningful. However, if independent normalization or bistochastization
-were used, the first singular vectors, :math:`u_1` and :math:`v_1`.
-are discarded. From now on, the "first" singular vectors refers to
-:math:`u_2 \dots u_{p+1}` and :math:`v_2 \dots v_{p+1}` except in the
-case of log normalization.
+إذا تم استخدام تطبيع السجل، فإن جميع المتجهات المفردة ذات مغزى.
+ومع ذلك، إذا تم استخدام التطبيع المستقل أو bistochastization، فإن المتجهات المفردة الأولى، :math:`u_1` و :math:`v_1`. يتم تجاهلها.
+من الآن فصاعدًا، تشير المتجهات المفردة "الأولى" إلى :math:`u_2 \dots u_{p+1}` و :math:`v_2 \dots v_{p+1}` باستثناء حالة تطبيع السجل.
 
-Given these singular vectors, they are ranked according to which can
-be best approximated by a piecewise-constant vector. The
-approximations for each vector are found using one-dimensional k-means
-and scored using the Euclidean distance. Some subset of the best left
-and right singular vector are selected. Next, the data is projected to
-this best subset of singular vectors and clustered.
+بالنظر إلى هذه المتجهات المفردة، يتم تصنيفها وفقًا لأيها يمكن تقريبه بشكل أفضل بواسطة متجه ثابت متقطع.
+تم العثور على التقريبات لكل متجه باستخدام k-means أحادي البعد وتم تسجيلها باستخدام المسافة الإقليدية.
+يتم اختيار مجموعة فرعية من أفضل متجه مفرد يسار ويمين.
+بعد ذلك، يتم عرض البيانات على هذه المجموعة الفرعية الأفضل من المتجهات المفردة وتجميعها.
 
-For instance, if :math:`p` singular vectors were calculated, the
-:math:`q` best are found as described, where :math:`q<p`. Let
-:math:`U` be the matrix with columns the :math:`q` best left singular
-vectors, and similarly :math:`V` for the right. To partition the rows,
-the rows of :math:`A` are projected to a :math:`q` dimensional space:
-:math:`A * V`. Treating the :math:`m` rows of this :math:`m \times q`
-matrix as samples and clustering using k-means yields the row labels.
-Similarly, projecting the columns to :math:`A^{\top} * U` and
-clustering this :math:`n \times q` matrix yields the column labels.
+على سبيل المثال، إذا تم حساب :math:`p` متجهات مفردة، فسيتم العثور على :math:`q` الأفضل كما هو موضح، حيث :math:`q<p`.
+دع :math:`U` تكون المصفوفة ذات الأعمدة :math:`q` أفضل المتجهات المفردة اليسرى، وبالمثل :math:`V` لليمين.
+لتقسيم الصفوف، يتم عرض صفوف :math:`A` على مساحة :math:`q` الأبعاد:
+:math:`A * V`. معاملة :math:`m` صفوف هذه المصفوفة :math:`m \times q` كعينات والتجميع باستخدام k-means ينتج عنها تسميات الصفوف.
+وبالمثل، فإن إسقاط الأعمدة على :math:`A^{\top} * U` وتجميع هذه المصفوفة :math:`n \times q` ينتج عنه تسميات الأعمدة.
 
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_bicluster_plot_spectral_biclustering.py`: a simple example
-  showing how to generate a checkerboard matrix and bicluster it.
+* :ref:`sphx_glr_auto_examples_bicluster/plot_spectral_biclustering.py`: مثال بسيط يوضح كيفية إنشاء مصفوفة رقعة الشطرنج وتجميعها ثنائيًا.
 
 
-.. rubric:: References
+.. rubric:: المراجع
 
-* Kluger, Yuval, et. al., 2003. :doi:`Spectral biclustering of microarray
+* Kluger، Yuval، et. al.، 2003. :doi:`Spectral biclustering of microarray
   data: coclustering genes and conditions
   <10.1101/gr.648603>`
 
@@ -251,56 +189,43 @@ clustering this :math:`n \times q` matrix yields the column labels.
 
 .. currentmodule:: sklearn.metrics
 
-Biclustering evaluation
+تقييم التجميع الثنائي
 =======================
 
-There are two ways of evaluating a biclustering result: internal and
-external. Internal measures, such as cluster stability, rely only on
-the data and the result themselves. Currently there are no internal
-bicluster measures in scikit-learn. External measures refer to an
-external source of information, such as the true solution. When
-working with real data the true solution is usually unknown, but
-biclustering artificial data may be useful for evaluating algorithms
-precisely because the true solution is known.
+هناك طريقتان لتقييم نتيجة التجميع الثنائي: داخلي وخارجي.
+تعتمد المقاييس الداخلية، مثل استقرار الكتلة، فقط على البيانات والنتيجة نفسها.
+لا توجد حاليًا مقاييس تجميع ثنائي داخلي في scikit-learn.
+تشير المقاييس الخارجية إلى مصدر خارجي للمعلومات، مثل الحل الحقيقي.
+عند العمل مع بيانات حقيقية، يكون الحل الحقيقي غير معروف عادةً، ولكن قد يكون التجميع الثنائي للبيانات الاصطناعية مفيدًا لتقييم الخوارزميات على وجه التحديد لأن الحل الحقيقي معروف.
 
-To compare a set of found biclusters to the set of true biclusters,
-two similarity measures are needed: a similarity measure for
-individual biclusters, and a way to combine these individual
-similarities into an overall score.
+لمقارنة مجموعة من التجميعات الثنائية التي تم العثور عليها بمجموعة التجميعات الثنائية الحقيقية، يلزم وجود مقياسين للتشابه:
+مقياس تشابه للتجميعات الثنائية الفردية، وطريقة لدمج أوجه التشابه الفردية هذه في درجة إجمالية.
 
-To compare individual biclusters, several measures have been used. For
-now, only the Jaccard index is implemented:
+لمقارنة التجميعات الثنائية الفردية، تم استخدام عدة مقاييس.
+في الوقت الحالي، تم تنفيذ فهرس Jaccard فقط:
 
 .. math::
     J(A, B) = \frac{|A \cap B|}{|A| + |B| - |A \cap B|}
 
-where :math:`A` and :math:`B` are biclusters, :math:`|A \cap B|` is
-the number of elements in their intersection. The Jaccard index
-achieves its minimum of 0 when the biclusters to not overlap at all
-and its maximum of 1 when they are identical.
+حيث :math:`A` و :math:`B` عبارة عن مجموعات ثنائية، :math:`|A \cap B|` هو عدد العناصر في تقاطعها.
+يصل فهرس Jaccard إلى الحد الأدنى له وهو 0 عندما لا تتداخل التجميعات الثنائية على الإطلاق ويصل إلى الحد الأقصى له وهو 1 عندما تكون متطابقة.
 
-Several methods have been developed to compare two sets of biclusters.
-For now, only :func:`consensus_score` (Hochreiter et. al., 2010) is
-available:
+تم تطوير عدة طرق لمقارنة مجموعتين من التجميعات الثنائية.
+في الوقت الحالي، تتوفر :func:`consensus_score` (Hochreiter et. al.، 2010) فقط:
 
-1. Compute bicluster similarities for pairs of biclusters, one in each
-   set, using the Jaccard index or a similar measure.
+1. احسب أوجه تشابه التجميع الثنائي لأزواج التجميعات الثنائية، واحدة في كل مجموعة، باستخدام فهرس Jaccard أو مقياس مشابه.
 
-2. Assign biclusters from one set to another in a one-to-one fashion
-   to maximize the sum of their similarities. This step is performed
-   using :func:`scipy.optimize.linear_sum_assignment`, which uses a 
-   modified Jonker-Volgenant algorithm.
+2. قم بتعيين التجميعات الثنائية من مجموعة إلى أخرى بطريقة فردية لزيادة مجموع أوجه التشابه بينها.
+   يتم تنفيذ هذه الخطوة باستخدام :func:`scipy.optimize.linear_sum_assignment`، الذي يستخدم خوارزمية Jonker-Volgenant المعدلة.
 
-3. The final sum of similarities is divided by the size of the larger
-   set.
+3. يتم قسمة مجموع أوجه التشابه النهائي على حجم المجموعة الأكبر.
 
-The minimum consensus score, 0, occurs when all pairs of biclusters
-are totally dissimilar. The maximum score, 1, occurs when both sets
-are identical.
+تحدث درجة الإجماع الدنيا، 0، عندما تكون جميع أزواج التجميعات الثنائية متباينة تمامًا.
+تحدث الدرجة القصوى، 1، عندما تكون كلتا المجموعتين متطابقتين.
 
 
-.. rubric:: References
+.. rubric:: المراجع
 
-* Hochreiter, Bodenhofer, et. al., 2010. `FABIA: factor analysis
-  for bicluster acquisition
+* Hochreiter، Bodenhofer، et. al.، 2010. `FABIA: factor analysis for bicluster acquisition
   <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2881408/>`__.
+

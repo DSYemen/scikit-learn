@@ -1,32 +1,27 @@
+
 .. _clustering:
 
 ==========
-Clustering
+التجميع
 ==========
 
-`Clustering <https://en.wikipedia.org/wiki/Cluster_analysis>`__ of
-unlabeled data can be performed with the module :mod:`sklearn.cluster`.
+يمكن إجراء `التجميع <https://en.wikipedia.org/wiki/Cluster_analysis>`__ لـ
+البيانات غير المُصنّفة مع الوحدة :mod:`sklearn.cluster`.
 
-Each clustering algorithm comes in two variants: a class, that implements
-the ``fit`` method to learn the clusters on train data, and a function,
-that, given train data, returns an array of integer labels corresponding
-to the different clusters. For the class, the labels over the training
-data can be found in the ``labels_`` attribute.
+تأتي كل خوارزمية تجميع في نوعين مختلفين: فئة، تنفذ طريقة ``fit`` لتعلم المجموعات على بيانات التدريب، ودالة، تُرجع، بالنظر إلى بيانات التدريب، مصفوفة من تسميات الأعداد الصحيحة المقابلة للمجموعات المختلفة.
+بالنسبة للفئة، يمكن العثور على التسميات على بيانات التدريب في سمة ``labels_``.
 
 .. currentmodule:: sklearn.cluster
 
-.. topic:: Input data
+.. topic:: بيانات الإدخال
 
-    One important thing to note is that the algorithms implemented in
-    this module can take different kinds of matrix as input. All the
-    methods accept standard data matrices of shape ``(n_samples, n_features)``.
-    These can be obtained from the classes in the :mod:`sklearn.feature_extraction`
-    module. For :class:`AffinityPropagation`, :class:`SpectralClustering`
-    and :class:`DBSCAN` one can also input similarity matrices of shape
-    ``(n_samples, n_samples)``. These can be obtained from the functions
-    in the :mod:`sklearn.metrics.pairwise` module.
+    أحد الأشياء المهمة التي يجب ملاحظتها هو أن الخوارزميات المطبقة في هذه الوحدة يمكن أن تأخذ أنواعًا مختلفة من المصفوفات كمدخلات.
+    تقبل جميع الطرق مصفوفات البيانات القياسية ذات الشكل ``(n_samples, n_features)``.
+    يمكن الحصول على هذه من الفئات في الوحدة :mod:`sklearn.feature_extraction`.
+    بالنسبة لـ :class:`AffinityPropagation` و :class:`SpectralClustering` و :class:`DBSCAN`، يمكن للمرء أيضًا إدخال مصفوفات التشابه ذات الشكل ``(n_samples, n_samples)``.
+    يمكن الحصول على هذه من الدوال في الوحدة :mod:`sklearn.metrics.pairwise`.
 
-Overview of clustering methods
+نظرة عامة على طرق التجميع
 ===============================
 
 .. figure:: ../auto_examples/cluster/images/sphx_glr_plot_cluster_comparison_001.png
@@ -34,234 +29,202 @@ Overview of clustering methods
    :align: center
    :scale: 50
 
-   A comparison of the clustering algorithms in scikit-learn
+   مقارنة خوارزميات التجميع في scikit-learn
 
 
 .. list-table::
    :header-rows: 1
    :widths: 14 15 19 25 20
 
-   * - Method name
-     - Parameters
-     - Scalability
-     - Usecase
-     - Geometry (metric used)
+   * - اسم الطريقة
+     - المعلمات
+     - قابلية التوسع
+     - حالة الاستخدام
+     - الهندسة (المقياس المستخدم)
 
    * - :ref:`K-Means <k_means>`
-     - number of clusters
-     - Very large ``n_samples``, medium ``n_clusters`` with
-       :ref:`MiniBatch code <mini_batch_kmeans>`
-     - General-purpose, even cluster size, flat geometry,
-       not too many clusters, inductive
-     - Distances between points
+     - عدد المجموعات
+     - ``n_samples`` كبير جدًا، ``n_clusters`` متوسط مع
+       :ref:`كود MiniBatch <mini_batch_kmeans>`
+     - للأغراض العامة، حتى حجم الكتلة، هندسة مسطحة،
+       ليس عددًا كبيرًا جدًا من المجموعات، استقرائي
+     - المسافات بين النقاط
 
-   * - :ref:`Affinity propagation <affinity_propagation>`
-     - damping, sample preference
-     - Not scalable with n_samples
-     - Many clusters, uneven cluster size, non-flat geometry, inductive
-     - Graph distance (e.g. nearest-neighbor graph)
+   * - :ref:`انتشار التقارب <affinity_propagation>`
+     - التخميد، تفضيل العينة
+     - غير قابل للتطوير مع n_samples
+     - العديد من المجموعات، حجم الكتلة غير المتكافئ، الهندسة غير المسطحة، استقرائي
+     - مسافة الرسم البياني (على سبيل المثال، رسم بياني لأقرب جار)
 
    * - :ref:`Mean-shift <mean_shift>`
-     - bandwidth
-     - Not scalable with ``n_samples``
-     - Many clusters, uneven cluster size, non-flat geometry, inductive
-     - Distances between points
+     - عرض النطاق الترددي
+     - غير قابل للتطوير مع ``n_samples``
+     - العديد من المجموعات، حجم الكتلة غير المتكافئ، الهندسة غير المسطحة، استقرائي
+     - المسافات بين النقاط
 
-   * - :ref:`Spectral clustering <spectral_clustering>`
-     - number of clusters
-     - Medium ``n_samples``, small ``n_clusters``
-     - Few clusters, even cluster size, non-flat geometry, transductive
-     - Graph distance (e.g. nearest-neighbor graph)
+   * - :ref:`التجميع الطيفي <spectral_clustering>`
+     - عدد المجموعات
+     - ``n_samples`` متوسط، ``n_clusters`` صغير
+     - عدد قليل من المجموعات، حتى حجم الكتلة، هندسة غير مسطحة، استنتاجي
+     - مسافة الرسم البياني (على سبيل المثال، رسم بياني لأقرب جار)
 
-   * - :ref:`Ward hierarchical clustering <hierarchical_clustering>`
-     - number of clusters or distance threshold
-     - Large ``n_samples`` and ``n_clusters``
-     - Many clusters, possibly connectivity constraints, transductive
-     - Distances between points
+   * - :ref:`تجميع Ward الهرمي <hierarchical_clustering>`
+     - عدد المجموعات أو عتبة المسافة
+     - ``n_samples`` و ``n_clusters`` كبير
+     - العديد من المجموعات، وربما قيود الاتصال، استنتاجي
+     - المسافات بين النقاط
 
-   * - :ref:`Agglomerative clustering <hierarchical_clustering>`
-     - number of clusters or distance threshold, linkage type, distance
-     - Large ``n_samples`` and ``n_clusters``
-     - Many clusters, possibly connectivity constraints, non Euclidean
-       distances, transductive
-     - Any pairwise distance
+   * - :ref:`التجميع التكتلي <hierarchical_clustering>`
+     - عدد المجموعات أو عتبة المسافة، نوع الارتباط، المسافة
+     - ``n_samples`` و ``n_clusters`` كبير
+     - العديد من المجموعات، وربما قيود الاتصال، غير الإقليدية
+       المسافات، استنتاجي
+     - أي مسافة زوجية
 
    * - :ref:`DBSCAN <dbscan>`
-     - neighborhood size
-     - Very large ``n_samples``, medium ``n_clusters``
-     - Non-flat geometry, uneven cluster sizes, outlier removal,
-       transductive
-     - Distances between nearest points
+     - حجم الحي
+     - ``n_samples`` كبير جدًا، ``n_clusters`` متوسط
+     - هندسة غير مسطحة، أحجام مجموعات غير متساوية، إزالة القيم المتطرفة،
+       استنتاجي
+     - المسافات بين أقرب النقاط
 
    * - :ref:`HDBSCAN <hdbscan>`
-     - minimum cluster membership, minimum point neighbors
-     - large ``n_samples``, medium ``n_clusters``
-     - Non-flat geometry, uneven cluster sizes, outlier removal,
-       transductive, hierarchical, variable cluster density
-     - Distances between nearest points
+     - الحد الأدنى لعضوية الكتلة، الحد الأدنى لجيران النقطة
+     - ``n_samples`` كبير، ``n_clusters`` متوسط
+     - هندسة غير مسطحة، أحجام مجموعات غير متساوية، إزالة القيم المتطرفة،
+       استنتاجي، هرمي، كثافة كتلة متغيرة
+     - المسافات بين أقرب النقاط
 
    * - :ref:`OPTICS <optics>`
-     - minimum cluster membership
-     - Very large ``n_samples``, large ``n_clusters``
-     - Non-flat geometry, uneven cluster sizes, variable cluster density,
-       outlier removal, transductive
-     - Distances between points
+     - الحد الأدنى لعضوية الكتلة
+     - ``n_samples`` كبير جدًا، ``n_clusters`` كبير
+     - هندسة غير مسطحة، أحجام مجموعات غير متساوية، كثافة كتلة متغيرة،
+       إزالة القيم المتطرفة، استنتاجي
+     - المسافات بين النقاط
 
-   * - :ref:`Gaussian mixtures <mixture>`
-     - many
-     - Not scalable
-     - Flat geometry, good for density estimation, inductive
-     - Mahalanobis distances to  centers
+   * - :ref:`خلائط غاوسية <mixture>`
+     - كثير
+     - غير قابل للتطوير
+     - هندسة مسطحة، جيدة لتقدير الكثافة، استقرائي
+     - مسافات Mahalanobis إلى المراكز
 
    * - :ref:`BIRCH <birch>`
-     - branching factor, threshold, optional global clusterer.
-     - Large ``n_clusters`` and ``n_samples``
-     - Large dataset, outlier removal, data reduction, inductive
-     - Euclidean distance between points
+     - عامل التفرع، العتبة، التجميع العالمي الاختياري.
+     - ``n_clusters`` و ``n_samples`` كبير
+     - مجموعة بيانات كبيرة، إزالة القيم المتطرفة، تقليل البيانات، استقرائي
+     - المسافة الإقليدية بين النقاط
 
    * - :ref:`Bisecting K-Means <bisect_k_means>`
-     - number of clusters
-     - Very large ``n_samples``, medium ``n_clusters``
-     - General-purpose, even cluster size, flat geometry,
-       no empty clusters, inductive, hierarchical
-     - Distances between points
+     - عدد المجموعات
+     - ``n_samples`` كبير جدًا، ``n_clusters`` متوسط
+     - للأغراض العامة، حتى حجم الكتلة، هندسة مسطحة،
+       لا توجد مجموعات فارغة، استقرائي، هرمي
+     - المسافات بين النقاط
 
-Non-flat geometry clustering is useful when the clusters have a specific
-shape, i.e. a non-flat manifold, and the standard euclidean distance is
-not the right metric. This case arises in the two top rows of the figure
-above.
+يكون تجميع الهندسة غير المسطحة مفيدًا عندما يكون للمجموعات شكل محدد، أي مشعب غير مسطح، والمسافة الإقليدية القياسية ليست هي المقياس الصحيح.
+تنشأ هذه الحالة في الصفين العلويين من الشكل أعلاه.
 
-Gaussian mixture models, useful for clustering, are described in
-:ref:`another chapter of the documentation <mixture>` dedicated to
-mixture models. KMeans can be seen as a special case of Gaussian mixture
-model with equal covariance per component.
+يتم وصف نماذج خليط غاوسية، المفيدة للتجميع، في :ref:`فصل آخر من الوثائق <mixture>` مخصص لنماذج الخليط.
+يمكن اعتبار KMeans حالة خاصة من نموذج خليط غاوسي مع التباين المتساوي لكل مكون.
 
-:term:`Transductive <transductive>` clustering methods (in contrast to
-:term:`inductive` clustering methods) are not designed to be applied to new,
-unseen data.
+طرق التجميع :term:`Transductive <transductive>` (على عكس طرق التجميع :term:`inductive`) ليست مصممة لتطبيقها على بيانات جديدة غير مرئية.
 
 .. _k_means:
 
 K-means
 =======
 
-The :class:`KMeans` algorithm clusters data by trying to separate samples in n
-groups of equal variance, minimizing a criterion known as the *inertia* or
-within-cluster sum-of-squares (see below). This algorithm requires the number
-of clusters to be specified. It scales well to large numbers of samples and has
-been used across a large range of application areas in many different fields.
+تقوم خوارزمية :class:`KMeans` بتجميع البيانات من خلال محاولة فصل العينات في n مجموعات ذات تباين متساوٍ، مما يقلل من معيار يُعرف باسم *القصور الذاتي* أو مجموع المربعات داخل الكتلة (انظر أدناه).
+تتطلب هذه الخوارزمية تحديد عدد المجموعات.
+إنه قابل للتطوير بشكل جيد لعدد كبير من العينات وقد تم استخدامه عبر مجموعة كبيرة من مجالات التطبيق في العديد من المجالات المختلفة.
 
-The k-means algorithm divides a set of :math:`N` samples :math:`X` into
-:math:`K` disjoint clusters :math:`C`, each described by the mean :math:`\mu_j`
-of the samples in the cluster. The means are commonly called the cluster
-"centroids"; note that they are not, in general, points from :math:`X`,
-although they live in the same space.
+تقسم خوارزمية k-means مجموعة من :math:`N` عينات :math:`X` إلى :math:`K` مجموعات منفصلة :math:`C`، يتم وصف كل منها بالمتوسط :math:`\mu_j` للعينات في المجموعة.
+يُطلق على الوسائل عادةً "مراكز" الكتلة؛ لاحظ أنها ليست، بشكل عام، نقاطًا من :math:`X`، على الرغم من أنها تعيش في نفس المساحة.
 
-The K-means algorithm aims to choose centroids that minimise the **inertia**,
-or **within-cluster sum-of-squares criterion**:
+تهدف خوارزمية K-means إلى اختيار مراكز تقلل من **القصور الذاتي**، أو **معيار مجموع المربعات داخل الكتلة**:
 
 .. math:: \sum_{i=0}^{n}\min_{\mu_j \in C}(||x_i - \mu_j||^2)
 
-Inertia can be recognized as a measure of how internally coherent clusters are.
-It suffers from various drawbacks:
+يمكن التعرف على القصور الذاتي كمقياس لمدى تماسك المجموعات داخليًا.
+إنه يعاني من عيوب مختلفة:
 
-- Inertia makes the assumption that clusters are convex and isotropic,
-  which is not always the case. It responds poorly to elongated clusters,
-  or manifolds with irregular shapes.
+- يفترض القصور الذاتي أن المجموعات محدبة ومتجانسة الخواص، وهو ليس الحال دائمًا. يستجيب بشكل سيئ للمجموعات الممدودة، أو المشعبات ذات الأشكال غير المنتظمة.
 
-- Inertia is not a normalized metric: we just know that lower values are
-  better and zero is optimal. But in very high-dimensional spaces, Euclidean
-  distances tend to become inflated
-  (this is an instance of the so-called "curse of dimensionality").
-  Running a dimensionality reduction algorithm such as :ref:`PCA` prior to
-  k-means clustering can alleviate this problem and speed up the
-  computations.
+- القصور الذاتي ليس مقياسًا طبيعيًا: نحن نعلم فقط أن القيم المنخفضة أفضل وأن الصفر هو الأمثل.
+  ولكن في المساحات عالية الأبعاد للغاية، تميل المسافات الإقليدية إلى أن تصبح متضخمة (هذه حالة لما يسمى "لعنة الأبعاد").
+  يمكن أن يؤدي تشغيل خوارزمية تقليل الأبعاد مثل :ref:`PCA` قبل تجميع k-means إلى تخفيف هذه المشكلة وتسريع العمليات الحسابية.
 
 .. image:: ../auto_examples/cluster/images/sphx_glr_plot_kmeans_assumptions_002.png
    :target: ../auto_examples/cluster/plot_kmeans_assumptions.html
    :align: center
    :scale: 50
 
-For more detailed descriptions of the issues shown above and how to address them,
-refer to the examples :ref:`sphx_glr_auto_examples_cluster_plot_kmeans_assumptions.py`
-and :ref:`sphx_glr_auto_examples_cluster_plot_kmeans_silhouette_analysis.py`.
+للحصول على أوصاف أكثر تفصيلاً للمشكلات الموضحة أعلاه وكيفية معالجتها، ارجع إلى الأمثلة :ref:`sphx_glr_auto_examples_cluster/plot_kmeans_assumptions.py` و :ref:`sphx_glr_auto_examples_cluster/plot_kmeans_silhouette_analysis.py`.
 
-K-means is often referred to as Lloyd's algorithm. In basic terms, the
-algorithm has three steps. The first step chooses the initial centroids, with
-the most basic method being to choose :math:`k` samples from the dataset
-:math:`X`. After initialization, K-means consists of looping between the
-two other steps. The first step assigns each sample to its nearest centroid.
-The second step creates new centroids by taking the mean value of all of the
-samples assigned to each previous centroid. The difference between the old
-and the new centroids are computed and the algorithm repeats these last two
-steps until this value is less than a threshold. In other words, it repeats
-until the centroids do not move significantly.
+غالبًا ما يشار إلى K-means باسم خوارزمية لويد. بعبارات أساسية، تتكون الخوارزمية من ثلاث خطوات.
+تختار الخطوة الأولى المراكز الأولية، مع كون الطريقة الأساسية هي اختيار :math:`k` عينات من مجموعة البيانات :math:`X`.
+بعد التهيئة، يتكون K-means من التكرار بين الخطوتين الأخريين. تقوم الخطوة الأولى بتعيين كل عينة إلى أقرب مركز لها.
+تقوم الخطوة الثانية بإنشاء مراكز جديدة عن طريق أخذ القيمة المتوسطة لجميع العينات المعينة لكل مركز سابق.
+يتم حساب الفرق بين المراكز القديمة والجديدة وتكرر الخوارزمية هاتين الخطوتين الأخيرتين حتى تصبح هذه القيمة أقل من عتبة.
+بمعنى آخر، يتكرر حتى لا تتحرك المراكز بشكل ملحوظ.
 
 .. image:: ../auto_examples/cluster/images/sphx_glr_plot_kmeans_digits_001.png
    :target: ../auto_examples/cluster/plot_kmeans_digits.html
    :align: right
    :scale: 35
 
-K-means is equivalent to the expectation-maximization algorithm
-with a small, all-equal, diagonal covariance matrix.
+K-means مكافئ لخوارزمية تعظيم التوقع مع مصفوفة تباين قطرية صغيرة ومتساوية.
 
-The algorithm can also be understood through the concept of `Voronoi diagrams
-<https://en.wikipedia.org/wiki/Voronoi_diagram>`_. First the Voronoi diagram of
-the points is calculated using the current centroids. Each segment in the
-Voronoi diagram becomes a separate cluster. Secondly, the centroids are updated
-to the mean of each segment. The algorithm then repeats this until a stopping
-criterion is fulfilled. Usually, the algorithm stops when the relative decrease
-in the objective function between iterations is less than the given tolerance
-value. This is not the case in this implementation: iteration stops when
-centroids move less than the tolerance.
+يمكن أيضًا فهم الخوارزمية من خلال مفهوم `مخططات فورونوي <https://en.wikipedia.org/wiki/Voronoi_diagram>`_.
+أولاً، يتم حساب مخطط فورونوي للنقاط باستخدام المراكز الحالية.
+يصبح كل جزء في مخطط فورونوي مجموعة منفصلة.
+ثانيًا، يتم تحديث المراكز إلى متوسط كل جزء.
+ثم تكرر الخوارزمية هذا حتى يتم استيفاء معيار التوقف.
+عادةً، تتوقف الخوارزمية عندما يكون الانخفاض النسبي في دالة الهدف بين التكرارات أقل من قيمة التسامح المعطاة.
+هذا ليس هو الحال في هذا التنفيذ: يتوقف التكرار عندما تتحرك المراكز أقل من التسامح.
 
-Given enough time, K-means will always converge, however this may be to a local
-minimum. This is highly dependent on the initialization of the centroids.
-As a result, the computation is often done several times, with different
-initializations of the centroids. One method to help address this issue is the
-k-means++ initialization scheme, which has been implemented in scikit-learn
-(use the ``init='k-means++'`` parameter). This initializes the centroids to be
-(generally) distant from each other, leading to probably better results than
-random initialization, as shown in the reference. For a detailed example of
-comaparing different initialization schemes, refer to
-:ref:`sphx_glr_auto_examples_cluster_plot_kmeans_digits.py`.
+مع إعطاء الوقت الكافي، سيتقارب K-means دائمًا، ومع ذلك قد يكون هذا إلى حد أدنى محلي.
+هذا يعتمد بشكل كبير على تهيئة المراكز.
+ونتيجة لذلك، غالبًا ما يتم إجراء الحساب عدة مرات، مع تهيئة مختلفة للمراكز.
+إحدى الطرق للمساعدة في معالجة هذه المشكلة هي مخطط التهيئة k-means ++، والذي تم تنفيذه في scikit-learn (استخدم معلمة ``init='k-means++'``).
+يقوم هذا بتهيئة المراكز لتكون (بشكل عام) بعيدة عن بعضها البعض، مما يؤدي إلى نتائج أفضل على الأرجح من التهيئة العشوائية، كما هو موضح في المرجع.
+للحصول على مثال مفصل لمقارنة مخططات التهيئة المختلفة، ارجع إلى
+:ref:`sphx_glr_auto_examples_cluster/plot_kmeans_digits.py`.
 
-K-means++ can also be called independently to select seeds for other
-clustering algorithms, see :func:`sklearn.cluster.kmeans_plusplus` for details
-and example usage.
+يمكن أيضًا استدعاء K-means ++ بشكل مستقل لتحديد البذور لخوارزميات التجميع الأخرى، انظر :func:`sklearn.cluster.kmeans_plusplus` للحصول على التفاصيل واستخدام المثال.
 
-The algorithm supports sample weights, which can be given by a parameter
-``sample_weight``. This allows to assign more weight to some samples when
-computing cluster centers and values of inertia. For example, assigning a
-weight of 2 to a sample is equivalent to adding a duplicate of that sample
-to the dataset :math:`X`.
+تدعم الخوارزمية أوزان العينة، والتي يمكن إعطاؤها بواسطة معلمة ``sample_weight``.
+يسمح هذا بتعيين وزن أكبر لبعض العينات عند حساب مراكز الكتلة وقيم القصور الذاتي.
+على سبيل المثال، فإن تعيين وزن 2 لعينة يعادل إضافة نسخة مكررة من تلك العينة إلى مجموعة البيانات :math:`X`.
 
-.. rubric:: Examples
+يمكن استخدام K-means لتقدير المتجه. يتم تحقيق ذلك باستخدام طريقة ``transform`` لنموذج مدرب من :class:`KMeans`.
+للحصول على مثال على إجراء تقدير المتجه على صورة، ارجع إلى :ref:`sphx_glr_auto_examples_cluster/plot_color_quantization.py`.
 
-* :ref:`sphx_glr_auto_examples_text_plot_document_clustering.py`: Document clustering
-  using :class:`KMeans` and :class:`MiniBatchKMeans` based on sparse data
+.. rubric:: أمثلة
 
-Low-level parallelism
+* :ref:`sphx_glr_auto_examples_cluster/plot_cluster_iris.py`: مثال على استخدام
+  :class:`KMeans` باستخدام مجموعة بيانات iris
+
+* :ref:`sphx_glr_auto_examples_text/plot_document_clustering.py`: تجميع المستندات
+  باستخدام :class:`KMeans` و :class:`MiniBatchKMeans` بناءً على البيانات المتفرقة
+
+التوازي منخفض المستوى
 ---------------------
 
-:class:`KMeans` benefits from OpenMP based parallelism through Cython. Small
-chunks of data (256 samples) are processed in parallel, which in addition
-yields a low memory footprint. For more details on how to control the number of
-threads, please refer to our :ref:`parallelism` notes.
+يستفيد :class:`KMeans` من التوازي القائم على OpenMP من خلال Cython.
+يتم معالجة أجزاء صغيرة من البيانات (256 عينة) بالتوازي، مما ينتج عنه أيضًا انخفاض في حجم الذاكرة.
+لمزيد من التفاصيل حول كيفية التحكم في عدد سلاسل الرسائل، يرجى الرجوع إلى ملاحظات :ref:`parallelism`.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_cluster_plot_kmeans_assumptions.py`: Demonstrating when
-  k-means performs intuitively and when it does not
-* :ref:`sphx_glr_auto_examples_cluster_plot_kmeans_digits.py`: Clustering handwritten digits
+* :ref:`sphx_glr_auto_examples_cluster/plot_kmeans_assumptions.py`: إظهار متى يؤدي k-means بشكل حدسي ومتى لا يؤدي
+* :ref:`sphx_glr_auto_examples_cluster/plot_kmeans_digits.py`: تجميع الأرقام المكتوبة بخط اليد
 
-.. dropdown:: References
+.. dropdown:: المراجع
 
-  * `"k-means++: The advantages of careful seeding"
-    <http://ilpubs.stanford.edu:8090/778/1/2006-13.pdf>`_
-    Arthur, David, and Sergei Vassilvitskii,
-    *Proceedings of the eighteenth annual ACM-SIAM symposium on Discrete
-    algorithms*, Society for Industrial and Applied Mathematics (2007)
+  * `"k-means++: The advantages of careful seeding"  <http://ilpubs.stanford.edu:8090/778/1/2006-13.pdf>`_
+    Arthur، David، و Sergei Vassilvitskii،
+    *Proceedings of the eighteenth annual ACM-SIAM symposium on Discrete algorithms*، Society for Industrial and Applied Mathematics (2007)
 
 
 .. _mini_batch_kmeans:
@@ -269,28 +232,22 @@ threads, please refer to our :ref:`parallelism` notes.
 Mini Batch K-Means
 ------------------
 
-The :class:`MiniBatchKMeans` is a variant of the :class:`KMeans` algorithm
-which uses mini-batches to reduce the computation time, while still attempting
-to optimise the same objective function. Mini-batches are subsets of the input
-data, randomly sampled in each training iteration. These mini-batches
-drastically reduce the amount of computation required to converge to a local
-solution. In contrast to other algorithms that reduce the convergence time of
-k-means, mini-batch k-means produces results that are generally only slightly
-worse than the standard algorithm.
+:class:`MiniBatchKMeans` هو نوع مختلف من خوارزمية :class:`KMeans` التي تستخدم مجموعات صغيرة لتقليل وقت الحساب، مع الاستمرار في محاولة تحسين نفس دالة الهدف.
+المجموعات الصغيرة هي مجموعات فرعية من بيانات الإدخال، يتم أخذ عينات منها عشوائيًا في كل تكرار تدريب.
+تقلل هذه المجموعات الصغيرة بشكل كبير من مقدار الحساب المطلوب للتقارب إلى حل محلي.
+على عكس الخوارزميات الأخرى التي تقلل من وقت تقارب k-means، فإن k-means المصغرة تنتج نتائج أسوأ بشكل عام قليلاً من الخوارزمية القياسية.
 
-The algorithm iterates between two major steps, similar to vanilla k-means.
-In the first step, :math:`b` samples are drawn randomly from the dataset, to form
-a mini-batch. These are then assigned to the nearest centroid. In the second
-step, the centroids are updated. In contrast to k-means, this is done on a
-per-sample basis. For each sample in the mini-batch, the assigned centroid
-is updated by taking the streaming average of the sample and all previous
-samples assigned to that centroid. This has the effect of decreasing the
-rate of change for a centroid over time. These steps are performed until
-convergence or a predetermined number of iterations is reached.
+تتكرر الخوارزمية بين خطوتين رئيسيتين، على غرار k-means الفانيليا.
+في الخطوة الأولى، يتم رسم :math:`b` عينات عشوائيًا من مجموعة البيانات، لتشكيل مجموعة صغيرة.
+ثم يتم تعيينها إلى أقرب مركز.
+في الخطوة الثانية، يتم تحديث المراكز.
+على عكس k-means، يتم ذلك على أساس كل عينة.
+لكل عينة في المجموعة المصغرة، يتم تحديث المركز المعين عن طريق أخذ المتوسط المتدفق للعينة وجميع العينات السابقة المعينة إلى هذا المركز.
+هذا له تأثير تقليل معدل التغيير لمركز بمرور الوقت.
+يتم تنفيذ هذه الخطوات حتى التقارب أو الوصول إلى عدد محدد مسبقًا من التكرارات.
 
-:class:`MiniBatchKMeans` converges faster than :class:`KMeans`, but the quality
-of the results is reduced. In practice this difference in quality can be quite
-small, as shown in the example and cited reference.
+يتقارب :class:`MiniBatchKMeans` بشكل أسرع من :class:`KMeans`، ولكن يتم تقليل جودة النتائج.
+من الناحية العملية، يمكن أن يكون هذا الاختلاف في الجودة صغيرًا جدًا، كما هو موضح في المثال والمرجع المذكور.
 
 .. figure:: ../auto_examples/cluster/images/sphx_glr_plot_mini_batch_kmeans_001.png
    :target: ../auto_examples/cluster/plot_mini_batch_kmeans.html
@@ -298,36 +255,30 @@ small, as shown in the example and cited reference.
    :scale: 100
 
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_cluster_plot_mini_batch_kmeans.py`: Comparison of
-  :class:`KMeans` and :class:`MiniBatchKMeans`
+* :ref:`sphx_glr_auto_examples_cluster/plot_mini_batch_kmeans.py`: مقارنة
+  :class:`KMeans` و :class:`MiniBatchKMeans`
 
-* :ref:`sphx_glr_auto_examples_text_plot_document_clustering.py`: Document clustering
-  using :class:`KMeans` and :class:`MiniBatchKMeans` based on sparse data
+* :ref:`sphx_glr_auto_examples_text/plot_document_clustering.py`: تجميع المستندات
+  باستخدام :class:`KMeans` و :class:`MiniBatchKMeans` بناءً على البيانات المتفرقة
 
-* :ref:`sphx_glr_auto_examples_cluster_plot_dict_face_patches.py`
+* :ref:`sphx_glr_auto_examples_cluster/plot_dict_face_patches.py`
 
-.. dropdown:: References
+.. dropdown:: المراجع
 
-  * `"Web Scale K-Means clustering"
-    <https://www.eecs.tufts.edu/~dsculley/papers/fastkmeans.pdf>`_
-    D. Sculley, *Proceedings of the 19th international conference on World
-    wide web* (2010)
+  * `"Web Scale K-Means clustering" <https://www.eecs.tufts.edu/~dsculley/papers/fastkmeans.pdf>`_
+    D. Sculley، *Proceedings of the 19th international conference on World wide web* (2010)
 
 .. _affinity_propagation:
 
-Affinity Propagation
+انتشار التقارب
 ====================
 
-:class:`AffinityPropagation` creates clusters by sending messages between
-pairs of samples until convergence. A dataset is then described using a small
-number of exemplars, which are identified as those most representative of other
-samples. The messages sent between pairs represent the suitability for one
-sample to be the exemplar of the other, which is updated in response to the
-values from other pairs. This updating happens iteratively until convergence,
-at which point the final exemplars are chosen, and hence the final clustering
-is given.
+ينشئ :class:`AffinityPropagation` مجموعات عن طريق إرسال رسائل بين أزواج من العينات حتى التقارب.
+ثم يتم وصف مجموعة البيانات باستخدام عدد صغير من النماذج، والتي يتم تحديدها على أنها الأكثر تمثيلاً لعينات أخرى.
+تمثل الرسائل المرسلة بين الأزواج مدى ملاءمة عينة واحدة لتكون نموذجًا للأخرى، والتي يتم تحديثها استجابةً للقيم من الأزواج الأخرى.
+يحدث هذا التحديث بشكل متكرر حتى التقارب، وعند هذه النقطة يتم اختيار النماذج النهائية، وبالتالي يتم إعطاء التجميع النهائي.
 
 .. figure:: ../auto_examples/cluster/images/sphx_glr_plot_affinity_propagation_001.png
    :target: ../auto_examples/cluster/plot_affinity_propagation.html
@@ -335,124 +286,93 @@ is given.
    :scale: 50
 
 
-Affinity Propagation can be interesting as it chooses the number of
-clusters based on the data provided. For this purpose, the two important
-parameters are the *preference*, which controls how many exemplars are
-used, and the *damping factor* which damps the responsibility and
-availability messages to avoid numerical oscillations when updating these
-messages.
+يمكن أن يكون انتشار التقارب مثيرًا للاهتمام لأنه يختار عدد المجموعات بناءً على البيانات المقدمة.
+لهذا الغرض، فإن المعلمتين المهمتين هما *التفضيل*، الذي يتحكم في عدد النماذج المستخدمة، و *عامل التخميد* الذي يخمد رسائل المسؤولية والتوافر لتجنب التذبذبات العددية عند تحديث هذه الرسائل.
 
-The main drawback of Affinity Propagation is its complexity. The
-algorithm has a time complexity of the order :math:`O(N^2 T)`, where :math:`N`
-is the number of samples and :math:`T` is the number of iterations until
-convergence. Further, the memory complexity is of the order
-:math:`O(N^2)` if a dense similarity matrix is used, but reducible if a
-sparse similarity matrix is used. This makes Affinity Propagation most
-appropriate for small to medium sized datasets.
+العيب الرئيسي لانتشار التقارب هو تعقيده.
+تبلغ تعقيد الخوارزمية الزمني من الرتبة :math:`O(N^2 T)`، حيث :math:`N` هو عدد العينات و :math:`T` هو عدد التكرارات حتى التقارب.
+علاوة على ذلك، فإن تعقيد الذاكرة هو من الرتبة :math:`O(N^2)` إذا تم استخدام مصفوفة تشابه كثيفة، ولكن يمكن اختزالها إذا تم استخدام مصفوفة تشابه متفرقة. هذا يجعل انتشار التقارب هو الأنسب لمجموعات البيانات الصغيرة والمتوسطة الحجم.
 
-.. dropdown:: Algorithm description
+.. dropdown:: وصف الخوارزمية
 
-  The messages sent between points belong to one of two categories. The first is
-  the responsibility :math:`r(i, k)`, which is the accumulated evidence that
-  sample :math:`k` should be the exemplar for sample :math:`i`. The second is the
-  availability :math:`a(i, k)` which is the accumulated evidence that sample
-  :math:`i` should choose sample :math:`k` to be its exemplar, and considers the
-  values for all other samples that :math:`k` should be an exemplar. In this way,
-  exemplars are chosen by samples if they are (1) similar enough to many samples
-  and (2) chosen by many samples to be representative of themselves.
+  تنتمي الرسائل المرسلة بين النقاط إلى إحدى فئتين.
+  الأولى هي المسؤولية :math:`r(i, k)`، وهي الدليل المتراكم على أن العينة :math:`k` يجب أن تكون نموذجًا للعينة :math:`i`.
+  الثاني هو التوافر :math:`a(i, k)` وهو الدليل المتراكم على أن العينة :math:`i` يجب أن تختار العينة :math:`k` لتكون نموذجًا لها، وتأخذ في الاعتبار القيم لجميع العينات الأخرى التي يجب أن تكون :math:`k` نموذجًا.
+  بهذه الطريقة، يتم اختيار النماذج بواسطة العينات إذا كانت (1) متشابهة بدرجة كافية مع العديد من العينات و (2) تم اختيارها من قبل العديد من العينات لتكون ممثلة لنفسها.
 
-  More formally, the responsibility of a sample :math:`k` to be the exemplar of
-  sample :math:`i` is given by:
+  بشكل أكثر رسمية، تُعطى مسؤولية عينة :math:`k` لتكون نموذجًا للعينة :math:`i` من خلال:
 
   .. math::
 
       r(i, k) \leftarrow s(i, k) - max [ a(i, k') + s(i, k') \forall k' \neq k ]
 
-  Where :math:`s(i, k)` is the similarity between samples :math:`i` and :math:`k`.
-  The availability of sample :math:`k` to be the exemplar of sample :math:`i` is
-  given by:
+  حيث :math:`s(i, k)` هو التشابه بين العينات :math:`i` و :math:`k`.
+  توافر العينة :math:`k` ليكون نموذجًا للعينة :math:`i` هو
+  معطى بواسطة:
 
   .. math::
 
       a(i, k) \leftarrow min [0, r(k, k) + \sum_{i'~s.t.~i' \notin \{i, k\}}{r(i',
       k)}]
 
-  To begin with, all values for :math:`r` and :math:`a` are set to zero, and the
-  calculation of each iterates until convergence. As discussed above, in order to
-  avoid numerical oscillations when updating the messages, the damping factor
-  :math:`\lambda` is introduced to iteration process:
+  في البداية، يتم تعيين جميع القيم لـ :math:`r` و :math:`a` على صفر، ويتم حساب كل تكرار حتى التقارب.
+  كما نوقش أعلاه، من أجل تجنب التذبذبات العددية عند تحديث الرسائل، يتم إدخال عامل التخميد :math:`\lambda` إلى عملية التكرار:
 
   .. math:: r_{t+1}(i, k) = \lambda\cdot r_{t}(i, k) + (1-\lambda)\cdot r_{t+1}(i, k)
   .. math:: a_{t+1}(i, k) = \lambda\cdot a_{t}(i, k) + (1-\lambda)\cdot a_{t+1}(i, k)
 
-  where :math:`t` indicates the iteration times.
+  حيث :math:`t` يشير إلى أوقات التكرار.
 
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_cluster_plot_affinity_propagation.py`: Affinity
-  Propagation on a synthetic 2D datasets with 3 classes
-* :ref:`sphx_glr_auto_examples_applications_plot_stock_market.py` Affinity Propagation
-  on financial time series to find groups of companies
+* :ref:`sphx_glr_auto_examples_cluster/plot_affinity_propagation.py`: انتشار التقارب على مجموعات بيانات ثنائية الأبعاد اصطناعية مع 3 فئات
+* :ref:`sphx_glr_auto_examples_applications/plot_stock_market.py` انتشار التقارب على السلاسل الزمنية المالية للعثور على مجموعات من الشركات
 
 
 .. _mean_shift:
 
 Mean Shift
 ==========
-:class:`MeanShift` clustering aims to discover *blobs* in a smooth density of
-samples. It is a centroid based algorithm, which works by updating candidates
-for centroids to be the mean of the points within a given region. These
-candidates are then filtered in a post-processing stage to eliminate
-near-duplicates to form the final set of centroids.
+يهدف تجميع :class:`MeanShift` إلى اكتشاف *النقاط* في كثافة سلسة للعينات.
+إنها خوارزمية تعتمد على النقطه المركزية، والتي تعمل عن طريق تحديث المرشحين للمراكز ليكونوا متوسط النقاط داخل منطقة معينة.
+ثم يتم تصفية هؤلاء المرشحين في مرحلة ما بعد المعالجة للقضاء على التكرارات القريبة لتشكيل المجموعة النهائية من المراكز.
 
-.. dropdown:: Mathematical details
+.. dropdown:: التفاصيل الرياضية
 
-  The position of centroid candidates is iteratively adjusted using a technique
-  called hill climbing, which finds local maxima of the estimated probability
-  density. Given a candidate centroid :math:`x` for iteration :math:`t`, the
-  candidate is updated according to the following equation:
+  يتم تعديل موضع المرشحين للنقطه المركزية بشكل متكرر باستخدام تقنية تسمى تسلق التل، والتي تجد الحدود القصوى المحلية لكثافة الاحتمال المقدرة.
+  بالنظر إلى النقطه المركزية المرشحة :math:`x` للتكرار :math:`t`، يتم تحديث المرشح وفقًا للمعادلة التالية:
 
   .. math::
 
       x^{t+1} = x^t + m(x^t)
 
-  Where :math:`m` is the *mean shift* vector that is computed for each centroid
-  that points towards a region of the maximum increase in the density of points.
-  To compute :math:`m` we define :math:`N(x)` as the neighborhood of samples
-  within a given distance around :math:`x`. Then :math:`m` is computed using the
-  following equation, effectively updating a centroid to be the mean of the
-  samples within its neighborhood:
+  حيث :math:`m` هو متجه *إزاحة المتوسط* الذي يتم حسابه لكل نقطة مركزية تشير نحو منطقة الزيادة القصوى في كثافة النقاط.
+  لحساب :math:`m`، نحدد :math:`N(x)` على أنها جوار العينات ضمن مسافة معينة حول :math:`x`.
+  ثم يتم حساب :math:`m` باستخدام المعادلة التالية، مما يؤدي إلى تحديث النقطه المركزية بشكل فعال لتكون متوسط العينات داخل جوارها:
 
   .. math::
 
       m(x) = \frac{1}{|N(x)|} \sum_{x_j \in N(x)}x_j - x
 
-  In general, the equation for :math:`m` depends on a kernel used for density
-  estimation. The generic formula is:
+  بشكل عام، تعتمد معادلة :math:`m` على نواة تستخدم لتقدير الكثافة. الصيغة العامة هي:
 
   .. math::
 
       m(x) = \frac{\sum_{x_j \in N(x)}K(x_j - x)x_j}{\sum_{x_j \in N(x)}K(x_j -
       x)} - x
 
-  In our implementation, :math:`K(x)` is equal to 1 if :math:`x` is small enough
-  and is equal to 0 otherwise. Effectively :math:`K(y - x)` indicates whether
-  :math:`y` is in the neighborhood of :math:`x`.
+  في تطبيقنا، :math:`K(x)` يساوي 1 إذا كان :math:`x` صغيرًا بما يكفي ويساوي 0 بخلاف ذلك.
+  يشير :math:`K(y - x)` بشكل فعال إلى ما إذا كان :math:`y` في جوار :math:`x`.
 
 
-The algorithm automatically sets the number of clusters, instead of relying on a
-parameter ``bandwidth``, which dictates the size of the region to search through.
-This parameter can be set manually, but can be estimated using the provided
-``estimate_bandwidth`` function, which is called if the bandwidth is not set.
+تحدد الخوارزمية تلقائيًا عدد المجموعات، بدلاً من الاعتماد على معلمة ``bandwidth``، التي تملي حجم المنطقة للبحث من خلالها.
+يمكن تعيين هذه المعلمة يدويًا، ولكن يمكن تقديرها باستخدام دالة ``estimate_bandwidth`` المقدمة، والتي يتم استدعاؤها إذا لم يتم تعيين عرض النطاق الترددي.
 
-The algorithm is not highly scalable, as it requires multiple nearest neighbor
-searches during the execution of the algorithm. The algorithm is guaranteed to
-converge, however the algorithm will stop iterating when the change in centroids
-is small.
+الخوارزمية ليست قابلة للتطوير بدرجة عالية، لأنها تتطلب بحثًا متعددًا عن أقرب جار أثناء تنفيذ الخوارزمية.
+من المضمون أن تتقارب الخوارزمية، ومع ذلك ستتوقف الخوارزمية عن التكرار عندما يكون التغيير في المراكز صغيرًا.
 
-Labelling a new sample is performed by finding the nearest centroid for a
-given sample.
+يتم إجراء تسمية عينة جديدة عن طريق إيجاد أقرب مركز لعينة معينة.
 
 
 .. figure:: ../auto_examples/cluster/images/sphx_glr_plot_mean_shift_001.png
@@ -461,41 +381,28 @@ given sample.
    :scale: 50
 
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_cluster_plot_mean_shift.py`: Mean Shift clustering
-  on a synthetic 2D datasets with 3 classes.
+* :ref:`sphx_glr_auto_examples_cluster/plot_mean_shift.py`: تجميع Mean Shift على مجموعات بيانات ثنائية الأبعاد اصطناعية مع 3 فئات.
 
-.. dropdown:: References
+.. dropdown:: المراجع
 
   * :doi:`"Mean shift: A robust approach toward feature space analysis"
-    <10.1109/34.1000236>` D. Comaniciu and P. Meer, *IEEE Transactions on Pattern
-    Analysis and Machine Intelligence* (2002)
+    <10.1109/34.1000236>` D. Comaniciu and P. Meer، *IEEE Transactions on Pattern Analysis and Machine Intelligence* (2002)
 
 
 .. _spectral_clustering:
 
-Spectral clustering
+التجميع الطيفي
 ===================
 
-:class:`SpectralClustering` performs a low-dimension embedding of the
-affinity matrix between samples, followed by clustering, e.g., by KMeans,
-of the components of the eigenvectors in the low dimensional space.
-It is especially computationally efficient if the affinity matrix is sparse
-and the `amg` solver is used for the eigenvalue problem (Note, the `amg` solver
-requires that the `pyamg <https://github.com/pyamg/pyamg>`_ module is installed.)
+يقوم :class:`SpectralClustering` بتضمين منخفض الأبعاد لمصفوفة التقارب بين العينات، متبوعًا بالتجميع، على سبيل المثال، بواسطة KMeans، لمكونات المتجهات الذاتية في الفضاء منخفض الأبعاد.
+إنه فعال من الناحية الحسابية خاصةً إذا كانت مصفوفة التقارب متفرقة وتم استخدام أداة الحل `amg` لمشكلة القيمة الذاتية (ملاحظة، تتطلب أداة الحل `amg` تثبيت الوحدة `pyamg <https://github.com/pyamg/pyamg>`_.)
 
-The present version of SpectralClustering requires the number of clusters
-to be specified in advance. It works well for a small number of clusters,
-but is not advised for many clusters.
+يتطلب الإصدار الحالي من SpectralClustering تحديد عدد المجموعات مسبقًا. إنه يعمل بشكل جيد لعدد صغير من المجموعات، لكن لا ينصح به للعديد من المجموعات.
 
-For two clusters, SpectralClustering solves a convex relaxation of the
-`normalized cuts <https://people.eecs.berkeley.edu/~malik/papers/SM-ncut.pdf>`_
-problem on the similarity graph: cutting the graph in two so that the weight of
-the edges cut is small compared to the weights of the edges inside each
-cluster. This criteria is especially interesting when working on images, where
-graph vertices are pixels, and weights of the edges of the similarity graph are
-computed using a function of a gradient of the image.
+بالنسبة لمجموعتين، يحل SpectralClustering استرخاء محدب لمشكلة `القطع الطبيعية <https://people.eecs.berkeley.edu/~malik/papers/SM-ncut.pdf>`_ على الرسم البياني للتشابه: قطع الرسم البياني إلى قسمين بحيث يكون وزن الحواف المقطوعة صغيرًا مقارنة بأوزان الحواف داخل كل مجموعة.
+يكون هذا المعيار مثيرًا للاهتمام بشكل خاص عند العمل على الصور، حيث تكون رؤوس الرسم البياني هي وحدات البكسل، ويتم حساب أوزان حواف الرسم البياني للتشابه باستخدام دالة لتدرج الصورة.
 
 
 .. |noisy_img| image:: ../auto_examples/cluster/images/sphx_glr_plot_segmentation_toy_001.png
@@ -508,25 +415,20 @@ computed using a function of a gradient of the image.
 
 .. centered:: |noisy_img| |segmented_img|
 
-.. warning:: Transforming distance to well-behaved similarities
+.. warning:: تحويل المسافة إلى أوجه تشابه جيدة التصرف
 
-    Note that if the values of your similarity matrix are not well
-    distributed, e.g. with negative values or with a distance matrix
-    rather than a similarity, the spectral problem will be singular and
-    the problem not solvable. In which case it is advised to apply a
-    transformation to the entries of the matrix. For instance, in the
-    case of a signed distance matrix, is common to apply a heat kernel::
+    لاحظ أنه إذا لم يتم توزيع قيم مصفوفة التشابه الخاصة بك بشكل جيد، على سبيل المثال مع قيم سالبة أو مع مصفوفة مسافة بدلاً من التشابه، فستكون المشكلة الطيفية مفردة والمشكلة غير قابلة للحل.
+    في هذه الحالة، يُنصح بتطبيق تحويل على إدخالات المصفوفة.
+    على سبيل المثال، في حالة مصفوفة المسافة الموقعة، من الشائع تطبيق نواة حرارية::
 
         similarity = np.exp(-beta * distance / distance.std())
 
-    See the examples for such an application.
+    انظر الأمثلة لمثل هذا التطبيق.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_cluster_plot_segmentation_toy.py`: Segmenting objects
-  from a noisy background using spectral clustering.
-* :ref:`sphx_glr_auto_examples_cluster_plot_coin_segmentation.py`: Spectral clustering
-  to split the image of coins in regions.
+* :ref:`sphx_glr_auto_examples_cluster/plot_segmentation_toy.py`: تجزئة الكائنات من خلفية صاخبة باستخدام التجميع الطيفي.
+* :ref:`sphx_glr_auto_examples_cluster/plot_coin_segmentation.py`: التجميع الطيفي لتقسيم صورة العملات المعدنية في المناطق.
 
 
 .. |coin_kmeans| image:: ../auto_examples/cluster/images/sphx_glr_plot_coin_segmentation_001.png
@@ -542,19 +444,14 @@ computed using a function of a gradient of the image.
   :scale: 35
 
 
-Different label assignment strategies
+استراتيجيات تعيين التسميات المختلفة
 -------------------------------------
 
-Different label assignment strategies can be used, corresponding to the
-``assign_labels`` parameter of :class:`SpectralClustering`.
-``"kmeans"`` strategy can match finer details, but can be unstable.
-In particular, unless you control the ``random_state``, it may not be
-reproducible from run-to-run, as it depends on random initialization.
-The alternative ``"discretize"`` strategy is 100% reproducible, but tends
-to create parcels of fairly even and geometrical shape.
-The recently added ``"cluster_qr"`` option is a deterministic alternative that
-tends to create the visually best partitioning on the example application
-below.
+يمكن استخدام استراتيجيات تعيين التسميات المختلفة، المقابلة لمعلمة ``assign_labels`` لـ :class:`SpectralClustering`.
+يمكن لاستراتيجية ``"kmeans"`` مطابقة التفاصيل الدقيقة، ولكن يمكن أن تكون غير مستقرة.
+على وجه الخصوص، ما لم تتحكم في ``random_state``، فقد لا تكون قابلة للتكرار من تشغيل إلى تشغيل، لأنها تعتمد على التهيئة العشوائية.
+استراتيجية ``"discretize"`` البديلة قابلة للتكرار بنسبة 100٪، ولكنها تميل إلى إنشاء قطع ذات شكل هندسي ومتساوي إلى حد ما.
+يعد خيار ``"cluster_qr"`` المضاف مؤخرًا بديلاً حتميًا يميل إلى إنشاء أفضل تقسيم مرئيًا على تطبيق المثال أدناه.
 
 ================================  ================================  ================================
  ``assign_labels="kmeans"``        ``assign_labels="discretize"``    ``assign_labels="cluster_qr"``
@@ -562,145 +459,107 @@ below.
 |coin_kmeans|                          |coin_discretize|                  |coin_cluster_qr|
 ================================  ================================  ================================
 
-.. dropdown:: References
+.. dropdown:: المراجع
 
-  * `"Multiclass spectral clustering"
-    <https://people.eecs.berkeley.edu/~jordan/courses/281B-spring04/readings/yu-shi.pdf>`_
-    Stella X. Yu, Jianbo Shi, 2003
+  * `"Multiclass spectral clustering" <https://people.eecs.berkeley.edu/~jordan/courses/281B-spring04/readings/yu-shi.pdf>`_ Stella X. Yu، Jianbo Shi، 2003
 
-  * :doi:`"Simple, direct, and efficient multi-way spectral clustering"<10.1093/imaiai/iay008>`
-    Anil Damle, Victor Minden, Lexing Ying, 2019
+  * :doi:`"Simple, direct, and efficient multi-way spectral clustering"<10.1093/imaiai/iay008>` Anil Damle، Victor Minden، Lexing Ying، 2019
 
 
 .. _spectral_clustering_graph:
 
-Spectral Clustering Graphs
+الرسوم البيانية للتجميع الطيفي
 --------------------------
 
-Spectral Clustering can also be used to partition graphs via their spectral
-embeddings.  In this case, the affinity matrix is the adjacency matrix of the
-graph, and SpectralClustering is initialized with `affinity='precomputed'`::
+يمكن أيضًا استخدام التجميع الطيفي لتقسيم الرسوم البيانية عبر تضميناتها الطيفية.
+في هذه الحالة، تكون مصفوفة التقارب هي مصفوفة التجاور للرسم البياني، ويتم تهيئة SpectralClustering باستخدام `affinity='precomputed'`::
 
     >>> from sklearn.cluster import SpectralClustering
     >>> sc = SpectralClustering(3, affinity='precomputed', n_init=100,
     ...                         assign_labels='discretize')
     >>> sc.fit_predict(adjacency_matrix)  # doctest: +SKIP
 
-.. dropdown:: References
+.. dropdown:: المراجع
 
-  * :doi:`"A Tutorial on Spectral Clustering" <10.1007/s11222-007-9033-z>` Ulrike
-    von Luxburg, 2007
+  * :doi:`"A Tutorial on Spectral Clustering" <10.1007/s11222-007-9033-z>` Ulrike von Luxburg، 2007
 
-  * :doi:`"Normalized cuts and image segmentation" <10.1109/34.868688>` Jianbo
-    Shi, Jitendra Malik, 2000
+  * :doi:`"Normalized cuts and image segmentation" <10.1109/34.868688>` Jianbo Shi، Jitendra Malik، 2000
 
-  * `"A Random Walks View of Spectral Segmentation"
-    <https://citeseerx.ist.psu.edu/doc_view/pid/84a86a69315e994cfd1e0c7debb86d62d7bd1f44>`_
-    Marina Meila, Jianbo Shi, 2001
+  * `"A Random Walks View of Spectral Segmentation" <https://citeseerx.ist.psu.edu/doc_view/pid/84a86a69315e994cfd1e0c7debb86d62d7bd1f44>`_ Marina Meila، Jianbo Shi، 2001
 
-  * `"On Spectral Clustering: Analysis and an algorithm"
-    <https://citeseerx.ist.psu.edu/doc_view/pid/796c5d6336fc52aa84db575fb821c78918b65f58>`_
-    Andrew Y. Ng, Michael I. Jordan, Yair Weiss, 2001
+  * `"On Spectral Clustering: Analysis and an algorithm" <https://citeseerx.ist.psu.edu/doc_view/pid/796c5d6336fc52aa84db575fb821c78918b65f58>`_ Andrew Y. Ng، Michael I. Jordan، Yair Weiss، 2001
 
-  * :arxiv:`"Preconditioned Spectral Clustering for Stochastic Block Partition
-    Streaming Graph Challenge" <1708.07481>` David Zhuzhunashvili, Andrew Knyazev
+  * :arxiv:`"Preconditioned Spectral Clustering for Stochastic Block Partition Streaming Graph Challenge" <1708.07481>` David Zhuzhunashvili، Andrew Knyazev
 
 
 .. _hierarchical_clustering:
 
-Hierarchical clustering
+التجميع الهرمي
 =======================
 
-Hierarchical clustering is a general family of clustering algorithms that
-build nested clusters by merging or splitting them successively. This
-hierarchy of clusters is represented as a tree (or dendrogram). The root of the
-tree is the unique cluster that gathers all the samples, the leaves being the
-clusters with only one sample. See the `Wikipedia page
-<https://en.wikipedia.org/wiki/Hierarchical_clustering>`_ for more details.
+التجميع الهرمي هو عائلة عامة من خوارزميات التجميع التي تبني مجموعات متداخلة عن طريق دمجها أو تقسيمها على التوالي.
+يتم تمثيل هذا التسلسل الهرمي للمجموعات كشجرة (أو مخطط شجري).
+جذر الشجرة هو المجموعة الفريدة التي تجمع كل العينات، والأوراق هي المجموعات التي تحتوي على عينة واحدة فقط.
+انظر `صفحة ويكيبيديا <https://en.wikipedia.org/wiki/Hierarchical_clustering>`_ لمزيد من التفاصيل.
 
-The :class:`AgglomerativeClustering` object performs a hierarchical clustering
-using a bottom up approach: each observation starts in its own cluster, and
-clusters are successively merged together. The linkage criteria determines the
-metric used for the merge strategy:
+يقوم الكائن :class:`AgglomerativeClustering` بإجراء تجميع هرمي باستخدام نهج من أسفل إلى أعلى: تبدأ كل ملاحظة في مجموعتها الخاصة، ويتم دمج المجموعات معًا على التوالي. تحدد معايير الارتباط المقياس المستخدم لاستراتيجية الدمج:
 
-- **Ward** minimizes the sum of squared differences within all clusters. It is a
-  variance-minimizing approach and in this sense is similar to the k-means
-  objective function but tackled with an agglomerative hierarchical
-  approach.
-- **Maximum** or **complete linkage** minimizes the maximum distance between
-  observations of pairs of clusters.
-- **Average linkage** minimizes the average of the distances between all
-  observations of pairs of clusters.
-- **Single linkage** minimizes the distance between the closest
-  observations of pairs of clusters.
+- **Ward** يقلل من مجموع الفروق التربيعية داخل جميع المجموعات.
+  إنه نهج يقلل من التباين وبهذا المعنى يشبه دالة الهدف k-means ولكن يتم معالجتها باستخدام نهج هرمي تكتلي.
+- **الحد الأقصى** أو **الارتباط الكامل** يقلل من المسافة القصوى بين ملاحظات أزواج المجموعات.
+- **الارتباط المتوسط** يقلل من متوسط المسافات بين جميع ملاحظات أزواج المجموعات.
+- **الارتباط الفردي** يقلل من المسافة بين أقرب ملاحظات أزواج المجموعات.
 
-:class:`AgglomerativeClustering` can also scale to large number of samples
-when it is used jointly with a connectivity matrix, but is computationally
-expensive when no connectivity constraints are added between samples: it
-considers at each step all the possible merges.
+يمكن أيضًا قياس :class:`AgglomerativeClustering` لعدد كبير من العينات عند استخدامه بشكل مشترك مع مصفوفة اتصال، ولكنه مكلف من الناحية الحسابية عند عدم إضافة قيود اتصال بين العينات: فهو يأخذ في الاعتبار جميع عمليات الدمج الممكنة في كل خطوة.
 
 .. topic:: :class:`FeatureAgglomeration`
 
-   The :class:`FeatureAgglomeration` uses agglomerative clustering to
-   group together features that look very similar, thus decreasing the
-   number of features. It is a dimensionality reduction tool, see
-   :ref:`data_reduction`.
+   يستخدم :class:`FeatureAgglomeration` التجميع التكتلي لتجميع الميزات التي تبدو متشابهة جدًا معًا، مما يقلل من عدد الميزات.
+   إنها أداة لتقليل الأبعاد، انظر :ref:`data_reduction`.
 
-Different linkage type: Ward, complete, average, and single linkage
+نوع الارتباط المختلف: ارتباط Ward، كامل، متوسط، وفردي
 -------------------------------------------------------------------
 
-:class:`AgglomerativeClustering` supports Ward, single, average, and complete
-linkage strategies.
+يدعم :class:`AgglomerativeClustering` استراتيجيات ارتباط Ward، فردي، متوسط، وكامل.
 
 .. image:: ../auto_examples/cluster/images/sphx_glr_plot_linkage_comparison_001.png
     :target: ../auto_examples/cluster/plot_linkage_comparison.html
     :scale: 43
 
-Agglomerative cluster has a "rich get richer" behavior that leads to
-uneven cluster sizes. In this regard, single linkage is the worst
-strategy, and Ward gives the most regular sizes. However, the affinity
-(or distance used in clustering) cannot be varied with Ward, thus for non
-Euclidean metrics, average linkage is a good alternative. Single linkage,
-while not robust to noisy data, can be computed very efficiently and can
-therefore be useful to provide hierarchical clustering of larger datasets.
-Single linkage can also perform well on non-globular data.
+تتمتع الكتلة التكتلية بسلوك "الغني يزداد ثراءً" مما يؤدي إلى أحجام مجموعات غير متساوية.
+في هذا الصدد، يعد الارتباط الفردي هو أسوأ استراتيجية، ويمنح Ward الأحجام الأكثر انتظامًا.
+ومع ذلك، لا يمكن تغيير التقارب (أو المسافة المستخدمة في التجميع) مع Ward، وبالتالي بالنسبة للمقاييس غير الإقليدية، فإن الارتباط المتوسط هو بديل جيد.
+يمكن حساب الارتباط الفردي، على الرغم من أنه ليس قويًا للبيانات الصاخبة، بكفاءة عالية وبالتالي يمكن أن يكون مفيدًا لتوفير تجميع هرمي لمجموعات البيانات الأكبر.
+يمكن أن يؤدي الارتباط الفردي أيضًا أداءً جيدًا على البيانات غير الكروية.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_cluster_plot_digits_linkage.py`: exploration of the
-  different linkage strategies in a real dataset.
+* :ref:`sphx_glr_auto_examples_cluster/plot_digits_linkage.py`: استكشاف
+  استراتيجيات الارتباط المختلفة في مجموعة بيانات حقيقية.
 
-  * :ref:`sphx_glr_auto_examples_cluster_plot_linkage_comparison.py`: exploration of
-    the different linkage strategies in toy datasets.
+  * :ref:`sphx_glr_auto_examples_cluster/plot_linkage_comparison.py`: استكشاف استراتيجيات الارتباط المختلفة في مجموعات بيانات اللعبة.
 
 
-Visualization of cluster hierarchy
+تصور التسلسل الهرمي للكتلة
 ----------------------------------
 
-It's possible to visualize the tree representing the hierarchical merging of clusters
-as a dendrogram. Visual inspection can often be useful for understanding the structure
-of the data, though more so in the case of small sample sizes.
+من الممكن تصور الشجرة التي تمثل الدمج الهرمي للمجموعات كمخطط شجري.
+يمكن أن يكون الفحص البصري مفيدًا غالبًا لفهم بنية البيانات، على الرغم من أنه أكثر من ذلك في حالة أحجام العينات الصغيرة.
 
 .. image:: ../auto_examples/cluster/images/sphx_glr_plot_agglomerative_dendrogram_001.png
     :target: ../auto_examples/cluster/plot_agglomerative_dendrogram.html
     :scale: 42
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_cluster_plot_agglomerative_dendrogram.py`
+* :ref:`sphx_glr_auto_examples_cluster/plot_agglomerative_dendrogram.py`
 
 
-Adding connectivity constraints
+إضافة قيود الاتصال
 -------------------------------
 
-An interesting aspect of :class:`AgglomerativeClustering` is that
-connectivity constraints can be added to this algorithm (only adjacent
-clusters can be merged together), through a connectivity matrix that defines
-for each sample the neighboring samples following a given structure of the
-data. For instance, in the swiss-roll example below, the connectivity
-constraints forbid the merging of points that are not adjacent on the swiss
-roll, and thus avoid forming clusters that extend across overlapping folds of
-the roll.
+أحد الجوانب المثيرة للاهتمام لـ :class:`AgglomerativeClustering` هو أنه يمكن إضافة قيود الاتصال إلى هذه الخوارزمية (يمكن دمج المجموعات المجاورة فقط معًا)، من خلال مصفوفة اتصال تحدد لكل عينة العينات المجاورة التي تتبع بنية معينة للبيانات.
+على سبيل المثال، في مثال swiss-roll أدناه، تحظر قيود الاتصال دمج النقاط التي لا تجاور على swiss roll، وبالتالي تتجنب تشكيل مجموعات تمتد عبر طيات متداخلة للفة.
 
 .. |unstructured| image:: ../auto_examples/cluster/images/sphx_glr_plot_ward_structured_vs_unstructured_001.png
         :target: ../auto_examples/cluster/plot_ward_structured_vs_unstructured.html
@@ -712,33 +571,18 @@ the roll.
 
 .. centered:: |unstructured| |structured|
 
-These constraint are useful to impose a certain local structure, but they
-also make the algorithm faster, especially when the number of the samples
-is high.
+تكون هذه القيود مفيدة لفرض بنية محلية معينة، لكنها تجعل الخوارزمية أسرع أيضًا، خاصةً عندما يكون عدد العينات مرتفعًا.
 
-The connectivity constraints are imposed via an connectivity matrix: a
-scipy sparse matrix that has elements only at the intersection of a row
-and a column with indices of the dataset that should be connected. This
-matrix can be constructed from a-priori information: for instance, you
-may wish to cluster web pages by only merging pages with a link pointing
-from one to another. It can also be learned from the data, for instance
-using :func:`sklearn.neighbors.kneighbors_graph` to restrict
-merging to nearest neighbors as in :ref:`this example
-<sphx_glr_auto_examples_cluster_plot_agglomerative_clustering.py>`, or
-using :func:`sklearn.feature_extraction.image.grid_to_graph` to
-enable only merging of neighboring pixels on an image, as in the
-:ref:`coin <sphx_glr_auto_examples_cluster_plot_coin_ward_segmentation.py>` example.
+يتم فرض قيود الاتصال عبر مصفوفة الاتصال: مصفوفة scipy متفرقة تحتوي على عناصر فقط عند تقاطع صف وعمود مع مؤشرات مجموعة البيانات التي يجب توصيلها.
+يمكن إنشاء هذه المصفوفة من معلومات مسبقة: على سبيل المثال، قد ترغب في تجميع صفحات الويب عن طريق دمج الصفحات التي تحتوي على رابط يشير من واحدة إلى أخرى فقط.
+يمكن أيضًا تعلمه من البيانات، على سبيل المثال باستخدام :func:`sklearn.neighbors.kneighbors_graph` لتقييد الدمج لأقرب الجيران كما هو الحال في :ref:`هذا المثال <sphx_glr_auto_examples_cluster/plot_agglomerative_clustering.py>`، أو باستخدام :func:`sklearn.feature_extraction.image.grid_to_graph` لتمكين دمج وحدات البكسل المجاورة فقط على صورة، كما في :ref:`مثال العملة <sphx_glr_auto_examples_cluster/plot_coin_ward_segmentation.py>`.
 
-.. warning:: **Connectivity constraints with single, average and complete linkage**
+.. warning:: **قيود الاتصال مع الارتباط الفردي والمتوسط والكلي**
 
-    Connectivity constraints and single, complete or average linkage can enhance
-    the 'rich getting richer' aspect of agglomerative clustering,
-    particularly so if they are built with
-    :func:`sklearn.neighbors.kneighbors_graph`. In the limit of a small
-    number of clusters, they tend to give a few macroscopically occupied
-    clusters and almost empty ones. (see the discussion in
-    :ref:`sphx_glr_auto_examples_cluster_plot_agglomerative_clustering.py`).
-    Single linkage is the most brittle linkage option with regard to this issue.
+    يمكن أن تعزز قيود الاتصال والارتباط الفردي أو الكامل أو المتوسط جانب "الغني يزداد ثراءً" للتجميع التكتلي، لا سيما إذا تم بناؤها باستخدام :func:`sklearn.neighbors.kneighbors_graph`.
+    في حدود عدد صغير من المجموعات، تميل إلى إعطاء عدد قليل من المجموعات المشغولة بشكل مجهري وتلك الفارغة تقريبًا.
+    (انظر المناقشة في :ref:`sphx_glr_auto_examples_cluster/plot_agglomerative_clustering.py`).
+    الارتباط الفردي هو خيار الارتباط الأكثر هشاشة فيما يتعلق بهذه المشكلة.
 
 .. image:: ../auto_examples/cluster/images/sphx_glr_plot_agglomerative_clustering_001.png
     :target: ../auto_examples/cluster/plot_agglomerative_clustering.html
@@ -756,40 +600,27 @@ enable only merging of neighboring pixels on an image, as in the
     :target: ../auto_examples/cluster/plot_agglomerative_clustering.html
     :scale: 38
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_cluster_plot_coin_ward_segmentation.py`: Ward
-  clustering to split the image of coins in regions.
+* :ref:`sphx_glr_auto_examples_cluster/plot_coin_ward_segmentation.py`: تجميع Ward لتقسيم صورة العملات المعدنية في المناطق.
 
-* :ref:`sphx_glr_auto_examples_cluster_plot_ward_structured_vs_unstructured.py`: Example
-  of Ward algorithm on a swiss-roll, comparison of structured approaches
-  versus unstructured approaches.
+* :ref:`sphx_glr_auto_examples_cluster/plot_ward_structured_vs_unstructured.py`: مثال على خوارزمية Ward على swiss-roll، مقارنة بين الأساليب المنظمة مقابل الأساليب غير المنظمة.
 
-* :ref:`sphx_glr_auto_examples_cluster_plot_feature_agglomeration_vs_univariate_selection.py`: Example
-  of dimensionality reduction with feature agglomeration based on Ward
-  hierarchical clustering.
+* :ref:`sphx_glr_auto_examples_cluster/plot_feature_agglomeration_vs_univariate_selection.py`: مثال على تقليل الأبعاد مع تجميع الميزات بناءً على تجميع Ward الهرمي.
 
-* :ref:`sphx_glr_auto_examples_cluster_plot_agglomerative_clustering.py`
+* :ref:`sphx_glr_auto_examples_cluster/plot_agglomerative_clustering.py`
 
 
-Varying the metric
+تغيير المقياس
 -------------------
 
-Single, average and complete linkage can be used with a variety of distances (or
-affinities), in particular Euclidean distance (*l2*), Manhattan distance
-(or Cityblock, or *l1*), cosine distance, or any precomputed affinity
-matrix.
+يمكن استخدام الارتباط الفردي والمتوسط والكلي مع مجموعة متنوعة من المسافات (أو التقاربات)، لا سيما المسافة الإقليدية (*l2*)، ومسافة مانهاتن (أو Cityblock، أو *l1*)، ومسافة جيب التمام، أو أي مصفوفة تقارب محسوبة مسبقًا.
 
-* *l1* distance is often good for sparse features, or sparse noise: i.e.
-  many of the features are zero, as in text mining using occurrences of
-  rare words.
+* غالبًا ما تكون مسافة *l1* جيدة للميزات المتفرقة، أو الضوضاء المتفرقة: أي أن العديد من الميزات تساوي صفرًا، كما هو الحال في استخراج النص باستخدام تكرارات الكلمات النادرة.
 
-* *cosine* distance is interesting because it is invariant to global
-  scalings of the signal.
+* مسافة *جيب التمام* مثيرة للاهتمام لأنها ثابتة بالنسبة للتدرجات العالمية للإشارة.
 
-The guidelines for choosing a metric is to use one that maximizes the
-distance between samples in different classes, and minimizes that within
-each class.
+الإرشادات لاختيار مقياس هي استخدام مقياس يزيد المسافة بين العينات في فئات مختلفة، ويقلل ذلك داخل كل فئة.
 
 .. image:: ../auto_examples/cluster/images/sphx_glr_plot_agglomerative_clustering_metrics_005.png
     :target: ../auto_examples/cluster/plot_agglomerative_clustering_metrics.html
@@ -803,9 +634,9 @@ each class.
     :target: ../auto_examples/cluster/plot_agglomerative_clustering_metrics.html
     :scale: 32
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_cluster_plot_agglomerative_clustering_metrics.py`
+* :ref:`sphx_glr_auto_examples_cluster/plot_agglomerative_clustering_metrics.py`
 
 
 Bisecting K-Means
@@ -813,58 +644,36 @@ Bisecting K-Means
 
 .. _bisect_k_means:
 
-The :class:`BisectingKMeans` is an iterative variant of :class:`KMeans`, using
-divisive hierarchical clustering. Instead of creating all centroids at once, centroids
-are picked progressively based on a previous clustering: a cluster is split into two
-new clusters repeatedly until the target number of clusters is reached.
+:class:`BisectingKMeans` هو متغير تكراري لـ :class:`KMeans`، باستخدام التجميع الهرمي المقسم.
+بدلاً من إنشاء جميع المراكز في وقت واحد، يتم اختيار المراكز بشكل تدريجي بناءً على تجميع سابق: يتم تقسيم الكتلة إلى مجموعتين جديدتين بشكل متكرر حتى يتم الوصول إلى العدد المستهدف من المجموعات.
 
-:class:`BisectingKMeans` is more efficient than :class:`KMeans` when the number of
-clusters is large since it only works on a subset of the data at each bisection
-while :class:`KMeans` always works on the entire dataset.
+:class:`BisectingKMeans` أكثر كفاءة من :class:`KMeans` عندما يكون عدد المجموعات كبيرًا لأنه يعمل فقط على مجموعة فرعية من البيانات في كل قسم بينما يعمل :class:`KMeans` دائمًا على مجموعة البيانات بأكملها.
 
-Although :class:`BisectingKMeans` can't benefit from the advantages of the `"k-means++"`
-initialization by design, it will still produce comparable results than
-`KMeans(init="k-means++")` in terms of inertia at cheaper computational costs, and will
-likely produce better results than `KMeans` with a random initialization.
+على الرغم من أن :class:`BisectingKMeans` لا يمكنه الاستفادة من مزايا تهيئة `"k-means++"` عن طريق التصميم، إلا أنه سيظل ينتج نتائج قابلة للمقارنة مع `KMeans(init="k-means++")` من حيث القصور الذاتي بتكاليف حسابية أرخص، ومن المحتمل أن ينتج نتائج أفضل من `KMeans` مع التهيئة العشوائية.
 
-This variant is more efficient to agglomerative clustering if the number of clusters is
-small compared to the number of data points.
+هذا المتغير أكثر كفاءة للتجميع التكتلي إذا كان عدد المجموعات صغيرًا مقارنة بعدد نقاط البيانات.
 
-This variant also does not produce empty clusters.
+لا ينتج هذا المتغير أيضًا مجموعات فارغة.
 
-There exist two strategies for selecting the cluster to split:
- - ``bisecting_strategy="largest_cluster"`` selects the cluster having the most points
- - ``bisecting_strategy="biggest_inertia"`` selects the cluster with biggest inertia
-   (cluster with biggest Sum of Squared Errors within)
+توجد استراتيجيتان لاختيار الكتلة لتقسيمها:
+ - ``bisecting_strategy="largest_cluster"``  يختار الكتلة التي تحتوي على معظم النقاط
+ - ``bisecting_strategy="biggest_inertia"``  يختار الكتلة ذات أكبر قصور ذاتي
+   (الكتلة ذات أكبر مجموع أخطاء مربعة داخل)
 
-Picking by largest amount of data points in most cases produces result as
-accurate as picking by inertia and is faster (especially for larger amount of data
-points, where calculating error may be costly).
+ينتج عن الاختيار حسب أكبر قدر من نقاط البيانات في معظم الحالات نتيجة دقيقة مثل الاختيار حسب القصور الذاتي وهو أسرع (خاصة بالنسبة لكمية أكبر من نقاط البيانات، حيث قد يكون حساب الخطأ مكلفًا).
 
-Picking by largest amount of data points will also likely produce clusters of similar
-sizes while `KMeans` is known to produce clusters of different sizes.
+من المرجح أيضًا أن ينتج عن الاختيار حسب أكبر قدر من نقاط البيانات مجموعات ذات أحجام متشابهة بينما من المعروف أن `KMeans` ينتج مجموعات ذات أحجام مختلفة.
 
-Difference between Bisecting K-Means and regular K-Means can be seen on example
-:ref:`sphx_glr_auto_examples_cluster_plot_bisect_kmeans.py`.
-While the regular K-Means algorithm tends to create non-related clusters,
-clusters from Bisecting K-Means are well ordered and create quite a visible hierarchy.
+يمكن رؤية الفرق بين Bisecting K-Means و K-Means العادي في المثال
+:ref:`sphx_glr_auto_examples_cluster/plot_bisect_kmeans.py`.
+بينما تميل خوارزمية K-Means العادية إلى إنشاء مجموعات غير ذات صلة،
+يتم ترتيب المجموعات من Bisecting K-Means بشكل جيد وإنشاء تسلسل هرمي مرئي تمامًا.
 
-.. dropdown:: References
+.. dropdown:: المراجع
 
-  * `"A Comparison of Document Clustering Techniques"
-    <http://www.philippe-fournier-viger.com/spmf/bisectingkmeans.pdf>`_ Michael
-    Steinbach, George Karypis and Vipin Kumar, Department of Computer Science and
-    Egineering, University of Minnesota (June 2000)
-  * `"Performance Analysis of K-Means and Bisecting K-Means Algorithms in Weblog
-    Data"
-    <https://ijeter.everscience.org/Manuscripts/Volume-4/Issue-8/Vol-4-issue-8-M-23.pdf>`_
-    K.Abirami and Dr.P.Mayilvahanan, International Journal of Emerging
-    Technologies in Engineering Research (IJETER) Volume 4, Issue 8, (August 2016)
-  * `"Bisecting K-means Algorithm Based on K-valued Self-determining and
-    Clustering Center Optimization"
-    <http://www.jcomputers.us/vol13/jcp1306-01.pdf>`_ Jian Di, Xinyue Gou School
-    of Control and Computer Engineering,North China Electric Power University,
-    Baoding, Hebei, China (August 2017)
+  * `"A Comparison of Document Clustering Techniques" <http://www.philippe-fournier-viger.com/spmf/bisectingkmeans.pdf>`_ Michael Steinbach، George Karypis and Vipin Kumar، Department of Computer Science and Egineering، University of Minnesota (June 2000)
+  * `"Performance Analysis of K-Means and Bisecting K-Means Algorithms in Weblog Data" <https://ijeter.everscience.org/Manuscripts/Volume-4/Issue-8/Vol-4-issue-8-M-23.pdf>`_ K.Abirami and Dr.P.Mayilvahanan، International Journal of Emerging Technologies in Engineering Research (IJETER) Volume 4، Issue 8، (August 2016)
+  * `"Bisecting K-means Algorithm Based on K-valued Self-determining and Clustering Center Optimization" <http://www.jcomputers.us/vol13/jcp1306-01.pdf>`_ Jian Di، Xinyue Gou School of Control and Computer Engineering، North China Electric Power University، Baoding، Hebei، China (August 2017)
 
 
 .. _dbscan:
@@ -872,51 +681,30 @@ clusters from Bisecting K-Means are well ordered and create quite a visible hier
 DBSCAN
 ======
 
-The :class:`DBSCAN` algorithm views clusters as areas of high density
-separated by areas of low density. Due to this rather generic view, clusters
-found by DBSCAN can be any shape, as opposed to k-means which assumes that
-clusters are convex shaped. The central component to the DBSCAN is the concept
-of *core samples*, which are samples that are in areas of high density. A
-cluster is therefore a set of core samples, each close to each other
-(measured by some distance measure)
-and a set of non-core samples that are close to a core sample (but are not
-themselves core samples). There are two parameters to the algorithm,
-``min_samples`` and ``eps``,
-which define formally what we mean when we say *dense*.
-Higher ``min_samples`` or lower ``eps``
-indicate higher density necessary to form a cluster.
+ترى خوارزمية :class:`DBSCAN` المجموعات على أنها مناطق ذات كثافة عالية مفصولة بمناطق ذات كثافة منخفضة.
+نظرًا لهذه الرؤية العامة إلى حد ما، يمكن أن تكون المجموعات التي تم العثور عليها بواسطة DBSCAN بأي شكل، على عكس k-means التي تفترض أن المجموعات محدبة الشكل.
+المكون المركزي لـ DBSCAN هو مفهوم *العينات الأساسية*، وهي عينات موجودة في مناطق ذات كثافة عالية.
+لذلك، فإن الكتلة عبارة عن مجموعة من العينات الأساسية، كل منها قريب من بعضها البعض (يقاس ببعض مقياس المسافة) ومجموعة من العينات غير الأساسية القريبة من عينة أساسية (لكنها ليست عينات أساسية).
+هناك معلمتان للخوارزمية، ``min_samples`` و ``eps``، اللتان تحددان رسميًا ما نعنيه عندما نقول *كثيف*.
+يشير ``min_samples`` الأعلى أو ``eps`` الأقل إلى كثافة أعلى ضرورية لتشكيل مجموعة.
 
-More formally, we define a core sample as being a sample in the dataset such
-that there exist ``min_samples`` other samples within a distance of
-``eps``, which are defined as *neighbors* of the core sample. This tells
-us that the core sample is in a dense area of the vector space. A cluster
-is a set of core samples that can be built by recursively taking a core
-sample, finding all of its neighbors that are core samples, finding all of
-*their* neighbors that are core samples, and so on. A cluster also has a
-set of non-core samples, which are samples that are neighbors of a core sample
-in the cluster but are not themselves core samples. Intuitively, these samples
-are on the fringes of a cluster.
+بشكل أكثر رسمية، نحدد عينة أساسية على أنها عينة في مجموعة البيانات بحيث توجد ``min_samples`` عينات أخرى على مسافة ``eps``، والتي تُعرّف على أنها *جيران* للعينة الأساسية.
+يخبرنا هذا أن العينة الأساسية موجودة في منطقة كثيفة من فضاء المتجه.
+الكتلة هي مجموعة من العينات الأساسية التي يمكن بناؤها عن طريق أخذ عينة أساسية بشكل متكرر، والعثور على جميع جيرانها من العينات الأساسية، والعثور على جميع جيرانها *من* العينات الأساسية، وهكذا.
+تحتوي الكتلة أيضًا على مجموعة من العينات غير الأساسية، وهي عينات مجاورة لعينة أساسية في الكتلة ولكنها ليست عينات أساسية.
+بشكل حدسي، توجد هذه العينات على أطراف الكتلة.
 
-Any core sample is part of a cluster, by definition. Any sample that is not a
-core sample, and is at least ``eps`` in distance from any core sample, is
-considered an outlier by the algorithm.
+أي عينة أساسية هي جزء من مجموعة، بحكم التعريف.
+أي عينة ليست عينة أساسية، وتكون على مسافة ``eps`` على الأقل من أي عينة أساسية، تعتبر قيمة متطرفة بواسطة الخوارزمية.
 
-While the parameter ``min_samples`` primarily controls how tolerant the
-algorithm is towards noise (on noisy and large data sets it may be desirable
-to increase this parameter), the parameter ``eps`` is *crucial to choose
-appropriately* for the data set and distance function and usually cannot be
-left at the default value. It controls the local neighborhood of the points.
-When chosen too small, most data will not be clustered at all (and labeled
-as ``-1`` for "noise"). When chosen too large, it causes close clusters to
-be merged into one cluster, and eventually the entire data set to be returned
-as a single cluster. Some heuristics for choosing this parameter have been
-discussed in the literature, for example based on a knee in the nearest neighbor
-distances plot (as discussed in the references below).
+بينما تتحكم معلمة ``min_samples`` بشكل أساسي في مدى تسامح الخوارزمية تجاه الضوضاء (في مجموعات البيانات الصاخبة والكبيرة، قد يكون من المستحسن زيادة هذه المعلمة)، فإن معلمة ``eps`` *ضرورية للاختيار بشكل مناسب* لمجموعة البيانات ودالة المسافة وعادةً لا يمكن تركها عند القيمة الافتراضية. يتحكم في الحي المحلي للنقاط.
+عند اختيارها صغيرة جدًا، لن يتم تجميع معظم البيانات على الإطلاق (وتم تصنيفها على أنها ``-1`` لـ "الضوضاء").
+عند اختيارها كبيرة جدًا، فإنها تتسبب في دمج المجموعات القريبة في مجموعة واحدة، وفي النهاية يتم إرجاع مجموعة البيانات بأكملها كمجموعة واحدة.
+تمت مناقشة بعض الاستدلالات لاختيار هذه المعلمة في الأدبيات، على سبيل المثال بناءً على ركبة في مخطط مسافات أقرب جار (كما هو موضح في المراجع أدناه).
 
-In the figure below, the color indicates cluster membership, with large circles
-indicating core samples found by the algorithm. Smaller circles are non-core
-samples that are still part of a cluster. Moreover, the outliers are indicated
-by black points below.
+في الشكل أدناه، يشير اللون إلى عضوية الكتلة، مع الإشارة إلى الدوائر الكبيرة للعينات الأساسية التي تم العثور عليها بواسطة الخوارزمية.
+الدوائر الأصغر هي عينات غير أساسية لا تزال جزءًا من مجموعة.
+علاوة على ذلك، يشار إلى القيم المتطرفة بالنقاط السوداء أدناه.
 
 .. |dbscan_results| image:: ../auto_examples/cluster/images/sphx_glr_plot_dbscan_002.png
     :target: ../auto_examples/cluster/plot_dbscan.html
@@ -924,62 +712,47 @@ by black points below.
 
 .. centered:: |dbscan_results|
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_cluster_plot_dbscan.py`
+* :ref:`sphx_glr_auto_examples_cluster/plot_dbscan.py`
 
-.. dropdown:: Implementation
+.. dropdown:: التنفيذ
 
-  The DBSCAN algorithm is deterministic, always generating the same clusters when
-  given the same data in the same order.  However, the results can differ when
-  data is provided in a different order. First, even though the core samples will
-  always be assigned to the same clusters, the labels of those clusters will
-  depend on the order in which those samples are encountered in the data. Second
-  and more importantly, the clusters to which non-core samples are assigned can
-  differ depending on the data order.  This would happen when a non-core sample
-  has a distance lower than ``eps`` to two core samples in different clusters. By
-  the triangular inequality, those two core samples must be more distant than
-  ``eps`` from each other, or they would be in the same cluster. The non-core
-  sample is assigned to whichever cluster is generated first in a pass through the
-  data, and so the results will depend on the data ordering.
+  خوارزمية DBSCAN حتمية، وتولد دائمًا نفس المجموعات عند إعطاء نفس البيانات بنفس الترتيب.
+  ومع ذلك، يمكن أن تختلف النتائج عند توفير البيانات بترتيب مختلف.
+  أولاً، على الرغم من أنه سيتم دائمًا تعيين العينات الأساسية لنفس المجموعات، إلا أن تسميات تلك المجموعات ستعتمد على الترتيب الذي تصادف فيه تلك العينات في البيانات.
+  ثانيًا والأهم من ذلك، أن المجموعات التي يتم تعيين العينات غير الأساسية إليها يمكن أن تختلف اعتمادًا على ترتيب البيانات.
+  سيحدث هذا عندما يكون لعينة غير أساسية مسافة أقل من ``eps`` إلى عينتين أساسيتين في مجموعات مختلفة.
+  من خلال عدم المساواة المثلثية، يجب أن تكون هاتان العينتان الأساسيتان بعيدتان عن بعضهما البعض أكثر من ``eps``، وإلا فستكونان في نفس المجموعة.
+  يتم تعيين العينة غير الأساسية إلى أي مجموعة يتم إنشاؤها أولاً في تمريرة عبر البيانات، وبالتالي ستعتمد النتائج على ترتيب البيانات.
 
-  The current implementation uses ball trees and kd-trees to determine the
-  neighborhood of points, which avoids calculating the full distance matrix (as
-  was done in scikit-learn versions before 0.14). The possibility to use custom
-  metrics is retained; for details, see :class:`NearestNeighbors`.
+  يستخدم التنفيذ الحالي أشجار الكرة وأشجار kd لتحديد جوار النقاط، مما يتجنب حساب مصفوفة المسافة الكاملة (كما تم في إصدارات scikit-learn قبل 0.14).
+  يتم الاحتفاظ بإمكانية استخدام المقاييس المخصصة؛ للحصول على التفاصيل، انظر :class:`NearestNeighbors`.
 
-.. dropdown:: Memory consumption for large sample sizes
+.. dropdown:: استهلاك الذاكرة لأحجام العينات الكبيرة
 
-  This implementation is by default not memory efficient because it constructs a
-  full pairwise similarity matrix in the case where kd-trees or ball-trees cannot
-  be used (e.g., with sparse matrices). This matrix will consume :math:`n^2`
-  floats. A couple of mechanisms for getting around this are:
+  هذا التنفيذ ليس فعالاً من حيث الذاكرة افتراضيًا لأنه يبني مصفوفة تشابه زوجية كاملة في حالة عدم إمكانية استخدام أشجار kd أو أشجار الكرة (على سبيل المثال، مع المصفوفات المتفرقة).
+  ستستهلك هذه المصفوفة :math:`n^2` عوامات. فيما يلي بعض الآليات للتغلب على هذا:
 
-  - Use :ref:`OPTICS <optics>` clustering in conjunction with the `extract_dbscan`
-    method. OPTICS clustering also calculates the full pairwise matrix, but only
-    keeps one row in memory at a time (memory complexity n).
+  - استخدم تجميع :ref:`OPTICS <optics>` بالاقتران مع طريقة `extract_dbscan`.
+    يحسب تجميع OPTICS أيضًا المصفوفة الزوجية الكاملة، لكنه يحتفظ بصف واحد فقط في الذاكرة في كل مرة (تعقيد الذاكرة n).
 
-  - A sparse radius neighborhood graph (where missing entries are presumed to be
-    out of eps) can be precomputed in a memory-efficient way and dbscan can be run
-    over this with ``metric='precomputed'``.  See
-    :meth:`sklearn.neighbors.NearestNeighbors.radius_neighbors_graph`.
+  - يمكن حساب رسم بياني متفرق لجوار نصف القطر (حيث يُفترض أن تكون الإدخالات المفقودة خارج eps) مسبقًا بطريقة فعالة من حيث الذاكرة ويمكن تشغيل dbscan على هذا باستخدام ``metric='precomputed'``.
+    انظر :meth:`sklearn.neighbors.NearestNeighbors.radius_neighbors_graph`.
 
-  - The dataset can be compressed, either by removing exact duplicates if these
-    occur in your data, or by using BIRCH. Then you only have a relatively small
-    number of representatives for a large number of points. You can then provide a
-    ``sample_weight`` when fitting DBSCAN.
+  - يمكن ضغط مجموعة البيانات، إما عن طريق إزالة التكرارات الدقيقة إذا حدثت هذه في بياناتك، أو باستخدام BIRCH.
+    عندها يكون لديك فقط عدد صغير نسبيًا من الممثلين لعدد كبير من النقاط.
+    يمكنك بعد ذلك توفير ``sample_weight`` عند ملاءمة DBSCAN.
 
-.. dropdown:: References
+.. dropdown:: المراجع
 
-* `A Density-Based Algorithm for Discovering Clusters in Large Spatial
-  Databases with Noise <https://www.aaai.org/Papers/KDD/1996/KDD96-037.pdf>`_
-  Ester, M., H. P. Kriegel, J. Sander, and X. Xu, In Proceedings of the 2nd
-  International Conference on Knowledge Discovery and Data Mining, Portland, OR,
-  AAAI Press, pp. 226-231. 1996
+* `A Density-Based Algorithm for Discovering Clusters in Large Spatial Databases with Noise <https://www.aaai.org/Papers/KDD/1996/KDD96-037.pdf>`_
+  Ester، M.، H. P. Kriegel، J. Sander، و X. Xu، في وقائع المؤتمر الدولي الثاني حول اكتشاف المعرفة واستخراج البيانات، بورتلاند، أو آر،
+  AAAI Press، ص 226-231. 1996
 
 * :doi:`DBSCAN revisited, revisited: why and how you should (still) use DBSCAN.
-  <10.1145/3068335>` Schubert, E., Sander, J., Ester, M., Kriegel, H. P., & Xu,
-  X. (2017). In ACM Transactions on Database Systems (TODS), 42(3), 19.
+  <10.1145/3068335>` Schubert، E.، Sander، J.، Ester، M.، Kriegel، H. P.، & Xu،
+  X. (2017). في معاملات ACM على أنظمة قواعد البيانات (TODS)، 42 (3)، 19.
 
 
 .. _hdbscan:
@@ -987,80 +760,58 @@ by black points below.
 HDBSCAN
 =======
 
-The :class:`HDBSCAN` algorithm can be seen as an extension of :class:`DBSCAN`
-and :class:`OPTICS`. Specifically, :class:`DBSCAN` assumes that the clustering
-criterion (i.e. density requirement) is *globally homogeneous*.
-In other words, :class:`DBSCAN` may struggle to successfully capture clusters
-with different densities.
-:class:`HDBSCAN` alleviates this assumption and explores all possible density
-scales by building an alternative representation of the clustering problem.
+يمكن اعتبار خوارزمية :class:`HDBSCAN` امتدادًا لـ :class:`DBSCAN` و :class:`OPTICS`.
+على وجه التحديد، يفترض :class:`DBSCAN` أن معيار التجميع (أي متطلبات الكثافة) *متجانس عالميًا*.
+بمعنى آخر، قد يكافح :class:`DBSCAN` لالتقاط المجموعات بكثافات مختلفة بنجاح.
+يخفف :class:`HDBSCAN` من هذا الافتراض ويستكشف جميع مقاييس الكثافة الممكنة من خلال بناء تمثيل بديل لمشكلة التجميع.
 
 .. note::
 
-  This implementation is adapted from the original implementation of HDBSCAN,
-  `scikit-learn-contrib/hdbscan <https://github.com/scikit-learn-contrib/hdbscan>`_ based on [LJ2017]_.
+  تم تكييف هذا التنفيذ من التنفيذ الأصلي لـ HDBSCAN، `scikit-learn-contrib/hdbscan <https://github.com/scikit-learn-contrib/hdbscan>`_ بناءً على [LJ2017]_.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_cluster_plot_hdbscan.py`
+* :ref:`sphx_glr_auto_examples_cluster/plot_hdbscan.py`
 
-Mutual Reachability Graph
+رسم بياني للوصول المتبادل
 -------------------------
 
-HDBSCAN first defines :math:`d_c(x_p)`, the *core distance* of a sample :math:`x_p`, as the
-distance to its `min_samples` th-nearest neighbor, counting itself. For example,
-if `min_samples=5` and :math:`x_*` is the 5th-nearest neighbor of :math:`x_p`
-then the core distance is:
+يحدد HDBSCAN أولاً :math:`d_c(x_p)`، *مسافة النواة* للعينة :math:`x_p`، على أنها المسافة إلى أقرب جار لها `min_samples`، مع حساب نفسها.
+على سبيل المثال، إذا كان `min_samples=5` و :math:`x_*` هو أقرب جار 5 لـ :math:`x_p`، فإن مسافة النواة هي:
 
 .. math:: d_c(x_p)=d(x_p, x_*).
 
-Next it defines :math:`d_m(x_p, x_q)`, the *mutual reachability distance* of two points
-:math:`x_p, x_q`, as:
+بعد ذلك يحدد :math:`d_m(x_p, x_q)`، *مسافة الوصول المتبادل* لنقطتين :math:`x_p, x_q`، على النحو التالي:
 
 .. math:: d_m(x_p, x_q) = \max\{d_c(x_p), d_c(x_q), d(x_p, x_q)\}
 
-These two notions allow us to construct the *mutual reachability graph*
-:math:`G_{ms}` defined for a fixed choice of `min_samples` by associating each
-sample :math:`x_p` with a vertex of the graph, and thus edges between points
-:math:`x_p, x_q` are the mutual reachability distance :math:`d_m(x_p, x_q)`
-between them. We may build subsets of this graph, denoted as
-:math:`G_{ms,\varepsilon}`, by removing any edges with value greater than :math:`\varepsilon`:
-from the original graph. Any points whose core distance is less than :math:`\varepsilon`:
-are at this staged marked as noise. The remaining points are then clustered by
-finding the connected components of this trimmed graph.
+تسمح لنا هاتان الفكرتان ببناء *رسم بياني للوصول المتبادل* :math:`G_{ms}` محدد لاختيار ثابت لـ `min_samples` من خلال ربط كل عينة :math:`x_p` برأس الرسم البياني، وبالتالي فإن الحواف بين النقاط :math:`x_p, x_q` هي مسافة الوصول المتبادل :math:`d_m(x_p, x_q)` بينهما.
+قد نبني مجموعات فرعية من هذا الرسم البياني، يُشار إليها باسم :math:`G_{ms,\varepsilon}`، عن طريق إزالة أي حواف ذات قيمة أكبر من :math:`\varepsilon`: من الرسم البياني الأصلي.
+أي نقاط تكون مسافة نواتها أقل من :math:`\varepsilon`: يتم تمييزها في هذه المرحلة على أنها ضوضاء.
+ثم يتم تجميع النقاط المتبقية عن طريق إيجاد المكونات المتصلة لهذا الرسم البياني المقتطع.
 
 .. note::
 
-  Taking the connected components of a trimmed graph :math:`G_{ms,\varepsilon}` is
-  equivalent to running DBSCAN* with `min_samples` and :math:`\varepsilon`. DBSCAN* is a
-  slightly modified version of DBSCAN mentioned in [CM2013]_.
+  إن أخذ المكونات المتصلة للرسم البياني المقتطع :math:`G_{ms,\varepsilon}` يعادل تشغيل DBSCAN* مع `min_samples` و :math:`\varepsilon`.
+  DBSCAN* هو إصدار معدل قليلاً من DBSCAN مذكور في [CM2013]_.
 
-Hierarchical Clustering
+التجميع الهرمي
 -----------------------
-HDBSCAN can be seen as an algorithm which performs DBSCAN* clustering across all
-values of :math:`\varepsilon`. As mentioned prior, this is equivalent to finding the connected
-components of the mutual reachability graphs for all values of :math:`\varepsilon`. To do this
-efficiently, HDBSCAN first extracts a minimum spanning tree (MST) from the fully
--connected mutual reachability graph, then greedily cuts the edges with highest
-weight. An outline of the HDBSCAN algorithm is as follows:
+يمكن اعتبار HDBSCAN خوارزمية تقوم بتجميع DBSCAN* عبر جميع قيم :math:`\varepsilon`.
+كما ذكرنا سابقًا، هذا يعادل إيجاد المكونات المتصلة لرسوم بيانية للوصول المتبادل لجميع قيم :math:`\varepsilon`.
+للقيام بذلك بكفاءة، يستخرج HDBSCAN أولاً شجرة تمتد بحد أدنى (MST) من رسم بياني للوصول المتبادل متصل بالكامل، ثم يقطع بشكل جشع الحواف ذات الوزن الأعلى.
+يرد أدناه مخطط لخوارزمية HDBSCAN:
 
-1. Extract the MST of :math:`G_{ms}`.
-2. Extend the MST by adding a "self edge" for each vertex, with weight equal
-   to the core distance of the underlying sample.
-3. Initialize a single cluster and label for the MST.
-4. Remove the edge with the greatest weight from the MST (ties are
-   removed simultaneously).
-5. Assign cluster labels to the connected components which contain the
-   end points of the now-removed edge. If the component does not have at least
-   one edge it is instead assigned a "null" label marking it as noise.
-6. Repeat 4-5 until there are no more connected components.
+1. استخرج MST من :math:`G_{ms}`.
+2. قم بتمديد MST عن طريق إضافة "حافة ذاتية" لكل رأس، مع وزن يساوي مسافة النواة للعينة الأساسية.
+3. قم بتهيئة مجموعة واحدة وتسمية لـ MST.
+4. قم بإزالة الحافة ذات الوزن الأكبر من MST (يتم إزالة الروابط في وقت واحد).
+5. قم بتعيين تسميات الكتلة للمكونات المتصلة التي تحتوي على نقاط نهاية الحافة التي تمت إزالتها الآن. إذا لم يكن للمكون حافة واحدة على الأقل، فسيتم تعيين تسمية "فارغة" له بدلاً من ذلك، مما يميزه على أنه ضوضاء.
+6. كرر 4-5 حتى لا توجد مكونات متصلة.
 
-HDBSCAN is therefore able to obtain all possible partitions achievable by
-DBSCAN* for a fixed choice of `min_samples` in a hierarchical fashion.
-Indeed, this allows HDBSCAN to perform clustering across multiple densities
-and as such it no longer needs :math:`\varepsilon` to be given as a hyperparameter. Instead
-it relies solely on the choice of `min_samples`, which tends to be a more robust
-hyperparameter.
+لذلك، فإن HDBSCAN قادر على الحصول على جميع الأقسام الممكنة التي يمكن تحقيقها بواسطة DBSCAN* لاختيار ثابت لـ `min_samples` بطريقة هرمية.
+في الواقع، يسمح هذا لـ HDBSCAN بإجراء التجميع عبر كثافات متعددة، وعلى هذا النحو لم يعد بحاجة إلى إعطاء :math:`\varepsilon` كمعامل فائق.
+بدلاً من ذلك، يعتمد فقط على اختيار `min_samples`، والذي يميل إلى أن يكون معاملًا فائقًا أكثر قوة.
 
 .. |hdbscan_ground_truth| image:: ../auto_examples/cluster/images/sphx_glr_plot_hdbscan_005.png
     :target: ../auto_examples/cluster/plot_hdbscan.html
@@ -1072,24 +823,21 @@ hyperparameter.
 .. centered:: |hdbscan_ground_truth|
 .. centered:: |hdbscan_results|
 
-HDBSCAN can be smoothed with an additional hyperparameter `min_cluster_size`
-which specifies that during the hierarchical clustering, components with fewer
-than `minimum_cluster_size` many samples are considered noise. In practice, one
-can set `minimum_cluster_size = min_samples` to couple the parameters and
-simplify the hyperparameter space.
+يمكن تنعيم HDBSCAN باستخدام معامل فائق إضافي `min_cluster_size` الذي يحدد أنه أثناء التجميع الهرمي، تعتبر المكونات التي تحتوي على أقل من `minimum_cluster_size` العديد من العينات ضوضاء.
+من الناحية العملية، يمكن للمرء تعيين `minimum_cluster_size = min_samples` لربط المعلمات وتبسيط مساحة المعاملات الفائقة.
 
-.. rubric:: References
+.. rubric:: المراجع
 
-.. [CM2013] Campello, R.J.G.B., Moulavi, D., Sander, J. (2013). Density-Based
-  Clustering Based on Hierarchical Density Estimates. In: Pei, J., Tseng, V.S.,
-  Cao, L., Motoda, H., Xu, G. (eds) Advances in Knowledge Discovery and Data
-  Mining. PAKDD 2013. Lecture Notes in Computer Science(), vol 7819. Springer,
-  Berlin, Heidelberg. :doi:`Density-Based Clustering Based on Hierarchical
+.. [CM2013] Campello، R.J.G.B.، Moulavi، D.، Sander، J. (2013). Density-Based
+  Clustering Based on Hierarchical Density Estimates. In: Pei، J.، Tseng، V.S.،
+  Cao، L.، Motoda، H.، Xu، G. (eds) Advances in Knowledge Discovery and Data
+  Mining. PAKDD 2013. Lecture Notes in Computer Science()، vol 7819. Springer،
+  Berlin، Heidelberg. :doi:`Density-Based Clustering Based on Hierarchical
   Density Estimates <10.1007/978-3-642-37456-2_14>`
 
-.. [LJ2017] L. McInnes and J. Healy, (2017). Accelerated Hierarchical Density
+.. [LJ2017] L. McInnes and J. Healy، (2017). Accelerated Hierarchical Density
   Based Clustering. In: IEEE International Conference on Data Mining Workshops
-  (ICDMW), 2017, pp. 33-42. :doi:`Accelerated Hierarchical Density Based
+  (ICDMW)، 2017، pp. 33-42. :doi:`Accelerated Hierarchical Density Based
   Clustering <10.1109/ICDMW.2017.12>`
 
 .. _optics:
@@ -1097,19 +845,10 @@ simplify the hyperparameter space.
 OPTICS
 ======
 
-The :class:`OPTICS` algorithm shares many similarities with the :class:`DBSCAN`
-algorithm, and can be considered a generalization of DBSCAN that relaxes the
-``eps`` requirement from a single value to a value range. The key difference
-between DBSCAN and OPTICS is that the OPTICS algorithm builds a *reachability*
-graph, which assigns each sample both a ``reachability_`` distance, and a spot
-within the cluster ``ordering_`` attribute; these two attributes are assigned
-when the model is fitted, and are used to determine cluster membership. If
-OPTICS is run with the default value of *inf* set for ``max_eps``, then DBSCAN
-style cluster extraction can be performed repeatedly in linear time for any
-given ``eps`` value using the ``cluster_optics_dbscan`` method. Setting
-``max_eps`` to a lower value will result in shorter run times, and can be
-thought of as the maximum neighborhood radius from each point to find other
-potential reachable points.
+تشترك خوارزمية :class:`OPTICS` في العديد من أوجه التشابه مع خوارزمية :class:`DBSCAN`، ويمكن اعتبارها تعميمًا لـ DBSCAN التي تخفف متطلبات ``eps`` من قيمة واحدة إلى نطاق قيمة.
+الفرق الرئيسي بين DBSCAN و OPTICS هو أن خوارزمية OPTICS تبني رسمًا بيانيًا *للوصول*، والذي يعين لكل عينة مسافة ``reachability_``، ونقطة داخل سمة ``ordering_`` للكتلة؛ يتم تعيين هاتين السمتين عند ملاءمة النموذج، ويتم استخدامهما لتحديد عضوية الكتلة.
+إذا تم تشغيل OPTICS بالقيمة الافتراضية *inf* المحددة لـ ``max_eps``، فيمكن إجراء استخراج الكتلة على غرار DBSCAN بشكل متكرر في وقت خطي لأي قيمة ``eps`` معينة باستخدام طريقة ``cluster_optics_dbscan``.
+سيؤدي تعيين ``max_eps`` إلى قيمة أقل إلى أوقات تشغيل أقصر، ويمكن اعتباره كحد أقصى لنصف قطر الحي من كل نقطة للعثور على نقاط أخرى يمكن الوصول إليها.
 
 .. |optics_results| image:: ../auto_examples/cluster/images/sphx_glr_plot_optics_001.png
         :target: ../auto_examples/cluster/plot_optics.html
@@ -1117,66 +856,43 @@ potential reachable points.
 
 .. centered:: |optics_results|
 
-The *reachability* distances generated by OPTICS allow for variable density
-extraction of clusters within a single data set. As shown in the above plot,
-combining *reachability* distances and data set ``ordering_`` produces a
-*reachability plot*, where point density is represented on the Y-axis, and
-points are ordered such that nearby points are adjacent. 'Cutting' the
-reachability plot at a single value produces DBSCAN like results; all points
-above the 'cut' are classified as noise, and each time that there is a break
-when reading from left to right signifies a new cluster. The default cluster
-extraction with OPTICS looks at the steep slopes within the graph to find
-clusters, and the user can define what counts as a steep slope using the
-parameter ``xi``. There are also other possibilities for analysis on the graph
-itself, such as generating hierarchical representations of the data through
-reachability-plot dendrograms, and the hierarchy of clusters detected by the
-algorithm can be accessed through the ``cluster_hierarchy_`` parameter. The
-plot above has been color-coded so that cluster colors in planar space match
-the linear segment clusters of the reachability plot. Note that the blue and
-red clusters are adjacent in the reachability plot, and can be hierarchically
-represented as children of a larger parent cluster.
+تسمح مسافات *الوصول* التي تم إنشاؤها بواسطة OPTICS باستخراج كثافة متغيرة للمجموعات داخل مجموعة بيانات واحدة.
+كما هو موضح في الرسم البياني أعلاه، فإن الجمع بين مسافات *الوصول* و ``ordering_`` لمجموعة البيانات ينتج عنه *مخطط وصول*، حيث يتم تمثيل كثافة النقطة على المحور ص، ويتم ترتيب النقاط بحيث تكون النقاط القريبة متجاورة.
+ينتج عن "قطع" مخطط الوصول عند قيمة واحدة نتائج تشبه DBSCAN؛ يتم تصنيف جميع النقاط فوق "القطع" على أنها ضوضاء، وفي كل مرة يكون هناك فاصل عند القراءة من اليسار إلى اليمين يدل على مجموعة جديدة.
+ينظر استخراج الكتلة الافتراضي مع OPTICS إلى المنحدرات الحادة داخل الرسم البياني للعثور على مجموعات، ويمكن للمستخدم تحديد ما يعتبر منحدرًا حادًا باستخدام المعلمة ``xi``.
+هناك أيضًا إمكانيات أخرى للتحليل على الرسم البياني نفسه، مثل إنشاء تمثيلات هرمية للبيانات من خلال مخططات شجرية لمخطط الوصول، ويمكن الوصول إلى التسلسل الهرمي للمجموعات التي تم اكتشافها بواسطة الخوارزمية من خلال معلمة ``cluster_hierarchy_``.
+تم ترميز الرسم البياني أعلاه بالألوان بحيث تتطابق ألوان الكتلة في الفضاء المستوي مع مجموعات القطعة الخطية لمخطط الوصول.
+لاحظ أن المجموعات الزرقاء والحمراء متجاورة في مخطط الوصول، ويمكن تمثيلها بشكل هرمي كأطفال لمجموعة أصل أكبر.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_cluster_plot_optics.py`
+* :ref:`sphx_glr_auto_examples_cluster/plot_optics.py`
 
 
-.. dropdown:: Comparison with DBSCAN
+.. dropdown:: مقارنة مع DBSCAN
 
-  The results from OPTICS ``cluster_optics_dbscan`` method and DBSCAN are very
-  similar, but not always identical; specifically, labeling of periphery and noise
-  points. This is in part because the first samples of each dense area processed
-  by OPTICS have a large reachability value while being close to other points in
-  their area, and will thus sometimes be marked as noise rather than periphery.
-  This affects adjacent points when they are considered as candidates for being
-  marked as either periphery or noise.
+  تتشابه النتائج من طريقة OPTICS ``cluster_optics_dbscan`` و DBSCAN إلى حد كبير، ولكنها ليست متطابقة دائمًا؛ على وجه التحديد، تسمية نقاط المحيط والضوضاء.
+  ويرجع ذلك جزئيًا إلى أن العينات الأولى من كل منطقة كثيفة تتم معالجتها بواسطة OPTICS لها قيمة وصول كبيرة بينما تكون قريبة من نقاط أخرى في منطقتها، وبالتالي سيتم تمييزها أحيانًا على أنها ضوضاء بدلاً من المحيط.
+  يؤثر هذا على النقاط المجاورة عندما يتم اعتبارها مرشحة ليتم تمييزها إما على أنها محيطية أو ضوضاء.
 
-  Note that for any single value of ``eps``, DBSCAN will tend to have a shorter
-  run time than OPTICS; however, for repeated runs at varying ``eps`` values, a
-  single run of OPTICS may require less cumulative runtime than DBSCAN. It is also
-  important to note that OPTICS' output is close to DBSCAN's only if ``eps`` and
-  ``max_eps`` are close.
+  لاحظ أنه بالنسبة لأي قيمة مفردة لـ ``eps``، فإن DBSCAN يميل إلى أن يكون له وقت تشغيل أقصر من OPTICS؛ ومع ذلك، بالنسبة للتشغيلات المتكررة عند قيم ``eps`` المتغيرة، قد يتطلب تشغيل OPTICS واحد وقت تشغيل تراكمي أقل من DBSCAN.
+  من المهم أيضًا ملاحظة أن ناتجOPTICS قريب من DBSCAN فقط إذا كان ``eps`` و ``max_eps`` قريبين.
 
-.. dropdown:: Computational Complexity
+.. dropdown:: التعقيد الحسابي
 
-  Spatial indexing trees are used to avoid calculating the full distance matrix,
-  and allow for efficient memory usage on large sets of samples. Different
-  distance metrics can be supplied via the ``metric`` keyword.
+  يتم استخدام أشجار الفهرسة المكانية لتجنب حساب مصفوفة المسافة الكاملة، والسماح باستخدام الذاكرة بكفاءة على مجموعات كبيرة من العينات.
+  يمكن توفير مقاييس مسافة مختلفة عبر الكلمة الرئيسية ``metric``.
 
-  For large datasets, similar (but not identical) results can be obtained via
-  :class:`HDBSCAN`. The HDBSCAN implementation is multithreaded, and has better
-  algorithmic runtime complexity than OPTICS, at the cost of worse memory scaling.
-  For extremely large datasets that exhaust system memory using HDBSCAN, OPTICS
-  will maintain :math:`n` (as opposed to :math:`n^2`) memory scaling; however,
-  tuning of the ``max_eps`` parameter will likely need to be used to give a
-  solution in a reasonable amount of wall time.
+  بالنسبة لمجموعات البيانات الكبيرة، يمكن الحصول على نتائج مماثلة (ولكن ليست متطابقة) عبر :class:`HDBSCAN`.
+  يكون تنفيذ HDBSCAN متعدد الخيوط، وله تعقيد وقت تشغيل خوارزمي أفضل من OPTICS، على حساب تحجيم ذاكرة أسوأ.
+  بالنسبة لمجموعات البيانات الكبيرة للغاية التي تستنفد ذاكرة النظام باستخدام HDBSCAN، سيحافظ OPTICS على تحجيم الذاكرة :math:`n` (بدلاً من :math:`n^2`)؛ ومع ذلك، من المحتمل أن يكون ضبط معلمة ``max_eps`` ضروريًا لإعطاء حل في قدر معقول من وقت الجدار.
 
 
-.. dropdown:: References
+.. dropdown:: المراجع
 
-  * "OPTICS: ordering points to identify the clustering structure." Ankerst,
-    Mihael, Markus M. Breunig, Hans-Peter Kriegel, and Jörg Sander. In ACM Sigmod
-    Record, vol. 28, no. 2, pp. 49-60. ACM, 1999.
+  * "OPTICS: ترتيب النقاط لتحديد بنية التجميع." Ankerst،
+    Mihael، Markus M. Breunig، Hans-Peter Kriegel، و Jörg Sander. في سجل ACM Sigmod،
+    المجلد. 28، لا. 2، ص 49-60. ACM، 1999.
 
 
 .. _birch:
@@ -1184,118 +900,85 @@ represented as children of a larger parent cluster.
 BIRCH
 =====
 
-The :class:`Birch` builds a tree called the Clustering Feature Tree (CFT)
-for the given data. The data is essentially lossy compressed to a set of
-Clustering Feature nodes (CF Nodes). The CF Nodes have a number of
-subclusters called Clustering Feature subclusters (CF Subclusters)
-and these CF Subclusters located in the non-terminal CF Nodes
-can have CF Nodes as children.
+يبني :class:`Birch` شجرة تسمى شجرة ميزات التجميع (CFT) للبيانات المحددة.
+يتم ضغط البيانات بشكل أساسي مع فقدان إلى مجموعة من عقد ميزات التجميع (عقد CF).
+تحتوي عقد CF على عدد من المجموعات الفرعية تسمى المجموعات الفرعية لميزات التجميع (المجموعات الفرعية CF) ويمكن أن تحتوي هذه المجموعات الفرعية CF الموجودة في عقد CF غير الطرفية على عقد CF كأطفال.
 
-The CF Subclusters hold the necessary information for clustering which prevents
-the need to hold the entire input data in memory. This information includes:
+تحتوي المجموعات الفرعية CF على المعلومات الضرورية للتجميع مما يمنع الحاجة إلى الاحتفاظ ببيانات الإدخال بأكملها في الذاكرة.
+تشمل هذه المعلومات:
 
-- Number of samples in a subcluster.
-- Linear Sum - An n-dimensional vector holding the sum of all samples
-- Squared Sum - Sum of the squared L2 norm of all samples.
-- Centroids - To avoid recalculation linear sum / n_samples.
-- Squared norm of the centroids.
+- عدد العينات في مجموعة فرعية.
+- المجموع الخطي - متجه n-الأبعاد يحتوي على مجموع جميع العينات
+- المجموع التربيعي - مجموع القاعدة التربيعية L2 لجميع العينات.
+- النقاط المركزية - لتجنب إعادة حساب المجموع الخطي / n_samples.
+- القاعدة التربيعية للنقاط المركزية.
 
-The BIRCH algorithm has two parameters, the threshold and the branching factor.
-The branching factor limits the number of subclusters in a node and the
-threshold limits the distance between the entering sample and the existing
-subclusters.
+تحتوي خوارزمية BIRCH على معلمتين، العتبة وعامل التفرع.
+يحد عامل التفرع من عدد المجموعات الفرعية في عقدة وتحدد العتبة المسافة بين العينة الداخلة والمجموعات الفرعية الموجودة.
 
-This algorithm can be viewed as an instance or data reduction method,
-since it reduces the input data to a set of subclusters which are obtained directly
-from the leaves of the CFT. This reduced data can be further processed by feeding
-it into a global clusterer. This global clusterer can be set by ``n_clusters``.
-If ``n_clusters`` is set to None, the subclusters from the leaves are directly
-read off, otherwise a global clustering step labels these subclusters into global
-clusters (labels) and the samples are mapped to the global label of the nearest subcluster.
+يمكن اعتبار هذه الخوارزمية مثيلًا أو طريقة لتقليل البيانات، لأنها تقلل بيانات الإدخال إلى مجموعة من المجموعات الفرعية التي يتم الحصول عليها مباشرةً من أوراق CFT.
+يمكن معالجة هذه البيانات المخفضة بشكل أكبر عن طريق تغذيتها في مجمع عالمي.
+يمكن تعيين هذا المجمع العالمي بواسطة ``n_clusters``.
+إذا تم تعيين ``n_clusters`` على لا شيء، فسيتم قراءة المجموعات الفرعية من الأوراق مباشرةً، وإلا فإن خطوة التجميع العالمية تصنف هذه المجموعات الفرعية إلى مجموعات عالمية (تسميات) ويتم تعيين العينات إلى التسمية العالمية لأقرب مجموعة فرعية.
 
-.. dropdown:: Algorithm description
+.. dropdown:: وصف الخوارزمية
 
-  - A new sample is inserted into the root of the CF Tree which is a CF Node. It
-    is then merged with the subcluster of the root, that has the smallest radius
-    after merging, constrained by the threshold and branching factor conditions.
-    If the subcluster has any child node, then this is done repeatedly till it
-    reaches a leaf. After finding the nearest subcluster in the leaf, the
-    properties of this subcluster and the parent subclusters are recursively
-    updated.
+  - يتم إدخال عينة جديدة في جذر شجرة CF وهي عقدة CF.
+    ثم يتم دمجها مع المجموعة الفرعية للجذر، التي لها أصغر نصف قطر بعد الدمج، مقيدة بشروط العتبة وعامل التفرع.
+    إذا كانت المجموعة الفرعية تحتوي على أي عقدة فرعية، فسيتم ذلك بشكل متكرر حتى تصل إلى ورقة.
+    بعد العثور على أقرب مجموعة فرعية في الورقة، يتم تحديث خصائص هذه المجموعة الفرعية والمجموعات الفرعية الأصل بشكل متكرر.
 
-  - If the radius of the subcluster obtained by merging the new sample and the
-    nearest subcluster is greater than the square of the threshold and if the
-    number of subclusters is greater than the branching factor, then a space is
-    temporarily allocated to this new sample. The two farthest subclusters are
-    taken and the subclusters are divided into two groups on the basis of the
-    distance between these subclusters.
+  - إذا كان نصف قطر المجموعة الفرعية التي تم الحصول عليها عن طريق دمج العينة الجديدة وأقرب مجموعة فرعية أكبر من مربع العتبة وإذا كان عدد المجموعات الفرعية أكبر من عامل التفرع، فسيتم تخصيص مساحة مؤقتًا لهذه العينة الجديدة.
+    يتم أخذ أبعد مجموعتين فرعيتين ويتم تقسيم المجموعات الفرعية إلى مجموعتين على أساس المسافة بين هاتين المجموعتين الفرعيتين.
 
-  - If this split node has a parent subcluster and there is room for a new
-    subcluster, then the parent is split into two. If there is no room, then this
-    node is again split into two and the process is continued recursively, till it
-    reaches the root.
+  - إذا كانت عقدة التقسيم هذه تحتوي على مجموعة فرعية أصلية وكان هناك مساحة لمجموعة فرعية جديدة، فسيتم تقسيم الأصل إلى قسمين.
+    إذا لم تكن هناك مساحة، فسيتم تقسيم هذه العقدة مرة أخرى إلى قسمين وتستمر العملية بشكل متكرر، حتى تصل إلى الجذر.
 
-.. dropdown:: BIRCH or MiniBatchKMeans?
+.. dropdown:: BIRCH أو MiniBatchKMeans؟
 
-  - BIRCH does not scale very well to high dimensional data. As a rule of thumb if
-    ``n_features`` is greater than twenty, it is generally better to use MiniBatchKMeans.
-  - If the number of instances of data needs to be reduced, or if one wants a
-    large number of subclusters either as a preprocessing step or otherwise,
-    BIRCH is more useful than MiniBatchKMeans.
+  - BIRCH لا يتناسب بشكل جيد مع البيانات عالية الأبعاد.
+    كقاعدة عامة، إذا كان ``n_features`` أكبر من عشرين، فمن الأفضل عمومًا استخدام MiniBatchKMeans.
+  - إذا كان عدد مثيلات البيانات بحاجة إلى تقليل، أو إذا أراد المرء عددًا كبيرًا من المجموعات الفرعية إما كخطوة معالجة مسبقة أو غير ذلك، فإن BIRCH يكون أكثر فائدة من MiniBatchKMeans.
 
   .. image:: ../auto_examples/cluster/images/sphx_glr_plot_birch_vs_minibatchkmeans_001.png
     :target: ../auto_examples/cluster/plot_birch_vs_minibatchkmeans.html
 
-.. dropdown:: How to use partial_fit?
+.. dropdown:: كيفية استخدام partial_fit؟
 
-  To avoid the computation of global clustering, for every call of ``partial_fit``
-  the user is advised:
+  لتجنب حساب التجميع العالمي، لكل استدعاء لـ ``partial_fit``، يُنصح المستخدم بما يلي:
 
-  1. To set ``n_clusters=None`` initially.
-  2. Train all data by multiple calls to partial_fit.
-  3. Set ``n_clusters`` to a required value using
-     ``brc.set_params(n_clusters=n_clusters)``.
-  4. Call ``partial_fit`` finally with no arguments, i.e. ``brc.partial_fit()``
-     which performs the global clustering.
+  1. لتعيين ``n_clusters=None`` في البداية.
+  2. تدريب جميع البيانات عن طريق استدعاءات متعددة لـ partial_fit.
+  3. قم بتعيين ``n_clusters`` إلى القيمة المطلوبة باستخدام ``brc.set_params(n_clusters=n_clusters)``.
+  4. اتصل بـ ``partial_fit`` أخيرًا بدون وسيطات، أي ``brc.partial_fit()`` الذي يقوم بإجراء التجميع العالمي.
 
-.. dropdown:: References
+.. dropdown:: المراجع
 
-  * Tian Zhang, Raghu Ramakrishnan, Maron Livny BIRCH: An efficient data
-    clustering method for large databases.
+  * Tian Zhang، Raghu Ramakrishnan، Maron Livny BIRCH: طريقة فعالة لتجميع البيانات لقواعد البيانات الكبيرة.
     https://www.cs.sfu.ca/CourseCentral/459/han/papers/zhang96.pdf
 
-  * Roberto Perdisci JBirch - Java implementation of BIRCH clustering algorithm
+  * Roberto Perdisci JBirch - تنفيذ Java لخوارزمية تجميع BIRCH
     https://code.google.com/archive/p/jbirch
 
 
 
 .. _clustering_evaluation:
 
-Clustering performance evaluation
+تقييم أداء التجميع
 =================================
 
-Evaluating the performance of a clustering algorithm is not as trivial as
-counting the number of errors or the precision and recall of a supervised
-classification algorithm. In particular any evaluation metric should not
-take the absolute values of the cluster labels into account but rather
-if this clustering define separations of the data similar to some ground
-truth set of classes or satisfying some assumption such that members
-belong to the same class are more similar than members of different
-classes according to some similarity metric.
+إن تقييم أداء خوارزمية التجميع ليس بالأمر السهل مثل حساب عدد الأخطاء أو دقة واستدعاء خوارزمية تصنيف خاضعة للإشراف.
+على وجه الخصوص، يجب ألا يأخذ أي مقياس تقييم القيم المطلقة لتسميات الكتلة في الاعتبار، بل بالأحرى ما إذا كان هذا التجميع يحدد فواصل للبيانات مشابهة لمجموعة بيانات الحقيقة الأساسية لبعض الفئات أو يلبي بعض الافتراضات مثل أن الأعضاء الذين ينتمون إلى نفس الفئة أكثر تشابهًا من أعضاء من فئات مختلفة وفقًا لبعض مقياس التشابه.
 
 .. currentmodule:: sklearn.metrics
 
 .. _rand_score:
 .. _adjusted_rand_score:
 
-Rand index
+مؤشر راند
 ----------
 
-Given the knowledge of the ground truth class assignments
-``labels_true`` and our clustering algorithm assignments of the same
-samples ``labels_pred``, the **(adjusted or unadjusted) Rand index**
-is a function that measures the **similarity** of the two assignments,
-ignoring permutations::
+بالنظر إلى معرفة تعيينات فئة الحقيقة الأساسية ``labels_true`` وتعيينات خوارزمية التجميع الخاصة بنا لنفس العينات ``labels_pred``، فإن **مؤشر راند (المعدل أو غير المعدل)** هو دالة تقيس **تشابه** التعيينين، مع تجاهل التباديل::
 
   >>> from sklearn import metrics
   >>> labels_true = [0, 0, 0, 1, 1, 1]
@@ -1303,15 +986,13 @@ ignoring permutations::
   >>> metrics.rand_score(labels_true, labels_pred)
   0.66...
 
-The Rand index does not ensure to obtain a value close to 0.0 for a
-random labelling. The adjusted Rand index **corrects for chance** and
-will give such a baseline.
+لا يضمن مؤشر راند الحصول على قيمة قريبة من 0.0 لوضع العلامات العشوائية.
+يصحح مؤشر راند المعدل **للصدفة** وسيعطي مثل هذا الأساس.::
 
   >>> metrics.adjusted_rand_score(labels_true, labels_pred)
   0.24...
 
-As with all clustering metrics, one can permute 0 and 1 in the predicted
-labels, rename 2 to 3, and get the same score::
+كما هو الحال مع جميع مقاييس التجميع، يمكن للمرء تبديل 0 و 1 في التسميات المتوقعة، وإعادة تسمية 2 إلى 3، والحصول على نفس النتيجة::
 
   >>> labels_pred = [1, 1, 0, 0, 3, 3]
   >>> metrics.rand_score(labels_true, labels_pred)
@@ -1319,16 +1000,15 @@ labels, rename 2 to 3, and get the same score::
   >>> metrics.adjusted_rand_score(labels_true, labels_pred)
   0.24...
 
-Furthermore, both :func:`rand_score` :func:`adjusted_rand_score` are
-**symmetric**: swapping the argument does not change the scores. They can
-thus be used as **consensus measures**::
+علاوة على ذلك، فإن كل من :func:`rand_score` :func:`adjusted_rand_score` **متماثلان**: لا يؤدي تبديل الوسيطة إلى تغيير الدرجات.
+وبالتالي يمكن استخدامها كمقاييس **توافق**::
 
   >>> metrics.rand_score(labels_pred, labels_true)
   0.66...
   >>> metrics.adjusted_rand_score(labels_pred, labels_true)
   0.24...
 
-Perfect labeling is scored 1.0::
+يتم تسجيل التسمية المثالية 1.0::
 
   >>> labels_pred = labels_true[:]
   >>> metrics.rand_score(labels_true, labels_pred)
@@ -1336,10 +1016,7 @@ Perfect labeling is scored 1.0::
   >>> metrics.adjusted_rand_score(labels_true, labels_pred)
   1.0
 
-Poorly agreeing labels (e.g. independent labelings) have lower scores,
-and for the adjusted Rand index the score will be negative or close to
-zero. However, for the unadjusted Rand index the score, while lower,
-will not necessarily be close to zero.::
+التسميات المتوافقة بشكل سيئ (على سبيل المثال، التسميات المستقلة) لها درجات أقل، وبالنسبة لمؤشر راند المعدل، ستكون النتيجة سلبية أو قريبة من الصفر. ومع ذلك، بالنسبة لمؤشر راند غير المعدل، فإن النتيجة، على الرغم من انخفاضها، لن تكون بالضرورة قريبة من الصفر.::
 
   >>> labels_true = [0, 0, 0, 0, 0, 0, 1, 1]
   >>> labels_pred = [0, 1, 2, 3, 4, 5, 5, 6]
@@ -1349,91 +1026,63 @@ will not necessarily be close to zero.::
   -0.07...
 
 
-.. topic:: Advantages:
+.. topic:: المزايا:
 
-  - **Interpretability**: The unadjusted Rand index is proportional to the
-    number of sample pairs whose labels are the same in both `labels_pred` and
-    `labels_true`, or are different in both.
+  - **قابلية التفسير**: يتناسب مؤشر راند غير المعدل مع عدد أزواج العينات التي تكون تسمياتها متماثلة في كل من `labels_pred` و `labels_true`، أو مختلفة في كليهما.
 
-  - **Random (uniform) label assignments have an adjusted Rand index score close
-    to 0.0** for any value of ``n_clusters`` and ``n_samples`` (which is not the
-    case for the unadjusted Rand index or the V-measure for instance).
+  - **تعيينات التسميات العشوائية (الموحدة) لها درجة مؤشر راند معدلة قريبة من 0.0** لأي قيمة لـ ``n_clusters`` و ``n_samples`` (وهو ليس هو الحال بالنسبة لمؤشر راند غير المعدل أو مقياس V على سبيل المثال).
 
-  - **Bounded range**: Lower values indicate different labelings, similar
-    clusterings have a high (adjusted or unadjusted) Rand index, 1.0 is the
-    perfect match score. The score range is [0, 1] for the unadjusted Rand index
-    and [-0.5, 1] for the adjusted Rand index.
+  - **النطاق المحدود**: تشير القيم المنخفضة إلى تسميات مختلفة، والتجمعات المتشابهة لها مؤشر راند مرتفع (معدل أو غير معدل)، 1.0 هي درجة التطابق المثالية. نطاق النتيجة هو [0، 1] لمؤشر راند غير المعدل و [-0.5، 1] لمؤشر راند المعدل.
 
-  - **No assumption is made on the cluster structure**: The (adjusted or
-    unadjusted) Rand index can be used to compare all kinds of clustering
-    algorithms, and can be used to compare clustering algorithms such as k-means
-    which assumes isotropic blob shapes with results of spectral clustering
-    algorithms which can find cluster with "folded" shapes.
+  - **لا يوجد افتراض على بنية الكتلة**: يمكن استخدام مؤشر راند (المعدل أو غير المعدل) لمقارنة جميع أنواع خوارزميات التجميع، ويمكن استخدامه لمقارنة خوارزميات التجميع مثل k-means التي تفترض أشكالًا متجانسة الخواص مع نتائج خوارزميات التجميع الطيفي التي يمكنها العثور على مجموعات ذات أشكال "مطوية".
 
-.. topic:: Drawbacks:
+.. topic:: العيوب:
 
-  - Contrary to inertia, the **(adjusted or unadjusted) Rand index requires
-    knowledge of the ground truth classes** which is almost never available in
-    practice or requires manual assignment by human annotators (as in the
-    supervised learning setting).
+  - على عكس القصور الذاتي، **يتطلب مؤشر راند (المعدل أو غير المعدل) معرفة فئات الحقيقة الأساسية** والتي لا تتوفر تقريبًا في الممارسة العملية أو تتطلب تعيينًا يدويًا بواسطة التعليقات التوضيحية البشرية (كما هو الحال في إعداد التعلم الخاضع للإشراف).
 
-    However (adjusted or unadjusted) Rand index can also be useful in a purely
-    unsupervised setting as a building block for a Consensus Index that can be
-    used for clustering model selection (TODO).
+    ومع ذلك، يمكن أن يكون مؤشر راند (المعدل أو غير المعدل) مفيدًا أيضًا في إعداد غير خاضع للإشراف تمامًا كحجر بناء لمؤشر توافق يمكن استخدامه لاختيار نموذج التجميع (TODO).
 
-  - The **unadjusted Rand index is often close to 1.0** even if the clusterings
-    themselves differ significantly. This can be understood when interpreting
-    the Rand index as the accuracy of element pair labeling resulting from the
-    clusterings: In practice there often is a majority of element pairs that are
-    assigned the ``different`` pair label under both the predicted and the
-    ground truth clustering resulting in a high proportion of pair labels that
-    agree, which leads subsequently to a high score.
+  - **غالبًا ما يكون مؤشر راند غير المعدل قريبًا من 1.0** حتى لو اختلفت التجمعات نفسها بشكل كبير.
+    يمكن فهم ذلك عند تفسير مؤشر راند على أنه دقة تسمية زوج العناصر الناتجة عن التجميعات:
+    في الممارسة العملية، غالبًا ما تكون هناك غالبية من أزواج العناصر التي يتم تعيين تسمية الزوج ``different``  لها تحت كل من التجميع المتوقع والحقيقة الأساسية مما ينتج عنه نسبة عالية من تسميات الأزواج التي تتفق، مما يؤدي لاحقًا إلى درجة عالية.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_cluster_plot_adjusted_for_chance_measures.py`:
-  Analysis of the impact of the dataset size on the value of
-  clustering measures for random assignments.
+* :ref:`sphx_glr_auto_examples_cluster/plot_adjusted_for_chance_measures.py`:
+  تحليل تأثير حجم مجموعة البيانات على قيمة مقاييس التجميع للتعيينات العشوائية.
 
-.. dropdown:: Mathematical formulation
+.. dropdown:: الصيغة الرياضية
 
-  If C is a ground truth class assignment and K the clustering, let us define
-  :math:`a` and :math:`b` as:
+  إذا كان C هو تعيين فئة الحقيقة الأساسية و K هو التجميع، فلنحدد
+  :math:`a` و :math:`b` على النحو التالي:
 
-  - :math:`a`, the number of pairs of elements that are in the same set in C and
-    in the same set in K
+  - :math:`a`، عدد أزواج العناصر الموجودة في نفس المجموعة في C وفي نفس المجموعة في K
 
-  - :math:`b`, the number of pairs of elements that are in different sets in C and
-    in different sets in K
-
-  The unadjusted Rand index is then given by:
+  - :math:`b`، عدد أزواج العناصر الموجودة في مجموعات مختلفة في C وفي مجموعات مختلفة في K
+    ثم يتم إعطاء مؤشر راند غير المعدل بواسطة:
 
   .. math:: \text{RI} = \frac{a + b}{C_2^{n_{samples}}}
 
-  where :math:`C_2^{n_{samples}}` is the total number of possible pairs in the
-  dataset. It does not matter if the calculation is performed on ordered pairs or
-  unordered pairs as long as the calculation is performed consistently.
+  حيث :math:`C_2^{n_{samples}}` هو إجمالي عدد الأزواج الممكنة في مجموعة البيانات.
+  لا يهم ما إذا كان الحساب يتم على أزواج مرتبة أو أزواج غير مرتبة طالما يتم إجراء الحساب بشكل متسق.
 
-  However, the Rand index does not guarantee that random label assignments will
-  get a value close to zero (esp. if the number of clusters is in the same order
-  of magnitude as the number of samples).
+  ومع ذلك، لا يضمن مؤشر راند أن تعيينات التسميات العشوائية ستحصل على قيمة قريبة من الصفر (خاصة إذا كان عدد المجموعات من نفس حجم عدد العينات).
 
-  To counter this effect we can discount the expected RI :math:`E[\text{RI}]` of
-  random labelings by defining the adjusted Rand index as follows:
+  لمواجهة هذا التأثير، يمكننا خصم RI المتوقع :math:`E[\text{RI}]` لوضع العلامات العشوائية عن طريق تحديد مؤشر راند المعدل على النحو التالي:
 
   .. math:: \text{ARI} = \frac{\text{RI} - E[\text{RI}]}{\max(\text{RI}) - E[\text{RI}]}
 
-.. dropdown:: References
+.. dropdown:: المراجع
 
-  * `Comparing Partitions
+  * `مقارنة الأقسام
     <https://link.springer.com/article/10.1007%2FBF01908075>`_ L. Hubert and P.
-    Arabie, Journal of Classification 1985
+    Arabie، Journal of Classification 1985
 
-  * `Properties of the Hubert-Arabie adjusted Rand index
-    <https://psycnet.apa.org/record/2004-17801-007>`_ D. Steinley, Psychological
+  * `خصائص مؤشر راند المعدل لـ Hubert-Arabie
+    <https://psycnet.apa.org/record/2004-17801-007>`_ D. Steinley، Psychological
     Methods 2004
 
-  * `Wikipedia entry for the Rand index
+  * `إدخال ويكيبيديا لمؤشر راند
     <https://en.wikipedia.org/wiki/Rand_index#Adjusted_Rand_index>`_
 
   * :doi:`Minimum adjusted Rand index for two clusterings of a given size, 2022, J. E. Chacón and A. I. Rastrojo <10.1007/s11634-022-00491-w>`
@@ -1441,16 +1090,12 @@ will not necessarily be close to zero.::
 
 .. _mutual_info_score:
 
-Mutual Information based scores
+درجات المعلومات المتبادلة
 -------------------------------
 
-Given the knowledge of the ground truth class assignments ``labels_true`` and
-our clustering algorithm assignments of the same samples ``labels_pred``, the
-**Mutual Information** is a function that measures the **agreement** of the two
-assignments, ignoring permutations.  Two different normalized versions of this
-measure are available, **Normalized Mutual Information (NMI)** and **Adjusted
-Mutual Information (AMI)**. NMI is often used in the literature, while AMI was
-proposed more recently and is **normalized against chance**::
+بالنظر إلى معرفة تعيينات فئة الحقيقة الأساسية ``labels_true`` وتعيينات خوارزمية التجميع الخاصة بنا لنفس العينات ``labels_pred``، فإن **المعلومات المتبادلة** هي دالة تقيس **اتفاق** التعيينين، مع تجاهل التباديل.
+يتوفر إصداران مختلفان معياريان من هذا المقياس، **المعلومات المتبادلة المعيارية (NMI)** و **المعلومات المتبادلة المعدلة (AMI)**.
+غالبًا ما يتم استخدام NMI في الأدبيات، بينما تم اقتراح AMI مؤخرًا و **يتم تطبيعه مقابل الصدفة**::
 
   >>> from sklearn import metrics
   >>> labels_true = [0, 0, 0, 1, 1, 1]
@@ -1459,21 +1104,19 @@ proposed more recently and is **normalized against chance**::
   >>> metrics.adjusted_mutual_info_score(labels_true, labels_pred)  # doctest: +SKIP
   0.22504...
 
-One can permute 0 and 1 in the predicted labels, rename 2 to 3 and get
-the same score::
+يمكن للمرء تبديل 0 و 1 في التسميات المتوقعة، وإعادة تسمية 2 إلى 3 والحصول على نفس النتيجة::
 
   >>> labels_pred = [1, 1, 0, 0, 3, 3]
   >>> metrics.adjusted_mutual_info_score(labels_true, labels_pred)  # doctest: +SKIP
   0.22504...
 
-All, :func:`mutual_info_score`, :func:`adjusted_mutual_info_score` and
-:func:`normalized_mutual_info_score` are symmetric: swapping the argument does
-not change the score. Thus they can be used as a **consensus measure**::
+كل، :func:`mutual_info_score`، :func:`adjusted_mutual_info_score` و :func:`normalized_mutual_info_score` متماثلة: لا يؤدي تبديل الوسيطة إلى تغيير النتيجة.
+وبالتالي يمكن استخدامها كمقياس **توافق**::
 
   >>> metrics.adjusted_mutual_info_score(labels_pred, labels_true)  # doctest: +SKIP
   0.22504...
 
-Perfect labeling is scored 1.0::
+يتم تسجيل التسمية المثالية 1.0::
 
   >>> labels_pred = labels_true[:]
   >>> metrics.adjusted_mutual_info_score(labels_true, labels_pred)  # doctest: +SKIP
@@ -1482,12 +1125,12 @@ Perfect labeling is scored 1.0::
   >>> metrics.normalized_mutual_info_score(labels_true, labels_pred)  # doctest: +SKIP
   1.0
 
-This is not true for ``mutual_info_score``, which is therefore harder to judge::
+هذا ليس صحيحًا بالنسبة لـ ``mutual_info_score``، وبالتالي يصعب الحكم عليه::
 
   >>> metrics.mutual_info_score(labels_true, labels_pred)  # doctest: +SKIP
   0.69...
 
-Bad (e.g. independent labelings) have non-positive scores::
+التسميات السيئة (على سبيل المثال، التسميات المستقلة) لها درجات غير موجبة::
 
   >>> labels_true = [0, 1, 2, 0, 3, 4, 5, 1]
   >>> labels_pred = [1, 1, 0, 0, 2, 2, 2, 2]
@@ -1495,145 +1138,118 @@ Bad (e.g. independent labelings) have non-positive scores::
   -0.10526...
 
 
-.. topic:: Advantages:
+.. topic:: المزايا:
 
-  - **Random (uniform) label assignments have a AMI score close to 0.0** for any
-    value of ``n_clusters`` and ``n_samples`` (which is not the case for raw
-    Mutual Information or the V-measure for instance).
+  - **تعيينات التسميات العشوائية (الموحدة) لها درجة AMI قريبة من 0.0** لأي قيمة لـ ``n_clusters`` و ``n_samples`` (وهو ليس هو الحال بالنسبة للمعلومات المتبادلة الأولية أو مقياس V على سبيل المثال).
 
-  - **Upper bound  of 1**:  Values close to zero indicate two label assignments
-    that are largely independent, while values close to one indicate significant
-    agreement. Further, an AMI of exactly 1 indicates that the two label
-    assignments are equal (with or without permutation).
+  - **الحد الأعلى 1**: تشير القيم القريبة من الصفر إلى تعيينين للتسميات مستقلان إلى حد كبير، بينما تشير القيم القريبة من واحد إلى اتفاق كبير.
+    علاوة على ذلك، يشير AMI من 1 بالضبط إلى أن تعيينات التسمية متساوية (مع أو بدون تبديل).
 
-.. topic:: Drawbacks:
+.. topic:: العيوب:
 
-  - Contrary to inertia, **MI-based measures require the knowledge of the ground
-    truth classes** while almost never available in practice or requires manual
-    assignment by human annotators (as in the supervised learning setting).
+  - على عكس القصور الذاتي، **تتطلب المقاييس المستندة إلى MI معرفة فئات الحقيقة الأساسية** بينما لا تتوفر تقريبًا في الممارسة العملية أو تتطلب تعيينًا يدويًا بواسطة التعليقات التوضيحية البشرية (كما هو الحال في إعداد التعلم الخاضع للإشراف).
 
-    However MI-based measures can also be useful in purely unsupervised setting
-    as a building block for a Consensus Index that can be used for clustering
-    model selection.
+    ومع ذلك، يمكن أن تكون المقاييس المستندة إلى MI مفيدة أيضًا في إعداد غير خاضع للإشراف تمامًا كحجر بناء لمؤشر توافق يمكن استخدامه لاختيار نموذج التجميع.
 
-  - NMI and MI are not adjusted against chance.
+  - NMI و MI غير معدلين ضد الصدفة.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_cluster_plot_adjusted_for_chance_measures.py`: Analysis
-  of the impact of the dataset size on the value of clustering measures for random
-  assignments. This example also includes the Adjusted Rand Index.
+* :ref:`sphx_glr_auto_examples_cluster/plot_adjusted_for_chance_measures.py`:
+  تحليل تأثير حجم مجموعة البيانات على قيمة مقاييس التجميع للتعيينات العشوائية.
+  يتضمن هذا المثال أيضًا مؤشر راند المعدل.
 
-.. dropdown:: Mathematical formulation
+.. dropdown:: الصيغة الرياضية
 
-  Assume two label assignments (of the same N objects), :math:`U` and :math:`V`.
-  Their entropy is the amount of uncertainty for a partition set, defined by:
+  افترض تعيينين للتسميات (لنفس الكائنات N)، :math:`U` و :math:`V`.
+  إنتروبياهم هو مقدار عدم اليقين لمجموعة قسم، محددة بواسطة:
 
   .. math:: H(U) = - \sum_{i=1}^{|U|}P(i)\log(P(i))
 
-  where :math:`P(i) = |U_i| / N` is the probability that an object picked at
-  random from :math:`U` falls into class :math:`U_i`. Likewise for :math:`V`:
+  حيث :math:`P(i) = |U_i| / N` هو احتمال أن يكون الكائن الذي تم اختياره عشوائيًا من :math:`U` يقع في الفئة :math:`U_i`. وبالمثل بالنسبة لـ :math:`V`:
 
   .. math:: H(V) = - \sum_{j=1}^{|V|}P'(j)\log(P'(j))
 
-  With :math:`P'(j) = |V_j| / N`. The mutual information (MI) between :math:`U`
-  and :math:`V` is calculated by:
+  مع :math:`P'(j) = |V_j| / N`. يتم حساب المعلومات المتبادلة (MI) بين :math:`U` و :math:`V` بواسطة:
 
   .. math:: \text{MI}(U, V) = \sum_{i=1}^{|U|}\sum_{j=1}^{|V|}P(i, j)\log\left(\frac{P(i,j)}{P(i)P'(j)}\right)
 
-  where :math:`P(i, j) = |U_i \cap V_j| / N` is the probability that an object
-  picked at random falls into both classes :math:`U_i` and :math:`V_j`.
+  حيث :math:`P(i, j) = |U_i \cap V_j| / N` هو احتمال أن يكون الكائن الذي تم اختياره عشوائيًا يقع في كل من الفئتين :math:`U_i` و :math:`V_j`.
 
-  It also can be expressed in set cardinality formulation:
+  يمكن أيضًا التعبير عنها في صيغة أصلية للمجموعة:
 
   .. math:: \text{MI}(U, V) = \sum_{i=1}^{|U|} \sum_{j=1}^{|V|} \frac{|U_i \cap V_j|}{N}\log\left(\frac{N|U_i \cap V_j|}{|U_i||V_j|}\right)
 
-  The normalized mutual information is defined as
+  يتم تعريف المعلومات المتبادلة المعيارية على أنها
 
   .. math:: \text{NMI}(U, V) = \frac{\text{MI}(U, V)}{\text{mean}(H(U), H(V))}
 
-  This value of the mutual information and also the normalized variant is not
-  adjusted for chance and will tend to increase as the number of different labels
-  (clusters) increases, regardless of the actual amount of "mutual information"
-  between the label assignments.
+  لا يتم تعديل قيمة المعلومات المتبادلة هذه وكذلك المتغير المعياري للصدفة وستميل إلى الزيادة مع زيادة عدد التسميات (المجموعات) المختلفة، بغض النظر عن المقدار الفعلي "للمعلومات المتبادلة" بين تعيينات التسميات.
 
-  The expected value for the mutual information can be calculated using the
-  following equation [VEB2009]_. In this equation, :math:`a_i = |U_i|` (the number
-  of elements in :math:`U_i`) and :math:`b_j = |V_j|` (the number of elements in
-  :math:`V_j`).
+  يمكن حساب القيمة المتوقعة للمعلومات المتبادلة باستخدام المعادلة التالية [VEB2009]_.
+  في هذه المعادلة، :math:`a_i = |U_i|` (عدد العناصر في :math:`U_i`) و :math:`b_j = |V_j|` (عدد العناصر في :math:`V_j`).
 
   .. math:: E[\text{MI}(U,V)]=\sum_{i=1}^{|U|} \sum_{j=1}^{|V|} \sum_{n_{ij}=(a_i+b_j-N)^+
     }^{\min(a_i, b_j)} \frac{n_{ij}}{N}\log \left( \frac{ N.n_{ij}}{a_i b_j}\right)
     \frac{a_i!b_j!(N-a_i)!(N-b_j)!}{N!n_{ij}!(a_i-n_{ij})!(b_j-n_{ij})!
     (N-a_i-b_j+n_{ij})!}
 
-  Using the expected value, the adjusted mutual information can then be calculated
-  using a similar form to that of the adjusted Rand index:
+  باستخدام القيمة المتوقعة، يمكن بعد ذلك حساب المعلومات المتبادلة المعدلة باستخدام نموذج مشابه لنموذج مؤشر راند المعدل:
 
   .. math:: \text{AMI} = \frac{\text{MI} - E[\text{MI}]}{\text{mean}(H(U), H(V)) - E[\text{MI}]}
 
-  For normalized mutual information and adjusted mutual information, the
-  normalizing value is typically some *generalized* mean of the entropies of each
-  clustering. Various generalized means exist, and no firm rules exist for
-  preferring one over the others.  The decision is largely a field-by-field basis;
-  for instance, in community detection, the arithmetic mean is most common. Each
-  normalizing method provides "qualitatively similar behaviours" [YAT2016]_. In
-  our implementation, this is controlled by the ``average_method`` parameter.
+  بالنسبة للمعلومات المتبادلة المعيارية والمعلومات المتبادلة المعدلة، تكون قيمة التطبيع عادةً بعض المتوسط *المعمم* لإنتروبيا كل تجميع.
+  توجد وسائل معممة مختلفة، ولا توجد قواعد ثابتة لتفضيل واحد على الآخر.
+  القرار إلى حد كبير على أساس كل مجال على حدة؛ على سبيل المثال، في اكتشاف المجتمع، يكون المتوسط الحسابي هو الأكثر شيوعًا.
+  توفر كل طريقة تطبيع "سلوكيات متشابهة نوعياً" [YAT2016]_.
+  في تطبيقنا، يتم التحكم في ذلك بواسطة معلمة ``average_method``.
 
-  Vinh et al. (2010) named variants of NMI and AMI by their averaging method
-  [VEB2010]_. Their 'sqrt' and 'sum' averages are the geometric and arithmetic
-  means; we use these more broadly common names.
+  أطلق فينه وآخرون (2010) على متغيرات NMI و AMI من خلال طريقة حساب المتوسط [VEB2010]_.
+  متوسطات 'sqrt' و 'sum' هي الوسائل الهندسية والحسابية؛ نستخدم هذه الأسماء الأكثر شيوعًا.
 
-  .. rubric:: References
+  .. rubric:: المراجع
 
-  * Strehl, Alexander, and Joydeep Ghosh (2002). "Cluster ensembles - a
-    knowledge reuse framework for combining multiple partitions". Journal of
-    Machine Learning Research 3: 583-617. `doi:10.1162/153244303321897735
+  * Strehl، Alexander، and Joydeep Ghosh (2002).
+    "Cluster ensembles - a knowledge reuse framework for combining multiple partitions".
+    Journal of Machine Learning Research 3: 583-617. `doi:10.1162/153244303321897735
     <http://strehl.com/download/strehl-jmlr02.pdf>`_.
 
-  * `Wikipedia entry for the (normalized) Mutual Information
+  * `إدخال ويكيبيديا للمعلومات المتبادلة (المعيارية)
     <https://en.wikipedia.org/wiki/Mutual_Information>`_
 
-  * `Wikipedia entry for the Adjusted Mutual Information
+  * `إدخال ويكيبيديا للمعلومات المتبادلة المعدلة
     <https://en.wikipedia.org/wiki/Adjusted_Mutual_Information>`_
 
-  .. [VEB2009] Vinh, Epps, and Bailey, (2009). "Information theoretic measures
-    for clusterings comparison". Proceedings of the 26th Annual International
-    Conference on Machine Learning - ICML '09. `doi:10.1145/1553374.1553511
-    <https://dl.acm.org/citation.cfm?doid=1553374.1553511>`_. ISBN
-    9781605585161.
+  .. [VEB2009] Vinh، Epps، and Bailey، (2009).
+    "Information theoretic measures for clusterings comparison".
+    Proceedings of the 26th Annual International Conference on Machine Learning - ICML '09. `doi:10.1145/1553374.1553511
+    <https://dl.acm.org/citation.cfm?doid=1553374.1553511>`_. ISBN 9781605585161.
 
-  .. [VEB2010] Vinh, Epps, and Bailey, (2010). "Information Theoretic Measures
-    for Clusterings Comparison: Variants, Properties, Normalization and
-    Correction for Chance". JMLR
+  .. [VEB2010] Vinh، Epps، and Bailey، (2010).
+    "Information Theoretic Measures for Clusterings Comparison: Variants, Properties, Normalization and Correction for Chance". JMLR
     <https://jmlr.csail.mit.edu/papers/volume11/vinh10a/vinh10a.pdf>
 
-  .. [YAT2016] Yang, Algesheimer, and Tessone, (2016). "A comparative analysis
-    of community detection algorithms on artificial networks". Scientific
-    Reports 6: 30750. `doi:10.1038/srep30750
+  .. [YAT2016] Yang، Algesheimer، and Tessone، (2016).
+    "A comparative analysis of community detection algorithms on artificial networks".
+    Scientific Reports 6: 30750. `doi:10.1038/srep30750
     <https://www.nature.com/articles/srep30750>`_.
 
 
 .. _homogeneity_completeness:
 
-Homogeneity, completeness and V-measure
+التجانس والاكتمال ومقياس V
 ---------------------------------------
 
-Given the knowledge of the ground truth class assignments of the samples,
-it is possible to define some intuitive metric using conditional entropy
-analysis.
+بالنظر إلى معرفة تعيينات فئة الحقيقة الأساسية للعينات، من الممكن تحديد بعض المقاييس البديهية باستخدام تحليل الانتروبيا الشرطي.
 
-In particular Rosenberg and Hirschberg (2007) define the following two
-desirable objectives for any cluster assignment:
+على وجه الخصوص، حدد روزنبرغ وهيرشبيرج (2007) الهدفين المرغوب فيهما التاليين لأي تعيين كتلة:
 
-- **homogeneity**: each cluster contains only members of a single class.
+- **التجانس**: تحتوي كل مجموعة على أعضاء من فئة واحدة فقط.
 
-- **completeness**: all members of a given class are assigned to the same
-  cluster.
+- **الاكتمال**: يتم تعيين جميع أعضاء فئة معينة إلى نفس المجموعة.
 
-We can turn those concept as scores :func:`homogeneity_score` and
-:func:`completeness_score`. Both are bounded below by 0.0 and above by
-1.0 (higher is better)::
+يمكننا تحويل هذه المفاهيم إلى درجات :func:`homogeneity_score` و :func:`completeness_score`.
+كلاهما محدد أدناه بـ 0.0 وفوق بـ 1.0 (الأعلى أفضل)::
 
   >>> from sklearn import metrics
   >>> labels_true = [0, 0, 0, 1, 1, 1]
@@ -1645,39 +1261,36 @@ We can turn those concept as scores :func:`homogeneity_score` and
   >>> metrics.completeness_score(labels_true, labels_pred)
   0.42...
 
-Their harmonic mean called **V-measure** is computed by
-:func:`v_measure_score`::
+يتم حساب متوسطها التوافقي المسمى **مقياس V** بواسطة :func:`v_measure_score`::
 
   >>> metrics.v_measure_score(labels_true, labels_pred)
   0.51...
 
-This function's formula is as follows:
+صيغة هذه الدالة هي كما يلي:
 
 .. math:: v = \frac{(1 + \beta) \times \text{homogeneity} \times \text{completeness}}{(\beta \times \text{homogeneity} + \text{completeness})}
 
-`beta` defaults to a value of 1.0, but for using a value less than 1 for beta::
+`beta`  افتراضيًا إلى قيمة 1.0، ولكن لاستخدام قيمة أقل من 1 لـ beta::
 
   >>> metrics.v_measure_score(labels_true, labels_pred, beta=0.6)
   0.54...
 
-more weight will be attributed to homogeneity, and using a value greater than 1::
+سيتم عزو المزيد من الوزن إلى التجانس، واستخدام قيمة أكبر من 1::
 
   >>> metrics.v_measure_score(labels_true, labels_pred, beta=1.8)
   0.48...
 
-more weight will be attributed to completeness.
+سيتم عزو المزيد من الوزن إلى الاكتمال.
 
-The V-measure is actually equivalent to the mutual information (NMI)
-discussed above, with the aggregation function being the arithmetic mean [B2011]_.
+مقياس V مكافئ في الواقع للمعلومات المتبادلة (NMI)
+تمت مناقشته أعلاه، مع كون دالة التجميع هي المتوسط الحسابي [B2011]_.
 
-Homogeneity, completeness and V-measure can be computed at once using
-:func:`homogeneity_completeness_v_measure` as follows::
+يمكن حساب التجانس والاكتمال ومقياس V في وقت واحد باستخدام :func:`homogeneity_completeness_v_measure` على النحو التالي::
 
   >>> metrics.homogeneity_completeness_v_measure(labels_true, labels_pred)
   (0.66..., 0.42..., 0.51...)
 
-The following clustering assignment is slightly better, since it is
-homogeneous but not complete::
+تعيين التجميع التالي أفضل قليلاً، لأنه متجانس ولكنه غير مكتمل::
 
   >>> labels_pred = [0, 0, 0, 1, 2, 2]
   >>> metrics.homogeneity_completeness_v_measure(labels_true, labels_pred)
@@ -1685,126 +1298,87 @@ homogeneous but not complete::
 
 .. note::
 
-  :func:`v_measure_score` is **symmetric**: it can be used to evaluate
-  the **agreement** of two independent assignments on the same dataset.
+  :func:`v_measure_score` **متماثل**: يمكن استخدامه لتقييم **اتفاق** تعيينين مستقلين على نفس مجموعة البيانات.
 
-  This is not the case for :func:`completeness_score` and
-  :func:`homogeneity_score`: both are bound by the relationship::
+  هذا ليس هو الحال بالنسبة لـ :func:`completeness_score` و :func:`homogeneity_score`: كلاهما مرتبط بالعلاقة::
 
     homogeneity_score(a, b) == completeness_score(b, a)
 
 
-.. topic:: Advantages:
+.. topic:: المزايا:
 
-  - **Bounded scores**: 0.0 is as bad as it can be, 1.0 is a perfect score.
+  - **الدرجات المحدودة**: 0.0 سيئة بقدر الإمكان، 1.0 هي درجة مثالية.
 
-  - Intuitive interpretation: clustering with bad V-measure can be
-    **qualitatively analyzed in terms of homogeneity and completeness** to
-    better feel what 'kind' of mistakes is done by the assignment.
+  - التفسير البديهي: يمكن **تحليل** التجميع مع مقياس V السيئ **نوعياً من حيث التجانس والاكتمال** للشعور بشكل أفضل بنوع "الأخطاء" التي يتم ارتكابها بواسطة التعيين.
 
-  - **No assumption is made on the cluster structure**: can be used to compare
-    clustering algorithms such as k-means which assumes isotropic blob shapes
-    with results of spectral clustering algorithms which can find cluster with
-    "folded" shapes.
+  - **لا يوجد افتراض على بنية الكتلة**: يمكن استخدامه لمقارنة خوارزميات التجميع مثل k-means التي تفترض أشكالًا متجانسة الخواص مع نتائج خوارزميات التجميع الطيفي التي يمكنها العثور على مجموعات ذات أشكال "مطوية".
 
-.. topic:: Drawbacks:
+.. topic:: العيوب:
 
-  - The previously introduced metrics are **not normalized with regards to
-    random labeling**: this means that depending on the number of samples,
-    clusters and ground truth classes, a completely random labeling will not
-    always yield the same values for homogeneity, completeness and hence
-    v-measure. In particular **random labeling won't yield zero scores
-    especially when the number of clusters is large**.
+  - **لم يتم تطبيع** المقاييس التي تم تقديمها مسبقًا **فيما يتعلق بالتسمية العشوائية**: هذا يعني أنه اعتمادًا على عدد العينات والمجموعات وفئات الحقيقة الأساسية، لن ينتج عن التسمية العشوائية تمامًا دائمًا نفس القيم للتجانس والاكتمال وبالتالي مقياس v.
+    على وجه الخصوص، **لن تؤدي التسمية العشوائية إلى درجات صفرية خاصةً عندما يكون عدد المجموعات كبيرًا**.
 
-    This problem can safely be ignored when the number of samples is more than a
-    thousand and the number of clusters is less than 10. **For smaller sample
-    sizes or larger number of clusters it is safer to use an adjusted index such
-    as the Adjusted Rand Index (ARI)**.
+    يمكن تجاهل هذه المشكلة بأمان عندما يكون عدد العينات أكثر من ألف ويكون عدد المجموعات أقل من 10.
+    **بالنسبة لأحجام العينات الأصغر أو عدد أكبر من المجموعات، يكون من الآمن استخدام فهرس معدل مثل مؤشر راند المعدل (ARI)**.
 
   .. figure:: ../auto_examples/cluster/images/sphx_glr_plot_adjusted_for_chance_measures_001.png
     :target: ../auto_examples/cluster/plot_adjusted_for_chance_measures.html
     :align: center
     :scale: 100
 
-  - These metrics **require the knowledge of the ground truth classes** while
-    almost never available in practice or requires manual assignment by human
-    annotators (as in the supervised learning setting).
+  - **تتطلب هذه المقاييس معرفة فئات الحقيقة الأساسية** بينما لا تتوفر تقريبًا في الممارسة العملية أو تتطلب تعيينًا يدويًا بواسطة التعليقات التوضيحية البشرية (كما هو الحال في إعداد التعلم الخاضع للإشراف).
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_cluster_plot_adjusted_for_chance_measures.py`: Analysis
-  of the impact of the dataset size on the value of clustering measures for
-  random assignments.
+* :ref:`sphx_glr_auto_examples_cluster/plot_adjusted_for_chance_measures.py`: تحليل تأثير حجم مجموعة البيانات على قيمة مقاييس التجميع للتعيينات العشوائية.
 
-.. dropdown:: Mathematical formulation
+.. dropdown:: الصيغة الرياضية
 
-  Homogeneity and completeness scores are formally given by:
+  يتم إعطاء درجات التجانس والاكتمال رسميًا بواسطة:
 
   .. math:: h = 1 - \frac{H(C|K)}{H(C)}
 
   .. math:: c = 1 - \frac{H(K|C)}{H(K)}
 
-  where :math:`H(C|K)` is the **conditional entropy of the classes given the
-  cluster assignments** and is given by:
+  حيث :math:`H(C|K)` هو **الانتروبيا الشرطية للفئات بالنظر إلى تعيينات الكتلة** ويتم إعطاؤها بواسطة:
 
   .. math:: H(C|K) = - \sum_{c=1}^{|C|} \sum_{k=1}^{|K|} \frac{n_{c,k}}{n}
             \cdot \log\left(\frac{n_{c,k}}{n_k}\right)
 
-  and :math:`H(C)` is the **entropy of the classes** and is given by:
+  و :math:`H(C)` هو **إنتروبيا الفئات** ويتم إعطاؤها بواسطة:
 
   .. math:: H(C) = - \sum_{c=1}^{|C|} \frac{n_c}{n} \cdot \log\left(\frac{n_c}{n}\right)
 
-  with :math:`n` the total number of samples, :math:`n_c` and :math:`n_k` the
-  number of samples respectively belonging to class :math:`c` and cluster
-  :math:`k`, and finally :math:`n_{c,k}` the number of samples from class
-  :math:`c` assigned to cluster :math:`k`.
+  مع :math:`n` إجمالي عدد العينات، :math:`n_c` و :math:`n_k` عدد العينات التي تنتمي على التوالي إلى الفئة :math:`c` والكتلة :math:`k`، وأخيرًا :math:`n_{c,k}` عدد العينات من الفئة :math:`c` المعينة إلى الكتلة :math:`k`.
 
-  The **conditional entropy of clusters given class** :math:`H(K|C)` and the
-  **entropy of clusters** :math:`H(K)` are defined in a symmetric manner.
+  يتم تعريف **الانتروبيا الشرطية للمجموعات بالنظر إلى الفئة** :math:`H(K|C)` و **إنتروبيا المجموعات** :math:`H(K)` بطريقة متماثلة.
 
-  Rosenberg and Hirschberg further define **V-measure** as the **harmonic mean of
-  homogeneity and completeness**:
+  يحدد روزنبرغ وهيرشبيرج كذلك **مقياس V** على أنه **المتوسط التوافقي للتجانس والاكتمال**:
 
   .. math:: v = 2 \cdot \frac{h \cdot c}{h + c}
 
-.. rubric:: References
+.. rubric:: المراجع
 
 * `V-Measure: A conditional entropy-based external cluster evaluation measure
-  <https://aclweb.org/anthology/D/D07/D07-1043.pdf>`_ Andrew Rosenberg and Julia
-  Hirschberg, 2007
+  <https://aclweb.org/anthology/D/D07/D07-1043.pdf>`_ Andrew Rosenberg and Julia Hirschberg، 2007
 
 .. [B2011] `Identification and Characterization of Events in Social Media
-  <http://www.cs.columbia.edu/~hila/hila-thesis-distributed.pdf>`_, Hila
-  Becker, PhD Thesis.
+  <http://www.cs.columbia.edu/~hila/hila-thesis-distributed.pdf>`_، Hila Becker، PhD Thesis.
 
 
 .. _fowlkes_mallows_scores:
 
-Fowlkes-Mallows scores
+درجات Fowlkes-Mallows
 ----------------------
 
-The original Fowlkes-Mallows index (FMI) was intended to measure the similarity
-between two clustering results, which is inherently an unsupervised comparison.
-The supervised adaptation of the Fowlkes-Mallows index
-(as implemented in :func:`sklearn.metrics.fowlkes_mallows_score`) can be used
-when the ground truth class assignments of the samples are known.
-The FMI is defined as the geometric mean of the pairwise precision and recall:
+يمكن استخدام مؤشر Fowlkes-Mallows (:func:`sklearn.metrics.fowlkes_mallows_score`) عندما تكون تعيينات فئة الحقيقة الأساسية للعينات معروفة.
+يتم تعريف درجة Fowlkes-Mallows FMI على أنها المتوسط الهندسي للدقة والاستدعاء الزوجي:
 
 .. math:: \text{FMI} = \frac{\text{TP}}{\sqrt{(\text{TP} + \text{FP}) (\text{TP} + \text{FN})}}
 
-In the above formula:
+حيث ``TP`` هو عدد **الإيجابيات الحقيقية** (أي عدد أزواج النقاط التي تنتمي إلى نفس المجموعات في كل من التسميات الحقيقية والتسميات المتوقعة)، ``FP`` هو عدد **الإيجابيات الكاذبة** (أي عدد أزواج النقاط التي تنتمي إلى نفس المجموعات في التسميات الحقيقية وليس في التسميات المتوقعة) و ``FN`` هو عدد **السلبيات الكاذبة** (أي عدد أزواج النقاط التي تنتمي إلى نفس المجموعات في التسميات المتوقعة وليس في التسميات الحقيقية).
 
-* ``TP`` (**True Positive**): The number of pairs of points that are clustered together
-  both in the true labels and in the predicted labels.
-
-* ``FP`` (**False Positive**): The number of pairs of points that are clustered together
-  in the predicted labels but not in the true labels.
-
-* ``FN`` (**False Negative**): The number of pairs of points that are clustered together
-  in the true labels but not in the predicted labels.
-
-The score ranges from 0 to 1. A high value indicates a good similarity
-between two clusters.
+يتراوح النطاق من 0 إلى 1. تشير القيمة العالية إلى تشابه جيد بين مجموعتين.::
 
   >>> from sklearn import metrics
   >>> labels_true = [0, 0, 0, 1, 1, 1]
@@ -1813,86 +1387,66 @@ between two clusters.
   >>> metrics.fowlkes_mallows_score(labels_true, labels_pred)
   0.47140...
 
-One can permute 0 and 1 in the predicted labels, rename 2 to 3 and get
-the same score::
+يمكن للمرء تبديل 0 و 1 في التسميات المتوقعة، وإعادة تسمية 2 إلى 3 والحصول على نفس النتيجة::
 
   >>> labels_pred = [1, 1, 0, 0, 3, 3]
 
   >>> metrics.fowlkes_mallows_score(labels_true, labels_pred)
   0.47140...
 
-Perfect labeling is scored 1.0::
+يتم تسجيل التسمية المثالية 1.0::
 
   >>> labels_pred = labels_true[:]
   >>> metrics.fowlkes_mallows_score(labels_true, labels_pred)
   1.0
 
-Bad (e.g. independent labelings) have zero scores::
+التسميات السيئة (على سبيل المثال، التسميات المستقلة) لها درجات صفرية::
 
   >>> labels_true = [0, 1, 2, 0, 3, 4, 5, 1]
   >>> labels_pred = [1, 1, 0, 0, 2, 2, 2, 2]
   >>> metrics.fowlkes_mallows_score(labels_true, labels_pred)
   0.0
 
-.. topic:: Advantages:
+.. topic:: المزايا:
 
-  - **Random (uniform) label assignments have a FMI score close to 0.0** for any
-    value of ``n_clusters`` and ``n_samples`` (which is not the case for raw
-    Mutual Information or the V-measure for instance).
+  - **تعيينات التسميات العشوائية (الموحدة) لها درجة FMI قريبة من 0.0** لأي قيمة لـ ``n_clusters`` و ``n_samples`` (وهو ليس هو الحال بالنسبة للمعلومات المتبادلة الأولية أو مقياس V على سبيل المثال).
 
-  - **Upper-bounded at 1**:  Values close to zero indicate two label assignments
-    that are largely independent, while values close to one indicate significant
-    agreement. Further, values of exactly 0 indicate **purely** independent
-    label assignments and a FMI of exactly 1 indicates that the two label
-    assignments are equal (with or without permutation).
+  - **الحد الأعلى عند 1**: تشير القيم القريبة من الصفر إلى تعيينين للتسميات مستقلان إلى حد كبير، بينما تشير القيم القريبة من واحد إلى اتفاق كبير.
+    علاوة على ذلك، تشير قيم 0 بالضبط إلى تعيينات تسميات مستقلة **بشكل خالص** ويشير FMI من 1 بالضبط إلى أن تعيينات التسمية متساوية (مع أو بدون تبديل).
 
-  - **No assumption is made on the cluster structure**: can be used to compare
-    clustering algorithms such as k-means which assumes isotropic blob shapes
-    with results of spectral clustering algorithms which can find cluster with
-    "folded" shapes.
+  - **لا يوجد افتراض على بنية الكتلة**: يمكن استخدامه لمقارنة خوارزميات التجميع مثل k-means التي تفترض أشكالًا متجانسة الخواص مع نتائج خوارزميات التجميع الطيفي التي يمكنها العثور على مجموعات ذات أشكال "مطوية".
 
-.. topic:: Drawbacks:
+.. topic:: العيوب:
 
-  - Contrary to inertia, **FMI-based measures require the knowledge of the
-    ground truth classes** while almost never available in practice or requires
-    manual assignment by human annotators (as in the supervised learning
-    setting).
+  - على عكس القصور الذاتي، **تتطلب المقاييس المستندة إلى FMI معرفة فئات الحقيقة الأساسية** بينما لا تتوفر تقريبًا في الممارسة العملية أو تتطلب تعيينًا يدويًا بواسطة التعليقات التوضيحية البشرية (كما هو الحال في إعداد التعلم الخاضع للإشراف).
 
-.. dropdown:: References
+.. dropdown:: المراجع
 
-  * E. B. Fowkles and C. L. Mallows, 1983. "A method for comparing two
-    hierarchical clusterings". Journal of the American Statistical Association.
+  * E. B. Fowkles and C. L. Mallows، 1983. "A method for comparing two hierarchical clusterings". Journal of the American Statistical Association.
     https://www.tandfonline.com/doi/abs/10.1080/01621459.1983.10478008
 
-  * `Wikipedia entry for the Fowlkes-Mallows Index
+  * `إدخال ويكيبيديا لمؤشر Fowlkes-Mallows
     <https://en.wikipedia.org/wiki/Fowlkes-Mallows_index>`_
 
 
 .. _silhouette_coefficient:
 
-Silhouette Coefficient
+معامل silhouette
 ----------------------
 
-If the ground truth labels are not known, evaluation must be performed using
-the model itself. The Silhouette Coefficient
-(:func:`sklearn.metrics.silhouette_score`)
-is an example of such an evaluation, where a
-higher Silhouette Coefficient score relates to a model with better defined
-clusters. The Silhouette Coefficient is defined for each sample and is composed
-of two scores:
+إذا لم تكن تسميات الحقيقة الأساسية معروفة، فيجب إجراء التقييم باستخدام النموذج نفسه.
+معامل silhouette (:func:`sklearn.metrics.silhouette_score`) هو مثال على هذا التقييم، حيث ترتبط درجة معامل silhouette الأعلى بنموذج بمجموعات محددة بشكل أفضل.
+يتم تعريف معامل silhouette لكل عينة ويتكون من درجتين:
 
-- **a**: The mean distance between a sample and all other points in the same
-  class.
+- **a**: متوسط المسافة بين عينة وجميع النقاط الأخرى في نفس الفئة.
 
-- **b**: The mean distance between a sample and all other points in the *next
-  nearest cluster*.
+- **b**: متوسط المسافة بين عينة وجميع النقاط الأخرى في *أقرب مجموعة تالية*.
 
-The Silhouette Coefficient *s* for a single sample is then given as:
+ثم يتم إعطاء معامل silhouette *s* لعينة واحدة على النحو التالي:
 
 .. math:: s = \frac{b - a}{max(a, b)}
 
-The Silhouette Coefficient for a set of samples is given as the mean of the
-Silhouette Coefficient for each sample.
+يتم إعطاء معامل silhouette لمجموعة من العينات على أنه متوسط معامل silhouette لكل عينة.::
 
 
   >>> from sklearn import metrics
@@ -1900,8 +1454,7 @@ Silhouette Coefficient for each sample.
   >>> from sklearn import datasets
   >>> X, y = datasets.load_iris(return_X_y=True)
 
-In normal usage, the Silhouette Coefficient is applied to the results of a
-cluster analysis.
+في الاستخدام العادي، يتم تطبيق معامل silhouette على نتائج تحليل الكتلة.::
 
   >>> import numpy as np
   >>> from sklearn.cluster import KMeans
@@ -1910,55 +1463,43 @@ cluster analysis.
   >>> metrics.silhouette_score(X, labels, metric='euclidean')
   0.55...
 
-.. topic:: Advantages:
+.. topic:: المزايا:
 
-  - The score is bounded between -1 for incorrect clustering and +1 for highly
-    dense clustering. Scores around zero indicate overlapping clusters.
+  - النتيجة محدودة بين -1 للتجميع غير الصحيح و +1 للتجميع عالي الكثافة.
+    تشير الدرجات حول الصفر إلى مجموعات متداخلة.
 
-  - The score is higher when clusters are dense and well separated, which
-    relates to a standard concept of a cluster.
+  - تكون النتيجة أعلى عندما تكون المجموعات كثيفة ومفصولة جيدًا، مما يتعلق بمفهوم قياسي للكتلة.
 
-.. topic:: Drawbacks:
+.. topic:: العيوب:
 
-  - The Silhouette Coefficient is generally higher for convex clusters than
-    other concepts of clusters, such as density based clusters like those
-    obtained through DBSCAN.
+  - يكون معامل silhouette أعلى بشكل عام للمجموعات المحدبة من مفاهيم المجموعات الأخرى، مثل المجموعات القائمة على الكثافة مثل تلك التي تم الحصول عليها من خلال DBSCAN.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_cluster_plot_kmeans_silhouette_analysis.py` : In
-  this example the silhouette analysis is used to choose an optimal value for
-  n_clusters.
+* :ref:`sphx_glr_auto_examples_cluster/plot_kmeans_silhouette_analysis.py`: في هذا المثال، يتم استخدام تحليل silhouette لاختيار قيمة مثالية لـ n_clusters.
 
-.. dropdown:: References
+.. dropdown:: المراجع
 
-  * Peter J. Rousseeuw (1987). :doi:`"Silhouettes: a Graphical Aid to the
-    Interpretation and Validation of Cluster Analysis"<10.1016/0377-0427(87)90125-7>`.
+  * Peter J. Rousseeuw (1987). :doi:`"Silhouettes: a Graphical Aid to the Interpretation and Validation of Cluster Analysis"<10.1016/0377-0427(87)90125-7>`.
     Computational and Applied Mathematics 20: 53-65.
 
 
 .. _calinski_harabasz_index:
 
-Calinski-Harabasz Index
+مؤشر Calinski-Harabasz
 -----------------------
 
 
-If the ground truth labels are not known, the Calinski-Harabasz index
-(:func:`sklearn.metrics.calinski_harabasz_score`) - also known as the Variance
-Ratio Criterion - can be used to evaluate the model, where a higher
-Calinski-Harabasz score relates to a model with better defined clusters.
+إذا لم تكن تسميات الحقيقة الأساسية معروفة، فيمكن استخدام مؤشر Calinski-Harabasz (:func:`sklearn.metrics.calinski_harabasz_score`) - المعروف أيضًا باسم معيار نسبة التباين - لتقييم النموذج، حيث ترتبط درجة Calinski-Harabasz الأعلى بنموذج بمجموعات محددة بشكل أفضل.
 
-The index is the ratio of the sum of between-clusters dispersion and of
-within-cluster dispersion for all clusters (where dispersion is defined as the
-sum of distances squared):
+المؤشر هو نسبة مجموع تشتت بين المجموعات وتشتت داخل المجموعات لجميع المجموعات (حيث يتم تعريف التشتت على أنه مجموع المسافات المربعة)::
 
   >>> from sklearn import metrics
   >>> from sklearn.metrics import pairwise_distances
   >>> from sklearn import datasets
   >>> X, y = datasets.load_iris(return_X_y=True)
 
-In normal usage, the Calinski-Harabasz index is applied to the results of a
-cluster analysis:
+في الاستخدام العادي، يتم تطبيق مؤشر Calinski-Harabasz على نتائج تحليل الكتلة::
 
   >>> import numpy as np
   >>> from sklearn.cluster import KMeans
@@ -1968,44 +1509,34 @@ cluster analysis:
   561.59...
 
 
-.. topic:: Advantages:
+.. topic:: المزايا:
 
-  - The score is higher when clusters are dense and well separated, which
-    relates to a standard concept of a cluster.
+  - تكون النتيجة أعلى عندما تكون المجموعات كثيفة ومفصولة جيدًا، مما يتعلق بمفهوم قياسي للكتلة.
 
-  - The score is fast to compute.
+  - النتيجة سريعة الحساب.
 
-.. topic:: Drawbacks:
+.. topic:: العيوب:
 
-  - The Calinski-Harabasz index is generally higher for convex clusters than
-    other concepts of clusters, such as density based clusters like those
-    obtained through DBSCAN.
+  - يكون مؤشر Calinski-Harabasz أعلى بشكل عام للمجموعات المحدبة من مفاهيم المجموعات الأخرى، مثل المجموعات القائمة على الكثافة مثل تلك التي تم الحصول عليها من خلال DBSCAN.
 
-.. dropdown:: Mathematical formulation
+.. dropdown:: الصيغة الرياضية
 
-  For a set of data :math:`E` of size :math:`n_E` which has been clustered into
-  :math:`k` clusters, the Calinski-Harabasz score :math:`s` is defined as the
-  ratio of the between-clusters dispersion mean and the within-cluster
-  dispersion:
+  بالنسبة لمجموعة من البيانات :math:`E` ذات الحجم :math:`n_E` التي تم تجميعها في :math:`k` مجموعات، يتم تعريف درجة Calinski-Harabasz :math:`s` على أنها نسبة متوسط تشتت بين المجموعات وتشتت داخل الكتلة:
 
   .. math::
     s = \frac{\mathrm{tr}(B_k)}{\mathrm{tr}(W_k)} \times \frac{n_E - k}{k - 1}
 
-  where :math:`\mathrm{tr}(B_k)` is trace of the between group dispersion matrix
-  and :math:`\mathrm{tr}(W_k)` is the trace of the within-cluster dispersion
-  matrix defined by:
+  حيث :math:`\mathrm{tr}(B_k)` هو تتبع مصفوفة التشتت بين المجموعات و :math:`\mathrm{tr}(W_k)` هو تتبع مصفوفة التشتت داخل الكتلة المحددة بواسطة:
 
   .. math:: W_k = \sum_{q=1}^k \sum_{x \in C_q} (x - c_q) (x - c_q)^T
 
   .. math:: B_k = \sum_{q=1}^k n_q (c_q - c_E) (c_q - c_E)^T
 
-  with :math:`C_q` the set of points in cluster :math:`q`, :math:`c_q` the
-  center of cluster :math:`q`, :math:`c_E` the center of :math:`E`, and
-  :math:`n_q` the number of points in cluster :math:`q`.
+  مع :math:`C_q` مجموعة النقاط في الكتلة :math:`q`، :math:`c_q` مركز الكتلة :math:`q`، :math:`c_E` مركز :math:`E`، و :math:`n_q` عدد النقاط في الكتلة :math:`q`.
 
-.. dropdown:: References
+.. dropdown:: المراجع
 
-  * Caliński, T., & Harabasz, J. (1974). `"A Dendrite Method for Cluster Analysis"
+  * Caliński، T.، & Harabasz، J. (1974). `"A Dendrite Method for Cluster Analysis"
     <https://www.researchgate.net/publication/233096619_A_Dendrite_Method_for_Cluster_Analysis>`_.
     :doi:`Communications in Statistics-theory and Methods 3: 1-27
     <10.1080/03610927408827101>`.
@@ -2013,23 +1544,16 @@ cluster analysis:
 
 .. _davies-bouldin_index:
 
-Davies-Bouldin Index
+مؤشر Davies-Bouldin
 --------------------
 
-If the ground truth labels are not known, the Davies-Bouldin index
-(:func:`sklearn.metrics.davies_bouldin_score`) can be used to evaluate the
-model, where a lower Davies-Bouldin index relates to a model with better
-separation between the clusters.
+إذا لم تكن تسميات الحقيقة الأساسية معروفة، فيمكن استخدام مؤشر Davies-Bouldin (:func:`sklearn.metrics.davies_bouldin_score`) لتقييم النموذج، حيث يرتبط مؤشر Davies-Bouldin الأقل بنموذج مع فصل أفضل بين المجموعات.
 
-This index signifies the average 'similarity' between clusters, where the
-similarity is a measure that compares the distance between clusters with the
-size of the clusters themselves.
+يشير هذا المؤشر إلى متوسط "التشابه" بين المجموعات، حيث يكون التشابه مقياسًا يقارن المسافة بين المجموعات بحجم المجموعات نفسها.
 
-Zero is the lowest possible score. Values closer to zero indicate a better
-partition.
+الصفر هو أدنى درجة ممكنة. تشير القيم الأقرب إلى الصفر إلى قسم أفضل.
 
-In normal usage, the Davies-Bouldin index is applied to the results of a
-cluster analysis as follows:
+في الاستخدام العادي، يتم تطبيق مؤشر Davies-Bouldin على نتائج تحليل الكتلة على النحو التالي::
 
   >>> from sklearn import datasets
   >>> iris = datasets.load_iris()
@@ -2042,68 +1566,57 @@ cluster analysis as follows:
   0.666...
 
 
-.. topic:: Advantages:
+.. topic:: المزايا:
 
-  - The computation of Davies-Bouldin is simpler than that of Silhouette scores.
-  - The index is solely based on quantities and features inherent to the dataset
-    as its computation only uses point-wise distances.
+  - حساب Davies-Bouldin أبسط من حساب درجات silhouette.
+  - يعتمد المؤشر فقط على الكميات والميزات المتأصلة في مجموعة البيانات حيث لا يستخدم حسابه سوى المسافات النقطية.
 
-.. topic:: Drawbacks:
+.. topic:: العيوب:
 
-  - The Davies-Boulding index is generally higher for convex clusters than other
-    concepts of clusters, such as density based clusters like those obtained
-    from DBSCAN.
-  - The usage of centroid distance limits the distance metric to Euclidean
-    space.
+  - يكون مؤشر Davies-Boulding أعلى بشكل عام للمجموعات المحدبة من مفاهيم المجموعات الأخرى، مثل المجموعات القائمة على الكثافة مثل تلك التي تم الحصول عليها من DBSCAN.
+  - استخدام مسافة النقطه المركزية يحد من مقياس المسافة إلى الفضاء الإقليدي.
 
-.. dropdown:: Mathematical formulation
+.. dropdown:: الصيغة الرياضية
 
-  The index is defined as the average similarity between each cluster :math:`C_i`
-  for :math:`i=1, ..., k` and its most similar one :math:`C_j`. In the context of
-  this index, similarity is defined as a measure :math:`R_{ij}` that trades off:
+  يتم تعريف المؤشر على أنه متوسط التشابه بين كل مجموعة :math:`C_i` لـ :math:`i=1, ..., k` وأكثرها تشابهًا :math:`C_j`.
+  في سياق هذا المؤشر، يتم تعريف التشابه على أنه مقياس :math:`R_{ij}` الذي يتداول:
 
-  - :math:`s_i`, the average distance between each point of cluster :math:`i` and
-    the centroid of that cluster -- also know as cluster diameter.
-  - :math:`d_{ij}`, the distance between cluster centroids :math:`i` and
-    :math:`j`.
+  - :math:`s_i`، متوسط المسافة بين كل نقطة من الكتلة :math:`i` والنقطه المركزية لتلك الكتلة - تُعرف أيضًا باسم قطر الكتلة.
+  - :math:`d_{ij}`، المسافة بين مراكز الكتلة :math:`i` و :math:`j`.
 
-  A simple choice to construct :math:`R_{ij}` so that it is nonnegative and
-  symmetric is:
+  اختيار بسيط لبناء :math:`R_{ij}` بحيث يكون غير سالب ومتماثل هو:
 
   .. math::
     R_{ij} = \frac{s_i + s_j}{d_{ij}}
 
-  Then the Davies-Bouldin index is defined as:
+  ثم يتم تعريف مؤشر Davies-Bouldin على النحو التالي:
 
   .. math::
     DB = \frac{1}{k} \sum_{i=1}^k \max_{i \neq j} R_{ij}
 
-.. dropdown:: References
+.. dropdown:: المراجع
 
-  * Davies, David L.; Bouldin, Donald W. (1979). :doi:`"A Cluster Separation
+  * Davies، David L.؛ Bouldin، Donald W. (1979). :doi:`"A Cluster Separation
     Measure" <10.1109/TPAMI.1979.4766909>` IEEE Transactions on Pattern Analysis
     and Machine Intelligence. PAMI-1 (2): 224-227.
 
-  * Halkidi, Maria; Batistakis, Yannis; Vazirgiannis, Michalis (2001). :doi:`"On
+  * Halkidi، Maria؛ Batistakis، Yannis؛ Vazirgiannis، Michalis (2001). :doi:`"On
     Clustering Validation Techniques" <10.1023/A:1012801612483>` Journal of
-    Intelligent Information Systems, 17(2-3), 107-145.
+    Intelligent Information Systems، 17 (2-3)، 107-145.
 
-  * `Wikipedia entry for Davies-Bouldin index
+  * `إدخال ويكيبيديا لمؤشر Davies-Bouldin
     <https://en.wikipedia.org/wiki/Davies-Bouldin_index>`_.
 
 
 .. _contingency_matrix:
 
-Contingency Matrix
+مصفوفة الطوارئ
 ------------------
 
-Contingency matrix (:func:`sklearn.metrics.cluster.contingency_matrix`)
-reports the intersection cardinality for every true/predicted cluster pair.
-The contingency matrix provides sufficient statistics for all clustering
-metrics where the samples are independent and identically distributed and
-one doesn't need to account for some instances not being clustered.
+تُبلغ مصفوفة الطوارئ (:func:`sklearn.metrics.cluster.contingency_matrix`) عن أصل التقاطع لكل زوج من المجموعات الحقيقية / المتوقعة.
+توفر مصفوفة الطوارئ إحصائيات كافية لجميع مقاييس التجميع حيث تكون العينات مستقلة وموزعة بشكل متماثل ولا يحتاج المرء إلى مراعاة عدم تجميع بعض المثيلات.
 
-Here is an example::
+فيما يلي مثال::
 
    >>> from sklearn.metrics.cluster import contingency_matrix
    >>> x = ["a", "a", "a", "b", "b", "b"]
@@ -2112,48 +1625,38 @@ Here is an example::
    array([[2, 1, 0],
           [0, 1, 2]])
 
-The first row of output array indicates that there are three samples whose
-true cluster is "a". Of them, two are in predicted cluster 0, one is in 1,
-and none is in 2. And the second row indicates that there are three samples
-whose true cluster is "b". Of them, none is in predicted cluster 0, one is in
-1 and two are in 2.
+يشير الصف الأول من مصفوفة الإخراج إلى وجود ثلاث عينات تكون مجموعتها الحقيقية هي "a".
+من بينها، اثنان في الكتلة المتوقعة 0، وواحد في 1، ولا يوجد أي منها في 2.
+ويشير الصف الثاني إلى وجود ثلاث عينات تكون مجموعتها الحقيقية هي "b".
+من بينها، لا يوجد أي منها في الكتلة المتوقعة 0، وواحد في 1 واثنان في 2.
 
-A :ref:`confusion matrix <confusion_matrix>` for classification is a square
-contingency matrix where the order of rows and columns correspond to a list
-of classes.
+:ref:`مصفوفة الارتباك <confusion_matrix>` للتصنيف هي مصفوفة طوارئ مربعة حيث يتوافق ترتيب الصفوف والأعمدة مع قائمة الفئات.
 
 
-.. topic:: Advantages:
+.. topic:: المزايا:
 
-  - Allows to examine the spread of each true cluster across predicted clusters
-    and vice versa.
+  - يسمح بفحص انتشار كل مجموعة حقيقية عبر المجموعات المتوقعة والعكس صحيح.
 
-  - The contingency table calculated is typically utilized in the calculation of
-    a similarity statistic (like the others listed in this document) between the
-    two clusterings.
+  - يتم استخدام جدول الطوارئ المحسوب عادةً في حساب إحصائية التشابه (مثل الإحصائيات الأخرى المدرجة في هذه الوثيقة) بين التجميعين.
 
-.. topic:: Drawbacks:
+.. topic:: العيوب:
 
-  - Contingency matrix is easy to interpret for a small number of clusters, but
-    becomes very hard to interpret for a large number of clusters.
+  - من السهل تفسير مصفوفة الطوارئ لعدد صغير من المجموعات، ولكن يصعب تفسيرها لعدد كبير من المجموعات.
 
-  - It doesn't give a single metric to use as an objective for clustering
-    optimisation.
+  - لا يعطي مقياسًا واحدًا لاستخدامه كهدف لتحسين التجميع.
 
-.. dropdown:: References
+.. dropdown:: المراجع
 
-  * `Wikipedia entry for contingency matrix
+  * `إدخال ويكيبيديا لمصفوفة الطوارئ
     <https://en.wikipedia.org/wiki/Contingency_table>`_
 
 
 .. _pair_confusion_matrix:
 
-Pair Confusion Matrix
+مصفوفة ارتباك الزوج
 ---------------------
 
-The pair confusion matrix
-(:func:`sklearn.metrics.cluster.pair_confusion_matrix`) is a 2x2
-similarity matrix
+مصفوفة ارتباك الزوج (:func:`sklearn.metrics.cluster.pair_confusion_matrix`) هي مصفوفة تشابه 2x2
 
 .. math::
    C = \left[\begin{matrix}
@@ -2161,33 +1664,21 @@ similarity matrix
    C_{10} & C_{11}
    \end{matrix}\right]
 
-between two clusterings computed by considering all pairs of samples and
-counting pairs that are assigned into the same or into different clusters
-under the true and predicted clusterings.
+بين تجميعين محسوبين من خلال النظر في جميع أزواج العينات وعد أزواج يتم تعيينها في نفس المجموعات أو في مجموعات مختلفة تحت التجميعات الحقيقية والمتوقعة.
 
-It has the following entries:
+لديها الإدخالات التالية:
 
-:math:`C_{00}` : number of pairs with both clusterings having the samples
-not clustered together
+:math:`C_{00}` : عدد الأزواج مع كلا التجميعين اللذين لا تحتوي عيناتهما على مجموعات معًا
 
-:math:`C_{10}` : number of pairs with the true label clustering having the
-samples clustered together but the other clustering not having the samples
-clustered together
+:math:`C_{10}` : عدد الأزواج مع تجميع التسمية الحقيقية التي تحتوي على عينات مجمعة معًا ولكن التجميع الآخر لا يحتوي على عينات مجمعة معًا
 
-:math:`C_{01}` : number of pairs with the true label clustering not having
-the samples clustered together but the other clustering having the samples
-clustered together
+:math:`C_{01}` : عدد الأزواج مع تجميع التسمية الحقيقية التي لا تحتوي على عينات مجمعة معًا ولكن التجميع الآخر يحتوي على عينات مجمعة معًا
 
-:math:`C_{11}` : number of pairs with both clusterings having the samples
-clustered together
+:math:`C_{11}` : عدد الأزواج مع كلا التجميعين اللذين يحتويان على عينات مجمعة معًا
 
-Considering a pair of samples that is clustered together a positive pair,
-then as in binary classification the count of true negatives is
-:math:`C_{00}`, false negatives is :math:`C_{10}`, true positives is
-:math:`C_{11}` and false positives is :math:`C_{01}`.
+بالنظر إلى زوج من العينات التي تم تجميعها معًا كزوج إيجابي، كما هو الحال في التصنيف الثنائي، فإن عدد السلبيات الحقيقية هو :math:`C_{00}`، والسلبيات الكاذبة هي :math:`C_{10}`، والإيجابيات الحقيقية هي :math:`C_{11}` والإيجابيات الكاذبة هي :math:`C_{01}`.
 
-Perfectly matching labelings have all non-zero entries on the
-diagonal regardless of actual label values::
+تحتوي التسميات المتطابقة تمامًا على جميع الإدخالات غير الصفرية على القطر بغض النظر عن قيم التسمية الفعلية::
 
    >>> from sklearn.metrics.cluster import pair_confusion_matrix
    >>> pair_confusion_matrix([0, 0, 1, 1], [0, 0, 1, 1])
@@ -2200,29 +1691,28 @@ diagonal regardless of actual label values::
    array([[8, 0],
           [0, 4]])
 
-Labelings that assign all classes members to the same clusters
-are complete but may not always be pure, hence penalized, and
-have some off-diagonal non-zero entries::
+التسميات التي تعين جميع أعضاء الفئات إلى نفس المجموعات كاملة ولكنها قد لا تكون نقية دائمًا، وبالتالي يتم معاقبتها، ولديها بعض الإدخالات غير الصفرية خارج القطر::
 
    >>> pair_confusion_matrix([0, 0, 1, 2], [0, 0, 1, 1])
    array([[8, 2],
           [0, 2]])
 
-The matrix is not symmetric::
+المصفوفة ليست متماثلة::
 
    >>> pair_confusion_matrix([0, 0, 1, 1], [0, 0, 1, 2])
    array([[8, 0],
           [2, 2]])
 
-If classes members are completely split across different clusters, the
-assignment is totally incomplete, hence the matrix has all zero
-diagonal entries::
+إذا تم تقسيم أعضاء الفئات تمامًا عبر مجموعات مختلفة، فإن التعيين غير مكتمل تمامًا، وبالتالي تحتوي المصفوفة على جميع إدخالات القطر الصفرية::
 
    >>> pair_confusion_matrix([0, 0, 0, 0], [0, 1, 2, 3])
    array([[ 0,  0],
           [12,  0]])
 
-.. dropdown:: References
+.. dropdown:: المراجع
 
-  * :doi:`"Comparing Partitions" <10.1007/BF01908075>` L. Hubert and P. Arabie,
+  * :doi:`"Comparing Partitions" <10.1007/BF01908075>` L. Hubert and P. Arabie،
     Journal of Classification 1985
+
+
+
