@@ -1,60 +1,50 @@
+
 .. _random_projection:
 
 ==================
-Random Projection
+التصميم العشوائي
 ==================
 .. currentmodule:: sklearn.random_projection
 
-The :mod:`sklearn.random_projection` module implements a simple and
-computationally efficient way to reduce the dimensionality of the data by
-trading a controlled amount of accuracy (as additional variance) for faster
-processing times and smaller model sizes. This module implements two types of
-unstructured random matrix:
-:ref:`Gaussian random matrix <gaussian_random_matrix>` and
-:ref:`sparse random matrix <sparse_random_matrix>`.
+تطبق الوحدة النمطية :mod:`sklearn.random_projection` طريقة بسيطة وفعالة من الناحية الحسابية لخفض الأبعاد للبيانات من خلال التداول على كمية محكومة من الدقة (كاختلاف إضافي) لأوقات معالجة أسرع وأحجام نماذج أصغر. تنفذ هذه الوحدة النمطية نوعين من المصفوفات العشوائية غير المنظمة:
+:ref:`مصفوفة عشوائية ذاتية <gaussian_random_matrix>` و
+:ref:`مصفوفة عشوائية نادرة <sparse_random_matrix>`.
 
-The dimensions and distribution of random projections matrices are
-controlled so as to preserve the pairwise distances between any two
-samples of the dataset. Thus random projection is a suitable approximation
-technique for distance based method.
+يتم التحكم في أبعاد وتوزيع مصفوفات التصميم العشوائي بحيث يتم الحفاظ على المسافات الزوجية بين أي عينة من مجموعة البيانات. وبالتالي، فإن التصميم العشوائي هو تقنية تقريبية مناسبة للأساليب القائمة على المسافة.
 
 
-.. rubric:: References
+.. rubric:: المراجع
 
 * Sanjoy Dasgupta. 2000.
-  `Experiments with random projection. <https://cseweb.ucsd.edu/~dasgupta/papers/randomf.pdf>`_
-  In Proceedings of the Sixteenth conference on Uncertainty in artificial
-  intelligence (UAI'00), Craig Boutilier and Moisés Goldszmidt (Eds.). Morgan
-  Kaufmann Publishers Inc., San Francisco, CA, USA, 143-151.
+  `تجارب مع التصميم العشوائي. <https://cseweb.ucsd.edu/~dasgupta/papers/randomf.pdf>`_
+  في وقائع المؤتمر السادس عشر حول عدم اليقين في الذكاء الاصطناعي (UAI'00)، Craig Boutilier وMoisés Goldszmidt (محرران). Morgan
+  ناشرو كوفمان، سان فرانسيسكو، كاليفورنيا، الولايات المتحدة الأمريكية، 143-151.
 
-* Ella Bingham and Heikki Mannila. 2001.
-  `Random projection in dimensionality reduction: applications to image and text data. <https://citeseerx.ist.psu.edu/doc_view/pid/aed77346f737b0ed5890b61ad02e5eb4ab2f3dc6>`_
-  In Proceedings of the seventh ACM SIGKDD international conference on
-  Knowledge discovery and data mining (KDD '01). ACM, New York, NY, USA,
+* Ella Bingham وHeikki Mannila. 2001.
+  `التصميم العشوائي في خفض الأبعاد: التطبيقات على بيانات الصور والنصوص. <https://citeseerx.ist.psu.edu/doc_view/pid/aed77346f737b0ed5890b61ad02e5eb4ab2f3dc6>`_
+  في وقائع المؤتمر السابع ACM SIGKDD الدولي حول
+  اكتشاف المعرفة واستخراج البيانات (KDD '01). ACM، نيويورك، نيويورك، الولايات المتحدة الأمريكية،
   245-250.
 
 
 .. _johnson_lindenstrauss:
 
-The Johnson-Lindenstrauss lemma
+مبرهنة جونسون-ليندستراوس
 ===============================
 
-The main theoretical result behind the efficiency of random projection is the
-`Johnson-Lindenstrauss lemma (quoting Wikipedia)
+النتيجة النظرية الرئيسية وراء كفاءة التصميم العشوائي هي
+`مبرهنة جونسون-ليندستراوس (اقتباس من ويكيبيديا)
 <https://en.wikipedia.org/wiki/Johnson%E2%80%93Lindenstrauss_lemma>`_:
 
-  In mathematics, the Johnson-Lindenstrauss lemma is a result
-  concerning low-distortion embeddings of points from high-dimensional
-  into low-dimensional Euclidean space. The lemma states that a small set
-  of points in a high-dimensional space can be embedded into a space of
-  much lower dimension in such a way that distances between the points are
-  nearly preserved. The map used for the embedding is at least Lipschitz,
-  and can even be taken to be an orthogonal projection.
+  في الرياضيات، مبرهنة جونسون-ليندستراوس هي نتيجة
+  تتعلق بالتعميدات ذات التشوه المنخفض للنقاط من الأبعاد العالية
+  إلى فضاء إقليدي منخفض الأبعاد. تنص المبرهنة على أنه يمكن تضمين مجموعة صغيرة
+  من النقاط في مساحة ذات أبعاد عالية في مساحة ذات أبعاد أقل بكثير بطريقة تحافظ على المسافات بين النقاط تقريبًا. يمكن أن تكون الخريطة المستخدمة للتعميد على الأقل ليبشيتز،
+  ويمكن حتى أن تكون إسقاطًا متعامدًا.
 
-Knowing only the number of samples, the
-:func:`johnson_lindenstrauss_min_dim` estimates
-conservatively the minimal size of the random subspace to guarantee a
-bounded distortion introduced by the random projection::
+معرفة عدد العينات فقط،
+يقدر :func:`johnson_lindenstrauss_min_dim`
+تحفظيًا الحد الأدنى لحجم الفضاء العشوائي لضمان تشوه محدود يتم تقديمه بواسطة التصميم العشوائي::
 
   >>> from sklearn.random_projection import johnson_lindenstrauss_min_dim
   >>> johnson_lindenstrauss_min_dim(n_samples=1e6, eps=0.5)
@@ -74,29 +64,28 @@ bounded distortion introduced by the random projection::
    :scale: 75
    :align: center
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* See :ref:`sphx_glr_auto_examples_miscellaneous_plot_johnson_lindenstrauss_bound.py`
-  for a theoretical explication on the Johnson-Lindenstrauss lemma and an
-  empirical validation using sparse random matrices.
+* راجع :ref:`sphx_glr_auto_examples_miscellaneous_plot_johnson_lindenstrauss_bound.py`
+  لشرح نظري حول مبرهنة جونسون-ليندستراوس و
+  التحقق التجريبي باستخدام المصفوفات العشوائية النادرة.
 
-.. rubric:: References
+.. rubric:: المراجع
 
-* Sanjoy Dasgupta and Anupam Gupta, 1999.
-  `An elementary proof of the Johnson-Lindenstrauss Lemma.
+* Sanjoy Dasgupta وAnupam Gupta، 1999.
+  `دليل أولي على مبرهنة جونسون-ليندستراوس.
   <https://citeseerx.ist.psu.edu/doc_view/pid/95cd464d27c25c9c8690b378b894d337cdf021f9>`_
 
 .. _gaussian_random_matrix:
 
-Gaussian random projection
+التصميم العشوائي ذاتي
 ==========================
-The :class:`GaussianRandomProjection` reduces the
-dimensionality by projecting the original input space on a randomly generated
-matrix where components are drawn from the following distribution
+يقلل :class:`GaussianRandomProjection`
+الأبعاد من خلال إسقاط مساحة الإدخال الأصلية على مصفوفة تم إنشاؤها عشوائيًا
+حيث يتم رسم المكونات من التوزيع التالي
 :math:`N(0, \frac{1}{n_{components}})`.
 
-Here a small excerpt which illustrates how to use the Gaussian random
-projection transformer::
+هنا مقتطف صغير يوضح كيفية استخدام محول التصميم العشوائي ذاتي::
 
   >>> import numpy as np
   >>> from sklearn import random_projection
@@ -109,18 +98,14 @@ projection transformer::
 
 .. _sparse_random_matrix:
 
-Sparse random projection
+التصميم العشوائي النادر
 ========================
-The :class:`SparseRandomProjection` reduces the
-dimensionality by projecting the original input space using a sparse
-random matrix.
+يقلل :class:`SparseRandomProjection`
+الأبعاد من خلال إسقاط مساحة الإدخال الأصلية باستخدام مصفوفة عشوائية نادرة.
 
-Sparse random matrices are an alternative to dense Gaussian random
-projection matrix that guarantees similar embedding quality while being much
-more memory efficient and allowing faster computation of the projected data.
+المصفوفات العشوائية النادرة هي بديل للمصفوفة العشوائية ذاتية الكثافة التي تضمن جودة تضمين مماثلة مع كونها أكثر كفاءة في الذاكرة وتسمح بحساب أسرع للبيانات المسقطة.
 
-If we define ``s = 1 / density``, the elements of the random matrix
-are drawn from
+إذا حددنا ``s = 1 / density``، يتم رسم عناصر المصفوفة العشوائية من
 
 .. math::
 
@@ -132,12 +117,11 @@ are drawn from
   \end{array}
   \right.
 
-where :math:`n_{\text{components}}` is the size of the projected subspace.
-By default the density of non zero elements is set to the minimum density as
-recommended by Ping Li et al.: :math:`1 / \sqrt{n_{\text{features}}}`.
+حيث :math:`n_{\text{components}}` هو حجم الفضاء المسقطة.
+افتراضيًا، يتم تعيين كثافة العناصر غير الصفرية إلى الحد الأدنى من الكثافة كما
+أوصى Ping Li et al.: :math:`1 / \sqrt{n_{\text{features}}}`.
 
-Here a small excerpt which illustrates how to use the sparse random
-projection transformer::
+هنا مقتطف صغير يوضح كيفية استخدام محول التصميم العشوائي النادر::
 
   >>> import numpy as np
   >>> from sklearn import random_projection
@@ -148,39 +132,38 @@ projection transformer::
   (100, 3947)
 
 
-.. rubric:: References
+.. rubric:: المراجع
 
 * D. Achlioptas. 2003.
-  `Database-friendly random projections: Johnson-Lindenstrauss  with binary
-  coins <https://www.sciencedirect.com/science/article/pii/S0022000003000254>`_.
-  Journal of Computer and System Sciences 66 (2003) 671-687.
+  `التصميم العشوائي الصديق لقواعد البيانات: جونسون-ليندستراوس
+  مع عملات معدنية ثنائية
+  <https://www.sciencedirect.com/science/article/pii/S0022000003000254>`_.
+  مجلة علوم الكمبيوتر والنظم 66 (2003) 671-687.
 
-* Ping Li, Trevor J. Hastie, and Kenneth W. Church. 2006.
-  `Very sparse random projections. <https://web.stanford.edu/~hastie/Papers/Ping/KDD06_rp.pdf>`_
-  In Proceedings of the 12th ACM SIGKDD international conference on
-  Knowledge discovery and data mining (KDD '06). ACM, New York, NY, USA, 287-296.
+* Ping Li، Trevor J. Hastie، وKenneth W. Church. 2006.
+  `التصميم العشوائي النادر للغاية. <https://web.stanford.edu/~hastie/Papers/Ping/KDD06_rp.pdf>`_
+  في وقائع المؤتمر الدولي الثاني عشر ACM SIGKDD حول
+  اكتشاف المعرفة واستخراج البيانات (KDD '06). ACM، نيويورك، نيويورك، الولايات المتحدة الأمريكية، 287-296.
 
 
 .. _random_projection_inverse_transform:
 
-Inverse Transform
+التحويل العكسي
 =================
-The random projection transformers have ``compute_inverse_components`` parameter. When
-set to True, after creating the random ``components_`` matrix during fitting,
-the transformer computes the pseudo-inverse of this matrix and stores it as
-``inverse_components_``. The ``inverse_components_`` matrix has shape
-:math:`n_{features} \times n_{components}`, and it is always a dense matrix,
-regardless of whether the components matrix is sparse or dense. So depending on
-the number of features and components, it may use a lot of memory.
+للمحولات التصميم العشوائي معلمة ``compute_inverse_components``. عندما
+يتم تعيينها إلى True، بعد إنشاء مصفوفة ``components_`` العشوائية أثناء التجهيز،
+يقوم المحول بحساب العكسي الزائف لهذه المصفوفة وتخزينها كـ
+``inverse_components_``. تحتوي مصفوفة ``inverse_components_`` على الشكل
+:math:`n_{features} \times n_{components}`، وهي دائمًا مصفوفة كثيفة،
+بغض النظر عما إذا كانت مصفوفة المكونات نادرة أو كثيفة. لذا، اعتمادًا على
+عدد الميزات والمكونات، قد تستخدم الكثير من الذاكرة.
 
-When the ``inverse_transform`` method is called, it computes the product of the
-input ``X`` and the transpose of the inverse components. If the inverse components have
-been computed during fit, they are reused at each call to ``inverse_transform``.
-Otherwise they are recomputed each time, which can be costly. The result is always
-dense, even if ``X`` is sparse.
+عند استدعاء طريقة ``inverse_transform``، تقوم بحساب ناتج الضرب للمصفوفة
+``X`` ومتجه العكسي للمكونات. إذا تم حساب المكونات العكسية أثناء التجهيز، يتم إعادة استخدامها في كل استدعاء لـ ``inverse_transform``.
+وإلا يتم إعادة حسابها في كل مرة، مما قد يكون مكلفًا. النتيجة دائمًا
+كثيفة، حتى إذا كانت ``X`` نادرة.
 
-Here a small code example which illustrates how to use the inverse transform
-feature::
+هنا مثال صغير يوضح كيفية استخدام ميزة التحويل العكسي::
 
   >>> import numpy as np
   >>> from sklearn.random_projection import SparseRandomProjection

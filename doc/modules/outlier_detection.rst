@@ -1,182 +1,97 @@
 .. _outlier_detection:
 
 ===================================================
-Novelty and Outlier Detection
+كشف الجِدّة والقيم المتطرفة
 ===================================================
 
 .. currentmodule:: sklearn
 
-Many applications require being able to decide whether a new observation
-belongs to the same distribution as existing observations (it is an
-*inlier*), or should be considered as different (it is an *outlier*).
-Often, this ability is used to clean real data sets. Two important
-distinctions must be made:
+تتطلب العديد من التطبيقات القدرة على تحديد ما إذا كانت مشاهدة جديدة تنتمي إلى نفس توزيع المشاهدات الموجودة (إنها *قيمة داخلية*)، أو يجب اعتبارها مختلفة (إنها *قيمة متطرفة*). غالبًا ما تُستخدم هذه القدرة لتنظيف مجموعات البيانات الحقيقية. يجب التمييز بين أمرين مهمين:
 
-:outlier detection:
-  The training data contains outliers which are defined as observations that
-  are far from the others. Outlier detection estimators thus try to fit the
-  regions where the training data is the most concentrated, ignoring the
-  deviant observations.
+:كشف القيم المتطرفة:
+  تحتوي بيانات التدريب على قيم متطرفة تُعرّف على أنها مشاهدات بعيدة عن الأخرى. وبالتالي، تحاول مقدرات كشف القيم المتطرفة ملاءمة المناطق التي تتركز فيها بيانات التدريب بشكل كبير، متجاهلة المشاهدات الشاذة.
 
-:novelty detection:
-  The training data is not polluted by outliers and we are interested in
-  detecting whether a **new** observation is an outlier. In this context an
-  outlier is also called a novelty.
+:كشف الجِدّة:
+ بيانات التدريب غير ملوثة بالقيم المتطرفة، ونحن مهتمون باكتشاف ما إذا كانت مشاهدة **جديدة** قيمة متطرفة. في هذا السياق، تُسمى القيمة المتطرفة أيضًا بالجدة.
 
-Outlier detection and novelty detection are both used for anomaly
-detection, where one is interested in detecting abnormal or unusual
-observations. Outlier detection is then also known as unsupervised anomaly
-detection and novelty detection as semi-supervised anomaly detection. In the
-context of outlier detection, the outliers/anomalies cannot form a
-dense cluster as available estimators assume that the outliers/anomalies are
-located in low density regions. On the contrary, in the context of novelty
-detection, novelties/anomalies can form a dense cluster as long as they are in
-a low density region of the training data, considered as normal in this
-context.
+يُستخدم كل من كشف القيم المتطرفة وكشف الجِدّة لكشف الشذوذ، حيث يهتم المرء باكتشاف المشاهدات الشاذة أو غير العادية. يُعرف كشف القيم المتطرفة أيضًا باسم كشف الشذوذ غير الخاضع للإشراف، وكشف الجدة باسم كشف الشذوذ شبه الخاضع للإشراف. في سياق كشف القيم المتطرفة، لا يمكن للقيم المتطرفة/الشذوذ أن تُشكّل مجموعة كثيفة حيث تفترض المقدرات المتاحة أن القيم المتطرفة/الشذوذ تقع في مناطق منخفضة الكثافة. على العكس من ذلك، في سياق كشف الجدة، يمكن للجِدّة/الشذوذ أن تُشكّل مجموعة كثيفة طالما أنها في منطقة منخفضة الكثافة من بيانات التدريب، والتي تُعتبر طبيعية في هذا السياق.
 
-The scikit-learn project provides a set of machine learning tools that
-can be used both for novelty or outlier detection. This strategy is
-implemented with objects learning in an unsupervised way from the data::
+يُوفر مشروع scikit-learn مجموعة من أدوات تعلم الآلة التي يمكن استخدامها لكل من كشف الجِدّة أو القيم المتطرفة. يتم تطبيق هذه الاستراتيجية مع الكائنات التي تتعلم بطريقة غير خاضعة للإشراف من البيانات::
 
     estimator.fit(X_train)
 
-new observations can then be sorted as inliers or outliers with a
-``predict`` method::
+يمكن بعد ذلك فرز المشاهدات الجديدة على أنها قيم داخلية أو قيم متطرفة باستخدام طريقة ``predict``::
 
     estimator.predict(X_test)
 
-Inliers are labeled 1, while outliers are labeled -1. The predict method
-makes use of a threshold on the raw scoring function computed by the
-estimator. This scoring function is accessible through the ``score_samples``
-method, while the threshold can be controlled by the ``contamination``
-parameter.
+يتم تسمية القيم الداخلية بـ 1، بينما يتم تسمية القيم المتطرفة بـ -1. تستخدم طريقة التنبؤ عتبة على دالة التهديف الأولية التي يحسبها المقدّر. يمكن الوصول إلى دالة التهديف هذه من خلال طريقة ``score_samples``، بينما يمكن التحكم في العتبة بواسطة المعلمة ``contamination``.
 
-The ``decision_function`` method is also defined from the scoring function,
-in such a way that negative values are outliers and non-negative ones are
-inliers::
+يتم تعريف طريقة ``decision_function`` أيضًا من دالة التهديف، بحيث تكون القيم السالبة قيمًا متطرفة والقيم غير السالبة قيمًا داخلية::
 
     estimator.decision_function(X_test)
 
-Note that :class:`neighbors.LocalOutlierFactor` does not support
-``predict``, ``decision_function`` and ``score_samples`` methods by default
-but only a ``fit_predict`` method, as this estimator was originally meant to
-be applied for outlier detection. The scores of abnormality of the training
-samples are accessible through the ``negative_outlier_factor_`` attribute.
+لاحظ أن :class:`neighbors.LocalOutlierFactor` لا يدعم طرق ``predict`` و ``decision_function`` و ``score_samples`` افتراضيًا، ولكن فقط طريقة ``fit_predict``، حيث كان من المفترض أصلاً تطبيق هذا المقدّر لكشف القيم المتطرفة. يمكن الوصول إلى درجات شذوذ عينات التدريب من خلال السمة ``negative_outlier_factor_``.
 
-If you really want to use :class:`neighbors.LocalOutlierFactor` for novelty
-detection, i.e. predict labels or compute the score of abnormality of new
-unseen data, you can instantiate the estimator with the ``novelty`` parameter
-set to ``True`` before fitting the estimator. In this case, ``fit_predict`` is
-not available.
+إذا كنت تُريد حقًا استخدام :class:`neighbors.LocalOutlierFactor` لكشف الجِدّة، أي التنبؤ بالتسميات أو حساب درجة شذوذ البيانات الجديدة غير المرئية، فيمكنك إنشاء مثيل للمقدر باستخدام المعلمة ``novelty`` المُعيّنة إلى ``True`` قبل ملاءمة المقدّر. في هذه الحالة، ``fit_predict`` غير متوفرة.
 
-.. warning:: **Novelty detection with Local Outlier Factor**
+.. warning:: **كشف الجدة باستخدام مُعامل القيم المتطرفة المحلي**
 
-  When ``novelty`` is set to ``True`` be aware that you must only use
-  ``predict``, ``decision_function`` and ``score_samples`` on new unseen data
-  and not on the training samples as this would lead to wrong results.
-  I.e., the result of ``predict`` will not be the same as ``fit_predict``.
-  The scores of abnormality of the training samples are always accessible
-  through the ``negative_outlier_factor_`` attribute.
+  عندما يتم تعيين ``novelty`` إلى ``True``، انتبه إلى أنه يجب عليك فقط استخدام ``predict`` و ``decision_function`` و ``score_samples`` على البيانات الجديدة غير المرئية وليس على عينات التدريب، لأن هذا سيؤدي إلى نتائج خاطئة. بمعنى آخر، لن تكون نتيجة ``predict`` هي نفس نتيجة ``fit_predict``. يمكن دائمًا الوصول إلى درجات شذوذ عينات التدريب من خلال السمة ``negative_outlier_factor_``.
 
-The behavior of :class:`neighbors.LocalOutlierFactor` is summarized in the
-following table.
+
+يتم تلخيص سلوك :class:`neighbors.LocalOutlierFactor` في الجدول التالي.
+
 
 ============================ ================================ =====================
-Method                       Outlier detection                Novelty detection
+الطريقة                       كشف القيم المتطرفة                كشف الجدة
 ============================ ================================ =====================
-``fit_predict``              OK                               Not available
-``predict``                  Not available                    Use only on new data
-``decision_function``        Not available                    Use only on new data
-``score_samples``            Use ``negative_outlier_factor_`` Use only on new data
-``negative_outlier_factor_`` OK                               OK
+``fit_predict``              موافق                              غير متوفرة
+``predict``                  غير متوفرة                        استخدم فقط على بيانات جديدة
+``decision_function``        غير متوفرة                        استخدم فقط على بيانات جديدة
+``score_samples``            استخدم ``negative_outlier_factor_``  استخدم فقط على بيانات جديدة
+``negative_outlier_factor_`` موافق                              موافق
 ============================ ================================ =====================
 
 
-Overview of outlier detection methods
+نظرة عامة على أساليب كشف القيم المتطرفة
 =====================================
 
-A comparison of the outlier detection algorithms in scikit-learn. Local
-Outlier Factor (LOF) does not show a decision boundary in black as it
-has no predict method to be applied on new data when it is used for outlier
-detection.
+مقارنة بين خوارزميات كشف القيم المتطرفة في scikit-learn. لا يُظهر مُعامل القيم المتطرفة المحلي (LOF) حد قرار باللون الأسود لأنه لا يحتوي على طريقة تنبؤ لتطبيقها على البيانات الجديدة عند استخدامه لكشف القيم المتطرفة.
 
 .. figure:: ../auto_examples/miscellaneous/images/sphx_glr_plot_anomaly_comparison_001.png
    :target: ../auto_examples/miscellaneous/plot_anomaly_comparison.html
    :align: center
    :scale: 50
 
-:class:`ensemble.IsolationForest` and :class:`neighbors.LocalOutlierFactor`
-perform reasonably well on the data sets considered here.
-The :class:`svm.OneClassSVM` is known to be sensitive to outliers and thus
-does not perform very well for outlier detection. That being said, outlier
-detection in high-dimension, or without any assumptions on the distribution
-of the inlying data is very challenging. :class:`svm.OneClassSVM` may still
-be used with outlier detection but requires fine-tuning of its hyperparameter
-`nu` to handle outliers and prevent overfitting.
-:class:`linear_model.SGDOneClassSVM` provides an implementation of a
-linear One-Class SVM with a linear complexity in the number of samples. This
-implementation is here used with a kernel approximation technique to obtain
-results similar to :class:`svm.OneClassSVM` which uses a Gaussian kernel
-by default. Finally, :class:`covariance.EllipticEnvelope` assumes the data is
-Gaussian and learns an ellipse. For more details on the different estimators
-refer to the example
-:ref:`sphx_glr_auto_examples_miscellaneous_plot_anomaly_comparison.py` and the
-sections hereunder.
+:class:`ensemble.IsolationForest` و :class:`neighbors.LocalOutlierFactor` يعملان بشكل جيد إلى حد معقول على مجموعات البيانات التي تم أخذها في الاعتبار هنا. من المعروف أن :class:`svm.OneClassSVM` حساسة للقيم المتطرفة، وبالتالي لا تُقدم أداءً جيدًا جدًا لكشف القيم المتطرفة. ومع ذلك، فإن كشف القيم المتطرفة في الأبعاد العالية، أو بدون أي افتراضات حول توزيع البيانات الداخلية، يُمثل تحديًا كبيرًا. لا يزال من الممكن استخدام :class:`svm.OneClassSVM` مع كشف القيم المتطرفة، ولكنه يتطلب ضبطًا دقيقًا للمعلمة الفائقة `nu` للتعامل مع القيم المتطرفة ومنع التوافق الزائد. تُوفر :class:`linear_model.SGDOneClassSVM` تطبيقًا لـ One-Class SVM خطي مع تعقيد خطي في عدد العينات. يتم استخدام هذا التطبيق هنا مع تقنية تقريب النواة للحصول على نتائج مشابهة لـ :class:`svm.OneClassSVM` التي تستخدم نواة غاوسية افتراضيًا. أخيرًا، تفترض :class:`covariance.EllipticEnvelope` أن البيانات غاوسية وتتعلم شكل بيضاوي. لمزيد من التفاصيل حول المقدرات المختلفة، ارجع إلى المثال :ref:`sphx_glr_auto_examples_miscellaneous_plot_anomaly_comparison.py` والأقسام أدناه.
 
-.. rubric:: Examples
 
-* See :ref:`sphx_glr_auto_examples_miscellaneous_plot_anomaly_comparison.py`
-  for a comparison of the :class:`svm.OneClassSVM`, the
-  :class:`ensemble.IsolationForest`, the
-  :class:`neighbors.LocalOutlierFactor` and
-  :class:`covariance.EllipticEnvelope`.
+.. rubric:: أمثلة
 
-* See :ref:`sphx_glr_auto_examples_miscellaneous_plot_outlier_detection_bench.py`
-  for an example showing how to evaluate outlier detection estimators,
-  the :class:`neighbors.LocalOutlierFactor` and the
-  :class:`ensemble.IsolationForest`, using ROC curves from
-  :class:`metrics.RocCurveDisplay`.
+* انظر :ref:`sphx_glr_auto_examples_miscellaneous_plot_anomaly_comparison.py` لمقارنة :class:`svm.OneClassSVM` و :class:`ensemble.IsolationForest` و :class:`neighbors.LocalOutlierFactor` و :class:`covariance.EllipticEnvelope`.
 
-Novelty Detection
+* انظر :ref:`sphx_glr_auto_examples_miscellaneous_plot_outlier_detection_bench.py` للحصول على مثال يُظهر كيفية تقييم مقدرات كشف القيم المتطرفة، :class:`neighbors.LocalOutlierFactor` و :class:`ensemble.IsolationForest`، باستخدام منحنيات ROC من :class:`metrics.RocCurveDisplay`.
+
+
+
+كشف الجدة
 =================
 
-Consider a data set of :math:`n` observations from the same
-distribution described by :math:`p` features.  Consider now that we
-add one more observation to that data set. Is the new observation so
-different from the others that we can doubt it is regular? (i.e. does
-it come from the same distribution?) Or on the contrary, is it so
-similar to the other that we cannot distinguish it from the original
-observations? This is the question addressed by the novelty detection
-tools and methods.
+خذ في الاعتبار مجموعة بيانات من :math:`n` مشاهدات من نفس التوزيع الموصوف بواسطة :math:`p` ميزات. خذ في الاعتبار الآن أننا نُضيف مشاهدة واحدة أخرى إلى مجموعة البيانات هذه. هل المشاهدة الجديدة مختلفة عن الأخرى لدرجة أننا نشك في أنها منتظمة؟ (أي هل تأتي من نفس التوزيع؟) أم على العكس من ذلك، هل هي مشابهة جدًا للأخرى لدرجة أننا لا نستطيع تمييزها عن المشاهدات الأصلية؟ هذا هو السؤال الذي تُعالجه أدوات وأساليب كشف الجدة.
 
-In general, it is about to learn a rough, close frontier delimiting
-the contour of the initial observations distribution, plotted in
-embedding :math:`p`-dimensional space. Then, if further observations
-lay within the frontier-delimited subspace, they are considered as
-coming from the same population than the initial
-observations. Otherwise, if they lay outside the frontier, we can say
-that they are abnormal with a given confidence in our assessment.
+بشكل عام، يتعلق الأمر بتعلم حدود تقريبية تُحدّد محيط توزيع المشاهدات الأولية، المرسومة في فضاء تضمين :math:`p` الأبعاد. بعد ذلك، إذا كانت المزيد من المشاهدات تقع داخل الفضاء الجزئي المُحدّد بالحدود، فإنها تُعتبر من نفس مجموعة المشاهدات الأولية. وإلا، إذا كانت تقع خارج الحدود، يمكننا القول إنها غير طبيعية مع ثقة مُعطاة في تقييمنا.
 
-The One-Class SVM has been introduced by Schölkopf et al. for that purpose
-and implemented in the :ref:`svm` module in the
-:class:`svm.OneClassSVM` object. It requires the choice of a
-kernel and a scalar parameter to define a frontier.  The RBF kernel is
-usually chosen although there exists no exact formula or algorithm to
-set its bandwidth parameter. This is the default in the scikit-learn
-implementation. The `nu` parameter, also known as the margin of
-the One-Class SVM, corresponds to the probability of finding a new,
-but regular, observation outside the frontier.
+تم تقديم One-Class SVM بواسطة Schölkopf وآخرون لهذا الغرض وتم تنفيذه في وحدة :ref:`svm` في الكائن :class:`svm.OneClassSVM`. يتطلب اختيار نواة ومعلمة عددية لتعريف الحدود. يتم اختيار نواة RBF عادةً على الرغم من عدم وجود صيغة أو خوارزمية دقيقة لتعيين معلمة عرض النطاق الترددي الخاصة بها. هذا هو الافتراضي في تطبيق scikit-learn. تتوافق المعلمة `nu`، المعروفة أيضًا باسم هامش One-Class SVM، مع احتمال إيجاد مشاهدة جديدة، ولكن منتظمة، خارج الحدود.
 
-.. rubric:: References
+.. rubric:: المراجع
 
 * `Estimating the support of a high-dimensional distribution
   <https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/tr-99-87.pdf>`_
   Schölkopf, Bernhard, et al. Neural computation 13.7 (2001): 1443-1471.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* See :ref:`sphx_glr_auto_examples_svm_plot_oneclass.py` for visualizing the
-  frontier learned around some data by a :class:`svm.OneClassSVM` object.
+* انظر :ref:`sphx_glr_auto_examples_svm_plot_oneclass.py` لتصور الحدود التي تم تعلمها حول بعض البيانات بواسطة كائن :class:`svm.OneClassSVM`.
 
 * :ref:`sphx_glr_auto_examples_applications_plot_species_distribution_modeling.py`
 
@@ -186,236 +101,174 @@ but regular, observation outside the frontier.
    :scale: 75%
 
 
-Scaling up the One-Class SVM
+توسيع نطاق One-Class SVM
 ----------------------------
 
-An online linear version of the One-Class SVM is implemented in
-:class:`linear_model.SGDOneClassSVM`. This implementation scales linearly with
-the number of samples and can be used with a kernel approximation to
-approximate the solution of a kernelized :class:`svm.OneClassSVM` whose
-complexity is at best quadratic in the number of samples. See section
-:ref:`sgd_online_one_class_svm` for more details.
+يتم تطبيق إصدار خطي عبر الإنترنت من One-Class SVM في :class:`linear_model.SGDOneClassSVM`. يتدرج هذا التطبيق خطيًا مع عدد العينات ويمكن استخدامه مع تقريب النواة لتقريب حل :class:`svm.OneClassSVM` ذي النواة الذي يكون تعقيده تربيعيًا في أحسن الأحوال في عدد العينات. انظر قسم :ref:`sgd_online_one_class_svm` لمزيد من التفاصيل.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* See :ref:`sphx_glr_auto_examples_linear_model_plot_sgdocsvm_vs_ocsvm.py`
-  for an illustration of the approximation of a kernelized One-Class SVM
-  with the `linear_model.SGDOneClassSVM` combined with kernel approximation.
+* انظر :ref:`sphx_glr_auto_examples_linear_model_plot_sgdocsvm_vs_ocsvm.py` لتوضيح تقريب One-Class SVM ذي النواة مع `linear_model.SGDOneClassSVM` مُدمجًا مع تقريب النواة.
 
 
-Outlier Detection
+كشف القيم المتطرفة
 =================
 
-Outlier detection is similar to novelty detection in the sense that
-the goal is to separate a core of regular observations from some
-polluting ones, called *outliers*. Yet, in the case of outlier
-detection, we don't have a clean data set representing the population
-of regular observations that can be used to train any tool.
+يُشبه كشف القيم المتطرفة كشف الجدة بمعنى أن الهدف هو فصل جوهر المشاهدات المنتظمة عن بعض المشاهدات الملوثة، التي تُسمى *القيم المتطرفة*. ومع ذلك، في حالة كشف القيم المتطرفة، ليس لدينا مجموعة بيانات نظيفة تُمثل مجموعة المشاهدات المنتظمة التي يمكن استخدامها لتدريب أي أداة.
 
 
-Fitting an elliptic envelope
+ملاءمة غلاف بيضاوي
 ----------------------------
 
-One common way of performing outlier detection is to assume that the
-regular data come from a known distribution (e.g. data are Gaussian
-distributed). From this assumption, we generally try to define the
-"shape" of the data, and can define outlying observations as
-observations which stand far enough from the fit shape.
+إحدى الطرق الشائعة لإجراء كشف القيم المتطرفة هي افتراض أن البيانات المنتظمة تأتي من توزيع معروف (على سبيل المثال، البيانات موزعة غاوسيًا). من هذا الافتراض، نحاول عمومًا تحديد "شكل" البيانات، ويمكننا تعريف المشاهدات المتطرفة على أنها مشاهدات تبتعد بما فيه الكفاية عن الشكل المُناسب.
 
-The scikit-learn provides an object
-:class:`covariance.EllipticEnvelope` that fits a robust covariance
-estimate to the data, and thus fits an ellipse to the central data
-points, ignoring points outside the central mode.
+تُوفر scikit-learn كائن :class:`covariance.EllipticEnvelope` الذي يُناسب تقدير التغاير القوي للبيانات، وبالتالي يُناسب شكل بيضاوي لنقاط البيانات المركزية، متجاهلاً النقاط خارج الوضع المركزي.
 
-For instance, assuming that the inlier data are Gaussian distributed, it
-will estimate the inlier location and covariance in a robust way (i.e.
-without being influenced by outliers). The Mahalanobis distances
-obtained from this estimate is used to derive a measure of outlyingness.
-This strategy is illustrated below.
+على سبيل المثال، بافتراض أن البيانات الداخلية موزعة غاوسيًا، فسيُقدّر الموقع والتغاير الداخلي بطريقة قوية (أي دون التأثر بالقيم المتطرفة). تُستخدم مسافات ماهالانوبيس التي تم الحصول عليها من هذا التقدير لاشتقاق مقياس للبعد. تم توضيح هذه الاستراتيجية أدناه.
 
 .. figure:: ../auto_examples/covariance/images/sphx_glr_plot_mahalanobis_distances_001.png
    :target: ../auto_examples/covariance/plot_mahalanobis_distances.html
    :align: center
    :scale: 75%
 
-.. rubric:: Examples
 
-* See :ref:`sphx_glr_auto_examples_covariance_plot_mahalanobis_distances.py` for
-  an illustration of the difference between using a standard
-  (:class:`covariance.EmpiricalCovariance`) or a robust estimate
-  (:class:`covariance.MinCovDet`) of location and covariance to
-  assess the degree of outlyingness of an observation.
+.. rubric:: أمثلة
 
-* See :ref:`sphx_glr_auto_examples_applications_plot_outlier_detection_wine.py`
-  for an example of robust covariance estimation on a real data set.
+* انظر :ref:`sphx_glr_auto_examples_covariance_plot_mahalanobis_distances.py` لتوضيح الفرق بين استخدام تقدير قياسي (:class:`covariance.EmpiricalCovariance`) أو تقدير قوي (:class:`covariance.MinCovDet`) للموقع والتغاير لتقييم درجة بعد مشاهدة ما.
 
 
-.. rubric:: References
+* انظر :ref:`sphx_glr_auto_examples_applications_plot_outlier_detection_wine.py` للحصول على مثال لتقدير التغاير القوي على مجموعة بيانات حقيقية.
+
+
+.. rubric:: المراجع
 
 * Rousseeuw, P.J., Van Driessen, K. "A fast algorithm for the minimum
   covariance determinant estimator" Technometrics 41(3), 212 (1999)
 
+
+
 .. _isolation_forest:
 
-Isolation Forest
+
+غابة العزل
 ----------------------------
 
-One efficient way of performing outlier detection in high-dimensional datasets
-is to use random forests.
-The :class:`ensemble.IsolationForest` 'isolates' observations by randomly selecting
-a feature and then randomly selecting a split value between the maximum and
-minimum values of the selected feature.
+إحدى الطرق الفعالة لإجراء كشف القيم المتطرفة في مجموعات البيانات عالية الأبعاد هي استخدام الغابات العشوائية. :class:`ensemble.IsolationForest` "تعزل" المشاهدات عن طريق اختيار ميزة عشوائيًا ثم اختيار قيمة تقسيم عشوائية بين القيم القصوى والدنيا للميزة المختارة.
 
-Since recursive partitioning can be represented by a tree structure, the
-number of splittings required to isolate a sample is equivalent to the path
-length from the root node to the terminating node.
+نظرًا لأنه يمكن تمثيل التقسيم التكراري بهيكل شجرة، فإن عدد عمليات التقسيم المطلوبة لعزل عينة ما يُكافئ طول المسار من العقدة الجذرية إلى العقدة النهائية.
 
-This path length, averaged over a forest of such random trees, is a
-measure of normality and our decision function.
+طول المسار هذا، بمتوسط على غابة من هذه الأشجار العشوائية، هو مقياس للطبيعية ودالة القرار لدينا.
 
-Random partitioning produces noticeably shorter paths for anomalies.
-Hence, when a forest of random trees collectively produce shorter path
-lengths for particular samples, they are highly likely to be anomalies.
 
-The implementation of :class:`ensemble.IsolationForest` is based on an ensemble
-of :class:`tree.ExtraTreeRegressor`. Following Isolation Forest original paper,
-the maximum depth of each tree is set to :math:`\lceil \log_2(n) \rceil` where
-:math:`n` is the number of samples used to build the tree (see (Liu et al.,
-2008) for more details).
+يُنتج التقسيم العشوائي مسارات أقصر بشكل ملحوظ للشذوذ. ومن ثم، عندما تُنتج غابة من الأشجار العشوائية بشكل جماعي أطوال مسار أقصر لعينات مُحدّدة، فمن المُرجّح جدًا أن تكون شذوذًا.
 
-This algorithm is illustrated below.
+
+يعتمد تطبيق :class:`ensemble.IsolationForest` على مجموعة من :class:`tree.ExtraTreeRegressor`. باتباع الورقة الأصلية لغابة العزل، يتم تعيين أقصى عمق لكل شجرة إلى :math:`\lceil \log_2(n) \rceil` حيث :math:`n` هو عدد العينات المستخدمة لبناء الشجرة (انظر (Liu et al.، 2008) لمزيد من التفاصيل).
+
+تم توضيح هذه الخوارزمية أدناه.
+
 
 .. figure:: ../auto_examples/ensemble/images/sphx_glr_plot_isolation_forest_003.png
    :target: ../auto_examples/ensemble/plot_isolation_forest.html
    :align: center
    :scale: 75%
 
+
 .. _iforest_warm_start:
 
-The :class:`ensemble.IsolationForest` supports ``warm_start=True`` which
-allows you to add more trees to an already fitted model::
+يدعم :class:`ensemble.IsolationForest` ``warm_start=True`` مما يسمح لك بإضافة المزيد من الأشجار إلى نموذج مُناسب بالفعل::
 
   >>> from sklearn.ensemble import IsolationForest
   >>> import numpy as np
   >>> X = np.array([[-1, -1], [-2, -1], [-3, -2], [0, 0], [-20, 50], [3, 5]])
   >>> clf = IsolationForest(n_estimators=10, warm_start=True)
-  >>> clf.fit(X)  # fit 10 trees  # doctest: +SKIP
-  >>> clf.set_params(n_estimators=20)  # add 10 more trees  # doctest: +SKIP
-  >>> clf.fit(X)  # fit the added trees  # doctest: +SKIP
+  >>> clf.fit(X)  # تناسب 10 أشجار # doctest: +SKIP
+  >>> clf.set_params(n_estimators=20)  # أضف 10 أشجار أخرى # doctest: +SKIP
+  >>> clf.fit(X)  # تناسب الأشجار المُضافة # doctest: +SKIP
 
-.. rubric:: Examples
 
-* See :ref:`sphx_glr_auto_examples_ensemble_plot_isolation_forest.py` for
-  an illustration of the use of IsolationForest.
 
-* See :ref:`sphx_glr_auto_examples_miscellaneous_plot_anomaly_comparison.py`
-  for a comparison of :class:`ensemble.IsolationForest` with
-  :class:`neighbors.LocalOutlierFactor`,
-  :class:`svm.OneClassSVM` (tuned to perform like an outlier detection
-  method), :class:`linear_model.SGDOneClassSVM`, and a covariance-based
-  outlier detection with :class:`covariance.EllipticEnvelope`.
+.. rubric:: أمثلة
 
-.. rubric:: References
+* انظر :ref:`sphx_glr_auto_examples_ensemble_plot_isolation_forest.py` لتوضيح استخدام IsolationForest.
+
+
+* انظر :ref:`sphx_glr_auto_examples_miscellaneous_plot_anomaly_comparison.py` لمقارنة :class:`ensemble.IsolationForest` مع :class:`neighbors.LocalOutlierFactor` و :class:`svm.OneClassSVM` (مُضبوطة لأداء مثل طريقة كشف القيم المتطرفة) و :class:`linear_model.SGDOneClassSVM` وكشف القيم المتطرفة القائم على التغاير مع :class:`covariance.EllipticEnvelope`.
+
+
+.. rubric:: المراجع
 
 * Liu, Fei Tony, Ting, Kai Ming and Zhou, Zhi-Hua. "Isolation forest."
   Data Mining, 2008. ICDM'08. Eighth IEEE International Conference on.
 
+
 .. _local_outlier_factor:
 
-Local Outlier Factor
+
+مُعامل القيم المتطرفة المحلي
 --------------------
-Another efficient way to perform outlier detection on moderately high dimensional
-datasets is to use the Local Outlier Factor (LOF) algorithm.
+هناك طريقة أخرى فعالة لإجراء كشف القيم المتطرفة على مجموعات البيانات ذات الأبعاد المعتدلة هي استخدام خوارزمية مُعامل القيم المتطرفة المحلي (LOF).
 
-The :class:`neighbors.LocalOutlierFactor` (LOF) algorithm computes a score
-(called local outlier factor) reflecting the degree of abnormality of the
-observations.
-It measures the local density deviation of a given data point with respect to
-its neighbors. The idea is to detect the samples that have a substantially
-lower density than their neighbors.
+تحسب خوارزمية :class:`neighbors.LocalOutlierFactor` (LOF) درجة (تُسمى مُعامل القيم المتطرفة المحلي) تعكس درجة شذوذ المشاهدات. يقيس انحراف الكثافة المحلية لنقطة بيانات مُعطاة فيما يتعلق بجيرانها. الفكرة هي اكتشاف العينات ذات كثافة أقل بكثير من جيرانها.
 
-In practice the local density is obtained from the k-nearest neighbors.
-The LOF score of an observation is equal to the ratio of the
-average local density of its k-nearest neighbors, and its own local density:
-a normal instance is expected to have a local density similar to that of its
-neighbors, while abnormal data are expected to have much smaller local density.
-
-The number k of neighbors considered, (alias parameter n_neighbors) is typically
-chosen 1) greater than the minimum number of objects a cluster has to contain,
-so that other objects can be local outliers relative to this cluster, and 2)
-smaller than the maximum number of close by objects that can potentially be
-local outliers.
-In practice, such information is generally not available, and taking
-n_neighbors=20 appears to work well in general.
-When the proportion of outliers is high (i.e. greater than 10 \%, as in the
-example below), n_neighbors should be greater (n_neighbors=35 in the example
-below).
-
-The strength of the LOF algorithm is that it takes both local and global
-properties of datasets into consideration: it can perform well even in datasets
-where abnormal samples have different underlying densities.
-The question is not, how isolated the sample is, but how isolated it is
-with respect to the surrounding neighborhood.
-
-When applying LOF for outlier detection, there are no ``predict``,
-``decision_function`` and ``score_samples`` methods but only a ``fit_predict``
-method. The scores of abnormality of the training samples are accessible
-through the ``negative_outlier_factor_`` attribute.
-Note that ``predict``, ``decision_function`` and ``score_samples`` can be used
-on new unseen data when LOF is applied for novelty detection, i.e. when the
-``novelty`` parameter is set to ``True``, but the result of ``predict`` may
-differ from that of ``fit_predict``. See :ref:`novelty_with_lof`.
+في الممارسة العملية، يتم الحصول على الكثافة المحلية من أقرب k جيران. درجة LOF للمشاهدة تساوي نسبة متوسط الكثافة المحلية لأقرب k جيران لها، وكثافتها المحلية الخاصة: من المتوقع أن يكون للمثيل العادي كثافة محلية تُشبه كثافة جيرانها، بينما من المتوقع أن يكون للبيانات الشاذة كثافة محلية أصغر بكثير.
 
 
-This strategy is illustrated below.
+عادةً ما يتم اختيار عدد k من الجيران الذين تم أخذهم في الاعتبار (المعلمة البديلة n_neighbors) 1) أكبر من الحد الأدنى لعدد الكائنات التي يجب أن تحتويها المجموعة، بحيث يمكن أن تكون الكائنات الأخرى قيمًا متطرفة محلية بالنسبة لهذه المجموعة، و 2) أصغر من الحد الأقصى لعدد الكائنات القريبة التي يمكن أن تكون قيمًا متطرفة محلية. في الممارسة العملية، هذه المعلومات غير متوفرة بشكل عام، ويبدو أن أخذ n_neighbors=20 يعمل بشكل جيد بشكل عام. عندما تكون نسبة القيم المتطرفة عالية (أي أكبر من 10٪، كما في المثال أدناه)، يجب أن تكون n_neighbors أكبر (n_neighbors=35 في المثال أدناه).
+
+تكمن قوة خوارزمية LOF في أنها تأخذ في الاعتبار كل من الخصائص المحلية والعالمية لمجموعات البيانات: يمكنها الأداء الجيد حتى في مجموعات البيانات حيث تحتوي العينات الشاذة على كثافات أساسية مختلفة. السؤال ليس، ما مدى عزلة العينة، ولكن ما مدى عزلتها بالنسبة للحي المحيط.
+
+عند تطبيق LOF لكشف القيم المتطرفة، لا توجد طرق ``predict`` و ``decision_function`` و ``score_samples``، ولكن فقط طريقة ``fit_predict``. يمكن الوصول إلى درجات شذوذ عينات التدريب من خلال السمة ``negative_outlier_factor_``. لاحظ أنه يمكن استخدام ``predict`` و ``decision_function`` و ``score_samples`` على بيانات جديدة غير مرئية عند تطبيق LOF لكشف الجدة، أي عندما يتم تعيين المعلمة ``novelty`` إلى ``True``، ولكن قد تختلف نتيجة ``predict`` عن نتيجة ``fit_predict``. انظر :ref:`novelty_with_lof`.
+
+تم توضيح هذه الاستراتيجية أدناه.
+
 
 .. figure:: ../auto_examples/neighbors/images/sphx_glr_plot_lof_outlier_detection_001.png
    :target: ../auto_examples/neighbors/plot_lof_outlier_detection.html
    :align: center
    :scale: 75%
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* See :ref:`sphx_glr_auto_examples_neighbors_plot_lof_outlier_detection.py`
-  for an illustration of the use of :class:`neighbors.LocalOutlierFactor`.
+* انظر :ref:`sphx_glr_auto_examples_neighbors_plot_lof_outlier_detection.py` لتوضيح استخدام :class:`neighbors.LocalOutlierFactor`.
 
-* See :ref:`sphx_glr_auto_examples_miscellaneous_plot_anomaly_comparison.py`
-  for a comparison with other anomaly detection methods.
+* انظر :ref:`sphx_glr_auto_examples_miscellaneous_plot_anomaly_comparison.py` لمقارنة مع طرق كشف الشذوذ الأخرى.
 
-.. rubric:: References
+
+.. rubric:: المراجع
 
 * Breunig, Kriegel, Ng, and Sander (2000)
   `LOF: identifying density-based local outliers.
   <https://www.dbs.ifi.lmu.de/Publikationen/Papers/LOF.pdf>`_
   Proc. ACM SIGMOD
 
+
+
 .. _novelty_with_lof:
 
-Novelty detection with Local Outlier Factor
+
+كشف الجدة باستخدام مُعامل القيم المتطرفة المحلي
 ===========================================
 
-To use :class:`neighbors.LocalOutlierFactor` for novelty detection, i.e.
-predict labels or compute the score of abnormality of new unseen data, you
-need to instantiate the estimator with the ``novelty`` parameter
-set to ``True`` before fitting the estimator::
+لاستخدام :class:`neighbors.LocalOutlierFactor` لكشف الجدة، أي التنبؤ بالتسميات أو حساب درجة شذوذ البيانات الجديدة غير المرئية، تحتاج إلى إنشاء مثيل للمقدر باستخدام المعلمة ``novelty`` المُعيّنة إلى ``True`` قبل ملاءمة المقدّر::
 
   lof = LocalOutlierFactor(novelty=True)
   lof.fit(X_train)
 
-Note that ``fit_predict`` is not available in this case to avoid inconsistencies.
 
-.. warning:: **Novelty detection with Local Outlier Factor`**
+لاحظ أن ``fit_predict`` غير متوفرة في هذه الحالة لتجنب التناقضات.
 
-  When ``novelty`` is set to ``True`` be aware that you must only use
-  ``predict``, ``decision_function`` and ``score_samples`` on new unseen data
-  and not on the training samples as this would lead to wrong results.
-  I.e., the result of ``predict`` will not be the same as ``fit_predict``.
-  The scores of abnormality of the training samples are always accessible
-  through the ``negative_outlier_factor_`` attribute.
 
-Novelty detection with Local Outlier Factor is illustrated below.
+.. warning:: **كشف الجدة باستخدام مُعامل القيم المتطرفة المحلي**
+
+
+  عندما يتم تعيين ``novelty`` إلى ``True``، انتبه إلى أنه يجب عليك فقط استخدام ``predict`` و ``decision_function`` و ``score_samples`` على البيانات الجديدة غير المرئية وليس على عينات التدريب، لأن هذا سيؤدي إلى نتائج خاطئة. بمعنى آخر، لن تكون نتيجة ``predict`` هي نفس نتيجة ``fit_predict``. يمكن دائمًا الوصول إلى درجات شذوذ عينات التدريب من خلال السمة ``negative_outlier_factor_``.
+
+يتم توضيح كشف الجدة باستخدام مُعامل القيم المتطرفة المحلي أدناه.
+
 
 .. figure:: ../auto_examples/neighbors/images/sphx_glr_plot_lof_novelty_detection_001.png
     :target: ../auto_examples/neighbors/plot_lof_novelty_detection.html
     :align: center
     :scale: 75%
+

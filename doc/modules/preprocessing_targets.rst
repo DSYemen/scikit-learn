@@ -3,22 +3,21 @@
 .. _preprocessing_targets:
 
 ==========================================
-Transforming the prediction target (``y``)
+تحويل هدف التنبؤ (``y``)
 ==========================================
 
-These are transformers that are not intended to be used on features, only on
-supervised learning targets. See also :ref:`transformed_target_regressor` if
-you want to transform the prediction target for learning, but evaluate the
-model in the original (untransformed) space.
+هذه هي المحولات التي لا يقصد استخدامها على الميزات، فقط على
+أهداف التعلم المشرف. راجع أيضًا :ref:`transformed_target_regressor` إذا
+كنت ترغب في تحويل هدف التنبؤ للتعلم، ولكن تقييم
+النموذج في المساحة الأصلية (غير المحولة).
 
-Label binarization
+تثنية التصنيف
 ==================
 
 LabelBinarizer
 --------------
 
-:class:`LabelBinarizer` is a utility class to help create a :term:`label
-indicator matrix` from a list of :term:`multiclass` labels::
+:class:`LabelBinarizer` هي فئة مساعدة للمساعدة في إنشاء مصفوفة مؤشر التصنيف من قائمة التصنيفات متعددة الفئات::
 
     >>> from sklearn import preprocessing
     >>> lb = preprocessing.LabelBinarizer()
@@ -30,32 +29,25 @@ indicator matrix` from a list of :term:`multiclass` labels::
     array([[1, 0, 0, 0],
            [0, 0, 0, 1]])
 
-Using this format can enable multiclass classification in estimators
-that support the label indicator matrix format.
+يسمح استخدام هذا التنسيق بالتصنيف متعدد الفئات في المقدرات
+التي تدعم تنسيق مصفوفة مؤشر التصنيف.
 
 .. warning::
 
-    LabelBinarizer is not needed if you are using an estimator that
-    already supports :term:`multiclass` data.
+    لا يلزم استخدام LabelBinarizer إذا كنت تستخدم مقدرًا
+    يدعم بالفعل بيانات متعددة الفئات.
 
-For more information about multiclass classification, refer to
+لمزيد من المعلومات حول التصنيف متعدد الفئات، راجع
 :ref:`multiclass_classification`.
 
 MultiLabelBinarizer
 -------------------
 
-In :term:`multilabel` learning, the joint set of binary classification tasks is
-expressed with a label binary indicator array: each sample is one row of a 2d
-array of shape (n_samples, n_classes) with binary values where the one, i.e. the
-non zero elements, corresponds to the subset of labels for that sample. An array
-such as ``np.array([[1, 0, 0], [0, 1, 1], [0, 0, 0]])`` represents label 0 in the
-first sample, labels 1 and 2 in the second sample, and no labels in the third
-sample.
+في التعلم متعدد التصنيفات، يتم التعبير عن مجموعة مهام التصنيف الثنائية المشتركة بمؤشر مصفوفة ثنائية التصنيف: كل عينة هي صف واحد من مصفوفة ثنائية الأبعاد ذات الشكل (n_samples، n_classes) بقيم ثنائية حيث الواحد، أي العناصر غير الصفرية، يقابل مجموعة التصنيفات لهذه العينة. مصفوفة مثل ``np.array([[1, 0, 0], [0, 1, 1], [0, 0, 0]])`` تمثل التصنيف 0 في العينة الأولى، والتصنيفات 1 و 2 في العينة الثانية، ولا تصنيفات في العينة الثالثة.
 
-Producing multilabel data as a list of sets of labels may be more intuitive.
-The :class:`MultiLabelBinarizer <sklearn.preprocessing.MultiLabelBinarizer>`
-transformer can be used to convert between a collection of collections of
-labels and the indicator format::
+قد يكون إنتاج بيانات متعددة التصنيفات على شكل قائمة من مجموعات التصنيفات أكثر بديهية.
+يمكن استخدام المحول :class:`MultiLabelBinarizer <sklearn.preprocessing.MultiLabelBinarizer>`
+لتحويل بين مجموعة من مجموعات التصنيفات وتنسيق المؤشر::
 
     >>> from sklearn.preprocessing import MultiLabelBinarizer
     >>> y = [[2, 3, 4], [2], [0, 1, 3], [0, 1, 2, 3, 4], [0, 1, 2]]
@@ -66,16 +58,15 @@ labels and the indicator format::
            [1, 1, 1, 1, 1],
            [1, 1, 1, 0, 0]])
 
-For more information about multilabel classification, refer to
+لمزيد من المعلومات حول التصنيف متعدد التصنيفات، راجع
 :ref:`multilabel_classification`.
 
-Label encoding
+الترميز التصنيفي
 ==============
 
-:class:`LabelEncoder` is a utility class to help normalize labels such that
-they contain only values between 0 and n_classes-1. This is sometimes useful
-for writing efficient Cython routines. :class:`LabelEncoder` can be used as
-follows::
+:class:`LabelEncoder` هي فئة مساعدة للمساعدة في تطبيع التصنيفات بحيث
+تحتوي فقط على قيم بين 0 و n_classes-1. هذا مفيد أحيانًا
+لكتابة روتينات Cython الفعالة. يمكن استخدام :class:`LabelEncoder` على النحو التالي::
 
     >>> from sklearn import preprocessing
     >>> le = preprocessing.LabelEncoder()
@@ -88,8 +79,8 @@ follows::
     >>> le.inverse_transform([0, 0, 1, 2])
     array([1, 1, 2, 6])
 
-It can also be used to transform non-numerical labels (as long as they are
-hashable and comparable) to numerical labels::
+يمكن استخدامه أيضًا لتحويل التصنيفات غير الرقمية (طالما أنها
+قابلة للتجزئة والقابلة للمقارنة) إلى تصنيفات رقمية::
 
     >>> le = preprocessing.LabelEncoder()
     >>> le.fit(["paris", "paris", "tokyo", "amsterdam"])
