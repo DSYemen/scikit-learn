@@ -1,129 +1,120 @@
 .. _about:
 
+حولنا
 ========
-About us
-========
 
-History
-=======
+التاريخ
+-------
 
-This project was started in 2007 as a Google Summer of Code project by
-David Cournapeau. Later that year, Matthieu Brucher started work on
-this project as part of his thesis.
+بدأ هذا المشروع في عام 2007 كمشروع Google Summer of Code بواسطة
+ديفيد كورنابو. في وقت لاحق من ذلك العام، بدأ ماثيو بروشر العمل على
+هذا المشروع كجزء من أطروحته.
 
-In 2010 Fabian Pedregosa, Gael Varoquaux, Alexandre Gramfort and Vincent
-Michel of INRIA took leadership of the project and made the first public
-release, February the 1st 2010. Since then, several releases have appeared
-following an approximately 3-month cycle, and a thriving international
-community has been leading the development. As a result, INRIA holds the
-copyright over the work done by people who were employed by INRIA at the
-time of the contribution.
+في عام 2010، تولى فابيان بيدريجوسا وجايل فاروكس وألكسندر جرامفورت وفينسينت
+ميشيل من INRIA قيادة المشروع وأصدروا أول إصدار عام، في الأول من فبراير 2010.
+منذ ذلك الحين، ظهرت العديد من الإصدارات وفقًا لدورة مدتها 3 أشهر تقريبًا،
+وقاد مجتمع دولي مزدهر عملية التطوير. نتيجة لذلك، تمتلك INRIA حقوق
+الطبع والنشر على العمل الذي قام به الأشخاص الذين كانوا يعملون في INRIA في
+وقت المساهمة.
 
-Governance
-==========
+الحوكمة
+----------
 
-The decision making process and governance structure of scikit-learn, like roles and responsibilities, is laid out in the :ref:`governance document <governance>`.
+تم تحديد عملية صنع القرار وهيكل حوكمة Scikit-learn في
+:ref:`وثيقة الحوكمة <governance>`.
 
-.. The "author" anchors below is there to ensure that old html links (in
-   the form of "about.html#author" still work)
+.. توجد مراسي "المؤلف" أدناه لضمان عمل الروابط html القديمة (في
+   شكل "about.html#author" لا يزال يعمل)
 
 .. _authors:
 
-The people behind scikit-learn
-==============================
+الأشخاص وراء Scikit-learn
+------------------------------
 
-Scikit-learn is a community project, developed by a large group of
-people, all across the world. A few core contributor teams, listed below, have
-central roles, however a more complete list of contributors can be found `on
+Scikit-learn هو مشروع مجتمعي، تم تطويره بواسطة مجموعة كبيرة من
+الأشخاص، في جميع أنحاء العالم. تلعب بعض الفرق، المدرجة أدناه، أدوارًا
+مركزية، ومع ذلك يمكن العثور على قائمة أكثر اكتمالاً بالمساهمين `على
 github
 <https://github.com/scikit-learn/scikit-learn/graphs/contributors>`__.
 
-Active Core Contributors
-------------------------
-
-Maintainers Team
+فريق الصيانة
 ................
 
-The following people are currently maintainers, in charge of
-consolidating scikit-learn's development and maintenance:
+الأشخاص التالي ذكرهم هم حاليًا مسؤولون عن الصيانة، المسؤولون عن
+توحيد تطوير Scikit-learn وصيانته:
 
 .. include:: maintainers.rst
 
 .. note::
 
-  Please do not email the authors directly to ask for assistance or report issues.
-  Instead, please see `What's the best way to ask questions about scikit-learn
+  يرجى عدم إرسال بريد إلكتروني إلى المؤلفين مباشرة لطلب المساعدة أو الإبلاغ عن المشكلات.
+  بدلاً من ذلك، يرجى مراجعة `ما هي أفضل طريقة لطرح أسئلة حول استخدام Scikit-learn
   <https://scikit-learn.org/stable/faq.html#what-s-the-best-way-to-get-help-on-scikit-learn-usage>`_
-  in the FAQ.
+  في الأسئلة الشائعة.
 
 .. seealso::
 
-  How you can :ref:`contribute to the project <contributing>`.
+  كيف يمكنك :ref:`المساهمة في المشروع <contributing>`.
 
-Documentation Team
+فريق التوثيق
 ..................
 
-The following people help with documenting the project:
+يساعد الأشخاص التالي ذكرهم في توثيق المشروع:
 
 .. include:: documentation_team.rst
 
-Contributor Experience Team
+فريق تجربة المساهمين
 ...........................
 
-The following people are active contributors who also help with
-:ref:`triaging issues <bug_triaging>`, PRs, and general
-maintenance:
+الأشخاص التالي ذكرهم هم مساهمون نشطون يساعدون أيضًا في
+:ref:`تصنيف المشكلات <bug_triaging>`_ وطلبات السحب والصيانة العامة:
 
 .. include:: contributor_experience_team.rst
 
-Communication Team
+فريق التواصل
 ..................
 
-The following people help with :ref:`communication around scikit-learn
+يساعد الأشخاص التالي ذكرهم في :ref:`التواصل حول Scikit-learn
 <communication_team>`.
 
 .. include:: communication_team.rst
 
-Emeritus Core Contributors
---------------------------
+مطورو النواة الفخريون
+........................
 
-Emeritus Maintainers Team
-.........................
-
-The following people have been active contributors in the past, but are no
-longer active in the project:
+كان الأشخاص التالي ذكرهم مساهمين نشطين في الماضي، لكنهم لم يعودوا نشطين
+في المشروع:
 
 .. include:: maintainers_emeritus.rst
 
-Emeritus Communication Team
+فريق التواصل الفخري
 ...........................
 
-The following people have been active in the communication team in the
-past, but no longer have communication responsibilities:
+كان الأشخاص التالي ذكرهم نشطين في فريق التواصل في الماضي، لكنهم لم يعودوا
+يتحملون مسؤوليات التواصل:
 
 .. include:: communication_team_emeritus.rst
 
-Emeritus Contributor Experience Team
+فريق تجربة المساهمين الفخري
 ....................................
 
-The following people have been active in the contributor experience team in the
-past:
+كان الأشخاص التالي ذكرهم نشطين في فريق تجربة المساهمين في الماضي:
 
 .. include:: contributor_experience_team_emeritus.rst
 
 .. _citing-scikit-learn:
 
-Citing scikit-learn
-===================
+الاستشهاد بـ Scikit-learn
+-------------------
 
-If you use scikit-learn in a scientific publication, we would appreciate
-citations to the following paper:
+إذا كنت تستخدم Scikit-learn في منشور علمي، فنحن نقدر
+الاستشهادات بالورقة التالية:
 
 `Scikit-learn: Machine Learning in Python
 <https://jmlr.csail.mit.edu/papers/v12/pedregosa11a.html>`_, Pedregosa
 *et al.*, JMLR 12, pp. 2825-2830, 2011.
 
-Bibtex entry::
+إدخال Bibtex::
 
   @article{scikit-learn,
     title={Scikit-learn: Machine Learning in {P}ython},
@@ -137,13 +128,13 @@ Bibtex entry::
     year={2011}
   }
 
-If you want to cite scikit-learn for its API or design, you may also want to consider the
-following paper:
+إذا كنت تريد الاستشهاد بـ Scikit-learn لواجهة برمجة التطبيقات أو تصميمها، فقد ترغب أيضًا في
+النظر في الورقة التالية:
 
 :arxiv:`API design for machine learning software: experiences from the scikit-learn
 project <1309.0238>`, Buitinck *et al.*, 2013.
 
-Bibtex entry::
+إدخال Bibtex::
 
   @inproceedings{sklearn_api,
     author    = {Lars Buitinck and Gilles Louppe and Mathieu Blondel and
@@ -158,23 +149,23 @@ Bibtex entry::
     pages = {108--122},
   }
 
-Artwork
-=======
+الأعمال الفنية
+-------
 
-High quality PNG and SVG logos are available in the `doc/logos/
+تتوفر شعارات PNG و SVG عالية الجودة في `doc/logos/
 <https://github.com/scikit-learn/scikit-learn/tree/main/doc/logos>`_
-source directory.
+دليل المصدر.
 
 .. image:: images/scikit-learn-logo-notext.png
   :align: center
 
-Funding
-=======
+التمويل
+-------
 
-Scikit-learn is a community driven project, however institutional and private
-grants help to assure its sustainability.
+Scikit-learn هو مشروع مدفوع من قبل المجتمع، ومع ذلك فإن المنح المؤسسية
+والخاصة تساعد على ضمان استدامته.
 
-The project would like to thank the following funders.
+يود المشروع أن يشكر الممولين التالي ذكرهم.
 
 ...................................
 
@@ -182,9 +173,9 @@ The project would like to thank the following funders.
 
   .. div:: text-box
 
-    `:probabl. <https://probabl.ai>`_ employs Adrin Jalali, Arturo Amor,
-    François Goupil, Guillaume Lemaitre, Jérémie du Boisberranger, Loïc Estève,
-    Olivier Grisel, and Stefanie Senger.
+    توظف `:probabl. <https://probabl.ai>`_ أدريان جلالي وأرتورو آمور
+    وفرانسوا جوبيل وجيوم ليمايتر وجيريمي دو بواسبيرانجر ولويك إستيف
+    وأوليفييه جريسل وستيفاني سينجر.
 
   .. div:: image-box
 
@@ -234,10 +225,10 @@ The project would like to thank the following funders.
 
   .. div:: text-box
 
-    The `Members <https://scikit-learn.fondation-inria.fr/en/home/#sponsors>`_ of
-    the `Scikit-learn Consortium at Inria Foundation
-    <https://scikit-learn.fondation-inria.fr/en/home/>`_ help at maintaining and
-    improving the project through their financial support.
+    يساعد `الأعضاء <https://scikit-learn.fondation-inria.fr/en/home/#sponsors>`_
+    في `ائتلاف Scikit-learn في مؤسسة Inria
+    <https://scikit-learn.fondation-inria.fr/en/home/>`_ في الحفاظ على
+    المشروع وتحسينه من خلال دعمهم المالي.
 
   .. div:: image-box
 
@@ -262,8 +253,8 @@ The project would like to thank the following funders.
 
   .. div:: text-box
 
-    `NVidia <https://nvidia.com>`_ funds Tim Head since 2022
-    and is part of the scikit-learn consortium at Inria.
+    تمول `NVidia <https://nvidia.com>`_ تيم هيد منذ عام 2022
+    وهي جزء من ائتلاف Scikit-learn في Inria.
 
   .. div:: image-box
 
@@ -276,7 +267,7 @@ The project would like to thank the following funders.
 
   .. div:: text-box
 
-    `Microsoft <https://microsoft.com/>`_ funds Andreas Müller since 2020.
+    تمول `Microsoft <https://microsoft.com/>`_ أندرياس مولر منذ عام 2020.
 
   .. div:: image-box
 
@@ -289,7 +280,7 @@ The project would like to thank the following funders.
 
   .. div:: text-box
 
-    `Quansight Labs <https://labs.quansight.org>`_ funds Lucy Liu since 2022.
+    تمول `Quansight Labs <https://labs.quansight.org>`_ لوسي ليو منذ عام 2022.
 
   .. div:: image-box
 
@@ -308,13 +299,13 @@ The project would like to thank the following funders.
 
   .. div:: text-box
 
-    `The Chan-Zuckerberg Initiative <https://chanzuckerberg.com/>`_ and
-    `Wellcome Trust <https://wellcome.org/>`_ fund scikit-learn through the
-    `Essential Open Source Software for Science (EOSS) <https://chanzuckerberg.com/eoss/>`_
-    cycle 6.
+    تمول `مبادرة تشان زوكربيرج <https://chanzuckerberg.com/>`_ و
+    `ويلكوم ترست <https://wellcome.org/>`_ Scikit-learn من خلال
+    `برنامج البرامج مفتوحة المصدر الأساسية للعلوم (EOSS) <https://chanzuckerberg.com/eoss/>`_
+    الدورة 6.
 
-    It supports Lucy Liu and diversity & inclusion initiatives that will
-    be announced in the future.
+    وهي تدعم لوسي ليو ومبادرات التنوع والشمول التي سيتم الإعلان
+    عنها في المستقبل.
 
   .. div:: image-box
 
@@ -331,8 +322,8 @@ The project would like to thank the following funders.
 
   .. div:: text-box
 
-    `Tidelift <https://tidelift.com/>`_ supports the project via their service
-    agreement.
+    يدعم `Tidelift <https://tidelift.com/>`_ المشروع من خلال اتفاقية الخدمة
+    الخاصة بهم.
 
   .. div:: image-box
 
@@ -342,15 +333,15 @@ The project would like to thank the following funders.
 ...........
 
 
-Past Sponsors
--------------
+الرعاة السابقون
+.............
 
 .. div:: sk-text-image-grid-small
 
   .. div:: text-box
 
-    `Quansight Labs <https://labs.quansight.org>`_ funded Meekail Zain in 2022 and 2023,
-    and funded Thomas J. Fan from 2021 to 2023.
+    مولت `Quansight Labs <https://labs.quansight.org>`_ ميكيل زين في عامي 2022
+    و 2023، ومولت توماس جي فان من عام 2021 إلى عام 2023.
 
   .. div:: image-box
 
@@ -363,7 +354,7 @@ Past Sponsors
 
   .. div:: text-box
 
-    `Columbia University <https://columbia.edu/>`_ funded Andreas Müller
+    مولت `جامعة كولومبيا <https://columbia.edu/>`_ أندرياس مولر
     (2016-2020).
 
   .. div:: image-box
@@ -377,7 +368,7 @@ Past Sponsors
 
   .. div:: text-box
 
-    `The University of Sydney <https://sydney.edu.au/>`_ funded Joel Nothman
+    مولت `جامعة سيدني <https://sydney.edu.au/>`_ جويل نوثمان
     (2017-2021).
 
   .. div:: image-box
@@ -391,9 +382,9 @@ Past Sponsors
 
   .. div:: text-box
 
-    Andreas Müller received a grant to improve scikit-learn from the
-    `Alfred P. Sloan Foundation <https://sloan.org>`_ .
-    This grant supported the position of Nicolas Hug and Thomas J. Fan.
+    حصل أندرياس مولر على منحة لتحسين Scikit-learn من
+    `مؤسسة ألفريد ب. سلون <https://sloan.org>`_ .
+    دعمت هذه المنحة منصب نيكولا هاج وتوماس جي فان.
 
   .. div:: image-box
 
@@ -406,10 +397,10 @@ Past Sponsors
 
   .. div:: text-box
 
-    `INRIA <https://www.inria.fr>`_ actively supports this project. It has
-    provided funding for Fabian Pedregosa (2010-2012), Jaques Grobler
-    (2012-2013) and Olivier Grisel (2013-2017) to work on this project
-    full-time. It also hosts coding sprints and other events.
+    تدعم `INRIA <https://www.inria.fr>`_ هذا المشروع بنشاط. لقد قدمت
+    تمويلًا لفابيان بيدريجوسا (2010-2012) وجاك جروبلر
+    (2012-2013) وأوليفييه جريسل (2013-2017) للعمل على هذا المشروع
+    بدوام كامل. كما تستضيف سباقات الترميز والأحداث الأخرى.
 
   .. div:: image-box
 
@@ -422,10 +413,10 @@ Past Sponsors
 
   .. div:: text-box
 
-    `Paris-Saclay Center for Data Science <http://www.datascience-paris-saclay.fr/>`_
-    funded one year for a developer to work on the project full-time (2014-2015), 50%
-    of the time of Guillaume Lemaitre (2016-2017) and 50% of the time of Joris van den
-    Bossche (2017-2018).
+    مول `مركز باريس ساكلاي لعلوم البيانات <http://www.datascience-paris-saclay.fr/>`_
+    عامًا واحدًا لمطور للعمل على المشروع بدوام كامل (2014-2015) ، 50٪
+    من وقت جيوم ليمايتر (2016-2017) و 50٪ من وقت جوريس فان دين
+    بوش (2017-2018).
 
   .. div:: image-box
 
@@ -438,10 +429,10 @@ Past Sponsors
 
   .. div:: text-box
 
-    `NYU Moore-Sloan Data Science Environment <https://cds.nyu.edu/mooresloan/>`_
-    funded Andreas Mueller (2014-2016) to work on this project. The Moore-Sloan
-    Data Science Environment also funds several students to work on the project
-    part-time.
+    مولت `بيئة مور سلون لعلوم البيانات بجامعة نيويورك <https://cds.nyu.edu/mooresloan/>`_
+    أندرياس مولر (2014-2016) للعمل على هذا المشروع. كما تمول بيئة
+    مور سلون لعلوم البيانات العديد من الطلاب للعمل على المشروع
+    بدوام جزئي.
 
   .. div:: image-box
 
@@ -454,9 +445,9 @@ Past Sponsors
 
   .. div:: text-box
 
-    `Télécom Paristech <https://www.telecom-paristech.fr/>`_ funded Manoj Kumar
-    (2014), Tom Dupré la Tour (2015), Raghav RV (2015-2017), Thierry Guillemot
-    (2016-2017) and Albert Thomas (2017) to work on scikit-learn.
+    مولت `Télécom Paristech <https://www.telecom-paristech.fr/>`_ مانوج كومار
+    (2014) وتوم دوبري لا تور (2015) وراغاف RV (2015-2017) وتيري جيوموت
+    (2016-2017) وألبرت توماس (2017) للعمل على Scikit-learn.
 
   .. div:: image-box
 
@@ -469,10 +460,10 @@ Past Sponsors
 
   .. div:: text-box
 
-    `The Labex DigiCosme <https://digicosme.lri.fr>`_ funded Nicolas Goix
-    (2015-2016), Tom Dupré la Tour (2015-2016 and 2017-2018), Mathurin Massias
-    (2018-2019) to work part time on scikit-learn during their PhDs. It also
-    funded a scikit-learn coding sprint in 2015.
+    مول `Labex DigiCosme <https://digicosme.lri.fr>`_ نيكولا جويكس
+    (2015-2016) وتوم دوبري لا تور (2015-2016 و 2017-2018) وماتورين ماسياس
+    (2018-2019) للعمل بدوام جزئي على Scikit-learn خلال دراستهم للدكتوراه.
+    كما مول سباق ترميز Scikit-learn في عام 2015.
 
   .. div:: image-box
 
@@ -485,8 +476,8 @@ Past Sponsors
 
   .. div:: text-box
 
-    `The Chan-Zuckerberg Initiative <https://chanzuckerberg.com/>`_ funded Nicolas
-    Hug to work full-time on scikit-learn in 2020.
+    مولت `مبادرة تشان زوكربيرج <https://chanzuckerberg.com/>`_ نيكولا
+    هاج للعمل بدوام كامل على Scikit-learn في عام 2020.
 
   .. div:: image-box
 
@@ -495,32 +486,31 @@ Past Sponsors
 
 ......................
 
-The following students were sponsored by `Google
-<https://opensource.google/>`_ to work on scikit-learn through
-the `Google Summer of Code <https://en.wikipedia.org/wiki/Google_Summer_of_Code>`_
-program.
+تم رعاية الطلاب التالي ذكرهم من قبل `Google
+<https://opensource.google/>`_ للعمل على Scikit-learn من خلال
+برنامج `Google Summer of Code <https://en.wikipedia.org/wiki/Google_Summer_of_Code>`_
+.
 
-- 2007 - David Cournapeau
+- 2007 - ديفيد كورنابو
 - 2011 - `Vlad Niculae`_
-- 2012 - `Vlad Niculae`_, Immanuel Bayer
-- 2013 - Kemal Eren, Nicolas Trésegnie
-- 2014 - Hamzeh Alsalhi, Issam Laradji, Maheshakya Wijewardena, Manoj Kumar
-- 2015 - `Raghav RV <https://github.com/raghavrv>`_, Wei Xue
-- 2016 - `Nelson Liu <http://nelsonliu.me>`_, `YenChen Lin <https://yenchenlin.me/>`_
+- 2012 - `Vlad Niculae`_ ، إيمانويل باير
+- 2013 - كمال إرين ، نيكولا تريسينجي
+- 2014 - حمزة الصالحي ، عصام لارادجي ، ماهيشاكيا ويجيواردينا ، مانوج كومار
+- 2015 - `Raghav RV <https://github.com/raghavrv>`_ ، وي شوي
+- 2016 - `Nelson Liu <http://nelsonliu.me>`_ ، `YenChen Lin <https://yenchenlin.me/>`_
 
 .. _Vlad Niculae: https://vene.ro/
 
 ...................
 
-The `NeuroDebian <http://neuro.debian.net>`_ project providing `Debian
-<https://www.debian.org/>`_ packaging and contributions is supported by
+يدعم مشروع `NeuroDebian <http://neuro.debian.net>`_ الذي يوفر حزم
+`Debian <https://www.debian.org/>`_ والمساهمات من قبل
 `Dr. James V. Haxby <http://haxbylab.dartmouth.edu/>`_ (`Dartmouth
 College <https://pbs.dartmouth.edu/>`_).
 
 ...................
 
-The following organizations funded the scikit-learn consortium at Inria in
-the past:
+مولت المنظمات التالية ائتلاف Scikit-learn في Inria في الماضي:
 
 .. |msn| image:: images/microsoft.png
   :target: https://www.microsoft.com/
@@ -580,53 +570,54 @@ the past:
 
     |hf|
 
-Coding Sprints
-==============
+سباقات الترميز
+--------------
 
-The scikit-learn project has a long history of `open source coding sprints
-<https://blog.scikit-learn.org/events/sprints-value/>`_ with over 50 sprint
-events from 2010 to present day. There are scores of sponsors who contributed
-to costs which include venue, food, travel, developer time and more. See
-`scikit-learn sprints <https://blog.scikit-learn.org/sprints/>`_ for a full
-list of events.
+يمتلك مشروع Scikit-learn تاريخًا طويلًا من `سباقات الترميز مفتوحة المصدر
+<https://blog.scikit-learn.org/events/sprints-value/>`_ مع أكثر من 50
+حدث سباق من عام 2010 حتى يومنا هذا. هناك العشرات من الرعاة الذين ساهموا
+في التكاليف التي تشمل المكان والطعام والسفر ووقت المطور والمزيد. انظر
+`سباقات Scikit-learn <https://blog.scikit-learn.org/sprints/>`_ للحصول على قائمة
+كاملة بالأحداث.
 
-Donating to the project
-=======================
+التبرع للمشروع
+-----------------------
 
-If you are interested in donating to the project or to one of our code-sprints,
-please donate via the `NumFOCUS Donations Page
+إذا كنت مهتمًا بالتبرع للمشروع أو لأحد سباقات الترميز الخاصة بنا،
+يرجى التبرع عبر `صفحة تبرعات NumFOCUS
 <https://numfocus.org/donate-to-scikit-learn>`_.
 
 .. raw:: html
 
   <p class="text-center">
     <a class="btn sk-btn-orange mb-1" href="https://numfocus.org/donate-to-scikit-learn">
-      Help us, <strong>donate!</strong>
+      ساعدنا، <strong>تبرع!</strong>
     </a>
   </p>
 
-All donations will be handled by `NumFOCUS <https://numfocus.org/>`_, a non-profit
-organization which is managed by a board of `Scipy community members
-<https://numfocus.org/board.html>`_. NumFOCUS's mission is to foster scientific
-computing software, in particular in Python. As a fiscal home of scikit-learn, it
-ensures that money is available when needed to keep the project funded and available
-while in compliance with tax regulations.
+سيتم التعامل مع جميع التبرعات من قبل `NumFOCUS <https://numfocus.org/>`_، وهي منظمة
+غير ربحية يديرها مجلس إدارة من `أعضاء مجتمع Scipy
+<https://numfocus.org/board.html>`_. تتمثل مهمة NumFOCUS في تعزيز
+برمجيات الحوسبة العلمية، لا سيما في Python. بصفتها موطنًا ماليًا لـ Scikit-learn،
+فإنها تضمن توفر الأموال عند الحاجة للحفاظ على تمويل المشروع وتوافره
+مع الامتثال للوائح الضريبية.
 
-The received donations for the scikit-learn project mostly will go towards covering
-travel-expenses for code sprints, as well as towards the organization budget of the
-project [#f1]_.
+ستخصص التبرعات التي تم تلقيها لمشروع Scikit-learn في الغالب لتغطية
+نفقات السفر لسباقات الترميز، بالإضافة إلى ميزانية تنظيم المشروع
+[#f1]_.
 
-.. rubric:: Notes
+.. rubric:: ملاحظات
 
-.. [#f1] Regarding the organization budget, in particular, we might use some of
-  the donated funds to pay for other project expenses such as DNS,
-  hosting or continuous integration services.
+.. [#f1] فيما يتعلق بميزانية التنظيم، على وجه الخصوص، قد نستخدم بعضًا من
+  الأموال المتبرع بها لدفع نفقات المشروع الأخرى مثل DNS أو
+  خدمات الاستضافة أو التكامل المستمر.
 
 
-Infrastructure support
-======================
+دعم البنية التحتية
+----------------------
 
-We would also like to thank `Microsoft Azure <https://azure.microsoft.com/en-us/>`_,
-`Cirrus Cl <https://cirrus-ci.org>`_, `CircleCl <https://circleci.com/>`_ for free CPU
-time on their Continuous Integration servers, and `Anaconda Inc. <https://www.anaconda.com>`_
-for the storage they provide for our staging and nightly builds.
+نود أيضًا أن نشكر `Microsoft Azure <https://azure.microsoft.com/en-us/>`_ و
+`Cirrus Cl <https://cirrus-ci.org>`_ و `CircleCl <https://circleci.com/>`_ على وقت
+وحدة المعالجة المركزية المجانية على خوادم التكامل المستمر الخاصة بهم، و `Anaconda Inc.
+<https://www.anaconda.com>`_ على التخزين الذي يوفرونه لعمليات البناء المرحلية
+والليلية الخاصة بنا.

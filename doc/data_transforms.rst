@@ -1,25 +1,25 @@
 .. _data-transforms:
 
-Dataset transformations
+تحويلات مجموعات البيانات
 -----------------------
 
-scikit-learn provides a library of transformers, which may clean (see
-:ref:`preprocessing`), reduce (see :ref:`data_reduction`), expand (see
-:ref:`kernel_approximation`) or generate (see :ref:`feature_extraction`)
-feature representations.
+يوفر Scikit-learn مكتبة من المحولات، والتي قد تنظف (انظر
+:ref:`preprocessing`)، أو تقلل (انظر :ref:`data_reduction`)، أو توسع (انظر
+:ref:`kernel_approximation`) أو تولد (انظر :ref:`feature_extraction`)
+تمثيلات الميزات.
 
-Like other estimators, these are represented by classes with a ``fit`` method,
-which learns model parameters (e.g. mean and standard deviation for
-normalization) from a training set, and a ``transform`` method which applies
-this transformation model to unseen data. ``fit_transform`` may be more
-convenient and efficient for modelling and transforming the training data
-simultaneously.
+مثل المقدرات الأخرى، يتم تمثيلها بواسطة فئات باستخدام طريقة ``fit``،
+والتي تتعلم معلمات النموذج (على سبيل المثال، المتوسط والانحراف المعياري لـ
+التطبيع) من مجموعة التدريب، وطريقة ``transform`` التي تطبق
+نموذج التحويل هذا على بيانات غير مرئية. قد يكون ``fit_transform`` أكثر
+ملاءمة وفعالية لنمذجة وتحويل بيانات التدريب
+في وقت واحد.
 
-Combining such transformers, either in parallel or series is covered in
-:ref:`combining_estimators`. :ref:`metrics` covers transforming feature
-spaces into affinity matrices, while :ref:`preprocessing_targets` considers
-transformations of the target space (e.g. categorical labels) for use in
-scikit-learn.
+تمت تغطية الجمع بين هذه المحولات، إما بالتوازي أو بالتسلسل
+:ref:`combining_estimators`. :ref:`metrics` يغطي تحويل الميزة
+مسافات إلى مصفوفات تقارب، بينما :ref:`preprocessing_targets` يعتبر
+تحويلات مساحة الهدف (على سبيل المثال، التصنيفات الفئوية) للاستخدام في
+Scikit-learn.
 
 .. toctree::
     :maxdepth: 2
@@ -33,3 +33,4 @@ scikit-learn.
     modules/kernel_approximation
     modules/metrics
     modules/preprocessing_targets
+

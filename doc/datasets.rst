@@ -1,56 +1,66 @@
 .. _datasets:
 
-=========================
-Dataset loading utilities
-=========================
+===============================
+أدوات تحميل مجموعات البيانات
+================================
 
 .. currentmodule:: sklearn.datasets
 
-The ``sklearn.datasets`` package embeds some small toy datasets and provides helpers
-to fetch larger datasets commonly used by the machine learning community to benchmark
-algorithms on data that comes from the 'real world'.
+تضم حزمة ``sklearn.datasets`` بعض مجموعات البيانات الصغيرة 
+وتوفر أدوات مساعدة
+لجلب مجموعات بيانات أكبر يشيع استخدامها من قبل مجتمع التعلم الآلي 
+لاختبار
+الخوارزميات على البيانات التي تأتي من "العالم الحقيقي".
 
-To evaluate the impact of the scale of the dataset (``n_samples`` and
-``n_features``) while controlling the statistical properties of the data
-(typically the correlation and informativeness of the features), it is
-also possible to generate synthetic data.
+لتقييم تأثير حجم مجموعة البيانات (``n_samples`` و
+``n_features``) مع التحكم في الخصائص الإحصائية للبيانات
+(عادةً ارتباط ومعلومات الميزات)، فهي كذلك
+من الممكن أيضًا إنشاء بيانات تركيبية.
 
-**General dataset API.** There are three main kinds of dataset interfaces that
-can be used to get datasets depending on the desired type of dataset.
+**واجهة برمجة تطبيقات مجموعة البيانات العامة.** هناك ثلاثة أنواع رئيسية من 
+واجهات مجموعة البيانات التي
+يمكن استخدامها للحصول على مجموعات البيانات اعتمادًا على النوع المطلوب 
+من مجموعة البيانات.
 
-**The dataset loaders.** They can be used to load small standard datasets,
-described in the :ref:`toy_datasets` section.
+**أدوات تحميل مجموعة البيانات.** يمكن استخدامها لتحميل مجموعات 
+البيانات القياسية الصغيرة،
+موصوفة في قسم :ref:`toy_datasets`.
 
-**The dataset fetchers.** They can be used to download and load larger datasets,
-described in the :ref:`real_world_datasets` section.
+**أدوات جلب مجموعة البيانات.** يمكن استخدامها لتنزيل وتحميل 
+مجموعات بيانات أكبر،
+موصوفة في قسم :ref:`real_world_datasets`.
 
-Both loaders and fetchers functions return a :class:`~sklearn.utils.Bunch`
-object holding at least two items:
-an array of shape ``n_samples`` * ``n_features`` with
-key ``data`` (except for 20newsgroups) and a numpy array of
-length ``n_samples``, containing the target values, with key ``target``.
+ترجع كل من وظائف التحميل والجلب كائن :class:`~sklearn.utils.Bunch`
+يحمل عنصرين على الأقل:
+مصفوفة من الشكل ``n_samples`` * ``n_features`` مع
+مفتاح ``data`` (باستثناء 20newsgroups) ومصفوفة numpy من
+الطول ``n_samples``، تحتوي على القيم المستهدفة، 
+مع مفتاح ``target``.
 
-The Bunch object is a dictionary that exposes its keys as attributes.
-For more information about Bunch object, see :class:`~sklearn.utils.Bunch`.
+كائن Bunch هو قاموس يعرض مفاتيحه كسمات.
+لمزيد من المعلومات حول كائن Bunch، انظر 
+:class:`~sklearn.utils.Bunch`.
 
-It's also possible for almost all of these function to constrain the output
-to be a tuple containing only the data and the target, by setting the
-``return_X_y`` parameter to ``True``.
+من الممكن أيضًا لجميع هذه الوظائف تقريبًا تقييد الإخراج
+لتكون مجموعة تحتوي فقط على البيانات والهدف، عن طريق تعيين
+معلمة ``return_X_y`` إلى ``True``.
 
-The datasets also contain a full description in their ``DESCR`` attribute and
-some contain ``feature_names`` and ``target_names``. See the dataset
-descriptions below for details.
+تحتوي مجموعات البيانات أيضًا على وصف كامل في سمة ``DESCR`` الخاصة 
+بها وبعضها يحتوي على ``feature_names`` و ``target_names``. انظر مجموعة البيانات
+الوصفات أدناه للحصول على التفاصيل.
 
-**The dataset generation functions.** They can be used to generate controlled
-synthetic datasets, described in the :ref:`sample_generators` section.
+**وظائف إنشاء مجموعة البيانات.** يمكن استخدامها لإنشاء 
+مجموعات بيانات اصطناعية خاضعة للرقابة،
+موصوفة في قسم :ref:`sample_generators`.
 
-These functions return a tuple ``(X, y)`` consisting of a ``n_samples`` *
-``n_features`` numpy array ``X`` and an array of length ``n_samples``
-containing the targets ``y``.
+ترجع هذه الوظائف مجموعة ``(X، y)`` تتكون من ``n_samples`` *
+``n_features`` numpy array ``X`` ومصفوفة بطول ``n_samples``
+تحتوي على الأهداف ``y``.
 
-In addition, there are also miscellaneous tools to load datasets of other
-formats or from other locations, described in the :ref:`loading_other_datasets`
-section.
+بالإضافة إلى ذلك، هناك أيضًا أدوات متنوعة لتحميل مجموعات 
+البيانات بتنسيقات أخرى
+أو من مواقع أخرى، موصوفة في قسم 
+:ref:`loading_other_datasets`.
 
 
 .. toctree::

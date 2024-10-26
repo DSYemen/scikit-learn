@@ -1,21 +1,16 @@
 .. _inspection:
 
-Inspection
-----------
+الفحص
+--------
 
-Predictive performance is often the main goal of developing machine learning
-models. Yet summarizing performance with an evaluation metric is often
-insufficient: it assumes that the evaluation metric and test dataset
-perfectly reflect the target domain, which is rarely true. In certain domains,
-a model needs a certain level of interpretability before it can be deployed.
-A model that is exhibiting performance issues needs to be debugged for one to
-understand the model's underlying issue. The
-:mod:`sklearn.inspection` module provides tools to help understand the
-predictions from a model and what affects them. This can be used to
-evaluate assumptions and biases of a model, design a better model, or
-to diagnose issues with model performance.
+غالبًا ما يكون الأداء التنبئي هو الهدف الرئيسي لتطوير نماذج التعلم الآلي. 
+ومع ذلك، فإن تلخيص الأداء بمقياس تقييم غالبًا ما يكون غير كافٍ: فهو يفترض أن مقياس التقييم ومجموعة بيانات الاختبار تعكسان تمامًا المجال المستهدف، وهو أمر نادرًا ما يكون صحيحًا.
+في مجالات معينة، يحتاج النموذج إلى مستوى معين من القابلية للتفسير قبل نشره.
+يحتاج النموذج الذي يعاني من مشكلات في الأداء إلى تصحيحه لفهم المشكلة الأساسية للنموذج.
+توفر وحدة :mod:`sklearn.inspection` أدوات للمساعدة في فهم التنبؤات من نموذج وما يؤثر عليها.
+يمكن استخدام هذا لتقييم افتراضات وتحيزات النموذج، وتصميم نموذج أفضل، أو لتشخيص مشاكل أداء النموذج.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_inspection_plot_linear_model_coefficient_interpretation.py`
 
@@ -23,3 +18,4 @@ to diagnose issues with model performance.
 
     modules/partial_dependence
     modules/permutation_importance
+

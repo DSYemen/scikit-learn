@@ -1,48 +1,45 @@
 .. _installation-instructions:
 
 =======================
-Installing scikit-learn
+تثبيت scikit-learn
 =======================
 
-There are different ways to install scikit-learn:
+هناك طرق مختلفة لتثبيت scikit-learn:
 
-* :ref:`Install the latest official release <install_official_release>`. This
-  is the best approach for most users. It will provide a stable version
-  and pre-built packages are available for most platforms.
+* :ref:`قم بتثبيت أحدث إصدار رسمي <install_official_release>`.
+  هذا هو أفضل نهج لمعظم المستخدمين.
+  سوف يوفر إصدارًا ثابتًا وحزمًا مُعدة مسبقًا متاحة لمعظم الأنظمة الأساسية.
 
-* Install the version of scikit-learn provided by your
-  :ref:`operating system or Python distribution <install_by_distribution>`.
-  This is a quick option for those who have operating systems or Python
-  distributions that distribute scikit-learn.
-  It might not provide the latest release version.
+* قم بتثبيت إصدار scikit-learn الذي يوفره
+  :ref:`نظام التشغيل أو توزيع Python <install_by_distribution>`.
+  هذا خيار سريع لأولئك الذين لديهم أنظمة تشغيل أو توزيعات Python تقوم بتوزيع scikit-learn.
+  قد لا يوفر إصدار الإصدار الأخير.
 
-* :ref:`Building the package from source
-  <install_bleeding_edge>`. This is best for users who want the
-  latest-and-greatest features and aren't afraid of running
-  brand-new code. This is also needed for users who wish to contribute to the
-  project.
+* :ref:`بناء الحزمة من المصدر
+  <install_bleeding_edge>`. هذا هو الأفضل للمستخدمين الذين يريدون أحدث الميزات وأروعها ولا يخشون تشغيل كود جديد تمامًا.
+  هذا مطلوب أيضًا للمستخدمين الذين يرغبون في المساهمة في المشروع.
 
 
 .. _install_official_release:
 
-Installing the latest release
-=============================
+تثبيت أحدث إصدار
+======================
 
 .. raw:: html
 
   <style>
-    /* Show caption on large screens */
+    /* إظهار التسمية التوضيحية على الشاشات الكبيرة */
     @media screen and (min-width: 960px) {
       .install-instructions .sd-tab-set {
         --tab-caption-width: 20%;
       }
 
       .install-instructions .sd-tab-set.tabs-os::before {
-        content: "Operating System";
+        content: "نظام التشغيل";
       }
 
       .install-instructions .sd-tab-set.tabs-package-manager::before {
-        content: "Package Manager";
+        content: "مدير الحزم";
       }
     }
   </style>
@@ -62,26 +59,25 @@ Installing the latest release
           :class-label: tab-6
           :sync: package-manager-pip
 
-          Install the 64-bit version of Python 3, for instance from the
-          `official website <https://www.python.org/downloads/windows/>`__.
+          قم بتثبيت إصدار 64 بت من Python 3، على سبيل المثال من
+          `الموقع الرسمي <https://www.python.org/downloads/windows/>`__.
 
-          Now create a `virtual environment (venv)
-          <https://docs.python.org/3/tutorial/venv.html>`_ and install scikit-learn.
-          Note that the virtual environment is optional but strongly recommended, in
-          order to avoid potential conflicts with other packages.
+          الآن قم بإنشاء `بيئة افتراضية (venv)
+          <https://docs.python.org/3/tutorial/venv.html>`_ وقم بتثبيت scikit-learn.
+          لاحظ أن البيئة الافتراضية اختيارية ولكن يوصى بها بشدة، من أجل تجنب التعارضات المحتملة مع الحزم الأخرى.
 
           .. prompt:: powershell
 
             python -m venv sklearn-env
-            sklearn-env\Scripts\activate  # activate
+            sklearn-env\Scripts\activate  # تفعيل
             pip install -U scikit-learn
 
-          In order to check your installation, you can use:
+          للتحقق من التثبيت، يمكنك استخدام:
 
           .. prompt:: powershell
 
-            python -m pip show scikit-learn  # show scikit-learn version and location
-            python -m pip freeze             # show all installed packages in the environment
+            python -m pip show scikit-learn  # إظهار إصدار وموقع scikit-learn
+            python -m pip freeze             # إظهار جميع الحزم المثبتة في البيئة
             python -c "import sklearn; sklearn.show_versions()"
 
         .. tab-item:: conda
@@ -100,27 +96,25 @@ Installing the latest release
           :class-label: tab-6
           :sync: package-manager-pip
 
-          Install Python 3 using `homebrew <https://brew.sh/>`_ (`brew install python`)
-          or by manually installing the package from the `official website
-          <https://www.python.org/downloads/macos/>`__.
+          قم بتثبيت Python 3 باستخدام `homebrew <https://brew.sh/>`_ (`brew install python`)
+          أو عن طريق تثبيت الحزمة يدويًا من `الموقع الرسمي <https://www.python.org/downloads/macos/>`__.
 
-          Now create a `virtual environment (venv)
-          <https://docs.python.org/3/tutorial/venv.html>`_ and install scikit-learn.
-          Note that the virtual environment is optional but strongly recommended, in
-          order to avoid potential conflicts with other packges.
+          الآن قم بإنشاء `بيئة افتراضية (venv)
+          <https://docs.python.org/3/tutorial/venv.html>`_ وقم بتثبيت scikit-learn.
+          لاحظ أن البيئة الافتراضية اختيارية ولكن يوصى بها بشدة، من أجل تجنب التعارضات المحتملة مع الحزم الأخرى.
 
           .. prompt:: bash
 
             python -m venv sklearn-env
-            source sklearn-env/bin/activate  # activate
+            source sklearn-env/bin/activate  # تفعيل
             pip install -U scikit-learn
 
-          In order to check your installation, you can use:
+          للتحقق من التثبيت، يمكنك استخدام:
 
           .. prompt:: bash
 
-            python -m pip show scikit-learn  # show scikit-learn version and location
-            python -m pip freeze             # show all installed packages in the environment
+            python -m pip show scikit-learn  # إظهار إصدار وموقع scikit-learn
+            python -m pip freeze             # إظهار جميع الحزم المثبتة في البيئة
             python -c "import sklearn; sklearn.show_versions()"
 
         .. tab-item:: conda
@@ -139,34 +133,32 @@ Installing the latest release
           :class-label: tab-6
           :sync: package-manager-pip
 
-          Python 3 is usually installed by default on most Linux distributions. To
-          check if you have it installed, try:
+          عادةً ما يتم تثبيت Python 3 افتراضيًا على معظم توزيعات Linux.
+          للتحقق مما إذا كان مثبتًا لديك، جرب:
 
           .. prompt:: bash
 
             python3 --version
             pip3 --version
 
-          If you don't have Python 3 installed, please install `python3` and
-          `python3-pip` from your distribution's package manager.
+          إذا لم يكن Python 3 مثبتًا لديك، فيرجى تثبيت `python3` و `python3-pip` من مدير حزم التوزيع الخاص بك.
 
-          Now create a `virtual environment (venv)
-          <https://docs.python.org/3/tutorial/venv.html>`_ and install scikit-learn.
-          Note that the virtual environment is optional but strongly recommended, in
-          order to avoid potential conflicts with other packages.
+          الآن قم بإنشاء `بيئة افتراضية (venv)
+          <https://docs.python.org/3/tutorial/venv.html>`_ وقم بتثبيت scikit-learn.
+          لاحظ أن البيئة الافتراضية اختيارية ولكن يوصى بها بشدة، من أجل تجنب التعارضات المحتملة مع الحزم الأخرى.
 
           .. prompt:: bash
 
             python3 -m venv sklearn-env
-            source sklearn-env/bin/activate  # activate
+            source sklearn-env/bin/activate  # تفعيل
             pip3 install -U scikit-learn
 
-          In order to check your installation, you can use:
+          للتحقق من التثبيت، يمكنك استخدام:
 
           .. prompt:: bash
 
-            python3 -m pip show scikit-learn  # show scikit-learn version and location
-            python3 -m pip freeze             # show all installed packages in the environment
+            python3 -m pip show scikit-learn  # إظهار إصدار وموقع scikit-learn
+            python3 -m pip freeze             # إظهار جميع الحزم المثبتة في البيئة
             python3 -c "import sklearn; sklearn.show_versions()"
 
         .. tab-item:: conda
@@ -176,191 +168,154 @@ Installing the latest release
           .. include:: ./install_instructions_conda.rst
 
 
-Using an isolated environment such as pip venv or conda makes it possible to
-install a specific version of scikit-learn with pip or conda and its dependencies
-independently of any previously installed Python packages. In particular under Linux
-it is discouraged to install pip packages alongside the packages managed by the
-package manager of the distribution (apt, dnf, pacman...).
+يجعل استخدام بيئة معزولة مثل pip venv أو conda من الممكن تثبيت إصدار محدد من scikit-learn مع pip أو conda وتبعياتها بشكل مستقل عن أي حزم Python مثبتة مسبقًا.
+لا سيما في Linux، لا يُنصح بتثبيت حزم pip جنبًا إلى جنب مع الحزم التي يديرها مدير حزم التوزيع (apt، dnf، pacman ...).
 
-Note that you should always remember to activate the environment of your choice
-prior to running any Python command whenever you start a new terminal session.
+لاحظ أنه يجب عليك دائمًا تذكر تنشيط البيئة التي تختارها قبل تشغيل أي أمر Python كلما بدأت جلسة طرفية جديدة.
 
-If you have not installed NumPy or SciPy yet, you can also install these using
-conda or pip. When using pip, please ensure that *binary wheels* are used,
-and NumPy and SciPy are not recompiled from source, which can happen when using
-particular configurations of operating system and hardware (such as Linux on
-a Raspberry Pi).
+إذا لم تكن قد قمت بتثبيت NumPy أو SciPy حتى الآن، فيمكنك أيضًا تثبيتها باستخدام conda أو pip.
+عند استخدام pip، يرجى التأكد من استخدام *العجلات الثنائية*، وعدم إعادة تجميع NumPy و SciPy من المصدر، وهو ما يمكن أن يحدث عند استخدام تكوينات معينة لنظام التشغيل والأجهزة (مثل Linux على Raspberry Pi).
 
-Scikit-learn plotting capabilities (i.e., functions starting with `plot\_`
-and classes ending with `Display`) require Matplotlib. The examples require
-Matplotlib and some examples require scikit-image, pandas, or seaborn. The
-minimum version of scikit-learn dependencies are listed below along with its
-purpose.
+تتطلب إمكانات التخطيط في Scikit-learn (أي الوظائف التي تبدأ بـ `plot\_` والفئات التي تنتهي بـ `Display`) Matplotlib.
+تتطلب الأمثلة Matplotlib وتتطلب بعض الأمثلة scikit-image أو pandas أو seaborn.
+يتم سرد الحد الأدنى من إصدار تبعيات scikit-learn أدناه جنبًا إلى جنب مع الغرض منه.
 
 .. include:: min_dependency_table.rst
 
 .. warning::
 
-    Scikit-learn 0.20 was the last version to support Python 2.7 and Python 3.4.
-    Scikit-learn 0.21 supported Python 3.5-3.7.
-    Scikit-learn 0.22 supported Python 3.5-3.8.
-    Scikit-learn 0.23-0.24 required Python 3.6 or newer.
-    Scikit-learn 1.0 supported Python 3.7-3.10.
-    Scikit-learn 1.1, 1.2 and 1.3 support Python 3.8-3.12
-    Scikit-learn 1.4 requires Python 3.9 or newer.
+    كان Scikit-learn 0.20 هو الإصدار الأخير الذي يدعم Python 2.7 و Python 3.4.
+    يدعم Scikit-learn 0.21 Python 3.5-3.7.
+    يدعم Scikit-learn 0.22 Python 3.5-3.8.
+    يتطلب Scikit-learn 0.23-0.24 Python 3.6 أو أحدث.
+    يدعم Scikit-learn 1.0 Python 3.7-3.10.
+    يدعم Scikit-learn 1.1 و 1.2 و 1.3 Python 3.8-3.12
+    يتطلب Scikit-learn 1.4 Python 3.9 أو أحدث.
 
 .. _install_by_distribution:
 
-Third party distributions of scikit-learn
+## توزيعات الطرف الثالث من scikit-learn
 =========================================
 
-Some third-party distributions provide versions of
-scikit-learn integrated with their package-management systems.
+توفر بعض توزيعات الجهات الخارجية إصدارات من scikit-learn مدمجة مع أنظمة إدارة الحزم الخاصة بها.
 
-These can make installation and upgrading much easier for users since
-the integration includes the ability to automatically install
-dependencies (numpy, scipy) that scikit-learn requires.
+يمكن أن تجعل هذه التثبيت والترقية أسهل بكثير للمستخدمين نظرًا لأن التكامل يتضمن القدرة على تثبيت التبعيات تلقائيًا (numpy، scipy) التي تتطلبها scikit-learn.
 
-The following is an incomplete list of OS and python distributions
-that provide their own version of scikit-learn.
+فيما يلي قائمة غير كاملة بتوزيعات نظام التشغيل و python التي توفر إصدارها الخاص من scikit-learn.
 
-Alpine Linux
+### Alpine Linux
 ------------
 
-Alpine Linux's package is provided through the `official repositories
-<https://pkgs.alpinelinux.org/packages?name=py3-scikit-learn>`__ as
-``py3-scikit-learn`` for Python.
-It can be installed by typing the following command:
+يتم توفير حزمة Alpine Linux من خلال `المستودعات الرسمية <https://pkgs.alpinelinux.org/packages?name=py3-scikit-learn>`__ باسم ``py3-scikit-learn`` لـ Python.
+يمكن تثبيته عن طريق كتابة الأمر التالي:
 
 .. prompt:: bash
 
   sudo apk add py3-scikit-learn
 
 
-Arch Linux
+### Arch Linux
 ----------
 
-Arch Linux's package is provided through the `official repositories
-<https://www.archlinux.org/packages/?q=scikit-learn>`_ as
-``python-scikit-learn`` for Python.
-It can be installed by typing the following command:
+يتم توفير حزمة Arch Linux من خلال `المستودعات الرسمية <https://www.archlinux.org/packages/?q=scikit-learn>`_ باسم ``python-scikit-learn`` لـ Python.
+يمكن تثبيته عن طريق كتابة الأمر التالي:
 
 .. prompt:: bash
 
   sudo pacman -S python-scikit-learn
 
 
-Debian/Ubuntu
+### Debian/Ubuntu
 -------------
 
-The Debian/Ubuntu package is split in three different packages called
-``python3-sklearn`` (python modules), ``python3-sklearn-lib`` (low-level
-implementations and bindings), ``python-sklearn-doc`` (documentation).
-Note that scikit-learn requires Python 3, hence the need to use the `python3-`
-suffixed package names.
-Packages can be installed using ``apt-get``:
+تنقسم حزمة Debian / Ubuntu إلى ثلاث حزم مختلفة تسمى ``python3-sklearn`` (وحدات python) ، ``python3-sklearn-lib`` (التنفيذات والارتباطات منخفضة المستوى) ، ``python3-sklearn-doc`` (التوثيق).
+لاحظ أن scikit-learn يتطلب Python 3، ومن ثم الحاجة إلى استخدام أسماء الحزم التي تحمل لاحقة `python3-`.
+يمكن تثبيت الحزم باستخدام ``apt-get``:
 
 .. prompt:: bash
 
-  sudo apt-get install python3-sklearn python3-sklearn-lib python-sklearn-doc
+  sudo apt-get install python3-sklearn python3-sklearn-lib python3-sklearn-doc
 
 
-Fedora
+### Fedora
 ------
 
-The Fedora package is called ``python3-scikit-learn`` for the python 3 version,
-the only one available in Fedora.
-It can be installed using ``dnf``:
+تسمى حزمة Fedora ``python3-scikit-learn`` لإصدار python 3، وهو الإصدار الوحيد المتاح في Fedora.
+يمكن تثبيته باستخدام ``dnf``:
 
 .. prompt:: bash
 
   sudo dnf install python3-scikit-learn
 
 
-NetBSD
+### NetBSD
 ------
 
-scikit-learn is available via `pkgsrc-wip <http://pkgsrc-wip.sourceforge.net/>`_:
+يتوفر scikit-learn عبر `pkgsrc-wip <http://pkgsrc-wip.sourceforge.net/>`_:
 https://pkgsrc.se/math/py-scikit-learn
 
 
-MacPorts for Mac OSX
+### MacPorts for Mac OSX
 --------------------
 
-The MacPorts package is named ``py<XY>-scikits-learn``,
-where ``XY`` denotes the Python version.
-It can be installed by typing the following
-command:
+تسمى حزمة MacPorts ``py<XY>-scikits-learn``، حيث يشير ``XY`` إلى إصدار Python.
+يمكن تثبيته عن طريق كتابة الأمر التالي:
 
 .. prompt:: bash
 
   sudo port install py39-scikit-learn
 
 
-Anaconda and Enthought Deployment Manager for all supported platforms
+### Anaconda and Enthought Deployment Manager لجميع الأنظمة الأساسية المدعومة
 ---------------------------------------------------------------------
 
-`Anaconda <https://www.anaconda.com/download>`_ and
-`Enthought Deployment Manager <https://assets.enthought.com/downloads/>`_
-both ship with scikit-learn in addition to a large set of scientific
-python library for Windows, Mac OSX and Linux.
+`Anaconda <https://www.anaconda.com/download>`_ و `Enthought Deployment Manager <https://assets.enthought.com/downloads/>`_ كلاهما مزود بـ scikit-learn بالإضافة إلى مجموعة كبيرة من مكتبة python العلمية لنظام التشغيل Windows و Mac OSX و Linux.
 
-Anaconda offers scikit-learn as part of its free distribution.
+يقدم Anaconda scikit-learn كجزء من توزيعه المجاني.
 
 
-Intel Extension for Scikit-learn
+### Intel Extension for Scikit-learn
 --------------------------------
 
-Intel maintains an optimized x86_64 package, available in PyPI (via `pip`),
-and in the `main`, `conda-forge` and `intel` conda channels:
+تحتفظ Intel بحزمة x86_64 محسّنة، متاحة في PyPI (عبر `pip`)، وفي قنوات conda `main` و `conda-forge` و `intel`:
 
 .. prompt:: bash
 
   conda install scikit-learn-intelex
 
-This package has an Intel optimized version of many estimators. Whenever
-an alternative implementation doesn't exist, scikit-learn implementation
-is used as a fallback. Those optimized solvers come from the oneDAL
-C++ library and are optimized for the x86_64 architecture, and are
-optimized for multi-core Intel CPUs.
+تحتوي هذه الحزمة على إصدار محسن من Intel للعديد من المقدرات.
+كلما لم يكن هناك تنفيذ بديل، يتم استخدام تنفيذ scikit-learn كخيار احتياطي.
+تأتي أدوات الحل المحسّنة هذه من مكتبة oneDAL C ++ وتم تحسينها لهندسة x86_64، وتم تحسينها لوحدات المعالجة المركزية Intel متعددة النواة.
 
-Note that those solvers are not enabled by default, please refer to the
-`scikit-learn-intelex <https://intel.github.io/scikit-learn-intelex/latest/what-is-patching.html>`_
-documentation for more details on usage scenarios. Direct export example:
+لاحظ أن أدوات الحل هذه غير ممكّنة افتراضيًا، يرجى الرجوع إلى `scikit-learn-intelex <https://intel.github.io/scikit-learn-intelex/latest/what-is-patching.html>`_ الوثائق لمزيد من التفاصيل حول سيناريوهات الاستخدام.
+مثال التصدير المباشر:
 
 .. prompt:: python >>>
 
   from sklearnex.neighbors import NearestNeighbors
 
-Compatibility with the standard scikit-learn solvers is checked by running the
-full scikit-learn test suite via automated continuous integration as reported
-on https://github.com/intel/scikit-learn-intelex. If you observe any issue
-with `scikit-learn-intelex`, please report the issue on their
-`issue tracker <https://github.com/intel/scikit-learn-intelex/issues>`__.
+يتم التحقق من التوافق مع أدوات حل scikit-learn القياسية عن طريق تشغيل مجموعة اختبار scikit-learn الكاملة عبر التكامل المستمر الآلي كما هو مذكور في https://github.com/intel/scikit-learn-intelex.
+إذا لاحظت أي مشكلة مع `scikit-learn-intelex`، فيرجى الإبلاغ عن المشكلة على `متعقب المشكلات <https://github.com/intel/scikit-learn-intelex/issues>`__.
 
 
-WinPython for Windows
+### WinPython for Windows
 ---------------------
 
-The `WinPython <https://winpython.github.io/>`_ project distributes
-scikit-learn as an additional plugin.
+يقوم مشروع `WinPython <https://winpython.github.io/>`_ بتوزيع scikit-learn كملحق إضافي.
 
 
-Troubleshooting
+## استكشاف الأخطاء وإصلاحها
 ===============
 
-If you encounter unexpected failures when installing scikit-learn, you may submit
-an issue to the `issue tracker <https://github.com/scikit-learn/scikit-learn/issues>`_.
-Before that, please also make sure to check the following common issues.
+إذا واجهت أخطاء غير متوقعة عند تثبيت scikit-learn، فيمكنك إرسال مشكلة إلى `متعقب المشكلات <https://github.com/scikit-learn/scikit-learn/issues>`_.
+قبل ذلك، يرجى أيضًا التأكد من التحقق من المشكلات الشائعة التالية.
 
 .. _windows_longpath:
 
-Error caused by file path length limit on Windows
+### خطأ ناتج عن حد طول مسار الملف على Windows
 -------------------------------------------------
 
-It can happen that pip fails to install packages when reaching the default path
-size limit of Windows if Python is installed in a nested location such as the
-`AppData` folder structure under the user home directory, for instance::
+يمكن أن يحدث أن يفشل pip في تثبيت الحزم عند الوصول إلى حد حجم المسار الافتراضي لـ Windows إذا تم تثبيت Python في موقع متداخل مثل بنية مجلد `AppData` ضمن دليل المستخدم الرئيسي، على سبيل المثال::
 
     C:\Users\username>C:\Users\username\AppData\Local\Microsoft\WindowsApps\python.exe -m pip install scikit-learn
     Collecting scikit-learn
@@ -368,20 +323,18 @@ size limit of Windows if Python is installed in a nested location such as the
     Installing collected packages: scikit-learn
     ERROR: Could not install packages due to an OSError: [Errno 2] No such file or directory: 'C:\\Users\\username\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.7_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python37\\site-packages\\sklearn\\datasets\\tests\\data\\openml\\292\\api-v1-json-data-list-data_name-australian-limit-2-data_version-1-status-deactivated.json.gz'
 
-In this case it is possible to lift that limit in the Windows registry by
-using the ``regedit`` tool:
+في هذه الحالة، من الممكن رفع هذا الحد في سجل Windows باستخدام أداة ``regedit``:
 
-#. Type "regedit" in the Windows start menu to launch ``regedit``.
+#. اكتب "regedit" في قائمة ابدأ في Windows لبدء تشغيل ``regedit``.
 
-#. Go to the
-   ``Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem``
-   key.
+#. انتقل إلى مفتاح ``Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem``.
 
-#. Edit the value of the ``LongPathsEnabled`` property of that key and set
-   it to 1.
+#. قم بتحرير قيمة خاصية ``LongPathsEnabled`` لهذا المفتاح وقم بتعيينها على 1.
 
-#. Reinstall scikit-learn (ignoring the previous broken installation):
+#. أعد تثبيت scikit-learn (تجاهل التثبيت المعطل السابق):
 
    .. prompt:: powershell
 
       pip install --exists-action=i scikit-learn
+
+

@@ -1,73 +1,59 @@
+
 ===========================================
-External Resources, Videos and Talks
+المصادر الخارجية ومقاطع الفيديو والمحادثات
 ===========================================
 
-New to Scientific Python?
-==========================
-For those that are still new to the scientific Python ecosystem, we highly
-recommend the `Python Scientific Lecture Notes
-<https://scipy-lectures.org>`_. This will help you find your footing a
-bit and will definitely improve your scikit-learn experience.  A basic
-understanding of NumPy arrays is recommended to make the most of scikit-learn.
+جديد على Scientific Python?
+==============================
+بالنسبة لأولئك الذين ما زالوا جددًا على نظام Scientific Python البيئي، نوصي بشدة بـ `Python Scientific Lecture Notes <https://scipy-lectures.org>`_.
+سيساعدك هذا في العثور على موطئ قدم لك قليلًا وسيحسن بالتأكيد تجربة scikit-learn الخاصة بك.
+يوصى بفهم أساسي لمصفوفات NumPy لتحقيق أقصى استفادة من scikit-learn.
 
-External Tutorials
-===================
+البرامج التعليمية الخارجية
+==============================
 
-There are several online tutorials available which are geared toward
-specific subject areas:
+هناك العديد من البرامج التعليمية عبر الإنترنت المتاحة والتي موجهة نحو مجالات موضوعية محددة:
 
 - `Machine Learning for NeuroImaging in Python <https://nilearn.github.io/>`_
 - `Machine Learning for Astronomical Data Analysis <https://github.com/astroML/sklearn_tutorial>`_
 
 .. _videos:
 
-Videos
-======
+مقاطع الفيديو
+===============
 
-- An introduction to scikit-learn `Part
-  I <https://conference.scipy.org/scipy2013/tutorial_detail.php?id=107>`_ and
-  `Part II <https://conference.scipy.org/scipy2013/tutorial_detail.php?id=111>`_ at Scipy 2013
-  by `Gael Varoquaux`_, `Jake Vanderplas`_  and `Olivier Grisel`_. Notebooks on
-  `github <https://github.com/jakevdp/sklearn_scipy2013>`_.
+- مقدمة إلى scikit-learn `الجزء الأول <https://conference.scipy.org/scipy2013/tutorial_detail.php?id=107>`_ و `الجزء الثاني <https://conference.scipy.org/scipy2013/tutorial_detail.php?id=111>`_ في Scipy 2013
+  بواسطة `Gael Varoquaux`_، `Jake Vanderplas`_ و `Olivier Grisel`_. دفاتر ملاحظات على `github <https://github.com/jakevdp/sklearn_scipy2013>`_.
 
-- `Introduction to scikit-learn
-  <http://videolectures.net/icml2010_varaquaux_scik/>`_ by `Gael Varoquaux`_ at
-  ICML 2010
+- `مقدمة إلى scikit-learn <http://videolectures.net/icml2010_varaquaux_scik/>`_
+  بواسطة `Gael Varoquaux`_ في ICML 2010
+  فيديو مدته ثلاث دقائق من مرحلة مبكرة جدًا من scikit-learn، يشرح الفكرة الأساسية والنهج الذي نتبعه.
 
-  A three minute video from a very early stage of scikit-learn, explaining the
-  basic idea and approach we are following.
+- `مقدمة إلى التعلم الإحصائي مع scikit-learn <https://archive.org/search.php?query=scikit-learn>`_
+  بواسطة `Gael Varoquaux`_ في SciPy 2011
+  برنامج تعليمي شامل، يتكون من أربع جلسات مدة كل منها ساعة واحدة.
+  يغطي البرنامج التعليمي أساسيات التعلم الآلي، والعديد من الخوارزميات وكيفية تطبيقها باستخدام scikit-learn.
 
-- `Introduction to statistical learning with scikit-learn <https://archive.org/search.php?query=scikit-learn>`_
-  by `Gael Varoquaux`_ at SciPy 2011
+- `التعلم الإحصائي لتصنيف النص باستخدام scikit-learn و NLTK <https://pyvideo.org/video/417/pycon-2011--statistical-machine-learning-for-text>`_ (و `الشرائح <https://www.slideshare.net/ogrisel/statistical-machine-learning-for-text-classification-with-scikitlearn-and-nltk>`_)
+  بواسطة `Olivier Grisel`_ في PyCon 2011
+  مقدمة مدتها ثلاثون دقيقة لتصنيف النص.
+  يشرح كيفية استخدام NLTK و scikit-learn لحل مهام تصنيف النص في العالم الحقيقي ويقارنها بالحلول المستندة إلى السحابة.
 
-  An extensive tutorial, consisting of four sessions of one hour.
-  The tutorial covers the basics of machine learning,
-  many algorithms and how to apply them using scikit-learn.
+- `مقدمة إلى التحليلات التنبؤية التفاعلية في Python باستخدام scikit-learn <https://www.youtube.com/watch?v=Zd5dfooZWG4>`_
+  بواسطة `Olivier Grisel`_ في PyCon 2012
+  مقدمة مدتها 3 ساعات لمهام التنبؤ باستخدام scikit-learn.
 
-- `Statistical Learning for Text Classification with scikit-learn and NLTK
-  <https://pyvideo.org/video/417/pycon-2011--statistical-machine-learning-for-text>`_
-  (and `slides <https://www.slideshare.net/ogrisel/statistical-machine-learning-for-text-classification-with-scikitlearn-and-nltk>`_)
-  by `Olivier Grisel`_ at PyCon 2011
+- `scikit-learn - التعلم الآلي في Python <https://www.youtube.com/watch?v=cHZONQ2-x7I>`_
+  بواسطة `Jake Vanderplas`_ في ورشة عمل PyData 2012 في Google
+  عرض تفاعلي لبعض ميزات scikit-learn. 75 دقيقة.
 
-  Thirty minute introduction to text classification. Explains how to
-  use NLTK and scikit-learn to solve real-world text classification
-  tasks and compares against cloud-based solutions.
-
-- `Introduction to Interactive Predictive Analytics in Python with scikit-learn <https://www.youtube.com/watch?v=Zd5dfooZWG4>`_
-  by `Olivier Grisel`_ at PyCon 2012
-
-  3-hours long introduction to prediction tasks using scikit-learn.
-
-- `scikit-learn - Machine Learning in Python <https://www.youtube.com/watch?v=cHZONQ2-x7I>`_
-  by `Jake Vanderplas`_ at the 2012 PyData workshop at Google
-
-  Interactive demonstration of some scikit-learn features. 75 minutes.
-
-- `scikit-learn tutorial <https://www.youtube.com/watch?v=cHZONQ2-x7I>`_ by `Jake Vanderplas`_ at PyData NYC 2012
-
-  Presentation using the online tutorial, 45 minutes.
+- `برنامج تعليمي scikit-learn <https://www.youtube.com/watch?v=cHZONQ2-x7I>`_
+  بواسطة `Jake Vanderplas`_ في PyData NYC 2012
+  عرض تقديمي باستخدام البرنامج التعليمي عبر الإنترنت، 45 دقيقة.
 
 
 .. _Gael Varoquaux: https://gael-varoquaux.info
 .. _Jake Vanderplas: http://www.vanderplas.com
 .. _Olivier Grisel: https://twitter.com/ogrisel
+
+
