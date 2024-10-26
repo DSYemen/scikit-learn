@@ -1,65 +1,68 @@
+
 .. _kernel_ridge:
 
 ===========================
-Kernel ridge regression
+انحدار حافة النواة
 ===========================
 
 .. currentmodule:: sklearn.kernel_ridge
 
-Kernel ridge regression (KRR) [M2012]_ combines :ref:`ridge_regression`
-(linear least squares with l2-norm regularization) with the `kernel trick
-<https://en.wikipedia.org/wiki/Kernel_method>`_. It thus learns a linear
-function in the space induced by the respective kernel and the data. For
-non-linear kernels, this corresponds to a non-linear function in the original
-space.
+انحدار حافة النواة (KRR) [M2012]_ يجمع بين :ref:`ridge_regression`
+(المربعات الصغرى الخطية مع تنظيم قاعدة l2) مع `خدعة النواة
+<https://en.wikipedia.org/wiki/Kernel_method>`_. وبالتالي يتعلم دالة
+خطية في الفضاء الناتج عن النواة المعنية والبيانات. لـ
+النوى غير الخطية، هذا يُقابل دالة غير خطية في الفضاء
+الأصلي.
 
-The form of the model learned by :class:`KernelRidge` is identical to support
-vector regression (:class:`~sklearn.svm.SVR`). However, different loss
-functions are used: KRR uses squared error loss while support vector
-regression uses :math:`\epsilon`-insensitive loss, both combined with l2
-regularization. In contrast to :class:`~sklearn.svm.SVR`, fitting
-:class:`KernelRidge` can be done in closed-form and is typically faster for
-medium-sized datasets. On the other hand, the learned model is non-sparse and
-thus slower than :class:`~sklearn.svm.SVR`, which learns a sparse model for
-:math:`\epsilon > 0`, at prediction-time.
+شكل النموذج الذي تعلمه :class:`KernelRidge` مطابق لانحدار متجه
+الدعم (:class:`~sklearn.svm.SVR`). ومع ذلك، يتم استخدام دوال
+خسارة مُختلفة: يستخدم KRR خسارة الخطأ التربيعي بينما يستخدم انحدار متجه
+الدعم خسارة :math:`\epsilon` غير الحساسة، وكلاهما مُجتمع مع
+تنظيم l2. على عكس :class:`~sklearn.svm.SVR`، يمكن إجراء ملاءمة
+:class:`KernelRidge` في شكل مُغلق وعادةً ما يكون أسرع بالنسبة لـ
+مجموعات البيانات متوسطة الحجم. من ناحية أخرى، فإن النموذج الذي تم تعلمه غير
+متفرق وبالتالي أبطأ من :class:`~sklearn.svm.SVR`، الذي يتعلم نموذجًا متفرقًا
+لـ :math:`\epsilon > 0`، في وقت التنبؤ.
 
-The following figure compares :class:`KernelRidge` and
-:class:`~sklearn.svm.SVR` on an artificial dataset, which consists of a
-sinusoidal target function and strong noise added to every fifth datapoint.
-The learned model of :class:`KernelRidge` and :class:`~sklearn.svm.SVR` is
-plotted, where both complexity/regularization and bandwidth of the RBF kernel
-have been optimized using grid-search. The learned functions are very
-similar; however, fitting :class:`KernelRidge` is approximately seven times
-faster than fitting :class:`~sklearn.svm.SVR` (both with grid-search).
-However, prediction of 100000 target values is more than three times faster
-with :class:`~sklearn.svm.SVR` since it has learned a sparse model using only
-approximately 1/3 of the 100 training datapoints as support vectors.
+تُقارن الصورة التالية :class:`KernelRidge` و
+:class:`~sklearn.svm.SVR` على مجموعة بيانات اصطناعية، تتكون من
+دالة هدف جيبية وضوضاء قوية تُضاف إلى كل نقطة بيانات خامسة.
+يتم رسم النموذج الذي تعلمه :class:`KernelRidge` و
+:class:`~sklearn.svm.SVR`، حيث تم تحسين كل من التعقيد / التنظيم
+وعرض النطاق الترددي لنواة RBF باستخدام البحث الشبكي. الدوال التي تم
+تعلمها متشابهة جدًا؛ ومع ذلك، فإن ملاءمة :class:`KernelRidge` أسرع بحوالي
+سبع مرات من ملاءمة :class:`~sklearn.svm.SVR` (كلاهما مع البحث الشبكي).
+ومع ذلك، فإن التنبؤ بـ 100000 قيمة هدف أسرع بأكثر من ثلاث مرات
+باستخدام :class:`~sklearn.svm.SVR` لأنه تعلم نموذجًا متفرقًا باستخدام
+1/3 فقط تقريبًا من نقاط بيانات التدريب البالغ عددها 100 كمتجهات دعم.
 
 .. figure:: ../auto_examples/miscellaneous/images/sphx_glr_plot_kernel_ridge_regression_001.png
    :target: ../auto_examples/miscellaneous/plot_kernel_ridge_regression.html
    :align: center
 
-The next figure compares the time for fitting and prediction of
-:class:`KernelRidge` and :class:`~sklearn.svm.SVR` for different sizes of the
-training set. Fitting :class:`KernelRidge` is faster than
-:class:`~sklearn.svm.SVR` for medium-sized training sets (less than 1000
-samples); however, for larger training sets :class:`~sklearn.svm.SVR` scales
-better. With regard to prediction time, :class:`~sklearn.svm.SVR` is faster
-than :class:`KernelRidge` for all sizes of the training set because of the
-learned sparse solution. Note that the degree of sparsity and thus the
-prediction time depends on the parameters :math:`\epsilon` and :math:`C` of
-the :class:`~sklearn.svm.SVR`; :math:`\epsilon = 0` would correspond to a
-dense model.
+تُقارن الصورة التالية وقت ملاءمة وتنبؤ
+:class:`KernelRidge` و :class:`~sklearn.svm.SVR` لأحجام مختلفة من
+مجموعة التدريب. ملاءمة :class:`KernelRidge` أسرع من
+:class:`~sklearn.svm.SVR` لمجموعات التدريب متوسطة الحجم (أقل من 1000
+عينة)؛ ومع ذلك، بالنسبة لمجموعات التدريب الأكبر، يتناسب :class:`~sklearn.svm.SVR`
+بشكل أفضل. فيما يتعلق بوقت التنبؤ، :class:`~sklearn.svm.SVR` أسرع
+من :class:`KernelRidge` لجميع أحجام مجموعة التدريب بسبب
+الحل المتفرق الذي تم تعلمه. لاحظ أن درجة التفرق، وبالتالي
+وقت التنبؤ، يعتمد على المعلمتين :math:`\epsilon` و :math:`C`
+لـ :class:`~sklearn.svm.SVR`؛ :math:`\epsilon = 0` سيُقابل
+نموذجًا كثيفًا.
 
 .. figure:: ../auto_examples/miscellaneous/images/sphx_glr_plot_kernel_ridge_regression_002.png
    :target: ../auto_examples/miscellaneous/plot_kernel_ridge_regression.html
    :align: center
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_miscellaneous_plot_kernel_ridge_regression.py`
 
-.. rubric:: References
+.. rubric:: المراجع
 
-.. [M2012] "Machine Learning: A Probabilistic Perspective"
-   Murphy, K. P. - chapter 14.4.3, pp. 492-493, The MIT Press, 2012
+.. [M2012] "التعلم الآلي: منظور احتمالي"
+   Murphy, K. P. - الفصل 14.4.3، الصفحات 492-493، The MIT Press، 2012
+
+

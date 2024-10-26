@@ -1,21 +1,22 @@
+
 .. _lda_qda:
 
 ==========================================
-Linear and Quadratic Discriminant Analysis
+تحليل التمييز الخطي والتربيعي
 ==========================================
 
 .. currentmodule:: sklearn
 
-Linear Discriminant Analysis
-(:class:`~discriminant_analysis.LinearDiscriminantAnalysis`) and Quadratic
-Discriminant Analysis
-(:class:`~discriminant_analysis.QuadraticDiscriminantAnalysis`) are two classic
-classifiers, with, as their names suggest, a linear and a quadratic decision
-surface, respectively.
+تحليل التمييز الخطي
+(:class:`~discriminant_analysis.LinearDiscriminantAnalysis`) وتحليل
+التمييز التربيعي
+(:class:`~discriminant_analysis.QuadraticDiscriminantAnalysis`) هما مُصنفان
+كلاسيكيان، مع، كما تُشير أسماؤهما، سطح قرار خطي وتربيعي،
+على التوالي.
 
-These classifiers are attractive because they have closed-form solutions that
-can be easily computed, are inherently multiclass, have proven to work well in
-practice, and have no hyperparameters to tune.
+هذه المُصنِّفات جذابة لأن لها حلولاً ذات شكل مُغلق
+يمكن حسابها بسهولة، وهي متعددة الفئات بطبيعتها، وقد أثبتت فعاليتها في
+الممارسة العملية، وليس لديها معلمات فائقة لضبطها.
 
 .. |ldaqda| image:: ../auto_examples/classification/images/sphx_glr_plot_lda_qda_001.png
         :target: ../auto_examples/classification/plot_lda_qda.html
@@ -23,185 +24,184 @@ practice, and have no hyperparameters to tune.
 
 .. centered:: |ldaqda|
 
-The plot shows decision boundaries for Linear Discriminant Analysis and
-Quadratic Discriminant Analysis. The bottom row demonstrates that Linear
-Discriminant Analysis can only learn linear boundaries, while Quadratic
-Discriminant Analysis can learn quadratic boundaries and is therefore more
-flexible.
+يُظهر الرسم حدود القرار لتحليل التمييز الخطي و
+تحليل التمييز التربيعي. يُوضح الصف السفلي أن تحليل
+التمييز الخطي لا يمكنه تعلم سوى الحدود الخطية، بينما يمكن لتحليل
+التمييز التربيعي تعلم حدود تربيعية وبالتالي فهو أكثر
+مرونة.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_classification_plot_lda_qda.py`: Comparison of LDA and
-  QDA on synthetic data.
+* :ref:`sphx_glr_auto_examples_classification_plot_lda_qda.py`: مقارنة بين LDA و
+  QDA على البيانات الاصطناعية.
 
-Dimensionality reduction using Linear Discriminant Analysis
+تقليل الأبعاد باستخدام تحليل التمييز الخطي
 ===========================================================
 
-:class:`~discriminant_analysis.LinearDiscriminantAnalysis` can be used to
-perform supervised dimensionality reduction, by projecting the input data to a
-linear subspace consisting of the directions which maximize the separation
-between classes (in a precise sense discussed in the mathematics section
-below). The dimension of the output is necessarily less than the number of
-classes, so this is in general a rather strong dimensionality reduction, and
-only makes sense in a multiclass setting.
+يمكن استخدام :class:`~discriminant_analysis.LinearDiscriminantAnalysis` لـ
+إجراء تقليل أبعاد خاضع للإشراف، عن طريق إسقاط بيانات الإدخال على
+فضاء فرعي خطي يتكون من الاتجاهات التي تُعظم الفصل
+بين الفئات (بمعنى دقيق تمت مناقشته في قسم الرياضيات
+أدناه). بُعد الإخراج أقل بالضرورة من عدد
+الفئات، لذلك هذا بشكل عام تقليل قوي جدًا للأبعاد، و
+لا معنى له إلا في إعداد متعدد الفئات.
 
-This is implemented in the `transform` method. The desired dimensionality can
-be set using the ``n_components`` parameter. This parameter has no influence
-on the `fit` and `predict` methods.
+يتم تطبيق هذا في أسلوب `transform`. يمكن تعيين الأبعاد المطلوبة
+باستخدام معلمة ``n_components``. ليس لهذه المعلمة أي تأثير
+على أسلوبي `fit` و `predict`.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_decomposition_plot_pca_vs_lda.py`: Comparison of LDA and
-  PCA for dimensionality reduction of the Iris dataset
+* :ref:`sphx_glr_auto_examples_decomposition_plot_pca_vs_lda.py`: مقارنة بين LDA و
+  PCA لتقليل أبعاد مجموعة بيانات Iris.
 
 .. _lda_qda_math:
 
-Mathematical formulation of the LDA and QDA classifiers
+الصيغة الرياضية لمُصنِّفات LDA و QDA
 =======================================================
 
-Both LDA and QDA can be derived from simple probabilistic models which model
-the class conditional distribution of the data :math:`P(X|y=k)` for each class
-:math:`k`. Predictions can then be obtained by using Bayes' rule, for each
-training sample :math:`x \in \mathcal{R}^d`:
+يمكن اشتقاق كل من LDA و QDA من نماذج احتمالية بسيطة تُنمذج
+التوزيع الشرطي للفئة للبيانات :math:`P(X|y=k)` لكل فئة
+:math:`k`. يمكن بعد ذلك الحصول على التنبؤات باستخدام قاعدة Bayes، لكل
+عينة تدريب :math:`x \in \mathcal{R}^d`:
 
 .. math::
     P(y=k | x) = \frac{P(x | y=k) P(y=k)}{P(x)} = \frac{P(x | y=k) P(y = k)}{ \sum_{l} P(x | y=l) \cdot P(y=l)}
 
-and we select the class :math:`k` which maximizes this posterior probability.
+ونختار الفئة :math:`k` التي تُعظم احتمالية هذا اللاحق.
 
-More specifically, for linear and quadratic discriminant analysis,
-:math:`P(x|y)` is modeled as a multivariate Gaussian distribution with
-density:
+بشكل أكثر تحديدًا، بالنسبة لتحليل التمييز الخطي والتربيعي،
+يتم نمذجة :math:`P(x|y)` كتوزيع غاوسي متعدد المتغيرات بكثافة:
 
 .. math:: P(x | y=k) = \frac{1}{(2\pi)^{d/2} |\Sigma_k|^{1/2}}\exp\left(-\frac{1}{2} (x-\mu_k)^t \Sigma_k^{-1} (x-\mu_k)\right)
 
-where :math:`d` is the number of features.
+حيث :math:`d` هو عدد الميزات.
 
 QDA
 ---
 
-According to the model above, the log of the posterior is:
+وفقًا للنموذج أعلاه، فإن لوغاريتم اللاحق هو:
 
 .. math::
 
     \log P(y=k | x) &= \log P(x | y=k) + \log P(y = k) + Cst \\
     &= -\frac{1}{2} \log |\Sigma_k| -\frac{1}{2} (x-\mu_k)^t \Sigma_k^{-1} (x-\mu_k) + \log P(y = k) + Cst,
 
-where the constant term :math:`Cst` corresponds to the denominator
-:math:`P(x)`, in addition to other constant terms from the Gaussian. The
-predicted class is the one that maximises this log-posterior.
+حيث يُقابل المصطلح الثابت :math:`Cst` المقام
+:math:`P(x)`، بالإضافة إلى المصطلحات الثابتة الأخرى من التوزيع
+الطبيعي. الفئة المتوقعة هي الفئة التي تُعظم هذا اللاحق اللوغاريتمي.
 
-.. note:: **Relation with Gaussian Naive Bayes**
+.. note:: **العلاقة مع غاوسي ساذج بايز**
 
-	  If in the QDA model one assumes that the covariance matrices are diagonal,
-	  then the inputs are assumed to be conditionally independent in each class,
-	  and the resulting classifier is equivalent to the Gaussian Naive Bayes
-	  classifier :class:`naive_bayes.GaussianNB`.
+	  إذا افترض المرء في نموذج QDA أن مصفوفات التغاير المشترك قطرية،
+	  فسيتم افتراض أن المدخلات مستقلة بشكل شرطي في كل فئة،
+	  والمُصنف الناتج يُعادل مُصنف غاوسي ساذج بايز
+	  :class:`naive_bayes.GaussianNB`.
 
 LDA
 ---
 
-LDA is a special case of QDA, where the Gaussians for each class are assumed
-to share the same covariance matrix: :math:`\Sigma_k = \Sigma` for all
-:math:`k`. This reduces the log posterior to:
+LDA هي حالة خاصة من QDA، حيث يُفترض أن التوزيعات العادية لكل
+فئة تشترك في نفس مصفوفة التغاير المشترك: :math:`\Sigma_k = \Sigma` للجميع
+:math:`k`. هذا يُقلل اللاحق اللوغاريتمي إلى:
 
 .. math:: \log P(y=k | x) = -\frac{1}{2} (x-\mu_k)^t \Sigma^{-1} (x-\mu_k) + \log P(y = k) + Cst.
 
-The term :math:`(x-\mu_k)^t \Sigma^{-1} (x-\mu_k)` corresponds to the
-`Mahalanobis Distance <https://en.wikipedia.org/wiki/Mahalanobis_distance>`_
-between the sample :math:`x` and the mean :math:`\mu_k`. The Mahalanobis
-distance tells how close :math:`x` is from :math:`\mu_k`, while also
-accounting for the variance of each feature. We can thus interpret LDA as
-assigning :math:`x` to the class whose mean is the closest in terms of
-Mahalanobis distance, while also accounting for the class prior
-probabilities.
+يُقابل المصطلح :math:`(x-\mu_k)^t \Sigma^{-1} (x-\mu_k)`
+`مسافة Mahalanobis <https://en.wikipedia.org/wiki/Mahalanobis_distance>`_
+بين العينة :math:`x` والمتوسط :math:`\mu_k`. تُخبر مسافة Mahalanobis
+مدى قرب :math:`x` من :math:`\mu_k`، مع
+مُراعاة تباين كل ميزة أيضًا. وبالتالي يمكننا تفسير LDA على أنه
+تعيين :math:`x` إلى الفئة التي يكون متوسطها الأقرب من حيث
+مسافة Mahalanobis، مع مُراعاة احتمالات الفئة السابقة
+أيضًا.
 
-The log-posterior of LDA can also be written [3]_ as:
+يمكن أيضًا كتابة اللاحق اللوغاريتمي لـ LDA [3]_ على النحو التالي:
 
 .. math::
 
     \log P(y=k | x) = \omega_k^t x + \omega_{k0} + Cst.
 
-where :math:`\omega_k = \Sigma^{-1} \mu_k` and :math:`\omega_{k0} =
--\frac{1}{2} \mu_k^t\Sigma^{-1}\mu_k + \log P (y = k)`. These quantities
-correspond to the `coef_` and `intercept_` attributes, respectively.
+حيث :math:`\omega_k = \Sigma^{-1} \mu_k` و :math:`\omega_{k0} =
+-\frac{1}{2} \mu_k^t\Sigma^{-1}\mu_k + \log P (y = k)`. تُقابل هذه الكميات
+السمتين `coef_` و `intercept_`، على التوالي.
 
-From the above formula, it is clear that LDA has a linear decision surface.
-In the case of QDA, there are no assumptions on the covariance matrices
-:math:`\Sigma_k` of the Gaussians, leading to quadratic decision surfaces.
-See [1]_ for more details.
+من الصيغة أعلاه، من الواضح أن LDA لديه سطح قرار خطي.
+في حالة QDA، لا توجد افتراضات على مصفوفات التغاير المشترك
+:math:`\Sigma_k` للتوزيعات العادية، مما يؤدي إلى أسطح قرار تربيعية.
+انظر [1]_ لمزيد من التفاصيل.
 
-Mathematical formulation of LDA dimensionality reduction
+الصيغة الرياضية لتقليل أبعاد LDA
 ========================================================
 
-First note that the K means :math:`\mu_k` are vectors in
-:math:`\mathcal{R}^d`, and they lie in an affine subspace :math:`H` of
-dimension at most :math:`K - 1` (2 points lie on a line, 3 points lie on a
-plane, etc.).
+لاحظ أولاً أن متوسطات K :math:`\mu_k` هي متجهات في
+:math:`\mathcal{R}^d`، وتقع في فضاء فرعي أفيني :math:`H` بـ
+بُعد :math:`K - 1` على الأكثر (نقطتان تقعان على خط، 3 نقاط تقع على
+مستوى، إلخ.).
 
-As mentioned above, we can interpret LDA as assigning :math:`x` to the class
-whose mean :math:`\mu_k` is the closest in terms of Mahalanobis distance,
-while also accounting for the class prior probabilities. Alternatively, LDA
-is equivalent to first *sphering* the data so that the covariance matrix is
-the identity, and then assigning :math:`x` to the closest mean in terms of
-Euclidean distance (still accounting for the class priors).
+كما ذُكر أعلاه، يمكننا تفسير LDA على أنه تعيين :math:`x` إلى الفئة
+التي يكون متوسطها :math:`\mu_k` الأقرب من حيث مسافة Mahalanobis،
+مع مُراعاة احتمالات الفئة السابقة أيضًا. بدلاً من ذلك، يُعادل LDA
+أولاً *تكوير* البيانات بحيث تكون مصفوفة التغاير المشترك
+هي الهوية، ثم تعيين :math:`x` إلى أقرب متوسط من حيث
+مسافة إقليدية (مع مُراعاة مُسبقات الفئة).
 
-Computing Euclidean distances in this d-dimensional space is equivalent to
-first projecting the data points into :math:`H`, and computing the distances
-there (since the other dimensions will contribute equally to each class in
-terms of distance). In other words, if :math:`x` is closest to :math:`\mu_k`
-in the original space, it will also be the case in :math:`H`.
-This shows that, implicit in the LDA
-classifier, there is a dimensionality reduction by linear projection onto a
-:math:`K-1` dimensional space.
+حساب مسافات إقليدية في هذا الفضاء ذي الأبعاد d يُعادل
+أولاً إسقاط نقاط البيانات في :math:`H`، وحساب المسافات
+هناك (لأن الأبعاد الأخرى ستُساهم بالتساوي في كل فئة من حيث
+المسافة). بمعنى آخر، إذا كان :math:`x` أقرب إلى :math:`\mu_k`
+في الفضاء الأصلي، فسيكون هذا هو الحال أيضًا في :math:`H`.
+هذا يُظهر أنه، ضمنيًا في مُصنف LDA،
+هناك تقليل للأبعاد عن طريق الإسقاط الخطي على
+فضاء ذي أبعاد :math:`K-1`.
 
-We can reduce the dimension even more, to a chosen :math:`L`, by projecting
-onto the linear subspace :math:`H_L` which maximizes the variance of the
-:math:`\mu^*_k` after projection (in effect, we are doing a form of PCA for the
-transformed class means :math:`\mu^*_k`). This :math:`L` corresponds to the
-``n_components`` parameter used in the
-:func:`~discriminant_analysis.LinearDiscriminantAnalysis.transform` method. See
-[1]_ for more details.
+يمكننا تقليل البُعد أكثر، إلى :math:`L` مُختار، عن طريق الإسقاط
+على الفضاء الفرعي الخطي :math:`H_L` الذي يُعظم تباين
+:math:`\mu^*_k` بعد الإسقاط (في الواقع، نحن نُجري شكلًا من أشكال PCA
+لمتوسطات الفئات المُحوَّلة :math:`\mu^*_k`). هذا :math:`L` يُقابل
+معلمة ``n_components`` المُستخدمة في أسلوب
+:func:`~discriminant_analysis.LinearDiscriminantAnalysis.transform`. انظر
+[1]_ لمزيد من التفاصيل.
 
-Shrinkage and Covariance Estimator
+الانكماش ومُقدِّر التغاير المشترك
 ==================================
 
-Shrinkage is a form of regularization used to improve the estimation of
-covariance matrices in situations where the number of training samples is
-small compared to the number of features.
-In this scenario, the empirical sample covariance is a poor
-estimator, and shrinkage helps improving the generalization performance of
-the classifier.
-Shrinkage LDA can be used by setting the ``shrinkage`` parameter of
-the :class:`~discriminant_analysis.LinearDiscriminantAnalysis` class to 'auto'.
-This automatically determines the optimal shrinkage parameter in an analytic
-way following the lemma introduced by Ledoit and Wolf [2]_. Note that
-currently shrinkage only works when setting the ``solver`` parameter to 'lsqr'
-or 'eigen'.
+الانكماش هو شكل من أشكال التنظيم يُستخدم لتحسين تقدير
+مصفوفات التغاير المشترك في الحالات التي يكون فيها عدد عينات التدريب
+صغيرًا مُقارنةً بعدد الميزات.
+في هذا السيناريو، يكون تغاير العينة التجريبي
+مُقدِّرًا ضعيفًا، ويُساعد الانكماش في تحسين أداء التعميم لـ
+المُصنف.
+يمكن استخدام انكماش LDA عن طريق تعيين معلمة ``shrinkage`` لـ
+فئة :class:`~discriminant_analysis.LinearDiscriminantAnalysis` إلى "auto".
+هذا يُحدد تلقائيًا معلمة الانكماش المثلى بطريقة تحليلية
+باتباع النظرية التي قدمها Ledoit و Wolf [2]_. لاحظ أن
+الانكماش لا يعمل حاليًا إلا عند تعيين معلمة ``solver`` إلى 'lsqr'
+أو 'eigen'.
 
-The ``shrinkage`` parameter can also be manually set between 0 and 1. In
-particular, a value of 0 corresponds to no shrinkage (which means the empirical
-covariance matrix will be used) and a value of 1 corresponds to complete
-shrinkage (which means that the diagonal matrix of variances will be used as
-an estimate for the covariance matrix). Setting this parameter to a value
-between these two extrema will estimate a shrunk version of the covariance
-matrix.
+يمكن أيضًا تعيين معلمة ``shrinkage`` يدويًا بين 0 و 1. في
+على وجه الخصوص، تُقابل القيمة 0 عدم الانكماش (مما يعني أن مصفوفة
+التغاير المشترك التجريبية ستُستخدم) وتُقابل القيمة 1 الانكماش الكامل
+(مما يعني أنه سيتم استخدام المصفوفة القطرية للتباينات كـ
+تقدير لمصفوفة التغاير المشترك). سيؤدي تعيين هذه المعلمة إلى قيمة
+بين هذين الطرفين إلى تقدير إصدار مُنكمش من مصفوفة
+التغاير المشترك.
 
-The shrunk Ledoit and Wolf estimator of covariance may not always be the
-best choice. For example if the distribution of the data
-is normally distributed, the
-Oracle Approximating Shrinkage estimator :class:`sklearn.covariance.OAS`
-yields a smaller Mean Squared Error than the one given by Ledoit and Wolf's
-formula used with shrinkage="auto". In LDA, the data are assumed to be gaussian
-conditionally to the class. If these assumptions hold, using LDA with
-the OAS estimator of covariance will yield a better classification
-accuracy than if Ledoit and Wolf or the empirical covariance estimator is used.
+قد لا يكون مُقدِّر التغاير المشترك المُنكمش لـ Ledoit و Wolf دائمًا
+هو الخيار الأفضل. على سبيل المثال، إذا كان توزيع البيانات
+طبيعيًا، فإن
+مُقدِّر تقريب انكماش أوراكل :class:`sklearn.covariance.OAS`
+يُعطي متوسط خطأ تربيعي أصغر من ذلك الذي تُعطيه صيغة Ledoit و Wolf
+المُستخدمة مع shrinkage="auto". في LDA، يُفترض أن البيانات غاوسية
+بشكل شرطي على الفئة. إذا كانت هذه الافتراضات صحيحة، فإن استخدام LDA مع
+مُقدِّر OAS للتغاير المشترك سيُعطي دقة تصنيف أفضل مما
+لو تم استخدام Ledoit و Wolf أو مُقدِّر التغاير المشترك التجريبي.
 
-The covariance estimator can be chosen using with the ``covariance_estimator``
-parameter of the :class:`discriminant_analysis.LinearDiscriminantAnalysis`
-class. A covariance estimator should have a :term:`fit` method and a
-``covariance_`` attribute like all covariance estimators in the
-:mod:`sklearn.covariance` module.
+يمكن اختيار مُقدِّر التغاير المشترك باستخدام معلمة ``covariance_estimator``
+لفئة :class:`discriminant_analysis.LinearDiscriminantAnalysis`.
+يجب أن يحتوي مُقدِّر التغاير المشترك على أسلوب :term:`fit` و
+سمة ``covariance_`` مثل جميع مُقدِّرات التغاير المشترك في
+وحدة :mod:`sklearn.covariance`.
 
 
 .. |shrinkage| image:: ../auto_examples/classification/images/sphx_glr_plot_lda_001.png
@@ -210,56 +210,59 @@ class. A covariance estimator should have a :term:`fit` method and a
 
 .. centered:: |shrinkage|
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_classification_plot_lda.py`: Comparison of LDA classifiers
-  with Empirical, Ledoit Wolf and OAS covariance estimator.
+* :ref:`sphx_glr_auto_examples_classification_plot_lda.py`: مقارنة مُصنِّفات LDA
+  مع مُقدِّر التغاير المشترك التجريبي و Ledoit Wolf و OAS.
 
-Estimation algorithms
+خوارزميات التقدير
 =====================
 
-Using LDA and QDA requires computing the log-posterior which depends on the
-class priors :math:`P(y=k)`, the class means :math:`\mu_k`, and the
-covariance matrices.
+يتطلب استخدام LDA و QDA حساب اللاحق اللوغاريتمي الذي يعتمد على
+مُسبقات الفئة :math:`P(y=k)`، ومتوسطات الفئة :math:`\mu_k`، و
+مصفوفات التغاير المشترك.
 
-The 'svd' solver is the default solver used for
-:class:`~sklearn.discriminant_analysis.LinearDiscriminantAnalysis`, and it is
-the only available solver for
+محلل 'svd' هو المحلل الافتراضي المُستخدم لـ
+:class:`~sklearn.discriminant_analysis.LinearDiscriminantAnalysis`، وهو
+المحلل الوحيد المتاح لـ
 :class:`~sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis`.
-It can perform both classification and transform (for LDA).
-As it does not rely on the calculation of the covariance matrix, the 'svd'
-solver may be preferable in situations where the number of features is large.
-The 'svd' solver cannot be used with shrinkage.
-For QDA, the use of the SVD solver relies on the fact that the covariance
-matrix :math:`\Sigma_k` is, by definition, equal to :math:`\frac{1}{n - 1}
-X_k^tX_k = \frac{1}{n - 1} V S^2 V^t` where :math:`V` comes from the SVD of the (centered)
-matrix: :math:`X_k = U S V^t`. It turns out that we can compute the
-log-posterior above without having to explicitly compute :math:`\Sigma`:
-computing :math:`S` and :math:`V` via the SVD of :math:`X` is enough. For
-LDA, two SVDs are computed: the SVD of the centered input matrix :math:`X`
-and the SVD of the class-wise mean vectors.
+يمكنه إجراء كل من التصنيف والتحويل (لـ LDA).
+نظرًا لأنه لا يعتمد على حساب مصفوفة التغاير المشترك، فقد يكون محلل 'svd'
+مُفضلًا في الحالات التي يكون فيها عدد الميزات كبيرًا.
+لا يمكن استخدام محلل 'svd' مع الانكماش.
+بالنسبة لـ QDA، يعتمد استخدام محلل SVD على حقيقة أن مصفوفة
+التغاير المشترك :math:`\Sigma_k`، بحكم التعريف، تساوي :math:`\frac{1}{n - 1}
+X_k^tX_k = \frac{1}{n - 1} V S^2 V^t` حيث يأتي :math:`V` من SVD للمصفوفة
+(المُتمركزة): :math:`X_k = U S V^t`. اتضح أنه يمكننا حساب
+اللاحق اللوغاريتمي أعلاه دون الحاجة إلى حساب :math:`\Sigma` صراحةً:
+حساب :math:`S` و :math:`V` عبر SVD لـ :math:`X` يكفي. بالنسبة
+لـ LDA، يتم حساب SVDs اثنين: SVD لمصفوفة الإدخال المُتمركزة :math:`X`
+و SVD لمتجهات المتوسط حسب الفئة.
 
-The 'lsqr' solver is an efficient algorithm that only works for
-classification. It needs to explicitly compute the covariance matrix
-:math:`\Sigma`, and supports shrinkage and custom covariance estimators.
-This solver computes the coefficients
-:math:`\omega_k = \Sigma^{-1}\mu_k` by solving for :math:`\Sigma \omega =
-\mu_k`, thus avoiding the explicit computation of the inverse
+محلل 'lsqr' هو خوارزمية فعالة تعمل فقط من أجل
+التصنيف. إنه يحتاج إلى حساب مصفوفة التغاير المشترك
+:math:`\Sigma` صراحةً، ويدعم الانكماش ومُقدِّرات التغاير
+المُخصصة.
+يحسب هذا المحلل المعاملات
+:math:`\omega_k = \Sigma^{-1}\mu_k` عن طريق الحل لـ :math:`\Sigma \omega =
+\mu_k`، وبالتالي تجنب الحساب الصريح للمعكوس
 :math:`\Sigma^{-1}`.
 
-The 'eigen' solver is based on the optimization of the between class scatter to
-within class scatter ratio. It can be used for both classification and
-transform, and it supports shrinkage. However, the 'eigen' solver needs to
-compute the covariance matrix, so it might not be suitable for situations with
-a high number of features.
+يعتمد محلل 'eigen' على تحسين نسبة التشتت بين الفئات إلى
+نسبة التشتت داخل الفئة. يمكن استخدامه لكل من التصنيف و
+التحويل، ويدعم الانكماش. ومع ذلك، يحتاج محلل 'eigen' إلى
+حساب مصفوفة التغاير المشترك، لذلك قد لا يكون مُناسبًا للحالات التي
+تحتوي على عدد كبير من الميزات.
 
-.. rubric:: References
+.. rubric:: المراجع
 
-.. [1] "The Elements of Statistical Learning", Hastie T., Tibshirani R.,
-    Friedman J., Section 4.3, p.106-119, 2008.
+.. [1] "عناصر التعلم الإحصائي", Hastie T., Tibshirani R.,
+    Friedman J., القسم 4.3، ص 106-119، 2008.
 
-.. [2] Ledoit O, Wolf M. Honey, I Shrunk the Sample Covariance Matrix.
+.. [2] Ledoit O, Wolf M. Honey, لقد قلصت مصفوفة تغاير العينة.
     The Journal of Portfolio Management 30(4), 110-119, 2004.
 
-.. [3] R. O. Duda, P. E. Hart, D. G. Stork. Pattern Classification
-    (Second Edition), section 2.6.2.
+.. [3] R. O. Duda, P. E. Hart, D. G. Stork. تصنيف الأنماط
+    (الطبعة الثانية)، القسم 2.6.2.
+
+

@@ -1,7 +1,8 @@
+
 .. _neural_networks_unsupervised:
 
 ====================================
-Neural network models (unsupervised)
+نماذج الشبكة العصبية (غير خاضعة للإشراف)
 ====================================
 
 .. currentmodule:: sklearn.neural_network
@@ -9,153 +10,120 @@ Neural network models (unsupervised)
 
 .. _rbm:
 
-Restricted Boltzmann machines
+آلات بولتزمان المُقيّدة
 =============================
 
-Restricted Boltzmann machines (RBM) are unsupervised nonlinear feature learners
-based on a probabilistic model. The features extracted by an RBM or a hierarchy
-of RBMs often give good results when fed into a linear classifier such as a
-linear SVM or a perceptron.
+آلات بولتزمان المُقيّدة (RBM) هي أدوات تعلم ميزات غير خطية وغير خاضعة للإشراف تعتمد على نموذج احتمالي. غالبًا ما تُعطي الميزات التي يتم استخراجها بواسطة RBM أو تسلسل هرمي من RBMs نتائج جيدة عند تغذيتها في مُصنف خطي مثل SVM خطي أو بيرسيبترون.
 
-The model makes assumptions regarding the distribution of inputs. At the moment,
-scikit-learn only provides :class:`BernoulliRBM`, which assumes the inputs are
-either binary values or values between 0 and 1, each encoding the probability
-that the specific feature would be turned on.
+يضع النموذج افتراضات بخصوص توزيع المدخلات. في الوقت الحالي، تُوفر scikit-learn فقط :class:`BernoulliRBM`، التي تفترض أن المدخلات هي إما قيم ثنائية أو قيم بين 0 و 1، كل منها يُشفّر احتمال تشغيل الميزة المُحدّدة.
 
-The RBM tries to maximize the likelihood of the data using a particular
-graphical model. The parameter learning algorithm used (:ref:`Stochastic
-Maximum Likelihood <sml>`) prevents the representations from straying far
-from the input data, which makes them capture interesting regularities, but
-makes the model less useful for small datasets, and usually not useful for
-density estimation.
+تحاول RBM تعظيم احتمالية البيانات باستخدام نموذج رسومي مُحدّد. تمنع خوارزمية تعلم المعلمات المُستخدمة (:ref:`أقصى احتمالية عشوائية <sml>`) التمثيلات من الابتعاد كثيرًا عن بيانات الإدخال، مما يجعلها تلتقط انتظامات مثيرة للاهتمام، ولكنه يجعل النموذج أقل فائدة لمجموعات البيانات الصغيرة، وعادةً ما يكون غير مفيد لتقدير الكثافة.
 
-The method gained popularity for initializing deep neural networks with the
-weights of independent RBMs. This method is known as unsupervised pre-training.
+اكتسبت الطريقة شعبية لتهيئة الشبكات العصبية العميقة بأوزان RBMs مستقلة. تُعرف هذه الطريقة باسم التدريب المُسبق غير الخاضع للإشراف.
 
 .. figure:: ../auto_examples/neural_networks/images/sphx_glr_plot_rbm_logistic_classification_001.png
    :target: ../auto_examples/neural_networks/plot_rbm_logistic_classification.html
    :align: center
    :scale: 100%
 
-.. rubric:: Examples
+
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_neural_networks_plot_rbm_logistic_classification.py`
 
 
-Graphical model and parametrization
+النموذج الرسومي والمعلمات
 -----------------------------------
 
-The graphical model of an RBM is a fully-connected bipartite graph.
+النموذج الرسومي لـ RBM هو رسم بياني ثنائي الأجزاء مُتصل بالكامل.
 
 .. image:: ../images/rbm_graph.png
    :align: center
 
-The nodes are random variables whose states depend on the state of the other
-nodes they are connected to. The model is therefore parameterized by the
-weights of the connections, as well as one intercept (bias) term for each
-visible and hidden unit, omitted from the image for simplicity.
+العقد هي متغيرات عشوائية تعتمد حالتها على حالة العقد الأخرى التي تتصل بها. لذلك، يتم تحديد معلمات النموذج بواسطة أوزان الاتصالات، بالإضافة إلى مصطلح تقاطع واحد (انحياز) لكل وحدة مرئية ومخفية، تم حذفه من الصورة من أجل التبسيط.
 
-The energy function measures the quality of a joint assignment:
+تقيس دالة الطاقة جودة التعيين المُشترك:
 
 .. math::
 
    E(\mathbf{v}, \mathbf{h}) = -\sum_i \sum_j w_{ij}v_ih_j - \sum_i b_iv_i
      - \sum_j c_jh_j
 
-In the formula above, :math:`\mathbf{b}` and :math:`\mathbf{c}` are the
-intercept vectors for the visible and hidden layers, respectively. The
-joint probability of the model is defined in terms of the energy:
+في الصيغة أعلاه، :math:`\mathbf{b}` و :math:`\mathbf{c}` هما متجها التقاطع للطبقات المرئية والمخفية، على التوالي. يتم تعريف الاحتمال المُشترك للنموذج من حيث الطاقة:
 
 .. math::
 
    P(\mathbf{v}, \mathbf{h}) = \frac{e^{-E(\mathbf{v}, \mathbf{h})}}{Z}
 
 
-The word *restricted* refers to the bipartite structure of the model, which
-prohibits direct interaction between hidden units, or between visible units.
-This means that the following conditional independencies are assumed:
+تشير كلمة *مُقيّد* إلى بنية ثنائية الأجزاء للنموذج، والتي تمنع التفاعل المُباشر بين الوحدات المخفية، أو بين الوحدات المرئية. هذا يعني أنه يتم افتراض الاستقلالية الشرطية التالية:
+
 
 .. math::
 
    h_i \bot h_j | \mathbf{v} \\
    v_i \bot v_j | \mathbf{h}
 
-The bipartite structure allows for the use of efficient block Gibbs sampling for
-inference.
 
-Bernoulli Restricted Boltzmann machines
+تسمح البنية ثنائية الأجزاء باستخدام أخذ عينات جيبس الكتل الفعال للاستدلال.
+
+
+آلات بولتزمان المُقيّدة لبرنولي
 ---------------------------------------
 
-In the :class:`BernoulliRBM`, all units are binary stochastic units. This
-means that the input data should either be binary, or real-valued between 0 and
-1 signifying the probability that the visible unit would turn on or off. This
-is a good model for character recognition, where the interest is on which
-pixels are active and which aren't. For images of natural scenes it no longer
-fits because of background, depth and the tendency of neighbouring pixels to
-take the same values.
+في :class:`BernoulliRBM`، جميع الوحدات هي وحدات عشوائية ثنائية. هذا يعني أنه يجب أن تكون بيانات الإدخال إما ثنائية، أو ذات قيمة حقيقية بين 0 و 1، مما يدل على احتمال تشغيل الوحدة المرئية أو إيقاف تشغيلها. هذا نموذج جيد للتعرف على الأحرف، حيث يكون الاهتمام على وحدات البكسل النشطة وأيها ليست كذلك. بالنسبة لصور المشاهد الطبيعية، لم يعد مناسبًا بسبب الخلفية والعمق وميل وحدات البكسل المجاورة إلى أخذ نفس القيم.
 
-The conditional probability distribution of each unit is given by the
-logistic sigmoid activation function of the input it receives:
+يتم إعطاء التوزيع الاحتمالي الشرطي لكل وحدة بواسطة دالة تنشيط السيني اللوجستي للمدخلات التي تتلقاها:
+
 
 .. math::
 
    P(v_i=1|\mathbf{h}) = \sigma(\sum_j w_{ij}h_j + b_i) \\
    P(h_i=1|\mathbf{v}) = \sigma(\sum_i w_{ij}v_i + c_j)
 
-where :math:`\sigma` is the logistic sigmoid function:
+
+حيث :math:`\sigma` هي دالة السيني اللوجستي:
 
 .. math::
 
    \sigma(x) = \frac{1}{1 + e^{-x}}
 
+
 .. _sml:
 
-Stochastic Maximum Likelihood learning
+تعلم أقصى احتمالية عشوائية
 --------------------------------------
 
-The training algorithm implemented in :class:`BernoulliRBM` is known as
-Stochastic Maximum Likelihood (SML) or Persistent Contrastive Divergence
-(PCD). Optimizing maximum likelihood directly is infeasible because of
-the form of the data likelihood:
+تُعرف خوارزمية التدريب المُطبقة في :class:`BernoulliRBM` باسم أقصى احتمالية عشوائية (SML) أو تباعد مُستمر مُتباين (PCD). تحسين أقصى احتمالية مُباشرةً أمر غير مُجدٍ بسبب شكل احتمالية البيانات:
+
 
 .. math::
 
    \log P(v) = \log \sum_h e^{-E(v, h)} - \log \sum_{x, y} e^{-E(x, y)}
 
-For simplicity the equation above is written for a single training example.
-The gradient with respect to the weights is formed of two terms corresponding to
-the ones above. They are usually known as the positive gradient and the negative
-gradient, because of their respective signs.  In this implementation, the
-gradients are estimated over mini-batches of samples.
 
-In maximizing the log-likelihood, the positive gradient makes the model prefer
-hidden states that are compatible with the observed training data. Because of
-the bipartite structure of RBMs, it can be computed efficiently. The
-negative gradient, however, is intractable. Its goal is to lower the energy of
-joint states that the model prefers, therefore making it stay true to the data.
-It can be approximated by Markov chain Monte Carlo using block Gibbs sampling by
-iteratively sampling each of :math:`v` and :math:`h` given the other, until the
-chain mixes. Samples generated in this way are sometimes referred as fantasy
-particles. This is inefficient and it is difficult to determine whether the
-Markov chain mixes.
 
-The Contrastive Divergence method suggests to stop the chain after a small
-number of iterations, :math:`k`, usually even 1. This method is fast and has
-low variance, but the samples are far from the model distribution.
+من أجل التبسيط، تمت كتابة المعادلة أعلاه لمثال تدريب واحد. يتكون التدرج اللوني فيما يتعلق بالأوزان من مصطلحين يقابلان المصطلحين أعلاه. تُعرف عادةً باسم التدرج الإيجابي والتدرج السلبي، بسبب علاماتهما على التوالي. في هذا التطبيق، يتم تقدير التدرجات اللونية على دفعات صغيرة من العينات.
 
-Persistent Contrastive Divergence addresses this. Instead of starting a new
-chain each time the gradient is needed, and performing only one Gibbs sampling
-step, in PCD we keep a number of chains (fantasy particles) that are updated
-:math:`k` Gibbs steps after each weight update. This allows the particles to
-explore the space more thoroughly.
+في تعظيم سجل الاحتمالية، يجعل التدرج الإيجابي النموذج يُفضّل الحالات المخفية التي تتوافق مع بيانات التدريب المُلاحظة. نظرًا للبنية ثنائية الأجزاء لـ RBMs، يمكن حسابها بكفاءة. ومع ذلك، فإن التدرج السلبي صعب المنال. هدفه هو تقليل طاقة الحالات المُشتركة التي يُفضّلها النموذج، وبالتالي جعله يظل صحيحًا للبيانات. يمكن تقريبه بواسطة سلسلة ماركوف مونتي كارلو باستخدام أخذ عينات جيبس الكتل عن طريق أخذ عينات بشكل مُتكرّر لكل من :math:`v` و :math:`h` بالنظر إلى الآخر، حتى تختلط السلسلة. تُسمى العينات التي تم إنشاؤها بهذه الطريقة أحيانًا جزيئات خيالية. هذا غير فعال ويصعب تحديد ما إذا كانت سلسلة ماركوف تختلط.
 
-.. rubric:: References
+
+تقترح طريقة التباعد المُتباين إيقاف السلسلة بعد عدد صغير من التكرارات، :math:`k`، عادةً حتى 1. هذه الطريقة سريعة ولها تباين منخفض، لكن العينات بعيدة عن توزيع النموذج.
+
+يعالج التباعد المُستمر المُتباين هذا. بدلاً من بدء سلسلة جديدة في كل مرة تكون هناك حاجة إلى التدرج، وإجراء خطوة واحدة فقط من أخذ عينات جيبس، في PCD، نحتفظ بعدد من السلاسل (جزيئات خيالية) يتم تحديثها :math:`k` خطوات جيبس بعد كل تحديث للوزن. هذا يسمح للجسيمات باستكشاف الفضاء بشكل أكثر شمولاً.
+
+
+.. rubric:: المراجع
 
 * `"A fast learning algorithm for deep belief nets"
   <https://www.cs.toronto.edu/~hinton/absps/fastnc.pdf>`_,
   G. Hinton, S. Osindero, Y.-W. Teh, 2006
 
+
 * `"Training Restricted Boltzmann Machines using Approximations to
   the Likelihood Gradient"
   <https://www.cs.toronto.edu/~tijmen/pcd/pcd.pdf>`_,
   T. Tieleman, 2008
+
+
+

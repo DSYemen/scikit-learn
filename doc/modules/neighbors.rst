@@ -1,76 +1,41 @@
+
 .. _neighbors:
 
 =================
-Nearest Neighbors
+أقرب الجيران
 =================
 
 .. sectionauthor:: Jake Vanderplas <vanderplas@astro.washington.edu>
 
 .. currentmodule:: sklearn.neighbors
 
-:mod:`sklearn.neighbors` provides functionality for unsupervised and
-supervised neighbors-based learning methods.  Unsupervised nearest neighbors
-is the foundation of many other learning methods,
-notably manifold learning and spectral clustering.  Supervised neighbors-based
-learning comes in two flavors: `classification`_ for data with
-discrete labels, and `regression`_ for data with continuous labels.
+يُوفر :mod:`sklearn.neighbors` وظائف لأساليب التعلم غير الخاضعة للإشراف والخاضعة للإشراف القائمة على الجيران. يُعد أقرب الجيران غير الخاضع للإشراف أساسًا للعديد من أساليب التعلم الأخرى، ولا سيما تعلم المشعبات والتجميع الطيفي. يأتي التعلم الخاضع للإشراف القائم على الجيران بنكهتين: `التصنيف`_ للبيانات ذات التسميات المنفصلة، و `الانحدار`_ للبيانات ذات التسميات المستمرة.
 
-The principle behind nearest neighbor methods is to find a predefined number
-of training samples closest in distance to the new point, and
-predict the label from these.  The number of samples can be a user-defined
-constant (k-nearest neighbor learning), or vary based
-on the local density of points (radius-based neighbor learning).
-The distance can, in general, be any metric measure: standard Euclidean
-distance is the most common choice.
-Neighbors-based methods are known as *non-generalizing* machine
-learning methods, since they simply "remember" all of its training data
-(possibly transformed into a fast indexing structure such as a
-:ref:`Ball Tree <ball_tree>` or :ref:`KD Tree <kd_tree>`).
+المبدأ وراء أساليب أقرب الجيران هو إيجاد عدد مُحدّد مسبقًا من عينات التدريب الأقرب في المسافة إلى النقطة الجديدة، والتنبؤ بالتسمية من هذه العينات. يمكن أن يكون عدد العينات ثابتًا مُحدّدًا من قبل المستخدم (تعلم أقرب k جيران)، أو يختلف بناءً على الكثافة المحلية للنقاط (تعلم الجيران القائم على نصف القطر). يمكن أن تكون المسافة، بشكل عام، أي قياس متري: مسافة إقليدية القياسية هي الخيار الأكثر شيوعًا. تُعرف أساليب التعلم القائمة على الجيران باسم أساليب تعلم الآلة *غير المُعمّمة*، لأنها ببساطة "تتذكر" جميع بيانات التدريب الخاصة بها (ربما يتم تحويلها إلى بنية فهرسة سريعة مثل :ref:`شجرة الكرة <ball_tree>` أو :ref:`شجرة KD <kd_tree>`).
 
-Despite its simplicity, nearest neighbors has been successful in a
-large number of classification and regression problems, including
-handwritten digits and satellite image scenes. Being a non-parametric method,
-it is often successful in classification situations where the decision
-boundary is very irregular.
+على الرغم من بساطتها، فقد نجح أقرب الجيران في عدد كبير من مشاكل التصنيف والانحدار، بما في ذلك الأرقام المكتوبة بخط اليد ومشاهد صور الأقمار الصناعية. نظرًا لكونها طريقة غير معلمية، فإنها غالبًا ما تنجح في حالات التصنيف حيث يكون حد القرار غير منتظم للغاية.
 
-The classes in :mod:`sklearn.neighbors` can handle either NumPy arrays or
-`scipy.sparse` matrices as input.  For dense matrices, a large number of
-possible distance metrics are supported.  For sparse matrices, arbitrary
-Minkowski metrics are supported for searches.
+يمكن للفئات في :mod:`sklearn.neighbors` معالجة مصفوفات NumPy أو مصفوفات `scipy.sparse` كمدخلات. بالنسبة للمصفوفات الكثيفة، يتم دعم عدد كبير من مقاييس المسافة الممكنة. بالنسبة للمصفوفات المتفرقة، يتم دعم مقاييس مينكوفسكي التعسفية للبحث.
 
-There are many learning routines which rely on nearest neighbors at their
-core.  One example is :ref:`kernel density estimation <kernel_density>`,
-discussed in the :ref:`density estimation <density_estimation>` section.
+هناك العديد من إجراءات التعلم التي تعتمد على أقرب الجيران في جوهرها. أحد الأمثلة هو :ref:`تقدير كثافة النواة <kernel_density>`، الذي تمت مناقشته في قسم :ref:`تقدير الكثافة <density_estimation>`.
 
 
 .. _unsupervised_neighbors:
 
-Unsupervised Nearest Neighbors
+أقرب جيران غير خاضع للإشراف
 ==============================
 
-:class:`NearestNeighbors` implements unsupervised nearest neighbors learning.
-It acts as a uniform interface to three different nearest neighbors
-algorithms: :class:`BallTree`, :class:`KDTree`, and a
-brute-force algorithm based on routines in :mod:`sklearn.metrics.pairwise`.
-The choice of neighbors search algorithm is controlled through the keyword
-``'algorithm'``, which must be one of
-``['auto', 'ball_tree', 'kd_tree', 'brute']``.  When the default value
-``'auto'`` is passed, the algorithm attempts to determine the best approach
-from the training data.  For a discussion of the strengths and weaknesses
-of each option, see `Nearest Neighbor Algorithms`_.
+:class:`NearestNeighbors` تُطبق تعلم أقرب جيران غير خاضع للإشراف. تعمل كواجهة موحدة لثلاث خوارزميات مختلفة لأقرب جيران: :class:`BallTree` و :class:`KDTree` وخوارزمية القوة الغاشمة القائمة على إجراءات في :mod:`sklearn.metrics.pairwise`. يتم التحكم في اختيار خوارزمية بحث الجيران من خلال الكلمة المفتاحية ``'algorithm'``، والتي يجب أن تكون واحدة من ``['auto', 'ball_tree', 'kd_tree', 'brute']``. عندما يتم تمرير القيمة الافتراضية ``'auto'``، تحاول الخوارزمية تحديد أفضل نهج من بيانات التدريب. لمناقشة نقاط القوة والضعف لكل خيار، انظر `خوارزميات أقرب جيران`_.
 
 .. warning::
 
-    Regarding the Nearest Neighbors algorithms, if two
-    neighbors :math:`k+1` and :math:`k` have identical distances
-    but different labels, the result will depend on the ordering of the
-    training data.
+    فيما يتعلق بخوارزميات أقرب جيران، إذا كان لدى جارين :math:`k+1` و :math:`k` مسافات متطابقة ولكن تسميات مختلفة، فستعتمد النتيجة على ترتيب بيانات التدريب.
 
-Finding the Nearest Neighbors
+
+إيجاد أقرب جيران
 -----------------------------
-For the simple task of finding the nearest neighbors between two sets of
-data, the unsupervised algorithms within :mod:`sklearn.neighbors` can be
-used:
+بالنسبة للمهمة البسيطة المتمثلة في إيجاد أقرب جيران بين مجموعتين من البيانات، يمكن استخدام الخوارزميات غير الخاضعة للإشراف ضمن :mod:`sklearn.neighbors`:
+
 
     >>> from sklearn.neighbors import NearestNeighbors
     >>> import numpy as np
@@ -92,11 +57,10 @@ used:
            [0.        , 1.        ],
            [0.        , 1.41421356]])
 
-Because the query set matches the training set, the nearest neighbor of each
-point is the point itself, at a distance of zero.
 
-It is also possible to efficiently produce a sparse graph showing the
-connections between neighboring points:
+نظرًا لأن مجموعة الاستعلام تتطابق مع مجموعة التدريب، فإن أقرب جار لكل نقطة هو النقطة نفسها، على مسافة صفر.
+
+من الممكن أيضًا إنشاء رسم بياني متفرق بكفاءة يُظهر الاتصالات بين النقاط المجاورة:
 
     >>> nbrs.kneighbors_graph(X).toarray()
     array([[1., 1., 0., 0., 0., 0.],
@@ -106,20 +70,13 @@ connections between neighboring points:
            [0., 0., 0., 1., 1., 0.],
            [0., 0., 0., 0., 1., 1.]])
 
-The dataset is structured such that points nearby in index order are nearby
-in parameter space, leading to an approximately block-diagonal matrix of
-K-nearest neighbors.  Such a sparse graph is useful in a variety of
-circumstances which make use of spatial relationships between points for
-unsupervised learning: in particular, see :class:`~sklearn.manifold.Isomap`,
-:class:`~sklearn.manifold.LocallyLinearEmbedding`, and
-:class:`~sklearn.cluster.SpectralClustering`.
 
-KDTree and BallTree Classes
+يتم تنظيم مجموعة البيانات بحيث تكون النقاط القريبة من ترتيب الفهرس قريبة في فضاء المعلمات، مما يؤدي إلى مصفوفة شبه قطرية تقريبًا لأقرب K جيران. هذا الرسم البياني المتفرق مفيد في مجموعة متنوعة من الظروف التي تستخدم العلاقات المكانية بين النقاط للتعلم غير الخاضع للإشراف: على وجه الخصوص، انظر :class:`~sklearn.manifold.Isomap` و :class:`~sklearn.manifold.LocallyLinearEmbedding` و :class:`~sklearn.cluster.SpectralClustering`.
+
+
+فئات KDTree و BallTree
 ---------------------------
-Alternatively, one can use the :class:`KDTree` or :class:`BallTree` classes
-directly to find nearest neighbors.  This is the functionality wrapped by
-the :class:`NearestNeighbors` class used above.  The Ball Tree and KD Tree
-have the same interface; we'll show an example of using the KD Tree here:
+بدلاً من ذلك، يمكن للمرء استخدام فئات :class:`KDTree` أو :class:`BallTree` مباشرةً لإيجاد أقرب جيران. هذه هي الوظيفة التي تُغلفها فئة :class:`NearestNeighbors` المستخدمة أعلاه. شجرة الكرة وشجرة KD لهما نفس الواجهة؛ سنعرض هنا مثالاً على استخدام شجرة KD:
 
     >>> from sklearn.neighbors import KDTree
     >>> import numpy as np
@@ -133,10 +90,8 @@ have the same interface; we'll show an example of using the KD Tree here:
            [4, 3],
            [5, 4]]...)
 
-Refer to the :class:`KDTree` and :class:`BallTree` class documentation
-for more information on the options available for nearest neighbors searches,
-including specification of query strategies, distance metrics, etc. For a list
-of valid metrics use `KDTree.valid_metrics` and `BallTree.valid_metrics`:
+راجع وثائق فئة :class:`KDTree` و :class:`BallTree` لمزيد من المعلومات حول الخيارات المتاحة لعمليات بحث أقرب جيران، بما في ذلك تحديد استراتيجيات الاستعلام ومقاييس المسافة وما إلى ذلك. للحصول على قائمة بالمقاييس الصالحة، استخدم `KDTree.valid_metrics` و `BallTree.valid_metrics`:
+
 
     >>> from sklearn.neighbors import KDTree, BallTree
     >>> KDTree.valid_metrics
@@ -144,47 +99,22 @@ of valid metrics use `KDTree.valid_metrics` and `BallTree.valid_metrics`:
     >>> BallTree.valid_metrics
     ['euclidean', 'l2', 'minkowski', 'p', 'manhattan', 'cityblock', 'l1', 'chebyshev', 'infinity', 'seuclidean', 'mahalanobis', 'hamming', 'canberra', 'braycurtis', 'jaccard', 'dice', 'rogerstanimoto', 'russellrao', 'sokalmichener', 'sokalsneath', 'haversine', 'pyfunc']
 
+
 .. _classification:
 
-Nearest Neighbors Classification
+تصنيف أقرب جيران
 ================================
 
-Neighbors-based classification is a type of *instance-based learning* or
-*non-generalizing learning*: it does not attempt to construct a general
-internal model, but simply stores instances of the training data.
-Classification is computed from a simple majority vote of the nearest
-neighbors of each point: a query point is assigned the data class which
-has the most representatives within the nearest neighbors of the point.
+التصنيف القائم على الجيران هو نوع من *التعلم القائم على المثيل* أو *التعلم غير المُعمّم*: لا يحاول إنشاء نموذج داخلي عام، ولكنه ببساطة يُخزّن مثيلات بيانات التدريب. يتم حساب التصنيف من تصويت أغلبية بسيط لأقرب جيران لكل نقطة: يتم تعيين نقطة الاستعلام فئة البيانات التي لديها أكبر عدد من المُمثلين ضمن أقرب جيران للنقطة.
 
-scikit-learn implements two different nearest neighbors classifiers:
-:class:`KNeighborsClassifier` implements learning based on the :math:`k`
-nearest neighbors of each query point, where :math:`k` is an integer value
-specified by the user.  :class:`RadiusNeighborsClassifier` implements learning
-based on the number of neighbors within a fixed radius :math:`r` of each
-training point, where :math:`r` is a floating-point value specified by
-the user.
+تُطبق scikit-learn مُصنفين مختلفين لأقرب جيران: تُطبق :class:`KNeighborsClassifier` التعلم القائم على أقرب :math:`k` جيران لكل نقطة استعلام، حيث :math:`k` هي قيمة عدد صحيح يُحددها المستخدم. تُطبق :class:`RadiusNeighborsClassifier` التعلم القائم على عدد الجيران ضمن نصف قطر ثابت :math:`r` لكل نقطة تدريب، حيث :math:`r` هي قيمة فاصلة عائمة يُحددها المستخدم.
 
-The :math:`k`-neighbors classification in :class:`KNeighborsClassifier`
-is the most commonly used technique. The optimal choice of the value :math:`k`
-is highly data-dependent: in general a larger :math:`k` suppresses the effects
-of noise, but makes the classification boundaries less distinct.
+تصنيف k-neighbors في :class:`KNeighborsClassifier` هو التقنية الأكثر شيوعًا. الاختيار الأمثل لقيمة :math:`k` يعتمد بشكل كبير على البيانات: بشكل عام، :math:`k` الأكبر يقمع آثار الضوضاء، ولكنه يجعل حدود التصنيف أقل وضوحًا.
 
-In cases where the data is not uniformly sampled, radius-based neighbors
-classification in :class:`RadiusNeighborsClassifier` can be a better choice.
-The user specifies a fixed radius :math:`r`, such that points in sparser
-neighborhoods use fewer nearest neighbors for the classification.  For
-high-dimensional parameter spaces, this method becomes less effective due
-to the so-called "curse of dimensionality".
 
-The basic nearest neighbors classification uses uniform weights: that is, the
-value assigned to a query point is computed from a simple majority vote of
-the nearest neighbors.  Under some circumstances, it is better to weight the
-neighbors such that nearer neighbors contribute more to the fit.  This can
-be accomplished through the ``weights`` keyword.  The default value,
-``weights = 'uniform'``, assigns uniform weights to each neighbor.
-``weights = 'distance'`` assigns weights proportional to the inverse of the
-distance from the query point.  Alternatively, a user-defined function of the
-distance can be supplied to compute the weights.
+في الحالات التي لا يتم فيها أخذ عينات البيانات بشكل منتظم، قد يكون تصنيف الجيران القائم على نصف القطر في :class:`RadiusNeighborsClassifier` خيارًا أفضل. يُحدد المستخدم نصف قطر ثابت :math:`r`، بحيث تستخدم النقاط في الأحياء المتفرقة عددًا أقل من أقرب الجيران للتصنيف. بالنسبة لمساحات المعلمات ذات الأبعاد العالية، تصبح هذه الطريقة أقل فعالية بسبب ما يُسمى "لعنة الأبعاد".
+
+يستخدم تصنيف أقرب الجيران الأساسي أوزانًا موحدة: أي أن القيمة المعينة لنقطة استعلام يتم حسابها من تصويت أغلبية بسيط لأقرب الجيران. في ظل ظروف معينة، من الأفضل ترجيح الجيران بحيث يُساهم الجيران الأقرب بشكل أكبر في الملاءمة. يمكن تحقيق ذلك من خلال الكلمة المفتاحية ``weights``. القيمة الافتراضية، ``weights = 'uniform'``، تُعيّن أوزانًا موحدة لكل جار. ``weights = 'distance'`` تُعيّن أوزانًا تتناسب مع معكوس المسافة من نقطة الاستعلام. بدلاً من ذلك، يمكن توفير دالة مُحدّدة من قبل المستخدم للمسافة لحساب الأوزان.
 
 .. |classification_1| image:: ../auto_examples/neighbors/images/sphx_glr_plot_classification_001.png
    :target: ../auto_examples/neighbors/plot_classification.html
@@ -192,120 +122,64 @@ distance can be supplied to compute the weights.
 
 .. centered:: |classification_1|
 
-.. rubric:: Examples
 
-* :ref:`sphx_glr_auto_examples_neighbors_plot_classification.py`: an example of
-  classification using nearest neighbors.
+.. rubric:: أمثلة
+
+* :ref:`sphx_glr_auto_examples_neighbors_plot_classification.py`: مثال على التصنيف باستخدام أقرب الجيران.
+
 
 .. _regression:
 
-Nearest Neighbors Regression
+انحدار أقرب جيران
 ============================
 
-Neighbors-based regression can be used in cases where the data labels are
-continuous rather than discrete variables.  The label assigned to a query
-point is computed based on the mean of the labels of its nearest neighbors.
 
-scikit-learn implements two different neighbors regressors:
-:class:`KNeighborsRegressor` implements learning based on the :math:`k`
-nearest neighbors of each query point, where :math:`k` is an integer
-value specified by the user.  :class:`RadiusNeighborsRegressor` implements
-learning based on the neighbors within a fixed radius :math:`r` of the
-query point, where :math:`r` is a floating-point value specified by the
-user.
+يمكن استخدام الانحدار القائم على الجيران في الحالات التي تكون فيها تسميات البيانات متغيرات مستمرة بدلاً من متغيرات منفصلة. يتم حساب التسمية المعينة لنقطة استعلام بناءً على متوسط تسميات أقرب جيرانها.
 
-The basic nearest neighbors regression uses uniform weights: that is,
-each point in the local neighborhood contributes uniformly to the
-classification of a query point.  Under some circumstances, it can be
-advantageous to weight points such that nearby points contribute more
-to the regression than faraway points.  This can be accomplished through
-the ``weights`` keyword.  The default value, ``weights = 'uniform'``,
-assigns equal weights to all points.  ``weights = 'distance'`` assigns
-weights proportional to the inverse of the distance from the query point.
-Alternatively, a user-defined function of the distance can be supplied,
-which will be used to compute the weights.
+تُطبق scikit-learn مُنحدِرين مختلفين للجيران: تُطبق :class:`KNeighborsRegressor` التعلم القائم على أقرب :math:`k` جيران لكل نقطة استعلام، حيث :math:`k` هي قيمة عدد صحيح يُحددها المستخدم. تُطبق :class:`RadiusNeighborsRegressor` التعلم القائم على الجيران ضمن نصف قطر ثابت :math:`r` من نقطة الاستعلام، حيث :math:`r` هي قيمة فاصلة عائمة يُحددها المستخدم.
+
+يستخدم انحدار أقرب الجيران الأساسي أوزانًا موحدة: أي أن كل نقطة في الحي المحلي تُساهم بشكل منتظم في تصنيف نقطة الاستعلام. في ظل ظروف معينة، يمكن أن يكون من المفيد ترجيح النقاط بحيث تُساهم النقاط القريبة بشكل أكبر في الانحدار من النقاط البعيدة. يمكن تحقيق ذلك من خلال الكلمة المفتاحية ``weights``. القيمة الافتراضية، ``weights = 'uniform'``، تُعيّن أوزانًا متساوية لجميع النقاط. ``weights = 'distance'`` تُعيّن أوزانًا تتناسب مع معكوس المسافة من نقطة الاستعلام. بدلاً من ذلك، يمكن توفير دالة مُحدّدة من قبل المستخدم للمسافة، والتي سيتم استخدامها لحساب الأوزان.
 
 .. figure:: ../auto_examples/neighbors/images/sphx_glr_plot_regression_001.png
    :target: ../auto_examples/neighbors/plot_regression.html
    :align: center
    :scale: 75
 
-The use of multi-output nearest neighbors for regression is demonstrated in
-:ref:`sphx_glr_auto_examples_miscellaneous_plot_multioutput_face_completion.py`. In this example, the inputs
-X are the pixels of the upper half of faces and the outputs Y are the pixels of
-the lower half of those faces.
+يتم توضيح استخدام أقرب جيران متعدد المخرجات للانحدار في :ref:`sphx_glr_auto_examples_miscellaneous_plot_multioutput_face_completion.py`. في هذا المثال، المدخلات X هي وحدات بكسل النصف العلوي من الوجوه والمخرجات Y هي وحدات بكسل النصف السفلي من تلك الوجوه.
 
 .. figure:: ../auto_examples/miscellaneous/images/sphx_glr_plot_multioutput_face_completion_001.png
    :target: ../auto_examples/miscellaneous/plot_multioutput_face_completion.html
    :scale: 75
    :align: center
 
+.. rubric:: أمثلة
 
-.. rubric:: Examples
+* :ref:`sphx_glr_auto_examples_neighbors_plot_regression.py`: مثال على الانحدار باستخدام أقرب الجيران.
 
-* :ref:`sphx_glr_auto_examples_neighbors_plot_regression.py`: an example of regression
-  using nearest neighbors.
+* :ref:`sphx_glr_auto_examples_miscellaneous_plot_multioutput_face_completion.py`: مثال على الانحدار متعدد المخرجات باستخدام أقرب الجيران.
 
-* :ref:`sphx_glr_auto_examples_miscellaneous_plot_multioutput_face_completion.py`:
-  an example of multi-output regression using nearest neighbors.
-
-
-Nearest Neighbor Algorithms
+خوارزميات أقرب جيران
 ===========================
 
 .. _brute_force:
 
-Brute Force
+القوة الغاشمة
 -----------
 
-Fast computation of nearest neighbors is an active area of research in
-machine learning. The most naive neighbor search implementation involves
-the brute-force computation of distances between all pairs of points in the
-dataset: for :math:`N` samples in :math:`D` dimensions, this approach scales
-as :math:`O[D N^2]`.  Efficient brute-force neighbors searches can be very
-competitive for small data samples.
-However, as the number of samples :math:`N` grows, the brute-force
-approach quickly becomes infeasible.  In the classes within
-:mod:`sklearn.neighbors`, brute-force neighbors searches are specified
-using the keyword ``algorithm = 'brute'``, and are computed using the
-routines available in :mod:`sklearn.metrics.pairwise`.
+الحساب السريع لأقرب الجيران هو مجال بحث نشط في تعلم الآلة. يتضمن تطبيق بحث الجيران الأكثر سذاجة حساب القوة الغاشمة للمسافات بين جميع أزواج النقاط في مجموعة البيانات: بالنسبة لـ :math:`N` عينات في :math:`D` أبعاد، يتدرج هذا النهج كـ :math:`O[D N^2]`. يمكن أن تكون عمليات بحث الجيران بالقوة الغاشمة الفعالة تنافسية للغاية لعينات البيانات الصغيرة. ومع ذلك، مع نمو عدد العينات :math:`N`، سرعان ما يُصبح نهج القوة الغاشمة غير مُجدٍ. في الفئات ضمن :mod:`sklearn.neighbors`، يتم تحديد عمليات بحث الجيران بالقوة الغاشمة باستخدام الكلمة المفتاحية ``algorithm = 'brute'``، ويتم حسابها باستخدام الإجراءات المتاحة في :mod:`sklearn.metrics.pairwise`.
+
 
 .. _kd_tree:
 
-K-D Tree
+شجرة K-D
 --------
 
-To address the computational inefficiencies of the brute-force approach, a
-variety of tree-based data structures have been invented.  In general, these
-structures attempt to reduce the required number of distance calculations
-by efficiently encoding aggregate distance information for the sample.
-The basic idea is that if point :math:`A` is very distant from point
-:math:`B`, and point :math:`B` is very close to point :math:`C`,
-then we know that points :math:`A` and :math:`C`
-are very distant, *without having to explicitly calculate their distance*.
-In this way, the computational cost of a nearest neighbors search can be
-reduced to :math:`O[D N \log(N)]` or better. This is a significant
-improvement over brute-force for large :math:`N`.
 
-An early approach to taking advantage of this aggregate information was
-the *KD tree* data structure (short for *K-dimensional tree*), which
-generalizes two-dimensional *Quad-trees* and 3-dimensional *Oct-trees*
-to an arbitrary number of dimensions.  The KD tree is a binary tree
-structure which recursively partitions the parameter space along the data
-axes, dividing it into nested orthotropic regions into which data points
-are filed.  The construction of a KD tree is very fast: because partitioning
-is performed only along the data axes, no :math:`D`-dimensional distances
-need to be computed. Once constructed, the nearest neighbor of a query
-point can be determined with only :math:`O[\log(N)]` distance computations.
-Though the KD tree approach is very fast for low-dimensional (:math:`D < 20`)
-neighbors searches, it becomes inefficient as :math:`D` grows very large:
-this is one manifestation of the so-called "curse of dimensionality".
-In scikit-learn, KD tree neighbors searches are specified using the
-keyword ``algorithm = 'kd_tree'``, and are computed using the class
-:class:`KDTree`.
+لمعالجة أوجه القصور الحسابية لنهج القوة الغاشمة، تم اختراع مجموعة متنوعة من هياكل البيانات القائمة على الأشجار. بشكل عام، تحاول هذه الهياكل تقليل العدد المطلوب من حسابات المسافة عن طريق ترميز معلومات المسافة الإجمالية للعينة بكفاءة. الفكرة الأساسية هي أنه إذا كانت النقطة :math:`A` بعيدة جدًا عن النقطة :math:`B`،  والنقطة :math:`B` قريبة جدًا من النقطة :math:`C`، فإننا نعلم أن النقطتين :math:`A` و :math:`C` بعيدتان جدًا، *دون الحاجة إلى حساب المسافة بينهما بشكل صريح*. بهذه الطريقة، يمكن تقليل التكلفة الحسابية لبحث أقرب جيران إلى :math:`O[D N \log(N)]` أو أفضل. هذا تحسن كبير مقارنة بالقوة الغاشمة لـ :math:`N` كبيرة.
 
+كان النهج المُبكّر للاستفادة من هذه المعلومات الإجمالية هو بنية بيانات *شجرة KD* (اختصار لـ *شجرة K الأبعاد*)، التي تُعمّم *أشجار Quad* ثنائية الأبعاد و *أشجار Oct* ثلاثية الأبعاد إلى عدد تعسفي من الأبعاد. شجرة KD هي بنية شجرة ثنائية تُقسّم مساحة المعلمات بشكل مُتكرّر على طول محاور البيانات، وتُقسّمها إلى مناطق متداخلة متعامدة يتم فيها حفظ نقاط البيانات. إنشاء شجرة KD سريع جدًا: نظرًا لأنه يتم إجراء التقسيم على طول محاور البيانات فقط، فلا حاجة لحساب أي مسافات :math:`D` الأبعاد. بمجرد الإنشاء، يمكن تحديد أقرب جار لنقطة استعلام باستخدام :math:`O[\log(N)]` حسابات مسافة فقط. على الرغم من أن نهج شجرة KD سريع جدًا لعمليات بحث الجيران ذات الأبعاد المنخفضة (:math:`D < 20`)، إلا أنه يُصبح غير فعال مع نمو :math:`D` بشكل كبير جدًا: هذا أحد مظاهر ما يُسمى "لعنة الأبعاد". في scikit-learn، يتم تحديد عمليات بحث الجيران لشجرة KD باستخدام الكلمة المفتاحية ``algorithm = 'kd_tree'``، ويتم حسابها باستخدام الفئة :class:`KDTree`.
 
-.. dropdown:: References
+.. dropdown:: المراجع
 
   * `"Multidimensional binary search trees used for associative searching"
     <https://dl.acm.org/citation.cfm?doid=361002.361007>`_,
@@ -314,187 +188,116 @@ keyword ``algorithm = 'kd_tree'``, and are computed using the class
 
 .. _ball_tree:
 
-Ball Tree
+شجرة الكرة
 ---------
 
-To address the inefficiencies of KD Trees in higher dimensions, the *ball tree*
-data structure was developed.  Where KD trees partition data along
-Cartesian axes, ball trees partition data in a series of nesting
-hyper-spheres.  This makes tree construction more costly than that of the
-KD tree, but results in a data structure which can be very efficient on
-highly structured data, even in very high dimensions.
+لمعالجة أوجه القصور في أشجار KD في الأبعاد الأعلى، تم تطوير بنية بيانات *شجرة الكرة*. حيث تُقسّم أشجار KD البيانات على طول المحاور الديكارتية، تُقسّم أشجار الكرة البيانات في سلسلة من التداخلات الفائقة. هذا يجعل إنشاء الشجرة أكثر تكلفة من شجرة KD، ولكنه يؤدي إلى بنية بيانات يمكن أن تكون فعالة جدًا على البيانات عالية التنظيم، حتى في الأبعاد العالية جدًا.
 
-A ball tree recursively divides the data into
-nodes defined by a centroid :math:`C` and radius :math:`r`, such that each
-point in the node lies within the hyper-sphere defined by :math:`r` and
-:math:`C`. The number of candidate points for a neighbor search
-is reduced through use of the *triangle inequality*:
+تقوم شجرة الكرة بتقسيم البيانات بشكل مُتكرّر إلى عقد مُحدّدة بواسطة مركز :math:`C` ونصف قطر :math:`r`، بحيث تقع كل نقطة في العقدة داخل الكرة الفائقة المُحدّدة بواسطة :math:`r` و :math:`C`. يتم تقليل عدد النقاط المُرشّحة لبحث الجيران من خلال استخدام *متباينة المثلث*:
+
 
 .. math::   |x+y| \leq |x| + |y|
 
-With this setup, a single distance calculation between a test point and
-the centroid is sufficient to determine a lower and upper bound on the
-distance to all points within the node.
-Because of the spherical geometry of the ball tree nodes, it can out-perform
-a *KD-tree* in high dimensions, though the actual performance is highly
-dependent on the structure of the training data.
-In scikit-learn, ball-tree-based
-neighbors searches are specified using the keyword ``algorithm = 'ball_tree'``,
-and are computed using the class :class:`BallTree`.
-Alternatively, the user can work with the :class:`BallTree` class directly.
+
+مع هذا الإعداد، يكون حساب مسافة واحدة بين نقطة اختبار والمركز كافيًا لتحديد الحد الأدنى والأعلى للمسافة إلى جميع النقاط داخل العقدة. نظرًا للهندسة الكروية لعقد شجرة الكرة، يمكنها أن تتفوق على *شجرة KD* في الأبعاد العالية، على الرغم من أن الأداء الفعلي يعتمد بشكل كبير على بنية بيانات التدريب. في scikit-learn، يتم تحديد عمليات بحث الجيران القائمة على شجرة الكرة باستخدام الكلمة المفتاحية ``algorithm = 'ball_tree'``، ويتم حسابها باستخدام الفئة :class:`BallTree`. بدلاً من ذلك، يمكن للمستخدم العمل مع فئة :class:`BallTree` مباشرةً.
 
 
-.. dropdown:: References
+.. dropdown:: المراجع
 
   * `"Five Balltree Construction Algorithms"
     <https://citeseerx.ist.psu.edu/doc_view/pid/17ac002939f8e950ffb32ec4dc8e86bdd8cb5ff1>`_,
     Omohundro, S.M., International Computer Science Institute
     Technical Report (1989)
 
-.. dropdown:: Choice of Nearest Neighbors Algorithm
 
-  The optimal algorithm for a given dataset is a complicated choice, and
-  depends on a number of factors:
 
-  * number of samples :math:`N` (i.e. ``n_samples``) and dimensionality
-    :math:`D` (i.e. ``n_features``).
+.. dropdown:: اختيار خوارزمية أقرب جيران
 
-    * *Brute force* query time grows as :math:`O[D N]`
-    * *Ball tree* query time grows as approximately :math:`O[D \log(N)]`
-    * *KD tree* query time changes with :math:`D` in a way that is difficult
-      to precisely characterise.  For small :math:`D` (less than 20 or so)
-      the cost is approximately :math:`O[D\log(N)]`, and the KD tree
-      query can be very efficient.
-      For larger :math:`D`, the cost increases to nearly :math:`O[DN]`, and
-      the overhead due to the tree
-      structure can lead to queries which are slower than brute force.
+  الخوارزمية المثلى لمجموعة بيانات مُعطاة هي اختيار مُعقّد، وتعتمد على عدد من العوامل:
 
-    For small data sets (:math:`N` less than 30 or so), :math:`\log(N)` is
-    comparable to :math:`N`, and brute force algorithms can be more efficient
-    than a tree-based approach.  Both :class:`KDTree` and :class:`BallTree`
-    address this through providing a *leaf size* parameter: this controls the
-    number of samples at which a query switches to brute-force.  This allows both
-    algorithms to approach the efficiency of a brute-force computation for small
-    :math:`N`.
+  * عدد العينات :math:`N` (أي ``n_samples``) والأبعاد :math:`D` (أي ``n_features``).
 
-  * data structure: *intrinsic dimensionality* of the data and/or *sparsity*
-    of the data. Intrinsic dimensionality refers to the dimension
-    :math:`d \le D` of a manifold on which the data lies, which can be linearly
-    or non-linearly embedded in the parameter space. Sparsity refers to the
-    degree to which the data fills the parameter space (this is to be
-    distinguished from the concept as used in "sparse" matrices.  The data
-    matrix may have no zero entries, but the **structure** can still be
-    "sparse" in this sense).
+    * ينمو وقت استعلام *القوة الغاشمة* كـ :math:`O[D N]`
+    * ينمو وقت استعلام *شجرة الكرة* كـ :math:`O[D \log(N)]` تقريبًا
+    * يتغير وقت استعلام *شجرة KD* مع :math:`D` بطريقة يصعب تحديدها بدقة. بالنسبة لـ :math:`D` الصغيرة (أقل من 20 أو نحو ذلك)، فإن التكلفة هي تقريبًا :math:`O[D\log(N)]`، ويمكن أن يكون استعلام شجرة KD فعالاً للغاية. بالنسبة لـ :math:`D` الأكبر، تزداد التكلفة إلى ما يقرب من :math:`O[DN]`، ويمكن أن تؤدي النفقات العامة بسبب بنية الشجرة إلى استعلامات أبطأ من القوة الغاشمة.
 
-    * *Brute force* query time is unchanged by data structure.
-    * *Ball tree* and *KD tree* query times can be greatly influenced
-      by data structure.  In general, sparser data with a smaller intrinsic
-      dimensionality leads to faster query times.  Because the KD tree
-      internal representation is aligned with the parameter axes, it will not
-      generally show as much improvement as ball tree for arbitrarily
-      structured data.
+    بالنسبة لمجموعات البيانات الصغيرة (:math:`N` أقل من 30 أو نحو ذلك)، فإن :math:`\log(N)` تُقارن بـ :math:`N`، ويمكن أن تكون خوارزميات القوة الغاشمة أكثر كفاءة من النهج القائم على الشجرة. يعالج كل من :class:`KDTree` و :class:`BallTree` هذا من خلال توفير معلمة *حجم الورقة*: يتحكم هذا في عدد العينات التي يتحول عندها الاستعلام إلى القوة الغاشمة. يسمح هذا لكلا الخوارزميتين بالاقتراب من كفاءة حساب القوة الغاشمة لـ :math:`N` الصغيرة.
 
-    Datasets used in machine learning tend to be very structured, and are
-    very well-suited for tree-based queries.
 
-  * number of neighbors :math:`k` requested for a query point.
+  * بنية البيانات: *الأبعاد الجوهرية* للبيانات و/أو *التفرق* للبيانات. تشير الأبعاد الجوهرية إلى بُعد :math:`d \le D` لمشعب تقع عليه البيانات، والذي يمكن تضمينه خطيًا أو غير خطيًا في فضاء المعلمات. يشير التفرق إلى الدرجة التي تملأ بها البيانات فضاء المعلمات (يجب تمييز هذا عن المفهوم كما هو مستخدم في المصفوفات "المتفرقة". قد لا تحتوي مصفوفة البيانات على إدخالات صفرية، ولكن لا يزال من الممكن أن يكون *البنية* "متفرقة" بهذا المعنى).
 
-    * *Brute force* query time is largely unaffected by the value of :math:`k`
-    * *Ball tree* and *KD tree* query time will become slower as :math:`k`
-      increases.  This is due to two effects: first, a larger :math:`k` leads
-      to the necessity to search a larger portion of the parameter space.
-      Second, using :math:`k > 1` requires internal queueing of results
-      as the tree is traversed.
+    * وقت استعلام *القوة الغاشمة* لا يتغير حسب بنية البيانات.
 
-    As :math:`k` becomes large compared to :math:`N`, the ability to prune
-    branches in a tree-based query is reduced.  In this situation, Brute force
-    queries can be more efficient.
+    * يمكن أن تتأثر أوقات استعلام *شجرة الكرة* و *شجرة KD* بشكل كبير ببنية البيانات. بشكل عام، تؤدي البيانات الأكثر تفرقًا ذات أبعاد جوهرية أصغر إلى أوقات استعلام أسرع. نظرًا لأن التمثيل الداخلي لشجرة KD مُحاذي لمحاور المعلمات، فلن يُظهر بشكل عام تحسنًا كبيرًا مثل شجرة الكرة للبيانات المُنظّمة بشكل تعسفي.
 
-  * number of query points.  Both the ball tree and the KD Tree
-    require a construction phase.  The cost of this construction becomes
-    negligible when amortized over many queries.  If only a small number of
-    queries will be performed, however, the construction can make up
-    a significant fraction of the total cost.  If very few query points
-    will be required, brute force is better than a tree-based method.
+    تميل مجموعات البيانات المستخدمة في تعلم الآلة إلى أن تكون مُنظّمة للغاية، وهي مُناسبة جدًا للاستعلامات القائمة على الأشجار.
 
-  Currently, ``algorithm = 'auto'`` selects ``'brute'`` if any of the following
-  conditions are verified:
+  * عدد الجيران :math:`k` المطلوب لنقطة استعلام.
 
-  * input data is sparse
+    * وقت استعلام *القوة الغاشمة* لا يتأثر إلى حد كبير بقيمة :math:`k`
+    * سيُصبح وقت استعلام *شجرة الكرة* و *شجرة KD* أبطأ مع زيادة :math:`k`. هذا يرجع إلى تأثيرين: أولاً، يؤدي :math:`k` الأكبر إلى ضرورة البحث في جزء أكبر من مساحة المعلمات. ثانيًا، يتطلب استخدام :math:`k > 1` تنظيم قائمة انتظار داخلية للنتائج أثناء اجتياز الشجرة.
+
+    مع كبر :math:`k` مقارنة بـ :math:`N`، يتم تقليل القدرة على تقليم الفروع في استعلام قائم على الشجرة. في هذه الحالة، يمكن أن تكون استعلامات القوة الغاشمة أكثر كفاءة.
+
+
+  * عدد نقاط الاستعلام. يتطلب كل من شجرة الكرة وشجرة KD مرحلة إنشاء. تُصبح تكلفة هذا الإنشاء ضئيلة عند استهلاكها على العديد من الاستعلامات. ومع ذلك، إذا تم تنفيذ عدد قليل فقط من الاستعلامات، فقد يُشكّل الإنشاء جزءًا كبيرًا من التكلفة الإجمالية. إذا كانت هناك حاجة إلى عدد قليل جدًا من نقاط الاستعلام، فإن القوة الغاشمة أفضل من الطريقة القائمة على الشجرة.
+
+  يُحدد ``algorithm = 'auto'`` حاليًا ``'brute'`` إذا تم التحقق من أي من الشروط التالية:
+
+
+  * بيانات الإدخال متفرقة
+
   * ``metric = 'precomputed'``
   * :math:`D > 15`
   * :math:`k >= N/2`
-  * ``effective_metric_`` isn't in the ``VALID_METRICS`` list for either
-    ``'kd_tree'`` or ``'ball_tree'``
+  * ``effective_metric_`` ليس في قائمة ``VALID_METRICS`` إما لـ ``'kd_tree'`` أو ``'ball_tree'``
 
-  Otherwise, it selects the first out of ``'kd_tree'`` and ``'ball_tree'`` that
-  has ``effective_metric_`` in its ``VALID_METRICS`` list. This heuristic is
-  based on the following assumptions:
+  وإلا، فإنه يختار أولاً من ``'kd_tree'`` و ``'ball_tree'`` التي تحتوي على ``effective_metric_`` في قائمة ``VALID_METRICS``. تعتمد هذه الاستدلالية على الافتراضات التالية:
 
-  * the number of query points is at least the same order as the number of
-    training points
-  * ``leaf_size`` is close to its default value of ``30``
-  * when :math:`D > 15`, the intrinsic dimensionality of the data is generally
-    too high for tree-based methods
 
-.. dropdown:: Effect of ``leaf_size``
+  * عدد نقاط الاستعلام على الأقل بنفس ترتيب عدد نقاط التدريب
 
-  As noted above, for small sample sizes a brute force search can be more
-  efficient than a tree-based query.  This fact is accounted for in the ball
-  tree and KD tree by internally switching to brute force searches within
-  leaf nodes.  The level of this switch can be specified with the parameter
-  ``leaf_size``.  This parameter choice has many effects:
+  * ``leaf_size`` قريب من قيمته الافتراضية ``30``
 
-  **construction time**
-    A larger ``leaf_size`` leads to a faster tree construction time, because
-    fewer nodes need to be created
+  * عندما :math:`D > 15`، تكون الأبعاد الجوهرية للبيانات عالية جدًا بشكل عام بالنسبة للطرق القائمة على الشجرة.
 
-  **query time**
-    Both a large or small ``leaf_size`` can lead to suboptimal query cost.
-    For ``leaf_size`` approaching 1, the overhead involved in traversing
-    nodes can significantly slow query times.  For ``leaf_size`` approaching
-    the size of the training set, queries become essentially brute force.
-    A good compromise between these is ``leaf_size = 30``, the default value
-    of the parameter.
 
-  **memory**
-    As ``leaf_size`` increases, the memory required to store a tree structure
-    decreases.  This is especially important in the case of ball tree, which
-    stores a :math:`D`-dimensional centroid for each node.  The required
-    storage space for :class:`BallTree` is approximately ``1 / leaf_size`` times
-    the size of the training set.
+.. dropdown:: تأثير ``leaf_size``
 
-  ``leaf_size`` is not referenced for brute force queries.
+  كما هو مذكور أعلاه، بالنسبة لأحجام العينات الصغيرة، يمكن أن يكون بحث القوة الغاشمة أكثر كفاءة من الاستعلام القائم على الشجرة. يتم حساب هذه الحقيقة في شجرة الكرة وشجرة KD عن طريق التبديل داخليًا إلى عمليات بحث القوة الغاشمة داخل عقد الأوراق. يمكن تحديد مستوى هذا المفتاح باستخدام المعلمة ``leaf_size``. خيار المعلمة هذا له تأثيرات كثيرة:
 
-.. dropdown:: Valid Metrics for Nearest Neighbor Algorithms
 
-  For a list of available metrics, see the documentation of the
-  :class:`~sklearn.metrics.DistanceMetric` class and the metrics listed in
-  `sklearn.metrics.pairwise.PAIRWISE_DISTANCE_FUNCTIONS`. Note that the "cosine"
-  metric uses :func:`~sklearn.metrics.pairwise.cosine_distances`.
+  **وقت الإنشاء**
+    يؤدي ``leaf_size`` الأكبر إلى وقت إنشاء شجرة أسرع، لأنه يلزم إنشاء عدد أقل من العقد
 
-  A list of valid metrics for any of the above algorithms can be obtained by using their
-  ``valid_metric`` attribute. For example, valid metrics for ``KDTree`` can be generated by:
+
+  **وقت الاستعلام**
+    يمكن أن يؤدي كل من ``leaf_size`` الكبير أو الصغير إلى تكلفة استعلام غير مثالية. بالنسبة لـ ``leaf_size`` التي تقترب من 1، يمكن أن تؤدي النفقات العامة المُتعلقة باجتياز العقد إلى إبطاء أوقات الاستعلام بشكل كبير. بالنسبة لـ ``leaf_size`` التي تقترب من حجم مجموعة التدريب، تُصبح الاستعلامات أساسًا قوة غاشمة. حل وسط جيد بينهما هو ``leaf_size = 30``، القيمة الافتراضية للمعلمة.
+
+
+  **الذاكرة**
+    مع زيادة ``leaf_size``، تقل الذاكرة المطلوبة لتخزين بنية الشجرة. هذا مهم بشكل خاص في حالة شجرة الكرة، التي تُخزّن مركزًا :math:`D` الأبعاد لكل عقدة. مساحة التخزين المطلوبة لـ :class:`BallTree` هي تقريبًا ``1 / leaf_size`` ضعف حجم مجموعة التدريب.
+
+  لا تتم الإشارة إلى ``leaf_size`` لاستعلامات القوة الغاشمة.
+
+
+.. dropdown:: المقاييس الصالحة لخوارزميات أقرب جيران
+
+  للحصول على قائمة بالمقاييس المتاحة، انظر وثائق فئة :class:`~sklearn.metrics.DistanceMetric` والمقاييس المدرجة في `sklearn.metrics.pairwise.PAIRWISE_DISTANCE_FUNCTIONS`. لاحظ أن المقياس "cosine" يستخدم :func:`~sklearn.metrics.pairwise.cosine_distances`.
+
+  يمكن الحصول على قائمة بالمقاييس الصالحة لأي من الخوارزميات المذكورة أعلاه باستخدام سمة ``valid_metric``. على سبيل المثال، يمكن إنشاء مقاييس صالحة لـ ``KDTree`` عن طريق:
 
       >>> from sklearn.neighbors import KDTree
       >>> print(sorted(KDTree.valid_metrics))
       ['chebyshev', 'cityblock', 'euclidean', 'infinity', 'l1', 'l2', 'manhattan', 'minkowski', 'p']
 
+
 .. _nearest_centroid_classifier:
 
-Nearest Centroid Classifier
+مُصنف أقرب مركز
 ===========================
 
-The :class:`NearestCentroid` classifier is a simple algorithm that represents
-each class by the centroid of its members. In effect, this makes it
-similar to the label updating phase of the :class:`~sklearn.cluster.KMeans` algorithm.
-It also has no parameters to choose, making it a good baseline classifier. It
-does, however, suffer on non-convex classes, as well as when classes have
-drastically different variances, as equal variance in all dimensions is
-assumed. See Linear Discriminant Analysis (:class:`~sklearn.discriminant_analysis.LinearDiscriminantAnalysis`)
-and Quadratic Discriminant Analysis (:class:`~sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis`)
-for more complex methods that do not make this assumption. Usage of the default
-:class:`NearestCentroid` is simple:
+المُصنف :class:`NearestCentroid` هو خوارزمية بسيطة تُمثل كل فئة بواسطة مركز أعضائها. في الواقع، هذا يجعلها مشابهة لمرحلة تحديث التسميات لخوارزمية :class:`~sklearn.cluster.KMeans`. كما أنه لا يحتوي على معلمات للاختيار، مما يجعله مُصنفًا أساسيًا جيدًا. ومع ذلك، فإنه يُعاني من الفئات غير المحدبة، وكذلك عندما يكون للفئات تباينات مختلفة اختلافًا جذريًا، حيث يُفترض أن يكون التباين متساويًا في جميع الأبعاد. انظر التحليل التمييزي الخطي (:class:`~sklearn.discriminant_analysis.LinearDiscriminantAnalysis`) والتحليل التمييزي التربيعي (:class:`~sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis`) للحصول على طرق أكثر تعقيدًا لا تفترض هذا الافتراض. استخدام :class:`NearestCentroid` الافتراضي بسيط:
 
     >>> from sklearn.neighbors import NearestCentroid
     >>> import numpy as np
@@ -507,19 +310,13 @@ for more complex methods that do not make this assumption. Usage of the default
     [1]
 
 
-Nearest Shrunken Centroid
+أقرب مركز مُنكمش
 -------------------------
 
-The :class:`NearestCentroid` classifier has a ``shrink_threshold`` parameter,
-which implements the nearest shrunken centroid classifier. In effect, the value
-of each feature for each centroid is divided by the within-class variance of
-that feature. The feature values are then reduced by ``shrink_threshold``. Most
-notably, if a particular feature value crosses zero, it is set
-to zero. In effect, this removes the feature from affecting the classification.
-This is useful, for example, for removing noisy features.
+يحتوي المُصنف :class:`NearestCentroid` على معلمة ``shrink_threshold``، التي تُطبق مُصنف أقرب مركز مُنكمش. في الواقع، يتم قسمة قيمة كل ميزة لكل مركز على تباين تلك الميزة داخل الفئة. ثم يتم تقليل قيم الميزات بمقدار ``shrink_threshold``. والأهم من ذلك، إذا تجاوزت قيمة ميزة معينة الصفر، فسيتم تعيينها على صفر. في الواقع، هذا يُزيل الميزة من التأثير على التصنيف. هذا مفيد، على سبيل المثال، لإزالة الميزات المزعجة.
 
-In the example below, using a small shrink threshold increases the accuracy of
-the model from 0.81 to 0.82.
+في المثال أدناه، يؤدي استخدام عتبة انكماش صغيرة إلى زيادة دقة النموذج من 0.81 إلى 0.82.
+
 
 .. |nearest_centroid_1| image:: ../auto_examples/neighbors/images/sphx_glr_plot_nearest_centroid_001.png
    :target: ../auto_examples/neighbors/plot_nearest_centroid.html
@@ -531,45 +328,34 @@ the model from 0.81 to 0.82.
 
 .. centered:: |nearest_centroid_1| |nearest_centroid_2|
 
-.. rubric:: Examples
 
-* :ref:`sphx_glr_auto_examples_neighbors_plot_nearest_centroid.py`: an example of
-  classification using nearest centroid with different shrink thresholds.
+
+.. rubric:: أمثلة
+
+* :ref:`sphx_glr_auto_examples_neighbors_plot_nearest_centroid.py`: مثال على التصنيف باستخدام أقرب مركز مع عتبات انكماش مختلفة.
+
+
 
 .. _neighbors_transformer:
 
-Nearest Neighbors Transformer
+محول أقرب جيران
 =============================
 
-Many scikit-learn estimators rely on nearest neighbors: Several classifiers and
-regressors such as :class:`KNeighborsClassifier` and
-:class:`KNeighborsRegressor`, but also some clustering methods such as
-:class:`~sklearn.cluster.DBSCAN` and
-:class:`~sklearn.cluster.SpectralClustering`, and some manifold embeddings such
-as :class:`~sklearn.manifold.TSNE` and :class:`~sklearn.manifold.Isomap`.
 
-All these estimators can compute internally the nearest neighbors, but most of
-them also accept precomputed nearest neighbors :term:`sparse graph`,
-as given by :func:`~sklearn.neighbors.kneighbors_graph` and
-:func:`~sklearn.neighbors.radius_neighbors_graph`. With mode
-`mode='connectivity'`, these functions return a binary adjacency sparse graph
-as required, for instance, in :class:`~sklearn.cluster.SpectralClustering`.
-Whereas with `mode='distance'`, they return a distance sparse graph as required,
-for instance, in :class:`~sklearn.cluster.DBSCAN`. To include these functions in
-a scikit-learn pipeline, one can also use the corresponding classes
-:class:`KNeighborsTransformer` and :class:`RadiusNeighborsTransformer`.
-The benefits of this sparse graph API are multiple.
+يعتمد العديد من مقدرات scikit-learn على أقرب جيران: العديد من المُصنفات والمنحدرات مثل :class:`KNeighborsClassifier` و :class:`KNeighborsRegressor`، ولكن أيضًا بعض أساليب التجميع مثل :class:`~sklearn.cluster.DBSCAN` و :class:`~sklearn.cluster.SpectralClustering`، وبعض تضمينات المشعبات مثل :class:`~sklearn.manifold.TSNE` و :class:`~sklearn.manifold.Isomap`.
 
-First, the precomputed graph can be re-used multiple times, for instance while
-varying a parameter of the estimator. This can be done manually by the user, or
-using the caching properties of the scikit-learn pipeline:
+
+يمكن لجميع هذه المقدرات حساب أقرب جيران داخليًا، ولكن معظمها يقبل أيضًا :term:`رسم بياني متفرق` لأقرب جيران محسوب مسبقًا، كما هو مُعطى بواسطة :func:`~sklearn.neighbors.kneighbors_graph` و :func:`~sklearn.neighbors.radius_neighbors_graph`. مع الوضع `mode='connectivity'`، تُعيد هذه الدوال رسمًا بيانيًا متفرقًا ثنائيًا متجاورًا كما هو مطلوب، على سبيل المثال، في :class:`~sklearn.cluster.SpectralClustering`. بينما مع `mode='distance'`، تُعيد رسمًا بيانيًا متفرقًا للمسافة كما هو مطلوب، على سبيل المثال، في :class:`~sklearn.cluster.DBSCAN`. لتضمين هذه الدوال في خط أنابيب scikit-learn، يمكن للمرء أيضًا استخدام الفئات المقابلة :class:`KNeighborsTransformer` و :class:`RadiusNeighborsTransformer`. فوائد واجهة برمجة التطبيقات هذه للرسم البياني المتفرق متعددة.
+
+أولاً، يمكن إعادة استخدام الرسم البياني المحسوب مسبقًا عدة مرات، على سبيل المثال أثناء تغيير معلمة المقدّر. يمكن القيام بذلك يدويًا بواسطة المستخدم، أو باستخدام خصائص التخزين المؤقت لخط أنابيب scikit-learn:
+
 
     >>> import tempfile
     >>> from sklearn.manifold import Isomap
     >>> from sklearn.neighbors import KNeighborsTransformer
     >>> from sklearn.pipeline import make_pipeline
     >>> from sklearn.datasets import make_regression
-    >>> cache_path = tempfile.gettempdir()  # we use a temporary folder here
+    >>> cache_path = tempfile.gettempdir()  # نستخدم مجلدًا مؤقتًا هنا
     >>> X, _ = make_regression(n_samples=50, n_features=25, random_state=0)
     >>> estimator = make_pipeline(
     ...     KNeighborsTransformer(mode='distance'),
@@ -579,72 +365,40 @@ using the caching properties of the scikit-learn pipeline:
     >>> X_embedded.shape
     (50, 3)
 
-Second, precomputing the graph can give finer control on the nearest neighbors
-estimation, for instance enabling multiprocessing though the parameter
-`n_jobs`, which might not be available in all estimators.
 
-Finally, the precomputation can be performed by custom estimators to use
-different implementations, such as approximate nearest neighbors methods, or
-implementation with special data types. The precomputed neighbors
-:term:`sparse graph` needs to be formatted as in
-:func:`~sklearn.neighbors.radius_neighbors_graph` output:
 
-* a CSR matrix (although COO, CSC or LIL will be accepted).
-* only explicitly store nearest neighborhoods of each sample with respect to the
-  training data. This should include those at 0 distance from a query point,
-  including the matrix diagonal when computing the nearest neighborhoods
-  between the training data and itself.
-* each row's `data` should store the distance in increasing order (optional.
-  Unsorted data will be stable-sorted, adding a computational overhead).
-* all values in data should be non-negative.
-* there should be no duplicate `indices` in any row
-  (see https://github.com/scipy/scipy/issues/5807).
-* if the algorithm being passed the precomputed matrix uses k nearest neighbors
-  (as opposed to radius neighborhood), at least k neighbors must be stored in
-  each row (or k+1, as explained in the following note).
+ثانيًا، يمكن أن يُعطي حساب الرسم البياني مسبقًا تحكمًا أدق في تقدير أقرب جيران، على سبيل المثال تمكين المعالجة المتعددة من خلال المعلمة `n_jobs`، والتي قد لا تكون متاحة في جميع المقدرات.
+
+أخيرًا، يمكن إجراء الحساب المسبق بواسطة مقدرات مخصصة لاستخدام تطبيقات مختلفة، مثل أساليب أقرب جيران التقريبية، أو التنفيذ مع أنواع بيانات خاصة. يجب تنسيق :term:`الرسم البياني المتفرق` للجيران المحسوب مسبقًا كما في إخراج :func:`~sklearn.neighbors.radius_neighbors_graph`:
+
+* مصفوفة CSR (على الرغم من قبول COO أو CSC أو LIL).
+*  تخزين أقرب جيران لكل عينة بشكل صريح فيما يتعلق ببيانات التدريب فقط. يجب أن يشمل ذلك تلك التي على مسافة 0 من نقطة استعلام، بما في ذلك قطري المصفوفة عند حساب أقرب جيران بين بيانات التدريب ونفسها.
+
+* يجب أن تُخزّن `data` لكل صف المسافة بترتيب تصاعدي (اختياري. سيتم فرز البيانات غير المُرتبة بشكل ثابت، مما يُضيف نفقات عامة حسابية).
+* يجب أن تكون جميع القيم في البيانات غير سالبة.
+* يجب ألا يكون هناك `indices` مُكرّرة في أي صف (انظر https://github.com/scipy/scipy/issues/5807).
+* إذا كانت الخوارزمية التي تم تمرير المصفوفة المحسوبة مسبقًا إليها تستخدم أقرب k جيران (على عكس جيرة نصف القطر)، فيجب تخزين k جيران على الأقل في كل صف (أو k+1، كما هو موضح في الملاحظة التالية).
+
 
 .. note::
-  When a specific number of neighbors is queried (using
-  :class:`KNeighborsTransformer`), the definition of `n_neighbors` is ambiguous
-  since it can either include each training point as its own neighbor, or
-  exclude them. Neither choice is perfect, since including them leads to a
-  different number of non-self neighbors during training and testing, while
-  excluding them leads to a difference between `fit(X).transform(X)` and
-  `fit_transform(X)`, which is against scikit-learn API.
-  In :class:`KNeighborsTransformer` we use the definition which includes each
-  training point as its own neighbor in the count of `n_neighbors`. However,
-  for compatibility reasons with other estimators which use the other
-  definition, one extra neighbor will be computed when `mode == 'distance'`.
-  To maximise compatibility with all estimators, a safe choice is to always
-  include one extra neighbor in a custom nearest neighbors estimator, since
-  unnecessary neighbors will be filtered by following estimators.
+  عند الاستعلام عن عدد مُحدّد من الجيران (باستخدام :class:`KNeighborsTransformer`)، يكون تعريف `n_neighbors` غامضًا لأنه يمكن إما تضمين كل نقطة تدريب كجار لها، أو استبعادها. لا يوجد خيار مثالي، لأن تضمينها يؤدي إلى عدد مختلف من الجيران غير الذاتيين أثناء التدريب والاختبار، بينما يؤدي استبعادها إلى اختلاف بين `fit(X).transform(X)` و `fit_transform(X)`، وهو ما يتعارض مع واجهة برمجة تطبيقات scikit-learn. في :class:`KNeighborsTransformer`، نستخدم التعريف الذي يتضمن كل نقطة تدريب كجار لها في عدد `n_neighbors`. ومع ذلك، لأسباب تتعلق بالتوافق مع المقدرات الأخرى التي تستخدم التعريف الآخر، سيتم حساب جار إضافي واحد عندما `mode == 'distance'`. لزيادة التوافق مع جميع المقدرات، فإن الخيار الآمن هو دائمًا تضمين جار إضافي واحد في مقدر أقرب جيران مخصص، حيث سيتم تصفية الجيران غير الضروريين بواسطة المقدرات التالية.
 
-.. rubric:: Examples
 
-* :ref:`sphx_glr_auto_examples_neighbors_approximate_nearest_neighbors.py`:
-  an example of pipelining :class:`KNeighborsTransformer` and
-  :class:`~sklearn.manifold.TSNE`. Also proposes two custom nearest neighbors
-  estimators based on external packages.
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_neighbors_plot_caching_nearest_neighbors.py`:
-  an example of pipelining :class:`KNeighborsTransformer` and
-  :class:`KNeighborsClassifier` to enable caching of the neighbors graph
-  during a hyper-parameter grid-search.
+* :ref:`sphx_glr_auto_examples_neighbors_approximate_nearest_neighbors.py`: مثال على توصيل :class:`KNeighborsTransformer` و :class:`~sklearn.manifold.TSNE`. يقترح أيضًا مُقدّرين مخصصين لأقرب جيران بناءً على حزم خارجية.
+
+* :ref:`sphx_glr_auto_examples_neighbors_plot_caching_nearest_neighbors.py`: مثال على توصيل :class:`KNeighborsTransformer` و :class:`KNeighborsClassifier` لتمكين التخزين المؤقت للرسم البياني للجيران أثناء بحث شبكي للمعلمات الفائقة.
+
 
 .. _nca:
 
-Neighborhood Components Analysis
+تحليل مكونات الجوار
 ================================
 
 .. sectionauthor:: William de Vazelhes <william.de-vazelhes@inria.fr>
 
-Neighborhood Components Analysis (NCA, :class:`NeighborhoodComponentsAnalysis`)
-is a distance metric learning algorithm which aims to improve the accuracy of
-nearest neighbors classification compared to the standard Euclidean distance.
-The algorithm directly maximizes a stochastic variant of the leave-one-out
-k-nearest neighbors (KNN) score on the training set. It can also learn a
-low-dimensional linear projection of data that can be used for data
-visualization and fast classification.
+تحليل مكونات الجوار (NCA، :class:`NeighborhoodComponentsAnalysis`) هو خوارزمية لتعلم مقياس المسافة تهدف إلى تحسين دقة تصنيف أقرب جيران مقارنة بمسافة إقليدية القياسية. تُعظّم الخوارزمية بشكل مباشر متغيرًا عشوائيًا من درجة أقرب k جيران (KNN) اترك واحدًا في مجموعة التدريب. يمكنها أيضًا تعلم إسقاط خطي منخفض الأبعاد للبيانات يمكن استخدامه لتصور البيانات والتصنيف السريع.
 
 .. |nca_illustration_1| image:: ../auto_examples/neighbors/images/sphx_glr_plot_nca_illustration_001.png
    :target: ../auto_examples/neighbors/plot_nca_illustration.html
@@ -654,40 +408,22 @@ visualization and fast classification.
    :target: ../auto_examples/neighbors/plot_nca_illustration.html
    :scale: 50
 
+
 .. centered:: |nca_illustration_1| |nca_illustration_2|
 
-In the above illustrating figure, we consider some points from a randomly
-generated dataset. We focus on the stochastic KNN classification of point no.
-3. The thickness of a link between sample 3 and another point is proportional
-to their distance, and can be seen as the relative weight (or probability) that
-a stochastic nearest neighbor prediction rule would assign to this point. In
-the original space, sample 3 has many stochastic neighbors from various
-classes, so the right class is not very likely. However, in the projected space
-learned by NCA, the only stochastic neighbors with non-negligible weight are
-from the same class as sample 3, guaranteeing that the latter will be well
-classified. See the :ref:`mathematical formulation <nca_mathematical_formulation>`
-for more details.
+في الشكل التوضيحي أعلاه، نعتبر بعض النقاط من مجموعة بيانات تم إنشاؤها عشوائيًا. نُركز على تصنيف KNN العشوائي للنقطة رقم 3. سمك الرابط بين العينة 3 ونقطة أخرى يتناسب مع المسافة بينهما، ويمكن اعتباره الوزن النسبي (أو الاحتمال) الذي تُعيّنه قاعدة تنبؤ الجيران العشوائية الأقرب لهذه النقطة. في المساحة الأصلية، تحتوي العينة 3 على العديد من الجيران العشوائيين من فئات مُختلفة، لذا فإن الفئة الصحيحة ليست مُحتملة للغاية. ومع ذلك، في المساحة المُسقطة التي تعلمتها NCA، فإن الجيران العشوائيين الوحيدين ذوي الوزن غير المهمل هم من نفس فئة العينة 3، مما يضمن أن الأخيرة سيتم تصنيفها جيدًا. انظر :ref:`الصيغة الرياضية <nca_mathematical_formulation>` لمزيد من التفاصيل.
 
 
-Classification
+التصنيف
 --------------
 
-Combined with a nearest neighbors classifier (:class:`KNeighborsClassifier`),
-NCA is attractive for classification because it can naturally handle
-multi-class problems without any increase in the model size, and does not
-introduce additional parameters that require fine-tuning by the user.
+بالاقتران مع مُصنف أقرب جيران (:class:`KNeighborsClassifier`)، فإن NCA جذابة للتصنيف لأنه يمكنها معالجة مشاكل متعددة الفئات بشكل طبيعي دون أي زيادة في حجم النموذج، ولا تُقدّم معلمات إضافية تتطلب ضبطًا دقيقًا من قبل المستخدم.
 
-NCA classification has been shown to work well in practice for data sets of
-varying size and difficulty. In contrast to related methods such as Linear
-Discriminant Analysis, NCA does not make any assumptions about the class
-distributions. The nearest neighbor classification can naturally produce highly
-irregular decision boundaries.
 
-To use this model for classification, one needs to combine a
-:class:`NeighborhoodComponentsAnalysis` instance that learns the optimal
-transformation with a :class:`KNeighborsClassifier` instance that performs the
-classification in the projected space. Here is an example using the two
-classes:
+لقد ثبت أن تصنيف NCA يعمل بشكل جيد في الممارسة العملية لمجموعات البيانات ذات الأحجام والصعوبات المُتفاوتة. على عكس الطرق ذات الصلة مثل التحليل التمييزي الخطي، لا تُجري NCA أي افتراضات حول توزيعات الفئات. يمكن لتصنيف أقرب جيران أن يُنتج بشكل طبيعي حدود قرار غير منتظمة للغاية.
+
+لاستخدام هذا النموذج للتصنيف، يحتاج المرء إلى دمج مثيل :class:`NeighborhoodComponentsAnalysis` الذي يتعلم التحويل الأمثل مع مثيل :class:`KNeighborsClassifier` الذي يُجري التصنيف في المساحة المُسقطة. فيما يلي مثال باستخدام الفئتين:
+
 
     >>> from sklearn.neighbors import (NeighborhoodComponentsAnalysis,
     ... KNeighborsClassifier)
@@ -705,6 +441,7 @@ classes:
     >>> print(nca_pipe.score(X_test, y_test))
     0.96190476...
 
+
 .. |nca_classification_1| image:: ../auto_examples/neighbors/images/sphx_glr_plot_nca_classification_001.png
    :target: ../auto_examples/neighbors/plot_nca_classification.html
    :scale: 50
@@ -713,30 +450,20 @@ classes:
    :target: ../auto_examples/neighbors/plot_nca_classification.html
    :scale: 50
 
+
 .. centered:: |nca_classification_1| |nca_classification_2|
 
-The plot shows decision boundaries for Nearest Neighbor Classification and
-Neighborhood Components Analysis classification on the iris dataset, when
-training and scoring on only two features, for visualisation purposes.
+يُظهر الرسم التخطيطي حدود القرار لتصنيف أقرب جيران وتصنيف تحليل مكونات الجوار على مجموعة بيانات زهرة القزحية، عند التدريب والتهديف على ميزتين فقط، لأغراض التصور.
+
+
 
 .. _nca_dim_reduction:
 
-Dimensionality reduction
+تخفيض الأبعاد
 ------------------------
 
-NCA can be used to perform supervised dimensionality reduction. The input data
-are projected onto a linear subspace consisting of the directions which
-minimize the NCA objective. The desired dimensionality can be set using the
-parameter ``n_components``. For instance, the following figure shows a
-comparison of dimensionality reduction with Principal Component Analysis
-(:class:`~sklearn.decomposition.PCA`), Linear Discriminant Analysis
-(:class:`~sklearn.discriminant_analysis.LinearDiscriminantAnalysis`) and
-Neighborhood Component Analysis (:class:`NeighborhoodComponentsAnalysis`) on
-the Digits dataset, a dataset with size :math:`n_{samples} = 1797` and
-:math:`n_{features} = 64`. The data set is split into a training and a test set
-of equal size, then standardized. For evaluation the 3-nearest neighbor
-classification accuracy is computed on the 2-dimensional projected points found
-by each method. Each data sample belongs to one of 10 classes.
+يمكن استخدام NCA لإجراء تخفيض الأبعاد الخاضع للإشراف. يتم إسقاط بيانات الإدخال على فضاء جزئي خطي يتكون من الاتجاهات التي تُقلل هدف NCA. يمكن تعيين الأبعاد المطلوبة باستخدام المعلمة ``n_components``. على سبيل المثال، يُظهر الشكل التالي مقارنة لتخفيض الأبعاد باستخدام تحليل المكونات الرئيسية (:class:`~sklearn.decomposition.PCA`)، والتحليل التمييزي الخطي (:class:`~sklearn.discriminant_analysis.LinearDiscriminantAnalysis`)، وتحليل مكونات الجوار (:class:`NeighborhoodComponentsAnalysis`) على مجموعة بيانات Digits، وهي مجموعة بيانات بحجم :math:`n_{samples} = 1797` و :math:`n_{features} = 64`. يتم تقسيم مجموعة البيانات إلى مجموعة تدريب ومجموعة اختبار متساويتين في الحجم، ثم يتم توحيدها. من أجل التقييم، يتم حساب دقة تصنيف أقرب 3 جيران على النقاط المُسقطة ثنائية الأبعاد التي تم إيجادها بواسطة كل طريقة. تنتمي كل عينة بيانات إلى واحدة من 10 فئات.
+
 
 .. |nca_dim_reduction_1| image:: ../auto_examples/neighbors/images/sphx_glr_plot_nca_dim_reduction_001.png
    :target: ../auto_examples/neighbors/plot_nca_dim_reduction.html
@@ -746,98 +473,96 @@ by each method. Each data sample belongs to one of 10 classes.
    :target: ../auto_examples/neighbors/plot_nca_dim_reduction.html
    :width: 32%
 
+
 .. |nca_dim_reduction_3| image:: ../auto_examples/neighbors/images/sphx_glr_plot_nca_dim_reduction_003.png
    :target: ../auto_examples/neighbors/plot_nca_dim_reduction.html
    :width: 32%
 
+
 .. centered:: |nca_dim_reduction_1| |nca_dim_reduction_2| |nca_dim_reduction_3|
 
 
-.. rubric:: Examples
+
+
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_neighbors_plot_nca_classification.py`
 * :ref:`sphx_glr_auto_examples_neighbors_plot_nca_dim_reduction.py`
 * :ref:`sphx_glr_auto_examples_manifold_plot_lle_digits.py`
 
+
+
 .. _nca_mathematical_formulation:
 
-Mathematical formulation
+
+الصيغة الرياضية
 ------------------------
 
-The goal of NCA is to learn an optimal linear transformation matrix of size
-``(n_components, n_features)``, which maximises the sum over all samples
-:math:`i` of the probability :math:`p_i` that :math:`i` is correctly
-classified, i.e.:
+هدف NCA هو تعلم مصفوفة تحويل خطي مثالية بحجم ``(n_components, n_features)``، والتي تُعظّم المجموع على جميع العينات :math:`i` من الاحتمال :math:`p_i` بأن :math:`i` مُصنّف بشكل صحيح، أي:
 
 .. math::
 
   \underset{L}{\arg\max} \sum\limits_{i=0}^{N - 1} p_{i}
 
-with :math:`N` = ``n_samples`` and :math:`p_i` the probability of sample
-:math:`i` being correctly classified according to a stochastic nearest
-neighbors rule in the learned embedded space:
+مع :math:`N` = ``n_samples`` و :math:`p_i` احتمال تصنيف العينة :math:`i` بشكل صحيح وفقًا لقاعدة الجيران العشوائية الأقرب في المساحة المُضمنة المُتعلّمة:
+
 
 .. math::
 
   p_{i}=\sum\limits_{j \in C_i}{p_{i j}}
 
-where :math:`C_i` is the set of points in the same class as sample :math:`i`,
-and :math:`p_{i j}` is the softmax over Euclidean distances in the embedded
-space:
+حيث :math:`C_i` هي مجموعة النقاط في نفس فئة العينة :math:`i`، و :math:`p_{i j}` هي دالة softmax على مسافات إقليدية في المساحة المُضمنة:
 
 .. math::
 
   p_{i j} = \frac{\exp(-||L x_i - L x_j||^2)}{\sum\limits_{k \ne
             i} {\exp{-(||L x_i - L x_k||^2)}}} , \quad p_{i i} = 0
 
-.. dropdown:: Mahalanobis distance
 
-  NCA can be seen as learning a (squared) Mahalanobis distance metric:
+.. dropdown:: مسافة ماهالانوبيس
+
+  يمكن اعتبار NCA على أنها تعلم مقياس مسافة ماهالانوبيس (تربيعي):
 
   .. math::
 
       || L(x_i - x_j)||^2 = (x_i - x_j)^TM(x_i - x_j),
 
-  where :math:`M = L^T L` is a symmetric positive semi-definite matrix of size
-  ``(n_features, n_features)``.
+
+  حيث :math:`M = L^T L` هي مصفوفة شبه موجبة متماثلة بحجم ``(n_features, n_features)``.
 
 
-Implementation
+التنفيذ
 --------------
 
-This implementation follows what is explained in the original paper [1]_. For
-the optimisation method, it currently uses scipy's L-BFGS-B with a full
-gradient computation at each iteration, to avoid to tune the learning rate and
-provide stable learning.
+يتبع هذا التنفيذ ما هو موضح في الورقة الأصلية [1]_. بالنسبة لطريقة التحسين، فإنها تستخدم حاليًا L-BFGS-B من scipy مع حساب تدرج كامل في كل تكرار، لتجنب ضبط معدل التعلم وتوفير تعلم مستقر.
 
-See the examples below and the docstring of
-:meth:`NeighborhoodComponentsAnalysis.fit` for further information.
+انظر الأمثلة أدناه وسلسلة docstring لـ :meth:`NeighborhoodComponentsAnalysis.fit` لمزيد من المعلومات.
 
-Complexity
+
+التعقيد
 ----------
 
-Training
+
+التدريب
 ^^^^^^^^
-NCA stores a matrix of pairwise distances, taking ``n_samples ** 2`` memory.
-Time complexity depends on the number of iterations done by the optimisation
-algorithm. However, one can set the maximum number of iterations with the
-argument ``max_iter``. For each iteration, time complexity is
-``O(n_components x n_samples x min(n_samples, n_features))``.
+تُخزّن NCA مصفوفة من المسافات الزوجية، تأخذ ``n_samples ** 2`` ذاكرة. يعتمد التعقيد الزمني على عدد التكرارات التي تُجريها خوارزمية التحسين. ومع ذلك، يمكن للمرء تعيين الحد الأقصى لعدد التكرارات باستخدام الوسيطة ``max_iter``. لكل تكرار، التعقيد الزمني هو ``O(n_components x n_samples x min(n_samples, n_features))``.
 
 
-Transform
+
+التحويل
 ^^^^^^^^^
-Here the ``transform`` operation returns :math:`LX^T`, therefore its time
-complexity equals ``n_components * n_features * n_samples_test``. There is no
-added space complexity in the operation.
+هنا تُعيد عملية ``transform`` :math:`LX^T`، وبالتالي فإن تعقيدها الزمني يساوي ``n_components * n_features * n_samples_test``. لا يوجد تعقيد مساحة مُضافة في العملية.
 
 
-.. rubric:: References
+.. rubric:: المراجع
 
 .. [1] `"Neighbourhood Components Analysis"
   <http://www.cs.nyu.edu/~roweis/papers/ncanips.pdf>`_,
   J. Goldberger, S. Roweis, G. Hinton, R. Salakhutdinov, Advances in
   Neural Information Processing Systems, Vol. 17, May 2005, pp. 513-520.
 
-* `Wikipedia entry on Neighborhood Components Analysis
-  <https://en.wikipedia.org/wiki/Neighbourhood_components_analysis>`_
+
+* `إدخال ويكيبيديا على تحليل مكونات الجوار <https://en.wikipedia.org/wiki/Neighbourhood_components_analysis>`_
+
+
+

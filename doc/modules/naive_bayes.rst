@@ -1,39 +1,37 @@
 .. _naive_bayes:
 
 ===========
-Naive Bayes
+خوارزميات بايز الساذجة
 ===========
 
 .. currentmodule:: sklearn.naive_bayes
 
 
-Naive Bayes methods are a set of supervised learning algorithms
-based on applying Bayes' theorem with the "naive" assumption of
-conditional independence between every pair of features given the
-value of the class variable. Bayes' theorem states the following
-relationship, given class variable :math:`y` and dependent feature
-vector :math:`x_1` through :math:`x_n`, :
+خوارزميات بايز الساذجة هي مجموعة من خوارزميات التعلم الخاضع للإشراف
+تستند إلى تطبيق نظرية بايز "الساذجة" للافتراض "الساذج" للاستقلال الشرطي
+بين كل زوج من الميزات بالنظر إلى قيمة متغير الفئة. تنص نظرية بايز على العلاقة التالية،
+نظرًا لمتغير الفئة:math:`y` والميزة التابعة المتجه:math:`x_1` من خلال:math:`x_n`،:
 
 .. math::
 
    P(y \mid x_1, \dots, x_n) = \frac{P(y) P(x_1, \dots, x_n \mid y)}
                                     {P(x_1, \dots, x_n)}
 
-Using the naive conditional independence assumption that
+باستخدام افتراض الاستقلال الشرطي الساذج الذي
 
 .. math::
 
    P(x_i | y, x_1, \dots, x_{i-1}, x_{i+1}, \dots, x_n) = P(x_i | y),
 
-for all :math:`i`, this relationship is simplified to
+لكل:math:`i`، يتم تبسيط هذه العلاقة إلى
 
 .. math::
 
    P(y \mid x_1, \dots, x_n) = \frac{P(y) \prod_{i=1}^{n} P(x_i \mid y)}
                                     {P(x_1, \dots, x_n)}
 
-Since :math:`P(x_1, \dots, x_n)` is constant given the input,
-we can use the following classification rule:
+نظرًا لأن:math:`P(x_1, \dots, x_n)` ثابت بالنظر إلى الإدخال،
+يمكننا استخدام قاعدة التصنيف التالية:
 
 .. math::
 
@@ -43,33 +41,30 @@ we can use the following classification rule:
 
    \hat{y} = \arg\max_y P(y) \prod_{i=1}^{n} P(x_i \mid y),
 
-and we can use Maximum A Posteriori (MAP) estimation to estimate
-:math:`P(y)` and :math:`P(x_i \mid y)`;
-the former is then the relative frequency of class :math:`y`
-in the training set.
+ويمكننا استخدام تقدير أقصى احتمال لاحق (MAP) لتقدير
+:math:`P(y)` و:math:`P(x_i \mid y)`؛
+الأخير هو التردد النسبي للفئة:math:`y`
+في مجموعة التدريب.
 
-The different naive Bayes classifiers differ mainly by the assumptions they
-make regarding the distribution of :math:`P(x_i \mid y)`.
+تختلف خوارزميات بايز الساذجة المختلفة بشكل أساسي بالافتراضات التي
+يقومون بها فيما يتعلق بتوزيع:math:`P(x_i \mid y)`.
 
-In spite of their apparently over-simplified assumptions, naive Bayes
-classifiers have worked quite well in many real-world situations, famously
-document classification and spam filtering. They require a small amount
-of training data to estimate the necessary parameters. (For theoretical
-reasons why naive Bayes works well, and on which types of data it does, see
-the references below.)
+على الرغم من افتراضاتها التي تبدو مفرطة في التبسيط، فقد عملت خوارزميات بايز الساذجة بشكل جيد جدًا في العديد من الحالات الواقعية، وخاصة
+تصنيف المستندات وتصفية الرسائل غير المرغوب فيها. تتطلب كمية صغيرة
+من بيانات التدريب لتقدير المعلمات اللازمة. (للأسباب النظرية التي تجعل بايز الساذج يعمل بشكل جيد، وعلى أي أنواع البيانات التي يفعلها، راجع
+المراجع أدناه.)
 
-Naive Bayes learners and classifiers can be extremely fast compared to more
-sophisticated methods.
-The decoupling of the class conditional feature distributions means that each
-distribution can be independently estimated as a one dimensional distribution.
-This in turn helps to alleviate problems stemming from the curse of
-dimensionality.
+يمكن أن تكون خوارزميات بايز الساذجة والمتعلمين سريعة للغاية مقارنة بالأساليب الأكثر تطوراً.
+يعني فصل توزيعات الفئة الشرطية أن كل
+يمكن تقدير التوزيع كبعد أحادي.
+هذا بدوره يساعد على تخفيف المشاكل الناجمة عن لعنة
+الأبعاد.
 
-On the flip side, although naive Bayes is known as a decent classifier,
-it is known to be a bad estimator, so the probability outputs from
-``predict_proba`` are not to be taken too seriously.
+على الجانب الآخر، على الرغم من أن بايز الساذج معروف كمصنف جيد،
+إنه معروف بأنه مقدر سيء، لذا لا ينبغي أخذ احتمالات الإخراج من
+"predict_proba" على محمل الجد.
 
-.. dropdown:: References
+.. dropdown:: مراجع
 
    * H. Zhang (2004). `The optimality of Naive Bayes.
      <https://www.cs.unb.ca/~hzhang/publications/FLAIRS04ZhangH.pdf>`_
@@ -77,18 +72,17 @@ it is known to be a bad estimator, so the probability outputs from
 
 .. _gaussian_naive_bayes:
 
-Gaussian Naive Bayes
+خوارزمية بايز الساذجة الغاوسية
 --------------------
 
-:class:`GaussianNB` implements the Gaussian Naive Bayes algorithm for
-classification. The likelihood of the features is assumed to be Gaussian:
+:class:`GaussianNB` تنفذ خوارزمية بايز الساذجة الغاوسية للتصنيف. يفترض أن احتمال الميزات غاوسي:
 
 .. math::
 
    P(x_i \mid y) = \frac{1}{\sqrt{2\pi\sigma^2_y}} \exp\left(-\frac{(x_i - \mu_y)^2}{2\sigma^2_y}\right)
 
-The parameters :math:`\sigma_y` and :math:`\mu_y`
-are estimated using maximum likelihood.
+يتم تقدير المعلمات:math:`\sigma_y` و:math:`\mu_y`
+باستخدام أقصى احتمال.
 
    >>> from sklearn.datasets import load_iris
    >>> from sklearn.model_selection import train_test_split
@@ -103,55 +97,52 @@ are estimated using maximum likelihood.
 
 .. _multinomial_naive_bayes:
 
-Multinomial Naive Bayes
+خوارزمية بايز الساذجة متعددة الحدود
 -----------------------
 
-:class:`MultinomialNB` implements the naive Bayes algorithm for multinomially
-distributed data, and is one of the two classic naive Bayes variants used in
-text classification (where the data are typically represented as word vector
-counts, although tf-idf vectors are also known to work well in practice).
-The distribution is parametrized by vectors
+:class:`MultinomialNB` تنفذ خوارزمية بايز الساذجة للبيانات متعددة الحدود، وهي واحدة من متغيرين بايز الساذجة الكلاسيكيين المستخدمين في
+تصنيف النصوص (حيث يتم تمثيل البيانات عادةً كمؤشرات متجه الكلمات، على الرغم من أن متجهات tf-idf معروفة أيضًا بالعمل بشكل جيد في الممارسة العملية).
+يتم معلمته بواسطة المتجهات
 :math:`\theta_y = (\theta_{y1},\ldots,\theta_{yn})`
-for each class :math:`y`, where :math:`n` is the number of features
-(in text classification, the size of the vocabulary)
-and :math:`\theta_{yi}` is the probability :math:`P(x_i \mid y)`
-of feature :math:`i` appearing in a sample belonging to class :math:`y`.
+لكل فئة:math:`y`، حيث:math:`n` هو عدد الميزات
+(في تصنيف النصوص، حجم المفردات)
+و:math:`\theta_{yi}` هو الاحتمال:math:`P(x_i \mid y)`
+لميزة:math:`i` التي تظهر في عينة تنتمي إلى الفئة:math:`y`.
 
-The parameters :math:`\theta_y` is estimated by a smoothed
-version of maximum likelihood, i.e. relative frequency counting:
+يتم تقدير المعلمات:math:`\theta_y` بواسطة نسخة ملساء
+من أقصى احتمال، أي العد النسبي:
 
 .. math::
 
     \hat{\theta}_{yi} = \frac{ N_{yi} + \alpha}{N_y + \alpha n}
 
-where :math:`N_{yi} = \sum_{x \in T} x_i` is
-the number of times feature :math:`i` appears in a sample of class :math:`y`
-in the training set :math:`T`,
-and :math:`N_{y} = \sum_{i=1}^{n} N_{yi}` is the total count of
-all features for class :math:`y`.
+حيث:math:`N_{yi} = \sum_{x \in T} x_i` هو
+عدد المرات التي تظهر فيها الميزة:math:`i` في عينة من الفئة:math:`y`
+في مجموعة التدريب:math:`T`،
+و:math:`N_{y} = \sum_{i=1}^{n} N_{yi}` هو العدد الإجمالي
+لجميع الميزات للفئة:math:`y`.
 
-The smoothing priors :math:`\alpha \ge 0` accounts for
-features not present in the learning samples and prevents zero probabilities
-in further computations.
-Setting :math:`\alpha = 1` is called Laplace smoothing,
-while :math:`\alpha < 1` is called Lidstone smoothing.
+تأخذ معلمات التمهيد:math:`\alpha \ge 0` في الاعتبار
+الميزات غير الموجودة في عينات التعلم وتمنع الاحتمالات الصفرية
+في الحسابات اللاحقة.
+يُطلق على تعيين:math:`\alpha = 1` اسم التمهيد Laplace،
+في حين أن:math:`\alpha < 1` يُطلق عليه اسم التمهيد Lidstone.
 
 .. _complement_naive_bayes:
 
-Complement Naive Bayes
+خوارزمية بايز الساذجة التكميلية
 ----------------------
 
-:class:`ComplementNB` implements the complement naive Bayes (CNB) algorithm.
-CNB is an adaptation of the standard multinomial naive Bayes (MNB) algorithm
-that is particularly suited for imbalanced data sets. Specifically, CNB uses
-statistics from the *complement* of each class to compute the model's weights.
-The inventors of CNB show empirically that the parameter estimates for CNB are
-more stable than those for MNB. Further, CNB regularly outperforms MNB (often
-by a considerable margin) on text classification tasks.
+:class:`ComplementNB` تنفذ خوارزمية بايز الساذجة التكميلية (CNB).
+CNB هو تكيف لخوارزمية بايز الساذجة متعددة الحدود (MNB)
+التي تناسب بشكل خاص مجموعات البيانات غير المتوازنة. على وجه التحديد، يستخدم CNB
+إحصاءات من تكملة كل فئة لحساب أوزان النموذج. يظهر مخترعو CNB تجريبيًا أن تقديرات المعلمات لـ CNB
+أكثر استقرارًا من تلك الخاصة بـ MNB. علاوة على ذلك، يتفوق CNB بشكل منتظم على MNB (غالبًا
+بهامش كبير) في مهام تصنيف النصوص.
 
-.. dropdown:: Weights calculation
+.. dropdown:: حساب الأوزان
 
-   The procedure for calculating the weights is as follows:
+   تتمثل الإجراءات لحساب الأوزان فيما يلي:
 
    .. math::
 
@@ -162,21 +153,20 @@ by a considerable margin) on text classification tasks.
 
       w_{ci} = \frac{w_{ci}}{\sum_{j} |w_{cj}|}
 
-   where the summations are over all documents :math:`j` not in class :math:`c`,
-   :math:`d_{ij}` is either the count or tf-idf value of term :math:`i` in document
-   :math:`j`, :math:`\alpha_i` is a smoothing hyperparameter like that found in
-   MNB, and :math:`\alpha = \sum_{i} \alpha_i`. The second normalization addresses
-   the tendency for longer documents to dominate parameter estimates in MNB. The
-   classification rule is:
+   حيث يتم إجراء عمليات الجمع على جميع المستندات:math:`j` غير الموجودة في الفئة:math:`c`،
+   :math:`d_{ij}` هو إما عدد أو قيمة tf-idf للمصطلح:math:`i` في المستند
+   :math:`j`، :math:`\alpha_i` هو معلمة التمهيد مثل تلك الموجودة في
+   MNB، و:math:`\alpha = \sum_{i} \alpha_i`. يعالج التطبيع الثاني
+   ميل المستندات الأطول إلى الهيمنة على تقديرات المعلمات في MNB. قاعدة التصنيف هي:
 
    .. math::
 
       \hat{c} = \arg\min_c \sum_{i} t_i w_{ci}
 
-   i.e., a document is assigned to the class that is the *poorest* complement
-   match.
+   أي، يتم تعيين مستند إلى الفئة التي هي *أفقر* تكملة
+   المطابقة.
 
-.. dropdown:: References
+.. dropdown:: مراجع
 
    * Rennie, J. D., Shih, L., Teevan, J., & Karger, D. R. (2003).
      `Tackling the poor assumptions of naive bayes text classifiers.
@@ -186,34 +176,29 @@ by a considerable margin) on text classification tasks.
 
 .. _bernoulli_naive_bayes:
 
-Bernoulli Naive Bayes
+خوارزمية بايز الساذجة متعددة الحدود
 ---------------------
 
-:class:`BernoulliNB` implements the naive Bayes training and classification
-algorithms for data that is distributed according to multivariate Bernoulli
-distributions; i.e., there may be multiple features but each one is assumed
-to be a binary-valued (Bernoulli, boolean) variable.
-Therefore, this class requires samples to be represented as binary-valued
-feature vectors; if handed any other kind of data, a :class:`BernoulliNB` instance
-may binarize its input (depending on the ``binarize`` parameter).
+:class:`BernoulliNB` تنفذ خوارزميات بايز الساذجة للتدريب والتصنيف
+لبيانات موزعة وفقًا لتوزيعات متعددة الحدود؛ أي، قد يكون هناك العديد من الميزات ولكن يُفترض أن كل منها
+قيمة ثنائية (بيرنولي، منطقية).
 
-The decision rule for Bernoulli naive Bayes is based on
+تستند قاعدة القرار لبايز الساذج متعدد الحدود إلى
 
 .. math::
 
     P(x_i \mid y) = P(x_i = 1 \mid y) x_i + (1 - P(x_i = 1 \mid y)) (1 - x_i)
 
-which differs from multinomial NB's rule
-in that it explicitly penalizes the non-occurrence of a feature :math:`i`
-that is an indicator for class :math:`y`,
-where the multinomial variant would simply ignore a non-occurring feature.
+والذي يختلف عن قاعدة بايز الساذج متعددة الحدود
+في أنه يعاقب صراحةً على عدم حدوث ميزة:math:`i`
+التي هي مؤشر للفئة:math:`y`،
+حيث تتجاهل المتغيرات متعددة الحدود غياب ميزة.
 
-In the case of text classification, word occurrence vectors (rather than word
-count vectors) may be used to train and use this classifier. :class:`BernoulliNB`
-might perform better on some datasets, especially those with shorter documents.
-It is advisable to evaluate both models, if time permits.
+في حالة تصنيف النصوص، قد تستخدم متجهات حدوث الكلمات (بدلاً من متجهات عدد الكلمات) لتدريب وتصنيف هذا المصنف. :class:`BernoulliNB`
+قد يؤدي أداء أفضل على بعض مجموعات البيانات، خاصة تلك ذات المستندات الأقصر.
+من المستحسن تقييم كلا النموذجين، إذا سمح الوقت بذلك.
 
-.. dropdown:: References
+.. dropdown:: مراجع
 
    * C.D. Manning, P. Raghavan and H. Schütze (2008). Introduction to
      Information Retrieval. Cambridge University Press, pp. 234-265.
@@ -221,7 +206,7 @@ It is advisable to evaluate both models, if time permits.
    * A. McCallum and K. Nigam (1998).
      `A comparison of event models for Naive Bayes text classification.
      <https://citeseerx.ist.psu.edu/doc_view/pid/04ce064505b1635583fa0d9cc07cac7e9ea993cc>`_
-     Proc. AAAI/ICML-98 Workshop on Learning for Text Categorization, pp. 41-48.
+     Proc. FLAIRS-98 Workshop on Learning for Text Categorization, pp. 41-48.
 
    * V. Metsis, I. Androutsopoulos and G. Paliouras (2006).
      `Spam filtering with Naive Bayes -- Which Naive Bayes?
@@ -231,60 +216,57 @@ It is advisable to evaluate both models, if time permits.
 
 .. _categorical_naive_bayes:
 
-Categorical Naive Bayes
+خوارزمية بايز الساذجة التصنيفية
 -----------------------
 
-:class:`CategoricalNB` implements the categorical naive Bayes
-algorithm for categorically distributed data. It assumes that each feature,
-which is described by the index :math:`i`, has its own categorical
-distribution.
+:class:`CategoricalNB` تنفذ خوارزمية بايز الساذجة
+للبيانات التصنيفية. يفترض أن كل ميزة،
+التي يتم وصفها بواسطة الفهرس:math:`i`، لها توزيعها التصنيفي الخاص.
 
-For each feature :math:`i` in the training set :math:`X`,
-:class:`CategoricalNB` estimates a categorical distribution for each feature i
-of X conditioned on the class y. The index set of the samples is defined as
-:math:`J = \{ 1, \dots, m \}`, with :math:`m` as the number of samples.
+بالنسبة لكل ميزة:math:`i` في مجموعة التدريب:math:`X`،
+:class:`CategoricalNB` يقدر توزيعًا تصنيفيًا لكل ميزة i
+من X مشروطة على الفئة y. يتم تعريف مجموعة فهرس العينات على أنها
+:math:`J`، مع:math:`m` كعدد العينات.
 
-.. dropdown:: Probability calculation
+.. dropdown:: حساب الاحتمال
 
-   The probability of category :math:`t` in feature :math:`i` given class
-   :math:`c` is estimated as:
+   يتم تقدير احتمال الفئة:math:`t` في الميزة:math:`i` بالنظر إلى الفئة
+   :math:`c` كما يلي:
 
    .. math::
 
       P(x_i = t \mid y = c \: ;\, \alpha) = \frac{ N_{tic} + \alpha}{N_{c} +
                                              \alpha n_i},
 
-   where :math:`N_{tic} = |\{j \in J \mid x_{ij} = t, y_j = c\}|` is the number
-   of times category :math:`t` appears in the samples :math:`x_{i}`, which belong
-   to class :math:`c`, :math:`N_{c} = |\{ j \in J\mid y_j = c\}|` is the number
-   of samples with class c, :math:`\alpha` is a smoothing parameter and
-   :math:`n_i` is the number of available categories of feature :math:`i`.
+   حيث:math:`N_{tic} = |\{j \in J \mid y_j = c\}|` هو عدد
+   المرات التي تظهر فيها الفئة:math:`t` في العينات:math:`x_{i}`، والتي تنتمي
+   إلى الفئة:math:`c`، :math:`N_{c} = |\{ j \in J\mid y_j = c\}|` هو عدد العينات
+   الفئة c، :math:`n_i` هو عدد الفئات المتاحة
+   للميزة:math:`i`.
 
-:class:`CategoricalNB` assumes that the sample matrix :math:`X` is encoded (for
-instance with the help of :class:`~sklearn.preprocessing.OrdinalEncoder`) such
-that all categories for each feature :math:`i` are represented with numbers
-:math:`0, ..., n_i - 1` where :math:`n_i` is the number of available categories
-of feature :math:`i`.
+:class:`CategoricalNB` يفترض أن مصفوفة العينة:math:`X` مشفرة (على سبيل المثال بمساعدة:class:`~sklearn.preprocessing.OrdinalEncoder`)
+بحيث يتم تمثيل جميع الفئات لكل ميزة:math:`i` بالأرقام
+:math:`0, ..., n_i - 1` حيث:math:`n_i` هو عدد الفئات المتاحة
+للميزة:math:`i`.
 
-Out-of-core naive Bayes model fitting
--------------------------------------
+نموذج بايز الساذج خارج النواة
+---------------------------------
 
-Naive Bayes models can be used to tackle large scale classification problems
-for which the full training set might not fit in memory. To handle this case,
-:class:`MultinomialNB`, :class:`BernoulliNB`, and :class:`GaussianNB`
-expose a ``partial_fit`` method that can be used
-incrementally as done with other classifiers as demonstrated in
-:ref:`sphx_glr_auto_examples_applications_plot_out_of_core_classification.py`. All naive Bayes
-classifiers support sample weighting.
+يمكن استخدام نماذج بايز الساذجة لمعالجة مشاكل التصنيف واسعة النطاق
+بالنسبة للتي قد لا تتسع مجموعة التدريب بالكامل في الذاكرة. لمعالجة هذه الحالة،
+:class:`MultinomialNB`، و:class:`BernoulliNB`، و:class:`GaussianNB`
+تعرض طريقة "partial_fit" التي يمكن استخدامها
+بشكل متزايد كما هو الحال مع المصنفات الأخرى كما هو موضح في
+:ref:`sphx_glr_auto_examples_applications_plot_out_of_core_classification.py`. جميع مصنفات بايز الساذجة
+تدعم وزن العينة.
 
-Contrary to the ``fit`` method, the first call to ``partial_fit`` needs to be
-passed the list of all the expected class labels.
+على عكس طريقة "fit"، تحتاج المكالمة الأولى لـ "partial_fit" إلى
+تمرير قائمة بجميع التصنيفات المتوقعة.
 
-For an overview of available strategies in scikit-learn, see also the
-:ref:`out-of-core learning <scaling_strategies>` documentation.
+للاطلاع على نظرة عامة على الاستراتيجيات المتاحة في scikit-learn، راجع أيضًا
+:ref:`out-of-core learning <scaling_strategies>` الوثائق.
 
 .. note::
 
-   The ``partial_fit`` method call of naive Bayes models introduces some
-   computational overhead. It is recommended to use data chunk sizes that are as
-   large as possible, that is as the available RAM allows.
+   تُدخل طريقة "partial_fit" لنموذج بايز الساذج بعض
+   النفقات العامة الحسابية. يوصى باستخدام أحجام بيانات الشرائح التي تكون كبيرة قدر الإمكان، أي كما يسمح بها RAM المتاح.

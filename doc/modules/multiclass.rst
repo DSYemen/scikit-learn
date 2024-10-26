@@ -1,57 +1,44 @@
 
+
 .. _multiclass:
 
 =====================================
-Multiclass and multioutput algorithms
+خوارزميات متعددة التصنيف ومتعددة الإخراج
 =====================================
 
-This section of the user guide covers functionality related to multi-learning
-problems, including :term:`multiclass`, :term:`multilabel`, and
-:term:`multioutput` classification and regression.
+يغطي هذا القسم من دليل المستخدم الوظائف المتعلقة بمشاكل التعلم المتعدد، بما في ذلك: multiclass:، و: multilabel:، و: multioutput: التصنيف والتراجع.
 
-The modules in this section implement :term:`meta-estimators`, which require a
-base estimator to be provided in their constructor. Meta-estimators extend the
-functionality of the base estimator to support multi-learning problems, which
-is accomplished by transforming the multi-learning problem into a set of
-simpler problems, then fitting one estimator per problem.
+تطبق الوحدات النمطية في هذا القسم: meta-estimators:، والتي تتطلب توفير مقدر أساسي في منشئها. تعمل الميتا-مقدرات على توسيع وظائف المقدر الأساسي لدعم مشاكل التعلم المتعدد، والتي يتم تحقيقها من خلال تحويل مشكلة التعلم المتعدد إلى مجموعة من المشاكل البسيطة، ثم تناسب مقدر واحد لكل مشكلة.
 
-This section covers two modules: :mod:`sklearn.multiclass` and
-:mod:`sklearn.multioutput`. The chart below demonstrates the problem types
-that each module is responsible for, and the corresponding meta-estimators
-that each module provides.
+يغطي هذا القسم وحدتين نمطيتين: sklearn.multiclass: وsklearn.multioutput:. يوضح الرسم البياني أدناه أنواع المشاكل التي تتحمل كل وحدة نمطية المسؤولية عنها، والمقدرات الفوقية المقابلة التي توفرها كل وحدة نمطية.
 
 .. image:: ../images/multi_org_chart.png
    :align: center
 
-The table below provides a quick reference on the differences between problem
-types. More detailed explanations can be found in subsequent sections of this
-guide.
+يوفر الجدول أدناه مرجعًا سريعًا حول الاختلافات بين أنواع المشاكل. يمكن العثور على تفسيرات أكثر تفصيلاً في الأقسام اللاحقة من هذا الدليل.
 
 +------------------------------+-----------------------+-------------------------+--------------------------------------------------+
-|                              | Number of targets     | Target cardinality      | Valid                                            |
+|                              | عدد الأهداف           | عدد الفئات              | صالح                                            |
 |                              |                       |                         | :func:`~sklearn.utils.multiclass.type_of_target` |
 +==============================+=======================+=========================+==================================================+
-| Multiclass                   |  1                    | >2                      | 'multiclass'                                     |
-| classification               |                       |                         |                                                  |
+| متعدد الفئات                | 1                     | >2                      | 'multiclass'                                     |
+| التصنيف                     |                       |                         |                                                  |
 +------------------------------+-----------------------+-------------------------+--------------------------------------------------+
-| Multilabel                   | >1                    |  2 (0 or 1)             | 'multilabel-indicator'                           |
-| classification               |                       |                         |                                                  |
+| متعدد الفئات                | >1                    | 2 (0 أو 1)               | 'multilabel-indicator'                           |
+| التصنيف                     |                       |                         |                                                  |
 +------------------------------+-----------------------+-------------------------+--------------------------------------------------+
-| Multiclass-multioutput       | >1                    | >2                      | 'multiclass-multioutput'                         |
-| classification               |                       |                         |                                                  |
+| متعدد الفئات متعدد الإخراج | >1                    | >2                      | 'multiclass-multioutput'                         |
+| التصنيف                     |                       |                         |                                                  |
 +------------------------------+-----------------------+-------------------------+--------------------------------------------------+
-| Multioutput                  | >1                    | Continuous              | 'continuous-multioutput'                         |
-| regression                   |                       |                         |                                                  |
+| متعدد الإخراج               | >1                    | مستمر                   | 'continuous-multioutput'                         |
+| التراجع                     |                       |                         |                                                  |
 +------------------------------+-----------------------+-------------------------+--------------------------------------------------+
 
-Below is a summary of scikit-learn estimators that have multi-learning support
-built-in, grouped by strategy. You don't need the meta-estimators provided by
-this section if you're using one of these estimators. However, meta-estimators
-can provide additional strategies beyond what is built-in:
+فيما يلي ملخص لمقدرات scikit-learn التي تحتوي على دعم التعلم المتعدد المدمج، مجمعة حسب الاستراتيجية. لا تحتاج إلى المقدرات الفوقية التي توفرها هذه الوحدة النمطية إذا كنت تستخدم أحد هذه المقدرات. ومع ذلك، يمكن أن توفر المقدرات الفوقية استراتيجيات إضافية تتجاوز ما هو مدمج:
 
 .. currentmodule:: sklearn
 
-- **Inherently multiclass:**
+- **متعدد الفئات بشكل أساسي:**
 
   - :class:`naive_bayes.BernoulliNB`
   - :class:`tree.DecisionTreeClassifier`
@@ -62,9 +49,9 @@ can provide additional strategies beyond what is built-in:
   - :class:`semi_supervised.LabelPropagation`
   - :class:`semi_supervised.LabelSpreading`
   - :class:`discriminant_analysis.LinearDiscriminantAnalysis`
-  - :class:`svm.LinearSVC` (setting multi_class="crammer_singer")
-  - :class:`linear_model.LogisticRegression` (with most solvers)
-  - :class:`linear_model.LogisticRegressionCV` (with most solvers)
+  - :class:`svm.LinearSVC` (إعداد multi_class="crammer_singer")
+  - :class:`linear_model.LogisticRegression` (مع معظم المحللين)
+  - :class:`linear_model.LogisticRegressionCV` (مع معظم المحللين)
   - :class:`neural_network.MLPClassifier`
   - :class:`neighbors.NearestCentroid`
   - :class:`discriminant_analysis.QuadraticDiscriminantAnalysis`
@@ -74,26 +61,26 @@ can provide additional strategies beyond what is built-in:
   - :class:`linear_model.RidgeClassifierCV`
 
 
-- **Multiclass as One-Vs-One:**
+- **متعدد الفئات كـ One-Vs-One:**
 
   - :class:`svm.NuSVC`
   - :class:`svm.SVC`.
-  - :class:`gaussian_process.GaussianProcessClassifier` (setting multi_class = "one_vs_one")
+  - :class:`gaussian_process.GaussianProcessClassifier` (إعداد multi_class = "one_vs_one")
 
 
-- **Multiclass as One-Vs-The-Rest:**
+- **متعدد الفئات كـ One-Vs-The-Rest:**
 
   - :class:`ensemble.GradientBoostingClassifier`
-  - :class:`gaussian_process.GaussianProcessClassifier` (setting multi_class = "one_vs_rest")
-  - :class:`svm.LinearSVC` (setting multi_class="ovr")
-  - :class:`linear_model.LogisticRegression` (most solvers)
-  - :class:`linear_model.LogisticRegressionCV` (most solvers)
+  - :class:`gaussian_process.GaussianProcessClassifier` (إعداد multi_class = "one_vs_rest")
+  - :class:`svm.LinearSVC` (إعداد multi_class="ovr")
+  - :class:`linear_model.LogisticRegression` (معظم المحللين)
+  - :class:`linear_model.LogisticRegressionCV` (معظم المحللين)
   - :class:`linear_model.SGDClassifier`
   - :class:`linear_model.Perceptron`
   - :class:`linear_model.PassiveAggressiveClassifier`
 
 
-- **Support multilabel:**
+- **دعم متعدد الفئات:**
 
   - :class:`tree.DecisionTreeClassifier`
   - :class:`tree.ExtraTreeClassifier`
@@ -106,7 +93,7 @@ can provide additional strategies beyond what is built-in:
   - :class:`linear_model.RidgeClassifierCV`
 
 
-- **Support multiclass-multioutput:**
+- **دعم متعدد الفئات متعدد الإخراج:**
 
   - :class:`tree.DecisionTreeClassifier`
   - :class:`tree.ExtraTreeClassifier`
@@ -117,48 +104,28 @@ can provide additional strategies beyond what is built-in:
 
 .. _multiclass_classification:
 
-Multiclass classification
+متعدد الفئات
 =========================
 
-.. warning::
-    All classifiers in scikit-learn do multiclass classification
-    out-of-the-box. You don't need to use the :mod:`sklearn.multiclass` module
-    unless you want to experiment with different multiclass strategies.
+**متعدد الفئات** هو مهمة تصنيف مع أكثر من فئتين. يمكن تصنيف كل عينة على أنها فئة واحدة فقط.
 
-**Multiclass classification** is a classification task with more than two
-classes. Each sample can only be labeled as one class.
+على سبيل المثال، التصنيف باستخدام الميزات المستخرجة من مجموعة من صور الفاكهة، حيث يمكن أن تكون كل صورة إما برتقالية أو تفاحة أو كمثرى. كل صورة هي عينة واحدة ويتم تصنيفها كواحدة من 3 فئات ممكنة. يفترض التصنيف متعدد الفئات أن كل عينة يتم تعيينها لفئة واحدة فقط - لا يمكن أن تكون عينة واحدة، على سبيل المثال، كمثرى وتفاحة.
 
-For example, classification using features extracted from a set of images of
-fruit, where each image may either be of an orange, an apple, or a pear.
-Each image is one sample and is labeled as one of the 3 possible classes.
-Multiclass classification makes the assumption that each sample is assigned
-to one and only one label - one sample cannot, for example, be both a pear
-and an apple.
+على الرغم من أن جميع مصنفات scikit-learn قادرة على التصنيف متعدد الفئات، فإن المقدرات الفوقية التي تقدمها sklearn.multiclass تسمح بتغيير الطريقة التي تتعامل بها مع أكثر من فئتين لأن هذا قد يكون له تأثير على أداء المصنف (سواء من حيث خطأ التعميم أو الموارد الحسابية المطلوبة).
 
-While all scikit-learn classifiers are capable of multiclass classification,
-the meta-estimators offered by :mod:`sklearn.multiclass`
-permit changing the way they handle more than two classes
-because this may have an effect on classifier performance
-(either in terms of generalization error or required computational resources).
-
-Target format
+تنسيق الهدف
 -------------
 
-Valid :term:`multiclass` representations for
-:func:`~sklearn.utils.multiclass.type_of_target` (`y`) are:
+تمثيلات multiclass: الصالحة لـ: func:`~sklearn.utils.multiclass.type_of_target` (`y`) هي:
 
-- 1d or column vector containing more than two discrete values. An
-  example of a vector ``y`` for 4 samples:
+- 1d أو متجه عمودي يحتوي على أكثر من قيمتين منفصلتين. مثال على متجه "y" لـ 4 عينات:
 
     >>> import numpy as np
     >>> y = np.array(['apple', 'pear', 'apple', 'orange'])
     >>> print(y)
     ['apple' 'pear' 'apple' 'orange']
 
-- Dense or sparse :term:`binary` matrix of shape ``(n_samples, n_classes)``
-  with a single sample per row, where each column represents one class. An
-  example of both a dense and sparse :term:`binary` matrix ``y`` for 4
-  samples, where the columns, in order, are apple, orange, and pear:
+- مصفوفة ثنائية كثيفة أو متفرقة ذات شكل ``(n_samples, n_classes)`` مع عينة واحدة لكل صف، حيث يمثل كل عمود فئة واحدة. مثال على كل من المصفوفة الثنائية الكثيفة والمتفرقة "y" لـ 4 عينات، حيث الأعمدة، بالترتيب، هي التفاح والبرتقال والكمثرى:
 
     >>> import numpy as np
     >>> from sklearn.preprocessing import LabelBinarizer
@@ -180,25 +147,16 @@ Valid :term:`multiclass` representations for
       (2, 0)	1
       (3, 1)	1
 
-For more information about :class:`~sklearn.preprocessing.LabelBinarizer`,
-refer to :ref:`preprocessing_targets`.
+لمزيد من المعلومات حول: class:`~sklearn.preprocessing.LabelBinarizer`، راجع: preprocessing_targets:.
 
 .. _ovr_classification:
 
 OneVsRestClassifier
 -------------------
 
-The **one-vs-rest** strategy, also known as **one-vs-all**, is implemented in
-:class:`~sklearn.multiclass.OneVsRestClassifier`.  The strategy consists in
-fitting one classifier per class. For each classifier, the class is fitted
-against all the other classes. In addition to its computational efficiency
-(only `n_classes` classifiers are needed), one advantage of this approach is
-its interpretability. Since each class is represented by one and only one
-classifier, it is possible to gain knowledge about the class by inspecting its
-corresponding classifier. This is the most commonly used strategy and is a fair
-default choice.
+تتمثل استراتيجية **one-vs-rest**، المعروفة أيضًا باسم **one-vs-all**، في: class:`~sklearn.multiclass.OneVsRestClassifier`. تتكون الاستراتيجية من تناسب مصنف واحد لكل فئة. بالنسبة لكل مصنف، يتم تناسب الفئة مقابل جميع الفئات الأخرى. بالإضافة إلى كفاءتها الحسابية (فقط `n_classes` من المصنفات مطلوبة)، تتمثل إحدى مزايا هذا النهج في إمكانية تفسيرها. نظرًا لأن كل فئة ممثلة بمصنف واحد فقط، فمن الممكن اكتساب المعرفة حول الفئة من خلال فحص المصنف المقابل لها. هذه هي الاستراتيجية الأكثر استخدامًا وهي خيار افتراضي جيد.
 
-Below is an example of multiclass learning using OvR::
+فيما يلي مثال على التعلم متعدد الفئات باستخدام OvR::
 
   >>> from sklearn import datasets
   >>> from sklearn.multiclass import OneVsRestClassifier
@@ -208,15 +166,13 @@ Below is an example of multiclass learning using OvR::
   array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
          0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-         1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1,
-         1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-         2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2,
-         2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])
+         1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+         2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+         2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])
 
 
-:class:`~sklearn.multiclass.OneVsRestClassifier` also supports multilabel
-classification. To use this feature, feed the classifier an indicator matrix,
-in which cell [i, j] indicates the presence of label j in sample i.
+:class:`~sklearn.multiclass.OneVsRestClassifier` يدعم أيضًا التصنيف متعدد الفئات. لاستخدام هذه الميزة، قم بتغذية المصنف بمصفوفة مؤشرات، حيث تشير الخلية [i, j] إلى وجود التصنيف j في العينة i.
 
 
 .. figure:: ../auto_examples/miscellaneous/images/sphx_glr_plot_multilabel_001.png
@@ -225,7 +181,7 @@ in which cell [i, j] indicates the presence of label j in sample i.
     :scale: 75%
 
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_miscellaneous_plot_multilabel.py`
 * :ref:`sphx_glr_auto_examples_classification_plot_classification_probability.py`
@@ -235,23 +191,11 @@ in which cell [i, j] indicates the presence of label j in sample i.
 OneVsOneClassifier
 ------------------
 
-:class:`~sklearn.multiclass.OneVsOneClassifier` constructs one classifier per
-pair of classes. At prediction time, the class which received the most votes
-is selected. In the event of a tie (among two classes with an equal number of
-votes), it selects the class with the highest aggregate classification
-confidence by summing over the pair-wise classification confidence levels
-computed by the underlying binary classifiers.
+:class:`~sklearn.multiclass.OneVsOneClassifier` يقوم ببناء مصنف واحد لكل زوج من الفئات. في وقت التنبؤ، يتم اختيار الفئة التي حصلت على معظم الأصوات. في حالة التعادل (بين فئتين بنفس عدد الأصوات)، يتم اختيار الفئة ذات مستوى الثقة الأعلى في التصنيف التراكمي من خلال جمع مستويات الثقة في التصنيف الثنائي المزدوج التي يحسبها المصنفات الثنائية الأساسية.
 
-Since it requires to fit ``n_classes * (n_classes - 1) / 2`` classifiers,
-this method is usually slower than one-vs-the-rest, due to its
-O(n_classes^2) complexity. However, this method may be advantageous for
-algorithms such as kernel algorithms which don't scale well with
-``n_samples``. This is because each individual learning problem only involves
-a small subset of the data whereas, with one-vs-the-rest, the complete
-dataset is used ``n_classes`` times. The decision function is the result
-of a monotonic transformation of the one-versus-one classification.
+نظرًا لأنه يتطلب ملاءمة ``n_classes * (n_classes - 1) / 2`` من المصنفات، فإن هذه الطريقة تكون عادةً أبطأ من one-vs-the-rest، بسبب تعقيدها O(n_classes^2). ومع ذلك، قد تكون هذه الطريقة مفيدة للخوارزميات مثل خوارزميات النواة التي لا تتدرج جيدًا مع ``n_samples``. ويرجع ذلك إلى أن كل مشكلة تعلم فردية لا تتضمن سوى جزء صغير من البيانات، في حين أن مجموعة البيانات الكاملة تستخدم ``n_classes`` مرات مع one-vs-the-rest. الدالة القرارية هي نتيجة تحويل أحادي للتصنيف أحادي مقابل واحد.
 
-Below is an example of multiclass learning using OvO::
+فيما يلي مثال على التعلم متعدد الفئات باستخدام OvO::
 
   >>> from sklearn import datasets
   >>> from sklearn.multiclass import OneVsOneClassifier
@@ -260,14 +204,15 @@ Below is an example of multiclass learning using OvO::
   >>> OneVsOneClassifier(LinearSVC(random_state=0)).fit(X, y).predict(X)
   array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-         0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-         1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1,
+         0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1,
          1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-         2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-         2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])
+         2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+         2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+         2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])
 
 
-.. rubric:: References
+.. rubric:: مراجع
 
 * "Pattern Recognition and Machine Learning. Springer",
   Christopher M. Bishop, page 183, (First Edition)
@@ -277,39 +222,17 @@ Below is an example of multiclass learning using OvO::
 OutputCodeClassifier
 --------------------
 
-Error-Correcting Output Code-based strategies are fairly different from
-one-vs-the-rest and one-vs-one. With these strategies, each class is
-represented in a Euclidean space, where each dimension can only be 0 or 1.
-Another way to put it is that each class is represented by a binary code (an
-array of 0 and 1). The matrix which keeps track of the location/code of each
-class is called the code book. The code size is the dimensionality of the
-aforementioned space. Intuitively, each class should be represented by a code
-as unique as possible and a good code book should be designed to optimize
-classification accuracy. In this implementation, we simply use a
-randomly-generated code book as advocated in [3]_ although more elaborate
-methods may be added in the future.
+تختلف استراتيجيات Output-Code-based اختلافًا كبيرًا عن one-vs-the-rest وone-vs-one. مع هذه الاستراتيجيات، يتم تمثيل كل فئة في مساحة Euclidean، حيث يمكن أن يكون كل بُعد إما 0 أو 1. طريقة أخرى لوضعها هي أن كل فئة يتم تمثيلها بواسطة كود ثنائي (صفيف من 0 و1). المصفوفة التي تتتبع موقع/كود كل فئة تسمى كتاب الكود. حجم الكود هو أبعاد المساحة المذكورة أعلاه. بديهيًا، يجب تمثيل كل فئة بواسطة كود فريد قدر الإمكان ويجب تصميم كتاب الكود لتحسين دقة التصنيف. في هذا التنفيذ، نستخدم ببساطة كتاب كود تم إنشاؤه بشكل عشوائي كما هو موضح في [3]_ على الرغم من أنه قد يتم إضافة طرق أكثر تفصيلاً في المستقبل.
 
-At fitting time, one binary classifier per bit in the code book is fitted.
-At prediction time, the classifiers are used to project new points in the
-class space and the class closest to the points is chosen.
+في وقت الملاءمة، يتم ملاءمة مصنف ثنائي واحد لكل بت في كتاب الكود. في وقت التنبؤ، يتم استخدام المصنفات لمشروع نقاط جديدة في مساحة الفئة ويتم اختيار الفئة الأقرب إلى النقاط.
 
-In :class:`~sklearn.multiclass.OutputCodeClassifier`, the ``code_size``
-attribute allows the user to control the number of classifiers which will be
-used. It is a percentage of the total number of classes.
+في :class:`~sklearn.multiclass.OutputCodeClassifier`، تسمح سمة "code_size" للمستخدم بالتحكم في عدد المصنفات التي سيتم استخدامها. إنه نسبة مئوية من إجمالي عدد الفئات.
 
-A number between 0 and 1 will require fewer classifiers than
-one-vs-the-rest. In theory, ``log2(n_classes) / n_classes`` is sufficient to
-represent each class unambiguously. However, in practice, it may not lead to
-good accuracy since ``log2(n_classes)`` is much smaller than `n_classes`.
+سيحتاج رقم بين 0 و1 إلى مصنفات أقل من one-vs-the-rest. من الناحية النظرية، ``log2(n_classes) / n_classes`` كافٍ لتمثيل كل فئة بشكل لا لبس فيه. ومع ذلك، في الممارسة العملية، قد لا يؤدي ذلك إلى دقة جيدة لأن ``log2(n_classes)`` أصغر بكثير من `n_classes`.
 
-A number greater than 1 will require more classifiers than
-one-vs-the-rest. In this case, some classifiers will in theory correct for
-the mistakes made by other classifiers, hence the name "error-correcting".
-In practice, however, this may not happen as classifier mistakes will
-typically be correlated. The error-correcting output codes have a similar
-effect to bagging.
+سيحتاج رقم أكبر من 1 إلى مزيد من المصنفات من one-vs-the-rest. في هذه الحالة، سيقوم بعض المصنفات نظريًا بتصحيح أخطاء المصنفات الأخرى، وبالتالي اسم "تصحيح الأخطاء". ومع ذلك، في الممارسة العملية، قد لا يحدث ذلك لأن أخطاء المصنفات ستكون عادةً مترابطة. يكون للرموز الإخراجية لتصحيح الأخطاء تأثير مشابه لـ bagging.
 
-Below is an example of multiclass learning using Output-Codes::
+فيما يلي مثال على التعلم متعدد الفئات باستخدام Output-Codes::
 
   >>> from sklearn import datasets
   >>> from sklearn.multiclass import OutputCodeClassifier
@@ -319,53 +242,34 @@ Below is an example of multiclass learning using Output-Codes::
   >>> clf.fit(X, y).predict(X)
   array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-         0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1,
-         1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1,
-         1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-         2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 1, 1, 2, 2, 2,
-         2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])
+         0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+         2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+         2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+         2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])
 
-.. rubric:: References
+.. rubric:: مراجع
 
 * "Solving multiclass learning problems via error-correcting output codes",
   Dietterich T., Bakiri G., Journal of Artificial Intelligence Research 2, 1995.
 
 .. [3] "The error coding method and PICTs", James G., Hastie T.,
-  Journal of Computational and Graphical statistics 7, 1998.
-
-* "The Elements of Statistical Learning",
-  Hastie T., Tibshirani R., Friedman J., page 606 (second-edition), 2008.
+  Journal of Computational and Graphical statistics 7, 1995.
 
 .. _multilabel_classification:
 
-Multilabel classification
+متعدد الفئات
 =========================
 
-**Multilabel classification** (closely related to **multioutput**
-**classification**) is a classification task labeling each sample with ``m``
-labels from ``n_classes`` possible classes, where ``m`` can be 0 to
-``n_classes`` inclusive. This can be thought of as predicting properties of a
-sample that are not mutually exclusive. Formally, a binary output is assigned
-to each class, for every sample. Positive classes are indicated with 1 and
-negative classes with 0 or -1. It is thus comparable to running ``n_classes``
-binary classification tasks, for example with
-:class:`~sklearn.multioutput.MultiOutputClassifier`. This approach treats
-each label independently whereas multilabel classifiers *may* treat the
-multiple classes simultaneously, accounting for correlated behavior among
-them.
+**متعدد الفئات** (مرتبط ارتباطًا وثيقًا بـ **متعدد الإخراج** **التصنيف**) هو مهمة تصنيف تقوم بتصنيف كل عينة باستخدام "m" من التصنيفات من "n_classes" من الفئات الممكنة، حيث يمكن أن يكون "m" من 0 إلى "n_classes" شاملاً. يمكن اعتبار ذلك بمثابة تشغيل "n_classes" من مهام التصنيف الثنائية، على سبيل المثال مع: class:`~sklearn.multioutput.MultiOutputClassifier`. يعالج هذا النهج كل تسمية بشكل مستقل في حين أن مصنفات متعددة التصنيف *قد* تعالج الفئات المتعددة في نفس الوقت، مع مراعاة السلوك المترابط بينها.
 
-For example, prediction of the topics relevant to a text document or video.
-The document or video may be about one of 'religion', 'politics', 'finance'
-or 'education', several of the topic classes or all of the topic classes.
+على سبيل المثال، التنبؤ بالموضوعات ذات الصلة بوثيقة نصية أو فيديو. قد تكون الوثيقة أو الفيديو حول أحد الموضوعات "الدين" أو "السياسة" أو "المالية" أو "التعليم"، أو العديد من فئات الموضوعات أو كلها.
 
-Target format
+تنسيق الهدف
 -------------
 
-A valid representation of :term:`multilabel` `y` is an either dense or sparse
-:term:`binary` matrix of shape ``(n_samples, n_classes)``. Each column
-represents a class. The ``1``'s in each row denote the positive classes a
-sample has been labeled with. An example of a dense matrix ``y`` for 3
-samples:
+تمثيل صالح لـ: term:`multilabel` `y` هو مصفوفة ثنائية كثيفة أو متفرقة ذات شكل ``(n_samples, n_classes)``. يمثل كل عمود فئة. تشير "1" في كل صف إلى الفئات الإيجابية التي تم تصنيف العينة بها. مثال على مصفوفة كثيفة "y" لـ 3 عينات:
 
   >>> y = np.array([[1, 0, 0, 1], [0, 0, 1, 1], [0, 0, 0, 0]])
   >>> print(y)
@@ -373,11 +277,9 @@ samples:
    [0 0 1 1]
    [0 0 0 0]]
 
-Dense binary matrices can also be created using
-:class:`~sklearn.preprocessing.MultiLabelBinarizer`. For more information,
-refer to :ref:`preprocessing_targets`.
+يمكن أيضًا إنشاء مصفوفات ثنائية كثيفة باستخدام: class:`~sklearn.preprocessing.MultiLabelBinarizer`. لمزيد من المعلومات، راجع: preprocessing_targets:.
 
-An example of the same ``y`` in sparse matrix form:
+مثال على نفس "y" في شكل مصفوفة متفرقة:
 
   >>> y_sparse = sparse.csr_matrix(y)
   >>> print(y_sparse)
@@ -394,80 +296,42 @@ An example of the same ``y`` in sparse matrix form:
 MultiOutputClassifier
 ---------------------
 
-Multilabel classification support can be added to any classifier with
-:class:`~sklearn.multioutput.MultiOutputClassifier`. This strategy consists of
-fitting one classifier per target.  This allows multiple target variable
-classifications. The purpose of this class is to extend estimators
-to be able to estimate a series of target functions (f1,f2,f3...,fn)
-that are trained on a single X predictor matrix to predict a series
-of responses (y1,y2,y3...,yn).
+يمكن إضافة دعم التصنيف متعدد الفئات إلى أي مصنف باستخدام: class:`~sklearn.multioutput.MultiOutputClassifier`. تتكون هذه الاستراتيجية من ملاءمة مصنف واحد لكل هدف. يسمح هذا بالتصنيفات متعددة المتغيرات الهدف. الغرض من هذه الفئة هو تمديد المقدرات لتكون قادرة على تقدير سلسلة من وظائف الهدف (f1، f2، f3...، fn) والتي يتم تدريبها على مصفوفة X واحدة للتنبؤ بسلسلة من الاستجابات (y1، y2، y3...، yn).
 
-You can find a usage example for
-:class:`~sklearn.multioutput.MultiOutputClassifier`
-as part of the section on :ref:`multiclass_multioutput_classification`
-since it is a generalization of multilabel classification to
-multiclass outputs instead of binary outputs.
+يمكنك العثور على مثال للاستخدام لـ: class:`~sklearn.multioutput.MultiOutputClassifier` كجزء من القسم حول: ref:`multiclass_multioutput_classification` نظرًا لأنه تعميم للتصنيف متعدد الفئات للإخراج الثنائي بدلاً من الإخراج الثنائي.
 
 .. _classifierchain:
 
 ClassifierChain
 ---------------
 
-Classifier chains (see :class:`~sklearn.multioutput.ClassifierChain`) are a way
-of combining a number of binary classifiers into a single multi-label model
-that is capable of exploiting correlations among targets.
+سلاسل المصنفات (انظر: class:`~sklearn.multioutput.ClassifierChain`) هي طريقة لدمج عدد من المصنفات الثنائية في نموذج متعدد الفئاتات قادر على استغلال الارتباطات بين الأهداف.
 
-For a multi-label classification problem with N classes, N binary
-classifiers are assigned an integer between 0 and N-1. These integers
-define the order of models in the chain. Each classifier is then fit on the
-available training data plus the true labels of the classes whose
-models were assigned a lower number.
+لمشكلة التصنيف متعدد الفئاتات مع N من الفئات، يتم تعيين N من المصنفات الثنائية رقمًا صحيحًا بين 0 وN-1. تحدد هذه الأرقام الصحيحة ترتيب النماذج في السلسلة. يتم بعد ذلك ملاءمة كل مصنف باستخدام بيانات التدريب المتاحة بالإضافة إلى التصنيفات الحقيقية للفئات التي تم تعيين نماذجها برقم أقل.
 
-When predicting, the true labels will not be available. Instead the
-predictions of each model are passed on to the subsequent models in the
-chain to be used as features.
+عند التنبؤ، لن تكون التصنيفات الحقيقية متاحة. بدلاً من ذلك، يتم تمرير تنبؤات كل نموذج إلى النماذج اللاحقة في السلسلة لاستخدامها كميزات.
 
-Clearly the order of the chain is important. The first model in the chain
-has no information about the other labels while the last model in the chain
-has features indicating the presence of all of the other labels. In general
-one does not know the optimal ordering of the models in the chain so
-typically many randomly ordered chains are fit and their predictions are
-averaged together.
+من الواضح أن ترتيب السلسلة مهم. لا يمتلك النموذج الأول في السلسلة أي معلومات حول التصنيفات الأخرى في حين أن النموذج الأخير في السلسلة لديه ميزات تشير إلى وجود جميع التصنيفات الأخرى. بشكل عام، لا يعرف المرء الترتيب الأمثل للنماذج في السلسلة لذا عادةً ما يتم ترتيب العديد من السلاسل بشكل عشوائي وتتم متوسطة تنبؤاتها معًا.
 
-.. rubric:: References
+.. rubric:: مراجع
 
 * Jesse Read, Bernhard Pfahringer, Geoff Holmes, Eibe Frank,
   "Classifier Chains for Multi-label Classification", 2009.
 
 .. _multiclass_multioutput_classification:
 
-Multiclass-multioutput classification
+متعدد الفئات متعدد الإخراج
 =====================================
 
-**Multiclass-multioutput classification**
-(also known as **multitask classification**) is a
-classification task which labels each sample with a set of **non-binary**
-properties. Both the number of properties and the number of
-classes per property is greater than 2. A single estimator thus
-handles several joint classification tasks. This is both a generalization of
-the multi\ *label* classification task, which only considers binary
-attributes, as well as a generalization of the multi\ *class* classification
-task, where only one property is considered.
+**متعدد الفئات متعدد الإخراج**
+(المعروف أيضًا باسم **متعدد المهام التصنيف**) هو
+مهمة تصنيف تقوم بتصنيف كل عينة بمجموعة من الخصائص **غير الثنائية**. كل من عدد الخصائص وعدد الفئات لكل خاصية أكبر من 2. وبالتالي، يعالج المقدر الواحد عدة مهام تصنيف مشتركة. هذا تعميم لمهمة التصنيف متعدد الفئاتات، والتي تعتبر فقط السمات الثنائية، وكذلك تعميم لمهمة التصنيف متعدد الفئاتات، حيث يتم النظر في خاصية واحدة فقط.
 
-For example, classification of the properties "type of fruit" and "colour"
-for a set of images of fruit. The property "type of fruit" has the possible
-classes: "apple", "pear" and "orange". The property "colour" has the
-possible classes: "green", "red", "yellow" and "orange". Each sample is an
-image of a fruit, a label is output for both properties and each label is
-one of the possible classes of the corresponding property.
+على سبيل المثال، تصنيف خصائص "نوع الفاكهة" و"اللون" لمجموعة من صور الفاكهة. تحتوي الخاصية "نوع الفاكهة" على الفئات الممكنة: "تفاحة"، و"كمثرى"، و"برتقال". تحتوي الخاصية "اللون" على الفئات الممكنة: "أخضر"، و"أحمر"، و"أصفر"، و"برتقالي". كل عينة هي صورة لفاكهة، ويتم إخراج التصنيف لكل من الخاصيتين ويكون كل تصنيف واحدًا من الفئات الممكنة للخاصية المقابلة.
 
-Note that all classifiers handling multiclass-multioutput (also known as
-multitask classification) tasks, support the multilabel classification task
-as a special case. Multitask classification is similar to the multioutput
-classification task with different model formulations. For more information,
-see the relevant estimator documentation.
+ملاحظة: جميع المصنفات التي تعالج مهام متعدد الفئات متعدد الإخراج (المعروفة أيضًا باسم مهام التصنيف متعدد المهام)، تدعم مهمة التصنيف متعدد الفئاتات كحالة خاصة. يتشابه التصنيف متعدد المهام مع مهمة التصنيف متعدد الإخراج مع صيغ نموذج مختلفة. لمزيد من المعلومات، راجع وثائق المقدر ذات الصلة.
 
-Below is an example of multiclass-multioutput classification:
+فيما يلي مثال على التصنيف متعدد الفئات متعدد الإخراج:
 
     >>> from sklearn.datasets import make_classification
     >>> from sklearn.multioutput import MultiOutputClassifier
@@ -498,15 +362,15 @@ Below is an example of multiclass-multioutput classification:
            [2, 0, 0]])
 
 .. warning::
-    At present, no metric in :mod:`sklearn.metrics`
-    supports the multiclass-multioutput classification task.
+    حاليًا، لا توجد مقاييس في: mod:`sklearn.metrics`
+    تدعم مهمة التصنيف متعدد الفئات متعدد الإخراج.
 
-Target format
+تنسيق الهدف
 -------------
 
-A valid representation of :term:`multioutput` `y` is a dense matrix of shape
-``(n_samples, n_classes)`` of class labels. A column wise concatenation of 1d
-:term:`multiclass` variables. An example of ``y`` for 3 samples:
+تمثيل صالح لـ: term:`multioutput` `y` هو مصفوفة كثيفة ذات شكل
+``(n_samples, n_classes)`` من تصنيفات الفئات. تجميع عمودي لـ 1d
+:term:`multiclass` المتغيرات. مثال على "y" لـ 3 عينات:
 
   >>> y = np.array([['apple', 'green'], ['orange', 'orange'], ['pear', 'green']])
   >>> print(y)
@@ -516,21 +380,14 @@ A valid representation of :term:`multioutput` `y` is a dense matrix of shape
 
 .. _multioutput_regression:
 
-Multioutput regression
+متعدد الإخراج التراجع
 ======================
 
-**Multioutput regression** predicts multiple numerical properties for each
-sample. Each property is a numerical variable and the number of properties
-to be predicted for each sample is greater than or equal to 2. Some estimators
-that support multioutput regression are faster than just running ``n_output``
-estimators.
+**متعدد الإخراج التراجع** يتنبأ بالعديد من الخصائص الرقمية لكل عينة. كل خاصية هي متغير رقمي وعدد الخصائص المراد التنبؤ بها لكل عينة أكبر من أو يساوي 2. بعض المقدرات التي تدعم التراجع متعدد الإخراج أسرع من مجرد تشغيل ``n_output`` من المقدرات.
 
-For example, prediction of both wind speed and wind direction, in degrees,
-using data obtained at a certain location. Each sample would be data
-obtained at one location and both wind speed and direction would be
-output for each sample.
+على سبيل المثال، التنبؤ بكل من سرعة الرياح واتجاه الرياح، بالدرجات، باستخدام البيانات التي يتم الحصول عليها من موقع معين. كل عينة ستكون بيانات يتم الحصول عليها من موقع واحد وسيتم إخراج كل من سرعة الرياح والاتجاه لكل عينة.
 
-The following regressors natively support multioutput regression:
+المقدرات التالية تدعم التراجع متعدد الإخراج بشكل أصلي:
 
 - :class:`cross_decomposition.CCA`
 - :class:`tree.DecisionTreeRegressor`
@@ -561,12 +418,11 @@ The following regressors natively support multioutput regression:
 - :class:`linear_model.RidgeCV`
 - :class:`compose.TransformedTargetRegressor`
 
-Target format
+تنسيق الهدف
 -------------
 
-A valid representation of :term:`multioutput` `y` is a dense matrix of shape
-``(n_samples, n_output)`` of floats. A column wise concatenation of
-:term:`continuous` variables. An example of ``y`` for 3 samples:
+تمثيل صالح لـ: term:`multioutput` `y` هو مصفوفة كثيفة ذات شكل
+``(n_samples, n_output)`` من العوامات. تجميع عمودي لـ: term:`continuous` المتغيرات. مثال على "y" لـ 3 عينات:
 
   >>> y = np.array([[31.4, 94], [40.5, 109], [25.0, 30]])
   >>> print(y)
@@ -579,15 +435,9 @@ A valid representation of :term:`multioutput` `y` is a dense matrix of shape
 MultiOutputRegressor
 --------------------
 
-Multioutput regression support can be added to any regressor with
-:class:`~sklearn.multioutput.MultiOutputRegressor`.  This strategy consists of
-fitting one regressor per target. Since each target is represented by exactly
-one regressor it is possible to gain knowledge about the target by
-inspecting its corresponding regressor. As
-:class:`~sklearn.multioutput.MultiOutputRegressor` fits one regressor per
-target it can not take advantage of correlations between targets.
+يمكن إضافة دعم التراجع متعدد الإخراج إلى أي مقدر تراجع باستخدام: class:`~sklearn.multioutput.MultiOutputRegressor`. تتكون هذه الاستراتيجية من ملاءمة مقدر واحد لكل هدف. نظرًا لأن كل هدف يمثله مقدر واحد بالضبط، فمن الممكن اكتساب المعرفة حول الهدف من خلال فحص المقدر المقابل له. نظرًا لأن: class:`~sklearn.multioutput.MultiOutputRegressor` يقوم بملاءمة مقدر واحد لكل هدف، فلا يمكنه الاستفادة من الارتباطات بين الأهداف.
 
-Below is an example of multioutput regression:
+فيما يلي مثال على التراجع متعدد الإخراج:
 
   >>> from sklearn.datasets import make_regression
   >>> from sklearn.multioutput import MultiOutputRegressor
@@ -610,7 +460,4 @@ Below is an example of multioutput regression:
 RegressorChain
 --------------
 
-Regressor chains (see :class:`~sklearn.multioutput.RegressorChain`) is
-analogous to :class:`~sklearn.multioutput.ClassifierChain` as a way of
-combining a number of regressions into a single multi-target model that is
-capable of exploiting correlations among targets.
+سلاسل المقدرات (انظر: class:`~sklearn.multioutput.RegressorChain`) هي مشابهة لـ: class:`~sklearn.multioutput.ClassifierChain` كطريقة لدمج عدد من التراجعات في نموذج متعدد الأهداف قادر على استغلال الارتباطات بين الأهداف.

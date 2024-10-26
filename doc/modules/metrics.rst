@@ -1,46 +1,31 @@
+
 .. _metrics:
 
-Pairwise metrics, Affinities and Kernels
-========================================
+مقاييس المقارنة الزوجية، والصلات، والنوى (Kernels)
+=====================================================
 
-The :mod:`sklearn.metrics.pairwise` submodule implements utilities to evaluate
-pairwise distances or affinity of sets of samples.
+تُطبق الوحدة الفرعية :mod:`sklearn.metrics.pairwise` أدوات مساعدة لتقييم المسافات الزوجية أو صلة مجموعات العينات.
 
-This module contains both distance metrics and kernels. A brief summary is
-given on the two here.
+تحتوي هذه الوحدة على كل من مقاييس المسافة والنوى. يتم إعطاء ملخص موجز عن الاثنين هنا.
 
-Distance metrics are functions ``d(a, b)`` such that ``d(a, b) < d(a, c)``
-if objects ``a`` and ``b`` are considered "more similar" than objects ``a``
-and ``c``. Two objects exactly alike would have a distance of zero.
-One of the most popular examples is Euclidean distance.
-To be a 'true' metric, it must obey the following four conditions::
+مقاييس المسافة هي دوال ``d(a, b)`` بحيث ``d(a, b) < d(a, c)`` إذا اعتُبرت الكائنات ``a`` و ``b`` "أكثر تشابهًا" من الكائنات ``a`` و ``c``. سيكون للكائنين المتشابهين تمامًا مسافة صفر. أحد الأمثلة الأكثر شيوعًا هو المسافة الإقليدية. لكي تكون مقياسًا "حقيقيًا"، يجب أن تلتزم بالشروط الأربعة التالية::
 
-    1. d(a, b) >= 0, for all a and b
-    2. d(a, b) == 0, if and only if a = b, positive definiteness
-    3. d(a, b) == d(b, a), symmetry
-    4. d(a, c) <= d(a, b) + d(b, c), the triangle inequality
+    1. d(a, b) >= 0, لجميع a و b
+    2. d(a, b) == 0, إذا وفقط إذا a = b, تحديد موجب
+    3. d(a, b) == d(b, a), تناظر
+    4. d(a, c) <= d(a, b) + d(b, c), متباينة المثلث
 
-Kernels are measures of similarity, i.e. ``s(a, b) > s(a, c)``
-if objects ``a`` and ``b`` are considered "more similar" than objects
-``a`` and ``c``. A kernel must also be positive semi-definite.
+النوى هي مقاييس التشابه، أي ``s(a, b) > s(a, c)`` إذا اعتُبرت الكائنات ``a`` و ``b`` "أكثر تشابهًا" من الكائنات ``a`` و ``c``. يجب أن تكون النواة أيضًا شبه محددة موجبة.
 
-There are a number of ways to convert between a distance metric and a
-similarity measure, such as a kernel. Let ``D`` be the distance, and ``S`` be
-the kernel:
+هناك عدد من الطرق للتحويل بين مقياس المسافة ومقياس التشابه، مثل النواة. دع ``D`` تكون المسافة، و ``S`` تكون النواة:
 
-1. ``S = np.exp(-D * gamma)``, where one heuristic for choosing
-    ``gamma`` is ``1 / num_features``
+1. ``S = np.exp(-D * gamma)``, حيث إحدى الطرق التجريبية لاختيار ``gamma`` هي ``1 / num_features``
 2. ``S = 1. / (D / np.max(D))``
 
 
 .. currentmodule:: sklearn.metrics
 
-The distances between the row vectors of ``X`` and the row vectors of ``Y``
-can be evaluated using :func:`pairwise_distances`. If ``Y`` is omitted the
-pairwise distances of the row vectors of ``X`` are calculated. Similarly,
-:func:`pairwise.pairwise_kernels` can be used to calculate the kernel between `X`
-and `Y` using different kernel functions. See the API reference for more
-details.
+يمكن تقييم المسافات بين متجهات الصفوف لـ ``X`` ومتجهات الصفوف لـ ``Y`` باستخدام :func:`pairwise_distances`. إذا تم حذف ``Y``، يتم حساب المسافات الزوجية لمتجهات صفوف ``X``. وبالمثل، يمكن استخدام :func:`pairwise.pairwise_kernels` لحساب النواة بين ``X`` و ``Y`` باستخدام دوال نواة مختلفة. راجع مرجع API لمزيد من التفاصيل.
 
     >>> import numpy as np
     >>> from sklearn.metrics import pairwise_distances
@@ -65,29 +50,19 @@ details.
 
 .. _cosine_similarity:
 
-Cosine similarity
+تشابه جيب التمام
 -----------------
-:func:`cosine_similarity` computes the L2-normalized dot product of vectors.
-That is, if :math:`x` and :math:`y` are row vectors,
-their cosine similarity :math:`k` is defined as:
+تحسب :func:`cosine_similarity` حاصل الضرب النقطي المعياري L2 للمتجهات. أي، إذا كان :math:`x` و :math:`y` متجهي صفوف، يتم تعريف تشابه جيب التمام :math:`k` على النحو التالي:
 
 .. math::
 
     k(x, y) = \frac{x y^\top}{\|x\| \|y\|}
 
-This is called cosine similarity, because Euclidean (L2) normalization
-projects the vectors onto the unit sphere,
-and their dot product is then the cosine of the angle between the points
-denoted by the vectors.
+يسمى هذا تشابه جيب التمام، لأن التطبيع الإقليدي (L2) يُسقط المتجهات على كرة الوحدة، وحاصل الضرب النقطي هو جيب تمام الزاوية بين النقاط التي تشير إليها المتجهات.
 
-This kernel is a popular choice for computing the similarity of documents
-represented as tf-idf vectors.
-:func:`cosine_similarity` accepts ``scipy.sparse`` matrices.
-(Note that the tf-idf functionality in ``sklearn.feature_extraction.text``
-can produce normalized vectors, in which case :func:`cosine_similarity`
-is equivalent to :func:`linear_kernel`, only slower.)
+تُعد هذه النواة خيارًا شائعًا لحساب تشابه المستندات الممثلة كمتجهات tf-idf. تقبل :func:`cosine_similarity` مصفوفات ``scipy.sparse``. (لاحظ أن وظيفة tf-idf في ``sklearn.feature_extraction.text`` يمكن أن تنتج متجهات معيارية، وفي هذه الحالة تكون :func:`cosine_similarity` مكافئة لـ :func:`linear_kernel`، ولكنها أبطأ فقط.)
 
-.. rubric:: References
+.. rubric:: المراجع
 
 * C.D. Manning, P. Raghavan and H. Schütze (2008). Introduction to
   Information Retrieval. Cambridge University Press.
@@ -95,11 +70,9 @@ is equivalent to :func:`linear_kernel`, only slower.)
 
 .. _linear_kernel:
 
-Linear kernel
+النواة الخطية
 -------------
-The function :func:`linear_kernel` computes the linear kernel, that is, a
-special case of :func:`polynomial_kernel` with ``degree=1`` and ``coef0=0`` (homogeneous).
-If ``x`` and ``y`` are column vectors, their linear kernel is:
+تحسب الدالة :func:`linear_kernel` النواة الخطية، أي حالة خاصة من :func:`polynomial_kernel` مع ``degree=1`` و ``coef0=0`` (متجانسة). إذا كان ``x`` و ``y`` متجهين عموديين، فإن نواتهما الخطية هي:
 
 .. math::
 
@@ -107,86 +80,71 @@ If ``x`` and ``y`` are column vectors, their linear kernel is:
 
 .. _polynomial_kernel:
 
-Polynomial kernel
+النواة متعددة الحدود
 -----------------
-The function :func:`polynomial_kernel` computes the degree-d polynomial kernel
-between two vectors. The polynomial kernel represents the similarity between two
-vectors. Conceptually, the polynomial kernels considers not only the similarity
-between vectors under the same dimension, but also across dimensions. When used
-in machine learning algorithms, this allows to account for feature interaction.
+تحسب الدالة :func:`polynomial_kernel` النواة متعددة الحدود من الدرجة d بين متجهين. تُمثل النواة متعددة الحدود التشابه بين متجهين. من الناحية المفاهيمية، لا تأخذ النوى متعددة الحدود في الاعتبار التشابه بين المتجهات ضمن نفس البعد فحسب، بل أيضًا عبر الأبعاد. عند استخدامها في خوارزميات تعلم الآلة، يسمح هذا بحساب تفاعل الميزات.
 
-The polynomial kernel is defined as:
+يتم تعريف النواة متعددة الحدود على النحو التالي:
 
 .. math::
 
     k(x, y) = (\gamma x^\top y +c_0)^d
 
-where:
+حيث:
 
-* ``x``, ``y`` are the input vectors
-* ``d`` is the kernel degree
+* ``x``, ``y`` هي متجهات الإدخال
+* ``d`` هي درجة النواة
 
-If :math:`c_0 = 0` the kernel is said to be homogeneous.
+إذا كان :math:`c_0 = 0`، يُقال إن النواة متجانسة.
 
 .. _sigmoid_kernel:
 
-Sigmoid kernel
+النواة السينية (Sigmoid)
 --------------
-The function :func:`sigmoid_kernel` computes the sigmoid kernel between two
-vectors. The sigmoid kernel is also known as hyperbolic tangent, or Multilayer
-Perceptron (because, in the neural network field, it is often used as neuron
-activation function). It is defined as:
+تحسب الدالة :func:`sigmoid_kernel` النواة السينية بين متجهين. تُعرف النواة السينية أيضًا باسم الظل الزائدي، أو بيرسيبترون متعدد الطبقات (لأنه، في مجال الشبكة العصبية، غالبًا ما يتم استخدامه كدالة تنشيط الخلايا العصبية). يتم تعريفها على النحو التالي:
 
 .. math::
 
     k(x, y) = \tanh( \gamma x^\top y + c_0)
 
-where:
+حيث:
 
-* ``x``, ``y`` are the input vectors
-* :math:`\gamma` is known as slope
-* :math:`c_0` is known as intercept
+* ``x``, ``y`` هي متجهات الإدخال
+* :math:`\gamma` يُعرف بالميل
+* :math:`c_0` يُعرف بالتقاطع
 
 .. _rbf_kernel:
 
-RBF kernel
+نواة دالة أساس شعاعي (RBF)
 ----------
-The function :func:`rbf_kernel` computes the radial basis function (RBF) kernel
-between two vectors. This kernel is defined as:
+تحسب الدالة :func:`rbf_kernel` نواة دالة الأساس الشعاعي (RBF) بين متجهين. يتم تعريف هذه النواة على النحو التالي:
 
 .. math::
 
     k(x, y) = \exp( -\gamma \| x-y \|^2)
 
-where ``x`` and ``y`` are the input vectors. If :math:`\gamma = \sigma^{-2}`
-the kernel is known as the Gaussian kernel of variance :math:`\sigma^2`.
+حيث ``x`` و ``y`` هما متجهات الإدخال. إذا كان :math:`\gamma = \sigma^{-2}`، تُعرف النواة باسم النواة الغاوسية للتباين :math:`\sigma^2`.
 
 .. _laplacian_kernel:
 
-Laplacian kernel
+نواة لابلاس
 ----------------
-The function :func:`laplacian_kernel` is a variant on the radial basis
-function kernel defined as:
+الدالة :func:`laplacian_kernel` هي متغير على نواة دالة الأساس الشعاعي المُعرَّفة على النحو التالي:
 
 .. math::
 
     k(x, y) = \exp( -\gamma \| x-y \|_1)
 
-where ``x`` and ``y`` are the input vectors and :math:`\|x-y\|_1` is the
-Manhattan distance between the input vectors.
+حيث ``x`` و ``y`` هما متجهات الإدخال و :math:`\|x-y\|_1` هي مسافة مانهاتن بين متجهات الإدخال.
 
-It has proven useful in ML applied to noiseless data.
-See e.g. `Machine learning for quantum mechanics in a nutshell
+لقد أثبتت جدواها في تعلم الآلة المطبق على البيانات غير المزعجة. انظر على سبيل المثال `Machine learning for quantum mechanics in a nutshell
 <https://onlinelibrary.wiley.com/doi/10.1002/qua.24954/abstract/>`_.
 
 .. _chi2_kernel:
 
-Chi-squared kernel
+نواة مربع كاي
 ------------------
-The chi-squared kernel is a very popular choice for training non-linear SVMs in
-computer vision applications.
-It can be computed using :func:`chi2_kernel` and then passed to an
-:class:`~sklearn.svm.SVC` with ``kernel="precomputed"``::
+تُعد نواة مربع كاي خيارًا شائعًا جدًا لتدريب SVM غير الخطية في تطبيقات رؤية الكمبيوتر. يمكن حسابها باستخدام :func:`chi2_kernel` ثم تمريرها إلى :class:`~sklearn.svm.SVC` مع ``kernel="precomputed"``::
 
     >>> from sklearn.svm import SVC
     >>> from sklearn.metrics.pairwise import chi2_kernel
@@ -203,29 +161,28 @@ It can be computed using :func:`chi2_kernel` and then passed to an
     >>> svm.predict(K)
     array([0, 1, 0, 1])
 
-It can also be directly used as the ``kernel`` argument::
+يمكن أيضًا استخدامها مباشرة كوسيطة ``kernel``::
 
     >>> svm = SVC(kernel=chi2_kernel).fit(X, y)
     >>> svm.predict(X)
     array([0, 1, 0, 1])
 
 
-The chi squared kernel is given by
+يتم إعطاء نواة مربع كاي بواسطة
 
 .. math::
 
         k(x, y) = \exp \left (-\gamma \sum_i \frac{(x[i] - y[i]) ^ 2}{x[i] + y[i]} \right )
 
-The data is assumed to be non-negative, and is often normalized to have an L1-norm of one.
-The normalization is rationalized with the connection to the chi squared distance,
-which is a distance between discrete probability distributions.
+يفترض أن تكون البيانات غير سالبة، وغالبًا ما يتم تطبيعها للحصول على معيار L1 يساوي واحدًا. يتم ترشيد التطبيع مع الاتصال بمسافة مربع كاي، وهي مسافة بين توزيعات احتمالية منفصلة.
 
-The chi squared kernel is most commonly used on histograms (bags) of visual words.
+غالبًا ما يتم استخدام نواة مربع كاي في الرسوم البيانية (أكياس) الكلمات المرئية.
 
-.. rubric:: References
+.. rubric:: المراجع
 
 * Zhang, J. and Marszalek, M. and Lazebnik, S. and Schmid, C.
   Local features and kernels for classification of texture and object
   categories: A comprehensive study
   International Journal of Computer Vision 2007
   https://hal.archives-ouvertes.fr/hal-00171412/document
+

@@ -1,222 +1,130 @@
+
 .. _mixture:
 
 .. _gmm:
 
 =======================
-Gaussian mixture models
+نماذج خليط غاوسي
 =======================
 
 .. currentmodule:: sklearn.mixture
 
-``sklearn.mixture`` is a package which enables one to learn
-Gaussian Mixture Models (diagonal, spherical, tied and full covariance
-matrices supported), sample them, and estimate them from
-data. Facilities to help determine the appropriate number of
-components are also provided.
+``sklearn.mixture`` هي حزمة تُمكّن المرء من تعلم نماذج خليط غاوسي (يتم دعم مصفوفات التغاير القُطرية، الكروية، المُقيّدة، والتامة)، وأخذ عينات منها، وتقديرها من البيانات. يتم أيضًا توفير التسهيلات للمساعدة في تحديد العدد المناسب من المكونات.
 
 .. figure:: ../auto_examples/mixture/images/sphx_glr_plot_gmm_pdf_001.png
   :target: ../auto_examples/mixture/plot_gmm_pdf.html
   :align: center
   :scale: 50%
 
-  **Two-component Gaussian mixture model:** *data points, and equi-probability
-  surfaces of the model.*
+  **نموذج خليط غاوسي ثنائي المكونات:** *نقاط البيانات، وأسطح احتمالية متساوية للنموذج.*
 
-A Gaussian mixture model is a probabilistic model that assumes all the
-data points are generated from a mixture of a finite number of
-Gaussian distributions with unknown parameters. One can think of
-mixture models as generalizing k-means clustering to incorporate
-information about the covariance structure of the data as well as the
-centers of the latent Gaussians.
+نموذج خليط غاوسي هو نموذج احتمالي يفترض أن جميع نقاط البيانات يتم إنشاؤها من خليط من عدد محدود من توزيعات غاوسي ذات معلمات غير معروفة. يمكن للمرء أن يفكر في نماذج الخليط على أنها تعميم لتجميع k-means لدمج معلومات حول بنية التغاير للبيانات بالإضافة إلى مراكز توزيعات غاوسي الكامنة.
 
-Scikit-learn implements different classes to estimate Gaussian
-mixture models, that correspond to different estimation strategies,
-detailed below.
+تُطبق Scikit-learn فئات مختلفة لتقدير نماذج خليط غاوسي، والتي تتوافق مع استراتيجيات تقدير مختلفة، مفصلة أدناه.
 
-Gaussian Mixture
+خليط غاوسي
 ================
 
-The :class:`GaussianMixture` object implements the
-:ref:`expectation-maximization <expectation_maximization>` (EM)
-algorithm for fitting mixture-of-Gaussian models. It can also draw
-confidence ellipsoids for multivariate models, and compute the
-Bayesian Information Criterion to assess the number of clusters in the
-data. A :meth:`GaussianMixture.fit` method is provided that learns a Gaussian
-Mixture Model from train data. Given test data, it can assign to each
-sample the Gaussian it most probably belongs to using
-the :meth:`GaussianMixture.predict` method.
+يُطبق الكائن :class:`GaussianMixture` خوارزمية :ref:`التوقع-التعظيم <expectation_maximization>` (EM) لملاءمة نماذج خليط غاوسي. يمكنه أيضًا رسم أشكال بيضاوية ثقة للنماذج متعددة المتغيرات، وحساب معيار معلومات بايز لتقييم عدد المجموعات في البيانات. يتم توفير طريقة :meth:`GaussianMixture.fit` التي تتعلم نموذج خليط غاوسي من بيانات التدريب. بالنظر إلى بيانات الاختبار، يمكنها تعيين توزيع غاوسي الذي من المرجح أن تنتمي إليه كل عينة باستخدام الطريقة :meth:`GaussianMixture.predict`.
 
 ..
-    Alternatively, the probability of each
-    sample belonging to the various Gaussians may be retrieved using the
-    :meth:`GaussianMixture.predict_proba` method.
+    بدلاً من ذلك، يمكن استرداد احتمال انتماء كل عينة إلى توزيعات غاوسي المختلفة باستخدام الطريقة :meth:`GaussianMixture.predict_proba`.
 
-The :class:`GaussianMixture` comes with different options to constrain the
-covariance of the difference classes estimated: spherical, diagonal, tied or
-full covariance.
+يأتي :class:`GaussianMixture` مع خيارات مختلفة لتقييد التغاير لفرق الفئات المُقدّرة: التغاير الكروي، أو القطري، أو المُقيّد، أو التام.
+
 
 .. figure:: ../auto_examples/mixture/images/sphx_glr_plot_gmm_covariances_001.png
    :target: ../auto_examples/mixture/plot_gmm_covariances.html
    :align: center
    :scale: 75%
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* See :ref:`sphx_glr_auto_examples_mixture_plot_gmm_covariances.py` for an example of
-  using the Gaussian mixture as clustering on the iris dataset.
+* انظر :ref:`sphx_glr_auto_examples_mixture_plot_gmm_covariances.py` للحصول على مثال على استخدام خليط غاوسي كتجميع على مجموعة بيانات زهرة القزحية.
 
-* See :ref:`sphx_glr_auto_examples_mixture_plot_gmm_pdf.py` for an example on plotting the
-  density estimation.
+* انظر :ref:`sphx_glr_auto_examples_mixture_plot_gmm_pdf.py` للحصول على مثال حول رسم تقدير الكثافة.
 
-.. dropdown:: Pros and cons of class GaussianMixture
+.. dropdown:: إيجابيات وسلبيات الفئة GaussianMixture
 
-  .. rubric:: Pros
+  .. rubric:: الإيجابيات
 
-  :Speed: It is the fastest algorithm for learning mixture models
+  :السرعة: إنها أسرع خوارزمية لتعلم نماذج الخليط
 
-  :Agnostic: As this algorithm maximizes only the likelihood, it
-    will not bias the means towards zero, or bias the cluster sizes to
-    have specific structures that might or might not apply.
+  :لا مُعَرِّف: نظرًا لأن هذه الخوارزمية تُعظّم الاحتمالية فقط، فإنها لن تُحيز الوسائل نحو الصفر، أو تُحيز أحجام الكتلة لتكوين بنى مُحدّدة قد تنطبق أو لا تنطبق.
 
-  .. rubric:: Cons
+  .. rubric:: السلبيات
 
-  :Singularities: When one has insufficiently many points per
-    mixture, estimating the covariance matrices becomes difficult,
-    and the algorithm is known to diverge and find solutions with
-    infinite likelihood unless one regularizes the covariances artificially.
+  :الفرادات: عندما يكون لدى المرء عدد غير كافٍ من النقاط لكل خليط، يصبح تقدير مصفوفات التغاير أمرًا صعبًا، ومن المعروف أن الخوارزمية تتباعد وتجد حلولًا ذات احتمالية غير محدودة ما لم ينظم المرء التغايرات بشكل مصطنع.
 
-  :Number of components: This algorithm will always use all the
-    components it has access to, needing held-out data
-    or information theoretical criteria to decide how many components to use
-    in the absence of external cues.
+  :عدد المكونات: ستستخدم هذه الخوارزمية دائمًا جميع المكونات التي يمكنها الوصول إليها، وتحتاج إلى بيانات مُستبعدة أو معايير معلومات نظرية لتحديد عدد المكونات التي يجب استخدامها في حالة عدم وجود إشارات خارجية.
 
-.. dropdown:: Selecting the number of components in a classical Gaussian Mixture model
 
-  The BIC criterion can be used to select the number of components in a Gaussian
-  Mixture in an efficient way. In theory, it recovers the true number of
-  components only in the asymptotic regime (i.e. if much data is available and
-  assuming that the data was actually generated i.i.d. from a mixture of Gaussian
-  distribution). Note that using a :ref:`Variational Bayesian Gaussian mixture <bgmm>`
-  avoids the specification of the number of components for a Gaussian mixture
-  model.
+.. dropdown:: تحديد عدد المكونات في نموذج خليط غاوسي الكلاسيكي
+
+  يمكن استخدام معيار BIC لتحديد عدد المكونات في خليط غاوسي بطريقة فعالة. من الناحية النظرية، فإنه يستعيد العدد الحقيقي للمكونات فقط في النظام المقارب (أي إذا كان هناك الكثير من البيانات المتاحة بافتراض أن البيانات تم إنشاؤها بالفعل بشكل مستقل ومتماثل من خليط من توزيع غاوسي). لاحظ أن استخدام :ref:`خليط غاوسي بايزي المتغير <bgmm>` يتجنب تحديد عدد المكونات لنموذج خليط غاوسي.
 
   .. figure:: ../auto_examples/mixture/images/sphx_glr_plot_gmm_selection_002.png
     :target: ../auto_examples/mixture/plot_gmm_selection.html
     :align: center
     :scale: 50%
 
-  .. rubric:: Examples
+  .. rubric:: أمثلة
 
-  * See :ref:`sphx_glr_auto_examples_mixture_plot_gmm_selection.py` for an example
-    of model selection performed with classical Gaussian mixture.
+  * انظر :ref:`sphx_glr_auto_examples_mixture_plot_gmm_selection.py` للحصول على مثال على اختيار النموذج الذي تم إجراؤه باستخدام خليط غاوسي الكلاسيكي.
 
 .. _expectation_maximization:
 
-.. dropdown:: Estimation algorithm expectation-maximization
+.. dropdown:: خوارزمية التقدير: التوقع-التعظيم
 
-  The main difficulty in learning Gaussian mixture models from unlabeled
-  data is that one usually doesn't know which points came from
-  which latent component (if one has access to this information it gets
-  very easy to fit a separate Gaussian distribution to each set of
-  points). `Expectation-maximization
-  <https://en.wikipedia.org/wiki/Expectation%E2%80%93maximization_algorithm>`_
-  is a well-founded statistical
-  algorithm to get around this problem by an iterative process. First
-  one assumes random components (randomly centered on data points,
-  learned from k-means, or even just normally distributed around the
-  origin) and computes for each point a probability of being generated by
-  each component of the model. Then, one tweaks the
-  parameters to maximize the likelihood of the data given those
-  assignments. Repeating this process is guaranteed to always converge
-  to a local optimum.
+  الصعوبة الرئيسية في تعلم نماذج خليط غاوسي من البيانات غير المُعلمة هي أن المرء لا يعرف عادةً النقاط التي جاءت من أي مكون كامن (إذا كان لدى المرء إمكانية الوصول إلى هذه المعلومات، يصبح من السهل جدًا ملاءمة توزيع غاوسي منفصل لكل مجموعة من النقاط). `التوقع-التعظيم <https://en.wikipedia.org/wiki/Expectation%E2%80%93maximization_algorithm>`_ هي خوارزمية إحصائية راسخة للتغلب على هذه المشكلة من خلال عملية تكرارية. أولاً، يفترض المرء مكونات عشوائية (مركزة عشوائيًا على نقاط البيانات، متعلمة من k-means، أو حتى موزعة بشكل طبيعي حول الأصل) ويحسب لكل نقطة احتمال توليدها بواسطة كل مكون من مكونات النموذج. بعد ذلك، يقوم المرء بضبط المعلمات لتعظيم احتمالية البيانات بالنظر إلى هذه التعيينات. من المضمون أن تؤدي تكرار هذه العملية دائمًا إلى الوصول إلى حد أقصى محلي.
 
-.. dropdown:: Choice of the Initialization method
 
-  There is a choice of four initialization methods (as well as inputting user defined
-  initial means) to generate the initial centers for the model components:
+.. dropdown:: اختيار طريقة التهيئة
 
-  k-means (default)
-    This applies a traditional k-means clustering algorithm.
-    This can be computationally expensive compared to other initialization methods.
+  هناك خيار من أربع طرق تهيئة (بالإضافة إلى إدخال وسائل أولية مُحدّدة من قبل المستخدم) لإنشاء المراكز الأولية لمكونات النموذج:
+
+  k-means (افتراضي)
+    يطبق هذا خوارزمية تجميع k-means التقليدية. يمكن أن يكون هذا مكلفًا من الناحية الحسابية مقارنة بطرق التهيئة الأخرى.
+
 
   k-means++
-    This uses the initialization method of k-means clustering: k-means++.
-    This will pick the first center at random from the data. Subsequent centers will be
-    chosen from a weighted distribution of the data favouring points further away from
-    existing centers. k-means++ is the default initialization for k-means so will be
-    quicker than running a full k-means but can still take a significant amount of
-    time for large data sets with many components.
+    يستخدم هذا طريقة التهيئة لتجميع k-means: k-means++. سيختار هذا المركز الأول عشوائيًا من البيانات. سيتم اختيار المراكز اللاحقة من توزيع مرجح للبيانات يُفضّل النقاط الأبعد عن المراكز الحالية. k-means++ هو التهيئة الافتراضية لـ k-means، لذا سيكون أسرع من تشغيل k-means كامل، ولكنه قد يستغرق قدرًا كبيرًا من الوقت لمجموعات البيانات الكبيرة ذات المكونات الكثيرة.
 
   random_from_data
-    This will pick random data points from the input data as the initial
-    centers. This is a very fast method of initialization but can produce non-convergent
-    results if the chosen points are too close to each other.
+    سيختار هذا نقاط بيانات عشوائية من بيانات الإدخال كمراكز أولية. هذه طريقة سريعة جدًا للتهيئة ولكنها قد تُنتج نتائج غير متقاربة إذا كانت النقاط المُختارة قريبة جدًا من بعضها البعض.
 
   random
-    Centers are chosen as a small perturbation away from the mean of all data.
-    This method is simple but can lead to the model taking longer to converge.
+    يتم اختيار المراكز كاضطراب صغير بعيدًا عن متوسط جميع البيانات. هذه الطريقة بسيطة ولكنها قد تؤدي إلى استغراق النموذج وقتًا أطول للتقارب.
+
 
   .. figure:: ../auto_examples/mixture/images/sphx_glr_plot_gmm_init_001.png
     :target: ../auto_examples/mixture/plot_gmm_init.html
     :align: center
     :scale: 50%
 
-  .. rubric:: Examples
+  .. rubric:: أمثلة
 
-  * See :ref:`sphx_glr_auto_examples_mixture_plot_gmm_init.py` for an example of
-    using different initializations in Gaussian Mixture.
+  * انظر :ref:`sphx_glr_auto_examples_mixture_plot_gmm_init.py` للحصول على مثال على استخدام تهيئات مختلفة في خليط غاوسي.
 
 .. _bgmm:
 
-Variational Bayesian Gaussian Mixture
+خليط غاوسي بايزي المتغير
 =====================================
 
-The :class:`BayesianGaussianMixture` object implements a variant of the
-Gaussian mixture model with variational inference algorithms. The API is
-similar to the one defined by :class:`GaussianMixture`.
+يُطبق الكائن :class:`BayesianGaussianMixture` متغيرًا من نموذج خليط غاوسي مع خوارزميات الاستدلال المتغيرة. واجهة برمجة التطبيقات تشبه تلك المُحدّدة بواسطة :class:`GaussianMixture`.
 
 .. _variational_inference:
 
-**Estimation algorithm: variational inference**
+**خوارزمية التقدير: الاستدلال المتغير**
 
-Variational inference is an extension of expectation-maximization that
-maximizes a lower bound on model evidence (including
-priors) instead of data likelihood. The principle behind
-variational methods is the same as expectation-maximization (that is
-both are iterative algorithms that alternate between finding the
-probabilities for each point to be generated by each mixture and
-fitting the mixture to these assigned points), but variational
-methods add regularization by integrating information from prior
-distributions. This avoids the singularities often found in
-expectation-maximization solutions but introduces some subtle biases
-to the model. Inference is often notably slower, but not usually as
-much so as to render usage unpractical.
+الاستدلال المتغير هو امتداد للتوقع-التعظيم الذي يُعظّم الحد الأدنى على دليل النموذج (بما في ذلك التوزيعات المسبقة) بدلاً من احتمالية البيانات. المبدأ وراء الطرق المتغيرة هو نفس التوقع-التعظيم (أي أن كلاهما خوارزميات تكرارية تتناوب بين إيجاد الاحتمالات لكل نقطة ليتم إنشاؤها بواسطة كل خليط وملاءمة الخليط لهذه النقاط المعينة)، لكن الطرق المتغيرة تضيف التنظيم عن طريق دمج المعلومات من التوزيعات المسبقة. هذا يتجنب الفرادات التي توجد غالبًا في حلول التوقع-التعظيم ولكنه يُدخل بعض التحيزات الدقيقة للنموذج. غالبًا ما يكون الاستدلال أبطأ بشكل ملحوظ، ولكن ليس عادةً بقدر ما يجعل الاستخدام غير عملي.
 
-Due to its Bayesian nature, the variational algorithm needs more hyperparameters
-than expectation-maximization, the most important of these being the
-concentration parameter ``weight_concentration_prior``. Specifying a low value
-for the concentration prior will make the model put most of the weight on a few
-components and set the remaining components' weights very close to zero. High
-values of the concentration prior will allow a larger number of components to
-be active in the mixture.
 
-The parameters implementation of the :class:`BayesianGaussianMixture` class
-proposes two types of prior for the weights distribution: a finite mixture model
-with Dirichlet distribution and an infinite mixture model with the Dirichlet
-Process. In practice Dirichlet Process inference algorithm is approximated and
-uses a truncated distribution with a fixed maximum number of components (called
-the Stick-breaking representation). The number of components actually used
-almost always depends on the data.
+نظرًا لطبيعته البايزية، تحتاج الخوارزمية المتغيرة إلى معلمات فائقة أكثر من التوقع-التعظيم، وأهمها معلمة التركيز ``weight_concentration_prior``. سيؤدي تحديد قيمة منخفضة للتركيز المسبق إلى جعل النموذج يضع معظم الوزن على عدد قليل من المكونات ويُعيّن أوزان المكونات المتبقية قريبة جدًا من الصفر. ستسمح القيم العالية للتركيز المسبق لعدد أكبر من المكونات أن تكون نشطة في الخليط.
 
-The next figure compares the results obtained for the different type of the
-weight concentration prior (parameter ``weight_concentration_prior_type``)
-for different values of ``weight_concentration_prior``.
-Here, we can see the value of the ``weight_concentration_prior`` parameter
-has a strong impact on the effective number of active components obtained. We
-can also notice that large values for the concentration weight prior lead to
-more uniform weights when the type of prior is 'dirichlet_distribution' while
-this is not necessarily the case for the 'dirichlet_process' type (used by
-default).
+يقترح تنفيذ المعلمات للفئة :class:`BayesianGaussianMixture` نوعين من التوزيع المسبق لتوزيع الأوزان: نموذج خليط محدود مع توزيع ديريتشليت ونموذج خليط لانهائي مع عملية ديريتشليت. في الممارسة العملية، يتم تقريب خوارزمية استدلال عملية ديريتشليت وتستخدم توزيعًا مبتورًا مع عدد أقصى ثابت من المكونات (يسمى تمثيل كسر العصا). يعتمد عدد المكونات المستخدمة فعليًا دائمًا تقريبًا على البيانات.
+
+تقارن الصورة التالية النتائج التي تم الحصول عليها للنوع المختلف من التركيز المسبق للوزن (المعلمة ``weight_concentration_prior_type``) لقيم مختلفة من ``weight_concentration_prior``. هنا، يمكننا أن نرى أن قيمة المعلمة ``weight_concentration_prior`` لها تأثير قوي على العدد الفعال للمكونات النشطة التي تم الحصول عليها. يمكننا أيضًا ملاحظة أن القيم الكبيرة للتركيز المسبق للوزن تؤدي إلى أوزان أكثر اتساقًا عندما يكون نوع التوزيع المسبق هو "dirichlet_distribution" بينما لا يكون هذا هو الحال بالضرورة بالنسبة للنوع "dirichlet_process" (المستخدم افتراضيًا).
 
 .. |plot_bgmm| image:: ../auto_examples/mixture/images/sphx_glr_plot_concentration_prior_001.png
    :target: ../auto_examples/mixture/plot_concentration_prior.html
@@ -228,17 +136,7 @@ default).
 
 .. centered:: |plot_bgmm| |plot_dpgmm|
 
-The examples below compare Gaussian mixture models with a fixed number of
-components, to the variational Gaussian mixture models with a Dirichlet process
-prior. Here, a classical Gaussian mixture is fitted with 5 components on a
-dataset composed of 2 clusters. We can see that the variational Gaussian mixture
-with a Dirichlet process prior is able to limit itself to only 2 components
-whereas the Gaussian mixture fits the data with a fixed number of components
-that has to be set a priori by the user. In this case the user has selected
-``n_components=5`` which does not match the true generative distribution of this
-toy dataset. Note that with very little observations, the variational Gaussian
-mixture models with a Dirichlet process prior can take a conservative stand, and
-fit only one component.
+تُقارن الأمثلة أدناه نماذج خليط غاوسي مع عدد ثابت من المكونات، بنماذج خليط غاوسي المتغيرة مع توزيع مسبق لعملية ديريتشليت. هنا، يتم ملاءمة خليط غاوسي كلاسيكي مع 5 مكونات على مجموعة بيانات تتكون من مجموعتين. يمكننا أن نرى أن خليط غاوسي المتغير مع توزيع مسبق لعملية ديريتشليت قادر على قصر نفسه على مكونين فقط بينما يُناسب خليط غاوسي البيانات مع عدد ثابت من المكونات التي يجب ضبطها مسبقًا بواسطة المستخدم. في هذه الحالة، اختار المستخدم ``n_components=5`` وهو ما لا يتطابق مع التوزيع التوليدي الحقيقي لمجموعة بيانات الألعاب هذه. لاحظ أنه مع عدد قليل جدًا من الملاحظات، يمكن أن تتخذ نماذج خليط غاوسي المتغيرة ذات التوزيع المسبق لعملية ديريتشليت موقفًا مُحافظًا، وتناسب مكونًا واحدًا فقط.
 
 .. figure:: ../auto_examples/mixture/images/sphx_glr_plot_gmm_001.png
    :target: ../auto_examples/mixture/plot_gmm.html
@@ -246,11 +144,8 @@ fit only one component.
    :scale: 70%
 
 
-On the following figure we are fitting a dataset not well-depicted by a
-Gaussian mixture. Adjusting the ``weight_concentration_prior``, parameter of the
-:class:`BayesianGaussianMixture` controls the number of components used to fit
-this data. We also present on the last two plots a random sampling generated
-from the two resulting mixtures.
+في الشكل التالي، نُناسب مجموعة بيانات لا يتم تصويرها جيدًا بواسطة خليط غاوسي. ضبط المعلمة ``weight_concentration_prior`` لـ :class:`BayesianGaussianMixture` يتحكم في عدد المكونات المستخدمة لملاءمة هذه البيانات. نُقدّم أيضًا في الرسمين الأخيرين عينة عشوائية تم إنشاؤها من الخليطين الناتجين.
+
 
 .. figure:: ../auto_examples/mixture/images/sphx_glr_plot_gmm_sin_001.png
    :target: ../auto_examples/mixture/plot_gmm_sin.html
@@ -259,92 +154,41 @@ from the two resulting mixtures.
 
 
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* See :ref:`sphx_glr_auto_examples_mixture_plot_gmm.py` for an example on
-  plotting the confidence ellipsoids for both :class:`GaussianMixture`
-  and :class:`BayesianGaussianMixture`.
+* انظر :ref:`sphx_glr_auto_examples_mixture_plot_gmm.py` للحصول على مثال لرسم أشكال بيضاوية الثقة لكل من :class:`GaussianMixture` و :class:`BayesianGaussianMixture`.
 
-* :ref:`sphx_glr_auto_examples_mixture_plot_gmm_sin.py` shows using
-  :class:`GaussianMixture` and :class:`BayesianGaussianMixture` to fit a
-  sine wave.
+* يُظهر :ref:`sphx_glr_auto_examples_mixture_plot_gmm_sin.py` استخدام :class:`GaussianMixture` و :class:`BayesianGaussianMixture` لملاءمة موجة جيبية.
 
-* See :ref:`sphx_glr_auto_examples_mixture_plot_concentration_prior.py`
-  for an example plotting the confidence ellipsoids for the
-  :class:`BayesianGaussianMixture` with different
-  ``weight_concentration_prior_type`` for different values of the parameter
-  ``weight_concentration_prior``.
+* انظر :ref:`sphx_glr_auto_examples_mixture/plot_concentration_prior.py` للحصول على مثال لرسم أشكال بيضاوية الثقة لـ :class:`BayesianGaussianMixture` مع ``weight_concentration_prior_type`` مختلف لقيم مختلفة من المعلمة ``weight_concentration_prior``.
 
-.. dropdown:: Pros and cons of variational inference with BayesianGaussianMixture
+.. dropdown:: إيجابيات وسلبيات الاستدلال المتغير مع BayesianGaussianMixture
 
-  .. rubric:: Pros
+  .. rubric:: الإيجابيات
 
-  :Automatic selection: When ``weight_concentration_prior`` is small enough and
-    ``n_components`` is larger than what is found necessary by the model, the
-    Variational Bayesian mixture model has a natural tendency to set some mixture
-    weights values close to zero. This makes it possible to let the model choose
-    a suitable number of effective components automatically. Only an upper bound
-    of this number needs to be provided. Note however that the "ideal" number of
-    active components is very application specific and is typically ill-defined
-    in a data exploration setting.
+  :الاختيار التلقائي: عندما يكون ``weight_concentration_prior`` صغيرًا بما يكفي و ``n_components`` أكبر مما يراه النموذج ضروريًا، فإن نموذج خليط بايز المتغير لديه ميل طبيعي لتعيين بعض قيم أوزان الخليط قريبة من الصفر. وهذا يجعل من الممكن أن يختار النموذج عددًا مناسبًا من المكونات الفعالة تلقائيًا. يلزم فقط توفير حد أعلى لهذا الرقم. لاحظ مع ذلك أن العدد "المثالي" للمكونات النشطة مُحدّد جدًا للتطبيق وعادةً ما يكون غير مُحدّد جيدًا في إعداد استكشاف البيانات.
 
-  :Less sensitivity to the number of parameters: Unlike finite models, which will
-    almost always use all components as much as they can, and hence will produce
-    wildly different solutions for different numbers of components, the
-    variational inference with a Dirichlet process prior
-    (``weight_concentration_prior_type='dirichlet_process'``) won't change much
-    with changes to the parameters, leading to more stability and less tuning.
+  :حساسية أقل لعدد المعلمات: على عكس النماذج المحدودة، والتي ستستخدم دائمًا جميع المكونات بقدر ما تستطيع، وبالتالي ستنتج حلولًا مختلفة تمامًا لأعداد مختلفة من المكونات، فإن الاستدلال المتغير مع توزيع مسبق لعملية ديريتشليت (``weight_concentration_prior_type='dirichlet_process'``) لن يتغير كثيرًا مع تغييرات المعلمات، مما يؤدي إلى مزيد من الاستقرار وضبط أقل.
 
-  :Regularization: Due to the incorporation of prior information,
-    variational solutions have less pathological special cases than
-    expectation-maximization solutions.
 
-  .. rubric:: Cons
+  :التنظيم: نظرًا لدمج المعلومات المسبقة، فإن الحلول المتغيرة لديها حالات خاصة أقل مرضية من حلول التوقع-التعظيم.
 
-  :Speed: The extra parametrization necessary for variational inference makes
-    inference slower, although not by much.
 
-  :Hyperparameters: This algorithm needs an extra hyperparameter
-    that might need experimental tuning via cross-validation.
+  .. rubric:: السلبيات
 
-  :Bias: There are many implicit biases in the inference algorithms (and also in
-    the Dirichlet process if used), and whenever there is a mismatch between
-    these biases and the data it might be possible to fit better models using a
-    finite mixture.
+  :السرعة: المعلمات الإضافية اللازمة للاستدلال المتغير تجعل الاستدلال أبطأ، وإن لم يكن كثيرًا.
+
+  :المعلمات الفائقة: تحتاج هذه الخوارزمية إلى معلمة فائقة إضافية قد تتطلب ضبطًا تجريبيًا عبر التحقق المتبادل.
+
+  :الانحياز: هناك العديد من التحيزات الضمنية في خوارزميات الاستدلال (وأيضًا في عملية ديريتشليت إذا تم استخدامها)، وكلما كان هناك عدم تطابق بين هذه التحيزات والبيانات، فقد يكون من الممكن ملاءمة نماذج أفضل باستخدام خليط محدود.
 
 .. _dirichlet_process:
 
-The Dirichlet Process
----------------------
+عملية ديريتشليت - The Dirichlet Process
+-------------------------------------------
 
-Here we describe variational inference algorithms on Dirichlet process
-mixture. The Dirichlet process is a prior probability distribution on
-*clusterings with an infinite, unbounded, number of partitions*.
-Variational techniques let us incorporate this prior structure on
-Gaussian mixture models at almost no penalty in inference time, comparing
-with a finite Gaussian mixture model.
+نصف هنا خوارزميات الاستدلال المتغيرة في خليط عملية ديريتشليت. عملية ديريتشليت هي توزيع احتمالي مسبق على *التجميعات ذات عدد غير محدود من الأقسام*. تسمح لنا التقنيات المتغيرة بدمج هذه البنية المسبقة على نماذج خليط غاوسي مع عدم وجود عقوبة تقريبًا في وقت الاستدلال، مقارنةً بنموذج خليط غاوسي محدود.
 
-An important question is how can the Dirichlet process use an infinite,
-unbounded number of clusters and still be consistent. While a full explanation
-doesn't fit this manual, one can think of its `stick breaking process
-<https://en.wikipedia.org/wiki/Dirichlet_process#The_stick-breaking_process>`_
-analogy to help understanding it. The stick breaking process is a generative
-story for the Dirichlet process. We start with a unit-length stick and in each
-step we break off a portion of the remaining stick. Each time, we associate the
-length of the piece of the stick to the proportion of points that falls into a
-group of the mixture. At the end, to represent the infinite mixture, we
-associate the last remaining piece of the stick to the proportion of points
-that don't fall into all the other groups. The length of each piece is a random
-variable with probability proportional to the concentration parameter. Smaller
-values of the concentration will divide the unit-length into larger pieces of
-the stick (defining more concentrated distribution). Larger concentration
-values will create smaller pieces of the stick (increasing the number of
-components with non zero weights).
+السؤال المهم هو كيف يمكن لعملية ديريتشليت استخدام عدد غير محدود من المجموعات ولا تزال متسقة. بينما لا يتناسب التفسير الكامل مع هذا الدليل، يمكن للمرء أن يفكر في تشبيه `عملية كسر العصا <https://en.wikipedia.org/wiki/Dirichlet_process#The_stick-breaking_process>`_ للمساعدة في فهمها. عملية كسر العصا هي قصة توليدية لعملية ديريتشليت. نبدأ بعصا بطول الوحدة وفي كل خطوة نكسر جزءًا من العصا المتبقية. في كل مرة، نربط طول قطعة العصا بنسبة النقاط التي تقع في مجموعة من الخليط. في النهاية، لتمثيل الخليط اللانهائي، نربط قطعة العصا المتبقية الأخيرة بنسبة النقاط التي لا تقع في جميع المجموعات الأخرى. طول كل قطعة هو متغير عشوائي مع احتمال يتناسب مع معلمة التركيز. ستقسم القيم الأصغر للتركيز طول الوحدة إلى قطع أكبر من العصا (تحديد توزيع أكثر تركيزًا). ستنشئ قيم التركيز الأكبر قطعًا أصغر من العصا (زيادة عدد المكونات ذات الأوزان غير الصفرية).
 
-Variational inference techniques for the Dirichlet process still work
-with a finite approximation to this infinite mixture model, but
-instead of having to specify a priori how many components one wants to
-use, one just specifies the concentration parameter and an upper bound
-on the number of mixture components (this upper bound, assuming it is
-higher than the "true" number of components, affects only algorithmic
-complexity, not the actual number of components used).
+لا تزال تقنيات الاستدلال المتغيرة لعملية ديريتشليت تعمل مع تقريب محدود لنموذج الخليط اللانهائي هذا، ولكن بدلاً من الاضطرار إلى تحديد عدد المكونات التي يريد المرء استخدامها مسبقًا، يُحدّد المرء فقط معلمة التركيز والحد الأعلى لعدد مكونات الخليط (هذا الحد الأعلى، بافتراض أنه أعلى من العدد "الحقيقي" للمكونات، يؤثر فقط على التعقيد الخوارزمي، وليس العدد الفعلي للمكونات المستخدمة).
