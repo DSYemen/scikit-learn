@@ -1,91 +1,91 @@
 .. _ensemble:
 
 ===========================================================================
-Ensembles: Gradient boosting, random forests, bagging, voting, stacking
+المجموعات: تعزيز التدرج، الغابات العشوائية، التجميع، التصويت، التكديس
 ===========================================================================
 
-.. currentmodule:: sklearn.ensemble
+.. currentmodule:: sklearn.ensembleش
 
-**Ensemble methods** combine the predictions of several
-base estimators built with a given learning algorithm in order to improve
-generalizability / robustness over a single estimator.
+**أساليب المجموعات** تجمع تنبؤات العديد من
+المُقدِّرات الأساسية المبنية بخوارزمية تعلم مُعطاة من أجل تحسين
+قابلية التعميم / المتانة على مُقدِّر واحد.
 
-Two very famous examples of ensemble methods are :ref:`gradient-boosted trees
-<gradient_boosting>` and :ref:`random forests <forest>`.
+مثالان مشهوران جدًا لأساليب المجموعات هما :ref:`أشجار مُعززة بالتدرج
+<gradient_boosting>` و :ref:`الغابات العشوائية <forest>`.
 
-More generally, ensemble models can be applied to any base learner beyond
-trees, in averaging methods such as :ref:`Bagging methods <bagging>`,
-:ref:`model stacking <stacking>`, or :ref:`Voting <voting_classifier>`, or in
-boosting, as :ref:`AdaBoost <adaboost>`.
+بشكل عام، يمكن تطبيق نماذج المجموعات على أي مُتعلم أساسي يتجاوز
+الأشجار، في أساليب المتوسط مثل :ref:`أساليب التجميع <bagging>`،
+:ref:`تكديس النماذج <stacking>`، أو :ref:`التصويت <voting_classifier>`، أو في
+التعزيز، مثل :ref:`AdaBoost <adaboost>`.
 
 .. _gradient_boosting:
 
-Gradient-boosted trees
+أشجار مُعززة بالتدرج
 ======================
 
-`Gradient Tree Boosting <https://en.wikipedia.org/wiki/Gradient_boosting>`_
-or Gradient Boosted Decision Trees (GBDT) is a generalization
-of boosting to arbitrary differentiable loss functions, see the seminal work of
-[Friedman2001]_. GBDT is an excellent model for both regression and
-classification, in particular for tabular data.
+`تعزيز شجرة التدرج <https://en.wikipedia.org/wiki/Gradient_boosting>`_
+أو أشجار القرار المُعززة بالتدرج (GBDT) هي تعميم
+للتعزيز لدوال الخسارة القابلة للاشتقاق التعسفية، انظر العمل الأساسي لـ
+[Friedman2001]_. GBDT هو نموذج ممتاز لكل من الانحدار و
+التصنيف، خاصةً لبيانات الجدول.
 
-.. topic:: :class:`GradientBoostingClassifier` vs :class:`HistGradientBoostingClassifier`
+.. topic:: :class:`GradientBoostingClassifier` مقابل :class:`HistGradientBoostingClassifier`
 
-  Scikit-learn provides two implementations of gradient-boosted trees:
-  :class:`HistGradientBoostingClassifier` vs
-  :class:`GradientBoostingClassifier` for classification, and the
-  corresponding classes for regression. The former can be **orders of
-  magnitude faster** than the latter when the number of samples is
-  larger than tens of thousands of samples.
+  يُوفر Scikit-learn تطبيقين لأشجار مُعززة بالتدرج:
+  :class:`HistGradientBoostingClassifier` مقابل
+  :class:`GradientBoostingClassifier` للتصنيف، والفئات
+  المُقابلة للانحدار. يمكن أن يكون الأول **أسرع بأعداد مُضاعفة**
+  من الأخير عندما يكون عدد العينات
+  أكبر من عشرات الآلاف من العينات.
 
-  Missing values and categorical data are natively supported by the
-  Hist... version, removing the need for additional preprocessing such as
-  imputation.
+  يتم دعم القيم المفقودة والبيانات الفئوية أصلاً بواسطة
+  إصدار Hist...، مما يُلغي الحاجة إلى مُعالجة مُسبقة إضافية مثل
+  التعويض.
 
-  :class:`GradientBoostingClassifier` and
-  :class:`GradientBoostingRegressor`, might be preferred for small sample
-  sizes since binning may lead to split points that are too approximate
-  in this setting.
+  قد يُفضل :class:`GradientBoostingClassifier` و
+  :class:`GradientBoostingRegressor` لأحجام العينات الصغيرة لأن
+  التجميع قد يؤدي إلى نقاط تقسيم تقريبية جدًا
+  في هذا الإعداد.
 
 .. _histogram_based_gradient_boosting:
 
-Histogram-Based Gradient Boosting
+تعزيز التدرج القائم على الرسم البياني
 ----------------------------------
 
-Scikit-learn 0.21 introduced two new implementations of
-gradient boosted trees, namely :class:`HistGradientBoostingClassifier`
-and :class:`HistGradientBoostingRegressor`, inspired by
-`LightGBM <https://github.com/Microsoft/LightGBM>`__ (See [LightGBM]_).
+قدّم Scikit-learn 0.21 تطبيقين جديدين لـ
+أشجار مُعززة بالتدرج، وهما :class:`HistGradientBoostingClassifier`
+و :class:`HistGradientBoostingRegressor`، مُستوحى من
+`LightGBM <https://github.com/Microsoft/LightGBM>`__ (انظر [LightGBM]_).
 
-These histogram-based estimators can be **orders of magnitude faster**
-than :class:`GradientBoostingClassifier` and
-:class:`GradientBoostingRegressor` when the number of samples is larger
-than tens of thousands of samples.
+يمكن أن يكون هذان المُقدِّران القائمان على الرسم البياني **أسرع بأعداد مُضاعفة**
+من :class:`GradientBoostingClassifier` و
+:class:`GradientBoostingRegressor` عندما يكون عدد العينات أكبر
+من عشرات الآلاف من العينات.
 
-They also have built-in support for missing values, which avoids the need
-for an imputer.
+لديهم أيضًا دعم مُدمج للقيم المفقودة، مما يُتجنب الحاجة
+إلى مُعوض.
 
-These fast estimators first bin the input samples ``X`` into
-integer-valued bins (typically 256 bins) which tremendously reduces the
-number of splitting points to consider, and allows the algorithm to
-leverage integer-based data structures (histograms) instead of relying on
-sorted continuous values when building the trees. The API of these
-estimators is slightly different, and some of the features from
-:class:`GradientBoostingClassifier` and :class:`GradientBoostingRegressor`
-are not yet supported, for instance some loss functions.
+يقوم هذان المُقدِّران السريعان أولاً بتجميع عينات الإدخال ``X`` في
+صناديق ذات قيم صحيحة (عادةً 256 صندوقًا) مما يُقلل بشكل كبير من
+عدد نقاط التقسيم التي يجب أخذها في الاعتبار، ويسمح للخوارزمية بـ
+الاستفادة من هياكل البيانات القائمة على الأعداد الصحيحة (الرسوم البيانية) بدلاً من الاعتماد على
+قيم مُستمرة مُرتبة عند بناء الأشجار. واجهة برمجة التطبيقات لهؤلاء
+المُقدِّرين مُختلفة قليلاً، وبعض ميزات
+:class:`GradientBoostingClassifier` و :class:`GradientBoostingRegressor`
+غير مدعومة حتى الآن، على سبيل المثال بعض دوال الخسارة.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_inspection_plot_partial_dependence.py`
 * :ref:`sphx_glr_auto_examples_ensemble_plot_forest_hist_grad_boosting_comparison.py`
 
-Usage
+الاستخدام
 ^^^^^
 
-Most of the parameters are unchanged from
-:class:`GradientBoostingClassifier` and :class:`GradientBoostingRegressor`.
-One exception is the ``max_iter`` parameter that replaces ``n_estimators``, and
-controls the number of iterations of the boosting process::
+معظم المعلمات لم تتغير من
+:class:`GradientBoostingClassifier` و :class:`GradientBoostingRegressor`.
+استثناء واحد هو المعلمة ``max_iter`` التي تحل محل ``n_estimators``، و
+تتحكم في عدد تكرارات عملية التعزيز::
 
   >>> from sklearn.ensemble import HistGradientBoostingClassifier
   >>> from sklearn.datasets import make_hastie_10_2
@@ -98,94 +98,95 @@ controls the number of iterations of the boosting process::
   >>> clf.score(X_test, y_test)
   0.8965
 
-Available losses for **regression** are:
+الخسائر المتاحة لـ **الانحدار** هي:
 
-- 'squared_error', which is the default loss;
-- 'absolute_error', which is less sensitive to outliers than the squared error;
-- 'gamma', which is well suited to model strictly positive outcomes;
-- 'poisson', which is well suited to model counts and frequencies;
-- 'quantile', which allows for estimating a conditional quantile that can later
-  be used to obtain prediction intervals.
+- 'squared_error'، وهي خسارة افتراضية؛
+- 'absolute_error'، وهي أقل حساسية للقيم المتطرفة من الخطأ التربيعي؛
+- 'gamma'، وهي مُناسبة جدًا لنمذجة النتائج الإيجابية تمامًا؛
+- 'poisson'، وهي مُناسبة جدًا لنمذجة الأعداد والترددات؛
+- 'quantile'، الذي يسمح بتقدير مُكمِّم شرطي يمكن استخدامه لاحقًا
+  للحصول على فترات تنبؤ.
 
-For **classification**, 'log_loss' is the only option. For binary classification
-it uses the binary log loss, also known as binomial deviance or binary
-cross-entropy. For `n_classes >= 3`, it uses the multi-class log loss function,
-with multinomial deviance and categorical cross-entropy as alternative names.
-The appropriate loss version is selected based on :term:`y` passed to
+بالنسبة لـ **التصنيف**، فإن 'log_loss' هو الخيار الوحيد. بالنسبة للتصنيف الثنائي،
+فإنه يستخدم خسارة السجل الثنائي، والمعروفة أيضًا باسم انحراف ذات الحدين أو
+الانتروبيا المتقاطعة الثنائية. بالنسبة لـ `n_classes >= 3`، فإنه يستخدم دالة خسارة السجل
+متعددة الفئات، مع الانحراف متعدد الحدود والانتروبيا المتقاطعة الفئوية
+كأسماء بديلة.
+يتم تحديد إصدار الخسارة المناسب بناءً على :term:`y` الذي تم تمريره إلى
 :term:`fit`.
 
-The size of the trees can be controlled through the ``max_leaf_nodes``,
-``max_depth``, and ``min_samples_leaf`` parameters.
+يمكن التحكم في حجم الأشجار من خلال معلمات ``max_leaf_nodes`` و
+``max_depth`` و ``min_samples_leaf``.
 
-The number of bins used to bin the data is controlled with the ``max_bins``
-parameter. Using less bins acts as a form of regularization. It is generally
-recommended to use as many bins as possible (255), which is the default.
+يتم التحكم في عدد الصناديق المُستخدمة لتجميع البيانات باستخدام معلمة ``max_bins``.
+يُعد استخدام صناديق أقل شكلًا من أشكال التنظيم. يُوصى عمومًا باستخدام أكبر عدد ممكن
+من الصناديق (255)، وهو الإعداد الافتراضي.
 
-The ``l2_regularization`` parameter acts as a regularizer for the loss function,
-and corresponds to :math:`\lambda` in the following expression (see equation (2)
-in [XGBoost]_):
+تعمل المعلمة ``l2_regularization`` كمنظم لدالة الخسارة، و
+تقابل :math:`\lambda` في التعبير التالي (انظر المعادلة (2)
+في [XGBoost]_):
 
 .. math::
 
     \mathcal{L}(\phi) =  \sum_i l(\hat{y}_i, y_i) + \frac12 \sum_k \lambda ||w_k||^2
 
-.. dropdown:: Details on l2 regularization
+.. dropdown:: تفاصيل حول تنظيم l2
 
-  It is important to notice that the loss term :math:`l(\hat{y}_i, y_i)` describes
-  only half of the actual loss function except for the pinball loss and absolute
-  error.
+  من المهم ملاحظة أن مُصطلح الخسارة :math:`l(\hat{y}_i, y_i)` يصف
+  فقط نصف دالة الخسارة الفعلية باستثناء خسارة الكرة والدبوس والخطأ
+  المُطلق.
 
-  The index :math:`k` refers to the k-th tree in the ensemble of trees. In the
-  case of regression and binary classification, gradient boosting models grow one
-  tree per iteration, then :math:`k` runs up to `max_iter`. In the case of
-  multiclass classification problems, the maximal value of the index :math:`k` is
+  يشير الفهرس :math:`k` إلى الشجرة k في مجموعة الأشجار. في حالة
+  الانحدار والتصنيف الثنائي، تُنمي نماذج تعزيز التدرج شجرة واحدة لكل
+  تكرار، ثم يمتد :math:`k` حتى `max_iter`. في حالة
+  مشاكل التصنيف متعددة الفئات، تكون القيمة القصوى للفهرس :math:`k` هي
   `n_classes` :math:`\times` `max_iter`.
 
-  If :math:`T_k` denotes the number of leaves in the k-th tree, then :math:`w_k`
-  is a vector of length :math:`T_k`, which contains the leaf values of the form `w
-  = -sum_gradient / (sum_hessian + l2_regularization)` (see equation (5) in
+  إذا كان :math:`T_k` يُشير إلى عدد الأوراق في الشجرة k، فإن :math:`w_k`
+  هو متجه بطول :math:`T_k`، والذي يحتوي على قيم الأوراق بالشكل `w
+  = -sum_gradient / (sum_hessian + l2_regularization)` (انظر المعادلة (5) في
   [XGBoost]_).
 
-  The leaf values :math:`w_k` are derived by dividing the sum of the gradients of
-  the loss function by the combined sum of hessians. Adding the regularization to
-  the denominator penalizes the leaves with small hessians (flat regions),
-  resulting in smaller updates. Those :math:`w_k` values contribute then to the
-  model's prediction for a given input that ends up in the corresponding leaf. The
-  final prediction is the sum of the base prediction and the contributions from
-  each tree. The result of that sum is then transformed by the inverse link
-  function depending on the choice of the loss function (see
+  يتم اشتقاق قيم الأوراق :math:`w_k` عن طريق قسمة مجموع تدرجات
+  دالة الخسارة على المجموع المُجتمع للهيسيات. إضافة التنظيم إلى
+  المقام يُعاقب الأوراق ذات الهيسيات الصغيرة (المناطق المسطحة)،
+  مما يؤدي إلى تحديثات أصغر. تُساهم قيم :math:`w_k` هذه بعد ذلك في
+  تنبؤ النموذج لإدخال مُعين ينتهي به المطاف في الورقة المُقابلة.
+  التنبؤ النهائي هو مجموع التنبؤ الأساسي ومساهمات من
+  كل شجرة. ثم يتم تحويل نتيجة هذا المجموع بواسطة دالة الربط
+  العكسي اعتمادًا على اختيار دالة الخسارة (انظر
   :ref:`gradient_boosting_formulation`).
 
-  Notice that the original paper [XGBoost]_ introduces a term :math:`\gamma\sum_k
-  T_k` that penalizes the number of leaves (making it a smooth version of
-  `max_leaf_nodes`) not presented here as it is not implemented in scikit-learn;
-  whereas :math:`\lambda` penalizes the magnitude of the individual tree
-  predictions before being rescaled by the learning rate, see
+  لاحظ أن الورقة الأصلية [XGBoost]_ تُقدم مُصطلحًا :math:`\gamma\sum_k
+  T_k` يعاقب عدد الأوراق (مما يجعلها نسخة سلسة من
+  `max_leaf_nodes`) غير مُقدمة هنا لأنه غير مُطبق في scikit-learn؛
+  بينما :math:`\lambda` يعاقب حجم تنبؤات الشجرة الفردية قبل
+  إعادة تغيير مقياسها بواسطة مُعدل التعلم، انظر
   :ref:`gradient_boosting_shrinkage`.
 
 
-Note that **early-stopping is enabled by default if the number of samples is
-larger than 10,000**. The early-stopping behaviour is controlled via the
-``early_stopping``, ``scoring``, ``validation_fraction``,
-``n_iter_no_change``, and ``tol`` parameters. It is possible to early-stop
-using an arbitrary :term:`scorer`, or just the training or validation loss.
-Note that for technical reasons, using a callable as a scorer is significantly slower
-than using the loss. By default, early-stopping is performed if there are at least
-10,000 samples in the training set, using the validation loss.
+لاحظ أنه **يتم تمكين الإيقاف المُبكر افتراضيًا إذا كان عدد العينات
+أكبر من 10000**. يتم التحكم في سلوك الإيقاف المُبكر عبر
+معلمات ``early_stopping`` و ``scoring`` و ``validation_fraction`` و
+``n_iter_no_change`` و ``tol``. من الممكن الإيقاف المُبكر
+باستخدام :term:`مُسجل` عشوائي، أو مجرد خسارة التدريب أو التحقق من الصحة.
+لاحظ أنه لأسباب فنية، فإن استخدام دالة قابلة للاستدعاء كمُسجل أبطأ بكثير
+من استخدام الخسارة. افتراضيًا، يتم إجراء الإيقاف المُبكر إذا كان هناك على الأقل
+10000 عينة في مجموعة التدريب، باستخدام خسارة التحقق من الصحة.
 
 .. _nan_support_hgbt:
 
-Missing values support
+دعم القيم المفقودة
 ^^^^^^^^^^^^^^^^^^^^^^
 
-:class:`HistGradientBoostingClassifier` and
-:class:`HistGradientBoostingRegressor` have built-in support for missing
-values (NaNs).
+:class:`HistGradientBoostingClassifier` و
+:class:`HistGradientBoostingRegressor` لديهما دعم مُدمج للقيم
+المفقودة (NaNs).
 
-During training, the tree grower learns at each split point whether samples
-with missing values should go to the left or right child, based on the
-potential gain. When predicting, samples with missing values are assigned to
-the left or right child consequently::
+أثناء التدريب، يتعلم مُنمي الشجرة عند كل نقطة تقسيم ما إذا كانت العينات
+ذات القيم المفقودة يجب أن تذهب إلى الطفل الأيسر أو الأيمن، بناءً على
+المكسب المُحتمل. عند التنبؤ، يتم تعيين العينات ذات القيم المفقودة إلى
+الطفل الأيسر أو الأيمن تبعًا لذلك::
 
   >>> from sklearn.ensemble import HistGradientBoostingClassifier
   >>> import numpy as np
@@ -197,8 +198,8 @@ the left or right child consequently::
   >>> gbdt.predict(X)
   array([0, 0, 1, 1])
 
-When the missingness pattern is predictive, the splits can be performed on
-whether the feature value is missing or not::
+عندما يكون نمط الفقد تنبؤيًا، يمكن إجراء التقسيمات على
+ما إذا كانت قيمة الميزة مفقودة أم لا::
 
   >>> X = np.array([0, np.nan, 1, 2, np.nan]).reshape(-1, 1)
   >>> y = [0, 1, 0, 0, 1]
@@ -209,31 +210,31 @@ whether the feature value is missing or not::
   >>> gbdt.predict(X)
   array([0, 1, 0, 0, 1])
 
-If no missing values were encountered for a given feature during training,
-then samples with missing values are mapped to whichever child has the most
-samples.
+إذا لم تتم مصادفة أي قيم مفقودة لميزة مُعينة أثناء التدريب،
+فسيتم تعيين العينات ذات القيم المفقودة إلى أي طفل لديه معظم
+العينات.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_ensemble_plot_hgbt_regression.py`
 
 .. _sw_hgbdt:
 
-Sample weight support
+دعم وزن العينة
 ^^^^^^^^^^^^^^^^^^^^^
 
-:class:`HistGradientBoostingClassifier` and
-:class:`HistGradientBoostingRegressor` support sample weights during
+:class:`HistGradientBoostingClassifier` و
+:class:`HistGradientBoostingRegressor` يدعمان أوزان العينات أثناء
 :term:`fit`.
 
-The following toy example demonstrates that samples with a sample weight of zero are ignored:
+يوضح المثال التوضيحي التالي أن العينات ذات وزن عينة صفري يتم تجاهلها:
 
     >>> X = [[1, 0],
     ...      [1, 0],
     ...      [1, 0],
     ...      [0, 1]]
     >>> y = [0, 0, 1, 0]
-    >>> # ignore the first 2 training samples by setting their weight to 0
+    >>> # تجاهل عينتي التدريب الأوليين عن طريق تعيين وزنهما إلى 0
     >>> sample_weight = [0, 0, 1, 1]
     >>> gb = HistGradientBoostingClassifier(min_samples_leaf=1)
     >>> gb.fit(X, y, sample_weight=sample_weight)
@@ -243,265 +244,260 @@ The following toy example demonstrates that samples with a sample weight of zero
     >>> gb.predict_proba([[1, 0]])[0, 1]
     0.99...
 
-As you can see, the `[1, 0]` is comfortably classified as `1` since the first
-two samples are ignored due to their sample weights.
+كما ترى، يتم تصنيف `[1, 0]` بشكل مريح على أنه `1` نظرًا لتجاهل
+العينتين الأوليين بسبب أوزان العينات الخاصة بهما.
 
-Implementation detail: taking sample weights into account amounts to
-multiplying the gradients (and the hessians) by the sample weights. Note that
-the binning stage (specifically the quantiles computation) does not take the
-weights into account.
+تفاصيل التطبيق: يُعادل أخذ أوزان العينات في الاعتبار
+ضرب التدرجات (والهيسيات) بأوزان العينات. لاحظ أن
+مرحلة التجميع (على وجه التحديد حساب المُكمِّمات) لا تأخذ الأوزان
+في الاعتبار.
 
 .. _categorical_support_gbdt:
 
-Categorical Features Support
+دعم الميزات الفئوية
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-:class:`HistGradientBoostingClassifier` and
-:class:`HistGradientBoostingRegressor` have native support for categorical
-features: they can consider splits on non-ordered, categorical data.
+:class:`HistGradientBoostingClassifier` و
+:class:`HistGradientBoostingRegressor` لديهما دعم أصلي لـ
+الميزات الفئوية: يمكنهما اعتبار التقسيمات على البيانات الفئوية غير المُرتبة.
 
-For datasets with categorical features, using the native categorical support
-is often better than relying on one-hot encoding
-(:class:`~sklearn.preprocessing.OneHotEncoder`), because one-hot encoding
-requires more tree depth to achieve equivalent splits. It is also usually
-better to rely on the native categorical support rather than to treat
-categorical features as continuous (ordinal), which happens for ordinal-encoded
-categorical data, since categories are nominal quantities where order does not
-matter.
+بالنسبة لمجموعات البيانات ذات الميزات الفئوية، غالبًا ما يكون استخدام الدعم الفئوي
+الأصلي أفضل من الاعتماد على الترميز الأحادي الساخن
+(:class:`~sklearn.preprocessing.OneHotEncoder`)، لأن الترميز الأحادي الساخن
+يتطلب عمق شجرة أكبر لتحقيق تقسيمات مُكافئة. من الأفضل أيضًا عادةً
+الاعتماد على الدعم الفئوي الأصلي بدلاً من مُعالجة
+الميزات الفئوية على أنها مُستمرة (ترتيبية)، وهو ما يحدث للبيانات الفئوية المُرمَّزة
+ترتيبيًا، نظرًا لأن الفئات هي كميات اسمية حيث لا يهم الترتيب.
 
-To enable categorical support, a boolean mask can be passed to the
-`categorical_features` parameter, indicating which feature is categorical. In
-the following, the first feature will be treated as categorical and the
-second feature as numerical::
+لتمكين الدعم الفئوي، يمكن تمرير قناع منطقي إلى
+معلمة `categorical_features`، مُشيرًا إلى الميزة الفئوية. في
+ما يلي، سيتم مُعالجة الميزة الأولى على أنها فئوية والميزة
+الثانية على أنها عددية::
 
   >>> gbdt = HistGradientBoostingClassifier(categorical_features=[True, False])
 
-Equivalently, one can pass a list of integers indicating the indices of the
-categorical features::
+بالتساوي، يمكن للمرء تمرير قائمة من الأعداد الصحيحة التي تُشير إلى مؤشرات
+الميزات الفئوية::
 
   >>> gbdt = HistGradientBoostingClassifier(categorical_features=[0])
 
-When the input is a DataFrame, it is also possible to pass a list of column
-names::
+عندما يكون الإدخال DataFrame، من الممكن أيضًا تمرير قائمة بأسماء الأعمدة::
 
   >>> gbdt = HistGradientBoostingClassifier(categorical_features=["site", "manufacturer"])
 
-Finally, when the input is a DataFrame we can use
-`categorical_features="from_dtype"` in which case all columns with a categorical
-`dtype` will be treated as categorical features.
+أخيرًا، عندما يكون الإدخال DataFrame، يمكننا استخدام
+`categorical_features="from_dtype"` وفي هذه الحالة سيتم مُعالجة جميع الأعمدة ذات
+`dtype` الفئوي كميزات فئوية.
 
-The cardinality of each categorical feature must be less than the `max_bins`
-parameter. For an example using histogram-based gradient boosting on categorical
-features, see
+يجب أن تكون عدد العناصر في كل ميزة فئوية أقل من معلمة `max_bins`.
+لمثال على استخدام تعزيز التدرج القائم على الرسم البياني على الميزات
+الفئوية، انظر
 :ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_categorical.py`.
 
-If there are missing values during training, the missing values will be
-treated as a proper category. If there are no missing values during training,
-then at prediction time, missing values are mapped to the child node that has
-the most samples (just like for continuous features). When predicting,
-categories that were not seen during fit time will be treated as missing
-values.
+إذا كانت هناك قيم مفقودة أثناء التدريب، فسيتم
+مُعالجة القيم المفقودة على أنها فئة مناسبة. إذا لم تكن هناك قيم مفقودة أثناء التدريب،
+فعند التنبؤ، يتم تعيين القيم المفقودة إلى العقدة التابعة التي تحتوي على
+معظم العينات (تمامًا مثل الميزات المُستمرة). عند التنبؤ،
+سيتم مُعالجة الفئات التي لم تتم رؤيتها أثناء وقت الملاءمة كقيم
+مفقودة.
 
-.. dropdown:: Split finding with categorical features
+.. dropdown:: إيجاد التقسيم مع الميزات الفئوية
 
-  The canonical way of considering categorical splits in a tree is to consider
-  all of the :math:`2^{K - 1} - 1` partitions, where :math:`K` is the number of
-  categories. This can quickly become prohibitive when :math:`K` is large.
-  Fortunately, since gradient boosting trees are always regression trees (even
-  for classification problems), there exist a faster strategy that can yield
-  equivalent splits. First, the categories of a feature are sorted according to
-  the variance of the target, for each category `k`. Once the categories are
-  sorted, one can consider *continuous partitions*, i.e. treat the categories
-  as if they were ordered continuous values (see Fisher [Fisher1958]_ for a
-  formal proof). As a result, only :math:`K - 1` splits need to be considered
-  instead of :math:`2^{K - 1} - 1`. The initial sorting is a
-  :math:`\mathcal{O}(K \log(K))` operation, leading to a total complexity of
-  :math:`\mathcal{O}(K \log(K) + K)`, instead of :math:`\mathcal{O}(2^K)`.
+  الطريقة الأساسية للنظر في التقسيمات الفئوية في شجرة هي النظر في
+  جميع أقسام :math:`2^{K - 1} - 1`، حيث :math:`K` هو عدد
+  الفئات. يمكن أن يصبح هذا باهظ الثمن بسرعة عندما يكون :math:`K` كبيرًا.
+  لحسن الحظ، نظرًا لأن أشجار تعزيز التدرج هي دائمًا أشجار انحدار (حتى
+  لمشاكل التصنيف)، يوجد إستراتيجية أسرع يمكن أن تُعطي
+  تقسيمات مُكافئة. أولاً، يتم فرز فئات الميزة وفقًا لـ
+  تباين الهدف، لكل فئة `k`. بمجرد فرز الفئات،
+  يمكن للمرء النظر في *أقسام مُستمرة*، أي مُعالجة الفئات
+  كما لو كانت قيمًا مُستمرة مُرتبة (انظر Fisher [Fisher1958]_ لإثبات
+  رسمي). نتيجة لذلك، لا يلزم النظر إلا في :math:`K - 1` تقسيمًا
+  بدلاً من :math:`2^{K - 1} - 1`. الفرز الأولي هو
+  عملية :math:`\mathcal{O}(K \log(K))`، مما يؤدي إلى تعقيد إجمالي قدره
+  :math:`\mathcal{O}(K \log(K) + K)`، بدلاً من :math:`\mathcal{O}(2^K)`.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_categorical.py`
 
 .. _monotonic_cst_gbdt:
 
-Monotonic Constraints
+قيود رتيبة
 ^^^^^^^^^^^^^^^^^^^^^
 
-Depending on the problem at hand, you may have prior knowledge indicating
-that a given feature should in general have a positive (or negative) effect
-on the target value. For example, all else being equal, a higher credit
-score should increase the probability of getting approved for a loan.
-Monotonic constraints allow you to incorporate such prior knowledge into the
-model.
+اعتمادًا على المشكلة المطروحة، قد يكون لديك معرفة مُسبقة تُشير
+إلى أن ميزة مُعينة يجب أن يكون لها بشكل عام تأثير إيجابي (أو سلبي)
+على القيمة المستهدفة. على سبيل المثال، مع تساوي كل شيء آخر، يجب أن تؤدي درجة الائتمان الأعلى إلى زيادة احتمالية الموافقة على قرض.
+تسمح لك القيود الرتيبة بدمج هذه المعرفة المُسبقة في
+النموذج.
 
-For a predictor :math:`F` with two features:
+بالنسبة للمتنبئ :math:`F` بميزتين:
 
-- a **monotonic increase constraint** is a constraint of the form:
+- **قيد الزيادة الرتيبة** هو قيد بالشكل:
 
   .. math::
       x_1 \leq x_1' \implies F(x_1, x_2) \leq F(x_1', x_2)
 
-- a **monotonic decrease constraint** is a constraint of the form:
+- **قيد النقصان الرتيب** هو قيد بالشكل:
 
   .. math::
       x_1 \leq x_1' \implies F(x_1, x_2) \geq F(x_1', x_2)
 
-You can specify a monotonic constraint on each feature using the
-`monotonic_cst` parameter. For each feature, a value of 0 indicates no
-constraint, while 1 and -1 indicate a monotonic increase and
-monotonic decrease constraint, respectively::
+يمكنك تحديد قيد رتيب على كل ميزة باستخدام
+معلمة `monotonic_cst`. لكل ميزة، تُشير القيمة 0 إلى عدم وجود
+قيد، بينما تُشير 1 و -1 إلى قيد زيادة رتيبة و
+قيد نقصان رتيب، على التوالي::
 
   >>> from sklearn.ensemble import HistGradientBoostingRegressor
 
-  ... # monotonic increase, monotonic decrease, and no constraint on the 3 features
+  ... # زيادة رتيبة، نقصان رتيب، وعدم وجود قيد على الميزات الثلاث
   >>> gbdt = HistGradientBoostingRegressor(monotonic_cst=[1, -1, 0])
 
-In a binary classification context, imposing a monotonic increase (decrease) constraint means that higher values of the feature are supposed
-to have a positive (negative) effect on the probability of samples
-to belong to the positive class.
+في سياق التصنيف الثنائي، يعني فرض قيد زيادة رتيبة (نقصان) أن القيم الأعلى للميزة من المُفترض
+أن يكون لها تأثير إيجابي (سلبي) على احتمالية العينات
+للانتماء إلى الفئة الإيجابية.
 
-Nevertheless, monotonic constraints only marginally constrain feature effects on the output.
-For instance, monotonic increase and decrease constraints cannot be used to enforce the
-following modelling constraint:
+ومع ذلك، فإن القيود الرتيبة تُقيّد بشكل هامشي فقط تأثيرات الميزات على الناتج.
+على سبيل المثال، لا يمكن استخدام قيود الزيادة والنقصان الرتيبة لفرض
+قيد النمذجة التالي:
 
 .. math::
     x_1 \leq x_1' \implies F(x_1, x_2) \leq F(x_1', x_2')
 
-Also, monotonic constraints are not supported for multiclass classification.
+أيضًا، القيود الرتيبة غير مدعومة للتصنيف متعدد الفئات.
 
 .. note::
-    Since categories are unordered quantities, it is not possible to enforce
-    monotonic constraints on categorical features.
+    نظرًا لأن الفئات هي كميات غير مُرتبة، فليس من الممكن فرض
+    قيود رتيبة على الميزات الفئوية.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_ensemble_plot_monotonic_constraints.py`
 * :ref:`sphx_glr_auto_examples_ensemble_plot_hgbt_regression.py`
 
 .. _interaction_cst_hgbt:
 
-Interaction constraints
+قيود التفاعل
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-A priori, the histogram gradient boosted trees are allowed to use any feature
-to split a node into child nodes. This creates so called interactions between
-features, i.e. usage of different features as split along a branch. Sometimes,
-one wants to restrict the possible interactions, see [Mayer2022]_. This can be
-done by the parameter ``interaction_cst``, where one can specify the indices
-of features that are allowed to interact.
-For instance, with 3 features in total, ``interaction_cst=[{0}, {1}, {2}]``
-forbids all interactions.
-The constraints ``[{0, 1}, {1, 2}]`` specifies two groups of possibly
-interacting features. Features 0 and 1 may interact with each other, as well
-as features 1 and 2. But note that features 0 and 2 are forbidden to interact.
-The following depicts a tree and the possible splits of the tree:
+من حيث المبدأ، يُسمح لأشجار تعزيز التدرج الرسم البياني باستخدام أي ميزة
+لتقسيم عقدة إلى عقد تابعة. هذا يخلق ما يسمى بالتفاعلات بين
+الميزات، أي استخدام ميزات مُختلفة كتقسيم على طول فرع. في بعض الأحيان،
+يريد المرء تقييد التفاعلات الممكنة، انظر [Mayer2022]_. يمكن
+القيام بذلك بواسطة المعلمة ``interaction_cst``، حيث يمكن للمرء تحديد مؤشرات
+الميزات المسموح لها بالتفاعل.
+على سبيل المثال، مع 3 ميزات إجمالاً، ``interaction_cst=[{0}, {1}, {2}]``
+يمنع جميع التفاعلات.
+تُحدد القيود ``[{0, 1}, {1, 2}]`` مجموعتين من الميزات التي يُحتمل
+أن تتفاعل. قد تتفاعل الميزات 0 و 1 مع بعضها البعض، وكذلك
+الميزات 1 و 2. لكن لاحظ أنه يُمنع تفاعل الميزات 0 و 2.
+يُصوِّر ما يلي شجرة والتقسيمات الممكنة للشجرة:
 
 .. code-block:: none
 
-      1      <- Both constraint groups could be applied from now on
+      1      <- يمكن تطبيق مجموعتي القيود من الآن فصاعدًا
      / \
-    1   2    <- Left split still fulfills both constraint groups.
-   / \ / \      Right split at feature 2 has only group {1, 2} from now on.
+    1   2    <- لا يزال التقسيم الأيسر يُلبي مجموعتي القيود.
+   / \ / \      التقسيم الأيمن عند الميزة 2 لديه المجموعة {1، 2} فقط من الآن فصاعدًا.
 
-LightGBM uses the same logic for overlapping groups.
+يستخدم LightGBM نفس المنطق للمجموعات المتداخلة.
 
-Note that features not listed in ``interaction_cst`` are automatically
-assigned an interaction group for themselves. With again 3 features, this
-means that ``[{0}]`` is equivalent to ``[{0}, {1, 2}]``.
+لاحظ أن الميزات غير المدرجة في ``interaction_cst`` يتم تعيينها تلقائيًا
+مجموعة تفاعل لأنفسهم. مع 3 ميزات مرة أخرى، هذا
+يعني أن ``[{0}]`` يُعادل ``[{0}, {1, 2}]``.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_inspection_plot_partial_dependence.py`
 
-.. rubric:: References
+.. rubric:: المراجع
 
 .. [Mayer2022] M. Mayer, S.C. Bourassa, M. Hoesli, and D.F. Scognamiglio.
-    2022. :doi:`Machine Learning Applications to Land and Structure Valuation
+    2022. :doi:`تطبيقات التعلم الآلي لتقييم الأراضي والهياكل
     <10.3390/jrfm15050193>`.
     Journal of Risk and Financial Management 15, no. 5: 193
 
-Low-level parallelism
+التوازي منخفض المستوى
 ^^^^^^^^^^^^^^^^^^^^^
 
 
-:class:`HistGradientBoostingClassifier` and
-:class:`HistGradientBoostingRegressor` use OpenMP
-for parallelization through Cython. For more details on how to control the
-number of threads, please refer to our :ref:`parallelism` notes.
+:class:`HistGradientBoostingClassifier` و
+:class:`HistGradientBoostingRegressor` يستخدمان OpenMP
+للتوازي من خلال Cython. لمزيد من التفاصيل حول كيفية التحكم في
+عدد سلاسل العمليات، يُرجى الرجوع إلى ملاحظات :ref:`التوازي` الخاصة بنا.
 
-The following parts are parallelized:
+الأجزاء التالية متوازية:
 
-- mapping samples from real values to integer-valued bins (finding the bin
-  thresholds is however sequential)
-- building histograms is parallelized over features
-- finding the best split point at a node is parallelized over features
-- during fit, mapping samples into the left and right children is
-  parallelized over samples
-- gradient and hessians computations are parallelized over samples
-- predicting is parallelized over samples
+- تعيين العينات من القيم الحقيقية إلى الصناديق ذات القيم الصحيحة (إيجاد عتبات
+  الصناديق هو تسلسلي)
+- بناء الرسوم البيانية متوازي على الميزات
+- إيجاد أفضل نقطة تقسيم عند عقدة متوازي على الميزات
+- أثناء الملاءمة، تعيين العينات في العقد التابعة اليسرى واليمنى
+  متوازي على العينات
+- حسابات التدرج والهيسيات متوازية على العينات
+- التنبؤ متوازي على العينات
 
 .. _Why_it's_faster:
 
-Why it's faster
+لماذا هو أسرع
 ^^^^^^^^^^^^^^^
 
-The bottleneck of a gradient boosting procedure is building the decision
-trees. Building a traditional decision tree (as in the other GBDTs
-:class:`GradientBoostingClassifier` and :class:`GradientBoostingRegressor`)
-requires sorting the samples at each node (for
-each feature). Sorting is needed so that the potential gain of a split point
-can be computed efficiently. Splitting a single node has thus a complexity
-of :math:`\mathcal{O}(n_\text{features} \times n \log(n))` where :math:`n`
-is the number of samples at the node.
+عنق الزجاجة في إجراء تعزيز التدرج هو بناء أشجار القرار.
+يتطلب بناء شجرة قرار تقليدية (كما هو الحال في GBDTs الأخرى
+:class:`GradientBoostingClassifier` و :class:`GradientBoostingRegressor`)
+فرز العينات عند كل عقدة (لكل
+ميزة). الفرز ضروري بحيث يمكن حساب المكسب المُحتمل لنقطة تقسيم
+بكفاءة. وبالتالي، فإن تقسيم عقدة واحدة له تعقيد
+:math:`\mathcal{O}(n_\text{features} \times n \log(n))` حيث :math:`n`
+هو عدد العينات عند العقدة.
 
-:class:`HistGradientBoostingClassifier` and
-:class:`HistGradientBoostingRegressor`, in contrast, do not require sorting the
-feature values and instead use a data-structure called a histogram, where the
-samples are implicitly ordered. Building a histogram has a
-:math:`\mathcal{O}(n)` complexity, so the node splitting procedure has a
-:math:`\mathcal{O}(n_\text{features} \times n)` complexity, much smaller
-than the previous one. In addition, instead of considering :math:`n` split
-points, we consider only ``max_bins`` split points, which might be much
-smaller.
+:class:`HistGradientBoostingClassifier` و
+:class:`HistGradientBoostingRegressor`، على النقيض من ذلك، لا يتطلبان فرز
+قيم الميزات ويستخدمان بدلاً من ذلك بنية بيانات تسمى الرسم البياني، حيث
+يتم ترتيب العينات ضمنيًا. بناء رسم بياني له
+تعقيد :math:`\mathcal{O}(n)`، لذا فإن إجراء تقسيم العقدة له
+تعقيد :math:`\mathcal{O}(n_\text{features} \times n)`، أصغر بكثير
+من السابق. بالإضافة إلى ذلك، بدلاً من النظر في :math:`n` نقاط تقسيم،
+نحن نعتبر فقط ``max_bins`` نقاط تقسيم، والتي قد تكون أصغر
+بكثير.
 
-In order to build histograms, the input data `X` needs to be binned into
-integer-valued bins. This binning procedure does require sorting the feature
-values, but it only happens once at the very beginning of the boosting process
-(not at each node, like in :class:`GradientBoostingClassifier` and
+من أجل بناء الرسوم البيانية، يجب تجميع بيانات الإدخال `X` في
+صناديق ذات قيم صحيحة. يتطلب إجراء التجميع هذا فرز قيم الميزات،
+ولكنه يحدث مرة واحدة فقط في بداية عملية التعزيز
+(ليس عند كل عقدة، كما هو الحال في :class:`GradientBoostingClassifier` و
 :class:`GradientBoostingRegressor`).
 
-Finally, many parts of the implementation of
-:class:`HistGradientBoostingClassifier` and
-:class:`HistGradientBoostingRegressor` are parallelized.
+أخيرًا، العديد من أجزاء تطبيق
+:class:`HistGradientBoostingClassifier` و
+:class:`HistGradientBoostingRegressor` متوازية.
 
-.. rubric:: References
+.. rubric:: المراجع
 
-.. [XGBoost] Tianqi Chen, Carlos Guestrin, :arxiv:`"XGBoost: A Scalable Tree
-   Boosting System" <1603.02754>`
+.. [XGBoost] Tianqi Chen, Carlos Guestrin, :arxiv:`"XGBoost: نظام تعزيز شجرة قابل للتطوير" <1603.02754>`
 
-.. [LightGBM] Ke et. al. `"LightGBM: A Highly Efficient Gradient
-   BoostingDecision Tree" <https://papers.nips.cc/paper/
+.. [LightGBM] Ke et. al. `"LightGBM: شجرة قرار تعزيز تدرج فعالة للغاية" <https://papers.nips.cc/paper/
    6907-lightgbm-a-highly-efficient-gradient-boosting-decision-tree>`_
 
-.. [Fisher1958] Fisher, W.D. (1958). `"On Grouping for Maximum Homogeneity"
+.. [Fisher1958] Fisher, W.D. (1958). `"حول التجميع لأقصى تجانس"
    <http://csiss.ncgia.ucsb.edu/SPACE/workshops/2004/SAC/files/fisher.pdf>`_
    Journal of the American Statistical Association, 53, 789-798.
 
 
 
-:class:`GradientBoostingClassifier` and :class:`GradientBoostingRegressor`
+:class:`GradientBoostingClassifier` و :class:`GradientBoostingRegressor`
 ----------------------------------------------------------------------------
 
-The usage and the parameters of :class:`GradientBoostingClassifier` and
-:class:`GradientBoostingRegressor` are described below. The 2 most important
-parameters of these estimators are `n_estimators` and `learning_rate`.
+يتم وصف استخدام ومعلمات :class:`GradientBoostingClassifier` و
+:class:`GradientBoostingRegressor` أدناه. أهم معلمتين
+لهؤلاء المُقدِّرين هما `n_estimators` و `learning_rate`.
 
-.. dropdown:: Classification
+.. dropdown:: التصنيف
 
-  :class:`GradientBoostingClassifier` supports both binary and multi-class
-  classification.
-  The following example shows how to fit a gradient boosting classifier
-  with 100 decision stumps as weak learners::
+  :class:`GradientBoostingClassifier` يدعم التصنيف الثنائي ومتعدد
+  الفئات.
+  يوضح المثال التالي كيفية ملاءمة مُصنف تعزيز التدرج
+  مع 100 جدعة قرار كمُتعلمين ضعفاء::
 
       >>> from sklearn.datasets import make_hastie_10_2
       >>> from sklearn.ensemble import GradientBoostingClassifier
@@ -515,30 +511,30 @@ parameters of these estimators are `n_estimators` and `learning_rate`.
       >>> clf.score(X_test, y_test)
       0.913...
 
-  The number of weak learners (i.e. regression trees) is controlled by the
-  parameter ``n_estimators``; :ref:`The size of each tree
-  <gradient_boosting_tree_size>` can be controlled either by setting the tree
-  depth via ``max_depth`` or by setting the number of leaf nodes via
-  ``max_leaf_nodes``. The ``learning_rate`` is a hyper-parameter in the range
-  (0.0, 1.0] that controls overfitting via :ref:`shrinkage
-  <gradient_boosting_shrinkage>` .
+  يتم التحكم في عدد المُتعلمين الضعفاء (أي أشجار الانحدار) بواسطة
+  المعلمة ``n_estimators``؛ :ref:`حجم كل شجرة
+  <gradient_boosting_tree_size>` يمكن التحكم فيه إما عن طريق تعيين عمق الشجرة
+  عبر ``max_depth`` أو عن طريق تعيين عدد العقد الورقية عبر
+  ``max_leaf_nodes``. ``learning_rate`` هي معلمة فائقة في النطاق
+  (0.0، 1.0] التي تتحكم في التجاوز عبر :ref:`الانكماش
+  <gradient_boosting_shrinkage>`.
 
   .. note::
 
-    Classification with more than 2 classes requires the induction
-    of ``n_classes`` regression trees at each iteration,
-    thus, the total number of induced trees equals
-    ``n_classes * n_estimators``. For datasets with a large number
-    of classes we strongly recommend to use
-    :class:`HistGradientBoostingClassifier` as an alternative to
-    :class:`GradientBoostingClassifier` .
+    يتطلب التصنيف مع أكثر من فئتين حث
+    ``n_classes`` أشجار انحدار في كل تكرار،
+    وبالتالي، فإن العدد الإجمالي للأشجار المُستحثة يساوي
+    ``n_classes * n_estimators``. بالنسبة لمجموعات البيانات التي تحتوي على عدد كبير
+    من الفئات، نوصي بشدة باستخدام
+    :class:`HistGradientBoostingClassifier` كبديل لـ
+    :class:`GradientBoostingClassifier`.
 
-.. dropdown:: Regression
+.. dropdown:: الانحدار
 
-  :class:`GradientBoostingRegressor` supports a number of
-  :ref:`different loss functions <gradient_boosting_loss>`
-  for regression which can be specified via the argument
-  ``loss``; the default loss function for regression is squared error
+  :class:`GradientBoostingRegressor` يدعم عددًا من
+  :ref:`دوال الخسارة المختلفة <gradient_boosting_loss>`
+  للانحدار والتي يمكن تحديدها عبر الوسيطة
+  ``loss``؛ دالة الخسارة الافتراضية للانحدار هي الخطأ التربيعي
   (``'squared_error'``).
 
   ::
@@ -558,35 +554,35 @@ parameters of these estimators are `n_estimators` and `learning_rate`.
       >>> mean_squared_error(y_test, est.predict(X_test))
       5.00...
 
-  The figure below shows the results of applying :class:`GradientBoostingRegressor`
-  with least squares loss and 500 base learners to the diabetes dataset
+  يوضح الشكل أدناه نتائج تطبيق :class:`GradientBoostingRegressor`
+  مع خسارة المربعات الصغرى و 500 مُتعلم أساسي على مجموعة بيانات مرض السكري
   (:func:`sklearn.datasets.load_diabetes`).
-  The plot shows the train and test error at each iteration.
-  The train error at each iteration is stored in the
-  `train_score_` attribute of the gradient boosting model.
-  The test error at each iterations can be obtained
-  via the :meth:`~GradientBoostingRegressor.staged_predict` method which returns a
-  generator that yields the predictions at each stage. Plots like these can be used
-  to determine the optimal number of trees (i.e. ``n_estimators``) by early stopping.
+  يوضح الرسم البياني خطأ التدريب والاختبار في كل تكرار.
+  يتم تخزين خطأ التدريب في كل تكرار في
+  السمة `train_score_` لنموذج تعزيز التدرج.
+  يمكن الحصول على خطأ الاختبار في كل تكرار
+  عبر أسلوب :meth:`~GradientBoostingRegressor.staged_predict` الذي يُعيد
+  مُولِّدًا يُعطي التنبؤات في كل مرحلة. يمكن استخدام الرسوم البيانية مثل هذه
+  لتحديد العدد الأمثل للأشجار (أي ``n_estimators``) عن طريق الإيقاف المُبكر.
 
   .. figure:: ../auto_examples/ensemble/images/sphx_glr_plot_gradient_boosting_regression_001.png
     :target: ../auto_examples/ensemble/plot_gradient_boosting_regression.html
     :align: center
     :scale: 75
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_regression.py`
 * :ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_oob.py`
 
 .. _gradient_boosting_warm_start:
 
-Fitting additional weak-learners
+ملاءمة مُتعلمين ضعفاء إضافيين
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Both :class:`GradientBoostingRegressor` and :class:`GradientBoostingClassifier`
-support ``warm_start=True`` which allows you to add more estimators to an already
-fitted model.
+يدعم كل من :class:`GradientBoostingRegressor` و :class:`GradientBoostingClassifier`
+``warm_start=True`` الذي يسمح لك بإضافة المزيد من المُقدِّرات إلى نموذج مُناسب
+بالفعل.
 
 ::
 
@@ -600,91 +596,88 @@ fitted model.
   >>> y_train, y_test = y[:200], y[200:]
   >>> est = GradientBoostingRegressor(
   ...     n_estimators=100, learning_rate=0.1, max_depth=1, random_state=0,
-  ...     loss='squared_error'
+  ...      loss='squared_error'
   ... )
-  >>> est = est.fit(X_train, y_train)  # fit with 100 trees
+  >>> est = est.fit(X_train, y_train)  # ملاءمة مع 100 شجرة
   >>> mean_squared_error(y_test, est.predict(X_test))
   5.00...
-  >>> _ = est.set_params(n_estimators=200, warm_start=True)  # set warm_start and increase num of trees
-  >>> _ = est.fit(X_train, y_train) # fit additional 100 trees to est
+  >>> _ = est.set_params(n_estimators=200, warm_start=True)  # تعيين warm_start وزيادة عدد الأشجار
+  >>> _ = est.fit(X_train, y_train) # ملاءمة 100 شجرة إضافية إلى est
   >>> mean_squared_error(y_test, est.predict(X_test))
   3.84...
 
 .. _gradient_boosting_tree_size:
 
-Controlling the tree size
+التحكم في حجم الشجرة
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The size of the regression tree base learners defines the level of variable
-interactions that can be captured by the gradient boosting model. In general,
-a tree of depth ``h`` can capture interactions of order ``h`` .
-There are two ways in which the size of the individual regression trees can
-be controlled.
+يُحدد حجم مُتعلمي أساس شجرة الانحدار مستوى تفاعلات المتغيرات
+التي يمكن التقاطها بواسطة نموذج تعزيز التدرج. بشكل عام،
+يمكن لشجرة بعمق ``h`` التقاط تفاعلات من الرتبة ``h``.
+هناك طريقتان للتحكم في حجم أشجار الانحدار الفردية.
 
-If you specify ``max_depth=h`` then complete binary trees
-of depth ``h`` will be grown. Such trees will have (at most) ``2**h`` leaf nodes
-and ``2**h - 1`` split nodes.
+إذا حددت ``max_depth=h``، فسيتم تنمية أشجار ثنائية كاملة
+بعمق ``h``. سيكون لهذه الأشجار (على الأكثر) ``2**h`` عقد ورقية
+و ``2**h - 1`` عقد تقسيم.
 
-Alternatively, you can control the tree size by specifying the number of
-leaf nodes via the parameter ``max_leaf_nodes``. In this case,
-trees will be grown using best-first search where nodes with the highest improvement
-in impurity will be expanded first.
-A tree with ``max_leaf_nodes=k`` has ``k - 1`` split nodes and thus can
-model interactions of up to order ``max_leaf_nodes - 1`` .
+بدلاً من ذلك، يمكنك التحكم في حجم الشجرة عن طريق تحديد عدد
+العقد الورقية عبر المعلمة ``max_leaf_nodes``. في هذه الحالة،
+سيتم تنمية الأشجار باستخدام بحث أفضل أولاً حيث يتم توسيع العقد ذات أعلى تحسين
+في النجاسة أولاً.
+شجرة ذات ``max_leaf_nodes=k`` تحتوي على ``k - 1`` عقد تقسيم وبالتالي يمكنها
+نمذجة تفاعلات تصل إلى رتبة ``max_leaf_nodes - 1``.
 
-We found that ``max_leaf_nodes=k`` gives comparable results to ``max_depth=k-1``
-but is significantly faster to train at the expense of a slightly higher
-training error.
-The parameter ``max_leaf_nodes`` corresponds to the variable ``J`` in the
-chapter on gradient boosting in [Friedman2001]_ and is related to the parameter
-``interaction.depth`` in R's gbm package where ``max_leaf_nodes == interaction.depth + 1`` .
+وجدنا أن ``max_leaf_nodes=k`` تُعطي نتائج مُقارنة لـ ``max_depth=k-1``
+ولكنها أسرع بشكل ملحوظ في التدريب على حساب خطأ تدريب أعلى قليلاً.
+تقابل المعلمة ``max_leaf_nodes`` المتغير ``J`` في
+الفصل الخاص بتعزيز التدرج في [Friedman2001]_ وترتبط بالمعلمة
+``interaction.depth`` في حزمة gbm في R حيث ``max_leaf_nodes == interaction.depth + 1``.
 
 .. _gradient_boosting_formulation:
 
-Mathematical formulation
+الصيغة الرياضية
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-We first present GBRT for regression, and then detail the classification
-case.
+نُقدم أولاً GBRT للانحدار، ثم نُفصِّل حالة
+التصنيف.
 
-.. dropdown:: Regression
+.. dropdown:: الانحدار
 
-  GBRT regressors are additive models whose prediction :math:`\hat{y}_i` for a
-  given input :math:`x_i` is of the following form:
+  مُنحدرات GBRT هي نماذج مضافة يكون تنبؤها :math:`\hat{y}_i` لـ
+  إدخال مُعين :math:`x_i` بالشكل التالي:
 
   .. math::
 
     \hat{y}_i = F_M(x_i) = \sum_{m=1}^{M} h_m(x_i)
 
-  where the :math:`h_m` are estimators called *weak learners* in the context
-  of boosting. Gradient Tree Boosting uses :ref:`decision tree regressors
-  <tree>` of fixed size as weak learners. The constant M corresponds to the
-  `n_estimators` parameter.
+  حيث :math:`h_m` هي مُقدِّرات تُسمى *مُتعلمين ضعفاء* في سياق
+  التعزيز. يستخدم تعزيز شجرة التدرج :ref:`مُنحدرات شجرة القرار
+  <tree>` ذات حجم ثابت كمُتعلمين ضعفاء. الثابت M يقابل
+  معلمة `n_estimators`.
 
-  Similar to other boosting algorithms, a GBRT is built in a greedy fashion:
+  على غرار خوارزميات التعزيز الأخرى، يتم بناء GBRT بطريقة جشعة:
 
   .. math::
 
     F_m(x) = F_{m-1}(x) + h_m(x),
 
-  where the newly added tree :math:`h_m` is fitted in order to minimize a sum
-  of losses :math:`L_m`, given the previous ensemble :math:`F_{m-1}`:
+  حيث يتم ملاءمة الشجرة المُضافة حديثًا :math:`h_m` من أجل تقليل مجموع
+  الخسائر :math:`L_m`، بالنظر إلى المجموعة السابقة :math:`F_{m-1}`:
 
   .. math::
 
     h_m =  \arg\min_{h} L_m = \arg\min_{h} \sum_{i=1}^{n}
     l(y_i, F_{m-1}(x_i) + h(x_i)),
 
-  where :math:`l(y_i, F(x_i))` is defined by the `loss` parameter, detailed
-  in the next section.
+  حيث يتم تعريف :math:`l(y_i, F(x_i))` بواسطة معلمة `loss`، مُفصَّلة
+  في القسم التالي.
 
-  By default, the initial model :math:`F_{0}` is chosen as the constant that
-  minimizes the loss: for a least-squares loss, this is the empirical mean of
-  the target values. The initial model can also be specified via the ``init``
-  argument.
+  افتراضيًا، يتم اختيار النموذج الأولي :math:`F_{0}` كثابت
+  يُقلل الخسارة: بالنسبة لخسارة المربعات الصغرى، هذا هو المتوسط التجريبي لـ
+  القيم المستهدفة. يمكن أيضًا تحديد النموذج الأولي عبر وسيطة ``init``.
 
-  Using a first-order Taylor approximation, the value of :math:`l` can be
-  approximated as follows:
+  باستخدام تقريب تايلور من الدرجة الأولى، يمكن
+  تقريب قيمة :math:`l` على النحو التالي:
 
   .. math::
 
@@ -695,203 +688,202 @@ case.
 
   .. note::
 
-    Briefly, a first-order Taylor approximation says that
+    باختصار، يقول تقريب تايلور من الدرجة الأولى أن
     :math:`l(z) \approx l(a) + (z - a) \frac{\partial l}{\partial z}(a)`.
-    Here, :math:`z` corresponds to :math:`F_{m - 1}(x_i) + h_m(x_i)`, and
-    :math:`a` corresponds to :math:`F_{m-1}(x_i)`
+    هنا، :math:`z` يقابل :math:`F_{m - 1}(x_i) + h_m(x_i)`، و
+    :math:`a` يقابل :math:`F_{m-1}(x_i)`
 
-  The quantity :math:`\left[ \frac{\partial l(y_i, F(x_i))}{\partial F(x_i)}
-  \right]_{F=F_{m - 1}}` is the derivative of the loss with respect to its
-  second parameter, evaluated at :math:`F_{m-1}(x)`. It is easy to compute for
-  any given :math:`F_{m - 1}(x_i)` in a closed form since the loss is
-  differentiable. We will denote it by :math:`g_i`.
+  الكمية :math:`\left[ \frac{\partial l(y_i, F(x_i))}{\partial F(x_i)}
+  \right]_{F=F_{m - 1}}` هي مُشتق الخسارة بالنسبة لمعلمتها
+  الثانية، مُقيَّمة عند :math:`F_{m-1}(x)`. من السهل حسابها لـ
+  أي :math:`F_{m - 1}(x_i)` مُعطى في شكل مُغلق لأن الخسارة
+  قابلة للاشتقاق. سنُشير إليها بـ :math:`g_i`.
 
-  Removing the constant terms, we have:
+  بإزالة المُصطلحات الثابتة، لدينا:
 
   .. math::
 
     h_m \approx \arg\min_{h} \sum_{i=1}^{n} h(x_i) g_i
 
-  This is minimized if :math:`h(x_i)` is fitted to predict a value that is
-  proportional to the negative gradient :math:`-g_i`. Therefore, at each
-  iteration, **the estimator** :math:`h_m` **is fitted to predict the negative
-  gradients of the samples**. The gradients are updated at each iteration.
-  This can be considered as some kind of gradient descent in a functional
-  space.
+  يتم تقليل هذا إذا تم ملاءمة :math:`h(x_i)` للتنبؤ بقيمة
+  تتناسب مع التدرج السالب :math:`-g_i`. لذلك، في كل
+  تكرار، **يتم ملاءمة المُقدِّر** :math:`h_m` **للتنبؤ بالتدرجات
+  السالبة للعينات**. يتم تحديث التدرجات في كل تكرار.
+  يمكن اعتبار هذا نوعًا من النزول التدرجي في فضاء
+  دالة.
 
   .. note::
 
-    For some losses, e.g. ``'absolute_error'`` where the gradients
-    are :math:`\pm 1`, the values predicted by a fitted :math:`h_m` are not
-    accurate enough: the tree can only output integer values. As a result, the
-    leaves values of the tree :math:`h_m` are modified once the tree is
-    fitted, such that the leaves values minimize the loss :math:`L_m`. The
-    update is loss-dependent: for the absolute error loss, the value of
-    a leaf is updated to the median of the samples in that leaf.
+    بالنسبة لبعض الخسائر، على سبيل المثال ``'absolute_error'`` حيث التدرجات
+    هي :math:`\pm 1`، فإن القيم التي يتنبأ بها :math:`h_m` المُناسب ليست
+    دقيقة بما يكفي: يمكن للشجرة إخراج قيم صحيحة فقط. نتيجة لذلك،
+    يتم تعديل قيم أوراق الشجرة :math:`h_m` بمجرد ملاءمة الشجرة،
+    بحيث تُقلل قيم الأوراق من الخسارة :math:`L_m`. التحديث يعتمد على
+    الخسارة: بالنسبة لخسارة الخطأ المُطلق، يتم تحديث قيمة
+    ورقة إلى متوسط العينات في تلك الورقة.
 
-.. dropdown:: Classification
+.. dropdown:: التصنيف
 
-  Gradient boosting for classification is very similar to the regression case.
-  However, the sum of the trees :math:`F_M(x_i) = \sum_m h_m(x_i)` is not
-  homogeneous to a prediction: it cannot be a class, since the trees predict
-  continuous values.
+  يشبه تعزيز التدرج للتصنيف حالة الانحدار إلى حد كبير.
+  ومع ذلك، فإن مجموع الأشجار :math:`F_M(x_i) = \sum_m h_m(x_i)` ليس
+  متجانسًا مع التنبؤ: لا يمكن أن يكون فئة، لأن الأشجار تتنبأ
+  بقيم مُستمرة.
 
-  The mapping from the value :math:`F_M(x_i)` to a class or a probability is
-  loss-dependent. For the log-loss, the probability that
-  :math:`x_i` belongs to the positive class is modeled as :math:`p(y_i = 1 |
-  x_i) = \sigma(F_M(x_i))` where :math:`\sigma` is the sigmoid or expit function.
+  التعيين من القيمة :math:`F_M(x_i)` إلى فئة أو احتمال
+  يعتمد على الخسارة. بالنسبة لخسارة السجل، يتم نمذجة احتمال أن
+  :math:`x_i` ينتمي إلى الفئة الإيجابية على أنه :math:`p(y_i = 1 |
+  x_i) = \sigma(F_M(x_i))` حيث :math:`\sigma` هي دالة السيني أو
+  expit.
 
-  For multiclass classification, K trees (for K classes) are built at each of
-  the :math:`M` iterations. The probability that :math:`x_i` belongs to class
-  k is modeled as a softmax of the :math:`F_{M,k}(x_i)` values.
+  بالنسبة للتصنيف متعدد الفئات، يتم بناء K شجرة (لفئات K) في كل
+  من تكرارات :math:`M`. احتمال أن :math:`x_i` ينتمي إلى الفئة
+  k مُنمذج على أنه softmax لقيم :math:`F_{M,k}(x_i)`.
 
-  Note that even for a classification task, the :math:`h_m` sub-estimator is
-  still a regressor, not a classifier. This is because the sub-estimators are
-  trained to predict (negative) *gradients*, which are always continuous
-  quantities.
+  لاحظ أنه حتى بالنسبة لمهمة تصنيف، فإن المُقدِّر الفرعي :math:`h_m`
+  لا يزال مُنحدِرًا، وليس مُصنِّفًا. هذا لأن المُقدِّرات الفرعية
+  مُدرَّبة للتنبؤ بـ *تدرجات* (سالبة)، وهي دائمًا كميات
+  مُستمرة.
 
 .. _gradient_boosting_loss:
 
-Loss Functions
+دوال الخسارة
 ^^^^^^^^^^^^^^
 
-The following loss functions are supported and can be specified using
-the parameter ``loss``:
+يتم دعم دوال الخسارة التالية ويمكن تحديدها باستخدام
+معلمة ``loss``:
 
-.. dropdown:: Regression
+.. dropdown:: الانحدار
 
-  * Squared error (``'squared_error'``): The natural choice for regression
-    due to its superior computational properties. The initial model is
-    given by the mean of the target values.
-  * Absolute error (``'absolute_error'``): A robust loss function for
-    regression. The initial model is given by the median of the
-    target values.
-  * Huber (``'huber'``): Another robust loss function that combines
-    least squares and least absolute deviation; use ``alpha`` to
-    control the sensitivity with regards to outliers (see [Friedman2001]_ for
-    more details).
-  * Quantile (``'quantile'``): A loss function for quantile regression.
-    Use ``0 < alpha < 1`` to specify the quantile. This loss function
-    can be used to create prediction intervals
-    (see :ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_quantile.py`).
+  * الخطأ التربيعي (``'squared_error'``): الخيار الطبيعي للانحدار
+    نظرًا لخصائصه الحسابية المُتفوقة. النموذج الأولي
+    مُعطى بمتوسط القيم المستهدفة.
+  * الخطأ المُطلق (``'absolute_error'``): دالة خسارة قوية لـ
+    الانحدار. النموذج الأولي مُعطى بمتوسط
+    القيم المستهدفة.
+  * Huber (``'huber'``): دالة خسارة قوية أخرى تجمع بين
+    المربعات الصغرى وانحراف المُطلق الأقل؛ استخدم ``alpha`` لـ
+    التحكم في الحساسية فيما يتعلق بالقيم المتطرفة (انظر [Friedman2001]_ لـ
+    مزيد من التفاصيل).
+  * المُكمِّم (``'quantile'``): دالة خسارة لانحدار المُكمِّم.
+    استخدم ``0 < alpha < 1`` لتحديد المُكمِّم. يمكن استخدام دالة الخسارة هذه لإنشاء فترات تنبؤ
+    (انظر :ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_quantile.py`).
 
-.. dropdown:: Classification
+.. dropdown:: التصنيف
 
-  * Binary log-loss (``'log-loss'``): The binomial
-    negative log-likelihood loss function for binary classification. It provides
-    probability estimates.  The initial model is given by the
-    log odds-ratio.
-  * Multi-class log-loss (``'log-loss'``): The multinomial
-    negative log-likelihood loss function for multi-class classification with
-    ``n_classes`` mutually exclusive classes. It provides
-    probability estimates.  The initial model is given by the
-    prior probability of each class. At each iteration ``n_classes``
-    regression trees have to be constructed which makes GBRT rather
-    inefficient for data sets with a large number of classes.
-  * Exponential loss (``'exponential'``): The same loss function
-    as :class:`AdaBoostClassifier`. Less robust to mislabeled
-    examples than ``'log-loss'``; can only be used for binary
-    classification.
+  * خسارة السجل الثنائية (``'log-loss'``): ذات الحدين
+    دالة خسارة الاحتمالية السالبة للتصنيف الثنائي. إنها تُوفر
+    تقديرات احتمالية. النموذج الأولي مُعطى بواسطة
+    نسبة احتمالات السجل.
+  * خسارة السجل متعددة الفئات (``'log-loss'``): متعددة الحدود
+    دالة خسارة الاحتمالية السالبة للتصنيف متعدد الفئات مع
+    ``n_classes`` فئات مُتبادلة الاستبعاد. إنها تُوفر
+    تقديرات احتمالية. النموذج الأولي مُعطى بواسطة
+    الاحتمال المُسبق لكل فئة. في كل تكرار ``n_classes``
+    يجب إنشاء أشجار انحدار مما يجعل GBRT
+    غير فعال لمجموعات البيانات التي تحتوي على عدد كبير من الفئات.
+  * الخسارة الأسية (``'exponential'``): نفس دالة الخسارة
+    مثل :class:`AdaBoostClassifier`. أقل قوة للأمثلة
+    ذات التصنيف الخاطئ من ``'log-loss'``؛ لا يمكن استخدامها إلا للتصنيف
+    الثنائي.
 
 .. _gradient_boosting_shrinkage:
 
-Shrinkage via learning rate
+الانكماش عبر مُعدل التعلم
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-[Friedman2001]_ proposed a simple regularization strategy that scales
-the contribution of each weak learner by a constant factor :math:`\nu`:
+[Friedman2001]_ اقترح إستراتيجية تنظيم بسيطة تُغيّر مقياس
+مساهمة كل مُتعلم ضعيف بواسطة عامل ثابت :math:`\nu`:
 
 .. math::
 
     F_m(x) = F_{m-1}(x) + \nu h_m(x)
 
-The parameter :math:`\nu` is also called the **learning rate** because
-it scales the step length the gradient descent procedure; it can
-be set via the ``learning_rate`` parameter.
+تُسمى المعلمة :math:`\nu` أيضًا **مُعدل التعلم** لأنها
+تُغيّر مقياس طول الخطوة لإجراء النزول التدرجي؛ يمكن
+تعيينها عبر معلمة ``learning_rate``.
 
-The parameter ``learning_rate`` strongly interacts with the parameter
-``n_estimators``, the number of weak learners to fit. Smaller values
-of ``learning_rate`` require larger numbers of weak learners to maintain
-a constant training error. Empirical evidence suggests that small
-values of ``learning_rate`` favor better test error. [HTF]_
-recommend to set the learning rate to a small constant
-(e.g. ``learning_rate <= 0.1``) and choose ``n_estimators`` large enough
-that early stopping applies,
-see :ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_early_stopping.py`
-for a more detailed discussion of the interaction between
-``learning_rate`` and ``n_estimators`` see [R2007]_.
+تتفاعل المعلمة ``learning_rate`` بقوة مع المعلمة
+``n_estimators``، عدد المُتعلمين الضعفاء المناسبين. القيم الأصغر
+لـ ``learning_rate`` تتطلب أعدادًا أكبر من المُتعلمين الضعفاء للحفاظ على
+خطأ تدريب ثابت. تُشير الأدلة التجريبية إلى أن القيم الصغيرة
+لـ ``learning_rate`` تُفضل خطأ اختبار أفضل. [HTF]_
+يوصي بتعيين مُعدل التعلم إلى ثابت صغير
+(على سبيل المثال ``learning_rate <= 0.1``) واختيار ``n_estimators`` كبيرًا بما يكفي
+لتطبيق الإيقاف المُبكر،
+انظر :ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_early_stopping.py`
+لمناقشة أكثر تفصيلاً للتفاعل بين
+``learning_rate`` و ``n_estimators`` انظر [R2007]_.
 
-Subsampling
+أخذ عينات فرعية
 ^^^^^^^^^^^^
 
-[Friedman2002]_ proposed stochastic gradient boosting, which combines gradient
-boosting with bootstrap averaging (bagging). At each iteration
-the base classifier is trained on a fraction ``subsample`` of
-the available training data. The subsample is drawn without replacement.
-A typical value of ``subsample`` is 0.5.
+[Friedman2002]_ اقترح تعزيز التدرج العشوائي، الذي يجمع بين تعزيز
+التدرج ومتوسط التمهيد (التجميع). في كل تكرار
+يتم تدريب المُصنف الأساسي على جزء ``subsample`` من
+بيانات التدريب المتاحة. يتم رسم العينة الفرعية بدون استبدال.
+قيمة نموذجية لـ ``subsample`` هي 0.5.
 
-The figure below illustrates the effect of shrinkage and subsampling
-on the goodness-of-fit of the model. We can clearly see that shrinkage
-outperforms no-shrinkage. Subsampling with shrinkage can further increase
-the accuracy of the model. Subsampling without shrinkage, on the other hand,
-does poorly.
+يوضح الشكل أدناه تأثير الانكماش وأخذ العينات الفرعية
+على جودة ملاءمة النموذج. يمكننا أن نرى بوضوح أن الانكماش
+يتفوق على عدم الانكماش. يمكن لأخذ العينات الفرعية مع الانكماش زيادة
+دقة النموذج بشكل أكبر. من ناحية أخرى، فإن أخذ العينات الفرعية بدون انكماش
+يؤدي بشكل سيئ.
 
 .. figure:: ../auto_examples/ensemble/images/sphx_glr_plot_gradient_boosting_regularization_001.png
    :target: ../auto_examples/ensemble/plot_gradient_boosting_regularization.html
    :align: center
    :scale: 75
 
-Another strategy to reduce the variance is by subsampling the features
-analogous to the random splits in :class:`RandomForestClassifier`.
-The number of subsampled features can be controlled via the ``max_features``
-parameter.
+إستراتيجية أخرى لتقليل التباين هي عن طريق أخذ عينات فرعية من الميزات
+بشكل مُماثل للتقسيمات العشوائية في :class:`RandomForestClassifier`.
+يمكن التحكم في عدد الميزات التي تم أخذ عينات فرعية منها عبر معلمة ``max_features``.
 
-.. note:: Using a small ``max_features`` value can significantly decrease the runtime.
+.. note:: يمكن أن يؤدي استخدام قيمة ``max_features`` صغيرة إلى تقليل وقت التشغيل بشكل كبير.
 
-Stochastic gradient boosting allows to compute out-of-bag estimates of the
-test deviance by computing the improvement in deviance on the examples that are
-not included in the bootstrap sample (i.e. the out-of-bag examples).
-The improvements are stored in the attribute `oob_improvement_`.
-``oob_improvement_[i]`` holds the improvement in terms of the loss on the OOB samples
-if you add the i-th stage to the current predictions.
-Out-of-bag estimates can be used for model selection, for example to determine
-the optimal number of iterations. OOB estimates are usually very pessimistic thus
-we recommend to use cross-validation instead and only use OOB if cross-validation
-is too time consuming.
+يسمح تعزيز التدرج العشوائي بحساب تقديرات خارج الحقيبة
+لانحراف الاختبار عن طريق حساب التحسين في الانحراف على الأمثلة التي
+لم يتم تضمينها في عينة التمهيد (أي أمثلة خارج الحقيبة).
+يتم تخزين التحسينات في السمة `oob_improvement_`.
+``oob_improvement_[i]`` يحمل التحسين من حيث الخسارة على عينات OOB
+إذا أضفت المرحلة i إلى التنبؤات الحالية.
+يمكن استخدام التقديرات خارج الحقيبة لاختيار النموذج، على سبيل المثال لتحديد
+العدد الأمثل للتكرارات. عادةً ما تكون تقديرات OOB متشائمة جدًا، وبالتالي
+نوصي باستخدام التحقق المتبادل بدلاً من ذلك واستخدام OOB فقط إذا كان التحقق
+المتبادل يستغرق وقتًا طويلاً جدًا.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_regularization.py`
 * :ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_oob.py`
 * :ref:`sphx_glr_auto_examples_ensemble_plot_ensemble_oob.py`
 
-Interpretation with feature importance
+تفسير مع أهمية الميزة
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Individual decision trees can be interpreted easily by simply
-visualizing the tree structure. Gradient boosting models, however,
-comprise hundreds of regression trees thus they cannot be easily
-interpreted by visual inspection of the individual trees. Fortunately,
-a number of techniques have been proposed to summarize and interpret
-gradient boosting models.
+يمكن تفسير أشجار القرار الفردية بسهولة عن طريق ببساطة
+تصور هيكل الشجرة. نماذج تعزيز التدرج، مع ذلك،
+تتكون من مئات من أشجار الانحدار، وبالتالي لا يمكن تفسيرها بسهولة
+عن طريق الفحص البصري للأشجار الفردية. لحسن الحظ،
+تم اقتراح عدد من التقنيات لتلخيص وتفسير
+نماذج تعزيز التدرج.
 
-Often features do not contribute equally to predict the target
-response; in many situations the majority of the features are in fact
-irrelevant.
-When interpreting a model, the first question usually is: what are
-those important features and how do they contributing in predicting
-the target response?
+غالبًا لا تُساهم الميزات بالتساوي في التنبؤ باستجابة
+الهدف؛ في كثير من الحالات، تكون غالبية الميزات في الواقع
+غير ذات صلة.
+عند تفسير نموذج، فإن السؤال الأول عادةً ما يكون: ما هي
+تلك الميزات المهمة وكيف تُساهم في التنبؤ
+باستجابة الهدف؟
 
-Individual decision trees intrinsically perform feature selection by selecting
-appropriate split points. This information can be used to measure the
-importance of each feature; the basic idea is: the more often a
-feature is used in the split points of a tree the more important that
-feature is. This notion of importance can be extended to decision tree
-ensembles by simply averaging the impurity-based feature importance of each tree (see
-:ref:`random_forest_feature_importance` for more details).
+تؤدي أشجار القرار الفردية اختيار الميزات بشكل جوهري عن طريق اختيار
+نقاط تقسيم مناسبة. يمكن استخدام هذه المعلومات لقياس
+أهمية كل ميزة؛ الفكرة الأساسية هي: كلما زاد استخدام
+ميزة في نقاط تقسيم الشجرة، زادت أهمية تلك
+الميزة. يمكن توسيع مفهوم الأهمية هذا ليشمل مجموعات شجرة القرار
+عن طريق حساب متوسط أهمية الميزة القائمة على النجاسة لكل شجرة (انظر
+:ref:`random_forest_feature_importance` لمزيد من التفاصيل).
 
-The feature importance scores of a fit gradient boosting model can be
-accessed via the ``feature_importances_`` property::
+يمكن الوصول إلى درجات أهمية الميزة لنموذج تعزيز التدرج المُناسب
+عبر الخاصية ``feature_importances_``::
 
     >>> from sklearn.datasets import make_hastie_10_2
     >>> from sklearn.ensemble import GradientBoostingClassifier
@@ -902,44 +894,43 @@ accessed via the ``feature_importances_`` property::
     >>> clf.feature_importances_
     array([0.10..., 0.10..., 0.11..., ...
 
-Note that this computation of feature importance is based on entropy, and it
-is distinct from :func:`sklearn.inspection.permutation_importance` which is
-based on permutation of the features.
+لاحظ أن حساب أهمية الميزة هذا يعتمد على الانتروبيا، و
+إنه مُختلف عن :func:`sklearn.inspection.permutation_importance` الذي
+يعتمد على تبديل الميزات.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_regression.py`
 
-.. rubric:: References
+.. rubric:: المراجع
 
-.. [Friedman2001] Friedman, J.H. (2001). :doi:`Greedy function approximation: A gradient
-   boosting machine <10.1214/aos/1013203451>`.
+.. [Friedman2001] Friedman, J.H. (2001). :doi:`تقريب دالة جشع: آلة تعزيز التدرج <10.1214/aos/1013203451>`.
    Annals of Statistics, 29, 1189-1232.
 
-.. [Friedman2002] Friedman, J.H. (2002). `Stochastic gradient boosting.
+.. [Friedman2002] Friedman, J.H. (2002). `تعزيز التدرج العشوائي.
    <https://statweb.stanford.edu/~jhf/ftp/stobst.pdf>`_.
    Computational Statistics & Data Analysis, 38, 367-378.
 
-.. [R2007] G. Ridgeway (2006). `Generalized Boosted Models: A guide to the gbm
-   package <https://cran.r-project.org/web/packages/gbm/vignettes/gbm.pdf>`_
+.. [R2007] G. Ridgeway (2006). `نماذج مُعززة مُعممة: دليل لحزمة gbm
+   <https://cran.r-project.org/web/packages/gbm/vignettes/gbm.pdf>`_
 
 .. _forest:
 
-Random forests and other randomized tree ensembles
+الغابات العشوائية ومجموعات الأشجار العشوائية الأخرى
 ===================================================
 
-The :mod:`sklearn.ensemble` module includes two averaging algorithms based
-on randomized :ref:`decision trees <tree>`: the RandomForest algorithm
-and the Extra-Trees method. Both algorithms are perturb-and-combine
-techniques [B1998]_ specifically designed for trees. This means a diverse
-set of classifiers is created by introducing randomness in the classifier
-construction.  The prediction of the ensemble is given as the averaged
-prediction of the individual classifiers.
+تتضمن وحدة :mod:`sklearn.ensemble` خوارزميتين للمتوسط بناءً على
+:ref:`أشجار القرار <tree>` العشوائية: خوارزمية RandomForest
+وأسلوب Extra-Trees. كلتا الخوارزميتين هما تقنيات اضطراب وتجميع
+[B1998]_ مُصممة خصيصًا للأشجار. هذا يعني مجموعة مُتنوعة
+من المُصنِّفات يتم إنشاؤها عن طريق إدخال العشوائية في مُنشئ
+المُصنف. يتم إعطاء تنبؤ المجموعة على أنه متوسط
+تنبؤ المُصنِّفات الفردية.
 
-As other classifiers, forest classifiers have to be fitted with two
-arrays: a sparse or dense array X of shape ``(n_samples, n_features)``
-holding the training samples, and an array Y of shape ``(n_samples,)``
-holding the target values (class labels) for the training samples::
+مثل المُصنِّفات الأخرى، يجب ملاءمة مُصنِّفات الغابات بمصفوفتين:
+مصفوفة متفرقة أو كثيفة X ذات شكل ``(n_samples, n_features)``
+تحمل عينات التدريب، ومصفوفة Y ذات شكل ``(n_samples,)``
+تحمل القيم المستهدفة (تصنيفات الفئات) لعينات التدريب::
 
     >>> from sklearn.ensemble import RandomForestClassifier
     >>> X = [[0, 0], [1, 1]]
@@ -947,80 +938,80 @@ holding the target values (class labels) for the training samples::
     >>> clf = RandomForestClassifier(n_estimators=10)
     >>> clf = clf.fit(X, Y)
 
-Like :ref:`decision trees <tree>`, forests of trees also extend to
-:ref:`multi-output problems <tree_multioutput>`  (if Y is an array
-of shape ``(n_samples, n_outputs)``).
+مثل :ref:`أشجار القرار <tree>`، تمتد غابات الأشجار أيضًا إلى
+:ref:`مشاكل الإخراج المتعدد <tree_multioutput>` (إذا كانت Y مصفوفة
+ذات شكل ``(n_samples, n_outputs)``).
 
-Random Forests
+الغابات العشوائية
 --------------
 
-In random forests (see :class:`RandomForestClassifier` and
-:class:`RandomForestRegressor` classes), each tree in the ensemble is built
-from a sample drawn with replacement (i.e., a bootstrap sample) from the
-training set.
+في الغابات العشوائية (انظر فئات :class:`RandomForestClassifier` و
+:class:`RandomForestRegressor`)، يتم بناء كل شجرة في المجموعة
+من عينة مرسومة مع استبدال (أي عينة تمهيد) من
+مجموعة التدريب.
 
-Furthermore, when splitting each node during the construction of a tree, the
-best split is found through an exhaustive search of the features values of
-either all input features or a random subset of size ``max_features``.
-(See the :ref:`parameter tuning guidelines <random_forest_parameters>` for more details.)
+علاوة على ذلك، عند تقسيم كل عقدة أثناء بناء شجرة،
+يتم إيجاد أفضل تقسيم من خلال بحث شامل عن قيم الميزات لـ
+إما جميع ميزات الإدخال أو مجموعة فرعية عشوائية من الحجم ``max_features``.
+(راجع :ref:`إرشادات ضبط المعلمات <random_forest_parameters>` لمزيد من التفاصيل.)
 
-The purpose of these two sources of randomness is to decrease the variance of
-the forest estimator. Indeed, individual decision trees typically exhibit high
-variance and tend to overfit. The injected randomness in forests yield decision
-trees with somewhat decoupled prediction errors. By taking an average of those
-predictions, some errors can cancel out. Random forests achieve a reduced
-variance by combining diverse trees, sometimes at the cost of a slight increase
-in bias. In practice the variance reduction is often significant hence yielding
-an overall better model.
+الغرض من هذين المصدرين للعشوائية هو تقليل تباين
+مُقدِّر الغابة. في الواقع، تُظهر أشجار القرار الفردية عادةً تباينًا عاليًا وتميل إلى
+التجاوز. ينتج عن العشوائية المحقونة في الغابات أشجار قرار ذات أخطاء تنبؤ
+مفصولة إلى حد ما. عن طريق حساب متوسط تلك
+التنبؤات، يمكن إلغاء بعض الأخطاء. تُحقق الغابات العشوائية تباينًا
+مُنخفضًا من خلال دمج الأشجار المُتنوعة، وأحيانًا على حساب زيادة طفيفة في
+التحيز. في الممارسة العملية، غالبًا ما يكون تقليل التباين كبيرًا، مما يؤدي إلى
+نموذج أفضل بشكل عام.
 
-In contrast to the original publication [B2001]_, the scikit-learn
-implementation combines classifiers by averaging their probabilistic
-prediction, instead of letting each classifier vote for a single class.
+على عكس المنشور الأصلي [B2001]_، فإن تطبيق scikit-learn
+يجمع المُصنِّفات عن طريق حساب متوسط تنبؤها الاحتمالي،
+بدلاً من السماح لكل مُصنف بالتصويت على فئة واحدة.
 
-A competitive alternative to random forests are
-:ref:`histogram_based_gradient_boosting` (HGBT) models:
+بديل تنافسي للغابات العشوائية هو
+نماذج :ref:`histogram_based_gradient_boosting` (HGBT):
 
--  Building trees: Random forests typically rely on deep trees (that overfit
-   individually) which uses much computational resources, as they require
-   several splittings and evaluations of candidate splits. Boosting models
-   build shallow trees (that underfit individually) which are faster to fit
-   and predict.
+-  بناء الأشجار: تعتمد الغابات العشوائية عادةً على الأشجار العميقة (التي تُفرط
+   في الملاءمة بشكل فردي) والتي تستخدم الكثير من موارد الحساب، حيث تتطلب
+   العديد من التقسيمات وتقييمات التقسيمات المُرشحة. نماذج التعزيز
+   تبني أشجارًا ضحلة (تُفرط في الملاءمة بشكل فردي) وهي أسرع في الملاءمة
+   والتنبؤ.
 
--  Sequential boosting: In HGBT, the decision trees are built sequentially,
-   where each tree is trained to correct the errors made by the previous ones.
-   This allows them to iteratively improve the model's performance using
-   relatively few trees. In contrast, random forests use a majority vote to
-   predict the outcome, which can require a larger number of trees to achieve
-   the same level of accuracy.
+-  التعزيز المتسلسل: في HGBT، يتم بناء أشجار القرار بالتسلسل،
+   حيث يتم تدريب كل شجرة لتصحيح الأخطاء التي ارتكبتها الأشجار السابقة.
+   هذا يسمح لهم بتحسين أداء النموذج بشكل متكرر باستخدام
+   عدد قليل نسبيًا من الأشجار. على النقيض من ذلك، تستخدم الغابات العشوائية تصويت الأغلبية لـ
+   التنبؤ بالنتيجة، الأمر الذي قد يتطلب عددًا أكبر من الأشجار لتحقيق
+   نفس مستوى الدقة.
 
--  Efficient binning: HGBT uses an efficient binning algorithm that can handle
-   large datasets with a high number of features. The binning algorithm can
-   pre-process the data to speed up the subsequent tree construction (see
-   :ref:`Why it's faster <Why_it's_faster>`). In contrast, the scikit-learn
-   implementation of random forests does not use binning and relies on exact
-   splitting, which can be computationally expensive.
+-  التجميع الفعال: يستخدم HGBT خوارزمية تجميع فعالة يمكنها التعامل مع
+   مجموعات البيانات الكبيرة التي تحتوي على عدد كبير من الميزات. يمكن لخوارزمية التجميع
+   مُعالجة البيانات مُسبقًا لتسريع بناء الشجرة اللاحق (انظر
+   :ref:`لماذا هو أسرع <Why_it's_faster>`). على النقيض من ذلك، تطبيق scikit-learn
+   للغابات العشوائية لا يستخدم التجميع ويعتمد على التقسيم
+   الدقيق، والذي قد يكون مكلفًا من الناحية الحسابية.
 
-Overall, the computational cost of HGBT versus RF depends on the specific
-characteristics of the dataset and the modeling task. It's a good idea
-to try both models and compare their performance and computational efficiency
-on your specific problem to determine which model is the best fit.
+بشكل عام، تعتمد التكلفة الحسابية لـ HGBT مقابل RF على الخصائص المحددة
+لمجموعة البيانات ومهمة النمذجة. إنها لفكرة جيدة
+تجربة كلا النموذجين ومقارنة أدائهما وكفاءتهما الحسابية
+في مشكلتك المحددة لتحديد النموذج الأنسب.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_ensemble_plot_forest_hist_grad_boosting_comparison.py`
 
-Extremely Randomized Trees
+أشجار عشوائية للغاية
 --------------------------
 
-In extremely randomized trees (see :class:`ExtraTreesClassifier`
-and :class:`ExtraTreesRegressor` classes), randomness goes one step
-further in the way splits are computed. As in random forests, a random
-subset of candidate features is used, but instead of looking for the
-most discriminative thresholds, thresholds are drawn at random for each
-candidate feature and the best of these randomly-generated thresholds is
-picked as the splitting rule. This usually allows to reduce the variance
-of the model a bit more, at the expense of a slightly greater increase
-in bias::
+في الأشجار العشوائية للغاية (انظر فئات :class:`ExtraTreesClassifier`
+و :class:`ExtraTreesRegressor`)، تذهب العشوائية خطوة أخرى إلى الأمام في طريقة حساب
+التقسيمات. كما هو الحال في الغابات العشوائية، يتم استخدام
+مجموعة فرعية عشوائية من الميزات المُرشحة، ولكن بدلاً من البحث عن
+العتبات الأكثر تمييزًا، يتم رسم العتبات عشوائيًا لكل
+ميزة مُرشحة ويتم اختيار أفضل هذه العتبات التي تم إنشاؤها عشوائيًا
+كقاعدة تقسيم. هذا يسمح عادةً بتقليل تباين
+النموذج أكثر قليلاً، على حساب زيادة طفيفة في
+التحيز::
 
     >>> from sklearn.model_selection import cross_val_score
     >>> from sklearn.datasets import make_blobs
@@ -1056,163 +1047,175 @@ in bias::
 
 .. _random_forest_parameters:
 
-Parameters
+المعلمات
 ----------
 
-The main parameters to adjust when using these methods is ``n_estimators`` and
-``max_features``. The former is the number of trees in the forest. The larger
-the better, but also the longer it will take to compute. In addition, note that
-results will stop getting significantly better beyond a critical number of
-trees. The latter is the size of the random subsets of features to consider
-when splitting a node. The lower the greater the reduction of variance, but
-also the greater the increase in bias. Empirical good default values are
-``max_features=1.0`` or equivalently ``max_features=None`` (always considering
-all features instead of a random subset) for regression problems, and
-``max_features="sqrt"`` (using a random subset of size ``sqrt(n_features)``)
-for classification tasks (where ``n_features`` is the number of features in
-the data). The default value of ``max_features=1.0`` is equivalent to bagged
-trees and more randomness can be achieved by setting smaller values (e.g. 0.3
-is a typical default in the literature). Good results are often achieved when
-setting ``max_depth=None`` in combination with ``min_samples_split=2`` (i.e.,
-when fully developing the trees). Bear in mind though that these values are
-usually not optimal, and might result in models that consume a lot of RAM.
-The best parameter values should always be cross-validated. In addition, note
-that in random forests, bootstrap samples are used by default
-(``bootstrap=True``) while the default strategy for extra-trees is to use the
-whole dataset (``bootstrap=False``). When using bootstrap sampling the
-generalization error can be estimated on the left out or out-of-bag samples.
-This can be enabled by setting ``oob_score=True``.
+المعلمات الرئيسية التي يجب تعديلها عند استخدام هذه الأساليب هي ``n_estimators`` و
+``max_features``. الأولى هي عدد الأشجار في الغابة. كلما زاد
+كان ذلك أفضل، ولكن أيضًا كلما استغرق حسابه وقتًا أطول. بالإضافة إلى ذلك، لاحظ أن
+النتائج ستتوقف عن التحسن بشكل كبير بعدد حرج من
+الأشجار. الأخيرة هي حجم المجموعات الفرعية العشوائية من الميزات التي يجب مراعاتها
+عند تقسيم عقدة. كلما انخفض، زاد تقليل التباين، ولكن
+أيضًا زادت الزيادة في التحيز. قيم افتراضية تجريبية جيدة هي
+``max_features=1.0`` أو بشكل مُكافئ ``max_features=None`` (مع مراعاة
+جميع الميزات دائمًا بدلاً من مجموعة فرعية عشوائية) لمشاكل الانحدار، و
+``max_features="sqrt"`` (باستخدام مجموعة فرعية عشوائية من الحجم ``sqrt(n_features)``)
+لمهام التصنيف (حيث ``n_features`` هو عدد الميزات في
+البيانات). القيمة الافتراضية لـ ``max_features=1.0`` تُعادل الأشجار المُجمَّعة
+ويمكن تحقيق المزيد من العشوائية عن طريق تعيين قيم أصغر (على سبيل المثال 0.3
+هو افتراضي نموذجي في الأدبيات). غالبًا ما يتم تحقيق نتائج جيدة عند
+تعيين ``max_depth=None`` مع ``min_samples_split=2`` (أي
+عند تطوير الأشجار بالكامل). ضع في اعتبارك أن هذه القيم
+عادةً ما لا تكون مثالية، وقد تؤدي إلى نماذج تستهلك الكثير من ذاكرة الوصول العشوائي.
+يجب دائمًا التحقق من أفضل قيم المعلمات بشكل متبادل. بالإضافة إلى ذلك، لاحظ
+أنه في الغابات العشوائية، يتم استخدام عينات التمهيد افتراضيًا
+(``bootstrap=True``) بينما الإستراتيجية الافتراضية للأشجار الإضافية هي استخدام
+مجموعة البيانات بأكملها (``bootstrap=False``). عند استخدام أخذ عينات التمهيد،
+يمكن تقدير خطأ التعميم على العينات المتروكة أو خارج الحقيبة.
+يمكن تمكين ذلك عن طريق تعيين ``oob_score=True``.
 
 .. note::
 
-    The size of the model with the default parameters is :math:`O( M * N * log (N) )`,
-    where :math:`M` is the number of trees and :math:`N` is the number of samples.
-    In order to reduce the size of the model, you can change these parameters:
-    ``min_samples_split``, ``max_leaf_nodes``, ``max_depth`` and ``min_samples_leaf``.
+    حجم النموذج بالمعلمات الافتراضية هو :math:`O( M * N * log (N) )`،
+    حيث :math:`M` هو عدد الأشجار و :math:`N` هو عدد العينات.
+    لتقليل حجم النموذج، يمكنك تغيير هذه المعلمات:
+    ``min_samples_split`` و ``max_leaf_nodes`` و ``max_depth`` و ``min_samples_leaf``.
 
-Parallelization
+التوازي
 ---------------
 
-Finally, this module also features the parallel construction of the trees
-and the parallel computation of the predictions through the ``n_jobs``
-parameter. If ``n_jobs=k`` then computations are partitioned into
-``k`` jobs, and run on ``k`` cores of the machine. If ``n_jobs=-1``
-then all cores available on the machine are used. Note that because of
-inter-process communication overhead, the speedup might not be linear
-(i.e., using ``k`` jobs will unfortunately not be ``k`` times as
-fast). Significant speedup can still be achieved though when building
-a large number of trees, or when building a single tree requires a fair
-amount of time (e.g., on large datasets).
+أخيرًا، تُظهر هذه الوحدة أيضًا البناء المتوازي للأشجار
+والحساب المتوازي للتنبؤات من خلال المعلمة ``n_jobs``.
+إذا كانت ``n_jobs=k``، فسيتم تقسيم الحسابات إلى
+``k`` وظائف، وتشغيلها على ``k`` نوى للآلة. إذا كانت ``n_jobs=-1``،
+فسيتم استخدام جميع النوى المتاحة على الآلة. لاحظ أنه بسبب
+النفقات العامة للاتصال بين العمليات، قد لا يكون التسريع خطيًا
+(أي أن استخدام ``k`` وظائف للأسف لن يكون أسرع ``k`` مرة).
+لا يزال من الممكن تحقيق تسريع كبير عند بناء
+عدد كبير من الأشجار، أو عندما يتطلب بناء شجرة واحدة قدرًا
+لا بأس به من الوقت (على سبيل المثال، على مجموعات البيانات الكبيرة).
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_ensemble_plot_forest_iris.py`
+* :ref:`sphx_glr_auto_examples_ensemble_plot_forest_importances_faces.py`
 * :ref:`sphx_glr_auto_examples_miscellaneous_plot_multioutput_face_completion.py`
 
-.. rubric:: References
+.. rubric:: المراجع
 
-.. [B2001] L. Breiman, "Random Forests", Machine Learning, 45(1), 5-32, 2001.
+.. [B2001] L. Breiman, "الغابات العشوائية", Machine Learning, 45(1), 5-32, 2001.
 
-.. [B1998] L. Breiman, "Arcing Classifiers", Annals of Statistics 1998.
+.. [B1998] L. Breiman, "مُصنِّفات الأقواس", Annals of Statistics 1998.
 
-* P. Geurts, D. Ernst., and L. Wehenkel, "Extremely randomized
-  trees", Machine Learning, 63(1), 3-42, 2006.
+* P. Geurts, D. Ernst., and L. Wehenkel, "أشجار
+  عشوائية للغاية", Machine Learning, 63(1), 3-42, 2006.
 
 .. _random_forest_feature_importance:
 
-Feature importance evaluation
+تقييم أهمية الميزة
 -----------------------------
 
-The relative rank (i.e. depth) of a feature used as a decision node in a
-tree can be used to assess the relative importance of that feature with
-respect to the predictability of the target variable. Features used at
-the top of the tree contribute to the final prediction decision of a
-larger fraction of the input samples. The **expected fraction of the
-samples** they contribute to can thus be used as an estimate of the
-**relative importance of the features**. In scikit-learn, the fraction of
-samples a feature contributes to is combined with the decrease in impurity
-from splitting them to create a normalized estimate of the predictive power
-of that feature.
+يمكن استخدام الرتبة النسبية (أي العمق) لميزة تُستخدم كعقدة قرار في
+شجرة لتقييم الأهمية النسبية لتلك الميزة فيما يتعلق بـ
+قابلية التنبؤ بالمتغير الهدف. تُساهم الميزات المُستخدمة في
+أعلى الشجرة في قرار التنبؤ النهائي لـ
+جزء أكبر من عينات الإدخال. **الجزء المتوقع من
+العينات** التي تُساهم فيها يمكن استخدامه كتقدير لـ
+**الأهمية النسبية للميزات**. في scikit-learn، يتم دمج جزء
+العينات التي تُساهم فيها ميزة مع انخفاض النجاسة
+من تقسيمها لإنشاء تقدير مُقيَّس للقدرة التنبؤية
+لتلك الميزة.
 
-By **averaging** the estimates of predictive ability over several randomized
-trees one can **reduce the variance** of such an estimate and use it
-for feature selection. This is known as the mean decrease in impurity, or MDI.
-Refer to [L2014]_ for more information on MDI and feature importance
-evaluation with Random Forests.
+عن طريق **حساب متوسط** تقديرات القدرة التنبؤية على عدة
+أشجار عشوائية، يمكن للمرء **تقليل تباين** هذا التقدير واستخدامه لـ
+اختيار الميزات. يُعرف هذا باسم متوسط الانخفاض في النجاسة، أو MDI.
+راجع [L2014]_ لمزيد من المعلومات حول MDI وتقييم أهمية
+الميزات مع الغابات العشوائية.
 
 .. warning::
 
-  The impurity-based feature importances computed on tree-based models suffer
-  from two flaws that can lead to misleading conclusions. First they are
-  computed on statistics derived from the training dataset and therefore **do
-  not necessarily inform us on which features are most important to make good
-  predictions on held-out dataset**. Secondly, **they favor high cardinality
-  features**, that is features with many unique values.
-  :ref:`permutation_importance` is an alternative to impurity-based feature
-  importance that does not suffer from these flaws. These two methods of
-  obtaining feature importance are explored in:
-  :ref:`sphx_glr_auto_examples_inspection_plot_permutation_importance.py`.
+  أهمية الميزات القائمة على النجاسة المحسوبة على النماذج القائمة على الأشجار تعاني
+  من عيبين يمكن أن يؤديا إلى استنتاجات مُضللة. أولاً، يتم
+  حسابها على إحصاءات مُشتقة من مجموعة بيانات التدريب، وبالتالي **لا
+  تُخبرنا بالضرورة عن الميزات الأكثر أهمية لإجراء تنبؤات جيدة على
+  مجموعة بيانات مُخصصة للاختبار**. ثانيًا، **تُفضل
+  الميزات ذات العدد الكبير من العناصر**، أي الميزات ذات العديد من القيم الفريدة.
+  :ref:`permutation_importance` هو بديل لأهمية الميزات القائمة على النجاسة
+  التي لا تعاني من هذه العيوب. يتم استكشاف هاتين الطريقتين لـ
+الحصول على أهمية الميزات في:
+:ref:`sphx_glr_auto_examples_inspection_plot_permutation_importance.py`.
 
-In practice those estimates are stored as an attribute named
-``feature_importances_`` on the fitted model. This is an array with shape
-``(n_features,)`` whose values are positive and sum to 1.0. The higher
-the value, the more important is the contribution of the matching feature
-to the prediction function.
+يوضح المثال التالي تمثيلًا مُرمَّزًا بالألوان لـ
+أهمية كل بكسل فردي لمهمة التعرف على الوجه باستخدام
+نموذج :class:`ExtraTreesClassifier`.
 
-.. rubric:: Examples
+.. figure:: ../auto_examples/ensemble/images/sphx_glr_plot_forest_importances_faces_001.png
+   :target: ../auto_examples/ensemble/plot_forest_importances_faces.html
+   :align: center
+   :scale: 75
 
+في الممارسة العملية، يتم تخزين هذه التقديرات كسمة تُسمى
+``feature_importances_`` على النموذج المُناسب. هذه مصفوفة ذات شكل
+``(n_features,)`` قيمها موجبة ومجموعها 1.0. كلما ارتفعت
+القيمة، زادت أهمية مساهمة الميزة المُطابقة
+لدالة التنبؤ.
+
+.. rubric:: أمثلة
+
+* :ref:`sphx_glr_auto_examples_ensemble_plot_forest_importances_faces.py`
 * :ref:`sphx_glr_auto_examples_ensemble_plot_forest_importances.py`
 
-.. rubric:: References
+.. rubric:: المراجع
 
-.. [L2014] G. Louppe, :arxiv:`"Understanding Random Forests: From Theory to
-   Practice" <1407.7502>`,
-   PhD Thesis, U. of Liege, 2014.
+.. [L2014] G. Louppe, :arxiv:`"فهم الغابات العشوائية: من النظرية إلى
+   الممارسة" <1407.7502>`،
+   أطروحة دكتوراه، جامعة لييج، 2014.
 
 .. _random_trees_embedding:
 
-Totally Random Trees Embedding
+تضمين الأشجار العشوائية تمامًا
 ------------------------------
 
-:class:`RandomTreesEmbedding` implements an unsupervised transformation of the
-data.  Using a forest of completely random trees, :class:`RandomTreesEmbedding`
-encodes the data by the indices of the leaves a data point ends up in.  This
-index is then encoded in a one-of-K manner, leading to a high dimensional,
-sparse binary coding.
-This coding can be computed very efficiently and can then be used as a basis
-for other learning tasks.
-The size and sparsity of the code can be influenced by choosing the number of
-trees and the maximum depth per tree. For each tree in the ensemble, the coding
-contains one entry of one. The size of the coding is at most ``n_estimators * 2
-** max_depth``, the maximum number of leaves in the forest.
+:class:`RandomTreesEmbedding` يُطبق تحويلًا غير خاضع للإشراف لـ
+البيانات. باستخدام غابة من الأشجار العشوائية تمامًا، :class:`RandomTreesEmbedding`
+يُرمِّز البيانات بواسطة مؤشرات الأوراق التي تنتهي بها نقطة البيانات. هذا
+الفهرس يتم ترميزه بعد ذلك بطريقة واحد من K، مما يؤدي إلى ترميز ثنائي متفرق عالي
+الأبعاد.
+يمكن حساب هذا الترميز بكفاءة عالية ويمكن استخدامه كأساس
+لمهام التعلم الأخرى.
+يمكن التأثير على حجم وتفرق الكود عن طريق اختيار عدد
+الأشجار والحد الأقصى للعمق لكل شجرة. لكل شجرة في المجموعة،
+يحتوي الترميز على إدخال واحد من واحد. حجم الترميز هو على الأكثر ``n_estimators * 2
+** max_depth``، الحد الأقصى لعدد الأوراق في الغابة.
 
-As neighboring data points are more likely to lie within the same leaf of a
-tree, the transformation performs an implicit, non-parametric density
-estimation.
+نظرًا لأن نقاط البيانات المجاورة من المرجح أن تقع داخل نفس ورقة
+الشجرة، فإن التحويل يُجري تقديرًا ضمنيًا غير معلمي
+للكثافة.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_ensemble_plot_random_forest_embedding.py`
 
-* :ref:`sphx_glr_auto_examples_manifold_plot_lle_digits.py` compares non-linear
-  dimensionality reduction techniques on handwritten digits.
+* :ref:`sphx_glr_auto_examples_manifold_plot_lle_digits.py` تُقارن تقنيات
+  تقليل الأبعاد غير الخطية على الأرقام المكتوبة بخط اليد.
 
-* :ref:`sphx_glr_auto_examples_ensemble_plot_feature_transformation.py` compares
-  supervised and unsupervised tree based feature transformations.
+* :ref:`sphx_glr_auto_examples_ensemble_plot_feature_transformation.py` تُقارن
+  تحويلات الميزات القائمة على الأشجار الخاضعة للإشراف وغير الخاضعة للإشراف.
 
 .. seealso::
 
-   :ref:`manifold` techniques can also be useful to derive non-linear
-   representations of feature space, also these approaches focus also on
-   dimensionality reduction.
+   يمكن أن تكون تقنيات :ref:`manifold` مفيدة أيضًا لاشتقاق تمثيلات غير خطية
+   لمساحة الميزات، كما تُركز هذه الأساليب أيضًا على
+   تقليل الأبعاد.
 
 .. _tree_ensemble_warm_start:
 
-Fitting additional trees
+ملاءمة أشجار إضافية
 ------------------------
 
-RandomForest, Extra-Trees and :class:`RandomTreesEmbedding` estimators all support
-``warm_start=True`` which allows you to add more trees to an already fitted model.
+RandomForest و Extra-Trees و مُقدِّرات :class:`RandomTreesEmbedding` تدعم جميعها
+``warm_start=True`` الذي يسمح لك بإضافة المزيد من الأشجار إلى نموذج مُناسب
+بالفعل.
 
 ::
 
@@ -1221,139 +1224,140 @@ RandomForest, Extra-Trees and :class:`RandomTreesEmbedding` estimators all suppo
 
   >>> X, y = make_classification(n_samples=100, random_state=1)
   >>> clf = RandomForestClassifier(n_estimators=10)
-  >>> clf = clf.fit(X, y)  # fit with 10 trees
+  >>> clf = clf.fit(X, y)  # ملاءمة مع 10 أشجار
   >>> len(clf.estimators_)
   10
-  >>> # set warm_start and increase num of estimators
+  >>> # تعيين warm_start وزيادة عدد المُقدِّرات
   >>> _ = clf.set_params(n_estimators=20, warm_start=True)
-  >>> _ = clf.fit(X, y) # fit additional 10 trees
+  >>> _ = clf.fit(X, y) # ملاءمة 10 أشجار إضافية
   >>> len(clf.estimators_)
   20
 
-When ``random_state`` is also set, the internal random state is also preserved
-between ``fit`` calls. This means that training a model once with ``n`` estimators is
-the same as building the model iteratively via multiple ``fit`` calls, where the
-final number of estimators is equal to ``n``.
+عندما يتم تعيين ``random_state`` أيضًا، يتم أيضًا الحفاظ على الحالة العشوائية الداخلية
+بين استدعاءات ``fit``. هذا يعني أن تدريب نموذج مرة واحدة مع ``n`` مُقدِّر هو
+نفس بناء النموذج بشكل متكرر عبر استدعاءات ``fit`` متعددة، حيث
+العدد النهائي للمُقدِّرات يساوي ``n``.
 
 ::
 
-  >>> clf = RandomForestClassifier(n_estimators=20)  # set `n_estimators` to 10 + 10
-  >>> _ = clf.fit(X, y)  # fit `estimators_` will be the same as `clf` above
+  >>> clf = RandomForestClassifier(n_estimators=20)  # تعيين `n_estimators` إلى 10 + 10
+  >>> _ = clf.fit(X, y)  # ملاءمة `estimators_` ستكون نفس `clf` أعلاه
 
-Note that this differs from the usual behavior of :term:`random_state` in that it does
-*not* result in the same result across different calls.
+لاحظ أن هذا يختلف عن السلوك المعتاد لـ :term:`random_state` من حيث أنه *لا* يؤدي
+إلى نفس النتيجة عبر استدعاءات مختلفة.
 
 .. _bagging:
 
-Bagging meta-estimator
+مُقدِّر التعريف التجميعي
 ======================
 
-In ensemble algorithms, bagging methods form a class of algorithms which build
-several instances of a black-box estimator on random subsets of the original
-training set and then aggregate their individual predictions to form a final
-prediction. These methods are used as a way to reduce the variance of a base
-estimator (e.g., a decision tree), by introducing randomization into its
-construction procedure and then making an ensemble out of it. In many cases,
-bagging methods constitute a very simple way to improve with respect to a
-single model, without making it necessary to adapt the underlying base
-algorithm. As they provide a way to reduce overfitting, bagging methods work
-best with strong and complex models (e.g., fully developed decision trees), in
-contrast with boosting methods which usually work best with weak models (e.g.,
-shallow decision trees).
+في خوارزميات المجموعات، تُشكِّل أساليب التجميع فئة من الخوارزميات التي تبني
+العديد من مثيلات مُقدِّر الصندوق الأسود على مجموعات فرعية عشوائية من
+مجموعة التدريب الأصلية ثم تجمع تنبؤاتها الفردية لتشكيل
+تنبؤ نهائي. تُستخدم هذه الأساليب كطريقة لتقليل تباين
+مُقدِّر أساسي (على سبيل المثال، شجرة قرار)، عن طريق إدخال العشوائية في
+إجراء بنائه ثم صنع مجموعة منه. في كثير من الحالات،
+تُشكِّل أساليب التجميع طريقة بسيطة للغاية للتحسين فيما يتعلق بـ
+نموذج واحد، دون جعل من الضروري تكييف خوارزمية
+الأساس الأساسية. نظرًا لأنها تُوفر طريقة لتقليل التجاوز، فإن أساليب التجميع تعمل
+بشكل أفضل مع النماذج القوية والمعقدة (على سبيل المثال، أشجار القرار المُطوَّرة بالكامل)،
+على عكس أساليب التعزيز التي تعمل عادةً بشكل أفضل مع النماذج الضعيفة (على سبيل المثال،
+أشجار القرار الضحلة).
 
-Bagging methods come in many flavours but mostly differ from each other by the
-way they draw random subsets of the training set:
+تأتي أساليب التجميع في العديد من النكهات ولكنها تختلف في الغالب عن بعضها البعض بالطريقة
+التي ترسم بها مجموعات فرعية عشوائية من مجموعة التدريب:
 
-* When random subsets of the dataset are drawn as random subsets of the
-  samples, then this algorithm is known as Pasting [B1999]_.
+* عندما يتم رسم مجموعات فرعية عشوائية من مجموعة البيانات كمجموعات فرعية عشوائية من
+  العينات، تُعرف هذه الخوارزمية باسم اللصق [B1999]_.
 
-* When samples are drawn with replacement, then the method is known as
-  Bagging [B1996]_.
+* عندما يتم رسم العينات مع الاستبدال، تُعرف الطريقة باسم
+  التجميع [B1996]_.
 
-* When random subsets of the dataset are drawn as random subsets of
-  the features, then the method is known as Random Subspaces [H1998]_.
+* عندما يتم رسم مجموعات فرعية عشوائية من مجموعة البيانات كمجموعات فرعية عشوائية من
+  الميزات، تُعرف الطريقة باسم الفضاءات الفرعية العشوائية [H1998]_.
 
-* Finally, when base estimators are built on subsets of both samples and
-  features, then the method is known as Random Patches [LG2012]_.
+* أخيرًا، عندما يتم بناء المُقدِّرات الأساسية على مجموعات فرعية من كل من العينات و
+  الميزات، تُعرف الطريقة باسم الرقع العشوائية [LG2012]_.
 
-In scikit-learn, bagging methods are offered as a unified
-:class:`BaggingClassifier` meta-estimator  (resp. :class:`BaggingRegressor`),
-taking as input a user-specified estimator along with parameters
-specifying the strategy to draw random subsets. In particular, ``max_samples``
-and ``max_features`` control the size of the subsets (in terms of samples and
-features), while ``bootstrap`` and ``bootstrap_features`` control whether
-samples and features are drawn with or without replacement. When using a subset
-of the available samples the generalization accuracy can be estimated with the
-out-of-bag samples by setting ``oob_score=True``. As an example, the
-snippet below illustrates how to instantiate a bagging ensemble of
-:class:`~sklearn.neighbors.KNeighborsClassifier` estimators, each built on random
-subsets of 50% of the samples and 50% of the features.
+في scikit-learn، يتم تقديم أساليب التجميع كوحدة
+مُقدِّر التعريف :class:`BaggingClassifier` (أو :class:`BaggingRegressor`)،
+مع أخذ مُقدِّر مُحدد من قبل المستخدم كمدخلات جنبًا إلى جنب مع معلمات
+تُحدد إستراتيجية رسم مجموعات فرعية عشوائية. على وجه الخصوص، ``max_samples``
+و ``max_features`` يتحكمان في حجم المجموعات الفرعية (من حيث العينات و
+الميزات)، بينما يتحكم ``bootstrap`` و ``bootstrap_features`` فيما إذا
+كانت العينات والميزات مرسومة مع أو بدون استبدال. عند استخدام مجموعة فرعية
+من العينات المتاحة، يمكن تقدير دقة التعميم مع
+العينات خارج الحقيبة عن طريق تعيين ``oob_score=True``. على سبيل المثال،
+يوضح المقتطف أدناه كيفية إنشاء مجموعة تجميع من
+مُقدِّرات :class:`~sklearn.neighbors.KNeighborsClassifier`، كل منها مبني على مجموعات فرعية
+عشوائية من 50% من العينات و 50% من الميزات.
 
     >>> from sklearn.ensemble import BaggingClassifier
     >>> from sklearn.neighbors import KNeighborsClassifier
     >>> bagging = BaggingClassifier(KNeighborsClassifier(),
     ...                             max_samples=0.5, max_features=0.5)
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_ensemble_plot_bias_variance.py`
 
-.. rubric:: References
+.. rubric:: المراجع
 
-.. [B1999] L. Breiman, "Pasting small votes for classification in large
-   databases and on-line", Machine Learning, 36(1), 85-103, 1999.
+.. [B1999] L. Breiman, "لصق أصوات صغيرة للتصنيف في قواعد بيانات
+   كبيرة وعلى الإنترنت", Machine Learning, 36(1), 85-103, 1999.
 
-.. [B1996] L. Breiman, "Bagging predictors", Machine Learning, 24(2),
+.. [B1996] L. Breiman, "مُتنبِّئات التجميع", Machine Learning, 24(2),
    123-140, 1996.
 
-.. [H1998] T. Ho, "The random subspace method for constructing decision
-   forests", Pattern Analysis and Machine Intelligence, 20(8), 832-844, 1998.
+.. [H1998] T. Ho, "أسلوب الفضاء الفرعي العشوائي لبناء غابات
+   القرار", Pattern Analysis and Machine Intelligence, 20(8), 832-844, 1998.
 
-.. [LG2012] G. Louppe and P. Geurts, "Ensembles on Random Patches",
+.. [LG2012] G. Louppe and P. Geurts, "المجموعات على الرقع العشوائية",
    Machine Learning and Knowledge Discovery in Databases, 346-361, 2012.
 
 
 
 .. _voting_classifier:
 
-Voting Classifier
+مُصنف التصويت
 ========================
 
-The idea behind the :class:`VotingClassifier` is to combine
-conceptually different machine learning classifiers and use a majority vote
-or the average predicted probabilities (soft vote) to predict the class labels.
-Such a classifier can be useful for a set of equally well performing models
-in order to balance out their individual weaknesses.
+الفكرة وراء :class:`VotingClassifier` هي دمج
+مُصنِّفات التعلم الآلي المختلفة من الناحية النظرية واستخدام تصويت الأغلبية
+أو متوسط الاحتمالات المتوقعة (التصويت الناعم) للتنبؤ بتصنيفات
+الفئات.
+يمكن أن يكون هذا المُصنف مفيدًا لمجموعة من النماذج ذات الأداء الجيد على حد سواء
+من أجل موازنة نقاط ضعفها الفردية.
 
 
-Majority Class Labels (Majority/Hard Voting)
+تصنيفات فئات الأغلبية (التصويت بالأغلبية / الصلب)
 --------------------------------------------
 
-In majority voting, the predicted class label for a particular sample is
-the class label that represents the majority (mode) of the class labels
-predicted by each individual classifier.
+في التصويت بالأغلبية، يكون تصنيف الفئة المتوقع لعينة مُعينة
+هو تصنيف الفئة الذي يُمثِّل أغلبية (الوضع) تصنيفات الفئات
+المتوقعة بواسطة كل مُصنف فردي.
 
-E.g., if the prediction for a given sample is
+على سبيل المثال، إذا كان التنبؤ لعينة مُعينة هو
 
-- classifier 1 -> class 1
-- classifier 2 -> class 1
-- classifier 3 -> class 2
+- المُصنف 1 -> الفئة 1
+- المُصنف 2 -> الفئة 1
+- المُصنف 3 -> الفئة 2
 
-the VotingClassifier (with ``voting='hard'``) would classify the sample
-as "class 1" based on the majority class label.
+فإن VotingClassifier (مع ``voting='hard'``) سيُصنف العينة
+على أنها "الفئة 1" بناءً على تصنيف الفئة الأكثر شيوعًا.
 
-In the cases of a tie, the :class:`VotingClassifier` will select the class
-based on the ascending sort order. E.g., in the following scenario
+في حالات التعادل، سيختار :class:`VotingClassifier` الفئة
+بناءً على ترتيب الفرز التصاعدي. على سبيل المثال، في السيناريو التالي
 
-- classifier 1 -> class 2
-- classifier 2 -> class 1
+- المُصنف 1 -> الفئة 2
+- المُصنف 2 -> الفئة 1
 
-the class label 1 will be assigned to the sample.
+سيتم تعيين تصنيف الفئة 1 للعينة.
 
-Usage
+الاستخدام
 -----
 
-The following example shows how to fit the majority rule classifier::
+يوضح المثال التالي كيفية ملاءمة مُصنف قاعدة الأغلبية::
 
    >>> from sklearn import datasets
    >>> from sklearn.model_selection import cross_val_score
@@ -1382,40 +1386,40 @@ The following example shows how to fit the majority rule classifier::
    Accuracy: 0.95 (+/- 0.04) [Ensemble]
 
 
-Weighted Average Probabilities (Soft Voting)
+متوسط الاحتمالات الموزونة (التصويت الناعم)
 --------------------------------------------
 
-In contrast to majority voting (hard voting), soft voting
-returns the class label as argmax of the sum of predicted probabilities.
+على عكس التصويت بالأغلبية (التصويت الصلب)، يُعيد التصويت الناعم
+تصنيف الفئة كـ argmax لمجموع الاحتمالات المتوقعة.
 
-Specific weights can be assigned to each classifier via the ``weights``
-parameter. When weights are provided, the predicted class probabilities
-for each classifier are collected, multiplied by the classifier weight,
-and averaged. The final class label is then derived from the class label
-with the highest average probability.
+يمكن تعيين أوزان مُحددة لكل مُصنف عبر معلمة ``weights``.
+عندما يتم توفير الأوزان، يتم جمع احتمالات الفئة المتوقعة
+لكل مُصنف، وضربها في وزن المُصنف،
+وحساب متوسطها. ثم يتم اشتقاق تصنيف الفئة النهائي من تصنيف
+الفئة ذات أعلى احتمال متوسط.
 
-To illustrate this with a simple example, let's assume we have 3
-classifiers and a 3-class classification problems where we assign
-equal weights to all classifiers: w1=1, w2=1, w3=1.
+لتوضيح ذلك بمثال بسيط، لنفترض أن لدينا 3
+مُصنِّفات ومشاكل تصنيف من 3 فئات حيث نُعيِّن
+أوزانًا متساوية لجميع المُصنِّفات: w1 = 1، w2 = 1، w3 = 1.
 
-The weighted average probabilities for a sample would then be
-calculated as follows:
+ثم يتم حساب متوسط الاحتمالات الموزونة لعينة
+على النحو التالي:
 
 ================  ==========    ==========      ==========
-classifier        class 1       class 2         class 3
+المُصنف          الفئة 1       الفئة 2         الفئة 3
 ================  ==========    ==========      ==========
-classifier 1	  w1 * 0.2      w1 * 0.5        w1 * 0.3
-classifier 2	  w2 * 0.6      w2 * 0.3        w2 * 0.1
-classifier 3      w3 * 0.3      w3 * 0.4        w3 * 0.3
-weighted average  0.37	        0.4             0.23
+المُصنف 1	  w1 * 0.2      w1 * 0.5        w1 * 0.3
+المُصنف 2	  w2 * 0.6      w2 * 0.3        w2 * 0.1
+المُصنف 3      w3 * 0.3      w3 * 0.4        w3 * 0.3
+المتوسط الموزون  0.37	        0.4             0.23
 ================  ==========    ==========      ==========
 
-Here, the predicted class label is 2, since it has the
-highest average probability.
+هنا، تصنيف الفئة المتوقع هو 2، نظرًا لأنه يحتوي على
+أعلى احتمال متوسط.
 
-The following example illustrates how the decision regions may change
-when a soft :class:`VotingClassifier` is used based on a linear Support
-Vector Machine, a Decision Tree, and a K-nearest neighbor classifier::
+يوضح المثال التالي كيف يمكن أن تتغير مناطق القرار
+عند استخدام :class:`VotingClassifier` ناعم بناءً على آلة متجه
+دعم خطية وشجرة قرار ومُصنف أقرب جار K::
 
    >>> from sklearn import datasets
    >>> from sklearn.tree import DecisionTreeClassifier
@@ -1424,12 +1428,12 @@ Vector Machine, a Decision Tree, and a K-nearest neighbor classifier::
    >>> from itertools import product
    >>> from sklearn.ensemble import VotingClassifier
 
-   >>> # Loading some example data
+   >>> # تحميل بعض بيانات المثال
    >>> iris = datasets.load_iris()
    >>> X = iris.data[:, [0, 2]]
    >>> y = iris.target
 
-   >>> # Training classifiers
+   >>> # تدريب المُصنِّفات
    >>> clf1 = DecisionTreeClassifier(max_depth=4)
    >>> clf2 = KNeighborsClassifier(n_neighbors=7)
    >>> clf3 = SVC(kernel='rbf', probability=True)
@@ -1446,30 +1450,30 @@ Vector Machine, a Decision Tree, and a K-nearest neighbor classifier::
     :align: center
     :scale: 75%
 
-Usage
+الاستخدام
 -----
 
-In order to predict the class labels based on the predicted
-class-probabilities (scikit-learn estimators in the VotingClassifier
-must support ``predict_proba`` method)::
+من أجل التنبؤ بتصنيفات الفئات بناءً على
+احتمالات الفئة المتوقعة (يجب أن تدعم مُقدِّرات scikit-learn في VotingClassifier
+أسلوب ``predict_proba``)::
 
    >>> eclf = VotingClassifier(
    ...     estimators=[('lr', clf1), ('rf', clf2), ('gnb', clf3)],
    ...     voting='soft'
    ... )
 
-Optionally, weights can be provided for the individual classifiers::
+اختياريًا، يمكن توفير أوزان للمُصنِّفات الفردية::
 
    >>> eclf = VotingClassifier(
    ...     estimators=[('lr', clf1), ('rf', clf2), ('gnb', clf3)],
    ...     voting='soft', weights=[2,5,1]
    ... )
 
-.. dropdown:: Using the :class:`VotingClassifier` with :class:`~sklearn.model_selection.GridSearchCV`
+.. dropdown:: استخدام :class:`VotingClassifier` مع :class:`~sklearn.model_selection.GridSearchCV`
 
-  The :class:`VotingClassifier` can also be used together with
-  :class:`~sklearn.model_selection.GridSearchCV` in order to tune the
-  hyperparameters of the individual estimators::
+  يمكن أيضًا استخدام :class:`VotingClassifier` مع
+  :class:`~sklearn.model_selection.GridSearchCV` من أجل ضبط
+  المعلمات الفائقة للمُقدِّرات الفردية::
 
     >>> from sklearn.model_selection import GridSearchCV
     >>> clf1 = LogisticRegression(random_state=1)
@@ -1487,18 +1491,19 @@ Optionally, weights can be provided for the individual classifiers::
 
 .. _voting_regressor:
 
-Voting Regressor
+مُنحدِر التصويت
 ================
 
-The idea behind the :class:`VotingRegressor` is to combine conceptually
-different machine learning regressors and return the average predicted values.
-Such a regressor can be useful for a set of equally well performing models
-in order to balance out their individual weaknesses.
+الفكرة وراء :class:`VotingRegressor` هي دمج مُنحدرات
+التعلم الآلي المختلفة من الناحية النظرية وإعادة القيم المتوقعة
+المتوسطة.
+يمكن أن يكون هذا المُنحدِر مفيدًا لمجموعة من النماذج ذات الأداء الجيد
+على حد سواء من أجل موازنة نقاط ضعفها الفردية.
 
-Usage
+الاستخدام
 -----
 
-The following example shows how to fit the VotingRegressor::
+يوضح المثال التالي كيفية ملاءمة VotingRegressor::
 
    >>> from sklearn.datasets import load_diabetes
    >>> from sklearn.ensemble import GradientBoostingRegressor
@@ -1506,10 +1511,10 @@ The following example shows how to fit the VotingRegressor::
    >>> from sklearn.linear_model import LinearRegression
    >>> from sklearn.ensemble import VotingRegressor
 
-   >>> # Loading some example data
+   >>> # تحميل بعض بيانات المثال
    >>> X, y = load_diabetes(return_X_y=True)
 
-   >>> # Training classifiers
+   >>> # تدريب المُصنِّفات
    >>> reg1 = GradientBoostingRegressor(random_state=1)
    >>> reg2 = RandomForestRegressor(random_state=1)
    >>> reg3 = LinearRegression()
@@ -1521,27 +1526,27 @@ The following example shows how to fit the VotingRegressor::
     :align: center
     :scale: 75%
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
 * :ref:`sphx_glr_auto_examples_ensemble_plot_voting_regressor.py`
 
 .. _stacking:
 
-Stacked generalization
+التعميم المُكدَّس
 ======================
 
-Stacked generalization is a method for combining estimators to reduce their
-biases [W1992]_ [HTF]_. More precisely, the predictions of each individual
-estimator are stacked together and used as input to a final estimator to
-compute the prediction. This final estimator is trained through
-cross-validation.
+التعميم المُكدَّس هو أسلوب لدمج المُقدِّرات لتقليل
+انحيازاتها [W1992]_ [HTF]_. بشكل أكثر تحديدًا، يتم تجميع تنبؤات كل مُقدِّر
+فردي معًا واستخدامها كمدخلات لمُقدِّر نهائي لـ
+حساب التنبؤ. يتم تدريب هذا المُقدِّر النهائي من خلال
+التحقق المتبادل.
 
-The :class:`StackingClassifier` and :class:`StackingRegressor` provide such
-strategies which can be applied to classification and regression problems.
+يُوفر :class:`StackingClassifier` و :class:`StackingRegressor` هذه
+الإستراتيجيات التي يمكن تطبيقها على مشاكل التصنيف والانحدار.
 
-The `estimators` parameter corresponds to the list of the estimators which
-are stacked together in parallel on the input data. It should be given as a
-list of names and estimators::
+تقابل معلمة `estimators` قائمة المُقدِّرات التي
+يتم تجميعها معًا بالتوازي على بيانات الإدخال. يجب إعطاؤها كـ
+قائمة من الأسماء والمُقدِّرات::
 
   >>> from sklearn.linear_model import RidgeCV, LassoCV
   >>> from sklearn.neighbors import KNeighborsRegressor
@@ -1550,9 +1555,9 @@ list of names and estimators::
   ...               ('knr', KNeighborsRegressor(n_neighbors=20,
   ...                                           metric='euclidean'))]
 
-The `final_estimator` will use the predictions of the `estimators` as input. It
-needs to be a classifier or a regressor when using :class:`StackingClassifier`
-or :class:`StackingRegressor`, respectively::
+سيستخدم `final_estimator` تنبؤات `estimators` كمدخلات.
+يجب أن يكون مُصنفًا أو مُنحدِرًا عند استخدام :class:`StackingClassifier`
+أو :class:`StackingRegressor`، على التوالي::
 
   >>> from sklearn.ensemble import GradientBoostingRegressor
   >>> from sklearn.ensemble import StackingRegressor
@@ -1563,8 +1568,8 @@ or :class:`StackingRegressor`, respectively::
   ...     estimators=estimators,
   ...     final_estimator=final_estimator)
 
-To train the `estimators` and `final_estimator`, the `fit` method needs
-to be called on the training data::
+لتدريب `estimators` و `final_estimator`، يجب استدعاء أسلوب `fit`
+على بيانات التدريب::
 
   >>> from sklearn.datasets import load_diabetes
   >>> X, y = load_diabetes(return_X_y=True)
@@ -1574,29 +1579,29 @@ to be called on the training data::
   >>> reg.fit(X_train, y_train)
   StackingRegressor(...)
 
-During training, the `estimators` are fitted on the whole training data
-`X_train`. They will be used when calling `predict` or `predict_proba`. To
-generalize and avoid over-fitting, the `final_estimator` is trained on
-out-samples using :func:`sklearn.model_selection.cross_val_predict` internally.
+أثناء التدريب، يتم ملاءمة `estimators` على بيانات التدريب الكاملة
+`X_train`. سيتم استخدامها عند استدعاء `predict` أو `predict_proba`. لـ
+التعميم وتجنب التجاوز، يتم تدريب `final_estimator` على
+عينات خارجية باستخدام :func:`sklearn.model_selection.cross_val_predict` داخليًا.
 
-For :class:`StackingClassifier`, note that the output of the ``estimators`` is
-controlled by the parameter `stack_method` and it is called by each estimator.
-This parameter is either a string, being estimator method names, or `'auto'`
-which will automatically identify an available method depending on the
-availability, tested in the order of preference: `predict_proba`,
-`decision_function` and `predict`.
+بالنسبة لـ :class:`StackingClassifier`، لاحظ أن ناتج ``estimators``
+يتم التحكم فيه بواسطة المعلمة `stack_method` ويتم استدعاؤه بواسطة كل مُقدِّر.
+هذه المعلمة إما سلسلة، وهي أسماء أساليب المُقدِّر، أو `'auto'`
+التي ستُحدد تلقائيًا أسلوبًا مُتاحًا اعتمادًا على
+التوفر، ويتم اختبارها بترتيب التفضيل: `predict_proba` و
+`decision_function` و `predict`.
 
-A :class:`StackingRegressor` and :class:`StackingClassifier` can be used as
-any other regressor or classifier, exposing a `predict`, `predict_proba`, or
-`decision_function` method, e.g.::
+يمكن استخدام :class:`StackingRegressor` و :class:`StackingClassifier` كـ
+أي مُنحدِر أو مُصنف آخر، يُظهِر أسلوب `predict` أو `predict_proba` أو
+`decision_function`، على سبيل المثال::
 
    >>> y_pred = reg.predict(X_test)
    >>> from sklearn.metrics import r2_score
    >>> print('R2 score: {:.2f}'.format(r2_score(y_test, y_pred)))
    R2 score: 0.53
 
-Note that it is also possible to get the output of the stacked
-`estimators` using the `transform` method::
+لاحظ أنه من الممكن أيضًا الحصول على ناتج `estimators`
+المُكدَّس باستخدام أسلوب `transform`::
 
   >>> reg.transform(X_test[:5])
   array([[142..., 138..., 146...],
@@ -1605,20 +1610,20 @@ Note that it is also possible to get the output of the stacked
          [286..., 292..., 225...],
          [126..., 124..., 164...]])
 
-In practice, a stacking predictor predicts as good as the best predictor of the
-base layer and even sometimes outperforms it by combining the different
-strengths of the these predictors. However, training a stacking predictor is
-computationally expensive.
+عمليًا، يتنبأ مُتنبئ التكديس بنفس جودة أفضل مُتنبئ للطبقة
+الأساسية، بل ويتفوق عليه في بعض الأحيان من خلال الجمع بين نقاط القوة المختلفة
+لهؤلاء المُتنبئين. ومع ذلك، فإن تدريب مُتنبئ التكديس
+مكلف من الناحية الحسابية.
 
 .. note::
-   For :class:`StackingClassifier`, when using `stack_method_='predict_proba'`,
-   the first column is dropped when the problem is a binary classification
-   problem. Indeed, both probability columns predicted by each estimator are
-   perfectly collinear.
+   بالنسبة لـ :class:`StackingClassifier`، عند استخدام `stack_method_='predict_proba'`،
+   يتم إسقاط العمود الأول عندما تكون المشكلة مشكلة تصنيف
+   ثنائية. في الواقع، كلا عمودي الاحتمال المتوقعين بواسطة كل مُقدِّر
+   متساويان تمامًا.
 
 .. note::
-   Multiple stacking layers can be achieved by assigning `final_estimator` to
-   a :class:`StackingClassifier` or :class:`StackingRegressor`::
+   يمكن تحقيق طبقات تكديس متعددة عن طريق تعيين `final_estimator` إلى
+   :class:`StackingClassifier` أو :class:`StackingRegressor`::
 
     >>> final_layer_rfr = RandomForestRegressor(
     ...     n_estimators=10, max_features=1, max_leaf_nodes=5,random_state=42)
@@ -1642,9 +1647,9 @@ computationally expensive.
     ...       .format(multi_layer_regressor.score(X_test, y_test)))
     R2 score: 0.53
 
-.. rubric:: References
+.. rubric:: المراجع
 
-.. [W1992] Wolpert, David H. "Stacked generalization." Neural networks 5.2
+.. [W1992] Wolpert, David H. "التعميم المُكدَّس." Neural networks 5.2
    (1992): 241-259.
 
 
@@ -1654,25 +1659,25 @@ computationally expensive.
 AdaBoost
 ========
 
-The module :mod:`sklearn.ensemble` includes the popular boosting algorithm
-AdaBoost, introduced in 1995 by Freund and Schapire [FS1995]_.
+تتضمن الوحدة :mod:`sklearn.ensemble` خوارزمية التعزيز الشهيرة
+AdaBoost، التي تم تقديمها في عام 1995 بواسطة Freund و Schapire [FS1995]_.
 
-The core principle of AdaBoost is to fit a sequence of weak learners (i.e.,
-models that are only slightly better than random guessing, such as small
-decision trees) on repeatedly modified versions of the data. The predictions
-from all of them are then combined through a weighted majority vote (or sum) to
-produce the final prediction. The data modifications at each so-called boosting
-iteration consists of applying weights :math:`w_1`, :math:`w_2`, ..., :math:`w_N`
-to each of the training samples. Initially, those weights are all set to
-:math:`w_i = 1/N`, so that the first step simply trains a weak learner on the
-original data. For each successive iteration, the sample weights are
-individually modified and the learning algorithm is reapplied to the reweighted
-data. At a given step, those training examples that were incorrectly predicted
-by the boosted model induced at the previous step have their weights increased,
-whereas the weights are decreased for those that were predicted correctly. As
-iterations proceed, examples that are difficult to predict receive
-ever-increasing influence. Each subsequent weak learner is thereby forced to
-concentrate on the examples that are missed by the previous ones in the sequence
+المبدأ الأساسي لـ AdaBoost هو ملاءمة تسلسل من المُتعلمين الضعفاء (أي
+النماذج التي هي أفضل قليلاً فقط من التخمين العشوائي، مثل أشجار القرار
+الصغيرة) على إصدارات مُعدلة بشكل متكرر من البيانات. ثم يتم دمج
+التنبؤات من جميعها من خلال تصويت الأغلبية الموزون (أو المجموع) لـ
+إنتاج التنبؤ النهائي. تتكون تعديلات البيانات في كل ما يسمى بتكرار
+التعزيز من تطبيق أوزان :math:`w_1` و :math:`w_2` و ... و :math:`w_N`
+على كل من عينات التدريب. في البداية، يتم تعيين جميع هذه الأوزان إلى
+:math:`w_i = 1/N`، بحيث تُدرِّب الخطوة الأولى ببساطة مُتعلمًا ضعيفًا على
+البيانات الأصلية. لكل تكرار لاحق، يتم
+تعديل أوزان العينة بشكل فردي ويتم إعادة تطبيق خوارزمية التعلم على البيانات
+المُعاد وزنها. في خطوة مُعينة، عينات التدريب التي تم التنبؤ بها بشكل غير صحيح
+بواسطة النموذج المُعزز المُستحث في الخطوة السابقة تزداد أوزانها،
+بينما تتناقص الأوزان بالنسبة لتلك التي تم التنبؤ بها بشكل صحيح. مع
+استمرار التكرارات، تتلقى الأمثلة التي يصعب التنبؤ بها
+تأثيرًا متزايدًا باستمرار. وبالتالي، يُجبر كل مُتعلم ضعيف لاحق على
+التركيز على الأمثلة التي فاتها المُتعلمون السابقون في التسلسل
 [HTF]_.
 
 .. figure:: ../auto_examples/ensemble/images/sphx_glr_plot_adaboost_multiclass_001.png
@@ -1680,57 +1685,59 @@ concentrate on the examples that are missed by the previous ones in the sequence
    :align: center
    :scale: 75
 
-AdaBoost can be used both for classification and regression problems:
+يمكن استخدام AdaBoost لكل من مشاكل التصنيف والانحدار:
 
-- For multi-class classification, :class:`AdaBoostClassifier` implements
+- للتصنيف متعدد الفئات، :class:`AdaBoostClassifier` يُطبق
   AdaBoost.SAMME [ZZRH2009]_.
 
-- For regression, :class:`AdaBoostRegressor` implements AdaBoost.R2 [D1997]_.
+- للانحدار، :class:`AdaBoostRegressor` يُطبق AdaBoost.R2 [D1997]_.
 
-Usage
+الاستخدام
 -----
 
-The following example shows how to fit an AdaBoost classifier with 100 weak
-learners::
+يوضح المثال التالي كيفية ملاءمة مُصنف AdaBoost مع 100 مُتعلم
+ضعيف::
 
     >>> from sklearn.model_selection import cross_val_score
     >>> from sklearn.datasets import load_iris
     >>> from sklearn.ensemble import AdaBoostClassifier
 
     >>> X, y = load_iris(return_X_y=True)
-    >>> clf = AdaBoostClassifier(n_estimators=100)
+    >>> clf = AdaBoostClassifier(n_estimators=100, algorithm="SAMME",)
     >>> scores = cross_val_score(clf, X, y, cv=5)
     >>> scores.mean()
     0.9...
 
-The number of weak learners is controlled by the parameter ``n_estimators``. The
-``learning_rate`` parameter controls the contribution of the weak learners in
-the final combination. By default, weak learners are decision stumps. Different
-weak learners can be specified through the ``estimator`` parameter.
-The main parameters to tune to obtain good results are ``n_estimators`` and
-the complexity of the base estimators (e.g., its depth ``max_depth`` or
-minimum required number of samples to consider a split ``min_samples_split``).
+يتم التحكم في عدد المُتعلمين الضعفاء بواسطة المعلمة ``n_estimators``.
+تتحكم معلمة ``learning_rate`` في مساهمة المُتعلمين الضعفاء في
+المجموعة النهائية. افتراضيًا، المُتعلمون الضعفاء هم جذوع القرار. يمكن تحديد
+مُتعلمين ضعفاء مُختلفين من خلال المعلمة ``estimator``.
+المعلمات الرئيسية التي يجب ضبطها للحصول على نتائج جيدة هي ``n_estimators`` و
+تعقيد المُقدِّرات الأساسية (على سبيل المثال، عمقها ``max_depth`` أو
+الحد الأدنى لعدد العينات المطلوب للنظر في تقسيم ``min_samples_split``).
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_ensemble_plot_adaboost_multiclass.py` shows the performance
-  of AdaBoost on a multi-class problem.
+* :ref:`sphx_glr_auto_examples_ensemble_plot_adaboost_multiclass.py` يُظهر أداء
+  AdaBoost على مشكلة متعددة الفئات.
 
-* :ref:`sphx_glr_auto_examples_ensemble_plot_adaboost_twoclass.py` shows the decision boundary
-  and decision function values for a non-linearly separable two-class problem
-  using AdaBoost-SAMME.
+* :ref:`sphx_glr_auto_examples_ensemble_plot_adaboost_twoclass.py` يُظهر حدود القرار
+  وقيم دالة القرار لمشكلة ثنائية الفئات غير قابلة للفصل خطيًا
+  باستخدام AdaBoost-SAMME.
 
-* :ref:`sphx_glr_auto_examples_ensemble_plot_adaboost_regression.py` demonstrates regression
-  with the AdaBoost.R2 algorithm.
+* :ref:`sphx_glr_auto_examples_ensemble_plot_adaboost_regression.py` يُوضح الانحدار
+  مع خوارزمية AdaBoost.R2.
 
-.. rubric:: References
+.. rubric:: المراجع
 
-.. [FS1995] Y. Freund, and R. Schapire, "A Decision-Theoretic Generalization of
-   On-Line Learning and an Application to Boosting", 1997.
+.. [FS1995] Y. Freund, and R. Schapire, "تعميم نظري للقرار
+   للتعلم على الإنترنت وتطبيق على التعزيز", 1997.
 
-.. [ZZRH2009] J. Zhu, H. Zou, S. Rosset, T. Hastie. "Multi-class AdaBoost", 2009.
+.. [ZZRH2009] J. Zhu, H. Zou, S. Rosset, T. Hastie. "AdaBoost متعدد الفئات", 2009.
 
-.. [D1997] H. Drucker. "Improving Regressors using Boosting Techniques", 1997.
+.. [D1997] H. Drucker. "تحسين المُنحدرات باستخدام تقنيات التعزيز", 1997.
 
-.. [HTF] T. Hastie, R. Tibshirani and J. Friedman, "Elements of Statistical Learning
-   Ed. 2", Springer, 2009.
+.. [HTF] T. Hastie, R. Tibshirani and J. Friedman, "عناصر التعلم الإحصائي
+   الطبعة الثانية", Springer, 2009.
+
+
