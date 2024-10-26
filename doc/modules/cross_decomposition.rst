@@ -1,14 +1,13 @@
+
 .. _cross_decomposition:
 
 ===================
-Cross decomposition
+التحليل المتقاطع
 ===================
 
 .. currentmodule:: sklearn.cross_decomposition
 
-The cross decomposition module contains **supervised** estimators for
-dimensionality reduction and regression, belonging to the "Partial Least
-Squares" family.
+تحتوي وحدة التحليل المتقاطع على مقدرات **خاضعة للإشراف** لتقليل الأبعاد والانحدار، تنتمي إلى عائلة "المربعات الصغرى الجزئية".
 
 .. figure:: ../auto_examples/cross_decomposition/images/sphx_glr_plot_compare_cross_decomposition_001.png
    :target: ../auto_examples/cross_decomposition/plot_compare_cross_decomposition.html
@@ -16,174 +15,127 @@ Squares" family.
    :align: center
 
 
-Cross decomposition algorithms find the fundamental relations between two
-matrices (X and Y). They are latent variable approaches to modeling the
-covariance structures in these two spaces. They will try to find the
-multidimensional direction in the X space that explains the maximum
-multidimensional variance direction in the Y space. In other words, PLS
-projects both `X` and `Y` into a lower-dimensional subspace such that the
-covariance between `transformed(X)` and `transformed(Y)` is maximal.
+تجد خوارزميات التحليل المتقاطع العلاقات الأساسية بين مصفوفتين (X و Y).
+إنها مناهج متغيرة كامنة لنمذجة هياكل التباين المشترك في هاتين المساحتين.
+سيحاولون إيجاد الاتجاه متعدد الأبعاد في مساحة X الذي يفسر اتجاه التباين متعدد الأبعاد الأقصى في مساحة Y.
+بمعنى آخر، يقوم PLS بإسقاط كل من `X` و `Y` في فضاء فرعي منخفض الأبعاد بحيث يكون التباين المشترك بين `transformed(X)` و `transformed(Y)` هو الحد الأقصى.
 
-PLS draws similarities with `Principal Component Regression
-<https://en.wikipedia.org/wiki/Principal_component_regression>`_ (PCR), where
-the samples are first projected into a lower-dimensional subspace, and the
-targets `y` are predicted using `transformed(X)`. One issue with PCR is that
-the dimensionality reduction is unsupervised, and may lose some important
-variables: PCR would keep the features with the most variance, but it's
-possible that features with a small variances are relevant from predicting
-the target. In a way, PLS allows for the same kind of dimensionality
-reduction, but by taking into account the targets `y`. An illustration of
-this fact is given in the following example:
-* :ref:`sphx_glr_auto_examples_cross_decomposition_plot_pcr_vs_pls.py`.
+يرسم PLS أوجه تشابه مع `Principal Component Regression <https://en.wikipedia.org/wiki/Principal_component_regression>`_ (PCR)، حيث يتم أولاً إسقاط العينات في فضاء فرعي منخفض الأبعاد، ويتم توقع الأهداف `y` باستخدام `transformed(X)`.
+إحدى المشكلات المتعلقة بـ PCR هي أن تقليل الأبعاد غير خاضع للإشراف، وقد يفقد بعض المتغيرات المهمة: سيحتفظ PCR بالميزات ذات التباين الأكبر، ولكن من الممكن أن تكون الميزات ذات التباينات الصغيرة ذات صلة من التنبؤ بالهدف.
+بطريقة ما، يسمح PLS بنفس النوع من تقليل الأبعاد، ولكن من خلال مراعاة الأهداف `y`.
+يتم توضيح هذه الحقيقة في المثال التالي:
+* :ref:`sphx_glr_auto_examples_cross_decomposition/plot_pcr_vs_pls.py`.
 
-Apart from CCA, the PLS estimators are particularly suited when the matrix of
-predictors has more variables than observations, and when there is
-multicollinearity among the features. By contrast, standard linear regression
-would fail in these cases unless it is regularized.
+بصرف النظر عن CCA، فإن مقدرات PLS مناسبة بشكل خاص عندما تحتوي مصفوفة المتنبئين على متغيرات أكثر من الملاحظات، وعندما يكون هناك توافق متعدد بين الميزات.
+على النقيض من ذلك، سيفشل الانحدار الخطي القياسي في هذه الحالات ما لم يتم تنظيمه.
 
-Classes included in this module are :class:`PLSRegression`,
-:class:`PLSCanonical`, :class:`CCA` and :class:`PLSSVD`
+الفئات المضمنة في هذه الوحدة هي :class:`PLSRegression` و :class:`PLSCanonical` و :class:`CCA` و :class:`PLSSVD`
 
 PLSCanonical
 ------------
 
-We here describe the algorithm used in :class:`PLSCanonical`. The other
-estimators use variants of this algorithm, and are detailed below.
-We recommend section [1]_ for more details and comparisons between these
-algorithms. In [1]_, :class:`PLSCanonical` corresponds to "PLSW2A".
+نصف هنا الخوارزمية المستخدمة في :class:`PLSCanonical`.
+تستخدم المقدرات الأخرى متغيرات من هذه الخوارزمية، ويتم تفصيلها أدناه.
+نوصي بالقسم [1]_ لمزيد من التفاصيل والمقارنات بين هذه الخوارزميات.
+في [1]_، يتوافق :class:`PLSCanonical` مع "PLSW2A".
 
-Given two centered matrices :math:`X \in \mathbb{R}^{n \times d}` and
-:math:`Y \in \mathbb{R}^{n \times t}`, and a number of components :math:`K`,
-:class:`PLSCanonical` proceeds as follows:
+بالنظر إلى مصفوفتين متمركزتين :math:`X \in \mathbb{R}^{n \times d}` و
+:math:`Y \in \mathbb{R}^{n \times t}`، وعدد من المكونات :math:`K`،
+:class:`PLSCanonical`  على النحو التالي:
 
-Set :math:`X_1` to :math:`X` and :math:`Y_1` to :math:`Y`. Then, for each
+عيّن :math:`X_1` إلى :math:`X` و :math:`Y_1` إلى :math:`Y`. ثم، لكل
 :math:`k \in [1, K]`:
 
-- a) compute :math:`u_k \in \mathbb{R}^d` and :math:`v_k \in \mathbb{R}^t`,
-  the first left and right singular vectors of the cross-covariance matrix
+- أ) احسب :math:`u_k \in \mathbb{R}^d` و :math:`v_k \in \mathbb{R}^t`،
+  أول متجهات مفردة يسارية ويمنى لمصفوفة التباين المشترك
   :math:`C = X_k^T Y_k`.
-  :math:`u_k` and :math:`v_k` are called the *weights*.
-  By definition, :math:`u_k` and :math:`v_k` are
-  chosen so that they maximize the covariance between the projected
-  :math:`X_k` and the projected target, that is :math:`\text{Cov}(X_k u_k,
-  Y_k v_k)`.
-- b) Project :math:`X_k` and :math:`Y_k` on the singular vectors to obtain
-  *scores*: :math:`\xi_k = X_k u_k` and :math:`\omega_k = Y_k v_k`
-- c) Regress :math:`X_k` on :math:`\xi_k`, i.e. find a vector :math:`\gamma_k
-  \in \mathbb{R}^d` such that the rank-1 matrix :math:`\xi_k \gamma_k^T`
-  is as close as possible to :math:`X_k`. Do the same on :math:`Y_k` with
-  :math:`\omega_k` to obtain :math:`\delta_k`. The vectors
-  :math:`\gamma_k` and :math:`\delta_k` are called the *loadings*.
-- d) *deflate* :math:`X_k` and :math:`Y_k`, i.e. subtract the rank-1
-  approximations: :math:`X_{k+1} = X_k - \xi_k \gamma_k^T`, and
+  :math:`u_k` و :math:`v_k` تسمى *الأوزان*.
+  بحكم التعريف، يتم اختيار :math:`u_k` و :math:`v_k` بحيث يزيدان من التباين المشترك بين
+  :math:`X_k` المسقط والهدف المسقط، أي :math:`\text{Cov}(X_k u_k,Y_k v_k)`.
+
+- ب) إسقاط :math:`X_k` و :math:`Y_k` على المتجهات المفردة للحصول على
+  *الدرجات*: :math:`\xi_k = X_k u_k` و :math:`\omega_k = Y_k v_k`
+
+- ج) انحدار :math:`X_k` على :math:`\xi_k`، أي إيجاد متجه :math:`\gamma_k
+  \in \mathbb{R}^d` بحيث تكون مصفوفة الرتبة 1 :math:`\xi_k \gamma_k^T`
+  أقرب ما يمكن إلى :math:`X_k`. افعل الشيء نفسه على :math:`Y_k` مع
+  :math:`\omega_k` للحصول على :math:`\delta_k`. المتجهات
+  :math:`\gamma_k` و :math:`\delta_k` تسمى *الأحمال*.
+
+- د) *إزالة* :math:`X_k` و :math:`Y_k`، أي طرح الرتبة 1
+  التقريبات: :math:`X_{k+1} = X_k - \xi_k \gamma_k^T`، و
   :math:`Y_{k + 1} = Y_k - \omega_k \delta_k^T`.
 
-At the end, we have approximated :math:`X` as a sum of rank-1 matrices:
-:math:`X = \Xi \Gamma^T` where :math:`\Xi \in \mathbb{R}^{n \times K}`
-contains the scores in its columns, and :math:`\Gamma^T \in \mathbb{R}^{K
-\times d}` contains the loadings in its rows. Similarly for :math:`Y`, we
-have :math:`Y = \Omega \Delta^T`.
+في النهاية، قمنا بتقريب :math:`X` كمجموع مصفوفات الرتبة 1:
+:math:`X = \Xi \Gamma^T` حيث :math:`\Xi \in \mathbb{R}^{n \times K}`
+يحتوي على الدرجات في أعمدته، و :math:`\Gamma^T \in \mathbb{R}^{K\times d}` يحتوي على الأحمال في صفوفه.
+وبالمثل بالنسبة لـ :math:`Y`، لدينا :math:`Y = \Omega \Delta^T`.
 
-Note that the scores matrices :math:`\Xi` and :math:`\Omega` correspond to
-the projections of the training data :math:`X` and :math:`Y`, respectively.
+لاحظ أن مصفوفات الدرجات :math:`\Xi` و :math:`\Omega` تتوافق مع إسقاطات بيانات التدريب :math:`X` و :math:`Y`، على التوالي.
 
-Step *a)* may be performed in two ways: either by computing the whole SVD of
-:math:`C` and only retain the singular vectors with the biggest singular
-values, or by directly computing the singular vectors using the power method (cf section 11.3 in [1]_),
-which corresponds to the `'nipals'` option of the `algorithm` parameter.
+يمكن تنفيذ الخطوة *أ)* بطريقتين: إما عن طريق حساب SVD الكامل لـ :math:`C` والاحتفاظ فقط بالمتجهات المفردة ذات أكبر قيم مفردة، أو عن طريق حساب المتجهات المفردة مباشرةً باستخدام طريقة الطاقة (راجع القسم 11.3 في [1]_ )، والذي يتوافق مع خيار `'nipals'` لمعلمة `algorithm`.
 
-.. dropdown:: Transforming data
+.. dropdown:: تحويل البيانات
 
-  To transform :math:`X` into :math:`\bar{X}`, we need to find a projection
-  matrix :math:`P` such that :math:`\bar{X} = XP`. We know that for the
-  training data, :math:`\Xi = XP`, and :math:`X = \Xi \Gamma^T`. Setting
-  :math:`P = U(\Gamma^T U)^{-1}` where :math:`U` is the matrix with the
-  :math:`u_k` in the columns, we have :math:`XP = X U(\Gamma^T U)^{-1} = \Xi
-  (\Gamma^T U) (\Gamma^T U)^{-1} = \Xi` as desired. The rotation matrix
-  :math:`P` can be accessed from the `x_rotations_` attribute.
+  لتحويل :math:`X` إلى :math:`\bar{X}`، نحتاج إلى إيجاد مصفوفة إسقاط :math:`P` بحيث تكون :math:`\bar{X} = XP`.
+  نعلم أنه بالنسبة لبيانات التدريب، :math:`\Xi = XP`، و :math:`X = \Xi \Gamma^T`.
+  بتعيين :math:`P = U(\Gamma^T U)^{-1}` حيث :math:`U` هي المصفوفة مع :math:`u_k` في الأعمدة، لدينا :math:`XP = X U(\Gamma^T U)^{-1} = \Xi (\Gamma^T U) (\Gamma^T U)^{-1} = \Xi` كما هو مطلوب.
+  يمكن الوصول إلى مصفوفة الدوران :math:`P` من سمة `x_rotations_`.
 
-  Similarly, :math:`Y` can be transformed using the rotation matrix
-  :math:`V(\Delta^T V)^{-1}`, accessed via the `y_rotations_` attribute.
+  وبالمثل، يمكن تحويل :math:`Y` باستخدام مصفوفة الدوران :math:`V(\Delta^T V)^{-1}`، والتي يمكن الوصول إليها عبر سمة `y_rotations_`.
 
-.. dropdown:: Predicting the targets `Y`
+.. dropdown:: التنبؤ بالأهداف `Y`
 
-  To predict the targets of some data :math:`X`, we are looking for a
-  coefficient matrix :math:`\beta \in R^{d \times t}` such that :math:`Y =
-  X\beta`.
+  للتنبؤ بأهداف بعض البيانات :math:`X`، نحن نبحث عن مصفوفة معامل :math:`\beta \in R^{d \times t}` بحيث تكون :math:`Y =X\beta`.
 
-  The idea is to try to predict the transformed targets :math:`\Omega` as a
-  function of the transformed samples :math:`\Xi`, by computing :math:`\alpha
-  \in \mathbb{R}` such that :math:`\Omega = \alpha \Xi`.
+  الفكرة هي محاولة التنبؤ بالأهداف المحولة :math:`\Omega` كدالة للعينات المحولة :math:`\Xi`، عن طريق حساب :math:`\alpha \in \mathbb{R}` بحيث تكون :math:`\Omega = \alpha \Xi`.
 
-  Then, we have :math:`Y = \Omega \Delta^T = \alpha \Xi \Delta^T`, and since
-  :math:`\Xi` is the transformed training data we have that :math:`Y = X \alpha
-  P \Delta^T`, and as a result the coefficient matrix :math:`\beta = \alpha P
-  \Delta^T`.
+  ثم، لدينا :math:`Y = \Omega \Delta^T = \alpha \Xi \Delta^T`، وبما أن :math:`\Xi` هي بيانات التدريب المحولة، لدينا :math:`Y = X \alpha P \Delta^T`، ونتيجة لذلك مصفوفة المعامل :math:`\beta = \alpha P \Delta^T`.
 
-  :math:`\beta` can be accessed through the `coef_` attribute.
+  يمكن الوصول إلى :math:`\beta` من خلال سمة `coef_`.
 
 PLSSVD
 ------
 
-:class:`PLSSVD` is a simplified version of :class:`PLSCanonical`
-described earlier: instead of iteratively deflating the matrices :math:`X_k`
-and :math:`Y_k`, :class:`PLSSVD` computes the SVD of :math:`C = X^TY`
-only *once*, and stores the `n_components` singular vectors corresponding to
-the biggest singular values in the matrices `U` and `V`, corresponding to the
-`x_weights_` and `y_weights_` attributes. Here, the transformed data is
-simply `transformed(X) = XU` and `transformed(Y) = YV`.
+:class:`PLSSVD` هو إصدار مبسط من :class:`PLSCanonical` الموصوف سابقًا: بدلاً من إزالة المصفوفات :math:`X_k` و :math:`Y_k` بشكل متكرر، يحسب :class:`PLSSVD` SVD لـ :math:`C = X^TY` *مرة واحدة فقط*، ويخزن `n_components` المتجهات المفردة المقابلة لأكبر القيم المفردة في المصفوفات `U` و `V`، المقابلة لسمات `x_weights_` و `y_weights_`.
+هنا، البيانات المحولة هي ببساطة `transformed(X) = XU` و `transformed(Y) = YV`.
 
-If `n_components == 1`, :class:`PLSSVD` and :class:`PLSCanonical` are
-strictly equivalent.
+إذا كان `n_components == 1`، فإن :class:`PLSSVD` و :class:`PLSCanonical` متكافئان تمامًا.
 
 PLSRegression
 -------------
 
-The :class:`PLSRegression` estimator is similar to
-:class:`PLSCanonical` with `algorithm='nipals'`, with 2 significant
-differences:
+مقدر :class:`PLSRegression` مشابه لـ :class:`PLSCanonical` مع `algorithm='nipals'`، مع اختلافين مهمين:
 
-- at step a) in the power method to compute :math:`u_k` and :math:`v_k`,
-  :math:`v_k` is never normalized.
-- at step c), the targets :math:`Y_k` are approximated using the projection
-  of :math:`X_k` (i.e. :math:`\xi_k`) instead of the projection of
-  :math:`Y_k` (i.e. :math:`\omega_k`). In other words, the loadings
-  computation is different. As a result, the deflation in step d) will also
-  be affected.
+- في الخطوة أ) في طريقة الطاقة لحساب :math:`u_k` و :math:`v_k`، لا يتم تطبيع :math:`v_k` أبدًا.
+- في الخطوة ج)، يتم تقريب الأهداف :math:`Y_k` باستخدام إسقاط :math:`X_k` (أي :math:`\xi_k`) بدلاً من إسقاط :math:`Y_k` (أي :math:`\omega_k`).
+  بمعنى آخر، يختلف حساب الأحمال.
+  ونتيجة لذلك، سيتأثر الانكماش في الخطوة د) أيضًا.
 
-These two modifications affect the output of `predict` and `transform`,
-which are not the same as for :class:`PLSCanonical`. Also, while the number
-of components is limited by `min(n_samples, n_features, n_targets)` in
-:class:`PLSCanonical`, here the limit is the rank of :math:`X^TX`, i.e.
-`min(n_samples, n_features)`.
+يؤثر هذان التعديلان على ناتج `predict` و `transform`، وهما ليسا نفس ناتج :class:`PLSCanonical`.
+أيضًا، بينما يكون عدد المكونات محدودًا بـ `min(n_samples, n_features, n_targets)` في :class:`PLSCanonical`، هنا يكون الحد هو رتبة :math:`X^TX`، أي `min(n_samples, n_features)`.
 
-:class:`PLSRegression` is also known as PLS1 (single targets) and PLS2
-(multiple targets). Much like :class:`~sklearn.linear_model.Lasso`,
-:class:`PLSRegression` is a form of regularized linear regression where the
-number of components controls the strength of the regularization.
+يُعرف :class:`PLSRegression` أيضًا باسم PLS1 (أهداف فردية) و PLS2 (أهداف متعددة). مثل :class:`~sklearn.linear_model.Lasso`،
+:class:`PLSRegression` هو شكل من أشكال الانحدار الخطي المنتظم حيث يتحكم عدد المكونات في قوة التنظيم.
 
-Canonical Correlation Analysis
+تحليل الارتباط المتعارف عليه
 ------------------------------
 
-Canonical Correlation Analysis was developed prior and independently to PLS.
-But it turns out that :class:`CCA` is a special case of PLS, and corresponds
-to PLS in "Mode B" in the literature.
+تم تطوير تحليل الارتباط المتعارف عليه قبل PLS وبشكل مستقل.
+لكن اتضح أن :class:`CCA` هو حالة خاصة من PLS، ويتوافق مع PLS في "الوضع B" في الأدبيات.
 
-:class:`CCA` differs from :class:`PLSCanonical` in the way the weights
-:math:`u_k` and :math:`v_k` are computed in the power method of step a).
-Details can be found in section 10 of [1]_.
+يختلف :class:`CCA` عن :class:`PLSCanonical` في طريقة حساب الأوزان :math:`u_k` و :math:`v_k` في طريقة الطاقة للخطوة أ).
+يمكن العثور على التفاصيل في القسم 10 من [1]_.
 
-Since :class:`CCA` involves the inversion of :math:`X_k^TX_k` and
-:math:`Y_k^TY_k`, this estimator can be unstable if the number of features or
-targets is greater than the number of samples.
+نظرًا لأن :class:`CCA` يتضمن انعكاس :math:`X_k^TX_k` و :math:`Y_k^TY_k`، يمكن أن يكون هذا المقدر غير مستقر إذا كان عدد الميزات أو الأهداف أكبر من عدد العينات.
 
-.. rubric:: References
+.. rubric:: المراجع
 
-.. [1] `A survey of Partial Least Squares (PLS) methods, with emphasis on the two-block
-  case <https://stat.uw.edu/sites/default/files/files/reports/2000/tr371.pdf>`_,
-  JA Wegelin
+.. [1] `A survey of Partial Least Squares (PLS) methods, with emphasis on the two-block case <https://stat.uw.edu/sites/default/files/files/reports/2000/tr371.pdf>`_، JA Wegelin
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_cross_decomposition_plot_compare_cross_decomposition.py`
-* :ref:`sphx_glr_auto_examples_cross_decomposition_plot_pcr_vs_pls.py`
+* :ref:`sphx_glr_auto_examples_cross_decomposition/plot_compare_cross_decomposition.py`
+* :ref:`sphx_glr_auto_examples_cross_decomposition/plot_pcr_vs_pls.py`
+
+

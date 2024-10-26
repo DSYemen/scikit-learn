@@ -1,176 +1,122 @@
+
 .. _covariance:
 
-===================================================
-Covariance estimation
-===================================================
+==================================
+تقدير التباين المشترك
+==================================
 
 .. currentmodule:: sklearn.covariance
 
 
-Many statistical problems require the estimation of a
-population's covariance matrix, which can be seen as an estimation of
-data set scatter plot shape. Most of the time, such an estimation has
-to be done on a sample whose properties (size, structure, homogeneity)
-have a large influence on the estimation's quality. The
-:mod:`sklearn.covariance` package provides tools for accurately estimating
-a population's covariance matrix under various settings.
+تتطلب العديد من المشكلات الإحصائية تقدير مصفوفة التباين المشترك لمجموعة سكانية، والتي يمكن اعتبارها تقديرًا لشكل مخطط تشتت مجموعة البيانات.
+في معظم الأوقات، يجب إجراء مثل هذا التقدير على عينة لها خصائص (الحجم، الهيكل، التجانس) لها تأثير كبير على جودة التقدير.
+توفر حزمة :mod:`sklearn.covariance` أدوات لتقدير مصفوفة التباين المشترك لمجموعة سكانية بدقة في ظل إعدادات مختلفة.
 
-We assume that the observations are independent and identically
-distributed (i.i.d.).
+نفترض أن الملاحظات مستقلة وموزعة بشكل متماثل (i.i.d.).
 
 
-Empirical covariance
-====================
+التباين المشترك التجريبي
+===========================
 
-The covariance matrix of a data set is known to be well approximated
-by the classical *maximum likelihood estimator* (or "empirical
-covariance"), provided the number of observations is large enough
-compared to the number of features (the variables describing the
-observations). More precisely, the Maximum Likelihood Estimator of a
-sample is an asymptotically unbiased estimator of the corresponding
-population's covariance matrix.
+من المعروف أن مصفوفة التباين المشترك لمجموعة البيانات يتم تقريبها جيدًا بواسطة *مقدر الاحتمالية القصوى* الكلاسيكي (أو "التباين المشترك التجريبي")، بشرط أن يكون عدد الملاحظات كبيرًا بما يكفي مقارنة بعدد الميزات (المتغيرات التي تصف الملاحظات).
+بتعبير أدق، فإن مقدر الاحتمالية القصوى للعينة هو مقدر غير متحيز مقارب لمصفوفة التباين المشترك للسكان المقابلة.
 
-The empirical covariance matrix of a sample can be computed using the
-:func:`empirical_covariance` function of the package, or by fitting an
-:class:`EmpiricalCovariance` object to the data sample with the
-:meth:`EmpiricalCovariance.fit` method. Be careful that results depend
-on whether the data are centered, so one may want to use the
-``assume_centered`` parameter accurately. More precisely, if
-``assume_centered=False``, then the test set is supposed to have the
-same mean vector as the training set. If not, both should be centered
-by the user, and ``assume_centered=True`` should be used.
+يمكن حساب مصفوفة التباين المشترك التجريبي للعينة باستخدام دالة :func:`empirical_covariance` للحزمة، أو عن طريق ملاءمة كائن :class:`EmpiricalCovariance` لعينة البيانات باستخدام طريقة :meth:`EmpiricalCovariance.fit`.
+كن حذرًا من أن النتائج تعتمد على ما إذا كانت البيانات متمركزة، لذلك قد يرغب المرء في استخدام معلمة ``assume_centered`` بدقة.
+بتعبير أدق، إذا كان ``assume_centered=False``، فمن المفترض أن يكون لمجموعة الاختبار نفس متجه المتوسط مثل مجموعة التدريب.
+إذا لم يكن الأمر كذلك، فيجب أن يكون كلاهما متمركزًا بواسطة المستخدم، ويجب استخدام ``assume_centered=True``.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* See :ref:`sphx_glr_auto_examples_covariance_plot_covariance_estimation.py` for
-  an example on how to fit an :class:`EmpiricalCovariance` object to data.
+* انظر :ref:`sphx_glr_auto_examples_covariance/plot_covariance_estimation.py` للحصول على مثال حول كيفية ملاءمة كائن :class:`EmpiricalCovariance` للبيانات.
 
 
 .. _shrunk_covariance:
 
-Shrunk Covariance
-=================
+التباين المشترك المنكمش
+=========================
 
-Basic shrinkage
+الانكماش الأساسي
 ---------------
 
-Despite being an asymptotically unbiased estimator of the covariance matrix,
-the Maximum Likelihood Estimator is not a good estimator of the
-eigenvalues of the covariance matrix, so the precision matrix obtained
-from its inversion is not accurate. Sometimes, it even occurs that the
-empirical covariance matrix cannot be inverted for numerical
-reasons. To avoid such an inversion problem, a transformation of the
-empirical covariance matrix has been introduced: the ``shrinkage``.
+على الرغم من كونه مقدرًا غير متحيز مقارب لمصفوفة التباين المشترك، فإن مقدر الاحتمالية القصوى ليس مقدرًا جيدًا لقيم eigenvalues لمصفوفة التباين المشترك، لذلك فإن مصفوفة الدقة التي تم الحصول عليها من انعكاسها ليست دقيقة.
+في بعض الأحيان، يحدث حتى أنه لا يمكن عكس مصفوفة التباين المشترك التجريبية لأسباب رقمية.
+لتجنب مشكلة الانعكاس هذه، تم إدخال تحويل لمصفوفة التباين المشترك التجريبية: ``الانكماش``.
 
-In scikit-learn, this transformation (with a user-defined shrinkage
-coefficient) can be directly applied to a pre-computed covariance with
-the :func:`shrunk_covariance` method. Also, a shrunk estimator of the
-covariance can be fitted to data with a :class:`ShrunkCovariance` object
-and its :meth:`ShrunkCovariance.fit` method. Again, results depend on
-whether the data are centered, so one may want to use the
-``assume_centered`` parameter accurately.
+في scikit-learn، يمكن تطبيق هذا التحويل (مع معامل انكماش محدد من قبل المستخدم) مباشرة على التباين المشترك المحسوب مسبقًا باستخدام طريقة :func:`shrunk_covariance`.
+أيضًا، يمكن ملاءمة مقدر منكمش للتباين المشترك مع البيانات باستخدام كائن :class:`ShrunkCovariance` وطرقه :meth:`ShrunkCovariance.fit`.
+مرة أخرى، تعتمد النتائج على ما إذا كانت البيانات متمركزة، لذلك قد يرغب المرء في استخدام معلمة ``assume_centered`` بدقة.
 
 
-Mathematically, this shrinkage consists in reducing the ratio between the
-smallest and the largest eigenvalues of the empirical covariance matrix.
-It can be done by simply shifting every eigenvalue according to a given
-offset, which is equivalent of finding the l2-penalized Maximum
-Likelihood Estimator of the covariance matrix. In practice, shrinkage
-boils down to a simple a convex transformation : :math:`\Sigma_{\rm
-shrunk} = (1-\alpha)\hat{\Sigma} + \alpha\frac{{\rm
-Tr}\hat{\Sigma}}{p}\rm Id`.
+رياضيًا، يتكون هذا الانكماش في تقليل النسبة بين أصغر وأكبر قيم eigenvalues لمصفوفة التباين المشترك التجريبية.
+يمكن القيام بذلك ببساطة عن طريق تحويل كل eigenvalue وفقًا لإزاحة معينة، وهو ما يعادل إيجاد مقدر الاحتمالية القصوى المعاقب بـ l2 لمصفوفة التباين المشترك.
+من الناحية العملية، يتلخص الانكماش في تحويل محدب بسيط:
 
-Choosing the amount of shrinkage, :math:`\alpha` amounts to setting a
-bias/variance trade-off, and is discussed below.
+:math:`\Sigma_{\rm shrunk} = (1-\alpha)\hat{\Sigma} + \alpha\frac{{\rm Tr}\hat{\Sigma}}{p}\rm Id`.
 
-.. rubric:: Examples
+اختيار مقدار الانكماش، :math:`\alpha` يرقى إلى تعيين مقايضة التحيز / التباين، ويتم مناقشته أدناه.
 
-* See :ref:`sphx_glr_auto_examples_covariance_plot_covariance_estimation.py` for
-  an example on how to fit a :class:`ShrunkCovariance` object to data.
+.. rubric:: أمثلة
+
+* انظر :ref:`sphx_glr_auto_examples_covariance/plot_covariance_estimation.py` للحصول على مثال حول كيفية ملاءمة كائن :class:`ShrunkCovariance` للبيانات.
 
 
-Ledoit-Wolf shrinkage
+انكماش Ledoit-Wolf
 ---------------------
 
-In their 2004 paper [1]_, O. Ledoit and M. Wolf propose a formula
-to compute the optimal shrinkage coefficient :math:`\alpha` that
-minimizes the Mean Squared Error between the estimated and the real
-covariance matrix.
+في ورقتهم البحثية لعام 2004 [1]_، اقترح O. Ledoit و M. Wolf صيغة لحساب معامل الانكماش الأمثل :math:`\alpha` الذي يقلل من متوسط الخطأ التربيعي بين مصفوفة التباين المشترك المقدرة والحقيقية.
 
-The Ledoit-Wolf estimator of the covariance matrix can be computed on
-a sample with the :meth:`ledoit_wolf` function of the
-:mod:`sklearn.covariance` package, or it can be otherwise obtained by
-fitting a :class:`LedoitWolf` object to the same sample.
+يمكن حساب مقدر Ledoit-Wolf لمصفوفة التباين المشترك على عينة باستخدام طريقة :meth:`ledoit_wolf` لحزمة :mod:`sklearn.covariance`، أو يمكن الحصول عليها بطريقة أخرى عن طريق ملاءمة كائن :class:`LedoitWolf` لنفس العينة.
 
-.. note:: **Case when population covariance matrix is isotropic**
+.. note:: **الحالة عندما تكون مصفوفة التباين المشترك للسكان متجانسة الخواص**
 
-    It is important to note that when the number of samples is much larger than
-    the number of features, one would expect that no shrinkage would be
-    necessary. The intuition behind this is that if the population covariance
-    is full rank, when the number of sample grows, the sample covariance will
-    also become positive definite. As a result, no shrinkage would necessary
-    and the method should automatically do this.
+    من المهم ملاحظة أنه عندما يكون عدد العينات أكبر بكثير من عدد الميزات، يتوقع المرء ألا يكون الانكماش ضروريًا.
+    الحدس وراء ذلك هو أنه إذا كان التباين المشترك للسكان كامل الرتبة، فعندما يزداد عدد العينات، سيصبح التباين المشترك للعينة أيضًا موجبًا محددًا.
+    ونتيجة لذلك، لن يكون الانكماش ضروريًا ويجب أن تفعل الطريقة ذلك تلقائيًا.
 
-    This, however, is not the case in the Ledoit-Wolf procedure when the
-    population covariance happens to be a multiple of the identity matrix. In
-    this case, the Ledoit-Wolf shrinkage estimate approaches 1 as the number of
-    samples increases. This indicates that the optimal estimate of the
-    covariance matrix in the Ledoit-Wolf sense is multiple of the identity.
-    Since the population covariance is already a multiple of the identity
-    matrix, the Ledoit-Wolf solution is indeed a reasonable estimate.
+    ومع ذلك، ليس هذا هو الحال في إجراء Ledoit-Wolf عندما يكون التباين المشترك للسكان مضاعفًا لمصفوفة الهوية.
+    في هذه الحالة، يقترب تقدير انكماش Ledoit-Wolf من 1 مع زيادة عدد العينات.
+    يشير هذا إلى أن التقدير الأمثل لمصفوفة التباين المشترك بمعنى Ledoit-Wolf هو مضاعف الهوية.
+    نظرًا لأن التباين المشترك للسكان هو بالفعل مضاعف لمصفوفة الهوية، فإن حل Ledoit-Wolf هو بالفعل تقدير معقول.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* See :ref:`sphx_glr_auto_examples_covariance_plot_covariance_estimation.py` for
-  an example on how to fit a :class:`LedoitWolf` object to data and
-  for visualizing the performances of the Ledoit-Wolf estimator in
-  terms of likelihood.
+* انظر :ref:`sphx_glr_auto_examples_covariance/plot_covariance_estimation.py` للحصول على مثال حول كيفية ملاءمة كائن :class:`LedoitWolf` للبيانات ولتصور أداء مقدر Ledoit-Wolf من حيث الاحتمالية.
 
-.. rubric:: References
+.. rubric:: المراجع
 
-.. [1] O. Ledoit and M. Wolf, "A Well-Conditioned Estimator for Large-Dimensional
-       Covariance Matrices", Journal of Multivariate Analysis, Volume 88, Issue 2,
+.. [1] O. Ledoit and M. Wolf, "A Well-Conditioned Estimator for Large-Dimensional Covariance Matrices", Journal of Multivariate Analysis, Volume 88, Issue 2,
        February 2004, pages 365-411.
 
 .. _oracle_approximating_shrinkage:
 
-Oracle Approximating Shrinkage
-------------------------------
+انكماش تقريب أوراكل
+-----------------------
 
-Under the assumption that the data are Gaussian distributed, Chen et
-al. [2]_ derived a formula aimed at choosing a shrinkage coefficient that
-yields a smaller Mean Squared Error than the one given by Ledoit and
-Wolf's formula. The resulting estimator is known as the Oracle
-Shrinkage Approximating estimator of the covariance.
+بافتراض أن البيانات موزعة بشكل غاوسي، اشتق Chen وآخرون [2]_ صيغة تهدف إلى اختيار معامل انكماش ينتج عنه متوسط خطأ تربيعي أصغر من ذلك الذي قدمته صيغة Ledoit و Wolf.
+يُعرف المقدر الناتج باسم مقدر تقريب انكماش أوراكل للتباين المشترك.
 
-The OAS estimator of the covariance matrix can be computed on a sample
-with the :meth:`oas` function of the :mod:`sklearn.covariance`
-package, or it can be otherwise obtained by fitting an :class:`OAS`
-object to the same sample.
+يمكن حساب مقدر OAS لمصفوفة التباين المشترك على عينة باستخدام طريقة :meth:`oas` لحزمة :mod:`sklearn.covariance`، أو يمكن الحصول عليها بطريقة أخرى عن طريق ملاءمة كائن :class:`OAS` لنفس العينة.
 
 .. figure:: ../auto_examples/covariance/images/sphx_glr_plot_covariance_estimation_001.png
    :target: ../auto_examples/covariance/plot_covariance_estimation.html
    :align: center
    :scale: 65%
 
-   Bias-variance trade-off when setting the shrinkage: comparing the
-   choices of Ledoit-Wolf and OAS estimators
+   مقايضة التحيز / التباين عند تعيين الانكماش: مقارنة اختيارات مقدرات Ledoit-Wolf و OAS
 
-.. rubric:: References
+.. rubric:: المراجع
 
 .. [2] :arxiv:`"Shrinkage algorithms for MMSE covariance estimation.",
        Chen, Y., Wiesel, A., Eldar, Y. C., & Hero, A. O.
        IEEE Transactions on Signal Processing, 58(10), 5016-5029, 2010.
        <0907.4698>`
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* See :ref:`sphx_glr_auto_examples_covariance_plot_covariance_estimation.py` for
-  an example on how to fit an :class:`OAS` object to data.
+* انظر :ref:`sphx_glr_auto_examples_covariance/plot_covariance_estimation.py` للحصول على مثال حول كيفية ملاءمة كائن :class:`OAS` للبيانات.
 
-* See :ref:`sphx_glr_auto_examples_covariance_plot_lw_vs_oas.py` to visualize the
-  Mean Squared Error difference between a :class:`LedoitWolf` and
-  an :class:`OAS` estimator of the covariance.
+* انظر :ref:`sphx_glr_auto_examples_covariance/plot_lw_vs_oas.py` لتصور فرق متوسط الخطأ التربيعي بين :class:`LedoitWolf` و :class:`OAS` مقدر للتباين المشترك.
 
 
 .. figure:: ../auto_examples/covariance/images/sphx_glr_plot_lw_vs_oas_001.png
@@ -181,61 +127,44 @@ object to the same sample.
 
 .. _sparse_inverse_covariance:
 
-Sparse inverse covariance
-==========================
+التباين المشترك العكسي المتناثر
+==================================
 
-The matrix inverse of the covariance matrix, often called the precision
-matrix, is proportional to the partial correlation matrix. It gives the
-partial independence relationship. In other words, if two features are
-independent conditionally on the others, the corresponding coefficient in
-the precision matrix will be zero. This is why it makes sense to
-estimate a sparse precision matrix: the estimation of the covariance
-matrix is better conditioned by learning independence relations from
-the data. This is known as *covariance selection*.
+إن معكوس المصفوفة لمصفوفة التباين المشترك، والتي غالبًا ما تسمى مصفوفة الدقة، تتناسب مع مصفوفة الارتباط الجزئي.
+يعطي علاقة الاستقلال الجزئي.
+بمعنى آخر، إذا كانت ميزتان مستقلتين بشكل مشروط على الأخريين، فسيكون المعامل المقابل في مصفوفة الدقة صفرًا.
+هذا هو السبب في أنه من المنطقي تقدير مصفوفة دقة متفرقة: يكون تقدير مصفوفة التباين المشترك أفضل من خلال تعلم علاقات الاستقلال من البيانات.
+يُعرف هذا باسم *اختيار التباين المشترك*.
 
-In the small-samples situation, in which ``n_samples`` is on the order
-of ``n_features`` or smaller, sparse inverse covariance estimators tend to work
-better than shrunk covariance estimators. However, in the opposite
-situation, or for very correlated data, they can be numerically unstable.
-In addition, unlike shrinkage estimators, sparse estimators are able to
-recover off-diagonal structure.
+في حالة العينات الصغيرة، حيث يكون ``n_samples`` بترتيب ``n_features`` أو أصغر، تميل مقدرات التباين المشترك العكسي المتناثر إلى العمل بشكل أفضل من مقدرات التباين المشترك المنكمش.
+ومع ذلك، في الحالة المعاكسة، أو للبيانات المترابطة للغاية، يمكن أن تكون غير مستقرة عدديًا.
+بالإضافة إلى ذلك، على عكس مقدرات الانكماش، فإن المقدرات المتفرقة قادرة على استعادة الهيكل خارج القطر.
 
-The :class:`GraphicalLasso` estimator uses an l1 penalty to enforce sparsity on
-the precision matrix: the higher its ``alpha`` parameter, the more sparse
-the precision matrix. The corresponding :class:`GraphicalLassoCV` object uses
-cross-validation to automatically set the ``alpha`` parameter.
+يستخدم مقدر :class:`GraphicalLasso` عقوبة l1 لفرض التباين على مصفوفة الدقة: كلما زادت معلمة ``alpha``، زادت تباين مصفوفة الدقة.
+يستخدم كائن :class:`GraphicalLassoCV` المقابل التحقق المتبادل لتعيين معلمة ``alpha`` تلقائيًا.
 
 .. figure:: ../auto_examples/covariance/images/sphx_glr_plot_sparse_cov_001.png
    :target: ../auto_examples/covariance/plot_sparse_cov.html
    :align: center
    :scale: 60%
 
-   *A comparison of maximum likelihood, shrinkage and sparse estimates of
-   the covariance and precision matrix in the very small samples
-   settings.*
+   *مقارنة بين الاحتمالية القصوى والانكماش والتقديرات المتفرقة للتباين المشترك ومصفوفة الدقة في إعدادات العينات الصغيرة جدًا.*
 
-.. note:: **Structure recovery**
+.. note:: **استعادة الهيكل**
 
-   Recovering a graphical structure from correlations in the data is a
-   challenging thing. If you are interested in such recovery keep in mind
-   that:
+   إن استعادة بنية رسومية من الارتباطات في البيانات أمر صعب.
+   إذا كنت مهتمًا بهذا الاسترداد، ضع في اعتبارك ما يلي:
 
-   * Recovery is easier from a correlation matrix than a covariance
-     matrix: standardize your observations before running :class:`GraphicalLasso`
+   * يكون الاسترداد أسهل من مصفوفة الارتباط من مصفوفة التباين المشترك: قم بتوحيد ملاحظاتك قبل تشغيل :class:`GraphicalLasso`
 
-   * If the underlying graph has nodes with much more connections than
-     the average node, the algorithm will miss some of these connections.
+   * إذا كان الرسم البياني الأساسي يحتوي على عقد ذات اتصالات أكثر بكثير من العقدة المتوسطة، فستفقد الخوارزمية بعض هذه الاتصالات.
 
-   * If your number of observations is not large compared to the number
-     of edges in your underlying graph, you will not recover it.
+   * إذا لم يكن عدد ملاحظاتك كبيرًا مقارنة بعدد الحواف في الرسم البياني الأساسي، فلن تستعيدها.
 
-   * Even if you are in favorable recovery conditions, the alpha
-     parameter chosen by cross-validation (e.g. using the
-     :class:`GraphicalLassoCV` object) will lead to selecting too many edges.
-     However, the relevant edges will have heavier weights than the
-     irrelevant ones.
+   * حتى إذا كنت في ظروف استرداد مواتية، فإن معلمة alpha التي تم اختيارها عن طريق التحقق المتبادل (على سبيل المثال باستخدام كائن :class:`GraphicalLassoCV`) ستؤدي إلى تحديد عدد كبير جدًا من الحواف.
+     ومع ذلك، سيكون للحواف ذات الصلة أوزان أثقل من الحواف غير ذات الصلة.
 
-The mathematical formulation is the following:
+الصيغة الرياضية هي كما يلي:
 
 .. math::
 
@@ -244,90 +173,64 @@ The mathematical formulation is the following:
                 + \alpha \|K\|_1
                 \big)
 
-Where :math:`K` is the precision matrix to be estimated, and :math:`S` is the
-sample covariance matrix. :math:`\|K\|_1` is the sum of the absolute values of
-off-diagonal coefficients of :math:`K`. The algorithm employed to solve this
-problem is the GLasso algorithm, from the Friedman 2008 Biostatistics
-paper. It is the same algorithm as in the R ``glasso`` package.
+حيث :math:`K` هي مصفوفة الدقة المراد تقديرها، و :math:`S` هي مصفوفة التباين المشترك للعينة.
+:math:`\|K\|_1` هو مجموع القيم المطلقة للمعاملات خارج القطر لـ :math:`K`.
+الخوارزمية المستخدمة لحل هذه المشكلة هي خوارزمية GLasso، من ورقة Friedman 2008 Biostatistics.
+إنها نفس الخوارزمية الموجودة في حزمة R ``glasso``.
 
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* :ref:`sphx_glr_auto_examples_covariance_plot_sparse_cov.py`: example on synthetic
-  data showing some recovery of a structure, and comparing to other
-  covariance estimators.
+* :ref:`sphx_glr_auto_examples_covariance/plot_sparse_cov.py`: مثال على البيانات التركيبية يوضح بعض استعادة الهيكل، ومقارنته بمقدرات التباين المشترك الأخرى.
 
-* :ref:`sphx_glr_auto_examples_applications_plot_stock_market.py`: example on real
-  stock market data, finding which symbols are most linked.
+* :ref:`sphx_glr_auto_examples_applications/plot_stock_market.py`: مثال على بيانات سوق الأسهم الحقيقية، والعثور على الرموز الأكثر ارتباطًا.
 
-.. rubric:: References
+.. rubric:: المراجع
 
-* Friedman et al, `"Sparse inverse covariance estimation with the
-  graphical lasso" <https://biostatistics.oxfordjournals.org/content/9/3/432.short>`_,
-  Biostatistics 9, pp 432, 2008
+* Friedman et al, `"Sparse inverse covariance estimation with the graphical lasso" <https://biostatistics.oxfordjournals.org/content/9/3/432.short>`_،
+  Biostatistics 9، pp 432، 2008
 
 .. _robust_covariance:
 
-Robust Covariance Estimation
+تقدير التباين المشترك القوي
 ============================
 
-Real data sets are often subject to measurement or recording
-errors. Regular but uncommon observations may also appear for a variety
-of reasons. Observations which are very uncommon are called
-outliers.
-The empirical covariance estimator and the shrunk covariance
-estimators presented above are very sensitive to the presence of
-outliers in the data. Therefore, one should use robust
-covariance estimators to estimate the covariance of its real data
-sets. Alternatively, robust covariance estimators can be used to
-perform outlier detection and discard/downweight some observations
-according to further processing of the data.
+غالبًا ما تخضع مجموعات البيانات الحقيقية لأخطاء القياس أو التسجيل.
+قد تظهر أيضًا ملاحظات منتظمة ولكنها غير شائعة لعدة أسباب.
+تسمى الملاحظات غير الشائعة جدًا بالقيم المتطرفة.
+مقدر التباين المشترك التجريبي ومقدرات التباين المشترك المنكمش المقدمة أعلاه حساسة للغاية لوجود القيم المتطرفة في البيانات.
+لذلك، يجب على المرء استخدام مقدرات التباين المشترك القوية لتقدير التباين المشترك لمجموعات البيانات الحقيقية الخاصة به.
+بدلاً من ذلك، يمكن استخدام مقدرات التباين المشترك القوية لإجراء اكتشاف القيم المتطرفة والتخلص من / تقليل بعض الملاحظات وفقًا للمعالجة الإضافية للبيانات.
 
-The ``sklearn.covariance`` package implements a robust estimator of covariance,
-the Minimum Covariance Determinant [3]_.
+تنفذ حزمة ``sklearn.covariance`` مقدرًا قويًا للتباين المشترك، وهو محدد التباين المشترك الأدنى [3]_.
 
 
-Minimum Covariance Determinant
+محدد التباين المشترك الأدنى
 ------------------------------
 
-The Minimum Covariance Determinant estimator is a robust estimator of
-a data set's covariance introduced by P.J. Rousseeuw in [3]_.  The idea
-is to find a given proportion (h) of "good" observations which are not
-outliers and compute their empirical covariance matrix.  This
-empirical covariance matrix is then rescaled to compensate the
-performed selection of observations ("consistency step").  Having
-computed the Minimum Covariance Determinant estimator, one can give
-weights to observations according to their Mahalanobis distance,
-leading to a reweighted estimate of the covariance matrix of the data
-set ("reweighting step").
+مقدر محدد التباين المشترك الأدنى هو مقدر قوي للتباين المشترك لمجموعة البيانات قدمه P.J. Rousseeuw في [3]_.
+الفكرة هي إيجاد نسبة معينة (h) من الملاحظات "الجيدة" التي ليست قيمًا متطرفة وحساب مصفوفة التباين المشترك التجريبية الخاصة بها.
+ثم يتم إعادة قياس مصفوفة التباين المشترك التجريبية هذه لتعويض الاختيار الذي تم إجراؤه للملاحظات ("خطوة الاتساق").
+بعد حساب مقدر محدد التباين المشترك الأدنى، يمكن للمرء إعطاء أوزان للملاحظات وفقًا لمسافة Mahalanobis الخاصة بهم، مما يؤدي إلى تقدير معاد وزنه لمصفوفة التباين المشترك لمجموعة البيانات ("خطوة إعادة الوزن").
 
-Rousseeuw and Van Driessen [4]_ developed the FastMCD algorithm in order
-to compute the Minimum Covariance Determinant. This algorithm is used
-in scikit-learn when fitting an MCD object to data. The FastMCD
-algorithm also computes a robust estimate of the data set location at
-the same time.
+طور Rousseeuw و Van Driessen [4]_ خوارزمية FastMCD من أجل حساب محدد التباين المشترك الأدنى.
+تستخدم هذه الخوارزمية في scikit-learn عند ملاءمة كائن MCD للبيانات.
+تحسب خوارزمية FastMCD أيضًا تقديرًا قويًا لموقع مجموعة البيانات في نفس الوقت.
 
-Raw estimates can be accessed as ``raw_location_`` and ``raw_covariance_``
-attributes of a :class:`MinCovDet` robust covariance estimator object.
+يمكن الوصول إلى التقديرات الأولية كسمات ``raw_location_`` و ``raw_covariance_`` لكائن مقدر التباين المشترك القوي :class:`MinCovDet`.
 
-.. rubric:: References
+.. rubric:: المراجع
 
 .. [3] P. J. Rousseeuw. Least median of squares regression.
-       J. Am Stat Ass, 79:871, 1984.
-.. [4] A Fast Algorithm for the Minimum Covariance Determinant Estimator,
-       1999, American Statistical Association and the American Society
-       for Quality, TECHNOMETRICS.
+       J. Am Stat Ass، 79: 871، 1984.
+.. [4] A Fast Algorithm for the Minimum Covariance Determinant Estimator،
+       1999، الرابطة الإحصائية الأمريكية والجمعية الأمريكية للجودة، TECHNOMETRICS.
 
-.. rubric:: Examples
+.. rubric:: أمثلة
 
-* See :ref:`sphx_glr_auto_examples_covariance_plot_robust_vs_empirical_covariance.py` for
-  an example on how to fit a :class:`MinCovDet` object to data and see how
-  the estimate remains accurate despite the presence of outliers.
+* انظر :ref:`sphx_glr_auto_examples_covariance/plot_robust_vs_empirical_covariance.py` للحصول على مثال حول كيفية ملاءمة كائن :class:`MinCovDet` للبيانات ومعرفة كيف يظل التقدير دقيقًا على الرغم من وجود القيم المتطرفة.
 
-* See :ref:`sphx_glr_auto_examples_covariance_plot_mahalanobis_distances.py` to
-  visualize the difference between :class:`EmpiricalCovariance` and
-  :class:`MinCovDet` covariance estimators in terms of Mahalanobis distance
-  (so we get a better estimate of the precision matrix too).
+* انظر :ref:`sphx_glr_auto_examples_covariance/plot_mahalanobis_distances.py` لتصور الفرق بين مقدرات التباين المشترك :class:`EmpiricalCovariance` و :class:`MinCovDet` من حيث مسافة Mahalanobis (لذلك نحصل على تقدير أفضل لمصفوفة الدقة أيضًا).
 
 .. |robust_vs_emp| image:: ../auto_examples/covariance/images/sphx_glr_plot_robust_vs_empirical_covariance_001.png
    :target: ../auto_examples/covariance/plot_robust_vs_empirical_covariance.html
@@ -344,8 +247,12 @@ ____
 .. list-table::
     :header-rows: 1
 
-    * - Influence of outliers on location and covariance estimates
-      - Separating inliers from outliers using a Mahalanobis distance
+    * - تأثير القيم المتطرفة على تقديرات الموقع والتباين المشترك
+      - فصل القيم الداخلية عن القيم المتطرفة باستخدام مسافة Mahalanobis
 
     * - |robust_vs_emp|
       - |mahalanobis|
+
+
+
+
