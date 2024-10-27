@@ -144,7 +144,7 @@ root_doc = "index"
 
 # General information about the project.
 project = "scikit-learn"
-copyright = f"2007 - {datetime.now().year}, scikit-learn developers (BSD License)"
+copyright = f"2024 - {datetime.now().year}, scikit-learn developers (BSD License)"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -806,7 +806,7 @@ def setup(app):
 linkcode_resolve = make_linkcode_resolve(
     "sklearn",
     (
-        "https://github.com/scikit-learn/"
+        "https://github.com/AhmedAlmaghz/"
         "scikit-learn/blob/{revision}/"
         "{package}/{path}#L{lineno}"
     ),
