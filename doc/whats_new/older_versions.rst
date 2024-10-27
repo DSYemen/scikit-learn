@@ -3,7 +3,7 @@
 .. currentmodule:: sklearn
 
 ==============
-Older Versions
+الإصدرات القديمة
 ==============
 
 .. _changes_0_12.1:

@@ -2,19 +2,17 @@
 
 .. _ml_map:
 
-Choosing the right estimator
+اختيار المقدر المناسب
 ============================
 
-Often the hardest part of solving a machine learning problem can be finding the right
-estimator for the job. Different estimators are better suited for different types of
-data and different problems.
+غالبًا ما يكون الجزء الأصعب في حل مشكلة التعلم الآلي هو العثور على المقدر المناسب للمهمة. المقدرات المختلفة مناسبة بشكل أفضل لأنواع مختلفة من
+البيانات والمشكلات المختلفة.
 
-The flowchart below is designed to give users a bit of a rough guide on how to approach
-problems with regard to which estimators to try on your data. Click on any estimator in
-the chart below to see its documentation. The 😭 emoji is to be read as "if this
-estimator does not achieve the desired outcome, then follow the arrow and try the next
-one". Use scroll wheel to zoom in and out, and click and drag to pan around. You can
-also download the chart: :download:`ml_map.svg <images/ml_map.svg>`.
+تم تصميم المخطط الانسيابي أدناه لإعطاء المستخدمين دليلًا بسيطًا حول كيفية التعامل
+مع المشكلات فيما يتعلق بالمقدرات التي يجب تجربتها على بياناتك. انقر على أي مقدر في
+المخطط أدناه لعرض وثائقه. رمز 😭 هو أن يقرأ "إذا لم يحقق هذا
+المقدر النتيجة المرجوة، فاتبع السهم وجرب التالي
+واحد". استخدم عجلة التمرير للتكبير والتصغير، وانقر واسحب للتمرير. يمكنك أيضًا تنزيل المخطط: :download:`ml_map.svg <images/ml_map.svg>`.
 
 .. raw:: html
 

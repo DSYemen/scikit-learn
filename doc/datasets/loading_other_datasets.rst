@@ -1,6 +1,6 @@
 .. _loading_other_datasets:
 
-Loading other datasets
+تحميل مجموعات بيانات أخرى
 ======================
 
 .. currentmodule:: sklearn.datasets

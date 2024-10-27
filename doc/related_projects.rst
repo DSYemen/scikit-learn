@@ -1,7 +1,7 @@
 .. _related_projects:
 
 =====================================
-Related Projects
+مشاريع ذات علاقة
 =====================================
 
 Projects implementing the scikit-learn estimator API are encouraged to use

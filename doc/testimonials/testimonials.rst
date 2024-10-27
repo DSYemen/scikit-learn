@@ -5,7 +5,7 @@
 .. _testimonials:
 
 ==========================
-Who is using scikit-learn?
+من يستخدم scikit-learn?
 ==========================
 
 `J.P.Morgan <https://www.jpmorgan.com>`_

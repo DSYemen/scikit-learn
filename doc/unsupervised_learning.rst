@@ -1,6 +1,6 @@
 .. _unsupervised-learning:
 
-Unsupervised learning
+التعليم الغير خاضع للإشراف
 -----------------------
 
 .. toctree::

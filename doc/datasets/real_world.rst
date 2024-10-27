@@ -1,7 +1,7 @@
 .. _real_world_datasets:
 
-Real world datasets
-===================
+مجموعات بيانات العالم الحقيقي
+=================================
 
 .. currentmodule:: sklearn.datasets
 
