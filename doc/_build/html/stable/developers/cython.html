@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" >
+<html lang="ar" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
@@ -11,10 +11,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/developers/cython.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="This documents tips to develop Cython code in scikit-learn. Tips for developing with Cython in scikit-learn: Tips to ease development: Time spent reading Cython’s documentation is not time lost., I..." />
+<meta property="og:description" content="This documents tips to develop Cython code in scikit-learn. Tips for developing with Cython in scikit-learn: Tips to ease development: Time spent reading Cython's documentation is not time lost., I..." />
 <meta property="og:image" content="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" />
 <meta property="og:image:alt" content="scikit-learn" />
-<meta name="description" content="This documents tips to develop Cython code in scikit-learn. Tips for developing with Cython in scikit-learn: Tips to ease development: Time spent reading Cython’s documentation is not time lost., I..." />
+<meta name="description" content="This documents tips to develop Cython code in scikit-learn. Tips for developing with Cython in scikit-learn: Tips to ease development: Time spent reading Cython's documentation is not time lost., I..." />
 
     <title>Cython Best Practices, Conventions and Knowledge &#8212; scikit-learn 1.6.dev0 documentation</title>
   
@@ -40,7 +40,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css?v=7f9a90b1" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
     <link rel="stylesheet" type="text/css" href="../_static/jupyterlite_sphinx.css?v=ca70e7f1" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/colors.css?v=cc94ab7d" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/custom.css?v=e340c087" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/custom.css?v=fe191a13" />
   
   <!-- So that users can add custom icons -->
   <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
@@ -57,12 +57,13 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
-    <script src="../_static/documentation_options.js?v=d875d36e"></script>
+    <script src="../_static/documentation_options.js?v=3cd28d06"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=97f0b27d"></script>
     <script src="../_static/jupyterlite_sphinx.js?v=d6bdf5f8"></script>
+    <script src="../_static/translations.js?v=87cb2081"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script data-domain="scikit-learn.org" defer="defer" src="https://views.scientific-python.org/js/script.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'developers/cython';</script>
@@ -76,11 +77,11 @@
     <script src="../_static/scripts/version-switcher.js?v=a6dd8357"></script>
     <link rel="icon" href="../_static/favicon.ico"/>
     <link rel="author" title="About these documents" href="../about.html" />
-    <link rel="search" title="Search" href="../search.html" />
+    <link rel="search" title="بحث" href="../search.html" />
     <link rel="next" title="Installing the development version of scikit-learn" href="advanced_installation.html" />
     <link rel="prev" title="How to optimize for speed" href="performance.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:language" content="ar"/>
   <meta name="docsearch:version" content="1.6" />
   </head>
   
@@ -172,7 +173,7 @@
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../user_guide.html">
-    User Guide
+    دليل المستخدم
   </a>
 </li>
 
@@ -240,14 +241,14 @@
 
 <li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../support.html">
-    Support
+    الدعم الفني
   </a>
 </li>
 
 
 <li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../related_projects.html">
-    Related Projects
+    مشاريع ذات علاقة
   </a>
 </li>
 
@@ -268,7 +269,7 @@
 
 <li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../about.html">
-    حولنا
+    من نحن
   </a>
 </li>
 
@@ -286,7 +287,7 @@
         <div class="navbar-item navbar-persistent--container">
           
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
         </div>
@@ -343,7 +344,7 @@
   
     <div class="navbar-persistent--mobile">
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
     </div>
@@ -389,7 +390,7 @@
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../user_guide.html">
-    User Guide
+    دليل المستخدم
   </a>
 </li>
 
@@ -452,14 +453,14 @@
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../support.html">
-    Support
+    الدعم الفني
   </a>
 </li>
 
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../related_projects.html">
-    Related Projects
+    مشاريع ذات علاقة
   </a>
 </li>
 
@@ -480,7 +481,7 @@
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../about.html">
-    حولنا
+    من نحن
   </a>
 </li>
 
@@ -551,7 +552,7 @@
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="minimal_reproducer.html">Crafting a minimal reproducer for scikit-learn</a></li>
 <li class="toctree-l1"><a class="reference internal" href="develop.html">Developing scikit-learn estimators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tips.html">Developers’ Tips and Tricks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tips.html">Developers' Tips and Tricks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities for Developers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="performance.html">How to optimize for speed</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Cython Best Practices, Conventions and Knowledge</a></li>
@@ -595,7 +596,7 @@
       </a>
     </li>
     
-    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Developer’s Guide</a></li>
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">دليل المطورين</a></li>
     
     <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Cython Best Practices, Conventions and Knowledge</span></li>
   </ul>
@@ -622,8 +623,8 @@
 <section id="tips-to-ease-development">
 <h3>Tips to ease development<a class="headerlink" href="#tips-to-ease-development" title="Link to this heading">#</a></h3>
 <ul>
-<li><p>Time spent reading <a class="reference external" href="https://cython.readthedocs.io/en/latest/">Cython’s documentation</a> is not time lost.</p></li>
-<li><p>If you intend to use OpenMP: On MacOS, system’s distribution of <code class="docutils literal notranslate"><span class="pre">clang</span></code> does not implement OpenMP.
+<li><p>Time spent reading <a class="reference external" href="https://cython.readthedocs.io/en/latest/">Cython's documentation</a> is not time lost.</p></li>
+<li><p>If you intend to use OpenMP: On MacOS, system's distribution of <code class="docutils literal notranslate"><span class="pre">clang</span></code> does not implement OpenMP.
 You can install the <code class="docutils literal notranslate"><span class="pre">compilers</span></code> package available on <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> which comes with an implementation of OpenMP.</p></li>
 <li><p>Activating <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/blob/62a017efa047e9581ae7df8bbaa62cf4c0544ee4/sklearn/_build_utils/__init__.py#L68-L87">checks</a> might help. E.g. for activating boundscheck use:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">SKLEARN_ENABLE_DEBUG_CYTHON_DIRECTIVES</span><span class="o">=</span><span class="m">1</span>
@@ -671,7 +672,7 @@ For now, make sure you understand which concrete types are used ultimately.</p><
 This report indicates interactions with the CPython interpreter on a line-by-line basis.
 Interactions with the CPython interpreter must be avoided as much as possible in
 the computationally intensive sections of the algorithms.
-For more information, please refer to <a class="reference external" href="https://cython.readthedocs.io/en/latest/src/tutorial/cython_tutorial.html#primes">this section of Cython’s tutorial</a></p>
+For more information, please refer to <a class="reference external" href="https://cython.readthedocs.io/en/latest/src/tutorial/cython_tutorial.html#primes">this section of Cython's tutorial</a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># This generates a HTML report (`source.html`) for `source.c`.</span>
 <span class="n">cythonX</span> <span class="o">--</span><span class="n">annotate</span> <span class="n">source</span><span class="o">.</span><span class="n">pyx</span>
 </pre></div>
@@ -693,8 +694,8 @@ provides a good overview and context and pathways for removal.</p></li>
 we better not use it, even if handling fewer dimensions in some context would be preferable.</p></li>
 <li><p>Decorate final classes or methods with <code class="docutils literal notranslate"><span class="pre">&#64;final</span></code> (this allows removing virtual tables when needed)</p></li>
 <li><p>Inline methods and function when it makes sense</p></li>
-<li><p>In doubt, read the generated C or C++ code if you can: “The fewer C instructions and indirections
-for a line of Cython code, the better” is a good rule of thumb.</p></li>
+<li><p>In doubt, read the generated C or C++ code if you can: &quot;The fewer C instructions and indirections
+for a line of Cython code, the better&quot; is a good rule of thumb.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">nogil</span></code> declarations are just hints: when declaring the <code class="docutils literal notranslate"><span class="pre">cdef</span></code> functions
 as nogil, it means that they can be called without holding the GIL, but it does not release
 the GIL when entering them. You have to do that yourself either by passing <code class="docutils literal notranslate"><span class="pre">nogil=True</span></code> to
@@ -709,14 +710,14 @@ the GIL when entering them. You have to do that yourself either by passing <code
     <span class="k">return</span> <span class="mf">0</span>
 </pre></div>
 </div>
-<p>This item is based on <a class="reference external" href="https://github.com/cython/cython/issues/2798#issuecomment-459971828">this comment from Stéfan’s Benhel</a></p>
+<p>This item is based on <a class="reference external" href="https://github.com/cython/cython/issues/2798#issuecomment-459971828">this comment from Stéfan's Benhel</a></p>
 </li>
 <li><p>Direct calls to BLAS routines are possible via interfaces defined in <code class="docutils literal notranslate"><span class="pre">sklearn.utils._cython_blas</span></code>.</p></li>
 </ul>
 </section>
 <section id="using-openmp">
 <h3>Using OpenMP<a class="headerlink" href="#using-openmp" title="Link to this heading">#</a></h3>
-<p>Since scikit-learn can be built without OpenMP, it’s necessary to protect each
+<p>Since scikit-learn can be built without OpenMP, it's necessary to protect each
 direct call to OpenMP.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">_openmp_helpers</span></code> module, available in
 <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/blob/main/sklearn/utils/_openmp_helpers.pyx">sklearn/utils/_openmp_helpers.pyx</a>
@@ -758,7 +759,7 @@ Ideally you start by having a look there and <code class="docutils literal notra
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-subtitle">السابق</p>
         <p class="prev-next-title">How to optimize for speed</p>
       </div>
     </a>
@@ -766,7 +767,7 @@ Ideally you start by having a look there and <code class="docutils literal notra
        href="advanced_installation.html"
        title="next page">
       <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-subtitle">التالي</p>
         <p class="prev-next-title">Installing the development version of scikit-learn</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
@@ -810,7 +811,7 @@ Ideally you start by having a look there and <code class="docutils literal notra
 
   <div class="tocsection sourcelink">
     <a href="../_sources/developers/cython.rst.txt">
-      <i class="fa-solid fa-file-lines"></i> Show Source
+      <i class="fa-solid fa-file-lines"></i> إظهار المصدر
     </a>
   </div>
 </div>
@@ -840,7 +841,7 @@ Ideally you start by having a look there and <code class="docutils literal notra
 
   <p class="copyright">
     
-      © Copyright 2024 - 2024, scikit-learn developers (BSD License).
+      © Copyright 2007 - 2024, scikit-learn developers (BSD License).
       <br/>
     
   </p>

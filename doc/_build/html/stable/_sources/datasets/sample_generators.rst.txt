@@ -1,6 +1,6 @@
 .. _sample_generators:
 
-Generated datasets
+مجموعات بيانات مولدة
 ==================
 
 .. currentmodule:: sklearn.datasets

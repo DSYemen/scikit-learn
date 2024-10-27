@@ -1,7 +1,7 @@
 .. _toy_datasets:
 
-Toy datasets
-============
+مجموعات بيانات تجريبية
+=========================
 
 .. currentmodule:: sklearn.datasets
 

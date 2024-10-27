@@ -1,7 +1,7 @@
 .. _supervised-learning:
 
-Supervised learning
--------------------
+التعليم الخاضع للإشراف
+------------------------
 
 .. toctree::
     :maxdepth: 2

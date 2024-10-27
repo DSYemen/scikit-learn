@@ -2,21 +2,21 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="./" >
+<html lang="ar" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="15. Choosing the right estimator" />
+<meta property="og:title" content="15. اختيار المقدر المناسب" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/machine_learning_map.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="Often the hardest part of solving a machine learning problem can be finding the right estimator for the job. Different estimators are better suited for different types of data and different problem..." />
+<meta property="og:description" content="غالبًا ما يكون الجزء الأصعب في حل مشكلة التعلم الآلي هو العثور على المقدر المناسب للمهمة. المقدرات المختلفة مناسبة بشكل أفضل لأنواع مختلفة من البيانات والمشكلات المختلفة. تم تصميم المخطط الانسيابي ..." />
 <meta property="og:image" content="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" />
 <meta property="og:image:alt" content="scikit-learn" />
-<meta name="description" content="Often the hardest part of solving a machine learning problem can be finding the right estimator for the job. Different estimators are better suited for different types of data and different problem..." />
+<meta name="description" content="غالبًا ما يكون الجزء الأصعب في حل مشكلة التعلم الآلي هو العثور على المقدر المناسب للمهمة. المقدرات المختلفة مناسبة بشكل أفضل لأنواع مختلفة من البيانات والمشكلات المختلفة. تم تصميم المخطط الانسيابي ..." />
 
-    <title>15. Choosing the right estimator &#8212; scikit-learn 1.6.dev0 documentation</title>
+    <title>15. اختيار المقدر المناسب &#8212; scikit-learn 1.6.dev0 documentation</title>
   
   
   
@@ -40,7 +40,7 @@
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="_static/plot_directive.css?v=7f9a90b1" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
     <link rel="stylesheet" type="text/css" href="_static/jupyterlite_sphinx.css?v=ca70e7f1" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/styles/colors.css?v=cc94ab7d" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/custom.css?v=e340c087" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/custom.css?v=fe191a13" />
   
   <!-- So that users can add custom icons -->
   <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
@@ -57,12 +57,13 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
-    <script src="_static/documentation_options.js?v=d875d36e"></script>
+    <script src="_static/documentation_options.js?v=3cd28d06"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=97f0b27d"></script>
     <script src="_static/jupyterlite_sphinx.js?v=d6bdf5f8"></script>
+    <script src="_static/translations.js?v=87cb2081"></script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script data-domain="scikit-learn.org" defer="defer" src="https://views.scientific-python.org/js/script.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'machine_learning_map';</script>
@@ -76,11 +77,11 @@
     <script src="_static/scripts/version-switcher.js?v=a6dd8357"></script>
     <link rel="icon" href="_static/favicon.ico"/>
     <link rel="author" title="About these documents" href="about.html" />
-    <link rel="search" title="Search" href="search.html" />
+    <link rel="search" title="بحث" href="search.html" />
     <link rel="next" title="16. المصادر الخارجية ومقاطع الفيديو والمحادثات" href="presentations.html" />
     <link rel="prev" title="14.1. دعم المدخلات المتوافقة مع Array API" href="modules/array_api.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:language" content="ar"/>
   <meta name="docsearch:version" content="1.6" />
   </head>
   
@@ -172,7 +173,7 @@
 
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="user_guide.html">
-    User Guide
+    دليل المستخدم
   </a>
 </li>
 
@@ -240,14 +241,14 @@
 
 <li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="support.html">
-    Support
+    الدعم الفني
   </a>
 </li>
 
 
 <li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="related_projects.html">
-    Related Projects
+    مشاريع ذات علاقة
   </a>
 </li>
 
@@ -268,7 +269,7 @@
 
 <li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="about.html">
-    حولنا
+    من نحن
   </a>
 </li>
 
@@ -286,7 +287,7 @@
         <div class="navbar-item navbar-persistent--container">
           
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
         </div>
@@ -343,7 +344,7 @@
   
     <div class="navbar-persistent--mobile">
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
     </div>
@@ -385,7 +386,7 @@
 
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="user_guide.html">
-    User Guide
+    دليل المستخدم
   </a>
 </li>
 
@@ -448,14 +449,14 @@
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="support.html">
-    Support
+    الدعم الفني
   </a>
 </li>
 
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="related_projects.html">
-    Related Projects
+    مشاريع ذات علاقة
   </a>
 </li>
 
@@ -476,7 +477,7 @@
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="about.html">
-    حولنا
+    من نحن
   </a>
 </li>
 
@@ -544,7 +545,7 @@
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="supervised_learning.html">1. Supervised learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="supervised_learning.html">1. التعليم الخاضع للإشراف</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="modules/linear_model.html">1.1. النماذج الخطية</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/lda_qda.html">1.2. تحليل التمييز الخطي والتربيعي</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/kernel_ridge.html">1.3. انحدار حافة النواة</a></li>
@@ -564,7 +565,7 @@
 <li class="toctree-l2"><a class="reference internal" href="modules/neural_networks_supervised.html">1.17. نماذج الشبكات العصبية (الخاضعة للإشراف)</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="unsupervised_learning.html">2. Unsupervised learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="unsupervised_learning.html">2. التعليم الغير خاضع للإشراف</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="modules/mixture.html">2.1. نماذج خليط غاوسي</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/manifold.html">2.2. تعلم المشعبات</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/clustering.html">2.3. التجميع</a></li>
@@ -576,7 +577,7 @@
 <li class="toctree-l2"><a class="reference internal" href="modules/neural_networks_unsupervised.html">2.9. نماذج الشبكة العصبية (غير خاضعة للإشراف)</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="model_selection.html">3. Model selection and evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="model_selection.html">3. تقييم واختيار النموذج</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="modules/cross_validation.html">3.1. التحقق المتبادل: تقييم أداء المقدر</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/grid_search.html">3.2. ضبط المعلمات الفائقة لمُقدِّر</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/classification_threshold.html">3.3. ضبط عتبة القرار لتنبؤ الفئة</a></li>
@@ -602,11 +603,11 @@
 <li class="toctree-l2"><a class="reference internal" href="modules/preprocessing_targets.html">6.9. تحويل هدف التنبؤ (<code class="docutils literal notranslate"><span class="pre">y</span></code>)</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="datasets/toy_dataset.html">7. Toy datasets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="datasets/real_world.html">8. Real world datasets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="datasets/sample_generators.html">9. Generated datasets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="datasets/loading_other_datasets.html">10. Loading other datasets</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="computing.html">11. Computing with scikit-learn</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1"><a class="reference internal" href="datasets/toy_dataset.html">7. مجموعات بيانات تجريبية</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datasets/real_world.html">8. مجموعات بيانات العالم الحقيقي</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datasets/sample_generators.html">9. مجموعات بيانات مولدة</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datasets/loading_other_datasets.html">10. تحميل مجموعات بيانات أخرى</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="computing.html">11. الحوسبة مع scikit-learn</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="computing/scaling_strategies.html">11.1. استراتيجيات للقياس حسابيًا: بيانات أكبر</a></li>
 <li class="toctree-l2"><a class="reference internal" href="computing/computational_performance.html">11.2. الأداء الحسابي</a></li>
 <li class="toctree-l2"><a class="reference internal" href="computing/parallelism.html">11.3. التوازي وإدارة الموارد والتهيئة</a></li>
@@ -619,7 +620,7 @@
 
 </ul>
 </details></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">15. Choosing the right estimator</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">15. اختيار المقدر المناسب</a></li>
 <li class="toctree-l1"><a class="reference internal" href="presentations.html">16. المصادر الخارجية ومقاطع الفيديو والمحادثات</a></li>
 </ul>
 </div>
@@ -657,9 +658,9 @@
       </a>
     </li>
     
-    <li class="breadcrumb-item"><a href="user_guide.html" class="nav-link">User Guide</a></li>
+    <li class="breadcrumb-item"><a href="user_guide.html" class="nav-link">دليل المستخدم</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">15. </span>Choosing the right estimator</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">15. </span>اختيار المقدر المناسب</span></li>
   </ul>
 </nav>
 </div>
@@ -676,17 +677,15 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="choosing-the-right-estimator">
-<span id="ml-map"></span><h1><span class="section-number">15. </span>Choosing the right estimator<a class="headerlink" href="#choosing-the-right-estimator" title="Link to this heading">#</a></h1>
-<p>Often the hardest part of solving a machine learning problem can be finding the right
-estimator for the job. Different estimators are better suited for different types of
-data and different problems.</p>
-<p>The flowchart below is designed to give users a bit of a rough guide on how to approach
-problems with regard to which estimators to try on your data. Click on any estimator in
-the chart below to see its documentation. The 😭 emoji is to be read as “if this
-estimator does not achieve the desired outcome, then follow the arrow and try the next
-one”. Use scroll wheel to zoom in and out, and click and drag to pan around. You can
-also download the chart: <a class="reference download internal" download="" href="_downloads/b82bf6cd7438a351f19fac60fbc0d927/ml_map.svg"><code class="xref download docutils literal notranslate"><span class="pre">ml_map.svg</span></code></a>.</p>
+  <section id="ml-map">
+<span id="id1"></span><h1><span class="section-number">15. </span>اختيار المقدر المناسب<a class="headerlink" href="#ml-map" title="Link to this heading">#</a></h1>
+<p>غالبًا ما يكون الجزء الأصعب في حل مشكلة التعلم الآلي هو العثور على المقدر المناسب للمهمة. المقدرات المختلفة مناسبة بشكل أفضل لأنواع مختلفة من
+البيانات والمشكلات المختلفة.</p>
+<p>تم تصميم المخطط الانسيابي أدناه لإعطاء المستخدمين دليلًا بسيطًا حول كيفية التعامل
+مع المشكلات فيما يتعلق بالمقدرات التي يجب تجربتها على بياناتك. انقر على أي مقدر في
+المخطط أدناه لعرض وثائقه. رمز 😭 هو أن يقرأ &quot;إذا لم يحقق هذا
+المقدر النتيجة المرجوة، فاتبع السهم وجرب التالي
+واحد&quot;. استخدم عجلة التمرير للتكبير والتصغير، وانقر واسحب للتمرير. يمكنك أيضًا تنزيل المخطط: <a class="reference download internal" download="" href="_downloads/b82bf6cd7438a351f19fac60fbc0d927/ml_map.svg"><code class="xref download docutils literal notranslate"><span class="pre">ml_map.svg</span></code></a>.</p>
 <style>
   #sk-ml-map {
     height: 80vh;
@@ -756,7 +755,7 @@ also download the chart: <a class="reference download internal" download="" href
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-subtitle">السابق</p>
         <p class="prev-next-title"><span class="section-number">14.1. </span>دعم المدخلات المتوافقة مع <code class="docutils literal notranslate"><span class="pre">Array</span> <span class="pre">API</span></code></p>
       </div>
     </a>
@@ -764,7 +763,7 @@ also download the chart: <a class="reference download internal" download="" href
        href="presentations.html"
        title="next page">
       <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-subtitle">التالي</p>
         <p class="prev-next-title"><span class="section-number">16. </span>المصادر الخارجية ومقاطع الفيديو والمحادثات</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
@@ -803,7 +802,7 @@ also download the chart: <a class="reference download internal" download="" href
 
   <p class="copyright">
     
-      © Copyright 2024 - 2024, scikit-learn developers (BSD License).
+      © Copyright 2007 - 2024, scikit-learn developers (BSD License).
       <br/>
     
   </p>

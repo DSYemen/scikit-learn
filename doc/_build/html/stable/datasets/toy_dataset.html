@@ -2,12 +2,12 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../" >
+<html lang="ar" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="7. Toy datasets" />
+<meta property="og:title" content="7. مجموعات بيانات تجريبية" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/datasets/toy_dataset.html" />
 <meta property="og:site_name" content="scikit-learn" />
@@ -16,7 +16,7 @@
 <meta property="og:image:alt" content="scikit-learn" />
 <meta name="description" content="scikit-learn comes with a few small standard datasets that do not require to download any file from some external website. They can be loaded using the following functions: These datasets are usefu..." />
 
-    <title>7. Toy datasets &#8212; scikit-learn 1.6.dev0 documentation</title>
+    <title>7. مجموعات بيانات تجريبية &#8212; scikit-learn 1.6.dev0 documentation</title>
   
   
   
@@ -40,7 +40,7 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css?v=7f9a90b1" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
     <link rel="stylesheet" type="text/css" href="../_static/jupyterlite_sphinx.css?v=ca70e7f1" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/colors.css?v=cc94ab7d" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/custom.css?v=e340c087" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/custom.css?v=fe191a13" />
   
   <!-- So that users can add custom icons -->
   <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
@@ -57,12 +57,13 @@
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
-    <script src="../_static/documentation_options.js?v=d875d36e"></script>
+    <script src="../_static/documentation_options.js?v=3cd28d06"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=97f0b27d"></script>
     <script src="../_static/jupyterlite_sphinx.js?v=d6bdf5f8"></script>
+    <script src="../_static/translations.js?v=87cb2081"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script data-domain="scikit-learn.org" defer="defer" src="https://views.scientific-python.org/js/script.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'datasets/toy_dataset';</script>
@@ -76,11 +77,11 @@
     <script src="../_static/scripts/version-switcher.js?v=a6dd8357"></script>
     <link rel="icon" href="../_static/favicon.ico"/>
     <link rel="author" title="About these documents" href="../about.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="8. Real world datasets" href="real_world.html" />
+    <link rel="search" title="بحث" href="../search.html" />
+    <link rel="next" title="8. مجموعات بيانات العالم الحقيقي" href="real_world.html" />
     <link rel="prev" title="&lt;no title&gt;" href="../datasets.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:language" content="ar"/>
   <meta name="docsearch:version" content="1.6" />
   </head>
   
@@ -172,7 +173,7 @@
 
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="../user_guide.html">
-    User Guide
+    دليل المستخدم
   </a>
 </li>
 
@@ -240,14 +241,14 @@
 
 <li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../support.html">
-    Support
+    الدعم الفني
   </a>
 </li>
 
 
 <li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../related_projects.html">
-    Related Projects
+    مشاريع ذات علاقة
   </a>
 </li>
 
@@ -268,7 +269,7 @@
 
 <li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../about.html">
-    حولنا
+    من نحن
   </a>
 </li>
 
@@ -286,7 +287,7 @@
         <div class="navbar-item navbar-persistent--container">
           
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
         </div>
@@ -343,7 +344,7 @@
   
     <div class="navbar-persistent--mobile">
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
     </div>
@@ -389,7 +390,7 @@
 
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="../user_guide.html">
-    User Guide
+    دليل المستخدم
   </a>
 </li>
 
@@ -452,14 +453,14 @@
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../support.html">
-    Support
+    الدعم الفني
   </a>
 </li>
 
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../related_projects.html">
-    Related Projects
+    مشاريع ذات علاقة
   </a>
 </li>
 
@@ -480,7 +481,7 @@
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../about.html">
-    حولنا
+    من نحن
   </a>
 </li>
 
@@ -548,7 +549,7 @@
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../supervised_learning.html">1. Supervised learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../supervised_learning.html">1. التعليم الخاضع للإشراف</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../modules/linear_model.html">1.1. النماذج الخطية</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../modules/lda_qda.html">1.2. تحليل التمييز الخطي والتربيعي</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../modules/kernel_ridge.html">1.3. انحدار حافة النواة</a></li>
@@ -568,7 +569,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../modules/neural_networks_supervised.html">1.17. نماذج الشبكات العصبية (الخاضعة للإشراف)</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../unsupervised_learning.html">2. Unsupervised learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../unsupervised_learning.html">2. التعليم الغير خاضع للإشراف</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../modules/mixture.html">2.1. نماذج خليط غاوسي</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../modules/manifold.html">2.2. تعلم المشعبات</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../modules/clustering.html">2.3. التجميع</a></li>
@@ -580,7 +581,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../modules/neural_networks_unsupervised.html">2.9. نماذج الشبكة العصبية (غير خاضعة للإشراف)</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../model_selection.html">3. Model selection and evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../model_selection.html">3. تقييم واختيار النموذج</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../modules/cross_validation.html">3.1. التحقق المتبادل: تقييم أداء المقدر</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../modules/grid_search.html">3.2. ضبط المعلمات الفائقة لمُقدِّر</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../modules/classification_threshold.html">3.3. ضبط عتبة القرار لتنبؤ الفئة</a></li>
@@ -606,11 +607,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../modules/preprocessing_targets.html">6.9. تحويل هدف التنبؤ (<code class="docutils literal notranslate"><span class="pre">y</span></code>)</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">7. Toy datasets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="real_world.html">8. Real world datasets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sample_generators.html">9. Generated datasets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="loading_other_datasets.html">10. Loading other datasets</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../computing.html">11. Computing with scikit-learn</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">7. مجموعات بيانات تجريبية</a></li>
+<li class="toctree-l1"><a class="reference internal" href="real_world.html">8. مجموعات بيانات العالم الحقيقي</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sample_generators.html">9. مجموعات بيانات مولدة</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loading_other_datasets.html">10. تحميل مجموعات بيانات أخرى</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../computing.html">11. الحوسبة مع scikit-learn</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../computing/scaling_strategies.html">11.1. استراتيجيات للقياس حسابيًا: بيانات أكبر</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../computing/computational_performance.html">11.2. الأداء الحسابي</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../computing/parallelism.html">11.3. التوازي وإدارة الموارد والتهيئة</a></li>
@@ -623,7 +624,7 @@
 
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../machine_learning_map.html">15. Choosing the right estimator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../machine_learning_map.html">15. اختيار المقدر المناسب</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../presentations.html">16. المصادر الخارجية ومقاطع الفيديو والمحادثات</a></li>
 </ul>
 </div>
@@ -661,12 +662,12 @@
       </a>
     </li>
     
-    <li class="breadcrumb-item"><a href="../user_guide.html" class="nav-link">User Guide</a></li>
+    <li class="breadcrumb-item"><a href="../user_guide.html" class="nav-link">دليل المستخدم</a></li>
     
     
     <li class="breadcrumb-item"><a href="../datasets.html" class="nav-link">&lt;no title&gt;</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">7. </span>Toy datasets</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">7. </span>مجموعات بيانات تجريبية</span></li>
   </ul>
 </nav>
 </div>
@@ -684,7 +685,7 @@
                 <article class="bd-article">
                   
   <section id="toy-datasets">
-<span id="id1"></span><h1><span class="section-number">7. </span>Toy datasets<a class="headerlink" href="#toy-datasets" title="Link to this heading">#</a></h1>
+<span id="id1"></span><h1><span class="section-number">7. </span>مجموعات بيانات تجريبية<a class="headerlink" href="#toy-datasets" title="Link to this heading">#</a></h1>
 <p>scikit-learn comes with a few small standard datasets that do not require to
 download any file from some external website.</p>
 <p>They can be loaded using the following functions:</p>
@@ -804,10 +805,10 @@ small to be representative of real world machine learning tasks.</p>
 </dd>
 </dl>
 <p>The famous Iris database, first used by Sir R.A. Fisher. The dataset is taken
-from Fisher’s paper. Note that it’s the same as in R, but not as in the UCI
+from Fisher's paper. Note that it's the same as in R, but not as in the UCI
 Machine Learning Repository, which has two wrong data points.</p>
 <p>This is perhaps the best known database to be found in the
-pattern recognition literature.  Fisher’s paper is a classic in the field and
+pattern recognition literature.  Fisher's paper is a classic in the field and
 is referenced frequently to this day.  (See Duda &amp; Hart, for example.)  The
 data set contains 3 classes of 50 instances each, where each class refers to a
 type of iris plant.  One class is linearly separable from the other 2; the
@@ -816,20 +817,20 @@ latter are NOT linearly separable from each other.</p>
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text">References<a class="headerlink" href="#references" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
 <ul class="simple">
-<li><p class="sd-card-text">Fisher, R.A. “The use of multiple measurements in taxonomic problems”
-Annual Eugenics, 7, Part II, 179-188 (1936); also in “Contributions to
-Mathematical Statistics” (John Wiley, NY, 1950).</p></li>
+<li><p class="sd-card-text">Fisher, R.A. &quot;The use of multiple measurements in taxonomic problems&quot;
+Annual Eugenics, 7, Part II, 179-188 (1936); also in &quot;Contributions to
+Mathematical Statistics&quot; (John Wiley, NY, 1950).</p></li>
 <li><p class="sd-card-text">Duda, R.O., &amp; Hart, P.E. (1973) Pattern Classification and Scene Analysis.
 (Q327.D83) John Wiley &amp; Sons.  ISBN 0-471-22361-1.  See page 218.</p></li>
-<li><p class="sd-card-text">Dasarathy, B.V. (1980) “Nosing Around the Neighborhood: A New System
+<li><p class="sd-card-text">Dasarathy, B.V. (1980) &quot;Nosing Around the Neighborhood: A New System
 Structure and Classification Rule for Recognition in Partially Exposed
-Environments”.  IEEE Transactions on Pattern Analysis and Machine
+Environments&quot;.  IEEE Transactions on Pattern Analysis and Machine
 Intelligence, Vol. PAMI-2, No. 1, 67-71.</p></li>
-<li><p class="sd-card-text">Gates, G.W. (1972) “The Reduced Nearest Neighbor Rule”.  IEEE Transactions
+<li><p class="sd-card-text">Gates, G.W. (1972) &quot;The Reduced Nearest Neighbor Rule&quot;.  IEEE Transactions
 on Information Theory, May 1972, 431-433.</p></li>
-<li><p class="sd-card-text">See also: 1988 MLC Proceedings, 54-64.  Cheeseman et al”s AUTOCLASS II
+<li><p class="sd-card-text">See also: 1988 MLC Proceedings, 54-64.  Cheeseman et al&quot;s AUTOCLASS II
 conceptual clustering system finds 3 classes in the data.</p></li>
-<li><p class="sd-card-text">Many, many more …</p></li>
+<li><p class="sd-card-text">Many, many more ...</p></li>
 </ul>
 </div>
 </details></section>
@@ -869,7 +870,7 @@ quantitative measure of disease progression one year after baseline.</p>
 <p>Source URL:
 <a class="reference external" href="https://www4.stat.ncsu.edu/~boos/var.select/diabetes.html">https://www4.stat.ncsu.edu/~boos/var.select/diabetes.html</a></p>
 <p>For more information see:
-Bradley Efron, Trevor Hastie, Iain Johnstone and Robert Tibshirani (2004) “Least Angle Regression,” Annals of Statistics (with discussion), 407-499.
+Bradley Efron, Trevor Hastie, Iain Johnstone and Robert Tibshirani (2004) &quot;Least Angle Regression,&quot; Annals of Statistics (with discussion), 407-499.
 (<a class="reference external" href="https://web.stanford.edu/~hastie/Papers/LARS/LeastAngle_2002.pdf">https://web.stanford.edu/~hastie/Papers/LARS/LeastAngle_2002.pdf</a>)</p>
 </section>
 <section id="optical-recognition-of-handwritten-digits-dataset">
@@ -890,7 +891,7 @@ Bradley Efron, Trevor Hastie, Iain Johnstone and Robert Tibshirani (2004) “Lea
 </dd>
 <dt class="field-odd">Creator<span class="colon">:</span></dt>
 <dd class="field-odd"><ol class="upperalpha simple" start="5">
-<li><p>Alpaydin (alpaydin ‘&#64;’ boun.edu.tr)</p></li>
+<li><p>Alpaydin (alpaydin '&#64;' boun.edu.tr)</p></li>
 </ol>
 </dd>
 <dt class="field-even">Date<span class="colon">:</span></dt>
@@ -1147,7 +1148,7 @@ has achieved 100% correct classification.
 (RDA : 100%, QDA 99.4%, LDA 98.9%, 1NN 96.1% (z-transformed data))
 (All results using the leave-one-out technique)</p>
 <p class="sd-card-text">(2) S. Aeberhard, D. Coomans and O. de Vel,
-“THE CLASSIFICATION PERFORMANCE OF RDA”
+&quot;THE CLASSIFICATION PERFORMANCE OF RDA&quot;
 Tech. Rep. no. 92-01, (1992), Dept. of Computer Science and Dept. of
 Mathematics and Statistics, James Cook University of North Queensland.
 (Also submitted to Journal of Chemometrics).</p>
@@ -1174,9 +1175,9 @@ Mathematics and Statistics, James Cook University of North Queensland.
 <li><p>concavity (severity of concave portions of the contour)</p></li>
 <li><p>concave points (number of concave portions of the contour)</p></li>
 <li><p>symmetry</p></li>
-<li><p>fractal dimension (“coastline approximation” - 1)</p></li>
+<li><p>fractal dimension (&quot;coastline approximation&quot; - 1)</p></li>
 </ul>
-<p>The mean, standard error, and “worst” or largest (mean of the three
+<p>The mean, standard error, and &quot;worst&quot; or largest (mean of the three
 worst/largest values) of these features were computed for each image,
 resulting in 30 features.  For instance, field 0 is Mean Radius, field
 10 is Radius SE, field 20 is Worst Radius.</p>
@@ -1348,8 +1349,8 @@ resulting in 30 features.  For instance, field 0 is Mean Radius, field
 aspirate (FNA) of a breast mass.  They describe
 characteristics of the cell nuclei present in the image.</p>
 <p>Separating plane described above was obtained using
-Multisurface Method-Tree (MSM-T) [K. P. Bennett, “Decision Tree
-Construction Via Linear Programming.” Proceedings of the 4th
+Multisurface Method-Tree (MSM-T) [K. P. Bennett, &quot;Decision Tree
+Construction Via Linear Programming.&quot; Proceedings of the 4th
 Midwest Artificial Intelligence and Cognitive Science Society,
 pp. 97-101, 1992], a classification method which uses linear
 programming to construct a decision tree.  Relevant features
@@ -1357,8 +1358,8 @@ were selected using an exhaustive search in the space of 1-4
 features and 1-3 separating planes.</p>
 <p>The actual linear program used to obtain the separating plane
 in the 3-dimensional space is that described in:
-[K. P. Bennett and O. L. Mangasarian: “Robust Linear
-Programming Discrimination of Two Linearly Inseparable Sets”,
+[K. P. Bennett and O. L. Mangasarian: &quot;Robust Linear
+Programming Discrimination of Two Linearly Inseparable Sets&quot;,
 Optimization Methods and Software 1, 1992, 23-34].</p>
 <p>This database is also available through the UW CS ftp server:</p>
 <p>ftp ftp.cs.wisc.edu
@@ -1397,7 +1398,7 @@ to diagnose breast cancer from fine-needle aspirates. Cancer Letters 77 (1994)
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-subtitle">السابق</p>
         <p class="prev-next-title">&lt;no title&gt;</p>
       </div>
     </a>
@@ -1405,8 +1406,8 @@ to diagnose breast cancer from fine-needle aspirates. Cancer Letters 77 (1994)
        href="real_world.html"
        title="next page">
       <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">8. </span>Real world datasets</p>
+        <p class="prev-next-subtitle">التالي</p>
+        <p class="prev-next-title"><span class="section-number">8. </span>مجموعات بيانات العالم الحقيقي</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1446,7 +1447,7 @@ to diagnose breast cancer from fine-needle aspirates. Cancer Letters 77 (1994)
 
   <div class="tocsection sourcelink">
     <a href="../_sources/datasets/toy_dataset.rst.txt">
-      <i class="fa-solid fa-file-lines"></i> Show Source
+      <i class="fa-solid fa-file-lines"></i> إظهار المصدر
     </a>
   </div>
 </div>
@@ -1476,7 +1477,7 @@ to diagnose breast cancer from fine-needle aspirates. Cancer Letters 77 (1994)
 
   <p class="copyright">
     
-      © Copyright 2024 - 2024, scikit-learn developers (BSD License).
+      © Copyright 2007 - 2024, scikit-learn developers (BSD License).
       <br/>
     
   </p>

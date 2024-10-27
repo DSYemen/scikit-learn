@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../../" >
+<html lang="ar" data-content_root="../../" >
 
   <head>
     <meta charset="utf-8" />
@@ -11,10 +11,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/auto_examples/cluster/plot_hdbscan.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="In this demo we will take a look at cluster.HDBSCAN from the perspective of generalizing the cluster.DBSCAN algorithm. We’ll compare both algorithms on specific datasets. Finally we’ll evaluate HDB..." />
+<meta property="og:description" content="In this demo we will take a look at cluster.HDBSCAN from the perspective of generalizing the cluster.DBSCAN algorithm. We'll compare both algorithms on specific datasets. Finally we'll evaluate HDB..." />
 <meta property="og:image" content="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" />
 <meta property="og:image:alt" content="scikit-learn" />
-<meta name="description" content="In this demo we will take a look at cluster.HDBSCAN from the perspective of generalizing the cluster.DBSCAN algorithm. We’ll compare both algorithms on specific datasets. Finally we’ll evaluate HDB..." />
+<meta name="description" content="In this demo we will take a look at cluster.HDBSCAN from the perspective of generalizing the cluster.DBSCAN algorithm. We'll compare both algorithms on specific datasets. Finally we'll evaluate HDB..." />
 
     <title>Demo of HDBSCAN clustering algorithm &#8212; scikit-learn 1.6.dev0 documentation</title>
   
@@ -40,7 +40,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css?v=7f9a90b1" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
     <link rel="stylesheet" type="text/css" href="../../_static/jupyterlite_sphinx.css?v=ca70e7f1" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/colors.css?v=cc94ab7d" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/custom.css?v=e340c087" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/custom.css?v=fe191a13" />
   
   <!-- So that users can add custom icons -->
   <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
@@ -57,12 +57,13 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
-    <script src="../../_static/documentation_options.js?v=d875d36e"></script>
+    <script src="../../_static/documentation_options.js?v=3cd28d06"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../_static/copybutton.js?v=97f0b27d"></script>
     <script src="../../_static/jupyterlite_sphinx.js?v=d6bdf5f8"></script>
+    <script src="../../_static/translations.js?v=87cb2081"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script data-domain="scikit-learn.org" defer="defer" src="https://views.scientific-python.org/js/script.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'auto_examples/cluster/plot_hdbscan';</script>
@@ -76,11 +77,11 @@
     <script src="../../_static/scripts/version-switcher.js?v=a6dd8357"></script>
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="author" title="About these documents" href="../../about.html" />
-    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="search" title="بحث" href="../../search.html" />
     <link rel="next" title="Demo of OPTICS clustering algorithm" href="plot_optics.html" />
     <link rel="prev" title="Demo of DBSCAN clustering algorithm" href="plot_dbscan.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:language" content="ar"/>
   <meta name="docsearch:version" content="1.6" />
   </head>
   
@@ -172,7 +173,7 @@
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../user_guide.html">
-    User Guide
+    دليل المستخدم
   </a>
 </li>
 
@@ -240,14 +241,14 @@
 
 <li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../../support.html">
-    Support
+    الدعم الفني
   </a>
 </li>
 
 
 <li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../../related_projects.html">
-    Related Projects
+    مشاريع ذات علاقة
   </a>
 </li>
 
@@ -268,7 +269,7 @@
 
 <li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../../about.html">
-    حولنا
+    من نحن
   </a>
 </li>
 
@@ -286,7 +287,7 @@
         <div class="navbar-item navbar-persistent--container">
           
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
         </div>
@@ -343,7 +344,7 @@
   
     <div class="navbar-persistent--mobile">
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
     </div>
@@ -389,7 +390,7 @@
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../user_guide.html">
-    User Guide
+    دليل المستخدم
   </a>
 </li>
 
@@ -452,14 +453,14 @@
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../support.html">
-    Support
+    الدعم الفني
   </a>
 </li>
 
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../related_projects.html">
-    Related Projects
+    مشاريع ذات علاقة
   </a>
 </li>
 
@@ -480,7 +481,7 @@
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../about.html">
-    حولنا
+    من نحن
   </a>
 </li>
 
@@ -785,7 +786,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../manifold/index.html">Manifold learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../manifold/plot_compare_methods.html">Comparison of Manifold Learning methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../manifold/plot_manifold_sphere.html">Manifold Learning methods on a severed sphere</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_lle_digits.html">Manifold learning on handwritten digits: Locally Linear Embedding, Isomap…</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_lle_digits.html">Manifold learning on handwritten digits: Locally Linear Embedding, Isomap...</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../manifold/plot_mds.html">Multi-dimensional scaling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../manifold/plot_swissroll.html">Swiss Roll And Swiss-Hole Reduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../manifold/plot_t_sne_perplexity.html">t-SNE: The effect of various perplexity values on the shape</a></li>
@@ -827,7 +828,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_roc.html">Multiclass Receiver Operating Characteristic (ROC)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_nested_cross_validation_iris.html">Nested versus non-nested cross-validation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_cv_predict.html">Plotting Cross-Validated Predictions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_learning_curve.html">Plotting Learning Curves and Checking Models’ Scalability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_learning_curve.html">Plotting Learning Curves and Checking Models' Scalability</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_tuned_decision_threshold.html">Post-hoc tuning the cut-off point of decision function</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_cost_sensitive_learning.html">Post-tuning the decision threshold for cost-sensitive learning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_precision_recall.html">Precision-Recall</a></li>
@@ -887,7 +888,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization_classification.html">Feature discretization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_scaling_importance.html">Importance of Feature Scaling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_map_data_to_normal.html">Map data to a normal distribution</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder_cross_val.html">Target Encoder’s Internal Cross fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder_cross_val.html">Target Encoder's Internal Cross fitting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization.html">Using KBinsDiscretizer to discretize continuous features</a></li>
 </ul>
 </details></li>
@@ -988,7 +989,7 @@
                 <article class="bd-article">
                   
   <div class="sphx-glr-download-link-note admonition note">
-<p class="admonition-title">Note</p>
+<p class="admonition-title">ملاحظة</p>
 <p><a class="reference internal" href="#sphx-glr-download-auto-examples-cluster-plot-hdbscan-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code. or to run this example in your browser via JupyterLite or Binder</p>
 </div>
@@ -996,8 +997,8 @@ to download the full example code. or to run this example in your browser via Ju
 <span id="sphx-glr-auto-examples-cluster-plot-hdbscan-py"></span><h1>Demo of HDBSCAN clustering algorithm<a class="headerlink" href="#demo-of-hdbscan-clustering-algorithm" title="Link to this heading">#</a></h1>
 <p>In this demo we will take a look at <a class="reference internal" href="../../modules/generated/sklearn.cluster.HDBSCAN.html#sklearn.cluster.HDBSCAN" title="sklearn.cluster.HDBSCAN"><code class="xref py py-class docutils literal notranslate"><span class="pre">cluster.HDBSCAN</span></code></a> from the
 perspective of generalizing the <a class="reference internal" href="../../modules/generated/sklearn.cluster.DBSCAN.html#sklearn.cluster.DBSCAN" title="sklearn.cluster.DBSCAN"><code class="xref py py-class docutils literal notranslate"><span class="pre">cluster.DBSCAN</span></code></a> algorithm.
-We’ll compare both algorithms on specific datasets. Finally we’ll evaluate
-HDBSCAN’s sensitivity to certain hyperparameters.</p>
+We'll compare both algorithms on specific datasets. Finally we'll evaluate
+HDBSCAN's sensitivity to certain hyperparameters.</p>
 <p>We first define a couple utility functions for convenience.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Authors: The scikit-learn developers</span>
 <span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
@@ -1049,7 +1050,7 @@ HDBSCAN’s sensitivity to certain hyperparameters.</p>
 <section id="generate-sample-data">
 <h2>Generate sample data<a class="headerlink" href="#generate-sample-data" title="Link to this heading">#</a></h2>
 <p>One of the greatest advantages of HDBSCAN over DBSCAN is its out-of-the-box
-robustness. It’s especially remarkable on heterogeneous mixtures of data.
+robustness. It's especially remarkable on heterogeneous mixtures of data.
 Like DBSCAN, it can model arbitrary shapes and distributions, however unlike
 DBSCAN it does not require specification of an arbitrary and sensitive
 <code class="docutils literal notranslate"><span class="pre">eps</span></code> hyperparameter.</p>
@@ -1065,7 +1066,7 @@ and isotropic Gaussian distributions.</p>
 <img src="../../_images/sphx_glr_plot_hdbscan_001.png" srcset="../../_images/sphx_glr_plot_hdbscan_001.png" alt="True number of clusters: 3" class = "sphx-glr-single-img"/></section>
 <section id="scale-invariance">
 <h2>Scale Invariance<a class="headerlink" href="#scale-invariance" title="Link to this heading">#</a></h2>
-<p>It’s worth remembering that, while DBSCAN provides a default value for <code class="docutils literal notranslate"><span class="pre">eps</span></code>
+<p>It's worth remembering that, while DBSCAN provides a default value for <code class="docutils literal notranslate"><span class="pre">eps</span></code>
 parameter, it hardly has a proper default value and must be tuned for the
 specific dataset at use.</p>
 <p>As a simple demonstration, consider the clustering for a <code class="docutils literal notranslate"><span class="pre">eps</span></code> value tuned
@@ -1108,7 +1109,7 @@ One immediate advantage is that HDBSCAN is scale-invariant.</p>
 <img src="../../_images/sphx_glr_plot_hdbscan_004.png" srcset="../../_images/sphx_glr_plot_hdbscan_004.png" alt="Estimated number of clusters: 3 | scale=1, Estimated number of clusters: 3 | scale=0.5, Estimated number of clusters: 3 | scale=3" class = "sphx-glr-single-img"/></section>
 <section id="multi-scale-clustering">
 <h2>Multi-Scale Clustering<a class="headerlink" href="#multi-scale-clustering" title="Link to this heading">#</a></h2>
-<p>HDBSCAN is much more than scale invariant though – it is capable of
+<p>HDBSCAN is much more than scale invariant though -- it is capable of
 multi-scale clustering, which accounts for clusters with varying density.
 Traditional DBSCAN assumes that any potential clusters are homogeneous in
 density. HDBSCAN is free from such constraints. To demonstrate this we
@@ -1144,7 +1145,7 @@ find a tradeoff that we are comfortable with.</p>
 epsilon, however at <code class="docutils literal notranslate"><span class="pre">eps=0.3</span></code> we are already fragmenting the sparse clusters,
 which would only become more severe as we decrease epsilon. Indeed it seems
 that DBSCAN is incapable of simultaneously separating the two dense clusters
-while preventing the sparse clusters from fragmenting. Let’s compare with
+while preventing the sparse clusters from fragmenting. Let's compare with
 HDBSCAN.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">hdb</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.cluster.HDBSCAN.html#sklearn.cluster.HDBSCAN" title="sklearn.cluster.HDBSCAN" class="sphx-glr-backref-module-sklearn-cluster sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">HDBSCAN</span></a><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">hdb</span><span class="o">.</span><span class="n">labels_</span><span class="p">,</span> <span class="n">hdb</span><span class="o">.</span><span class="n">probabilities_</span><span class="p">)</span>
@@ -1153,13 +1154,13 @@ HDBSCAN.</p>
 <img src="../../_images/sphx_glr_plot_hdbscan_007.png" srcset="../../_images/sphx_glr_plot_hdbscan_007.png" alt="Estimated number of clusters: 4" class = "sphx-glr-single-img"/><p>HDBSCAN is able to adapt to the multi-scale structure of the dataset without
 requiring parameter tuning. While any sufficiently interesting dataset will
 require tuning, this case demonstrates that HDBSCAN can yield qualitatively
-better classes of clusterings without users’ intervention which are
+better classes of clusterings without users' intervention which are
 inaccessible via DBSCAN.</p>
 </section>
 <section id="hyperparameter-robustness">
 <h2>Hyperparameter Robustness<a class="headerlink" href="#hyperparameter-robustness" title="Link to this heading">#</a></h2>
 <p>Ultimately tuning will be an important step in any real world application, so
-let’s take a look at some of the most important hyperparameters for HDBSCAN.
+let's take a look at some of the most important hyperparameters for HDBSCAN.
 While HDBSCAN is free from the <code class="docutils literal notranslate"><span class="pre">eps</span></code> parameter of DBSCAN, it does still have
 some hyperparameters like <code class="docutils literal notranslate"><span class="pre">min_cluster_size</span></code> and <code class="docutils literal notranslate"><span class="pre">min_samples</span></code> which tune its
 results regarding density. We will however see that HDBSCAN is relatively robust
@@ -1192,7 +1193,7 @@ significant overlap.</p>
 be considered as a core point, including the point itself.
 <code class="docutils literal notranslate"><span class="pre">min_samples</span></code> defaults to <code class="docutils literal notranslate"><span class="pre">min_cluster_size</span></code>.
 Similarly to <code class="docutils literal notranslate"><span class="pre">min_cluster_size</span></code>, larger values for <code class="docutils literal notranslate"><span class="pre">min_samples</span></code> increase
-the model’s robustness to noise, but risks ignoring or discarding
+the model's robustness to noise, but risks ignoring or discarding
 potentially valid but small clusters.
 <code class="docutils literal notranslate"><span class="pre">min_samples</span></code> better be tuned after finding a good value for <code class="docutils literal notranslate"><span class="pre">min_cluster_size</span></code>.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">PARAM</span> <span class="o">=</span> <span class="p">(</span>
@@ -1212,7 +1213,7 @@ potentially valid but small clusters.
 <section id="dbscan-clustering">
 <h3><code class="docutils literal notranslate"><span class="pre">dbscan_clustering</span></code><a class="headerlink" href="#dbscan-clustering" title="Link to this heading">#</a></h3>
 <p>During <code class="docutils literal notranslate"><span class="pre">fit</span></code>, <code class="docutils literal notranslate"><span class="pre">HDBSCAN</span></code> builds a single-linkage tree which encodes the
-clustering of all points across all values of <a class="reference internal" href="../../modules/generated/sklearn.cluster.DBSCAN.html#sklearn.cluster.DBSCAN" title="sklearn.cluster.DBSCAN"><code class="xref py py-class docutils literal notranslate"><span class="pre">DBSCAN</span></code></a>’s
+clustering of all points across all values of <a class="reference internal" href="../../modules/generated/sklearn.cluster.DBSCAN.html#sklearn.cluster.DBSCAN" title="sklearn.cluster.DBSCAN"><code class="xref py py-class docutils literal notranslate"><span class="pre">DBSCAN</span></code></a>'s
 <code class="docutils literal notranslate"><span class="pre">eps</span></code> parameter.
 We can thus plot and evaluate these clusterings efficiently without fully
 recomputing intermediate values such as core-distances, mutual-reachability,
@@ -1285,7 +1286,7 @@ and the minimum spanning tree. All we need to do is specify the <code class="doc
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-subtitle">السابق</p>
         <p class="prev-next-title">Demo of DBSCAN clustering algorithm</p>
       </div>
     </a>
@@ -1293,7 +1294,7 @@ and the minimum spanning tree. All we need to do is specify the <code class="doc
        href="plot_optics.html"
        title="next page">
       <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-subtitle">التالي</p>
         <p class="prev-next-title">Demo of OPTICS clustering algorithm</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
@@ -1337,7 +1338,7 @@ and the minimum spanning tree. All we need to do is specify the <code class="doc
 
   <div class="tocsection sourcelink">
     <a href="../../_sources/auto_examples/cluster/plot_hdbscan.rst.txt">
-      <i class="fa-solid fa-file-lines"></i> Show Source
+      <i class="fa-solid fa-file-lines"></i> إظهار المصدر
     </a>
   </div>
 </div>
@@ -1426,7 +1427,7 @@ and the minimum spanning tree. All we need to do is specify the <code class="doc
 
   <p class="copyright">
     
-      © Copyright 2024 - 2024, scikit-learn developers (BSD License).
+      © Copyright 2007 - 2024, scikit-learn developers (BSD License).
       <br/>
     
   </p>

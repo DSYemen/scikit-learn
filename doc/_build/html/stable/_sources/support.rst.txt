@@ -1,6 +1,6 @@
-=======
-Support
-=======
+============
+الدعم الفني
+============
 
 There are several channels to connect with scikit-learn developers for assistance, feedback, or contributions.
 

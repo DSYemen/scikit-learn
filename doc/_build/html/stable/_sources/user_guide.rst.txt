@@ -1,7 +1,7 @@
 .. _user_guide:
 
 ==========
-User Guide
+دليل المستخدم
 ==========
 
 .. toctree::
@@ -22,7 +22,7 @@ User Guide
    machine_learning_map.rst
    presentations.rst
 
-Under Development
+تحت التطوير
 -----------------
 
 .. toctree::

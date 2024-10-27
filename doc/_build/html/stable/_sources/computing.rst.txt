@@ -1,5 +1,5 @@
 ============================
-Computing with scikit-learn
+الحوسبة مع scikit-learn
 ============================
 
 .. toctree::

@@ -2,12 +2,12 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../../" >
+<html lang="ar" data-content_root="../../" >
 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Target Encoder’s Internal Cross fitting" />
+<meta property="og:title" content="Target Encoder's Internal Cross fitting" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/auto_examples/preprocessing/plot_target_encoder_cross_val.html" />
 <meta property="og:site_name" content="scikit-learn" />
@@ -16,7 +16,7 @@
 <meta property="og:image:alt" content="scikit-learn" />
 <meta name="description" content="The TargetEncoder replaces each category of a categorical feature with the shrunk mean of the target variable for that category. This method is useful in cases where there is a strong relationship ..." />
 
-    <title>Target Encoder’s Internal Cross fitting &#8212; scikit-learn 1.6.dev0 documentation</title>
+    <title>Target Encoder&#39;s Internal Cross fitting &#8212; scikit-learn 1.6.dev0 documentation</title>
   
   
   
@@ -40,7 +40,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css?v=7f9a90b1" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
     <link rel="stylesheet" type="text/css" href="../../_static/jupyterlite_sphinx.css?v=ca70e7f1" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/colors.css?v=cc94ab7d" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/custom.css?v=e340c087" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/custom.css?v=fe191a13" />
   
   <!-- So that users can add custom icons -->
   <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
@@ -57,12 +57,13 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
-    <script src="../../_static/documentation_options.js?v=d875d36e"></script>
+    <script src="../../_static/documentation_options.js?v=3cd28d06"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../_static/copybutton.js?v=97f0b27d"></script>
     <script src="../../_static/jupyterlite_sphinx.js?v=d6bdf5f8"></script>
+    <script src="../../_static/translations.js?v=87cb2081"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script data-domain="scikit-learn.org" defer="defer" src="https://views.scientific-python.org/js/script.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'auto_examples/preprocessing/plot_target_encoder_cross_val';</script>
@@ -76,11 +77,11 @@
     <script src="../../_static/scripts/version-switcher.js?v=a6dd8357"></script>
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="author" title="About these documents" href="../../about.html" />
-    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="search" title="بحث" href="../../search.html" />
     <link rel="next" title="Using KBinsDiscretizer to discretize continuous features" href="plot_discretization.html" />
     <link rel="prev" title="Map data to a normal distribution" href="plot_map_data_to_normal.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:language" content="ar"/>
   <meta name="docsearch:version" content="1.6" />
   </head>
   
@@ -172,7 +173,7 @@
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../user_guide.html">
-    User Guide
+    دليل المستخدم
   </a>
 </li>
 
@@ -240,14 +241,14 @@
 
 <li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../../support.html">
-    Support
+    الدعم الفني
   </a>
 </li>
 
 
 <li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../../related_projects.html">
-    Related Projects
+    مشاريع ذات علاقة
   </a>
 </li>
 
@@ -268,7 +269,7 @@
 
 <li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../../about.html">
-    حولنا
+    من نحن
   </a>
 </li>
 
@@ -286,7 +287,7 @@
         <div class="navbar-item navbar-persistent--container">
           
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
         </div>
@@ -343,7 +344,7 @@
   
     <div class="navbar-persistent--mobile">
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
     </div>
@@ -389,7 +390,7 @@
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../user_guide.html">
-    User Guide
+    دليل المستخدم
   </a>
 </li>
 
@@ -452,14 +453,14 @@
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../support.html">
-    Support
+    الدعم الفني
   </a>
 </li>
 
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../related_projects.html">
-    Related Projects
+    مشاريع ذات علاقة
   </a>
 </li>
 
@@ -480,7 +481,7 @@
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../about.html">
-    حولنا
+    من نحن
   </a>
 </li>
 
@@ -785,7 +786,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../manifold/index.html">Manifold learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../manifold/plot_compare_methods.html">Comparison of Manifold Learning methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../manifold/plot_manifold_sphere.html">Manifold Learning methods on a severed sphere</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_lle_digits.html">Manifold learning on handwritten digits: Locally Linear Embedding, Isomap…</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_lle_digits.html">Manifold learning on handwritten digits: Locally Linear Embedding, Isomap...</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../manifold/plot_mds.html">Multi-dimensional scaling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../manifold/plot_swissroll.html">Swiss Roll And Swiss-Hole Reduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../manifold/plot_t_sne_perplexity.html">t-SNE: The effect of various perplexity values on the shape</a></li>
@@ -827,7 +828,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_roc.html">Multiclass Receiver Operating Characteristic (ROC)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_nested_cross_validation_iris.html">Nested versus non-nested cross-validation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_cv_predict.html">Plotting Cross-Validated Predictions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_learning_curve.html">Plotting Learning Curves and Checking Models’ Scalability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_learning_curve.html">Plotting Learning Curves and Checking Models' Scalability</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_tuned_decision_threshold.html">Post-hoc tuning the cut-off point of decision function</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_cost_sensitive_learning.html">Post-tuning the decision threshold for cost-sensitive learning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_precision_recall.html">Precision-Recall</a></li>
@@ -887,7 +888,7 @@
 <li class="toctree-l2"><a class="reference internal" href="plot_discretization_classification.html">Feature discretization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_scaling_importance.html">Importance of Feature Scaling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_map_data_to_normal.html">Map data to a normal distribution</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Target Encoder’s Internal Cross fitting</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Target Encoder's Internal Cross fitting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_discretization.html">Using KBinsDiscretizer to discretize continuous features</a></li>
 </ul>
 </details></li>
@@ -970,7 +971,7 @@
     
     <li class="breadcrumb-item"><a href="index.html" class="nav-link">Preprocessing</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Target Encoder’s Internal Cross fitting</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Target Encoder's Internal Cross fitting</span></li>
   </ul>
 </nav>
 </div>
@@ -988,12 +989,12 @@
                 <article class="bd-article">
                   
   <div class="sphx-glr-download-link-note admonition note">
-<p class="admonition-title">Note</p>
+<p class="admonition-title">ملاحظة</p>
 <p><a class="reference internal" href="#sphx-glr-download-auto-examples-preprocessing-plot-target-encoder-cross-val-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code. or to run this example in your browser via JupyterLite or Binder</p>
 </div>
 <section class="sphx-glr-example-title" id="target-encoder-s-internal-cross-fitting">
-<span id="sphx-glr-auto-examples-preprocessing-plot-target-encoder-cross-val-py"></span><h1>Target Encoder’s Internal Cross fitting<a class="headerlink" href="#target-encoder-s-internal-cross-fitting" title="Link to this heading">#</a></h1>
+<span id="sphx-glr-auto-examples-preprocessing-plot-target-encoder-cross-val-py"></span><h1>Target Encoder's Internal Cross fitting<a class="headerlink" href="#target-encoder-s-internal-cross-fitting" title="Link to this heading">#</a></h1>
 <p>The <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.TargetEncoder.html#sklearn.preprocessing.TargetEncoder" title="sklearn.preprocessing.TargetEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">TargetEncoder</span></code></a> replaces each category of a categorical feature with
 the shrunk mean of the target variable for that category. This method is useful
 in cases where there is a strong relationship between the categorical feature
@@ -1011,9 +1012,9 @@ fitting procedure to prevent overfitting.</p>
 <h2>Create Synthetic Dataset<a class="headerlink" href="#create-synthetic-dataset" title="Link to this heading">#</a></h2>
 <p>For this example, we build a dataset with three categorical features:</p>
 <ul class="simple">
-<li><p>an informative feature with medium cardinality (“informative”)</p></li>
-<li><p>an uninformative feature with medium cardinality (“shuffled”)</p></li>
-<li><p>an uninformative feature with high cardinality (“near_unique”)</p></li>
+<li><p>an informative feature with medium cardinality (&quot;informative&quot;)</p></li>
+<li><p>an uninformative feature with medium cardinality (&quot;shuffled&quot;)</p></li>
+<li><p>an uninformative feature with high cardinality (&quot;near_unique&quot;)</p></li>
 </ul>
 <p>First, we generate the informative feature:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -1052,7 +1053,7 @@ independent of the target variable. We will show that target encoding without
 <a class="reference internal" href="../../glossary.html#term-0"><span class="xref std std-term">cross fitting</span></a> will cause catastrophic overfitting for the downstream
 regressor. These high cardinality features are basically unique identifiers
 for samples which should generally be removed from machine learning datasets.
-In this example, we generate them to show how <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.TargetEncoder.html#sklearn.preprocessing.TargetEncoder" title="sklearn.preprocessing.TargetEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">TargetEncoder</span></code></a>’s default
+In this example, we generate them to show how <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.TargetEncoder.html#sklearn.preprocessing.TargetEncoder" title="sklearn.preprocessing.TargetEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">TargetEncoder</span></code></a>'s default
 <a class="reference internal" href="../../glossary.html#term-0"><span class="xref std std-term">cross fitting</span></a> behavior mitigates the overfitting issue automatically.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">X_near_unique_categories</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span>
     <span class="nb">int</span><span class="p">(</span><span class="mf">0.9</span> <span class="o">*</span> <span class="n">n_samples</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">n_samples</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span>
@@ -1169,8 +1170,8 @@ Model without CF on test set:  0.6338211367102146
 </pre></div>
 </div>
 <p>The ridge model overfits because it assigns much more weight to the
-uninformative extremely high cardinality (“near_unique”) and medium
-cardinality (“shuffled”) features than when the model used
+uninformative extremely high cardinality (&quot;near_unique&quot;) and medium
+cardinality (&quot;shuffled&quot;) features than when the model used
 <a class="reference internal" href="../../glossary.html#term-0"><span class="xref std std-term">cross fitting</span></a> to encode the features.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">coefs_no_cf</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pd</span><span class="o">.</span><span class="n">Series</span></a><span class="p">(</span>
     <span class="n">model_no_cf</span><span class="o">.</span><span class="n">coef_</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">model_no_cf</span><span class="o">.</span><span class="n">feature_names_in_</span>
@@ -1186,7 +1187,7 @@ cardinality (“shuffled”) features than when the model used
 <img src="../../_images/sphx_glr_plot_target_encoder_cross_val_002.png" srcset="../../_images/sphx_glr_plot_target_encoder_cross_val_002.png" alt="Target encoded without cross fitting" class = "sphx-glr-single-img"/></section>
 <section id="conclusion">
 <h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
-<p>This example demonstrates the importance of <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.TargetEncoder.html#sklearn.preprocessing.TargetEncoder" title="sklearn.preprocessing.TargetEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">TargetEncoder</span></code></a>’s internal
+<p>This example demonstrates the importance of <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.TargetEncoder.html#sklearn.preprocessing.TargetEncoder" title="sklearn.preprocessing.TargetEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">TargetEncoder</span></code></a>'s internal
 <a class="reference internal" href="../../glossary.html#term-0"><span class="xref std std-term">cross fitting</span></a>. It is important to use
 <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.TargetEncoder.html#sklearn.preprocessing.TargetEncoder.fit_transform" title="sklearn.preprocessing.TargetEncoder.fit_transform"><code class="xref py py-meth docutils literal notranslate"><span class="pre">TargetEncoder.fit_transform</span></code></a> to encode training data before passing it
 to a machine learning model. When a <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.TargetEncoder.html#sklearn.preprocessing.TargetEncoder" title="sklearn.preprocessing.TargetEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">TargetEncoder</span></code></a> is a part of a
@@ -1245,7 +1246,7 @@ will correctly call <a class="reference internal" href="../../modules/generated/
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-subtitle">السابق</p>
         <p class="prev-next-title">Map data to a normal distribution</p>
       </div>
     </a>
@@ -1253,7 +1254,7 @@ will correctly call <a class="reference internal" href="../../modules/generated/
        href="plot_discretization.html"
        title="next page">
       <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-subtitle">التالي</p>
         <p class="prev-next-title">Using KBinsDiscretizer to discretize continuous features</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
@@ -1291,7 +1292,7 @@ will correctly call <a class="reference internal" href="../../modules/generated/
 
   <div class="tocsection sourcelink">
     <a href="../../_sources/auto_examples/preprocessing/plot_target_encoder_cross_val.rst.txt">
-      <i class="fa-solid fa-file-lines"></i> Show Source
+      <i class="fa-solid fa-file-lines"></i> إظهار المصدر
     </a>
   </div>
 </div>
@@ -1380,7 +1381,7 @@ will correctly call <a class="reference internal" href="../../modules/generated/
 
   <p class="copyright">
     
-      © Copyright 2024 - 2024, scikit-learn developers (BSD License).
+      © Copyright 2007 - 2024, scikit-learn developers (BSD License).
       <br/>
     
   </p>

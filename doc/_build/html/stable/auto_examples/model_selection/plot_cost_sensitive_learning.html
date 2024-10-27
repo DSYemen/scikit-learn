@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../../" >
+<html lang="ar" data-content_root="../../" >
 
   <head>
     <meta charset="utf-8" />
@@ -40,7 +40,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css?v=7f9a90b1" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
     <link rel="stylesheet" type="text/css" href="../../_static/jupyterlite_sphinx.css?v=ca70e7f1" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/colors.css?v=cc94ab7d" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/custom.css?v=e340c087" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/custom.css?v=fe191a13" />
   
   <!-- So that users can add custom icons -->
   <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
@@ -57,12 +57,13 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
-    <script src="../../_static/documentation_options.js?v=d875d36e"></script>
+    <script src="../../_static/documentation_options.js?v=3cd28d06"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../_static/copybutton.js?v=97f0b27d"></script>
     <script src="../../_static/jupyterlite_sphinx.js?v=d6bdf5f8"></script>
+    <script src="../../_static/translations.js?v=87cb2081"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script data-domain="scikit-learn.org" defer="defer" src="https://views.scientific-python.org/js/script.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'auto_examples/model_selection/plot_cost_sensitive_learning';</script>
@@ -76,11 +77,11 @@
     <script src="../../_static/scripts/version-switcher.js?v=a6dd8357"></script>
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="author" title="About these documents" href="../../about.html" />
-    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="search" title="بحث" href="../../search.html" />
     <link rel="next" title="Precision-Recall" href="plot_precision_recall.html" />
     <link rel="prev" title="Post-hoc tuning the cut-off point of decision function" href="plot_tuned_decision_threshold.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:language" content="ar"/>
   <meta name="docsearch:version" content="1.6" />
   </head>
   
@@ -172,7 +173,7 @@
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../user_guide.html">
-    User Guide
+    دليل المستخدم
   </a>
 </li>
 
@@ -240,14 +241,14 @@
 
 <li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../../support.html">
-    Support
+    الدعم الفني
   </a>
 </li>
 
 
 <li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../../related_projects.html">
-    Related Projects
+    مشاريع ذات علاقة
   </a>
 </li>
 
@@ -268,7 +269,7 @@
 
 <li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../../about.html">
-    حولنا
+    من نحن
   </a>
 </li>
 
@@ -286,7 +287,7 @@
         <div class="navbar-item navbar-persistent--container">
           
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
         </div>
@@ -343,7 +344,7 @@
   
     <div class="navbar-persistent--mobile">
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
     </div>
@@ -389,7 +390,7 @@
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../user_guide.html">
-    User Guide
+    دليل المستخدم
   </a>
 </li>
 
@@ -452,14 +453,14 @@
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../support.html">
-    Support
+    الدعم الفني
   </a>
 </li>
 
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../related_projects.html">
-    Related Projects
+    مشاريع ذات علاقة
   </a>
 </li>
 
@@ -480,7 +481,7 @@
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../about.html">
-    حولنا
+    من نحن
   </a>
 </li>
 
@@ -785,7 +786,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../manifold/index.html">Manifold learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../manifold/plot_compare_methods.html">Comparison of Manifold Learning methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../manifold/plot_manifold_sphere.html">Manifold Learning methods on a severed sphere</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_lle_digits.html">Manifold learning on handwritten digits: Locally Linear Embedding, Isomap…</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_lle_digits.html">Manifold learning on handwritten digits: Locally Linear Embedding, Isomap...</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../manifold/plot_mds.html">Multi-dimensional scaling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../manifold/plot_swissroll.html">Swiss Roll And Swiss-Hole Reduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../manifold/plot_t_sne_perplexity.html">t-SNE: The effect of various perplexity values on the shape</a></li>
@@ -827,7 +828,7 @@
 <li class="toctree-l2"><a class="reference internal" href="plot_roc.html">Multiclass Receiver Operating Characteristic (ROC)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_nested_cross_validation_iris.html">Nested versus non-nested cross-validation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_cv_predict.html">Plotting Cross-Validated Predictions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_learning_curve.html">Plotting Learning Curves and Checking Models’ Scalability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_learning_curve.html">Plotting Learning Curves and Checking Models' Scalability</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_tuned_decision_threshold.html">Post-hoc tuning the cut-off point of decision function</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Post-tuning the decision threshold for cost-sensitive learning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_precision_recall.html">Precision-Recall</a></li>
@@ -887,7 +888,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization_classification.html">Feature discretization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_scaling_importance.html">Importance of Feature Scaling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_map_data_to_normal.html">Map data to a normal distribution</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder_cross_val.html">Target Encoder’s Internal Cross fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder_cross_val.html">Target Encoder's Internal Cross fitting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization.html">Using KBinsDiscretizer to discretize continuous features</a></li>
 </ul>
 </details></li>
@@ -988,7 +989,7 @@
                 <article class="bd-article">
                   
   <div class="sphx-glr-download-link-note admonition note">
-<p class="admonition-title">Note</p>
+<p class="admonition-title">ملاحظة</p>
 <p><a class="reference internal" href="#sphx-glr-download-auto-examples-model-selection-plot-cost-sensitive-learning-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code. or to run this example in your browser via JupyterLite or Binder</p>
 </div>
@@ -1000,11 +1001,11 @@ label predictions corresponding to a thresholding of either the
 the default threshold is defined as a posterior probability estimate of 0.5 or a
 decision score of 0.0.</p>
 <p>However, this default strategy is most likely not optimal for the task at hand.
-Here, we use the “Statlog” German credit dataset <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> to illustrate a use case.
-In this dataset, the task is to predict whether a person has a “good” or “bad” credit.
+Here, we use the &quot;Statlog&quot; German credit dataset <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> to illustrate a use case.
+In this dataset, the task is to predict whether a person has a &quot;good&quot; or &quot;bad&quot; credit.
 In addition, a cost-matrix is provided that specifies the cost of
-misclassification. Specifically, misclassifying a “bad” credit as “good” is five
-times more costly on average than misclassifying a “good” credit as “bad”.</p>
+misclassification. Specifically, misclassifying a &quot;bad&quot; credit as &quot;good&quot; is five
+times more costly on average than misclassifying a &quot;good&quot; credit as &quot;bad&quot;.</p>
 <p>We use the <a class="reference internal" href="../../modules/generated/sklearn.model_selection.TunedThresholdClassifierCV.html#sklearn.model_selection.TunedThresholdClassifierCV" title="sklearn.model_selection.TunedThresholdClassifierCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">TunedThresholdClassifierCV</span></code></a> to select the
 cut-off point of the decision function that minimizes the provided business
 cost.</p>
@@ -1016,13 +1017,13 @@ case, the business metric depends on the amount of each individual transaction.<
 <aside class="footnote brackets" id="id2" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
 <span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id5">2</a>,<a role="doc-backlink" href="#id6">3</a>)</span>
-<p>“Statlog (German Credit Data) Data Set”, UCI Machine Learning Repository,
+<p>&quot;Statlog (German Credit Data) Data Set&quot;, UCI Machine Learning Repository,
 <a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/Statlog+%28German+Credit+Data%29">Link</a>.</p>
 </aside>
 <aside class="footnote brackets" id="id3" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
 <span class="backrefs">(<a role="doc-backlink" href="#id4">1</a>,<a role="doc-backlink" href="#id7">2</a>,<a role="doc-backlink" href="#id8">3</a>,<a role="doc-backlink" href="#id9">4</a>,<a role="doc-backlink" href="#id10">5</a>)</span>
-<p><a class="reference external" href="https://cseweb.ucsd.edu/~elkan/rescale.pdf">Charles Elkan, “The Foundations of Cost-Sensitive Learning”,
+<p><a class="reference external" href="https://cseweb.ucsd.edu/~elkan/rescale.pdf">Charles Elkan, &quot;The Foundations of Cost-Sensitive Learning&quot;,
 International joint conference on artificial intelligence.
 Vol. 17. No. 1. Lawrence Erlbaum Associates Ltd, 2001.</a></p>
 </aside>
@@ -1037,9 +1038,9 @@ Vol. 17. No. 1. Lawrence Erlbaum Associates Ltd, 2001.</a></p>
 <a class="reference internal" href="../../modules/generated/sklearn.model_selection.TunedThresholdClassifierCV.html#sklearn.model_selection.TunedThresholdClassifierCV" title="sklearn.model_selection.TunedThresholdClassifierCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">TunedThresholdClassifierCV</span></code></a> in a setting of
 cost-sensitive learning when the gains and costs associated to each entry of the
 confusion matrix are constant. We use the problematic presented in <a class="footnote-reference brackets" href="#id3" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> using the
-“Statlog” German credit dataset <a class="footnote-reference brackets" href="#id2" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
+&quot;Statlog&quot; German credit dataset <a class="footnote-reference brackets" href="#id2" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
 <section id="statlog-german-credit-dataset">
-<h3>“Statlog” German credit dataset<a class="headerlink" href="#statlog-german-credit-dataset" title="Link to this heading">#</a></h3>
+<h3>&quot;Statlog&quot; German credit dataset<a class="headerlink" href="#statlog-german-credit-dataset" title="Link to this heading">#</a></h3>
 <p>We fetch the German credit dataset from OpenML.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sklearn</span>
 <span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.datasets.fetch_openml.html#sklearn.datasets.fetch_openml" title="sklearn.datasets.fetch_openml" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_openml</span></a>
@@ -1084,7 +1085,7 @@ memory usage: 69.9 KB
 </pre></div>
 </div>
 <p>Many features are categorical and usually string-encoded. We need to encode
-these categories when we develop our predictive model. Let’s check the targets.</p>
+these categories when we develop our predictive model. Let's check the targets.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1099,8 +1100,8 @@ when evaluating our predictive model and use a family of metrics that are adapte
 to this setting.</p>
 <p>In addition, we observe that the target is string-encoded. Some metrics
 (e.g. precision and recall) require to provide the label of interest also called
-the “positive label”. Here, we define that our goal is to predict whether or not
-a sample is a “bad” credit.</p>
+the &quot;positive label&quot;. Here, we define that our goal is to predict whether or not
+a sample is a &quot;bad&quot; credit.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">pos_label</span><span class="p">,</span> <span class="n">neg_label</span> <span class="o">=</span> <span class="s2">&quot;bad&quot;</span><span class="p">,</span> <span class="s2">&quot;good&quot;</span>
 </pre></div>
 </div>
@@ -1133,9 +1134,9 @@ therefore need to define a small custom function to compute it.</p>
     <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">tnr</span>
 </pre></div>
 </div>
-<p>As previously stated, the “positive label” is not defined as the value “1” and calling
+<p>As previously stated, the &quot;positive label&quot; is not defined as the value &quot;1&quot; and calling
 some of the metrics with this non-standard value raise an error. We need to
-provide the indication of the “positive label” to the metrics.</p>
+provide the indication of the &quot;positive label&quot; to the metrics.</p>
 <p>We therefore need to define a scikit-learn scorer using
 <a class="reference internal" href="../../modules/generated/sklearn.metrics.make_scorer.html#sklearn.metrics.make_scorer" title="sklearn.metrics.make_scorer"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_scorer</span></code></a> where the information is passed. We store all
 the custom scorers in a dictionary. To use them, we need to pass the fitted model,
@@ -1152,11 +1153,11 @@ the data and the target on which we want to evaluate the predictive model.</p>
 </pre></div>
 </div>
 <p>In addition, the original research <a class="footnote-reference brackets" href="#id2" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> defines a custom business metric. We
-call a “business metric” any metric function that aims at quantifying how the
+call a &quot;business metric&quot; any metric function that aims at quantifying how the
 predictions (correct or wrong) might impact the business value of deploying a
 given machine learning model in a specific application context. For our
 credit prediction task, the authors provide a custom cost-matrix which
-encodes that classifying a a “bad” credit as “good” is 5 times more costly on
+encodes that classifying a a &quot;bad&quot; credit as &quot;good&quot; is 5 times more costly on
 average than the opposite: it is less costly for the financing institution to
 not grant a credit to a potential customer that will not default (and
 therefore miss a good customer that would have otherwise both reimbursed the
@@ -1692,7 +1693,7 @@ metric:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Business defined metric: -232
 </pre></div>
 </div>
-<p>At this stage we don’t know if any other cut-off can lead to a greater gain. To find
+<p>At this stage we don't know if any other cut-off can lead to a greater gain. To find
 the optimal one, we need to compute the cost-gain using the business metric for all
 possible cut-off points and choose the best. This strategy can be quite tedious to
 implement by hand, but the
@@ -1813,7 +1814,7 @@ the same as our business metric. We see that the optimum threshold corresponds t
 maximum of the objective score. This maximum is reached for a decision threshold
 much lower than 0.5: the tuned model enjoys a much higher recall at the cost of
 of significantly lower precision: the tuned model is much more eager to
-predict the “bad” class label to larger fraction of individuals.</p>
+predict the &quot;bad&quot; class label to larger fraction of individuals.</p>
 <p>We can now check if choosing this cut-off point leads to a better score on the testing
 set:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Business defined metric: </span><span class="si">{</span><span class="n">scoring</span><span class="p">[</span><span class="s1">&#39;credit_gain&#39;</span><span class="p">](</span><span class="n">tuned_model</span><span class="p">,</span><span class="w"> </span><span class="n">X_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_test</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -1865,7 +1866,7 @@ idea is just to tune the predictive model on a completely new validation set wit
 costly complete refit.</p>
 <p>When cross-validation is too costly, a potential alternative is to use a
 single train-test split by providing a floating number in range <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code> to the <code class="docutils literal notranslate"><span class="pre">cv</span></code>
-parameter. It splits the data into a training and testing set. Let’s explore this
+parameter. It splits the data into a training and testing set. Let's explore this
 option:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">tuned_model</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="n">cv</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 </pre></div>
@@ -2443,7 +2444,7 @@ the business metric and thus the statistical performance of our model. When used
 feature, we are only required to have a column in <code class="docutils literal notranslate"><span class="pre">data</span></code> that contains the amount of
 each transaction. To use this information as metadata, we need to have an external
 variable that we can pass to the scorer or the model that internally routes this
-metadata to the scorer. So let’s create this variable.</p>
+metadata to the scorer. So let's create this variable.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">amount</span> <span class="o">=</span> <span class="n">credit_card</span><span class="o">.</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;Amount&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -2457,7 +2458,7 @@ metadata to the scorer. So let’s create this variable.</p>
 </pre></div>
 </div>
 <p>We first evaluate some baseline policies to serve as reference. Recall that
-class “0” is the legitimate class and class “1” is the fraudulent class.</p>
+class &quot;0&quot; is the legitimate class and class &quot;1&quot; is the fraudulent class.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.dummy</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.dummy.DummyClassifier.html#sklearn.dummy.DummyClassifier" title="sklearn.dummy.DummyClassifier" class="sphx-glr-backref-module-sklearn-dummy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">DummyClassifier</span></a>
 
 <span class="n">always_accept_policy</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.dummy.DummyClassifier.html#sklearn.dummy.DummyClassifier" title="sklearn.dummy.DummyClassifier" class="sphx-glr-backref-module-sklearn-dummy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">DummyClassifier</span></a><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span> <span class="n">constant</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -2493,7 +2494,7 @@ transaction basis should ideally allow us to make a profit larger than the
 220,000€ of the best of our constant baseline policies.</p>
 <p>We start with a logistic regression model with the default decision threshold
 at 0.5. Here we tune the hyperparameter <code class="docutils literal notranslate"><span class="pre">C</span></code> of the logistic regression with a
-proper scoring rule (the log loss) to ensure that the model’s probabilistic
+proper scoring rule (the log loss) to ensure that the model's probabilistic
 predictions returned by its <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code> method are as accurate as
 possible, irrespectively of the choice of the value of the decision
 threshold.</p>
@@ -3517,7 +3518,7 @@ beyond the scope of the scikit-learn library itself.</p>
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-subtitle">السابق</p>
         <p class="prev-next-title">Post-hoc tuning the cut-off point of decision function</p>
       </div>
     </a>
@@ -3525,7 +3526,7 @@ beyond the scope of the scikit-learn library itself.</p>
        href="plot_precision_recall.html"
        title="next page">
       <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-subtitle">التالي</p>
         <p class="prev-next-title">Precision-Recall</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
@@ -3554,7 +3555,7 @@ beyond the scope of the scikit-learn library itself.</p>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cost-sensitive-learning-with-constant-gains-and-costs">Cost-sensitive learning with constant gains and costs</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statlog-german-credit-dataset">“Statlog” German credit dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statlog-german-credit-dataset">"Statlog" German credit dataset</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-metrics">Evaluation metrics</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vanilla-predictive-model">Vanilla predictive model</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tuning-the-cut-off-point">Tuning the cut-off point</a></li>
@@ -3575,7 +3576,7 @@ beyond the scope of the scikit-learn library itself.</p>
 
   <div class="tocsection sourcelink">
     <a href="../../_sources/auto_examples/model_selection/plot_cost_sensitive_learning.rst.txt">
-      <i class="fa-solid fa-file-lines"></i> Show Source
+      <i class="fa-solid fa-file-lines"></i> إظهار المصدر
     </a>
   </div>
 </div>
@@ -3664,7 +3665,7 @@ beyond the scope of the scikit-learn library itself.</p>
 
   <p class="copyright">
     
-      © Copyright 2024 - 2024, scikit-learn developers (BSD License).
+      © Copyright 2007 - 2024, scikit-learn developers (BSD License).
       <br/>
     
   </p>

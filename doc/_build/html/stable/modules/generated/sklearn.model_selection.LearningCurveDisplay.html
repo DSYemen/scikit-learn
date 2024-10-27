@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="../../" >
+<html lang="ar" data-content_root="../../" >
 
   <head>
     <meta charset="utf-8" />
@@ -11,10 +11,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/modules/generated/sklearn.model_selection.LearningCurveDisplay.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="Gallery examples: Plotting Learning Curves and Checking Models’ Scalability Release Highlights for scikit-learn 1.2 Comparison of kernel ridge regression and SVR Plotting Learning Curves and Checki..." />
+<meta property="og:description" content="Gallery examples: Plotting Learning Curves and Checking Models' Scalability Release Highlights for scikit-learn 1.2 Comparison of kernel ridge regression and SVR Plotting Learning Curves and Checki..." />
 <meta property="og:image" content="https://scikit-learn/stable/_images/sklearn-model_selection-LearningCurveDisplay-1.png" />
 <meta property="og:image:alt" content="scikit-learn" />
-<meta name="description" content="Gallery examples: Plotting Learning Curves and Checking Models’ Scalability Release Highlights for scikit-learn 1.2 Comparison of kernel ridge regression and SVR Plotting Learning Curves and Checki..." />
+<meta name="description" content="Gallery examples: Plotting Learning Curves and Checking Models' Scalability Release Highlights for scikit-learn 1.2 Comparison of kernel ridge regression and SVR Plotting Learning Curves and Checki..." />
 
     <title>LearningCurveDisplay &#8212; scikit-learn 1.6.dev0 documentation</title>
   
@@ -40,7 +40,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css?v=7f9a90b1" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
     <link rel="stylesheet" type="text/css" href="../../_static/jupyterlite_sphinx.css?v=ca70e7f1" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -50,7 +50,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/api.css?v=b0444f25" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/colors.css?v=cc94ab7d" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/custom.css?v=e340c087" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/custom.css?v=fe191a13" />
   
   <!-- So that users can add custom icons -->
   <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
@@ -58,12 +58,13 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
-    <script src="../../_static/documentation_options.js?v=d875d36e"></script>
+    <script src="../../_static/documentation_options.js?v=3cd28d06"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../_static/copybutton.js?v=97f0b27d"></script>
     <script src="../../_static/jupyterlite_sphinx.js?v=d6bdf5f8"></script>
+    <script src="../../_static/translations.js?v=87cb2081"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script data-domain="scikit-learn.org" defer="defer" src="https://views.scientific-python.org/js/script.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'modules/generated/sklearn.model_selection.LearningCurveDisplay';</script>
@@ -77,11 +78,11 @@
     <script src="../../_static/scripts/version-switcher.js?v=a6dd8357"></script>
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="author" title="About these documents" href="../../about.html" />
-    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="search" title="بحث" href="../../search.html" />
     <link rel="next" title="ValidationCurveDisplay" href="sklearn.model_selection.ValidationCurveDisplay.html" />
     <link rel="prev" title="validation_curve" href="sklearn.model_selection.validation_curve.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:language" content="ar"/>
   <meta name="docsearch:version" content="1.6" />
   </head>
   
@@ -173,7 +174,7 @@
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../user_guide.html">
-    User Guide
+    دليل المستخدم
   </a>
 </li>
 
@@ -241,14 +242,14 @@
 
 <li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../../support.html">
-    Support
+    الدعم الفني
   </a>
 </li>
 
 
 <li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../../related_projects.html">
-    Related Projects
+    مشاريع ذات علاقة
   </a>
 </li>
 
@@ -269,7 +270,7 @@
 
 <li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../../about.html">
-    حولنا
+    من نحن
   </a>
 </li>
 
@@ -287,7 +288,7 @@
         <div class="navbar-item navbar-persistent--container">
           
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
         </div>
@@ -344,7 +345,7 @@
   
     <div class="navbar-persistent--mobile">
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
     </div>
@@ -390,7 +391,7 @@
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../user_guide.html">
-    User Guide
+    دليل المستخدم
   </a>
 </li>
 
@@ -453,14 +454,14 @@
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../support.html">
-    Support
+    الدعم الفني
   </a>
 </li>
 
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../related_projects.html">
-    Related Projects
+    مشاريع ذات علاقة
   </a>
 </li>
 
@@ -481,7 +482,7 @@
 
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../about.html">
-    حولنا
+    من نحن
   </a>
 </li>
 
@@ -1303,7 +1304,7 @@
 <h1>LearningCurveDisplay<a class="headerlink" href="#learningcurvedisplay" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="sklearn.model_selection.LearningCurveDisplay">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sklearn.model_selection.</span></span><span class="sig-name descname"><span class="pre">LearningCurveDisplay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_sizes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_scores</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_scores</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/2c2ee06c5/sklearn/model_selection/_plot.py#L126"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sklearn.model_selection.LearningCurveDisplay" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sklearn.model_selection.</span></span><span class="sig-name descname"><span class="pre">LearningCurveDisplay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_sizes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_scores</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_scores</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/001706117/sklearn/model_selection/_plot.py#L126"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.model_selection.LearningCurveDisplay" title="Link to this definition">#</a></dt>
 <dd><p>Learning Curve visualization.</p>
 <p>It is recommended to use
 <a class="reference internal" href="#sklearn.model_selection.LearningCurveDisplay.from_estimator" title="sklearn.model_selection.LearningCurveDisplay.from_estimator"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_estimator</span></code></a> to
@@ -1357,7 +1358,7 @@ used, <code class="docutils literal notranslate"><span class="pre">fill_between_
 </dd>
 </dl>
 <div class="admonition seealso">
-<p class="admonition-title">See also</p>
+<p class="admonition-title">شاهد أيضا</p>
 <dl class="simple">
 <dt><a class="reference internal" href="sklearn.model_selection.learning_curve.html#sklearn.model_selection.learning_curve" title="sklearn.model_selection.learning_curve"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sklearn.model_selection.learning_curve</span></code></a></dt><dd><p>Compute the learning curve.</p>
 </dd>
@@ -1384,7 +1385,7 @@ used, <code class="docutils literal notranslate"><span class="pre">fill_between_
 </figure>
 <dl class="py method">
 <dt class="sig sig-object py" id="sklearn.model_selection.LearningCurveDisplay.from_estimator">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_estimator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">estimator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_sizes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">array([0.1,</span> <span class="pre">0.325,</span> <span class="pre">0.55,</span> <span class="pre">0.775,</span> <span class="pre">1.])</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scoring</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exploit_incremental_learning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pre_dispatch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">nan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">negate_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'both'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_display_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fill_between'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_kw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_between_kw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errorbar_kw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/2c2ee06c5/sklearn/model_selection/_plot.py#L286"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sklearn.model_selection.LearningCurveDisplay.from_estimator" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_estimator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">estimator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_sizes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">array([0.1,</span> <span class="pre">0.325,</span> <span class="pre">0.55,</span> <span class="pre">0.775,</span> <span class="pre">1.])</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scoring</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exploit_incremental_learning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pre_dispatch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">nan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">negate_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'both'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_display_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fill_between'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_kw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_between_kw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errorbar_kw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/001706117/sklearn/model_selection/_plot.py#L286"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.model_selection.LearningCurveDisplay.from_estimator" title="Link to this definition">#</a></dt>
 <dd><p>Create a learning curve display from an estimator.</p>
 <p>Read more in the <a class="reference internal" href="../../visualizations.html#visualizations"><span class="std std-ref">User Guide</span></a> for general
 information about the visualization API and <a class="reference internal" href="../learning_curve.html#learning-curve"><span class="std std-ref">detailed
@@ -1393,7 +1394,7 @@ visualization.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
-<dt><strong>estimator</strong><span class="classifier">object type that implements the “fit” and “predict” methods</span></dt><dd><p>An object of that type which is cloned for each validation.</p>
+<dt><strong>estimator</strong><span class="classifier">object type that implements the &quot;fit&quot; and &quot;predict&quot; methods</span></dt><dd><p>An object of that type which is cloned for each validation.</p>
 </dd>
 <dt><strong>X</strong><span class="classifier">array-like of shape (n_samples, n_features)</span></dt><dd><p>Training data, where <code class="docutils literal notranslate"><span class="pre">n_samples</span></code> is the number of samples and
 <code class="docutils literal notranslate"><span class="pre">n_features</span></code> is the number of features.</p>
@@ -1402,7 +1403,7 @@ visualization.</p>
 None for unsupervised learning.</p>
 </dd>
 <dt><strong>groups</strong><span class="classifier">array-like of shape (n_samples,), default=None</span></dt><dd><p>Group labels for the samples used while splitting the dataset into
-train/test set. Only used in conjunction with a “Group” <a class="reference internal" href="../../glossary.html#term-cv"><span class="xref std std-term">cv</span></a>
+train/test set. Only used in conjunction with a &quot;Group&quot; <a class="reference internal" href="../../glossary.html#term-cv"><span class="xref std std-term">cv</span></a>
 instance (e.g., <a class="reference internal" href="sklearn.model_selection.GroupKFold.html#sklearn.model_selection.GroupKFold" title="sklearn.model_selection.GroupKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroupKFold</span></code></a>).</p>
 </dd>
 <dt><strong>train_sizes</strong><span class="classifier">array-like of shape (n_ticks,),                 default=np.linspace(0.1, 1.0, 5)</span></dt><dd><p>Relative or absolute numbers of training examples that will be used
@@ -1444,9 +1445,9 @@ and test sets. <code class="docutils literal notranslate"><span class="pre">None
 <a class="reference external" href="https://joblib.readthedocs.io/en/latest/generated/joblib.parallel_backend.html#joblib.parallel_backend" title="(in joblib v1.5.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">joblib.parallel_backend</span></code></a> context. <code class="docutils literal notranslate"><span class="pre">-1</span></code> means using all
 processors. See <a class="reference internal" href="../../glossary.html#term-n_jobs"><span class="xref std std-term">Glossary</span></a> for more details.</p>
 </dd>
-<dt><strong>pre_dispatch</strong><span class="classifier">int or str, default=’all’</span></dt><dd><p>Number of predispatched jobs for parallel execution (default is
+<dt><strong>pre_dispatch</strong><span class="classifier">int or str, default='all'</span></dt><dd><p>Number of predispatched jobs for parallel execution (default is
 all). The option can reduce the allocated memory. The str can
-be an expression like ‘2*n_jobs’.</p>
+be an expression like '2*n_jobs'.</p>
 </dd>
 <dt><strong>verbose</strong><span class="classifier">int, default=0</span></dt><dd><p>Controls the verbosity: the higher, the more messages.</p>
 </dd>
@@ -1457,8 +1458,8 @@ based on`train_sizes`.</p>
 output across multiple function calls.
 See <a class="reference internal" href="../../glossary.html#term-random_state"><span class="xref std std-term">Glossary</span></a>.</p>
 </dd>
-<dt><strong>error_score</strong><span class="classifier">‘raise’ or numeric, default=np.nan</span></dt><dd><p>Value to assign to the score if an error occurs in estimator
-fitting. If set to ‘raise’, the error is raised. If a numeric value
+<dt><strong>error_score</strong><span class="classifier">'raise' or numeric, default=np.nan</span></dt><dd><p>Value to assign to the score if an error occurs in estimator
+fitting. If set to 'raise', the error is raised. If a numeric value
 is given, FitFailedWarning is raised.</p>
 </dd>
 <dt><strong>fit_params</strong><span class="classifier">dict, default=None</span></dt><dd><p>Parameters to pass to the fit method of the estimator.</p>
@@ -1479,10 +1480,10 @@ replace <code class="docutils literal notranslate"><span class="pre">_</span></c
 replace it by <code class="docutils literal notranslate"><span class="pre">&quot;Negative&quot;</span></code> if <code class="docutils literal notranslate"><span class="pre">negate_score</span></code> is
 <code class="docutils literal notranslate"><span class="pre">False</span></code> or just remove it otherwise.</p>
 </dd>
-<dt><strong>score_type</strong><span class="classifier">{“test”, “train”, “both”}, default=”both”</span></dt><dd><p>The type of score to plot. Can be one of <code class="docutils literal notranslate"><span class="pre">&quot;test&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;train&quot;</span></code>, or
+<dt><strong>score_type</strong><span class="classifier">{&quot;test&quot;, &quot;train&quot;, &quot;both&quot;}, default=&quot;both&quot;</span></dt><dd><p>The type of score to plot. Can be one of <code class="docutils literal notranslate"><span class="pre">&quot;test&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;train&quot;</span></code>, or
 <code class="docutils literal notranslate"><span class="pre">&quot;both&quot;</span></code>.</p>
 </dd>
-<dt><strong>std_display_style</strong><span class="classifier">{“errorbar”, “fill_between”} or None, default=”fill_between”</span></dt><dd><p>The style used to display the score standard deviation around the
+<dt><strong>std_display_style</strong><span class="classifier">{&quot;errorbar&quot;, &quot;fill_between&quot;} or None, default=&quot;fill_between&quot;</span></dt><dd><p>The style used to display the score standard deviation around the
 mean score. If <code class="docutils literal notranslate"><span class="pre">None</span></code>, no representation of the standard deviation
 is displayed.</p>
 </dd>
@@ -1523,7 +1524,7 @@ draw mean score and standard deviation score.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sklearn.model_selection.LearningCurveDisplay.plot">
-<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">negate_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'both'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_display_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fill_between'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_kw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_between_kw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errorbar_kw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/2c2ee06c5/sklearn/model_selection/_plot.py#L211"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sklearn.model_selection.LearningCurveDisplay.plot" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">negate_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'both'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_display_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fill_between'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_kw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_between_kw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errorbar_kw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/001706117/sklearn/model_selection/_plot.py#L211"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.model_selection.LearningCurveDisplay.plot" title="Link to this definition">#</a></dt>
 <dd><p>Plot visualization.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1544,10 +1545,10 @@ replace <code class="docutils literal notranslate"><span class="pre">_</span></c
 replace it by <code class="docutils literal notranslate"><span class="pre">&quot;Negative&quot;</span></code> if <code class="docutils literal notranslate"><span class="pre">negate_score</span></code> is
 <code class="docutils literal notranslate"><span class="pre">False</span></code> or just remove it otherwise.</p>
 </dd>
-<dt><strong>score_type</strong><span class="classifier">{“test”, “train”, “both”}, default=”both”</span></dt><dd><p>The type of score to plot. Can be one of <code class="docutils literal notranslate"><span class="pre">&quot;test&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;train&quot;</span></code>, or
+<dt><strong>score_type</strong><span class="classifier">{&quot;test&quot;, &quot;train&quot;, &quot;both&quot;}, default=&quot;both&quot;</span></dt><dd><p>The type of score to plot. Can be one of <code class="docutils literal notranslate"><span class="pre">&quot;test&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;train&quot;</span></code>, or
 <code class="docutils literal notranslate"><span class="pre">&quot;both&quot;</span></code>.</p>
 </dd>
-<dt><strong>std_display_style</strong><span class="classifier">{“errorbar”, “fill_between”} or None, default=”fill_between”</span></dt><dd><p>The style used to display the score standard deviation around the
+<dt><strong>std_display_style</strong><span class="classifier">{&quot;errorbar&quot;, &quot;fill_between&quot;} or None, default=&quot;fill_between&quot;</span></dt><dd><p>The style used to display the score standard deviation around the
 mean score. If None, no standard deviation representation is
 displayed.</p>
 </dd>
@@ -1576,7 +1577,7 @@ draw mean score and standard deviation score.</p>
 <section id="gallery-examples">
 <h2>Gallery examples<a class="headerlink" href="#gallery-examples" title="Link to this heading">#</a></h2>
 <div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="In this example, we show how to use the class LearningCurveDisplay to easily plot learning curves. In addition, we give an interpretation to the learning curves obtained for a naive Bayes and SVM classifiers."><img alt="" src="../../_images/sphx_glr_plot_learning_curve_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/model_selection/plot_learning_curve.html#sphx-glr-auto-examples-model-selection-plot-learning-curve-py"><span class="std std-ref">Plotting Learning Curves and Checking Models’ Scalability</span></a></p>
+<p><a class="reference internal" href="../../auto_examples/model_selection/plot_learning_curve.html#sphx-glr-auto-examples-model-selection-plot-learning-curve-py"><span class="std std-ref">Plotting Learning Curves and Checking Models' Scalability</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plotting Learning Curves and Checking Models' Scalability</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="We are pleased to announce the release of scikit-learn 1.2! Many bug fixes and improvements were added, as well as some new key features. We detail below a few of the major features of this release. For an exhaustive list of all the changes, please refer to the release notes &lt;release_notes_1_2&gt;."><img alt="" src="../../_images/sphx_glr_plot_release_highlights_1_2_0_thumb.png" />
 <p><a class="reference internal" href="../../auto_examples/release_highlights/plot_release_highlights_1_2_0.html#sphx-glr-auto-examples-release-highlights-plot-release-highlights-1-2-0-py"><span class="std std-ref">Release Highlights for scikit-learn 1.2</span></a></p>
@@ -1585,7 +1586,7 @@ draw mean score and standard deviation score.</p>
 <p><a class="reference internal" href="../../auto_examples/miscellaneous/plot_kernel_ridge_regression.html#sphx-glr-auto-examples-miscellaneous-plot-kernel-ridge-regression-py"><span class="std std-ref">Comparison of kernel ridge regression and SVR</span></a></p>
   <div class="sphx-glr-thumbnail-title">Comparison of kernel ridge regression and SVR</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="In this example, we show how to use the class LearningCurveDisplay to easily plot learning curves. In addition, we give an interpretation to the learning curves obtained for a naive Bayes and SVM classifiers."><img alt="" src="../../_images/sphx_glr_plot_learning_curve_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/model_selection/plot_learning_curve.html#sphx-glr-auto-examples-model-selection-plot-learning-curve-py"><span class="std std-ref">Plotting Learning Curves and Checking Models’ Scalability</span></a></p>
+<p><a class="reference internal" href="../../auto_examples/model_selection/plot_learning_curve.html#sphx-glr-auto-examples-model-selection-plot-learning-curve-py"><span class="std std-ref">Plotting Learning Curves and Checking Models' Scalability</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plotting Learning Curves and Checking Models' Scalability</div>
 </div></div></section>
 </section>
@@ -1605,7 +1606,7 @@ draw mean score and standard deviation score.</p>
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-subtitle">السابق</p>
         <p class="prev-next-title">validation_curve</p>
       </div>
     </a>
@@ -1613,7 +1614,7 @@ draw mean score and standard deviation score.</p>
        href="sklearn.model_selection.ValidationCurveDisplay.html"
        title="next page">
       <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-subtitle">التالي</p>
         <p class="prev-next-title">ValidationCurveDisplay</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
@@ -1658,7 +1659,7 @@ draw mean score and standard deviation score.</p>
 
   <div class="tocsection sourcelink">
     <a href="../../_sources/modules/generated/sklearn.model_selection.LearningCurveDisplay.rst.txt">
-      <i class="fa-solid fa-file-lines"></i> Show Source
+      <i class="fa-solid fa-file-lines"></i> إظهار المصدر
     </a>
   </div>
 </div>
@@ -1688,7 +1689,7 @@ draw mean score and standard deviation score.</p>
 
   <p class="copyright">
     
-      © Copyright 2024 - 2024, scikit-learn developers (BSD License).
+      © Copyright 2007 - 2024, scikit-learn developers (BSD License).
       <br/>
     
   </p>
