@@ -1,0 +1,1692 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="3.1. التحقق المتبادل: تقييم أداء المقدر" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://scikit-learn/stable/modules/cross_validation.html" />
+<meta property="og:site_name" content="scikit-learn" />
+<meta property="og:description" content="يُعد تعلم معلمات دالة التنبؤ واختبارها على نفس البيانات خطأً منهجيًا: النموذج الذي يكرر فقط تسميات العينات التي رآها للتو ستحصل على درجة مثالية لكنها ستفشل في التنبؤ بأي شيء مفيد على البيانات التي ..." />
+<meta property="og:image" content="https://scikit-learn/stable/_images/grid_search_workflow.png" />
+<meta property="og:image:alt" content="سير عمل بحث الشبكة" />
+<meta name="description" content="يُعد تعلم معلمات دالة التنبؤ واختبارها على نفس البيانات خطأً منهجيًا: النموذج الذي يكرر فقط تسميات العينات التي رآها للتو ستحصل على درجة مثالية لكنها ستفشل في التنبؤ بأي شيء مفيد على البيانات التي ..." />
+
+    <title>3.1. التحقق المتبادل: تقييم أداء المقدر &#8212; scikit-learn 1.6.dev0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyterlite_sphinx.css?v=ca70e7f1" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/colors.css?v=cc94ab7d" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/custom.css?v=e340c087" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../_static/documentation_options.js?v=d875d36e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=97f0b27d"></script>
+    <script src="../_static/jupyterlite_sphinx.js?v=d6bdf5f8"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script data-domain="scikit-learn.org" defer="defer" src="https://views.scientific-python.org/js/script.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'modules/cross_validation';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://scikit-learn.org/dev/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1.6.dev0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/scripts/dropdown.js?v=e2048168"></script>
+    <script src="../_static/scripts/version-switcher.js?v=a6dd8357"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3.2. ضبط المعلمات الفائقة لمُقدِّر" href="grid_search.html" />
+    <link rel="prev" title="3. Model selection and evaluation" href="../model_selection.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="1.6" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/scikit-learn-logo-small.png" class="logo__image only-light" alt="scikit-learn homepage"/>
+    <img src="../_static/scikit-learn-logo-small.png" class="logo__image only-dark pst-js-only" alt="scikit-learn homepage"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../support.html">
+    Support
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../related_projects.html">
+    Related Projects
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../about.html">
+    حولنا
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../support.html">
+    Support
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../related_projects.html">
+    Related Projects
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../about.html">
+    حولنا
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../supervised_learning.html">1. Supervised learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="linear_model.html">1.1. النماذج الخطية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lda_qda.html">1.2. تحليل التمييز الخطي والتربيعي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernel_ridge.html">1.3. انحدار حافة النواة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svm.html">1.4. آلات الدعم المتجهية (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sgd.html">1.5. التحسين التدريجي العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neighbors.html">1.6. أقرب الجيران</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gaussian_process.html">1.7. العمليات الغاوسية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cross_decomposition.html">1.8. التحليل المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="naive_bayes.html">1.9. خوارزميات بايز الساذجة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tree.html">1.10. شجرة القرار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ensemble.html">1.11. المجموعات: تعزيز التدرج، الغابات العشوائية، التجميع، التصويت، التكديس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multiclass.html">1.12. خوارزميات متعددة التصنيف ومتعددة الإخراج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature_selection.html">1.13. اختيار الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="semi_supervised.html">1.14. التعليم شبه الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="isotonic.html">1.15. الانحدار المتساوي التوتر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibration.html">1.16. معايرة الاحتمال</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_networks_supervised.html">1.17. نماذج الشبكات العصبية (الخاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../unsupervised_learning.html">2. Unsupervised learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="mixture.html">2.1. نماذج خليط غاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manifold.html">2.2. تعلم المشعبات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clustering.html">2.3. التجميع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="biclustering.html">2.4. التجميع الثنائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decomposition.html">2.5. تحليل الإشارات إلى مكونات (مشاكل تحليل المصفوفات)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="covariance.html">2.6. تقدير التباين المشترك</a></li>
+<li class="toctree-l2"><a class="reference internal" href="outlier_detection.html">2.7. كشف الجِدّة والقيم المتطرفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="density.html">2.8. تقدير الكثافة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_networks_unsupervised.html">2.9. نماذج الشبكة العصبية (غير خاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../model_selection.html">3. Model selection and evaluation</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">3.1. التحقق المتبادل: تقييم أداء المقدر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grid_search.html">3.2. ضبط المعلمات الفائقة لمُقدِّر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classification_threshold.html">3.3. ضبط عتبة القرار لتنبؤ الفئة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_evaluation.html">3.4. المقاييس والتهديف: تحديد جودة التنبؤات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learning_curve.html">3.5. منحنيات التحقق من الصحة: رسم الدرجات لتقييم النماذج</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../inspection.html">4. الفحص</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="partial_dependence.html">4.1. مخططات الاعتماد الجزئي والتوقع الشرطي الفردي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="permutation_importance.html">4.2. أهمية ميزة التبديل</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualizations.html">5. التصورات</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../data_transforms.html">6. تحويلات مجموعات البيانات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="compose.html">6.1. خطوط الأنابيب والمقدرات المركبة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature_extraction.html">6.2. استخراج الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html">6.3. معالجة البيانات مُسبقًا</a></li>
+<li class="toctree-l2"><a class="reference internal" href="impute.html">6.4. تعويض القيم المفقودة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unsupervised_reduction.html">6.5. تخفيض الأبعاد غير الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="random_projection.html">6.6. التصميم العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernel_approximation.html">6.7. Kernel Approximation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">6.8. مقاييس المقارنة الزوجية، والصلات، والنوى (Kernels)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing_targets.html">6.9. تحويل هدف التنبؤ (<code class="docutils literal notranslate"><span class="pre">y</span></code>)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/toy_dataset.html">7. Toy datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/real_world.html">8. Real world datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/sample_generators.html">9. Generated datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/loading_other_datasets.html">10. Loading other datasets</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../computing.html">11. Computing with scikit-learn</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../computing/scaling_strategies.html">11.1. استراتيجيات للقياس حسابيًا: بيانات أكبر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../computing/computational_performance.html">11.2. الأداء الحسابي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../computing/parallelism.html">11.3. التوازي وإدارة الموارد والتهيئة</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../model_persistence.html">12. استمرارية النموذج</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../common_pitfalls.html">13. المخاطر الشائعة والممارسات الموصى بها</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../dispatching.html">14. Dispatching</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="array_api.html">14.1. دعم المدخلات المتوافقة مع <code class="docutils literal notranslate"><span class="pre">Array</span> <span class="pre">API</span></code></a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../machine_learning_map.html">15. Choosing the right estimator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../presentations.html">16. المصادر الخارجية ومقاطع الفيديو والمحادثات</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../user_guide.html" class="nav-link">User Guide</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../model_selection.html" class="nav-link"><span class="section-number">3. </span>Model selection and evaluation</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">3.1. </span>التحقق المتبادل: تقييم أداء المقدر</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="cross-validation">
+<span id="id1"></span><h1><span class="section-number">3.1. </span>التحقق المتبادل: تقييم أداء المقدر<a class="headerlink" href="#cross-validation" title="Link to this heading">#</a></h1>
+<p>يُعد تعلم معلمات دالة التنبؤ واختبارها على نفس البيانات خطأً منهجيًا: النموذج الذي يكرر فقط
+تسميات العينات التي رآها للتو ستحصل على درجة مثالية لكنها ستفشل في التنبؤ بأي شيء مفيد على البيانات التي لم يتم رؤيتها بعد.
+تسمى هذه الحالة <strong>الإفراط في التجهيز</strong>.
+لتجنب ذلك، من الممارسات الشائعة عند إجراء
+تجربة تعلم آلي (خاضعة للإشراف)
+لإخفاء جزء من البيانات المتاحة كمجموعة <strong>اختبار</strong> <code class="docutils literal notranslate"><span class="pre">X_test,</span> <span class="pre">y_test</span></code>.
+لاحظ أن كلمة “تجربة” لا يُقصد بها
+للدلالة على الاستخدام الأكاديمي فقط،
+لأنه حتى في البيئات التجارية
+عادة ما يبدأ التعلم الآلي بشكل تجريبي.
+فيما يلي مخطط انسيابي لسير عمل التحقق المتبادل النموذجي في تدريب النموذج.
+يمكن تحديد أفضل المعلمات بواسطة
+<a class="reference internal" href="grid_search.html#grid-search"><span class="std std-ref">بحث الشبكة</span></a> التقنيات.</p>
+<a class="reference internal image-reference" href="../_images/grid_search_workflow.png"><img alt="سير عمل بحث الشبكة" class="align-center" src="../_images/grid_search_workflow.png" style="width: 400px; height: 240px;" />
+</a>
+<p>في scikit-learn، تقسيم عشوائي إلى مجموعات التدريب والاختبار
+يمكن حسابها بسرعة باستخدام دالة المساعدة <a class="reference internal" href="generated/sklearn.model_selection.train_test_split.html#sklearn.model_selection.train_test_split" title="sklearn.model_selection.train_test_split"><code class="xref py py-func docutils literal notranslate"><span class="pre">train_test_split</span></code></a>.
+دعنا نحمل مجموعة بيانات iris لتناسب جهاز متجه دعم خطي عليها:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">svm</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">((150, 4), (150,))</span>
+</pre></div>
+</div>
+<p>يمكننا الآن أخذ عينة سريعة من مجموعة التدريب مع الاحتفاظ بـ 40٪ من
+البيانات لاختبار (تقييم) المصنف الخاص بنا:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y_train</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">((90, 4), (90,))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y_test</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">((60, 4), (60,))</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+<span class="go">0.96...</span>
+</pre></div>
+</div>
+<p>عند تقييم إعدادات مختلفة (“معلمات فائقة”) للمقدرات،
+مثل إعداد <code class="docutils literal notranslate"><span class="pre">C</span></code> الذي يجب تعيينه يدويًا لـ SVM،
+لا يزال هناك خطر الإفراط في التجهيز <em>على مجموعة الاختبار</em>
+لأنه يمكن تعديل المعلمات حتى يعمل المقدر على النحو الأمثل.
+بهذه الطريقة، يمكن أن “تتسرب” المعرفة حول مجموعة الاختبار إلى النموذج
+ولم تعد مقاييس التقييم تُبلغ عن أداء التعميم.
+لحل هذه المشكلة، يمكن الاحتفاظ بجزء آخر من مجموعة البيانات
+كمجموعة تسمى “مجموعة التحقق من الصحة”: يستمر التدريب على مجموعة التدريب،
+بعد ذلك يتم التقييم على مجموعة التحقق من الصحة،
+وعندما تبدو التجربة ناجحة،
+يمكن إجراء التقييم النهائي على مجموعة الاختبار.</p>
+<p>ومع ذلك، عن طريق تقسيم البيانات المتاحة إلى ثلاث مجموعات،
+نحن نقلل بشكل كبير من عدد العينات
+التي يمكن استخدامها لتعلم النموذج،
+ويمكن أن تعتمد النتائج على اختيار عشوائي معين لزوج
+مجموعات (التدريب، التحقق من الصحة).</p>
+<p>الحل لهذه المشكلة هو إجراء يسمى
+<a class="reference external" href="https://en.wikipedia.org/wiki/Cross-validation_(statistics)">التحقق المتبادل</a>
+(CV للاختصار).
+يجب أن تظل مجموعة الاختبار محجوزة للتقييم النهائي،
+لكن لم تعد هناك حاجة إلى مجموعة التحقق من الصحة عند القيام بـ CV.
+في النهج الأساسي، يسمى <em>k</em>-fold CV،
+يتم تقسيم مجموعة التدريب إلى <em>k</em> مجموعات أصغر
+(تم وصف مناهج أخرى أدناه،
+لكن بشكل عام اتبع نفس المبادئ).
+يتم اتباع الإجراء التالي لكل من “الطيات” <em>k</em>:</p>
+<ul class="simple">
+<li><p>يتم تدريب نموذج باستخدام <span class="math notranslate nohighlight">\(k-1\)</span> من الطيات كبيانات تدريب؛</p></li>
+<li><p>يتم التحقق من صحة النموذج الناتج على الجزء المتبقي من البيانات
+(على سبيل المثال، يتم استخدامه كمجموعة اختبار لحساب مقياس أداء
+مثل الدقة).</p></li>
+</ul>
+<p>مقياس الأداء الذي أبلغ عنه التحقق المتبادل <em>k</em>-fold
+هو متوسط القيم المحسوبة في الحلقة.
+يمكن أن يكون هذا النهج مكلفًا من الناحية الحسابية،
+لكنها لا تهدر الكثير من البيانات
+(كما هو الحال عند إصلاح مجموعة تحقق من الصحة التعسفية)،
+وهي ميزة رئيسية في مشاكل مثل الاستدلال العكسي
+حيث يكون عدد العينات صغيرًا جدًا.</p>
+<a class="reference internal image-reference" href="../_images/grid_search_cross_validation.png"><img alt="وصف للتحقق المتبادل من 5 طيات على مجموعة تدريب، مع الاحتفاظ بمجموعة اختبار." class="align-center" src="../_images/grid_search_cross_validation.png" style="width: 500px; height: 300px;" />
+</a>
+<section id="id3">
+<h2><span class="section-number">3.1.1. </span>حساب المقاييس المتحقق منها<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>أبسط طريقة لاستخدام التحقق المتبادل هي استدعاء
+دالة المساعدة <a class="reference internal" href="generated/sklearn.model_selection.cross_val_score.html#sklearn.model_selection.cross_val_score" title="sklearn.model_selection.cross_val_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">cross_val_score</span></code></a> على المقدر ومجموعة البيانات.</p>
+<p>يوضح المثال التالي كيفية تقدير دقة نواة خطية
+دعم آلة المتجهات على مجموعة بيانات iris عن طريق تقسيم البيانات، وملاءمة
+نموذج وحساب النتيجة 5 مرات متتالية (مع انقسامات مختلفة في كل مرة
+زمن):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scores</span>
+<span class="go">array([0.96..., 1. , 0.96..., 0.96..., 1. ])</span>
+</pre></div>
+</div>
+<p>ومن ثم يتم إعطاء متوسط الدرجة والانحراف المعياري بواسطة:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%0.2f</span><span class="s2"> accuracy with a standard deviation of </span><span class="si">%0.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">scores</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">scores</span><span class="o">.</span><span class="n">std</span><span class="p">()))</span>
+<span class="go">0.98 دقة مع انحراف معياري قدره 0.02</span>
+</pre></div>
+</div>
+<p>افتراضيًا، يتم حساب النتيجة في كل تكرار CV هي <code class="docutils literal notranslate"><span class="pre">النتيجة</span></code>
+طريقة المقدر. من الممكن تغيير هذا باستخدام
+معلمة التسجيل:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;f1_macro&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scores</span>
+<span class="go">array([0.96..., 1.  ..., 0.96..., 0.96..., 1.        ])</span>
+</pre></div>
+</div>
+<p>انظر <a class="reference internal" href="model_evaluation.html#scoring-parameter"><span class="std std-ref">معلمة scoring: تعريف قواعد تقييم النموذج</span></a> للحصول على التفاصيل.
+في حالة مجموعة بيانات Iris، يتم موازنة العينات عبر الهدف
+فئات وبالتالي فإن الدقة ودرجة F1 متساويتان تقريبًا.</p>
+<p>عندما تكون وسيطة <code class="docutils literal notranslate"><span class="pre">cv</span></code> عددًا صحيحًا، يستخدم <a class="reference internal" href="generated/sklearn.model_selection.cross_val_score.html#sklearn.model_selection.cross_val_score" title="sklearn.model_selection.cross_val_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">cross_val_score</span></code></a>
+استراتيجيات <a class="reference internal" href="generated/sklearn.model_selection.KFold.html#sklearn.model_selection.KFold" title="sklearn.model_selection.KFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">KFold</span></code></a> أو <a class="reference internal" href="generated/sklearn.model_selection.StratifiedKFold.html#sklearn.model_selection.StratifiedKFold" title="sklearn.model_selection.StratifiedKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">StratifiedKFold</span></code></a> افتراضيًا، والأخيرة
+يتم استخدامه إذا كان المقدر مشتقًا من <a class="reference internal" href="generated/sklearn.base.ClassifierMixin.html#sklearn.base.ClassifierMixin" title="sklearn.base.ClassifierMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClassifierMixin</span></code></a>.</p>
+<p>من الممكن أيضًا استخدام استراتيجيات التحقق المتبادل الأخرى عن طريق تمرير تقاطع
+مكرر التحقق من الصحة بدلاً من ذلك، على سبيل المثال:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">ShuffleSplit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n_samples</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cv</span> <span class="o">=</span> <span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">)</span>
+<span class="go">array([0.977..., 0.977..., 1.  ..., 0.955..., 1.        ])</span>
+</pre></div>
+</div>
+<p>خيار آخر هو استخدام تكرار ينتج عنه انقسامات (تدريب، اختبار) كمصفوفات
+المؤشرات، على سبيل المثال:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">custom_cv_2folds</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">n</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">... </span>    <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">... </span>    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">n</span> <span class="o">*</span> <span class="n">i</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">yield</span> <span class="n">idx</span><span class="p">,</span> <span class="n">idx</span>
+<span class="gp">... </span>        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">custom_cv</span> <span class="o">=</span> <span class="n">custom_cv_2folds</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">custom_cv</span><span class="p">)</span>
+<span class="go">array([1.        , 0.973...])</span>
+</pre></div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="تحويل-البيانات-مع-البيانات-المحجوزة">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">تحويل البيانات مع البيانات المحجوزة<a class="headerlink" href="#تحويل-البيانات-مع-البيانات-المحجوزة" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">تمامًا كما هو الحال من المهم اختبار متنبئ على البيانات المحجوزة من
+التدريب، المعالجة المسبقة (مثل التوحيد القياسي، اختيار الميزات، إلخ.)
+و <a class="reference internal" href="../data_transforms.html#data-transforms"><span class="std std-ref">تحويلات البيانات</span></a> المماثلة بالمثل يجب
+يتم تعلمها من مجموعة التدريب وتطبيقها على البيانات المحجوزة للتنبؤ:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">preprocessing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scaler</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train_transformed</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_transformed</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_test_transformed</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test_transformed</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+<span class="go">0.9333...</span>
+</pre></div>
+</div>
+<p class="sd-card-text"><a class="reference internal" href="generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> يجعل من السهل تكوين
+المقدرات، وتوفير هذا السلوك تحت التحقق المتبادل:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">)</span>
+<span class="go">array([0.977..., 0.933..., 0.955..., 0.933..., 0.977...])</span>
+</pre></div>
+</div>
+<p class="sd-card-text">انظر <a class="reference internal" href="compose.html#combining-estimators"><span class="std std-ref">خطوط الأنابيب والمقدرات المركبة</span></a>.</p>
+</div>
+</details><section id="cross-validate">
+<span id="multimetric-cross-validation"></span><h3><span class="section-number">3.1.1.1. </span>دالة cross_validate وتقييم المقاييس المتعددة<a class="headerlink" href="#cross-validate" title="Link to this heading">#</a></h3>
+<p>تختلف دالة <a class="reference internal" href="generated/sklearn.model_selection.cross_validate.html#sklearn.model_selection.cross_validate" title="sklearn.model_selection.cross_validate"><code class="xref py py-func docutils literal notranslate"><span class="pre">cross_validate</span></code></a> عن <a class="reference internal" href="generated/sklearn.model_selection.cross_val_score.html#sklearn.model_selection.cross_val_score" title="sklearn.model_selection.cross_val_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">cross_val_score</span></code></a> في
+طريقتان:</p>
+<ul class="simple">
+<li><p>يسمح بتحديد مقاييس متعددة للتقييم.</p></li>
+<li><p>تُرجع dict تحتوي على أوقات الملاءمة، وأوقات النتيجة
+(واختياريًا درجات التدريب، والمقدرات المناسبة، ومؤشرات تقسيم القطار والاختبار)
+بالإضافة إلى درجة الاختبار.</p></li>
+</ul>
+<p>لتقييم مقياس واحد، حيث تكون معلمة التسجيل عبارة عن سلسلة،
+قابل للاستدعاء أو لا شيء، ستكون المفاتيح - <code class="docutils literal notranslate"><span class="pre">['test_score',</span> <span class="pre">'fit_time',</span> <span class="pre">'score_time']</span></code></p>
+<p>ولتقييم المقاييس المتعددة، تكون قيمة الإرجاع dict مع
+المفاتيح التالية -
+<code class="docutils literal notranslate"><span class="pre">['test_&lt;scorer1_name&gt;',</span> <span class="pre">'test_&lt;scorer2_name&gt;',</span> <span class="pre">'test_&lt;scorer...&gt;',</span> <span class="pre">'fit_time',</span> <span class="pre">'score_time']</span></code></p>
+<p>يتم تعيين <code class="docutils literal notranslate"><span class="pre">return_train_score</span></code> على <code class="docutils literal notranslate"><span class="pre">False</span></code> افتراضيًا لتوفير وقت الحساب.
+لتقييم الدرجات على مجموعة التدريب أيضًا، تحتاج إلى تعيينها على
+<code class="docutils literal notranslate"><span class="pre">True</span></code>. يمكنك أيضًا الاحتفاظ بالمقدر المناسب في كل مجموعة تدريب بواسطة
+تعيين <code class="docutils literal notranslate"><span class="pre">return_estimator=True</span></code>. وبالمثل، يمكنك تعيين
+<code class="docutils literal notranslate"><span class="pre">return_indices=True</span></code> للاحتفاظ بمؤشرات التدريب والاختبار المستخدمة للتقسيم
+مجموعة البيانات إلى مجموعات التدريب والاختبار لكل تقسيم cv.</p>
+<p>يمكن تحديد المقاييس المتعددة إما كقائمة أو مجموعة أو مجموعة
+أسماء المسجل المحددة مسبقًا:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_validate</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">recall_score</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scoring</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;precision_macro&#39;</span><span class="p">,</span> <span class="s1">&#39;recall_macro&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scores</span> <span class="o">=</span> <span class="n">cross_validate</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">scoring</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">sorted</span><span class="p">(</span><span class="n">scores</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="go">[&#39;fit_time&#39;, &#39;score_time&#39;, &#39;test_precision_macro&#39;, &#39;test_recall_macro&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scores</span><span class="p">[</span><span class="s1">&#39;test_recall_macro&#39;</span><span class="p">]</span>
+<span class="go">array([0.96..., 1.  ..., 0.96..., 0.96..., 1.        ])</span>
+</pre></div>
+</div>
+<p>أو كدالة dict تعيين اسم المسجل إلى دالة تسجيل محددة مسبقًا أو مخصصة:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">make_scorer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scoring</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;prec_macro&#39;</span><span class="p">:</span> <span class="s1">&#39;precision_macro&#39;</span><span class="p">,</span>
+<span class="gp">... </span>           <span class="s1">&#39;rec_macro&#39;</span><span class="p">:</span> <span class="n">make_scorer</span><span class="p">(</span><span class="n">recall_score</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;macro&#39;</span><span class="p">)}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scores</span> <span class="o">=</span> <span class="n">cross_validate</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">scoring</span><span class="p">,</span>
+<span class="gp">... </span>                        <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">return_train_score</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">sorted</span><span class="p">(</span><span class="n">scores</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="go">[&#39;fit_time&#39;, &#39;score_time&#39;, &#39;test_prec_macro&#39;, &#39;test_rec_macro&#39;,</span>
+<span class="go"> &#39;train_prec_macro&#39;, &#39;train_rec_macro&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scores</span><span class="p">[</span><span class="s1">&#39;train_rec_macro&#39;</span><span class="p">]</span>
+<span class="go">array([0.97..., 0.97..., 0.99..., 0.98..., 0.98...])</span>
+</pre></div>
+</div>
+<p>فيما يلي مثال على <code class="docutils literal notranslate"><span class="pre">cross_validate</span></code> باستخدام مقياس واحد:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">scores</span> <span class="o">=</span> <span class="n">cross_validate</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span>
+<span class="gp">... </span>                        <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;precision_macro&#39;</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+<span class="gp">... </span>                        <span class="n">return_estimator</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">sorted</span><span class="p">(</span><span class="n">scores</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="go">[&#39;estimator&#39;, &#39;fit_time&#39;, &#39;score_time&#39;, &#39;test_score&#39;]</span>
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3><span class="section-number">3.1.1.2. </span>الحصول على التنبؤات عن طريق التحقق المتبادل<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>تحتوي الدالة <a class="reference internal" href="generated/sklearn.model_selection.cross_val_predict.html#sklearn.model_selection.cross_val_predict" title="sklearn.model_selection.cross_val_predict"><code class="xref py py-func docutils literal notranslate"><span class="pre">cross_val_predict</span></code></a> على واجهة مشابهة لـ
+<a class="reference internal" href="generated/sklearn.model_selection.cross_val_score.html#sklearn.model_selection.cross_val_score" title="sklearn.model_selection.cross_val_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">cross_val_score</span></code></a>، ولكنها تُرجع، لكل عنصر في الإدخال،
+التنبؤ الذي تم الحصول عليه لهذا العنصر عندما كان في مجموعة الاختبار. فقط
+يمكن استخدام استراتيجيات التحقق المتبادل التي تعين جميع العناصر إلى مجموعة اختبار مرة واحدة بالضبط
+(خلاف ذلك، يتم طرح استثناء).</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>ملاحظة حول الاستخدام غير المناسب لـ cross_val_predict</p>
+<p>قد تختلف نتيجة <a class="reference internal" href="generated/sklearn.model_selection.cross_val_predict.html#sklearn.model_selection.cross_val_predict" title="sklearn.model_selection.cross_val_predict"><code class="xref py py-func docutils literal notranslate"><span class="pre">cross_val_predict</span></code></a> عن تلك
+تم الحصول عليها باستخدام <a class="reference internal" href="generated/sklearn.model_selection.cross_val_score.html#sklearn.model_selection.cross_val_score" title="sklearn.model_selection.cross_val_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">cross_val_score</span></code></a> حيث يتم تجميع العناصر في
+طرق مختلفة. تأخذ الدالة <a class="reference internal" href="generated/sklearn.model_selection.cross_val_score.html#sklearn.model_selection.cross_val_score" title="sklearn.model_selection.cross_val_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">cross_val_score</span></code></a> متوسطًا
+عبر طيات التحقق المتبادل، بينما <a class="reference internal" href="generated/sklearn.model_selection.cross_val_predict.html#sklearn.model_selection.cross_val_predict" title="sklearn.model_selection.cross_val_predict"><code class="xref py py-func docutils literal notranslate"><span class="pre">cross_val_predict</span></code></a> ببساطة
+ترجع التسميات (أو الاحتمالات) من عدة نماذج مميزة
+غير مميز. وبالتالي، فإن <a class="reference internal" href="generated/sklearn.model_selection.cross_val_predict.html#sklearn.model_selection.cross_val_predict" title="sklearn.model_selection.cross_val_predict"><code class="xref py py-func docutils literal notranslate"><span class="pre">cross_val_predict</span></code></a> ليس مقياسًا مناسبًا
+خطأ التعميم.</p>
+</div>
+<dl class="simple">
+<dt>دالة <a class="reference internal" href="generated/sklearn.model_selection.cross_val_predict.html#sklearn.model_selection.cross_val_predict" title="sklearn.model_selection.cross_val_predict"><code class="xref py py-func docutils literal notranslate"><span class="pre">cross_val_predict</span></code></a> مناسبة لـ:</dt><dd><ul class="simple">
+<li><p>تصور التنبؤات التي تم الحصول عليها من نماذج مختلفة.</p></li>
+<li><p>مزج النماذج: عند استخدام تنبؤات مقدر خاضع للإشراف واحد لـ
+تدريب مقدر آخر في طرق المجموعة.</p></li>
+</ul>
+</dd>
+</dl>
+<p>تم تقديم مكررات التحقق المتبادل المتاحة في ما يلي
+القسم.</p>
+<p class="rubric">أمثلة</p>
+<ul class="simple">
+<li><p><span class="xref std std-ref">sphx_glr_auto_examples_model_selection/plot_roc_crossval.py</span>،</p></li>
+<li><p><span class="xref std std-ref">sphx_glr_auto_examples_feature_selection/plot_rfe_with_cross_validation.py</span>،</p></li>
+<li><p><span class="xref std std-ref">sphx_glr_auto_examples_model_selection/plot_grid_search_digits.py</span>،</p></li>
+<li><p><span class="xref std std-ref">sphx_glr_auto_examples_model_selection/plot_grid_search_text_feature_extraction.py</span>،</p></li>
+<li><p><span class="xref std std-ref">sphx_glr_auto_examples_model_selection/plot_cv_predict.py</span>،</p></li>
+<li><p><span class="xref std std-ref">sphx_glr_auto_examples_model_selection/plot_nested_cross_validation_iris.py</span>.</p></li>
+</ul>
+</section>
+</section>
+<section id="id5">
+<h2><span class="section-number">3.1.2. </span>مكررات التحقق المتبادل<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>تسرد الأقسام التالية الأدوات المساعدة لإنشاء مؤشرات
+التي يمكن استخدامها لإنشاء تقسيمات مجموعة البيانات وفقًا لاختلاف التقاطع
+استراتيجيات التحقق من الصحة.</p>
+<section id="i-i-d">
+<span id="iid-cv"></span><h3><span class="section-number">3.1.2.1. </span>مكررات التحقق المتبادل لبيانات i.i.d.<a class="headerlink" href="#i-i-d" title="Link to this heading">#</a></h3>
+<p>بافتراض أن بعض البيانات مستقلة وموزعة بشكل متماثل (i.i.d.) هو
+الافتراض بأن جميع العينات تنبع من نفس عملية التوليد
+ويفترض أن عملية التوليد ليس لها ذاكرة للعينات التي تم إنشاؤها في الماضي.</p>
+<p>يمكن استخدام أدوات التحقق المتبادل التالية في مثل هذه الحالات.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>بينما تعد بيانات i.i.d. افتراضًا شائعًا في نظرية التعلم الآلي، إلا أنها نادرًا ما تحدث
+يصمد في الممارسة. إذا كان المرء يعرف أن العينات قد تم إنشاؤها باستخدام
+عملية تعتمد على الوقت، فمن الآمن
+استخدم <a class="reference internal" href="#timeseries-cv"><span class="std std-ref">مخطط التحقق المتبادل للسلاسل الزمنية</span></a>.
+وبالمثل، إذا كنا نعلم أن عملية التوليد لها بنية جماعية
+(عينات تم جمعها من مواضيع مختلفة، تجارب، قياس
+الأجهزة)، فمن الآمن استخدام <a class="reference internal" href="#group-cv"><span class="std std-ref">التحقق المتبادل على مستوى المجموعة</span></a>.</p>
+</div>
+<section id="k-fold">
+<span id="id6"></span><h4><span class="section-number">3.1.2.1.1. </span>K-fold<a class="headerlink" href="#k-fold" title="Link to this heading">#</a></h4>
+<p>يقسم <a class="reference internal" href="generated/sklearn.model_selection.KFold.html#sklearn.model_selection.KFold" title="sklearn.model_selection.KFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">KFold</span></code></a> جميع العينات في <span class="math notranslate nohighlight">\(k\)</span> مجموعات من العينات،
+تسمى الطيات (إذا كان <span class="math notranslate nohighlight">\(k = n\)</span>، فهذا يعادل <em>Leave One
+Out</em>  استراتيجية)، من أحجام متساوية (إن أمكن). وظيفة التنبؤ هي
+تم تعلمه باستخدام <span class="math notranslate nohighlight">\(k - 1\)</span> طيات، ويتم استخدام الطية المتروكة للاختبار.</p>
+<p>مثال على التحقق المتبادل من 2-fold على مجموعة بيانات تحتوي على 4 عينات:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">kf</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">kf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">))</span>
+<span class="go">[2 3] [0 1]</span>
+<span class="go">[0 1] [2 3]</span>
+</pre></div>
+</div>
+<p>فيما يلي تصور لسلوك التحقق المتبادل. لاحظ أن
+<a class="reference internal" href="generated/sklearn.model_selection.KFold.html#sklearn.model_selection.KFold" title="sklearn.model_selection.KFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">KFold</span></code></a> لا يتأثر بالفئات أو المجموعات.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/model_selection/plot_cv_indices.html"><img alt="../_images/sphx_glr_plot_cv_indices_006.png" src="../_images/sphx_glr_plot_cv_indices_006.png" style="width: 450.0px; height: 225.0px;" />
+</a>
+</figure>
+<p>تتكون كل طية من مصفوفتين: الأولى مرتبطة بـ
+<em>مجموعة التدريب</em>، والثانية إلى <em>مجموعة الاختبار</em>.
+وبالتالي، يمكن للمرء إنشاء مجموعات التدريب / الاختبار باستخدام فهرسة numpy:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">train</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">test</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">train</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">test</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="repeated-k-fold">
+<span id="id7"></span><h4><span class="section-number">3.1.2.1.2. </span>Repeated K-Fold<a class="headerlink" href="#repeated-k-fold" title="Link to this heading">#</a></h4>
+<p><a class="reference internal" href="generated/sklearn.model_selection.RepeatedKFold.html#sklearn.model_selection.RepeatedKFold" title="sklearn.model_selection.RepeatedKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">RepeatedKFold</span></code></a> يكرر K-Fold n مرات. يمكن استخدامه عندما يكون المرء
+يتطلب تشغيل <a class="reference internal" href="generated/sklearn.model_selection.KFold.html#sklearn.model_selection.KFold" title="sklearn.model_selection.KFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">KFold</span></code></a> n مرات، مما ينتج عنه انقسامات مختلفة في
+كل تكرار.</p>
+<p>مثال على 2-fold K-Fold تم تكراره مرتين:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">RepeatedKFold</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">random_state</span> <span class="o">=</span> <span class="mi">12883823</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rkf</span> <span class="o">=</span> <span class="n">RepeatedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_repeats</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">rkf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">))</span>
+<span class="gp">...</span>
+<span class="go">[2 3] [0 1]</span>
+<span class="go">[0 1] [2 3]</span>
+<span class="go">[0 2] [1 3]</span>
+<span class="go">[1 3] [0 2]</span>
+</pre></div>
+</div>
+<p>وبالمثل، يكرر <a class="reference internal" href="generated/sklearn.model_selection.RepeatedStratifiedKFold.html#sklearn.model_selection.RepeatedStratifiedKFold" title="sklearn.model_selection.RepeatedStratifiedKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">RepeatedStratifiedKFold</span></code></a> Stratified K-Fold n مرات
+مع عشوائية مختلفة في كل تكرار.</p>
+</section>
+<section id="leave-one-out-loo">
+<span id="leave-one-out"></span><h4><span class="section-number">3.1.2.1.3. </span>Leave One Out (LOO)<a class="headerlink" href="#leave-one-out-loo" title="Link to this heading">#</a></h4>
+<p><a class="reference internal" href="generated/sklearn.model_selection.LeaveOneOut.html#sklearn.model_selection.LeaveOneOut" title="sklearn.model_selection.LeaveOneOut"><code class="xref py py-class docutils literal notranslate"><span class="pre">LeaveOneOut</span></code></a> (أو LOO) هو تحقق متبادل بسيط. كل تعلم
+يتم إنشاء المجموعة عن طريق أخذ جميع العينات باستثناء واحدة، ومجموعة الاختبار هي
+العينة المتروكة. وبالتالي، لـ <span class="math notranslate nohighlight">\(n\)</span> عينات، لدينا <span class="math notranslate nohighlight">\(n\)</span> مختلف
+مجموعات التدريب و <span class="math notranslate nohighlight">\(n\)</span> مجموعة اختبارات مختلفة. هذا الصليب-
+لا يهدر إجراء التحقق من الصحة الكثير من البيانات حيث تتم إزالة عينة واحدة فقط من
+مجموعة التدريب:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">LeaveOneOut</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">loo</span> <span class="o">=</span> <span class="n">LeaveOneOut</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">loo</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">))</span>
+<span class="go">[1 2 3] [0]</span>
+<span class="go">[0 2 3] [1]</span>
+<span class="go">[0 1 3] [2]</span>
+<span class="go">[0 1 2] [3]</span>
+</pre></div>
+</div>
+<p>يجب على المستخدمين المحتملين لـ LOO لاختيار النموذج أن يزنوا بعض المحاذير المعروفة.
+عند مقارنتها بالتحقق المتبادل <span class="math notranslate nohighlight">\(k\)</span>-fold، يبني المرء <span class="math notranslate nohighlight">\(n\)</span> نماذج
+من <span class="math notranslate nohighlight">\(n\)</span> عينات بدلاً من <span class="math notranslate nohighlight">\(k\)</span> نماذج، حيث <span class="math notranslate nohighlight">\(n &gt; k\)</span>.
+علاوة على ذلك، يتم تدريب كل منها على <span class="math notranslate nohighlight">\(n - 1\)</span> عينات بدلاً من
+<span class="math notranslate nohighlight">\((k-1) n / k\)</span>. في كلتا الحالتين، بافتراض أن <span class="math notranslate nohighlight">\(k\)</span> ليست كبيرة جدًا
+و <span class="math notranslate nohighlight">\(k &lt; n\)</span>، فإن LOO أكثر تكلفة من الناحية الحسابية من التحقق المتبادل <span class="math notranslate nohighlight">\(k\)</span>-fold.</p>
+<p>من حيث الدقة، غالبًا ما ينتج عن LOO تباين كبير كمقدر لـ
+خطأ الاختبار. بشكل حدسي، منذ <span class="math notranslate nohighlight">\(n - 1\)</span> من
+يتم استخدام <span class="math notranslate nohighlight">\(n\)</span> عينات لبناء كل نموذج، النماذج التي تم إنشاؤها من
+الطيات متطابقة تقريبًا مع بعضها البعض ومع النموذج المبني من
+مجموعة التدريب بأكملها.</p>
+<p>ومع ذلك، إذا كان منحنى التعلم حادًا لحجم التدريب المعني،
+ثم يمكن أن يؤدي التحقق المتبادل من 5 أو 10 طيات إلى المبالغة في تقدير خطأ التعميم.</p>
+<p>كقاعدة عامة، يقترح معظم المؤلفين، والأدلة التجريبية، أن 5 أو 10
+يجب تفضيل التحقق المتبادل للطي على LOO.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="المراجع">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">المراجع<a class="headerlink" href="#المراجع" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<ul class="simple">
+<li><p class="sd-card-text"><a class="reference external" href="http://www.faqs.org/faqs/ai-faq/neural-nets/part3/section-12.html">http://www.faqs.org/faqs/ai-faq/neural-nets/part3/section-12.html</a>؛</p></li>
+<li><p class="sd-card-text">T. Hastie، R. Tibshirani، J. Friedman،  <a class="reference external" href="https://web.stanford.edu/~hastie/ElemStatLearn/">The Elements of Statistical Learning</a>، Springer 2009</p></li>
+<li><p class="sd-card-text">L. Breiman، P. Spector <a class="reference external" href="https://digitalassets.lib.berkeley.edu/sdtr/ucb/text/197.pdf">Submodel selection and evaluation in regression: The X-random case</a>، International Statistical Review 1992؛</p></li>
+<li><p class="sd-card-text">R. Kohavi، <a class="reference external" href="https://www.ijcai.org/Proceedings/95-2/Papers/016.pdf">A Study of Cross-Validation and Bootstrap for Accuracy Estimation and Model Selection</a>، Intl. Jnt. Conf. AI</p></li>
+<li><p class="sd-card-text">R. Bharat Rao، G. Fung، R. Rosales، <a class="reference external" href="https://people.csail.mit.edu/romer/papers/CrossVal_SDM08.pdf">On the Dangers of Cross-Validation. An Experimental Evaluation</a>، SIAM 2008؛</p></li>
+<li><p class="sd-card-text">G. James، D. Witten، T. Hastie، R Tibshirani، <a class="reference external" href="https://www.statlearning.com">An Introduction to
+Statistical Learning</a>، Springer 2013.</p></li>
+</ul>
+</div>
+</details></section>
+<section id="leave-p-out-lpo">
+<span id="leave-p-out"></span><h4><span class="section-number">3.1.2.1.4. </span>Leave P Out (LPO)<a class="headerlink" href="#leave-p-out-lpo" title="Link to this heading">#</a></h4>
+<p><a class="reference internal" href="generated/sklearn.model_selection.LeavePOut.html#sklearn.model_selection.LeavePOut" title="sklearn.model_selection.LeavePOut"><code class="xref py py-class docutils literal notranslate"><span class="pre">LeavePOut</span></code></a> يشبه جدًا <a class="reference internal" href="generated/sklearn.model_selection.LeaveOneOut.html#sklearn.model_selection.LeaveOneOut" title="sklearn.model_selection.LeaveOneOut"><code class="xref py py-class docutils literal notranslate"><span class="pre">LeaveOneOut</span></code></a> لأنه ينشئ كل
+أزواج التدريب / الاختبار الممكنة عن طريق إزالة <span class="math notranslate nohighlight">\(p\)</span> عينات من الكاملة
+جلس. لـ <span class="math notranslate nohighlight">\(n\)</span> عينات، ينتج عن هذا <span class="math notranslate nohighlight">\({n \choose p}\)</span> قطار-اختبار
+أزواج. على عكس <a class="reference internal" href="generated/sklearn.model_selection.LeaveOneOut.html#sklearn.model_selection.LeaveOneOut" title="sklearn.model_selection.LeaveOneOut"><code class="xref py py-class docutils literal notranslate"><span class="pre">LeaveOneOut</span></code></a> و <a class="reference internal" href="generated/sklearn.model_selection.KFold.html#sklearn.model_selection.KFold" title="sklearn.model_selection.KFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">KFold</span></code></a>، مجموعات الاختبار ستكون
+تتداخل لـ <span class="math notranslate nohighlight">\(p &gt; 1\)</span>.</p>
+<p>مثال على Leave-2-Out على مجموعة بيانات تحتوي على 4 عينات:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">LeavePOut</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lpo</span> <span class="o">=</span> <span class="n">LeavePOut</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">lpo</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">))</span>
+<span class="go">[2 3] [0 1]</span>
+<span class="go">[1 3] [0 2]</span>
+<span class="go">[1 2] [0 3]</span>
+<span class="go">[0 3] [1 2]</span>
+<span class="go">[0 2] [1 3]</span>
+<span class="go">[0 1] [2 3]</span>
+</pre></div>
+</div>
+</section>
+<section id="shuffle-split">
+<span id="shufflesplit"></span><h4><span class="section-number">3.1.2.1.5. </span>تباديل عشوائية للتحقق المتبادل المعروف أيضًا باسم Shuffle &amp; Split<a class="headerlink" href="#shuffle-split" title="Link to this heading">#</a></h4>
+<p>سيولد مكرر <a class="reference internal" href="generated/sklearn.model_selection.ShuffleSplit.html#sklearn.model_selection.ShuffleSplit" title="sklearn.model_selection.ShuffleSplit"><code class="xref py py-class docutils literal notranslate"><span class="pre">ShuffleSplit</span></code></a> عددًا محددًا من قبل المستخدم
+انقسامات مجموعة بيانات التدريب / الاختبار المستقلة. يتم خلط العينات أولاً و
+ثم تقسم إلى زوج من مجموعات التدريب والاختبار.</p>
+<p>من الممكن التحكم في العشوائية لإعادة إنتاج
+النتائج عن طريق زرع <code class="docutils literal notranslate"><span class="pre">random_state</span></code> بشكل صريح عشوائي زائف
+مولد الأرقام.</p>
+<p>فيما يلي مثال على الاستخدام:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">ShuffleSplit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ss</span> <span class="o">=</span> <span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">train_index</span><span class="p">,</span> <span class="n">test_index</span> <span class="ow">in</span> <span class="n">ss</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">train_index</span><span class="p">,</span> <span class="n">test_index</span><span class="p">))</span>
+<span class="go">[9 1 6 7 3 0 5] [2 8 4]</span>
+<span class="go">[2 9 8 0 6 7 4] [3 5 1]</span>
+<span class="go">[4 5 1 0 6 9 7] [2 3 8]</span>
+<span class="go">[2 7 5 8 0 3 4] [6 1 9]</span>
+<span class="go">[4 1 0 6 8 9 3] [5 2 7]</span>
+</pre></div>
+</div>
+<p>فيما يلي تصور لسلوك التحقق المتبادل. لاحظ أن
+<a class="reference internal" href="generated/sklearn.model_selection.ShuffleSplit.html#sklearn.model_selection.ShuffleSplit" title="sklearn.model_selection.ShuffleSplit"><code class="xref py py-class docutils literal notranslate"><span class="pre">ShuffleSplit</span></code></a> لا يتأثر بالفئات أو المجموعات.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/model_selection/plot_cv_indices.html"><img alt="../_images/sphx_glr_plot_cv_indices_008.png" src="../_images/sphx_glr_plot_cv_indices_008.png" style="width: 450.0px; height: 225.0px;" />
+</a>
+</figure>
+<p><a class="reference internal" href="generated/sklearn.model_selection.ShuffleSplit.html#sklearn.model_selection.ShuffleSplit" title="sklearn.model_selection.ShuffleSplit"><code class="xref py py-class docutils literal notranslate"><span class="pre">ShuffleSplit</span></code></a> هو بالتالي بديل جيد لـ <a class="reference internal" href="generated/sklearn.model_selection.KFold.html#sklearn.model_selection.KFold" title="sklearn.model_selection.KFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">KFold</span></code></a> التقاطع
+التحقق من الصحة الذي يسمح بالتحكم الدقيق في عدد التكرارات
+ونسبة العينات على كل جانب من جوانب تقسيم القطار / الاختبار.</p>
+</section>
+</section>
+<section id="stratification">
+<span id="id8"></span><h3><span class="section-number">3.1.2.2. </span>مكررات التحقق المتبادل مع التقسيم الطبقي بناءً على تسميات الفئة<a class="headerlink" href="#stratification" title="Link to this heading">#</a></h3>
+<p>يمكن أن تُظهر بعض مشكلات التصنيف خللًا كبيرًا في التوزيع
+من فئات الهدف: على سبيل المثال، يمكن أن يكون هناك عدة مرات سلبية
+عينات من العينات الإيجابية. في مثل هذه الحالات، يوصى باستخدام
+أخذ العينات الطبقية كما هو مطبق في <a class="reference internal" href="generated/sklearn.model_selection.StratifiedKFold.html#sklearn.model_selection.StratifiedKFold" title="sklearn.model_selection.StratifiedKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">StratifiedKFold</span></code></a> و
+<a class="reference internal" href="generated/sklearn.model_selection.StratifiedShuffleSplit.html#sklearn.model_selection.StratifiedShuffleSplit" title="sklearn.model_selection.StratifiedShuffleSplit"><code class="xref py py-class docutils literal notranslate"><span class="pre">StratifiedShuffleSplit</span></code></a> لضمان أن ترددات الفئة النسبية هي
+يتم الحفاظ عليها تقريبًا في كل طية تدريب والتحقق من الصحة.</p>
+<section id="stratified-k-fold">
+<span id="id9"></span><h4><span class="section-number">3.1.2.2.1. </span>k-fold الطبقي<a class="headerlink" href="#stratified-k-fold" title="Link to this heading">#</a></h4>
+<p><a class="reference internal" href="generated/sklearn.model_selection.StratifiedKFold.html#sklearn.model_selection.StratifiedKFold" title="sklearn.model_selection.StratifiedKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">StratifiedKFold</span></code></a> هو نوع مختلف من <em>k-fold</em> الذي يُرجع <em>طبقات</em>
+الطيات: تحتوي كل مجموعة على نفس النسبة المئوية تقريبًا من عينات كل منها
+فئة الهدف كمجموعة كاملة.</p>
+<p>فيما يلي مثال على التحقق المتبادل الطبقي من 3 طيات على مجموعة بيانات تحتوي على 50 عينة من
+فئتين غير متوازنتين. نعرض عدد العينات في كل فئة ونقارنها بـ
+<a class="reference internal" href="generated/sklearn.model_selection.KFold.html#sklearn.model_selection.KFold" title="sklearn.model_selection.KFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">KFold</span></code></a>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">StratifiedKFold</span><span class="p">,</span> <span class="n">KFold</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(([</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">45</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">skf</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">skf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;train -  </span><span class="si">{}</span><span class="s1">   |   test -  </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">train</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">test</span><span class="p">])))</span>
+<span class="go">train -  [30  3]   |   test -  [15  2]</span>
+<span class="go">train -  [30  3]   |   test -  [15  2]</span>
+<span class="go">train -  [30  4]   |   test -  [15  1]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">kf</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">kf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;train -  </span><span class="si">{}</span><span class="s1">   |   test -  </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">train</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">test</span><span class="p">])))</span>
+<span class="go">train -  [28  5]   |   test -  [17]</span>
+<span class="go">train -  [28  5]   |   test -  [17]</span>
+<span class="go">train -  [34]   |   test -  [11  5]</span>
+</pre></div>
+</div>
+<p>يمكننا أن نرى أن <a class="reference internal" href="generated/sklearn.model_selection.StratifiedKFold.html#sklearn.model_selection.StratifiedKFold" title="sklearn.model_selection.StratifiedKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">StratifiedKFold</span></code></a> يحافظ على نسب الفئة
+(حوالي 1/10) في كل من مجموعة بيانات التدريب والاختبار.</p>
+<p>فيما يلي تصور لسلوك التحقق المتبادل.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/model_selection/plot_cv_indices.html"><img alt="../_images/sphx_glr_plot_cv_indices_009.png" src="../_images/sphx_glr_plot_cv_indices_009.png" style="width: 450.0px; height: 225.0px;" />
+</a>
+</figure>
+<p>يمكن استخدام <a class="reference internal" href="generated/sklearn.model_selection.RepeatedStratifiedKFold.html#sklearn.model_selection.RepeatedStratifiedKFold" title="sklearn.model_selection.RepeatedStratifiedKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">RepeatedStratifiedKFold</span></code></a> لتكرار Stratified K-Fold n مرات
+مع عشوائية مختلفة في كل تكرار.</p>
+</section>
+<section id="stratified-shuffle-split">
+<span id="id10"></span><h4><span class="section-number">3.1.2.2.2. </span>تقسيم خلط طبقي<a class="headerlink" href="#stratified-shuffle-split" title="Link to this heading">#</a></h4>
+<p><a class="reference internal" href="generated/sklearn.model_selection.StratifiedShuffleSplit.html#sklearn.model_selection.StratifiedShuffleSplit" title="sklearn.model_selection.StratifiedShuffleSplit"><code class="xref py py-class docutils literal notranslate"><span class="pre">StratifiedShuffleSplit</span></code></a> هو نوع مختلف من <em>ShuffleSplit</em>، والذي يُرجع
+انقسامات طبقية، <em>على سبيل المثال</em> التي تنشئ انقسامات عن طريق الحفاظ على نفس الشيء
+النسبة المئوية لكل فئة هدف كما في المجموعة الكاملة.</p>
+<p>فيما يلي تصور لسلوك التحقق المتبادل.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/model_selection/plot_cv_indices.html"><img alt="../_images/sphx_glr_plot_cv_indices_012.png" src="../_images/sphx_glr_plot_cv_indices_012.png" style="width: 450.0px; height: 225.0px;" />
+</a>
+</figure>
+</section>
+</section>
+<section id="predefined-split">
+<span id="id11"></span><h3><span class="section-number">3.1.2.3. </span>تقسيمات الطيات / مجموعات التحقق من الصحة المحددة مسبقًا<a class="headerlink" href="#predefined-split" title="Link to this heading">#</a></h3>
+<p>بالنسبة لبعض مجموعات البيانات، يكون التقسيم المحدد مسبقًا للبيانات إلى تدريب-
+وطية التحقق من الصحة أو في عدة طيات للتحقق المتبادل بالفعل
+موجود. باستخدام <a class="reference internal" href="generated/sklearn.model_selection.PredefinedSplit.html#sklearn.model_selection.PredefinedSplit" title="sklearn.model_selection.PredefinedSplit"><code class="xref py py-class docutils literal notranslate"><span class="pre">PredefinedSplit</span></code></a> من الممكن استخدام هذه الطيات
+على سبيل المثال عند البحث عن المعلمات الفائقة.</p>
+<p>على سبيل المثال، عند استخدام مجموعة التحقق من الصحة، قم بتعيين <code class="docutils literal notranslate"><span class="pre">test_fold</span></code> على 0 للجميع
+العينات التي هي جزء من مجموعة التحقق من الصحة، وإلى -1 لجميع العينات الأخرى.</p>
+</section>
+<section id="group-cv">
+<span id="id12"></span><h3><span class="section-number">3.1.2.4. </span>مكررات التحقق المتبادل للبيانات المجمعة<a class="headerlink" href="#group-cv" title="Link to this heading">#</a></h3>
+<p>يتم كسر افتراض i.i.d. إذا كانت عملية التوليد الأساسية تنتج
+مجموعات من العينات التابعة.</p>
+<p>مثل هذا التجميع للبيانات خاص بالمجال. سيكون أحد الأمثلة عندما يكون هناك
+البيانات الطبية التي تم جمعها من مرضى متعددين، مع أخذ عينات متعددة منكل مريض. ومن المرجح أن تعتمد هذه البيانات على المجموعة الفردية.
+في مثالنا، سيكون معرف المريض لكل عينة هو معرف مجموعته.</p>
+<p>في هذه الحالة، نود أن نعرف ما إذا كان النموذج المدرب على مجموعة معينة من
+المجموعات تعمم بشكل جيد على المجموعات غير المرئية. لقياس هذا، نحن بحاجة إلى
+تأكد من أن جميع العينات في طية التحقق من الصحة تأتي من مجموعات
+غير ممثلة على الإطلاق في طية التدريب المقترنة.</p>
+<p>يمكن استخدام أدوات تقسيم التحقق المتبادل التالية للقيام بذلك.
+يتم تحديد معرف التجميع للعينات عبر <code class="docutils literal notranslate"><span class="pre">groups</span></code>
+معامل.</p>
+<section id="group-k-fold">
+<span id="id13"></span><h4><span class="section-number">3.1.2.4.1. </span>Group k-fold<a class="headerlink" href="#group-k-fold" title="Link to this heading">#</a></h4>
+<p><a class="reference internal" href="generated/sklearn.model_selection.GroupKFold.html#sklearn.model_selection.GroupKFold" title="sklearn.model_selection.GroupKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroupKFold</span></code></a> هو نوع مختلف من k-fold يضمن أن نفس المجموعة هي
+غير ممثلة في كل من مجموعات الاختبار والتدريب. على سبيل المثال، إذا كانت البيانات
+تم الحصول عليها من مواضيع مختلفة مع عدة عينات لكل موضوع وإذا
+النموذج مرن بما يكفي للتعلم من ميزات محددة للغاية للشخص
+يمكن أن تفشل في التعميم على مواضيع جديدة. <a class="reference internal" href="generated/sklearn.model_selection.GroupKFold.html#sklearn.model_selection.GroupKFold" title="sklearn.model_selection.GroupKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroupKFold</span></code></a> يجعل من الممكن
+لاكتشاف هذا النوع من حالات الإفراط في التجهيز.</p>
+<p>تخيل أن لديك ثلاثة مواضيع، لكل منها رقم مرتبط من 1 إلى 3:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GroupKFold</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">,</span> <span class="mf">2.4</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">,</span> <span class="mf">4.55</span><span class="p">,</span> <span class="mf">5.8</span><span class="p">,</span> <span class="mf">8.8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">groups</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gkf</span> <span class="o">=</span> <span class="n">GroupKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">gkf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="n">groups</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">))</span>
+<span class="go">[0 1 2 3 4 5] [6 7 8 9]</span>
+<span class="go">[0 1 2 6 7 8 9] [3 4 5]</span>
+<span class="go">[3 4 5 6 7 8 9] [0 1 2]</span>
+</pre></div>
+</div>
+<p>كل موضوع في طية اختبار مختلفة، ونفس الموضوع ليس أبدًا في
+كل من الاختبار والتدريب. لاحظ أن الطيات ليس لها نفس الشيء بالضبط
+الحجم بسبب عدم التوازن في البيانات. إذا كان يجب موازنة نسب الفئة
+عبر الطيات، <a class="reference internal" href="generated/sklearn.model_selection.StratifiedGroupKFold.html#sklearn.model_selection.StratifiedGroupKFold" title="sklearn.model_selection.StratifiedGroupKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">StratifiedGroupKFold</span></code></a> هو خيار أفضل.</p>
+<p>فيما يلي تصور لسلوك التحقق المتبادل.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/model_selection/plot_cv_indices.html"><img alt="../_images/sphx_glr_plot_cv_indices_007.png" src="../_images/sphx_glr_plot_cv_indices_007.png" style="width: 450.0px; height: 225.0px;" />
+</a>
+</figure>
+<p>على غرار <a class="reference internal" href="generated/sklearn.model_selection.KFold.html#sklearn.model_selection.KFold" title="sklearn.model_selection.KFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">KFold</span></code></a>، ستشكل مجموعات الاختبار من <a class="reference internal" href="generated/sklearn.model_selection.GroupKFold.html#sklearn.model_selection.GroupKFold" title="sklearn.model_selection.GroupKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroupKFold</span></code></a> a
+تقسيم كامل لجميع البيانات. على عكس <a class="reference internal" href="generated/sklearn.model_selection.KFold.html#sklearn.model_selection.KFold" title="sklearn.model_selection.KFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">KFold</span></code></a>، <a class="reference internal" href="generated/sklearn.model_selection.GroupKFold.html#sklearn.model_selection.GroupKFold" title="sklearn.model_selection.GroupKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroupKFold</span></code></a>
+غير عشوائي على الإطلاق، بينما يكون <a class="reference internal" href="generated/sklearn.model_selection.KFold.html#sklearn.model_selection.KFold" title="sklearn.model_selection.KFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">KFold</span></code></a> عشوائيًا عندما
+<code class="docutils literal notranslate"><span class="pre">shuffle=True</span></code>.</p>
+</section>
+<section id="stratifiedgroupkfold">
+<span id="stratified-group-k-fold"></span><h4><span class="section-number">3.1.2.4.2. </span>StratifiedGroupKFold<a class="headerlink" href="#stratifiedgroupkfold" title="Link to this heading">#</a></h4>
+<p><a class="reference internal" href="generated/sklearn.model_selection.StratifiedGroupKFold.html#sklearn.model_selection.StratifiedGroupKFold" title="sklearn.model_selection.StratifiedGroupKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">StratifiedGroupKFold</span></code></a> هو مخطط تحقق متبادل يجمع بين كليهما
+<a class="reference internal" href="generated/sklearn.model_selection.StratifiedKFold.html#sklearn.model_selection.StratifiedKFold" title="sklearn.model_selection.StratifiedKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">StratifiedKFold</span></code></a> و <a class="reference internal" href="generated/sklearn.model_selection.GroupKFold.html#sklearn.model_selection.GroupKFold" title="sklearn.model_selection.GroupKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroupKFold</span></code></a>. الفكرة هي محاولة
+الحفاظ على توزيع الفئات في كل تقسيم مع الحفاظ على كل مجموعة
+ضمن تقسيم واحد. قد يكون ذلك مفيدًا عندما يكون لديك غير متوازن
+مجموعة بيانات بحيث يؤدي استخدام <a class="reference internal" href="generated/sklearn.model_selection.GroupKFold.html#sklearn.model_selection.GroupKFold" title="sklearn.model_selection.GroupKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroupKFold</span></code></a> فقط إلى إنتاج انقسامات منحرفة.</p>
+<p>مثال:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">StratifiedGroupKFold</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">18</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">12</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">groups</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sgkf</span> <span class="o">=</span> <span class="n">StratifiedGroupKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">sgkf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="n">groups</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">))</span>
+<span class="go">[ 0  2  3  4  5  6  7 10 11 15 16 17] [ 1  8  9 12 13 14]</span>
+<span class="go">[ 0  1  4  5  6  7  8  9 11 12 13 14] [ 2  3 10 15 16 17]</span>
+<span class="go">[ 1  2  3  8  9 10 12 13 14 15 16 17] [ 0  4  5  6  7 11]</span>
+</pre></div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="ملاحظات-التنفيذ">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">ملاحظات التنفيذ<a class="headerlink" href="#ملاحظات-التنفيذ" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<ul>
+<li><p class="sd-card-text">مع التنفيذ الحالي، لا يمكن إجراء خلط كامل في معظم
+السيناريوهات. عندما shuffle=True، يحدث ما يلي:</p>
+<ol class="arabic simple">
+<li><p class="sd-card-text">يتم خلط جميع المجموعات.</p></li>
+<li><p class="sd-card-text">يتم فرز المجموعات حسب الانحراف المعياري للفئات باستخدام الفرز المستقر.</p></li>
+<li><p class="sd-card-text">يتم تكرار المجموعات التي تم فرزها وتعيينها إلى طيات.</p></li>
+</ol>
+<p class="sd-card-text">هذا يعني أنه سيتم خلط المجموعات ذات الانحراف المعياري نفسه لتوزيع الفئة فقط، مما قد يكون مفيدًا عندما تحتوي كل مجموعة على
+فئة واحدة فقط.</p>
+</li>
+<li><p class="sd-card-text">تقوم الخوارزمية بتعيين كل مجموعة بشكل جشع إلى إحدى مجموعات اختبار n_splits،
+اختيار مجموعة الاختبار التي تقلل من التباين في توزيع الفئة
+عبر مجموعات الاختبار. يبدأ تعيين المجموعة من المجموعات ذات أعلى إلى
+أدنى تباين في تكرار الفئة، أي مجموعات كبيرة بلغت ذروتها في واحد أو قليل
+يتم تعيين الفئات أولاً.</p></li>
+<li><p class="sd-card-text">هذا التقسيم دون المستوى الأمثل بمعنى أنه قد ينتج عنه انقسامات غير متوازنة
+حتى لو كان التقسيم الطبقي المثالي ممكنًا. إذا كان لديك قريب نسبيًا
+توزيع الفئات في كل مجموعة، فإن استخدام <a class="reference internal" href="generated/sklearn.model_selection.GroupKFold.html#sklearn.model_selection.GroupKFold" title="sklearn.model_selection.GroupKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroupKFold</span></code></a> أفضل.</p></li>
+</ul>
+</div>
+</details><p>فيما يلي تصور لسلوك التحقق المتبادل للمجموعات غير المتساوية:</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/model_selection/plot_cv_indices.html"><img alt="../_images/sphx_glr_plot_cv_indices_005.png" src="../_images/sphx_glr_plot_cv_indices_005.png" style="width: 450.0px; height: 225.0px;" />
+</a>
+</figure>
+</section>
+<section id="leave-one-group-out">
+<span id="id14"></span><h4><span class="section-number">3.1.2.4.3. </span>Leave One Group Out<a class="headerlink" href="#leave-one-group-out" title="Link to this heading">#</a></h4>
+<p><a class="reference internal" href="generated/sklearn.model_selection.LeaveOneGroupOut.html#sklearn.model_selection.LeaveOneGroupOut" title="sklearn.model_selection.LeaveOneGroupOut"><code class="xref py py-class docutils literal notranslate"><span class="pre">LeaveOneGroupOut</span></code></a> هو مخطط للتحقق المتبادل حيث يحتفظ كل تقسيم
+العينات التي تنتمي إلى مجموعة معينة. معلومات المجموعة هي
+يتم توفيره من خلال مصفوفة تقوم بترميز مجموعة كل عينة.</p>
+<p>وبالتالي، تتكون كل مجموعة تدريب من جميع العينات باستثناء تلك
+المتعلقة بمجموعة محددة. هذا هو نفسه <a class="reference internal" href="generated/sklearn.model_selection.LeavePGroupsOut.html#sklearn.model_selection.LeavePGroupsOut" title="sklearn.model_selection.LeavePGroupsOut"><code class="xref py py-class docutils literal notranslate"><span class="pre">LeavePGroupsOut</span></code></a> مع
+<code class="docutils literal notranslate"><span class="pre">n_groups=1</span></code> وهو نفس <a class="reference internal" href="generated/sklearn.model_selection.GroupKFold.html#sklearn.model_selection.GroupKFold" title="sklearn.model_selection.GroupKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroupKFold</span></code></a> مع <code class="docutils literal notranslate"><span class="pre">n_splits</span></code> يساوي
+عدد التسميات الفريدة التي تم تمريرها إلى معلمة <code class="docutils literal notranslate"><span class="pre">groups</span></code>.</p>
+<p>على سبيل المثال، في حالات التجارب المتعددة، <a class="reference internal" href="generated/sklearn.model_selection.LeaveOneGroupOut.html#sklearn.model_selection.LeaveOneGroupOut" title="sklearn.model_selection.LeaveOneGroupOut"><code class="xref py py-class docutils literal notranslate"><span class="pre">LeaveOneGroupOut</span></code></a>
+يمكن استخدامها لإنشاء تحقق متبادل بناءً على التجارب المختلفة:
+نقوم بإنشاء مجموعة تدريب باستخدام عينات جميع التجارب باستثناء واحدة:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">LeaveOneGroupOut</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">80</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">groups</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">logo</span> <span class="o">=</span> <span class="n">LeaveOneGroupOut</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">logo</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="n">groups</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">))</span>
+<span class="go">[2 3 4 5 6] [0 1]</span>
+<span class="go">[0 1 4 5 6] [2 3]</span>
+<span class="go">[0 1 2 3] [4 5 6]</span>
+</pre></div>
+</div>
+<p>تطبيق شائع آخر هو استخدام معلومات الوقت: على سبيل المثال
+يمكن أن تكون المجموعات هي سنة جمع العينات وبالتالي تسمح
+للتحقق المتبادل مقابل الانقسامات القائمة على الوقت.</p>
+</section>
+<section id="leave-p-groups-out">
+<span id="id15"></span><h4><span class="section-number">3.1.2.4.4. </span>Leave P Groups Out<a class="headerlink" href="#leave-p-groups-out" title="Link to this heading">#</a></h4>
+<p><a class="reference internal" href="generated/sklearn.model_selection.LeavePGroupsOut.html#sklearn.model_selection.LeavePGroupsOut" title="sklearn.model_selection.LeavePGroupsOut"><code class="xref py py-class docutils literal notranslate"><span class="pre">LeavePGroupsOut</span></code></a> مشابه لـ <a class="reference internal" href="generated/sklearn.model_selection.LeaveOneGroupOut.html#sklearn.model_selection.LeaveOneGroupOut" title="sklearn.model_selection.LeaveOneGroupOut"><code class="xref py py-class docutils literal notranslate"><span class="pre">LeaveOneGroupOut</span></code></a>، لكنه يزيل
+عينات متعلقة بـ <span class="math notranslate nohighlight">\(P\)</span> مجموعات لكل مجموعة تدريب / اختبار. كل ما هو ممكن
+يتم استبعاد مجموعات <span class="math notranslate nohighlight">\(P\)</span>، مما يعني أن مجموعات الاختبار ستتداخل
+لـ <span class="math notranslate nohighlight">\(P&gt;1\)</span>.</p>
+<p>مثال على Leave-2-Group Out:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">LeavePGroupsOut</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">groups</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lpgo</span> <span class="o">=</span> <span class="n">LeavePGroupsOut</span><span class="p">(</span><span class="n">n_groups</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">lpgo</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="n">groups</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">))</span>
+<span class="go">[4 5] [0 1 2 3]</span>
+<span class="go">[2 3] [0 1 4 5]</span>
+<span class="go">[0 1] [2 3 4 5]</span>
+</pre></div>
+</div>
+</section>
+<section id="group-shuffle-split">
+<span id="id16"></span><h4><span class="section-number">3.1.2.4.5. </span>Group Shuffle Split<a class="headerlink" href="#group-shuffle-split" title="Link to this heading">#</a></h4>
+<p>يتصرف مكرر <a class="reference internal" href="generated/sklearn.model_selection.GroupShuffleSplit.html#sklearn.model_selection.GroupShuffleSplit" title="sklearn.model_selection.GroupShuffleSplit"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroupShuffleSplit</span></code></a> كمزيج من
+<a class="reference internal" href="generated/sklearn.model_selection.ShuffleSplit.html#sklearn.model_selection.ShuffleSplit" title="sklearn.model_selection.ShuffleSplit"><code class="xref py py-class docutils literal notranslate"><span class="pre">ShuffleSplit</span></code></a> و <a class="reference internal" href="generated/sklearn.model_selection.LeavePGroupsOut.html#sklearn.model_selection.LeavePGroupsOut" title="sklearn.model_selection.LeavePGroupsOut"><code class="xref py py-class docutils literal notranslate"><span class="pre">LeavePGroupsOut</span></code></a>، ويولد
+سلسلة من الأقسام العشوائية التي تكون فيها مجموعة فرعية من المجموعات
+يتم الاحتفاظ بها لكل تقسيم. يتم تنفيذ كل تقسيم تدريب / اختبار بشكل مستقل بمعنى
+لا توجد علاقة مضمونة بين مجموعات الاختبار المتتالية.</p>
+<p>فيما يلي مثال على الاستخدام:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GroupShuffleSplit</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">,</span> <span class="mf">2.4</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">,</span> <span class="mf">4.55</span><span class="p">,</span> <span class="mf">5.8</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">groups</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gss</span> <span class="o">=</span> <span class="n">GroupShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">gss</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="n">groups</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">))</span>
+<span class="gp">...</span>
+<span class="go">[0 1 2 3] [4 5 6 7]</span>
+<span class="go">[2 3 6 7] [0 1 4 5]</span>
+<span class="go">[2 3 4 5] [0 1 6 7]</span>
+<span class="go">[4 5 6 7] [0 1 2 3]</span>
+</pre></div>
+</div>
+<p>فيما يلي تصور لسلوك التحقق المتبادل.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/model_selection/plot_cv_indices.html"><img alt="../_images/sphx_glr_plot_cv_indices_011.png" src="../_images/sphx_glr_plot_cv_indices_011.png" style="width: 450.0px; height: 225.0px;" />
+</a>
+</figure>
+<p>هذه الفئة مفيدة عندما يكون سلوك <a class="reference internal" href="generated/sklearn.model_selection.LeavePGroupsOut.html#sklearn.model_selection.LeavePGroupsOut" title="sklearn.model_selection.LeavePGroupsOut"><code class="xref py py-class docutils literal notranslate"><span class="pre">LeavePGroupsOut</span></code></a> هو
+المرغوب فيه، لكن عدد المجموعات كبير بما يكفي لتوليد كل
+ستكون الأقسام الممكنة مع حجب مجموعات <span class="math notranslate nohighlight">\(P\)</span> باهظة الثمن.
+في مثل هذا السيناريو، يوفر <a class="reference internal" href="generated/sklearn.model_selection.GroupShuffleSplit.html#sklearn.model_selection.GroupShuffleSplit" title="sklearn.model_selection.GroupShuffleSplit"><code class="xref py py-class docutils literal notranslate"><span class="pre">GroupShuffleSplit</span></code></a>
+عينة عشوائية (مع الاستبدال) من تقسيمات القطار / الاختبار
+تم إنشاؤها بواسطة <a class="reference internal" href="generated/sklearn.model_selection.LeavePGroupsOut.html#sklearn.model_selection.LeavePGroupsOut" title="sklearn.model_selection.LeavePGroupsOut"><code class="xref py py-class docutils literal notranslate"><span class="pre">LeavePGroupsOut</span></code></a>.</p>
+</section>
+</section>
+<section id="id17">
+<h3><span class="section-number">3.1.2.5. </span>استخدام مكررات التحقق المتبادل لتقسيم التدريب والاختبار<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
+<p>قد تكون وظائف التحقق المتبادل للمجموعة المذكورة أعلاه مفيدة أيضًا لتقسيم
+مجموعة بيانات إلى مجموعات فرعية للتدريب والاختبار. لاحظ أن الراحة
+الدالة <a class="reference internal" href="generated/sklearn.model_selection.train_test_split.html#sklearn.model_selection.train_test_split" title="sklearn.model_selection.train_test_split"><code class="xref py py-func docutils literal notranslate"><span class="pre">train_test_split</span></code></a> هي غلاف حول <a class="reference internal" href="generated/sklearn.model_selection.ShuffleSplit.html#sklearn.model_selection.ShuffleSplit" title="sklearn.model_selection.ShuffleSplit"><code class="xref py py-func docutils literal notranslate"><span class="pre">ShuffleSplit</span></code></a>
+وبالتالي يسمح فقط بالتقسيم الطبقي (باستخدام تسميات الفئة)
+ولا يمكن أن تمثل المجموعات.</p>
+<p>لإجراء تقسيم التدريب والاختبار، استخدم المؤشرات للتدريب والاختبار
+المجموعات الفرعية التي ينتجها المولد بواسطة طريقة <code class="docutils literal notranslate"><span class="pre">split()</span></code> لـ
+مقسم التحقق المتبادل. فمثلا:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GroupShuffleSplit</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">,</span> <span class="mf">2.4</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">,</span> <span class="mf">4.55</span><span class="p">,</span> <span class="mf">5.8</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">groups</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">train_indx</span><span class="p">,</span> <span class="n">test_indx</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">GroupShuffleSplit</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">groups</span><span class="p">)</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> \
+<span class="gp">... </span>    <span class="n">X</span><span class="p">[</span><span class="n">train_indx</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">test_indx</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">train_indx</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">test_indx</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">X_test</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">((6,), (2,))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">groups</span><span class="p">[</span><span class="n">train_indx</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">groups</span><span class="p">[</span><span class="n">test_indx</span><span class="p">])</span>
+<span class="go">(array([1, 2, 4]), array([3]))</span>
+</pre></div>
+</div>
+</section>
+<section id="timeseries-cv">
+<span id="id18"></span><h3><span class="section-number">3.1.2.6. </span>التحقق المتبادل من بيانات السلاسل الزمنية<a class="headerlink" href="#timeseries-cv" title="Link to this heading">#</a></h3>
+<p>تتميز بيانات السلاسل الزمنية بالارتباط بين الملاحظات
+التي هي قريبة في الوقت المناسب (<em>الارتباط التلقائي</em>). ومع ذلك، الكلاسيكية
+تقنيات التحقق المتبادل مثل <a class="reference internal" href="generated/sklearn.model_selection.KFold.html#sklearn.model_selection.KFold" title="sklearn.model_selection.KFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">KFold</span></code></a> و
+<a class="reference internal" href="generated/sklearn.model_selection.ShuffleSplit.html#sklearn.model_selection.ShuffleSplit" title="sklearn.model_selection.ShuffleSplit"><code class="xref py py-class docutils literal notranslate"><span class="pre">ShuffleSplit</span></code></a> تفترض أن العينات مستقلة و
+موزعة بشكل متماثل، وسيؤدي إلى ارتباط غير معقول
+بين حالات التدريب والاختبار (ينتج عنها تقديرات ضعيفة لـ
+خطأ التعميم) على بيانات السلاسل الزمنية. لذلك، من المهم جدًا
+لتقييم نموذجنا لبيانات السلاسل الزمنية على الملاحظات “المستقبلية”
+على الأقل مثل تلك التي تُستخدم لتدريب النموذج. لتحقيق هذا، واحد
+يتم توفير الحل بواسطة <a class="reference internal" href="generated/sklearn.model_selection.TimeSeriesSplit.html#sklearn.model_selection.TimeSeriesSplit" title="sklearn.model_selection.TimeSeriesSplit"><code class="xref py py-class docutils literal notranslate"><span class="pre">TimeSeriesSplit</span></code></a>.</p>
+<section id="time-series-split">
+<span id="id19"></span><h4><span class="section-number">3.1.2.6.1. </span>تقسيم السلاسل الزمنية<a class="headerlink" href="#time-series-split" title="Link to this heading">#</a></h4>
+<p><a class="reference internal" href="generated/sklearn.model_selection.TimeSeriesSplit.html#sklearn.model_selection.TimeSeriesSplit" title="sklearn.model_selection.TimeSeriesSplit"><code class="xref py py-class docutils literal notranslate"><span class="pre">TimeSeriesSplit</span></code></a> هو نوع مختلف من <em>k-fold</em> الذي
+يعيد أول <span class="math notranslate nohighlight">\(k\)</span> طيات كمجموعة تدريب و <span class="math notranslate nohighlight">\((k+1)\)</span>
+طية كمجموعة اختبار. لاحظ أنه على عكس طرق التحقق المتبادل القياسية،
+مجموعات التدريب المتتالية هي مجموعات شاملة لتلك التي تأتي قبلها.
+أيضًا، يضيف جميع البيانات الفائضة إلى قسم التدريب الأول، والذي
+يتم استخدامه دائمًا لتدريب النموذج.</p>
+<p>يمكن استخدام هذه الفئة للتحقق المتبادل من عينات بيانات السلاسل الزمنية
+التي لوحظت على فترات زمنية ثابتة.</p>
+<p>مثال على التحقق المتبادل للسلاسل الزمنية المكونة من 3 انقسامات على مجموعة بيانات تحتوي على 6 عينات:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">TimeSeriesSplit</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tscv</span> <span class="o">=</span> <span class="n">TimeSeriesSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tscv</span><span class="p">)</span>
+<span class="go">TimeSeriesSplit(gap=0, max_train_size=None, n_splits=3, test_size=None)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">tscv</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">))</span>
+<span class="go">[0 1 2] [3]</span>
+<span class="go">[0 1 2 3] [4]</span>
+<span class="go">[0 1 2 3 4] [5]</span>
+</pre></div>
+</div>
+<p>فيما يلي تصور لسلوك التحقق المتبادل.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/model_selection/plot_cv_indices.html"><img alt="../_images/sphx_glr_plot_cv_indices_013.png" src="../_images/sphx_glr_plot_cv_indices_013.png" style="width: 450.0px; height: 225.0px;" />
+</a>
+</figure>
+</section>
+</section>
+</section>
+<section id="id20">
+<h2><span class="section-number">3.1.3. </span>ملاحظة حول الخلط<a class="headerlink" href="#id20" title="Link to this heading">#</a></h2>
+<p>إذا لم يكن ترتيب البيانات عشوائيًا (على سبيل المثال، عينات بنفس تسمية الفئة
+متجاورة)، قد يكون خلطها أولاً ضروريًا للحصول على تقاطع ذي مغزى-
+نتيجة التحقق من الصحة. ومع ذلك، قد يكون العكس صحيحًا إذا كانت العينات ليست كذلك
+موزعة بشكل مستقل ومتماثل. على سبيل المثال، إذا كانت العينات تتوافق
+لمقالات إخبارية، ومرتبة حسب وقت نشرها، ثم خلط
+من المرجح أن تؤدي البيانات إلى نموذج مفرط التجهيز ودرجة تحقق من الصحة متضخمة: سيتم اختباره على عينات متشابهة بشكل مصطنع (قريبة من
+الوقت) لعينات التدريب.</p>
+<p>تحتوي بعض مكررات التحقق المتبادل، مثل <a class="reference internal" href="generated/sklearn.model_selection.KFold.html#sklearn.model_selection.KFold" title="sklearn.model_selection.KFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">KFold</span></code></a>، على خيار مدمج
+لخلط مؤشرات البيانات قبل تقسيمها. لاحظ أن:</p>
+<ul class="simple">
+<li><p>يستهلك هذا ذاكرة أقل من خلط البيانات مباشرة.</p></li>
+<li><p>افتراضيًا، لا يحدث خلط، بما في ذلك (الطبقي) K fold cross-
+التحقق من الصحة الذي يتم إجراؤه عن طريق تحديد <code class="docutils literal notranslate"><span class="pre">cv=some_integer</span></code> إلى
+<a class="reference internal" href="generated/sklearn.model_selection.cross_val_score.html#sklearn.model_selection.cross_val_score" title="sklearn.model_selection.cross_val_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">cross_val_score</span></code></a>، بحث الشبكة، إلخ. ضع في اعتبارك ذلك
+<a class="reference internal" href="generated/sklearn.model_selection.train_test_split.html#sklearn.model_selection.train_test_split" title="sklearn.model_selection.train_test_split"><code class="xref py py-func docutils literal notranslate"><span class="pre">train_test_split</span></code></a> لا يزال يُرجع تقسيمًا عشوائيًا.</p></li>
+<li><p>معلمة <code class="docutils literal notranslate"><span class="pre">random_state</span></code> افتراضية إلى <code class="docutils literal notranslate"><span class="pre">None</span></code>، مما يعني أن
+سيكون الخلط مختلفًا في كل مرة <code class="docutils literal notranslate"><span class="pre">KFold(...,</span> <span class="pre">shuffle=True)</span></code> هو
+متكرر. ومع ذلك، سيستخدم <code class="docutils literal notranslate"><span class="pre">GridSearchCV</span></code> نفس الخلط لكل مجموعة
+من المعلمات التي تم التحقق من صحتها من خلال استدعاء واحد لطريقة <code class="docutils literal notranslate"><span class="pre">fit</span></code>.</p></li>
+<li><p>للحصول على نتائج متطابقة لكل تقسيم، قم بتعيين <code class="docutils literal notranslate"><span class="pre">random_state</span></code> إلى عدد صحيح.</p></li>
+</ul>
+<p>لمزيد من التفاصيل حول كيفية التحكم في عشوائية مقسمات السيرة الذاتية وتجنب
+المزالق الشائعة، انظر <a class="reference internal" href="../common_pitfalls.html#randomness"><span class="std std-ref">التحكم في العشوائية</span></a>.</p>
+</section>
+<section id="id21">
+<h2><span class="section-number">3.1.4. </span>التحقق المتبادل واختيار النموذج<a class="headerlink" href="#id21" title="Link to this heading">#</a></h2>
+<p>يمكن أيضًا استخدام مكررات التحقق المتبادل لأداء النموذج مباشرةً
+الاختيار باستخدام Grid Search للمعلمات الفائقة المثلى لـ
+النموذج. هذا هو موضوع القسم التالي: <a class="reference internal" href="grid_search.html#grid-search"><span class="std std-ref">ضبط المعلمات الفائقة لمُقدِّر</span></a>.</p>
+</section>
+<section id="permutation-test-score">
+<span id="id22"></span><h2><span class="section-number">3.1.5. </span>درجة اختبار التقليب<a class="headerlink" href="#permutation-test-score" title="Link to this heading">#</a></h2>
+<p>يقدم <a class="reference internal" href="generated/sklearn.model_selection.permutation_test_score.html#sklearn.model_selection.permutation_test_score" title="sklearn.model_selection.permutation_test_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">permutation_test_score</span></code></a> طريقة أخرى
+لتقييم أداء المصنفات. يوفر التقليب القائم على
+القيمة الاحتمالية، والتي تمثل مدى احتمالية أداء ملحوظ لـ
+سيتم الحصول على المصنف عن طريق الصدفة. الفرضية الصفرية في هذا الاختبار هي
+أن المصنف يفشل في الاستفادة من أي اعتماد إحصائي بين
+الميزات والتسميات لإجراء تنبؤات صحيحة على البيانات المتروكة.
+<a class="reference internal" href="generated/sklearn.model_selection.permutation_test_score.html#sklearn.model_selection.permutation_test_score" title="sklearn.model_selection.permutation_test_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">permutation_test_score</span></code></a> يولد فارغًا
+التوزيع عن طريق حساب <code class="docutils literal notranslate"><span class="pre">n_permutations</span></code> تباديل مختلفة لـ
+البيانات. في كل تبديل، يتم خلط التسميات بشكل عشوائي، وبالتالي إزالة
+أي اعتماد بين الميزات والتسميات. إخراج القيمة الاحتمالية
+هو جزء التباديل الذي يكون متوسط درجة التحقق المتبادل
+التي تم الحصول عليها بواسطة النموذج أفضل من درجة التحقق المتبادل التي تم الحصول عليها بواسطة
+النموذج باستخدام البيانات الأصلية. للحصول على نتائج موثوقة <code class="docutils literal notranslate"><span class="pre">n_permutations</span></code>
+يجب أن تكون عادةً أكبر من 100 و <code class="docutils literal notranslate"><span class="pre">cv</span></code> بين 3-10 طيات.</p>
+<p>توفر القيمة الاحتمالية المنخفضة دليلًا على أن مجموعة البيانات تحتوي على اعتماد حقيقي
+بين الميزات والتسميات وكان المصنف قادرًا على استخدام هذا
+للحصول على نتائج جيدة. يمكن أن تكون القيمة الاحتمالية العالية بسبب نقص الاعتماد
+بين الميزات والتسميات (لا يوجد فرق في قيم الميزات بين
+الفئات) أو لأن المصنف لم يكن قادرًا على استخدام التبعية في
+البيانات. في الحالة الأخيرة، باستخدام مصنف أكثر ملاءمة
+قادر على استخدام الهيكل في البيانات، سينتج عنه أقل
+القيمة الاحتمالية.</p>
+<p>يوفر التحقق المتبادل معلومات حول مدى جودة تعميم المصنف،
+على وجه التحديد نطاق الأخطاء المتوقعة للمصنف. ومع ذلك،
+لا يزال من الممكن أن يؤدي المصنف المدرب على مجموعة بيانات عالية الأبعاد بدون بنية
+أداء أفضل من المتوقع في التحقق المتبادل، عن طريق الصدفة.
+يمكن أن يحدث هذا عادةً مع مجموعات البيانات الصغيرة التي تحتوي على أقل من بضع مئات
+عينات.
+<a class="reference internal" href="generated/sklearn.model_selection.permutation_test_score.html#sklearn.model_selection.permutation_test_score" title="sklearn.model_selection.permutation_test_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">permutation_test_score</span></code></a> يوفر معلومات
+حول ما إذا كان المصنف قد وجد بنية فئة حقيقية ويمكن أن يساعد في
+تقييم أداء المصنف.</p>
+<p>من المهم ملاحظة أن هذا الاختبار قد ثبت أنه ينتج منخفضًا
+القيم الاحتمالية حتى لو كان هناك هيكل ضعيف فقط في البيانات لأن في
+مجموعات البيانات المتبادلة المقابلة لا يوجد هيكل على الإطلاق. هذا
+لذلك، فإن الاختبار قادر فقط على إظهار متى يتفوق النموذج بشكل موثوق
+التخمين العشوائي.</p>
+<p>أخيرًا، يتم حساب <a class="reference internal" href="generated/sklearn.model_selection.permutation_test_score.html#sklearn.model_selection.permutation_test_score" title="sklearn.model_selection.permutation_test_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">permutation_test_score</span></code></a>
+باستخدام القوة الغاشمة وملاءمة <code class="docutils literal notranslate"><span class="pre">(n_permutations</span> <span class="pre">+</span> <span class="pre">1)</span> <span class="pre">*</span> <span class="pre">n_cv</span></code> نماذج داخليًا.
+لذلك لا يمكن تتبعه إلا مع مجموعات البيانات الصغيرة التي تناسب
+نموذج فردي سريع جدًا.</p>
+<p class="rubric">أمثلة</p>
+<ul class="simple">
+<li><p><span class="xref std std-ref">sphx_glr_auto_examples_model_selection/plot_permutation_tests_for_classification.py</span></p></li>
+</ul>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="المراجع-2">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">المراجع<a class="headerlink" href="#المراجع-2" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<ul class="simple">
+<li><p class="sd-card-text">Ojala and Garriga. <a class="reference external" href="http://www.jmlr.org/papers/volume11/ojala10a/ojala10a.pdf">Permutation Tests for Studying Classifier Performance</a>.
+J. Mach. Learn. Res. 2010.</p></li>
+</ul>
+</div>
+</details></section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  <div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item">
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../model_selection.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Model selection and evaluation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="grid_search.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">3.2. </span>ضبط المعلمات الفائقة لمُقدِّر</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+                </footer>
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">3.1.1. حساب المقاييس المتحقق منها</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-validate">3.1.1.1. دالة cross_validate وتقييم المقاييس المتعددة</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">3.1.1.2. الحصول على التنبؤات عن طريق التحقق المتبادل</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">3.1.2. مكررات التحقق المتبادل</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#i-i-d">3.1.2.1. مكررات التحقق المتبادل لبيانات i.i.d.</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#k-fold">3.1.2.1.1. K-fold</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#repeated-k-fold">3.1.2.1.2. Repeated K-Fold</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#leave-one-out-loo">3.1.2.1.3. Leave One Out (LOO)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#leave-p-out-lpo">3.1.2.1.4. Leave P Out (LPO)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#shuffle-split">3.1.2.1.5. تباديل عشوائية للتحقق المتبادل المعروف أيضًا باسم Shuffle &amp; Split</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stratification">3.1.2.2. مكررات التحقق المتبادل مع التقسيم الطبقي بناءً على تسميات الفئة</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stratified-k-fold">3.1.2.2.1. k-fold الطبقي</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stratified-shuffle-split">3.1.2.2.2. تقسيم خلط طبقي</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predefined-split">3.1.2.3. تقسيمات الطيات / مجموعات التحقق من الصحة المحددة مسبقًا</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#group-cv">3.1.2.4. مكررات التحقق المتبادل للبيانات المجمعة</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#group-k-fold">3.1.2.4.1. Group k-fold</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stratifiedgroupkfold">3.1.2.4.2. StratifiedGroupKFold</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#leave-one-group-out">3.1.2.4.3. Leave One Group Out</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#leave-p-groups-out">3.1.2.4.4. Leave P Groups Out</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#group-shuffle-split">3.1.2.4.5. Group Shuffle Split</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">3.1.2.5. استخدام مكررات التحقق المتبادل لتقسيم التدريب والاختبار</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#timeseries-cv">3.1.2.6. التحقق المتبادل من بيانات السلاسل الزمنية</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#time-series-split">3.1.2.6.1. تقسيم السلاسل الزمنية</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">3.1.3. ملاحظة حول الخلط</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">3.1.4. التحقق المتبادل واختيار النموذج</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#permutation-test-score">3.1.5. درجة اختبار التقليب</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/modules/cross_validation.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024 - 2024, scikit-learn developers (BSD License).
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

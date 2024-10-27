@@ -1,0 +1,1009 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="2.6. تقدير التباين المشترك" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://scikit-learn/stable/modules/covariance.html" />
+<meta property="og:site_name" content="scikit-learn" />
+<meta property="og:description" content="تتطلب العديد من المشكلات الإحصائية تقدير مصفوفة التباين المشترك لمجموعة سكانية، والتي يمكن اعتبارها تقديرًا لشكل مخطط تشتت مجموعة البيانات. في معظم الأوقات، يجب إجراء مثل هذا التقدير على عينة لها خ..." />
+<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_covariance_estimation_001.png" />
+<meta property="og:image:alt" content="scikit-learn" />
+<meta name="description" content="تتطلب العديد من المشكلات الإحصائية تقدير مصفوفة التباين المشترك لمجموعة سكانية، والتي يمكن اعتبارها تقديرًا لشكل مخطط تشتت مجموعة البيانات. في معظم الأوقات، يجب إجراء مثل هذا التقدير على عينة لها خ..." />
+
+    <title>2.6. تقدير التباين المشترك &#8212; scikit-learn 1.6.dev0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyterlite_sphinx.css?v=ca70e7f1" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/colors.css?v=cc94ab7d" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/custom.css?v=e340c087" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../_static/documentation_options.js?v=d875d36e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=97f0b27d"></script>
+    <script src="../_static/jupyterlite_sphinx.js?v=d6bdf5f8"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script data-domain="scikit-learn.org" defer="defer" src="https://views.scientific-python.org/js/script.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'modules/covariance';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://scikit-learn.org/dev/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1.6.dev0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/scripts/dropdown.js?v=e2048168"></script>
+    <script src="../_static/scripts/version-switcher.js?v=a6dd8357"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2.7. كشف الجِدّة والقيم المتطرفة" href="outlier_detection.html" />
+    <link rel="prev" title="2.5. تحليل الإشارات إلى مكونات (مشاكل تحليل المصفوفات)" href="decomposition.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="1.6" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/scikit-learn-logo-small.png" class="logo__image only-light" alt="scikit-learn homepage"/>
+    <img src="../_static/scikit-learn-logo-small.png" class="logo__image only-dark pst-js-only" alt="scikit-learn homepage"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../support.html">
+    Support
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../related_projects.html">
+    Related Projects
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../about.html">
+    حولنا
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../support.html">
+    Support
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../related_projects.html">
+    Related Projects
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../about.html">
+    حولنا
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../supervised_learning.html">1. Supervised learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="linear_model.html">1.1. النماذج الخطية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lda_qda.html">1.2. تحليل التمييز الخطي والتربيعي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernel_ridge.html">1.3. انحدار حافة النواة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svm.html">1.4. آلات الدعم المتجهية (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sgd.html">1.5. التحسين التدريجي العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neighbors.html">1.6. أقرب الجيران</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gaussian_process.html">1.7. العمليات الغاوسية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cross_decomposition.html">1.8. التحليل المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="naive_bayes.html">1.9. خوارزميات بايز الساذجة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tree.html">1.10. شجرة القرار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ensemble.html">1.11. المجموعات: تعزيز التدرج، الغابات العشوائية، التجميع، التصويت، التكديس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multiclass.html">1.12. خوارزميات متعددة التصنيف ومتعددة الإخراج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature_selection.html">1.13. اختيار الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="semi_supervised.html">1.14. التعليم شبه الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="isotonic.html">1.15. الانحدار المتساوي التوتر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibration.html">1.16. معايرة الاحتمال</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_networks_supervised.html">1.17. نماذج الشبكات العصبية (الخاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../unsupervised_learning.html">2. Unsupervised learning</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="mixture.html">2.1. نماذج خليط غاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manifold.html">2.2. تعلم المشعبات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clustering.html">2.3. التجميع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="biclustering.html">2.4. التجميع الثنائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decomposition.html">2.5. تحليل الإشارات إلى مكونات (مشاكل تحليل المصفوفات)</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.6. تقدير التباين المشترك</a></li>
+<li class="toctree-l2"><a class="reference internal" href="outlier_detection.html">2.7. كشف الجِدّة والقيم المتطرفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="density.html">2.8. تقدير الكثافة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_networks_unsupervised.html">2.9. نماذج الشبكة العصبية (غير خاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../model_selection.html">3. Model selection and evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="cross_validation.html">3.1. التحقق المتبادل: تقييم أداء المقدر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grid_search.html">3.2. ضبط المعلمات الفائقة لمُقدِّر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classification_threshold.html">3.3. ضبط عتبة القرار لتنبؤ الفئة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_evaluation.html">3.4. المقاييس والتهديف: تحديد جودة التنبؤات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learning_curve.html">3.5. منحنيات التحقق من الصحة: رسم الدرجات لتقييم النماذج</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../inspection.html">4. الفحص</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="partial_dependence.html">4.1. مخططات الاعتماد الجزئي والتوقع الشرطي الفردي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="permutation_importance.html">4.2. أهمية ميزة التبديل</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualizations.html">5. التصورات</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../data_transforms.html">6. تحويلات مجموعات البيانات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="compose.html">6.1. خطوط الأنابيب والمقدرات المركبة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature_extraction.html">6.2. استخراج الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html">6.3. معالجة البيانات مُسبقًا</a></li>
+<li class="toctree-l2"><a class="reference internal" href="impute.html">6.4. تعويض القيم المفقودة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unsupervised_reduction.html">6.5. تخفيض الأبعاد غير الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="random_projection.html">6.6. التصميم العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernel_approximation.html">6.7. Kernel Approximation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">6.8. مقاييس المقارنة الزوجية، والصلات، والنوى (Kernels)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing_targets.html">6.9. تحويل هدف التنبؤ (<code class="docutils literal notranslate"><span class="pre">y</span></code>)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/toy_dataset.html">7. Toy datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/real_world.html">8. Real world datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/sample_generators.html">9. Generated datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/loading_other_datasets.html">10. Loading other datasets</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../computing.html">11. Computing with scikit-learn</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../computing/scaling_strategies.html">11.1. استراتيجيات للقياس حسابيًا: بيانات أكبر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../computing/computational_performance.html">11.2. الأداء الحسابي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../computing/parallelism.html">11.3. التوازي وإدارة الموارد والتهيئة</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../model_persistence.html">12. استمرارية النموذج</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../common_pitfalls.html">13. المخاطر الشائعة والممارسات الموصى بها</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../dispatching.html">14. Dispatching</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="array_api.html">14.1. دعم المدخلات المتوافقة مع <code class="docutils literal notranslate"><span class="pre">Array</span> <span class="pre">API</span></code></a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../machine_learning_map.html">15. Choosing the right estimator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../presentations.html">16. المصادر الخارجية ومقاطع الفيديو والمحادثات</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../user_guide.html" class="nav-link">User Guide</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../unsupervised_learning.html" class="nav-link"><span class="section-number">2. </span>Unsupervised learning</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">2.6. </span>تقدير التباين المشترك</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="covariance">
+<span id="id1"></span><h1><span class="section-number">2.6. </span>تقدير التباين المشترك<a class="headerlink" href="#covariance" title="Link to this heading">#</a></h1>
+<p>تتطلب العديد من المشكلات الإحصائية تقدير مصفوفة التباين المشترك لمجموعة سكانية، والتي يمكن اعتبارها تقديرًا لشكل مخطط تشتت مجموعة البيانات.
+في معظم الأوقات، يجب إجراء مثل هذا التقدير على عينة لها خصائص (الحجم، الهيكل، التجانس) لها تأثير كبير على جودة التقدير.
+توفر حزمة <a class="reference internal" href="../api/sklearn.covariance.html#module-sklearn.covariance" title="sklearn.covariance"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.covariance</span></code></a> أدوات لتقدير مصفوفة التباين المشترك لمجموعة سكانية بدقة في ظل إعدادات مختلفة.</p>
+<p>نفترض أن الملاحظات مستقلة وموزعة بشكل متماثل (i.i.d.).</p>
+<section id="id2">
+<h2><span class="section-number">2.6.1. </span>التباين المشترك التجريبي<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>من المعروف أن مصفوفة التباين المشترك لمجموعة البيانات يتم تقريبها جيدًا بواسطة <em>مقدر الاحتمالية القصوى</em> الكلاسيكي (أو “التباين المشترك التجريبي”)، بشرط أن يكون عدد الملاحظات كبيرًا بما يكفي مقارنة بعدد الميزات (المتغيرات التي تصف الملاحظات).
+بتعبير أدق، فإن مقدر الاحتمالية القصوى للعينة هو مقدر غير متحيز مقارب لمصفوفة التباين المشترك للسكان المقابلة.</p>
+<p>يمكن حساب مصفوفة التباين المشترك التجريبي للعينة باستخدام دالة <a class="reference internal" href="generated/sklearn.covariance.empirical_covariance.html#sklearn.covariance.empirical_covariance" title="sklearn.covariance.empirical_covariance"><code class="xref py py-func docutils literal notranslate"><span class="pre">empirical_covariance</span></code></a> للحزمة، أو عن طريق ملاءمة كائن <a class="reference internal" href="generated/sklearn.covariance.EmpiricalCovariance.html#sklearn.covariance.EmpiricalCovariance" title="sklearn.covariance.EmpiricalCovariance"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmpiricalCovariance</span></code></a> لعينة البيانات باستخدام طريقة <a class="reference internal" href="generated/sklearn.covariance.EmpiricalCovariance.html#sklearn.covariance.EmpiricalCovariance.fit" title="sklearn.covariance.EmpiricalCovariance.fit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">EmpiricalCovariance.fit</span></code></a>.
+كن حذرًا من أن النتائج تعتمد على ما إذا كانت البيانات متمركزة، لذلك قد يرغب المرء في استخدام معلمة <code class="docutils literal notranslate"><span class="pre">assume_centered</span></code> بدقة.
+بتعبير أدق، إذا كان <code class="docutils literal notranslate"><span class="pre">assume_centered=False</span></code>، فمن المفترض أن يكون لمجموعة الاختبار نفس متجه المتوسط مثل مجموعة التدريب.
+إذا لم يكن الأمر كذلك، فيجب أن يكون كلاهما متمركزًا بواسطة المستخدم، ويجب استخدام <code class="docutils literal notranslate"><span class="pre">assume_centered=True</span></code>.</p>
+<p class="rubric">أمثلة</p>
+<ul class="simple">
+<li><p>انظر <span class="xref std std-ref">sphx_glr_auto_examples_covariance/plot_covariance_estimation.py</span> للحصول على مثال حول كيفية ملاءمة كائن <a class="reference internal" href="generated/sklearn.covariance.EmpiricalCovariance.html#sklearn.covariance.EmpiricalCovariance" title="sklearn.covariance.EmpiricalCovariance"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmpiricalCovariance</span></code></a> للبيانات.</p></li>
+</ul>
+</section>
+<section id="shrunk-covariance">
+<span id="id3"></span><h2><span class="section-number">2.6.2. </span>التباين المشترك المنكمش<a class="headerlink" href="#shrunk-covariance" title="Link to this heading">#</a></h2>
+<section id="id4">
+<h3><span class="section-number">2.6.2.1. </span>الانكماش الأساسي<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>على الرغم من كونه مقدرًا غير متحيز مقارب لمصفوفة التباين المشترك، فإن مقدر الاحتمالية القصوى ليس مقدرًا جيدًا لقيم eigenvalues لمصفوفة التباين المشترك، لذلك فإن مصفوفة الدقة التي تم الحصول عليها من انعكاسها ليست دقيقة.
+في بعض الأحيان، يحدث حتى أنه لا يمكن عكس مصفوفة التباين المشترك التجريبية لأسباب رقمية.
+لتجنب مشكلة الانعكاس هذه، تم إدخال تحويل لمصفوفة التباين المشترك التجريبية: <code class="docutils literal notranslate"><span class="pre">الانكماش</span></code>.</p>
+<p>في scikit-learn، يمكن تطبيق هذا التحويل (مع معامل انكماش محدد من قبل المستخدم) مباشرة على التباين المشترك المحسوب مسبقًا باستخدام طريقة <a class="reference internal" href="generated/sklearn.covariance.shrunk_covariance.html#sklearn.covariance.shrunk_covariance" title="sklearn.covariance.shrunk_covariance"><code class="xref py py-func docutils literal notranslate"><span class="pre">shrunk_covariance</span></code></a>.
+أيضًا، يمكن ملاءمة مقدر منكمش للتباين المشترك مع البيانات باستخدام كائن <a class="reference internal" href="generated/sklearn.covariance.ShrunkCovariance.html#sklearn.covariance.ShrunkCovariance" title="sklearn.covariance.ShrunkCovariance"><code class="xref py py-class docutils literal notranslate"><span class="pre">ShrunkCovariance</span></code></a> وطرقه <a class="reference internal" href="generated/sklearn.covariance.ShrunkCovariance.html#sklearn.covariance.ShrunkCovariance.fit" title="sklearn.covariance.ShrunkCovariance.fit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ShrunkCovariance.fit</span></code></a>.
+مرة أخرى، تعتمد النتائج على ما إذا كانت البيانات متمركزة، لذلك قد يرغب المرء في استخدام معلمة <code class="docutils literal notranslate"><span class="pre">assume_centered</span></code> بدقة.</p>
+<p>رياضيًا، يتكون هذا الانكماش في تقليل النسبة بين أصغر وأكبر قيم eigenvalues لمصفوفة التباين المشترك التجريبية.
+يمكن القيام بذلك ببساطة عن طريق تحويل كل eigenvalue وفقًا لإزاحة معينة، وهو ما يعادل إيجاد مقدر الاحتمالية القصوى المعاقب بـ l2 لمصفوفة التباين المشترك.
+من الناحية العملية، يتلخص الانكماش في تحويل محدب بسيط:</p>
+<p><span class="math notranslate nohighlight">\(\Sigma_{\rm shrunk} = (1-\alpha)\hat{\Sigma} + \alpha\frac{{\rm Tr}\hat{\Sigma}}{p}\rm Id\)</span>.</p>
+<p>اختيار مقدار الانكماش، <span class="math notranslate nohighlight">\(\alpha\)</span> يرقى إلى تعيين مقايضة التحيز / التباين، ويتم مناقشته أدناه.</p>
+<p class="rubric">أمثلة</p>
+<ul class="simple">
+<li><p>انظر <span class="xref std std-ref">sphx_glr_auto_examples_covariance/plot_covariance_estimation.py</span> للحصول على مثال حول كيفية ملاءمة كائن <a class="reference internal" href="generated/sklearn.covariance.ShrunkCovariance.html#sklearn.covariance.ShrunkCovariance" title="sklearn.covariance.ShrunkCovariance"><code class="xref py py-class docutils literal notranslate"><span class="pre">ShrunkCovariance</span></code></a> للبيانات.</p></li>
+</ul>
+</section>
+<section id="ledoit-wolf">
+<h3><span class="section-number">2.6.2.2. </span>انكماش Ledoit-Wolf<a class="headerlink" href="#ledoit-wolf" title="Link to this heading">#</a></h3>
+<p>في ورقتهم البحثية لعام 2004 <a class="footnote-reference brackets" href="#id6" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>، اقترح O. Ledoit و M. Wolf صيغة لحساب معامل الانكماش الأمثل <span class="math notranslate nohighlight">\(\alpha\)</span> الذي يقلل من متوسط الخطأ التربيعي بين مصفوفة التباين المشترك المقدرة والحقيقية.</p>
+<p>يمكن حساب مقدر Ledoit-Wolf لمصفوفة التباين المشترك على عينة باستخدام طريقة <a class="reference internal" href="generated/sklearn.covariance.ledoit_wolf.html#sklearn.covariance.ledoit_wolf" title="sklearn.covariance.ledoit_wolf"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ledoit_wolf</span></code></a> لحزمة <a class="reference internal" href="../api/sklearn.covariance.html#module-sklearn.covariance" title="sklearn.covariance"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.covariance</span></code></a>، أو يمكن الحصول عليها بطريقة أخرى عن طريق ملاءمة كائن <a class="reference internal" href="generated/sklearn.covariance.LedoitWolf.html#sklearn.covariance.LedoitWolf" title="sklearn.covariance.LedoitWolf"><code class="xref py py-class docutils literal notranslate"><span class="pre">LedoitWolf</span></code></a> لنفس العينة.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>الحالة عندما تكون مصفوفة التباين المشترك للسكان متجانسة الخواص</strong></p>
+<p>من المهم ملاحظة أنه عندما يكون عدد العينات أكبر بكثير من عدد الميزات، يتوقع المرء ألا يكون الانكماش ضروريًا.
+الحدس وراء ذلك هو أنه إذا كان التباين المشترك للسكان كامل الرتبة، فعندما يزداد عدد العينات، سيصبح التباين المشترك للعينة أيضًا موجبًا محددًا.
+ونتيجة لذلك، لن يكون الانكماش ضروريًا ويجب أن تفعل الطريقة ذلك تلقائيًا.</p>
+<p>ومع ذلك، ليس هذا هو الحال في إجراء Ledoit-Wolf عندما يكون التباين المشترك للسكان مضاعفًا لمصفوفة الهوية.
+في هذه الحالة، يقترب تقدير انكماش Ledoit-Wolf من 1 مع زيادة عدد العينات.
+يشير هذا إلى أن التقدير الأمثل لمصفوفة التباين المشترك بمعنى Ledoit-Wolf هو مضاعف الهوية.
+نظرًا لأن التباين المشترك للسكان هو بالفعل مضاعف لمصفوفة الهوية، فإن حل Ledoit-Wolf هو بالفعل تقدير معقول.</p>
+</div>
+<p class="rubric">أمثلة</p>
+<ul class="simple">
+<li><p>انظر <span class="xref std std-ref">sphx_glr_auto_examples_covariance/plot_covariance_estimation.py</span> للحصول على مثال حول كيفية ملاءمة كائن <a class="reference internal" href="generated/sklearn.covariance.LedoitWolf.html#sklearn.covariance.LedoitWolf" title="sklearn.covariance.LedoitWolf"><code class="xref py py-class docutils literal notranslate"><span class="pre">LedoitWolf</span></code></a> للبيانات ولتصور أداء مقدر Ledoit-Wolf من حيث الاحتمالية.</p></li>
+</ul>
+<p class="rubric">المراجع</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id6" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">1</a><span class="fn-bracket">]</span></span>
+<p>O. Ledoit and M. Wolf, “A Well-Conditioned Estimator for Large-Dimensional Covariance Matrices”, Journal of Multivariate Analysis, Volume 88, Issue 2,
+February 2004, pages 365-411.</p>
+</aside>
+</aside>
+</section>
+<section id="oracle-approximating-shrinkage">
+<span id="id7"></span><h3><span class="section-number">2.6.2.3. </span>انكماش تقريب أوراكل<a class="headerlink" href="#oracle-approximating-shrinkage" title="Link to this heading">#</a></h3>
+<p>بافتراض أن البيانات موزعة بشكل غاوسي، اشتق Chen وآخرون <a class="footnote-reference brackets" href="#id9" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> صيغة تهدف إلى اختيار معامل انكماش ينتج عنه متوسط خطأ تربيعي أصغر من ذلك الذي قدمته صيغة Ledoit و Wolf.
+يُعرف المقدر الناتج باسم مقدر تقريب انكماش أوراكل للتباين المشترك.</p>
+<p>يمكن حساب مقدر OAS لمصفوفة التباين المشترك على عينة باستخدام طريقة <a class="reference internal" href="generated/oas-function.html#sklearn.covariance.oas" title="sklearn.covariance.oas"><code class="xref py py-meth docutils literal notranslate"><span class="pre">oas</span></code></a> لحزمة <a class="reference internal" href="../api/sklearn.covariance.html#module-sklearn.covariance" title="sklearn.covariance"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.covariance</span></code></a>، أو يمكن الحصول عليها بطريقة أخرى عن طريق ملاءمة كائن <a class="reference internal" href="generated/sklearn.covariance.OAS.html#sklearn.covariance.OAS" title="sklearn.covariance.OAS"><code class="xref py py-class docutils literal notranslate"><span class="pre">OAS</span></code></a> لنفس العينة.</p>
+<figure class="align-center" id="id18">
+<a class="reference external image-reference" href="../auto_examples/covariance/plot_covariance_estimation.html"><img alt="../_images/sphx_glr_plot_covariance_estimation_001.png" src="../_images/sphx_glr_plot_covariance_estimation_001.png" style="width: 416.0px; height: 312.0px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">مقايضة التحيز / التباين عند تعيين الانكماش: مقارنة اختيارات مقدرات Ledoit-Wolf و OAS</span><a class="headerlink" href="#id18" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p class="rubric">المراجع</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id9" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">2</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://arxiv.org/abs/0907.4698">“Shrinkage algorithms for MMSE covariance estimation.”,
+Chen, Y., Wiesel, A., Eldar, Y. C., &amp; Hero, A. O.
+IEEE Transactions on Signal Processing, 58(10), 5016-5029, 2010.</a></p>
+</aside>
+</aside>
+<p class="rubric">أمثلة</p>
+<ul class="simple">
+<li><p>انظر <span class="xref std std-ref">sphx_glr_auto_examples_covariance/plot_covariance_estimation.py</span> للحصول على مثال حول كيفية ملاءمة كائن <a class="reference internal" href="generated/sklearn.covariance.OAS.html#sklearn.covariance.OAS" title="sklearn.covariance.OAS"><code class="xref py py-class docutils literal notranslate"><span class="pre">OAS</span></code></a> للبيانات.</p></li>
+<li><p>انظر <span class="xref std std-ref">sphx_glr_auto_examples_covariance/plot_lw_vs_oas.py</span> لتصور فرق متوسط الخطأ التربيعي بين <a class="reference internal" href="generated/sklearn.covariance.LedoitWolf.html#sklearn.covariance.LedoitWolf" title="sklearn.covariance.LedoitWolf"><code class="xref py py-class docutils literal notranslate"><span class="pre">LedoitWolf</span></code></a> و <a class="reference internal" href="generated/sklearn.covariance.OAS.html#sklearn.covariance.OAS" title="sklearn.covariance.OAS"><code class="xref py py-class docutils literal notranslate"><span class="pre">OAS</span></code></a> مقدر للتباين المشترك.</p></li>
+</ul>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/covariance/plot_lw_vs_oas.html"><img alt="../_images/sphx_glr_plot_lw_vs_oas_001.png" src="../_images/sphx_glr_plot_lw_vs_oas_001.png" style="width: 480.0px; height: 360.0px;" />
+</a>
+</figure>
+</section>
+</section>
+<section id="sparse-inverse-covariance">
+<span id="id10"></span><h2><span class="section-number">2.6.3. </span>التباين المشترك العكسي المتناثر<a class="headerlink" href="#sparse-inverse-covariance" title="Link to this heading">#</a></h2>
+<p>إن معكوس المصفوفة لمصفوفة التباين المشترك، والتي غالبًا ما تسمى مصفوفة الدقة، تتناسب مع مصفوفة الارتباط الجزئي.
+يعطي علاقة الاستقلال الجزئي.
+بمعنى آخر، إذا كانت ميزتان مستقلتين بشكل مشروط على الأخريين، فسيكون المعامل المقابل في مصفوفة الدقة صفرًا.
+هذا هو السبب في أنه من المنطقي تقدير مصفوفة دقة متفرقة: يكون تقدير مصفوفة التباين المشترك أفضل من خلال تعلم علاقات الاستقلال من البيانات.
+يُعرف هذا باسم <em>اختيار التباين المشترك</em>.</p>
+<p>في حالة العينات الصغيرة، حيث يكون <code class="docutils literal notranslate"><span class="pre">n_samples</span></code> بترتيب <code class="docutils literal notranslate"><span class="pre">n_features</span></code> أو أصغر، تميل مقدرات التباين المشترك العكسي المتناثر إلى العمل بشكل أفضل من مقدرات التباين المشترك المنكمش.
+ومع ذلك، في الحالة المعاكسة، أو للبيانات المترابطة للغاية، يمكن أن تكون غير مستقرة عدديًا.
+بالإضافة إلى ذلك، على عكس مقدرات الانكماش، فإن المقدرات المتفرقة قادرة على استعادة الهيكل خارج القطر.</p>
+<p>يستخدم مقدر <a class="reference internal" href="generated/sklearn.covariance.GraphicalLasso.html#sklearn.covariance.GraphicalLasso" title="sklearn.covariance.GraphicalLasso"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphicalLasso</span></code></a> عقوبة l1 لفرض التباين على مصفوفة الدقة: كلما زادت معلمة <code class="docutils literal notranslate"><span class="pre">alpha</span></code>، زادت تباين مصفوفة الدقة.
+يستخدم كائن <a class="reference internal" href="generated/sklearn.covariance.GraphicalLassoCV.html#sklearn.covariance.GraphicalLassoCV" title="sklearn.covariance.GraphicalLassoCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphicalLassoCV</span></code></a> المقابل التحقق المتبادل لتعيين معلمة <code class="docutils literal notranslate"><span class="pre">alpha</span></code> تلقائيًا.</p>
+<figure class="align-center" id="id19">
+<a class="reference external image-reference" href="../auto_examples/covariance/plot_sparse_cov.html"><img alt="../_images/sphx_glr_plot_sparse_cov_001.png" src="../_images/sphx_glr_plot_sparse_cov_001.png" style="width: 600.0px; height: 360.0px;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><em>مقارنة بين الاحتمالية القصوى والانكماش والتقديرات المتفرقة للتباين المشترك ومصفوفة الدقة في إعدادات العينات الصغيرة جدًا.</em></span><a class="headerlink" href="#id19" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>استعادة الهيكل</strong></p>
+<p>إن استعادة بنية رسومية من الارتباطات في البيانات أمر صعب.
+إذا كنت مهتمًا بهذا الاسترداد، ضع في اعتبارك ما يلي:</p>
+<ul class="simple">
+<li><p>يكون الاسترداد أسهل من مصفوفة الارتباط من مصفوفة التباين المشترك: قم بتوحيد ملاحظاتك قبل تشغيل <a class="reference internal" href="generated/sklearn.covariance.GraphicalLasso.html#sklearn.covariance.GraphicalLasso" title="sklearn.covariance.GraphicalLasso"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphicalLasso</span></code></a></p></li>
+<li><p>إذا كان الرسم البياني الأساسي يحتوي على عقد ذات اتصالات أكثر بكثير من العقدة المتوسطة، فستفقد الخوارزمية بعض هذه الاتصالات.</p></li>
+<li><p>إذا لم يكن عدد ملاحظاتك كبيرًا مقارنة بعدد الحواف في الرسم البياني الأساسي، فلن تستعيدها.</p></li>
+<li><p>حتى إذا كنت في ظروف استرداد مواتية، فإن معلمة alpha التي تم اختيارها عن طريق التحقق المتبادل (على سبيل المثال باستخدام كائن <a class="reference internal" href="generated/sklearn.covariance.GraphicalLassoCV.html#sklearn.covariance.GraphicalLassoCV" title="sklearn.covariance.GraphicalLassoCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GraphicalLassoCV</span></code></a>) ستؤدي إلى تحديد عدد كبير جدًا من الحواف.
+ومع ذلك، سيكون للحواف ذات الصلة أوزان أثقل من الحواف غير ذات الصلة.</p></li>
+</ul>
+</div>
+<p>الصيغة الرياضية هي كما يلي:</p>
+<div class="math notranslate nohighlight">
+\[\hat{K} = \mathrm{argmin}_K \big(
+            \mathrm{tr} S K - \mathrm{log} \mathrm{det} K
+            + \alpha \|K\|_1
+            \big)\]</div>
+<p>حيث <span class="math notranslate nohighlight">\(K\)</span> هي مصفوفة الدقة المراد تقديرها، و <span class="math notranslate nohighlight">\(S\)</span> هي مصفوفة التباين المشترك للعينة.
+<span class="math notranslate nohighlight">\(\|K\|_1\)</span> هو مجموع القيم المطلقة للمعاملات خارج القطر لـ <span class="math notranslate nohighlight">\(K\)</span>.
+الخوارزمية المستخدمة لحل هذه المشكلة هي خوارزمية GLasso، من ورقة Friedman 2008 Biostatistics.
+إنها نفس الخوارزمية الموجودة في حزمة R <code class="docutils literal notranslate"><span class="pre">glasso</span></code>.</p>
+<p class="rubric">أمثلة</p>
+<ul class="simple">
+<li><p><span class="xref std std-ref">sphx_glr_auto_examples_covariance/plot_sparse_cov.py</span>: مثال على البيانات التركيبية يوضح بعض استعادة الهيكل، ومقارنته بمقدرات التباين المشترك الأخرى.</p></li>
+<li><p><span class="xref std std-ref">sphx_glr_auto_examples_applications/plot_stock_market.py</span>: مثال على بيانات سوق الأسهم الحقيقية، والعثور على الرموز الأكثر ارتباطًا.</p></li>
+</ul>
+<p class="rubric">المراجع</p>
+<ul class="simple">
+<li><p>Friedman et al, <a class="reference external" href="https://biostatistics.oxfordjournals.org/content/9/3/432.short">“Sparse inverse covariance estimation with the graphical lasso”</a>،
+Biostatistics 9، pp 432، 2008</p></li>
+</ul>
+</section>
+<section id="robust-covariance">
+<span id="id11"></span><h2><span class="section-number">2.6.4. </span>تقدير التباين المشترك القوي<a class="headerlink" href="#robust-covariance" title="Link to this heading">#</a></h2>
+<p>غالبًا ما تخضع مجموعات البيانات الحقيقية لأخطاء القياس أو التسجيل.
+قد تظهر أيضًا ملاحظات منتظمة ولكنها غير شائعة لعدة أسباب.
+تسمى الملاحظات غير الشائعة جدًا بالقيم المتطرفة.
+مقدر التباين المشترك التجريبي ومقدرات التباين المشترك المنكمش المقدمة أعلاه حساسة للغاية لوجود القيم المتطرفة في البيانات.
+لذلك، يجب على المرء استخدام مقدرات التباين المشترك القوية لتقدير التباين المشترك لمجموعات البيانات الحقيقية الخاصة به.
+بدلاً من ذلك، يمكن استخدام مقدرات التباين المشترك القوية لإجراء اكتشاف القيم المتطرفة والتخلص من / تقليل بعض الملاحظات وفقًا للمعالجة الإضافية للبيانات.</p>
+<p>تنفذ حزمة <code class="docutils literal notranslate"><span class="pre">sklearn.covariance</span></code> مقدرًا قويًا للتباين المشترك، وهو محدد التباين المشترك الأدنى <a class="footnote-reference brackets" href="#id16" id="id12" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.</p>
+<section id="id13">
+<h3><span class="section-number">2.6.4.1. </span>محدد التباين المشترك الأدنى<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>مقدر محدد التباين المشترك الأدنى هو مقدر قوي للتباين المشترك لمجموعة البيانات قدمه P.J. Rousseeuw في <a class="footnote-reference brackets" href="#id16" id="id14" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.
+الفكرة هي إيجاد نسبة معينة (h) من الملاحظات “الجيدة” التي ليست قيمًا متطرفة وحساب مصفوفة التباين المشترك التجريبية الخاصة بها.
+ثم يتم إعادة قياس مصفوفة التباين المشترك التجريبية هذه لتعويض الاختيار الذي تم إجراؤه للملاحظات (“خطوة الاتساق”).
+بعد حساب مقدر محدد التباين المشترك الأدنى، يمكن للمرء إعطاء أوزان للملاحظات وفقًا لمسافة Mahalanobis الخاصة بهم، مما يؤدي إلى تقدير معاد وزنه لمصفوفة التباين المشترك لمجموعة البيانات (“خطوة إعادة الوزن”).</p>
+<p>طور Rousseeuw و Van Driessen <a class="footnote-reference brackets" href="#id17" id="id15" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a> خوارزمية FastMCD من أجل حساب محدد التباين المشترك الأدنى.
+تستخدم هذه الخوارزمية في scikit-learn عند ملاءمة كائن MCD للبيانات.
+تحسب خوارزمية FastMCD أيضًا تقديرًا قويًا لموقع مجموعة البيانات في نفس الوقت.</p>
+<p>يمكن الوصول إلى التقديرات الأولية كسمات <code class="docutils literal notranslate"><span class="pre">raw_location_</span></code> و <code class="docutils literal notranslate"><span class="pre">raw_covariance_</span></code> لكائن مقدر التباين المشترك القوي <a class="reference internal" href="generated/sklearn.covariance.MinCovDet.html#sklearn.covariance.MinCovDet" title="sklearn.covariance.MinCovDet"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinCovDet</span></code></a>.</p>
+<p class="rubric">المراجع</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id16" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id12">1</a>,<a role="doc-backlink" href="#id14">2</a>)</span>
+<p>P. J. Rousseeuw. Least median of squares regression.
+J. Am Stat Ass، 79: 871، 1984.</p>
+</aside>
+<aside class="footnote brackets" id="id17" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id15">4</a><span class="fn-bracket">]</span></span>
+<p>A Fast Algorithm for the Minimum Covariance Determinant Estimator،
+1999، الرابطة الإحصائية الأمريكية والجمعية الأمريكية للجودة، TECHNOMETRICS.</p>
+</aside>
+</aside>
+<p class="rubric">أمثلة</p>
+<ul class="simple">
+<li><p>انظر <span class="xref std std-ref">sphx_glr_auto_examples_covariance/plot_robust_vs_empirical_covariance.py</span> للحصول على مثال حول كيفية ملاءمة كائن <a class="reference internal" href="generated/sklearn.covariance.MinCovDet.html#sklearn.covariance.MinCovDet" title="sklearn.covariance.MinCovDet"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinCovDet</span></code></a> للبيانات ومعرفة كيف يظل التقدير دقيقًا على الرغم من وجود القيم المتطرفة.</p></li>
+<li><p>انظر <span class="xref std std-ref">sphx_glr_auto_examples_covariance/plot_mahalanobis_distances.py</span> لتصور الفرق بين مقدرات التباين المشترك <a class="reference internal" href="generated/sklearn.covariance.EmpiricalCovariance.html#sklearn.covariance.EmpiricalCovariance" title="sklearn.covariance.EmpiricalCovariance"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmpiricalCovariance</span></code></a> و <a class="reference internal" href="generated/sklearn.covariance.MinCovDet.html#sklearn.covariance.MinCovDet" title="sklearn.covariance.MinCovDet"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinCovDet</span></code></a> من حيث مسافة Mahalanobis (لذلك نحصل على تقدير أفضل لمصفوفة الدقة أيضًا).</p></li>
+</ul>
+<hr class="docutils" />
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>تأثير القيم المتطرفة على تقديرات الموقع والتباين المشترك</p></th>
+<th class="head"><p>فصل القيم الداخلية عن القيم المتطرفة باستخدام مسافة Mahalanobis</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="../auto_examples/covariance/plot_robust_vs_empirical_covariance.html"><img alt="robust_vs_emp" src="../_images/sphx_glr_plot_robust_vs_empirical_covariance_001.png" style="width: 313.6px; height: 235.2px;" /></a></p></td>
+<td><p><a class="reference external" href="../auto_examples/covariance/plot_mahalanobis_distances.html"><img alt="mahalanobis" src="../_images/sphx_glr_plot_mahalanobis_distances_001.png" style="width: 490.0px; height: 245.0px;" /></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  <div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item">
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="decomposition.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">2.5. </span>تحليل الإشارات إلى مكونات (مشاكل تحليل المصفوفات)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="outlier_detection.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">2.7. </span>كشف الجِدّة والقيم المتطرفة</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+                </footer>
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.6.1. التباين المشترك التجريبي</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shrunk-covariance">2.6.2. التباين المشترك المنكمش</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.6.2.1. الانكماش الأساسي</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ledoit-wolf">2.6.2.2. انكماش Ledoit-Wolf</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oracle-approximating-shrinkage">2.6.2.3. انكماش تقريب أوراكل</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sparse-inverse-covariance">2.6.3. التباين المشترك العكسي المتناثر</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#robust-covariance">2.6.4. تقدير التباين المشترك القوي</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">2.6.4.1. محدد التباين المشترك الأدنى</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/modules/covariance.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024 - 2024, scikit-learn developers (BSD License).
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

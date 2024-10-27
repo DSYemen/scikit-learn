@@ -1,0 +1,1124 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="1.5. التحسين التدريجي العشوائي" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://scikit-learn/stable/modules/sgd.html" />
+<meta property="og:site_name" content="scikit-learn" />
+<meta property="og:description" content="التحسين التدريجي العشوائي (SGD) هو نهج بسيط وفعال للغاية لتناسب المصنفات والمرجعيات الخطية في ظل وظائف الخسارة المقعرة مثل (الخطية) دعم الآلات المتجهة و الانحدار اللوجستي. على الرغم من أن SGD موجود..." />
+<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_sgd_separating_hyperplane_001.png" />
+<meta property="og:image:alt" content="scikit-learn" />
+<meta name="description" content="التحسين التدريجي العشوائي (SGD) هو نهج بسيط وفعال للغاية لتناسب المصنفات والمرجعيات الخطية في ظل وظائف الخسارة المقعرة مثل (الخطية) دعم الآلات المتجهة و الانحدار اللوجستي. على الرغم من أن SGD موجود..." />
+
+    <title>1.5. التحسين التدريجي العشوائي &#8212; scikit-learn 1.6.dev0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyterlite_sphinx.css?v=ca70e7f1" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/colors.css?v=cc94ab7d" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/custom.css?v=e340c087" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../_static/documentation_options.js?v=d875d36e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=97f0b27d"></script>
+    <script src="../_static/jupyterlite_sphinx.js?v=d6bdf5f8"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script data-domain="scikit-learn.org" defer="defer" src="https://views.scientific-python.org/js/script.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'modules/sgd';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://scikit-learn.org/dev/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1.6.dev0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/scripts/dropdown.js?v=e2048168"></script>
+    <script src="../_static/scripts/version-switcher.js?v=a6dd8357"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="1.6. أقرب الجيران" href="neighbors.html" />
+    <link rel="prev" title="1.4. آلات الدعم المتجهية (SVM)" href="svm.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="1.6" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/scikit-learn-logo-small.png" class="logo__image only-light" alt="scikit-learn homepage"/>
+    <img src="../_static/scikit-learn-logo-small.png" class="logo__image only-dark pst-js-only" alt="scikit-learn homepage"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../support.html">
+    Support
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../related_projects.html">
+    Related Projects
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../about.html">
+    حولنا
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../support.html">
+    Support
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../related_projects.html">
+    Related Projects
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../about.html">
+    حولنا
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../supervised_learning.html">1. Supervised learning</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="linear_model.html">1.1. النماذج الخطية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lda_qda.html">1.2. تحليل التمييز الخطي والتربيعي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernel_ridge.html">1.3. انحدار حافة النواة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svm.html">1.4. آلات الدعم المتجهية (SVM)</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">1.5. التحسين التدريجي العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neighbors.html">1.6. أقرب الجيران</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gaussian_process.html">1.7. العمليات الغاوسية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cross_decomposition.html">1.8. التحليل المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="naive_bayes.html">1.9. خوارزميات بايز الساذجة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tree.html">1.10. شجرة القرار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ensemble.html">1.11. المجموعات: تعزيز التدرج، الغابات العشوائية، التجميع، التصويت، التكديس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multiclass.html">1.12. خوارزميات متعددة التصنيف ومتعددة الإخراج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature_selection.html">1.13. اختيار الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="semi_supervised.html">1.14. التعليم شبه الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="isotonic.html">1.15. الانحدار المتساوي التوتر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibration.html">1.16. معايرة الاحتمال</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_networks_supervised.html">1.17. نماذج الشبكات العصبية (الخاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../unsupervised_learning.html">2. Unsupervised learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="mixture.html">2.1. نماذج خليط غاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manifold.html">2.2. تعلم المشعبات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clustering.html">2.3. التجميع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="biclustering.html">2.4. التجميع الثنائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decomposition.html">2.5. تحليل الإشارات إلى مكونات (مشاكل تحليل المصفوفات)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="covariance.html">2.6. تقدير التباين المشترك</a></li>
+<li class="toctree-l2"><a class="reference internal" href="outlier_detection.html">2.7. كشف الجِدّة والقيم المتطرفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="density.html">2.8. تقدير الكثافة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_networks_unsupervised.html">2.9. نماذج الشبكة العصبية (غير خاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../model_selection.html">3. Model selection and evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="cross_validation.html">3.1. التحقق المتبادل: تقييم أداء المقدر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grid_search.html">3.2. ضبط المعلمات الفائقة لمُقدِّر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classification_threshold.html">3.3. ضبط عتبة القرار لتنبؤ الفئة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_evaluation.html">3.4. المقاييس والتهديف: تحديد جودة التنبؤات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learning_curve.html">3.5. منحنيات التحقق من الصحة: رسم الدرجات لتقييم النماذج</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../inspection.html">4. الفحص</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="partial_dependence.html">4.1. مخططات الاعتماد الجزئي والتوقع الشرطي الفردي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="permutation_importance.html">4.2. أهمية ميزة التبديل</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualizations.html">5. التصورات</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../data_transforms.html">6. تحويلات مجموعات البيانات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="compose.html">6.1. خطوط الأنابيب والمقدرات المركبة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature_extraction.html">6.2. استخراج الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html">6.3. معالجة البيانات مُسبقًا</a></li>
+<li class="toctree-l2"><a class="reference internal" href="impute.html">6.4. تعويض القيم المفقودة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unsupervised_reduction.html">6.5. تخفيض الأبعاد غير الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="random_projection.html">6.6. التصميم العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernel_approximation.html">6.7. Kernel Approximation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">6.8. مقاييس المقارنة الزوجية، والصلات، والنوى (Kernels)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing_targets.html">6.9. تحويل هدف التنبؤ (<code class="docutils literal notranslate"><span class="pre">y</span></code>)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/toy_dataset.html">7. Toy datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/real_world.html">8. Real world datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/sample_generators.html">9. Generated datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/loading_other_datasets.html">10. Loading other datasets</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../computing.html">11. Computing with scikit-learn</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../computing/scaling_strategies.html">11.1. استراتيجيات للقياس حسابيًا: بيانات أكبر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../computing/computational_performance.html">11.2. الأداء الحسابي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../computing/parallelism.html">11.3. التوازي وإدارة الموارد والتهيئة</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../model_persistence.html">12. استمرارية النموذج</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../common_pitfalls.html">13. المخاطر الشائعة والممارسات الموصى بها</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../dispatching.html">14. Dispatching</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="array_api.html">14.1. دعم المدخلات المتوافقة مع <code class="docutils literal notranslate"><span class="pre">Array</span> <span class="pre">API</span></code></a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../machine_learning_map.html">15. Choosing the right estimator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../presentations.html">16. المصادر الخارجية ومقاطع الفيديو والمحادثات</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../user_guide.html" class="nav-link">User Guide</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../supervised_learning.html" class="nav-link"><span class="section-number">1. </span>Supervised learning</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">1.5. </span>التحسين التدريجي العشوائي</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="sgd">
+<span id="id1"></span><h1><span class="section-number">1.5. </span>التحسين التدريجي العشوائي<a class="headerlink" href="#sgd" title="Link to this heading">#</a></h1>
+<p><strong>التحسين التدريجي العشوائي (SGD)</strong> هو نهج بسيط وفعال للغاية
+لتناسب المصنفات والمرجعيات الخطية في ظل
+وظائف الخسارة المقعرة مثل (الخطية) <a class="reference external" href="https://en.wikipedia.org/wiki/Support_vector_machine">دعم الآلات المتجهة</a> و <a class="reference external" href="https://en.wikipedia.org/wiki/Logistic_regression">الانحدار اللوجستي</a>.
+على الرغم من أن SGD موجود في مجتمع التعلم الآلي منذ فترة طويلة، إلا أنه تلقى قدرًا كبيرًا من الاهتمام مؤخرًا
+في سياق التعلم على نطاق واسع.</p>
+<p>تم تطبيق SGD بنجاح على مشكلات التعلم الآلي الكبيرة والنادرة التي يتم مواجهتها غالبًا في تصنيف النصوص ومعالجة اللغات الطبيعية.  نظرًا لأن البيانات نادرة، فإن المصنفات
+في هذه الوحدة النمطية تتناسب بسهولة مع المشكلات التي تحتوي على أكثر من 10^5 أمثلة تدريبية وأكثر من 10^5 ميزات.</p>
+<p>بمعنى دقيق، فإن SGD هو مجرد تقنية تحسين ولا
+تقابل عائلة محددة من نماذج التعلم الآلي. إنه مجرد
+<em>طريقة</em> لتدريب نموذج. غالبًا ما يكون مثيل <a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="sklearn.linear_model.SGDClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDClassifier</span></code></a> أو
+<a class="reference internal" href="generated/sklearn.linear_model.SGDRegressor.html#sklearn.linear_model.SGDRegressor" title="sklearn.linear_model.SGDRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDRegressor</span></code></a> له مصنف مكافئ في
+واجهة برمجة scikit-learn، ربما باستخدام تقنية تحسين مختلفة.
+على سبيل المثال، يؤدي استخدام <code class="docutils literal notranslate"><span class="pre">SGDClassifier(loss='log_loss')</span></code> إلى الانحدار اللوجستي،
+أي نموذج مكافئ لـ <a class="reference internal" href="generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogisticRegression</span></code></a>
+الذي يتم تجهيزه عبر SGD بدلاً من تجهيزه بواسطة أحد الحلول الأخرى
+في <a class="reference internal" href="generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogisticRegression</span></code></a>. وبالمثل،
+<code class="docutils literal notranslate"><span class="pre">SGDRegressor(loss='squared_error',</span> <span class="pre">penalty='l2')</span></code> و
+<a class="reference internal" href="generated/sklearn.linear_model.Ridge.html#sklearn.linear_model.Ridge" title="sklearn.linear_model.Ridge"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ridge</span></code></a> تحل نفس مشكلة التحسين، عبر
+طرق مختلفة.</p>
+<p>مزايا التحسين التدريجي العشوائي هي:</p>
+<ul class="simple">
+<li><p>الكفاءة.</p></li>
+<li><p>سهولة التنفيذ (الكثير من الفرص لتحسين الكود).</p></li>
+</ul>
+<p>عيوب التحسين التدريجي العشوائي تشمل:</p>
+<ul class="simple">
+<li><p>يتطلب SGD عددًا من المعلمات الفائقة مثل معلمة التنظيم</p></li>
+</ul>
+<p>وعدد التكرارات.</p>
+<ul class="simple">
+<li><p>SGD حساس لقياس الميزات.</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>تأكد من تبديل (خلط) بيانات التدريب الخاصة بك قبل تجهيز النموذج
+أو استخدام <code class="docutils literal notranslate"><span class="pre">shuffle=True</span></code> لخلطها بعد كل تكرار (يستخدم افتراضيًا).
+أيضًا، من الناحية المثالية، يجب توحيد الميزات باستخدام e.g.
+<code class="docutils literal notranslate"><span class="pre">make_pipeline(StandardScaler(),</span> <span class="pre">SGDClassifier())</span></code> (راجع <a class="reference internal" href="compose.html#combining-estimators"><span class="std std-ref">Pipelines</span></a>).</p>
+</div>
+<section id="id4">
+<h2><span class="section-number">1.5.1. </span>التصنيف<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>تنفذ الفئة <a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="sklearn.linear_model.SGDClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDClassifier</span></code></a> روتين تعلم التحسين التدريجي العشوائي العادي الذي يدعم وظائف الخسارة والعقوبات المختلفة للتصنيف. فيما يلي حدود قرار <a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="sklearn.linear_model.SGDClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDClassifier</span></code></a> المدرب باستخدام خسارة الهامش، المكافئ لمصنف SVM الخطي.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/linear_model/plot_sgd_separating_hyperplane.html"><img alt="../_images/sphx_glr_plot_sgd_separating_hyperplane_001.png" src="../_images/sphx_glr_plot_sgd_separating_hyperplane_001.png" style="width: 480.0px; height: 360.0px;" />
+</a>
+</figure>
+<p>بعد التجهيز، يمكن استخدام النموذج بعد ذلك للتنبؤ بالقيم الجديدة:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">]])</span>
+<span class="go">array([1])</span>
+</pre></div>
+</div>
+<p>يتناسب SGD مع نموذج خطي لبيانات التدريب. تحتوي السمة <code class="docutils literal notranslate"><span class="pre">coef_</span></code> على
+معلمات النموذج:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">coef_</span>
+<span class="go">array([[9.9..., 9.9...]])</span>
+</pre></div>
+</div>
+<p>تحتوي السمة <code class="docutils literal notranslate"><span class="pre">intercept_</span></code> على الانترسبت:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">intercept_</span>
+<span class="go">array([-9.9...])</span>
+</pre></div>
+</div>
+<p>يتم التحكم فيما إذا كان يجب على النموذج استخدام انترسبت، أي فرضية متحيزة،
+بمعلمة <code class="docutils literal notranslate"><span class="pre">fit_intercept</span></code>.</p>
+<p>المسافة الموقعة إلى الفرضية (المحسوبة كناتج الضرب النقطي
+بين المعاملات والعينة المدخلة، بالإضافة إلى الانترسبت) يتم إعطاؤها بواسطة
+<a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier.decision_function" title="sklearn.linear_model.SGDClassifier.decision_function"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SGDClassifier.decision_function</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">decision_function</span><span class="p">([[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">]])</span>
+<span class="go">array([29.6...])</span>
+</pre></div>
+</div>
+<p>يمكن تعيين وظيفة الخسارة الملموسة عبر معلمة <code class="docutils literal notranslate"><span class="pre">loss</span></code>
+. يدعم <a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="sklearn.linear_model.SGDClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDClassifier</span></code></a> وظائف الخسارة التالية:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">loss=&quot;hinge&quot;</span></code>: (soft-margin) SVM الخطي،</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">loss=&quot;modified_huber&quot;</span></code>: خسارة الهامش الملساء،</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">loss=&quot;log_loss&quot;</span></code>: الانحدار اللوجستي،</p></li>
+<li><p>وجميع وظائف الانحدار أدناه. في هذه الحالة، يتم ترميز الهدف على أنه -1
+أو 1، وتتم معاملة المشكلة على أنها مشكلة انحدار. الفئة المتوقعة
+تقابل إشارة الهدف المتوقع.</p></li>
+</ul>
+<p>يرجى الرجوع إلى القسم الرياضي أدناه
+&lt;sgd_mathematical_formulation&gt;` للحصول على الصيغ.
+وظيفتا الخسارة الأوليتان كسولتان، فهما لا تحدثان سوى تحديث نموذج
+المعلمات إذا انتهكت إحدى الأمثلة قيد الهامش، مما يجعل
+التدريب فعالاً للغاية وقد يؤدي إلى نماذج أكثر ندرة (أي مع المزيد من المعاملات الصفرية)، حتى عند استخدام عقوبة L2.</p>
+<p>باستخدام <code class="docutils literal notranslate"><span class="pre">loss=&quot;log_loss&quot;</span></code> أو <code class="docutils literal notranslate"><span class="pre">loss=&quot;modified_huber&quot;</span></code>، يتم تمكين
+طريقة <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code>، والتي تعطي ناقلًا من تقديرات الاحتمالية
+<span class="math notranslate nohighlight">\(P(y|x)\)</span> لكل عينة <span class="math notranslate nohighlight">\(x\)</span>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">SGDClassifier</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s2">&quot;log_loss&quot;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]])</span> 
+<span class="go">array([[0.00..., 0.99...]])</span>
+</pre></div>
+</div>
+<p>يمكن تعيين العقوبة الملموسة عبر معلمة <code class="docutils literal notranslate"><span class="pre">penalty</span></code>
+. يدعم SGD العقوبات التالية:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">penalty=&quot;l2&quot;</span></code>: معيار L2 على <code class="docutils literal notranslate"><span class="pre">coef_</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">penalty=&quot;l1&quot;</span></code>: معيار L1 على <code class="docutils literal notranslate"><span class="pre">coef_</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">penalty=&quot;elasticnet&quot;</span></code>: مزيج محدب من L2 وL1؛
+<code class="docutils literal notranslate"><span class="pre">(1</span> <span class="pre">-</span> <span class="pre">l1_ratio)</span> <span class="pre">*</span> <span class="pre">L2</span> <span class="pre">+</span> <span class="pre">l1_ratio</span> <span class="pre">*</span> <span class="pre">L1</span></code>.</p></li>
+</ul>
+<p>الإعداد الافتراضي هو <code class="docutils literal notranslate"><span class="pre">penalty=&quot;l2&quot;</span></code>. تؤدي عقوبة L1 إلى حلول نادرة،
+مما يؤدي إلى دفع معظم المعاملات إلى الصفر. يحل Elastic Net <a class="footnote-reference brackets" href="#id17" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>11<span class="fn-bracket">]</span></a> بعض أوجه القصور في عقوبة L1 في وجود سمات شديدة الارتباط. يتحكم المعامل <code class="docutils literal notranslate"><span class="pre">l1_ratio</span></code> في المزيج المحدب
+من L1 وL2.</p>
+<p>يدعم <a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="sklearn.linear_model.SGDClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDClassifier</span></code></a> التصنيف متعدد الفئات من خلال الجمع
+بين العديد من المصنفات الثنائية في مخطط “واحد مقابل الكل” (OVA). لكل
+من الفئات <span class="math notranslate nohighlight">\(K\)</span>، يتم تعلم مصنف ثنائي يميز
+بين تلك الفئات وجميع الفئات الأخرى <span class="math notranslate nohighlight">\(K-1\)</span>. في وقت الاختبار، نقوم بحساب
+درجة الثقة (أي المسافة الموقعة إلى الفرضية) لكل
+مصنف واختيار الفئة ذات الثقة الأعلى. يوضح الشكل
+أدناه نهج OVA على مجموعة بيانات زهرة النرجس.  تمثل الخطوط المتقطعة
+المصنفات الثلاثة OVA؛ الألوان الخلفية تظهر
+سطح القرار الناجم عن المصنفات الثلاثة.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/linear_model/plot_sgd_iris.html"><img alt="../_images/sphx_glr_plot_sgd_iris_001.png" src="../_images/sphx_glr_plot_sgd_iris_001.png" style="width: 480.0px; height: 360.0px;" />
+</a>
+</figure>
+<p>في حالة التصنيف متعدد الفئات، يكون <code class="docutils literal notranslate"><span class="pre">coef_</span></code> مصفوفة ثنائية الأبعاد
+ذات الشكل (n_classes، n_features) و <code class="docutils literal notranslate"><span class="pre">intercept_</span></code> هو
+مصفوفة أحادية البعد ذات الشكل (n_classes,). يحتوي الصف i-th من <code class="docutils literal notranslate"><span class="pre">coef_</span></code> على
+متجه الوزن لمصنف OVA للفئة i-th؛ يتم ترتيب الفئات
+تصاعديًا (راجع سمة <code class="docutils literal notranslate"><span class="pre">classes_</span></code>).
+لاحظ أنه، من حيث المبدأ، نظرًا لأنها تسمح بإنشاء نموذج احتمالي،
+<code class="docutils literal notranslate"><span class="pre">loss=&quot;log_loss&quot;</span></code> و <code class="docutils literal notranslate"><span class="pre">loss=&quot;modified_huber&quot;</span></code> أكثر ملاءمة
+للتصنيف “واحد مقابل الكل”.</p>
+<p>يدعم <a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="sklearn.linear_model.SGDClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDClassifier</span></code></a> كل من الفئات المرجحة والعينات المرجحة عبر معلمات التجهيز <code class="docutils literal notranslate"><span class="pre">class_weight</span></code> و <code class="docutils literal notranslate"><span class="pre">sample_weight</span></code>. راجع
+الأمثلة أدناه وdocstring لـ <a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier.fit" title="sklearn.linear_model.SGDClassifier.fit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SGDClassifier.fit</span></code></a> للحصول
+على مزيد من المعلومات.</p>
+<p>يدعم <a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="sklearn.linear_model.SGDClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDClassifier</span></code></a> متوسط SGD <a class="footnote-reference brackets" href="#id16" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>10<span class="fn-bracket">]</span></a>. يمكن تمكين المتوسط من خلال تعيين <code class="docutils literal notranslate"><span class="pre">average=True</span></code>. يقوم ASGD بأداء نفس التحديثات مثل
+SGD العادي (راجع <span class="xref std std-ref">sgd_mathematical_formulation</span>)، ولكن بدلاً من استخدام
+القيمة الأخيرة لمعاملات كسمة <code class="docutils literal notranslate"><span class="pre">coef_</span></code> (أي قيم
+آخر تحديث)، يتم تعيين <code class="docutils literal notranslate"><span class="pre">coef_</span></code> بدلاً من ذلك إلى <strong>متوسط</strong> قيمة
+المعاملات عبر جميع التحديثات. نفس الشيء ينطبق على السمة <code class="docutils literal notranslate"><span class="pre">intercept_</span></code>. عند استخدام ASGD، يمكن أن يكون معدل التعلم أكبر وحتى ثابتًا،
+مما يؤدي على بعض مجموعات البيانات إلى تسريع وقت التدريب.</p>
+<p>بالنسبة للتصنيف مع خسارة لوجستية، هناك متغير آخر من SGD مع استراتيجية متوسطة
+متاحة مع خوارزمية Stochastic Average Gradient (SAG)،
+متاحة كمصنف في <a class="reference internal" href="generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogisticRegression</span></code></a>.</p>
+<p class="rubric">أمثلة</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_sgd_separating_hyperplane.html#sphx-glr-auto-examples-linear-model-plot-sgd-separating-hyperplane-py"><span class="std std-ref">SGD: Maximum margin separating hyperplane</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_sgd_iris.html#sphx-glr-auto-examples-linear-model-plot-sgd-iris-py"><span class="std std-ref">Plot multi-class SGD on the iris dataset</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_sgd_weighted_samples.html#sphx-glr-auto-examples-linear-model-plot-sgd-weighted-samples-py"><span class="std std-ref">SGD: Weighted samples</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_sgd_comparison.html#sphx-glr-auto-examples-linear-model-plot-sgd-comparison-py"><span class="std std-ref">Comparing various online solvers</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/svm/plot_separating_hyperplane_unbalanced.html#sphx-glr-auto-examples-svm-plot-separating-hyperplane-unbalanced-py"><span class="std std-ref">SVM: Separating hyperplane for unbalanced classes</span></a>
+(راجع الملاحظة في المثال)</p></li>
+</ul>
+</section>
+<section id="id7">
+<h2><span class="section-number">1.5.2. </span>الانحدار<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<p>تنفذ الفئة <a class="reference internal" href="generated/sklearn.linear_model.SGDRegressor.html#sklearn.linear_model.SGDRegressor" title="sklearn.linear_model.SGDRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDRegressor</span></code></a> روتين تعلم التحسين التدريجي العشوائي العادي الذي يدعم وظائف الخسارة والعقوبات المختلفة لتناسب نماذج الانحدار الخطية. <a class="reference internal" href="generated/sklearn.linear_model.SGDRegressor.html#sklearn.linear_model.SGDRegressor" title="sklearn.linear_model.SGDRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDRegressor</span></code></a> مناسب
+لمشكلات الانحدار التي تحتوي على عدد كبير من
+أمثلة التدريب (&gt; 10.000)، بالنسبة للمشكلات الأخرى نوصي بـ <a class="reference internal" href="generated/sklearn.linear_model.Ridge.html#sklearn.linear_model.Ridge" title="sklearn.linear_model.Ridge"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ridge</span></code></a>،
+<a class="reference internal" href="generated/sklearn.linear_model.Lasso.html#sklearn.linear_model.Lasso" title="sklearn.linear_model.Lasso"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lasso</span></code></a>، أو <a class="reference internal" href="generated/sklearn.linear_model.ElasticNet.html#sklearn.linear_model.ElasticNet" title="sklearn.linear_model.ElasticNet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ElasticNet</span></code></a>.</p>
+<p>يمكن تعيين وظيفة الخسارة الملموسة عبر معلمة <code class="docutils literal notranslate"><span class="pre">loss</span></code>
+. يدعم <a class="reference internal" href="generated/sklearn.linear_model.SGDRegressor.html#sklearn.linear_model.SGDRegressor" title="sklearn.linear_model.SGDRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDRegressor</span></code></a> وظائف الخسارة التالية:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">loss=&quot;squared_error&quot;</span></code>: أقل مربعات عادية،</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">loss=&quot;huber&quot;</span></code>: خسارة هابر للانحدار المقاوم،</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">loss=&quot;epsilon_insensitive&quot;</span></code>: دعم الآلات المتجهة الخطية.</p></li>
+</ul>
+<p>يرجى الرجوع إلى القسم الرياضي أدناه
+&lt;sgd_mathematical_formulation&gt;` للحصول على الصيغ.
+يمكن استخدام وظيفتي هابر وإبسيلون غير الحساسة للانحدار المقاوم. يجب تحديد عرض المنطقة غير الحساسة
+عبر معلمة <code class="docutils literal notranslate"><span class="pre">epsilon</span></code>. تعتمد هذه المعلمة على
+مقياس المتغيرات المستهدفة.</p>
+<p>تحدد معلمة <code class="docutils literal notranslate"><span class="pre">penalty</span></code> التنظيم المراد استخدامه (راجع
+الوصف أعلاه في قسم التصنيف).</p>
+<p>يدعم <a class="reference internal" href="generated/sklearn.linear_model.SGDRegressor.html#sklearn.linear_model.SGDRegressor" title="sklearn.linear_model.SGDRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDRegressor</span></code></a> أيضًا متوسط SGD <a class="footnote-reference brackets" href="#id16" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>10<span class="fn-bracket">]</span></a> (هنا مرة أخرى، راجع
+الوصف أعلاه في قسم التصنيف).</p>
+<p>بالنسبة للانحدار مع خسارة مربعة وعقوبة L2، هناك متغير آخر من
+SGD مع استراتيجية متوسطة متاحة مع خوارزمية Stochastic Average
+Gradient (SAG)، متاحة كمصنف في <a class="reference internal" href="generated/sklearn.linear_model.Ridge.html#sklearn.linear_model.Ridge" title="sklearn.linear_model.Ridge"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ridge</span></code></a>.</p>
+</section>
+<section id="online-one-class-svm">
+<span id="sgd-online-one-class-svm"></span><h2><span class="section-number">1.5.3. </span>Online One-Class SVM<a class="headerlink" href="#online-one-class-svm" title="Link to this heading">#</a></h2>
+<p>تنفذ الفئة <a class="reference internal" href="generated/sklearn.linear_model.SGDOneClassSVM.html#sklearn.linear_model.SGDOneClassSVM" title="sklearn.linear_model.SGDOneClassSVM"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.linear_model.SGDOneClassSVM</span></code></a> إصدارًا خطيًا عبر الإنترنت
+من SVM فئة واحدة باستخدام التحسين التدريجي العشوائي.
+عند الجمع مع تقنيات تقريب النواة،
+يمكن استخدام <a class="reference internal" href="generated/sklearn.linear_model.SGDOneClassSVM.html#sklearn.linear_model.SGDOneClassSVM" title="sklearn.linear_model.SGDOneClassSVM"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.linear_model.SGDOneClassSVM</span></code></a> لتقريب حل
+SVM فئة واحدة المطبقة على نواة، والتي تم تنفيذها في
+<a class="reference internal" href="generated/sklearn.svm.OneClassSVM.html#sklearn.svm.OneClassSVM" title="sklearn.svm.OneClassSVM"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.svm.OneClassSVM</span></code></a>، مع تعقيد خطي
+في عدد العينات. لاحظ أن التعقيد لSVM فئة واحدة المطبقة على نواة هو على
+الأفضل تربيعي في عدد العينات.
+<a class="reference internal" href="generated/sklearn.linear_model.SGDOneClassSVM.html#sklearn.linear_model.SGDOneClassSVM" title="sklearn.linear_model.SGDOneClassSVM"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.linear_model.SGDOneClassSVM</span></code></a> مناسب
+لذلك لمجموعات البيانات التي تحتوي على عدد كبير من
+أمثلة التدريب (&gt; 10,000) والتي يمكن أن يكون متغير SGD
+أسرع بعدة أوامر من حيث الحجم.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="التفاصيل-الرياضية">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">التفاصيل الرياضية<a class="headerlink" href="#التفاصيل-الرياضية" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">يعتمد تنفيذه على تنفيذ التحسين التدريجي العشوائي. في الواقع، مشكلة التحسين الأصلية لSVM فئة واحدة هي</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\min_{w, \rho, \xi} &amp; \quad \frac{1}{2}\Vert w \Vert^2 - \rho + \frac{1}{\nu n} \sum_{i=1}^n \xi_i \\
+\text{s.t.} &amp; \quad \langle w, x_i \rangle \geq \rho - \xi_i \quad 1 \leq i \leq n \\
+&amp; \quad \xi_i \geq 0 \quad 1 \leq i \leq n
+\end{aligned}\end{split}\]</div>
+<p class="sd-card-text">حيث <span class="math notranslate nohighlight">\(\nu \in (0, 1]\)</span> هو معلمة المستخدم المحددة التي تتحكم في
+نسبة الشذوذ ونسبة المتجهات الداعمة. التخلص من
+المتغيرات السائبة <span class="math notranslate nohighlight">\(\xi_i\)</span> هذه المشكلة مكافئة لـ</p>
+<div class="math notranslate nohighlight">
+\[\min_{w, \rho} \frac{1}{2}\Vert w \Vert^2 - \rho + \frac{1}{\nu n} \sum_{i=1}^n \max(0, \rho - \langle w, x_i \rangle) \, .\]</div>
+<p class="sd-card-text">الضرب في الثابت <span class="math notranslate nohighlight">\(\nu\)</span> وإدخال الانترسبت
+<span class="math notranslate nohighlight">\(b = 1 - \rho\)</span> نحصل على مشكلة التحسين المكافئة التالية</p>
+<div class="math notranslate nohighlight">
+\[\min_{w, b} \frac{\nu}{2}\Vert w \Vert^2 + b\nu + \frac{1}{n} \sum_{i=1}^n \max(0, 1 - (\langle w, x_i \rangle + b)) \, .\]</div>
+<p class="sd-card-text">هذا مشابه لمشكلات التحسين التي تمت دراستها في القسم
+<span class="xref std std-ref">sgd_mathematical_formulation</span> مع <span class="math notranslate nohighlight">\(y_i = 1, 1 \leq i \leq n\)</span> و
+<span class="math notranslate nohighlight">\(\alpha = \nu/2\)</span>، <span class="math notranslate nohighlight">\(L\)</span> كونها وظيفة الخسارة الهامشية و <span class="math notranslate nohighlight">\(R\)</span>
+كونها معيار L2. نحتاج فقط إلى إضافة المصطلح <span class="math notranslate nohighlight">\(b\nu\)</span> في
+حلقة التحسين.</p>
+</div>
+</details><p>كما هو الحال في <a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="sklearn.linear_model.SGDClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDClassifier</span></code></a> و <a class="reference internal" href="generated/sklearn.linear_model.SGDRegressor.html#sklearn.linear_model.SGDRegressor" title="sklearn.linear_model.SGDRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDRegressor</span></code></a>، يدعم <a class="reference internal" href="generated/sklearn.linear_model.SGDOneClassSVM.html#sklearn.linear_model.SGDOneClassSVM" title="sklearn.linear_model.SGDOneClassSVM"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDOneClassSVM</span></code></a> متوسط SGD. يمكن تمكين المتوسط من خلال تعيين <code class="docutils literal notranslate"><span class="pre">average=True</span></code>.</p>
+<p class="rubric">أمثلة</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_sgdocsvm_vs_ocsvm.html#sphx-glr-auto-examples-linear-model-plot-sgdocsvm-vs-ocsvm-py"><span class="std std-ref">One-Class SVM versus One-Class SVM using Stochastic Gradient Descent</span></a></p></li>
+</ul>
+</section>
+<section id="id9">
+<h2><span class="section-number">1.5.4. </span>التحسين التدريجي العشوائي للبيانات النادرة<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>ينتج التنفيذ النادر نتائج مختلفة قليلاً
+من التنفيذ الكثيف، بسبب معدل التعلم المصغر للانترسبت. راجع <span class="xref std std-ref">implementation_details</span>.</p>
+</div>
+<p>هناك دعم مدمج للبيانات النادرة المقدمة في أي مصفوفة بتنسيق
+مدعوم بواسطة <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/sparse.html">scipy.sparse</a>. للحصول على أقصى
+كفاءة، ومع ذلك، استخدم تنسيق المصفوفة CSR
+كما هو محدد في <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csr_matrix.html">scipy.sparse.csr_matrix</a>.</p>
+<p class="rubric">أمثلة</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/text/plot_document_classification_20newsgroups.html#sphx-glr-auto-examples-text-plot-document-classification-20newsgroups-py"><span class="std std-ref">Classification of text documents using sparse features</span></a></p></li>
+</ul>
+</section>
+<section id="id10">
+<h2><span class="section-number">1.5.5. </span>التعقيد<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
+<p>الميزة الرئيسية لـ SGD هي كفاءتها، والتي تكون أساسية
+خطي في عدد أمثلة التدريب. إذا كانت X مصفوفة من الحجم (n, p)
+يبلغ تكلفة التدريب <span class="math notranslate nohighlight">\(O(k n \bar p)\)</span>، حيث k هو العدد
+من التكرارات (عصور) و <span class="math notranslate nohighlight">\(\bar p\)</span> هو متوسط عدد
+السمات غير الصفرية لكل عينة.</p>
+<p>ومع ذلك، تظهر النتائج النظرية الحديثة أن وقت التشغيل للحصول على بعض
+دقة التحسين المطلوبة لا تزيد مع زيادة حجم مجموعة التدريب.</p>
+</section>
+<section id="id11">
+<h2><span class="section-number">1.5.6. </span>معيار التوقف<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
+<p>توفر الفئتان <a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="sklearn.linear_model.SGDClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDClassifier</span></code></a> و <a class="reference internal" href="generated/sklearn.linear_model.SGDRegressor.html#sklearn.linear_model.SGDRegressor" title="sklearn.linear_model.SGDRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDRegressor</span></code></a> معيارين
+لإيقاف الخوارزمية عندما يتم الوصول إلى مستوى معين من التقارب:</p>
+<ul class="simple">
+<li><p>مع <code class="docutils literal notranslate"><span class="pre">early_stopping=True</span></code>، يتم تقسيم بيانات الإدخال إلى مجموعة تدريب
+ومجموعة التحقق. يتم بعد ذلك تجهيز النموذج على مجموعة التدريب، ويتم
+تحديد معيار التوقف بناءً على درجة التنبؤ (باستخدام طريقة <code class="docutils literal notranslate"><span class="pre">score</span></code>
+) المحسوبة على مجموعة التحقق. يمكن تحديد حجم مجموعة التحقق
+عبر معلمة <code class="docutils literal notranslate"><span class="pre">validation_fraction</span></code>.</p></li>
+<li><p>مع <code class="docutils literal notranslate"><span class="pre">early_stopping=False</span></code>، يتم تجهيز النموذج على بيانات الإدخال بأكملها
+ويتم تحديد معيار التوقف بناءً على دالة الهدف المحسوبة على
+بيانات التدريب.</p></li>
+</ul>
+<p>في كلتا الحالتين، يتم تقييم المعيار مرة واحدة لكل عصر، وتتوقف الخوارزمية
+عندما لا يتحسن المعيار <code class="docutils literal notranslate"><span class="pre">n_iter_no_change</span></code> مرات متتالية. يتم تقييم التحسن
+مع التسامح المطلق <code class="docutils literal notranslate"><span class="pre">tol</span></code>، وتتوقف الخوارزمية في أي حال بعد عدد أقصى من التكرارات <code class="docutils literal notranslate"><span class="pre">max_iter</span></code>.</p>
+<p>راجع <a class="reference internal" href="../auto_examples/linear_model/plot_sgd_early_stopping.html#sphx-glr-auto-examples-linear-model-plot-sgd-early-stopping-py"><span class="std std-ref">Early stopping of Stochastic Gradient Descent</span></a> لمثال على آثار التوقف المبكر.</p>
+</section>
+<section id="id12">
+<h2><span class="section-number">1.5.7. </span>نصائح للاستخدام العملي<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>التحسين التدريجي العشوائي حساس لقياس الميزات، لذا
+من المستحسن جدًا قياس بياناتك. على سبيل المثال، قم بتصنيف كل
+سمة على ناقل الإدخال X إلى [0,1] أو [-1,+1]، أو قم بتوحيد
+باستخدام e.g.
+<code class="docutils literal notranslate"><span class="pre">make_pipeline(StandardScaler(),</span> <span class="pre">SGDClassifier())</span></code> (راجع <a class="reference internal" href="compose.html#combining-estimators"><span class="std std-ref">Pipelines</span></a>).</p></li>
+<li><p>العثور على معلمة تنظيم معقولة <span class="math notranslate nohighlight">\(\alpha\)</span>
+يتم ذلك بشكل أفضل باستخدام البحث التلقائي عن المعلمات، مثل
+<a class="reference internal" href="generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearchCV</span></code></a> أو
+<a class="reference internal" href="generated/sklearn.model_selection.RandomizedSearchCV.html#sklearn.model_selection.RandomizedSearchCV" title="sklearn.model_selection.RandomizedSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomizedSearchCV</span></code></a>، عادة في
+النطاق <code class="docutils literal notranslate"><span class="pre">10.0**-np.arange(1,7)</span></code>.</p></li>
+<li><p>وجدنا تجريبيًا أن SGD يتقارب بعد ملاحظة
+تقريبًا 10^6 أمثلة التدريب. وبالتالي، فإن تخمين أولي
+لعدد التكرارات هو <code class="docutils literal notranslate"><span class="pre">max_iter</span> <span class="pre">=</span> <span class="pre">np.ceil(10**6</span> <span class="pre">/</span> <span class="pre">n)`،</span>
+<span class="pre">حيث</span> <span class="pre">``n</span></code> هو حجم مجموعة التدريب.</p></li>
+<li><p>إذا كنت تطبق SGD على ميزات مستخرجة باستخدام PCA وجدنا أنه
+من الحكمة غالبًا قياس قيم الميزة بثابت <code class="docutils literal notranslate"><span class="pre">c</span></code>
+بحيث يكون متوسط L2 norm لبيانات التدريب يساوي واحد.</p></li>
+<li><p>وجدنا أن متوسط SGD يعمل بشكل أفضل مع عدد أكبر من الميزات
+ومعدل أعلى من eta0.</p></li>
+</ul>
+<p class="rubric">المراجع</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id13" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://leon.bottou.org/projects/sgd">“Stochastic Gradient Descent”</a> L. Bottou - Website, 2010.</p>
+</aside>
+<aside class="footnote brackets" id="id14" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://doi.org/10.1145/1273496.1273598">“Pegasos: Primal estimated sub-gradient solver for svm”</a>
+S. Shalev-Shwartz، Y. Singer، N. Srebro - في وقائع ICML ‘07.</p>
+</aside>
+<aside class="footnote brackets" id="id15" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>9<span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://www.aclweb.org/anthology/P/P09/P09-1054.pdf">“Stochastic gradient descent training for l1-regularized
+log-linear models with cumulative penalty”</a>
+Y. Tsuruoka، J. Tsujii، S. Ananiadou - في وقائع AFNLP/ACL’09.</p>
+</aside>
+<aside class="footnote brackets" id="id16" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>10<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id6">1</a>,<a role="doc-backlink" href="#id8">2</a>)</span>
+<p><a class="reference external" href="https://arxiv.org/abs/1107.2490v2">“Towards Optimal One Pass Large Scale Learning with
+Averaged Stochastic Gradient Descent”</a>. Xu، Wei (2011)</p>
+</aside>
+<aside class="footnote brackets" id="id17" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">11</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://doi.org/10.1111/j.1467-9868.2005.00503.x">“Regularization and variable selection via the elastic net”</a>
+H. Zou، T. Hastie - Journal of the Royal Statistical Society Series B،
+67 (2)، 301-320.</p>
+</aside>
+<aside class="footnote brackets" id="id18" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>12<span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://doi.org/10.1145/1015330.1015332">“Solving large scale linear prediction problems using stochastic
+gradient descent algorithms”</a>
+T. Zhang - في وقائع ICML ‘04.</p>
+</aside>
+</aside>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  <div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item">
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="svm.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">1.4. </span>آلات الدعم المتجهية (SVM)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="neighbors.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">1.6. </span>أقرب الجيران</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+                </footer>
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">1.5.1. التصنيف</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">1.5.2. الانحدار</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#online-one-class-svm">1.5.3. Online One-Class SVM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">1.5.4. التحسين التدريجي العشوائي للبيانات النادرة</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">1.5.5. التعقيد</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">1.5.6. معيار التوقف</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">1.5.7. نصائح للاستخدام العملي</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/modules/sgd.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024 - 2024, scikit-learn developers (BSD License).
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

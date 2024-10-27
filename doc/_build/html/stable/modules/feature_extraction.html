@@ -1,0 +1,1758 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="6.2. استخراج الميزات" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://scikit-learn/stable/modules/feature_extraction.html" />
+<meta property="og:site_name" content="scikit-learn" />
+<meta property="og:description" content="يمكن استخدام وحدة sklearn.feature_extraction لـ استخراج الميزات بتنسيق تدعمه خوارزميات التعلم الآلي من مجموعات البيانات المُؤلفة من تنسيقات مثل النص والصورة. تحميل الميزات من القواميس: يمكن استخدام..." />
+<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_coin_ward_segmentation_001.png" />
+<meta property="og:image:alt" content="scikit-learn" />
+<meta name="description" content="يمكن استخدام وحدة sklearn.feature_extraction لـ استخراج الميزات بتنسيق تدعمه خوارزميات التعلم الآلي من مجموعات البيانات المُؤلفة من تنسيقات مثل النص والصورة. تحميل الميزات من القواميس: يمكن استخدام..." />
+
+    <title>6.2. استخراج الميزات &#8212; scikit-learn 1.6.dev0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyterlite_sphinx.css?v=ca70e7f1" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/colors.css?v=cc94ab7d" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/custom.css?v=e340c087" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../_static/documentation_options.js?v=d875d36e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=97f0b27d"></script>
+    <script src="../_static/jupyterlite_sphinx.js?v=d6bdf5f8"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script data-domain="scikit-learn.org" defer="defer" src="https://views.scientific-python.org/js/script.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'modules/feature_extraction';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://scikit-learn.org/dev/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1.6.dev0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/scripts/dropdown.js?v=e2048168"></script>
+    <script src="../_static/scripts/version-switcher.js?v=a6dd8357"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6.3. معالجة البيانات مُسبقًا" href="preprocessing.html" />
+    <link rel="prev" title="6.1. خطوط الأنابيب والمقدرات المركبة" href="compose.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="1.6" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/scikit-learn-logo-small.png" class="logo__image only-light" alt="scikit-learn homepage"/>
+    <img src="../_static/scikit-learn-logo-small.png" class="logo__image only-dark pst-js-only" alt="scikit-learn homepage"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../support.html">
+    Support
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../related_projects.html">
+    Related Projects
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../about.html">
+    حولنا
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../support.html">
+    Support
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../related_projects.html">
+    Related Projects
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../about.html">
+    حولنا
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../supervised_learning.html">1. Supervised learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="linear_model.html">1.1. النماذج الخطية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lda_qda.html">1.2. تحليل التمييز الخطي والتربيعي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernel_ridge.html">1.3. انحدار حافة النواة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svm.html">1.4. آلات الدعم المتجهية (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sgd.html">1.5. التحسين التدريجي العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neighbors.html">1.6. أقرب الجيران</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gaussian_process.html">1.7. العمليات الغاوسية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cross_decomposition.html">1.8. التحليل المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="naive_bayes.html">1.9. خوارزميات بايز الساذجة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tree.html">1.10. شجرة القرار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ensemble.html">1.11. المجموعات: تعزيز التدرج، الغابات العشوائية، التجميع، التصويت، التكديس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multiclass.html">1.12. خوارزميات متعددة التصنيف ومتعددة الإخراج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature_selection.html">1.13. اختيار الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="semi_supervised.html">1.14. التعليم شبه الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="isotonic.html">1.15. الانحدار المتساوي التوتر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibration.html">1.16. معايرة الاحتمال</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_networks_supervised.html">1.17. نماذج الشبكات العصبية (الخاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../unsupervised_learning.html">2. Unsupervised learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="mixture.html">2.1. نماذج خليط غاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manifold.html">2.2. تعلم المشعبات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clustering.html">2.3. التجميع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="biclustering.html">2.4. التجميع الثنائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decomposition.html">2.5. تحليل الإشارات إلى مكونات (مشاكل تحليل المصفوفات)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="covariance.html">2.6. تقدير التباين المشترك</a></li>
+<li class="toctree-l2"><a class="reference internal" href="outlier_detection.html">2.7. كشف الجِدّة والقيم المتطرفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="density.html">2.8. تقدير الكثافة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_networks_unsupervised.html">2.9. نماذج الشبكة العصبية (غير خاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../model_selection.html">3. Model selection and evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="cross_validation.html">3.1. التحقق المتبادل: تقييم أداء المقدر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grid_search.html">3.2. ضبط المعلمات الفائقة لمُقدِّر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classification_threshold.html">3.3. ضبط عتبة القرار لتنبؤ الفئة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_evaluation.html">3.4. المقاييس والتهديف: تحديد جودة التنبؤات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learning_curve.html">3.5. منحنيات التحقق من الصحة: رسم الدرجات لتقييم النماذج</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../inspection.html">4. الفحص</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="partial_dependence.html">4.1. مخططات الاعتماد الجزئي والتوقع الشرطي الفردي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="permutation_importance.html">4.2. أهمية ميزة التبديل</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualizations.html">5. التصورات</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../data_transforms.html">6. تحويلات مجموعات البيانات</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="compose.html">6.1. خطوط الأنابيب والمقدرات المركبة</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">6.2. استخراج الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html">6.3. معالجة البيانات مُسبقًا</a></li>
+<li class="toctree-l2"><a class="reference internal" href="impute.html">6.4. تعويض القيم المفقودة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unsupervised_reduction.html">6.5. تخفيض الأبعاد غير الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="random_projection.html">6.6. التصميم العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernel_approximation.html">6.7. Kernel Approximation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">6.8. مقاييس المقارنة الزوجية، والصلات، والنوى (Kernels)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing_targets.html">6.9. تحويل هدف التنبؤ (<code class="docutils literal notranslate"><span class="pre">y</span></code>)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/toy_dataset.html">7. Toy datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/real_world.html">8. Real world datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/sample_generators.html">9. Generated datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/loading_other_datasets.html">10. Loading other datasets</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../computing.html">11. Computing with scikit-learn</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../computing/scaling_strategies.html">11.1. استراتيجيات للقياس حسابيًا: بيانات أكبر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../computing/computational_performance.html">11.2. الأداء الحسابي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../computing/parallelism.html">11.3. التوازي وإدارة الموارد والتهيئة</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../model_persistence.html">12. استمرارية النموذج</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../common_pitfalls.html">13. المخاطر الشائعة والممارسات الموصى بها</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../dispatching.html">14. Dispatching</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="array_api.html">14.1. دعم المدخلات المتوافقة مع <code class="docutils literal notranslate"><span class="pre">Array</span> <span class="pre">API</span></code></a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../machine_learning_map.html">15. Choosing the right estimator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../presentations.html">16. المصادر الخارجية ومقاطع الفيديو والمحادثات</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../user_guide.html" class="nav-link">User Guide</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../data_transforms.html" class="nav-link"><span class="section-number">6. </span>تحويلات مجموعات البيانات</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">6.2. </span>استخراج الميزات</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="feature-extraction">
+<span id="id1"></span><h1><span class="section-number">6.2. </span>استخراج الميزات<a class="headerlink" href="#feature-extraction" title="Link to this heading">#</a></h1>
+<p>يمكن استخدام وحدة <a class="reference internal" href="../api/sklearn.feature_extraction.html#module-sklearn.feature_extraction" title="sklearn.feature_extraction"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.feature_extraction</span></code></a> لـ
+استخراج الميزات بتنسيق تدعمه خوارزميات التعلم الآلي من مجموعات البيانات
+المُؤلفة من تنسيقات مثل النص والصورة.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>يختلف استخراج الميزات تمامًا عن <a class="reference internal" href="feature_selection.html#feature-selection"><span class="std std-ref">اختيار الميزات</span></a>:
+يتمثل الأول في تحويل البيانات التعسفية، مثل النص أو
+الصور، إلى ميزات رقمية قابلة للاستخدام للتعلم الآلي. الأخير
+هو تقنية تعلم آلي تُطبق على هذه الميزات.</p>
+</div>
+<section id="dict-feature-extraction">
+<span id="id2"></span><h2><span class="section-number">6.2.1. </span>تحميل الميزات من القواميس<a class="headerlink" href="#dict-feature-extraction" title="Link to this heading">#</a></h2>
+<p>يمكن استخدام فئة <a class="reference internal" href="generated/sklearn.feature_extraction.DictVectorizer.html#sklearn.feature_extraction.DictVectorizer" title="sklearn.feature_extraction.DictVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">DictVectorizer</span></code></a> لتحويل مصفوفات
+الميزات المُمثلة كقوائم لكائنات Python <code class="docutils literal notranslate"><span class="pre">dict</span></code> القياسية إلى
+تمثيل NumPy/SciPy الذي تستخدمه مُقدِّرات scikit-learn.</p>
+<p>على الرغم من أنه ليس سريعًا بشكل خاص في المعالجة، إلا أن <code class="docutils literal notranslate"><span class="pre">dict</span></code> في Python له
+مزايا كونه سهل الاستخدام، ومتفرق (لا يلزم تخزين الميزات
+الغائبة) وتخزين أسماء الميزات بالإضافة إلى القيم.</p>
+<p><a class="reference internal" href="generated/sklearn.feature_extraction.DictVectorizer.html#sklearn.feature_extraction.DictVectorizer" title="sklearn.feature_extraction.DictVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">DictVectorizer</span></code></a> يُطبق ما يسمى بترميز واحد من K أو “ترميز أحادي ساخن”
+للميزات الفئوية (المعروفة أيضًا باسم الاسمية، المنفصلة). الميزات الفئوية
+هي أزواج “سمة-قيمة” حيث تقتصر القيمة
+على قائمة من الاحتمالات المنفصلة بدون ترتيب (على سبيل المثال مُعرفات
+الموضوع، أنواع الكائنات، العلامات، الأسماء…).</p>
+<p>فيما يلي، “المدينة” هي سمة فئوية بينما “درجة الحرارة”
+هي ميزة رقمية تقليدية:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">measurements</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="p">{</span><span class="s1">&#39;city&#39;</span><span class="p">:</span> <span class="s1">&#39;Dubai&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature&#39;</span><span class="p">:</span> <span class="mf">33.</span><span class="p">},</span>
+<span class="gp">... </span>    <span class="p">{</span><span class="s1">&#39;city&#39;</span><span class="p">:</span> <span class="s1">&#39;London&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature&#39;</span><span class="p">:</span> <span class="mf">12.</span><span class="p">},</span>
+<span class="gp">... </span>    <span class="p">{</span><span class="s1">&#39;city&#39;</span><span class="p">:</span> <span class="s1">&#39;San Francisco&#39;</span><span class="p">,</span> <span class="s1">&#39;temperature&#39;</span><span class="p">:</span> <span class="mf">18.</span><span class="p">},</span>
+<span class="gp">... </span><span class="p">]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction</span> <span class="kn">import</span> <span class="n">DictVectorizer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vec</span> <span class="o">=</span> <span class="n">DictVectorizer</span><span class="p">()</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vec</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">measurements</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="go">array([[ 1.,  0.,  0., 33.],</span>
+<span class="go">       [ 0.,  1.,  0., 12.],</span>
+<span class="go">       [ 0.,  0.,  1., 18.]])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vec</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
+<span class="go">array([&#39;city=Dubai&#39;, &#39;city=London&#39;, &#39;city=San Francisco&#39;, &#39;temperature&#39;], ...)</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="generated/sklearn.feature_extraction.DictVectorizer.html#sklearn.feature_extraction.DictVectorizer" title="sklearn.feature_extraction.DictVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">DictVectorizer</span></code></a> يقبل قيم سلسلة متعددة لميزة
+واحدة، مثل، على سبيل المثال، فئات متعددة لفيلم.</p>
+<p>افترض أن قاعدة بيانات تُصنف كل فيلم باستخدام بعض الفئات (غير إلزامية)
+وعام إصداره.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">movie_entry</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;thriller&#39;</span><span class="p">,</span> <span class="s1">&#39;drama&#39;</span><span class="p">],</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="mi">2003</span><span class="p">},</span>
+<span class="gp">... </span>               <span class="p">{</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;animation&#39;</span><span class="p">,</span> <span class="s1">&#39;family&#39;</span><span class="p">],</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="mi">2011</span><span class="p">},</span>
+<span class="gp">... </span>               <span class="p">{</span><span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="mi">1974</span><span class="p">}]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vec</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">movie_entry</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="go">array([[0.000e+00, 1.000e+00, 0.000e+00, 1.000e+00, 2.003e+03],</span>
+<span class="go">       [1.000e+00, 0.000e+00, 1.000e+00, 0.000e+00, 2.011e+03],</span>
+<span class="go">       [0.000e+00, 0.000e+00, 0.000e+00, 0.000e+00, 1.974e+03]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vec</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
+<span class="go">array([&#39;category=animation&#39;, &#39;category=drama&#39;, &#39;category=family&#39;,</span>
+<span class="go">       &#39;category=thriller&#39;, &#39;year&#39;], ...)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vec</span><span class="o">.</span><span class="n">transform</span><span class="p">({</span><span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;thriller&#39;</span><span class="p">],</span>
+<span class="gp">... </span>               <span class="s1">&#39;unseen_feature&#39;</span><span class="p">:</span> <span class="s1">&#39;3&#39;</span><span class="p">})</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="go">array([[0., 0., 0., 1., 0.]])</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="generated/sklearn.feature_extraction.DictVectorizer.html#sklearn.feature_extraction.DictVectorizer" title="sklearn.feature_extraction.DictVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">DictVectorizer</span></code></a> هو أيضًا تحويل تمثيل مفيد لـ
+تدريب مُصنِّفات التسلسل في نماذج مُعالجة اللغة الطبيعية
+التي تعمل عادةً عن طريق استخراج نوافذ الميزات حول
+كلمة مُعينة ذات أهمية.</p>
+<p>على سبيل المثال، لنفترض أن لدينا خوارزمية أولى تستخرج علامات جزء من
+الكلام (PoS) التي نُريد استخدامها كعلامات تكميلية لـ
+تدريب مُصنف تسلسل (على سبيل المثال قطَّاعة). يمكن أن يكون القاموس التالي
+مثل نافذة من الميزات المستخرجة حول كلمة “sat” في الجملة
+“The cat sat on the mat.”:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pos_window</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="p">{</span>
+<span class="gp">... </span>        <span class="s1">&#39;word-2&#39;</span><span class="p">:</span> <span class="s1">&#39;the&#39;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s1">&#39;pos-2&#39;</span><span class="p">:</span> <span class="s1">&#39;DT&#39;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s1">&#39;word-1&#39;</span><span class="p">:</span> <span class="s1">&#39;cat&#39;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s1">&#39;pos-1&#39;</span><span class="p">:</span> <span class="s1">&#39;NN&#39;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s1">&#39;word+1&#39;</span><span class="p">:</span> <span class="s1">&#39;on&#39;</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="s1">&#39;pos+1&#39;</span><span class="p">:</span> <span class="s1">&#39;PP&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">},</span>
+<span class="gp">... </span>    <span class="c1"># في تطبيق حقيقي، سيستخرج المرء العديد من هذه القواميس</span>
+<span class="gp">... </span><span class="p">]</span>
+</pre></div>
+</div>
+<p>يمكن تحويل هذا الوصف إلى مصفوفة ثنائية الأبعاد متفرقة
+مُناسبة لتغذية مُصنف (ربما بعد تمريره إلى
+<a class="reference internal" href="generated/sklearn.feature_extraction.text.TfidfTransformer.html#sklearn.feature_extraction.text.TfidfTransformer" title="sklearn.feature_extraction.text.TfidfTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TfidfTransformer</span></code></a> للتطبيع):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vec</span> <span class="o">=</span> <span class="n">DictVectorizer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pos_vectorized</span> <span class="o">=</span> <span class="n">vec</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">pos_window</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pos_vectorized</span>
+<span class="go">&lt;Compressed Sparse...dtype &#39;float64&#39;</span>
+<span class="go">  with 6 stored elements and shape (1, 6)&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pos_vectorized</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="go">array([[1., 1., 1., 1., 1., 1.]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vec</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
+<span class="go">array([&#39;pos+1=PP&#39;, &#39;pos-1=NN&#39;, &#39;pos-2=DT&#39;, &#39;word+1=on&#39;, &#39;word-1=cat&#39;,</span>
+<span class="go">       &#39;word-2=the&#39;], ...)</span>
+</pre></div>
+</div>
+<p>كما تتخيل، إذا استخرج المرء مثل هذا السياق حول كل
+كلمة من مجموعة من المستندات، فستكون المصفوفة الناتجة واسعة جدًا
+(العديد من الميزات أحادية التشفير الساخن) مع كون معظمها بقيمة صفر في معظم
+الأوقات. من أجل جعل بنية البيانات الناتجة قادرة على احتواء
+الذاكرة، تستخدم فئة <code class="docutils literal notranslate"><span class="pre">DictVectorizer</span></code> مصفوفة <code class="docutils literal notranslate"><span class="pre">scipy.sparse</span></code> افتراضيًا
+بدلاً من <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>.</p>
+</section>
+<section id="feature-hashing">
+<span id="id3"></span><h2><span class="section-number">6.2.2. </span>تجزئة الميزات<a class="headerlink" href="#feature-hashing" title="Link to this heading">#</a></h2>
+<p>فئة <a class="reference internal" href="generated/sklearn.feature_extraction.FeatureHasher.html#sklearn.feature_extraction.FeatureHasher" title="sklearn.feature_extraction.FeatureHasher"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureHasher</span></code></a> هي أداة متجهية عالية السرعة ومنخفضة الذاكرة تستخدم
+تقنية تُعرف باسم
+<a class="reference external" href="https://en.wikipedia.org/wiki/Feature_hashing">تجزئة الميزات</a>،
+أو “خدعة التجزئة”.
+بدلاً من بناء جدول تجزئة للميزات التي تمت مواجهتها في التدريب،
+كما تفعل أدوات المتجهات، تقوم مثيلات <a class="reference internal" href="generated/sklearn.feature_extraction.FeatureHasher.html#sklearn.feature_extraction.FeatureHasher" title="sklearn.feature_extraction.FeatureHasher"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureHasher</span></code></a>
+بتطبيق دالة تجزئة على الميزات
+لتحديد فهرس عمودها في مصفوفات العينات مباشرةً.
+النتيجة هي زيادة السرعة وتقليل استخدام الذاكرة،
+على حساب إمكانية الفحص؛
+لا تتذكر أداة التجزئة شكل ميزات الإدخال
+وليس لديها أسلوب <code class="docutils literal notranslate"><span class="pre">inverse_transform</span></code>.</p>
+<p>نظرًا لأن دالة التجزئة قد تُسبب تصادمات بين الميزات (غير ذات الصلة)،
+يتم استخدام دالة تجزئة مُوقعة ويُحدد إشارة قيمة التجزئة
+إشارة القيمة المخزنة في مصفوفة الإخراج لميزة.
+بهذه الطريقة، من المرجح أن تُلغي التصادمات بعضها البعض بدلاً من تراكم الخطأ،
+والمتوسط المتوقع لقيمة أي ميزة إخراج هو صفر. يتم تمكين هذه الآلية
+افتراضيًا باستخدام <code class="docutils literal notranslate"><span class="pre">alternate_sign=True</span></code> وهي مفيدة بشكل خاص
+لأحجام جداول التجزئة الصغيرة (<code class="docutils literal notranslate"><span class="pre">n_features</span> <span class="pre">&lt;</span> <span class="pre">10000</span></code>). بالنسبة
+لأحجام جداول التجزئة الكبيرة، يمكن تعطيلها، للسماح بتمرير
+الإخراج إلى مُقدِّرات مثل
+<a class="reference internal" href="generated/sklearn.naive_bayes.MultinomialNB.html#sklearn.naive_bayes.MultinomialNB" title="sklearn.naive_bayes.MultinomialNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultinomialNB</span></code></a> أو
+مُحددات الميزات <a class="reference internal" href="generated/sklearn.feature_selection.chi2.html#sklearn.feature_selection.chi2" title="sklearn.feature_selection.chi2"><code class="xref py py-class docutils literal notranslate"><span class="pre">chi2</span></code></a>
+التي تتوقع مدخلات غير سالبة.</p>
+<p><a class="reference internal" href="generated/sklearn.feature_extraction.FeatureHasher.html#sklearn.feature_extraction.FeatureHasher" title="sklearn.feature_extraction.FeatureHasher"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureHasher</span></code></a> يقبل إما تعيينات
+(مثل Python <code class="docutils literal notranslate"><span class="pre">dict</span></code> ومتغيراتها في وحدة <code class="docutils literal notranslate"><span class="pre">collections</span></code>)،
+أزواج <code class="docutils literal notranslate"><span class="pre">(ميزة،</span> <span class="pre">قيمة)</span></code>، أو سلاسل،
+اعتمادًا على معلمة المُنشئ <code class="docutils literal notranslate"><span class="pre">input_type</span></code>.
+يتم مُعالجة التعيينات كقوائم من أزواج <code class="docutils literal notranslate"><span class="pre">(ميزة،</span> <span class="pre">قيمة)</span></code>،
+بينما تحتوي السلاسل المفردة على قيمة ضمنية تساوي 1،
+لذا يتم تفسير <code class="docutils literal notranslate"><span class="pre">['feat1'،</span> <span class="pre">'feat2'،</span> <span class="pre">'feat3']</span></code> على أنها
+<code class="docutils literal notranslate"><span class="pre">[('feat1'،</span> <span class="pre">1)،</span> <span class="pre">('feat2'،</span> <span class="pre">1)،</span> <span class="pre">('feat3'،</span> <span class="pre">1)]</span></code>.
+إذا ظهرت ميزة واحدة عدة مرات في عينة،
+فسيتم جمع القيم المرتبطة
+(لذا يصبح <code class="docutils literal notranslate"><span class="pre">('feat'،</span> <span class="pre">2)</span></code> و <code class="docutils literal notranslate"><span class="pre">('feat'،</span> <span class="pre">3.5)</span></code> <code class="docutils literal notranslate"><span class="pre">('feat'،</span> <span class="pre">5.5)</span></code>).
+يكون إخراج <a class="reference internal" href="generated/sklearn.feature_extraction.FeatureHasher.html#sklearn.feature_extraction.FeatureHasher" title="sklearn.feature_extraction.FeatureHasher"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureHasher</span></code></a> دائمًا مصفوفة <code class="docutils literal notranslate"><span class="pre">scipy.sparse</span></code>
+بتنسيق CSR.</p>
+<p>يمكن استخدام تجزئة الميزات في تصنيف المستندات،
+ولكن على عكس <a class="reference internal" href="generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="sklearn.feature_extraction.text.CountVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a>،
+<a class="reference internal" href="generated/sklearn.feature_extraction.FeatureHasher.html#sklearn.feature_extraction.FeatureHasher" title="sklearn.feature_extraction.FeatureHasher"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureHasher</span></code></a> لا يقوم بتقسيم الكلمات أو أي مُعالجة مُسبقة أخرى باستثناء
+ترميز Unicode إلى UTF-8؛
+انظر <a class="reference internal" href="#hashing-vectorizer"><span class="std std-ref">تحويل مجموعة نصية كبيرة إلى متجهات باستخدام خدعة التجزئة</span></a>، أدناه، لـ مُجزئ / أداة تجزئة مُجمَّعة.</p>
+<p>على سبيل المثال، ضع في اعتبارك مهمة مُعالجة لغة طبيعية على مستوى الكلمة
+تحتاج إلى ميزات مستخرجة من أزواج <code class="docutils literal notranslate"><span class="pre">(رمز</span> <span class="pre">مميز،</span> <span class="pre">جزء</span> <span class="pre">من</span> <span class="pre">الكلام)</span></code>.
+يمكن للمرء استخدام دالة مُولِّد Python لاستخراج الميزات:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">token_features</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">part_of_speech</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+        <span class="k">yield</span> <span class="s2">&quot;numeric&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="s2">&quot;token=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+        <span class="k">yield</span> <span class="s2">&quot;token,pos=</span><span class="si">{}</span><span class="s2">,</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">part_of_speech</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">token</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isupper</span><span class="p">():</span>
+        <span class="k">yield</span> <span class="s2">&quot;uppercase_initial&quot;</span>
+    <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">isupper</span><span class="p">():</span>
+        <span class="k">yield</span> <span class="s2">&quot;all_uppercase&quot;</span>
+    <span class="k">yield</span> <span class="s2">&quot;pos=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">part_of_speech</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>ثم، يمكن إنشاء <code class="docutils literal notranslate"><span class="pre">raw_X</span></code> ليتم تغذيته إلى <code class="docutils literal notranslate"><span class="pre">FeatureHasher.transform</span></code>
+باستخدام:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">raw_X</span> <span class="o">=</span> <span class="p">(</span><span class="n">token_features</span><span class="p">(</span><span class="n">tok</span><span class="p">,</span> <span class="n">pos_tagger</span><span class="p">(</span><span class="n">tok</span><span class="p">))</span> <span class="k">for</span> <span class="n">tok</span> <span class="ow">in</span> <span class="n">corpus</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>ويتم تغذيته إلى أداة تجزئة باستخدام:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hasher</span> <span class="o">=</span> <span class="n">FeatureHasher</span><span class="p">(</span><span class="n">input_type</span><span class="o">=</span><span class="s1">&#39;string&#39;</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">hasher</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">raw_X</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>للحصول على مصفوفة <code class="docutils literal notranslate"><span class="pre">scipy.sparse</span></code> <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+<p>لاحظ استخدام فهم المُولِّد،
+الذي يُقدم الكسل في استخراج الميزات:
+لا تتم مُعالجة الرموز المميزة إلا عند الطلب من أداة التجزئة.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="تفاصيل-التطبيق">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">تفاصيل التطبيق<a class="headerlink" href="#تفاصيل-التطبيق" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text"><a class="reference internal" href="generated/sklearn.feature_extraction.FeatureHasher.html#sklearn.feature_extraction.FeatureHasher" title="sklearn.feature_extraction.FeatureHasher"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureHasher</span></code></a> يستخدم متغير MurmurHash3 المُوقع 32 بت.
+كنتيجة (وبسبب القيود في <code class="docutils literal notranslate"><span class="pre">scipy.sparse</span></code>)،
+الحد الأقصى لعدد الميزات المدعومة حاليًا هو <span class="math notranslate nohighlight">\(2^{31} - 1\)</span>.</p>
+<p class="sd-card-text">الصيغة الأصلية لخدعة التجزئة من قِبل Weinberger وآخرون.
+استخدمت دالتي تجزئة مُنفصلتين <span class="math notranslate nohighlight">\(h\)</span> و <span class="math notranslate nohighlight">\(\xi\)</span>
+لتحديد فهرس العمود وإشارة الميزة، على التوالي.
+يعمل التطبيق الحالي على افتراض
+أن بت الإشارة لـ MurmurHash3 مستقل عن البتات الأخرى.</p>
+<p class="sd-card-text">نظرًا لاستخدام معيار بسيط لتحويل دالة التجزئة إلى فهرس عمود،
+فمن المستحسن استخدام أس اثنين كمعلمة <code class="docutils literal notranslate"><span class="pre">n_features</span></code>؛
+وإلا فلن يتم تعيين الميزات بالتساوي للأعمدة.</p>
+<p class="rubric">المراجع</p>
+<ul class="simple">
+<li><p class="sd-card-text"><a class="reference external" href="https://github.com/aappleby/smhasher">MurmurHash3</a>.</p></li>
+</ul>
+</div>
+</details><p class="rubric">المراجع</p>
+<ul class="simple">
+<li><p>Kilian Weinberger, Anirban Dasgupta, John Langford, Alex Smola and
+Josh Attenberg (2009). <a class="reference external" href="https://alex.smola.org/papers/2009/Weinbergeretal09.pdf">تجزئة الميزات لتعلم المهام المتعددة واسع النطاق</a>. Proc. ICML.</p></li>
+</ul>
+</section>
+<section id="text-feature-extraction">
+<span id="id6"></span><h2><span class="section-number">6.2.3. </span>استخراج ميزات النص<a class="headerlink" href="#text-feature-extraction" title="Link to this heading">#</a></h2>
+<section id="id7">
+<h3><span class="section-number">6.2.3.1. </span>تمثيل حقيبة الكلمات<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>يُعد تحليل النص مجال تطبيق رئيسي لخوارزميات التعلم
+الآلي. ومع ذلك، لا يمكن تغذية البيانات الأولية، وهي تسلسل من الرموز، مباشرةً إلى
+الخوارزميات نفسها حيث أن معظمها يتوقع متجهات ميزات رقمية ذات حجم ثابت بدلاً من مستندات النص
+الأولية ذات الطول المُتغير.</p>
+<p>من أجل مُعالجة ذلك، يُوفر scikit-learn أدوات مساعدة لـ
+الطرقالأكثر شيوعًا لاستخراج الميزات الرقمية من محتوى النص، وهي:</p>
+<ul class="simple">
+<li><p><strong>تجزئة</strong> السلاسل وإعطاء مُعرف عدد صحيح لكل رمز مميز مُمكن،
+على سبيل المثال باستخدام المسافات البيضاء وعلامات الترقيم كفواصل للرموز المميزة.</p></li>
+<li><p><strong>حساب</strong> تكرارات الرموز المميزة في كل مستند.</p></li>
+<li><p><strong>تطبيع</strong> ووزن الرموز المميزة ذات الأهمية المتناقصة التي
+تظهر في غالبية العينات / المستندات.</p></li>
+</ul>
+<p>في هذا المخطط، يتم تعريف الميزات والعينات على النحو التالي:</p>
+<ul class="simple">
+<li><p>يتم مُعالجة كل <strong>تردد تكرار رمز مميز فردي</strong> (مُقيَّس أو غير مُقيَّس)
+كميزة.</p></li>
+<li><p>يُعتبر متجه جميع ترددات الرموز المميزة لـ <strong>مستند</strong> مُعين
+عينة متعددة المتغيرات.</p></li>
+</ul>
+<p>وبالتالي، يمكن تمثيل مجموعة من المستندات بواسطة مصفوفة تحتوي على صف واحد
+لكل مستند وعمود واحد لكل رمز مميز (على سبيل المثال كلمة) يظهر في المجموعة.</p>
+<p>نُسمي <strong>التحويل إلى متجهات</strong> العملية العامة لتحويل مجموعة
+من مستندات النص إلى متجهات ميزات رقمية. تُسمى هذه الإستراتيجية المحددة
+(التجزئة والعد والتطبيع) <strong>حقيبة الكلمات</strong>
+أو تمثيل “حقيبة n-grams”. يتم وصف المستندات بواسطة تكرارات
+الكلمات مع تجاهل معلومات الموضع النسبي
+للكلمات في المستند تمامًا.</p>
+</section>
+<section id="id8">
+<h3><span class="section-number">6.2.3.2. </span>التفرق<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>نظرًا لأن معظم المستندات ستستخدم عادةً مجموعة فرعية صغيرة جدًا من الكلمات المُستخدمة في
+المجموعة، فستحتوي المصفوفة الناتجة على العديد من قيم الميزات التي تساوي
+صفرًا (عادةً أكثر من 99% منها).</p>
+<p>على سبيل المثال، ستستخدم مجموعة من 10000 مستند نصي قصير (مثل رسائل البريد الإلكتروني)
+مفردات بحجم يبلغ حوالي 100000 كلمة فريدة
+إجمالاً بينما سيستخدم كل مستند من 100 إلى 1000 كلمة فريدة على حدة.</p>
+<p>من أجل أن تكون قادرًا على تخزين مثل هذه المصفوفة في الذاكرة ولكن أيضًا لتسريع
+العمليات الجبرية للمصفوفة / المتجه، ستستخدم التطبيقات عادةً
+تمثيلًا متفرقًا مثل التطبيقات المتاحة في
+حزمة <code class="docutils literal notranslate"><span class="pre">scipy.sparse</span></code>.</p>
+</section>
+<section id="id9">
+<h3><span class="section-number">6.2.3.3. </span>استخدام متجه شائع<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p><a class="reference internal" href="generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="sklearn.feature_extraction.text.CountVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a> يُطبق كل من التجزئة و
+حساب التكرار في فئة واحدة:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
+</pre></div>
+</div>
+<p>يحتوي هذا النموذج على العديد من المعلمات، ومع ذلك، فإن القيم الافتراضية معقولة تمامًا
+(يرجى مراجعة <a class="reference internal" href="../api/sklearn.feature_extraction.html#feature-extraction-ref-from-text"><span class="std std-ref">وثائق المرجع</span></a> للتفاصيل):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vectorizer</span>
+<span class="go">CountVectorizer()</span>
+</pre></div>
+</div>
+<p>دعونا نستخدمه لتجزئة وحساب تكرارات الكلمات لمجموعة
+بيانات نصية بسيطة:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">corpus</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="s1">&#39;This is the first document.&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;This is the second second document.&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;And the third one.&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;Is this the first document?&#39;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span>
+<span class="go">&lt;Compressed Sparse...dtype &#39;int64&#39;</span>
+<span class="go">  with 19 stored elements and shape (4, 9)&gt;</span>
+</pre></div>
+</div>
+<p>يقوم التكوين الافتراضي بتجزئة السلسلة عن طريق استخراج الكلمات التي تحتوي على
+حرفين على الأقل. يمكن طلب الدالة المحددة التي تُجري هذه الخطوة
+صراحةً:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">analyze</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">build_analyzer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analyze</span><span class="p">(</span><span class="s2">&quot;This is a text document to analyze.&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="s1">&#39;this&#39;</span><span class="p">,</span> <span class="s1">&#39;is&#39;</span><span class="p">,</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="s1">&#39;document&#39;</span><span class="p">,</span> <span class="s1">&#39;to&#39;</span><span class="p">,</span> <span class="s1">&#39;analyze&#39;</span><span class="p">])</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>يتم تعيين فهرس عدد صحيح فريد لكل مُصطلح تم العثور عليه بواسطة المُحلل أثناء
+الملاءمة، مُقابل عمود في المصفوفة الناتجة. هذا
+التفسير للأعمدة يمكن استرداده على النحو التالي:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
+<span class="go">array([&#39;and&#39;, &#39;document&#39;, &#39;first&#39;, &#39;is&#39;, &#39;one&#39;, &#39;second&#39;, &#39;the&#39;,</span>
+<span class="go">       &#39;third&#39;, &#39;this&#39;], ...)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="go">array([[0, 1, 1, 1, 0, 0, 1, 0, 1],</span>
+<span class="go">       [0, 1, 0, 1, 0, 2, 1, 0, 1],</span>
+<span class="go">       [1, 0, 0, 0, 1, 0, 1, 1, 0],</span>
+<span class="go">       [0, 1, 1, 1, 0, 0, 1, 0, 1]]...)</span>
+</pre></div>
+</div>
+<p>يتم تخزين التعيين العكسي من اسم الميزة إلى فهرس العمود في
+سمة <code class="docutils literal notranslate"><span class="pre">vocabulary_</span></code> لـ vectorizer:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vectorizer</span><span class="o">.</span><span class="n">vocabulary_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;document&#39;</span><span class="p">)</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<p>وبالتالي، سيتم تجاهل الكلمات التي لم تتم رؤيتها في مجموعة التدريب تمامًا
+في الاستدعاءات المستقبلية لأسلوب التحويل:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">vectorizer</span><span class="o">.</span><span class="n">transform</span><span class="p">([</span><span class="s1">&#39;Something completely new.&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="go">array([[0, 0, 0, 0, 0, 0, 0, 0, 0]]...)</span>
+</pre></div>
+</div>
+<p>لاحظ أنه في المجموعة السابقة، يحتوي المستند الأول والأخير على
+نفس الكلمات تمامًا، وبالتالي يتم ترميزها في متجهات متساوية. على وجه الخصوص
+نفقد المعلومات التي تفيد بأن المستند الأخير هو شكل استفهام. لـ
+الحفاظ على بعض معلومات ترتيب المواقع، يمكننا استخراج 2-grams
+من الكلمات بالإضافة إلى 1-grams (الكلمات الفردية):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bigram_vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<span class="gp">... </span>                                    <span class="n">token_pattern</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;\b\w+\b&#39;</span><span class="p">,</span> <span class="n">min_df</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analyze</span> <span class="o">=</span> <span class="n">bigram_vectorizer</span><span class="o">.</span><span class="n">build_analyzer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">analyze</span><span class="p">(</span><span class="s1">&#39;Bi-grams are cool!&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="s1">&#39;bi&#39;</span><span class="p">,</span> <span class="s1">&#39;grams&#39;</span><span class="p">,</span> <span class="s1">&#39;are&#39;</span><span class="p">,</span> <span class="s1">&#39;cool&#39;</span><span class="p">,</span> <span class="s1">&#39;bi grams&#39;</span><span class="p">,</span> <span class="s1">&#39;grams are&#39;</span><span class="p">,</span> <span class="s1">&#39;are cool&#39;</span><span class="p">])</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>وبالتالي، فإن المفردات التي استخرجها هذا المتجه أكبر بكثير و
+يمكنها الآن حل الغموض المُرمَّز في أنماط تحديد المواقع:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X_2</span> <span class="o">=</span> <span class="n">bigram_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_2</span>
+<span class="go">array([[0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0],</span>
+<span class="go">       [0, 0, 1, 0, 0, 1, 1, 0, 0, 2, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0],</span>
+<span class="go">       [1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0],</span>
+<span class="go">       [0, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1]]...)</span>
+</pre></div>
+</div>
+<p>على وجه الخصوص، شكل الاستفهام “Is this” موجود فقط في
+المستند الأخير:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">feature_index</span> <span class="o">=</span> <span class="n">bigram_vectorizer</span><span class="o">.</span><span class="n">vocabulary_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;is this&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_2</span><span class="p">[:,</span> <span class="n">feature_index</span><span class="p">]</span>
+<span class="go">array([0, 0, 0, 1]...)</span>
+</pre></div>
+</div>
+</section>
+<section id="stop-words">
+<span id="id10"></span><h3><span class="section-number">6.2.3.4. </span>استخدام كلمات الإيقاف<a class="headerlink" href="#stop-words" title="Link to this heading">#</a></h3>
+<p>كلمات الإيقاف هي كلمات مثل “و” و “ال” و “هو”، والتي يُفترض أنها
+غير مفيدة في تمثيل محتوى النص، والتي يمكن
+إزالتها لتجنب تفسيرها على أنها إشارة للتنبؤ. ومع ذلك، في بعض الأحيان،
+تكون الكلمات المُشابهة مفيدة للتنبؤ، كما هو الحال في تصنيف
+أسلوب الكتابة أو الشخصية.</p>
+<p>هناك العديد من المشاكل المعروفة في قائمة كلمات الإيقاف “الإنجليزية” التي نُقدمها.
+إنها لا تهدف إلى أن تكون حلاً عامًا “يناسب الجميع” حيث أن بعض المهام
+قد تتطلب حلاً أكثر تخصيصًا. انظر <a class="reference internal" href="#nqy18" id="id11"><span>[NQY18]</span></a> لمزيد من التفاصيل.</p>
+<p>يرجى توخي الحذر عند اختيار قائمة كلمات الإيقاف.
+قد تتضمن قوائم كلمات الإيقاف الشائعة كلمات مفيدة للغاية
+لبعض المهام، مثل <em>الكمبيوتر</em>.</p>
+<p>يجب عليك أيضًا التأكد من أن قائمة كلمات الإيقاف قد خضعت لنفس
+المعالجة المسبقة والتجزئة المُستخدمة في أداة المتجه.
+يتم تقسيم كلمة <em>we’ve</em> إلى <em>we</em> و <em>ve</em> بواسطة مُجزئ CountVectorizer
+الافتراضي، لذلك إذا كانت <em>we’ve</em> في <code class="docutils literal notranslate"><span class="pre">stop_words</span></code>، ولكن <em>ve</em> ليست كذلك، فسيتم الاحتفاظ
+بـ <em>ve</em> من <em>we’ve</em> في النص المُحوَّل. ستحاول أدوات المتجهات الخاصة بنا
+تحديد والتحذير من بعض أنواع عدم الاتساق.</p>
+<p class="rubric">المراجع</p>
+<div role="list" class="citation-list">
+<div class="citation" id="nqy18" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id11">NQY18</a><span class="fn-bracket">]</span></span>
+<p>J. Nothman, H. Qin and R. Yurchak (2018).
+<a class="reference external" href="https://aclweb.org/anthology/W18-2502">“قوائم كلمات الإيقاف في حزم البرامج مفتوحة المصدر المجانية”</a>.
+في <em>وقائع ورشة عمل لبرامج NLP مفتوحة المصدر</em>.</p>
+</div>
+</div>
+</section>
+<section id="tf-idf">
+<span id="tfidf"></span><h3><span class="section-number">6.2.3.5. </span>وزن مُصطلح Tf-idf<a class="headerlink" href="#tf-idf" title="Link to this heading">#</a></h3>
+<p>في مجموعة نصية كبيرة، ستكون بعض الكلمات موجودة جدًا (على سبيل المثال “the” و “a”
+و “is” باللغة الإنجليزية)، وبالتالي تحمل معلومات قليلة جدًا ذات مغزى حول
+المحتويات الفعلية للمستند. إذا كنا سنغذي بيانات العد المباشر
+مباشرةً إلى مُصنف، فإن هذه المصطلحات المتكررة جدًا ستُلقي بظلالها على
+ترددات المصطلحات الأكثر ندرة والأكثر إثارة للاهتمام.</p>
+<p>من أجل إعادة وزن ميزات العد إلى قيم النقطة العائمة
+المُناسبة للاستخدام بواسطة مُصنف، من الشائع جدًا استخدام
+تحويل tf-idf.</p>
+<p>Tf تعني <strong>تردد المصطلح</strong> بينما tf-idf تعني تردد المصطلح مضروبًا في
+<strong>تردد المستند العكسي</strong>:
+<span class="math notranslate nohighlight">\(\text{tf-idf(t,d)}=\text{tf(t,d)} \times \text{idf(t)}\)</span>.</p>
+<p>باستخدام الإعدادات الافتراضية لـ <code class="docutils literal notranslate"><span class="pre">TfidfTransformer</span></code>،
+<code class="docutils literal notranslate"><span class="pre">TfidfTransformer(norm='l2',</span> <span class="pre">use_idf=True,</span> <span class="pre">smooth_idf=True,</span> <span class="pre">sublinear_tf=False)</span></code>
+يتم ضرب تردد المصطلح، عدد مرات ظهور مصطلح في مستند مُعين،
+في مكون idf، والذي يتم حسابه على النحو التالي</p>
+<p><span class="math notranslate nohighlight">\(\text{idf}(t) = \log{\frac{1 + n}{1+\text{df}(t)}} + 1\)</span>،</p>
+<p>حيث <span class="math notranslate nohighlight">\(n\)</span> هو العدد الإجمالي للمستندات في مجموعة المستندات، و
+<span class="math notranslate nohighlight">\(\text{df}(t)\)</span> هو عدد المستندات في مجموعة المستندات التي
+تحتوي على المصطلح <span class="math notranslate nohighlight">\(t\)</span>. ثم يتم تطبيع متجهات tf-idf الناتجة بواسطة
+قاعدة إقليدية:</p>
+<p><span class="math notranslate nohighlight">\(v_{norm} = \frac{v}{||v||_2} = \frac{v}{\sqrt{v{_1}^2 +
+v{_2}^2 + \dots + v{_n}^2}}\)</span>.</p>
+<p>كان هذا في الأصل مخططًا لوزن المصطلحات تم تطويره لاسترجاع المعلومات
+(كدالة تصنيف لنتائج محركات البحث) والذي وجد أيضًا استخدامًا
+جيدًا في تصنيف المستندات والتجميع.</p>
+<p>تحتوي الأقسام التالية على مزيد من الشروحات والأمثلة التي
+توضح كيفية حساب tf-idfs بالضبط وكيف يختلف
+tf-idfs المحسوب في <a class="reference internal" href="generated/sklearn.feature_extraction.text.TfidfTransformer.html#sklearn.feature_extraction.text.TfidfTransformer" title="sklearn.feature_extraction.text.TfidfTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TfidfTransformer</span></code></a> و
+<a class="reference internal" href="generated/sklearn.feature_extraction.text.TfidfVectorizer.html#sklearn.feature_extraction.text.TfidfVectorizer" title="sklearn.feature_extraction.text.TfidfVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TfidfVectorizer</span></code></a> في scikit-learn قليلاً عن تدوين الكتاب المدرسي
+القياسي الذي يُعرِّف idf على النحو التالي</p>
+<p><span class="math notranslate nohighlight">\(\text{idf}(t) = \log{\frac{n}{1+\text{df}(t)}}\)</span>.</p>
+<p>في <a class="reference internal" href="generated/sklearn.feature_extraction.text.TfidfTransformer.html#sklearn.feature_extraction.text.TfidfTransformer" title="sklearn.feature_extraction.text.TfidfTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TfidfTransformer</span></code></a> و <a class="reference internal" href="generated/sklearn.feature_extraction.text.TfidfVectorizer.html#sklearn.feature_extraction.text.TfidfVectorizer" title="sklearn.feature_extraction.text.TfidfVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TfidfVectorizer</span></code></a>
+مع <code class="docutils literal notranslate"><span class="pre">smooth_idf=False</span></code>،
+يتم إضافة العدد “1” إلى idf بدلاً من مقام idf:</p>
+<p><span class="math notranslate nohighlight">\(\text{idf}(t) = \log{\frac{n}{\text{df}(t)}} + 1\)</span></p>
+<p>يتم تنفيذ هذا التطبيع بواسطة فئة <a class="reference internal" href="generated/sklearn.feature_extraction.text.TfidfTransformer.html#sklearn.feature_extraction.text.TfidfTransformer" title="sklearn.feature_extraction.text.TfidfTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TfidfTransformer</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfTransformer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">transformer</span> <span class="o">=</span> <span class="n">TfidfTransformer</span><span class="p">(</span><span class="n">smooth_idf</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">transformer</span>
+<span class="go">TfidfTransformer(smooth_idf=False)</span>
+</pre></div>
+</div>
+<p>مرة أخرى، يرجى مراجعة <a class="reference internal" href="../api/sklearn.feature_extraction.html#feature-extraction-ref-from-text"><span class="std std-ref">وثائق المرجع</span></a> للحصول على تفاصيل حول جميع المعلمات.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="مثال-رقمي-على-مصفوفة-tf-idf">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">مثال رقمي على مصفوفة tf-idf<a class="headerlink" href="#مثال-رقمي-على-مصفوفة-tf-idf" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">لنأخذ مثالاً مع الأعداد التالية. المصطلح الأول موجود
+100% من الوقت، وبالتالي فهو غير مثير للاهتمام للغاية. الميزتان الأخريان موجودتان فقط
+في أقل من 50% من الوقت، وبالتالي من المحتمل أن تكونا أكثر تمثيلًا لـ
+محتوى المستندات:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">counts</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>          <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>          <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>          <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>          <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>          <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tfidf</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tfidf</span>
+<span class="go">&lt;Compressed Sparse...dtype &#39;float64&#39;</span>
+<span class="go">  with 9 stored elements and shape (6, 3)&gt;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tfidf</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="go">array([[0.81940995, 0.        , 0.57320793],</span>
+<span class="go">      [1.        , 0.        , 0.        ],</span>
+<span class="go">      [1.        , 0.        , 0.        ],</span>
+<span class="go">      [1.        , 0.        , 0.        ],</span>
+<span class="go">      [0.47330339, 0.88089948, 0.        ],</span>
+<span class="go">      [0.58149261, 0.        , 0.81355169]])</span>
+</pre></div>
+</div>
+<p class="sd-card-text">يتم تطبيع كل صف ليكون له قاعدة إقليدية للوحدة:</p>
+<p class="sd-card-text"><span class="math notranslate nohighlight">\(v_{norm} = \frac{v}{||v||_2} = \frac{v}{\sqrt{v{_1}^2 +
+v{_2}^2 + \dots + v{_n}^2}}\)</span></p>
+<p class="sd-card-text">على سبيل المثال، يمكننا حساب tf-idf للمصطلح الأول في المستند الأول
+في مصفوفة <code class="docutils literal notranslate"><span class="pre">counts</span></code> على النحو التالي:</p>
+<p class="sd-card-text"><span class="math notranslate nohighlight">\(n = 6\)</span></p>
+<p class="sd-card-text"><span class="math notranslate nohighlight">\(\text{df}(t)_{\text{term1}} = 6\)</span></p>
+<p class="sd-card-text"><span class="math notranslate nohighlight">\(\text{idf}(t)_{\text{term1}} =
+\log \frac{n}{\text{df}(t)} + 1 = \log(1)+1 = 1\)</span></p>
+<p class="sd-card-text"><span class="math notranslate nohighlight">\(\text{tf-idf}_{\text{term1}} = \text{tf} \times \text{idf} = 3 \times 1 = 3\)</span></p>
+<p class="sd-card-text">الآن، إذا كررنا هذا الحساب للمصطلحين المتبقيين في المستند،
+فإننا نحصل على</p>
+<p class="sd-card-text"><span class="math notranslate nohighlight">\(\text{tf-idf}_{\text{term2}} = 0 \times (\log(6/1)+1) = 0\)</span></p>
+<p class="sd-card-text"><span class="math notranslate nohighlight">\(\text{tf-idf}_{\text{term3}} = 1 \times (\log(6/2)+1) \approx 2.0986\)</span></p>
+<p class="sd-card-text">ومتجه tf-idfs الأولي:</p>
+<p class="sd-card-text"><span class="math notranslate nohighlight">\(\text{tf-idf}_{\text{raw}} = [3, 0, 2.0986].\)</span></p>
+<p class="sd-card-text">ثم، بتطبيق قاعدة إقليدية (L2)، نحصل على tf-idfs التالي
+للمستند 1:</p>
+<p class="sd-card-text"><span class="math notranslate nohighlight">\(\frac{[3, 0, 2.0986]}{\sqrt{\big(3^2 + 0^2 + 2.0986^2\big)}}
+= [ 0.819,  0,  0.573].\)</span></p>
+<p class="sd-card-text">علاوة على ذلك، تُضيف المعلمة الافتراضية <code class="docutils literal notranslate"><span class="pre">smooth_idf=True</span></code> “1” إلى البسط
+و المقام كما لو تمت رؤية مستند إضافي يحتوي على كل مصطلح في
+المجموعة مرة واحدة بالضبط، مما يمنع القسمة على الصفر:</p>
+<p class="sd-card-text"><span class="math notranslate nohighlight">\(\text{idf}(t) = \log{\frac{1 + n}{1+\text{df}(t)}} + 1\)</span></p>
+<p class="sd-card-text">باستخدام هذا التعديل، يتغير tf-idf للمصطلح الثالث في المستند 1 إلى
+1.8473:</p>
+<p class="sd-card-text"><span class="math notranslate nohighlight">\(\text{tf-idf}_{\text{term3}} = 1 \times \log(7/3)+1 \approx 1.8473\)</span></p>
+<p class="sd-card-text">ويتغير tf-idf المُقيَّس بـ L2 إلى</p>
+<p class="sd-card-text"><span class="math notranslate nohighlight">\(\frac{[3, 0, 1.8473]}{\sqrt{\big(3^2 + 0^2 + 1.8473^2\big)}}
+= [0.8515, 0, 0.5243]\)</span>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">transformer</span> <span class="o">=</span> <span class="n">TfidfTransformer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">transformer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="go">array([[0.85151335, 0.        , 0.52433293],</span>
+<span class="go">      [1.        , 0.        , 0.        ],</span>
+<span class="go">      [1.        , 0.        , 0.        ],</span>
+<span class="go">      [1.        , 0.        , 0.        ],</span>
+<span class="go">      [0.55422893, 0.83236428, 0.        ],</span>
+<span class="go">      [0.63035731, 0.        , 0.77630514]])</span>
+</pre></div>
+</div>
+<p class="sd-card-text">يتم تخزين أوزان كل
+ميزة محسوبة بواسطة استدعاء أسلوب <code class="docutils literal notranslate"><span class="pre">fit</span></code> في سمة
+النموذج:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">transformer</span><span class="o">.</span><span class="n">idf_</span>
+<span class="go">array([1. ..., 2.25..., 1.84...])</span>
+</pre></div>
+</div>
+<p class="sd-card-text">نظرًا لأن tf-idf غالبًا ما يُستخدم لميزات النص، فهناك أيضًا فئة أخرى تسمى
+<a class="reference internal" href="generated/sklearn.feature_extraction.text.TfidfVectorizer.html#sklearn.feature_extraction.text.TfidfVectorizer" title="sklearn.feature_extraction.text.TfidfVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TfidfVectorizer</span></code></a> تجمع بين جميع خيارات
+<a class="reference internal" href="generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="sklearn.feature_extraction.text.CountVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a> و <a class="reference internal" href="generated/sklearn.feature_extraction.text.TfidfTransformer.html#sklearn.feature_extraction.text.TfidfTransformer" title="sklearn.feature_extraction.text.TfidfTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TfidfTransformer</span></code></a> في نموذج واحد:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfVectorizer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span>
+<span class="go">&lt;Compressed Sparse...dtype &#39;float64&#39;</span>
+<span class="go">  with 19 stored elements and shape (4, 9)&gt;</span>
+</pre></div>
+</div>
+<p class="sd-card-text">بينما يكون تطبيع tf-idf مفيدًا جدًا في كثير من الأحيان، قد
+تكون هناك حالات يكون فيها علامات التواجد الثنائية أفضل
+ميزات. يمكن تحقيق ذلك باستخدام معلمة <code class="docutils literal notranslate"><span class="pre">binary</span></code>
+لـ <a class="reference internal" href="generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="sklearn.feature_extraction.text.CountVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a>. على وجه الخصوص، بعض المُقدِّرات مثل
+<a class="reference internal" href="naive_bayes.html#bernoulli-naive-bayes"><span class="std std-ref">خوارزمية بايز الساذجة متعددة الحدود</span></a> تُنمذج صراحةً متغيرات عشوائية منطقية منفصلة.
+أيضًا، من المرجح أن تحتوي النصوص القصيرة جدًا على قيم tf-idf صاخبة
+بينما تكون معلومات التواجد الثنائية أكثر استقرارًا.</p>
+<p class="sd-card-text">كالعادة، أفضل طريقة لضبط معلمات استخراج الميزات
+هي استخدام بحث شبكي مُتحقق منه بشكل متبادل، على سبيل المثال عن طريق توصيل
+مستخرج الميزات مع مُصنف:</p>
+<ul class="simple">
+<li><p class="sd-card-text"><a class="reference internal" href="../auto_examples/model_selection/plot_grid_search_text_feature_extraction.html#sphx-glr-auto-examples-model-selection-plot-grid-search-text-feature-extraction-py"><span class="std std-ref">Sample pipeline for text feature extraction and evaluation</span></a></p></li>
+</ul>
+</div>
+</details></section>
+<section id="id12">
+<h3><span class="section-number">6.2.3.6. </span>فك تشفير ملفات النص<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>يتكون النص من أحرف، لكن الملفات تتكون من بايتات. تُمثِّل هذه البايتات
+الأحرف وفقًا لـ <em>ترميز</em> مُعين. للعمل مع ملفات النص في Python،
+يجب <em>فك تشفير</em> بايتاتها إلى مجموعة أحرف تُسمى Unicode.
+الترميزات الشائعة هي ASCII و Latin-1 (أوروبا الغربية) و KOI8-R (الروسية)
+والترميزات العالمية UTF-8 و UTF-16. يوجد العديد من الترميزات الأخرى.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>يمكن أيضًا تسمية الترميز “مجموعة أحرف”،
+لكن هذا المصطلح أقل دقة: يمكن أن توجد عدة ترميزات
+لمجموعة أحرف واحدة.</p>
+</div>
+<p>تعرف أدوات استخراج ميزات النص في scikit-learn كيفية فك تشفير ملفات النص،
+ولكن فقط إذا أخبرتها بالترميز الذي تستخدمه الملفات.
+يأخذ <a class="reference internal" href="generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="sklearn.feature_extraction.text.CountVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a> معلمة <code class="docutils literal notranslate"><span class="pre">encoding</span></code> لهذا الغرض.
+بالنسبة لملفات النص الحديثة، ربما يكون الترميز الصحيح هو UTF-8،
+وهو بالتالي الإعداد الافتراضي (<code class="docutils literal notranslate"><span class="pre">encoding=&quot;utf-8&quot;</span></code>).</p>
+<p>إذا كان النص الذي تُحمِّله ليس مُرمَّزًا بالفعل باستخدام UTF-8،
+فستحصل على <code class="docutils literal notranslate"><span class="pre">UnicodeDecodeError</span></code>.
+يمكن إخبار أدوات المتجهات بالتزام الصمت بشأن أخطاء فك التشفير
+عن طريق تعيين معلمة <code class="docutils literal notranslate"><span class="pre">decode_error</span></code> إما إلى <code class="docutils literal notranslate"><span class="pre">&quot;ignore&quot;</span></code>
+أو <code class="docutils literal notranslate"><span class="pre">&quot;replace&quot;</span></code>. راجع وثائق دالة Python
+<code class="docutils literal notranslate"><span class="pre">bytes.decode</span></code> لمزيد من التفاصيل
+(اكتب <code class="docutils literal notranslate"><span class="pre">help(bytes.decode)</span></code> في موجه Python).</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="استكشاف-أخطاء-فك-تشفير-النص-وإصلاحها">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">استكشاف أخطاء فك تشفير النص وإصلاحها<a class="headerlink" href="#استكشاف-أخطاء-فك-تشفير-النص-وإصلاحها" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">إذا كنت تُواجه مشكلة في فك تشفير النص، فإليك بعض الأشياء التي يمكنك تجربتها:</p>
+<ul class="simple">
+<li><p class="sd-card-text">اكتشف ما هو الترميز الفعلي للنص. قد يأتي الملف
+مع رأس أو ملف README يُخبرك بالترميز، أو قد يكون هناك بعض
+الترميز القياسي الذي يمكنك افتراضه بناءً على مصدر النص.</p></li>
+<li><p class="sd-card-text">قد تتمكن من معرفة نوع الترميز بشكل عام
+باستخدام أمر UNIX <code class="docutils literal notranslate"><span class="pre">file</span></code>. تأتي وحدة Python <code class="docutils literal notranslate"><span class="pre">chardet</span></code> مع
+نص برمجي يسمى <code class="docutils literal notranslate"><span class="pre">chardetect.py</span></code> سيخمن الترميز المحدد،
+على الرغم من أنه لا يمكنك الاعتماد على أن تخمينه صحيح.</p></li>
+<li><p class="sd-card-text">يمكنك تجربة UTF-8 وتجاهل الأخطاء. يمكنك فك تشفير سلاسل البايت
+باستخدام <code class="docutils literal notranslate"><span class="pre">bytes.decode(errors='replace')</span></code> لاستبدال جميع
+أخطاء فك التشفير بحرف لا معنى له، أو تعيين
+<code class="docutils literal notranslate"><span class="pre">decode_error='replace'</span></code> في أداة المتجه. قد يؤدي هذا إلى إتلاف
+فائدة ميزاتك.</p></li>
+<li><p class="sd-card-text">قد يأتي النص الحقيقي من مجموعة متنوعة من المصادر التي قد تستخدم ترميزات
+مختلفة، أو حتى يتم فك تشفيرها بشكل مُهمل بترميز مختلف عن
+الترميز الذي تم ترميزها به. هذا شائع في النص الذي تم استرداده من الويب.
+حزمة Python <a class="reference external" href="https://github.com/LuminosoInsight/python-ftfy">ftfy</a>
+يمكنها فرز بعض فئات
+أخطاء فك التشفير تلقائيًا، لذلك يمكنك تجربة فك تشفير النص غير المعروف كـ <code class="docutils literal notranslate"><span class="pre">latin-1</span></code>
+ثم استخدام <code class="docutils literal notranslate"><span class="pre">ftfy</span></code> لإصلاح الأخطاء.</p></li>
+<li><p class="sd-card-text">إذا كان النص عبارة عن خليط من الترميزات يصعب فرزها
+(كما هو الحال بالنسبة لمجموعة بيانات 20 مجموعة إخبارية)، يمكنك الرجوع إلى
+ترميز بايت واحد بسيط مثل <code class="docutils literal notranslate"><span class="pre">latin-1</span></code>. قد يتم عرض بعض النصوص
+بشكل غير صحيح، ولكن على الأقل سيمثل نفس تسلسل البايت دائمًا
+نفس الميزة.</p></li>
+</ul>
+<p class="sd-card-text">على سبيل المثال، يستخدم المقتطف التالي <code class="docutils literal notranslate"><span class="pre">chardet</span></code>
+(لا يتم شحنه مع scikit-learn، يجب تثبيته بشكل مُنفصل)
+لتحديد ترميز ثلاثة نصوص.
+ثم يُحوِّل النصوص إلى متجهات ويطبع المفردات التي تم تعلمها.
+لم يتم عرض الإخراج هنا.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">chardet</span>    
+<span class="gp">&gt;&gt;&gt; </span><span class="n">text1</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;Sei mir gegr</span><span class="se">\xc3\xbc\xc3\x9f</span><span class="s2">t mein Sauerkraut&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">text2</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;holdselig sind deine Ger</span><span class="se">\xfc</span><span class="s2">che&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">text3</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\xff\xfe</span><span class="s2">A</span><span class="se">\x00</span><span class="s2">u</span><span class="se">\x00</span><span class="s2">f</span><span class="se">\x00</span><span class="s2"> </span><span class="se">\x00</span><span class="s2">F</span><span class="se">\x00</span><span class="s2">l</span><span class="se">\x00\xfc\x00</span><span class="s2">g</span><span class="se">\x00</span><span class="s2">e</span><span class="se">\x00</span><span class="s2">l</span><span class="se">\x00</span><span class="s2">n</span><span class="se">\x00</span><span class="s2"> </span><span class="se">\x00</span><span class="s2">d</span><span class="se">\x00</span><span class="s2">e</span><span class="se">\x00</span><span class="s2">s</span><span class="se">\x00</span><span class="s2"> </span><span class="se">\x00</span><span class="s2">G</span><span class="se">\x00</span><span class="s2">e</span><span class="se">\x00</span><span class="s2">s</span><span class="se">\x00</span><span class="s2">a</span><span class="se">\x00</span><span class="s2">n</span><span class="se">\x00</span><span class="s2">g</span><span class="se">\x00</span><span class="s2">e</span><span class="se">\x00</span><span class="s2">s</span><span class="se">\x00</span><span class="s2">,</span><span class="se">\x00</span><span class="s2"> </span><span class="se">\x00</span><span class="s2">H</span><span class="se">\x00</span><span class="s2">e</span><span class="se">\x00</span><span class="s2">r</span><span class="se">\x00</span><span class="s2">z</span><span class="se">\x00</span><span class="s2">l</span><span class="se">\x00</span><span class="s2">i</span><span class="se">\x00</span><span class="s2">e</span><span class="se">\x00</span><span class="s2">b</span><span class="se">\x00</span><span class="s2">c</span><span class="se">\x00</span><span class="s2">h</span><span class="se">\x00</span><span class="s2">e</span><span class="se">\x00</span><span class="s2">n</span><span class="se">\x00</span><span class="s2">,</span><span class="se">\x00</span><span class="s2"> </span><span class="se">\x00</span><span class="s2">t</span><span class="se">\x00</span><span class="s2">r</span><span class="se">\x00</span><span class="s2">a</span><span class="se">\x00</span><span class="s2">g</span><span class="se">\x00</span><span class="s2"> </span><span class="se">\x00</span><span class="s2">i</span><span class="se">\x00</span><span class="s2">c</span><span class="se">\x00</span><span class="s2">h</span><span class="se">\x00</span><span class="s2"> </span><span class="se">\x00</span><span class="s2">d</span><span class="se">\x00</span><span class="s2">i</span><span class="se">\x00</span><span class="s2">c</span><span class="se">\x00</span><span class="s2">h</span><span class="se">\x00</span><span class="s2"> </span><span class="se">\x00</span><span class="s2">f</span><span class="se">\x00</span><span class="s2">o</span><span class="se">\x00</span><span class="s2">r</span><span class="se">\x00</span><span class="s2">t</span><span class="se">\x00</span><span class="s2">&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">decoded</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">chardet</span><span class="o">.</span><span class="n">detect</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="s1">&#39;encoding&#39;</span><span class="p">])</span>
+<span class="gp">... </span>           <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">(</span><span class="n">text1</span><span class="p">,</span> <span class="n">text2</span><span class="p">,</span> <span class="n">text3</span><span class="p">)]</span>        
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">decoded</span><span class="p">)</span><span class="o">.</span><span class="n">vocabulary_</span>    
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>                           
+</pre></div>
+</div>
+<p class="sd-card-text">(اعتمادًا على إصدار <code class="docutils literal notranslate"><span class="pre">chardet</span></code>، قد يُخطئ في الأول.)</p>
+<p class="sd-card-text">للحصول على مقدمة عن Unicode وترميزات الأحرف بشكل عام،
+انظر <a class="reference external" href="https://www.joelonsoftware.com/articles/Unicode.html">الحد الأدنى المُطلق الذي يجب أن يعرفه كل مُطور برامج
+حول Unicode</a> لـ Joel Spolsky.</p>
+</div>
+</details></section>
+<section id="id13">
+<h3><span class="section-number">6.2.3.7. </span>التطبيقات والأمثلة<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>تمثيل حقيبة الكلمات مُبسط تمامًا ولكنه مفيد بشكل مُثير للدهشة
+في الممارسة العملية.</p>
+<p>على وجه الخصوص في <strong>إعداد خاضع للإشراف</strong>، يمكن دمجه بنجاح
+مع النماذج الخطية السريعة والقابلة للتطوير لتدريب <strong>مُصنِّفات
+المستندات</strong>، على سبيل المثال:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/text/plot_document_classification_20newsgroups.html#sphx-glr-auto-examples-text-plot-document-classification-20newsgroups-py"><span class="std std-ref">Classification of text documents using sparse features</span></a></p></li>
+</ul>
+<p>في <strong>إعداد غير خاضع للإشراف</strong>، يمكن استخدامه لتجميع المستندات المُشابهة
+معًا عن طريق تطبيق خوارزميات التجميع مثل <a class="reference internal" href="clustering.html#k-means"><span class="std std-ref">K-means</span></a>:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/text/plot_document_clustering.html#sphx-glr-auto-examples-text-plot-document-clustering-py"><span class="std std-ref">Clustering text documents using k-means</span></a></p></li>
+</ul>
+<p>أخيرًا، من الممكن اكتشاف الموضوعات الرئيسية لمجموعة بيانات عن طريق
+تخفيف قيود التعيين الصعبة للتجميع، على سبيل المثال باستخدام
+<a class="reference internal" href="decomposition.html#nmf"><span class="std std-ref">تحليل المصفوفة غير السالبة (NMF أو NNMF)</span></a>:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/applications/plot_topics_extraction_with_nmf_lda.html#sphx-glr-auto-examples-applications-plot-topics-extraction-with-nmf-lda-py"><span class="std std-ref">Topic extraction with Non-negative Matrix Factorization and Latent Dirichlet Allocation</span></a></p></li>
+</ul>
+</section>
+<section id="id14">
+<h3><span class="section-number">6.2.3.8. </span>قيود تمثيل حقيبة الكلمات<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>لا يمكن لمجموعة من unigrams (ما هي حقيبة الكلمات) التقاط العبارات
+والتعبيرات متعددة الكلمات، مع تجاهل أي تبعية لترتيب الكلمات
+بشكل فعال. بالإضافة إلى ذلك، لا يُراعي نموذج حقيبة الكلمات الأخطاء الإملائية
+المُحتملة أو اشتقاقات الكلمات.</p>
+<p>N-grams للإنقاذ! بدلاً من بناء مجموعة بسيطة من
+unigrams (n = 1)، قد يُفضل المرء مجموعة من bigrams (n = 2)، حيث
+يتم حساب تكرارات أزواج الكلمات المتتالية.</p>
+<p>قد يفكر المرء بدلاً من ذلك في مجموعة من n-grams للأحرف، وهو
+تمثيل مرن ضد الأخطاء الإملائية والاشتقاقات.</p>
+<p>على سبيل المثال، لنفترض أننا نتعامل مع مجموعة من مستندين:
+<code class="docutils literal notranslate"><span class="pre">['words'،</span> <span class="pre">'wprds']</span></code>. يحتوي المستند الثاني على خطأ إملائي
+لكلمة “words”.
+سيمثل تمثيل حقيبة كلمات بسيط هذين
+كمستندين مُختلفين للغاية، يختلفان في كل من الميزتين
+المُمكنتين.
+ومع ذلك، سيجد تمثيل حرف 2-gram تطابقًا بين المستندين
+في 4 من 8 ميزات، مما قد يُساعد المُصنف المُفضل على
+اتخاذ قرار أفضل:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ngram_vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">analyzer</span><span class="o">=</span><span class="s1">&#39;char_wb&#39;</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">counts</span> <span class="o">=</span> <span class="n">ngram_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">([</span><span class="s1">&#39;words&#39;</span><span class="p">,</span> <span class="s1">&#39;wprds&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ngram_vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
+<span class="go">array([&#39; w&#39;, &#39;ds&#39;, &#39;or&#39;, &#39;pr&#39;, &#39;rd&#39;, &#39;s &#39;, &#39;wo&#39;, &#39;wp&#39;], ...)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">counts</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="go">array([[1, 1, 1, 0, 1, 1, 1, 0],</span>
+<span class="go">       [1, 1, 0, 1, 1, 1, 0, 1]])</span>
+</pre></div>
+</div>
+<p>في المثال أعلاه، يتم استخدام مُحلل <code class="docutils literal notranslate"><span class="pre">char_wb</span></code>، الذي يُنشئ n-grams
+فقط من الأحرف داخل حدود الكلمات (مُبطَّنة بمسافة على كل
+جانب). مُحلل <code class="docutils literal notranslate"><span class="pre">char</span></code>، بدلاً من ذلك، يُنشئ n-grams التي
+تمتد عبر الكلمات:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ngram_vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">analyzer</span><span class="o">=</span><span class="s1">&#39;char_wb&#39;</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ngram_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">([</span><span class="s1">&#39;jumpy fox&#39;</span><span class="p">])</span>
+<span class="go">&lt;Compressed Sparse...dtype &#39;int64&#39;</span>
+<span class="go">  with 4 stored elements and shape (1, 4)&gt;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ngram_vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
+<span class="go">array([&#39; fox &#39;, &#39; jump&#39;, &#39;jumpy&#39;, &#39;umpy &#39;], ...)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ngram_vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">analyzer</span><span class="o">=</span><span class="s1">&#39;char&#39;</span><span class="p">,</span> <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ngram_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">([</span><span class="s1">&#39;jumpy fox&#39;</span><span class="p">])</span>
+<span class="go">&lt;Compressed Sparse...dtype &#39;int64&#39;</span>
+<span class="go">  with 5 stored elements and shape (1, 5)&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ngram_vectorizer</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
+<span class="go">array([&#39;jumpy&#39;, &#39;mpy f&#39;, &#39;py fo&#39;, &#39;umpy &#39;, &#39;y fox&#39;], ...)</span>
+</pre></div>
+</div>
+<p>يُعد المتغير <code class="docutils literal notranslate"><span class="pre">char_wb</span></code> المُدرك لحدود الكلمات مثيرًا للاهتمام بشكل خاص
+للغات التي تستخدم مسافات بيضاء لفصل الكلمات لأنه يُولِّد
+ميزات أقل ضوضاء بشكل ملحوظ من متغير <code class="docutils literal notranslate"><span class="pre">char</span></code> الأولي في
+تلك الحالة. بالنسبة لهذه اللغات، يمكن أن يزيد من كل من
+دقة التنبؤ وسرعة تقارب المُصنِّفات المُدرَّبة باستخدام هذه
+الميزات مع الحفاظ على المتانة فيما يتعلق بالأخطاء الإملائية و
+اشتقاقات الكلمات.</p>
+<p>بينما يمكن الحفاظ على بعض معلومات تحديد المواقع عن طريق استخراج
+n-grams بدلاً من الكلمات الفردية، فإن حقيبة الكلمات وحقيبة n-grams
+تُدمر معظم البنية الداخلية للمستند وبالتالي معظم
+المعنى الذي تحمله تلك البنية الداخلية.</p>
+<p>من أجل مُعالجة المهمة الأوسع لفهم اللغة الطبيعية،
+يجب مراعاة الهيكل المحلي للجمل والفقرات. سيتم صياغة العديد من هذه النماذج على أنها مشاكل “إخراج مُهيكلة”
+والتي تقع حاليًا خارج نطاق scikit-learn.</p>
+</section>
+<section id="hashing-vectorizer">
+<span id="id15"></span><h3><span class="section-number">6.2.3.9. </span>تحويل مجموعة نصية كبيرة إلى متجهات باستخدام خدعة التجزئة<a class="headerlink" href="#hashing-vectorizer" title="Link to this heading">#</a></h3>
+<p>مخطط التحويل إلى متجهات أعلاه بسيط ولكن حقيقة أنه يحمل <strong>تعيينًا في
+الذاكرة من الرموز المميزة للسلسلة إلى مؤشرات الميزات الصحيحة</strong> (سمة
+<code class="docutils literal notranslate"><span class="pre">vocabulary_</span></code>) تُسبب العديد من <strong>المشاكل عند التعامل مع مجموعات البيانات
+الكبيرة</strong>:</p>
+<ul class="simple">
+<li><p>كلما كبرت المجموعة النصية، زادت المفردات وبالتالي
+استخدام الذاكرة أيضًا،</p></li>
+<li><p>تتطلب الملاءمة تخصيص هياكل بيانات وسيطة
+بحجم يتناسب مع حجم مجموعة البيانات الأصلية.</p></li>
+<li><p>يتطلب بناء تعيين الكلمات تمريرة كاملة على مجموعة البيانات، وبالتالي فإنه
+ليس من الممكن ملاءمة مُصنِّفات النص بطريقة على الإنترنت تمامًا.</p></li>
+<li><p>يمكن أن يكون تخليل وفك تخليل أدوات المتجهات ذات <code class="docutils literal notranslate"><span class="pre">vocabulary_</span></code> كبيرة
+بطيئًا جدًا (عادةً ما يكون أبطأ بكثير من تخليل / فك تخليل هياكل البيانات
+المسطحة مثل مصفوفة NumPy من نفس الحجم)،</p></li>
+<li><p>ليس من السهل تقسيم عمل التحويل إلى متجهات إلى مهام فرعية متزامنة
+حيث يجب أن تكون سمة <code class="docutils literal notranslate"><span class="pre">vocabulary_</span></code> حالة مُشتركة مع
+حاجز مزامنة دقيق الحبيبات: يعتمد التعيين من سلسلة الرمز المميز إلى
+فهرس الميزة على ترتيب التواجد الأول لكل رمز مميز
+وبالتالي يجب مُشاركته، مما قد يضر بأداء العمال المتزامنين
+لدرجة جعلهم أبطأ من المتغير التسلسلي.</p></li>
+</ul>
+<p>من الممكن التغلب على هذه القيود من خلال الجمع بين “خدعة التجزئة”
+(<a class="reference internal" href="#feature-hashing"><span class="std std-ref">تجزئة الميزات</span></a>) التي تُطبقها فئة
+<a class="reference internal" href="generated/sklearn.feature_extraction.FeatureHasher.html#sklearn.feature_extraction.FeatureHasher" title="sklearn.feature_extraction.FeatureHasher"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureHasher</span></code></a> وميزات
+المعالجة المسبقة للنص والتجزئة لـ <a class="reference internal" href="generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="sklearn.feature_extraction.text.CountVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a>.</p>
+<p>يتم تطبيق هذه المجموعة في <a class="reference internal" href="generated/sklearn.feature_extraction.text.HashingVectorizer.html#sklearn.feature_extraction.text.HashingVectorizer" title="sklearn.feature_extraction.text.HashingVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">HashingVectorizer</span></code></a>،
+وهي فئة مُحوِّل متوافقة مع واجهة برمجة التطبيقات في الغالب مع <a class="reference internal" href="generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="sklearn.feature_extraction.text.CountVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a>.
+<a class="reference internal" href="generated/sklearn.feature_extraction.text.HashingVectorizer.html#sklearn.feature_extraction.text.HashingVectorizer" title="sklearn.feature_extraction.text.HashingVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">HashingVectorizer</span></code></a> عديم الحالة،
+مما يعني أنه لا يتعين عليك استدعاء <code class="docutils literal notranslate"><span class="pre">fit</span></code> عليه:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">HashingVectorizer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hv</span> <span class="o">=</span> <span class="n">HashingVectorizer</span><span class="p">(</span><span class="n">n_features</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hv</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span>
+<span class="go">&lt;Compressed Sparse...dtype &#39;float64&#39;</span>
+<span class="go">  with 16 stored elements and shape (4, 10)&gt;</span>
+</pre></div>
+</div>
+<p>يمكنك أن ترى أنه تم استخراج 16 رمزًا مميزًا غير صفري في
+متجه الإخراج: هذا أقل من 19 رمزًا مميزًا غير صفري تم استخراجها سابقًا بواسطة
+<a class="reference internal" href="generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="sklearn.feature_extraction.text.CountVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a> على نفس مجموعة البيانات التوضيحية. يأتي التناقض من
+تصادمات دالة التجزئة بسبب انخفاض قيمة معلمة <code class="docutils literal notranslate"><span class="pre">n_features</span></code>.</p>
+<p>في إعداد العالم الحقيقي، يمكن ترك معلمة <code class="docutils literal notranslate"><span class="pre">n_features</span></code> إلى
+قيمتها الافتراضية <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">**</span> <span class="pre">20</span></code> (حوالي مليون ميزة مُمكنة). إذا كانت الذاكرة
+أو حجم النماذج في اتجاه مجرى النهر مشكلة، فإن تحديد قيمة أقل مثل <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">**</span>
+<span class="pre">18</span></code> قد يُساعد دون إدخال الكثير من التصادمات الإضافية على مهام
+تصنيف النص النموذجية.</p>
+<p>لاحظ أن الأبعاد لا تؤثر على وقت تدريب وحدة المعالجة المركزية لـ
+الخوارزميات التي تعمل على مصفوفات CSR (<code class="docutils literal notranslate"><span class="pre">LinearSVC(dual=True)</span></code> و
+<code class="docutils literal notranslate"><span class="pre">Perceptron</span></code> و <code class="docutils literal notranslate"><span class="pre">SGDClassifier</span></code> و <code class="docutils literal notranslate"><span class="pre">PassiveAggressive</span></code>) ولكنها تؤثر على
+الخوارزميات التي تعمل مع مصفوفات CSC (<code class="docutils literal notranslate"><span class="pre">LinearSVC(dual=False)</span></code> و <code class="docutils literal notranslate"><span class="pre">Lasso()</span></code>
+إلخ.).</p>
+<p>دعونا نحاول مرة أخرى مع الإعداد الافتراضي:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">hv</span> <span class="o">=</span> <span class="n">HashingVectorizer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">hv</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span>
+<span class="go">&lt;Compressed Sparse...dtype &#39;float64&#39;</span>
+<span class="go">  with 19 stored elements and shape (4, 1048576)&gt;</span>
+</pre></div>
+</div>
+<p>لم نعد نحصل على التصادمات، لكن هذا يأتي على حساب أبعاد
+أكبر بكثير لمساحة الإخراج.
+بالطبع، قد لا تزال المصطلحات الأخرى غير 19 المُستخدمة هنا
+تصطدم مع بعضها البعض.</p>
+<p>يأتي <a class="reference internal" href="generated/sklearn.feature_extraction.text.HashingVectorizer.html#sklearn.feature_extraction.text.HashingVectorizer" title="sklearn.feature_extraction.text.HashingVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">HashingVectorizer</span></code></a> أيضًا مع القيود التالية:</p>
+<ul class="simple">
+<li><p>ليس من الممكن عكس النموذج (لا يوجد أسلوب <code class="docutils literal notranslate"><span class="pre">inverse_transform</span></code>)،
+ولا الوصول إلى تمثيل السلسلة الأصلي للميزات،
+بسبب طبيعة دالة التجزئة أحادية الاتجاه التي تُجري التعيين.</p></li>
+<li><p>لا يُوفر وزن IDF لأن ذلك سيُدخل حالة في
+النموذج. يمكن إلحاق <a class="reference internal" href="generated/sklearn.feature_extraction.text.TfidfTransformer.html#sklearn.feature_extraction.text.TfidfTransformer" title="sklearn.feature_extraction.text.TfidfTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">TfidfTransformer</span></code></a> به في خط أنابيب إذا
+لزم الأمر.</p></li>
+</ul>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="إجراء-تغيير-مقياس-خارج-النواة-باستخدام-hashingvectorizer">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">إجراء تغيير مقياس خارج النواة باستخدام HashingVectorizer<a class="headerlink" href="#إجراء-تغيير-مقياس-خارج-النواة-باستخدام-hashingvectorizer" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">تطور مثير للاهتمام لاستخدام <a class="reference internal" href="generated/sklearn.feature_extraction.text.HashingVectorizer.html#sklearn.feature_extraction.text.HashingVectorizer" title="sklearn.feature_extraction.text.HashingVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">HashingVectorizer</span></code></a> هو القدرة
+على إجراء تغيير مقياس <a href="#id20"><span class="problematic" id="id21">`خارج النواة`_</span></a>. هذا يعني أنه يمكننا التعلم من البيانات التي
+لا تتناسب مع الذاكرة الرئيسية للكمبيوتر.</p>
+<p class="sd-card-text">إحدى إستراتيجيات تطبيق تغيير المقياس خارج النواة هي دفق البيانات إلى المُقدِّر
+في دفعات صغيرة. يتم تحويل كل دفعة صغيرة إلى متجهات باستخدام <a class="reference internal" href="generated/sklearn.feature_extraction.text.HashingVectorizer.html#sklearn.feature_extraction.text.HashingVectorizer" title="sklearn.feature_extraction.text.HashingVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">HashingVectorizer</span></code></a>
+لضمان أن مساحة إدخال المُقدِّر لها دائمًا نفس
+الأبعاد. وبالتالي، فإن مقدار الذاكرة المُستخدمة في أي وقت مُقيَّد بـ
+حجم دفعة صغيرة. على الرغم من عدم وجود حد لكمية البيانات التي يمكن
+استيعابها باستخدام هذا النهج، إلا أن وقت التعلم
+من الناحية العملية غالبًا ما يكون محدودًا بوقت وحدة المعالجة المركزية الذي يُريد المرء
+إنفاقه على المهمة.</p>
+<p class="sd-card-text">لمثال كامل على تغيير المقياس خارج النواة في مهمة تصنيف
+النص، انظر <a class="reference internal" href="../auto_examples/applications/plot_out_of_core_classification.html#sphx-glr-auto-examples-applications-plot-out-of-core-classification-py"><span class="std std-ref">Out-of-core classification of text documents</span></a>.</p>
+</div>
+</details></section>
+<section id="id16">
+<h3><span class="section-number">6.2.3.10. </span>تخصيص فئات أداة المتجه<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<p>من الممكن تخصيص السلوك عن طريق تمرير دالة قابلة للاستدعاء
+إلى مُنشئ أداة المتجه:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">my_tokenizer</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">=</span><span class="n">my_tokenizer</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vectorizer</span><span class="o">.</span><span class="n">build_analyzer</span><span class="p">()(</span><span class="sa">u</span><span class="s2">&quot;Some... punctuation!&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="s1">&#39;some...&#39;</span><span class="p">,</span> <span class="s1">&#39;punctuation!&#39;</span><span class="p">])</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>على وجه الخصوص، نُسمي:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">preprocessor</span></code>: دالة قابلة للاستدعاء تأخذ مستندًا كاملاً كمدخل (كسلسلة
+واحدة)، وتُعيد إصدارًا مُحوَّلاً مُحتملًا من المستند،
+لا يزال كسلسلة كاملة. يمكن استخدام هذا لإزالة علامات HTML، و
+تحويل المستند بأكمله إلى أحرف صغيرة، إلخ.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tokenizer</span></code>: دالة قابلة للاستدعاء تأخذ الإخراج من المُعالِج
+المُسبق وتقسِّمه إلى رموز مميزة، ثم تُعيد قائمة بهذه.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">analyzer</span></code>: دالة قابلة للاستدعاء تحل محل المُعالِج المُسبق والمُجزئ.
+تستدعي المُحللات الافتراضية جميعها المُعالِج المُسبق والمُجزئ، لكن المُحللات
+المُخصصة ستتخطى ذلك. يحدث استخراج N-gram وتصفية كلمات الإيقاف
+على مستوى المُحلل، لذلك قد يضطر المُحلل المُخصص إلى إعادة إنتاج
+هذه الخطوات.</p></li>
+</ul>
+<p>(قد يتعرف مستخدمو Lucene على هذه الأسماء، ولكن انتبه إلى أن مفاهيم scikit-learn
+قد لا تُعيَّن واحد لواحد على مفاهيم Lucene.)</p>
+<p>لجعل المُعالِج المُسبق والمُجزئ والمُحللات على دراية بمعلمات
+النموذج، من الممكن الاشتقاق من الفئة وتجاوز
+أساليب المصنع <code class="docutils literal notranslate"><span class="pre">build_preprocessor</span></code> و <code class="docutils literal notranslate"><span class="pre">build_tokenizer</span></code> و <code class="docutils literal notranslate"><span class="pre">build_analyzer</span></code>
+بدلاً من تمرير دوال مُخصصة.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="نصائح-وحيل">
+<summary class="sd-summary-title sd-card-header sd-bg-success sd-bg-text-success">
+<span class="sd-summary-text">نصائح وحيل<a class="headerlink" href="#نصائح-وحيل" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<ul>
+<li><p class="sd-card-text">إذا تمت مُعالجة المستندات مُسبقًا بواسطة حزمة خارجية، فقم بتخزينها في
+ملفات (أو سلاسل) مع فصل الرموز المميزة بمسافات بيضاء وتمرير
+<code class="docutils literal notranslate"><span class="pre">analyzer=str.split</span></code></p></li>
+<li><p class="sd-card-text">التحليل المُتطور على مستوى الرموز المميزة مثل التصريف والتصريف
+وتقسيم المُركبات والتصفية بناءً على جزء من الكلام، إلخ. غير مُضمنة في
+قاعدة بيانات scikit-learn، ولكن يمكن إضافتها عن طريق تخصيص إما
+المُجزئ أو المُحلل.
+فيما يلي <code class="docutils literal notranslate"><span class="pre">CountVectorizer</span></code> مع مُجزئ وأداة تصريف باستخدام
+<a class="reference external" href="https://www.nltk.org/">NLTK</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nltk</span> <span class="kn">import</span> <span class="n">word_tokenize</span>          
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nltk.stem</span> <span class="kn">import</span> <span class="n">WordNetLemmatizer</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">LemmaTokenizer</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">wnl</span> <span class="o">=</span> <span class="n">WordNetLemmatizer</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">wnl</span><span class="o">.</span><span class="n">lemmatize</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">word_tokenize</span><span class="p">(</span><span class="n">doc</span><span class="p">)]</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vect</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">=</span><span class="n">LemmaTokenizer</span><span class="p">())</span>  
+</pre></div>
+</div>
+<p class="sd-card-text">(لاحظ أن هذا لن يُصفِّي علامات الترقيم.)</p>
+<p class="sd-card-text">سيُحوِّل المثال التالي، على سبيل المثال، بعض التهجئة البريطانية
+إلى تهجئة أمريكية:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">re</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">to_british</span><span class="p">(</span><span class="n">tokens</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">t</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(...)our$&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\1or&quot;</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">t</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;([bt])re$&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\1er&quot;</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">t</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;([iy])s(e$|ing|ation)&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\1z\2&quot;</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">t</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;ogue$&quot;</span><span class="p">,</span> <span class="s2">&quot;og&quot;</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">yield</span> <span class="n">t</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">CustomVectorizer</span><span class="p">(</span><span class="n">CountVectorizer</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">build_tokenizer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="n">tokenize</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">build_tokenizer</span><span class="p">()</span>
+<span class="gp">... </span>        <span class="k">return</span> <span class="k">lambda</span> <span class="n">doc</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">to_british</span><span class="p">(</span><span class="n">tokenize</span><span class="p">(</span><span class="n">doc</span><span class="p">)))</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">CustomVectorizer</span><span class="p">()</span><span class="o">.</span><span class="n">build_analyzer</span><span class="p">()(</span><span class="sa">u</span><span class="s2">&quot;color colour&quot;</span><span class="p">))</span>
+<span class="go">[...&#39;color&#39;, ...&#39;color&#39;]</span>
+</pre></div>
+</div>
+<p class="sd-card-text">لأساليب أخرى للمعالجة المُسبقة؛ تتضمن الأمثلة التصريف، التصريف،
+أو تطبيع الرموز المميزة الرقمية، مع توضيح الأخير في:</p>
+<ul class="simple">
+<li><p class="sd-card-text"><a class="reference internal" href="../auto_examples/bicluster/plot_bicluster_newsgroups.html#sphx-glr-auto-examples-bicluster-plot-bicluster-newsgroups-py"><span class="std std-ref">Biclustering documents with the Spectral Co-clustering algorithm</span></a></p></li>
+</ul>
+</li>
+</ul>
+<p class="sd-card-text">يمكن أن يكون تخصيص أداة المتجه مفيدًا أيضًا عند التعامل مع اللغات الآسيوية
+التي لا تستخدم فاصل كلمات صريحًا مثل المسافات البيضاء.</p>
+</div>
+</details></section>
+</section>
+<section id="image-feature-extraction">
+<span id="id17"></span><h2><span class="section-number">6.2.4. </span>استخراج ميزات الصور<a class="headerlink" href="#image-feature-extraction" title="Link to this heading">#</a></h2>
+<section id="id18">
+<h3><span class="section-number">6.2.4.1. </span>استخراج الرقع<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
+<p>تستخرج دالة <a class="reference internal" href="generated/sklearn.feature_extraction.image.extract_patches_2d.html#sklearn.feature_extraction.image.extract_patches_2d" title="sklearn.feature_extraction.image.extract_patches_2d"><code class="xref py py-func docutils literal notranslate"><span class="pre">extract_patches_2d</span></code></a> الرقع من صورة مخزنة
+كمصفوفة ثنائية الأبعاد، أو ثلاثية الأبعاد مع معلومات اللون على طول
+المحور الثالث. لإعادة بناء صورة من جميع رقعها، استخدم
+<a class="reference internal" href="generated/sklearn.feature_extraction.image.reconstruct_from_patches_2d.html#sklearn.feature_extraction.image.reconstruct_from_patches_2d" title="sklearn.feature_extraction.image.reconstruct_from_patches_2d"><code class="xref py py-func docutils literal notranslate"><span class="pre">reconstruct_from_patches_2d</span></code></a>. على سبيل المثال، دعنا نُولِّد صورة 4x4 بكسل
+مع 3 قنوات لونية (على سبيل المثال بتنسيق RGB):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction</span> <span class="kn">import</span> <span class="n">image</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">one_image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">one_image</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># قناة R لصورة RGB وهمية</span>
+<span class="go">array([[ 0,  3,  6,  9],</span>
+<span class="go">       [12, 15, 18, 21],</span>
+<span class="go">       [24, 27, 30, 33],</span>
+<span class="go">       [36, 39, 42, 45]])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">patches</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">extract_patches_2d</span><span class="p">(</span><span class="n">one_image</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">max_patches</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">patches</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(2, 2, 2, 3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">patches</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[[ 0,  3],</span>
+<span class="go">        [12, 15]],</span>
+
+<span class="go">       [[15, 18],</span>
+<span class="go">        [27, 30]]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">patches</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">extract_patches_2d</span><span class="p">(</span><span class="n">one_image</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">patches</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(9, 2, 2, 3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">patches</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="go">array([[15, 18],</span>
+<span class="go">       [27, 30]])</span>
+</pre></div>
+</div>
+<p>دعونا الآن نحاول إعادة بناء الصورة الأصلية من الرقع عن طريق حساب المتوسط
+على المناطق المتداخلة:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reconstructed</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">reconstruct_from_patches_2d</span><span class="p">(</span><span class="n">patches</span><span class="p">,</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_array_equal</span><span class="p">(</span><span class="n">one_image</span><span class="p">,</span> <span class="n">reconstructed</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>تعمل فئة <a class="reference internal" href="generated/sklearn.feature_extraction.image.PatchExtractor.html#sklearn.feature_extraction.image.PatchExtractor" title="sklearn.feature_extraction.image.PatchExtractor"><code class="xref py py-class docutils literal notranslate"><span class="pre">PatchExtractor</span></code></a> بنفس طريقة
+<a class="reference internal" href="generated/sklearn.feature_extraction.image.extract_patches_2d.html#sklearn.feature_extraction.image.extract_patches_2d" title="sklearn.feature_extraction.image.extract_patches_2d"><code class="xref py py-func docutils literal notranslate"><span class="pre">extract_patches_2d</span></code></a>، إلا أنها تدعم صورًا متعددة كمدخلات. يتم
+تطبيقها كمُحوِّل scikit-learn، بحيث يمكن استخدامها في خطوط الأنابيب.
+انظر:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">five_images</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">patches</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">PatchExtractor</span><span class="p">(</span><span class="n">patch_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">five_images</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">patches</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(45, 2, 2, 3)</span>
+</pre></div>
+</div>
+</section>
+<section id="id19">
+<h3><span class="section-number">6.2.4.2. </span>رسم بياني اتصال لصورة<a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
+<p>يمكن للعديد من المُقدِّرات في scikit-learn استخدام معلومات الاتصال بين
+الميزات أو العينات. على سبيل المثال، يمكن لتجميع Ward
+(<a class="reference internal" href="clustering.html#hierarchical-clustering"><span class="std std-ref">التجميع الهرمي</span></a>) تجميع وحدات البكسل المجاورة فقط
+لصورة معًا، وبالتالي تشكيل رقع مُتجاورة:</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/cluster/plot_coin_ward_segmentation.html"><img alt="../_images/sphx_glr_plot_coin_ward_segmentation_001.png" src="../_images/sphx_glr_plot_coin_ward_segmentation_001.png" style="width: 200.0px; height: 200.0px;" />
+</a>
+</figure>
+<p>لهذا الغرض، تستخدم المُقدِّرات مصفوفة “اتصال”، تُعطي
+العينات المتصلة.</p>
+<p>تُعيد الدالة <a class="reference internal" href="generated/sklearn.feature_extraction.image.img_to_graph.html#sklearn.feature_extraction.image.img_to_graph" title="sklearn.feature_extraction.image.img_to_graph"><code class="xref py py-func docutils literal notranslate"><span class="pre">img_to_graph</span></code></a> مثل هذه المصفوفة من صورة ثنائية أو ثلاثية
+الأبعاد. وبالمثل، <a class="reference internal" href="generated/sklearn.feature_extraction.image.grid_to_graph.html#sklearn.feature_extraction.image.grid_to_graph" title="sklearn.feature_extraction.image.grid_to_graph"><code class="xref py py-func docutils literal notranslate"><span class="pre">grid_to_graph</span></code></a> يبني مصفوفة اتصال لـ
+الصور بالنظر إلى شكل هذه الصور.</p>
+<p>يمكن استخدام هذه المصفوفات لفرض الاتصال في المُقدِّرات التي تستخدم
+معلومات الاتصال، مثل تجميع Ward
+(<a class="reference internal" href="clustering.html#hierarchical-clustering"><span class="std std-ref">التجميع الهرمي</span></a>)، ولكن أيضًا لبناء نوى مُسبقة الحساب،
+أو مصفوفات تشابه.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>أمثلة</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/cluster/plot_coin_ward_segmentation.html#sphx-glr-auto-examples-cluster-plot-coin-ward-segmentation-py"><span class="std std-ref">A demo of structured Ward hierarchical clustering on an image of coins</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/cluster/plot_segmentation_toy.html#sphx-glr-auto-examples-cluster-plot-segmentation-toy-py"><span class="std std-ref">Spectral clustering for image segmentation</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/cluster/plot_feature_agglomeration_vs_univariate_selection.html#sphx-glr-auto-examples-cluster-plot-feature-agglomeration-vs-univariate-selection-py"><span class="std std-ref">Feature agglomeration vs. univariate selection</span></a></p></li>
+</ul>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  <div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item">
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="compose.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">6.1. </span>خطوط الأنابيب والمقدرات المركبة</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="preprocessing.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">6.3. </span>معالجة البيانات مُسبقًا</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+                </footer>
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dict-feature-extraction">6.2.1. تحميل الميزات من القواميس</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-hashing">6.2.2. تجزئة الميزات</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#text-feature-extraction">6.2.3. استخراج ميزات النص</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">6.2.3.1. تمثيل حقيبة الكلمات</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">6.2.3.2. التفرق</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">6.2.3.3. استخدام متجه شائع</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stop-words">6.2.3.4. استخدام كلمات الإيقاف</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tf-idf">6.2.3.5. وزن مُصطلح Tf-idf</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">6.2.3.6. فك تشفير ملفات النص</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">6.2.3.7. التطبيقات والأمثلة</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">6.2.3.8. قيود تمثيل حقيبة الكلمات</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hashing-vectorizer">6.2.3.9. تحويل مجموعة نصية كبيرة إلى متجهات باستخدام خدعة التجزئة</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">6.2.3.10. تخصيص فئات أداة المتجه</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#image-feature-extraction">6.2.4. استخراج ميزات الصور</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">6.2.4.1. استخراج الرقع</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">6.2.4.2. رسم بياني اتصال لصورة</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/modules/feature_extraction.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024 - 2024, scikit-learn developers (BSD License).
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

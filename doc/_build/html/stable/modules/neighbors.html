@@ -1,0 +1,1194 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="1.6. أقرب الجيران" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://scikit-learn/stable/modules/neighbors.html" />
+<meta property="og:site_name" content="scikit-learn" />
+<meta property="og:description" content="يُوفر sklearn.neighbors وظائف لأساليب التعلم غير الخاضعة للإشراف والخاضعة للإشراف القائمة على الجيران. يُعد أقرب الجيران غير الخاضع للإشراف أساسًا للعديد من أساليب التعلم الأخرى، ولا سيما تعلم المش..." />
+<meta property="og:image" content="https://scikit-learn/stable/modules/auto_examples/neighbors/images/sphx_glr_plot_classification_001.png" />
+<meta property="og:image:alt" content="classification_1" />
+<meta name="description" content="يُوفر sklearn.neighbors وظائف لأساليب التعلم غير الخاضعة للإشراف والخاضعة للإشراف القائمة على الجيران. يُعد أقرب الجيران غير الخاضع للإشراف أساسًا للعديد من أساليب التعلم الأخرى، ولا سيما تعلم المش..." />
+
+    <title>1.6. أقرب الجيران &#8212; scikit-learn 1.6.dev0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyterlite_sphinx.css?v=ca70e7f1" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/colors.css?v=cc94ab7d" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/custom.css?v=e340c087" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../_static/documentation_options.js?v=d875d36e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=97f0b27d"></script>
+    <script src="../_static/jupyterlite_sphinx.js?v=d6bdf5f8"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script data-domain="scikit-learn.org" defer="defer" src="https://views.scientific-python.org/js/script.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'modules/neighbors';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://scikit-learn.org/dev/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1.6.dev0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/scripts/dropdown.js?v=e2048168"></script>
+    <script src="../_static/scripts/version-switcher.js?v=a6dd8357"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="1.7. العمليات الغاوسية" href="gaussian_process.html" />
+    <link rel="prev" title="1.5. التحسين التدريجي العشوائي" href="sgd.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="1.6" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/scikit-learn-logo-small.png" class="logo__image only-light" alt="scikit-learn homepage"/>
+    <img src="../_static/scikit-learn-logo-small.png" class="logo__image only-dark pst-js-only" alt="scikit-learn homepage"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../support.html">
+    Support
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../related_projects.html">
+    Related Projects
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../about.html">
+    حولنا
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../support.html">
+    Support
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../related_projects.html">
+    Related Projects
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../about.html">
+    حولنا
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../supervised_learning.html">1. Supervised learning</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="linear_model.html">1.1. النماذج الخطية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lda_qda.html">1.2. تحليل التمييز الخطي والتربيعي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernel_ridge.html">1.3. انحدار حافة النواة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svm.html">1.4. آلات الدعم المتجهية (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sgd.html">1.5. التحسين التدريجي العشوائي</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">1.6. أقرب الجيران</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gaussian_process.html">1.7. العمليات الغاوسية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cross_decomposition.html">1.8. التحليل المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="naive_bayes.html">1.9. خوارزميات بايز الساذجة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tree.html">1.10. شجرة القرار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ensemble.html">1.11. المجموعات: تعزيز التدرج، الغابات العشوائية، التجميع، التصويت، التكديس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multiclass.html">1.12. خوارزميات متعددة التصنيف ومتعددة الإخراج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature_selection.html">1.13. اختيار الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="semi_supervised.html">1.14. التعليم شبه الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="isotonic.html">1.15. الانحدار المتساوي التوتر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibration.html">1.16. معايرة الاحتمال</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_networks_supervised.html">1.17. نماذج الشبكات العصبية (الخاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../unsupervised_learning.html">2. Unsupervised learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="mixture.html">2.1. نماذج خليط غاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manifold.html">2.2. تعلم المشعبات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clustering.html">2.3. التجميع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="biclustering.html">2.4. التجميع الثنائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decomposition.html">2.5. تحليل الإشارات إلى مكونات (مشاكل تحليل المصفوفات)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="covariance.html">2.6. تقدير التباين المشترك</a></li>
+<li class="toctree-l2"><a class="reference internal" href="outlier_detection.html">2.7. كشف الجِدّة والقيم المتطرفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="density.html">2.8. تقدير الكثافة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_networks_unsupervised.html">2.9. نماذج الشبكة العصبية (غير خاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../model_selection.html">3. Model selection and evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="cross_validation.html">3.1. التحقق المتبادل: تقييم أداء المقدر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grid_search.html">3.2. ضبط المعلمات الفائقة لمُقدِّر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classification_threshold.html">3.3. ضبط عتبة القرار لتنبؤ الفئة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_evaluation.html">3.4. المقاييس والتهديف: تحديد جودة التنبؤات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learning_curve.html">3.5. منحنيات التحقق من الصحة: رسم الدرجات لتقييم النماذج</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../inspection.html">4. الفحص</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="partial_dependence.html">4.1. مخططات الاعتماد الجزئي والتوقع الشرطي الفردي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="permutation_importance.html">4.2. أهمية ميزة التبديل</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualizations.html">5. التصورات</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../data_transforms.html">6. تحويلات مجموعات البيانات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="compose.html">6.1. خطوط الأنابيب والمقدرات المركبة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature_extraction.html">6.2. استخراج الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html">6.3. معالجة البيانات مُسبقًا</a></li>
+<li class="toctree-l2"><a class="reference internal" href="impute.html">6.4. تعويض القيم المفقودة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unsupervised_reduction.html">6.5. تخفيض الأبعاد غير الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="random_projection.html">6.6. التصميم العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernel_approximation.html">6.7. Kernel Approximation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">6.8. مقاييس المقارنة الزوجية، والصلات، والنوى (Kernels)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing_targets.html">6.9. تحويل هدف التنبؤ (<code class="docutils literal notranslate"><span class="pre">y</span></code>)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/toy_dataset.html">7. Toy datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/real_world.html">8. Real world datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/sample_generators.html">9. Generated datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/loading_other_datasets.html">10. Loading other datasets</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../computing.html">11. Computing with scikit-learn</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../computing/scaling_strategies.html">11.1. استراتيجيات للقياس حسابيًا: بيانات أكبر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../computing/computational_performance.html">11.2. الأداء الحسابي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../computing/parallelism.html">11.3. التوازي وإدارة الموارد والتهيئة</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../model_persistence.html">12. استمرارية النموذج</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../common_pitfalls.html">13. المخاطر الشائعة والممارسات الموصى بها</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../dispatching.html">14. Dispatching</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="array_api.html">14.1. دعم المدخلات المتوافقة مع <code class="docutils literal notranslate"><span class="pre">Array</span> <span class="pre">API</span></code></a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../machine_learning_map.html">15. Choosing the right estimator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../presentations.html">16. المصادر الخارجية ومقاطع الفيديو والمحادثات</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../user_guide.html" class="nav-link">User Guide</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../supervised_learning.html" class="nav-link"><span class="section-number">1. </span>Supervised learning</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">1.6. </span>أقرب الجيران</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="neighbors">
+<span id="id1"></span><h1><span class="section-number">1.6. </span>أقرب الجيران<a class="headerlink" href="#neighbors" title="Link to this heading">#</a></h1>
+<p>يُوفر <a class="reference internal" href="../api/sklearn.neighbors.html#module-sklearn.neighbors" title="sklearn.neighbors"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.neighbors</span></code></a> وظائف لأساليب التعلم غير الخاضعة للإشراف والخاضعة للإشراف القائمة على الجيران. يُعد أقرب الجيران غير الخاضع للإشراف أساسًا للعديد من أساليب التعلم الأخرى، ولا سيما تعلم المشعبات والتجميع الطيفي. يأتي التعلم الخاضع للإشراف القائم على الجيران بنكهتين: <a class="reference internal" href="#id13">التصنيف</a> للبيانات ذات التسميات المنفصلة، و <a href="#id23"><span class="problematic" id="id24">`الانحدار`_</span></a> للبيانات ذات التسميات المستمرة.</p>
+<p>المبدأ وراء أساليب أقرب الجيران هو إيجاد عدد مُحدّد مسبقًا من عينات التدريب الأقرب في المسافة إلى النقطة الجديدة، والتنبؤ بالتسمية من هذه العينات. يمكن أن يكون عدد العينات ثابتًا مُحدّدًا من قبل المستخدم (تعلم أقرب k جيران)، أو يختلف بناءً على الكثافة المحلية للنقاط (تعلم الجيران القائم على نصف القطر). يمكن أن تكون المسافة، بشكل عام، أي قياس متري: مسافة إقليدية القياسية هي الخيار الأكثر شيوعًا. تُعرف أساليب التعلم القائمة على الجيران باسم أساليب تعلم الآلة <em>غير المُعمّمة</em>، لأنها ببساطة “تتذكر” جميع بيانات التدريب الخاصة بها (ربما يتم تحويلها إلى بنية فهرسة سريعة مثل <a class="reference internal" href="#ball-tree"><span class="std std-ref">شجرة الكرة</span></a> أو <a class="reference internal" href="#kd-tree"><span class="std std-ref">شجرة KD</span></a>).</p>
+<p>على الرغم من بساطتها، فقد نجح أقرب الجيران في عدد كبير من مشاكل التصنيف والانحدار، بما في ذلك الأرقام المكتوبة بخط اليد ومشاهد صور الأقمار الصناعية. نظرًا لكونها طريقة غير معلمية، فإنها غالبًا ما تنجح في حالات التصنيف حيث يكون حد القرار غير منتظم للغاية.</p>
+<p>يمكن للفئات في <a class="reference internal" href="../api/sklearn.neighbors.html#module-sklearn.neighbors" title="sklearn.neighbors"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.neighbors</span></code></a> معالجة مصفوفات NumPy أو مصفوفات <code class="docutils literal notranslate"><span class="pre">scipy.sparse</span></code> كمدخلات. بالنسبة للمصفوفات الكثيفة، يتم دعم عدد كبير من مقاييس المسافة الممكنة. بالنسبة للمصفوفات المتفرقة، يتم دعم مقاييس مينكوفسكي التعسفية للبحث.</p>
+<p>هناك العديد من إجراءات التعلم التي تعتمد على أقرب الجيران في جوهرها. أحد الأمثلة هو <a class="reference internal" href="density.html#kernel-density"><span class="std std-ref">تقدير كثافة النواة</span></a>، الذي تمت مناقشته في قسم <a class="reference internal" href="density.html#density-estimation"><span class="std std-ref">تقدير الكثافة</span></a>.</p>
+<section id="unsupervised-neighbors">
+<span id="id2"></span><h2><span class="section-number">1.6.1. </span>أقرب جيران غير خاضع للإشراف<a class="headerlink" href="#unsupervised-neighbors" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="generated/sklearn.neighbors.NearestNeighbors.html#sklearn.neighbors.NearestNeighbors" title="sklearn.neighbors.NearestNeighbors"><code class="xref py py-class docutils literal notranslate"><span class="pre">NearestNeighbors</span></code></a> تُطبق تعلم أقرب جيران غير خاضع للإشراف. تعمل كواجهة موحدة لثلاث خوارزميات مختلفة لأقرب جيران: <a class="reference internal" href="generated/sklearn.neighbors.BallTree.html#sklearn.neighbors.BallTree" title="sklearn.neighbors.BallTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">BallTree</span></code></a> و <a class="reference internal" href="generated/sklearn.neighbors.KDTree.html#sklearn.neighbors.KDTree" title="sklearn.neighbors.KDTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">KDTree</span></code></a> وخوارزمية القوة الغاشمة القائمة على إجراءات في <a class="reference internal" href="../api/sklearn.metrics.html#module-sklearn.metrics.pairwise" title="sklearn.metrics.pairwise"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.metrics.pairwise</span></code></a>. يتم التحكم في اختيار خوارزمية بحث الجيران من خلال الكلمة المفتاحية <code class="docutils literal notranslate"><span class="pre">'algorithm'</span></code>، والتي يجب أن تكون واحدة من <code class="docutils literal notranslate"><span class="pre">['auto',</span> <span class="pre">'ball_tree',</span> <span class="pre">'kd_tree',</span> <span class="pre">'brute']</span></code>. عندما يتم تمرير القيمة الافتراضية <code class="docutils literal notranslate"><span class="pre">'auto'</span></code>، تحاول الخوارزمية تحديد أفضل نهج من بيانات التدريب. لمناقشة نقاط القوة والضعف لكل خيار، انظر <a class="reference internal" href="#id6">خوارزميات أقرب جيران</a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>فيما يتعلق بخوارزميات أقرب جيران، إذا كان لدى جارين <span class="math notranslate nohighlight">\(k+1\)</span> و <span class="math notranslate nohighlight">\(k\)</span> مسافات متطابقة ولكن تسميات مختلفة، فستعتمد النتيجة على ترتيب بيانات التدريب.</p>
+</div>
+<section id="id3">
+<h3><span class="section-number">1.6.1.1. </span>إيجاد أقرب جيران<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>بالنسبة للمهمة البسيطة المتمثلة في إيجاد أقرب جيران بين مجموعتين من البيانات، يمكن استخدام الخوارزميات غير الخاضعة للإشراف ضمن <a class="reference internal" href="../api/sklearn.neighbors.html#module-sklearn.neighbors" title="sklearn.neighbors"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.neighbors</span></code></a>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">NearestNeighbors</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nbrs</span> <span class="o">=</span> <span class="n">NearestNeighbors</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="s1">&#39;ball_tree&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">distances</span><span class="p">,</span> <span class="n">indices</span> <span class="o">=</span> <span class="n">nbrs</span><span class="o">.</span><span class="n">kneighbors</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">indices</span>
+<span class="go">array([[0, 1],</span>
+<span class="go">       [1, 0],</span>
+<span class="go">       [2, 1],</span>
+<span class="go">       [3, 4],</span>
+<span class="go">       [4, 3],</span>
+<span class="go">       [5, 4]]...)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">distances</span>
+<span class="go">array([[0.        , 1.        ],</span>
+<span class="go">       [0.        , 1.        ],</span>
+<span class="go">       [0.        , 1.41421356],</span>
+<span class="go">       [0.        , 1.        ],</span>
+<span class="go">       [0.        , 1.        ],</span>
+<span class="go">       [0.        , 1.41421356]])</span>
+</pre></div>
+</div>
+<p>نظرًا لأن مجموعة الاستعلام تتطابق مع مجموعة التدريب، فإن أقرب جار لكل نقطة هو النقطة نفسها، على مسافة صفر.</p>
+<p>من الممكن أيضًا إنشاء رسم بياني متفرق بكفاءة يُظهر الاتصالات بين النقاط المجاورة:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nbrs</span><span class="o">.</span><span class="n">kneighbors_graph</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="go">array([[1., 1., 0., 0., 0., 0.],</span>
+<span class="go">       [1., 1., 0., 0., 0., 0.],</span>
+<span class="go">       [0., 1., 1., 0., 0., 0.],</span>
+<span class="go">       [0., 0., 0., 1., 1., 0.],</span>
+<span class="go">       [0., 0., 0., 1., 1., 0.],</span>
+<span class="go">       [0., 0., 0., 0., 1., 1.]])</span>
+</pre></div>
+</div>
+<p>يتم تنظيم مجموعة البيانات بحيث تكون النقاط القريبة من ترتيب الفهرس قريبة في فضاء المعلمات، مما يؤدي إلى مصفوفة شبه قطرية تقريبًا لأقرب K جيران. هذا الرسم البياني المتفرق مفيد في مجموعة متنوعة من الظروف التي تستخدم العلاقات المكانية بين النقاط للتعلم غير الخاضع للإشراف: على وجه الخصوص، انظر <a class="reference internal" href="generated/sklearn.manifold.Isomap.html#sklearn.manifold.Isomap" title="sklearn.manifold.Isomap"><code class="xref py py-class docutils literal notranslate"><span class="pre">Isomap</span></code></a> و <a class="reference internal" href="generated/sklearn.manifold.LocallyLinearEmbedding.html#sklearn.manifold.LocallyLinearEmbedding" title="sklearn.manifold.LocallyLinearEmbedding"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocallyLinearEmbedding</span></code></a> و <a class="reference internal" href="generated/sklearn.cluster.SpectralClustering.html#sklearn.cluster.SpectralClustering" title="sklearn.cluster.SpectralClustering"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpectralClustering</span></code></a>.</p>
+</section>
+<section id="kdtree-balltree">
+<h3><span class="section-number">1.6.1.2. </span>فئات KDTree و BallTree<a class="headerlink" href="#kdtree-balltree" title="Link to this heading">#</a></h3>
+<p>بدلاً من ذلك، يمكن للمرء استخدام فئات <a class="reference internal" href="generated/sklearn.neighbors.KDTree.html#sklearn.neighbors.KDTree" title="sklearn.neighbors.KDTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">KDTree</span></code></a> أو <a class="reference internal" href="generated/sklearn.neighbors.BallTree.html#sklearn.neighbors.BallTree" title="sklearn.neighbors.BallTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">BallTree</span></code></a> مباشرةً لإيجاد أقرب جيران. هذه هي الوظيفة التي تُغلفها فئة <a class="reference internal" href="generated/sklearn.neighbors.NearestNeighbors.html#sklearn.neighbors.NearestNeighbors" title="sklearn.neighbors.NearestNeighbors"><code class="xref py py-class docutils literal notranslate"><span class="pre">NearestNeighbors</span></code></a> المستخدمة أعلاه. شجرة الكرة وشجرة KD لهما نفس الواجهة؛ سنعرض هنا مثالاً على استخدام شجرة KD:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KDTree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">kdt</span> <span class="o">=</span> <span class="n">KDTree</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">leaf_size</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;euclidean&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">kdt</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">return_distance</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">array([[0, 1],</span>
+<span class="go">       [1, 0],</span>
+<span class="go">       [2, 1],</span>
+<span class="go">       [3, 4],</span>
+<span class="go">       [4, 3],</span>
+<span class="go">       [5, 4]]...)</span>
+</pre></div>
+</div>
+<p>راجع وثائق فئة <a class="reference internal" href="generated/sklearn.neighbors.KDTree.html#sklearn.neighbors.KDTree" title="sklearn.neighbors.KDTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">KDTree</span></code></a> و <a class="reference internal" href="generated/sklearn.neighbors.BallTree.html#sklearn.neighbors.BallTree" title="sklearn.neighbors.BallTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">BallTree</span></code></a> لمزيد من المعلومات حول الخيارات المتاحة لعمليات بحث أقرب جيران، بما في ذلك تحديد استراتيجيات الاستعلام ومقاييس المسافة وما إلى ذلك. للحصول على قائمة بالمقاييس الصالحة، استخدم <code class="docutils literal notranslate"><span class="pre">KDTree.valid_metrics</span></code> و <code class="docutils literal notranslate"><span class="pre">BallTree.valid_metrics</span></code>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KDTree</span><span class="p">,</span> <span class="n">BallTree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">KDTree</span><span class="o">.</span><span class="n">valid_metrics</span>
+<span class="go">[&#39;euclidean&#39;, &#39;l2&#39;, &#39;minkowski&#39;, &#39;p&#39;, &#39;manhattan&#39;, &#39;cityblock&#39;, &#39;l1&#39;, &#39;chebyshev&#39;, &#39;infinity&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">BallTree</span><span class="o">.</span><span class="n">valid_metrics</span>
+<span class="go">[&#39;euclidean&#39;, &#39;l2&#39;, &#39;minkowski&#39;, &#39;p&#39;, &#39;manhattan&#39;, &#39;cityblock&#39;, &#39;l1&#39;, &#39;chebyshev&#39;, &#39;infinity&#39;, &#39;seuclidean&#39;, &#39;mahalanobis&#39;, &#39;hamming&#39;, &#39;canberra&#39;, &#39;braycurtis&#39;, &#39;jaccard&#39;, &#39;dice&#39;, &#39;rogerstanimoto&#39;, &#39;russellrao&#39;, &#39;sokalmichener&#39;, &#39;sokalsneath&#39;, &#39;haversine&#39;, &#39;pyfunc&#39;]</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="classification">
+<span id="id4"></span><h2><span class="section-number">1.6.2. </span>تصنيف أقرب جيران<a class="headerlink" href="#classification" title="Link to this heading">#</a></h2>
+<p>التصنيف القائم على الجيران هو نوع من <em>التعلم القائم على المثيل</em> أو <em>التعلم غير المُعمّم</em>: لا يحاول إنشاء نموذج داخلي عام، ولكنه ببساطة يُخزّن مثيلات بيانات التدريب. يتم حساب التصنيف من تصويت أغلبية بسيط لأقرب جيران لكل نقطة: يتم تعيين نقطة الاستعلام فئة البيانات التي لديها أكبر عدد من المُمثلين ضمن أقرب جيران للنقطة.</p>
+<p>تُطبق scikit-learn مُصنفين مختلفين لأقرب جيران: تُطبق <a class="reference internal" href="generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier" title="sklearn.neighbors.KNeighborsClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">KNeighborsClassifier</span></code></a> التعلم القائم على أقرب <span class="math notranslate nohighlight">\(k\)</span> جيران لكل نقطة استعلام، حيث <span class="math notranslate nohighlight">\(k\)</span> هي قيمة عدد صحيح يُحددها المستخدم. تُطبق <a class="reference internal" href="generated/sklearn.neighbors.RadiusNeighborsClassifier.html#sklearn.neighbors.RadiusNeighborsClassifier" title="sklearn.neighbors.RadiusNeighborsClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">RadiusNeighborsClassifier</span></code></a> التعلم القائم على عدد الجيران ضمن نصف قطر ثابت <span class="math notranslate nohighlight">\(r\)</span> لكل نقطة تدريب، حيث <span class="math notranslate nohighlight">\(r\)</span> هي قيمة فاصلة عائمة يُحددها المستخدم.</p>
+<p>تصنيف k-neighbors في <a class="reference internal" href="generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier" title="sklearn.neighbors.KNeighborsClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">KNeighborsClassifier</span></code></a> هو التقنية الأكثر شيوعًا. الاختيار الأمثل لقيمة <span class="math notranslate nohighlight">\(k\)</span> يعتمد بشكل كبير على البيانات: بشكل عام، <span class="math notranslate nohighlight">\(k\)</span> الأكبر يقمع آثار الضوضاء، ولكنه يجعل حدود التصنيف أقل وضوحًا.</p>
+<p>في الحالات التي لا يتم فيها أخذ عينات البيانات بشكل منتظم، قد يكون تصنيف الجيران القائم على نصف القطر في <a class="reference internal" href="generated/sklearn.neighbors.RadiusNeighborsClassifier.html#sklearn.neighbors.RadiusNeighborsClassifier" title="sklearn.neighbors.RadiusNeighborsClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">RadiusNeighborsClassifier</span></code></a> خيارًا أفضل. يُحدد المستخدم نصف قطر ثابت <span class="math notranslate nohighlight">\(r\)</span>، بحيث تستخدم النقاط في الأحياء المتفرقة عددًا أقل من أقرب الجيران للتصنيف. بالنسبة لمساحات المعلمات ذات الأبعاد العالية، تصبح هذه الطريقة أقل فعالية بسبب ما يُسمى “لعنة الأبعاد”.</p>
+<p>يستخدم تصنيف أقرب الجيران الأساسي أوزانًا موحدة: أي أن القيمة المعينة لنقطة استعلام يتم حسابها من تصويت أغلبية بسيط لأقرب الجيران. في ظل ظروف معينة، من الأفضل ترجيح الجيران بحيث يُساهم الجيران الأقرب بشكل أكبر في الملاءمة. يمكن تحقيق ذلك من خلال الكلمة المفتاحية <code class="docutils literal notranslate"><span class="pre">weights</span></code>. القيمة الافتراضية، <code class="docutils literal notranslate"><span class="pre">weights</span> <span class="pre">=</span> <span class="pre">'uniform'</span></code>، تُعيّن أوزانًا موحدة لكل جار. <code class="docutils literal notranslate"><span class="pre">weights</span> <span class="pre">=</span> <span class="pre">'distance'</span></code> تُعيّن أوزانًا تتناسب مع معكوس المسافة من نقطة الاستعلام. بدلاً من ذلك، يمكن توفير دالة مُحدّدة من قبل المستخدم للمسافة لحساب الأوزان.</p>
+<p class="centered">
+<strong><a class="reference external" href="../auto_examples/neighbors/plot_classification.html"><img alt="classification_1" src="../_images/sphx_glr_plot_classification_001.png" style="width: 900.0px; height: 375.0px;" /></a></strong></p><p class="rubric">أمثلة</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/neighbors/plot_classification.html#sphx-glr-auto-examples-neighbors-plot-classification-py"><span class="std std-ref">Nearest Neighbors Classification</span></a>: مثال على التصنيف باستخدام أقرب الجيران.</p></li>
+</ul>
+</section>
+<section id="regression">
+<span id="id5"></span><h2><span class="section-number">1.6.3. </span>انحدار أقرب جيران<a class="headerlink" href="#regression" title="Link to this heading">#</a></h2>
+<p>يمكن استخدام الانحدار القائم على الجيران في الحالات التي تكون فيها تسميات البيانات متغيرات مستمرة بدلاً من متغيرات منفصلة. يتم حساب التسمية المعينة لنقطة استعلام بناءً على متوسط تسميات أقرب جيرانها.</p>
+<p>تُطبق scikit-learn مُنحدِرين مختلفين للجيران: تُطبق <a class="reference internal" href="generated/sklearn.neighbors.KNeighborsRegressor.html#sklearn.neighbors.KNeighborsRegressor" title="sklearn.neighbors.KNeighborsRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">KNeighborsRegressor</span></code></a> التعلم القائم على أقرب <span class="math notranslate nohighlight">\(k\)</span> جيران لكل نقطة استعلام، حيث <span class="math notranslate nohighlight">\(k\)</span> هي قيمة عدد صحيح يُحددها المستخدم. تُطبق <a class="reference internal" href="generated/sklearn.neighbors.RadiusNeighborsRegressor.html#sklearn.neighbors.RadiusNeighborsRegressor" title="sklearn.neighbors.RadiusNeighborsRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">RadiusNeighborsRegressor</span></code></a> التعلم القائم على الجيران ضمن نصف قطر ثابت <span class="math notranslate nohighlight">\(r\)</span> من نقطة الاستعلام، حيث <span class="math notranslate nohighlight">\(r\)</span> هي قيمة فاصلة عائمة يُحددها المستخدم.</p>
+<p>يستخدم انحدار أقرب الجيران الأساسي أوزانًا موحدة: أي أن كل نقطة في الحي المحلي تُساهم بشكل منتظم في تصنيف نقطة الاستعلام. في ظل ظروف معينة، يمكن أن يكون من المفيد ترجيح النقاط بحيث تُساهم النقاط القريبة بشكل أكبر في الانحدار من النقاط البعيدة. يمكن تحقيق ذلك من خلال الكلمة المفتاحية <code class="docutils literal notranslate"><span class="pre">weights</span></code>. القيمة الافتراضية، <code class="docutils literal notranslate"><span class="pre">weights</span> <span class="pre">=</span> <span class="pre">'uniform'</span></code>، تُعيّن أوزانًا متساوية لجميع النقاط. <code class="docutils literal notranslate"><span class="pre">weights</span> <span class="pre">=</span> <span class="pre">'distance'</span></code> تُعيّن أوزانًا تتناسب مع معكوس المسافة من نقطة الاستعلام. بدلاً من ذلك، يمكن توفير دالة مُحدّدة من قبل المستخدم للمسافة، والتي سيتم استخدامها لحساب الأوزان.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/neighbors/plot_regression.html"><img alt="../_images/sphx_glr_plot_regression_001.png" src="../_images/sphx_glr_plot_regression_001.png" style="width: 480.0px; height: 360.0px;" />
+</a>
+</figure>
+<p>يتم توضيح استخدام أقرب جيران متعدد المخرجات للانحدار في <a class="reference internal" href="../auto_examples/miscellaneous/plot_multioutput_face_completion.html#sphx-glr-auto-examples-miscellaneous-plot-multioutput-face-completion-py"><span class="std std-ref">Face completion with a multi-output estimators</span></a>. في هذا المثال، المدخلات X هي وحدات بكسل النصف العلوي من الوجوه والمخرجات Y هي وحدات بكسل النصف السفلي من تلك الوجوه.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/miscellaneous/plot_multioutput_face_completion.html"><img alt="../_images/sphx_glr_plot_multioutput_face_completion_001.png" src="../_images/sphx_glr_plot_multioutput_face_completion_001.png" style="width: 750.0px; height: 847.5px;" />
+</a>
+</figure>
+<p class="rubric">أمثلة</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/neighbors/plot_regression.html#sphx-glr-auto-examples-neighbors-plot-regression-py"><span class="std std-ref">Nearest Neighbors regression</span></a>: مثال على الانحدار باستخدام أقرب الجيران.</p></li>
+<li><p><a class="reference internal" href="../auto_examples/miscellaneous/plot_multioutput_face_completion.html#sphx-glr-auto-examples-miscellaneous-plot-multioutput-face-completion-py"><span class="std std-ref">Face completion with a multi-output estimators</span></a>: مثال على الانحدار متعدد المخرجات باستخدام أقرب الجيران.</p></li>
+</ul>
+</section>
+<section id="id6">
+<h2><span class="section-number">1.6.4. </span>خوارزميات أقرب جيران<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<section id="brute-force">
+<span id="id7"></span><h3><span class="section-number">1.6.4.1. </span>القوة الغاشمة<a class="headerlink" href="#brute-force" title="Link to this heading">#</a></h3>
+<p>الحساب السريع لأقرب الجيران هو مجال بحث نشط في تعلم الآلة. يتضمن تطبيق بحث الجيران الأكثر سذاجة حساب القوة الغاشمة للمسافات بين جميع أزواج النقاط في مجموعة البيانات: بالنسبة لـ <span class="math notranslate nohighlight">\(N\)</span> عينات في <span class="math notranslate nohighlight">\(D\)</span> أبعاد، يتدرج هذا النهج كـ <span class="math notranslate nohighlight">\(O[D N^2]\)</span>. يمكن أن تكون عمليات بحث الجيران بالقوة الغاشمة الفعالة تنافسية للغاية لعينات البيانات الصغيرة. ومع ذلك، مع نمو عدد العينات <span class="math notranslate nohighlight">\(N\)</span>، سرعان ما يُصبح نهج القوة الغاشمة غير مُجدٍ. في الفئات ضمن <a class="reference internal" href="../api/sklearn.neighbors.html#module-sklearn.neighbors" title="sklearn.neighbors"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.neighbors</span></code></a>، يتم تحديد عمليات بحث الجيران بالقوة الغاشمة باستخدام الكلمة المفتاحية <code class="docutils literal notranslate"><span class="pre">algorithm</span> <span class="pre">=</span> <span class="pre">'brute'</span></code>، ويتم حسابها باستخدام الإجراءات المتاحة في <a class="reference internal" href="../api/sklearn.metrics.html#module-sklearn.metrics.pairwise" title="sklearn.metrics.pairwise"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.metrics.pairwise</span></code></a>.</p>
+</section>
+<section id="k-d">
+<span id="kd-tree"></span><h3><span class="section-number">1.6.4.2. </span>شجرة K-D<a class="headerlink" href="#k-d" title="Link to this heading">#</a></h3>
+<p>لمعالجة أوجه القصور الحسابية لنهج القوة الغاشمة، تم اختراع مجموعة متنوعة من هياكل البيانات القائمة على الأشجار. بشكل عام، تحاول هذه الهياكل تقليل العدد المطلوب من حسابات المسافة عن طريق ترميز معلومات المسافة الإجمالية للعينة بكفاءة. الفكرة الأساسية هي أنه إذا كانت النقطة <span class="math notranslate nohighlight">\(A\)</span> بعيدة جدًا عن النقطة <span class="math notranslate nohighlight">\(B\)</span>،  والنقطة <span class="math notranslate nohighlight">\(B\)</span> قريبة جدًا من النقطة <span class="math notranslate nohighlight">\(C\)</span>، فإننا نعلم أن النقطتين <span class="math notranslate nohighlight">\(A\)</span> و <span class="math notranslate nohighlight">\(C\)</span> بعيدتان جدًا، <em>دون الحاجة إلى حساب المسافة بينهما بشكل صريح</em>. بهذه الطريقة، يمكن تقليل التكلفة الحسابية لبحث أقرب جيران إلى <span class="math notranslate nohighlight">\(O[D N \log(N)]\)</span> أو أفضل. هذا تحسن كبير مقارنة بالقوة الغاشمة لـ <span class="math notranslate nohighlight">\(N\)</span> كبيرة.</p>
+<p>كان النهج المُبكّر للاستفادة من هذه المعلومات الإجمالية هو بنية بيانات <em>شجرة KD</em> (اختصار لـ <em>شجرة K الأبعاد</em>)، التي تُعمّم <em>أشجار Quad</em> ثنائية الأبعاد و <em>أشجار Oct</em> ثلاثية الأبعاد إلى عدد تعسفي من الأبعاد. شجرة KD هي بنية شجرة ثنائية تُقسّم مساحة المعلمات بشكل مُتكرّر على طول محاور البيانات، وتُقسّمها إلى مناطق متداخلة متعامدة يتم فيها حفظ نقاط البيانات. إنشاء شجرة KD سريع جدًا: نظرًا لأنه يتم إجراء التقسيم على طول محاور البيانات فقط، فلا حاجة لحساب أي مسافات <span class="math notranslate nohighlight">\(D\)</span> الأبعاد. بمجرد الإنشاء، يمكن تحديد أقرب جار لنقطة استعلام باستخدام <span class="math notranslate nohighlight">\(O[\log(N)]\)</span> حسابات مسافة فقط. على الرغم من أن نهج شجرة KD سريع جدًا لعمليات بحث الجيران ذات الأبعاد المنخفضة (<span class="math notranslate nohighlight">\(D &lt; 20\)</span>)، إلا أنه يُصبح غير فعال مع نمو <span class="math notranslate nohighlight">\(D\)</span> بشكل كبير جدًا: هذا أحد مظاهر ما يُسمى “لعنة الأبعاد”. في scikit-learn، يتم تحديد عمليات بحث الجيران لشجرة KD باستخدام الكلمة المفتاحية <code class="docutils literal notranslate"><span class="pre">algorithm</span> <span class="pre">=</span> <span class="pre">'kd_tree'</span></code>، ويتم حسابها باستخدام الفئة <a class="reference internal" href="generated/sklearn.neighbors.KDTree.html#sklearn.neighbors.KDTree" title="sklearn.neighbors.KDTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">KDTree</span></code></a>.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="المراجع">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">المراجع<a class="headerlink" href="#المراجع" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<ul class="simple">
+<li><p class="sd-card-text"><a class="reference external" href="https://dl.acm.org/citation.cfm?doid=361002.361007">“Multidimensional binary search trees used for associative searching”</a>,
+Bentley, J.L., Communications of the ACM (1975)</p></li>
+</ul>
+</div>
+</details></section>
+<section id="ball-tree">
+<span id="id8"></span><h3><span class="section-number">1.6.4.3. </span>شجرة الكرة<a class="headerlink" href="#ball-tree" title="Link to this heading">#</a></h3>
+<p>لمعالجة أوجه القصور في أشجار KD في الأبعاد الأعلى، تم تطوير بنية بيانات <em>شجرة الكرة</em>. حيث تُقسّم أشجار KD البيانات على طول المحاور الديكارتية، تُقسّم أشجار الكرة البيانات في سلسلة من التداخلات الفائقة. هذا يجعل إنشاء الشجرة أكثر تكلفة من شجرة KD، ولكنه يؤدي إلى بنية بيانات يمكن أن تكون فعالة جدًا على البيانات عالية التنظيم، حتى في الأبعاد العالية جدًا.</p>
+<p>تقوم شجرة الكرة بتقسيم البيانات بشكل مُتكرّر إلى عقد مُحدّدة بواسطة مركز <span class="math notranslate nohighlight">\(C\)</span> ونصف قطر <span class="math notranslate nohighlight">\(r\)</span>، بحيث تقع كل نقطة في العقدة داخل الكرة الفائقة المُحدّدة بواسطة <span class="math notranslate nohighlight">\(r\)</span> و <span class="math notranslate nohighlight">\(C\)</span>. يتم تقليل عدد النقاط المُرشّحة لبحث الجيران من خلال استخدام <em>متباينة المثلث</em>:</p>
+<div class="math notranslate nohighlight">
+\[|x+y| \leq |x| + |y|\]</div>
+<p>مع هذا الإعداد، يكون حساب مسافة واحدة بين نقطة اختبار والمركز كافيًا لتحديد الحد الأدنى والأعلى للمسافة إلى جميع النقاط داخل العقدة. نظرًا للهندسة الكروية لعقد شجرة الكرة، يمكنها أن تتفوق على <em>شجرة KD</em> في الأبعاد العالية، على الرغم من أن الأداء الفعلي يعتمد بشكل كبير على بنية بيانات التدريب. في scikit-learn، يتم تحديد عمليات بحث الجيران القائمة على شجرة الكرة باستخدام الكلمة المفتاحية <code class="docutils literal notranslate"><span class="pre">algorithm</span> <span class="pre">=</span> <span class="pre">'ball_tree'</span></code>، ويتم حسابها باستخدام الفئة <a class="reference internal" href="generated/sklearn.neighbors.BallTree.html#sklearn.neighbors.BallTree" title="sklearn.neighbors.BallTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">BallTree</span></code></a>. بدلاً من ذلك، يمكن للمستخدم العمل مع فئة <a class="reference internal" href="generated/sklearn.neighbors.BallTree.html#sklearn.neighbors.BallTree" title="sklearn.neighbors.BallTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">BallTree</span></code></a> مباشرةً.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="المراجع-2">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">المراجع<a class="headerlink" href="#المراجع-2" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<ul class="simple">
+<li><p class="sd-card-text"><a class="reference external" href="https://citeseerx.ist.psu.edu/doc_view/pid/17ac002939f8e950ffb32ec4dc8e86bdd8cb5ff1">“Five Balltree Construction Algorithms”</a>,
+Omohundro, S.M., International Computer Science Institute
+Technical Report (1989)</p></li>
+</ul>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="اختيار-خوارزمية-أقرب-جيران">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">اختيار خوارزمية أقرب جيران<a class="headerlink" href="#اختيار-خوارزمية-أقرب-جيران" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">الخوارزمية المثلى لمجموعة بيانات مُعطاة هي اختيار مُعقّد، وتعتمد على عدد من العوامل:</p>
+<ul>
+<li><p class="sd-card-text">عدد العينات <span class="math notranslate nohighlight">\(N\)</span> (أي <code class="docutils literal notranslate"><span class="pre">n_samples</span></code>) والأبعاد <span class="math notranslate nohighlight">\(D\)</span> (أي <code class="docutils literal notranslate"><span class="pre">n_features</span></code>).</p>
+<ul class="simple">
+<li><p class="sd-card-text">ينمو وقت استعلام <em>القوة الغاشمة</em> كـ <span class="math notranslate nohighlight">\(O[D N]\)</span></p></li>
+<li><p class="sd-card-text">ينمو وقت استعلام <em>شجرة الكرة</em> كـ <span class="math notranslate nohighlight">\(O[D \log(N)]\)</span> تقريبًا</p></li>
+<li><p class="sd-card-text">يتغير وقت استعلام <em>شجرة KD</em> مع <span class="math notranslate nohighlight">\(D\)</span> بطريقة يصعب تحديدها بدقة. بالنسبة لـ <span class="math notranslate nohighlight">\(D\)</span> الصغيرة (أقل من 20 أو نحو ذلك)، فإن التكلفة هي تقريبًا <span class="math notranslate nohighlight">\(O[D\log(N)]\)</span>، ويمكن أن يكون استعلام شجرة KD فعالاً للغاية. بالنسبة لـ <span class="math notranslate nohighlight">\(D\)</span> الأكبر، تزداد التكلفة إلى ما يقرب من <span class="math notranslate nohighlight">\(O[DN]\)</span>، ويمكن أن تؤدي النفقات العامة بسبب بنية الشجرة إلى استعلامات أبطأ من القوة الغاشمة.</p></li>
+</ul>
+<p class="sd-card-text">بالنسبة لمجموعات البيانات الصغيرة (<span class="math notranslate nohighlight">\(N\)</span> أقل من 30 أو نحو ذلك)، فإن <span class="math notranslate nohighlight">\(\log(N)\)</span> تُقارن بـ <span class="math notranslate nohighlight">\(N\)</span>، ويمكن أن تكون خوارزميات القوة الغاشمة أكثر كفاءة من النهج القائم على الشجرة. يعالج كل من <a class="reference internal" href="generated/sklearn.neighbors.KDTree.html#sklearn.neighbors.KDTree" title="sklearn.neighbors.KDTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">KDTree</span></code></a> و <a class="reference internal" href="generated/sklearn.neighbors.BallTree.html#sklearn.neighbors.BallTree" title="sklearn.neighbors.BallTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">BallTree</span></code></a> هذا من خلال توفير معلمة <em>حجم الورقة</em>: يتحكم هذا في عدد العينات التي يتحول عندها الاستعلام إلى القوة الغاشمة. يسمح هذا لكلا الخوارزميتين بالاقتراب من كفاءة حساب القوة الغاشمة لـ <span class="math notranslate nohighlight">\(N\)</span> الصغيرة.</p>
+</li>
+<li><p class="sd-card-text">بنية البيانات: <em>الأبعاد الجوهرية</em> للبيانات و/أو <em>التفرق</em> للبيانات. تشير الأبعاد الجوهرية إلى بُعد <span class="math notranslate nohighlight">\(d \le D\)</span> لمشعب تقع عليه البيانات، والذي يمكن تضمينه خطيًا أو غير خطيًا في فضاء المعلمات. يشير التفرق إلى الدرجة التي تملأ بها البيانات فضاء المعلمات (يجب تمييز هذا عن المفهوم كما هو مستخدم في المصفوفات “المتفرقة”. قد لا تحتوي مصفوفة البيانات على إدخالات صفرية، ولكن لا يزال من الممكن أن يكون <em>البنية</em> “متفرقة” بهذا المعنى).</p>
+<ul class="simple">
+<li><p class="sd-card-text">وقت استعلام <em>القوة الغاشمة</em> لا يتغير حسب بنية البيانات.</p></li>
+<li><p class="sd-card-text">يمكن أن تتأثر أوقات استعلام <em>شجرة الكرة</em> و <em>شجرة KD</em> بشكل كبير ببنية البيانات. بشكل عام، تؤدي البيانات الأكثر تفرقًا ذات أبعاد جوهرية أصغر إلى أوقات استعلام أسرع. نظرًا لأن التمثيل الداخلي لشجرة KD مُحاذي لمحاور المعلمات، فلن يُظهر بشكل عام تحسنًا كبيرًا مثل شجرة الكرة للبيانات المُنظّمة بشكل تعسفي.</p></li>
+</ul>
+<p class="sd-card-text">تميل مجموعات البيانات المستخدمة في تعلم الآلة إلى أن تكون مُنظّمة للغاية، وهي مُناسبة جدًا للاستعلامات القائمة على الأشجار.</p>
+</li>
+<li><p class="sd-card-text">عدد الجيران <span class="math notranslate nohighlight">\(k\)</span> المطلوب لنقطة استعلام.</p>
+<ul class="simple">
+<li><p class="sd-card-text">وقت استعلام <em>القوة الغاشمة</em> لا يتأثر إلى حد كبير بقيمة <span class="math notranslate nohighlight">\(k\)</span></p></li>
+<li><p class="sd-card-text">سيُصبح وقت استعلام <em>شجرة الكرة</em> و <em>شجرة KD</em> أبطأ مع زيادة <span class="math notranslate nohighlight">\(k\)</span>. هذا يرجع إلى تأثيرين: أولاً، يؤدي <span class="math notranslate nohighlight">\(k\)</span> الأكبر إلى ضرورة البحث في جزء أكبر من مساحة المعلمات. ثانيًا، يتطلب استخدام <span class="math notranslate nohighlight">\(k &gt; 1\)</span> تنظيم قائمة انتظار داخلية للنتائج أثناء اجتياز الشجرة.</p></li>
+</ul>
+<p class="sd-card-text">مع كبر <span class="math notranslate nohighlight">\(k\)</span> مقارنة بـ <span class="math notranslate nohighlight">\(N\)</span>، يتم تقليل القدرة على تقليم الفروع في استعلام قائم على الشجرة. في هذه الحالة، يمكن أن تكون استعلامات القوة الغاشمة أكثر كفاءة.</p>
+</li>
+<li><p class="sd-card-text">عدد نقاط الاستعلام. يتطلب كل من شجرة الكرة وشجرة KD مرحلة إنشاء. تُصبح تكلفة هذا الإنشاء ضئيلة عند استهلاكها على العديد من الاستعلامات. ومع ذلك، إذا تم تنفيذ عدد قليل فقط من الاستعلامات، فقد يُشكّل الإنشاء جزءًا كبيرًا من التكلفة الإجمالية. إذا كانت هناك حاجة إلى عدد قليل جدًا من نقاط الاستعلام، فإن القوة الغاشمة أفضل من الطريقة القائمة على الشجرة.</p></li>
+</ul>
+<p class="sd-card-text">يُحدد <code class="docutils literal notranslate"><span class="pre">algorithm</span> <span class="pre">=</span> <span class="pre">'auto'</span></code> حاليًا <code class="docutils literal notranslate"><span class="pre">'brute'</span></code> إذا تم التحقق من أي من الشروط التالية:</p>
+<ul class="simple">
+<li><p class="sd-card-text">بيانات الإدخال متفرقة</p></li>
+<li><p class="sd-card-text"><code class="docutils literal notranslate"><span class="pre">metric</span> <span class="pre">=</span> <span class="pre">'precomputed'</span></code></p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(D &gt; 15\)</span></p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(k &gt;= N/2\)</span></p></li>
+<li><p class="sd-card-text"><code class="docutils literal notranslate"><span class="pre">effective_metric_</span></code> ليس في قائمة <code class="docutils literal notranslate"><span class="pre">VALID_METRICS</span></code> إما لـ <code class="docutils literal notranslate"><span class="pre">'kd_tree'</span></code> أو <code class="docutils literal notranslate"><span class="pre">'ball_tree'</span></code></p></li>
+</ul>
+<p class="sd-card-text">وإلا، فإنه يختار أولاً من <code class="docutils literal notranslate"><span class="pre">'kd_tree'</span></code> و <code class="docutils literal notranslate"><span class="pre">'ball_tree'</span></code> التي تحتوي على <code class="docutils literal notranslate"><span class="pre">effective_metric_</span></code> في قائمة <code class="docutils literal notranslate"><span class="pre">VALID_METRICS</span></code>. تعتمد هذه الاستدلالية على الافتراضات التالية:</p>
+<ul class="simple">
+<li><p class="sd-card-text">عدد نقاط الاستعلام على الأقل بنفس ترتيب عدد نقاط التدريب</p></li>
+<li><p class="sd-card-text"><code class="docutils literal notranslate"><span class="pre">leaf_size</span></code> قريب من قيمته الافتراضية <code class="docutils literal notranslate"><span class="pre">30</span></code></p></li>
+<li><p class="sd-card-text">عندما <span class="math notranslate nohighlight">\(D &gt; 15\)</span>، تكون الأبعاد الجوهرية للبيانات عالية جدًا بشكل عام بالنسبة للطرق القائمة على الشجرة.</p></li>
+</ul>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="تأثير-leaf_size">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">تأثير <code class="docutils literal notranslate"><span class="pre">leaf_size</span></code><a class="headerlink" href="#تأثير-leaf_size" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">كما هو مذكور أعلاه، بالنسبة لأحجام العينات الصغيرة، يمكن أن يكون بحث القوة الغاشمة أكثر كفاءة من الاستعلام القائم على الشجرة. يتم حساب هذه الحقيقة في شجرة الكرة وشجرة KD عن طريق التبديل داخليًا إلى عمليات بحث القوة الغاشمة داخل عقد الأوراق. يمكن تحديد مستوى هذا المفتاح باستخدام المعلمة <code class="docutils literal notranslate"><span class="pre">leaf_size</span></code>. خيار المعلمة هذا له تأثيرات كثيرة:</p>
+<dl class="simple">
+<dt><strong>وقت الإنشاء</strong></dt><dd><p class="sd-card-text">يؤدي <code class="docutils literal notranslate"><span class="pre">leaf_size</span></code> الأكبر إلى وقت إنشاء شجرة أسرع، لأنه يلزم إنشاء عدد أقل من العقد</p>
+</dd>
+<dt><strong>وقت الاستعلام</strong></dt><dd><p class="sd-card-text">يمكن أن يؤدي كل من <code class="docutils literal notranslate"><span class="pre">leaf_size</span></code> الكبير أو الصغير إلى تكلفة استعلام غير مثالية. بالنسبة لـ <code class="docutils literal notranslate"><span class="pre">leaf_size</span></code> التي تقترب من 1، يمكن أن تؤدي النفقات العامة المُتعلقة باجتياز العقد إلى إبطاء أوقات الاستعلام بشكل كبير. بالنسبة لـ <code class="docutils literal notranslate"><span class="pre">leaf_size</span></code> التي تقترب من حجم مجموعة التدريب، تُصبح الاستعلامات أساسًا قوة غاشمة. حل وسط جيد بينهما هو <code class="docutils literal notranslate"><span class="pre">leaf_size</span> <span class="pre">=</span> <span class="pre">30</span></code>، القيمة الافتراضية للمعلمة.</p>
+</dd>
+<dt><strong>الذاكرة</strong></dt><dd><p class="sd-card-text">مع زيادة <code class="docutils literal notranslate"><span class="pre">leaf_size</span></code>، تقل الذاكرة المطلوبة لتخزين بنية الشجرة. هذا مهم بشكل خاص في حالة شجرة الكرة، التي تُخزّن مركزًا <span class="math notranslate nohighlight">\(D\)</span> الأبعاد لكل عقدة. مساحة التخزين المطلوبة لـ <a class="reference internal" href="generated/sklearn.neighbors.BallTree.html#sklearn.neighbors.BallTree" title="sklearn.neighbors.BallTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">BallTree</span></code></a> هي تقريبًا <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">leaf_size</span></code> ضعف حجم مجموعة التدريب.</p>
+</dd>
+</dl>
+<p class="sd-card-text">لا تتم الإشارة إلى <code class="docutils literal notranslate"><span class="pre">leaf_size</span></code> لاستعلامات القوة الغاشمة.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="المقاييس-الصالحة-لخوارزميات-أقرب-جيران">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">المقاييس الصالحة لخوارزميات أقرب جيران<a class="headerlink" href="#المقاييس-الصالحة-لخوارزميات-أقرب-جيران" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">للحصول على قائمة بالمقاييس المتاحة، انظر وثائق فئة <a class="reference internal" href="generated/sklearn.metrics.DistanceMetric.html#sklearn.metrics.DistanceMetric" title="sklearn.metrics.DistanceMetric"><code class="xref py py-class docutils literal notranslate"><span class="pre">DistanceMetric</span></code></a> والمقاييس المدرجة في <code class="docutils literal notranslate"><span class="pre">sklearn.metrics.pairwise.PAIRWISE_DISTANCE_FUNCTIONS</span></code>. لاحظ أن المقياس “cosine” يستخدم <a class="reference internal" href="generated/sklearn.metrics.pairwise.cosine_distances.html#sklearn.metrics.pairwise.cosine_distances" title="sklearn.metrics.pairwise.cosine_distances"><code class="xref py py-func docutils literal notranslate"><span class="pre">cosine_distances</span></code></a>.</p>
+<p class="sd-card-text">يمكن الحصول على قائمة بالمقاييس الصالحة لأي من الخوارزميات المذكورة أعلاه باستخدام سمة <code class="docutils literal notranslate"><span class="pre">valid_metric</span></code>. على سبيل المثال، يمكن إنشاء مقاييس صالحة لـ <code class="docutils literal notranslate"><span class="pre">KDTree</span></code> عن طريق:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KDTree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">KDTree</span><span class="o">.</span><span class="n">valid_metrics</span><span class="p">))</span>
+<span class="go">[&#39;chebyshev&#39;, &#39;cityblock&#39;, &#39;euclidean&#39;, &#39;infinity&#39;, &#39;l1&#39;, &#39;l2&#39;, &#39;manhattan&#39;, &#39;minkowski&#39;, &#39;p&#39;]</span>
+</pre></div>
+</div>
+</div>
+</details></section>
+</section>
+<section id="nearest-centroid-classifier">
+<span id="id9"></span><h2><span class="section-number">1.6.5. </span>مُصنف أقرب مركز<a class="headerlink" href="#nearest-centroid-classifier" title="Link to this heading">#</a></h2>
+<p>المُصنف <a class="reference internal" href="generated/sklearn.neighbors.NearestCentroid.html#sklearn.neighbors.NearestCentroid" title="sklearn.neighbors.NearestCentroid"><code class="xref py py-class docutils literal notranslate"><span class="pre">NearestCentroid</span></code></a> هو خوارزمية بسيطة تُمثل كل فئة بواسطة مركز أعضائها. في الواقع، هذا يجعلها مشابهة لمرحلة تحديث التسميات لخوارزمية <a class="reference internal" href="generated/sklearn.cluster.KMeans.html#sklearn.cluster.KMeans" title="sklearn.cluster.KMeans"><code class="xref py py-class docutils literal notranslate"><span class="pre">KMeans</span></code></a>. كما أنه لا يحتوي على معلمات للاختيار، مما يجعله مُصنفًا أساسيًا جيدًا. ومع ذلك، فإنه يُعاني من الفئات غير المحدبة، وكذلك عندما يكون للفئات تباينات مختلفة اختلافًا جذريًا، حيث يُفترض أن يكون التباين متساويًا في جميع الأبعاد. انظر التحليل التمييزي الخطي (<a class="reference internal" href="generated/sklearn.discriminant_analysis.LinearDiscriminantAnalysis.html#sklearn.discriminant_analysis.LinearDiscriminantAnalysis" title="sklearn.discriminant_analysis.LinearDiscriminantAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearDiscriminantAnalysis</span></code></a>) والتحليل التمييزي التربيعي (<a class="reference internal" href="generated/sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis.html#sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis" title="sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuadraticDiscriminantAnalysis</span></code></a>) للحصول على طرق أكثر تعقيدًا لا تفترض هذا الافتراض. استخدام <a class="reference internal" href="generated/sklearn.neighbors.NearestCentroid.html#sklearn.neighbors.NearestCentroid" title="sklearn.neighbors.NearestCentroid"><code class="xref py py-class docutils literal notranslate"><span class="pre">NearestCentroid</span></code></a> الافتراضي بسيط:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">NearestCentroid</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">NearestCentroid</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">NearestCentroid()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="o">-</span><span class="mf">0.8</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]]))</span>
+<span class="go">[1]</span>
+</pre></div>
+</div>
+<section id="id10">
+<h3><span class="section-number">1.6.5.1. </span>أقرب مركز مُنكمش<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>يحتوي المُصنف <a class="reference internal" href="generated/sklearn.neighbors.NearestCentroid.html#sklearn.neighbors.NearestCentroid" title="sklearn.neighbors.NearestCentroid"><code class="xref py py-class docutils literal notranslate"><span class="pre">NearestCentroid</span></code></a> على معلمة <code class="docutils literal notranslate"><span class="pre">shrink_threshold</span></code>، التي تُطبق مُصنف أقرب مركز مُنكمش. في الواقع، يتم قسمة قيمة كل ميزة لكل مركز على تباين تلك الميزة داخل الفئة. ثم يتم تقليل قيم الميزات بمقدار <code class="docutils literal notranslate"><span class="pre">shrink_threshold</span></code>. والأهم من ذلك، إذا تجاوزت قيمة ميزة معينة الصفر، فسيتم تعيينها على صفر. في الواقع، هذا يُزيل الميزة من التأثير على التصنيف. هذا مفيد، على سبيل المثال، لإزالة الميزات المزعجة.</p>
+<p>في المثال أدناه، يؤدي استخدام عتبة انكماش صغيرة إلى زيادة دقة النموذج من 0.81 إلى 0.82.</p>
+<p class="centered">
+<strong><a class="reference external" href="../auto_examples/neighbors/plot_nearest_centroid.html"><img alt="nearest_centroid_1" src="../_images/sphx_glr_plot_nearest_centroid_001.png" style="width: 320.0px; height: 240.0px;" /></a> <a class="reference external" href="../auto_examples/neighbors/plot_nearest_centroid.html"><img alt="nearest_centroid_2" src="../_images/sphx_glr_plot_nearest_centroid_002.png" style="width: 320.0px; height: 240.0px;" /></a></strong></p><p class="rubric">أمثلة</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/neighbors/plot_nearest_centroid.html#sphx-glr-auto-examples-neighbors-plot-nearest-centroid-py"><span class="std std-ref">Nearest Centroid Classification</span></a>: مثال على التصنيف باستخدام أقرب مركز مع عتبات انكماش مختلفة.</p></li>
+</ul>
+</section>
+</section>
+<section id="neighbors-transformer">
+<span id="id11"></span><h2><span class="section-number">1.6.6. </span>محول أقرب جيران<a class="headerlink" href="#neighbors-transformer" title="Link to this heading">#</a></h2>
+<p>يعتمد العديد من مقدرات scikit-learn على أقرب جيران: العديد من المُصنفات والمنحدرات مثل <a class="reference internal" href="generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier" title="sklearn.neighbors.KNeighborsClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">KNeighborsClassifier</span></code></a> و <a class="reference internal" href="generated/sklearn.neighbors.KNeighborsRegressor.html#sklearn.neighbors.KNeighborsRegressor" title="sklearn.neighbors.KNeighborsRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">KNeighborsRegressor</span></code></a>، ولكن أيضًا بعض أساليب التجميع مثل <a class="reference internal" href="generated/sklearn.cluster.DBSCAN.html#sklearn.cluster.DBSCAN" title="sklearn.cluster.DBSCAN"><code class="xref py py-class docutils literal notranslate"><span class="pre">DBSCAN</span></code></a> و <a class="reference internal" href="generated/sklearn.cluster.SpectralClustering.html#sklearn.cluster.SpectralClustering" title="sklearn.cluster.SpectralClustering"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpectralClustering</span></code></a>، وبعض تضمينات المشعبات مثل <a class="reference internal" href="generated/sklearn.manifold.TSNE.html#sklearn.manifold.TSNE" title="sklearn.manifold.TSNE"><code class="xref py py-class docutils literal notranslate"><span class="pre">TSNE</span></code></a> و <a class="reference internal" href="generated/sklearn.manifold.Isomap.html#sklearn.manifold.Isomap" title="sklearn.manifold.Isomap"><code class="xref py py-class docutils literal notranslate"><span class="pre">Isomap</span></code></a>.</p>
+<p>يمكن لجميع هذه المقدرات حساب أقرب جيران داخليًا، ولكن معظمها يقبل أيضًا <span class="xref std std-term">رسم بياني متفرق</span> لأقرب جيران محسوب مسبقًا، كما هو مُعطى بواسطة <a class="reference internal" href="generated/sklearn.neighbors.kneighbors_graph.html#sklearn.neighbors.kneighbors_graph" title="sklearn.neighbors.kneighbors_graph"><code class="xref py py-func docutils literal notranslate"><span class="pre">kneighbors_graph</span></code></a> و <a class="reference internal" href="generated/sklearn.neighbors.radius_neighbors_graph.html#sklearn.neighbors.radius_neighbors_graph" title="sklearn.neighbors.radius_neighbors_graph"><code class="xref py py-func docutils literal notranslate"><span class="pre">radius_neighbors_graph</span></code></a>. مع الوضع <code class="docutils literal notranslate"><span class="pre">mode='connectivity'</span></code>، تُعيد هذه الدوال رسمًا بيانيًا متفرقًا ثنائيًا متجاورًا كما هو مطلوب، على سبيل المثال، في <a class="reference internal" href="generated/sklearn.cluster.SpectralClustering.html#sklearn.cluster.SpectralClustering" title="sklearn.cluster.SpectralClustering"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpectralClustering</span></code></a>. بينما مع <code class="docutils literal notranslate"><span class="pre">mode='distance'</span></code>، تُعيد رسمًا بيانيًا متفرقًا للمسافة كما هو مطلوب، على سبيل المثال، في <a class="reference internal" href="generated/sklearn.cluster.DBSCAN.html#sklearn.cluster.DBSCAN" title="sklearn.cluster.DBSCAN"><code class="xref py py-class docutils literal notranslate"><span class="pre">DBSCAN</span></code></a>. لتضمين هذه الدوال في خط أنابيب scikit-learn، يمكن للمرء أيضًا استخدام الفئات المقابلة <a class="reference internal" href="generated/sklearn.neighbors.KNeighborsTransformer.html#sklearn.neighbors.KNeighborsTransformer" title="sklearn.neighbors.KNeighborsTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">KNeighborsTransformer</span></code></a> و <a class="reference internal" href="generated/sklearn.neighbors.RadiusNeighborsTransformer.html#sklearn.neighbors.RadiusNeighborsTransformer" title="sklearn.neighbors.RadiusNeighborsTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">RadiusNeighborsTransformer</span></code></a>. فوائد واجهة برمجة التطبيقات هذه للرسم البياني المتفرق متعددة.</p>
+<p>أولاً، يمكن إعادة استخدام الرسم البياني المحسوب مسبقًا عدة مرات، على سبيل المثال أثناء تغيير معلمة المقدّر. يمكن القيام بذلك يدويًا بواسطة المستخدم، أو باستخدام خصائص التخزين المؤقت لخط أنابيب scikit-learn:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">Isomap</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsTransformer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_regression</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cache_path</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">gettempdir</span><span class="p">()</span>  <span class="c1"># نستخدم مجلدًا مؤقتًا هنا</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">make_regression</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">estimator</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">KNeighborsTransformer</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;distance&#39;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Isomap</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;precomputed&#39;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">memory</span><span class="o">=</span><span class="n">cache_path</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_embedded</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_embedded</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(50, 3)</span>
+</pre></div>
+</div>
+<p>ثانيًا، يمكن أن يُعطي حساب الرسم البياني مسبقًا تحكمًا أدق في تقدير أقرب جيران، على سبيل المثال تمكين المعالجة المتعددة من خلال المعلمة <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code>، والتي قد لا تكون متاحة في جميع المقدرات.</p>
+<p>أخيرًا، يمكن إجراء الحساب المسبق بواسطة مقدرات مخصصة لاستخدام تطبيقات مختلفة، مثل أساليب أقرب جيران التقريبية، أو التنفيذ مع أنواع بيانات خاصة. يجب تنسيق <span class="xref std std-term">الرسم البياني المتفرق</span> للجيران المحسوب مسبقًا كما في إخراج <a class="reference internal" href="generated/sklearn.neighbors.radius_neighbors_graph.html#sklearn.neighbors.radius_neighbors_graph" title="sklearn.neighbors.radius_neighbors_graph"><code class="xref py py-func docutils literal notranslate"><span class="pre">radius_neighbors_graph</span></code></a>:</p>
+<ul class="simple">
+<li><p>مصفوفة CSR (على الرغم من قبول COO أو CSC أو LIL).</p></li>
+<li><p>تخزين أقرب جيران لكل عينة بشكل صريح فيما يتعلق ببيانات التدريب فقط. يجب أن يشمل ذلك تلك التي على مسافة 0 من نقطة استعلام، بما في ذلك قطري المصفوفة عند حساب أقرب جيران بين بيانات التدريب ونفسها.</p></li>
+<li><p>يجب أن تُخزّن <code class="docutils literal notranslate"><span class="pre">data</span></code> لكل صف المسافة بترتيب تصاعدي (اختياري. سيتم فرز البيانات غير المُرتبة بشكل ثابت، مما يُضيف نفقات عامة حسابية).</p></li>
+<li><p>يجب أن تكون جميع القيم في البيانات غير سالبة.</p></li>
+<li><p>يجب ألا يكون هناك <code class="docutils literal notranslate"><span class="pre">indices</span></code> مُكرّرة في أي صف (انظر <a class="github reference external" href="https://github.com/scipy/scipy/issues/5807">scipy/scipy#5807</a>).</p></li>
+<li><p>إذا كانت الخوارزمية التي تم تمرير المصفوفة المحسوبة مسبقًا إليها تستخدم أقرب k جيران (على عكس جيرة نصف القطر)، فيجب تخزين k جيران على الأقل في كل صف (أو k+1، كما هو موضح في الملاحظة التالية).</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>عند الاستعلام عن عدد مُحدّد من الجيران (باستخدام <a class="reference internal" href="generated/sklearn.neighbors.KNeighborsTransformer.html#sklearn.neighbors.KNeighborsTransformer" title="sklearn.neighbors.KNeighborsTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">KNeighborsTransformer</span></code></a>)، يكون تعريف <code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code> غامضًا لأنه يمكن إما تضمين كل نقطة تدريب كجار لها، أو استبعادها. لا يوجد خيار مثالي، لأن تضمينها يؤدي إلى عدد مختلف من الجيران غير الذاتيين أثناء التدريب والاختبار، بينما يؤدي استبعادها إلى اختلاف بين <code class="docutils literal notranslate"><span class="pre">fit(X).transform(X)</span></code> و <code class="docutils literal notranslate"><span class="pre">fit_transform(X)</span></code>، وهو ما يتعارض مع واجهة برمجة تطبيقات scikit-learn. في <a class="reference internal" href="generated/sklearn.neighbors.KNeighborsTransformer.html#sklearn.neighbors.KNeighborsTransformer" title="sklearn.neighbors.KNeighborsTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">KNeighborsTransformer</span></code></a>، نستخدم التعريف الذي يتضمن كل نقطة تدريب كجار لها في عدد <code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code>. ومع ذلك، لأسباب تتعلق بالتوافق مع المقدرات الأخرى التي تستخدم التعريف الآخر، سيتم حساب جار إضافي واحد عندما <code class="docutils literal notranslate"><span class="pre">mode</span> <span class="pre">==</span> <span class="pre">'distance'</span></code>. لزيادة التوافق مع جميع المقدرات، فإن الخيار الآمن هو دائمًا تضمين جار إضافي واحد في مقدر أقرب جيران مخصص، حيث سيتم تصفية الجيران غير الضروريين بواسطة المقدرات التالية.</p>
+</div>
+<p class="rubric">أمثلة</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/neighbors/approximate_nearest_neighbors.html#sphx-glr-auto-examples-neighbors-approximate-nearest-neighbors-py"><span class="std std-ref">Approximate nearest neighbors in TSNE</span></a>: مثال على توصيل <a class="reference internal" href="generated/sklearn.neighbors.KNeighborsTransformer.html#sklearn.neighbors.KNeighborsTransformer" title="sklearn.neighbors.KNeighborsTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">KNeighborsTransformer</span></code></a> و <a class="reference internal" href="generated/sklearn.manifold.TSNE.html#sklearn.manifold.TSNE" title="sklearn.manifold.TSNE"><code class="xref py py-class docutils literal notranslate"><span class="pre">TSNE</span></code></a>. يقترح أيضًا مُقدّرين مخصصين لأقرب جيران بناءً على حزم خارجية.</p></li>
+<li><p><a class="reference internal" href="../auto_examples/neighbors/plot_caching_nearest_neighbors.html#sphx-glr-auto-examples-neighbors-plot-caching-nearest-neighbors-py"><span class="std std-ref">Caching nearest neighbors</span></a>: مثال على توصيل <a class="reference internal" href="generated/sklearn.neighbors.KNeighborsTransformer.html#sklearn.neighbors.KNeighborsTransformer" title="sklearn.neighbors.KNeighborsTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">KNeighborsTransformer</span></code></a> و <a class="reference internal" href="generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier" title="sklearn.neighbors.KNeighborsClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">KNeighborsClassifier</span></code></a> لتمكين التخزين المؤقت للرسم البياني للجيران أثناء بحث شبكي للمعلمات الفائقة.</p></li>
+</ul>
+</section>
+<section id="nca">
+<span id="id12"></span><h2><span class="section-number">1.6.7. </span>تحليل مكونات الجوار<a class="headerlink" href="#nca" title="Link to this heading">#</a></h2>
+<p>تحليل مكونات الجوار (NCA، <a class="reference internal" href="generated/sklearn.neighbors.NeighborhoodComponentsAnalysis.html#sklearn.neighbors.NeighborhoodComponentsAnalysis" title="sklearn.neighbors.NeighborhoodComponentsAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">NeighborhoodComponentsAnalysis</span></code></a>) هو خوارزمية لتعلم مقياس المسافة تهدف إلى تحسين دقة تصنيف أقرب جيران مقارنة بمسافة إقليدية القياسية. تُعظّم الخوارزمية بشكل مباشر متغيرًا عشوائيًا من درجة أقرب k جيران (KNN) اترك واحدًا في مجموعة التدريب. يمكنها أيضًا تعلم إسقاط خطي منخفض الأبعاد للبيانات يمكن استخدامه لتصور البيانات والتصنيف السريع.</p>
+<p class="centered">
+<strong><a class="reference external" href="../auto_examples/neighbors/plot_nca_illustration.html"><img alt="nca_illustration_1" src="../_images/sphx_glr_plot_nca_illustration_001.png" style="width: 320.0px; height: 240.0px;" /></a> <a class="reference external" href="../auto_examples/neighbors/plot_nca_illustration.html"><img alt="nca_illustration_2" src="../_images/sphx_glr_plot_nca_illustration_002.png" style="width: 320.0px; height: 240.0px;" /></a></strong></p><p>في الشكل التوضيحي أعلاه، نعتبر بعض النقاط من مجموعة بيانات تم إنشاؤها عشوائيًا. نُركز على تصنيف KNN العشوائي للنقطة رقم 3. سمك الرابط بين العينة 3 ونقطة أخرى يتناسب مع المسافة بينهما، ويمكن اعتباره الوزن النسبي (أو الاحتمال) الذي تُعيّنه قاعدة تنبؤ الجيران العشوائية الأقرب لهذه النقطة. في المساحة الأصلية، تحتوي العينة 3 على العديد من الجيران العشوائيين من فئات مُختلفة، لذا فإن الفئة الصحيحة ليست مُحتملة للغاية. ومع ذلك، في المساحة المُسقطة التي تعلمتها NCA، فإن الجيران العشوائيين الوحيدين ذوي الوزن غير المهمل هم من نفس فئة العينة 3، مما يضمن أن الأخيرة سيتم تصنيفها جيدًا. انظر <a class="reference internal" href="#nca-mathematical-formulation"><span class="std std-ref">الصيغة الرياضية</span></a> لمزيد من التفاصيل.</p>
+<section id="id13">
+<h3><span class="section-number">1.6.7.1. </span>التصنيف<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>بالاقتران مع مُصنف أقرب جيران (<a class="reference internal" href="generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier" title="sklearn.neighbors.KNeighborsClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">KNeighborsClassifier</span></code></a>)، فإن NCA جذابة للتصنيف لأنه يمكنها معالجة مشاكل متعددة الفئات بشكل طبيعي دون أي زيادة في حجم النموذج، ولا تُقدّم معلمات إضافية تتطلب ضبطًا دقيقًا من قبل المستخدم.</p>
+<p>لقد ثبت أن تصنيف NCA يعمل بشكل جيد في الممارسة العملية لمجموعات البيانات ذات الأحجام والصعوبات المُتفاوتة. على عكس الطرق ذات الصلة مثل التحليل التمييزي الخطي، لا تُجري NCA أي افتراضات حول توزيعات الفئات. يمكن لتصنيف أقرب جيران أن يُنتج بشكل طبيعي حدود قرار غير منتظمة للغاية.</p>
+<p>لاستخدام هذا النموذج للتصنيف، يحتاج المرء إلى دمج مثيل <a class="reference internal" href="generated/sklearn.neighbors.NeighborhoodComponentsAnalysis.html#sklearn.neighbors.NeighborhoodComponentsAnalysis" title="sklearn.neighbors.NeighborhoodComponentsAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">NeighborhoodComponentsAnalysis</span></code></a> الذي يتعلم التحويل الأمثل مع مثيل <a class="reference internal" href="generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier" title="sklearn.neighbors.KNeighborsClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">KNeighborsClassifier</span></code></a> الذي يُجري التصنيف في المساحة المُسقطة. فيما يلي مثال باستخدام الفئتين:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="p">(</span><span class="n">NeighborhoodComponentsAnalysis</span><span class="p">,</span>
+<span class="gp">... </span><span class="n">KNeighborsClassifier</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span>
+<span class="gp">... </span><span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nca</span> <span class="o">=</span> <span class="n">NeighborhoodComponentsAnalysis</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nca_pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;nca&#39;</span><span class="p">,</span> <span class="n">nca</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;knn&#39;</span><span class="p">,</span> <span class="n">knn</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nca_pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="go">Pipeline(...)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">nca_pipe</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span>
+<span class="go">0.96190476...</span>
+</pre></div>
+</div>
+<p class="centered">
+<strong><a class="reference external" href="../auto_examples/neighbors/plot_nca_classification.html"><img alt="nca_classification_1" src="../_images/sphx_glr_plot_nca_classification_001.png" style="width: 320.0px; height: 240.0px;" /></a> <a class="reference external" href="../auto_examples/neighbors/plot_nca_classification.html"><img alt="nca_classification_2" src="../_images/sphx_glr_plot_nca_classification_002.png" style="width: 320.0px; height: 240.0px;" /></a></strong></p><p>يُظهر الرسم التخطيطي حدود القرار لتصنيف أقرب جيران وتصنيف تحليل مكونات الجوار على مجموعة بيانات زهرة القزحية، عند التدريب والتهديف على ميزتين فقط، لأغراض التصور.</p>
+</section>
+<section id="nca-dim-reduction">
+<span id="id14"></span><h3><span class="section-number">1.6.7.2. </span>تخفيض الأبعاد<a class="headerlink" href="#nca-dim-reduction" title="Link to this heading">#</a></h3>
+<p>يمكن استخدام NCA لإجراء تخفيض الأبعاد الخاضع للإشراف. يتم إسقاط بيانات الإدخال على فضاء جزئي خطي يتكون من الاتجاهات التي تُقلل هدف NCA. يمكن تعيين الأبعاد المطلوبة باستخدام المعلمة <code class="docutils literal notranslate"><span class="pre">n_components</span></code>. على سبيل المثال، يُظهر الشكل التالي مقارنة لتخفيض الأبعاد باستخدام تحليل المكونات الرئيسية (<a class="reference internal" href="generated/sklearn.decomposition.PCA.html#sklearn.decomposition.PCA" title="sklearn.decomposition.PCA"><code class="xref py py-class docutils literal notranslate"><span class="pre">PCA</span></code></a>)، والتحليل التمييزي الخطي (<a class="reference internal" href="generated/sklearn.discriminant_analysis.LinearDiscriminantAnalysis.html#sklearn.discriminant_analysis.LinearDiscriminantAnalysis" title="sklearn.discriminant_analysis.LinearDiscriminantAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearDiscriminantAnalysis</span></code></a>)، وتحليل مكونات الجوار (<a class="reference internal" href="generated/sklearn.neighbors.NeighborhoodComponentsAnalysis.html#sklearn.neighbors.NeighborhoodComponentsAnalysis" title="sklearn.neighbors.NeighborhoodComponentsAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">NeighborhoodComponentsAnalysis</span></code></a>) على مجموعة بيانات Digits، وهي مجموعة بيانات بحجم <span class="math notranslate nohighlight">\(n_{samples} = 1797\)</span> و <span class="math notranslate nohighlight">\(n_{features} = 64\)</span>. يتم تقسيم مجموعة البيانات إلى مجموعة تدريب ومجموعة اختبار متساويتين في الحجم، ثم يتم توحيدها. من أجل التقييم، يتم حساب دقة تصنيف أقرب 3 جيران على النقاط المُسقطة ثنائية الأبعاد التي تم إيجادها بواسطة كل طريقة. تنتمي كل عينة بيانات إلى واحدة من 10 فئات.</p>
+<p class="centered">
+<strong><a class="reference external" href="../auto_examples/neighbors/plot_nca_dim_reduction.html"><img alt="nca_dim_reduction_1" src="../_images/sphx_glr_plot_nca_dim_reduction_001.png" style="width: 32%;" /></a> <a class="reference external" href="../auto_examples/neighbors/plot_nca_dim_reduction.html"><img alt="nca_dim_reduction_2" src="../_images/sphx_glr_plot_nca_dim_reduction_002.png" style="width: 32%;" /></a> <a class="reference external" href="../auto_examples/neighbors/plot_nca_dim_reduction.html"><img alt="nca_dim_reduction_3" src="../_images/sphx_glr_plot_nca_dim_reduction_003.png" style="width: 32%;" /></a></strong></p><p class="rubric">أمثلة</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/neighbors/plot_nca_classification.html#sphx-glr-auto-examples-neighbors-plot-nca-classification-py"><span class="std std-ref">Comparing Nearest Neighbors with and without Neighborhood Components Analysis</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/neighbors/plot_nca_dim_reduction.html#sphx-glr-auto-examples-neighbors-plot-nca-dim-reduction-py"><span class="std std-ref">Dimensionality Reduction with Neighborhood Components Analysis</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/manifold/plot_lle_digits.html#sphx-glr-auto-examples-manifold-plot-lle-digits-py"><span class="std std-ref">Manifold learning on handwritten digits: Locally Linear Embedding, Isomap…</span></a></p></li>
+</ul>
+</section>
+<section id="nca-mathematical-formulation">
+<span id="id15"></span><h3><span class="section-number">1.6.7.3. </span>الصيغة الرياضية<a class="headerlink" href="#nca-mathematical-formulation" title="Link to this heading">#</a></h3>
+<p>هدف NCA هو تعلم مصفوفة تحويل خطي مثالية بحجم <code class="docutils literal notranslate"><span class="pre">(n_components,</span> <span class="pre">n_features)</span></code>، والتي تُعظّم المجموع على جميع العينات <span class="math notranslate nohighlight">\(i\)</span> من الاحتمال <span class="math notranslate nohighlight">\(p_i\)</span> بأن <span class="math notranslate nohighlight">\(i\)</span> مُصنّف بشكل صحيح، أي:</p>
+<div class="math notranslate nohighlight">
+\[\underset{L}{\arg\max} \sum\limits_{i=0}^{N - 1} p_{i}\]</div>
+<p>مع <span class="math notranslate nohighlight">\(N\)</span> = <code class="docutils literal notranslate"><span class="pre">n_samples</span></code> و <span class="math notranslate nohighlight">\(p_i\)</span> احتمال تصنيف العينة <span class="math notranslate nohighlight">\(i\)</span> بشكل صحيح وفقًا لقاعدة الجيران العشوائية الأقرب في المساحة المُضمنة المُتعلّمة:</p>
+<div class="math notranslate nohighlight">
+\[p_{i}=\sum\limits_{j \in C_i}{p_{i j}}\]</div>
+<p>حيث <span class="math notranslate nohighlight">\(C_i\)</span> هي مجموعة النقاط في نفس فئة العينة <span class="math notranslate nohighlight">\(i\)</span>، و <span class="math notranslate nohighlight">\(p_{i j}\)</span> هي دالة softmax على مسافات إقليدية في المساحة المُضمنة:</p>
+<div class="math notranslate nohighlight">
+\[p_{i j} = \frac{\exp(-||L x_i - L x_j||^2)}{\sum\limits_{k \ne
+          i} {\exp{-(||L x_i - L x_k||^2)}}} , \quad p_{i i} = 0\]</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="مسافة-ماهالانوبيس">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">مسافة ماهالانوبيس<a class="headerlink" href="#مسافة-ماهالانوبيس" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">يمكن اعتبار NCA على أنها تعلم مقياس مسافة ماهالانوبيس (تربيعي):</p>
+<div class="math notranslate nohighlight">
+\[|| L(x_i - x_j)||^2 = (x_i - x_j)^TM(x_i - x_j),\]</div>
+<p class="sd-card-text">حيث <span class="math notranslate nohighlight">\(M = L^T L\)</span> هي مصفوفة شبه موجبة متماثلة بحجم <code class="docutils literal notranslate"><span class="pre">(n_features,</span> <span class="pre">n_features)</span></code>.</p>
+</div>
+</details></section>
+<section id="id16">
+<h3><span class="section-number">1.6.7.4. </span>التنفيذ<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<p>يتبع هذا التنفيذ ما هو موضح في الورقة الأصلية <a class="footnote-reference brackets" href="#id21" id="id17" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. بالنسبة لطريقة التحسين، فإنها تستخدم حاليًا L-BFGS-B من scipy مع حساب تدرج كامل في كل تكرار، لتجنب ضبط معدل التعلم وتوفير تعلم مستقر.</p>
+<p>انظر الأمثلة أدناه وسلسلة docstring لـ <a class="reference internal" href="generated/sklearn.neighbors.NeighborhoodComponentsAnalysis.html#sklearn.neighbors.NeighborhoodComponentsAnalysis.fit" title="sklearn.neighbors.NeighborhoodComponentsAnalysis.fit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">NeighborhoodComponentsAnalysis.fit</span></code></a> لمزيد من المعلومات.</p>
+</section>
+<section id="id18">
+<h3><span class="section-number">1.6.7.5. </span>التعقيد<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
+<section id="id19">
+<h4><span class="section-number">1.6.7.5.1. </span>التدريب<a class="headerlink" href="#id19" title="Link to this heading">#</a></h4>
+<p>تُخزّن NCA مصفوفة من المسافات الزوجية، تأخذ <code class="docutils literal notranslate"><span class="pre">n_samples</span> <span class="pre">**</span> <span class="pre">2</span></code> ذاكرة. يعتمد التعقيد الزمني على عدد التكرارات التي تُجريها خوارزمية التحسين. ومع ذلك، يمكن للمرء تعيين الحد الأقصى لعدد التكرارات باستخدام الوسيطة <code class="docutils literal notranslate"><span class="pre">max_iter</span></code>. لكل تكرار، التعقيد الزمني هو <code class="docutils literal notranslate"><span class="pre">O(n_components</span> <span class="pre">x</span> <span class="pre">n_samples</span> <span class="pre">x</span> <span class="pre">min(n_samples,</span> <span class="pre">n_features))</span></code>.</p>
+</section>
+<section id="id20">
+<h4><span class="section-number">1.6.7.5.2. </span>التحويل<a class="headerlink" href="#id20" title="Link to this heading">#</a></h4>
+<p>هنا تُعيد عملية <code class="docutils literal notranslate"><span class="pre">transform</span></code> <span class="math notranslate nohighlight">\(LX^T\)</span>، وبالتالي فإن تعقيدها الزمني يساوي <code class="docutils literal notranslate"><span class="pre">n_components</span> <span class="pre">*</span> <span class="pre">n_features</span> <span class="pre">*</span> <span class="pre">n_samples_test</span></code>. لا يوجد تعقيد مساحة مُضافة في العملية.</p>
+<p class="rubric">المراجع</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id21" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id17">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="http://www.cs.nyu.edu/~roweis/papers/ncanips.pdf">“Neighbourhood Components Analysis”</a>,
+J. Goldberger, S. Roweis, G. Hinton, R. Salakhutdinov, Advances in
+Neural Information Processing Systems, Vol. 17, May 2005, pp. 513-520.</p>
+</aside>
+</aside>
+<ul class="simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Neighbourhood_components_analysis">إدخال ويكيبيديا على تحليل مكونات الجوار</a></p></li>
+</ul>
+</section>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  <div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item">
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="sgd.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">1.5. </span>التحسين التدريجي العشوائي</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="gaussian_process.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">1.7. </span>العمليات الغاوسية</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+                </footer>
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unsupervised-neighbors">1.6.1. أقرب جيران غير خاضع للإشراف</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1.6.1.1. إيجاد أقرب جيران</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kdtree-balltree">1.6.1.2. فئات KDTree و BallTree</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification">1.6.2. تصنيف أقرب جيران</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression">1.6.3. انحدار أقرب جيران</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">1.6.4. خوارزميات أقرب جيران</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#brute-force">1.6.4.1. القوة الغاشمة</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#k-d">1.6.4.2. شجرة K-D</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ball-tree">1.6.4.3. شجرة الكرة</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nearest-centroid-classifier">1.6.5. مُصنف أقرب مركز</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">1.6.5.1. أقرب مركز مُنكمش</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neighbors-transformer">1.6.6. محول أقرب جيران</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nca">1.6.7. تحليل مكونات الجوار</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">1.6.7.1. التصنيف</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nca-dim-reduction">1.6.7.2. تخفيض الأبعاد</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nca-mathematical-formulation">1.6.7.3. الصيغة الرياضية</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">1.6.7.4. التنفيذ</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">1.6.7.5. التعقيد</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">1.6.7.5.1. التدريب</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">1.6.7.5.2. التحويل</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/modules/neighbors.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024 - 2024, scikit-learn developers (BSD License).
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

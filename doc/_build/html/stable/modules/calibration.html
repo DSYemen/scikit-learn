@@ -1,0 +1,988 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="1.16. معايرة الاحتمال" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://scikit-learn/stable/modules/calibration.html" />
+<meta property="og:site_name" content="scikit-learn" />
+<meta property="og:description" content="عند إجراء التصنيف، غالبًا ما ترغب ليس فقط في التنبؤ بتسمية الفئة، ولكن أيضًا الحصول على احتمال التسمية المعنية. يمنحك هذا الاحتمال نوعًا من الثقة في التنبؤ. يمكن أن تمنحك بعض النماذج تقديرات ضعيفة ..." />
+<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_compare_calibration_001.png" />
+<meta property="og:image:alt" content="scikit-learn" />
+<meta name="description" content="عند إجراء التصنيف، غالبًا ما ترغب ليس فقط في التنبؤ بتسمية الفئة، ولكن أيضًا الحصول على احتمال التسمية المعنية. يمنحك هذا الاحتمال نوعًا من الثقة في التنبؤ. يمكن أن تمنحك بعض النماذج تقديرات ضعيفة ..." />
+
+    <title>1.16. معايرة الاحتمال &#8212; scikit-learn 1.6.dev0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyterlite_sphinx.css?v=ca70e7f1" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/colors.css?v=cc94ab7d" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/custom.css?v=e340c087" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../_static/documentation_options.js?v=d875d36e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=97f0b27d"></script>
+    <script src="../_static/jupyterlite_sphinx.js?v=d6bdf5f8"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script data-domain="scikit-learn.org" defer="defer" src="https://views.scientific-python.org/js/script.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'modules/calibration';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://scikit-learn.org/dev/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1.6.dev0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/scripts/dropdown.js?v=e2048168"></script>
+    <script src="../_static/scripts/version-switcher.js?v=a6dd8357"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="1.17. نماذج الشبكات العصبية (الخاضعة للإشراف)" href="neural_networks_supervised.html" />
+    <link rel="prev" title="1.15. الانحدار المتساوي التوتر" href="isotonic.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="1.6" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/scikit-learn-logo-small.png" class="logo__image only-light" alt="scikit-learn homepage"/>
+    <img src="../_static/scikit-learn-logo-small.png" class="logo__image only-dark pst-js-only" alt="scikit-learn homepage"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../support.html">
+    Support
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../related_projects.html">
+    Related Projects
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../about.html">
+    حولنا
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../support.html">
+    Support
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../related_projects.html">
+    Related Projects
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../about.html">
+    حولنا
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../supervised_learning.html">1. Supervised learning</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="linear_model.html">1.1. النماذج الخطية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lda_qda.html">1.2. تحليل التمييز الخطي والتربيعي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernel_ridge.html">1.3. انحدار حافة النواة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svm.html">1.4. آلات الدعم المتجهية (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sgd.html">1.5. التحسين التدريجي العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neighbors.html">1.6. أقرب الجيران</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gaussian_process.html">1.7. العمليات الغاوسية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cross_decomposition.html">1.8. التحليل المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="naive_bayes.html">1.9. خوارزميات بايز الساذجة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tree.html">1.10. شجرة القرار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ensemble.html">1.11. المجموعات: تعزيز التدرج، الغابات العشوائية، التجميع، التصويت، التكديس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multiclass.html">1.12. خوارزميات متعددة التصنيف ومتعددة الإخراج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature_selection.html">1.13. اختيار الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="semi_supervised.html">1.14. التعليم شبه الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="isotonic.html">1.15. الانحدار المتساوي التوتر</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">1.16. معايرة الاحتمال</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_networks_supervised.html">1.17. نماذج الشبكات العصبية (الخاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../unsupervised_learning.html">2. Unsupervised learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="mixture.html">2.1. نماذج خليط غاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manifold.html">2.2. تعلم المشعبات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clustering.html">2.3. التجميع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="biclustering.html">2.4. التجميع الثنائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decomposition.html">2.5. تحليل الإشارات إلى مكونات (مشاكل تحليل المصفوفات)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="covariance.html">2.6. تقدير التباين المشترك</a></li>
+<li class="toctree-l2"><a class="reference internal" href="outlier_detection.html">2.7. كشف الجِدّة والقيم المتطرفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="density.html">2.8. تقدير الكثافة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_networks_unsupervised.html">2.9. نماذج الشبكة العصبية (غير خاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../model_selection.html">3. Model selection and evaluation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="cross_validation.html">3.1. التحقق المتبادل: تقييم أداء المقدر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grid_search.html">3.2. ضبط المعلمات الفائقة لمُقدِّر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classification_threshold.html">3.3. ضبط عتبة القرار لتنبؤ الفئة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_evaluation.html">3.4. المقاييس والتهديف: تحديد جودة التنبؤات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learning_curve.html">3.5. منحنيات التحقق من الصحة: رسم الدرجات لتقييم النماذج</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../inspection.html">4. الفحص</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="partial_dependence.html">4.1. مخططات الاعتماد الجزئي والتوقع الشرطي الفردي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="permutation_importance.html">4.2. أهمية ميزة التبديل</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualizations.html">5. التصورات</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../data_transforms.html">6. تحويلات مجموعات البيانات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="compose.html">6.1. خطوط الأنابيب والمقدرات المركبة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature_extraction.html">6.2. استخراج الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html">6.3. معالجة البيانات مُسبقًا</a></li>
+<li class="toctree-l2"><a class="reference internal" href="impute.html">6.4. تعويض القيم المفقودة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unsupervised_reduction.html">6.5. تخفيض الأبعاد غير الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="random_projection.html">6.6. التصميم العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernel_approximation.html">6.7. Kernel Approximation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">6.8. مقاييس المقارنة الزوجية، والصلات، والنوى (Kernels)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing_targets.html">6.9. تحويل هدف التنبؤ (<code class="docutils literal notranslate"><span class="pre">y</span></code>)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/toy_dataset.html">7. Toy datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/real_world.html">8. Real world datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/sample_generators.html">9. Generated datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/loading_other_datasets.html">10. Loading other datasets</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../computing.html">11. Computing with scikit-learn</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../computing/scaling_strategies.html">11.1. استراتيجيات للقياس حسابيًا: بيانات أكبر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../computing/computational_performance.html">11.2. الأداء الحسابي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../computing/parallelism.html">11.3. التوازي وإدارة الموارد والتهيئة</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../model_persistence.html">12. استمرارية النموذج</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../common_pitfalls.html">13. المخاطر الشائعة والممارسات الموصى بها</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../dispatching.html">14. Dispatching</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="array_api.html">14.1. دعم المدخلات المتوافقة مع <code class="docutils literal notranslate"><span class="pre">Array</span> <span class="pre">API</span></code></a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../machine_learning_map.html">15. Choosing the right estimator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../presentations.html">16. المصادر الخارجية ومقاطع الفيديو والمحادثات</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../user_guide.html" class="nav-link">User Guide</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../supervised_learning.html" class="nav-link"><span class="section-number">1. </span>Supervised learning</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">1.16. </span>معايرة الاحتمال</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="calibration">
+<span id="id1"></span><h1><span class="section-number">1.16. </span>معايرة الاحتمال<a class="headerlink" href="#calibration" title="Link to this heading">#</a></h1>
+<p>عند إجراء التصنيف، غالبًا ما ترغب ليس فقط في التنبؤ بتسمية الفئة، ولكن أيضًا الحصول على احتمال التسمية المعنية.
+يمنحك هذا الاحتمال نوعًا من الثقة في التنبؤ. يمكن أن تمنحك بعض النماذج تقديرات ضعيفة لاحتمالات الفئة، وبعضها لا يدعم حتى التنبؤ بالاحتمال (على سبيل المثال، بعض مثيلات <a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="sklearn.linear_model.SGDClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDClassifier</span></code></a>).
+تسمح لك وحدة المعايرة بمعايرة احتمالات نموذج معين بشكل أفضل، أو لإضافة دعم للتنبؤ بالاحتمال.</p>
+<p>المصنفات المعايرة جيدًا هي مصنفات احتمالية يمكن تفسير ناتج طريقة <a class="reference internal" href="../glossary.html#term-predict_proba"><span class="xref std std-term">predict_proba</span></a> مباشرةً على أنه مستوى ثقة.
+على سبيل المثال، يجب على المصنف (الثنائي) المعاير جيدًا تصنيف العينات بحيث يكون من بين العينات التي أعطاها قيمة <a class="reference internal" href="../glossary.html#term-predict_proba"><span class="xref std std-term">predict_proba</span></a> قريبة من، على سبيل المثال، 0.8، حوالي 80٪ تنتمي فعليًا إلى الفئة الإيجابية.</p>
+<p>قبل أن نوضح كيفية إعادة معايرة المصنف، نحتاج أولاً إلى طريقة لاكتشاف مدى جودة معايرة المصنف.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>تقيم قواعد التسجيل الصارمة للتنبؤات الاحتمالية مثل
+<a class="reference internal" href="generated/sklearn.metrics.brier_score_loss.html#sklearn.metrics.brier_score_loss" title="sklearn.metrics.brier_score_loss"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.brier_score_loss</span></code></a> و
+<a class="reference internal" href="generated/sklearn.metrics.log_loss.html#sklearn.metrics.log_loss" title="sklearn.metrics.log_loss"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.metrics.log_loss</span></code></a> معايرة (الموثوقية) وقوة التمييز (الدقة) للنموذج، بالإضافة إلى عشوائية البيانات (عدم اليقين) في نفس الوقت.
+يتبع هذا تحلل Brier score المعروف لـ Murphy <a class="footnote-reference brackets" href="#id19" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.
+نظرًا لأنه ليس من الواضح أي مصطلح هو السائد، فإن النتيجة محدودة الاستخدام لتقييم المعايرة وحدها (ما لم يحسب المرء كل مصطلح من التحلل).
+لا تعني خسارة Brier المنخفضة، على سبيل المثال، بالضرورة نموذجًا معايرًا بشكل أفضل، بل يمكن أن تعني أيضًا نموذجًا معايرًا بشكل أسوأ مع قدرة تمييزية أكبر بكثير، على سبيل المثال باستخدام ميزات أكثر بكثير.</p>
+</div>
+<section id="calibration-curve">
+<span id="id3"></span><h2><span class="section-number">1.16.1. </span>منحنيات المعايرة<a class="headerlink" href="#calibration-curve" title="Link to this heading">#</a></h2>
+<p>تقارن منحنيات المعايرة، والتي يشار إليها أيضًا باسم <em>مخططات الموثوقية</em> (Wilks 1995 <a class="footnote-reference brackets" href="#id20" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> )، مدى جودة معايرة التنبؤات الاحتمالية لمصنف ثنائي.
+ترسم تردد التسمية الإيجابية (على وجه الدقة، تقدير <em>احتمال الحدث الشرطي</em> <span class="math notranslate nohighlight">\(P(Y=1|\text{predict_proba})\)</span>) على المحور ص مقابل الاحتمال المتوقع <a class="reference internal" href="../glossary.html#term-predict_proba"><span class="xref std std-term">predict_proba</span></a> للنموذج على المحور س.
+الجزء الصعب هو الحصول على قيم للمحور ص.
+في scikit-learn، يتم إنجاز ذلك عن طريق تجميع التنبؤات بحيث يمثل المحور س متوسط الاحتمال المتوقع في كل حاوية.
+المحور ص هو إذن <em>جزء من الإيجابيات</em> بالنظر إلى تنبؤات تلك الحاوية، أي نسبة العينات التي تكون فئتها هي الفئة الإيجابية (في كل حاوية).</p>
+<p>يتم إنشاء مخطط منحنى المعايرة العلوي باستخدام
+<a class="reference internal" href="generated/sklearn.calibration.CalibrationDisplay.html#sklearn.calibration.CalibrationDisplay.from_estimator" title="sklearn.calibration.CalibrationDisplay.from_estimator"><code class="xref py py-func docutils literal notranslate"><span class="pre">CalibrationDisplay.from_estimator</span></code></a>، الذي يستخدم <a class="reference internal" href="generated/sklearn.calibration.calibration_curve.html#sklearn.calibration.calibration_curve" title="sklearn.calibration.calibration_curve"><code class="xref py py-func docutils literal notranslate"><span class="pre">calibration_curve</span></code></a> لحساب متوسط الاحتمالات المتوقعة لكل حاوية وجزء من الإيجابيات.
+<a class="reference internal" href="generated/sklearn.calibration.CalibrationDisplay.html#sklearn.calibration.CalibrationDisplay.from_estimator" title="sklearn.calibration.CalibrationDisplay.from_estimator"><code class="xref py py-func docutils literal notranslate"><span class="pre">CalibrationDisplay.from_estimator</span></code></a> يأخذ كمدخل مصنفًا مناسبًا، والذي يستخدم لحساب الاحتمالات المتوقعة.
+وبالتالي يجب أن يكون لدى المصنف طريقة <a class="reference internal" href="../glossary.html#term-predict_proba"><span class="xref std std-term">predict_proba</span></a>.
+بالنسبة للمصنفات القليلة التي ليس لديها طريقة <a class="reference internal" href="../glossary.html#term-predict_proba"><span class="xref std std-term">predict_proba</span></a>، من الممكن استخدام <a class="reference internal" href="generated/sklearn.calibration.CalibratedClassifierCV.html#sklearn.calibration.CalibratedClassifierCV" title="sklearn.calibration.CalibratedClassifierCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">CalibratedClassifierCV</span></code></a> لمعايرة مخرجات المصنف إلى احتمالات.</p>
+<p>يوفر الرسم البياني السفلي بعض المعلومات حول سلوك كل مصنف من خلال إظهار عدد العينات في كل حاوية احتمالية متوقعة.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/calibration/plot_compare_calibration.html"><img alt="../_images/sphx_glr_plot_compare_calibration_001.png" src="../_images/sphx_glr_plot_compare_calibration_001.png" />
+</a>
+</figure>
+<p><a class="reference internal" href="generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogisticRegression</span></code></a> هو أكثر عرضة لإرجاع تنبؤات معايرة جيدًا من تلقاء نفسه لأنه يحتوي على دالة ربط أساسية لخسارته، أي رابط logit لـ <a class="reference internal" href="model_evaluation.html#log-loss"><span class="std std-ref">خسارة السجل</span></a>.
+في الحالة غير المعاقبة، يؤدي هذا إلى ما يسمى <strong>خاصية التوازن</strong>، انظر <a class="footnote-reference brackets" href="#id26" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></a> و <a class="reference internal" href="linear_model.html#logistic-regression"><span class="std std-ref">الانحدار اللوجستي</span></a>.
+في الرسم البياني أعلاه، يتم إنشاء البيانات وفقًا لآلية خطية، والتي تتوافق مع نموذج <a class="reference internal" href="generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogisticRegression</span></code></a> (النموذج “محدد جيدًا”)، ويتم ضبط قيمة معلمة التنظيم <code class="docutils literal notranslate"><span class="pre">C</span></code> لتكون مناسبة (لا قوية جدًا ولا منخفضة جدًا).
+ونتيجة لذلك، يُرجع هذا النموذج تنبؤات دقيقة من طريقة <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code>.
+على عكس ذلك، تُرجع النماذج الأخرى المعروضة احتمالات متحيزة؛ مع تحيزات مختلفة لكل نموذج.</p>
+<p>يميل <a class="reference internal" href="generated/sklearn.naive_bayes.GaussianNB.html#sklearn.naive_bayes.GaussianNB" title="sklearn.naive_bayes.GaussianNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianNB</span></code></a> (Naive Bayes) إلى دفع الاحتمالات إلى 0 أو 1 (لاحظ الأعداد في الرسوم البيانية).
+ويرجع ذلك أساسًا إلى أنه يفترض أن الميزات مستقلة بشكل مشروط بالنظر إلى الفئة، وهو ما لا يحدث في مجموعة البيانات هذه التي تحتوي على ميزتين متكررتين.</p>
+<p>يُظهر <a class="reference internal" href="generated/sklearn.ensemble.RandomForestClassifier.html#sklearn.ensemble.RandomForestClassifier" title="sklearn.ensemble.RandomForestClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomForestClassifier</span></code></a> السلوك المعاكس: تُظهر الرسوم البيانية قممًا عند الاحتمالات تقريبًا 0.2 و 0.9، بينما تكون الاحتمالات القريبة من 0 أو 1 نادرة جدًا.
+تم تقديم تفسير لذلك من قبل Niculescu-Mizil و Caruana <a class="footnote-reference brackets" href="#id21" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>: ”
+قد تواجه الطرق مثل التعبئة والغابات العشوائية التي تقوم بمتوسط التنبؤات من مجموعة أساسية من النماذج صعوبة في إجراء تنبؤات بالقرب من 0 و 1 لأن التباين في النماذج الأساسية الكامنة سيؤدي إلى تحيز التنبؤات التي يجب أن تكون قريبة من الصفر أو واحدًا بعيدًا عن هذه القيم.
+نظرًا لأن التنبؤات مقصورة على الفاصل الزمني [0،1]، فإن الأخطاء الناتجة عن التباين تميل إلى أن تكون من جانب واحد بالقرب من الصفر والواحد.
+على سبيل المثال، إذا كان يجب أن يتنبأ النموذج بـ p = 0 لحالة ما، فإن الطريقة الوحيدة التي يمكن أن تحقق بها الحقيبة ذلك هي إذا تنبأت جميع الأشجار المعبأة بالصفر.
+إذا أضفنا ضوضاء إلى الأشجار التي تقوم الحقيبة بمتوسطها، فستتسبب هذه الضوضاء في توقع بعض الأشجار قيمًا أكبر من 0 لهذه الحالة، وبالتالي تحريك متوسط توقع المجموعة المعبأة بعيدًا عن 0.
+نلاحظ هذا التأثير بقوة أكبر مع الغابات العشوائية لأن الأشجار ذات المستوى الأساسي المدربة باستخدام الغابات العشوائية لها تباين مرتفع نسبيًا بسبب تجميع الميزات الفرعية.
+”
+ونتيجة لذلك، يُظهر منحنى المعايرة شكلًا سينيًا مميزًا، مما يشير إلى أن المصنف يمكنه الوثوق بـ “حدسه” أكثر وإرجاع احتمالات أقرب إلى 0 أو 1 عادةً.</p>
+<p>يُظهر <a class="reference internal" href="generated/sklearn.svm.LinearSVC.html#sklearn.svm.LinearSVC" title="sklearn.svm.LinearSVC"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearSVC</span></code></a> (SVC) منحنى سيني أكثر من الغابة العشوائية، وهو أمر نموذجي لطرق الهامش الأقصى (قارن Niculescu-Mizil و Caruana <a class="footnote-reference brackets" href="#id21" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> )، والتي تركز على العينات التي يصعب تصنيفها والتي تكون قريبة من حدود القرار (متجهات الدعم).</p>
+</section>
+<section id="id8">
+<h2><span class="section-number">1.16.2. </span>معايرة المصنف<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<p>تتكون معايرة المصنف من ملاءمة عامل انحدار (يُسمى <em>المعاير</em>) يرسم ناتج المصنف (كما هو موضح بواسطة <a class="reference internal" href="../glossary.html#term-decision_function"><span class="xref std std-term">decision_function</span></a> أو <a class="reference internal" href="../glossary.html#term-predict_proba"><span class="xref std std-term">predict_proba</span></a>) إلى احتمال معاير في [0، 1]. بالإشارة إلى ناتج المصنف لعينة معينة بواسطة <span class="math notranslate nohighlight">\(f_i\)</span>، يحاول المعاير التنبؤ باحتمال الحدث الشرطي <span class="math notranslate nohighlight">\(P(y_i = 1 | f_i)\)</span>.</p>
+<p>من الناحية المثالية، يتم ملاءمة المعاير على مجموعة بيانات مستقلة عن بيانات التدريب المستخدمة لملاءمة المصنف في المقام الأول.
+ويرجع ذلك إلى أن أداء المصنف على بيانات التدريب الخاصة به سيكون أفضل من البيانات الجديدة. وبالتالي، سيؤدي استخدام ناتج المصنف لبيانات التدريب لملاءمة المعاير إلى معاير متحيز يرسم إلى احتمالات أقرب إلى 0 و 1 مما ينبغي.</p>
+</section>
+<section id="id9">
+<h2><span class="section-number">1.16.3. </span>الاستخدام<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<p>يتم استخدام فئة <a class="reference internal" href="generated/sklearn.calibration.CalibratedClassifierCV.html#sklearn.calibration.CalibratedClassifierCV" title="sklearn.calibration.CalibratedClassifierCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">CalibratedClassifierCV</span></code></a> لمعايرة المصنف.</p>
+<p>يستخدم <a class="reference internal" href="generated/sklearn.calibration.CalibratedClassifierCV.html#sklearn.calibration.CalibratedClassifierCV" title="sklearn.calibration.CalibratedClassifierCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">CalibratedClassifierCV</span></code></a> نهج التحقق المتبادل لضمان استخدام البيانات غير المتحيزة دائمًا لملاءمة المعاير.
+يتم تقسيم البيانات إلى أزواج k <code class="docutils literal notranslate"><span class="pre">(train_set،</span> <span class="pre">test_set)</span></code> (كما هو محدد بواسطة <code class="docutils literal notranslate"><span class="pre">cv</span></code>).
+عندما يكون <code class="docutils literal notranslate"><span class="pre">ensemble=True</span></code> (افتراضيًا)، يتم تكرار الإجراء التالي بشكل مستقل لكل تقسيم للتحقق المتبادل:</p>
+<ol class="arabic simple">
+<li><p>يتم تدريب نسخة من <code class="docutils literal notranslate"><span class="pre">base_estimator</span></code> على مجموعة التدريب الفرعية</p></li>
+<li><p>يقوم <code class="docutils literal notranslate"><span class="pre">base_estimator</span></code> المدرب بإجراء تنبؤات على مجموعة الاختبار الفرعية</p></li>
+<li><p>يتم استخدام التنبؤات لملاءمة معاير (إما عامل انحدار سيني أو متساوي التوتر) (عندما تكون البيانات متعددة الفئات، يتم ملاءمة معاير لكل فئة)</p></li>
+</ol>
+<p>ينتج عن هذا مجموعة من أزواج k <code class="docutils literal notranslate"><span class="pre">(classifier،</span> <span class="pre">calibrator)</span></code> حيث يرسم كل معاير ناتج المصنف المقابل له إلى [0، 1].
+يتم عرض كل زوج في سمة <code class="docutils literal notranslate"><span class="pre">calibrated_classifiers_</span></code>، حيث يكون كل إدخال عبارة عن مصنف معاير باستخدام طريقة <a class="reference internal" href="../glossary.html#term-predict_proba"><span class="xref std std-term">predict_proba</span></a> التي تُخرج احتمالات معايرة.
+يتوافق ناتج <a class="reference internal" href="../glossary.html#term-predict_proba"><span class="xref std std-term">predict_proba</span></a> لمثيل <a class="reference internal" href="generated/sklearn.calibration.CalibratedClassifierCV.html#sklearn.calibration.CalibratedClassifierCV" title="sklearn.calibration.CalibratedClassifierCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">CalibratedClassifierCV</span></code></a> الرئيسي مع متوسط الاحتمالات المتوقعة لـ <code class="docutils literal notranslate"><span class="pre">k</span></code> مقدرات في قائمة <code class="docutils literal notranslate"><span class="pre">calibrated_classifiers_</span></code>.
+ناتج <a class="reference internal" href="../glossary.html#term-predict"><span class="xref std std-term">predict</span></a> هو الفئة التي لها أعلى احتمال.</p>
+<p>من المهم اختيار <code class="docutils literal notranslate"><span class="pre">cv</span></code> بعناية عند استخدام <code class="docutils literal notranslate"><span class="pre">ensemble=True</span></code>.
+يجب أن تكون جميع الفئات موجودة في كل من مجموعات التدريب والاختبار الفرعية لكل تقسيم.
+عندما تكون الفئة غائبة في مجموعة التدريب الفرعية، فسيتم تعيين الاحتمال المتوقع لتلك الفئة افتراضيًا على 0 لزوج <code class="docutils literal notranslate"><span class="pre">(classifier،</span> <span class="pre">calibrator)</span></code> لهذا التقسيم.
+هذا يشوه <a class="reference internal" href="../glossary.html#term-predict_proba"><span class="xref std std-term">predict_proba</span></a> لأنه متوسط عبر جميع الأزواج.
+عندما تكون الفئة غائبة في مجموعة الاختبار الفرعية، يتم ملاءمة المعاير لتلك الفئة (ضمن زوج <code class="docutils literal notranslate"><span class="pre">(classifier،</span> <span class="pre">calibrator)</span></code> لهذا التقسيم) على البيانات التي لا تحتوي على فئة إيجابية. هذا يؤدي إلى معايرة غير فعالة.</p>
+<p>عندما يكون <code class="docutils literal notranslate"><span class="pre">ensemble=False</span></code>، يتم استخدام التحقق المتبادل للحصول على تنبؤات “غير متحيزة” لجميع البيانات، عبر <a class="reference internal" href="generated/sklearn.model_selection.cross_val_predict.html#sklearn.model_selection.cross_val_predict" title="sklearn.model_selection.cross_val_predict"><code class="xref py py-func docutils literal notranslate"><span class="pre">cross_val_predict</span></code></a>.
+ثم يتم استخدام هذه التنبؤات غير المتحيزة لتدريب المعاير.
+تتكون سمة <code class="docutils literal notranslate"><span class="pre">calibrated_classifiers_</span></code> من زوج واحد فقط <code class="docutils literal notranslate"><span class="pre">(classifier،</span> <span class="pre">calibrator)</span></code> حيث يكون المصنف هو <code class="docutils literal notranslate"><span class="pre">base_estimator</span></code> المدرب على جميع البيانات.
+في هذه الحالة، يكون ناتج <a class="reference internal" href="../glossary.html#term-predict_proba"><span class="xref std std-term">predict_proba</span></a> لـ <a class="reference internal" href="generated/sklearn.calibration.CalibratedClassifierCV.html#sklearn.calibration.CalibratedClassifierCV" title="sklearn.calibration.CalibratedClassifierCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">CalibratedClassifierCV</span></code></a> هو الاحتمالات المتوقعة التي تم الحصول عليها من زوج <code class="docutils literal notranslate"><span class="pre">(classifier،</span> <span class="pre">calibrator)</span></code> الفردي.</p>
+<p>الميزة الرئيسية لـ <code class="docutils literal notranslate"><span class="pre">ensemble=True</span></code> هي الاستفادة من تأثير التجميع التقليدي (على غرار <a class="reference internal" href="ensemble.html#bagging"><span class="std std-ref">مُقدِّر التعريف التجميعي</span></a>).
+يجب أن تكون المجموعة الناتجة معايرة جيدًا وأكثر دقة قليلاً من <code class="docutils literal notranslate"><span class="pre">ensemble=False</span></code>.
+الميزة الرئيسية لاستخدام <code class="docutils literal notranslate"><span class="pre">ensemble=False</span></code> هي الحسابية: فهي تقلل من وقت الملاءمة الإجمالي عن طريق تدريب مصنف أساسي واحد فقط وزوج معاير، وتقليل حجم النموذج النهائي وزيادة سرعة التنبؤ.</p>
+<p>بدلاً من ذلك، يمكن معايرة مصنف مناسب بالفعل عن طريق تعيين <code class="docutils literal notranslate"><span class="pre">cv=&quot;prefit&quot;</span></code>.
+في هذه الحالة، لا يتم تقسيم البيانات ويتم استخدامها جميعًا لملاءمة عامل الانحدار.
+الأمر متروك للمستخدم للتأكد من أن البيانات المستخدمة لملاءمة المصنف منفصلة عن البيانات المستخدمة لملاءمة عامل الانحدار.</p>
+<p>يدعم <a class="reference internal" href="generated/sklearn.calibration.CalibratedClassifierCV.html#sklearn.calibration.CalibratedClassifierCV" title="sklearn.calibration.CalibratedClassifierCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">CalibratedClassifierCV</span></code></a> استخدام تقنيتين للانحدار للمعايرة عبر معلمة <code class="docutils literal notranslate"><span class="pre">method</span></code>: <code class="docutils literal notranslate"><span class="pre">&quot;sigmoid&quot;</span></code> و <code class="docutils literal notranslate"><span class="pre">&quot;isotonic&quot;</span></code>.</p>
+<section id="sigmoid-regressor">
+<span id="id10"></span><h3><span class="section-number">1.16.3.1. </span>سيجمويد<a class="headerlink" href="#sigmoid-regressor" title="Link to this heading">#</a></h3>
+<p>يعتمد عامل الانحدار السيني، <code class="docutils literal notranslate"><span class="pre">method=&quot;sigmoid&quot;</span></code> على نموذج Platt اللوجستي <a class="footnote-reference brackets" href="#id22" id="id11" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>:</p>
+<div class="math notranslate nohighlight">
+\[p(y_i = 1 | f_i) = \frac{1}{1 + \exp(A f_i + B)} \,,\]</div>
+<p>حيث <span class="math notranslate nohighlight">\(y_i\)</span> هي التسمية الحقيقية للعينة <span class="math notranslate nohighlight">\(i\)</span> و <span class="math notranslate nohighlight">\(f_i\)</span> هو ناتج المصنف غير المعاير للعينة <span class="math notranslate nohighlight">\(i\)</span>. <span class="math notranslate nohighlight">\(A\)</span> و <span class="math notranslate nohighlight">\(B\)</span> هما عددان حقيقيان يتم تحديدهما عند ملاءمة عامل الانحدار عبر أقصى احتمال.</p>
+<p>تفترض الطريقة السينية أن <a class="reference internal" href="#calibration-curve"><span class="std std-ref">منحنى المعايرة</span></a> يمكن تصحيحه عن طريق تطبيق دالة سينية على التنبؤات الأولية.
+تم تبرير هذا الافتراض تجريبيًا في حالة <a class="reference internal" href="svm.html#svm"><span class="std std-ref">آلات الدعم المتجهية (SVM)</span></a> مع وظائف النواة الشائعة على مجموعات بيانات مرجعية مختلفة في القسم 2.1 من Platt 999 <a class="footnote-reference brackets" href="#id22" id="id12" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a> ولكنه لا يصمد بالضرورة بشكل عام.
+بالإضافة إلى ذلك، يعمل النموذج اللوجستي بشكل أفضل إذا كان خطأ المعايرة متماثلًا، مما يعني أن ناتج المصنف لكل فئة ثنائية يتم توزيعه بشكل طبيعي بنفس التباين <a class="footnote-reference brackets" href="#id25" id="id13" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a>.
+يمكن أن تكون هذه مشكلة لمشاكل التصنيف غير المتوازنة للغاية، حيث لا يكون للمخرجات تباين متساوٍ.</p>
+<p>بشكل عام، تكون هذه الطريقة أكثر فاعلية لأحجام العينات الصغيرة أو عندما يكون النموذج غير المعاير غير واثق من نفسه ولديه أخطاء معايرة مماثلة لكل من المخرجات العالية والمنخفضة.</p>
+</section>
+<section id="id14">
+<h3><span class="section-number">1.16.3.2. </span>متساوي التوتر<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>تناسب <code class="docutils literal notranslate"><span class="pre">method=&quot;isotonic&quot;</span></code> عامل انحدار متساوي التوتر غير حدودي، والذي يُخرج دالة غير متناقصة خطوة بخطوة، انظر <a class="reference internal" href="../api/sklearn.isotonic.html#module-sklearn.isotonic" title="sklearn.isotonic"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.isotonic</span></code></a>. يقلل من:</p>
+<div class="math notranslate nohighlight">
+\[\sum_{i=1}^{n} (y_i - \hat{f}_i)^2\]</div>
+<p>رهنا بـ <span class="math notranslate nohighlight">\(\hat{f}_i \geq \hat{f}_j\)</span> كلما
+<span class="math notranslate nohighlight">\(f_i \geq f_j\)</span>. <span class="math notranslate nohighlight">\(y_i\)</span> هو الحقيقة
+تسمية العينة <span class="math notranslate nohighlight">\(i\)</span> و <span class="math notranslate nohighlight">\(\hat{f}_i\)</span> هو ناتج المصنف المعاير للعينة <span class="math notranslate nohighlight">\(i\)</span> (أي الاحتمال المعاير).
+تعتبر هذه الطريقة أكثر عمومية عند مقارنتها بـ “sigmoid” حيث أن القيد الوحيد هو أن دالة التعيين تتزايد بشكل رتيب.
+وبالتالي فهي أكثر قوة لأنها يمكن أن تصحح أي تشويه رتيب للنموذج غير المعاير.
+ومع ذلك، فهي أكثر عرضة للإفراط في التجهيز، خاصة في مجموعات البيانات الصغيرة <a class="footnote-reference brackets" href="#id24" id="id15" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a>.</p>
+<p>بشكل عام، سيؤدي “isotonic” أداءً جيدًا مثل أو أفضل من “sigmoid” عندما تكون هناك بيانات كافية (أكبر من ~ 1000 عينة) لتجنب الإفراط في التجهيز <a class="footnote-reference brackets" href="#id21" id="id16" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>التأثير على مقاييس الترتيب مثل AUC</p>
+<p>من المتوقع عمومًا أن المعايرة لا تؤثر على مقاييس الترتيب مثل ROC-AUC.
+ومع ذلك، قد تختلف هذه المقاييس بعد المعايرة عند استخدام <code class="docutils literal notranslate"><span class="pre">method=&quot;isotonic&quot;</span></code> نظرًا لأن الانحدار المتساوي التوتر يقدم روابط في الاحتمالات المتوقعة.
+يمكن اعتبار هذا ضمن عدم اليقين في تنبؤات النموذج.
+في حالة رغبتك في الحفاظ على الترتيب وبالتالي درجات AUC، استخدم <code class="docutils literal notranslate"><span class="pre">method=&quot;sigmoid&quot;</span></code> وهو تحويل رتيب تمامًا وبالتالي يحافظ على الترتيب.</p>
+</div>
+</section>
+<section id="id17">
+<h3><span class="section-number">1.16.3.3. </span>دعم متعدد الفئات<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
+<p>يدعم كل من عوامل الانحدار المتساوية التوتر والسينية البيانات أحادية البعد فقط (على سبيل المثال، إخراج التصنيف الثنائي) ولكن يتم تمديدها لتصنيف متعدد الفئات إذا كان <code class="docutils literal notranslate"><span class="pre">base_estimator</span></code> يدعم التنبؤات متعددة الفئات.
+بالنسبة للتنبؤات متعددة الفئات، يقوم <a class="reference internal" href="generated/sklearn.calibration.CalibratedClassifierCV.html#sklearn.calibration.CalibratedClassifierCV" title="sklearn.calibration.CalibratedClassifierCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">CalibratedClassifierCV</span></code></a> بالمعايرة لكل فئة على حدة بطريقة <a class="reference internal" href="multiclass.html#ovr-classification"><span class="std std-ref">OneVsRestClassifier</span></a> <a class="footnote-reference brackets" href="#id23" id="id18" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>.
+عند التنبؤ بالاحتمالات، يتم توقع الاحتمالات المعايرة لكل فئة بشكل منفصل.
+نظرًا لأن هذه الاحتمالات لا تصل بالضرورة إلى واحد، يتم إجراء معالجة لاحقة لتطبيعها.</p>
+<p class="rubric">أمثلة</p>
+<ul class="simple">
+<li><p><span class="xref std std-ref">sphx_glr_auto_examples_calibration/plot_calibration_curve.py</span></p></li>
+<li><p><span class="xref std std-ref">sphx_glr_auto_examples_calibration/plot_calibration_multiclass.py</span></p></li>
+<li><p><span class="xref std std-ref">sphx_glr_auto_examples_calibration/plot_calibration.py</span></p></li>
+<li><p><span class="xref std std-ref">sphx_glr_auto_examples_calibration/plot_compare_calibration.py</span></p></li>
+</ul>
+<p class="rubric">المراجع</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id19" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
+<p>Allan H. Murphy (1973).
+<a class="reference external" href="https://doi.org/10.1175/1520-0450(1973)012%3C0595:ANVPOT%3E2.0.CO;2">“A New Vector Partition of the Probability Score”</a>
+Journal of Applied Meteorology and Climatology</p>
+</aside>
+<aside class="footnote brackets" id="id20" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">2</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://journals.ametsoc.org/waf/article/5/4/640/40179">On the combination of forecast probabilities for
+consecutive precipitation periods.</a>
+Wea. Forecasting, 5, 640–650., Wilks, D. S., 1990a</p>
+</aside>
+<aside class="footnote brackets" id="id21" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id6">1</a>,<a role="doc-backlink" href="#id7">2</a>,<a role="doc-backlink" href="#id16">3</a>)</span>
+<p><a class="reference external" href="https://www.cs.cornell.edu/~alexn/papers/calibration.icml05.crc.rev3.pdf">Predicting Good Probabilities with Supervised Learning</a>،
+A. Niculescu-Mizil &amp; R. Caruana، ICML 2005</p>
+</aside>
+<aside class="footnote brackets" id="id22" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id11">1</a>,<a role="doc-backlink" href="#id12">2</a>)</span>
+<p><a class="reference external" href="https://www.cs.colorado.edu/~mozer/Teaching/syllabi/6622/papers/Platt1999.pdf">Probabilistic Outputs for Support Vector Machines and Comparisons
+to Regularized Likelihood Methods.</a>
+J. Platt، (1999)</p>
+</aside>
+<aside class="footnote brackets" id="id23" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id18">5</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://dl.acm.org/doi/pdf/10.1145/775047.775151">Transforming Classifier Scores into Accurate Multiclass
+Probability Estimates.</a>
+B. Zadrozny &amp; C. Elkan، (KDD 2002)</p>
+</aside>
+<aside class="footnote brackets" id="id24" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id15">6</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4180410/">Predicting accurate probabilities with a ranking loss.</a>
+Menon AK، Jiang XJ، Vembu S، Elkan C، Ohno-Machado L.
+Proc Int Conf Mach Learn. 2012; 2012: 703-710</p>
+</aside>
+<aside class="footnote brackets" id="id25" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id13">7</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://projecteuclid.org/euclid.ejs/1513306867">Beyond sigmoids: How to obtain well-calibrated probabilities from
+binary classifiers with beta calibration</a>
+Kull، M.، Silva Filho، T. M.، &amp; Flach، P. (2017).</p>
+</aside>
+<aside class="footnote brackets" id="id26" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">8</a><span class="fn-bracket">]</span></span>
+<p>Mario V. Wüthrich، Michael Merz (2023).
+<a class="reference external" href="https://doi.org/10.1007/978-3-031-12409-9">“Statistical Foundations of Actuarial Learning and its Applications”</a>
+Springer Actuarial</p>
+</aside>
+</aside>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  <div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item">
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="isotonic.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">1.15. </span>الانحدار المتساوي التوتر</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="neural_networks_supervised.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">1.17. </span>نماذج الشبكات العصبية (الخاضعة للإشراف)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+                </footer>
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calibration-curve">1.16.1. منحنيات المعايرة</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">1.16.2. معايرة المصنف</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">1.16.3. الاستخدام</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sigmoid-regressor">1.16.3.1. سيجمويد</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">1.16.3.2. متساوي التوتر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">1.16.3.3. دعم متعدد الفئات</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/modules/calibration.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2024 - 2024, scikit-learn developers (BSD License).
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>
