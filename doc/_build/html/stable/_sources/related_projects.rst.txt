@@ -1,8 +1,8 @@
 .. _related_projects:
 
-=====================================
+====================
 مشاريع ذات علاقة
-=====================================
+====================
 
 Projects implementing the scikit-learn estimator API are encouraged to use
 the `scikit-learn-contrib template <https://github.com/scikit-learn-contrib/project-template>`_

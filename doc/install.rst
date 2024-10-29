@@ -194,7 +194,7 @@
 
 .. _install_by_distribution:
 
-## توزيعات الطرف الثالث من scikit-learn
+توزيعات الطرف الثالث من scikit-learn
 =========================================
 
 توفر بعض توزيعات الجهات الخارجية إصدارات من scikit-learn مدمجة مع أنظمة إدارة الحزم الخاصة بها.
@@ -203,7 +203,7 @@
 
 فيما يلي قائمة غير كاملة بتوزيعات نظام التشغيل و python التي توفر إصدارها الخاص من scikit-learn.
 
-### Alpine Linux
+Alpine Linux
 ------------
 
 يتم توفير حزمة Alpine Linux من خلال `المستودعات الرسمية <https://pkgs.alpinelinux.org/packages?name=py3-scikit-learn>`__ باسم ``py3-scikit-learn`` لـ Python.
@@ -214,7 +214,7 @@
   sudo apk add py3-scikit-learn
 
 
-### Arch Linux
+Arch Linux
 ----------
 
 يتم توفير حزمة Arch Linux من خلال `المستودعات الرسمية <https://www.archlinux.org/packages/?q=scikit-learn>`_ باسم ``python-scikit-learn`` لـ Python.
@@ -225,7 +225,7 @@
   sudo pacman -S python-scikit-learn
 
 
-### Debian/Ubuntu
+Debian/Ubuntu
 -------------
 
 تنقسم حزمة Debian / Ubuntu إلى ثلاث حزم مختلفة تسمى ``python3-sklearn`` (وحدات python) ، ``python3-sklearn-lib`` (التنفيذات والارتباطات منخفضة المستوى) ، ``python3-sklearn-doc`` (التوثيق).
@@ -237,7 +237,7 @@
   sudo apt-get install python3-sklearn python3-sklearn-lib python3-sklearn-doc
 
 
-### Fedora
+Fedora
 ------
 
 تسمى حزمة Fedora ``python3-scikit-learn`` لإصدار python 3، وهو الإصدار الوحيد المتاح في Fedora.
@@ -248,14 +248,14 @@
   sudo dnf install python3-scikit-learn
 
 
-### NetBSD
+NetBSD
 ------
 
 يتوفر scikit-learn عبر `pkgsrc-wip <http://pkgsrc-wip.sourceforge.net/>`_:
 https://pkgsrc.se/math/py-scikit-learn
 
 
-### MacPorts for Mac OSX
+MacPorts for Mac OSX
 --------------------
 
 تسمى حزمة MacPorts ``py<XY>-scikits-learn``، حيث يشير ``XY`` إلى إصدار Python.
@@ -266,15 +266,15 @@ https://pkgsrc.se/math/py-scikit-learn
   sudo port install py39-scikit-learn
 
 
-### Anaconda and Enthought Deployment Manager لجميع الأنظمة الأساسية المدعومة
----------------------------------------------------------------------
+Anaconda and Enthought Deployment Manager لجميع الأنظمة الأساسية المدعومة
+---------------------------------------------------------------------------
 
 `Anaconda <https://www.anaconda.com/download>`_ و `Enthought Deployment Manager <https://assets.enthought.com/downloads/>`_ كلاهما مزود بـ scikit-learn بالإضافة إلى مجموعة كبيرة من مكتبة python العلمية لنظام التشغيل Windows و Mac OSX و Linux.
 
 يقدم Anaconda scikit-learn كجزء من توزيعه المجاني.
 
 
-### Intel Extension for Scikit-learn
+Intel Extension for Scikit-learn
 --------------------------------
 
 تحتفظ Intel بحزمة x86_64 محسّنة، متاحة في PyPI (عبر `pip`)، وفي قنوات conda `main` و `conda-forge` و `intel`:
@@ -298,21 +298,21 @@ https://pkgsrc.se/math/py-scikit-learn
 إذا لاحظت أي مشكلة مع `scikit-learn-intelex`، فيرجى الإبلاغ عن المشكلة على `متعقب المشكلات <https://github.com/intel/scikit-learn-intelex/issues>`__.
 
 
-### WinPython for Windows
+WinPython for Windows
 ---------------------
 
 يقوم مشروع `WinPython <https://winpython.github.io/>`_ بتوزيع scikit-learn كملحق إضافي.
 
 
-## استكشاف الأخطاء وإصلاحها
-===============
+استكشاف الأخطاء وإصلاحها
+========================
 
 إذا واجهت أخطاء غير متوقعة عند تثبيت scikit-learn، فيمكنك إرسال مشكلة إلى `متعقب المشكلات <https://github.com/scikit-learn/scikit-learn/issues>`_.
 قبل ذلك، يرجى أيضًا التأكد من التحقق من المشكلات الشائعة التالية.
 
 .. _windows_longpath:
 
-### خطأ ناتج عن حد طول مسار الملف على Windows
+خطأ ناتج عن حد طول مسار الملف على Windows
 -------------------------------------------------
 
 يمكن أن يحدث أن يفشل pip في تثبيت الحزم عند الوصول إلى حد حجم المسار الافتراضي لـ Windows إذا تم تثبيت Python في موقع متداخل مثل بنية مجلد `AppData` ضمن دليل المستخدم الرئيسي، على سبيل المثال::
