@@ -144,7 +144,7 @@ root_doc = "index"
 
 # General information about the project.
 project = "scikit-learn"
-copyright = f"2007 - {datetime.now().year}, scikit-learn developers (BSD License)"
+copyright = f"2007 - {datetime.now().year}, scikit-learn developers (BSD License)           Translate into Arabic <a href='https://github.com/AhmmedAlmaghz/scikit-learn'>Eng. Ahmed Almaghz </a>"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

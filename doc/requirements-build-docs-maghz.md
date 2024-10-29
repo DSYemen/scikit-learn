@@ -6,11 +6,15 @@ pip install sphinx sphinx-gallery numpydoc matplotlib Pillow pandas \
             pydata-sphinx-theme sphinxcontrib-sass sphinx-design \
             sphinx-remove-toctrees pytest wheel numpy scipy cython \
             meson-python ninja jupyterlite_sphinx \
-            pydata_sphinx_theme joblib threadpoolctl scikit-learn \
-            --editable . \
+            pydata_sphinx_theme joblib threadpoolctl scikit-learn
+```
+
+```bash
+pip install --editable . \
             --verbose --no-build-isolation \
             --config-settings editable-verbose=true
 ```
+
 
 ```bash
 cd doc
