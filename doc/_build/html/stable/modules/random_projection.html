@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="6.6. التصميم العشوائي" />
+<meta property="og:title" content="6.6. الإسقاط العشوائي" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/modules/random_projection.html" />
 <meta property="og:site_name" content="scikit-learn" />
@@ -16,7 +16,7 @@
 <meta property="og:image:alt" content="scikit-learn" />
 <meta name="description" content="تطبق الوحدة النمطية sklearn.random_projection طريقة بسيطة وفعالة من الناحية الحسابية لخفض الأبعاد للبيانات من خلال التداول على كمية محكومة من الدقة (كاختلاف إضافي) لأوقات معالجة أسرع وأحجام نماذج أ..." />
 
-    <title>6.6. التصميم العشوائي &#8212; scikit-learn 1.6.dev0 documentation</title>
+    <title>6.6. الإسقاط العشوائي &#8212; scikit-learn 1.6.dev0 documentation</title>
   
   
   
@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/colors.css?v=cc94ab7d" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/custom.css?v=fe191a13" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/custom.css?v=85b0813d" />
   
   <!-- So that users can add custom icons -->
   <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
@@ -577,12 +577,12 @@
 <li class="toctree-l2"><a class="reference internal" href="biclustering.html">2.4. التجميع الثنائي</a></li>
 <li class="toctree-l2"><a class="reference internal" href="decomposition.html">2.5. تحليل الإشارات إلى مكونات (مشاكل تحليل المصفوفات)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="covariance.html">2.6. تقدير التباين المشترك</a></li>
-<li class="toctree-l2"><a class="reference internal" href="outlier_detection.html">2.7. كشف الجِدّة والقيم المتطرفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="outlier_detection.html">2.7. كشف القيم الغريبة والقيم المتطرفة</a></li>
 <li class="toctree-l2"><a class="reference internal" href="density.html">2.8. تقدير الكثافة</a></li>
 <li class="toctree-l2"><a class="reference internal" href="neural_networks_unsupervised.html">2.9. نماذج الشبكة العصبية (غير خاضعة للإشراف)</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../model_selection.html">3. تقييم واختيار النموذج</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../model_selection.html">3. تقييم وإختيار النموذج</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="cross_validation.html">3.1. التحقق المتبادل: تقييم أداء المقدر</a></li>
 <li class="toctree-l2"><a class="reference internal" href="grid_search.html">3.2. ضبط المعلمات الفائقة لمُقدِّر</a></li>
 <li class="toctree-l2"><a class="reference internal" href="classification_threshold.html">3.3. ضبط عتبة القرار لتنبؤ الفئة</a></li>
@@ -592,17 +592,17 @@
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../inspection.html">4. الفحص</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="partial_dependence.html">4.1. مخططات الاعتماد الجزئي والتوقع الشرطي الفردي</a></li>
-<li class="toctree-l2"><a class="reference internal" href="permutation_importance.html">4.2. أهمية ميزة التبديل</a></li>
+<li class="toctree-l2"><a class="reference internal" href="permutation_importance.html">4.2. أهمية التبديل</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../visualizations.html">5. التصورات</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualizations.html">5. التصورات المرئية</a></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../data_transforms.html">6. تحويلات مجموعات البيانات</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="compose.html">6.1. خطوط الأنابيب والمقدرات المركبة</a></li>
 <li class="toctree-l2"><a class="reference internal" href="feature_extraction.html">6.2. استخراج الميزات</a></li>
-<li class="toctree-l2"><a class="reference internal" href="preprocessing.html">6.3. معالجة البيانات مُسبقًا</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html">6.3. المعالجة المسبقة للبيانات</a></li>
 <li class="toctree-l2"><a class="reference internal" href="impute.html">6.4. تعويض القيم المفقودة</a></li>
 <li class="toctree-l2"><a class="reference internal" href="unsupervised_reduction.html">6.5. تخفيض الأبعاد غير الخاضع للإشراف</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">6.6. التصميم العشوائي</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">6.6. الإسقاط العشوائي</a></li>
 <li class="toctree-l2"><a class="reference internal" href="kernel_approximation.html">6.7. Kernel Approximation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="metrics.html">6.8. مقاييس المقارنة الزوجية، والصلات، والنوى (Kernels)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="preprocessing_targets.html">6.9. تحويل هدف التنبؤ (<code class="docutils literal notranslate"><span class="pre">y</span></code>)</a></li>
@@ -618,7 +618,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../computing/parallelism.html">11.3. التوازي وإدارة الموارد والتهيئة</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../model_persistence.html">12. استمرارية النموذج</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../model_persistence.html">12. حفظ النموذج</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../common_pitfalls.html">13. المخاطر الشائعة والممارسات الموصى بها</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../dispatching.html">14. Dispatching</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="array_api.html">14.1. دعم المدخلات المتوافقة مع <code class="docutils literal notranslate"><span class="pre">Array</span> <span class="pre">API</span></code></a></li>
@@ -668,7 +668,7 @@
     
     <li class="breadcrumb-item"><a href="../data_transforms.html" class="nav-link"><span class="section-number">6. </span>تحويلات مجموعات البيانات</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">6.6. </span>التصميم العشوائي</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">6.6. </span>الإسقاط العشوائي</span></li>
   </ul>
 </nav>
 </div>
@@ -686,26 +686,26 @@
                 <article class="bd-article">
                   
   <section id="random-projection">
-<span id="id1"></span><h1><span class="section-number">6.6. </span>التصميم العشوائي<a class="headerlink" href="#random-projection" title="Link to this heading">#</a></h1>
+<span id="id1"></span><h1><span class="section-number">6.6. </span>الإسقاط العشوائي<a class="headerlink" href="#random-projection" title="Link to this heading">#</a></h1>
 <p>تطبق الوحدة النمطية <a class="reference internal" href="../api/sklearn.random_projection.html#module-sklearn.random_projection" title="sklearn.random_projection"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.random_projection</span></code></a> طريقة بسيطة وفعالة من الناحية الحسابية لخفض الأبعاد للبيانات من خلال التداول على كمية محكومة من الدقة (كاختلاف إضافي) لأوقات معالجة أسرع وأحجام نماذج أصغر. تنفذ هذه الوحدة النمطية نوعين من المصفوفات العشوائية غير المنظمة:
 <a class="reference internal" href="#gaussian-random-matrix"><span class="std std-ref">مصفوفة عشوائية ذاتية</span></a> و
 <a class="reference internal" href="#sparse-random-matrix"><span class="std std-ref">مصفوفة عشوائية نادرة</span></a>.</p>
-<p>يتم التحكم في أبعاد وتوزيع مصفوفات التصميم العشوائي بحيث يتم الحفاظ على المسافات الزوجية بين أي عينة من مجموعة البيانات. وبالتالي، فإن التصميم العشوائي هو تقنية تقريبية مناسبة للأساليب القائمة على المسافة.</p>
+<p>يتم التحكم في أبعاد وتوزيع مصفوفات الإسقاط العشوائي بحيث يتم الحفاظ على المسافات الزوجية بين أي عينة من مجموعة البيانات. وبالتالي، فإن الإسقاط العشوائي هو تقنية تقريبية مناسبة للأساليب القائمة على المسافة.</p>
 <p class="rubric">المراجع</p>
 <ul class="simple">
 <li><p>Sanjoy Dasgupta. 2000.
-<a class="reference external" href="https://cseweb.ucsd.edu/~dasgupta/papers/randomf.pdf">تجارب مع التصميم العشوائي.</a>
+<a class="reference external" href="https://cseweb.ucsd.edu/~dasgupta/papers/randomf.pdf">تجارب مع الإسقاط العشوائي.</a>
 في وقائع المؤتمر السادس عشر حول عدم اليقين في الذكاء الاصطناعي (UAI'00)، Craig Boutilier وMoisés Goldszmidt (محرران). Morgan
 ناشرو كوفمان، سان فرانسيسكو، كاليفورنيا، الولايات المتحدة الأمريكية، 143-151.</p></li>
 <li><p>Ella Bingham وHeikki Mannila. 2001.
-<a class="reference external" href="https://citeseerx.ist.psu.edu/doc_view/pid/aed77346f737b0ed5890b61ad02e5eb4ab2f3dc6">التصميم العشوائي في خفض الأبعاد: التطبيقات على بيانات الصور والنصوص.</a>
+<a class="reference external" href="https://citeseerx.ist.psu.edu/doc_view/pid/aed77346f737b0ed5890b61ad02e5eb4ab2f3dc6">الإسقاط العشوائي في خفض الأبعاد: التطبيقات على بيانات الصور والنصوص.</a>
 في وقائع المؤتمر السابع ACM SIGKDD الدولي حول
 اكتشاف المعرفة واستخراج البيانات (KDD '01). ACM، نيويورك، نيويورك، الولايات المتحدة الأمريكية،
 245-250.</p></li>
 </ul>
 <section id="johnson-lindenstrauss">
 <span id="id4"></span><h2><span class="section-number">6.6.1. </span>مبرهنة جونسون-ليندستراوس<a class="headerlink" href="#johnson-lindenstrauss" title="Link to this heading">#</a></h2>
-<p>النتيجة النظرية الرئيسية وراء كفاءة التصميم العشوائي هي
+<p>النتيجة النظرية الرئيسية وراء كفاءة الإسقاط العشوائي هي
 <a class="reference external" href="https://en.wikipedia.org/wiki/Johnson%E2%80%93Lindenstrauss_lemma">مبرهنة جونسون-ليندستراوس (اقتباس من ويكيبيديا)</a>:</p>
 <blockquote>
 <div><p>في الرياضيات، مبرهنة جونسون-ليندستراوس هي نتيجة
@@ -716,7 +716,7 @@
 </div></blockquote>
 <p>معرفة عدد العينات فقط،
 يقدر <a class="reference internal" href="generated/sklearn.random_projection.johnson_lindenstrauss_min_dim.html#sklearn.random_projection.johnson_lindenstrauss_min_dim" title="sklearn.random_projection.johnson_lindenstrauss_min_dim"><code class="xref py py-func docutils literal notranslate"><span class="pre">johnson_lindenstrauss_min_dim</span></code></a>
-تحفظيًا الحد الأدنى لحجم الفضاء العشوائي لضمان تشوه محدود يتم تقديمه بواسطة التصميم العشوائي:</p>
+تحفظيًا الحد الأدنى لحجم الفضاء العشوائي لضمان تشوه محدود يتم تقديمه بواسطة الإسقاط العشوائي:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.random_projection</span> <span class="kn">import</span> <span class="n">johnson_lindenstrauss_min_dim</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">johnson_lindenstrauss_min_dim</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mf">1e6</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="go">663</span>
@@ -747,12 +747,12 @@
 </ul>
 </section>
 <section id="gaussian-random-matrix">
-<span id="id7"></span><h2><span class="section-number">6.6.2. </span>التصميم العشوائي ذاتي<a class="headerlink" href="#gaussian-random-matrix" title="Link to this heading">#</a></h2>
+<span id="id7"></span><h2><span class="section-number">6.6.2. </span>الإسقاط العشوائي ذاتي<a class="headerlink" href="#gaussian-random-matrix" title="Link to this heading">#</a></h2>
 <p>يقلل <a class="reference internal" href="generated/sklearn.random_projection.GaussianRandomProjection.html#sklearn.random_projection.GaussianRandomProjection" title="sklearn.random_projection.GaussianRandomProjection"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianRandomProjection</span></code></a>
 الأبعاد من خلال إسقاط مساحة الإدخال الأصلية على مصفوفة تم إنشاؤها عشوائيًا
 حيث يتم رسم المكونات من التوزيع التالي
 <span class="math notranslate nohighlight">\(N(0, \frac{1}{n_{components}})\)</span>.</p>
-<p>هنا مقتطف صغير يوضح كيفية استخدام محول التصميم العشوائي ذاتي:</p>
+<p>هنا مقتطف صغير يوضح كيفية استخدام محول الإسقاط العشوائي ذاتي:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">random_projection</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
@@ -764,7 +764,7 @@
 </div>
 </section>
 <section id="sparse-random-matrix">
-<span id="id8"></span><h2><span class="section-number">6.6.3. </span>التصميم العشوائي النادر<a class="headerlink" href="#sparse-random-matrix" title="Link to this heading">#</a></h2>
+<span id="id8"></span><h2><span class="section-number">6.6.3. </span>الإسقاط العشوائي النادر<a class="headerlink" href="#sparse-random-matrix" title="Link to this heading">#</a></h2>
 <p>يقلل <a class="reference internal" href="generated/sklearn.random_projection.SparseRandomProjection.html#sklearn.random_projection.SparseRandomProjection" title="sklearn.random_projection.SparseRandomProjection"><code class="xref py py-class docutils literal notranslate"><span class="pre">SparseRandomProjection</span></code></a>
 الأبعاد من خلال إسقاط مساحة الإدخال الأصلية باستخدام مصفوفة عشوائية نادرة.</p>
 <p>المصفوفات العشوائية النادرة هي بديل للمصفوفة العشوائية ذاتية الكثافة التي تضمن جودة تضمين مماثلة مع كونها أكثر كفاءة في الذاكرة وتسمح بحساب أسرع للبيانات المسقطة.</p>
@@ -780,7 +780,7 @@
 <p>حيث <span class="math notranslate nohighlight">\(n_{\text{components}}\)</span> هو حجم الفضاء المسقطة.
 افتراضيًا، يتم تعيين كثافة العناصر غير الصفرية إلى الحد الأدنى من الكثافة كما
 أوصى Ping Li et al.: <span class="math notranslate nohighlight">\(1 / \sqrt{n_{\text{features}}}\)</span>.</p>
-<p>هنا مقتطف صغير يوضح كيفية استخدام محول التصميم العشوائي النادر:</p>
+<p>هنا مقتطف صغير يوضح كيفية استخدام محول الإسقاط العشوائي النادر:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">random_projection</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
@@ -793,18 +793,18 @@
 <p class="rubric">المراجع</p>
 <ul class="simple">
 <li><p>D. Achlioptas. 2003.
-<a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S0022000003000254">التصميم العشوائي الصديق لقواعد البيانات: جونسون-ليندستراوس
+<a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S0022000003000254">الإسقاط العشوائي الصديق لقواعد البيانات: جونسون-ليندستراوس
 مع عملات معدنية ثنائية</a>.
 مجلة علوم الكمبيوتر والنظم 66 (2003) 671-687.</p></li>
 <li><p>Ping Li، Trevor J. Hastie، وKenneth W. Church. 2006.
-<a class="reference external" href="https://web.stanford.edu/~hastie/Papers/Ping/KDD06_rp.pdf">التصميم العشوائي النادر للغاية.</a>
+<a class="reference external" href="https://web.stanford.edu/~hastie/Papers/Ping/KDD06_rp.pdf">الإسقاط العشوائي النادر للغاية.</a>
 في وقائع المؤتمر الدولي الثاني عشر ACM SIGKDD حول
 اكتشاف المعرفة واستخراج البيانات (KDD '06). ACM، نيويورك، نيويورك، الولايات المتحدة الأمريكية، 287-296.</p></li>
 </ul>
 </section>
 <section id="random-projection-inverse-transform">
 <span id="id11"></span><h2><span class="section-number">6.6.4. </span>التحويل العكسي<a class="headerlink" href="#random-projection-inverse-transform" title="Link to this heading">#</a></h2>
-<p>للمحولات التصميم العشوائي معلمة <code class="docutils literal notranslate"><span class="pre">compute_inverse_components</span></code>. عندما
+<p>للمحولات الإسقاط العشوائي معلمة <code class="docutils literal notranslate"><span class="pre">compute_inverse_components</span></code>. عندما
 يتم تعيينها إلى True، بعد إنشاء مصفوفة <code class="docutils literal notranslate"><span class="pre">components_</span></code> العشوائية أثناء التجهيز،
 يقوم المحول بحساب العكسي الزائف لهذه المصفوفة وتخزينها كـ
 <code class="docutils literal notranslate"><span class="pre">inverse_components_</span></code>. تحتوي مصفوفة <code class="docutils literal notranslate"><span class="pre">inverse_components_</span></code> على الشكل
@@ -889,8 +889,8 @@
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#johnson-lindenstrauss">6.6.1. مبرهنة جونسون-ليندستراوس</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-random-matrix">6.6.2. التصميم العشوائي ذاتي</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sparse-random-matrix">6.6.3. التصميم العشوائي النادر</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-random-matrix">6.6.2. الإسقاط العشوائي ذاتي</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sparse-random-matrix">6.6.3. الإسقاط العشوائي النادر</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#random-projection-inverse-transform">6.6.4. التحويل العكسي</a></li>
 </ul>
   </nav></div>

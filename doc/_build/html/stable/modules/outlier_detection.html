@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="2.7. كشف الجِدّة والقيم المتطرفة" />
+<meta property="og:title" content="2.7. كشف القيم الغريبة والقيم المتطرفة" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/modules/outlier_detection.html" />
 <meta property="og:site_name" content="scikit-learn" />
@@ -16,7 +16,7 @@
 <meta property="og:image:alt" content="scikit-learn" />
 <meta name="description" content="تتطلب العديد من التطبيقات القدرة على تحديد ما إذا كانت مشاهدة جديدة تنتمي إلى نفس توزيع المشاهدات الموجودة (إنها قيمة داخلية)، أو يجب اعتبارها مختلفة (إنها قيمة متطرفة). غالبًا ما تُستخدم هذه القدر..." />
 
-    <title>2.7. كشف الجِدّة والقيم المتطرفة &#8212; scikit-learn 1.6.dev0 documentation</title>
+    <title>2.7. كشف القيم الغريبة والقيم المتطرفة &#8212; scikit-learn 1.6.dev0 documentation</title>
   
   
   
@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/colors.css?v=cc94ab7d" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/custom.css?v=fe191a13" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/custom.css?v=85b0813d" />
   
   <!-- So that users can add custom icons -->
   <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
@@ -577,12 +577,12 @@
 <li class="toctree-l2"><a class="reference internal" href="biclustering.html">2.4. التجميع الثنائي</a></li>
 <li class="toctree-l2"><a class="reference internal" href="decomposition.html">2.5. تحليل الإشارات إلى مكونات (مشاكل تحليل المصفوفات)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="covariance.html">2.6. تقدير التباين المشترك</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.7. كشف الجِدّة والقيم المتطرفة</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.7. كشف القيم الغريبة والقيم المتطرفة</a></li>
 <li class="toctree-l2"><a class="reference internal" href="density.html">2.8. تقدير الكثافة</a></li>
 <li class="toctree-l2"><a class="reference internal" href="neural_networks_unsupervised.html">2.9. نماذج الشبكة العصبية (غير خاضعة للإشراف)</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../model_selection.html">3. تقييم واختيار النموذج</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../model_selection.html">3. تقييم وإختيار النموذج</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="cross_validation.html">3.1. التحقق المتبادل: تقييم أداء المقدر</a></li>
 <li class="toctree-l2"><a class="reference internal" href="grid_search.html">3.2. ضبط المعلمات الفائقة لمُقدِّر</a></li>
 <li class="toctree-l2"><a class="reference internal" href="classification_threshold.html">3.3. ضبط عتبة القرار لتنبؤ الفئة</a></li>
@@ -592,17 +592,17 @@
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../inspection.html">4. الفحص</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="partial_dependence.html">4.1. مخططات الاعتماد الجزئي والتوقع الشرطي الفردي</a></li>
-<li class="toctree-l2"><a class="reference internal" href="permutation_importance.html">4.2. أهمية ميزة التبديل</a></li>
+<li class="toctree-l2"><a class="reference internal" href="permutation_importance.html">4.2. أهمية التبديل</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../visualizations.html">5. التصورات</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualizations.html">5. التصورات المرئية</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../data_transforms.html">6. تحويلات مجموعات البيانات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="compose.html">6.1. خطوط الأنابيب والمقدرات المركبة</a></li>
 <li class="toctree-l2"><a class="reference internal" href="feature_extraction.html">6.2. استخراج الميزات</a></li>
-<li class="toctree-l2"><a class="reference internal" href="preprocessing.html">6.3. معالجة البيانات مُسبقًا</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html">6.3. المعالجة المسبقة للبيانات</a></li>
 <li class="toctree-l2"><a class="reference internal" href="impute.html">6.4. تعويض القيم المفقودة</a></li>
 <li class="toctree-l2"><a class="reference internal" href="unsupervised_reduction.html">6.5. تخفيض الأبعاد غير الخاضع للإشراف</a></li>
-<li class="toctree-l2"><a class="reference internal" href="random_projection.html">6.6. التصميم العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="random_projection.html">6.6. الإسقاط العشوائي</a></li>
 <li class="toctree-l2"><a class="reference internal" href="kernel_approximation.html">6.7. Kernel Approximation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="metrics.html">6.8. مقاييس المقارنة الزوجية، والصلات، والنوى (Kernels)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="preprocessing_targets.html">6.9. تحويل هدف التنبؤ (<code class="docutils literal notranslate"><span class="pre">y</span></code>)</a></li>
@@ -618,7 +618,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../computing/parallelism.html">11.3. التوازي وإدارة الموارد والتهيئة</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="../model_persistence.html">12. استمرارية النموذج</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../model_persistence.html">12. حفظ النموذج</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../common_pitfalls.html">13. المخاطر الشائعة والممارسات الموصى بها</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../dispatching.html">14. Dispatching</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="array_api.html">14.1. دعم المدخلات المتوافقة مع <code class="docutils literal notranslate"><span class="pre">Array</span> <span class="pre">API</span></code></a></li>
@@ -668,7 +668,7 @@
     
     <li class="breadcrumb-item"><a href="../unsupervised_learning.html" class="nav-link"><span class="section-number">2. </span>التعليم الغير خاضع للإشراف</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">2.7. </span>كشف الجِدّة والقيم المتطرفة</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">2.7. </span>كشف القيم الغريبة والقيم المتطرفة</span></li>
   </ul>
 </nav>
 </div>
@@ -686,18 +686,18 @@
                 <article class="bd-article">
                   
   <section id="outlier-detection">
-<span id="id1"></span><h1><span class="section-number">2.7. </span>كشف الجِدّة والقيم المتطرفة<a class="headerlink" href="#outlier-detection" title="Link to this heading">#</a></h1>
+<span id="id1"></span><h1><span class="section-number">2.7. </span>كشف القيم الغريبة والقيم المتطرفة<a class="headerlink" href="#outlier-detection" title="Link to this heading">#</a></h1>
 <p>تتطلب العديد من التطبيقات القدرة على تحديد ما إذا كانت مشاهدة جديدة تنتمي إلى نفس توزيع المشاهدات الموجودة (إنها <em>قيمة داخلية</em>)، أو يجب اعتبارها مختلفة (إنها <em>قيمة متطرفة</em>). غالبًا ما تُستخدم هذه القدرة لتنظيف مجموعات البيانات الحقيقية. يجب التمييز بين أمرين مهمين:</p>
 <dl class="field-list simple">
 <dt class="field-odd">كشف القيم المتطرفة<span class="colon">:</span></dt>
 <dd class="field-odd"><p>تحتوي بيانات التدريب على قيم متطرفة تُعرّف على أنها مشاهدات بعيدة عن الأخرى. وبالتالي، تحاول مقدرات كشف القيم المتطرفة ملاءمة المناطق التي تتركز فيها بيانات التدريب بشكل كبير، متجاهلة المشاهدات الشاذة.</p>
 </dd>
-<dt class="field-even">كشف الجِدّة<span class="colon">:</span></dt>
-<dd class="field-even"><p>بيانات التدريب غير ملوثة بالقيم المتطرفة، ونحن مهتمون باكتشاف ما إذا كانت مشاهدة <strong>جديدة</strong> قيمة متطرفة. في هذا السياق، تُسمى القيمة المتطرفة أيضًا بالجدة.</p>
+<dt class="field-even">كشف القيم الغريبة<span class="colon">:</span></dt>
+<dd class="field-even"><p>بيانات التدريب غير ملوثة بالقيم المتطرفة، ونحن مهتمون باكتشاف ما إذا كانت مشاهدة <strong>جديدة</strong> قيمة متطرفة. في هذا السياق، تُسمى القيمة المتطرفة أيضًا بالقيم الغريبة.</p>
 </dd>
 </dl>
-<p>يُستخدم كل من كشف القيم المتطرفة وكشف الجِدّة لكشف الشذوذ، حيث يهتم المرء باكتشاف المشاهدات الشاذة أو غير العادية. يُعرف كشف القيم المتطرفة أيضًا باسم كشف الشذوذ غير الخاضع للإشراف، وكشف الجدة باسم كشف الشذوذ شبه الخاضع للإشراف. في سياق كشف القيم المتطرفة، لا يمكن للقيم المتطرفة/الشذوذ أن تُشكّل مجموعة كثيفة حيث تفترض المقدرات المتاحة أن القيم المتطرفة/الشذوذ تقع في مناطق منخفضة الكثافة. على العكس من ذلك، في سياق كشف الجدة، يمكن للجِدّة/الشذوذ أن تُشكّل مجموعة كثيفة طالما أنها في منطقة منخفضة الكثافة من بيانات التدريب، والتي تُعتبر طبيعية في هذا السياق.</p>
-<p>يُوفر مشروع scikit-learn مجموعة من أدوات تعلم الآلة التي يمكن استخدامها لكل من كشف الجِدّة أو القيم المتطرفة. يتم تطبيق هذه الاستراتيجية مع الكائنات التي تتعلم بطريقة غير خاضعة للإشراف من البيانات:</p>
+<p>يُستخدم كل من كشف القيم المتطرفة وكشف القيم الغريبة لكشف الشذوذ، حيث يهتم المرء باكتشاف المشاهدات الشاذة أو غير العادية. يُعرف كشف القيم المتطرفة أيضًا باسم كشف الشذوذ غير الخاضع للإشراف، وكشف القيم الغريبة باسم كشف الشذوذ شبه الخاضع للإشراف. في سياق كشف القيم المتطرفة، لا يمكن للقيم المتطرفة/الشذوذ أن تُشكّل مجموعة كثيفة حيث تفترض المقدرات المتاحة أن القيم المتطرفة/الشذوذ تقع في مناطق منخفضة الكثافة. على العكس من ذلك، في سياق كشف القيم الغريبة، يمكن للجِدّة/الشذوذ أن تُشكّل مجموعة كثيفة طالما أنها في منطقة منخفضة الكثافة من بيانات التدريب، والتي تُعتبر طبيعية في هذا السياق.</p>
+<p>يُوفر مشروع scikit-learn مجموعة من أدوات تعلم الآلة التي يمكن استخدامها لكل من كشف القيم الغريبة أو القيم المتطرفة. يتم تطبيق هذه الاستراتيجية مع الكائنات التي تتعلم بطريقة غير خاضعة للإشراف من البيانات:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">estimator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -711,10 +711,10 @@
 </pre></div>
 </div>
 <p>لاحظ أن <a class="reference internal" href="generated/sklearn.neighbors.LocalOutlierFactor.html#sklearn.neighbors.LocalOutlierFactor" title="sklearn.neighbors.LocalOutlierFactor"><code class="xref py py-class docutils literal notranslate"><span class="pre">neighbors.LocalOutlierFactor</span></code></a> لا يدعم طرق <code class="docutils literal notranslate"><span class="pre">predict</span></code> و <code class="docutils literal notranslate"><span class="pre">decision_function</span></code> و <code class="docutils literal notranslate"><span class="pre">score_samples</span></code> افتراضيًا، ولكن فقط طريقة <code class="docutils literal notranslate"><span class="pre">fit_predict</span></code>، حيث كان من المفترض أصلاً تطبيق هذا المقدّر لكشف القيم المتطرفة. يمكن الوصول إلى درجات شذوذ عينات التدريب من خلال السمة <code class="docutils literal notranslate"><span class="pre">negative_outlier_factor_</span></code>.</p>
-<p>إذا كنت تُريد حقًا استخدام <a class="reference internal" href="generated/sklearn.neighbors.LocalOutlierFactor.html#sklearn.neighbors.LocalOutlierFactor" title="sklearn.neighbors.LocalOutlierFactor"><code class="xref py py-class docutils literal notranslate"><span class="pre">neighbors.LocalOutlierFactor</span></code></a> لكشف الجِدّة، أي التنبؤ بالتسميات أو حساب درجة شذوذ البيانات الجديدة غير المرئية، فيمكنك إنشاء مثيل للمقدر باستخدام المعلمة <code class="docutils literal notranslate"><span class="pre">novelty</span></code> المُعيّنة إلى <code class="docutils literal notranslate"><span class="pre">True</span></code> قبل ملاءمة المقدّر. في هذه الحالة، <code class="docutils literal notranslate"><span class="pre">fit_predict</span></code> غير متوفرة.</p>
+<p>إذا كنت تُريد حقًا استخدام <a class="reference internal" href="generated/sklearn.neighbors.LocalOutlierFactor.html#sklearn.neighbors.LocalOutlierFactor" title="sklearn.neighbors.LocalOutlierFactor"><code class="xref py py-class docutils literal notranslate"><span class="pre">neighbors.LocalOutlierFactor</span></code></a> لكشف القيم الغريبة، أي التنبؤ بالتسميات أو حساب درجة شذوذ البيانات الجديدة غير المرئية، فيمكنك إنشاء مثيل للمقدر باستخدام المعلمة <code class="docutils literal notranslate"><span class="pre">novelty</span></code> المُعيّنة إلى <code class="docutils literal notranslate"><span class="pre">True</span></code> قبل ملاءمة المقدّر. في هذه الحالة، <code class="docutils literal notranslate"><span class="pre">fit_predict</span></code> غير متوفرة.</p>
 <div class="admonition warning">
 <p class="admonition-title">تحذير</p>
-<p><strong>كشف الجدة باستخدام مُعامل القيم المتطرفة المحلي</strong></p>
+<p><strong>كشف القيم الغريبة باستخدام مُعامل القيم المتطرفة المحلي</strong></p>
 <p>عندما يتم تعيين <code class="docutils literal notranslate"><span class="pre">novelty</span></code> إلى <code class="docutils literal notranslate"><span class="pre">True</span></code>، انتبه إلى أنه يجب عليك فقط استخدام <code class="docutils literal notranslate"><span class="pre">predict</span></code> و <code class="docutils literal notranslate"><span class="pre">decision_function</span></code> و <code class="docutils literal notranslate"><span class="pre">score_samples</span></code> على البيانات الجديدة غير المرئية وليس على عينات التدريب، لأن هذا سيؤدي إلى نتائج خاطئة. بمعنى آخر، لن تكون نتيجة <code class="docutils literal notranslate"><span class="pre">predict</span></code> هي نفس نتيجة <code class="docutils literal notranslate"><span class="pre">fit_predict</span></code>. يمكن دائمًا الوصول إلى درجات شذوذ عينات التدريب من خلال السمة <code class="docutils literal notranslate"><span class="pre">negative_outlier_factor_</span></code>.</p>
 </div>
 <p>يتم تلخيص سلوك <a class="reference internal" href="generated/sklearn.neighbors.LocalOutlierFactor.html#sklearn.neighbors.LocalOutlierFactor" title="sklearn.neighbors.LocalOutlierFactor"><code class="xref py py-class docutils literal notranslate"><span class="pre">neighbors.LocalOutlierFactor</span></code></a> في الجدول التالي.</p>
@@ -733,8 +733,8 @@
 </ul>
 </section>
 <section id="id3">
-<h2><span class="section-number">2.7.2. </span>كشف الجدة<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
-<p>خذ في الاعتبار مجموعة بيانات من <span class="math notranslate nohighlight">\(n\)</span> مشاهدات من نفس التوزيع الموصوف بواسطة <span class="math notranslate nohighlight">\(p\)</span> ميزات. خذ في الاعتبار الآن أننا نُضيف مشاهدة واحدة أخرى إلى مجموعة البيانات هذه. هل المشاهدة الجديدة مختلفة عن الأخرى لدرجة أننا نشك في أنها منتظمة؟ (أي هل تأتي من نفس التوزيع؟) أم على العكس من ذلك، هل هي مشابهة جدًا للأخرى لدرجة أننا لا نستطيع تمييزها عن المشاهدات الأصلية؟ هذا هو السؤال الذي تُعالجه أدوات وأساليب كشف الجدة.</p>
+<h2><span class="section-number">2.7.2. </span>كشف القيم الغريبة<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>خذ في الاعتبار مجموعة بيانات من <span class="math notranslate nohighlight">\(n\)</span> مشاهدات من نفس التوزيع الموصوف بواسطة <span class="math notranslate nohighlight">\(p\)</span> ميزات. خذ في الاعتبار الآن أننا نُضيف مشاهدة واحدة أخرى إلى مجموعة البيانات هذه. هل المشاهدة الجديدة مختلفة عن الأخرى لدرجة أننا نشك في أنها منتظمة؟ (أي هل تأتي من نفس التوزيع؟) أم على العكس من ذلك، هل هي مشابهة جدًا للأخرى لدرجة أننا لا نستطيع تمييزها عن المشاهدات الأصلية؟ هذا هو السؤال الذي تُعالجه أدوات وأساليب كشف القيم الغريبة.</p>
 <p>بشكل عام، يتعلق الأمر بتعلم حدود تقريبية تُحدّد محيط توزيع المشاهدات الأولية، المرسومة في فضاء تضمين <span class="math notranslate nohighlight">\(p\)</span> الأبعاد. بعد ذلك، إذا كانت المزيد من المشاهدات تقع داخل الفضاء الجزئي المُحدّد بالحدود، فإنها تُعتبر من نفس مجموعة المشاهدات الأولية. وإلا، إذا كانت تقع خارج الحدود، يمكننا القول إنها غير طبيعية مع ثقة مُعطاة في تقييمنا.</p>
 <p>تم تقديم One-Class SVM بواسطة Schölkopf وآخرون لهذا الغرض وتم تنفيذه في وحدة <a class="reference internal" href="svm.html#svm"><span class="std std-ref">آلات الدعم المتجهية (SVM)</span></a> في الكائن <a class="reference internal" href="generated/sklearn.svm.OneClassSVM.html#sklearn.svm.OneClassSVM" title="sklearn.svm.OneClassSVM"><code class="xref py py-class docutils literal notranslate"><span class="pre">svm.OneClassSVM</span></code></a>. يتطلب اختيار نواة ومعلمة عددية لتعريف الحدود. يتم اختيار نواة RBF عادةً على الرغم من عدم وجود صيغة أو خوارزمية دقيقة لتعيين معلمة عرض النطاق الترددي الخاصة بها. هذا هو الافتراضي في تطبيق scikit-learn. تتوافق المعلمة <code class="docutils literal notranslate"><span class="pre">nu</span></code>، المعروفة أيضًا باسم هامش One-Class SVM، مع احتمال إيجاد مشاهدة جديدة، ولكن منتظمة، خارج الحدود.</p>
 <p class="rubric">المراجع</p>
@@ -762,7 +762,7 @@ Schölkopf, Bernhard, et al. Neural computation 13.7 (2001): 1443-1471.</p></li>
 </section>
 <section id="id4">
 <h2><span class="section-number">2.7.3. </span>كشف القيم المتطرفة<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
-<p>يُشبه كشف القيم المتطرفة كشف الجدة بمعنى أن الهدف هو فصل جوهر المشاهدات المنتظمة عن بعض المشاهدات الملوثة، التي تُسمى <em>القيم المتطرفة</em>. ومع ذلك، في حالة كشف القيم المتطرفة، ليس لدينا مجموعة بيانات نظيفة تُمثل مجموعة المشاهدات المنتظمة التي يمكن استخدامها لتدريب أي أداة.</p>
+<p>يُشبه كشف القيم المتطرفة كشف القيم الغريبة بمعنى أن الهدف هو فصل جوهر المشاهدات المنتظمة عن بعض المشاهدات الملوثة، التي تُسمى <em>القيم المتطرفة</em>. ومع ذلك، في حالة كشف القيم المتطرفة، ليس لدينا مجموعة بيانات نظيفة تُمثل مجموعة المشاهدات المنتظمة التي يمكن استخدامها لتدريب أي أداة.</p>
 <section id="id5">
 <h3><span class="section-number">2.7.3.1. </span>ملاءمة غلاف بيضاوي<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
 <p>إحدى الطرق الشائعة لإجراء كشف القيم المتطرفة هي افتراض أن البيانات المنتظمة تأتي من توزيع معروف (على سبيل المثال، البيانات موزعة غاوسيًا). من هذا الافتراض، نحاول عمومًا تحديد &quot;شكل&quot; البيانات، ويمكننا تعريف المشاهدات المتطرفة على أنها مشاهدات تبتعد بما فيه الكفاية عن الشكل المُناسب.</p>
@@ -823,7 +823,7 @@ Data Mining, 2008. ICDM'08. Eighth IEEE International Conference on.</p></li>
 <p>في الممارسة العملية، يتم الحصول على الكثافة المحلية من أقرب k جيران. درجة LOF للمشاهدة تساوي نسبة متوسط الكثافة المحلية لأقرب k جيران لها، وكثافتها المحلية الخاصة: من المتوقع أن يكون للمثيل العادي كثافة محلية تُشبه كثافة جيرانها، بينما من المتوقع أن يكون للبيانات الشاذة كثافة محلية أصغر بكثير.</p>
 <p>عادةً ما يتم اختيار عدد k من الجيران الذين تم أخذهم في الاعتبار (المعلمة البديلة n_neighbors) 1) أكبر من الحد الأدنى لعدد الكائنات التي يجب أن تحتويها المجموعة، بحيث يمكن أن تكون الكائنات الأخرى قيمًا متطرفة محلية بالنسبة لهذه المجموعة، و 2) أصغر من الحد الأقصى لعدد الكائنات القريبة التي يمكن أن تكون قيمًا متطرفة محلية. في الممارسة العملية، هذه المعلومات غير متوفرة بشكل عام، ويبدو أن أخذ n_neighbors=20 يعمل بشكل جيد بشكل عام. عندما تكون نسبة القيم المتطرفة عالية (أي أكبر من 10٪، كما في المثال أدناه)، يجب أن تكون n_neighbors أكبر (n_neighbors=35 في المثال أدناه).</p>
 <p>تكمن قوة خوارزمية LOF في أنها تأخذ في الاعتبار كل من الخصائص المحلية والعالمية لمجموعات البيانات: يمكنها الأداء الجيد حتى في مجموعات البيانات حيث تحتوي العينات الشاذة على كثافات أساسية مختلفة. السؤال ليس، ما مدى عزلة العينة، ولكن ما مدى عزلتها بالنسبة للحي المحيط.</p>
-<p>عند تطبيق LOF لكشف القيم المتطرفة، لا توجد طرق <code class="docutils literal notranslate"><span class="pre">predict</span></code> و <code class="docutils literal notranslate"><span class="pre">decision_function</span></code> و <code class="docutils literal notranslate"><span class="pre">score_samples</span></code>، ولكن فقط طريقة <code class="docutils literal notranslate"><span class="pre">fit_predict</span></code>. يمكن الوصول إلى درجات شذوذ عينات التدريب من خلال السمة <code class="docutils literal notranslate"><span class="pre">negative_outlier_factor_</span></code>. لاحظ أنه يمكن استخدام <code class="docutils literal notranslate"><span class="pre">predict</span></code> و <code class="docutils literal notranslate"><span class="pre">decision_function</span></code> و <code class="docutils literal notranslate"><span class="pre">score_samples</span></code> على بيانات جديدة غير مرئية عند تطبيق LOF لكشف الجدة، أي عندما يتم تعيين المعلمة <code class="docutils literal notranslate"><span class="pre">novelty</span></code> إلى <code class="docutils literal notranslate"><span class="pre">True</span></code>، ولكن قد تختلف نتيجة <code class="docutils literal notranslate"><span class="pre">predict</span></code> عن نتيجة <code class="docutils literal notranslate"><span class="pre">fit_predict</span></code>. انظر <a class="reference internal" href="#novelty-with-lof"><span class="std std-ref">كشف الجدة باستخدام مُعامل القيم المتطرفة المحلي</span></a>.</p>
+<p>عند تطبيق LOF لكشف القيم المتطرفة، لا توجد طرق <code class="docutils literal notranslate"><span class="pre">predict</span></code> و <code class="docutils literal notranslate"><span class="pre">decision_function</span></code> و <code class="docutils literal notranslate"><span class="pre">score_samples</span></code>، ولكن فقط طريقة <code class="docutils literal notranslate"><span class="pre">fit_predict</span></code>. يمكن الوصول إلى درجات شذوذ عينات التدريب من خلال السمة <code class="docutils literal notranslate"><span class="pre">negative_outlier_factor_</span></code>. لاحظ أنه يمكن استخدام <code class="docutils literal notranslate"><span class="pre">predict</span></code> و <code class="docutils literal notranslate"><span class="pre">decision_function</span></code> و <code class="docutils literal notranslate"><span class="pre">score_samples</span></code> على بيانات جديدة غير مرئية عند تطبيق LOF لكشف القيم الغريبة، أي عندما يتم تعيين المعلمة <code class="docutils literal notranslate"><span class="pre">novelty</span></code> إلى <code class="docutils literal notranslate"><span class="pre">True</span></code>، ولكن قد تختلف نتيجة <code class="docutils literal notranslate"><span class="pre">predict</span></code> عن نتيجة <code class="docutils literal notranslate"><span class="pre">fit_predict</span></code>. انظر <a class="reference internal" href="#novelty-with-lof"><span class="std std-ref">كشف القيم الغريبة باستخدام مُعامل القيم المتطرفة المحلي</span></a>.</p>
 <p>تم توضيح هذه الاستراتيجية أدناه.</p>
 <figure class="align-center">
 <a class="reference external image-reference" href="../auto_examples/neighbors/plot_lof_outlier_detection.html"><img alt="../_images/sphx_glr_plot_lof_outlier_detection_001.png" src="../_images/sphx_glr_plot_lof_outlier_detection_001.png" style="width: 480.0px; height: 360.0px;" />
@@ -843,8 +843,8 @@ Proc. ACM SIGMOD</p></li>
 </section>
 </section>
 <section id="novelty-with-lof">
-<span id="id8"></span><h2><span class="section-number">2.7.4. </span>كشف الجدة باستخدام مُعامل القيم المتطرفة المحلي<a class="headerlink" href="#novelty-with-lof" title="Link to this heading">#</a></h2>
-<p>لاستخدام <a class="reference internal" href="generated/sklearn.neighbors.LocalOutlierFactor.html#sklearn.neighbors.LocalOutlierFactor" title="sklearn.neighbors.LocalOutlierFactor"><code class="xref py py-class docutils literal notranslate"><span class="pre">neighbors.LocalOutlierFactor</span></code></a> لكشف الجدة، أي التنبؤ بالتسميات أو حساب درجة شذوذ البيانات الجديدة غير المرئية، تحتاج إلى إنشاء مثيل للمقدر باستخدام المعلمة <code class="docutils literal notranslate"><span class="pre">novelty</span></code> المُعيّنة إلى <code class="docutils literal notranslate"><span class="pre">True</span></code> قبل ملاءمة المقدّر:</p>
+<span id="id8"></span><h2><span class="section-number">2.7.4. </span>كشف القيم الغريبة باستخدام مُعامل القيم المتطرفة المحلي<a class="headerlink" href="#novelty-with-lof" title="Link to this heading">#</a></h2>
+<p>لاستخدام <a class="reference internal" href="generated/sklearn.neighbors.LocalOutlierFactor.html#sklearn.neighbors.LocalOutlierFactor" title="sklearn.neighbors.LocalOutlierFactor"><code class="xref py py-class docutils literal notranslate"><span class="pre">neighbors.LocalOutlierFactor</span></code></a> لكشف القيم الغريبة، أي التنبؤ بالتسميات أو حساب درجة شذوذ البيانات الجديدة غير المرئية، تحتاج إلى إنشاء مثيل للمقدر باستخدام المعلمة <code class="docutils literal notranslate"><span class="pre">novelty</span></code> المُعيّنة إلى <code class="docutils literal notranslate"><span class="pre">True</span></code> قبل ملاءمة المقدّر:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lof</span> <span class="o">=</span> <span class="n">LocalOutlierFactor</span><span class="p">(</span><span class="n">novelty</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">lof</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
 </pre></div>
@@ -852,10 +852,10 @@ Proc. ACM SIGMOD</p></li>
 <p>لاحظ أن <code class="docutils literal notranslate"><span class="pre">fit_predict</span></code> غير متوفرة في هذه الحالة لتجنب التناقضات.</p>
 <div class="admonition warning">
 <p class="admonition-title">تحذير</p>
-<p><strong>كشف الجدة باستخدام مُعامل القيم المتطرفة المحلي</strong></p>
+<p><strong>كشف القيم الغريبة باستخدام مُعامل القيم المتطرفة المحلي</strong></p>
 <p>عندما يتم تعيين <code class="docutils literal notranslate"><span class="pre">novelty</span></code> إلى <code class="docutils literal notranslate"><span class="pre">True</span></code>، انتبه إلى أنه يجب عليك فقط استخدام <code class="docutils literal notranslate"><span class="pre">predict</span></code> و <code class="docutils literal notranslate"><span class="pre">decision_function</span></code> و <code class="docutils literal notranslate"><span class="pre">score_samples</span></code> على البيانات الجديدة غير المرئية وليس على عينات التدريب، لأن هذا سيؤدي إلى نتائج خاطئة. بمعنى آخر، لن تكون نتيجة <code class="docutils literal notranslate"><span class="pre">predict</span></code> هي نفس نتيجة <code class="docutils literal notranslate"><span class="pre">fit_predict</span></code>. يمكن دائمًا الوصول إلى درجات شذوذ عينات التدريب من خلال السمة <code class="docutils literal notranslate"><span class="pre">negative_outlier_factor_</span></code>.</p>
 </div>
-<p>يتم توضيح كشف الجدة باستخدام مُعامل القيم المتطرفة المحلي أدناه.</p>
+<p>يتم توضيح كشف القيم الغريبة باستخدام مُعامل القيم المتطرفة المحلي أدناه.</p>
 <figure class="align-center">
 <a class="reference external image-reference" href="../auto_examples/neighbors/plot_lof_novelty_detection.html"><img alt="../_images/sphx_glr_plot_lof_novelty_detection_001.png" src="../_images/sphx_glr_plot_lof_novelty_detection_001.png" style="width: 480.0px; height: 360.0px;" />
 </a>
@@ -915,7 +915,7 @@ Proc. ACM SIGMOD</p></li>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.7.1. نظرة عامة على أساليب كشف القيم المتطرفة</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.7.2. كشف الجدة</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.7.2. كشف القيم الغريبة</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-class-svm">2.7.2.1. توسيع نطاق One-Class SVM</a></li>
 </ul>
 </li>
@@ -925,7 +925,7 @@ Proc. ACM SIGMOD</p></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-outlier-factor">2.7.3.3. مُعامل القيم المتطرفة المحلي</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#novelty-with-lof">2.7.4. كشف الجدة باستخدام مُعامل القيم المتطرفة المحلي</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#novelty-with-lof">2.7.4. كشف القيم الغريبة باستخدام مُعامل القيم المتطرفة المحلي</a></li>
 </ul>
   </nav></div>
 

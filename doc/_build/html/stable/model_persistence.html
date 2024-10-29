@@ -7,16 +7,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="12. استمرارية النموذج" />
+<meta property="og:title" content="12. حفظ النموذج" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/model_persistence.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="ملخص لطرق استمرارية النموذج:,,, طريقة الاستمرارية, الإيجابيات, المخاطر / السلبيات,,, ONNX, تقديم النماذج بدون بيئة Python, تقديم بيئات التدريب بشكل مستقل عن بعضها البعض, الخيار الأكثر أمانًا., لا ي..." />
+<meta property="og:description" content="ملخص لطرق حفظ النموذج:,,, طريقة الحفظ, الإيجابيات, المخاطر / السلبيات,,, ONNX, تقديم النماذج بدون بيئة Python, تقديم بيئات التدريب بشكل مستقل عن بعضها البعض, الخيار الأكثر أمانًا., لا يتم دعم جميع ..." />
 <meta property="og:image" content="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" />
 <meta property="og:image:alt" content="scikit-learn" />
-<meta name="description" content="ملخص لطرق استمرارية النموذج:,,, طريقة الاستمرارية, الإيجابيات, المخاطر / السلبيات,,, ONNX, تقديم النماذج بدون بيئة Python, تقديم بيئات التدريب بشكل مستقل عن بعضها البعض, الخيار الأكثر أمانًا., لا ي..." />
+<meta name="description" content="ملخص لطرق حفظ النموذج:,,, طريقة الحفظ, الإيجابيات, المخاطر / السلبيات,,, ONNX, تقديم النماذج بدون بيئة Python, تقديم بيئات التدريب بشكل مستقل عن بعضها البعض, الخيار الأكثر أمانًا., لا يتم دعم جميع ..." />
 
-    <title>12. استمرارية النموذج &#8212; scikit-learn 1.6.dev0 documentation</title>
+    <title>12. حفظ النموذج &#8212; scikit-learn 1.6.dev0 documentation</title>
   
   
   
@@ -49,7 +49,7 @@
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/styles/colors.css?v=cc94ab7d" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/custom.css?v=fe191a13" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/custom.css?v=85b0813d" />
   
   <!-- So that users can add custom icons -->
   <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
@@ -576,12 +576,12 @@
 <li class="toctree-l2"><a class="reference internal" href="modules/biclustering.html">2.4. التجميع الثنائي</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/decomposition.html">2.5. تحليل الإشارات إلى مكونات (مشاكل تحليل المصفوفات)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/covariance.html">2.6. تقدير التباين المشترك</a></li>
-<li class="toctree-l2"><a class="reference internal" href="modules/outlier_detection.html">2.7. كشف الجِدّة والقيم المتطرفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/outlier_detection.html">2.7. كشف القيم الغريبة والقيم المتطرفة</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/density.html">2.8. تقدير الكثافة</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/neural_networks_unsupervised.html">2.9. نماذج الشبكة العصبية (غير خاضعة للإشراف)</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="model_selection.html">3. تقييم واختيار النموذج</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="model_selection.html">3. تقييم وإختيار النموذج</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="modules/cross_validation.html">3.1. التحقق المتبادل: تقييم أداء المقدر</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/grid_search.html">3.2. ضبط المعلمات الفائقة لمُقدِّر</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/classification_threshold.html">3.3. ضبط عتبة القرار لتنبؤ الفئة</a></li>
@@ -591,17 +591,17 @@
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="inspection.html">4. الفحص</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="modules/partial_dependence.html">4.1. مخططات الاعتماد الجزئي والتوقع الشرطي الفردي</a></li>
-<li class="toctree-l2"><a class="reference internal" href="modules/permutation_importance.html">4.2. أهمية ميزة التبديل</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/permutation_importance.html">4.2. أهمية التبديل</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="visualizations.html">5. التصورات</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualizations.html">5. التصورات المرئية</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="data_transforms.html">6. تحويلات مجموعات البيانات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="modules/compose.html">6.1. خطوط الأنابيب والمقدرات المركبة</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/feature_extraction.html">6.2. استخراج الميزات</a></li>
-<li class="toctree-l2"><a class="reference internal" href="modules/preprocessing.html">6.3. معالجة البيانات مُسبقًا</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/preprocessing.html">6.3. المعالجة المسبقة للبيانات</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/impute.html">6.4. تعويض القيم المفقودة</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/unsupervised_reduction.html">6.5. تخفيض الأبعاد غير الخاضع للإشراف</a></li>
-<li class="toctree-l2"><a class="reference internal" href="modules/random_projection.html">6.6. التصميم العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/random_projection.html">6.6. الإسقاط العشوائي</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/kernel_approximation.html">6.7. Kernel Approximation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/metrics.html">6.8. مقاييس المقارنة الزوجية، والصلات، والنوى (Kernels)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/preprocessing_targets.html">6.9. تحويل هدف التنبؤ (<code class="docutils literal notranslate"><span class="pre">y</span></code>)</a></li>
@@ -617,7 +617,7 @@
 <li class="toctree-l2"><a class="reference internal" href="computing/parallelism.html">11.3. التوازي وإدارة الموارد والتهيئة</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">12. استمرارية النموذج</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">12. حفظ النموذج</a></li>
 <li class="toctree-l1"><a class="reference internal" href="common_pitfalls.html">13. المخاطر الشائعة والممارسات الموصى بها</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="dispatching.html">14. Dispatching</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="modules/array_api.html">14.1. دعم المدخلات المتوافقة مع <code class="docutils literal notranslate"><span class="pre">Array</span> <span class="pre">API</span></code></a></li>
@@ -664,7 +664,7 @@
     
     <li class="breadcrumb-item"><a href="user_guide.html" class="nav-link">دليل المستخدم</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">12. </span>استمرارية النموذج</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">12. </span>حفظ النموذج</span></li>
   </ul>
 </nav>
 </div>
@@ -682,16 +682,16 @@
                 <article class="bd-article">
                   
   <section id="model-persistence">
-<span id="id1"></span><h1><span class="section-number">12. </span>استمرارية النموذج<a class="headerlink" href="#model-persistence" title="Link to this heading">#</a></h1>
+<span id="id1"></span><h1><span class="section-number">12. </span>حفظ النموذج<a class="headerlink" href="#model-persistence" title="Link to this heading">#</a></h1>
 <div class="pst-scrollable-table-container"><table class="table" id="id8">
-<caption><span class="caption-text">ملخص لطرق استمرارية النموذج</span><a class="headerlink" href="#id8" title="Link to this table">#</a></caption>
+<caption><span class="caption-text">ملخص لطرق حفظ النموذج</span><a class="headerlink" href="#id8" title="Link to this table">#</a></caption>
 <colgroup>
 <col style="width: 20.0%" />
 <col style="width: 40.0%" />
 <col style="width: 40.0%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>طريقة الاستمرارية</p></th>
+<tr class="row-odd"><th class="head"><p>طريقة الحفظ</p></th>
 <th class="head"><p>الإيجابيات</p></th>
 <th class="head"><p>المخاطر / السلبيات</p></th>
 </tr>
@@ -768,28 +768,28 @@
 </tbody>
 </table>
 </div>
-<p>بعد تدريب نموذج scikit-learn، من المستحسن أن يكون لديك طريقة لاستمرار النموذج للاستخدام في المستقبل دون الحاجة إلى إعادة التدريب.
-بناءً على حالة الاستخدام الخاصة بك، هناك عدة طرق مختلفة لاستمرار نموذج scikit-learn، وهنا نساعدك في تحديد الطريقة التي تناسبك بشكل أفضل.
+<p>بعد تدريب نموذج scikit-learn، من المستحسن أن يكون لديك طريقة لحفظ النموذج للاستخدام في المستقبل دون الحاجة إلى إعادة التدريب.
+بناءً على حالة الاستخدام الخاصة بك، هناك عدة طرق مختلفة لحفظ نموذج scikit-learn، وهنا نساعدك في تحديد الطريقة التي تناسبك بشكل أفضل.
 من أجل اتخاذ قرار، تحتاج إلى الإجابة على الأسئلة التالية:</p>
 <ol class="arabic simple">
-<li><p>هل تحتاج إلى كائن Python بعد الاستمرارية، أم أنك تحتاج فقط إلى الاستمرار من أجل تقديم النموذج والحصول على تنبؤات منه؟</p></li>
+<li><p>هل تحتاج إلى كائن Python بعد الحفظ، أم أنك تحتاج فقط إلى الحفظ من أجل تقديم النموذج والحصول على تنبؤات منه؟</p></li>
 </ol>
 <p>إذا كنت تحتاج فقط إلى تقديم النموذج ولا يلزم إجراء مزيد من التحقيق في كائن Python نفسه، فقد يكون <a class="reference internal" href="#onnx-persistence"><span class="std std-ref">ONNX</span></a> هو الأنسب لك.
 لاحظ أنه لا يتم دعم جميع النماذج بواسطة ONNX.</p>
 <p>في حالة عدم ملاءمة ONNX لحالة الاستخدام الخاصة بك، فإن السؤال التالي هو:</p>
 <ol class="arabic simple" start="2">
-<li><p>هل تثق تمامًا في مصدر النموذج، أم أن هناك أي مخاوف أمنية تتعلق بمصدر النموذج المستمر؟</p></li>
+<li><p>هل تثق تمامًا في مصدر النموذج، أم أن هناك أي مخاوف أمنية تتعلق بمصدر النموذج المحفوظ؟</p></li>
 </ol>
-<p>إذا كانت لديك مخاوف أمنية، فيجب عليك التفكير في استخدام <a class="reference internal" href="#skops-persistence"><span class="std std-ref">skops.io</span></a> الذي يعيد لك كائن Python، ولكن على عكس حلول الاستمرارية القائمة على <code class="docutils literal notranslate"><span class="pre">pickle</span></code>، فإن تحميل النموذج المستمر لا يسمح تلقائيًا بتنفيذ كود عشوائي.
-لاحظ أن هذا يتطلب فحصًا يدويًا للملف المستمر، وهو ما يسمح لك <a class="reference external" href="https://skops.readthedocs.io/en/stable/modules/classes.html#module-skops.io" title="(in skops)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">skops.io</span></code></a> بفعله.</p>
-<p>تفترض الحلول الأخرى أنك تثق تمامًا في مصدر الملف المراد تحميله، لأنها جميعًا عرضة لتنفيذ كود عشوائي عند تحميل الملف المستمر نظرًا لأنها تستخدم جميعًا بروتوكول pickle تحت الغطاء.</p>
+<p>إذا كانت لديك مخاوف أمنية، فيجب عليك التفكير في استخدام <a class="reference internal" href="#skops-persistence"><span class="std std-ref">skops.io</span></a> الذي يعيد لك كائن Python، ولكن على عكس حلول الحفظ القائمة على <code class="docutils literal notranslate"><span class="pre">pickle</span></code>، فإن تحميل النموذج المحفوظ لا يسمح تلقائيًا بتنفيذ كود عشوائي.
+لاحظ أن هذا يتطلب فحصًا يدويًا للملف المحفوظ، وهو ما يسمح لك <a class="reference external" href="https://skops.readthedocs.io/en/stable/modules/classes.html#module-skops.io" title="(in skops)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">skops.io</span></code></a> بفعله.</p>
+<p>تفترض الحلول الأخرى أنك تثق تمامًا في مصدر الملف المراد تحميله، لأنها جميعًا عرضة لتنفيذ كود عشوائي عند تحميل الملف المحفوظ نظرًا لأنها تستخدم جميعًا بروتوكول pickle تحت الغطاء.</p>
 <ol class="arabic simple" start="3">
 <li><p>هل تهتم بأداء تحميل النموذج ومشاركته بين العمليات حيث يكون كائن الذاكرة المعين على القرص مفيدًا؟</p></li>
 </ol>
 <p>إذا كانت الإجابة بنعم، فيمكنك التفكير في استخدام <a class="reference internal" href="#pickle-persistence"><span class="std std-ref">joblib</span></a>.
 إذا لم يكن هذا مصدر قلق كبير بالنسبة لك، فيمكنك استخدام وحدة <a class="reference external" href="https://docs.python.org/3/library/pickle.html#module-pickle" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pickle</span></code></a> المدمجة.</p>
 <ol class="arabic simple" start="4">
-<li><p>هل جربت <a class="reference external" href="https://docs.python.org/3/library/pickle.html#module-pickle" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pickle</span></code></a> أو <a class="reference external" href="https://joblib.readthedocs.io/en/latest/index.html#module-joblib" title="(in joblib v1.5.dev0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">joblib</span></code></a> ووجدت أنه لا يمكن استمرار النموذج؟</p></li>
+<li><p>هل جربت <a class="reference external" href="https://docs.python.org/3/library/pickle.html#module-pickle" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pickle</span></code></a> أو <a class="reference external" href="https://joblib.readthedocs.io/en/latest/index.html#module-joblib" title="(in joblib v1.5.dev0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">joblib</span></code></a> ووجدت أنه لا يمكن حفظ النموذج؟</p></li>
 </ol>
 <blockquote>
 <div><p>يمكن أن يحدث ذلك على سبيل المثال عندما يكون لديك وظائف محددة من قبل المستخدم في نموذجك.</p>
@@ -798,9 +798,9 @@
 <section id="id2">
 <h2><span class="section-number">12.1. </span>نظرة عامة على سير العمل<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
 <p>في سير عمل نموذجي، تتمثل الخطوة الأولى في تدريب النموذج باستخدام scikit-learn والمكتبات المتوافقة مع scikit-learn.
-لاحظ أن دعم مقدرات scikit-learn والطرف الثالث يختلف عبر طرق الاستمرارية المختلفة.</p>
+لاحظ أن دعم مقدرات scikit-learn والطرف الثالث يختلف عبر طرق الحفظ المختلفة.</p>
 <section id="id3">
-<h3><span class="section-number">12.1.1. </span>تدريب النموذج واستمراره<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">12.1.1. </span>تدريب النموذج وحفظه<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <p>يعتمد إنشاء نموذج مناسب على حالة الاستخدام الخاصة بك. على سبيل المثال، نقوم هنا بتدريب <a class="reference internal" href="modules/generated/sklearn.ensemble.HistGradientBoostingClassifier.html#sklearn.ensemble.HistGradientBoostingClassifier" title="sklearn.ensemble.HistGradientBoostingClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.ensemble.HistGradientBoostingClassifier</span></code></a> على مجموعة بيانات iris:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">ensemble</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
@@ -810,8 +810,8 @@
 <span class="go">HistGradientBoostingClassifier()</span>
 </pre></div>
 </div>
-<p>بمجرد تدريب النموذج، يمكنك استمراره باستخدام الطريقة التي تريدها، ثم يمكنك تحميل النموذج في بيئة منفصلة والحصول على تنبؤات منه بالنظر إلى بيانات الإدخال.
-هنا يوجد مساران رئيسيان اعتمادًا على كيفية استمرارك وتخطط لتقديم النموذج:</p>
+<p>بمجرد تدريب النموذج، يمكنك حفظه باستخدام الطريقة التي تريدها، ثم يمكنك تحميل النموذج في بيئة منفصلة والحصول على تنبؤات منه بالنظر إلى بيانات الإدخال.
+هنا يوجد مساران رئيسيان اعتمادًا على كيفية حفظك وتخطط لتقديم النموذج:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#onnx-persistence"><span class="std std-ref">ONNX</span></a>: أنت بحاجة إلى وقت تشغيل <code class="docutils literal notranslate"><span class="pre">ONNX</span></code> وبيئة مثبتة بها تبعيات مناسبة لتحميل النموذج واستخدام وقت التشغيل للحصول على تنبؤات.
 يمكن أن تكون هذه البيئة ضئيلة ولا تتطلب بالضرورة حتى تثبيت Python لتحميل النموذج وحساب التنبؤات.
@@ -819,13 +819,13 @@
 <li><p><a class="reference external" href="https://skops.readthedocs.io/en/stable/modules/classes.html#module-skops.io" title="(in skops)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">skops.io</span></code></a>، <a class="reference external" href="https://docs.python.org/3/library/pickle.html#module-pickle" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pickle</span></code></a>، <a class="reference external" href="https://joblib.readthedocs.io/en/latest/index.html#module-joblib" title="(in joblib v1.5.dev0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">joblib</span></code></a>، <a class="reference external" href="https://github.com/cloudpipe/cloudpickle">cloudpickle</a>: أنت بحاجة إلى بيئة Python مثبتة بها التبعيات المناسبة لتحميل النموذج والحصول على تنبؤات منه.
 يجب أن تحتوي هذه البيئة على نفس <strong>الحزم</strong> ونفس <strong>الإصدارات</strong> مثل البيئة التي تم تدريب النموذج فيها.
 لاحظ أن أيا من هذه الطرق لا تدعم تحميل نموذج تم تدريبه باستخدام إصدار مختلف من scikit-learn، وربما إصدارات مختلفة من التبعيات الأخرى مثل <code class="docutils literal notranslate"><span class="pre">numpy</span></code> و <code class="docutils literal notranslate"><span class="pre">scipy</span></code>.
-سيكون مصدر قلق آخر هو تشغيل النموذج المستمر على أجهزة مختلفة، وفي معظم الحالات يجب أن تكون قادرًا على تحميل النموذج المستمر على أجهزة مختلفة.</p></li>
+سيكون مصدر قلق آخر هو تشغيل النموذج المحفوظ على أجهزة مختلفة، وفي معظم الحالات يجب أن تكون قادرًا على تحميل النموذج المحفوظ على أجهزة مختلفة.</p></li>
 </ul>
 </section>
 </section>
 <section id="onnx">
 <span id="onnx-persistence"></span><h2><span class="section-number">12.2. </span>ONNX<a class="headerlink" href="#onnx" title="Link to this heading">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">ONNX</span></code>، أو تنسيق <a class="reference external" href="https://onnx.ai/">Open Neural Network Exchange</a> هو الأنسب في حالات الاستخدام حيث يحتاج المرء إلى استمرار النموذج ثم استخدام المصنوعات اليدوية المستمرة للحصول على تنبؤات دون الحاجة إلى تحميل كائن Python نفسه.
+<p><code class="docutils literal notranslate"><span class="pre">ONNX</span></code>، أو تنسيق <a class="reference external" href="https://onnx.ai/">Open Neural Network Exchange</a> هو الأنسب في حالات الاستخدام حيث يحتاج المرء إلى حفظ النموذج ثم استخدام المصنوعات اليدوية المحفوظة للحصول على تنبؤات دون الحاجة إلى تحميل كائن Python نفسه.
 كما أنه مفيد في الحالات التي تحتاج فيها بيئة التقديم إلى أن تكون خفيفة وبسيطة، لأن وقت تشغيل <code class="docutils literal notranslate"><span class="pre">ONNX</span></code> لا يتطلب <code class="docutils literal notranslate"><span class="pre">python</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">ONNX</span></code> هو تسلسل ثنائي للنموذج.
 تم تطويره لتحسين قابلية استخدام التمثيل القابل للتشغيل البيني لنماذج البيانات.
@@ -861,7 +861,7 @@
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="استخدام-skops">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text">استخدام skops<a class="headerlink" href="#استخدام-skops" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">تشبه واجهة برمجة التطبيقات إلى حد كبير <a class="reference external" href="https://docs.python.org/3/library/pickle.html#module-pickle" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pickle</span></code></a>، ويمكنك استمرار نماذجك كما هو موضح في <a class="reference external" href="https://skops.readthedocs.io/en/stable/persistence.html">التوثيق</a> باستخدام <a class="reference external" href="https://skops.readthedocs.io/en/stable/modules/classes.html#skops.io.dump" title="(in skops)"><code class="xref py py-func docutils literal notranslate"><span class="pre">skops.io.dump</span></code></a> و <a class="reference external" href="https://skops.readthedocs.io/en/stable/modules/classes.html#skops.io.dumps" title="(in skops)"><code class="xref py py-func docutils literal notranslate"><span class="pre">skops.io.dumps</span></code></a>:</p>
+<p class="sd-card-text">تشبه واجهة برمجة التطبيقات إلى حد كبير <a class="reference external" href="https://docs.python.org/3/library/pickle.html#module-pickle" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pickle</span></code></a>، ويمكنك حفظ نماذجك كما هو موضح في <a class="reference external" href="https://skops.readthedocs.io/en/stable/persistence.html">التوثيق</a> باستخدام <a class="reference external" href="https://skops.readthedocs.io/en/stable/modules/classes.html#skops.io.dump" title="(in skops)"><code class="xref py py-func docutils literal notranslate"><span class="pre">skops.io.dump</span></code></a> و <a class="reference external" href="https://skops.readthedocs.io/en/stable/modules/classes.html#skops.io.dumps" title="(in skops)"><code class="xref py py-func docutils literal notranslate"><span class="pre">skops.io.dumps</span></code></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">skops.io</span> <span class="k">as</span> <span class="nn">sio</span>
 <span class="n">obj</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="s2">&quot;filename.skops&quot;</span><span class="p">)</span>
 </pre></div>
@@ -891,7 +891,7 @@
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="استخدام-pickle-أو-joblib-أو-cloudpickle">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text">استخدام <code class="docutils literal notranslate"><span class="pre">pickle</span></code> أو <code class="docutils literal notranslate"><span class="pre">joblib</span></code> أو <code class="docutils literal notranslate"><span class="pre">cloudpickle</span></code><a class="headerlink" href="#استخدام-pickle-أو-joblib-أو-cloudpickle" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">اعتمادًا على حالة الاستخدام الخاصة بك، يمكنك اختيار إحدى هذه الطرق الثلاث لاستمرار وتحميل نموذج scikit-learn الخاص بك، وتتبع جميعها نفس واجهة برمجة التطبيقات:</p>
+<p class="sd-card-text">اعتمادًا على حالة الاستخدام الخاصة بك، يمكنك اختيار إحدى هذه الطرق الثلاث لحفظ وتحميل نموذج scikit-learn الخاص بك، وتتبع جميعها نفس واجهة برمجة التطبيقات:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># هنا يمكنك استبدال pickle بـ joblib أو cloudpickle</span>
 <span class="kn">from</span> <span class="nn">pickle</span> <span class="kn">import</span> <span class="n">dump</span>
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;filename.pkl&quot;</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -900,7 +900,7 @@
 </div>
 <p class="sd-card-text">يوصى باستخدام <code class="docutils literal notranslate"><span class="pre">protocol=5</span></code> لتقليل استخدام الذاكرة وجعلها أسرع لتخزين وتحميل أي مصفوفة NumPy كبيرة مخزنة كسمة مناسبة في النموذج.
 يمكنك بدلاً من ذلك تمرير <code class="docutils literal notranslate"><span class="pre">protocol=pickle.HIGHEST_PROTOCOL</span></code> وهو ما يعادل <code class="docutils literal notranslate"><span class="pre">protocol=5</span></code> في Python 3.8 والإصدارات الأحدث (في وقت كتابة هذا التقرير).</p>
-<p class="sd-card-text">ولاحقًا عند الحاجة، يمكنك تحميل نفس الكائن من الملف المستمر:</p>
+<p class="sd-card-text">ولاحقًا عند الحاجة، يمكنك تحميل نفس الكائن من الملف المحفوظ:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># هنا يمكنك استبدال pickle بـ joblib أو cloudpickle</span>
 <span class="kn">from</span> <span class="nn">pickle</span> <span class="kn">import</span> <span class="n">load</span>
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;filename.pkl&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -925,9 +925,9 @@
 <li><p>درجة التحقق المتبادل التي تم الحصول عليها على بيانات التدريب</p></li>
 </ul>
 <p>يجب أن يجعل ذلك من الممكن التحقق من أن درجة التحقق المتبادل تقع في نفس النطاق كما كان من قبل.</p>
-<p>بصرف النظر عن بعض الاستثناءات، يجب أن تكون النماذج المستمرة قابلة للنقل عبر أنظمة التشغيل وهندسة الأجهزة بافتراض استخدام نفس إصدارات التبعيات و Python.
+<p>بصرف النظر عن بعض الاستثناءات، يجب أن تكون النماذج المحفوظة قابلة للنقل عبر أنظمة التشغيل وهندسة الأجهزة بافتراض استخدام نفس إصدارات التبعيات و Python.
 إذا واجهت مقدرًا غير قابل للنقل، فيرجى فتح مشكلة على GitHub.
-غالبًا ما يتم نشر النماذج المستمرة في الإنتاج باستخدام حاويات مثل Docker، من أجل تجميد البيئة والتبعيات.</p>
+غالبًا ما يتم نشر النماذج المحفوظة في الإنتاج باستخدام حاويات مثل Docker، من أجل تجميد البيئة والتبعيات.</p>
 <p>إذا كنت تريد معرفة المزيد عن هذه المشكلات، فيرجى الرجوع إلى هذه المحادثات:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.youtube.com/watch?v=9w_H5OSTO9A">Adrin Jalali: Let's exploit pickle, and skops to the rescue! | PyData Amsterdam 2023</a>.</p></li>
@@ -967,23 +967,23 @@
 </section>
 <section id="id7">
 <h2><span class="section-number">12.6. </span>تلخيص النقاط الرئيسية<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
-<p>بناءً على الأساليب المختلفة لاستمرارية النموذج، يمكن تلخيص النقاط الرئيسية لكل نهج على النحو التالي:</p>
+<p>بناءً على الأساليب المختلفة لحفظ النموذج، يمكن تلخيص النقاط الرئيسية لكل نهج على النحو التالي:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">ONNX</span></code>: يوفر تنسيقًا موحدًا لاستمرار أي نموذج للتعلم الآلي أو التعلم العميق (بخلاف scikit-learn) وهو مفيد للاستدلال على النموذج (التنبؤات).
+<li><p><code class="docutils literal notranslate"><span class="pre">ONNX</span></code>: يوفر تنسيقًا موحدًا لحفظ أي نموذج للتعلم الآلي أو التعلم العميق (بخلاف scikit-learn) وهو مفيد للاستدلال على النموذج (التنبؤات).
 ومع ذلك، يمكن أن يؤدي إلى مشكلات توافق مع أطر عمل مختلفة.</p></li>
 <li><p><a class="reference external" href="https://skops.readthedocs.io/en/stable/modules/classes.html#module-skops.io" title="(in skops)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">skops.io</span></code></a>: يمكن مشاركة نماذج scikit-learn المدربة بسهولة ووضعها في الإنتاج باستخدام <a class="reference external" href="https://skops.readthedocs.io/en/stable/modules/classes.html#module-skops.io" title="(in skops)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">skops.io</span></code></a>.
 إنه أكثر أمانًا مقارنة بالطرق البديلة القائمة على <a class="reference external" href="https://docs.python.org/3/library/pickle.html#module-pickle" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pickle</span></code></a> لأنه لا يقوم بتحميل كود عشوائي إلا إذا طلب المستخدم ذلك صراحةً.
 يجب تعبئة هذا الرمز واستيراده في بيئة Python المستهدفة.</p></li>
-<li><p><a class="reference external" href="https://joblib.readthedocs.io/en/latest/index.html#module-joblib" title="(in joblib v1.5.dev0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">joblib</span></code></a>: تجعله تقنيات تعيين الذاكرة الفعالة أسرع عند استخدام نفس النموذج المستمر في عمليات Python متعددة عند استخدام <code class="docutils literal notranslate"><span class="pre">mmap_mode=&quot;r&quot;</span></code>.
-كما أنه يوفر اختصارات سهلة لضغط وفك ضغط الكائن المستمر دون الحاجة إلى رمز إضافي.
-ومع ذلك، فقد يؤدي إلى تنفيذ كود ضار عند تحميل نموذج من مصدر غير موثوق به مثل أي آلية استمرارية أخرى تعتمد على pickle.</p></li>
+<li><p><a class="reference external" href="https://joblib.readthedocs.io/en/latest/index.html#module-joblib" title="(in joblib v1.5.dev0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">joblib</span></code></a>: تجعله تقنيات تعيين الذاكرة الفعالة أسرع عند استخدام نفس النموذج المحفوظ في عمليات Python متعددة عند استخدام <code class="docutils literal notranslate"><span class="pre">mmap_mode=&quot;r&quot;</span></code>.
+كما أنه يوفر اختصارات سهلة لضغط وفك ضغط الكائن المحفوظ دون الحاجة إلى رمز إضافي.
+ومع ذلك، فقد يؤدي إلى تنفيذ كود ضار عند تحميل نموذج من مصدر غير موثوق به مثل أي آلية حفظية أخرى تعتمد على pickle.</p></li>
 <li><p><a class="reference external" href="https://docs.python.org/3/library/pickle.html#module-pickle" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pickle</span></code></a>: إنه أصلي لبايثون ويمكن تسلسل معظم كائنات Python وإلغاء تسلسلها باستخدام <a class="reference external" href="https://docs.python.org/3/library/pickle.html#module-pickle" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pickle</span></code></a>، بما في ذلك فئات ووظائف Python المخصصة طالما تم تعريفها في حزمة يمكن استيرادها في البيئة المستهدفة.
 بينما يمكن استخدام <a class="reference external" href="https://docs.python.org/3/library/pickle.html#module-pickle" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pickle</span></code></a> لحفظ وتحميل نماذج scikit-learn بسهولة، فقد يؤدي إلى تنفيذ كود ضار أثناء تحميل نموذج من مصدر غير موثوق به.
-يمكن أيضًا أن يكون <a class="reference external" href="https://docs.python.org/3/library/pickle.html#module-pickle" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pickle</span></code></a> فعالًا جدًا من حيث الذاكرة إذا تم استمرار النموذج باستخدام <code class="docutils literal notranslate"><span class="pre">protocol=5</span></code> ولكنه لا يدعم تعيين الذاكرة.</p></li>
+يمكن أيضًا أن يكون <a class="reference external" href="https://docs.python.org/3/library/pickle.html#module-pickle" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pickle</span></code></a> فعالًا جدًا من حيث الذاكرة إذا تم حفظ النموذج باستخدام <code class="docutils literal notranslate"><span class="pre">protocol=5</span></code> ولكنه لا يدعم تعيين الذاكرة.</p></li>
 <li><p><a class="reference external" href="https://github.com/cloudpipe/cloudpickle">cloudpickle</a>: لديه كفاءة تحميل مماثلة لـ <a class="reference external" href="https://docs.python.org/3/library/pickle.html#module-pickle" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pickle</span></code></a> و <a class="reference external" href="https://joblib.readthedocs.io/en/latest/index.html#module-joblib" title="(in joblib v1.5.dev0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">joblib</span></code></a> (بدون تعيين الذاكرة)، ولكنه يوفر مرونة إضافية لتسلسل كود Python المخصص مثل تعبيرات lambda والوظائف والفئات المحددة بشكل تفاعلي.
-قد يكون الملاذ الأخير لاستمرار خطوط الأنابيب مع مكونات Python المخصصة مثل <a class="reference internal" href="modules/generated/sklearn.preprocessing.FunctionTransformer.html#sklearn.preprocessing.FunctionTransformer" title="sklearn.preprocessing.FunctionTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.preprocessing.FunctionTransformer</span></code></a> التي تغلف دالة محددة في نص التدريب نفسه أو بشكل عام خارج أي حزمة Python قابلة للاستيراد.
-لاحظ أن <a class="reference external" href="https://github.com/cloudpipe/cloudpickle">cloudpickle</a> لا يقدم أي ضمانات للتوافق الأمامي وقد تحتاج إلى نفس إصدار <a class="reference external" href="https://github.com/cloudpipe/cloudpickle">cloudpickle</a> لتحميل النموذج المستمر جنبًا إلى جنب مع نفس إصدار جميع المكتبات المستخدمة لتعريف النموذج.
-مثل آليات الاستمرارية الأخرى القائمة على pickle، فقد يؤدي إلى تنفيذ كود ضار أثناء تحميل نموذج من مصدر غير موثوق به.</p></li>
+قد يكون الملاذ الأخير لحفظ خطوط الأنابيب مع مكونات Python المخصصة مثل <a class="reference internal" href="modules/generated/sklearn.preprocessing.FunctionTransformer.html#sklearn.preprocessing.FunctionTransformer" title="sklearn.preprocessing.FunctionTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.preprocessing.FunctionTransformer</span></code></a> التي تغلف دالة محددة في نص التدريب نفسه أو بشكل عام خارج أي حزمة Python قابلة للاستيراد.
+لاحظ أن <a class="reference external" href="https://github.com/cloudpipe/cloudpickle">cloudpickle</a> لا يقدم أي ضمانات للتوافق الأمامي وقد تحتاج إلى نفس إصدار <a class="reference external" href="https://github.com/cloudpipe/cloudpickle">cloudpickle</a> لتحميل النموذج المحفوظ جنبًا إلى جنب مع نفس إصدار جميع المكتبات المستخدمة لتعريف النموذج.
+مثل آليات الحفظ الأخرى القائمة على pickle، فقد يؤدي إلى تنفيذ كود ضار أثناء تحميل نموذج من مصدر غير موثوق به.</p></li>
 </ul>
 </section>
 </section>
@@ -1040,7 +1040,7 @@
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">12.1. نظرة عامة على سير العمل</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">12.1.1. تدريب النموذج واستمراره</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">12.1.1. تدريب النموذج وحفظه</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#onnx">12.2. ONNX</a></li>
