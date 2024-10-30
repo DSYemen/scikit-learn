@@ -1,144 +1,48 @@
+
 .. _sample_generators:
 
-مجموعات بيانات مولدة
-==================
+مجموعات البيانات المُولَّدة
+===========================
 
 .. currentmodule:: sklearn.datasets
 
-In addition, scikit-learn includes various random sample generators that
-can be used to build artificial datasets of controlled size and complexity.
+بالإضافة إلى ذلك، يتضمن scikit-learn العديد من مولدات العينات العشوائية التي يمكن استخدامها لبناء مجموعات بيانات اصطناعية ذات حجم وتعقيد متحكم بهما.
 
-Generators for classification and clustering
---------------------------------------------
+مولدات البيانات التصنيف والتجميع
+------------------------------------
 
-These generators produce a matrix of features and corresponding discrete
-targets.
+تنتج هذه المولدات مصفوفة من الميزات والأهداف المنفصلة المقابلة.
 
-Single label
-~~~~~~~~~~~~
+توليد بيانات للتصنيف الثنائي
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:func:`make_blobs` creates a multiclass dataset by allocating each class to one
-normally-distributed cluster of points. It provides control over the centers and
-standard deviations of each cluster. This dataset is used to demonstrate clustering.
+ينشئ كل من :func:`make_blobs` و :func:`make_classification` مجموعات بيانات متعددة الفئات من خلال تخصيص مجموعة واحدة أو أكثر من نقاط التوزيع الطبيعي لكل فئة. يوفر :func:`make_blobs` تحكمًا أكبر فيما يتعلق بالمراكز والانحرافات المعيارية لكل مجموعة، ويستخدم لشرح التجميع. يتخصص :func:`make_classification` في إدخال الضوضاء عن طريق: الميزات المترابطة والمتكررة وغير المفيدة؛ مجموعات غاوسية متعددة لكل فئة؛ والتحويلات الخطية لمساحة الميزات.
 
-.. plot::
-   :context: close-figs
-   :scale: 70
+يقسم :func:`make_gaussian_quantiles` مجموعة غاوسية واحدة إلى فئات متساوية الحجم تقريبًا مفصولة بكرات فائقة متحدة المركز. يُنشئ :func:`make_hastie_10_2` مشكلة ثنائية مماثلة ذات 10 أبعاد.
+
+.. image:: ../auto_examples/datasets/images/sphx_glr_plot_random_dataset_001.png
+   :target: ../auto_examples/datasets/plot_random_dataset.html
+   :scale: 50
    :align: center
 
-   import matplotlib.pyplot as plt
-   from sklearn.datasets import make_blobs
+يُنشئ :func:`make_circles` و :func:`make_moons` مجموعات بيانات تصنيف ثنائية الأبعاد تمثل تحديًا لبعض الخوارزميات (مثل التجميع القائم على النقط المركزية أو التصنيف الخطي)، بما في ذلك ضوضاء غاوسية اختيارية. إنها مفيدة للتخيل. ينتج :func:`make_circles` بيانات غاوسية بحدود قرار كروية للتصنيف الثنائي، بينما ينتج :func:`make_moons` نصفين دائريين متداخلين.
 
-   X, y = make_blobs(centers=3, cluster_std=0.5, random_state=0)
+توليد بيانات للتصنيف المتعدد
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   plt.scatter(X[:, 0], X[:, 1], c=y)
-   plt.title("Three normally-distributed clusters")
-   plt.show()
+يُنشئ :func:`make_multilabel_classification` عينات عشوائية بتسميات متعددة، مما يعكس حقيبة من الكلمات مستمدة من مزيج من المواضيع. يتم استخلاص عدد المواضيع لكل مستند من توزيع بواسون، ويتم استخلاص المواضيع نفسها من توزيع عشوائي ثابت. وبالمثل، يتم استخلاص عدد الكلمات من بواسون، مع استخلاص الكلمات من متعدد الحدود، حيث يُعرِّف كل موضوع توزيع احتمالية على الكلمات. تتضمن التبسيطات فيما يتعلق بمخاليط حقيبة الكلمات الحقيقية ما يلي:
 
-:func:`make_classification` also creates multiclass datasets but specializes in
-introducing noise by way of: correlated, redundant and uninformative features; multiple
-Gaussian clusters per class; and linear transformations of the feature space.
-
-.. plot::
-   :context: close-figs
-   :scale: 70
-   :align: center
-
-   import matplotlib.pyplot as plt
-   from sklearn.datasets import make_classification
-
-   fig, axs = plt.subplots(1, 3, figsize=(12, 4), sharey=True, sharex=True)
-   titles = ["Two classes,\none informative feature,\none cluster per class",
-             "Two classes,\ntwo informative features,\ntwo clusters per class",
-             "Three classes,\ntwo informative features,\none cluster per class"]
-   params = [
-       {"n_informative": 1, "n_clusters_per_class": 1, "n_classes": 2},
-       {"n_informative": 2, "n_clusters_per_class": 2, "n_classes": 2},
-       {"n_informative": 2, "n_clusters_per_class": 1, "n_classes": 3}
-   ]
-
-   for i, param in enumerate(params):
-       X, Y = make_classification(n_features=2, n_redundant=0, random_state=1, **param)
-       axs[i].scatter(X[:, 0], X[:, 1], c=Y)
-       axs[i].set_title(titles[i])
-
-   plt.tight_layout()
-   plt.show()
-
-:func:`make_gaussian_quantiles` divides a single Gaussian cluster into
-near-equal-size classes separated by concentric hyperspheres.
-
-.. plot::
-   :context: close-figs
-   :scale: 70
-   :align: center
-
-   import matplotlib.pyplot as plt
-   from sklearn.datasets import make_gaussian_quantiles
-
-   X, Y = make_gaussian_quantiles(n_features=2, n_classes=3, random_state=0)
-   plt.scatter(X[:, 0], X[:, 1], c=Y)
-   plt.title("Gaussian divided into three quantiles")
-   plt.show()
-
-:func:`make_hastie_10_2` generates a similar binary, 10-dimensional problem.
-
-:func:`make_circles` and :func:`make_moons` generate 2D binary classification
-datasets that are challenging to certain algorithms (e.g., centroid-based
-clustering or linear classification), including optional Gaussian noise.
-They are useful for visualization. :func:`make_circles` produces Gaussian data
-with a spherical decision boundary for binary classification, while
-:func:`make_moons` produces two interleaving half-circles.
-
-
-.. plot::
-   :context: close-figs
-   :scale: 70
-   :align: center
-
-   import matplotlib.pyplot as plt
-   from sklearn.datasets import make_circles, make_moons
-
-   fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(8, 4))
-
-   X, Y = make_circles(noise=0.1, factor=0.3, random_state=0)
-   ax1.scatter(X[:, 0], X[:, 1], c=Y)
-   ax1.set_title("make_circles")
-
-   X, Y = make_moons(noise=0.1, random_state=0)
-   ax2.scatter(X[:, 0], X[:, 1], c=Y)
-   ax2.set_title("make_moons")
-
-   plt.tight_layout()
-   plt.show()
-
-
-
-Multilabel
-~~~~~~~~~~
-
-:func:`make_multilabel_classification` generates random samples with multiple
-labels, reflecting a bag of words drawn from a mixture of topics. The number of
-topics for each document is drawn from a Poisson distribution, and the topics
-themselves are drawn from a fixed random distribution. Similarly, the number of
-words is drawn from Poisson, with words drawn from a multinomial, where each
-topic defines a probability distribution over words. Simplifications with
-respect to true bag-of-words mixtures include:
-
-* Per-topic word distributions are independently drawn, where in reality all
-  would be affected by a sparse base distribution, and would be correlated.
-* For a document generated from multiple topics, all topics are weighted
-  equally in generating its bag of words.
-* Documents without labels words at random, rather than from a base
-  distribution.
+* يتم استخلاص توزيعات الكلمات لكل موضوع بشكل مستقل، حيث في الواقع تتأثر جميعها بتوزيع أساسي متناثر، وستكون مترابطة.
+* بالنسبة للمستند الذي تم إنشاؤه من مواضيع متعددة، يتم ترجيح جميع المواضيع بالتساوي في إنشاء حقيبة الكلمات الخاصة به.
+* المستندات التي ليس لها تسميات كلمات عشوائية، بدلاً من توزيع أساسي.
 
 .. image:: ../auto_examples/datasets/images/sphx_glr_plot_random_multilabel_dataset_001.png
    :target: ../auto_examples/datasets/plot_random_multilabel_dataset.html
    :scale: 50
    :align: center
 
-Biclustering
-~~~~~~~~~~~~
+توليد بيانات للتجميع الثنائي
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. autosummary::
 
@@ -146,32 +50,24 @@ Biclustering
    make_checkerboard
 
 
-Generators for regression
--------------------------
+توليد بيانات للانحدار
+------------------------
 
-:func:`make_regression` produces regression targets as an optionally-sparse
-random linear combination of random features, with noise. Its informative
-features may be uncorrelated, or low rank (few features account for most of the
-variance).
+ينتج :func:`make_regression` أهداف الانحدار كمزيج خطي عشوائي متناثر اختياريًا من الميزات العشوائية، مع ضوضاء. قد تكون ميزاتها المفيدة غير مترابطة، أو ذات مرتبة منخفضة (عدد قليل من الميزات يفسر معظم التباين).
 
-Other regression generators generate functions deterministically from
-randomized features.  :func:`make_sparse_uncorrelated` produces a target as a
-linear combination of four features with fixed coefficients.
-Others encode explicitly non-linear relations:
-:func:`make_friedman1` is related by polynomial and sine transforms;
-:func:`make_friedman2` includes feature multiplication and reciprocation; and
-:func:`make_friedman3` is similar with an arctan transformation on the target.
+تُنشئ مولدات الانحدار الأخرى دوالًا بشكل حتمي من الميزات العشوائية. ينتج :func:`make_sparse_uncorrelated` هدفًا كمزيج خطي من أربع ميزات ذات معاملات ثابتة.
+يُشفِّر الآخرون العلاقات غير الخطية بشكل صريح: يرتبط :func:`make_friedman1` بتحويلات متعددة الحدود والجيب؛ يتضمن :func:`make_friedman2` ضرب الميزات والمعاملة بالمثل؛ و :func:`make_friedman3` مشابه مع تحويل قوس ظل على الهدف.
 
-Generators for manifold learning
---------------------------------
+مولدات البيانات لتعليم التشعبي manifold
+------------------------------------------
 
 .. autosummary::
 
    make_s_curve
    make_swiss_roll
 
-Generators for decomposition
-----------------------------
+مولدات البيانات للتحليل التراكب decomposition
+-------------------------------------------------
 
 .. autosummary::
 

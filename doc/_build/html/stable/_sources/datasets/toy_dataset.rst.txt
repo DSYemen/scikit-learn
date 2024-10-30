@@ -1,14 +1,13 @@
 .. _toy_datasets:
 
-مجموعات بيانات تجريبية
-=========================
+مجموعات البيانات التجريبية
+=============================
 
 .. currentmodule:: sklearn.datasets
 
-scikit-learn comes with a few small standard datasets that do not require to
-download any file from some external website.
+يأتي scikit-learn مع بعض مجموعات البيانات القياسية الصغيرة التي لا تتطلب تنزيل أي ملف من أي موقع ويب خارجي.
 
-They can be loaded using the following functions:
+يمكن تحميلها باستخدام الدالات التالية:
 
 .. autosummary::
 
@@ -19,9 +18,7 @@ They can be loaded using the following functions:
    load_wine
    load_breast_cancer
 
-These datasets are useful to quickly illustrate the behavior of the
-various algorithms implemented in scikit-learn. They are however often too
-small to be representative of real world machine learning tasks.
+تُعد مجموعات البيانات هذه مفيدة لتوضيح سلوك الخوارزميات المختلفة المُنفَّذة في scikit-learn بسرعة. ومع ذلك، فهي غالبًا ما تكون صغيرة جدًا بحيث لا تكون تمثيلية لمهام تعلم الآلة في العالم الحقيقي.
 
 .. include:: ../../sklearn/datasets/descr/iris.rst
 
@@ -34,3 +31,6 @@ small to be representative of real world machine learning tasks.
 .. include:: ../../sklearn/datasets/descr/wine_data.rst
 
 .. include:: ../../sklearn/datasets/descr/breast_cancer.rst
+
+
+

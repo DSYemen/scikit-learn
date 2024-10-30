@@ -7,16 +7,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="9. مجموعات بيانات مولدة" />
+<meta property="og:title" content="9. مجموعات البيانات المُولَّدة" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/datasets/sample_generators.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="In addition, scikit-learn includes various random sample generators that can be used to build artificial datasets of controlled size and complexity. Generators for classification and clustering: Th..." />
-<meta property="og:image" content="https://scikit-learn/stable/_images/sample_generators-1.png" />
+<meta property="og:description" content="بالإضافة إلى ذلك، يتضمن scikit-learn العديد من مولدات العينات العشوائية التي يمكن استخدامها لبناء مجموعات بيانات اصطناعية ذات حجم وتعقيد متحكم بهما. مولدات البيانات التصنيف والتجميع: تنتج هذه المول..." />
+<meta property="og:image" content="https://scikit-learn/stable/datasets/auto_examples/datasets/images/sphx_glr_plot_random_dataset_001.png" />
 <meta property="og:image:alt" content="scikit-learn" />
-<meta name="description" content="In addition, scikit-learn includes various random sample generators that can be used to build artificial datasets of controlled size and complexity. Generators for classification and clustering: Th..." />
+<meta name="description" content="بالإضافة إلى ذلك، يتضمن scikit-learn العديد من مولدات العينات العشوائية التي يمكن استخدامها لبناء مجموعات بيانات اصطناعية ذات حجم وتعقيد متحكم بهما. مولدات البيانات التصنيف والتجميع: تنتج هذه المول..." />
 
-    <title>9. مجموعات بيانات مولدة &#8212; scikit-learn 1.6.dev0 documentation</title>
+    <title>9. مجموعات البيانات المُولَّدة &#8212; scikit-learn 1.6.dev0 documentation</title>
   
   
   
@@ -607,9 +607,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../modules/preprocessing_targets.html">6.9. تحويل هدف التنبؤ (<code class="docutils literal notranslate"><span class="pre">y</span></code>)</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="toy_dataset.html">7. مجموعات بيانات تجريبية</a></li>
+<li class="toctree-l1"><a class="reference internal" href="toy_dataset.html">7. مجموعات البيانات التجريبية</a></li>
 <li class="toctree-l1"><a class="reference internal" href="real_world.html">8. مجموعات بيانات العالم الحقيقي</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">9. مجموعات بيانات مولدة</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">9. مجموعات البيانات المُولَّدة</a></li>
 <li class="toctree-l1"><a class="reference internal" href="loading_other_datasets.html">10. تحميل مجموعات بيانات أخرى</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../computing.html">11. الحوسبة مع scikit-learn</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../computing/scaling_strategies.html">11.1. استراتيجيات للقياس حسابيًا: بيانات أكبر</a></li>
@@ -667,7 +667,7 @@
     
     <li class="breadcrumb-item"><a href="../datasets.html" class="nav-link">&lt;no title&gt;</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">9. </span>مجموعات بيانات مولدة</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">9. </span>مجموعات البيانات المُولَّدة</span></li>
   </ul>
 </nav>
 </div>
@@ -685,127 +685,38 @@
                 <article class="bd-article">
                   
   <section id="sample-generators">
-<span id="id1"></span><h1><span class="section-number">9. </span>مجموعات بيانات مولدة<a class="headerlink" href="#sample-generators" title="Link to this heading">#</a></h1>
-<p>In addition, scikit-learn includes various random sample generators that
-can be used to build artificial datasets of controlled size and complexity.</p>
-<section id="generators-for-classification-and-clustering">
-<h2><span class="section-number">9.1. </span>Generators for classification and clustering<a class="headerlink" href="#generators-for-classification-and-clustering" title="Link to this heading">#</a></h2>
-<p>These generators produce a matrix of features and corresponding discrete
-targets.</p>
-<section id="single-label">
-<h3><span class="section-number">9.1.1. </span>Single label<a class="headerlink" href="#single-label" title="Link to this heading">#</a></h3>
-<p><a class="reference internal" href="../modules/generated/sklearn.datasets.make_blobs.html#sklearn.datasets.make_blobs" title="sklearn.datasets.make_blobs"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_blobs</span></code></a> creates a multiclass dataset by allocating each class to one
-normally-distributed cluster of points. It provides control over the centers and
-standard deviations of each cluster. This dataset is used to demonstrate clustering.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_blobs</span>
-
-<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">centers</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">cluster_std</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Three normally-distributed clusters&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-<figure class="align-center">
-<a class="plot-directive reference internal image-reference" href="../_images/sample_generators-1.png"><img alt="../_images/sample_generators-1.png" class="plot-directive" src="../_images/sample_generators-1.png" style="width: 358.4px; height: 268.79999999999995px;" />
+<span id="id1"></span><h1><span class="section-number">9. </span>مجموعات البيانات المُولَّدة<a class="headerlink" href="#sample-generators" title="Link to this heading">#</a></h1>
+<p>بالإضافة إلى ذلك، يتضمن scikit-learn العديد من مولدات العينات العشوائية التي يمكن استخدامها لبناء مجموعات بيانات اصطناعية ذات حجم وتعقيد متحكم بهما.</p>
+<section id="id2">
+<h2><span class="section-number">9.1. </span>مولدات البيانات التصنيف والتجميع<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>تنتج هذه المولدات مصفوفة من الميزات والأهداف المنفصلة المقابلة.</p>
+<section id="id3">
+<h3><span class="section-number">9.1.1. </span>توليد بيانات للتصنيف الثنائي<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>ينشئ كل من <a class="reference internal" href="../modules/generated/sklearn.datasets.make_blobs.html#sklearn.datasets.make_blobs" title="sklearn.datasets.make_blobs"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_blobs</span></code></a> و <a class="reference internal" href="../modules/generated/sklearn.datasets.make_classification.html#sklearn.datasets.make_classification" title="sklearn.datasets.make_classification"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_classification</span></code></a> مجموعات بيانات متعددة الفئات من خلال تخصيص مجموعة واحدة أو أكثر من نقاط التوزيع الطبيعي لكل فئة. يوفر <a class="reference internal" href="../modules/generated/sklearn.datasets.make_blobs.html#sklearn.datasets.make_blobs" title="sklearn.datasets.make_blobs"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_blobs</span></code></a> تحكمًا أكبر فيما يتعلق بالمراكز والانحرافات المعيارية لكل مجموعة، ويستخدم لشرح التجميع. يتخصص <a class="reference internal" href="../modules/generated/sklearn.datasets.make_classification.html#sklearn.datasets.make_classification" title="sklearn.datasets.make_classification"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_classification</span></code></a> في إدخال الضوضاء عن طريق: الميزات المترابطة والمتكررة وغير المفيدة؛ مجموعات غاوسية متعددة لكل فئة؛ والتحويلات الخطية لمساحة الميزات.</p>
+<p>يقسم <a class="reference internal" href="../modules/generated/sklearn.datasets.make_gaussian_quantiles.html#sklearn.datasets.make_gaussian_quantiles" title="sklearn.datasets.make_gaussian_quantiles"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_gaussian_quantiles</span></code></a> مجموعة غاوسية واحدة إلى فئات متساوية الحجم تقريبًا مفصولة بكرات فائقة متحدة المركز. يُنشئ <a class="reference internal" href="../modules/generated/sklearn.datasets.make_hastie_10_2.html#sklearn.datasets.make_hastie_10_2" title="sklearn.datasets.make_hastie_10_2"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_hastie_10_2</span></code></a> مشكلة ثنائية مماثلة ذات 10 أبعاد.</p>
+<a class="reference external image-reference" href="../auto_examples/datasets/plot_random_dataset.html"><img alt="auto_examples/datasets/images/sphx_glr_plot_random_dataset_001.png" class="align-center" src="auto_examples/datasets/images/sphx_glr_plot_random_dataset_001.png" />
+<aside class="system-message">
+<p class="system-message-title">System Message: WARNING/2 (<span class="docutils literal">/project/workspace/doc/datasets/sample_generators.rst</span>, line 23)</p>
+<p>Cannot scale image!
+  Could not get size from &quot;auto_examples/datasets/images/sphx_glr_plot_random_dataset_001.png&quot;:
+  [Errno 2] No such file or directory: '/project/workspace/doc/auto_examples/datasets/images/sphx_glr_plot_random_dataset_001.png'</p>
+</aside>
 </a>
-</figure>
-<p><a class="reference internal" href="../modules/generated/sklearn.datasets.make_classification.html#sklearn.datasets.make_classification" title="sklearn.datasets.make_classification"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_classification</span></code></a> also creates multiclass datasets but specializes in
-introducing noise by way of: correlated, redundant and uninformative features; multiple
-Gaussian clusters per class; and linear transformations of the feature space.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">titles</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Two classes,</span><span class="se">\n</span><span class="s2">one informative feature,</span><span class="se">\n</span><span class="s2">one cluster per class&quot;</span><span class="p">,</span>
-          <span class="s2">&quot;Two classes,</span><span class="se">\n</span><span class="s2">two informative features,</span><span class="se">\n</span><span class="s2">two clusters per class&quot;</span><span class="p">,</span>
-          <span class="s2">&quot;Three classes,</span><span class="se">\n</span><span class="s2">two informative features,</span><span class="se">\n</span><span class="s2">one cluster per class&quot;</span><span class="p">]</span>
-<span class="n">params</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">{</span><span class="s2">&quot;n_informative&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;n_clusters_per_class&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;n_classes&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
-    <span class="p">{</span><span class="s2">&quot;n_informative&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;n_clusters_per_class&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;n_classes&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
-    <span class="p">{</span><span class="s2">&quot;n_informative&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;n_clusters_per_class&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;n_classes&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
-<span class="p">]</span>
-
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
-    <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_redundant</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">param</span><span class="p">)</span>
-    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">Y</span><span class="p">)</span>
-    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">titles</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-<figure class="align-center">
-<a class="plot-directive reference internal image-reference" href="../_images/sample_generators-2.png"><img alt="../_images/sample_generators-2.png" class="plot-directive" src="../_images/sample_generators-2.png" style="width: 672.0px; height: 224.0px;" />
-</a>
-</figure>
-<p><a class="reference internal" href="../modules/generated/sklearn.datasets.make_gaussian_quantiles.html#sklearn.datasets.make_gaussian_quantiles" title="sklearn.datasets.make_gaussian_quantiles"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_gaussian_quantiles</span></code></a> divides a single Gaussian cluster into
-near-equal-size classes separated by concentric hyperspheres.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_gaussian_quantiles</span>
-
-<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">make_gaussian_quantiles</span><span class="p">(</span><span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">Y</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Gaussian divided into three quantiles&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-<figure class="align-center">
-<a class="plot-directive reference internal image-reference" href="../_images/sample_generators-3.png"><img alt="../_images/sample_generators-3.png" class="plot-directive" src="../_images/sample_generators-3.png" style="width: 358.4px; height: 268.79999999999995px;" />
-</a>
-</figure>
-<p><a class="reference internal" href="../modules/generated/sklearn.datasets.make_hastie_10_2.html#sklearn.datasets.make_hastie_10_2" title="sklearn.datasets.make_hastie_10_2"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_hastie_10_2</span></code></a> generates a similar binary, 10-dimensional problem.</p>
-<p><a class="reference internal" href="../modules/generated/sklearn.datasets.make_circles.html#sklearn.datasets.make_circles" title="sklearn.datasets.make_circles"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_circles</span></code></a> and <a class="reference internal" href="../modules/generated/sklearn.datasets.make_moons.html#sklearn.datasets.make_moons" title="sklearn.datasets.make_moons"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_moons</span></code></a> generate 2D binary classification
-datasets that are challenging to certain algorithms (e.g., centroid-based
-clustering or linear classification), including optional Gaussian noise.
-They are useful for visualization. <a class="reference internal" href="../modules/generated/sklearn.datasets.make_circles.html#sklearn.datasets.make_circles" title="sklearn.datasets.make_circles"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_circles</span></code></a> produces Gaussian data
-with a spherical decision boundary for binary classification, while
-<a class="reference internal" href="../modules/generated/sklearn.datasets.make_moons.html#sklearn.datasets.make_moons" title="sklearn.datasets.make_moons"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_moons</span></code></a> produces two interleaving half-circles.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_circles</span><span class="p">,</span> <span class="n">make_moons</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-
-<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">make_circles</span><span class="p">(</span><span class="n">noise</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">Y</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;make_circles&quot;</span><span class="p">)</span>
-
-<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">make_moons</span><span class="p">(</span><span class="n">noise</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">Y</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;make_moons&quot;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-<figure class="align-center">
-<a class="plot-directive reference internal image-reference" href="../_images/sample_generators-4.png"><img alt="../_images/sample_generators-4.png" class="plot-directive" src="../_images/sample_generators-4.png" style="width: 448.0px; height: 224.0px;" />
-</a>
-</figure>
+<p>يُنشئ <a class="reference internal" href="../modules/generated/sklearn.datasets.make_circles.html#sklearn.datasets.make_circles" title="sklearn.datasets.make_circles"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_circles</span></code></a> و <a class="reference internal" href="../modules/generated/sklearn.datasets.make_moons.html#sklearn.datasets.make_moons" title="sklearn.datasets.make_moons"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_moons</span></code></a> مجموعات بيانات تصنيف ثنائية الأبعاد تمثل تحديًا لبعض الخوارزميات (مثل التجميع القائم على النقط المركزية أو التصنيف الخطي)، بما في ذلك ضوضاء غاوسية اختيارية. إنها مفيدة للتخيل. ينتج <a class="reference internal" href="../modules/generated/sklearn.datasets.make_circles.html#sklearn.datasets.make_circles" title="sklearn.datasets.make_circles"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_circles</span></code></a> بيانات غاوسية بحدود قرار كروية للتصنيف الثنائي، بينما ينتج <a class="reference internal" href="../modules/generated/sklearn.datasets.make_moons.html#sklearn.datasets.make_moons" title="sklearn.datasets.make_moons"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_moons</span></code></a> نصفين دائريين متداخلين.</p>
 </section>
-<section id="multilabel">
-<h3><span class="section-number">9.1.2. </span>Multilabel<a class="headerlink" href="#multilabel" title="Link to this heading">#</a></h3>
-<p><a class="reference internal" href="../modules/generated/sklearn.datasets.make_multilabel_classification.html#sklearn.datasets.make_multilabel_classification" title="sklearn.datasets.make_multilabel_classification"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_multilabel_classification</span></code></a> generates random samples with multiple
-labels, reflecting a bag of words drawn from a mixture of topics. The number of
-topics for each document is drawn from a Poisson distribution, and the topics
-themselves are drawn from a fixed random distribution. Similarly, the number of
-words is drawn from Poisson, with words drawn from a multinomial, where each
-topic defines a probability distribution over words. Simplifications with
-respect to true bag-of-words mixtures include:</p>
+<section id="id4">
+<h3><span class="section-number">9.1.2. </span>توليد بيانات للتصنيف المتعدد<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>يُنشئ <a class="reference internal" href="../modules/generated/sklearn.datasets.make_multilabel_classification.html#sklearn.datasets.make_multilabel_classification" title="sklearn.datasets.make_multilabel_classification"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_multilabel_classification</span></code></a> عينات عشوائية بتسميات متعددة، مما يعكس حقيبة من الكلمات مستمدة من مزيج من المواضيع. يتم استخلاص عدد المواضيع لكل مستند من توزيع بواسون، ويتم استخلاص المواضيع نفسها من توزيع عشوائي ثابت. وبالمثل، يتم استخلاص عدد الكلمات من بواسون، مع استخلاص الكلمات من متعدد الحدود، حيث يُعرِّف كل موضوع توزيع احتمالية على الكلمات. تتضمن التبسيطات فيما يتعلق بمخاليط حقيبة الكلمات الحقيقية ما يلي:</p>
 <ul class="simple">
-<li><p>Per-topic word distributions are independently drawn, where in reality all
-would be affected by a sparse base distribution, and would be correlated.</p></li>
-<li><p>For a document generated from multiple topics, all topics are weighted
-equally in generating its bag of words.</p></li>
-<li><p>Documents without labels words at random, rather than from a base
-distribution.</p></li>
+<li><p>يتم استخلاص توزيعات الكلمات لكل موضوع بشكل مستقل، حيث في الواقع تتأثر جميعها بتوزيع أساسي متناثر، وستكون مترابطة.</p></li>
+<li><p>بالنسبة للمستند الذي تم إنشاؤه من مواضيع متعددة، يتم ترجيح جميع المواضيع بالتساوي في إنشاء حقيبة الكلمات الخاصة به.</p></li>
+<li><p>المستندات التي ليس لها تسميات كلمات عشوائية، بدلاً من توزيع أساسي.</p></li>
 </ul>
 <a class="reference external image-reference" href="../auto_examples/datasets/plot_random_multilabel_dataset.html"><img alt="../_images/sphx_glr_plot_random_multilabel_dataset_001.png" class="align-center" src="../_images/sphx_glr_plot_random_multilabel_dataset_001.png" style="width: 400.0px; height: 200.0px;" />
 </a>
 </section>
-<section id="biclustering">
-<h3><span class="section-number">9.1.3. </span>Biclustering<a class="headerlink" href="#biclustering" title="Link to this heading">#</a></h3>
+<section id="id5">
+<h3><span class="section-number">9.1.3. </span>توليد بيانات للتجميع الثنائي<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="../modules/generated/sklearn.datasets.make_biclusters.html#sklearn.datasets.make_biclusters" title="sklearn.datasets.make_biclusters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_biclusters</span></code></a>(shape, n_clusters, *[, ...])</p></td>
@@ -819,22 +730,14 @@ distribution.</p></li>
 </div>
 </section>
 </section>
-<section id="generators-for-regression">
-<h2><span class="section-number">9.2. </span>Generators for regression<a class="headerlink" href="#generators-for-regression" title="Link to this heading">#</a></h2>
-<p><a class="reference internal" href="../modules/generated/sklearn.datasets.make_regression.html#sklearn.datasets.make_regression" title="sklearn.datasets.make_regression"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_regression</span></code></a> produces regression targets as an optionally-sparse
-random linear combination of random features, with noise. Its informative
-features may be uncorrelated, or low rank (few features account for most of the
-variance).</p>
-<p>Other regression generators generate functions deterministically from
-randomized features.  <a class="reference internal" href="../modules/generated/sklearn.datasets.make_sparse_uncorrelated.html#sklearn.datasets.make_sparse_uncorrelated" title="sklearn.datasets.make_sparse_uncorrelated"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_sparse_uncorrelated</span></code></a> produces a target as a
-linear combination of four features with fixed coefficients.
-Others encode explicitly non-linear relations:
-<a class="reference internal" href="../modules/generated/sklearn.datasets.make_friedman1.html#sklearn.datasets.make_friedman1" title="sklearn.datasets.make_friedman1"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_friedman1</span></code></a> is related by polynomial and sine transforms;
-<a class="reference internal" href="../modules/generated/sklearn.datasets.make_friedman2.html#sklearn.datasets.make_friedman2" title="sklearn.datasets.make_friedman2"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_friedman2</span></code></a> includes feature multiplication and reciprocation; and
-<a class="reference internal" href="../modules/generated/sklearn.datasets.make_friedman3.html#sklearn.datasets.make_friedman3" title="sklearn.datasets.make_friedman3"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_friedman3</span></code></a> is similar with an arctan transformation on the target.</p>
+<section id="id6">
+<h2><span class="section-number">9.2. </span>توليد بيانات للانحدار<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p>ينتج <a class="reference internal" href="../modules/generated/sklearn.datasets.make_regression.html#sklearn.datasets.make_regression" title="sklearn.datasets.make_regression"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_regression</span></code></a> أهداف الانحدار كمزيج خطي عشوائي متناثر اختياريًا من الميزات العشوائية، مع ضوضاء. قد تكون ميزاتها المفيدة غير مترابطة، أو ذات مرتبة منخفضة (عدد قليل من الميزات يفسر معظم التباين).</p>
+<p>تُنشئ مولدات الانحدار الأخرى دوالًا بشكل حتمي من الميزات العشوائية. ينتج <a class="reference internal" href="../modules/generated/sklearn.datasets.make_sparse_uncorrelated.html#sklearn.datasets.make_sparse_uncorrelated" title="sklearn.datasets.make_sparse_uncorrelated"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_sparse_uncorrelated</span></code></a> هدفًا كمزيج خطي من أربع ميزات ذات معاملات ثابتة.
+يُشفِّر الآخرون العلاقات غير الخطية بشكل صريح: يرتبط <a class="reference internal" href="../modules/generated/sklearn.datasets.make_friedman1.html#sklearn.datasets.make_friedman1" title="sklearn.datasets.make_friedman1"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_friedman1</span></code></a> بتحويلات متعددة الحدود والجيب؛ يتضمن <a class="reference internal" href="../modules/generated/sklearn.datasets.make_friedman2.html#sklearn.datasets.make_friedman2" title="sklearn.datasets.make_friedman2"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_friedman2</span></code></a> ضرب الميزات والمعاملة بالمثل؛ و <a class="reference internal" href="../modules/generated/sklearn.datasets.make_friedman3.html#sklearn.datasets.make_friedman3" title="sklearn.datasets.make_friedman3"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_friedman3</span></code></a> مشابه مع تحويل قوس ظل على الهدف.</p>
 </section>
-<section id="generators-for-manifold-learning">
-<h2><span class="section-number">9.3. </span>Generators for manifold learning<a class="headerlink" href="#generators-for-manifold-learning" title="Link to this heading">#</a></h2>
+<section id="manifold">
+<h2><span class="section-number">9.3. </span>مولدات البيانات لتعليم التشعبي manifold<a class="headerlink" href="#manifold" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="../modules/generated/sklearn.datasets.make_s_curve.html#sklearn.datasets.make_s_curve" title="sklearn.datasets.make_s_curve"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_s_curve</span></code></a>([n_samples, noise, random_state])</p></td>
@@ -847,8 +750,8 @@ Others encode explicitly non-linear relations:
 </table>
 </div>
 </section>
-<section id="generators-for-decomposition">
-<h2><span class="section-number">9.4. </span>Generators for decomposition<a class="headerlink" href="#generators-for-decomposition" title="Link to this heading">#</a></h2>
+<section id="decomposition">
+<h2><span class="section-number">9.4. </span>مولدات البيانات للتحليل التراكب decomposition<a class="headerlink" href="#decomposition" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="../modules/generated/sklearn.datasets.make_low_rank_matrix.html#sklearn.datasets.make_low_rank_matrix" title="sklearn.datasets.make_low_rank_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_low_rank_matrix</span></code></a>([n_samples, ...])</p></td>
@@ -920,15 +823,15 @@ Others encode explicitly non-linear relations:
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generators-for-classification-and-clustering">9.1. Generators for classification and clustering</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#single-label">9.1.1. Single label</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multilabel">9.1.2. Multilabel</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#biclustering">9.1.3. Biclustering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">9.1. مولدات البيانات التصنيف والتجميع</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">9.1.1. توليد بيانات للتصنيف الثنائي</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">9.1.2. توليد بيانات للتصنيف المتعدد</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">9.1.3. توليد بيانات للتجميع الثنائي</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generators-for-regression">9.2. Generators for regression</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generators-for-manifold-learning">9.3. Generators for manifold learning</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generators-for-decomposition">9.4. Generators for decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">9.2. توليد بيانات للانحدار</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#manifold">9.3. مولدات البيانات لتعليم التشعبي manifold</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decomposition">9.4. مولدات البيانات للتحليل التراكب decomposition</a></li>
 </ul>
   </nav></div>
 

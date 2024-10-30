@@ -11,10 +11,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/developers/index.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="Contributing- Ways to contribute, Automated Contributions Policy, Submitting a bug report or a feature request- How to make a good bug report., Contributing code- Video resources, How to contribute..." />
+<meta property="og:description" content="المساهمة- طرق المساهمة, سياسة المساهمات الآلية, إرسال تقرير خطأ أو طلب ميزة- كيفية كتابة تقرير خطأ جيد., المساهمة بالشفرة- مصادر الفيديو, كيفية المساهمة, قائمة التحقق من طلب السحب, التكامل المستمر ..." />
 <meta property="og:image" content="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" />
 <meta property="og:image:alt" content="scikit-learn" />
-<meta name="description" content="Contributing- Ways to contribute, Automated Contributions Policy, Submitting a bug report or a feature request- How to make a good bug report., Contributing code- Video resources, How to contribute..." />
+<meta name="description" content="المساهمة- طرق المساهمة, سياسة المساهمات الآلية, إرسال تقرير خطأ أو طلب ميزة- كيفية كتابة تقرير خطأ جيد., المساهمة بالشفرة- مصادر الفيديو, كيفية المساهمة, قائمة التحقق من طلب السحب, التكامل المستمر ..." />
 
     <title>دليل المطورين &#8212; scikit-learn 1.6.dev0 documentation</title>
   
@@ -79,7 +79,7 @@
     <link rel="icon" href="../_static/favicon.ico"/>
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="search" title="بحث" href="../search.html" />
-    <link rel="next" title="Contributing" href="contributing.html" />
+    <link rel="next" title="المساهمة" href="contributing.html" />
     <link rel="prev" title="Glossary of Common Terms and API Elements" href="../glossary.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="ar"/>
@@ -550,17 +550,17 @@
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="minimal_reproducer.html">Crafting a minimal reproducer for scikit-learn</a></li>
-<li class="toctree-l1"><a class="reference internal" href="develop.html">Developing scikit-learn estimators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tips.html">Developers' Tips and Tricks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities for Developers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="performance.html">How to optimize for speed</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cython.html">Cython Best Practices, Conventions and Knowledge</a></li>
-<li class="toctree-l1"><a class="reference internal" href="advanced_installation.html">Installing the development version of scikit-learn</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bug_triaging.html">Bug triaging and issue curation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="maintainer.html">Maintainer Information</a></li>
-<li class="toctree-l1"><a class="reference internal" href="plotting.html">Developing with the Plotting API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">المساهمة</a></li>
+<li class="toctree-l1"><a class="reference internal" href="minimal_reproducer.html">صياغة مُكرِّر بسيط لـ scikit-learn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="develop.html">تطوير مقدرات scikit-learn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tips.html">نصائح وحيل للمطورين</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utilities.html">أدوات مساعدة للمطورين</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">كيفية التحسين من أجل السرعة</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cython.html">أفضل ممارسات Cython والاتفاقيات والمعرفة</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_installation.html">تثبيت نسخة التطوير من scikit-learn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bug_triaging.html">تصنيف الأخطاء ومعالجة المشكلات</a></li>
+<li class="toctree-l1"><a class="reference internal" href="maintainer.html">معلومات المسؤول</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html">التطوير باستخدام واجهة برمجة تطبيقات تصور البيانات</a></li>
 </ul>
 </div>
 </nav></div>
@@ -617,181 +617,167 @@
 <span id="id1"></span><h1>دليل المطورين<a class="headerlink" href="#developers-guide" title="Link to this heading">#</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#ways-to-contribute">Ways to contribute</a></li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#automated-contributions-policy">Automated Contributions Policy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#submitting-a-bug-report-or-a-feature-request">Submitting a bug report or a feature request</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#how-to-make-a-good-bug-report">How to make a good bug report</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">المساهمة</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#id2">طرق المساهمة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#id4">سياسة المساهمات الآلية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#id5">إرسال تقرير خطأ أو طلب ميزة</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#filing-bugs">كيفية كتابة تقرير خطأ جيد</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#contributing-code">Contributing code</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#video-resources">Video resources</a></li>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#how-to-contribute">How to contribute</a></li>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#pull-request-checklist">Pull request checklist</a></li>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#continuous-integration-ci">Continuous Integration (CI)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="contributing.html#commit-message-markers">Commit message markers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="contributing.html#lock-files">Lock files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#id12">المساهمة بالشفرة</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#id16">مصادر الفيديو</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#id17">كيفية المساهمة</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#pr-checklist">قائمة التحقق من طلب السحب</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#ci">التكامل المستمر (CI)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="contributing.html#commit-markers">علامات رسالة الإيداع</a></li>
+<li class="toctree-l4"><a class="reference internal" href="contributing.html#id28">ملفات التأمين</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#stalled-pull-requests">Stalled pull requests</a></li>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#stalled-and-unclaimed-issues">Stalled and Unclaimed Issues</a></li>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#issues-for-new-contributors">Issues for New Contributors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#stalled-pull-request">طلبات السحب المتوقفة</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#id30">المشكلات المتوقفة وغير المطالب بها</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#new-contributors">مشكلات للمساهمين الجدد</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#documentation">Documentation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#building-the-documentation">Building the documentation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#generated-documentation-on-github-actions">Generated documentation on GitHub Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#contribute-documentation">الوثائق</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#testing-and-improving-test-coverage">Testing and improving test coverage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#monitoring-performance">Monitoring performance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#issue-tracker-tags">Issue Tracker Tags</a></li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#maintaining-backwards-compatibility">Maintaining backwards compatibility</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#deprecation">Deprecation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#change-the-default-value-of-a-parameter">Change the default value of a parameter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="minimal_reproducer.html">صياغة مُكرِّر بسيط لـ scikit-learn</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="minimal_reproducer.html#good-practices">الممارسات الجيدة</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="minimal_reproducer.html#id4">تقديم مثال شفرة فاشل مع الحد الأدنى من التعليقات</a></li>
+<li class="toctree-l3"><a class="reference internal" href="minimal_reproducer.html#id6">اختزل البرنامج النصي الخاص بك إلى شيء صغير قدر الإمكان</a></li>
+<li class="toctree-l3"><a class="reference internal" href="minimal_reproducer.html#id7"><strong>لا</strong> تُبلغ عن بياناتك إلا إذا كانت ضرورية للغاية</a></li>
+<li class="toctree-l3"><a class="reference internal" href="minimal_reproducer.html#markdown">استخدم تنسيق markdown</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#code-review-guidelines">Code Review Guidelines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#reading-the-existing-code-base">Reading the existing code base</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="minimal_reproducer.html">Crafting a minimal reproducer for scikit-learn</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="minimal_reproducer.html#good-practices">Good practices</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="minimal_reproducer.html#provide-a-failing-code-example-with-minimal-comments">Provide a failing code example with minimal comments</a></li>
-<li class="toctree-l3"><a class="reference internal" href="minimal_reproducer.html#boil-down-your-script-to-something-as-small-as-possible">Boil down your script to something as small as possible</a></li>
-<li class="toctree-l3"><a class="reference internal" href="minimal_reproducer.html#do-not-report-your-data-unless-it-is-extremely-necessary"><strong>DO NOT</strong> report your data unless it is extremely necessary</a></li>
-<li class="toctree-l3"><a class="reference internal" href="minimal_reproducer.html#use-markdown-formatting">Use markdown formatting</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="minimal_reproducer.html#synthetic-dataset">Synthetic dataset</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="minimal_reproducer.html#synth-data">مجموعة بيانات تركيبية</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="minimal_reproducer.html#numpy">NumPy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="minimal_reproducer.html#pandas">Pandas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="minimal_reproducer.html#make-regression"><code class="docutils literal notranslate"><span class="pre">make_regression</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="minimal_reproducer.html#make-classification"><code class="docutils literal notranslate"><span class="pre">make_classification</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="minimal_reproducer.html#make-blobs"><code class="docutils literal notranslate"><span class="pre">make_blobs</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="minimal_reproducer.html#dataset-loading-utilities">Dataset loading utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="minimal_reproducer.html#id11">أدوات مساعدة لتحميل مجموعة البيانات</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="develop.html">Developing scikit-learn estimators</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="develop.html#apis-of-scikit-learn-objects">APIs of scikit-learn objects</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="develop.html#different-objects">Different objects</a></li>
-<li class="toctree-l3"><a class="reference internal" href="develop.html#estimators">Estimators</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="develop.html#instantiation">Instantiation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="develop.html#fitting">Fitting</a></li>
-<li class="toctree-l4"><a class="reference internal" href="develop.html#estimated-attributes">Estimated Attributes</a></li>
-<li class="toctree-l4"><a class="reference internal" href="develop.html#optional-arguments">Optional Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="develop.html#universal-attributes">Universal attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="develop.html">تطوير مقدرات scikit-learn</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#api-overview">واجهات برمجة تطبيقات كائنات scikit-learn</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="develop.html#id2">كائنات مختلفة</a></li>
+<li class="toctree-l3"><a class="reference internal" href="develop.html#id4">المقدرات</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="develop.html#id5">الاعداد</a></li>
+<li class="toctree-l4"><a class="reference internal" href="develop.html#id6">الملائمة</a></li>
+<li class="toctree-l4"><a class="reference internal" href="develop.html#id7">السمات المقدرة</a></li>
+<li class="toctree-l4"><a class="reference internal" href="develop.html#id8">السمات الاختيارية</a></li>
+<li class="toctree-l4"><a class="reference internal" href="develop.html#id9">السمات العامة</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="develop.html#rolling-your-own-estimator">Rolling your own estimator</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="develop.html#get-params-and-set-params">get_params and set_params</a></li>
-<li class="toctree-l3"><a class="reference internal" href="develop.html#parameters-and-init">Parameters and init</a></li>
-<li class="toctree-l3"><a class="reference internal" href="develop.html#cloning">Cloning</a></li>
-<li class="toctree-l3"><a class="reference internal" href="develop.html#pipeline-compatibility">Pipeline compatibility</a></li>
-<li class="toctree-l3"><a class="reference internal" href="develop.html#estimator-types">Estimator types</a></li>
-<li class="toctree-l3"><a class="reference internal" href="develop.html#specific-models">Specific models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="develop.html#estimator-tags">Estimator Tags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#rolling-your-own-estimator">بناء المقدر الخاص بك</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="develop.html#get-params-set-params">get_params و set_params</a></li>
+<li class="toctree-l3"><a class="reference internal" href="develop.html#init">المعلمات و init</a></li>
+<li class="toctree-l3"><a class="reference internal" href="develop.html#cloning">الاستنساخ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="develop.html#id13">توافق خط الأنابيب</a></li>
+<li class="toctree-l3"><a class="reference internal" href="develop.html#id14">أنواع المقدرات</a></li>
+<li class="toctree-l3"><a class="reference internal" href="develop.html#id15">نماذج محددة</a></li>
+<li class="toctree-l3"><a class="reference internal" href="develop.html#estimator-tags">علامات المقدر</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="develop.html#developer-api-for-set-output">Developer API for <code class="docutils literal notranslate"><span class="pre">set_output</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="develop.html#developer-api-for-check-is-fitted">Developer API for <code class="docutils literal notranslate"><span class="pre">check_is_fitted</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="develop.html#developer-api-for-html-representation">Developer API for HTML representation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="develop.html#coding-guidelines">Coding guidelines</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="develop.html#input-validation">Input validation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="develop.html#random-numbers">Random Numbers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="develop.html#numerical-assertions-in-tests">Numerical assertions in tests</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="tips.html">Developers' Tips and Tricks</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tips.html#productivity-and-sanity-preserving-tips">Productivity and sanity-preserving tips</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="tips.html#folding-and-unfolding-outdated-diffs-on-pull-requests">Folding and unfolding outdated diffs on pull requests</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tips.html#checking-out-pull-requests-as-remote-tracking-branches">Checking out pull requests as remote-tracking branches</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tips.html#display-code-coverage-in-pull-requests">Display code coverage in pull requests</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tips.html#useful-pytest-aliases-and-flags">Useful pytest aliases and flags</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tips.html#standard-replies-for-reviewing">Standard replies for reviewing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tips.html#debugging-ci-issues">Debugging CI issues</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="tips.html#using-a-lock-file-to-get-an-environment-close-to-the-ci">Using a lock-file to get an environment close to the CI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#set-output">واجهة برمجة تطبيقات المطور لـ <code class="docutils literal notranslate"><span class="pre">set_output</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#check-is-fitted">واجهة برمجة تطبيقات المطور لـ <code class="docutils literal notranslate"><span class="pre">check_is_fitted</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#html">واجهة برمجة تطبيقات المطور لتمثيل HTML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="develop.html#coding-guidelines">إرشادات الترميز</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="develop.html#id19">التحقق من صحة الإدخال</a></li>
+<li class="toctree-l3"><a class="reference internal" href="develop.html#id20">الأرقام العشوائية</a></li>
+<li class="toctree-l3"><a class="reference internal" href="develop.html#id21">التأكيدات العددية في الاختبارات</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="tips.html#debugging-memory-errors-in-cython-with-valgrind">Debugging memory errors in Cython with valgrind</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tips.html#building-and-testing-for-the-arm64-platform-on-a-x86-64-machine">Building and testing for the ARM64 platform on a x86_64 machine</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tips.html#the-meson-build-backend">The Meson Build Backend</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tips.html">نصائح وحيل للمطورين</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#id2">نصائح للحفاظ على الإنتاجية والعقل</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tips.html#id3">طي وفرد الاختلافات القديمة في طلبات السحب</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tips.html#id4">التحقق من طلبات السحب كفروع تتبع عن بُعد</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tips.html#id5">عرض تغطية الشفرة في طلبات السحب</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tips.html#pytest">أسماء مستعارة وأعلام pytest مفيدة</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tips.html#saved-replies">ردود قياسية للمراجعة</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tips.html#ci">تصحيح أخطاء مشكلات CI</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tips.html#id10">استخدام ملف قفل للحصول على بيئة قريبة من CI</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities for Developers</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="utilities.html#validation-tools">Validation Tools</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utilities.html#efficient-linear-algebra-array-operations">Efficient Linear Algebra &amp; Array Operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utilities.html#efficient-random-sampling">Efficient Random Sampling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utilities.html#efficient-routines-for-sparse-matrices">Efficient Routines for Sparse Matrices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utilities.html#graph-routines">Graph Routines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utilities.html#testing-functions">Testing Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utilities.html#multiclass-and-multilabel-utility-function">Multiclass and multilabel utility function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utilities.html#helper-functions">Helper Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utilities.html#hash-functions">Hash Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utilities.html#warnings-and-exceptions">Warnings and Exceptions</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="performance.html">How to optimize for speed</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="performance.html#python-cython-or-c-c">Python, Cython or C/C++?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="performance.html#profiling-python-code">Profiling Python code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="performance.html#memory-usage-profiling">Memory usage profiling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="performance.html#using-cython">Using Cython</a></li>
-<li class="toctree-l2"><a class="reference internal" href="performance.html#profiling-compiled-extensions">Profiling compiled extensions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="performance.html#using-yep-and-gperftools">Using yep and gperftools</a></li>
-<li class="toctree-l3"><a class="reference internal" href="performance.html#using-a-debugger-gdb">Using a debugger, gdb</a></li>
-<li class="toctree-l3"><a class="reference internal" href="performance.html#using-gprof">Using gprof</a></li>
-<li class="toctree-l3"><a class="reference internal" href="performance.html#using-valgrind-callgrind-kcachegrind">Using valgrind / callgrind / kcachegrind</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#cython-valgrind">تصحيح أخطاء الذاكرة في Cython باستخدام valgrind</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#arm64-x86-64">البناء والاختبار لمنصة ARM64 على جهاز x86_64</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#meson">الخلفية الخلفية لبناء Meson</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="utilities.html">أدوات مساعدة للمطورين</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="utilities.html#id2">أدوات التحقق من الصحة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilities.html#id3">عمليات الجبر الخطي الفعالة وعمليات المصفوفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilities.html#id4">أخذ العينات العشوائية الفعال</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilities.html#id5">إجراءات فعالة للمصفوفات المتفرقة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilities.html#id6">إجراءات الرسم البياني</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilities.html#id7">دوال الاختبار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilities.html#id8">دالة مساعدة متعددة الفئات ومتعددة التسميات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilities.html#id9">دوال مساعدة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilities.html#id10">دوال التجزئة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utilities.html#id11">التحذيرات والاستثناءات</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">كيفية التحسين من أجل السرعة</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#python-cython-c-c">Python أو Cython أو C/C++؟</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#python">تنميط كود Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#id2">تنميط استخدام الذاكرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#cython">استخدام Cython</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#profiling-compiled-extension">تنميط الملحقات المُجمَّعة</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="performance.html#yep-gperftools">استخدام yep و gperftools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="performance.html#gdb">استخدام مُصحِّح أخطاء، gdb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="performance.html#gprof">استخدام gprof</a></li>
+<li class="toctree-l3"><a class="reference internal" href="performance.html#valgrind-callgrind-kcachegrind">استخدام valgrind / callgrind / kcachegrind</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="performance.html#kcachegrind">kcachegrind</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="performance.html#multi-core-parallelism-using-joblib-parallel">Multi-core parallelism using <code class="docutils literal notranslate"><span class="pre">joblib.Parallel</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="performance.html#a-simple-algorithmic-trick-warm-restarts">A simple algorithmic trick: warm restarts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#joblib-parallel">التوازي متعدد النواة باستخدام <code class="docutils literal notranslate"><span class="pre">joblib.Parallel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance.html#warm-restarts">خدعة خوارزمية بسيطة: عمليات إعادة التشغيل الدافئة</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="cython.html">Cython Best Practices, Conventions and Knowledge</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cython.html#tips-for-developing-with-cython-in-scikit-learn">Tips for developing with Cython in scikit-learn</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cython.html#tips-to-ease-development">Tips to ease development</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cython.html#tips-for-performance">Tips for performance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cython.html#using-openmp">Using OpenMP</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cython.html#types">Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cython.html">أفضل ممارسات Cython والاتفاقيات والمعرفة</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cython.html#cython-scikit-learn">نصائح للتطوير باستخدام Cython في scikit-learn</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cython.html#id2">نصائح لتسهيل التطوير</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cython.html#id8">نصائح للأداء</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cython.html#openmp">استخدام OpenMP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cython.html#id10">الأنواع</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="advanced_installation.html">Installing the development version of scikit-learn</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="advanced_installation.html#installing-nightly-builds">Installing nightly builds</a></li>
-<li class="toctree-l2"><a class="reference internal" href="advanced_installation.html#building-from-source">Building from source</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="advanced_installation.html#dependencies">Dependencies</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="advanced_installation.html#runtime-dependencies">Runtime dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="advanced_installation.html#build-dependencies">Build dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="advanced_installation.html#test-dependencies">Test dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_installation.html">تثبيت نسخة التطوير من scikit-learn</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="advanced_installation.html#install-nightly-builds">تثبيت النسخ الليلية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_installation.html#install-bleeding-edge">البناء من المصدر</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="advanced_installation.html#id4">التبعيات</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="advanced_installation.html#id5">تبعيات وقت التشغيل</a></li>
+<li class="toctree-l4"><a class="reference internal" href="advanced_installation.html#id6">تبعيات البناء</a></li>
+<li class="toctree-l4"><a class="reference internal" href="advanced_installation.html#id7">تبعيات الاختبار</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="advanced_installation.html#building-a-specific-version-from-a-tag">Building a specific version from a tag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="advanced_installation.html#id8">بناء إصدار معين من علامة</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="advanced_installation.html#platform-specific-instructions">Platform-specific instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="advanced_installation.html#platform-specific-instructions">تعليمات خاصة بالمنصة</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="advanced_installation.html#windows">Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="advanced_installation.html#macos">macOS</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="advanced_installation.html#macos-compilers-from-conda-forge">macOS compilers from conda-forge</a></li>
-<li class="toctree-l4"><a class="reference internal" href="advanced_installation.html#macos-compilers-from-homebrew">macOS compilers from Homebrew</a></li>
+<li class="toctree-l4"><a class="reference internal" href="advanced_installation.html#macos-conda-forge">مترجمات macOS من conda-forge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="advanced_installation.html#macos-homebrew">مترجمات macOS من Homebrew</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="advanced_installation.html#linux">Linux</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="advanced_installation.html#linux-compilers-from-the-system">Linux compilers from the system</a></li>
-<li class="toctree-l4"><a class="reference internal" href="advanced_installation.html#linux-compilers-from-conda-forge">Linux compilers from conda-forge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="advanced_installation.html#id10">مترجمات Linux من النظام</a></li>
+<li class="toctree-l4"><a class="reference internal" href="advanced_installation.html#linux-conda-forge">مترجمات Linux من conda-forge</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="advanced_installation.html#freebsd">FreeBSD</a></li>
@@ -799,27 +785,27 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="bug_triaging.html">Bug triaging and issue curation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="bug_triaging.html#working-on-issues-to-improve-them">Working on issues to improve them</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bug_triaging.html#working-on-prs-to-help-review">Working on PRs to help review</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bug_triaging.html#triaging-operations-for-members-of-the-core-and-contributor-experience-teams">Triaging operations for members of the core and contributor experience teams</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bug_triaging.html#a-typical-workflow-for-triaging-issues">A typical workflow for triaging issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bug_triaging.html">تصنيف الأخطاء ومعالجة المشكلات</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bug_triaging.html#id3">العمل على المشكلات لتحسينها</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bug_triaging.html#id5">العمل على طلبات السحب للمساعدة في المراجعة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bug_triaging.html#id6">عمليات التنظيم لأعضاء فرق الخبرة الأساسية والمساهمة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bug_triaging.html#id8">سير عمل نموذجي لتنظيم المشكلات</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="maintainer.html">Maintainer Information</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="maintainer.html#releasing">Releasing</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="maintainer.html#reference-steps">Reference Steps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="maintainer.html">معلومات المسؤول</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="maintainer.html#id2">الإصدار</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="maintainer.html#id3">خطوات مرجعية</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="maintainer.html#updating-authors-list">Updating Authors List</a></li>
-<li class="toctree-l2"><a class="reference internal" href="maintainer.html#merging-pull-requests">Merging Pull Requests</a></li>
-<li class="toctree-l2"><a class="reference internal" href="maintainer.html#the-scikit-learn-org-website">The <code class="docutils literal notranslate"><span class="pre">scikit-learn.org</span></code> Website</a></li>
-<li class="toctree-l2"><a class="reference internal" href="maintainer.html#experimental-features">Experimental Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="maintainer.html#id13">تحديث قائمة المؤلفين</a></li>
+<li class="toctree-l2"><a class="reference internal" href="maintainer.html#id14">دمج طلبات السحب</a></li>
+<li class="toctree-l2"><a class="reference internal" href="maintainer.html#scikit-learn-org">موقع scikit-learn.org</a></li>
+<li class="toctree-l2"><a class="reference internal" href="maintainer.html#id16">الميزات التجريبية</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="plotting.html">Developing with the Plotting API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="plotting.html#plotting-api-overview">Plotting API Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plotting.html#plotting-with-multiple-axes">Plotting with Multiple Axes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html">التطوير باستخدام واجهة برمجة تطبيقات تصور البيانات</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html#id2">نظرة عامة على واجهة برمجة تطبيقات تصور البيانات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html#id3">تصور البيانات باستخدام محاور متعددة</a></li>
 </ul>
 </li>
 </ul>
@@ -850,7 +836,7 @@
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">التالي</p>
-        <p class="prev-next-title">Contributing</p>
+        <p class="prev-next-title">المساهمة</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

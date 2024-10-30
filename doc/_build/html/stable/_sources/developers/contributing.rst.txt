@@ -1,69 +1,67 @@
 .. _contributing:
 
 ============
-Contributing
+المساهمة
 ============
 
 .. currentmodule:: sklearn
 
-This project is a community effort, and everyone is welcome to
-contribute. It is hosted on https://github.com/scikit-learn/scikit-learn.
-The decision making process and governance structure of scikit-learn is laid
-out in :ref:`governance`.
+هذا المشروع هو جهد جماعي، والجميع مرحب بهم
+للمساهمة. هو مستضاف على https://github.com/scikit-learn/scikit-learn.
+تم تحديد عملية صنع القرار وهيكل إدارة scikit-learn
+في :ref:`governance`.
 
-Scikit-learn is somewhat :ref:`selective <selectiveness>` when it comes to
-adding new algorithms, and the best way to contribute and to help the project
-is to start working on known issues.
-See :ref:`new_contributors` to get started.
+scikit-learn :ref:`انتقائي إلى حد ما <selectiveness>` عندما يتعلق الأمر
+بإضافة خوارزميات جديدة، وأفضل طريقة للمساهمة ومساعدة المشروع
+هي البدء في العمل على المشكلات المعروفة.
+انظر :ref:`new_contributors` للبدء.
 
-.. topic:: **Our community, our values**
+.. topic:: **مجتمعنا، قيمنا**
 
-    We are a community based on openness and friendly, didactic,
-    discussions.
+    نحن مجتمع قائم على الانفتاح والمناقشات الودية والتعليمية.
 
-    We aspire to treat everybody equally, and value their contributions.  We
-    are particularly seeking people from underrepresented backgrounds in Open
-    Source Software and scikit-learn in particular to participate and
-    contribute their expertise and experience.
+    نتطلع إلى معاملة الجميع على قدم المساواة، ونقدّر مساهماتهم.  نحن
+    نبحث بشكل خاص عن أشخاص من خلفيات غير ممثلة في برامج المصادر المفتوحة
+    و scikit-learn على وجه الخصوص للمشاركة و
+    المساهمة بخبراتهم وتجاربهم.
 
-    Decisions are made based on technical merit and consensus.
+    يتم اتخاذ القرارات بناءً على الجدارة الفنية والتوافق في الآراء.
 
-    Code is not the only way to help the project. Reviewing pull
-    requests, answering questions to help others on mailing lists or
-    issues, organizing and teaching tutorials, working on the website,
-    improving the documentation, are all priceless contributions.
+    الشفرة ليست هي الطريقة الوحيدة لمساعدة المشروع. مراجعة طلبات السحب،
+    والإجابة على الأسئلة لمساعدة الآخرين في قوائم البريد أو
+    المشكلات، وتنظيم وتدريس الدروس، والعمل على الموقع الإلكتروني،
+    وتحسين الوثائق، كلها مساهمات لا تقدر بثمن.
 
-    We abide by the principles of openness, respect, and consideration of
-    others of the Python Software Foundation:
+    نحن نلتزم بمبادئ الانفتاح والاحترام ومراعاة
+    الآخرين في مؤسسة Python Software Foundation:
     https://www.python.org/psf/codeofconduct/
 
 
-In case you experience issues using this package, do not hesitate to submit a
-ticket to the
-`GitHub issue tracker
-<https://github.com/scikit-learn/scikit-learn/issues>`_. You are also
-welcome to post feature requests or pull requests.
+في حالة مواجهة مشكلات أثناء استخدام هذه الحزمة، فلا تتردد في إرسال
+تذكرة إلى
+`متتبع مشكلات GitHub
+<https://github.com/scikit-learn/scikit-learn/issues>`_.  نرحب أيضًا
+بنشر طلبات الميزات أو طلبات السحب.
 
-Ways to contribute
+طرق المساهمة
 ==================
 
-There are many ways to contribute to scikit-learn, with the most common ones
-being contribution of code or documentation to the project. Improving the
-documentation is no less important than improving the library itself.  If you
-find a typo in the documentation, or have made improvements, do not hesitate to
-send an email to the mailing list or preferably submit a GitHub pull request.
-Full documentation can be found under the doc/ directory.
+هناك العديد من الطرق للمساهمة في scikit-learn، وأكثرها شيوعًا
+هي المساهمة بالشفرة أو الوثائق في المشروع. تحسين
+الوثائق لا يقل أهمية عن تحسين المكتبة نفسها.  إذا
+وجدت خطأً مطبعيًا في الوثائق، أو قمت بإجراء تحسينات، فلا تتردد
+في إرسال بريد إلكتروني إلى قائمة البريد أو يفضل إرسال طلب سحب على GitHub.
+يمكن العثور على الوثائق الكاملة ضمن دليل doc/.
 
-But there are many other ways to help. In particular helping to
-:ref:`improve, triage, and investigate issues <bug_triaging>` and
-:ref:`reviewing other developers' pull requests <code_review>` are very
-valuable contributions that decrease the burden on the project
-maintainers.
+ولكن هناك العديد من الطرق الأخرى للمساعدة. على وجه الخصوص، المساعدة في
+:ref:`تحسين وتنظيم والتحقيق في المشكلات <bug_triaging>` و
+:ref:`مراجعة طلبات السحب الخاصة بالمطورين الآخرين <code_review>` هي مساهمات قيّمة للغاية تقلل العبء على مسؤولي
+المشروع.
 
-Another way to contribute is to report issues you're facing, and give a "thumbs
-up" on issues that others reported and that are relevant to you.  It also helps
-us if you spread the word: reference the project from your blog and articles,
-link to it from your website, or simply star to say "I use it":
+هناك طريقة أخرى للمساهمة وهي الإبلاغ عن المشكلات التي تواجهها، وإعطاء "إعجاب"
+للمشكلات التي أبلغ عنها الآخرون والتي تهمك.  يساعدنا أيضًا
+إذا نشرت الخبر: ارجع إلى المشروع من مدونتك ومقالاتك،
+واربطه من موقعك الإلكتروني، أو ببساطة ضع نجمة لتقول "أنا أستخدمه":
 
 .. raw:: html
 
@@ -74,17 +72,17 @@ link to it from your website, or simply star to say "I use it":
     </object>
   </p>
 
-In case a contribution/issue involves changes to the API principles
-or changes to dependencies or supported versions, it must be backed by a
-:ref:`slep`, where a SLEP must be submitted as a pull-request to
-`enhancement proposals <https://scikit-learn-enhancement-proposals.readthedocs.io>`_
-using the `SLEP template <https://scikit-learn-enhancement-proposals.readthedocs.io/en/latest/slep_template.html>`_
-and follows the decision-making process outlined in :ref:`governance`.
+في حالة ما إذا كانت المساهمة/المشكلة تتضمن تغييرات على مبادئ API
+أو تغييرات على التبعيات أو الإصدارات المدعومة، فيجب دعمها بواسطة
+:ref:`slep`، حيث يجب إرسال SLEP كطلب سحب إلى
+`مقترحات التحسين <https://scikit-learn-enhancement-proposals.readthedocs.io>`_
+باستخدام `قالب SLEP <https://scikit-learn-enhancement-proposals.readthedocs.io/en/latest/slep_template.html>`_
+ويتبع عملية صنع القرار الموضحة في :ref:`governance`.
 
-.. dropdown:: Contributing to related projects
+.. dropdown:: المساهمة في المشاريع ذات الصلة
 
-  Scikit-learn thrives in an ecosystem of several related projects, which also
-  may have relevant issues to work on, including smaller projects such as:
+  يزدهر Scikit-learn في نظام بيئي للعديد من المشاريع ذات الصلة، والتي قد يكون
+  لديها أيضًا مشكلات ذات صلة للعمل عليها، بما في ذلك المشاريع الأصغر مثل:
 
   * `scikit-learn-contrib <https://github.com/search?q=org%3Ascikit-learn-contrib+is%3Aissue+is%3Aopen+sort%3Aupdated-desc&type=Issues>`__
   * `joblib <https://github.com/joblib/joblib/issues>`__
@@ -92,180 +90,177 @@ and follows the decision-making process outlined in :ref:`governance`.
   * `numpydoc <https://github.com/numpy/numpydoc/issues>`__
   * `liac-arff <https://github.com/renatopp/liac-arff/issues>`__
 
-  and larger projects:
+  والمشاريع الأكبر:
 
   * `numpy <https://github.com/numpy/numpy/issues>`__
   * `scipy <https://github.com/scipy/scipy/issues>`__
   * `matplotlib <https://github.com/matplotlib/matplotlib/issues>`__
-  * and so on.
+  * وهكذا.
 
-  Look for issues marked "help wanted" or similar. Helping these projects may help
-  scikit-learn too. See also :ref:`related_projects`.
+  ابحث عن المشكلات التي تحمل علامة "help wanted" أو ما شابه. قد تساعد مساعدة هذه المشاريع
+  scikit-learn أيضًا. انظر أيضًا :ref:`related_projects`.
 
-Automated Contributions Policy
+سياسة المساهمات الآلية
 ==============================
 
-Please refrain from submitting issues or pull requests generated by
-fully-automated tools. Maintainers reserve the right, at their sole discretion,
-to close such submissions and to block any account responsible for them.
+يرجى الامتناع عن إرسال مشكلات أو طلبات سحب تم إنشاؤها بواسطة
+أدوات آلية بالكامل. يحتفظ المسؤولون بالحق، وفقًا لتقديرهم الخاص،
+في إغلاق هذه الطلبات وحظر أي حساب مسؤول عنها.
 
-Ideally, contributions should follow from a human-to-human discussion in the
-form of an issue.
+من الناحية المثالية، يجب أن تتبع المساهمات مناقشة بين البشر
+في شكل مشكلة.
 
-Submitting a bug report or a feature request
+إرسال تقرير خطأ أو طلب ميزة
 ============================================
 
-We use GitHub issues to track all bugs and feature requests; feel free to open
-an issue if you have found a bug or wish to see a feature implemented.
+نحن نستخدم مشكلات GitHub لتتبع جميع الأخطاء وطلبات الميزات؛ لا تتردد في فتح
+مشكلة إذا وجدت خطأً أو ترغب في رؤية ميزة تم تنفيذها.
 
-In case you experience issues using this package, do not hesitate to submit a
-ticket to the
-`Bug Tracker <https://github.com/scikit-learn/scikit-learn/issues>`_. You are
-also welcome to post feature requests or pull requests.
+في حالة مواجهة مشكلات أثناء استخدام هذه الحزمة، فلا تتردد في إرسال
+تذكرة إلى
+`متتبع الأخطاء <https://github.com/scikit-learn/scikit-learn/issues>`_.  نرحب أيضًا
+بنشر طلبات الميزات أو طلبات السحب.
 
-It is recommended to check that your issue complies with the
-following rules before submitting:
+يوصى بالتحقق من أن مشكلتك تتوافق مع
+القواعد التالية قبل الإرسال:
 
--  Verify that your issue is not being currently addressed by other
-   `issues <https://github.com/scikit-learn/scikit-learn/issues?q=>`_
-   or `pull requests <https://github.com/scikit-learn/scikit-learn/pulls?q=>`_.
+-  تحقق من أن مشكلتك لا يتم تناولها حاليًا بواسطة مشكلات
+   `أخرى <https://github.com/scikit-learn/scikit-learn/issues?q=>`_
+   أو `طلبات سحب أخرى <https://github.com/scikit-learn/scikit-learn/pulls?q=>`_.
 
--  If you are submitting an algorithm or feature request, please verify that
-   the algorithm fulfills our
-   `new algorithm requirements
+-  إذا كنت ترسل طلب خوارزمية أو ميزة، فيرجى التحقق من أن
+   الخوارزمية تفي بـ `متطلبات الخوارزمية الجديدة الخاصة بنا
    <https://scikit-learn.org/stable/faq.html#what-are-the-inclusion-criteria-for-new-algorithms>`_.
 
--  If you are submitting a bug report, we strongly encourage you to follow the guidelines in
+-  إذا كنت ترسل تقرير خطأ، فإننا نشجعك بشدة على اتباع الإرشادات الواردة في
    :ref:`filing_bugs`.
 
 .. _filing_bugs:
 
-How to make a good bug report
+كيفية كتابة تقرير خطأ جيد
 -----------------------------
 
-When you submit an issue to `GitHub
-<https://github.com/scikit-learn/scikit-learn/issues>`__, please do your best to
-follow these guidelines! This will make it a lot easier to provide you with good
-feedback:
+عند إرسال مشكلة إلى `GitHub
+<https://github.com/scikit-learn/scikit-learn/issues>`__، يرجى بذل قصارى جهدك لـ
+اتباع هذه الإرشادات! سيؤدي ذلك إلى تسهيل تقديم ملاحظات جيدة
+لك:
 
-- The ideal bug report contains a :ref:`short reproducible code snippet
-  <minimal_reproducer>`, this way anyone can try to reproduce the bug easily. If your
-  snippet is longer than around 50 lines, please link to a `Gist
-  <https://gist.github.com>`_ or a GitHub repo.
+- يحتوي تقرير الخطأ المثالي على :ref:`مقتطف شفرة قصير قابل للتكرار
+  <minimal_reproducer>`، وبهذه الطريقة يمكن لأي شخص محاولة إعادة إنتاج الخطأ بسهولة. إذا كان المقتطف الخاص بك
+  أطول من حوالي 50 سطرًا، فيرجى ربطه بـ `Gist
+  <https://gist.github.com>`_ أو مستودع GitHub.
 
-- If not feasible to include a reproducible snippet, please be specific about
-  what **estimators and/or functions are involved and the shape of the data**.
+- إذا لم يكن من الممكن تضمين مقتطف قابل للتكرار، فيرجى تحديد
+  ما هي **المقدرات و/أو الدوال المعنية وشكل البيانات**.
 
-- If an exception is raised, please **provide the full traceback**.
+- في حالة حدوث استثناء، يرجى **تقديم التتبع الكامل**.
 
-- Please include your **operating system type and version number**, as well as
-  your **Python, scikit-learn, numpy, and scipy versions**. This information
-  can be found by running:
+- يرجى تضمين **نوع نظام التشغيل ورقم الإصدار** الخاص بك، بالإضافة إلى
+  **إصدارات Python و scikit-learn و numpy و scipy** الخاصة بك. يمكن العثور على هذه المعلومات
+  عن طريق تشغيل:
 
   .. prompt:: bash
 
     python -c "import sklearn; sklearn.show_versions()"
 
-- Please ensure all **code snippets and error messages are formatted in
-  appropriate code blocks**.  See `Creating and highlighting code blocks
+- يرجى التأكد من **تنسيق جميع مقتطفات التعليمات البرمجية ورسائل الخطأ في
+  كتل التعليمات البرمجية المناسبة**.  انظر `إنشاء كتل التعليمات البرمجية وتمييزها
   <https://help.github.com/articles/creating-and-highlighting-code-blocks>`_
-  for more details.
+  لمزيد من التفاصيل.
 
-If you want to help curate issues, read about :ref:`bug_triaging`.
+إذا كنت ترغب في المساعدة في تنظيم المشكلات، فاقرأ عن :ref:`bug_triaging`.
 
-Contributing code
+المساهمة بالشفرة
 =================
 
 .. note::
 
-  To avoid duplicating work, it is highly advised that you search through the
-  `issue tracker <https://github.com/scikit-learn/scikit-learn/issues>`_ and
-  the `PR list <https://github.com/scikit-learn/scikit-learn/pulls>`_.
-  If in doubt about duplicated work, or if you want to work on a non-trivial
-  feature, it's recommended to first open an issue in
-  the `issue tracker <https://github.com/scikit-learn/scikit-learn/issues>`_
-  to get some feedbacks from core developers.
+  لتجنب ازدواجية العمل، يُنصح بشدة بالبحث في
+  `متتبع المشكلات <https://github.com/scikit-learn/scikit-learn/issues>`_ و
+  `قائمة طلبات السحب <https://github.com/scikit-learn/scikit-learn/pulls>`_.
+  إذا كنت تشك في ازدواجية العمل، أو إذا كنت ترغب في العمل على ميزة غير تافهة،
+  فمن المستحسن فتح مشكلة أولاً في
+  `متتبع المشكلات <https://github.com/scikit-learn/scikit-learn/issues>`_
+  للحصول على بعض الملاحظات من المطورين الأساسيين.
 
-  One easy way to find an issue to work on is by applying the "help wanted"
-  label in your search. This lists all the issues that have been unclaimed
-  so far. In order to claim an issue for yourself, please comment exactly
-  ``/take`` on it for the CI to automatically assign the issue to you.
+  هناك طريقة سهلة للعثور على مشكلة للعمل عليها وهي تطبيق تسمية "help wanted"
+  في بحثك. يسرد هذا جميع المشكلات التي لم تتم المطالبة بها
+  حتى الآن. للمطالبة بمشكلة لنفسك، يرجى التعليق تمامًا
+  ``/take`` عليها حتى يقوم CI بتعيين المشكلة لك تلقائيًا.
 
-To maintain the quality of the codebase and ease the review process, any
-contribution must conform to the project's :ref:`coding guidelines
-<coding-guidelines>`, in particular:
+للحفاظ على جودة قاعدة التعليمات البرمجية وتسهيل عملية المراجعة، يجب أن تتوافق أي
+مساهمة مع :ref:`إرشادات الترميز <coding-guidelines>` الخاصة بالمشروع، على وجه الخصوص:
 
-- Don't modify unrelated lines to keep the PR focused on the scope stated in its
-  description or issue.
-- Only write inline comments that add value and avoid stating the obvious: explain
-  the "why" rather than the "what".
-- **Most importantly**: Do not contribute code that you don't understand.
+- لا تقم بتعديل أسطر غير ذات صلة للحفاظ على تركيز طلب السحب على النطاق المذكور في
+  وصفه أو مشكلته.
+- اكتب فقط تعليقات مضمنة تضيف قيمة وتجنب ذكر ما هو واضح: اشرح
+  "السبب" بدلاً من "ماذا".
+- **الأهم من ذلك**: لا تساهم بالشفرة التي لا تفهمها.
 
-Video resources
+مصادر الفيديو
 ---------------
-These videos are step-by-step introductions on how to contribute to
-scikit-learn, and are a great companion to the following text guidelines.
-Please make sure to still check our guidelines below, since they describe our
-latest up-to-date workflow.
+هذه مقاطع فيديو تمهيدية خطوة بخطوة حول كيفية المساهمة في
+scikit-learn، وهي رفيق رائع لإرشادات النص التالية.
+يرجى التأكد من مراجعة إرشاداتنا أدناه، لأنها تصف أحدث سير عمل محدث لدينا.
 
-- Crash Course in Contributing to Scikit-Learn & Open Source Projects:
-  `Video <https://youtu.be/5OL8XoMMOfA>`__,
-  `Transcript
+- دورة مكثفة في المساهمة في مشاريع Scikit-Learn والمصادر المفتوحة:
+  `فيديو <https://youtu.be/5OL8XoMMOfA>`__،
+  `نسخة
   <https://github.com/data-umbrella/event-transcripts/blob/main/2020/05-andreas-mueller-contributing.md>`__
 
-- Example of Submitting a Pull Request to scikit-learn:
-  `Video <https://youtu.be/PU1WyDPGePI>`__,
-  `Transcript
+- مثال على إرسال طلب سحب إلى scikit-learn:
+  `فيديو <https://youtu.be/PU1WyDPGePI>`__،
+  `نسخة
   <https://github.com/data-umbrella/event-transcripts/blob/main/2020/06-reshama-shaikh-sklearn-pr.md>`__
 
-- Sprint-specific instructions and practical tips:
-  `Video <https://youtu.be/p_2Uw2BxdhA>`__,
-  `Transcript
+- إرشادات ونصائح عملية خاصة بالسباقات السريعة:
+  `فيديو <https://youtu.be/p_2Uw2BxdhA>`__،
+  `نسخة
   <https://github.com/data-umbrella/data-umbrella-scikit-learn-sprint/blob/master/3_transcript_ACM_video_vol2.md>`__
 
-- 3 Components of Reviewing a Pull Request:
-  `Video <https://youtu.be/dyxS9KKCNzA>`__,
-  `Transcript
+- 3 مكونات لمراجعة طلب السحب:
+  `فيديو <https://youtu.be/dyxS9KKCNzA>`__،
+  `نسخة
   <https://github.com/data-umbrella/event-transcripts/blob/main/2021/27-thomas-pr.md>`__
 
 .. note::
-  In January 2021, the default branch name changed from ``master`` to ``main``
-  for the scikit-learn GitHub repository to use more inclusive terms.
-  These videos were created prior to the renaming of the branch.
-  For contributors who are viewing these videos to set up their
-  working environment and submitting a PR, ``master`` should be replaced to ``main``.
+  في يناير 2021، تم تغيير اسم الفرع الافتراضي من ``master`` إلى ``main``
+  لمستودع scikit-learn GitHub لاستخدام مصطلحات أكثر شمولاً.
+  تم إنشاء مقاطع الفيديو هذه قبل إعادة تسمية الفرع.
+  بالنسبة للمساهمين الذين يشاهدون مقاطع الفيديو هذه لإعداد
+  بيئة العمل الخاصة بهم وإرسال طلب سحب، يجب استبدال ``master`` بـ ``main``.
 
-How to contribute
+كيفية المساهمة
 -----------------
 
-The preferred way to contribute to scikit-learn is to fork the `main
-repository <https://github.com/scikit-learn/scikit-learn/>`__ on GitHub,
-then submit a "pull request" (PR).
+الطريقة المفضلة للمساهمة في scikit-learn هي إنشاء شوكة `للمستودع الرئيسي
+<https://github.com/scikit-learn/scikit-learn/>`__ على GitHub،
+ثم إرسال "طلب سحب" (PR).
 
-In the first few steps, we explain how to locally install scikit-learn, and
-how to set up your git repository:
+في الخطوات القليلة الأولى، نشرح كيفية تثبيت scikit-learn محليًا، و
+كيفية إعداد مستودع git الخاص بك:
 
-1. `Create an account <https://github.com/join>`_ on
-   GitHub if you do not already have one.
+1. `أنشئ حسابًا <https://github.com/join>`_ على
+   GitHub إذا لم يكن لديك حساب بالفعل.
 
-2. Fork the `project repository
-   <https://github.com/scikit-learn/scikit-learn>`__: click on the 'Fork'
-   button near the top of the page. This creates a copy of the code under your
-   account on the GitHub user account. For more details on how to fork a
-   repository see `this guide <https://help.github.com/articles/fork-a-repo/>`_.
+2. أنشئ شوكة `لمستودع المشروع
+   <https://github.com/scikit-learn/scikit-learn>`__: انقر فوق الزر "Fork"
+   بالقرب من أعلى الصفحة. يؤدي هذا إلى إنشاء نسخة من الشفرة ضمن حسابك
+   على حساب مستخدم GitHub. لمزيد من التفاصيل حول كيفية إنشاء شوكة
+   لمستودع، انظر `هذا الدليل <https://help.github.com/articles/fork-a-repo/>`_.
 
-3. Clone your fork of the scikit-learn repo from your GitHub account to your
-   local disk:
+3. استنسخ شوكة مستودع scikit-learn من حساب GitHub الخاص بك إلى القرص
+   المحلي الخاص بك:
 
    .. prompt:: bash
 
       git clone git@github.com:YourLogin/scikit-learn.git  # add --depth 1 if your connection is slow
       cd scikit-learn
 
-4. Follow steps 2-6 in :ref:`install_bleeding_edge` to build scikit-learn in
-   development mode and return to this document.
+4. اتبع الخطوات من 2 إلى 6 في :ref:`install_bleeding_edge` لبناء scikit-learn في
+   وضع التطوير والعودة إلى هذه الوثيقة.
 
-5. Install the development dependencies:
+5. قم بتثبيت تبعيات التطوير:
 
    .. prompt:: bash
 
@@ -273,16 +268,16 @@ how to set up your git repository:
 
 .. _upstream:
 
-6. Add the ``upstream`` remote. This saves a reference to the main
-   scikit-learn repository, which you can use to keep your repository
-   synchronized with the latest changes:
+6. أضف جهاز التحكم عن بُعد ``upstream``. يحفظ هذا مرجعًا إلى مستودع
+   scikit-learn الرئيسي، والذي يمكنك استخدامه للحفاظ على مستودعك
+   متزامنًا مع أحدث التغييرات:
 
    .. prompt:: bash
 
         git remote add upstream git@github.com:scikit-learn/scikit-learn.git
 
-7. Check that the `upstream` and `origin` remote aliases are configured correctly
-   by running `git remote -v` which should display:
+7. تحقق من تكوين أسماء مستعارة لجهاز التحكم عن بُعد `upstream` و `origin` بشكل صحيح
+   عن طريق تشغيل `git remote -v` الذي يجب أن يعرض:
 
    .. code-block:: text
 
@@ -291,14 +286,14 @@ how to set up your git repository:
         upstream	git@github.com:scikit-learn/scikit-learn.git (fetch)
         upstream	git@github.com:scikit-learn/scikit-learn.git (push)
 
-You should now have a working installation of scikit-learn, and your git repository
-properly configured. It could be useful to run some test to verify your installation.
-Please refer to :ref:`pytest_tips` for examples.
+يجب أن يكون لديك الآن تثبيت عامل لـ scikit-learn، ومستودع git الخاص بك
+مكوّن بشكل صحيح. قد يكون من المفيد تشغيل بعض الاختبارات للتحقق من التثبيت الخاص بك.
+يرجى الرجوع إلى :ref:`pytest_tips` للحصول على أمثلة.
 
-The next steps now describe the process of modifying code and submitting a PR:
+تصف الخطوات التالية الآن عملية تعديل الشفرة وإرسال طلب سحب:
 
-8. Synchronize your ``main`` branch with the ``upstream/main`` branch,
-   more details on `GitHub Docs <https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork>`_:
+8. قم بمزامنة فرع ``main`` الخاص بك مع فرع ``upstream/main``،
+   لمزيد من التفاصيل حول `وثائق GitHub <https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork>`_:
 
    .. prompt:: bash
 
@@ -306,281 +301,271 @@ The next steps now describe the process of modifying code and submitting a PR:
         git fetch upstream
         git merge upstream/main
 
-9. Create a feature branch to hold your development changes:
+9. أنشئ فرع ميزة للاحتفاظ بتغييرات التطوير الخاصة بك:
 
    .. prompt:: bash
 
         git checkout -b my_feature
 
-   and start making changes. Always use a feature branch. It's good
-   practice to never work on the ``main`` branch!
+   وابدأ في إجراء تغييرات. استخدم دائمًا فرع ميزة. إنها ممارسة جيدة
+   ألا تعمل أبدًا على فرع ``main``!
 
-10. (**Optional**) Install `pre-commit <https://pre-commit.com/#install>`_ to
-    run code style checks before each commit:
+10. (**اختياري**) قم بتثبيت `pre-commit <https://pre-commit.com/#install>`_ لـ
+    تشغيل عمليات فحص نمط الشفرة قبل كل إيداع:
 
     .. prompt:: bash
 
           pip install pre-commit
           pre-commit install
 
-    pre-commit checks can be disabled for a particular commit with
+    يمكن تعطيل عمليات فحص pre-commit لإيداع معين باستخدام
     `git commit -n`.
 
-11. Develop the feature on your feature branch on your computer, using Git to
-    do the version control. When you're done editing, add changed files using
-    ``git add`` and then ``git commit``:
+11. قم بتطوير الميزة على فرع الميزة الخاص بك على جهاز الكمبيوتر الخاص بك، باستخدام Git لـ
+    التحكم في الإصدار. عند الانتهاء من التحرير، أضف الملفات التي تم تغييرها باستخدام
+    ``git add`` ثم ``git commit``:
 
     .. prompt:: bash
 
         git add modified_files
         git commit
 
-    to record your changes in Git, then push the changes to your GitHub
-    account with:
+    لتسجيل تغييراتك في Git، ثم ادفع التغييرات إلى حساب GitHub الخاص بك
+    باستخدام:
 
     .. prompt:: bash
 
        git push -u origin my_feature
 
-12. Follow `these
+12. اتبع `هذه
     <https://help.github.com/articles/creating-a-pull-request-from-a-fork>`_
-    instructions to create a pull request from your fork. This will send an
-    email to the committers. You may want to consider sending an email to the
-    mailing list for more visibility.
+    التعليمات لإنشاء طلب سحب من شوكة الخاص بك. سيؤدي هذا إلى إرسال
+    بريد إلكتروني إلى المودعين. قد ترغب في التفكير في إرسال بريد إلكتروني إلى
+    قائمة البريد لمزيد من الرؤية.
 
-It is often helpful to keep your local feature branch synchronized with the
-latest changes of the main scikit-learn repository:
+من المفيد غالبًا الحفاظ على مزامنة فرع الميزة المحلي الخاص بك مع
+أحدث التغييرات في مستودع scikit-learn الرئيسي:
 
 .. prompt:: bash
 
     git fetch upstream
     git merge upstream/main
 
-Subsequently, you might need to solve the conflicts. You can refer to the
-`Git documentation related to resolving merge conflict using the command
-line
+بعد ذلك، قد تحتاج إلى حل التعارضات. يمكنك الرجوع إلى
+`وثائق Git المتعلقة بحل تعارض الدمج باستخدام سطر الأوامر
 <https://help.github.com/articles/resolving-a-merge-conflict-using-the-command-line/>`_.
 
-.. topic:: Learning Git
+.. topic:: تعلم Git
 
-    The `Git documentation <https://git-scm.com/doc>`_ and
-    http://try.github.io are excellent resources to get started with git,
-    and understanding all of the commands shown here.
+    `وثائق Git <https://git-scm.com/documentation>`_ و
+    http://try.github.io هي موارد ممتازة للبدء في استخدام git،
+    وفهم جميع الأوامر المعروضة هنا.
 
 .. _pr_checklist:
 
-Pull request checklist
+قائمة التحقق من طلب السحب
 ----------------------
 
-Before a PR can be merged, it needs to be approved by two core developers.
-An incomplete contribution -- where you expect to do more work before receiving
-a full review -- should be marked as a `draft pull request
+قبل دمج طلب سحب، يجب الموافقة عليه من قبل اثنين من المطورين الأساسيين.
+يجب وضع علامة على المساهمة غير المكتملة - حيث تتوقع القيام بمزيد من العمل قبل تلقي
+مراجعة كاملة - كـ `طلب سحب مسودة
 <https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/changing-the-stage-of-a-pull-request>`__
-and changed to "ready for review" when it matures. Draft PRs may be useful to:
-indicate you are working on something to avoid duplicated work, request
-broad review of functionality or API, or seek collaborators. Draft PRs often
-benefit from the inclusion of a `task list
-<https://github.com/blog/1375-task-lists-in-gfm-issues-pulls-comments>`_ in
-the PR description.
+وتغييره إلى "جاهز للمراجعة" عندما ينضج. قد تكون مسودات طلبات السحب مفيدة لـ:
+الإشارة إلى أنك تعمل على شيء ما لتجنب ازدواجية العمل، أو طلب
+مراجعة واسعة للوظائف أو API، أو البحث عن متعاونين. غالبًا ما تستفيد مسودات طلبات السحب من تضمين `قائمة مهام
+<https://github.com/blog/1375-task-lists-in-gfm-issues-pulls-comments>`_ في
+وصف طلب السحب.
 
-In order to ease the reviewing process, we recommend that your contribution
-complies with the following rules before marking a PR as "ready for review". The
-**bolded** ones are especially important:
+لتسهيل عملية المراجعة، نوصي بأن تتوافق مساهمتك
+مع القواعد التالية قبل وضع علامة على طلب السحب على أنه "جاهز للمراجعة".
+**ذات الخط العريض** مهمة بشكل خاص:
 
-1. **Give your pull request a helpful title** that summarizes what your
-   contribution does. This title will often become the commit message once
-   merged so it should summarize your contribution for posterity. In some
-   cases "Fix <ISSUE TITLE>" is enough. "Fix #<ISSUE NUMBER>" is never a
-   good title.
+1. **امنح طلب السحب الخاص بك عنوانًا مفيدًا** يلخص ما تفعله
+   مساهمتك. سيصبح هذا العنوان غالبًا رسالة الإيداع بمجرد دمجه، لذا يجب أن يلخص
+   مساهمتك للأجيال القادمة. في بعض الحالات، يكفي "Fix <ISSUE TITLE>".
+   "Fix #<ISSUE NUMBER>" ليس عنوانًا جيدًا أبدًا.
 
-2. **Make sure your code passes the tests**. The whole test suite can be run
-   with `pytest`, but it is usually not recommended since it takes a long
-   time. It is often enough to only run the test related to your changes:
-   for example, if you changed something in
-   `sklearn/linear_model/_logistic.py`, running the following commands will
-   usually be enough:
+2. **تأكد من اجتياز التعليمات البرمجية الخاصة بك للاختبارات**. يمكن تشغيل مجموعة الاختبارات بأكملها
+   باستخدام `pytest`، ولكن لا يوصى بذلك عادةً لأنه يستغرق وقتًا طويلاً.
+   غالبًا ما يكفي تشغيل الاختبار المتعلق بتغييراتك فقط:
+   على سبيل المثال، إذا قمت بتغيير شيء ما في
+   `sklearn/linear_model/_logistic.py`، فإن تشغيل الأوامر التالية
+   سيكون كافيًا عادةً:
 
-   - `pytest sklearn/linear_model/_logistic.py` to make sure the doctest
-     examples are correct
-   - `pytest sklearn/linear_model/tests/test_logistic.py` to run the tests
-     specific to the file
-   - `pytest sklearn/linear_model` to test the whole
-     :mod:`~sklearn.linear_model` module
-   - `pytest doc/modules/linear_model.rst` to make sure the user guide
-     examples are correct.
-   - `pytest sklearn/tests/test_common.py -k LogisticRegression` to run all our
-     estimator checks (specifically for `LogisticRegression`, if that's the
-     estimator you changed).
+   - `pytest sklearn/linear_model/_logistic.py` للتأكد من صحة أمثلة doctest
+   - `pytest sklearn/linear_model/tests/test_logistic.py` لتشغيل الاختبارات
+     الخاصة بالملف
+   - `pytest sklearn/linear_model` لاختبار الوحدة
+     :mod:`~sklearn.linear_model` بأكملها
+   - `pytest doc/modules/linear_model.rst` للتأكد من صحة أمثلة دليل المستخدم.
+   - `pytest sklearn/tests/test_common.py -k LogisticRegression` لتشغيل جميع عمليات فحص المقدرات لدينا (على وجه التحديد لـ `LogisticRegression`، إذا كان هذا هو
+     المقدر الذي قمت بتغييره).
 
-   There may be other failing tests, but they will be caught by the CI so
-   you don't need to run the whole test suite locally. For guidelines on how
-   to use ``pytest`` efficiently, see the :ref:`pytest_tips`.
+   قد تكون هناك اختبارات أخرى فاشلة، ولكن سيتم اكتشافها بواسطة CI لذا
+   لست بحاجة إلى تشغيل مجموعة الاختبارات بأكملها محليًا. للحصول على إرشادات حول كيفية
+   استخدام ``pytest`` بكفاءة، انظر :ref:`pytest_tips`.
 
-3. **Make sure your code is properly commented and documented**, and **make
-   sure the documentation renders properly**. To build the documentation, please
-   refer to our :ref:`contribute_documentation` guidelines. The CI will also
-   build the docs: please refer to :ref:`generated_doc_CI`.
+3. **تأكد من أن التعليمات البرمجية الخاصة بك تحتوي على تعليقات ووثائق بشكل صحيح**، و **تأكد
+   من عرض الوثائق بشكل صحيح**. لبناء الوثائق، يرجى
+   الرجوع إلى إرشادات :ref:`contribute_documentation` الخاصة بنا. سيقوم CI أيضًا
+   ببناء الوثائق: يرجى الرجوع إلى :ref:`generated_doc_CI`.
 
-4. **Tests are necessary for enhancements to be
-   accepted**. Bug-fixes or new features should be provided with
-   `non-regression tests
-   <https://en.wikipedia.org/wiki/Non-regression_testing>`_. These tests
-   verify the correct behavior of the fix or feature. In this manner, further
-   modifications on the code base are granted to be consistent with the
-   desired behavior. In the case of bug fixes, at the time of the PR, the
-   non-regression tests should fail for the code base in the ``main`` branch
-   and pass for the PR code.
+4. **الاختبارات ضرورية لقبول التحسينات**. يجب توفير إصلاحات الأخطاء أو الميزات الجديدة مع
+   `اختبارات عدم الانحدار
+   <https://en.wikipedia.org/wiki/Non-regression_testing>`_. تتحقق هذه الاختبارات
+   من السلوك الصحيح للإصلاح أو الميزة. بهذه الطريقة، يتم منح
+   تعديلات أخرى على قاعدة التعليمات البرمجية لتتوافق مع
+   السلوك المطلوب. في حالة إصلاحات الأخطاء، في وقت طلب السحب،
+   يجب أن تفشل اختبارات عدم الانحدار لقاعدة التعليمات البرمجية في فرع ``main``
+   وتنجح لشفرة طلب السحب.
 
-5. Follow the :ref:`coding-guidelines`.
+5. اتبع :ref:`coding-guidelines`.
 
-6. When applicable, use the validation tools and scripts in the :mod:`sklearn.utils`
-   module. A list of utility routines available for developers can be found in the
-   :ref:`developers-utils` page.
+6. عند الاقتضاء، استخدم أدوات التحقق من الصحة والبرامج النصية في الوحدة :mod:`sklearn.utils`. يمكن العثور على قائمة بإجراءات الخدمة المتاحة للمطورين في
+   صفحة :ref:`developers-utils`.
 
-7. Often pull requests resolve one or more other issues (or pull requests).
-   If merging your pull request means that some other issues/PRs should
-   be closed, you should `use keywords to create link to them
+7. غالبًا ما تحل طلبات السحب مشكلة واحدة أو أكثر (أو طلبات سحب).
+   إذا كان دمج طلب السحب الخاص بك يعني أنه يجب
+   إغلاق بعض المشكلات/طلبات السحب الأخرى، فيجب عليك `استخدام الكلمات الرئيسية لإنشاء رابط لها
    <https://github.com/blog/1506-closing-issues-via-pull-requests/>`_
-   (e.g., ``Fixes #1234``; multiple issues/PRs are allowed as long as each
-   one is preceded by a keyword). Upon merging, those issues/PRs will
-   automatically be closed by GitHub. If your pull request is simply
-   related to some other issues/PRs, or it only partially resolves the target
-   issue, create a link to them without using the keywords (e.g., ``Towards #1234``).
+   (على سبيل المثال، ``Fixes #1234``؛ يُسمح بمشكلات/طلبات سحب متعددة طالما أن كل
+   واحدة مسبوقة بكلمة رئيسية). عند الدمج، سيتم
+   إغلاق تلك المشكلات/طلبات السحب تلقائيًا بواسطة GitHub. إذا كان طلب السحب الخاص بك
+   مرتبطًا ببساطة ببعض المشكلات/طلبات السحب الأخرى، أو كان يحل جزئيًا فقط المشكلة
+   المستهدفة، فقم بإنشاء رابط لها دون استخدام الكلمات الرئيسية (على سبيل المثال، ``Towards #1234``).
 
-8. PRs should often substantiate the change, through benchmarks of
-   performance and efficiency (see :ref:`monitoring_performances`) or through
-   examples of usage. Examples also illustrate the features and intricacies of
-   the library to users. Have a look at other examples in the `examples/
+8. يجب أن تدعم طلبات السحب غالبًا التغيير، من خلال معايير
+   الأداء والكفاءة (انظر :ref:`monitoring_performances`) أو من خلال
+   أمثلة الاستخدام. توضح الأمثلة أيضًا ميزات المكتبة وتعقيداتها
+   للمستخدمين. ألقِ نظرة على أمثلة أخرى في الدليل `examples/
    <https://github.com/scikit-learn/scikit-learn/tree/main/examples>`_
-   directory for reference. Examples should demonstrate why the new
-   functionality is useful in practice and, if possible, compare it to other
-   methods available in scikit-learn.
+   كمرجع. يجب أن توضح الأمثلة سبب فائدة الوظيفة الجديدة في الممارسة العملية،
+   وإذا أمكن، قارنها بالطرق الأخرى المتاحة في scikit-learn.
 
-9. New features have some maintenance overhead. We expect PR authors
-   to take part in the maintenance for the code they submit, at least
-   initially. New features need to be illustrated with narrative
-   documentation in the user guide, with small code snippets.
-   If relevant, please also add references in the literature, with PDF links
-   when possible.
+9. الميزات الجديدة لها بعض النفقات العامة للصيانة. نتوقع من مؤلفي طلبات السحب
+   المشاركة في صيانة الشفرة التي يقدمونها، على الأقل
+   في البداية. يجب توضيح الميزات الجديدة بوثائق سردية
+   في دليل المستخدم، مع مقتطفات شفرة صغيرة.
+   إذا كان ذلك مناسبًا، فيرجى أيضًا إضافة مراجع في الأدبيات، مع روابط PDF
+   عندما يكون ذلك ممكنًا.
 
-10. The user guide should also include expected time and space complexity
-    of the algorithm and scalability, e.g. "this algorithm can scale to a
-    large number of samples > 100000, but does not scale in dimensionality:
-    `n_features` is expected to be lower than 100".
+10. يجب أن يتضمن دليل المستخدم أيضًا الوقت المتوقع وتعقيد المساحة
+    للخوارزمية وقابلية التوسع، على سبيل المثال "يمكن لهذه الخوارزمية التوسع إلى
+    عدد كبير من العينات > 100000، ولكنها لا تتسع في الأبعاد:
+    من المتوقع أن يكون `n_features` أقل من 100".
 
-You can also check our :ref:`code_review` to get an idea of what reviewers
-will expect.
+يمكنك أيضًا مراجعة :ref:`code_review` الخاص بنا للحصول على فكرة عما سيتوقعه المراجعون.
 
-You can check for common programming errors with the following tools:
+يمكنك التحقق من أخطاء البرمجة الشائعة باستخدام الأدوات التالية:
 
-* Code with a good unit test coverage (at least 80%, better 100%), check with:
+* الشفرة ذات تغطية اختبار وحدة جيدة (على الأقل 80٪، أفضل 100٪)، تحقق باستخدام:
 
   .. prompt:: bash
 
     pip install pytest pytest-cov
     pytest --cov sklearn path/to/tests
 
-  See also :ref:`testing_coverage`.
+  انظر أيضًا :ref:`testing_coverage`.
 
-* Run static analysis with `mypy`:
+* قم بتشغيل التحليل الثابت باستخدام `mypy`:
 
   .. prompt:: bash
 
       mypy sklearn
 
-  This must not produce new errors in your pull request. Using `# type: ignore`
-  annotation can be a workaround for a few cases that are not supported by
-  mypy, in particular,
+  يجب ألا ينتج عن هذا أخطاء جديدة في طلب السحب الخاص بك. يمكن أن يكون استخدام التعليق التوضيحي `# type: ignore`
+  حلًا مؤقتًا لبعض الحالات التي لا يدعمها
+  mypy، على وجه الخصوص،
 
-  - when importing C or Cython modules,
-  - on properties with decorators.
+  - عند استيراد وحدات C أو Cython،
+  - على الخصائص ذات المُزَيِّنات.
 
-Bonus points for contributions that include a performance analysis with
-a benchmark script and profiling output (see :ref:`monitoring_performances`).
-Also check out the :ref:`performance-howto` guide for more details on
-profiling and Cython optimizations.
+نقاط إضافية للمساهمات التي تتضمن تحليل أداء مع
+برنامج نصي مرجعي ومخرجات التنميط (انظر :ref:`monitoring_performances`).
+راجع أيضًا دليل :ref:`performance-howto` لمزيد من التفاصيل حول
+تحسين Cython والتنميط.
 
 .. note::
 
-  The current state of the scikit-learn code base is not compliant with
-  all of those guidelines, but we expect that enforcing those constraints
-  on all new contributions will get the overall code base quality in the
-  right direction.
+  الحالة الحالية لقاعدة شفرة scikit-learn غير متوافقة مع
+  جميع هذه الإرشادات، لكننا نتوقع أن يؤدي فرض هذه القيود
+  على جميع المساهمات الجديدة إلى تحسين جودة قاعدة الشفرة الإجمالية في
+  الاتجاه الصحيح.
 
 .. seealso::
 
-   For two very well documented and more detailed guides on development
-   workflow, please pay a visit to the `Scipy Development Workflow
+   للحصول على دليلين موثقين جيدًا ومفصّلين حول سير عمل
+   التطوير، يرجى زيارة `Scipy Development Workflow
    <http://scipy.github.io/devdocs/dev/dev_quickstart.html>`_ -
-   and the `Astropy Workflow for Developers
+   و `Astropy Workflow for Developers
    <https://astropy.readthedocs.io/en/latest/development/workflow/development_workflow.html>`_
-   sections.
+   أقسام.
 
-Continuous Integration (CI)
+التكامل المستمر (CI)
 ---------------------------
 
-* Azure pipelines are used for testing scikit-learn on Linux, Mac and Windows,
-  with different dependencies and settings.
-* CircleCI is used to build the docs for viewing.
-* Github Actions are used for various tasks, including building wheels and
-  source distributions.
-* Cirrus CI is used to build on ARM.
+* يتم استخدام خطوط أنابيب Azure لاختبار scikit-learn على Linux و Mac و Windows،
+  مع تبعيات وإعدادات مختلفة.
+* يتم استخدام CircleCI لبناء المستندات للعرض.
+* يتم استخدام إجراءات Github لمهام مختلفة، بما في ذلك إنشاء عجلات
+  وتوزيعات المصدر.
+* يتم استخدام Cirrus CI للبناء على ARM.
 
 .. _commit_markers:
 
-Commit message markers
+علامات رسالة الإيداع
 ^^^^^^^^^^^^^^^^^^^^^^
 
-Please note that if one of the following markers appear in the latest commit
-message, the following actions are taken.
+يرجى ملاحظة أنه إذا ظهرت إحدى العلامات التالية في رسالة الإيداع الأخيرة،
+فسيتم اتخاذ الإجراءات التالية.
 
 ====================== ===================
-Commit Message Marker  Action Taken by CI
+علامة رسالة الإيداع   الإجراء الذي يتخذه CI
 ====================== ===================
-[ci skip]              CI is skipped completely
-[cd build]             CD is run (wheels and source distribution are built)
-[cd build gh]          CD is run only for GitHub Actions
-[cd build cirrus]      CD is run only for Cirrus CI
-[lint skip]            Azure pipeline skips linting
-[scipy-dev]            Build & test with our dependencies (numpy, scipy, etc.) development builds
-[free-threaded]        Build & test with CPython 3.13 free-threaded
-[pyodide]              Build & test with Pyodide
-[azure parallel]       Run Azure CI jobs in parallel
-[cirrus arm]           Run Cirrus CI ARM test
-[float32]              Run float32 tests by setting `SKLEARN_RUN_FLOAT32_TESTS=1`. See :ref:`environment_variable` for more details
-[doc skip]             Docs are not built
-[doc quick]            Docs built, but excludes example gallery plots
-[doc build]            Docs built including example gallery plots (very long)
+[ci skip]              يتم تخطي CI تمامًا
+[cd build]             يتم تشغيل CD (يتم بناء العجلات وتوزيع المصدر)
+[cd build gh]          يتم تشغيل CD فقط لإجراءات GitHub
+[cd build cirrus]      يتم تشغيل CD فقط لـ Cirrus CI
+[lint skip]            يتخطى خط أنابيب Azure التحقق من النسق
+[scipy-dev]            البناء والاختبار باستخدام تصميمات التطوير الخاصة بالتبعيات لدينا (numpy و scipy وما إلى ذلك)
+[free-threaded]        البناء والاختبار باستخدام CPython 3.13 free-threaded
+[pyodide]              البناء والاختبار باستخدام Pyodide
+[azure parallel]       تشغيل وظائف Azure CI بالتوازي
+[cirrus arm]           تشغيل اختبار Cirrus CI ARM
+[float32]              تشغيل اختبارات float32 عن طريق تعيين `SKLEARN_RUN_FLOAT32_TESTS=1`. انظر :ref:`environment_variable` لمزيد من التفاصيل
+[doc skip]             لا يتم بناء المستندات
+[doc quick]            يتم بناء المستندات، ولكن باستثناء مخططات معرض الأمثلة
+[doc build]            يتم بناء المستندات بما في ذلك مخططات معرض الأمثلة (طويلة جدًا)
 ====================== ===================
 
-Note that, by default, the documentation is built but only the examples
-that are directly modified by the pull request are executed.
+لاحظ أنه، افتراضيًا، يتم بناء الوثائق ولكن يتم تنفيذ الأمثلة
+التي يتم تعديلها مباشرةً بواسطة طلب السحب فقط.
 
-Lock files
+ملفات التأمين
 ^^^^^^^^^^
 
-CIs use lock files to build environments with specific versions of dependencies. When a
-PR needs to modify the dependencies or their versions, the lock files should be updated
-accordingly. This can be done by commenting in the PR:
+يستخدم CI ملفات التأمين لبناء بيئات بإصدارات محددة من التبعيات. عندما
+يحتاج طلب سحب إلى تعديل التبعيات أو إصداراتها، يجب تحديث ملفات التأمين
+وفقًا لذلك. يمكن القيام بذلك عن طريق التعليق في طلب السحب:
 
 .. code-block:: text
 
   @scikit-learn-bot update lock-files
 
-A bot will push a commit to your PR branch with the updated lock files in a few minutes.
-Make sure to tick the *Allow edits from maintainers* checkbox located at the bottom of
-the right sidebar of the PR. You can also specify the options `--select-build`,
-`--skip-build`, and `--select-tag` as in a command line. Use `--help` on the script
-`build_tools/update_environments_and_lock_files.py` for more information. For example,
+سيقوم بوت بدفع إيداع إلى فرع طلب السحب الخاص بك مع ملفات التأمين المحدثة في غضون بضع دقائق.
+تأكد من تحديد خانة الاختيار *السماح بالتعديلات من المسؤولين* الموجودة أسفل
+الشريط الجانبي الأيمن لطلب السحب. يمكنك أيضًا تحديد الخيارات `--select-build`
+و `--skip-build` و `--select-tag` كما هو الحال في سطر الأوامر. استخدم `--help` في البرنامج النصي
+`build_tools/update_environments_and_lock_files.py` لمزيد من المعلومات. فمثلا،
 
 .. code-block:: text
 
   @scikit-learn-bot update lock-files --select-tag main-ci --skip-build doc
 
-The bot will automatically add :ref:`commit message markers <commit_markers>` to the
-commit for certain tags. If you want to add more markers manually, you can do so using
-the `--commit-marker` option. For example, the following comment will trigger the bot to
-update documentation-related lock files and add the `[doc build]` marker to the commit:
+سيضيف البوت تلقائيًا :ref:`علامات رسالة الإيداع <commit_markers>` إلى
+الإيداع لعلامات معينة. إذا كنت ترغب في إضافة المزيد من العلامات يدويًا، فيمكنك القيام بذلك باستخدام
+الخيار `--commit-marker`. على سبيل المثال، سيؤدي التعليق التالي إلى تشغيل البوت لـ
+تحديث ملفات التأمين المتعلقة بالوثائق وإضافة علامة `[doc build]` إلى الإيداع:
 
 .. code-block:: text
 
@@ -588,153 +573,153 @@ update documentation-related lock files and add the `[doc build]` marker to the 
 
 .. _stalled_pull_request:
 
-Stalled pull requests
+طلبات السحب المتوقفة
 ---------------------
 
-As contributing a feature can be a lengthy process, some
-pull requests appear inactive but unfinished. In such a case, taking
-them over is a great service for the project. A good etiquette to take over is:
+نظرًا لأن المساهمة في ميزة ما قد تكون عملية طويلة، تظهر بعض
+طلبات السحب غير نشطة ولكنها غير مكتملة. في مثل هذه الحالة، فإن توليها
+هو خدمة رائعة للمشروع. الآداب الجيدة لتولي المسؤولية هي:
 
-* **Determine if a PR is stalled**
+* **تحديد ما إذا كان طلب السحب متوقفًا**
 
-  * A pull request may have the label "stalled" or "help wanted" if we
-    have already identified it as a candidate for other contributors.
+  * قد يحتوي طلب السحب على تسمية "stalled" أو "help wanted" إذا كنا
+    قد حددناه بالفعل كمرشح للمساهمين الآخرين.
 
-  * To decide whether an inactive PR is stalled, ask the contributor if
-    she/he plans to continue working on the PR in the near future.
-    Failure to respond within 2 weeks with an activity that moves the PR
-    forward suggests that the PR is stalled and will result in tagging
-    that PR with "help wanted".
+  * لتحديد ما إذا كان طلب السحب غير النشط متوقفًا، اسأل المساهم عما إذا كان
+    يخطط لمواصلة العمل على طلب السحب في المستقبل القريب.
+    يشير عدم الرد في غضون أسبوعين بنشاط يدفع طلب السحب
+    إلى الأمام إلى أن طلب السحب متوقف وسيؤدي إلى وضع علامة
+    على طلب السحب هذا باسم "help wanted".
 
-    Note that if a PR has received earlier comments on the contribution
-    that have had no reply in a month, it is safe to assume that the PR
-    is stalled and to shorten the wait time to one day.
+    لاحظ أنه إذا تلقى طلب السحب تعليقات سابقة على المساهمة
+    التي لم تتلق ردًا في غضون شهر، فمن الآمن افتراض أن طلب السحب
+    متوقف وتقصير وقت الانتظار إلى يوم واحد.
 
-    After a sprint, follow-up for un-merged PRs opened during sprint will
-    be communicated to participants at the sprint, and those PRs will be
-    tagged "sprint". PRs tagged with "sprint" can be reassigned or
-    declared stalled by sprint leaders.
+    بعد سباق سريع، سيتم توصيل متابعة طلبات السحب غير المدمجة التي تم فتحها أثناء السباق السريع
+    إلى المشاركين في السباق السريع، وسيتم وضع علامة على طلبات السحب هذه
+    باسم "sprint". يمكن إعادة تعيين طلبات السحب التي تحمل علامة "sprint" أو
+    إعلان توقفها بواسطة قادة السباق السريع.
 
-* **Taking over a stalled PR**: To take over a PR, it is important to
-  comment on the stalled PR that you are taking over and to link from the
-  new PR to the old one. The new PR should be created by pulling from the
-  old one.
+* **تولّي طلب سحب متوقف**: لتولّي طلب سحب، من المهم
+  التعليق على طلب السحب المتوقف الذي تتولاه والربط من
+  طلب السحب الجديد بالطلب القديم. يجب إنشاء طلب السحب الجديد عن طريق السحب من
+  الطلب القديم.
 
-Stalled and Unclaimed Issues
+المشكلات المتوقفة وغير المطالب بها
 ----------------------------
 
-Generally speaking, issues which are up for grabs will have a
+بشكل عام، ستحمل المشكلات الجاهزة للاستيلاء عليها علامة
 `"help wanted" <https://github.com/scikit-learn/scikit-learn/labels/help%20wanted>`_.
-tag. However, not all issues which need contributors will have this tag,
-as the "help wanted" tag is not always up-to-date with the state
-of the issue. Contributors can find issues which are still up for grabs
-using the following guidelines:
+. ومع ذلك، لن تحمل جميع المشكلات التي تحتاج إلى مساهمين هذه العلامة،
+حيث أن علامة "help wanted" ليست محدثة دائمًا مع حالة
+المشكلة. يمكن للمساهمين العثور على المشكلات التي لا تزال جاهزة للاستيلاء عليها
+باستخدام الإرشادات التالية:
 
-* First, to **determine if an issue is claimed**:
+* أولاً، لـ **تحديد ما إذا تم المطالبة بمشكلة ما**:
 
-  * Check for linked pull requests
-  * Check the conversation to see if anyone has said that they're working on
-    creating a pull request
+  * تحقق من طلبات السحب المرتبطة
+  * تحقق من المحادثة لمعرفة ما إذا كان أي شخص قد قال إنه يعمل على
+    إنشاء طلب سحب
 
-* If a contributor comments on an issue to say they are working on it,
-  a pull request is expected within 2 weeks (new contributor) or 4 weeks
-  (contributor or core dev), unless an larger time frame is explicitly given.
-  Beyond that time, another contributor can take the issue and make a
-  pull request for it. We encourage contributors to comment directly on the
-  stalled or unclaimed issue to let community members know that they will be
-  working on it.
+* إذا علّق مساهم على مشكلة ليقول إنه يعمل عليها،
+  فسيتم توقع طلب سحب في غضون أسبوعين (مساهم جديد) أو 4 أسابيع
+  (مساهم أو مطور أساسي)، ما لم يتم تحديد إطار زمني أكبر صراحةً.
+  بعد ذلك الوقت، يمكن لمساهم آخر أن يأخذ المشكلة ويقدم
+  طلب سحب لها. نشجع المساهمين على التعليق مباشرةً على
+  المشكلة المتوقفة أو غير المطالب بها لإعلام أعضاء المجتمع أنهم سيعملون
+  عليها.
 
-* If the issue is linked to a :ref:`stalled pull request <stalled_pull_request>`,
-  we recommend that contributors follow the procedure
-  described in the :ref:`stalled_pull_request`
-  section rather than working directly on the issue.
+* إذا كانت المشكلة مرتبطة بـ :ref:`طلب سحب متوقف <stalled_pull_request>`،
+  فننصح المساهمين باتباع الإجراء
+  الموضح في قسم :ref:`stalled_pull_request`
+  بدلاً من العمل مباشرةً على المشكلة.
 
 .. _new_contributors:
 
-Issues for New Contributors
+مشكلات للمساهمين الجدد
 ---------------------------
 
-New contributors should look for the following tags when looking for issues.  We
-strongly recommend that new contributors tackle "easy" issues first: this helps
-the contributor become familiar with the contribution workflow, and for the core
-devs to become acquainted with the contributor; besides which, we frequently
-underestimate how easy an issue is to solve!
+يجب على المساهمين الجدد البحث عن العلامات التالية عند البحث عن مشكلات.  نحن
+نوصي بشدة بأن يتعامل المساهمون الجدد مع المشكلات "السهلة" أولاً: يساعد هذا
+المساهم على التعرف على سير عمل المساهمة، وعلى المطورين الأساسيين
+التعرف على المساهم؛ بالإضافة إلى ذلك، غالبًا ما نقلل من
+مدى سهولة حل مشكلة ما!
 
-- **Good first issue tag**
+- **علامة Good first issue**
 
-  A great way to start contributing to scikit-learn is to pick an item from
-  the list of `good first issues
+  طريقة رائعة للبدء في المساهمة في scikit-learn هي اختيار عنصر من
+  قائمة `good first issues
   <https://github.com/scikit-learn/scikit-learn/labels/good%20first%20issue>`_
-  in the issue tracker. Resolving these issues allow you to start contributing
-  to the project without much prior knowledge. If you have already contributed
-  to scikit-learn, you should look at Easy issues instead.
+  في متتبع المشكلات. يسمح لك حل هذه المشكلات بالبدء في المساهمة
+  في المشروع دون معرفة مسبقة كبيرة. إذا كنت قد ساهمت بالفعل
+  في scikit-learn، فيجب عليك إلقاء نظرة على المشكلات السهلة بدلاً من ذلك.
 
-- **Easy tag**
+- **علامة Easy**
 
-  If you have already contributed to scikit-learn, another great way to contribute
-  to scikit-learn is to pick an item from the list of `Easy issues
-  <https://github.com/scikit-learn/scikit-learn/labels/Easy>`_ in the issue
-  tracker. Your assistance in this area will be greatly appreciated by the
-  more experienced developers as it helps free up their time to concentrate on
-  other issues.
+  إذا كنت قد ساهمت بالفعل في scikit-learn، فهناك طريقة رائعة أخرى للمساهمة
+  في scikit-learn وهي اختيار عنصر من قائمة `المشكلات السهلة
+  <https://github.com/scikit-learn/scikit-learn/labels/Easy>`_ في متتبع
+  المشكلات. ستكون مساعدتك في هذا المجال موضع تقدير كبير من قبل
+  المطورين الأكثر خبرة لأنها تساعد في توفير وقتهم للتركيز على
+  المشكلات الأخرى.
 
-- **Help wanted tag**
+- **علامة Help wanted**
 
-  We often use the help wanted tag to mark issues regardless of difficulty.
-  Additionally, we use the help wanted tag to mark Pull Requests which have been
-  abandoned by their original contributor and are available for someone to pick up where
-  the original contributor left off. The list of issues with the help wanted tag can be
-  found `here <https://github.com/scikit-learn/scikit-learn/labels/help%20wanted>`_.
-  Note that not all issues which need contributors will have this tag.
+  غالبًا ما نستخدم علامة Help wanted لتمييز المشكلات بغض النظر عن الصعوبة.
+  بالإضافة إلى ذلك، نستخدم علامة Help wanted لتمييز طلبات السحب التي تم
+  التخلي عنها من قبل المساهم الأصلي ومتاحة لشخص ما لالتقاطها من حيث
+  توقف المساهم الأصلي. يمكن العثور على قائمة المشكلات التي تحمل علامة Help wanted
+  `هنا <https://github.com/scikit-learn/scikit-learn/labels/help%20wanted>`_.
+  لاحظ أنه لن تحمل جميع المشكلات التي تحتاج إلى مساهمين هذه العلامة.
 
 .. _contribute_documentation:
 
-Documentation
+الوثائق
 =============
 
-We are glad to accept any sort of documentation:
+يسعدنا قبول أي نوع من الوثائق:
 
-* **Function/method/class docstrings:** Also known as "API documentation", these
-  describe what the object does and details any parameters, attributes and
-  methods. Docstrings live alongside the code in `sklearn/
-  <https://github.com/scikit-learn/scikit-learn/tree/main/sklearn>`_, and are generated
-  generated according to `doc/api_reference.py
-  <https://github.com/scikit-learn/scikit-learn/blob/main/doc/api_reference.py>`_. To
-  add, update, remove, or deprecate a public API that is listed in :ref:`api_ref`, this
-  is the place to look at.
-* **User guide:** These provide more detailed information about the algorithms
-  implemented in scikit-learn and generally live in the root
-  `doc/ <https://github.com/scikit-learn/scikit-learn/tree/main/doc>`_ directory
-  and
+* **سلاسل وثائق الدوال/الأساليب/الفئات:** تُعرف أيضًا باسم "وثائق API"، تصف هذه
+  ما يفعله الكائن وتفاصيل أي معلمات وسمات و
+  أساليب. توجد سلاسل الوثائق جنبًا إلى جنب مع الشفرة في `sklearn/
+  <https://github.com/scikit-learn/scikit-learn/tree/main/sklearn>`_، ويتم إنشاؤها
+  وفقًا لـ `doc/api_reference.py
+  <https://github.com/scikit-learn/scikit-learn/blob/main/doc/api_reference.py>`_. لـ
+  إضافة أو تحديث أو إزالة أو إهمال واجهة برمجة تطبيقات عامة مدرجة في :ref:`api_ref`، هذا
+  هو المكان الذي يجب أن تنظر إليه.
+* **دليل المستخدم:** يوفر هذا معلومات أكثر تفصيلاً حول الخوارزميات
+  المُنفَّذة في scikit-learn وعادةً ما توجد في جذر
+  `doc/ <https://github.com/scikit-learn/scikit-learn/tree/main/doc>`_ الدليل
+  و
   `doc/modules/ <https://github.com/scikit-learn/scikit-learn/tree/main/doc/modules>`_.
-* **Examples:** These provide full code examples that may demonstrate the use
-  of scikit-learn modules, compare different algorithms or discuss their
-  interpretation, etc. Examples live in
+* **أمثلة:** توفر هذه أمثلة شفرة كاملة قد توضح استخدام
+  وحدات scikit-learn، أو مقارنة خوارزميات مختلفة أو مناقشة
+  تفسيرها، وما إلى ذلك. توجد الأمثلة في
   `examples/ <https://github.com/scikit-learn/scikit-learn/tree/main/examples>`_.
-* **Other reStructuredText documents:** These provide various other useful information
-  (e.g., the :ref:`contributing` guide) and live in
+* **وثائق reStructuredText الأخرى:** توفر هذه معلومات مفيدة أخرى متنوعة
+  (على سبيل المثال، دليل :ref:`contributing`) وتوجد في
   `doc/ <https://github.com/scikit-learn/scikit-learn/tree/main/doc>`_.
 
 
-.. dropdown:: Guidelines for writing docstrings
+.. dropdown:: إرشادات لكتابة سلاسل الوثائق
 
-  * When documenting the parameters and attributes, here is a list of some
-    well-formatted examples
+  * عند توثيق المعلمات والسمات، إليك قائمة ببعض
+    الأمثلة جيدة التنسيق
 
     .. code-block:: text
 
       n_clusters : int, default=3
-          The number of clusters detected by the algorithm.
+          عدد المجموعات التي اكتشفتها الخوارزمية.
 
       some_param : {"hello", "goodbye"}, bool or int, default=True
-          The parameter description goes here, which can be either a string
-          literal (either `hello` or `goodbye`), a bool, or an int. The default
-          value is True.
+          يذهب وصف المعلمة هنا، والذي يمكن أن يكون إما سلسلة
+          حرفية (إما `hello` أو `goodbye`)، أو منطقي، أو عدد صحيح. القيمة الافتراضية
+          هي True.
 
       array_parameter : {array-like, sparse matrix} of shape (n_samples, n_features) \
           or (n_samples,)
-          This parameter accepts data in either of the mentioned forms, with one
-          of the mentioned shapes. The default value is `np.ones(shape=(n_samples,))`.
+          تقبل هذه المعلمة البيانات بأي من الأشكال المذكورة، مع أحد
+          الأشكال المذكورة. القيمة الافتراضية هي `np.ones(shape=(n_samples,))`.
 
       list_param : list of int
 
@@ -744,824 +729,123 @@ We are glad to accept any sort of documentation:
 
       multioutput_array : ndarray of shape (n_samples, n_classes) or list of such arrays
 
-    In general have the following in mind:
+    بشكل عام، ضع في اعتبارك ما يلي:
 
-    * Use Python basic types. (``bool`` instead of ``boolean``)
-    * Use parenthesis for defining shapes: ``array-like of shape (n_samples,)``
-      or ``array-like of shape (n_samples, n_features)``
-    * For strings with multiple options, use brackets: ``input: {'log',
+    * استخدم الأنواع الأساسية في Python. (``bool`` بدلاً من ``boolean``)
+    * استخدم الأقواس لتعريف الأشكال: ``array-like of shape (n_samples,)``
+      أو ``array-like of shape (n_samples, n_features)``
+    * بالنسبة للسلاسل ذات الخيارات المتعددة، استخدم الأقواس: ``input: {'log',
       'squared', 'multinomial'}``
-    * 1D or 2D data can be a subset of ``{array-like, ndarray, sparse matrix,
-      dataframe}``. Note that ``array-like`` can also be a ``list``, while
-      ``ndarray`` is explicitly only a ``numpy.ndarray``.
-    * Specify ``dataframe`` when "frame-like" features are being used, such as
-      the column names.
-    * When specifying the data type of a list, use ``of`` as a delimiter: ``list
-      of int``. When the parameter supports arrays giving details about the
-      shape and/or data type and a list of such arrays, you can use one of
+    * يمكن أن تكون البيانات أحادية البعد أو ثنائية الأبعاد مجموعة فرعية من ``{array-like, ndarray, sparse matrix,
+      dataframe}``. لاحظ أن ``array-like`` يمكن أن يكون أيضًا ``list``، بينما
+      ``ndarray`` هو ``numpy.ndarray`` فقط صراحةً.
+    * حدد ``dataframe`` عند استخدام ميزات "frame-like"، مثل
+      أسماء الأعمدة.
+    * عند تحديد نوع بيانات القائمة، استخدم ``of`` كفاصل: ``list
+      of int``. عندما تدعم المعلمة مصفوفات تعطي تفاصيل حول
+      الشكل و/أو نوع البيانات وقائمة من هذه المصفوفات، يمكنك استخدام أحد
       ``array-like of shape (n_samples,) or list of such arrays``.
-    * When specifying the dtype of an ndarray, use e.g. ``dtype=np.int32`` after
-      defining the shape: ``ndarray of shape (n_samples,), dtype=np.int32``. You
-      can specify multiple dtype as a set: ``array-like of shape (n_samples,),
-      dtype={np.float64, np.float32}``. If one wants to mention arbitrary
-      precision, use `integral` and `floating` rather than the Python dtype
-      `int` and `float`. When both `int` and `floating` are supported, there is
-      no need to specify the dtype.
-    * When the default is ``None``, ``None`` only needs to be specified at the
-      end with ``default=None``. Be sure to include in the docstring, what it
-      means for the parameter or attribute to be ``None``.
+    * عند تحديد dtype لـ ndarray، استخدم على سبيل المثال ``dtype=np.int32`` بعد
+      تعريف الشكل: ``ndarray of shape (n_samples,), dtype=np.int32``. أنت
+      يمكنك تحديد dtype متعددة كمجموعة: ``array-like of shape (n_samples,),
+      dtype={np.float64, np.float32}``. إذا أراد المرء ذكر دقة
+      تعسفية، فاستخدم `integral` و `floating` بدلاً من Python dtype
+      `int` و `float`. عندما يتم دعم كل من `int` و `floating`، فلا داعي لـ
+      تحديد dtype.
+    * عندما تكون القيمة الافتراضية ``None``، يلزم تحديد ``None`` فقط في
+      النهاية باستخدام ``default=None``. تأكد من تضمين في سلسلة الوثائق، ما
+      يعنيه أن تكون المعلمة أو السمة ``None``.
 
-  * Add "See Also" in docstrings for related classes/functions.
+  * أضف "See Also" في سلاسل الوثائق للفئات/الدوال ذات الصلة.
 
-  * "See Also" in docstrings should be one line per reference, with a colon and an
-    explanation, for example:
+  * يجب أن يكون "See Also" في سلاسل الوثائق سطرًا واحدًا لكل مرجع، مع نقطتين و
+    شرح، على سبيل المثال:
 
     .. code-block:: text
 
       See Also
       --------
-      SelectKBest : Select features based on the k highest scores.
-      SelectFpr : Select features based on a false positive rate test.
+      SelectKBest : تحديد الميزات بناءً على أعلى k نقاط.
+      SelectFpr : تحديد الميزات بناءً على اختبار معدل إيجابية خاطئة.
 
-  * Add one or two snippets of code in "Example" section to show how it can be used.
+  * أضف مقتطفًا واحدًا أو اثنين من الشفرة في قسم "Example" لإظهار كيفية استخدامه.
 
 
-.. dropdown:: Guidelines for writing the user guide and other reStructuredText documents
+.. dropdown:: إرشادات لكتابة دليل المستخدم ووثائق reStructuredText الأخرى
 
-  It is important to keep a good compromise between mathematical and algorithmic
-  details, and give intuition to the reader on what the algorithm does.
+  من المهم الحفاظ على حل وسط جيد بين التفاصيل الرياضية والخوارزمية،
+  وإعطاء القارئ حدسًا حول ما تفعله الخوارزمية.
 
-  * Begin with a concise, hand-waving explanation of what the algorithm/code does on
-    the data.
+  * ابدأ بشرح موجز وموجز لما تفعله الخوارزمية/الشفرة على
+    البيانات.
 
-  * Highlight the usefulness of the feature and its recommended application.
-    Consider including the algorithm's complexity
-    (:math:`O\left(g\left(n\right)\right)`) if available, as "rules of thumb" can
-    be very machine-dependent. Only if those complexities are not available, then
-    rules of thumb may be provided instead.
+  * سلّط الضوء على فائدة الميزة وتطبيقها الموصى به.
+    ضع في اعتبارك تضمين تعقيد الخوارزمية
+    (:math:`O\left(g\left(n\right)\right)`) إذا كان متاحًا، حيث يمكن
+    أن تكون "قواعد التجربة"
+    تعتمد بشكل كبير على الجهاز. فقط إذا لم تكن هذه التعقيدات متاحة، فيمكن
+    توفير قواعد التجربة بدلاً من ذلك.
 
-  * Incorporate a relevant figure (generated from an example) to provide intuitions.
+  * قم بتضمين شكل ذي صلة (تم إنشاؤه من مثال) لتوفير حدس.
 
-  * Include one or two short code examples to demonstrate the feature's usage.
+  * قم بتضمين مثال شفرة قصير واحد أو اثنين لشرح استخدام الميزة.
 
-  * Introduce any necessary mathematical equations, followed by references. By
-    deferring the mathematical aspects, the documentation becomes more accessible
-    to users primarily interested in understanding the feature's practical
-    implications rather than its underlying mechanics.
+  * عرّف أي معادلات رياضية ضرورية، متبوعة بالمراجع. عن طريق تأجيل
+    الجوانب الرياضية، تصبح الوثائق أكثر سهولة
+    للمستخدمين المهتمين في المقام الأول بفهم الآثار العملية للميزة
+    بدلاً من آلياتها الأساسية.
 
-  * When editing reStructuredText (``.rst``) files, try to keep line length under
-    88 characters when possible (exceptions include links and tables).
+  * عند تحرير ملفات reStructuredText (``.rst``)، حاول الحفاظ على طول السطر أقل من
+    88 حرفًا عندما يكون ذلك ممكنًا (تشمل الاستثناءات الروابط والجداول).
 
-  * In scikit-learn reStructuredText files both single and double backticks
-    surrounding text will render as inline literal (often used for code, e.g.,
-    `list`). This is due to specific configurations we have set. Single
-    backticks should be used nowadays.
+  * في ملفات reStructuredText الخاصة بـ scikit-learn، سيتم عرض كل من علامات الاقتباس المفردة والمزدوجة
+    المحيطة بالنص كحرفية مضمنة (غالبًا ما تستخدم للتعليمات البرمجية، على سبيل المثال،
+    `list`). يرجع ذلك إلى تكوينات محددة قمنا بتعيينها. يجب استخدام علامات الاقتباس
+    المفردة في الوقت الحاضر.
 
-  * Too much information makes it difficult for users to access the content they
-    are interested in. Use dropdowns to factorize it by using the following syntax
+  * الكثير من المعلومات يجعل من الصعب على المستخدمين الوصول إلى المحتوى الذي
+    يهتمون به. استخدم القوائم المنسدلة لعواملها باستخدام بناء الجملة التالي
 
     .. code-block:: rst
 
-      .. dropdown:: Dropdown title
+      .. dropdown:: عنوان القائمة المنسدلة
 
-        Dropdown content.
+        محتوى القائمة المنسدلة.
 
-    The snippet above will result in the following dropdown:
+    ستؤدي المقتطف أعلاه إلى القائمة المنسدلة التالية:
 
-    .. dropdown:: Dropdown title
+    .. dropdown:: عنوان القائمة المنسدلة
 
-      Dropdown content.
+      محتوى القائمة المنسدلة.
 
-  * Information that can be hidden by default using dropdowns is:
+  * المعلومات التي يمكن إخفاؤها افتراضيًا باستخدام القوائم المنسدلة هي:
 
-    * low hierarchy sections such as `References`, `Properties`, etc. (see for
-      instance the subsections in :ref:`det_curve`);
+    * أقسام التسلسل الهرمي المنخفض مثل `References` و `Properties` وما إلى ذلك (انظر على
+      سبيل المثال الأقسام الفرعية في :ref:`det_curve`)؛
 
-    * in-depth mathematical details;
+    * التفاصيل الرياضية المتعمقة؛
 
-    * narrative that is use-case specific;
+    * السرد الخاص بحالة الاستخدام؛
 
-    * in general, narrative that may only interest users that want to go beyond
-      the pragmatics of a given tool.
+    * بشكل عام، السرد الذي قد يثير اهتمام المستخدمين الذين يرغبون في تجاوز
+      جوانب عملية استخدام أداة معينة.
 
-  * Do not use dropdowns for the low level section `Examples`, as it should stay
-    visible to all users. Make sure that the `Examples` section comes right after
-    the main discussion with the least possible folded section in-between.
+  * لا تستخدم القوائم المنسدلة لقسم `Examples` منخفض المستوى، حيث يجب أن يظل
+    مرئيًا لجميع المستخدمين. تأكد من أن قسم `Examples` يأتي مباشرة بعد
+    المناقشة الرئيسية مع أقل عدد ممكن من الأقسام المطوية بينهما.
 
-  * Be aware that dropdowns break cross-references. If that makes sense, hide the
-    reference along with the text mentioning it. Else, do not use dropdown.
+  * اعلم أن القوائم المنسدلة تكسر المراجع المتقاطعة. إذا كان ذلك منطقيًا، فقم بإخفاء
+    المرجع مع النص الذي يذكره. وإلا، فلا تستخدم القائمة المنسدلة.
 
 
-.. dropdown:: Guidelines for writing references
+.. dropdown:: إرشادات لكتابة المراجع
 
-  * When bibliographic references are available with `arxiv <https://arxiv.org/>`_
-    or `Digital Object Identifier <https://www.doi.org/>`_ identification numbers,
-    use the sphinx directives `:arxiv:` or `:doi:`. For example, see references in
+  * عندما تتوفر مراجع ببليوغرافية بأرقام تعريف `arxiv <https://arxiv.org/>`_
+    أو `معرف الكائن الرقمي <https://www.doi.org/>`_،
+    استخدم توجيهات sphinx `:arxiv:` أو `:doi:`. على سبيل المثال، انظر المراجع في
     :ref:`Spectral Clustering Graphs <spectral_clustering_graph>`.
 
-  * For the "References" section in docstrings, see
-    :func:`sklearn.metrics.silhouette_score` as an example.
+  * بالنسبة لقسم "References" في سلاسل الوثائق، انظر
+    :func:`sklearn.metrics.silhouette_score` كمثال.
 
-  * To cross-reference to other pages in the scikit-learn documentation use the
-    reStructuredText cross-referencing syntax:
-
-    * **Section:** to link to an arbitrary section in the documentation, use
-      reference labels (see `Sphinx docs
-      <https://www.sphinx-doc.org/en/master/usage/restructuredtext/roles.html#ref-role>`_).
-      For example:
-
-      .. code-block:: rst
-
-          .. _my-section:
-
-          My section
-          ----------
-
-          This is the text of the section.
-
-          To refer to itself use :ref:`my-section`.
-
-      You should not modify existing sphinx reference labels as this would break
-      existing cross references and external links pointing to specific sections
-      in the scikit-learn documentation.
-
-    * **Glossary:** linking to a term in the :ref:`glossary`:
-
-      .. code-block:: rst
-
-          :term:`cross_validation`
-
-    * **Function:** to link to the documentation of a function, use the full import
-      path to the function:
-
-      .. code-block:: rst
-
-          :func:`~sklearn.model_selection.cross_val_score`
-
-      However, if there is a `.. currentmodule::` directive above you in the document,
-      you will only need to use the path to the function succeeding the current
-      module specified. For example:
-
-      .. code-block:: rst
-
-          .. currentmodule:: sklearn.model_selection
-
-          :func:`cross_val_score`
-
-    * **Class:** to link to documentation of a class, use the full import path to the
-      class, unless there is a `.. currentmodule::` directive in the document above
-      (see above):
-
-      .. code-block:: rst
-
-          :class:`~sklearn.preprocessing.StandardScaler`
-
-You can edit the documentation using any text editor, and then generate the
-HTML output by following :ref:`building_documentation`. The resulting HTML files
-will be placed in ``_build/html/`` and are viewable in a web browser, for instance by
-opening the local ``_build/html/index.html`` file or by running a local server
-
-.. prompt:: bash
-
-  python -m http.server -d _build/html
-
-
-.. _building_documentation:
-
-Building the documentation
---------------------------
-
-**Before submitting a pull request check if your modifications have introduced
-new sphinx warnings by building the documentation locally and try to fix them.**
-
-First, make sure you have :ref:`properly installed <install_bleeding_edge>` the
-development version. On top of that, building the documentation requires installing some
-additional packages:
-
-..
-    packaging is not needed once setuptools starts shipping packaging>=17.0
-
-.. prompt:: bash
-
-    pip install sphinx sphinx-gallery numpydoc matplotlib Pillow pandas \
-                polars scikit-image packaging seaborn sphinx-prompt \
-                sphinxext-opengraph sphinx-copybutton plotly pooch \
-                pydata-sphinx-theme sphinxcontrib-sass sphinx-design \
-                sphinx-remove-toctrees
-
-To build the documentation, you need to be in the ``doc`` folder:
-
-.. prompt:: bash
-
-    cd doc
-
-In the vast majority of cases, you only need to generate the web site without
-the example gallery:
-
-.. prompt:: bash
-
-    make
-
-The documentation will be generated in the ``_build/html/stable`` directory
-and are viewable in a web browser, for instance by opening the local
-``_build/html/stable/index.html`` file.
-To also generate the example gallery you can use:
-
-.. prompt:: bash
-
-    make html
-
-This will run all the examples, which takes a while. You can also run only a few examples based on their file names.
-Here is a way to run all examples with filenames containing `plot_calibration`:
-
-.. prompt:: bash
-
-    EXAMPLES_PATTERN="plot_calibration" make html
-
-You can use regular expressions for more advanced use cases.
-
-Set the environment variable `NO_MATHJAX=1` if you intend to view the documentation in
-an offline setting. To build the PDF manual, run:
-
-.. prompt:: bash
-
-    make latexpdf
-
-.. admonition:: Sphinx version
-   :class: warning
-
-   While we do our best to have the documentation build under as many
-   versions of Sphinx as possible, the different versions tend to
-   behave slightly differently. To get the best results, you should
-   use the same version as the one we used on CircleCI. Look at this
-   `GitHub search <https://github.com/search?q=repo%3Ascikit-learn%2Fscikit-learn+%2F%5C%2Fsphinx-%5B0-9.%5D%2B%2F+path%3Abuild_tools%2Fcircle%2Fdoc_linux-64_conda.lock&type=code>`_
-   to know the exact version.
-
-
-.. _generated_doc_CI:
-
-Generated documentation on GitHub Actions
------------------------------------------
-
-When you change the documentation in a pull request, GitHub Actions automatically
-builds it. To view the documentation generated by GitHub Actions, simply go to the
-bottom of your PR page, look for the item "Check the rendered docs here!" and
-click on 'details' next to it:
-
-.. image:: ../images/generated-doc-ci.png
-   :align: center
-
-.. _testing_coverage:
-
-Testing and improving test coverage
-===================================
-
-High-quality `unit testing <https://en.wikipedia.org/wiki/Unit_testing>`_
-is a corner-stone of the scikit-learn development process. For this
-purpose, we use the `pytest <https://docs.pytest.org>`_
-package. The tests are functions appropriately named, located in `tests`
-subdirectories, that check the validity of the algorithms and the
-different options of the code.
-
-Running `pytest` in a folder will run all the tests of the corresponding
-subpackages. For a more detailed `pytest` workflow, please refer to the
-:ref:`pr_checklist`.
-
-We expect code coverage of new features to be at least around 90%.
-
-.. dropdown:: Writing matplotlib-related tests
-
-  Test fixtures ensure that a set of tests will be executing with the appropriate
-  initialization and cleanup. The scikit-learn test suite implements a ``pyplot``
-  fixture which can be used with ``matplotlib``.
-
-  The ``pyplot`` fixture should be used when a test function is dealing with
-  ``matplotlib``. ``matplotlib`` is a soft dependency and is not required.
-  This fixture is in charge of skipping the tests if ``matplotlib`` is not
-  installed. In addition, figures created during the tests will be
-  automatically closed once the test function has been executed.
-
-  To use this fixture in a test function, one needs to pass it as an
-  argument::
-
-      def test_requiring_mpl_fixture(pyplot):
-          # you can now safely use matplotlib
-
-.. dropdown:: Workflow to improve test coverage
-
-  To test code coverage, you need to install the `coverage
-  <https://pypi.org/project/coverage/>`_ package in addition to `pytest`.
-
-  1. Run `pytest --cov sklearn /path/to/tests`. The output lists for each file the line
-     numbers that are not tested.
-
-  2. Find a low hanging fruit, looking at which lines are not tested,
-     write or adapt a test specifically for these lines.
-
-  3. Loop.
-
-.. _monitoring_performances:
-
-Monitoring performance
-======================
-
-*This section is heavily inspired from the* `pandas documentation
-<https://pandas.pydata.org/docs/development/contributing_codebase.html#running-the-performance-test-suite>`_.
-
-When proposing changes to the existing code base, it's important to make sure
-that they don't introduce performance regressions. Scikit-learn uses
-`asv benchmarks <https://github.com/airspeed-velocity/asv>`_ to monitor the
-performance of a selection of common estimators and functions. You can view
-these benchmarks on the `scikit-learn benchmark page
-<https://scikit-learn.org/scikit-learn-benchmarks>`_.
-The corresponding benchmark suite can be found in the `asv_benchmarks/` directory.
-
-To use all features of asv, you will need either `conda` or `virtualenv`. For
-more details please check the `asv installation webpage
-<https://asv.readthedocs.io/en/latest/installing.html>`_.
-
-First of all you need to install the development version of asv:
-
-.. prompt:: bash
-
-    pip install git+https://github.com/airspeed-velocity/asv
-
-and change your directory to `asv_benchmarks/`:
-
-.. prompt:: bash
-
-  cd asv_benchmarks
-
-The benchmark suite is configured to run against your local clone of
-scikit-learn. Make sure it is up to date:
-
-.. prompt:: bash
-
-  git fetch upstream
-
-In the benchmark suite, the benchmarks are organized following the same
-structure as scikit-learn. For example, you can compare the performance of a
-specific estimator between ``upstream/main`` and the branch you are working on:
-
-.. prompt:: bash
-
-  asv continuous -b LogisticRegression upstream/main HEAD
-
-The command uses conda by default for creating the benchmark environments. If
-you want to use virtualenv instead, use the `-E` flag:
-
-.. prompt:: bash
-
-  asv continuous -E virtualenv -b LogisticRegression upstream/main HEAD
-
-You can also specify a whole module to benchmark:
-
-.. prompt:: bash
-
-  asv continuous -b linear_model upstream/main HEAD
-
-You can replace `HEAD` by any local branch. By default it will only report the
-benchmarks that have change by at least 10%. You can control this ratio with
-the `-f` flag.
-
-To run the full benchmark suite, simply remove the `-b` flag :
-
-.. prompt:: bash
-
-  asv continuous upstream/main HEAD
-
-However this can take up to two hours. The `-b` flag also accepts a regular
-expression for a more complex subset of benchmarks to run.
-
-To run the benchmarks without comparing to another branch, use the `run`
-command:
-
-.. prompt:: bash
-
-  asv run -b linear_model HEAD^!
-
-You can also run the benchmark suite using the version of scikit-learn already
-installed in your current Python environment:
-
-.. prompt:: bash
-
-  asv run --python=same
-
-It's particularly useful when you installed scikit-learn in editable mode to
-avoid creating a new environment each time you run the benchmarks. By default
-the results are not saved when using an existing installation. To save the
-results you must specify a commit hash:
-
-.. prompt:: bash
-
-  asv run --python=same --set-commit-hash=<commit hash>
-
-Benchmarks are saved and organized by machine, environment and commit. To see
-the list of all saved benchmarks:
-
-.. prompt:: bash
-
-  asv show
-
-and to see the report of a specific run:
-
-.. prompt:: bash
-
-  asv show <commit hash>
-
-When running benchmarks for a pull request you're working on please report the
-results on github.
-
-The benchmark suite supports additional configurable options which can be set
-in the `benchmarks/config.json` configuration file. For example, the benchmarks
-can run for a provided list of values for the `n_jobs` parameter.
-
-More information on how to write a benchmark and how to use asv can be found in
-the `asv documentation <https://asv.readthedocs.io/en/latest/index.html>`_.
-
-.. _issue_tracker_tags:
-
-Issue Tracker Tags
-==================
-
-All issues and pull requests on the
-`GitHub issue tracker <https://github.com/scikit-learn/scikit-learn/issues>`_
-should have (at least) one of the following tags:
-
-:Bug:
-    Something is happening that clearly shouldn't happen.
-    Wrong results as well as unexpected errors from estimators go here.
-
-:Enhancement:
-    Improving performance, usability, consistency.
-
-:Documentation:
-    Missing, incorrect or sub-standard documentations and examples.
-
-:New Feature:
-    Feature requests and pull requests implementing a new feature.
-
-There are four other tags to help new contributors:
-
-:Good first issue:
-    This issue is ideal for a first contribution to scikit-learn. Ask for help
-    if the formulation is unclear. If you have already contributed to
-    scikit-learn, look at Easy issues instead.
-
-:Easy:
-    This issue can be tackled without much prior experience.
-
-:Moderate:
-    Might need some knowledge of machine learning or the package,
-    but is still approachable for someone new to the project.
-
-:Help wanted:
-    This tag marks an issue which currently lacks a contributor or a
-    PR that needs another contributor to take over the work. These
-    issues can range in difficulty, and may not be approachable
-    for new contributors. Note that not all issues which need
-    contributors will have this tag.
-
-.. _backwards-compatibility:
-
-Maintaining backwards compatibility
-===================================
-
-.. _contributing_deprecation:
-
-Deprecation
------------
-
-If any publicly accessible class, function, method, attribute or parameter is renamed,
-we still support the old one for two releases and issue a deprecation warning when it is
-called, passed, or accessed.
-
-.. rubric:: Deprecating a class or a function
-
-Suppose the function ``zero_one`` is renamed to ``zero_one_loss``, we add the decorator
-:class:`utils.deprecated` to ``zero_one`` and call ``zero_one_loss`` from that
-function::
-
-    from ..utils import deprecated
-
-    def zero_one_loss(y_true, y_pred, normalize=True):
-        # actual implementation
-        pass
-
-    @deprecated(
-        "Function `zero_one` was renamed to `zero_one_loss` in 0.13 and will be "
-        "removed in 0.15. Default behavior is changed from `normalize=False` to "
-        "`normalize=True`"
-    )
-    def zero_one(y_true, y_pred, normalize=False):
-        return zero_one_loss(y_true, y_pred, normalize)
-
-One also needs to move ``zero_one`` from ``API_REFERENCE`` to
-``DEPRECATED_API_REFERENCE`` and add ``zero_one_loss`` to ``API_REFERENCE`` in the
-``doc/api_reference.py`` file to reflect the changes in :ref:`api_ref`.
-
-.. rubric:: Deprecating an attribute or a method
-
-If an attribute or a method is to be deprecated, use the decorator
-:class:`~utils.deprecated` on the property. Please note that the
-:class:`~utils.deprecated` decorator should be placed before the ``property`` decorator
-if there is one, so that the docstrings can be rendered properly. For instance, renaming
-an attribute ``labels_`` to ``classes_`` can be done as::
-
-    @deprecated(
-        "Attribute `labels_` was deprecated in 0.13 and will be removed in 0.15. Use "
-        "`classes_` instead"
-    )
-    @property
-    def labels_(self):
-        return self.classes_
-
-.. rubric:: Deprecating a parameter
-
-If a parameter has to be deprecated, a ``FutureWarning`` warning must be raised
-manually. In the following example, ``k`` is deprecated and renamed to n_clusters::
-
-    import warnings
-
-    def example_function(n_clusters=8, k="deprecated"):
-        if k != "deprecated":
-            warnings.warn(
-                "`k` was renamed to `n_clusters` in 0.13 and will be removed in 0.15",
-                FutureWarning,
-            )
-            n_clusters = k
-
-When the change is in a class, we validate and raise warning in ``fit``::
-
-  import warnings
-
-  class ExampleEstimator(BaseEstimator):
-      def __init__(self, n_clusters=8, k='deprecated'):
-          self.n_clusters = n_clusters
-          self.k = k
-
-      def fit(self, X, y):
-          if self.k != "deprecated":
-              warnings.warn(
-                  "`k` was renamed to `n_clusters` in 0.13 and will be removed in 0.15.",
-                  FutureWarning,
-              )
-              self._n_clusters = self.k
-          else:
-              self._n_clusters = self.n_clusters
-
-As in these examples, the warning message should always give both the
-version in which the deprecation happened and the version in which the
-old behavior will be removed. If the deprecation happened in version
-0.x-dev, the message should say deprecation occurred in version 0.x and
-the removal will be in 0.(x+2), so that users will have enough time to
-adapt their code to the new behaviour. For example, if the deprecation happened
-in version 0.18-dev, the message should say it happened in version 0.18
-and the old behavior will be removed in version 0.20.
-
-The warning message should also include a brief explanation of the change and point
-users to an alternative.
-
-In addition, a deprecation note should be added in the docstring, recalling the
-same information as the deprecation warning as explained above. Use the
-``.. deprecated::`` directive:
-
-.. code-block:: rst
-
-  .. deprecated:: 0.13
-     ``k`` was renamed to ``n_clusters`` in version 0.13 and will be removed
-     in 0.15.
-
-What's more, a deprecation requires a test which ensures that the warning is
-raised in relevant cases but not in other cases. The warning should be caught
-in all other tests (using e.g., ``@pytest.mark.filterwarnings``),
-and there should be no warning in the examples.
-
-
-Change the default value of a parameter
----------------------------------------
-
-If the default value of a parameter needs to be changed, please replace the
-default value with a specific value (e.g., ``"warn"``) and raise
-``FutureWarning`` when users are using the default value. The following
-example assumes that the current version is 0.20 and that we change the
-default value of ``n_clusters`` from 5 (old default for 0.20) to 10
-(new default for 0.22)::
-
-    import warnings
-
-    def example_function(n_clusters="warn"):
-        if n_clusters == "warn":
-            warnings.warn(
-                "The default value of `n_clusters` will change from 5 to 10 in 0.22.",
-                FutureWarning,
-            )
-            n_clusters = 5
-
-When the change is in a class, we validate and raise warning in ``fit``::
-
-  import warnings
-
-  class ExampleEstimator:
-      def __init__(self, n_clusters="warn"):
-          self.n_clusters = n_clusters
-
-      def fit(self, X, y):
-          if self.n_clusters == "warn":
-              warnings.warn(
-                  "The default value of `n_clusters` will change from 5 to 10 in 0.22.",
-                  FutureWarning,
-              )
-              self._n_clusters = 5
-
-Similar to deprecations, the warning message should always give both the
-version in which the change happened and the version in which the old behavior
-will be removed.
-
-The parameter description in the docstring needs to be updated accordingly by adding
-a ``versionchanged`` directive with the old and new default value, pointing to the
-version when the change will be effective:
-
-.. code-block:: rst
-
-    .. versionchanged:: 0.22
-       The default value for `n_clusters` will change from 5 to 10 in version 0.22.
-
-Finally, we need a test which ensures that the warning is raised in relevant cases but
-not in other cases. The warning should be caught in all other tests
-(using e.g., ``@pytest.mark.filterwarnings``), and there should be no warning
-in the examples.
-
-.. _code_review:
-
-Code Review Guidelines
-======================
-
-Reviewing code contributed to the project as PRs is a crucial component of
-scikit-learn development. We encourage anyone to start reviewing code of other
-developers. The code review process is often highly educational for everybody
-involved. This is particularly appropriate if it is a feature you would like to
-use, and so can respond critically about whether the PR meets your needs. While
-each pull request needs to be signed off by two core developers, you can speed
-up this process by providing your feedback.
-
-.. note::
-
-  The difference between an objective improvement and a subjective nit isn't
-  always clear. Reviewers should recall that code review is primarily about
-  reducing risk in the project. When reviewing code, one should aim at
-  preventing situations which may require a bug fix, a deprecation, or a
-  retraction. Regarding docs: typos, grammar issues and disambiguations are
-  better addressed immediately.
-
-.. dropdown:: Important aspects to be covered in any code review
-
-  Here are a few important aspects that need to be covered in any code review,
-  from high-level questions to a more detailed check-list.
-
-  - Do we want this in the library? Is it likely to be used? Do you, as
-    a scikit-learn user, like the change and intend to use it? Is it in
-    the scope of scikit-learn? Will the cost of maintaining a new
-    feature be worth its benefits?
-
-  - Is the code consistent with the API of scikit-learn? Are public
-    functions/classes/parameters well named and intuitively designed?
-
-  - Are all public functions/classes and their parameters, return types, and
-    stored attributes named according to scikit-learn conventions and documented clearly?
-
-  - Is any new functionality described in the user-guide and illustrated with examples?
-
-  - Is every public function/class tested? Are a reasonable set of
-    parameters, their values, value types, and combinations tested? Do
-    the tests validate that the code is correct, i.e. doing what the
-    documentation says it does? If the change is a bug-fix, is a
-    non-regression test included? Look at `this
-    <https://jeffknupp.com/blog/2013/12/09/improve-your-python-understanding-unit-testing>`__
-    to get started with testing in Python.
-
-  - Do the tests pass in the continuous integration build? If
-    appropriate, help the contributor understand why tests failed.
-
-  - Do the tests cover every line of code (see the coverage report in the build
-    log)? If not, are the lines missing coverage good exceptions?
-
-  - Is the code easy to read and low on redundancy? Should variable names be
-    improved for clarity or consistency? Should comments be added? Should comments
-    be removed as unhelpful or extraneous?
-
-  - Could the code easily be rewritten to run much more efficiently for
-    relevant settings?
-
-  - Is the code backwards compatible with previous versions? (or is a
-    deprecation cycle necessary?)
-
-  - Will the new code add any dependencies on other libraries? (this is
-    unlikely to be accepted)
-
-  - Does the documentation render properly (see the
-    :ref:`contribute_documentation` section for more details), and are the plots
-    instructive?
-
-  :ref:`saved_replies` includes some frequent comments that reviewers may make.
-
-.. _communication:
-
-.. dropdown:: Communication Guidelines
-
-  Reviewing open pull requests (PRs) helps move the project forward. It is a
-  great way to get familiar with the codebase and should motivate the
-  contributor to keep involved in the project. [1]_
-
-  - Every PR, good or bad, is an act of generosity. Opening with a positive
-    comment will help the author feel rewarded, and your subsequent remarks may
-    be heard more clearly. You may feel good also.
-  - Begin if possible with the large issues, so the author knows they've been
-    understood. Resist the temptation to immediately go line by line, or to open
-    with small pervasive issues.
-  - Do not let perfect be the enemy of the good. If you find yourself making
-    many small suggestions that don't fall into the :ref:`code_review`, consider
-    the following approaches:
-
-    - refrain from submitting these;
-    - prefix them as "Nit" so that the contributor knows it's OK not to address;
-    - follow up in a subsequent PR, out of courtesy, you may want to let the
-      original contributor know.
-
-  - Do not rush, take the time to make your comments clear and justify your
-    suggestions.
-  - You are the face of the project. Bad days occur to everyone, in that
-    occasion you deserve a break: try to take your time and stay offline.
-
-  .. [1] Adapted from the numpy `communication guidelines
-        <https://numpy.org/devdocs/dev/reviewer_guidelines.html#communication-guidelines>`_.
-
-Reading the existing code base
-==============================
-
-Reading and digesting an existing code base is always a difficult exercise
-that takes time and experience to master. Even though we try to write simple
-code in general, understanding the code can seem overwhelming at first,
-given the sheer size of the project. Here is a list of tips that may help
-make this task easier and faster (in no particular order).
-
-- Get acquainted with the :ref:`api_overview`: understand what :term:`fit`,
-  :term:`predict`, :term:`transform`, etc. are used for.
-- Before diving into reading the code of a function / class, go through the
-  docstrings first and try to get an idea of what each parameter / attribute
-  is doing. It may also help to stop a minute and think *how would I do this
-  myself if I had to?*
-- The trickiest thing is often to identify which portions of the code are
-  relevant, and which are not. In scikit-learn **a lot** of input checking
-  is performed, especially at the beginning of the :term:`fit` methods.
-  Sometimes, only a very small portion of the code is doing the actual job.
-  For example looking at the :meth:`~linear_model.LinearRegression.fit` method of
-  :class:`~linear_model.LinearRegression`, what you're looking for
-  might just be the call the :func:`scipy.linalg.lstsq`, but it is buried into
-  multiple lines of input checking and the handling of different kinds of
-  parameters.
-- Due to the use of `Inheritance
-  <https://en.wikipedia.org/wiki/Inheritance_(object-oriented_programming)>`_,
-  some methods may be implemented in parent classes. All estimators inherit
-  at least from :class:`~base.BaseEstimator`, and
-  from a ``Mixin`` class (e.g. :class:`~base.ClassifierMixin`) that enables default
-  behaviour depending on the nature of the estimator (classifier, regressor,
-  transformer, etc.).
-- Sometimes, reading the tests for a given function will give you an idea of
-  what its intended purpose is. You can use ``git grep`` (see below) to find
-  all the tests written for a function. Most tests for a specific
-  function/class are placed under the ``tests/`` folder of the module
-- You'll often see code looking like this:
-  ``out = Parallel(...)(delayed(some_function)(param) for param in
-  some_iterable)``. This runs ``some_function`` in parallel using `Joblib
-  <https://joblib.readthedocs.io/>`_. ``out`` is then an iterable containing
-  the values returned by ``some_function`` for each call.
-- We use `Cython <https://cython.org/>`_ to write fast code. Cython code is
-  located in ``.pyx`` and ``.pxd`` files. Cython code has a more C-like flavor:
-  we use pointers, perform manual memory allocation, etc. Having some minimal
-  experience in C / C++ is pretty much mandatory here. For more information see
-  :ref:`cython`.
-- Master your tools.
-
-  - With such a big project, being efficient with your favorite editor or
-    IDE goes a long way towards digesting the code base. Being able to quickly
-    jump (or *peek*) to a function/class/attribute definition helps a lot.
-    So does being able to quickly see where a given name is used in a file.
-  - `Git <https://git-scm.com/book/en>`_ also has some built-in killer
-    features. It is often useful to understand how a file changed over time,
-    using e.g. ``git blame`` (`manual
-    <https://git-scm.com/docs/git-blame>`_). This can also be done directly
-    on GitHub. ``git grep`` (`examples
-    <https://git-scm.com/docs/git-grep#_examples>`_) is also extremely
-    useful to see every occurrence of a pattern (e.g. a function call or a
-    variable) in the code base.
-
-- Configure `git blame` to ignore the commit that migrated the code style to
-  `black`.
-
-  .. prompt:: bash
-
-      git config blame.ignoreRevsFile .git-blame-ignore-revs
-
-  Find out more information in black's
-  `documentation for avoiding ruining git blame <https://black.readthedocs.io/en/stable/guides/introducing_black_to_your_project.html#avoiding-ruining-git-blame>`_.
+  
