@@ -630,10 +630,639 @@ References
        <https://dl.acm.org/doi/pdf/10.1145/1102351.1102430>`_,
        A. Niculescu-Mizil & R. Caruana, ICML 2005
 
+.. GENERATED FROM PYTHON SOURCE LINES 337-356
+
+.. code-block:: Python
+
+
+
+    """
+    ==============================
+    منحنيات معايرة الاحتمالية
+    ==============================
+
+    عند إجراء التصنيف، غالبًا ما يرغب المرء في التنبؤ ليس فقط بتسمية الفئة،
+    ولكن أيضًا بالاحتمالية المرتبطة بها. يعطي هذا الاحتمال نوعًا من
+    الثقة في التنبؤ. يوضح هذا المثال كيفية
+    تصور مدى جودة معايرة الاحتمالات المتوقعة باستخدام منحنيات
+    المعايرة، والمعروفة أيضًا باسم مخططات الموثوقية. سيتم أيضًا توضيح
+    معايرة مصنف غير معاير.
+
+    """
+
+    # المؤلفون: مطورو scikit-learn
+    # مُعرِّف ترخيص SPDX: BSD-3-Clause
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+
+    '\n==============================\nمنحنيات معايرة الاحتمالية\n==============================\n\nعند إجراء التصنيف، غالبًا ما يرغب المرء في التنبؤ ليس فقط بتسمية الفئة،\nولكن أيضًا بالاحتمالية المرتبطة بها. يعطي هذا الاحتمال نوعًا من\nالثقة في التنبؤ. يوضح هذا المثال كيفية\nتصور مدى جودة معايرة الاحتمالات المتوقعة باستخدام منحنيات\nالمعايرة، والمعروفة أيضًا باسم مخططات الموثوقية. سيتم أيضًا توضيح\nمعايرة مصنف غير معاير.\n\n'
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 357-365
+
+مجموعة البيانات
+-------
+
+سنستخدم مجموعة بيانات تصنيف ثنائية تركيبية مع 100000 عينة
+و 20 ميزة. من بين الميزات العشرين، هناك 2 فقط غنية بالمعلومات، و 10
+زائدة عن الحاجة (مجموعات عشوائية من الميزات الغنية بالمعلومات) و
+الميزات الثمانية المتبقية غير مفيدة (أرقام عشوائية). من بين 100000 عينة،
+سيتم استخدام 1000 عينة لملاءمة النموذج والباقي للاختبار.
+
+.. GENERATED FROM PYTHON SOURCE LINES 365-378
+
+.. code-block:: Python
+
+
+
+    from sklearn.datasets import make_classification
+    from sklearn.model_selection import train_test_split
+
+    X, y = make_classification(
+        n_samples=100_000, n_features=20, n_informative=2, n_redundant=10, random_state=42
+    )
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.99, random_state=42
+    )
+
+
+
+
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 379-397
+
+منحنيات المعايرة
+------------------
+
+Gaussian Naive Bayes
+^^^^^^^^^^^^^^^^^^^^
+
+أولاً، سنقارن:
+
+* :class:`~sklearn.linear_model.LogisticRegression` (يُستخدم كخط أساس
+  لأنه في كثير من الأحيان، يكون انحدار لوجستي مُنظَّم بشكل صحيح
+  معايرًا جيدًا افتراضيًا بفضل استخدام فقدان السجل)
+* :class:`~sklearn.naive_bayes.GaussianNB` غير معاير
+* :class:`~sklearn.naive_bayes.GaussianNB` مع معايرة متساوية التوتر وسيجمويد
+  (انظر :ref:`دليل المستخدم <calibration>`)
+
+تم رسم منحنيات المعايرة لجميع الشروط الأربعة أدناه، مع متوسط
+​​الاحتمال المتوقع لكل صندوق على المحور السيني ونسبة الفئات الإيجابية
+في كل صندوق على المحور الصادي.
+
+.. GENERATED FROM PYTHON SOURCE LINES 397-418
+
+.. code-block:: Python
+
+
+
+    import matplotlib.pyplot as plt
+    from matplotlib.gridspec import GridSpec
+
+    from sklearn.calibration import CalibratedClassifierCV, CalibrationDisplay
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.naive_bayes import GaussianNB
+
+    lr = LogisticRegression(C=1.0)
+    gnb = GaussianNB()
+    gnb_isotonic = CalibratedClassifierCV(gnb, cv=2, method="isotonic")
+    gnb_sigmoid = CalibratedClassifierCV(gnb, cv=2, method="sigmoid")
+
+    clf_list = [
+        (lr, "الانحدار اللوجستي"),
+        (gnb, "Naive Bayes"),
+        (gnb_isotonic, "Naive Bayes + متساوي التوتر"),
+        (gnb_sigmoid, "Naive Bayes + سيجمويد"),
+    ]
+
+
+
+
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 419-460
+
+.. code-block:: Python
+
+    fig = plt.figure(figsize=(10, 10))
+    gs = GridSpec(4, 2)
+    colors = plt.get_cmap("Dark2")
+
+    ax_calibration_curve = fig.add_subplot(gs[:2, :2])
+    calibration_displays = {}
+    for i, (clf, name) in enumerate(clf_list):
+        clf.fit(X_train, y_train)
+        display = CalibrationDisplay.from_estimator(
+            clf,
+            X_test,
+            y_test,
+            n_bins=10,
+            name=name,
+            ax=ax_calibration_curve,
+            color=colors(i),
+        )
+        calibration_displays[name] = display
+
+    ax_calibration_curve.grid()
+    ax_calibration_curve.set_title("مخططات المعايرة (Naive Bayes)")
+
+    # إضافة الرسم البياني
+    grid_positions = [(2, 0), (2, 1), (3, 0), (3, 1)]
+    for i, (_, name) in enumerate(clf_list):
+        row, col = grid_positions[i]
+        ax = fig.add_subplot(gs[row, col])
+
+        ax.hist(
+            calibration_displays[name].y_prob,
+            range=(0, 1),
+            bins=10,
+            label=name,
+            color=colors(i),
+        )
+        ax.set(title=name, xlabel="متوسط ​​الاحتمال المتوقع", ylabel="العدد")
+
+    plt.tight_layout()
+    plt.show()
+
+
+
+
+
+.. image-sg:: /auto_examples/calibration/images/sphx_glr_plot_calibration_curve_003.png
+   :alt: مخططات المعايرة (Naive Bayes), الانحدار اللوجستي, Naive Bayes, Naive Bayes + متساوي التوتر, Naive Bayes + سيجمويد
+   :srcset: /auto_examples/calibration/images/sphx_glr_plot_calibration_curve_003.png
+   :class: sphx-glr-single-img
+
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 461-478
+
+:class:`~sklearn.naive_bayes.GaussianNB` غير المعاير معاير بشكل سيئ
+بسبب
+الميزات الزائدة عن الحاجة التي تنتهك افتراض استقلال الميزات
+وتؤدي إلى مصنف مفرط الثقة، وهو ما يُشار إليه بواسطة
+منحنى سيجمويد المنقول النموذجي. يمكن أن تُعالج معايرة الاحتمالات
+لـ :class:`~sklearn.naive_bayes.GaussianNB` باستخدام :ref:`isotonic` هذه المشكلة
+كما يتضح من منحنى المعايرة القطري تقريبًا.
+:ref:`انحدار سيجمويد <sigmoid_regressor>` يُحسِّن أيضًا المعايرة
+قليلاً،
+وإن لم يكن بنفس قوة الانحدار المتساوي التوتر غير المعياري. يمكن
+أن يُعزى ذلك إلى حقيقة أن لدينا الكثير من بيانات المعايرة بحيث
+يمكن استغلال مرونة أكبر للنموذج غير المعياري.
+
+أدناه، سنقوم بإجراء تحليل كمي مع الأخذ في الاعتبار العديد من مقاييس
+التصنيف: :ref:`brier_score_loss`، :ref:`log_loss`،
+:ref:`الدقة، الاستدعاء، درجة F1 <precision_recall_f_measure_metrics>` و
+:ref:`ROC AUC <roc_metrics>`.
+
+.. GENERATED FROM PYTHON SOURCE LINES 478-513
+
+.. code-block:: Python
+
+
+
+    from collections import defaultdict
+
+    import pandas as pd
+
+    from sklearn.metrics import (
+        brier_score_loss,
+        f1_score,
+        log_loss,
+        precision_score,
+        recall_score,
+        roc_auc_score,
+    )
+
+    scores = defaultdict(list)
+    for i, (clf, name) in enumerate(clf_list):
+        clf.fit(X_train, y_train)
+        y_prob = clf.predict_proba(X_test)
+        y_pred = clf.predict(X_test)
+        scores["المصنف"].append(name)
+
+        for metric in [brier_score_loss, log_loss, roc_auc_score]:
+            score_name = metric.__name__.replace("_", " ").replace("score", "").capitalize()
+            scores[score_name].append(metric(y_test, y_prob[:, 1]))
+
+        for metric in [precision_score, recall_score, f1_score]:
+            score_name = metric.__name__.replace("_", " ").replace("score", "").capitalize()
+            scores[score_name].append(metric(y_test, y_pred))
+
+        score_df = pd.DataFrame(scores).set_index("المصنف")
+        score_df.round(decimals=3)
+
+    score_df
+
+
+
+
+
+
+.. raw:: html
+
+    <div class="output_subarea output_html rendered_html output_result">
+    <div>
+    <style scoped>
+        .dataframe tbody tr th:only-of-type {
+            vertical-align: middle;
+        }
+
+        .dataframe tbody tr th {
+            vertical-align: top;
+        }
+
+        .dataframe thead th {
+            text-align: right;
+        }
+    </style>
+    <table border="1" class="dataframe">
+      <thead>
+        <tr style="text-align: right;">
+          <th></th>
+          <th>Brier  loss</th>
+          <th>Log loss</th>
+          <th>Roc auc</th>
+          <th>Precision</th>
+          <th>Recall</th>
+          <th>F1</th>
+        </tr>
+        <tr>
+          <th>المصنف</th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>الانحدار اللوجستي</th>
+          <td>0.098932</td>
+          <td>0.323200</td>
+          <td>0.937443</td>
+          <td>0.871965</td>
+          <td>0.851348</td>
+          <td>0.861533</td>
+        </tr>
+        <tr>
+          <th>Naive Bayes</th>
+          <td>0.117608</td>
+          <td>0.782755</td>
+          <td>0.940374</td>
+          <td>0.857400</td>
+          <td>0.875941</td>
+          <td>0.866571</td>
+        </tr>
+        <tr>
+          <th>Naive Bayes + متساوي التوتر</th>
+          <td>0.098332</td>
+          <td>0.370738</td>
+          <td>0.938613</td>
+          <td>0.883065</td>
+          <td>0.836224</td>
+          <td>0.859007</td>
+        </tr>
+        <tr>
+          <th>Naive Bayes + سيجمويد</th>
+          <td>0.108880</td>
+          <td>0.368896</td>
+          <td>0.940201</td>
+          <td>0.861106</td>
+          <td>0.871277</td>
+          <td>0.866161</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    </div>
+    <br />
+    <br />
+
+.. GENERATED FROM PYTHON SOURCE LINES 514-536
+
+لاحظ أنه على الرغم من أن المعايرة تُحسِّن :ref:`brier_score_loss` (مقياس
+يتكون من مصطلح المعايرة ومصطلح التحسين) و :ref:`log_loss`، فإنها لا
+تُغيِّر مقاييس دقة التنبؤ (الدقة والاستدعاء و
+درجة F1) بشكل كبير.
+وذلك لأن المعايرة يجب ألا تُغيِّر احتمالات التنبؤ بشكل كبير في
+موقع عتبة القرار (عند x = 0.5 على
+الرسم البياني). ومع ذلك، يجب أن تجعل المعايرة احتمالات التنبؤ أكثر
+دقة وبالتالي أكثر فائدة لاتخاذ قرارات التخصيص في ظل
+عدم اليقين.
+علاوة على ذلك، يجب ألا يتغير ROC AUC على الإطلاق لأن المعايرة هي
+تحويل رتيب. في الواقع، لا تتأثر مقاييس الرتبة بالمعايرة.
+
+مُصنِّف متجه الدعم الخطي
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+بعد ذلك، سنقارن:
+
+* :class:`~sklearn.linear_model.LogisticRegression` (الخط الأساسي)
+* :class:`~sklearn.svm.LinearSVC` غير معاير. نظرًا لأن SVC لا يُخرج
+  الاحتمالات افتراضيًا، فإننا نقوم بتغيير نطاق ناتج
+  :term:`decision_function` بسذاجة إلى [0، 1] عن طريق تطبيق تغيير نطاق الحد الأدنى-الحد الأقصى.
+* :class:`~sklearn.svm.LinearSVC` مع معايرة متساوية التوتر وسيجمويد
+  (انظر :ref:`دليل المستخدم <calibration>`)
+
+.. GENERATED FROM PYTHON SOURCE LINES 536-563
+
+.. code-block:: Python
+
+
+
+    import numpy as np
+
+    from sklearn.svm import LinearSVC
+
+
+    class NaivelyCalibratedLinearSVC(LinearSVC):
+        """LinearSVC مع أسلوب `predict_proba` الذي يُغيِّر نطاق
+        ناتج `decision_function` بسذاجة للتصنيف الثنائي."""
+
+        def fit(self, X, y):
+            super().fit(X, y)
+            df = self.decision_function(X)
+            self.df_min_ = df.min()
+            self.df_max_ = df.max()
+
+        def predict_proba(self, X):
+            """تغيير نطاق ناتج `decision_function` من الحد الأدنى للحد الأقصى إلى [0، 1]."""
+            df = self.decision_function(X)
+            calibrated_df = (df - self.df_min_) / (self.df_max_ - self.df_min_)
+            proba_pos_class = np.clip(calibrated_df, 0, 1)
+            proba_neg_class = 1 - proba_pos_class
+            proba = np.c_[proba_neg_class, proba_pos_class]
+            return proba
+
+
+
+
+
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 564-577
+
+.. code-block:: Python
+
+
+    lr = LogisticRegression(C=1.0)
+    svc = NaivelyCalibratedLinearSVC(max_iter=10_000)
+    svc_isotonic = CalibratedClassifierCV(svc, cv=2, method="isotonic")
+    svc_sigmoid = CalibratedClassifierCV(svc, cv=2, method="sigmoid")
+
+    clf_list = [
+        (lr, "الانحدار اللوجستي"),
+        (svc, "SVC"),
+        (svc_isotonic, "SVC + متساوي التوتر"),
+        (svc_sigmoid, "SVC + سيجمويد"),
+    ]
+
+
+
+
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 578-618
+
+.. code-block:: Python
+
+    fig = plt.figure(figsize=(10, 10))
+    gs = GridSpec(4, 2)
+
+    ax_calibration_curve = fig.add_subplot(gs[:2, :2])
+    calibration_displays = {}
+    for i, (clf, name) in enumerate(clf_list):
+        clf.fit(X_train, y_train)
+        display = CalibrationDisplay.from_estimator(
+            clf,
+            X_test,
+            y_test,
+            n_bins=10,
+            name=name,
+            ax=ax_calibration_curve,
+            color=colors(i),
+        )
+        calibration_displays[name] = display
+
+    ax_calibration_curve.grid()
+    ax_calibration_curve.set_title("مخططات المعايرة (SVC)")
+
+    # إضافة الرسم البياني
+    grid_positions = [(2, 0), (2, 1), (3, 0), (3, 1)]
+    for i, (_, name) in enumerate(clf_list):
+        row, col = grid_positions[i]
+        ax = fig.add_subplot(gs[row, col])
+
+        ax.hist(
+            calibration_displays[name].y_prob,
+            range=(0, 1),
+            bins=10,
+            label=name,
+            color=colors(i),
+        )
+        ax.set(title=name, xlabel="متوسط ​​الاحتمال المتوقع", ylabel="العدد")
+
+    plt.tight_layout()
+    plt.show()
+
+
+
+
+
+.. image-sg:: /auto_examples/calibration/images/sphx_glr_plot_calibration_curve_004.png
+   :alt: مخططات المعايرة (SVC), الانحدار اللوجستي, SVC, SVC + متساوي التوتر, SVC + سيجمويد
+   :srcset: /auto_examples/calibration/images/sphx_glr_plot_calibration_curve_004.png
+   :class: sphx-glr-single-img
+
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 619-637
+
+يُظهر :class:`~sklearn.svm.LinearSVC` سلوكًا معاكسًا
+لـ :class:`~sklearn.naive_bayes.GaussianNB`؛ منحنى
+المعايرة له شكل سيجمويد، وهو نموذجي لمصنف غير واثق. في حالة
+:class:`~sklearn.svm.LinearSVC`، يحدث هذا بسبب
+خاصية الهامش لفقدان المفصلة، التي تُركز على العينات القريبة
+من حد القرار (متجهات الدعم). لا تؤثر العينات البعيدة
+عن حد القرار على فقدان المفصلة. وبالتالي، فمن
+المنطقي أن :class:`~sklearn.svm.LinearSVC` لا يحاول فصل العينات
+في مناطق منطقة الثقة العالية. يؤدي هذا إلى تسطيح منحنيات
+المعايرة بالقرب من 0 و 1 ويظهر تجريبيًا مع مجموعة متنوعة من
+مجموعات البيانات في Niculescu-Mizil & Caruana [1]_.
+
+يمكن لكلا النوعين من المعايرة (سيجمويد ومتساوي التوتر) إصلاح هذه المشكلة
+وتحقيق نتائج مماثلة.
+
+كما كان من قبل، نعرض :ref:`brier_score_loss`، :ref:`log_loss`،
+:ref:`الدقة، الاستدعاء، درجة F1 <precision_recall_f_measure_metrics>` و
+:ref:`ROC AUC <roc_metrics>`.
+
+.. GENERATED FROM PYTHON SOURCE LINES 637-661
+
+.. code-block:: Python
+
+
+
+    scores = defaultdict(list)
+    for i, (clf, name) in enumerate(clf_list):
+        clf.fit(X_train, y_train)
+        y_prob = clf.predict_proba(X_test)
+        y_pred = clf.predict(X_test)
+        scores["المصنف"].append(name)
+
+        for metric in [brier_score_loss, log_loss, roc_auc_score]:
+            score_name = metric.__name__.replace("_", " ").replace("score", "").capitalize()
+            scores[score_name].append(metric(y_test, y_prob[:, 1]))
+
+        for metric in [precision_score, recall_score, f1_score]:
+            score_name = metric.__name__.replace("_", " ").replace("score", "").capitalize()
+            scores[score_name].append(metric(y_test, y_pred))
+
+
+        score_df = pd.DataFrame(scores).set_index("المصنف")
+        score_df.round(decimals=3)
+
+    score_df
+
+
+
+
+
+
+
+.. raw:: html
+
+    <div class="output_subarea output_html rendered_html output_result">
+    <div>
+    <style scoped>
+        .dataframe tbody tr th:only-of-type {
+            vertical-align: middle;
+        }
+
+        .dataframe tbody tr th {
+            vertical-align: top;
+        }
+
+        .dataframe thead th {
+            text-align: right;
+        }
+    </style>
+    <table border="1" class="dataframe">
+      <thead>
+        <tr style="text-align: right;">
+          <th></th>
+          <th>Brier  loss</th>
+          <th>Log loss</th>
+          <th>Roc auc</th>
+          <th>Precision</th>
+          <th>Recall</th>
+          <th>F1</th>
+        </tr>
+        <tr>
+          <th>المصنف</th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>الانحدار اللوجستي</th>
+          <td>0.098932</td>
+          <td>0.323200</td>
+          <td>0.937443</td>
+          <td>0.871965</td>
+          <td>0.851348</td>
+          <td>0.861533</td>
+        </tr>
+        <tr>
+          <th>SVC</th>
+          <td>0.144943</td>
+          <td>0.465660</td>
+          <td>0.937597</td>
+          <td>0.872186</td>
+          <td>0.851792</td>
+          <td>0.861868</td>
+        </tr>
+        <tr>
+          <th>SVC + متساوي التوتر</th>
+          <td>0.099820</td>
+          <td>0.376999</td>
+          <td>0.936480</td>
+          <td>0.853174</td>
+          <td>0.877981</td>
+          <td>0.865400</td>
+        </tr>
+        <tr>
+          <th>SVC + سيجمويد</th>
+          <td>0.098758</td>
+          <td>0.321301</td>
+          <td>0.937532</td>
+          <td>0.873724</td>
+          <td>0.848743</td>
+          <td>0.861053</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    </div>
+    <br />
+    <br />
+
+.. GENERATED FROM PYTHON SOURCE LINES 662-682
+
+كما هو الحال مع :class:`~sklearn.naive_bayes.GaussianNB` أعلاه، تُحسِّن المعايرة
+كلاً من :ref:`brier_score_loss` و :ref:`log_loss` ولكنها لا تُغيِّر
+مقاييس دقة التنبؤ (الدقة والاستدعاء ودرجة F1) كثيرًا.
+
+الملخص
+-------
+
+يمكن أن تتعامل معايرة سيجمويد المعلمية مع المواقف التي يكون فيها منحنى
+المعايرة للمصنف الأساسي سيجمويد (على سبيل المثال، لـ
+:class:`~sklearn.svm.LinearSVC`) ولكن ليس عندما يكون سيجمويد منقول
+(على سبيل المثال، :class:`~sklearn.naive_bayes.GaussianNB`). يمكن للمعايرة
+المتساوية التوتر غير المعلمية التعامل مع كلا الموقفين ولكنها قد تتطلب المزيد
+من البيانات لإنتاج نتائج جيدة.
+
+المراجع
+----------
+
+.. [1] `التنبؤ باحتمالات جيدة مع التعلم الخاضع للإشراف
+       <https://dl.acm.org/doi/pdf/10.1145/1102351.1102430>`_،
+       A. Niculescu-Mizil & R. Caruana، ICML 2005
+
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 2.234 seconds)
+   **Total running time of the script:** (0 minutes 5.069 seconds)
 
 
 .. _sphx_glr_download_auto_examples_calibration_plot_calibration_curve.py:
