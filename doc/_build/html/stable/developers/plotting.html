@@ -675,21 +675,22 @@
 <a class="reference internal" href="../modules/generated/sklearn.inspection.PartialDependenceDisplay.html#sklearn.inspection.PartialDependenceDisplay.from_estimator" title="sklearn.inspection.PartialDependenceDisplay.from_estimator"><code class="xref py py-func docutils literal notranslate"><span class="pre">from_estimator</span></code></a> و
 <a class="reference internal" href="../modules/generated/sklearn.inspection.PartialDependenceDisplay.html#sklearn.inspection.PartialDependenceDisplay" title="sklearn.inspection.PartialDependenceDisplay"><code class="xref py py-class docutils literal notranslate"><span class="pre">PartialDependenceDisplay</span></code></a> تصور البيانات على
 محاور متعددة. يتم دعم سيناريوهين مختلفين:</p>
-<ol class="arabic">
-<li><p>إذا تم تمرير قائمة محاور، فسيُحدد <code class="docutils literal notranslate"><span class="pre">plot</span></code> ما إذا كان عدد المحاور
+<p>1. إذا تم تمرير قائمة محاور، فسيُحدد <code class="docutils literal notranslate"><span class="pre">plot</span></code> ما إذا كان عدد المحاور
 متوافقًا مع عدد المحاور الذي يتوقعه ثم يرسم على تلك المحاور. 2.
 إذا تم تمرير محور واحد، فإن هذا المحور يُحدد مساحة لوضع محاور متعددة
 فيها. في هذه الحالة، نقترح استخدام
-<code class="docutils literal notranslate"><span class="pre">~matplotlib.gridspec.GridSpecFromSubplotSpec</span></code> الخاص بـ matplotlib لتقسيم المساحة:</p>
-<p>import matplotlib.pyplot as plt
-from matplotlib.gridspec import GridSpecFromSubplotSpec</p>
-<p>fig, ax = plt.subplots()
-gs = GridSpecFromSubplotSpec(2, 2, subplot_spec=ax.get_subplotspec())</p>
-<p>ax_top_left = fig.add_subplot(gs[0, 0])
-ax_top_right = fig.add_subplot(gs[0, 1])
-ax_bottom = fig.add_subplot(gs[1, :])</p>
-</li>
-</ol>
+<code class="docutils literal notranslate"><span class="pre">~matplotlib.gridspec.GridSpecFromSubplotSpec</span></code> الخاص بـ matplotlib لتقسيم المساحة</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.gridspec</span> <span class="kn">import</span> <span class="n">GridSpecFromSubplotSpec</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">gs</span> <span class="o">=</span> <span class="n">GridSpecFromSubplotSpec</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">subplot_spec</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">get_subplotspec</span><span class="p">())</span>
+
+<span class="n">ax_top_left</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">ax_top_right</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">ax_bottom</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])</span>
+</pre></div>
+</div>
 <p>افتراضيًا، تكون الكلمة الرئيسية <code class="docutils literal notranslate"><span class="pre">ax</span></code> في <code class="docutils literal notranslate"><span class="pre">plot</span></code> هي <code class="docutils literal notranslate"><span class="pre">None</span></code>. في هذه الحالة، يتم إنشاء
 المحور الفردي ويتم استخدام واجهة برمجة تطبيقات gridspec لإنشاء المناطق المراد تصور البيانات فيها.</p>
 <p>انظر، على سبيل المثال، <a class="reference internal" href="../modules/generated/sklearn.inspection.PartialDependenceDisplay.html#sklearn.inspection.PartialDependenceDisplay.from_estimator" title="sklearn.inspection.PartialDependenceDisplay.from_estimator"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_estimator</span></code></a>
