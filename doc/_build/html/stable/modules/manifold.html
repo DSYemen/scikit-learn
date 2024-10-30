@@ -1,0 +1,1617 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ar" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="2.2. تعلم المشعبات" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://scikit-learn/stable/modules/manifold.html" />
+<meta property="og:site_name" content="scikit-learn" />
+<meta property="og:description" content="Look for the bare necessities, The simple bare necessities, Forget about your worries and your strife, I mean the bare necessities, Old Mother Nature's recipes, That bring the bare necessities of l..." />
+<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_compare_methods_001.png" />
+<meta property="og:image:alt" content="scikit-learn" />
+<meta name="description" content="Look for the bare necessities, The simple bare necessities, Forget about your worries and your strife, I mean the bare necessities, Old Mother Nature's recipes, That bring the bare necessities of l..." />
+
+    <title>2.2. تعلم المشعبات &#8212; scikit-learn 1.6.dev0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css?v=7f9a90b1" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyterlite_sphinx.css?v=ca70e7f1" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/colors.css?v=cc94ab7d" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/custom.css?v=85b0813d" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../_static/documentation_options.js?v=3cd28d06"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=97f0b27d"></script>
+    <script src="../_static/jupyterlite_sphinx.js?v=d6bdf5f8"></script>
+    <script src="../_static/translations.js?v=87cb2081"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script data-domain="scikit-learn.org" defer="defer" src="https://views.scientific-python.org/js/script.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'modules/manifold';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://scikit-learn.org/dev/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1.6.dev0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/scripts/dropdown.js?v=e2048168"></script>
+    <script src="../_static/scripts/version-switcher.js?v=a6dd8357"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="search" title="بحث" href="../search.html" />
+    <link rel="next" title="2.3. التجميع" href="clustering.html" />
+    <link rel="prev" title="2.1. نماذج خليط غاوسي" href="mixture.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ar"/>
+  <meta name="docsearch:version" content="1.6" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/scikit-learn-logo-small.png" class="logo__image only-light" alt="scikit-learn homepage"/>
+    <img src="../_static/scikit-learn-logo-small.png" class="logo__image only-dark pst-js-only" alt="scikit-learn homepage"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    دليل المستخدم
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../support.html">
+    الدعم الفني
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../related_projects.html">
+    مشاريع ذات علاقة
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../about.html">
+    من نحن
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    دليل المستخدم
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../support.html">
+    الدعم الفني
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../related_projects.html">
+    مشاريع ذات علاقة
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../about.html">
+    من نحن
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../supervised_learning.html">1. التعليم الخاضع للإشراف</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="linear_model.html">1.1. النماذج الخطية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lda_qda.html">1.2. تحليل التمييز الخطي والتربيعي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernel_ridge.html">1.3. انحدار حافة النواة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svm.html">1.4. آلات الدعم المتجهية (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sgd.html">1.5. التحسين التدريجي العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neighbors.html">1.6. أقرب الجيران</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gaussian_process.html">1.7. العمليات الغاوسية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cross_decomposition.html">1.8. التحليل المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="naive_bayes.html">1.9. خوارزميات بايز الساذجة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tree.html">1.10. شجرة القرار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ensemble.html">1.11. المجموعات: تعزيز التدرج، الغابات العشوائية، التجميع، التصويت، التكديس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multiclass.html">1.12. خوارزميات متعددة التصنيف ومتعددة الإخراج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature_selection.html">1.13. اختيار الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="semi_supervised.html">1.14. التعليم شبه الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="isotonic.html">1.15. الانحدار المتساوي التوتر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibration.html">1.16. معايرة الاحتمال</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_networks_supervised.html">1.17. نماذج الشبكات العصبية (الخاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../unsupervised_learning.html">2. التعليم الغير خاضع للإشراف</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="mixture.html">2.1. نماذج خليط غاوسي</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.2. تعلم المشعبات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clustering.html">2.3. التجميع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="biclustering.html">2.4. التجميع الثنائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decomposition.html">2.5. تحليل الإشارات إلى مكونات (مشاكل تحليل المصفوفات)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="covariance.html">2.6. تقدير التباين المشترك</a></li>
+<li class="toctree-l2"><a class="reference internal" href="outlier_detection.html">2.7. كشف القيم الغريبة والقيم المتطرفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="density.html">2.8. تقدير الكثافة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_networks_unsupervised.html">2.9. نماذج الشبكة العصبية (غير خاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../model_selection.html">3. تقييم وإختيار النموذج</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="cross_validation.html">3.1. التحقق المتبادل: تقييم أداء المقدر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grid_search.html">3.2. ضبط المعلمات الفائقة لمُقدِّر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classification_threshold.html">3.3. ضبط عتبة القرار لتنبؤ الفئة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_evaluation.html">3.4. المقاييس والتهديف: تحديد جودة التنبؤات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learning_curve.html">3.5. منحنيات التحقق من الصحة: رسم الدرجات لتقييم النماذج</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../inspection.html">4. الفحص</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="partial_dependence.html">4.1. مخططات الاعتماد الجزئي والتوقع الشرطي الفردي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="permutation_importance.html">4.2. أهمية التبديل</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualizations.html">5. التصورات المرئية</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../data_transforms.html">6. تحويلات مجموعات البيانات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="compose.html">6.1. خطوط الأنابيب والمقدرات المركبة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature_extraction.html">6.2. استخراج الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html">6.3. المعالجة المسبقة للبيانات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="impute.html">6.4. تعويض القيم المفقودة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unsupervised_reduction.html">6.5. تخفيض الأبعاد غير الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="random_projection.html">6.6. الإسقاط العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernel_approximation.html">6.7. Kernel Approximation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">6.8. مقاييس المقارنة الزوجية، والصلات، والنوى (Kernels)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing_targets.html">6.9. تحويل هدف التنبؤ (<code class="docutils literal notranslate"><span class="pre">y</span></code>)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/toy_dataset.html">7. مجموعات بيانات تجريبية</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/real_world.html">8. مجموعات بيانات العالم الحقيقي</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/sample_generators.html">9. مجموعات بيانات مولدة</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/loading_other_datasets.html">10. تحميل مجموعات بيانات أخرى</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../computing.html">11. الحوسبة مع scikit-learn</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../computing/scaling_strategies.html">11.1. استراتيجيات للقياس حسابيًا: بيانات أكبر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../computing/computational_performance.html">11.2. الأداء الحسابي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../computing/parallelism.html">11.3. التوازي وإدارة الموارد والتهيئة</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../model_persistence.html">12. حفظ النموذج</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../common_pitfalls.html">13. المزالق الشائعة والممارسات الموصى بها</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../dispatching.html">14. Dispatching</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="array_api.html">14.1. دعم المدخلات المتوافقة مع <code class="docutils literal notranslate"><span class="pre">Array</span> <span class="pre">API</span></code></a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../machine_learning_map.html">15. اختيار المقدر المناسب</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../presentations.html">16. المصادر الخارجية ومقاطع الفيديو والمحادثات</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../user_guide.html" class="nav-link">دليل المستخدم</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../unsupervised_learning.html" class="nav-link"><span class="section-number">2. </span>التعليم الغير خاضع للإشراف</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">2.2. </span>تعلم المشعبات</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="manifold">
+<span id="id1"></span><h1><span class="section-number">2.2. </span>تعلم المشعبات<a class="headerlink" href="#manifold" title="Link to this heading">#</a></h1>
+<div class="line-block">
+<div class="line">Look for the bare necessities</div>
+<div class="line">The simple bare necessities</div>
+<div class="line">Forget about your worries and your strife</div>
+<div class="line">I mean the bare necessities</div>
+<div class="line">Old Mother Nature's recipes</div>
+<div class="line">That bring the bare necessities of life</div>
+<div class="line"><br /></div>
+<div class="line-block">
+<div class="line">-- Baloo's song [The Jungle Book]</div>
+</div>
+</div>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/manifold/plot_compare_methods.html"><img alt="../_images/sphx_glr_plot_compare_methods_001.png" src="../_images/sphx_glr_plot_compare_methods_001.png" style="width: 420.0px; height: 420.0px;" />
+</a>
+</figure>
+<p class="centered">
+<strong><a class="reference external" href="../auto_examples/manifold/plot_compare_methods.html"><img alt="manifold_img3" src="../_images/sphx_glr_plot_compare_methods_003.png" style="width: 180.0px; height: 180.0px;" /></a> <a class="reference external" href="../auto_examples/manifold/plot_compare_methods.html"><img alt="manifold_img4" src="../_images/sphx_glr_plot_compare_methods_004.png" style="width: 180.0px; height: 180.0px;" /></a> <a class="reference external" href="../auto_examples/manifold/plot_compare_methods.html"><img alt="manifold_img5" src="../_images/sphx_glr_plot_compare_methods_005.png" style="width: 180.0px; height: 180.0px;" /></a> <a class="reference external" href="../auto_examples/manifold/plot_compare_methods.html"><img alt="manifold_img6" src="../_images/sphx_glr_plot_compare_methods_006.png" style="width: 180.0px; height: 180.0px;" /></a></strong></p><p>تعلم المشعبات هو نهج للاختزال غير الخطي للأبعاد. تعتمد خوارزميات هذه المهمة على فكرة أن أبعاد العديد من مجموعات البيانات مرتفعة بشكل مصطنع فقط.</p>
+<section id="id2">
+<h2><span class="section-number">2.2.1. </span>مقدمة<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>يمكن أن تكون مجموعات البيانات عالية الأبعاد صعبة التصور للغاية. في حين أنه يمكن رسم البيانات في بعدين أو ثلاثة أبعاد لإظهار البنية المتأصلة للبيانات، فإن الرسوم البيانية عالية الأبعاد المكافئة تكون أقل سهولة بكثير. لمساعدة تصور بنية مجموعة البيانات، يجب تقليل البعد بطريقة ما.</p>
+<p>أبسط طريقة لإنجاز هذا الاختزال للأبعاد هي عن طريق أخذ إسقاط عشوائي للبيانات. على الرغم من أن هذا يسمح بدرجة معينة من تصور بنية البيانات، فإن عشوائية الاختيار تترك الكثير مما هو مرغوب فيه. في الإسقاط العشوائي، من المحتمل أن تُفقد البنية الأكثر إثارة للاهتمام داخل البيانات.</p>
+<p class="centered">
+<strong><a class="reference external" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="digits_img" src="../_images/sphx_glr_plot_lle_digits_001.png" style="width: 300.0px; height: 300.0px;" /></a> <a class="reference external" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="projected_img" src="../_images/sphx_glr_plot_lle_digits_002.png" style="width: 320.0px; height: 240.0px;" /></a></strong></p><p>لمعالجة هذا القلق، تم تصميم عدد من أطر الاختزال الخطي للأبعاد الخاضعة للإشراف وغير الخاضعة للإشراف، مثل تحليل المكونات الرئيسية (PCA) وتحليل المكونات المستقلة والتحليل التمييزي الخطي وغيرها. تحدد هذه الخوارزميات معايير محددة لاختيار إسقاط خطي &quot;مثير للاهتمام&quot; للبيانات. يمكن أن تكون هذه الطرق قوية، ولكنها غالبًا ما تفقد بنية غير خطية مهمة في البيانات.</p>
+<p class="centered">
+<strong><a class="reference external" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="PCA_img" src="../_images/sphx_glr_plot_lle_digits_003.png" style="width: 320.0px; height: 240.0px;" /></a> <a class="reference external" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="LDA_img" src="../_images/sphx_glr_plot_lle_digits_004.png" style="width: 320.0px; height: 240.0px;" /></a></strong></p><p>يمكن اعتبار تعلم المشعبات محاولة لتعميم الأطر الخطية مثل PCA لتكون حساسة للبنية غير الخطية في البيانات. على الرغم من وجود متغيرات خاضعة للإشراف، فإن مشكلة تعلم المشعبات النموذجية تكون غير خاضعة للإشراف: فهي تتعلم البنية عالية الأبعاد للبيانات من البيانات نفسها، دون استخدام تصنيفات محددة مسبقًا.</p>
+<p class="rubric">أمثلة</p>
+<ul class="simple">
+<li><p>انظر <a class="reference internal" href="../auto_examples/manifold/plot_lle_digits.html#sphx-glr-auto-examples-manifold-plot-lle-digits-py"><span class="std std-ref">Manifold learning on handwritten digits: Locally Linear Embedding, Isomap...</span></a> للحصول على مثال على اختزال الأبعاد على الأرقام المكتوبة بخط اليد.</p></li>
+<li><p>انظر <a class="reference internal" href="../auto_examples/manifold/plot_compare_methods.html#sphx-glr-auto-examples-manifold-plot-compare-methods-py"><span class="std std-ref">Comparison of Manifold Learning methods</span></a> للحصول على مثال على اختزال الأبعاد على مجموعة بيانات &quot;منحنى S&quot; تجريبية.</p></li>
+<li><p>انظر <a class="reference internal" href="../auto_examples/applications/plot_stock_market.html#sphx-glr-auto-examples-applications-plot-stock-market-py"><span class="std std-ref">Visualizing the stock market structure</span></a> للحصول على مثال على استخدام تعلم المشعبات لرسم خريطة بنية سوق الأسهم بناءً على أسعار الأسهم التاريخية.</p></li>
+</ul>
+<p>يتم تلخيص تطبيقات تعلم المشعبات المتوفرة في scikit-learn أدناه</p>
+</section>
+<section id="isomap">
+<span id="id3"></span><h2><span class="section-number">2.2.2. </span>Isomap<a class="headerlink" href="#isomap" title="Link to this heading">#</a></h2>
+<p>أحد أقدم أساليب تعلم المشعبات هو خوارزمية Isomap، وهي اختصار لـ Isometric Mapping. يمكن اعتبار Isomap امتدادًا للتحجيم متعدد الأبعاد (MDS) أو Kernel PCA. يبحث Isomap عن تضمين أقل أبعادًا يحافظ على المسافات الجيوديسية بين جميع النقاط. يمكن إجراء Isomap باستخدام الكائن <a class="reference internal" href="generated/sklearn.manifold.Isomap.html#sklearn.manifold.Isomap" title="sklearn.manifold.Isomap"><code class="xref py py-class docutils literal notranslate"><span class="pre">Isomap</span></code></a>.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="../_images/sphx_glr_plot_lle_digits_005.png" src="../_images/sphx_glr_plot_lle_digits_005.png" style="width: 320.0px; height: 240.0px;" />
+</a>
+</figure>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="التعقيد">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">التعقيد<a class="headerlink" href="#التعقيد" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">تتكون خوارزمية Isomap من ثلاث مراحل:</p>
+<ol class="arabic simple">
+<li><p class="sd-card-text"><strong>بحث أقرب جار.</strong> يستخدم Isomap <a class="reference internal" href="generated/sklearn.neighbors.BallTree.html#sklearn.neighbors.BallTree" title="sklearn.neighbors.BallTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">BallTree</span></code></a> للبحث الفعال عن الجيران. التكلفة هي تقريبًا <span class="math notranslate nohighlight">\(O[D \log(k) N \log(N)]\)</span>، لـ <span class="math notranslate nohighlight">\(k\)</span> من أقرب جيران <span class="math notranslate nohighlight">\(N\)</span> نقاط في <span class="math notranslate nohighlight">\(D\)</span> أبعاد.</p></li>
+<li><p class="sd-card-text"><strong>بحث أقصر مسار في الرسم البياني.</strong>  الخوارزميات الأكثر كفاءة المعروفة لهذا هي <em>خوارزمية Dijkstra</em>، والتي هي تقريبًا <span class="math notranslate nohighlight">\(O[N^2(k + \log(N))]\)</span>، أو <em>خوارزمية Floyd-Warshall</em>، وهي <span class="math notranslate nohighlight">\(O[N^3]\)</span>.  يمكن للمستخدم تحديد الخوارزمية باستخدام الكلمة المفتاحية <code class="docutils literal notranslate"><span class="pre">path_method</span></code> من <code class="docutils literal notranslate"><span class="pre">Isomap</span></code>. إذا لم يتم التحديد، تحاول الشيفرة اختيار أفضل خوارزمية لبيانات الإدخال.</p></li>
+<li><p class="sd-card-text"><strong>التحليل الجزئي لقيم eigenvalues.</strong> يتم ترميز التضمين في المتجهات الذاتية المقابلة لـ <span class="math notranslate nohighlight">\(d\)</span> أكبر قيم eigenvalues لنواة isomap <span class="math notranslate nohighlight">\(N \times N\)</span>. بالنسبة لحلال كثيف، فإن التكلفة هي تقريبًا <span class="math notranslate nohighlight">\(O[d N^2]\)</span>. غالبًا ما يمكن تحسين هذه التكلفة باستخدام محلل <code class="docutils literal notranslate"><span class="pre">ARPACK</span></code>. يمكن للمستخدم تحديد محلل eigen باستخدام الكلمة المفتاحية <code class="docutils literal notranslate"><span class="pre">eigen_solver</span></code> من <code class="docutils literal notranslate"><span class="pre">Isomap</span></code>. إذا لم يتم التحديد، تحاول الشيفرة اختيار أفضل خوارزمية لبيانات الإدخال.</p></li>
+</ol>
+<p class="sd-card-text">التعقيد الكلي لـ Isomap هو <span class="math notranslate nohighlight">\(O[D \log(k) N \log(N)] + O[N^2(k + \log(N))] + O[d N^2]\)</span>.</p>
+<ul class="simple">
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(N\)</span> : عدد نقاط بيانات التدريب</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(D\)</span> : بُعد الإدخال</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(k\)</span> : عدد أقرب جيران</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(d\)</span> : بُعد الإخراج</p></li>
+</ul>
+</div>
+</details><p class="rubric">المراجع</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://science.sciencemag.org/content/290/5500/2319.full">&quot;A global geometric framework for nonlinear dimensionality reduction&quot;</a>
+Tenenbaum, J.B.; De Silva, V.; &amp; Langford, J.C.  Science 290 (5500)</p></li>
+</ul>
+</section>
+<section id="locally-linear-embedding">
+<span id="id4"></span><h2><span class="section-number">2.2.3. </span>Locally Linear Embedding (التضمين الخطي المحلي)<a class="headerlink" href="#locally-linear-embedding" title="Link to this heading">#</a></h2>
+<p>يسعى التضمين الخطي المحلي (LLE) إلى إسقاط ذي أبعاد منخفضة للبيانات والذي يحافظ على المسافات داخل الأحياء المحلية. يمكن اعتباره سلسلة من تحليلات المكونات الرئيسية المحلية التي تتم مقارنتها عالميًا للعثور على أفضل تضمين غير خطي.</p>
+<p>يمكن تنفيذ التضمين الخطي المحلي باستخدام الدالة <a class="reference internal" href="generated/sklearn.manifold.locally_linear_embedding.html#sklearn.manifold.locally_linear_embedding" title="sklearn.manifold.locally_linear_embedding"><code class="xref py py-func docutils literal notranslate"><span class="pre">locally_linear_embedding</span></code></a> أو نظيرتها الكائنية التوجه <a class="reference internal" href="generated/sklearn.manifold.LocallyLinearEmbedding.html#sklearn.manifold.LocallyLinearEmbedding" title="sklearn.manifold.LocallyLinearEmbedding"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocallyLinearEmbedding</span></code></a>.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="../_images/sphx_glr_plot_lle_digits_006.png" src="../_images/sphx_glr_plot_lle_digits_006.png" style="width: 320.0px; height: 240.0px;" />
+</a>
+</figure>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="التعقيد-2">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">التعقيد<a class="headerlink" href="#التعقيد-2" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">تتكون خوارزمية LLE القياسية من ثلاث مراحل:</p>
+<ol class="arabic simple">
+<li><p class="sd-card-text"><strong>بحث أقرب جار.</strong> انظر المناقشة تحت Isomap أعلاه.</p></li>
+<li><p class="sd-card-text"><strong>بناء مصفوفة الوزن.</strong> <span class="math notranslate nohighlight">\(O[D N k^3]\)</span>. يتضمن بناء مصفوفة الوزن LLE حل معادلة خطية <span class="math notranslate nohighlight">\(k \times k\)</span> لكل من الأحياء المحلية <span class="math notranslate nohighlight">\(N\)</span>.</p></li>
+<li><p class="sd-card-text"><strong>التحليل الجزئي لقيم eigenvalues.</strong> انظر المناقشة تحت Isomap أعلاه.</p></li>
+</ol>
+<p class="sd-card-text">التعقيد الكلي لـ LLE القياسي هو <span class="math notranslate nohighlight">\(O[D \log(k) N \log(N)] + O[D N k^3] + O[d N^2]\)</span>.</p>
+<ul class="simple">
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(N\)</span> : عدد نقاط بيانات التدريب</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(D\)</span> : بُعد الإدخال</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(k\)</span> : عدد أقرب جيران</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(d\)</span> : بُعد الإخراج</p></li>
+</ul>
+</div>
+</details><p class="rubric">المراجع</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.sciencemag.org/content/290/5500/2323.full">&quot;Nonlinear dimensionality reduction by locally linear embedding&quot;</a>
+Roweis, S. &amp; Saul, L.  Science 290:2323 (2000)</p></li>
+</ul>
+</section>
+<section id="modified-locally-linear-embedding">
+<h2><span class="section-number">2.2.4. </span>Modified Locally Linear Embedding (التضمين الخطي المحلي المعدل)<a class="headerlink" href="#modified-locally-linear-embedding" title="Link to this heading">#</a></h2>
+<p>إحدى المشكلات المعروفة في LLE هي مشكلة التنظيم. عندما يكون عدد الجيران أكبر من عدد أبعاد الإدخال، فإن المصفوفة التي تحدد كل جيرة محلية تكون ناقصة الرتبة. لمعالجة هذا، يطبق LLE القياسي معامل تنظيم عشوائي <span class="math notranslate nohighlight">\(r\)</span>، والذي يتم اختياره بالنسبة إلى أثر مصفوفة الوزن المحلي. على الرغم من أنه يمكن إثباته رسميًا أنه عندما <span class="math notranslate nohighlight">\(r \to 0\)</span>، يتقارب الحل مع التضمين المطلوب، فلا يوجد ضمان بأن الحل الأمثل سيوجد لـ <span class="math notranslate nohighlight">\(r &gt; 0\)</span>. تتجلى هذه المشكلة في التضمينات التي تشوه الهندسة الأساسية للمشعب.</p>
+<p>إحدى طرق معالجة مشكلة التنظيم هي استخدام متجهات وزن متعددة في كل جيرة. هذا هو جوهر <em>التضمين الخطي المحلي المعدل</em> (MLLE). يمكن تنفيذ MLLE باستخدام الدالة <a class="reference internal" href="generated/sklearn.manifold.locally_linear_embedding.html#sklearn.manifold.locally_linear_embedding" title="sklearn.manifold.locally_linear_embedding"><code class="xref py py-func docutils literal notranslate"><span class="pre">locally_linear_embedding</span></code></a> أو نظيرتها الكائنية التوجه <a class="reference internal" href="generated/sklearn.manifold.LocallyLinearEmbedding.html#sklearn.manifold.LocallyLinearEmbedding" title="sklearn.manifold.LocallyLinearEmbedding"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocallyLinearEmbedding</span></code></a>، مع الكلمة المفتاحية <code class="docutils literal notranslate"><span class="pre">method</span> <span class="pre">=</span> <span class="pre">'modified'</span></code>. يتطلب <code class="docutils literal notranslate"><span class="pre">n_neighbors</span> <span class="pre">&gt;</span> <span class="pre">n_components</span></code>.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="../_images/sphx_glr_plot_lle_digits_007.png" src="../_images/sphx_glr_plot_lle_digits_007.png" style="width: 320.0px; height: 240.0px;" />
+</a>
+</figure>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="التعقيد-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">التعقيد<a class="headerlink" href="#التعقيد-3" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">تتكون خوارزمية MLLE من ثلاث مراحل:</p>
+<ol class="arabic simple">
+<li><p class="sd-card-text"><strong>بحث أقرب جار.</strong>  نفس LLE القياسي</p></li>
+<li><p class="sd-card-text"><strong>بناء مصفوفة الوزن.</strong> تقريبًا <span class="math notranslate nohighlight">\(O[D N k^3] + O[N (k-D) k^2]\)</span>. المصطلح الأول مكافئ تمامًا لمصطلح LLE القياسي. المصطلح الثاني له علاقة ببناء مصفوفة الوزن من أوزان متعددة. من الناحية العملية، فإن التكلفة الإضافية لبناء مصفوفة وزن MLLE صغيرة نسبيًا مقارنة بتكلفة المرحلتين 1 و 3.</p></li>
+<li><p class="sd-card-text"><strong>التحليل الجزئي لقيم eigenvalues.</strong> نفس LLE القياسي</p></li>
+</ol>
+<p class="sd-card-text">التعقيد الكلي لـ MLLE هو
+<span class="math notranslate nohighlight">\(O[D \log(k) N \log(N)] + O[D N k^3] + O[N (k-D) k^2] + O[d N^2]\)</span>.</p>
+<ul class="simple">
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(N\)</span> : عدد نقاط بيانات التدريب</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(D\)</span> : بُعد الإدخال</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(k\)</span> : عدد أقرب جيران</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(d\)</span> : بُعد الإخراج</p></li>
+</ul>
+</div>
+</details><p class="rubric">المراجع</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://citeseerx.ist.psu.edu/doc_view/pid/0b060fdbd92cbcc66b383bcaa9ba5e5e624d7ee3">&quot;MLLE: Modified Locally Linear Embedding Using Multiple Weights&quot;</a>
+Zhang, Z. &amp; Wang, J.</p></li>
+</ul>
+</section>
+<section id="hessian-eigenmapping-eigen-hessian">
+<h2><span class="section-number">2.2.5. </span>Hessian Eigenmapping (تعيين Eigen Hessian)<a class="headerlink" href="#hessian-eigenmapping-eigen-hessian" title="Link to this heading">#</a></h2>
+<p>Hessian Eigenmapping (المعروف أيضًا باسم HLLE القائم على Hessian) هو طريقة أخرى لحل مشكلة التنظيم في LLE. يدور حول شكل تربيعي قائم على Hessian في كل جيرة والذي يُستخدم لاستعادة البنية الخطية محليًا. على الرغم من أن التطبيقات الأخرى تشير إلى تحجيمه الضعيف مع حجم البيانات، فإن <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> تُطبق بعض التحسينات الخوارزمية التي تجعل تكلفتها مماثلة لتلك الخاصة بمتغيرات LLE الأخرى لبُعد إخراج صغير. يمكن تنفيذ HLLE باستخدام الدالة <a class="reference internal" href="generated/sklearn.manifold.locally_linear_embedding.html#sklearn.manifold.locally_linear_embedding" title="sklearn.manifold.locally_linear_embedding"><code class="xref py py-func docutils literal notranslate"><span class="pre">locally_linear_embedding</span></code></a> أو نظيرتها الكائنية التوجه <a class="reference internal" href="generated/sklearn.manifold.LocallyLinearEmbedding.html#sklearn.manifold.LocallyLinearEmbedding" title="sklearn.manifold.LocallyLinearEmbedding"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocallyLinearEmbedding</span></code></a>، مع الكلمة المفتاحية <code class="docutils literal notranslate"><span class="pre">method</span> <span class="pre">=</span> <span class="pre">'hessian'</span></code>. يتطلب <code class="docutils literal notranslate"><span class="pre">n_neighbors</span> <span class="pre">&gt;</span> <span class="pre">n_components</span> <span class="pre">*</span> <span class="pre">(n_components</span> <span class="pre">+</span> <span class="pre">3)</span> <span class="pre">/</span> <span class="pre">2</span></code>.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="../_images/sphx_glr_plot_lle_digits_008.png" src="../_images/sphx_glr_plot_lle_digits_008.png" style="width: 320.0px; height: 240.0px;" />
+</a>
+</figure>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="التعقيد-4">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">التعقيد<a class="headerlink" href="#التعقيد-4" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">تتكون خوارزمية HLLE من ثلاث مراحل:</p>
+<ol class="arabic simple">
+<li><p class="sd-card-text"><strong>بحث أقرب جار.</strong>  نفس LLE القياسي</p></li>
+<li><p class="sd-card-text"><strong>بناء مصفوفة الوزن.</strong> تقريبًا <span class="math notranslate nohighlight">\(O[D N k^3] + O[N d^6]\)</span>. يعكس المصطلح الأول تكلفة مماثلة لتلك الخاصة بـ LLE القياسي. المصطلح الثاني يأتي من تحليل QR لمقدر Hessian المحلي.</p></li>
+<li><p class="sd-card-text"><strong>التحليل الجزئي لقيم eigenvalues.</strong> نفس LLE القياسي</p></li>
+</ol>
+<p class="sd-card-text">التعقيد الكلي لـ HLLE القياسي هو <span class="math notranslate nohighlight">\(O[D \log(k) N \log(N)] + O[D N k^3] + O[N d^6] + O[d N^2]\)</span>.</p>
+<ul class="simple">
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(N\)</span> : عدد نقاط بيانات التدريب</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(D\)</span> : بُعد الإدخال</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(k\)</span> : عدد أقرب جيران</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(d\)</span> : بُعد الإخراج</p></li>
+</ul>
+</div>
+</details><p class="rubric">المراجع</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.pnas.org/content/100/10/5591">&quot;Hessian Eigenmaps: Locally linear embedding techniques for
+high-dimensional data&quot;</a>
+Donoho, D. &amp; Grimes, C. Proc Natl Acad Sci USA. 100:5591 (2003)</p></li>
+</ul>
+</section>
+<section id="spectral-embedding">
+<span id="id5"></span><h2><span class="section-number">2.2.6. </span>Spectral Embedding (التضمين الطيفي)<a class="headerlink" href="#spectral-embedding" title="Link to this heading">#</a></h2>
+<p>التضمين الطيفي هو نهج لحساب تضمين غير خطي. تُطبق Scikit-learn خرائط Laplacian Eigenmaps، والتي تجد تمثيلًا ذي أبعاد منخفضة للبيانات باستخدام تحليل طيفي لـ Laplacian الرسم البياني. يمكن اعتبار الرسم البياني الذي تم إنشاؤه بمثابة تقريب منفصل للمشعب ذي الأبعاد المنخفضة في الفضاء ذي الأبعاد العالية. يضمن تصغير دالة التكلفة بناءً على الرسم البياني أن النقاط القريبة من بعضها البعض على المشعب يتم تعيينها بالقرب من بعضها البعض في الفضاء ذي الأبعاد المنخفضة، مع الحفاظ على المسافات المحلية. يمكن تنفيذ التضمين الطيفي باستخدام الدالة <a class="reference internal" href="generated/sklearn.manifold.spectral_embedding.html#sklearn.manifold.spectral_embedding" title="sklearn.manifold.spectral_embedding"><code class="xref py py-func docutils literal notranslate"><span class="pre">spectral_embedding</span></code></a> أو نظيرتها الكائنية التوجه <a class="reference internal" href="generated/sklearn.manifold.SpectralEmbedding.html#sklearn.manifold.SpectralEmbedding" title="sklearn.manifold.SpectralEmbedding"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpectralEmbedding</span></code></a>.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="التعقيد-5">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">التعقيد<a class="headerlink" href="#التعقيد-5" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">تتكون خوارزمية التضمين الطيفي (Laplacian Eigenmaps) من ثلاث مراحل:</p>
+<ol class="arabic simple">
+<li><p class="sd-card-text"><strong>بناء الرسم البياني الموزون.</strong>  تحويل بيانات الإدخال الأولية إلى تمثيل بياني باستخدام تمثيل مصفوفة التقارب (التجاور).</p></li>
+<li><p class="sd-card-text"><strong>بناء Laplacian الرسم البياني.</strong>  يتم بناء Laplacian الرسم البياني غير المعياري على النحو التالي <span class="math notranslate nohighlight">\(L = D - A\)</span> ويتم بناء Laplacian الرسم البياني المعياري على النحو التالي <span class="math notranslate nohighlight">\(L = D^{-\frac{1}{2}} (D - A) D^{-\frac{1}{2}}\)</span>.</p></li>
+<li><p class="sd-card-text"><strong>التحليل الجزئي لقيم eigenvalues.</strong>  يتم إجراء تحليل قيم eigenvalues على Laplacian الرسم البياني.</p></li>
+</ol>
+<p class="sd-card-text">التعقيد الكلي للتضمين الطيفي هو <span class="math notranslate nohighlight">\(O[D \log(k) N \log(N)] + O[D N k^3] + O[d N^2]\)</span>.</p>
+<ul class="simple">
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(N\)</span> : عدد نقاط بيانات التدريب</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(D\)</span> : بُعد الإدخال</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(k\)</span> : عدد أقرب جيران</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(d\)</span> : بُعد الإخراج</p></li>
+</ul>
+</div>
+</details><p class="rubric">المراجع</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://web.cse.ohio-state.edu/~mbelkin/papers/LEM_NC_03.pdf">&quot;Laplacian Eigenmaps for Dimensionality Reduction
+and Data Representation&quot;</a>
+M. Belkin, P. Niyogi, Neural Computation, June 2003; 15 (6):1373-1396</p></li>
+</ul>
+</section>
+<section id="local-tangent-space-alignment">
+<h2><span class="section-number">2.2.7. </span>Local Tangent Space Alignment (محاذاة فضاء المماس المحلي)<a class="headerlink" href="#local-tangent-space-alignment" title="Link to this heading">#</a></h2>
+<p>على الرغم من أنها ليست من الناحية الفنية متغيرًا من LLE، فإن محاذاة فضاء المماس المحلي (LTSA) تشبه خوارزميًا LLE بما يكفي لوضعها في هذه الفئة. بدلاً من التركيز على الحفاظ على مسافات الجيرة كما هو الحال في LLE، تسعى LTSA إلى توصيف الهندسة المحلية عند كل جيرة من خلال مساحة المماس الخاصة بها، وتجري تحسينًا عالميًا لمحاذاة مساحات المماس المحلية هذه لتعلم التضمين. يمكن تنفيذ LTSA باستخدام الدالة <a class="reference internal" href="generated/sklearn.manifold.locally_linear_embedding.html#sklearn.manifold.locally_linear_embedding" title="sklearn.manifold.locally_linear_embedding"><code class="xref py py-func docutils literal notranslate"><span class="pre">locally_linear_embedding</span></code></a> أو نظيرتها الكائنية التوجه <a class="reference internal" href="generated/sklearn.manifold.LocallyLinearEmbedding.html#sklearn.manifold.LocallyLinearEmbedding" title="sklearn.manifold.LocallyLinearEmbedding"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocallyLinearEmbedding</span></code></a>، مع الكلمة المفتاحية <code class="docutils literal notranslate"><span class="pre">method</span> <span class="pre">=</span> <span class="pre">'ltsa'</span></code>.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="../_images/sphx_glr_plot_lle_digits_009.png" src="../_images/sphx_glr_plot_lle_digits_009.png" style="width: 320.0px; height: 240.0px;" />
+</a>
+</figure>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="التعقيد-6">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">التعقيد<a class="headerlink" href="#التعقيد-6" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">تتكون خوارزمية LTSA من ثلاث مراحل:</p>
+<ol class="arabic simple">
+<li><p class="sd-card-text"><strong>بحث أقرب جار.</strong> نفس LLE القياسي</p></li>
+<li><p class="sd-card-text"><strong>بناء مصفوفة الوزن.</strong> تقريبًا <span class="math notranslate nohighlight">\(O[D N k^3] + O[k^2 d]\)</span>. يعكس المصطلح الأول تكلفة مماثلة لتلك الخاصة بـ LLE القياسي.</p></li>
+<li><p class="sd-card-text"><strong>التحليل الجزئي لقيم eigenvalues.</strong> نفس LLE القياسي</p></li>
+</ol>
+<p class="sd-card-text">التعقيد الكلي لـ LTSA القياسي هو <span class="math notranslate nohighlight">\(O[D \log(k) N \log(N)] + O[D N k^3] + O[k^2 d] + O[d N^2]\)</span>.</p>
+<ul class="simple">
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(N\)</span> : عدد نقاط بيانات التدريب</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(D\)</span> : بُعد الإدخال</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(k\)</span> : عدد أقرب جيران</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(d\)</span> : بُعد الإخراج</p></li>
+</ul>
+</div>
+</details><p class="rubric">المراجع</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arxiv.org/abs/cs/0212008">&quot;Principal manifolds and nonlinear dimensionality reduction via
+tangent space alignment&quot;</a>
+Zhang, Z. &amp; Zha, H. Journal of Shanghai Univ. 8:406 (2004)</p></li>
+</ul>
+</section>
+<section id="multi-dimensional-scaling-mds">
+<span id="multidimensional-scaling"></span><h2><span class="section-number">2.2.8. </span>Multi-dimensional Scaling (MDS) (التحجيم متعدد الأبعاد)<a class="headerlink" href="#multi-dimensional-scaling-mds" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Multidimensional_scaling">التحجيم متعدد الأبعاد</a>
+(<a class="reference internal" href="generated/sklearn.manifold.MDS.html#sklearn.manifold.MDS" title="sklearn.manifold.MDS"><code class="xref py py-class docutils literal notranslate"><span class="pre">MDS</span></code></a>) يبحث عن تمثيل ذي أبعاد منخفضة للبيانات حيث تحترم المسافات بشكل جيد المسافات في الفضاء الأصلي ذي الأبعاد العالية.</p>
+<p>بشكل عام، <a class="reference internal" href="generated/sklearn.manifold.MDS.html#sklearn.manifold.MDS" title="sklearn.manifold.MDS"><code class="xref py py-class docutils literal notranslate"><span class="pre">MDS</span></code></a> هي تقنية تُستخدم لتحليل بيانات التشابه أو الاختلاف. تحاول نمذجة بيانات التشابه أو الاختلاف كمسافات في مساحات هندسية. يمكن أن تكون البيانات عبارة عن تقييمات للتشابه بين الكائنات، أو ترددات تفاعل الجزيئات، أو مؤشرات التجارة بين البلدان.</p>
+<p>يوجد نوعان من خوارزمية MDS: مترية وغير مترية. في scikit-learn، تُطبق الفئة <a class="reference internal" href="generated/sklearn.manifold.MDS.html#sklearn.manifold.MDS" title="sklearn.manifold.MDS"><code class="xref py py-class docutils literal notranslate"><span class="pre">MDS</span></code></a> كليهما. في MDS المتري، تنشأ مصفوفة التشابه المدخلة من مقياس (وبالتالي تحترم متباينة المثلث)، ثم يتم ضبط المسافات بين نقطتي إخراج لتكون أقرب ما يمكن لبيانات التشابه أو الاختلاف. في الإصدار غير المتري، ستحاول الخوارزميات الحفاظ على ترتيب المسافات، وبالتالي البحث عن علاقة رتيبة بين المسافات في الفضاء المضمن والتشابهات/الاختلافات.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="../_images/sphx_glr_plot_lle_digits_010.png" src="../_images/sphx_glr_plot_lle_digits_010.png" style="width: 320.0px; height: 240.0px;" />
+</a>
+</figure>
+<p>دع <span class="math notranslate nohighlight">\(S\)</span> تكون مصفوفة التشابه، و <span class="math notranslate nohighlight">\(X\)</span> إحداثيات <span class="math notranslate nohighlight">\(n\)</span> نقاط الإدخال. التباينات <span class="math notranslate nohighlight">\(\hat{d}_{ij}\)</span> هي تحويل للتشابهات المختارة ببعض الطرق المثلى. يتم بعد ذلك تحديد الهدف، المسمى الإجهاد، بواسطة <span class="math notranslate nohighlight">\(\sum_{i &lt; j} d_{ij}(X) - \hat{d}_{ij}(X)\)</span></p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="mds-المتري">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">MDS المتري<a class="headerlink" href="#mds-المتري" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">أبسط نموذج <a class="reference internal" href="generated/sklearn.manifold.MDS.html#sklearn.manifold.MDS" title="sklearn.manifold.MDS"><code class="xref py py-class docutils literal notranslate"><span class="pre">MDS</span></code></a> متري، يسمى <em>MDS المطلق</em>، يتم تعريف التباينات بواسطة <span class="math notranslate nohighlight">\(\hat{d}_{ij} = S_{ij}\)</span>. باستخدام MDS المطلق، يجب أن تتوافق القيمة <span class="math notranslate nohighlight">\(S_{ij}\)</span> تمامًا مع المسافة بين النقطة <span class="math notranslate nohighlight">\(i\)</span> والنقطة <span class="math notranslate nohighlight">\(j\)</span> في نقطة التضمين.</p>
+<p class="sd-card-text">في أغلب الأحيان، يتم تعيين التباينات على <span class="math notranslate nohighlight">\(\hat{d}_{ij} = b S_{ij}\)</span>.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="mds-غير-المتري">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">MDS غير المتري<a class="headerlink" href="#mds-غير-المتري" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">يركز MDS غير المتري على ترتيب البيانات. إذا <span class="math notranslate nohighlight">\(S_{ij} &gt; S_{jk}\)</span>، فيجب أن يفرض التضمين <span class="math notranslate nohighlight">\(d_{ij} &lt; d_{jk}\)</span>. لهذا السبب، نناقشه من حيث الاختلافات (<span class="math notranslate nohighlight">\(\delta_{ij}\)</span>) بدلاً من التشابهات (<span class="math notranslate nohighlight">\(S_{ij}\)</span>). لاحظ أنه يمكن الحصول على الاختلافات بسهولة من التشابهات من خلال تحويل بسيط، على سبيل المثال <span class="math notranslate nohighlight">\(\delta_{ij}=c_1-c_2 S_{ij}\)</span> لبعض الثوابت الحقيقية <span class="math notranslate nohighlight">\(c_1, c_2\)</span>. تتمثل إحدى الخوارزميات البسيطة لفرض الترتيب المناسب في استخدام انحدار رتيب لـ <span class="math notranslate nohighlight">\(d_{ij}\)</span> على <span class="math notranslate nohighlight">\(\delta_{ij}\)</span>، مما ينتج عنه تباينات <span class="math notranslate nohighlight">\(\hat{d}_{ij}\)</span> بنفس ترتيب <span class="math notranslate nohighlight">\(\delta_{ij}\)</span>.</p>
+<p class="sd-card-text">الحل التافه لهذه المشكلة هو تعيين جميع النقاط على الأصل. لتجنب ذلك، يتم تطبيع التباينات <span class="math notranslate nohighlight">\(\hat{d}_{ij}\)</span>. لاحظ أنه نظرًا لأننا نهتم فقط بالترتيب النسبي، فيجب أن يكون هدفنا ثابتًا بالنسبة للترجمة والتحجيم البسيطين، ومع ذلك فإن الإجهاد المستخدم في MDS المتري حساس للتحجيم. لمعالجة هذا، قد يستخدم MDS غير المتري إجهادًا معياريًا، يُعرف باسم Stress-1 والذي يُعرّف على النحو التالي</p>
+<div class="math notranslate nohighlight">
+\[\sqrt{\frac{\sum_{i &lt; j} (d_{ij} - \hat{d}_{ij})^2}{\sum_{i &lt; j} d_{ij}^2}}.\]</div>
+<p class="sd-card-text">يمكن تمكين استخدام Stress-1 المعياري عن طريق تعيين <code class="docutils literal notranslate"><span class="pre">normalized_stress=True</span></code>، ومع ذلك فهو متوافق فقط مع مشكلة MDS غير المترية وسيتم تجاهله في الحالة المترية.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/manifold/plot_mds.html"><img alt="../_images/sphx_glr_plot_mds_001.png" src="../_images/sphx_glr_plot_mds_001.png" style="width: 384.0px; height: 288.0px;" />
+</a>
+</figure>
+</div>
+</details><p class="rubric">المراجع</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.springer.com/fr/book/9780387251509">&quot;Modern Multidimensional Scaling - Theory and Applications&quot;</a>
+Borg, I.; Groenen P. Springer Series in Statistics (1997)</p></li>
+<li><p><a class="reference external" href="http://cda.psych.uiuc.edu/psychometrika_highly_cited_articles/kruskal_1964b.pdf">&quot;Nonmetric multidimensional scaling: a numerical method&quot;</a>
+Kruskal, J. Psychometrika, 29 (1964)</p></li>
+<li><p><a class="reference external" href="http://cda.psych.uiuc.edu/psychometrika_highly_cited_articles/kruskal_1964a.pdf">&quot;Multidimensional scaling by optimizing goodness of fit to a nonmetric hypothesis&quot;</a>
+Kruskal, J. Psychometrika, 29, (1964)</p></li>
+</ul>
+</section>
+<section id="t-distributed-stochastic-neighbor-embedding-t-sne-t">
+<span id="t-sne"></span><h2><span class="section-number">2.2.9. </span>t-distributed Stochastic Neighbor Embedding (t-SNE) (التضمين العشوائي للجار الموزع على t)<a class="headerlink" href="#t-distributed-stochastic-neighbor-embedding-t-sne-t" title="Link to this heading">#</a></h2>
+<p>يحول t-SNE (<a class="reference internal" href="generated/sklearn.manifold.TSNE.html#sklearn.manifold.TSNE" title="sklearn.manifold.TSNE"><code class="xref py py-class docutils literal notranslate"><span class="pre">TSNE</span></code></a>) تقاربات نقاط البيانات إلى احتمالات. يتم تمثيل التقاربات في الفضاء الأصلي بواسطة احتمالات جاوس المشتركة ويتم تمثيل التقاربات في الفضاء المضمن بواسطة توزيعات t للطالب. وهذا يسمح لـ t-SNE بأن يكون حساسًا بشكل خاص للبنية المحلية وله عدد قليل من المزايا الأخرى على التقنيات الحالية:</p>
+<ul class="simple">
+<li><p>الكشف عن البنية على العديد من المقاييس على خريطة واحدة</p></li>
+<li><p>الكشف عن البيانات التي تقع في مشعبات أو مجموعات متعددة ومختلفة</p></li>
+<li><p>تقليل ميل حشد النقاط معًا في المركز</p></li>
+</ul>
+<p>في حين أن Isomap و LLE والمتغيرات مناسبة بشكل أفضل لفك مشعب منخفض الأبعاد واحد مستمر، سيركز t-SNE على البنية المحلية للبيانات وسيميل إلى استخراج مجموعات محلية مجمعة من العينات كما هو موضح في مثال منحنى S. قد تكون هذه القدرة على تجميع العينات بناءً على البنية المحلية مفيدة لفك تشابك مجموعة بيانات تضم العديد من المشعبات في وقت واحد كما هو الحال في مجموعة بيانات الأرقام بصريًا.</p>
+<p>سيتم تقليل اختلاف Kullback-Leibler (KL) للاحتمالات المشتركة في الفضاء الأصلي والفضاء المضمن عن طريق الانحدار التدريجي. لاحظ أن اختلاف KL ليس محدبًا، أي أن عمليات إعادة التشغيل المتعددة ذات التهيئات المختلفة ستنتهي في الحدود الدنيا المحلية لاختلاف KL. ومن ثم، من المفيد أحيانًا تجربة بذور مختلفة وتحديد التضمين مع أقل اختلاف KL.</p>
+<p>عيوب استخدام t-SNE هي تقريبًا:</p>
+<ul class="simple">
+<li><p>t-SNE مكلف حسابيًا، ويمكن أن يستغرق عدة ساعات على مجموعات البيانات المكونة من مليون عينة حيث سينتهي PCA في ثوانٍ أو دقائق</p></li>
+<li><p>طريقة Barnes-Hut t-SNE مقتصرة على تضمينات ثنائية أو ثلاثية الأبعاد.</p></li>
+<li><p>الخوارزمية عشوائية ويمكن أن تؤدي عمليات إعادة التشغيل المتعددة ببذور مختلفة إلى تضمينات مختلفة. ومع ذلك، فمن المشروع تمامًا اختيار التضمين بأقل خطأ.</p></li>
+<li><p>لا يتم الحفاظ على البنية العامة بشكل صريح. يتم التخفيف من هذه المشكلة عن طريق تهيئة النقاط باستخدام PCA (باستخدام <code class="docutils literal notranslate"><span class="pre">init='pca'</span></code>).</p></li>
+</ul>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="../_images/sphx_glr_plot_lle_digits_013.png" src="../_images/sphx_glr_plot_lle_digits_013.png" style="width: 320.0px; height: 240.0px;" />
+</a>
+</figure>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="تحسين-t-sne">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">تحسين t-SNE<a class="headerlink" href="#تحسين-t-sne" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">الغرض الرئيسي من t-SNE هو تصور البيانات عالية الأبعاد. ومن ثم، فإنه يعمل بشكل أفضل عندما يتم تضمين البيانات في بعدين أو ثلاثة أبعاد.</p>
+<p class="sd-card-text">قد يكون تحسين اختلاف KL صعبًا بعض الشيء في بعض الأحيان. هناك خمس معلمات تتحكم في تحسين t-SNE وبالتالي ربما جودة التضمين الناتج:</p>
+<ul class="simple">
+<li><p class="sd-card-text">التعقيد</p></li>
+<li><p class="sd-card-text">عامل المبالغة المبكرة</p></li>
+<li><p class="sd-card-text">معدل التعلم</p></li>
+<li><p class="sd-card-text">الحد الأقصى لعدد التكرارات</p></li>
+<li><p class="sd-card-text">الزاوية (لا تُستخدم في الطريقة الدقيقة)</p></li>
+</ul>
+<p class="sd-card-text">يُعرّف التعقيد بأنه <span class="math notranslate nohighlight">\(k=2^{(S)}\)</span> حيث <span class="math notranslate nohighlight">\(S\)</span> هو إنتروبيا شانون لتوزيع الاحتمال الشرطي. تعقيد حجر النرد ذي <span class="math notranslate nohighlight">\(k\)</span> جانب هو <span class="math notranslate nohighlight">\(k\)</span>، بحيث يكون <span class="math notranslate nohighlight">\(k\)</span> بشكل فعال عدد أقرب الجيران الذي يعتبره t-SNE عند توليد الاحتمالات الشرطية. تؤدي التعقيدات الأكبر إلى المزيد من أقرب الجيران وأقل حساسية للبنية الصغيرة. وعلى العكس من ذلك، يعتبر التعقيد المنخفض عددًا أقل من الجيران، وبالتالي يتجاهل المزيد من المعلومات العالمية لصالح الحي المحلي. مع ازدياد أحجام مجموعات البيانات، ستكون هناك حاجة إلى المزيد من النقاط للحصول على عينة معقولة من الحي المحلي، وبالتالي قد تكون هناك حاجة إلى تعقيدات أكبر. وبالمثل، ستتطلب مجموعات البيانات الأكثر ضوضاء قيم تعقيد أكبر لتشمل عددًا كافيًا من الجيران المحليين لرؤية ما وراء ضوضاء الخلفية.</p>
+<p class="sd-card-text">الحد الأقصى لعدد التكرارات عادة ما يكون مرتفعًا بما يكفي ولا يحتاج إلى أي ضبط. يتكون التحسين من مرحلتين: مرحلة المبالغة المبكرة والتحسين النهائي. أثناء المبالغة المبكرة، سيتم زيادة الاحتمالات المشتركة في الفضاء الأصلي بشكل مصطنع عن طريق الضرب في عامل معين. تؤدي العوامل الأكبر إلى فجوات أكبر بين المجموعات الطبيعية في البيانات. إذا كان العامل مرتفعًا جدًا، فقد يزداد اختلاف KL خلال هذه المرحلة. عادة لا يلزم ضبطه. معلمة حرجة هي معدل التعلم. إذا كان منخفضًا جدًا، فسوف يعلق الانحدار التدريجي في حد أدنى محلي سيئ. إذا كان مرتفعًا جدًا، فسوف يزداد اختلاف KL أثناء التحسين. تتمثل الإرشادية المقترحة في Belkina et al. (2019) في تعيين معدل التعلم على حجم العينة مقسومًا على عامل المبالغة المبكرة. نُطبق هذه الإرشادية كوسيطة <code class="docutils literal notranslate"><span class="pre">learning_rate='auto'</span></code>. يمكن العثور على المزيد من النصائح في الأسئلة الشائعة لورانس فان دير مايتن (انظر المراجع). المعلمة الأخيرة، الزاوية، هي مفاضلة بين الأداء والدقة. الزوايا الأكبر تعني أنه يمكننا تقريب مناطق أكبر بنقطة واحدة، مما يؤدي إلى سرعة أفضل ولكن نتائج أقل دقة.</p>
+<p class="sd-card-text">يوفر <a class="reference external" href="https://distill.pub/2016/misread-tsne/">&quot;How to Use t-SNE Effectively&quot;</a>
+مناقشة جيدة لتأثيرات المعلمات المختلفة، بالإضافة إلى مخططات تفاعلية لاستكشاف تأثيرات المعلمات المختلفة.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="barnes-hut-t-sne">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Barnes-Hut t-SNE<a class="headerlink" href="#barnes-hut-t-sne" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">عادة ما يكون Barnes-Hut t-SNE الذي تم تنفيذه هنا أبطأ بكثير من خوارزميات تعلم المشعبات الأخرى. التحسين صعب للغاية وحساب التدرج هو <span class="math notranslate nohighlight">\(O[d N log(N)]\)</span>، حيث <span class="math notranslate nohighlight">\(d\)</span> هو عدد أبعاد الإخراج و <span class="math notranslate nohighlight">\(N\)</span> هو عدد العينات. تُحسّن طريقة Barnes-Hut من الطريقة الدقيقة حيث يكون تعقيد t-SNE هو <span class="math notranslate nohighlight">\(O[d N^2]\)</span>، ولكن لديها العديد من الاختلافات الملحوظة الأخرى:</p>
+<ul class="simple">
+<li><p class="sd-card-text">يعمل تطبيق Barnes-Hut فقط عندما تكون الأبعاد المستهدفة 3 أو أقل. الحالة ثنائية الأبعاد نموذجية عند بناء التصورات.</p></li>
+<li><p class="sd-card-text">يعمل Barnes-Hut فقط مع بيانات إدخال كثيفة. يمكن تضمين مصفوفات البيانات المتفرقة فقط بالطريقة الدقيقة أو يمكن تقريبها بإسقاط كثيف منخفض الرتبة على سبيل المثال باستخدام <a class="reference internal" href="generated/sklearn.decomposition.PCA.html#sklearn.decomposition.PCA" title="sklearn.decomposition.PCA"><code class="xref py py-class docutils literal notranslate"><span class="pre">PCA</span></code></a></p></li>
+<li><p class="sd-card-text">Barnes-Hut هو تقريب للطريقة الدقيقة. يتم تحديد التقريب بمعامل الزاوية، لذلك لا يتم استخدام معامل الزاوية عند <code class="docutils literal notranslate"><span class="pre">method=&quot;exact&quot;</span></code></p></li>
+<li><p class="sd-card-text">Barnes-Hut قابل للتحجيم بشكل ملحوظ. يمكن استخدام Barnes-Hut لتضمين مئات الآلاف من نقاط البيانات بينما يمكن للطريقة الدقيقة التعامل مع آلاف العينات قبل أن تصبح مستعصية على الحل حسابيًا</p></li>
+</ul>
+<p class="sd-card-text">لغرض التصور (وهي الحالة الرئيسية لاستخدام t-SNE)، يوصى بشدة باستخدام طريقة Barnes-Hut. طريقة t-SNE الدقيقة مفيدة للتحقق من الخصائص النظرية للتضمين ربما في فضاء ذي أبعاد أعلى ولكنها تقتصر على مجموعات البيانات الصغيرة نظرًا لقيود الحساب.</p>
+<p class="sd-card-text">لاحظ أيضًا أن تسميات الأرقام تتطابق تقريبًا مع التجميع الطبيعي الذي وجده t-SNE بينما ينتج عن الإسقاط الخطي ثنائي الأبعاد لنموذج PCA تمثيلًا تتداخل فيه مناطق التسميات إلى حد كبير. هذا دليل قوي على أنه يمكن فصل هذه البيانات جيدًا بواسطة طرق غير خطية تركز على البنية المحلية (على سبيل المثال SVM مع نواة Gaussian RBF). ومع ذلك، فإن الفشل في تصور مجموعات متجانسة التسميات مفصولة جيدًا باستخدام t-SNE في 2D لا يعني بالضرورة أنه لا يمكن تصنيف البيانات بشكل صحيح بواسطة نموذج خاضع للإشراف. قد يكون الأمر أن البعدين ليسا مرتفعين بما يكفي لتمثيل البنية الداخلية للبيانات بدقة.</p>
+</div>
+</details><p class="rubric">المراجع</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://jmlr.org/papers/v9/vandermaaten08a.html">&quot;Visualizing High-Dimensional Data Using t-SNE&quot;</a>
+van der Maaten, L.J.P.; Hinton, G. Journal of Machine Learning Research (2008)</p></li>
+<li><p><a class="reference external" href="https://lvdmaaten.github.io/tsne/">&quot;t-Distributed Stochastic Neighbor Embedding&quot;</a> van der Maaten, L.J.P.</p></li>
+<li><p><a class="reference external" href="https://lvdmaaten.github.io/publications/papers/JMLR_2014.pdf">&quot;Accelerating t-SNE using Tree-Based Algorithms&quot;</a>
+van der Maaten, L.J.P.; Journal of Machine Learning Research 15(Oct):3221-3245, 2014.</p></li>
+<li><p><a class="reference external" href="https://www.nature.com/articles/s41467-019-13055-y">&quot;Automated optimized parameters for T-distributed stochastic neighbor
+embedding improve visualization and analysis of large datasets&quot;</a>
+Belkina, A.C., Ciccolella, C.O., Anno, R., Halpert, R., Spidlen, J.,
+Snyder-Cappione, J.E., Nature Communications 10, 5415 (2019).</p></li>
+</ul>
+</section>
+<section id="id7">
+<h2><span class="section-number">2.2.10. </span>نصائح حول الاستخدام العملي<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>تأكد من استخدام نفس المقياس على جميع الميزات. نظرًا لأن أساليب تعلم المشعبات تعتمد على بحث أقرب جار، فقد تؤدي الخوارزمية أداءً ضعيفًا بخلاف ذلك. انظر <a class="reference internal" href="preprocessing.html#preprocessing-scaler"><span class="std std-ref">StandardScaler</span></a> للحصول على طرق ملائمة لتحجيم البيانات غير المتجانسة.</p></li>
+<li><p>يمكن استخدام خطأ إعادة البناء الذي يحسبه كل روتين لاختيار بُعد الإخراج الأمثل. بالنسبة لمشعب ذي أبعاد <span class="math notranslate nohighlight">\(d\)</span> مضمن في فضاء معلمات ذي أبعاد <span class="math notranslate nohighlight">\(D\)</span>، سينخفض ​​خطأ إعادة البناء مع زيادة <code class="docutils literal notranslate"><span class="pre">n_components</span></code> حتى <code class="docutils literal notranslate"><span class="pre">n_components</span> <span class="pre">==</span> <span class="pre">d</span></code>.</p></li>
+<li><p>لاحظ أن البيانات المزعجة يمكن أن &quot;تقصر&quot; المشعب، وتعمل بشكل أساسي كجسر بين أجزاء المشعب التي ستكون بخلاف ذلك منفصلة جيدًا. تعلم المشعبات على البيانات المزعجة و/أو غير المكتملة هو مجال بحث نشط.</p></li>
+<li><p>يمكن أن تؤدي تكوينات إدخال معينة إلى مصفوفات وزن فردية، على سبيل المثال عندما تكون أكثر من نقطتين في مجموعة البيانات متطابقتين، أو عندما يتم تقسيم البيانات إلى مجموعات منفصلة. في هذه الحالة، سيفشل <code class="docutils literal notranslate"><span class="pre">solver='arpack'</span></code> في العثور على مساحة فارغة. أسهل طريقة لمعالجة هذا هي استخدام <code class="docutils literal notranslate"><span class="pre">solver='dense'</span></code> الذي سيعمل على مصفوفة فردية، على الرغم من أنه قد يكون بطيئًا جدًا اعتمادًا على عدد نقاط الإدخال. بدلاً من ذلك، يمكن للمرء محاولة فهم مصدر التفرد: إذا كان ذلك بسبب مجموعات منفصلة، فقد تساعد زيادة <code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code>. إذا كان ذلك بسبب نقاط متطابقة في مجموعة البيانات، فقد تساعد إزالة هذه النقاط.</p></li>
+</ul>
+<div class="admonition seealso">
+<p class="admonition-title">شاهد أيضا</p>
+<p><a class="reference internal" href="ensemble.html#random-trees-embedding"><span class="std std-ref">تضمين الأشجار العشوائية تمامًا</span></a> يمكن أن يكون مفيدًا أيضًا لاستخلاص تمثيلات غير خطية لفضاء الميزات، كما أنه لا يؤدي اختزال الأبعاد.</p>
+</div>
+<p>================= ترجمة باستخدام Command-pluse ====================================================================</p>
+<div class="line-block" id="id8">
+<div class="line">ابحث عن الضروريات الأساسية</div>
+<div class="line">الضروريات الأساسية البسيطة</div>
+<div class="line">انسَ همومك ومشاكلك</div>
+<div class="line">أعني الضروريات الأساسية</div>
+<div class="line">وصفات الأم الطبيعة</div>
+<div class="line">التي تجلب الضروريات الأساسية للحياة</div>
+<div class="line"><br /></div>
+<div class="line-block">
+<div class="line">-- أغنية بالو [كتاب الأدغال]</div>
+</div>
+</div>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/manifold/plot_compare_methods.html"><img alt="../_images/sphx_glr_plot_compare_methods_001.png" src="../_images/sphx_glr_plot_compare_methods_001.png" style="width: 420.0px; height: 420.0px;" />
+</a>
+</figure>
+<p class="centered">
+<strong><a class="reference external" href="../auto_examples/manifold/plot_compare_methods.html"><img alt="manifold_img3" src="../_images/sphx_glr_plot_compare_methods_003.png" style="width: 180.0px; height: 180.0px;" /></a> <a class="reference external" href="../auto_examples/manifold/plot_compare_methods.html"><img alt="manifold_img4" src="../_images/sphx_glr_plot_compare_methods_004.png" style="width: 180.0px; height: 180.0px;" /></a> <a class="reference external" href="../auto_examples/manifold/plot_compare_methods.html"><img alt="manifold_img5" src="../_images/sphx_glr_plot_compare_methods_005.png" style="width: 180.0px; height: 180.0px;" /></a> <a class="reference external" href="../auto_examples/manifold/plot_compare_methods.html"><img alt="manifold_img6" src="../_images/sphx_glr_plot_compare_methods_006.png" style="width: 180.0px; height: 180.0px;" /></a></strong></p><p>تعلم المانيفولد هو نهج لخفض الأبعاد غير الخطي.
+تستند الخوارزميات لهذه المهمة على فكرة أن الأبعاد للعديد من مجموعات البيانات تكون عالية بشكل مصطنع فقط.</p>
+</section>
+<section id="id9">
+<h2><span class="section-number">2.2.11. </span>مقدمة<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<p>يمكن أن تكون مجموعات البيانات عالية الأبعاد صعبة للغاية في التصور. في حين يمكن رسم البيانات في بعدين أو ثلاثة أبعاد لإظهار البنية الكامنة للبيانات، تكون الرسوم البيانية عالية الأبعاد أقل حدسية. للمساعدة في تصور بنية مجموعة البيانات، يجب تقليل البعد بطريقة ما.</p>
+<p>أبسط طريقة لتحقيق هذا الخفض للأبعاد هي عن طريق أخذ إسقاط عشوائي للبيانات. على الرغم من أن هذا يسمح ببعض درجة من تصور بنية البيانات، فإن عشوائية الاختيار تترك الكثير مما هو مرغوب فيه. في الإسقاط العشوائي، من المحتمل أن يتم فقدان البنية الأكثر إثارة للاهتمام داخل البيانات.</p>
+<p class="centered">
+<strong><a class="reference external" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="digits_img" src="../_images/sphx_glr_plot_lle_digits_001.png" style="width: 300.0px; height: 300.0px;" /></a> <a class="reference external" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="projected_img" src="../_images/sphx_glr_plot_lle_digits_002.png" style="width: 320.0px; height: 240.0px;" /></a></strong></p><p>لمعالجة هذا القلق، تم تصميم عدد من الأطر الخطية وغير الخطية لخفض الأبعاد، مثل تحليل المكونات الرئيسية (PCA)، وتحليل المكونات المستقلة، وتحليل التمييز الخطي، وغيرها. تحدد هذه الخوارزميات قواعد محددة لاختيار إسقاط خطي &quot;مثير للاهتمام&quot; للبيانات. يمكن أن تكون هذه الطرق قوية، ولكنها غالبًا ما تفوت بنية غير خطية مهمة في البيانات.</p>
+<p class="centered">
+<strong><a class="reference external" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="PCA_img" src="../_images/sphx_glr_plot_lle_digits_003.png" style="width: 320.0px; height: 240.0px;" /></a> <a class="reference external" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="LDA_img" src="../_images/sphx_glr_plot_lle_digits_004.png" style="width: 320.0px; height: 240.0px;" /></a></strong></p><p>يمكن اعتبار تعلم المانيفولد على أنه محاولة لتعميم الأطر الخطية مثل PCA لتصبح حساسة للبنية غير الخطية في البيانات. على الرغم من وجود متغيرات خاضعة للإشراف، فإن مشكلة تعلم المانيفولد النموذجية غير خاضعة للإشراف: فهي تتعلم البنية عالية الأبعاد للبيانات من البيانات نفسها، دون استخدام التصنيفات المحددة مسبقًا.</p>
+<p class="rubric">أمثلة</p>
+<ul class="simple">
+<li><p>راجع <a class="reference internal" href="../auto_examples/manifold/plot_lle_digits.html#sphx-glr-auto-examples-manifold-plot-lle-digits-py"><span class="std std-ref">Manifold learning on handwritten digits: Locally Linear Embedding, Isomap...</span></a> لمثال على
+خفض الأبعاد على الأرقام المكتوبة بخط اليد.</p></li>
+<li><p>راجع <a class="reference internal" href="../auto_examples/manifold/plot_compare_methods.html#sphx-glr-auto-examples-manifold-plot-compare-methods-py"><span class="std std-ref">Comparison of Manifold Learning methods</span></a> لمثال على
+خفض الأبعاد على مجموعة بيانات &quot;S-curve&quot; لعبة.</p></li>
+<li><p>راجع <a class="reference internal" href="../auto_examples/applications/plot_stock_market.html#sphx-glr-auto-examples-applications-plot-stock-market-py"><span class="std std-ref">Visualizing the stock market structure</span></a> لمثال على
+استخدام تعلم المانيفولد لرسم خريطة لهيكل سوق الأسهم بناءً على أسعار الأسهم التاريخية.</p></li>
+</ul>
+<p>تتوفر عمليات تنفيذ تعلم المانيفولد في scikit-learn
+ملخصة أدناه</p>
+</section>
+<section id="id10">
+<span id="id11"></span><h2><span class="section-number">2.2.12. </span>Isomap<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
+<p>أحد أقدم الأساليب لتعلم المانيفولد هو خوارزمية Isomap، اختصارًا لـ Isometric Mapping. يمكن اعتبار Isomap كتوسيع لتقليص الأبعاد متعدد الأبعاد (MDS) أو Kernel PCA. يبحث Isomap عن تضمين أقل أبعادًا يحافظ على المسافات الجيوديسية بين جميع النقاط. يمكن إجراء Isomap باستخدام الكائن <a class="reference internal" href="generated/sklearn.manifold.Isomap.html#sklearn.manifold.Isomap" title="sklearn.manifold.Isomap"><code class="xref py py-class docutils literal notranslate"><span class="pre">Isomap</span></code></a>.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="../_images/sphx_glr_plot_lle_digits_005.png" src="../_images/sphx_glr_plot_lle_digits_005.png" style="width: 320.0px; height: 240.0px;" />
+</a>
+</figure>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="التعقيد-7">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">التعقيد<a class="headerlink" href="#التعقيد-7" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">تتكون خوارزمية Isomap من ثلاث مراحل:</p>
+<ol class="arabic simple">
+<li><p class="sd-card-text"><strong>بحث الجار الأقرب.</strong> يستخدم Isomap
+<a class="reference internal" href="generated/sklearn.neighbors.BallTree.html#sklearn.neighbors.BallTree" title="sklearn.neighbors.BallTree"><code class="xref py py-class docutils literal notranslate"><span class="pre">BallTree</span></code></a> للبحث عن الجيران بكفاءة.
+تبلغ التكلفة تقريبًا <span class="math notranslate nohighlight">\(O[D \log(k) N \log(N)]\)</span>، لـ <span class="math notranslate nohighlight">\(k\)</span>
+الجيران الأقرب لـ <span class="math notranslate nohighlight">\(N\)</span> نقاط في <span class="math notranslate nohighlight">\(D\)</span> أبعاد.</p></li>
+<li><p class="sd-card-text"><strong>بحث الرسم البياني لأقصر مسار.</strong> أكثر الخوارزميات المعروفة كفاءة
+لهذا هي <em>خوارزمية ديكسترا</em>، والتي تبلغ تقريبًا
+<span class="math notranslate nohighlight">\(O[N^2(k + \log(N))]\)</span>، أو <em>خوارزمية فلويد-وارشال</em>، والتي
+هي <span class="math notranslate nohighlight">\(O[N^3]\)</span>. يمكن للمستخدم تحديد الخوارزمية باستخدام
+الكلمة الرئيسية <code class="docutils literal notranslate"><span class="pre">path_method</span></code> من <code class="docutils literal notranslate"><span class="pre">Isomap</span></code>. إذا لم يتم تحديدها، يحاول الكود اختيار أفضل خوارزمية للبيانات المدخلة.</p></li>
+<li><p class="sd-card-text"><strong>التحليل الجزئي للقيمة الذاتية.</strong> يتم ترميز التضمين في المكونات الذاتية المقابلة لـ <span class="math notranslate nohighlight">\(d\)</span> أكبر قيم ذاتية لـ <span class="math notranslate nohighlight">\(N \times N\)</span> نواة Isomap. بالنسبة للحل الكثيف، تبلغ التكلفة تقريبًا <span class="math notranslate nohighlight">\(O[d N^2]\)</span>. يمكن تحسين هذه التكلفة غالبًا باستخدام
+محول <code class="docutils literal notranslate"><span class="pre">ARPACK</span></code>. يمكن للمستخدم تحديد المحلل الذاتي باستخدام
+الكلمة الرئيسية <code class="docutils literal notranslate"><span class="pre">eigen_solver</span></code> من <code class="docutils literal notranslate"><span class="pre">Isomap</span></code>. إذا لم يتم تحديدها، يحاول الكود اختيار أفضل خوارزمية للبيانات المدخلة.</p></li>
+</ol>
+<p class="sd-card-text">التعقيد الإجمالي لـ Isomap هو
+<span class="math notranslate nohighlight">\(O[D \log(k) N \log(N)] + O[N^2(k + \log(N))] + O[d N^2]\)</span>.</p>
+<ul class="simple">
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(N\)</span> : عدد نقاط التدريب</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(D\)</span> : البعد المدخلة</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(k\)</span> : عدد الجيران الأقرب</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(d\)</span> : البعد الإخراج</p></li>
+</ul>
+</div>
+</details><p class="rubric">المراجع</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://science.sciencemag.org/content/290/5500/2319.full">&quot;إطار عمل هندسي عالمي لخفض الأبعاد غير الخطي&quot;</a>
+Tenenbaum, J.B.; De Silva, V.; &amp; Langford, J.C.  Science 290 (5500)</p></li>
+</ul>
+</section>
+<section id="id13">
+<span id="id14"></span><h2><span class="section-number">2.2.13. </span>التضمين الخطي المحلي<a class="headerlink" href="#id13" title="Link to this heading">#</a></h2>
+<p>يسعى التضمين الخطي المحلي (LLE) إلى تضمين أقل أبعادًا للبيانات
+التي تحافظ على المسافات داخل الأحياء المحلية. يمكن اعتباره
+سلسلة من تحليلات المكونات الرئيسية المحلية التي يتم مقارنتها عالميًا
+لإيجاد أفضل تضمين غير خطي.</p>
+<p>يمكن إجراء التضمين الخطي المحلي باستخدام الدالة
+<a class="reference internal" href="generated/sklearn.manifold.locally_linear_embedding.html#sklearn.manifold.locally_linear_embedding" title="sklearn.manifold.locally_linear_embedding"><code class="xref py py-func docutils literal notranslate"><span class="pre">locally_linear_embedding</span></code></a> أو نظيرها الموجه نحو الكائنات
+<a class="reference internal" href="generated/sklearn.manifold.LocallyLinearEmbedding.html#sklearn.manifold.LocallyLinearEmbedding" title="sklearn.manifold.LocallyLinearEmbedding"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocallyLinearEmbedding</span></code></a>.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="../_images/sphx_glr_plot_lle_digits_006.png" src="../_images/sphx_glr_plot_lle_digits_006.png" style="width: 320.0px; height: 240.0px;" />
+</a>
+</figure>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="التعقيد-8">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">التعقيد<a class="headerlink" href="#التعقيد-8" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">تتكون خوارزمية LLE القياسية من ثلاث مراحل:</p>
+<ol class="arabic simple">
+<li><p class="sd-card-text"><strong>بحث الجار الأقرب.</strong> راجع المناقشة تحت Isomap أعلاه.</p></li>
+<li><p class="sd-card-text"><strong>بناء مصفوفة الأوزان.</strong> <span class="math notranslate nohighlight">\(O[D N k^3]\)</span>.
+يتضمن بناء مصفوفة الأوزان الخطية المحلية حل معادلة خطية
+<span class="math notranslate nohighlight">\(k \times k\)</span> لكل من الأحياء المحلية <span class="math notranslate nohighlight">\(N\)</span>.</p></li>
+<li><p class="sd-card-text"><strong>التحليل الجزئي للقيمة الذاتية.</strong> راجع المناقشة تحت Isomap أعلاه.</p></li>
+</ol>
+<p class="sd-card-text">التعقيد الإجمالي لـ LLE القياسي هو
+<span class="math notranslate nohighlight">\(O[D \log(k) N \log(N)] + O[D N k^3] + O[d N^2]\)</span>.</p>
+<ul class="simple">
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(N\)</span> : عدد نقاط التدريب</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(D\)</span> : البعد المدخلة</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(k\)</span> : عدد الجيران الأقرب</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(d\)</span> : البعد الإخراج</p></li>
+</ul>
+</div>
+</details><p class="rubric">المراجع</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.sciencemag.org/content/290/5500/2323.full">&quot;خفض الأبعاد غير الخطي بالتضمين الخطي المحلي&quot;</a>
+Roweis, S. &amp; Saul, L.  Science 290:2323 (2000)</p></li>
+</ul>
+</section>
+<section id="id16">
+<h2><span class="section-number">2.2.14. </span>التضمين الخطي المحلي المعدل<a class="headerlink" href="#id16" title="Link to this heading">#</a></h2>
+<p>أحد المشكلات المعروفة جيدًا مع LLE هي مشكلة التنظيم. عندما يكون عدد
+الجيران أكبر من عدد الأبعاد المدخلة، تكون المصفوفة
+التي تحدد كل حي محلي ذات رتبة ناقصة. لمعالجة هذا، يطبق LLE القياسي
+معامل تنظيم عشوائي <span class="math notranslate nohighlight">\(r\)</span>، والذي يتم اختياره
+نسبيًا إلى أثر مصفوفة الأوزان المحلية. على الرغم من أنه يمكن إظهار
+رسميًا أنه مع <span class="math notranslate nohighlight">\(r \to 0\)</span>، فإن الحل يتقارب مع التضمين المطلوب،
+لا يوجد ضمان للعثور على الحل الأمثل
+لـ <span class="math notranslate nohighlight">\(r &gt; 0\)</span>. تظهر هذه المشكلة في التضمينات التي تشوه
+البنية الأساسية للمانيفولد.</p>
+<p>أحد الطرق لمعالجة مشكلة التنظيم هي استخدام ناقلات أوزان متعددة
+في كل حي. هذه هي جوهر <em>التضمين الخطي المحلي المعدل</em> (MLLE). يمكن إجراء MLLE
+باستخدام الدالة <a class="reference internal" href="generated/sklearn.manifold.locally_linear_embedding.html#sklearn.manifold.locally_linear_embedding" title="sklearn.manifold.locally_linear_embedding"><code class="xref py py-func docutils literal notranslate"><span class="pre">locally_linear_embedding</span></code></a> أو نظيرها الموجه نحو الكائنات
+<a class="reference internal" href="generated/sklearn.manifold.LocallyLinearEmbedding.html#sklearn.manifold.LocallyLinearEmbedding" title="sklearn.manifold.LocallyLinearEmbedding"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocallyLinearEmbedding</span></code></a>، مع الكلمة الرئيسية <code class="docutils literal notranslate"><span class="pre">method</span> <span class="pre">=</span> <span class="pre">'modified'</span></code>.
+يتطلب <code class="docutils literal notranslate"><span class="pre">n_neighbors</span> <span class="pre">&gt;</span> <span class="pre">n_components</span></code>.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="../_images/sphx_glr_plot_lle_digits_007.png" src="../_images/sphx_glr_plot_lle_digits_007.png" style="width: 320.0px; height: 240.0px;" />
+</a>
+</figure>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="التعقيد-9">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">التعقيد<a class="headerlink" href="#التعقيد-9" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">تتكون خوارزمية MLLE من ثلاث مراحل:</p>
+<ol class="arabic simple">
+<li><p class="sd-card-text"><strong>بحث الجار الأقرب.</strong> نفس LLE القياسي</p></li>
+<li><p class="sd-card-text"><strong>بناء مصفوفة الأوزان.</strong> تقريبًا
+<span class="math notranslate nohighlight">\(O[D N k^3] + O[N (k-D) k^2]\)</span>. المصطلح الأول مكافئ
+تمامًا لذلك الموجود في LLE القياسي. المصطلح الثاني يتعلق ببناء
+مصفوفة الأوزان من أوزان متعددة. في الممارسة العملية، تكون التكلفة المضافة لبناء
+مصفوفة أوزان MLLE صغيرة نسبيًا مقارنة بتكلفة المراحل 1 و 3.</p></li>
+<li><p class="sd-card-text"><strong>التحليل الجزئي للقيمة الذاتية.</strong> نفس LLE القياسي</p></li>
+</ol>
+<p class="sd-card-text">التعقيد الإجمالي لـ MLLE هو
+<span class="math notranslate nohighlight">\(O[D \log(k) N \log(N)] + O[D N k^3] + O[N (k-D) k^2] + O[d N^2]\)</span>.</p>
+<ul class="simple">
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(N\)</span> : عدد نقاط التدريب</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(D\)</span> : البعد المدخلة</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(k\)</span> : عدد الجيران الأقرب</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(d\)</span> : البعد الإخراج</p></li>
+</ul>
+</div>
+</details><p class="rubric">المراجع</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://citeseerx.ist.psu.edu/doc_view/pid/0b060fdbd92cbcc66b383bcaa9ba5e5e624d7ee3">&quot;MLLE: التضمين الخطي المحلي المعدل باستخدام أوزان متعددة&quot;</a>
+Zhang, Z. &amp; Wang, J.</p></li>
+</ul>
+</section>
+<section id="id17">
+<h2><span class="section-number">2.2.15. </span>رسم خرائط القيمة الذاتية للهيسية<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
+<p>رسم خرائط القيمة الذاتية للهيسية (المعروف أيضًا باسم LLE القائم على الهيسية: HLLE) هو طريقة أخرى
+لحل مشكلة التنظيم لـ LLE. تدور حول شكل رباعي الهيسية في كل حي
+والذي يتم استخدامه لاسترداد البنية الخطية المحلية. على الرغم من أن التطبيقات الأخرى تشير إلى سوء قياسها مع حجم البيانات، فإن <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> ينفذ بعض التحسينات الخوارزمية التي تجعل تكلفتها قابلة للمقارنة مع تلك الخاصة بمتغيرات LLE الأخرى
+للبعد الإخراج الصغير. يمكن إجراء HLLE باستخدام الدالة
+<a class="reference internal" href="generated/sklearn.manifold.locally_linear_embedding.html#sklearn.manifold.locally_linear_embedding" title="sklearn.manifold.locally_linear_embedding"><code class="xref py py-func docutils literal notranslate"><span class="pre">locally_linear_embedding</span></code></a> أو نظيرها الموجه نحو الكائنات
+<a class="reference internal" href="generated/sklearn.manifold.LocallyLinearEmbedding.html#sklearn.manifold.LocallyLinearEmbedding" title="sklearn.manifold.LocallyLinearEmbedding"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocallyLinearEmbedding</span></code></a>، مع الكلمة الرئيسية <code class="docutils literal notranslate"><span class="pre">method</span> <span class="pre">=</span> <span class="pre">'hessian'</span></code>.
+يتطلب <code class="docutils literal notranslate"><span class="pre">n_neighbors</span> <span class="pre">&gt;</span> <span class="pre">n_components</span> <span class="pre">*</span> <span class="pre">(n_components</span> <span class="pre">+</span> <span class="pre">3)</span> <span class="pre">/</span> <span class="pre">2</span></code>.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="../_images/sphx_glr_plot_lle_digits_008.png" src="../_images/sphx_glr_plot_lle_digits_008.png" style="width: 320.0px; height: 240.0px;" />
+</a>
+</figure>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="التعقيد-10">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">التعقيد<a class="headerlink" href="#التعقيد-10" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">تتكون خوارزمية HLLE من ثلاث مراحل:</p>
+<ol class="arabic simple">
+<li><p class="sd-card-text"><strong>بحث الجار الأقرب.</strong> نفس LLE القياسي</p></li>
+<li><p class="sd-card-text"><strong>بناء مصفوفة الأوزان.</strong> تقريبًا
+<span class="math notranslate nohighlight">\(O[D N k^3] + O[N d^6]\)</span>. يعكس المصطلح الأول تكلفة مماثلة
+لتلك الموجودة في LLE القياسي. يأتي المصطلح الثاني من تحليل QR
+لمقدر الهيسية المحلية.</p></li>
+<li><p class="sd-card-text"><strong>التحليل الجزئي للقيمة الذاتية.</strong> نفس LLE القياسي.</p></li>
+</ol>
+<p class="sd-card-text">التعقيد الإجمالي لـ HLLE القياسي هو
+<span class="math notranslate nohighlight">\(O[D \log(k) N \log(N)] + O[D N k^3] + O[N d^6] + O[d N^2]\)</span>.</p>
+<ul class="simple">
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(N\)</span> : عدد نقاط التدريب</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(D\)</span> : البعد المدخلة</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(k\)</span> : عدد الجيران الأقرب</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(d\)</span> : البعد الإخراج</p></li>
+</ul>
+</div>
+</details><p class="rubric">المراجع</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.pnas.org/content/100/10/5591">&quot;خرائط القيمة الذاتية للهيسية: تقنيات التضمين الخطي المحلية للبيانات عالية الأبعاد&quot;</a>
+Donoho, D. &amp; Grimes, C. Proc Natl Acad Sci USA. 100:5591 (2003)</p></li>
+</ul>
+</section>
+<section id="id19">
+<span id="id20"></span><h2><span class="section-number">2.2.16. </span>التضمين الطيفي<a class="headerlink" href="#id19" title="Link to this heading">#</a></h2>
+<p>التضمين الطيفي هو نهج لحساب تضمين غير خطي.
+ينفذ scikit-learn خرائط لابلاسيان، والتي تجد تمثيلًا منخفض الأبعاد للبيانات باستخدام تحليل طيفي لمصفوفة لابلاسيان الرسم البياني. يمكن اعتبار الرسم البياني المولد على أنه تقريب منفصل للمانيفولد منخفض الأبعاد في الفضاء عالي الأبعاد. يضمن تقليل دالة التكلفة بناءً على الرسم البياني أن النقاط القريبة من بعضها البعض على المانيفولد يتم رسمها بالقرب من بعضها البعض في الفضاء منخفض الأبعاد، مما يحافظ على المسافات المحلية. يمكن إجراء التضمين الطيفي باستخدام الدالة <a class="reference internal" href="generated/sklearn.manifold.spectral_embedding.html#sklearn.manifold.spectral_embedding" title="sklearn.manifold.spectral_embedding"><code class="xref py py-func docutils literal notranslate"><span class="pre">spectral_embedding</span></code></a> أو نظيرها الموجه نحو الكائنات
+<a class="reference internal" href="generated/sklearn.manifold.SpectralEmbedding.html#sklearn.manifold.SpectralEmbedding" title="sklearn.manifold.SpectralEmbedding"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpectralEmbedding</span></code></a>.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="التعقيد-11">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">التعقيد<a class="headerlink" href="#التعقيد-11" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">تتكون خوارزمية التضمين الطيفي (خرائط لابلاسيان) من ثلاث مراحل:</p>
+<ol class="arabic simple">
+<li><p class="sd-card-text"><strong>بناء الرسم البياني المرجح.</strong> تحويل بيانات الإدخال الخام إلى
+تمثيل الرسم البياني باستخدام مصفوفة تمثيل التقارب (المجاورات).</p></li>
+<li><p class="sd-card-text"><strong>بناء لابلاسيان الرسم البياني.</strong> يتم بناء لابلاسيان غير المعياري كـ <span class="math notranslate nohighlight">\(L = D - A\)</span> ولابلاسيان المعياري كـ
+<span class="math notranslate nohighlight">\(L = D^{-\frac{1}{2}} (D - A) D^{-\frac{1}{2}}\)</span>.</p></li>
+<li><p class="sd-card-text"><strong>التحليل الجزئي للقيمة الذاتية.</strong> يتم إجراء التحليل الذاتي للقيمة على لابلاسيان الرسم البياني.</p></li>
+</ol>
+<p class="sd-card-text">التعقيد الإجمالي للتضمين الطيفي هو
+<span class="math notranslate nohighlight">\(O[D \log(k) N \log(N)] + O[D N k^3] + O[d N^2]\)</span>.</p>
+<ul class="simple">
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(N\)</span> : عدد نقاط التدريب</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(D\)</span> : البعد المدخلة</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(k\)</span> : عدد الجيران الأقرب</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(d\)</span> : البعد الإخراج</p></li>
+</ul>
+</div>
+</details><p class="rubric">المراجع</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://web.cse.ohio-state.edu/~mbelkin/papers/LEM_NC_03.pdf">&quot;خرائط لابلاسيان لخفض الأبعاد
+وتمثيل البيانات&quot;</a>
+M. Belkin, P. Niyogi, Neural Computation, June 2003; 15 (6):1373-1396</p></li>
+</ul>
+</section>
+<section id="id22">
+<h2><span class="section-number">2.2.17. </span>محاذاة الفضاء المماس المحلي<a class="headerlink" href="#id22" title="Link to this heading">#</a></h2>
+<p>على الرغم من أنها ليست متغيرًا تقنيًا لـ LLE، إلا أن محاذاة الفضاء المماس المحلي (LTSA)
+تشبه خوارزميًا بما يكفي لـ LLE لوضعها في هذه الفئة.
+بدلاً من التركيز على الحفاظ على المسافات داخل الحي كما في LLE، تسعى LTSA
+لتوصيف الهندسة المحلية في كل حي من خلال مساحته المماسة، وتؤدي تحسينًا عالميًا لمحاذاة هذه المساحات المماسة المحلية لتعلم التضمين. يمكن إجراء LTSA باستخدام الدالة
+<a class="reference internal" href="generated/sklearn.manifold.locally_linear_embedding.html#sklearn.manifold.locally_linear_embedding" title="sklearn.manifold.locally_linear_embedding"><code class="xref py py-func docutils literal notranslate"><span class="pre">locally_linear_embedding</span></code></a> أو نظيرها الموجه نحو الكائنات
+<a class="reference internal" href="generated/sklearn.manifold.LocallyLinearEmbedding.html#sklearn.manifold.LocallyLinearEmbedding" title="sklearn.manifold.LocallyLinearEmbedding"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocallyLinearEmbedding</span></code></a>، مع الكلمة الرئيسية <code class="docutils literal notranslate"><span class="pre">method</span> <span class="pre">=</span> <span class="pre">'ltsa'</span></code>.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="../_images/sphx_glr_plot_lle_digits_009.png" src="../_images/sphx_glr_plot_lle_digits_009.png" style="width: 320.0px; height: 240.0px;" />
+</a>
+</figure>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="التعقيد-12">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">التعقيد<a class="headerlink" href="#التعقيد-12" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">تتكون خوارزمية LTSA من ثلاث مراحل:</p>
+<ol class="arabic simple">
+<li><p class="sd-card-text"><strong>بحث الجار الأقرب.</strong> نفس LLE القياسي</p></li>
+<li><p class="sd-card-text"><strong>بناء مصفوفة الأوزان.</strong> تقريبًا
+<span class="math notranslate nohighlight">\(O[D N k^3] + O[k^2 d]\)</span>. يعكس المصطلح الأول تكلفة مماثلة
+لتلك الموجودة في LLE القياسي.</p></li>
+<li><p class="sd-card-text"><strong>التحليل الجزئي للقيمة الذاتية.</strong> نفس LLE القياسي</p></li>
+</ol>
+<p class="sd-card-text">التعقيد الإجمالي لـ LTSA القياسي هو
+<span class="math notranslate nohighlight">\(O[D \log(k) N \log(N)] + O[D N k^3] + O[k^2 d] + O[d N^2]\)</span>.</p>
+<ul class="simple">
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(N\)</span> : عدد نقاط التدريب</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(D\)</span> : البعد المدخلة</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(k\)</span> : عدد الجيران الأقرب</p></li>
+<li><p class="sd-card-text"><span class="math notranslate nohighlight">\(d\)</span> : البعد الإخراج</p></li>
+</ul>
+</div>
+</details><p class="rubric">المراجع</p>
+<ul class="simple">
+<li><p><a href="#id23"><span class="problematic" id="id24">:arxiv:`&quot;المنحنيات الرئيسية ومحاذاة الفضاء المماس لخفض الأبعاد
+غير الخطي&quot;
+&lt;cs/0212008&gt;`_</span></a>
+Zhang, Z. &amp; Zha, H. Journal of Shanghai Univ. 8:406 (2004)</p></li>
+</ul>
+</section>
+<section id="mds">
+<span id="id25"></span><h2><span class="section-number">2.2.18. </span>القياس متعدد الأبعاد (MDS)<a class="headerlink" href="#mds" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Multidimensional_scaling">القياس متعدد الأبعاد</a>
+(<a class="reference internal" href="generated/sklearn.manifold.MDS.html#sklearn.manifold.MDS" title="sklearn.manifold.MDS"><code class="xref py py-class docutils literal notranslate"><span class="pre">MDS</span></code></a>) يسعى إلى تمثيل منخفض الأبعاد
+للبيانات التي تحترم المسافات جيدًا في
+الفضاء عالي الأبعاد الأصلي.</p>
+<p>بشكل عام، <a class="reference internal" href="generated/sklearn.manifold.MDS.html#sklearn.manifold.MDS" title="sklearn.manifold.MDS"><code class="xref py py-class docutils literal notranslate"><span class="pre">MDS</span></code></a> هي تقنية مستخدمة لتحليل بيانات التشابه أو
+الاختلاف. تحاول نمذجة بيانات التشابه أو الاختلاف كمسافات في مساحات هندسية. يمكن أن تكون البيانات تقييمات للتشابه بين
+الكائنات، أو ترددات التفاعل للجزيئات، أو مؤشرات التجارة بين
+البلدان.</p>
+<p>يوجد نوعان من خوارزمية MDS: المترية وغير المترية. في
+scikit-learn، تنفذ الفئة <a class="reference internal" href="generated/sklearn.manifold.MDS.html#sklearn.manifold.MDS" title="sklearn.manifold.MDS"><code class="xref py py-class docutils literal notranslate"><span class="pre">MDS</span></code></a> كلا النوعين. في MDS المترية، تنشأ مصفوفة التشابه المدخلة من مقياس (وبالتالي تحترم عدم المساواة المثلثية)، يتم تعيين المسافات بين نقطتين على أنها قريبة قدر الإمكان من بيانات التشابه أو الاختلاف. في الإصدار غير المتري، ستحاول الخوارزميات الحفاظ على ترتيب المسافات، وبالتالي تسعى لإيجاد علاقة أحادية الاتجاه بين المسافات في الفضاء المضمن والتشابهات/الاختلافات.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="../_images/sphx_glr_plot_lle_digits_010.png" src="../_images/sphx_glr_plot_lle_digits_010.png" style="width: 320.0px; height: 240.0px;" />
+</a>
+</figure>
+<p>دع <span class="math notranslate nohighlight">\(S\)</span> تكون مصفوفة التشابه، و <span class="math notranslate nohighlight">\(X\)</span> إحداثيات
+<span class="math notranslate nohighlight">\(n\)</span> نقاط الإدخال. الفوارق <span class="math notranslate nohighlight">\(\hat{d}_{ij}\)</span> هي تحويل التشابهات المختارة بطرق مثالية. يتم تعريف الهدف، المسمى الإجهاد، بعد ذلك بواسطة <span class="math notranslate nohighlight">\(\sum_{i &lt; j} d_{ij}(X) - \hat{d}_{ij}(X)\)</span></p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="mds-المترية">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">MDS المترية<a class="headerlink" href="#mds-المترية" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">أبسط نموذج MDS متري، يسمى <em>MDS المطلق</em>، يتم تعريف الفوارق بواسطة
+<span class="math notranslate nohighlight">\(\hat{d}_{ij} = S_{ij}\)</span>. مع MDS المطلق، يجب أن تقابل القيمة <span class="math notranslate nohighlight">\(S_{ij}\)</span>
+بالضبط المسافة بين النقطة <span class="math notranslate nohighlight">\(i\)</span>
+و <span class="math notranslate nohighlight">\(j\)</span> في نقطة التضمين.</p>
+<p class="sd-card-text">غالبًا ما يتم تعيين الفوارق إلى <span class="math notranslate nohighlight">\(\hat{d}_{ij} = b S_{ij}\)</span>.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="mds-غير-المترية">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">MDS غير المترية<a class="headerlink" href="#mds-غير-المترية" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">يركز MDS غير المتري على ترتيب البيانات. إذا
+<span class="math notranslate nohighlight">\(S_{ij} &gt; S_{jk}\)</span>، فيجب أن يفرض التضمين <span class="math notranslate nohighlight">\(d_{ij} &lt;
+d_{jk}\)</span>. لهذا السبب، نناقشه من حيث الاختلافات (<span class="math notranslate nohighlight">\(\delta_{ij}\)</span>) بدلاً من التشابهات (<span class="math notranslate nohighlight">\(S_{ij}\)</span>). لاحظ أن
+الاختلافات يمكن الحصول عليها بسهولة من التشابهات من خلال تحويل بسيط، على سبيل المثال <span class="math notranslate nohighlight">\(\delta_{ij}=c_1-c_2 S_{ij}\)</span> لبعض الثوابت
+<span class="math notranslate nohighlight">\(c_1, c_2\)</span>. خوارزمية بسيطة لفرض ترتيب صحيح هي استخدام تراجع أحادي مع <span class="math notranslate nohighlight">\(d_{ij}\)</span> على <span class="math notranslate nohighlight">\(\delta_{ij}\)</span>، مما يؤدي
+إلى فوارق <span class="math notranslate nohighlight">\(\hat{d}_{ij}\)</span> بنفس ترتيب <span class="math notranslate nohighlight">\(\delta_{ij}\)</span>.</p>
+<p class="sd-card-text">حل بديهي لهذه المشكلة هو تعيين جميع النقاط على الأصل. لتجنب ذلك، يتم تطبيع الفوارق <span class="math notranslate nohighlight">\(\hat{d}_{ij}\)</span>. لاحظ أنه نظرًا لأننا نهتم فقط بالترتيب النسبي، يجب أن يكون هدفنا
+غير حساس للترجمة والتوسيع البسيط، ومع ذلك فإن الإجهاد المستخدم في MDS المتري حساس للتوسيع. لمعالجة هذا، قد يستخدم MDS غير المتري إجهادًا معياريًا، يُعرف باسم Stress-1، ويتم تعريفه كـ</p>
+<div class="math notranslate nohighlight">
+\[\sqrt{\frac{\sum_{i &lt; j} (d_{ij} - \hat{d}_{ij})^2}{\sum_{i &lt; j} d_{ij}^2}}.\]</div>
+<p class="sd-card-text">يمكن تمكين استخدام إجهاد Stress-1 المعياري من خلال تعيين <code class="docutils literal notranslate"><span class="pre">normalized_stress=True</span></code>،
+ومع ذلك فهو متوافق فقط مع مشكلة MDS غير المترية وسيتم تجاهله
+في الحالة المترية.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/manifold/plot_mds.html"><img alt="../_images/sphx_glr_plot_mds_001.png" src="../_images/sphx_glr_plot_mds_001.png" style="width: 384.0px; height: 288.0px;" />
+</a>
+</figure>
+</div>
+</details><p class="rubric">المراجع</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.springer.com/fr/book/9780387251509">&quot;القياس متعدد الأبعاد الحديث - النظرية والتطبيقات&quot;</a>
+Borg, I.; Groenen P. Springer Series in Statistics (1997)</p></li>
+<li><p><a class="reference external" href="http://cda.psych.uiuc.edu/psychometrika_highly_cited_articles/kruskal_1964b.pdf">&quot;القياس متعدد الأبعاد غير المتري: طريقة رقمية&quot;</a>
+Kruskal, J. Psychometrika, 29 (1964)</p></li>
+<li><p><a class="reference external" href="http://cda.psych.uiuc.edu/psychometrika_highly_cited_articles/kruskal_1964a.pdf">&quot;القياس متعدد الأبعاد عن طريق تحسين ملاءمة الفرضية غير المترية&quot;</a>
+Kruskal, J. Psychometrika, 29, (1964)</p></li>
+</ul>
+</section>
+<section id="id30">
+<span id="id31"></span><h2><span class="section-number">2.2.19. </span>التضمين العشوائي للجيران (t-SNE)<a class="headerlink" href="#id30" title="Link to this heading">#</a></h2>
+<p>يحول t-SNE (<a class="reference internal" href="generated/sklearn.manifold.TSNE.html#sklearn.manifold.TSNE" title="sklearn.manifold.TSNE"><code class="xref py py-class docutils literal notranslate"><span class="pre">TSNE</span></code></a>) التقاربات لنقاط البيانات إلى احتمالات.
+يتم تمثيل التقاربات في الفضاء الأصلي بواسطة احتمالات مشتركة غاوسية والتقاربات في الفضاء المضمن يتم تمثيلها بواسطة
+توزيعات طالب. يسمح هذا لـ t-SNE بأن يكون حساسًا
+للهيكل المحلي ولديه بعض المزايا الأخرى على التقنيات الموجودة:</p>
+<ul class="simple">
+<li><p>الكشف عن البنية على العديد من المقاييس على خريطة واحدة</p></li>
+<li><p>الكشف عن البيانات الموجودة في العديد من المانيفولدات أو المجموعات المختلفة</p></li>
+<li><p>تقليل الميل إلى تجميع النقاط معًا في الوسط</p></li>
+</ul>
+<p>في حين أن Isomap وLLE والمتغيرات مناسبة بشكل أفضل لفتح مانيفولد مستمر منخفض الأبعاد، سيركز t-SNE على البنية المحلية للبيانات
+وسيميل إلى استخراج مجموعات محلية من العينات المدمجة كما هو موضح في مثال S-curve. قد تكون هذه القدرة على تجميع العينات بناءً على البنية المحلية مفيدة في فك تشابك مجموعة بيانات تتكون من العديد من المانيفولدات في نفس الوقت كما هو الحال في مجموعة بيانات الأرقام.</p>
+<p>سيتم تقليل تباعد كولباك-لايبلر (KL) للاحتمالات المشتركة في الفضاء الأصلي والفضاء المضمن بواسطة التدرج الهابط. لاحظ أن تباعد KL ليس محدبًا، أي
+أن عمليات إعادة التشغيل المتعددة مع التهيئات الأولية المختلفة ستنتهي في الحد الأدنى المحلي
+لتباعد KL. وبالتالي، من المفيد في بعض الأحيان تجربة بذور مختلفة
+واختيار التضمين مع أقل تباعد KL.</p>
+<p>العيب في استخدام t-SNE هو تقريبًا:</p>
+<ul class="simple">
+<li><p>t-SNE مكلف من الناحية الحسابية، ويمكن أن يستغرق عدة ساعات على مجموعات بيانات المليون عينة حيث تنتهي PCA في ثوانٍ أو دقائق</p></li>
+<li><p>تقتصر طريقة Barnes-Hut t-SNE على تضمينات ثنائية أو ثلاثية الأبعاد.</p></li>
+<li><p>الخوارزمية عشوائية ويمكن أن تؤدي عمليات إعادة التشغيل المتعددة مع البذور المختلفة إلى تضمينات مختلفة. ومع ذلك، من المشروع تمامًا اختيار التضمين مع أقل خطأ.</p></li>
+<li><p>لا يتم الحفاظ على البنية العالمية بشكل صريح. يتم تخفيف هذه المشكلة عن طريق</p></li>
+</ul>
+<p>تهيئة النقاط باستخدام PCA (باستخدام <code class="docutils literal notranslate"><span class="pre">init='pca'</span></code>).</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/manifold/plot_lle_digits.html"><img alt="../_images/sphx_glr_plot_lle_digits_013.png" src="../_images/sphx_glr_plot_lle_digits_013.png" style="width: 320.0px; height: 240.0px;" />
+</a>
+</figure>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="تحسين-t-sne-2">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">تحسين t-SNE<a class="headerlink" href="#تحسين-t-sne-2" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">الغرض الرئيسي من t-SNE هو تصور البيانات عالية الأبعاد. وبالتالي،
+يعمل بشكل أفضل عندما يتم تضمين البيانات على بعدين أو ثلاثة أبعاد.</p>
+<p class="sd-card-text">يمكن أن يكون تحسين تباعد KL معقدًا بعض الشيء في بعض الأحيان. هناك
+خمسة معلمات تتحكم في تحسين t-SNE وبالتالي ربما
+جودة التضمين الناتج:</p>
+<ul class="simple">
+<li><p class="sd-card-text">الغموض</p></li>
+<li><p class="sd-card-text">عامل المبالغة المبكرة</p></li>
+<li><p class="sd-card-text">معدل التعلم</p></li>
+<li><p class="sd-card-text">عدد التكرارات القصوى</p></li>
+<li><p class="sd-card-text">الزاوية (غير مستخدمة في الطريقة الدقيقة)</p></li>
+</ul>
+<p class="sd-card-text">يتم تعريف الغموض على أنه <span class="math notranslate nohighlight">\(k=2^{(S)}\)</span> حيث <span class="math notranslate nohighlight">\(S\)</span> هي إنتروبيا شانون لتوزيع الاحتمال الشرطي. الغموض لمكعب ذو <span class="math notranslate nohighlight">\(k\)</span> جوانب هو <span class="math notranslate nohighlight">\(k\)</span>، لذا فإن <span class="math notranslate nohighlight">\(k\)</span> هو عدد الجيران الأقرب الذي ينظر إليه t-SNE عند توليد الاحتمالات الشرطية. تؤدي الغموض الأكبر إلى مزيد من الجيران الأقرب وأقل حساسية للبنية الصغيرة. على العكس من ذلك، يؤدي الغموض المنخفض إلى النظر في عدد أقل من الجيران، وبالتالي تجاهل المزيد من المعلومات العالمية لصالح</p>
+</div>
+</details><p>الحي المحلي. مع زيادة أحجام مجموعات البيانات، ستكون هناك حاجة إلى
+مزيد من النقاط للحصول على عينة جيدة من الحي المحلي، وبالتالي قد تكون هناك حاجة إلى غموض أكبر. وبالمثل، قد تتطلب مجموعات البيانات الأكثر ضوضاءً قيم غموض أكبر لتجاوز الضوضاء الخلفية ورؤية ما يكفي من الجيران المحليين.</p>
+<blockquote>
+<div><p>عادةً ما يكون عدد التكرارات القصوى مرتفعًا بما يكفي ولا يحتاج</p>
+</div></blockquote>
+<p>إلى أي ضبط. يتكون التحسين من مرحلتين: مرحلة المبالغة المبكرة والتحسين النهائي. خلال المبالغة المبكرة، سيتم زيادة الاحتمالات المشتركة في الفضاء الأصلي بشكل مصطنع عن طريق
+الضرب في عامل معين. تؤدي العوامل الأكبر إلى فجوات أكبر
+بين المجموعات الطبيعية في البيانات. إذا كان العامل مرتفعًا جدًا، فقد يزيد تباعد KL خلال هذه المرحلة. عادةً لا يحتاج إلى ضبطه. معلمة حرجة هي معدل التعلم. إذا كان منخفضًا للغاية، فسيعلق التدرج الهابط في حد أدنى محلي سيء. إذا كان مرتفعًا جدًا، فسيتم زيادة تباعد KL أثناء التحسين. اقترحت حيلة في Belkina et al. (2019) لتعيين معدل التعلم إلى حجم العينة
+مقسومًا على عامل المبالغة المبكرة. ننفذ هذه الحيلة
+كحجة <code class="docutils literal notranslate"><span class="pre">learning_rate='auto'</span></code>. يمكن العثور على المزيد من النصائح في
+أسئلة وأجوبة لورانس فان دير مايتن (راجع المراجع). المعلمة الأخيرة، الزاوية، هي توازن بين الأداء والدقة. تشير الزوايا الأكبر إلى أنه يمكننا تقريب مناطق أكبر بنقطة واحدة، مما يؤدي إلى تحسين السرعة ولكن نتائج أقل دقة.</p>
+<blockquote>
+<div><p><a class="reference external" href="https://distill.pub/2016/misread-tsne/">&quot;كيفية استخدام t-SNE بشكل فعال&quot;</a>
+يوفر مناقشة جيدة لآثار المعلمات المختلفة، بالإضافة إلى
+مخططات تفاعلية لاستكشاف آثار المعلمات المختلفة.</p>
+</div></blockquote>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="barnes-hut-t-sne-2">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Barnes-Hut t-SNE<a class="headerlink" href="#barnes-hut-t-sne-2" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">طريقة Barnes-Hut t-SNE التي تم تنفيذها هنا تكون عادةً أبطأ من</p>
+</div>
+</details><p>خوارزميات تعلم المانيفولد الأخرى. يكون التحسين صعبًا
+وتكون تكلفة حساب التدرج <span class="math notranslate nohighlight">\(O[d N log(N)]\)</span>، حيث <span class="math notranslate nohighlight">\(d\)</span>
+هو عدد الأبعاد الإخراجية و <span class="math notranslate nohighlight">\(N\)</span> هو عدد العينات. تحسن طريقة Barnes-Hut على الطريقة الدقيقة حيث تكون تعقيد t-SNE هو <span class="math notranslate nohighlight">\(O[d N^2]\)</span>، ولكن لديها بعض الاختلافات الملحوظة الأخرى:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>تعمل طريقة Barnes-Hut فقط عندما يكون البعد المستهدف 3
+أو أقل. تكون حالة 2D نموذجية عند بناء التصورات.</p></li>
+<li><p>تعمل طريقة Barnes-Hut فقط مع بيانات الإدخال الكثيفة. يمكن تضمين البيانات المتناثرة فقط بالطريقة الدقيقة أو يمكن تقريبها بواسطة إسقاط منخفض الرتبة كثيف على سبيل المثال باستخدام <a class="reference internal" href="generated/sklearn.decomposition.PCA.html#sklearn.decomposition.PCA" title="sklearn.decomposition.PCA"><code class="xref py py-class docutils literal notranslate"><span class="pre">PCA</span></code></a></p></li>
+<li><p>طريقة Barnes-Hut هي تقريب للطريقة الدقيقة. يتم معلمة التقريب</p></li>
+</ul>
+<p>بمعلمة الزاوية، وبالتالي يتم تجاهل معلمة الزاوية عند method=&quot;exact&quot;
+* طريقة Barnes-Hut قابلة للتطوير بشكل كبير. يمكن استخدام Barnes-Hut لتضمين
+مئات الآلاف من نقاط البيانات في حين أن الطريقة الدقيقة يمكنها التعامل
+مع آلاف العينات قبل أن تصبح غير عملية من الناحية الحسابية</p>
+<p>بالنسبة لغرض التصور (الذي هو الاستخدام الرئيسي لـ t-SNE)، يوصى بشدة باستخدام</p>
+</div></blockquote>
+<p>طريقة Barnes-Hut. الطريقة الدقيقة لـ t-SNE مفيدة
+للتأكد من الخصائص النظرية للتضمين في مساحة ذات أبعاد أعلى ولكنها مقيدة بمجموعات بيانات صغيرة بسبب القيود الحسابية.</p>
+<blockquote>
+<div><p>لاحظ أيضًا أن تسميات الأرقام تتطابق تقريبًا مع التجميع الطبيعي الذي وجده</p>
+</div></blockquote>
+<p>t-SNE في حين أن الإسقاط ثنائي الأبعاد الخطي لنموذج PCA ينتج تمثيلًا
+حيث تتداخل مناطق التسميات إلى حد كبير. هذا دليل قوي على أنه يمكن فصل هذه البيانات جيدًا بواسطة طرق غير خطية تركز على البنية المحلية (مثل SVM مع RBF غاوسي). ومع ذلك، فإن الفشل في تصور المجموعات المسماة جيدًا والمفصولة في 2D باستخدام t-SNE لا يعني بالضرورة أن البيانات لا يمكن تصنيفها بشكل صحيح بواسطة نموذج خاضع للإشراف. قد يكون الأمر أن بعدين غير كافيين لتمثيل البنية الداخلية للبيانات بدقة.</p>
+<p class="rubric">المراجع</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://jmlr.org/papers/v9/vandermaaten08a.html">&quot;تصور البيانات عالية الأبعاد باستخدام t-SNE&quot;</a>
+van der Maaten, L.J.P.; Hinton, G. Journal of Machine Learning Research (2008)</p></li>
+<li><p><a class="reference external" href="https://lvdmaaten.github.io/tsne/">&quot;التضمين العشوائي للجيران&quot;</a> van der Maaten, L.J.P.</p></li>
+<li><p><a class="reference external" href="https://lvdmaaten.github.io/publications/papers/JMLR_2014.pdf">&quot;تسريع t-SNE باستخدام خوارزميات شجرية&quot;</a>
+van der Maaten, L.J.P.; Journal of Machine Learning Research 15(Oct):3221-3245, 2014.</p></li>
+<li><p><a class="reference external" href="https://www.nature.com/articles/s41467-019-13055-y">&quot;معلمات محسنة تلقائيًا لـ t-SNE لتحسين التصور وتحليل مجموعات البيانات الكبيرة&quot;</a>
+Belkina, A.C., Ciccolella, C.O., Anno, R., Halpert, R., Spidlen, J.,
+Spidlen, J., Nature Communications 10, 5415 (2019).</p></li>
+</ul>
+</section>
+<section id="id37">
+<h2><span class="section-number">2.2.20. </span>نصائح للاستخدام العملي<a class="headerlink" href="#id37" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>تأكد من استخدام نفس المقياس على جميع البيانات.</p></li>
+</ul>
+<p>بما أن طرق تعلم المانيفولد تعتمد على بحث الجار الأقرب، فقد يؤدي ذلك إلى أداء سيء. راجع <a class="reference internal" href="preprocessing.html#preprocessing-scaler"><span class="std std-ref">StandardScaler</span></a>
+لطرق ملائمة لقياس البيانات غير المتجانسة.</p>
+<ul class="simple">
+<li><p>يمكن استخدام خطأ إعادة البناء الذي يحسبه كل روتين لاختيار</p></li>
+</ul>
+<p>التضمين الأمثل. لمجموعة بيانات ذات أبعاد <span class="math notranslate nohighlight">\(d\)</span> مدمجة
+في مساحة بارامترية ذات <span class="math notranslate nohighlight">\(D\)</span> أبعاد، سينخفض خطأ إعادة البناء
+مع زيادة <code class="docutils literal notranslate"><span class="pre">n_components</span></code> حتى <code class="docutils literal notranslate"><span class="pre">n_components</span> <span class="pre">==</span> <span class="pre">d</span></code>.</p>
+<ul class="simple">
+<li><p>لاحظ أن البيانات الضوضائية يمكن أن &quot;تقصر الدائرة&quot; على المانيفولد، في جوهرها تعمل</p></li>
+</ul>
+<p>كجسر بين أجزاء المانيفولد التي ستكون
+منفصلة بشكل جيد. تعلم المانيفولد على البيانات الضوضائية و/أو غير المكتملة هو
+مجال نشط للبحث.</p>
+<ul class="simple">
+<li><p>يمكن أن تؤدي تكوينات الإدخال إلى مصفوفات أوزان فردية، على سبيل المثال عندما تكون أكثر من نقطتين في مجموعة البيانات متطابقة، أو عندما تكون البيانات مقسمة إلى مجموعات منفصلة. في هذه الحالة، سيفشل <code class="docutils literal notranslate"><span class="pre">solver='arpack'</span></code> في العثور على الفضاء الصفري. أسهل طريقة لمعالجة هذا هو</p></li>
+</ul>
+<p>استخدام <code class="docutils literal notranslate"><span class="pre">solver='dense'</span></code> والذي سيعمل على مصفوفة فردية، على الرغم من أنه قد يكون
+بطيئًا جدًا اعتمادًا على عدد نقاط الإدخال. بدلاً من ذلك، يمكن للمرء أن يحاول فهم مصدر الفردية: إذا كان بسبب مجموعات منفصلة، فقد يساعد زيادة <code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code>. إذا كان بسبب نقاط متطابقة، فقد يساعد إزالة هذه النقاط.</p>
+<div class="admonition seealso">
+<p class="admonition-title">شاهد أيضا</p>
+<p><a class="reference internal" href="ensemble.html#random-trees-embedding"><span class="std std-ref">تضمين الأشجار العشوائية تمامًا</span></a> يمكن أن يكون مفيدًا أيضًا في اشتقاق التمثيلات غير الخطية
+للمساحة المميزة، كما أنه لا يؤدي إلى
+خفض الأبعاد.</p>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  <div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item">
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="mixture.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">السابق</p>
+        <p class="prev-next-title"><span class="section-number">2.1. </span>نماذج خليط غاوسي</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="clustering.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">التالي</p>
+        <p class="prev-next-title"><span class="section-number">2.3. </span>التجميع</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+                </footer>
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.2.1. مقدمة</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isomap">2.2.2. Isomap</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#locally-linear-embedding">2.2.3. Locally Linear Embedding (التضمين الخطي المحلي)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modified-locally-linear-embedding">2.2.4. Modified Locally Linear Embedding (التضمين الخطي المحلي المعدل)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hessian-eigenmapping-eigen-hessian">2.2.5. Hessian Eigenmapping (تعيين Eigen Hessian)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spectral-embedding">2.2.6. Spectral Embedding (التضمين الطيفي)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#local-tangent-space-alignment">2.2.7. Local Tangent Space Alignment (محاذاة فضاء المماس المحلي)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-dimensional-scaling-mds">2.2.8. Multi-dimensional Scaling (MDS) (التحجيم متعدد الأبعاد)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#t-distributed-stochastic-neighbor-embedding-t-sne-t">2.2.9. t-distributed Stochastic Neighbor Embedding (t-SNE) (التضمين العشوائي للجار الموزع على t)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.2.10. نصائح حول الاستخدام العملي</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">2.2.11. مقدمة</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">2.2.12. Isomap</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">2.2.13. التضمين الخطي المحلي</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">2.2.14. التضمين الخطي المحلي المعدل</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">2.2.15. رسم خرائط القيمة الذاتية للهيسية</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">2.2.16. التضمين الطيفي</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">2.2.17. محاذاة الفضاء المماس المحلي</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mds">2.2.18. القياس متعدد الأبعاد (MDS)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">2.2.19. التضمين العشوائي للجيران (t-SNE)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id37">2.2.20. نصائح للاستخدام العملي</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/modules/manifold.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> إظهار المصدر
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2007 - 2024, scikit-learn developers (BSD License) ### Translate into Arabic Eng. Ahmed Almaghz - 2024.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

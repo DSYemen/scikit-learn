@@ -1,0 +1,1001 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ar" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="1.9. خوارزميات بايز الساذجة" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://scikit-learn/stable/modules/naive_bayes.html" />
+<meta property="og:site_name" content="scikit-learn" />
+<meta property="og:description" content="خوارزميات بايز الساذجة هي مجموعة من خوارزميات التعلم الخاضع للإشراف تستند إلى تطبيق نظرية بايز &quot;الساذجة&quot; للافتراض &quot;الساذج&quot; للاستقلال الشرطي بين كل زوج من الميزات بالنظر إلى قيمة متغير الفئة. تنص نظ..." />
+<meta property="og:image" content="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" />
+<meta property="og:image:alt" content="scikit-learn" />
+<meta name="description" content="خوارزميات بايز الساذجة هي مجموعة من خوارزميات التعلم الخاضع للإشراف تستند إلى تطبيق نظرية بايز &quot;الساذجة&quot; للافتراض &quot;الساذج&quot; للاستقلال الشرطي بين كل زوج من الميزات بالنظر إلى قيمة متغير الفئة. تنص نظ..." />
+
+    <title>1.9. خوارزميات بايز الساذجة &#8212; scikit-learn 1.6.dev0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css?v=7f9a90b1" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyterlite_sphinx.css?v=ca70e7f1" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/colors.css?v=cc94ab7d" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/custom.css?v=85b0813d" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../_static/documentation_options.js?v=3cd28d06"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=97f0b27d"></script>
+    <script src="../_static/jupyterlite_sphinx.js?v=d6bdf5f8"></script>
+    <script src="../_static/translations.js?v=87cb2081"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script data-domain="scikit-learn.org" defer="defer" src="https://views.scientific-python.org/js/script.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'modules/naive_bayes';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://scikit-learn.org/dev/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1.6.dev0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/scripts/dropdown.js?v=e2048168"></script>
+    <script src="../_static/scripts/version-switcher.js?v=a6dd8357"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="search" title="بحث" href="../search.html" />
+    <link rel="next" title="1.10. شجرة القرار" href="tree.html" />
+    <link rel="prev" title="1.8. التحليل المتقاطع" href="cross_decomposition.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ar"/>
+  <meta name="docsearch:version" content="1.6" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/scikit-learn-logo-small.png" class="logo__image only-light" alt="scikit-learn homepage"/>
+    <img src="../_static/scikit-learn-logo-small.png" class="logo__image only-dark pst-js-only" alt="scikit-learn homepage"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    دليل المستخدم
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../support.html">
+    الدعم الفني
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../related_projects.html">
+    مشاريع ذات علاقة
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../about.html">
+    من نحن
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    دليل المستخدم
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../support.html">
+    الدعم الفني
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../related_projects.html">
+    مشاريع ذات علاقة
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../about.html">
+    من نحن
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../supervised_learning.html">1. التعليم الخاضع للإشراف</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="linear_model.html">1.1. النماذج الخطية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lda_qda.html">1.2. تحليل التمييز الخطي والتربيعي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernel_ridge.html">1.3. انحدار حافة النواة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svm.html">1.4. آلات الدعم المتجهية (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sgd.html">1.5. التحسين التدريجي العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neighbors.html">1.6. أقرب الجيران</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gaussian_process.html">1.7. العمليات الغاوسية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cross_decomposition.html">1.8. التحليل المتقاطع</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">1.9. خوارزميات بايز الساذجة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tree.html">1.10. شجرة القرار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ensemble.html">1.11. المجموعات: تعزيز التدرج، الغابات العشوائية، التجميع، التصويت، التكديس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multiclass.html">1.12. خوارزميات متعددة التصنيف ومتعددة الإخراج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature_selection.html">1.13. اختيار الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="semi_supervised.html">1.14. التعليم شبه الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="isotonic.html">1.15. الانحدار المتساوي التوتر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibration.html">1.16. معايرة الاحتمال</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_networks_supervised.html">1.17. نماذج الشبكات العصبية (الخاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../unsupervised_learning.html">2. التعليم الغير خاضع للإشراف</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="mixture.html">2.1. نماذج خليط غاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manifold.html">2.2. تعلم المشعبات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clustering.html">2.3. التجميع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="biclustering.html">2.4. التجميع الثنائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decomposition.html">2.5. تحليل الإشارات إلى مكونات (مشاكل تحليل المصفوفات)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="covariance.html">2.6. تقدير التباين المشترك</a></li>
+<li class="toctree-l2"><a class="reference internal" href="outlier_detection.html">2.7. كشف القيم الغريبة والقيم المتطرفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="density.html">2.8. تقدير الكثافة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_networks_unsupervised.html">2.9. نماذج الشبكة العصبية (غير خاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../model_selection.html">3. تقييم وإختيار النموذج</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="cross_validation.html">3.1. التحقق المتبادل: تقييم أداء المقدر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grid_search.html">3.2. ضبط المعلمات الفائقة لمُقدِّر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classification_threshold.html">3.3. ضبط عتبة القرار لتنبؤ الفئة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_evaluation.html">3.4. المقاييس والتهديف: تحديد جودة التنبؤات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learning_curve.html">3.5. منحنيات التحقق من الصحة: رسم الدرجات لتقييم النماذج</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../inspection.html">4. الفحص</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="partial_dependence.html">4.1. مخططات الاعتماد الجزئي والتوقع الشرطي الفردي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="permutation_importance.html">4.2. أهمية التبديل</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualizations.html">5. التصورات المرئية</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../data_transforms.html">6. تحويلات مجموعات البيانات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="compose.html">6.1. خطوط الأنابيب والمقدرات المركبة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature_extraction.html">6.2. استخراج الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html">6.3. المعالجة المسبقة للبيانات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="impute.html">6.4. تعويض القيم المفقودة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unsupervised_reduction.html">6.5. تخفيض الأبعاد غير الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="random_projection.html">6.6. الإسقاط العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernel_approximation.html">6.7. Kernel Approximation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">6.8. مقاييس المقارنة الزوجية، والصلات، والنوى (Kernels)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing_targets.html">6.9. تحويل هدف التنبؤ (<code class="docutils literal notranslate"><span class="pre">y</span></code>)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/toy_dataset.html">7. مجموعات بيانات تجريبية</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/real_world.html">8. مجموعات بيانات العالم الحقيقي</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/sample_generators.html">9. مجموعات بيانات مولدة</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/loading_other_datasets.html">10. تحميل مجموعات بيانات أخرى</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../computing.html">11. الحوسبة مع scikit-learn</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../computing/scaling_strategies.html">11.1. استراتيجيات للقياس حسابيًا: بيانات أكبر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../computing/computational_performance.html">11.2. الأداء الحسابي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../computing/parallelism.html">11.3. التوازي وإدارة الموارد والتهيئة</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../model_persistence.html">12. حفظ النموذج</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../common_pitfalls.html">13. المزالق الشائعة والممارسات الموصى بها</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../dispatching.html">14. Dispatching</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="array_api.html">14.1. دعم المدخلات المتوافقة مع <code class="docutils literal notranslate"><span class="pre">Array</span> <span class="pre">API</span></code></a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../machine_learning_map.html">15. اختيار المقدر المناسب</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../presentations.html">16. المصادر الخارجية ومقاطع الفيديو والمحادثات</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../user_guide.html" class="nav-link">دليل المستخدم</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../supervised_learning.html" class="nav-link"><span class="section-number">1. </span>التعليم الخاضع للإشراف</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">1.9. </span>خوارزميات بايز الساذجة</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="naive-bayes">
+<span id="id1"></span><h1><span class="section-number">1.9. </span>خوارزميات بايز الساذجة<a class="headerlink" href="#naive-bayes" title="Link to this heading">#</a></h1>
+<p>خوارزميات بايز الساذجة هي مجموعة من خوارزميات التعلم الخاضع للإشراف
+تستند إلى تطبيق نظرية بايز &quot;الساذجة&quot; للافتراض &quot;الساذج&quot; للاستقلال الشرطي
+بين كل زوج من الميزات بالنظر إلى قيمة متغير الفئة. تنص نظرية بايز على العلاقة التالية،
+نظرًا لمتغير الفئة:math:<code class="docutils literal notranslate"><span class="pre">y</span></code> والميزة التابعة المتجه:math:<code class="docutils literal notranslate"><span class="pre">x_1</span></code> من خلال:math:<code class="docutils literal notranslate"><span class="pre">x_n</span></code>،:</p>
+<div class="math notranslate nohighlight">
+\[P(y \mid x_1, \dots, x_n) = \frac{P(y) P(x_1, \dots, x_n \mid y)}
+                                 {P(x_1, \dots, x_n)}\]</div>
+<p>باستخدام افتراض الاستقلال الشرطي الساذج الذي</p>
+<div class="math notranslate nohighlight">
+\[P(x_i | y, x_1, \dots, x_{i-1}, x_{i+1}, \dots, x_n) = P(x_i | y),\]</div>
+<p>لكل:math:<code class="docutils literal notranslate"><span class="pre">i</span></code>، يتم تبسيط هذه العلاقة إلى</p>
+<div class="math notranslate nohighlight">
+\[P(y \mid x_1, \dots, x_n) = \frac{P(y) \prod_{i=1}^{n} P(x_i \mid y)}
+                                 {P(x_1, \dots, x_n)}\]</div>
+<p>نظرًا لأن:math:<code class="docutils literal notranslate"><span class="pre">P(x_1,</span> <span class="pre">dots,</span> <span class="pre">x_n)</span></code> ثابت بالنظر إلى الإدخال،
+يمكننا استخدام قاعدة التصنيف التالية:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}P(y \mid x_1, \dots, x_n) \propto P(y) \prod_{i=1}^{n} P(x_i \mid y)\\\Downarrow\\\hat{y} = \arg\max_y P(y) \prod_{i=1}^{n} P(x_i \mid y),\end{aligned}\end{align} \]</div>
+<p>ويمكننا استخدام تقدير أقصى احتمال لاحق (MAP) لتقدير
+<span class="math notranslate nohighlight">\(P(y)\)</span> و:math:<code class="docutils literal notranslate"><span class="pre">P(x_i</span> <span class="pre">mid</span> <span class="pre">y)</span></code>؛
+الأخير هو التردد النسبي للفئة:math:<code class="docutils literal notranslate"><span class="pre">y</span></code>
+في مجموعة التدريب.</p>
+<p>تختلف خوارزميات بايز الساذجة المختلفة بشكل أساسي بالافتراضات التي
+يقومون بها فيما يتعلق بتوزيع:math:<code class="docutils literal notranslate"><span class="pre">P(x_i</span> <span class="pre">mid</span> <span class="pre">y)</span></code>.</p>
+<p>على الرغم من افتراضاتها التي تبدو مفرطة في التبسيط، فقد عملت خوارزميات بايز الساذجة بشكل جيد جدًا في العديد من الحالات الواقعية، وخاصة
+تصنيف المستندات وتصفية الرسائل غير المرغوب فيها. تتطلب كمية صغيرة
+من بيانات التدريب لتقدير المعلمات اللازمة. (للأسباب النظرية التي تجعل بايز الساذج يعمل بشكل جيد، وعلى أي أنواع البيانات التي يفعلها، راجع
+المراجع أدناه.)</p>
+<p>يمكن أن تكون خوارزميات بايز الساذجة والمتعلمين سريعة للغاية مقارنة بالأساليب الأكثر تطوراً.
+يعني فصل توزيعات الفئة الشرطية أن كل
+يمكن تقدير التوزيع كبعد أحادي.
+هذا بدوره يساعد على تخفيف المشاكل الناجمة عن لعنة
+الأبعاد.</p>
+<p>على الجانب الآخر، على الرغم من أن بايز الساذج معروف كمصنف جيد،
+إنه معروف بأنه مقدر سيء، لذا لا ينبغي أخذ احتمالات الإخراج من
+&quot;predict_proba&quot; على محمل الجد.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="مراجع">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">مراجع<a class="headerlink" href="#مراجع" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<ul class="simple">
+<li><p class="sd-card-text">H. Zhang (2004). <a class="reference external" href="https://www.cs.unb.ca/~hzhang/publications/FLAIRS04ZhangH.pdf">The optimality of Naive Bayes.</a>
+Proc. FLAIRS.</p></li>
+</ul>
+</div>
+</details><section id="gaussian-naive-bayes">
+<span id="id2"></span><h2><span class="section-number">1.9.1. </span>خوارزمية بايز الساذجة الغاوسية<a class="headerlink" href="#gaussian-naive-bayes" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="generated/sklearn.naive_bayes.GaussianNB.html#sklearn.naive_bayes.GaussianNB" title="sklearn.naive_bayes.GaussianNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianNB</span></code></a> تنفذ خوارزمية بايز الساذجة الغاوسية للتصنيف. يفترض أن احتمال الميزات غاوسي:</p>
+<div class="math notranslate nohighlight">
+\[P(x_i \mid y) = \frac{1}{\sqrt{2\pi\sigma^2_y}} \exp\left(-\frac{(x_i - \mu_y)^2}{2\sigma^2_y}\right)\]</div>
+<p>يتم تقدير المعلمات:math:<code class="docutils literal notranslate"><span class="pre">sigma_y</span></code> و:math:<code class="docutils literal notranslate"><span class="pre">mu_y</span></code>
+باستخدام أقصى احتمال.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gnb</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">gnb</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of mislabeled points out of a total </span><span class="si">%d</span><span class="s2"> points : </span><span class="si">%d</span><span class="s2">&quot;</span>
+<span class="gp">... </span>      <span class="o">%</span> <span class="p">(</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="n">y_test</span> <span class="o">!=</span> <span class="n">y_pred</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+<span class="go">Number of mislabeled points out of a total 75 points : 4</span>
+</pre></div>
+</div>
+</section>
+<section id="multinomial-naive-bayes">
+<span id="id3"></span><h2><span class="section-number">1.9.2. </span>خوارزمية بايز الساذجة متعددة الحدود<a class="headerlink" href="#multinomial-naive-bayes" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="generated/sklearn.naive_bayes.MultinomialNB.html#sklearn.naive_bayes.MultinomialNB" title="sklearn.naive_bayes.MultinomialNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultinomialNB</span></code></a> تنفذ خوارزمية بايز الساذجة للبيانات متعددة الحدود، وهي واحدة من متغيرين بايز الساذجة الكلاسيكيين المستخدمين في
+تصنيف النصوص (حيث يتم تمثيل البيانات عادةً كمؤشرات متجه الكلمات، على الرغم من أن متجهات tf-idf معروفة أيضًا بالعمل بشكل جيد في الممارسة العملية).
+يتم معلمته بواسطة المتجهات
+<span class="math notranslate nohighlight">\(\theta_y = (\theta_{y1},\ldots,\theta_{yn})\)</span>
+لكل فئة:math:<code class="docutils literal notranslate"><span class="pre">y</span></code>، حيث:math:<code class="docutils literal notranslate"><span class="pre">n</span></code> هو عدد الميزات
+(في تصنيف النصوص، حجم المفردات)
+و:math:<code class="docutils literal notranslate"><span class="pre">theta_{yi}</span></code> هو الاحتمال:math:<code class="docutils literal notranslate"><span class="pre">P(x_i</span> <span class="pre">mid</span> <span class="pre">y)</span></code>
+لميزة:math:<code class="docutils literal notranslate"><span class="pre">i</span></code> التي تظهر في عينة تنتمي إلى الفئة:math:<code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<p>يتم تقدير المعلمات:math:<code class="docutils literal notranslate"><span class="pre">theta_y</span></code> بواسطة نسخة ملساء
+من أقصى احتمال، أي العد النسبي:</p>
+<div class="math notranslate nohighlight">
+\[\hat{\theta}_{yi} = \frac{ N_{yi} + \alpha}{N_y + \alpha n}\]</div>
+<p>حيث:math:<code class="docutils literal notranslate"><span class="pre">N_{yi}</span> <span class="pre">=</span> <span class="pre">sum_{x</span> <span class="pre">in</span> <span class="pre">T}</span> <span class="pre">x_i</span></code> هو
+عدد المرات التي تظهر فيها الميزة:math:<code class="docutils literal notranslate"><span class="pre">i</span></code> في عينة من الفئة:math:<code class="docutils literal notranslate"><span class="pre">y</span></code>
+في مجموعة التدريب:math:<code class="docutils literal notranslate"><span class="pre">T</span></code>،
+و:math:<code class="docutils literal notranslate"><span class="pre">N_{y}</span> <span class="pre">=</span> <span class="pre">sum_{i=1}^{n}</span> <span class="pre">N_{yi}</span></code> هو العدد الإجمالي
+لجميع الميزات للفئة:math:<code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
+<p>تأخذ معلمات التمهيد:math:<code class="docutils literal notranslate"><span class="pre">alpha</span> <span class="pre">ge</span> <span class="pre">0</span></code> في الاعتبار
+الميزات غير الموجودة في عينات التعلم وتمنع الاحتمالات الصفرية
+في الحسابات اللاحقة.
+يُطلق على تعيين:math:<code class="docutils literal notranslate"><span class="pre">alpha</span> <span class="pre">=</span> <span class="pre">1</span></code> اسم التمهيد Laplace،
+في حين أن:math:<code class="docutils literal notranslate"><span class="pre">alpha</span> <span class="pre">&lt;</span> <span class="pre">1</span></code> يُطلق عليه اسم التمهيد Lidstone.</p>
+</section>
+<section id="complement-naive-bayes">
+<span id="id4"></span><h2><span class="section-number">1.9.3. </span>خوارزمية بايز الساذجة التكميلية<a class="headerlink" href="#complement-naive-bayes" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="generated/sklearn.naive_bayes.ComplementNB.html#sklearn.naive_bayes.ComplementNB" title="sklearn.naive_bayes.ComplementNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">ComplementNB</span></code></a> تنفذ خوارزمية بايز الساذجة التكميلية (CNB).
+CNB هو تكيف لخوارزمية بايز الساذجة متعددة الحدود (MNB)
+التي تناسب بشكل خاص مجموعات البيانات غير المتوازنة. على وجه التحديد، يستخدم CNB
+إحصاءات من تكملة كل فئة لحساب أوزان النموذج. يظهر مخترعو CNB تجريبيًا أن تقديرات المعلمات لـ CNB
+أكثر استقرارًا من تلك الخاصة بـ MNB. علاوة على ذلك، يتفوق CNB بشكل منتظم على MNB (غالبًا
+بهامش كبير) في مهام تصنيف النصوص.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="حساب-الأوزان">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">حساب الأوزان<a class="headerlink" href="#حساب-الأوزان" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">تتمثل الإجراءات لحساب الأوزان فيما يلي:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\hat{\theta}_{ci} = \frac{\alpha_i + \sum_{j:y_j \neq c} d_{ij}}
+                        {\alpha + \sum_{j:y_j \neq c} \sum_{k} d_{kj}}\\w_{ci} = \log \hat{\theta}_{ci}\\w_{ci} = \frac{w_{ci}}{\sum_{j} |w_{cj}|}\end{aligned}\end{align} \]</div>
+<p class="sd-card-text">حيث يتم إجراء عمليات الجمع على جميع المستندات:math:<code class="docutils literal notranslate"><span class="pre">j</span></code> غير الموجودة في الفئة:math:<code class="docutils literal notranslate"><span class="pre">c</span></code>،
+<span class="math notranslate nohighlight">\(d_{ij}\)</span> هو إما عدد أو قيمة tf-idf للمصطلح:math:<code class="docutils literal notranslate"><span class="pre">i</span></code> في المستند
+<span class="math notranslate nohighlight">\(j\)</span>، <span class="math notranslate nohighlight">\(\alpha_i\)</span> هو معلمة التمهيد مثل تلك الموجودة في
+MNB، و:math:<code class="docutils literal notranslate"><span class="pre">alpha</span> <span class="pre">=</span> <span class="pre">sum_{i}</span> <span class="pre">alpha_i</span></code>. يعالج التطبيع الثاني
+ميل المستندات الأطول إلى الهيمنة على تقديرات المعلمات في MNB. قاعدة التصنيف هي:</p>
+<div class="math notranslate nohighlight">
+\[\hat{c} = \arg\min_c \sum_{i} t_i w_{ci}\]</div>
+<p class="sd-card-text">أي، يتم تعيين مستند إلى الفئة التي هي <em>أفقر</em> تكملة
+المطابقة.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="مراجع-2">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">مراجع<a class="headerlink" href="#مراجع-2" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<ul class="simple">
+<li><p class="sd-card-text">Rennie, J. D., Shih, L., Teevan, J., &amp; Karger, D. R. (2003).
+<a class="reference external" href="https://people.csail.mit.edu/jrennie/papers/icml03-nb.pdf">Tackling the poor assumptions of naive bayes text classifiers.</a>
+In ICML (Vol. 3, pp. 616-623).</p></li>
+</ul>
+</div>
+</details></section>
+<section id="bernoulli-naive-bayes">
+<span id="id5"></span><h2><span class="section-number">1.9.4. </span>خوارزمية بايز الساذجة متعددة الحدود<a class="headerlink" href="#bernoulli-naive-bayes" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="generated/sklearn.naive_bayes.BernoulliNB.html#sklearn.naive_bayes.BernoulliNB" title="sklearn.naive_bayes.BernoulliNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">BernoulliNB</span></code></a> تنفذ خوارزميات بايز الساذجة للتدريب والتصنيف
+لبيانات موزعة وفقًا لتوزيعات متعددة الحدود؛ أي، قد يكون هناك العديد من الميزات ولكن يُفترض أن كل منها
+قيمة ثنائية (بيرنولي، منطقية).</p>
+<p>تستند قاعدة القرار لبايز الساذج متعدد الحدود إلى</p>
+<div class="math notranslate nohighlight">
+\[P(x_i \mid y) = P(x_i = 1 \mid y) x_i + (1 - P(x_i = 1 \mid y)) (1 - x_i)\]</div>
+<p>والذي يختلف عن قاعدة بايز الساذج متعددة الحدود
+في أنه يعاقب صراحةً على عدم حدوث ميزة:math:<code class="docutils literal notranslate"><span class="pre">i</span></code>
+التي هي مؤشر للفئة:math:<code class="docutils literal notranslate"><span class="pre">y</span></code>،
+حيث تتجاهل المتغيرات متعددة الحدود غياب ميزة.</p>
+<p>في حالة تصنيف النصوص، قد تستخدم متجهات حدوث الكلمات (بدلاً من متجهات عدد الكلمات) لتدريب وتصنيف هذا المصنف. <a class="reference internal" href="generated/sklearn.naive_bayes.BernoulliNB.html#sklearn.naive_bayes.BernoulliNB" title="sklearn.naive_bayes.BernoulliNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">BernoulliNB</span></code></a>
+قد يؤدي أداء أفضل على بعض مجموعات البيانات، خاصة تلك ذات المستندات الأقصر.
+من المستحسن تقييم كلا النموذجين، إذا سمح الوقت بذلك.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="مراجع-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">مراجع<a class="headerlink" href="#مراجع-3" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<ul class="simple">
+<li><p class="sd-card-text">C.D. Manning, P. Raghavan and H. Schütze (2008). Introduction to
+Information Retrieval. Cambridge University Press, pp. 234-265.</p></li>
+<li><p class="sd-card-text">A. McCallum and K. Nigam (1998).
+<a class="reference external" href="https://citeseerx.ist.psu.edu/doc_view/pid/04ce064505b1635583fa0d9cc07cac7e9ea993cc">A comparison of event models for Naive Bayes text classification.</a>
+Proc. FLAIRS-98 Workshop on Learning for Text Categorization, pp. 41-48.</p></li>
+<li><p class="sd-card-text">V. Metsis, I. Androutsopoulos and G. Paliouras (2006).
+<a class="reference external" href="https://citeseerx.ist.psu.edu/doc_view/pid/8bd0934b366b539ec95e683ae39f8abb29ccc757">Spam filtering with Naive Bayes -- Which Naive Bayes?</a>
+3rd Conf. on Email and Anti-Spam (CEAS).</p></li>
+</ul>
+</div>
+</details></section>
+<section id="categorical-naive-bayes">
+<span id="id6"></span><h2><span class="section-number">1.9.5. </span>خوارزمية بايز الساذجة التصنيفية<a class="headerlink" href="#categorical-naive-bayes" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="generated/sklearn.naive_bayes.CategoricalNB.html#sklearn.naive_bayes.CategoricalNB" title="sklearn.naive_bayes.CategoricalNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">CategoricalNB</span></code></a> تنفذ خوارزمية بايز الساذجة
+للبيانات التصنيفية. يفترض أن كل ميزة،
+التي يتم وصفها بواسطة الفهرس:math:<code class="docutils literal notranslate"><span class="pre">i</span></code>، لها توزيعها التصنيفي الخاص.</p>
+<p>بالنسبة لكل ميزة:math:<code class="docutils literal notranslate"><span class="pre">i</span></code> في مجموعة التدريب:math:<code class="docutils literal notranslate"><span class="pre">X</span></code>،
+<a class="reference internal" href="generated/sklearn.naive_bayes.CategoricalNB.html#sklearn.naive_bayes.CategoricalNB" title="sklearn.naive_bayes.CategoricalNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">CategoricalNB</span></code></a> يقدر توزيعًا تصنيفيًا لكل ميزة i
+من X مشروطة على الفئة y. يتم تعريف مجموعة فهرس العينات على أنها
+<span class="math notranslate nohighlight">\(J\)</span>، مع:math:<code class="docutils literal notranslate"><span class="pre">m</span></code> كعدد العينات.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="حساب-الاحتمال">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">حساب الاحتمال<a class="headerlink" href="#حساب-الاحتمال" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">يتم تقدير احتمال الفئة:math:<code class="docutils literal notranslate"><span class="pre">t</span></code> في الميزة:math:<code class="docutils literal notranslate"><span class="pre">i</span></code> بالنظر إلى الفئة
+<span class="math notranslate nohighlight">\(c\)</span> كما يلي:</p>
+<div class="math notranslate nohighlight">
+\[P(x_i = t \mid y = c \: ;\, \alpha) = \frac{ N_{tic} + \alpha}{N_{c} +
+                                       \alpha n_i},\]</div>
+<p class="sd-card-text">حيث:math:<code class="docutils literal notranslate"><span class="pre">N_{tic}</span> <span class="pre">=</span> <span class="pre">|{j</span> <span class="pre">in</span> <span class="pre">J</span> <span class="pre">mid</span> <span class="pre">y_j</span> <span class="pre">=</span> <span class="pre">c}|</span></code> هو عدد
+المرات التي تظهر فيها الفئة:math:<code class="docutils literal notranslate"><span class="pre">t</span></code> في العينات:math:<code class="docutils literal notranslate"><span class="pre">x_{i}</span></code>، والتي تنتمي
+إلى الفئة:math:<code class="docutils literal notranslate"><span class="pre">c</span></code>، <span class="math notranslate nohighlight">\(N_{c} = |\{ j \in J\mid y_j = c\}|\)</span> هو عدد العينات
+الفئة c، <span class="math notranslate nohighlight">\(n_i\)</span> هو عدد الفئات المتاحة
+للميزة:math:<code class="docutils literal notranslate"><span class="pre">i</span></code>.</p>
+</div>
+</details><p><a class="reference internal" href="generated/sklearn.naive_bayes.CategoricalNB.html#sklearn.naive_bayes.CategoricalNB" title="sklearn.naive_bayes.CategoricalNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">CategoricalNB</span></code></a> يفترض أن مصفوفة العينة:math:<code class="docutils literal notranslate"><span class="pre">X</span></code> مشفرة (على سبيل المثال بمساعدة:class:<code class="docutils literal notranslate"><span class="pre">~sklearn.preprocessing.OrdinalEncoder</span></code>)
+بحيث يتم تمثيل جميع الفئات لكل ميزة:math:<code class="docutils literal notranslate"><span class="pre">i</span></code> بالأرقام
+<span class="math notranslate nohighlight">\(0, ..., n_i - 1\)</span> حيث:math:<code class="docutils literal notranslate"><span class="pre">n_i</span></code> هو عدد الفئات المتاحة
+للميزة:math:<code class="docutils literal notranslate"><span class="pre">i</span></code>.</p>
+</section>
+<section id="id7">
+<h2><span class="section-number">1.9.6. </span>نموذج بايز الساذج خارج النواة<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<p>يمكن استخدام نماذج بايز الساذجة لمعالجة مشاكل التصنيف واسعة النطاق
+بالنسبة للتي قد لا تتسع مجموعة التدريب بالكامل في الذاكرة. لمعالجة هذه الحالة،
+<a class="reference internal" href="generated/sklearn.naive_bayes.MultinomialNB.html#sklearn.naive_bayes.MultinomialNB" title="sklearn.naive_bayes.MultinomialNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultinomialNB</span></code></a>، و:class:<code class="docutils literal notranslate"><span class="pre">BernoulliNB</span></code>، و:class:<code class="docutils literal notranslate"><span class="pre">GaussianNB</span></code>
+تعرض طريقة &quot;partial_fit&quot; التي يمكن استخدامها
+بشكل متزايد كما هو الحال مع المصنفات الأخرى كما هو موضح في
+<a class="reference internal" href="../auto_examples/applications/plot_out_of_core_classification.html#sphx-glr-auto-examples-applications-plot-out-of-core-classification-py"><span class="std std-ref">Out-of-core classification of text documents</span></a>. جميع مصنفات بايز الساذجة
+تدعم وزن العينة.</p>
+<p>على عكس طريقة &quot;fit&quot;، تحتاج المكالمة الأولى لـ &quot;partial_fit&quot; إلى
+تمرير قائمة بجميع التصنيفات المتوقعة.</p>
+<p>للاطلاع على نظرة عامة على الاستراتيجيات المتاحة في scikit-learn، راجع أيضًا
+<a class="reference internal" href="../computing/scaling_strategies.html#scaling-strategies"><span class="std std-ref">out-of-core learning</span></a> الوثائق.</p>
+<div class="admonition note">
+<p class="admonition-title">ملاحظة</p>
+<p>تُدخل طريقة &quot;partial_fit&quot; لنموذج بايز الساذج بعض
+النفقات العامة الحسابية. يوصى باستخدام أحجام بيانات الشرائح التي تكون كبيرة قدر الإمكان، أي كما يسمح بها RAM المتاح.</p>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  <div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item">
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="cross_decomposition.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">السابق</p>
+        <p class="prev-next-title"><span class="section-number">1.8. </span>التحليل المتقاطع</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="tree.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">التالي</p>
+        <p class="prev-next-title"><span class="section-number">1.10. </span>شجرة القرار</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+                </footer>
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-naive-bayes">1.9.1. خوارزمية بايز الساذجة الغاوسية</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multinomial-naive-bayes">1.9.2. خوارزمية بايز الساذجة متعددة الحدود</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complement-naive-bayes">1.9.3. خوارزمية بايز الساذجة التكميلية</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bernoulli-naive-bayes">1.9.4. خوارزمية بايز الساذجة متعددة الحدود</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#categorical-naive-bayes">1.9.5. خوارزمية بايز الساذجة التصنيفية</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">1.9.6. نموذج بايز الساذج خارج النواة</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/modules/naive_bayes.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> إظهار المصدر
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2007 - 2024, scikit-learn developers (BSD License) ### Translate into Arabic Eng. Ahmed Almaghz - 2024.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

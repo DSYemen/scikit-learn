@@ -1,0 +1,980 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ar" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="4.2. أهمية التبديل" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://scikit-learn/stable/modules/permutation_importance.html" />
+<meta property="og:site_name" content="scikit-learn" />
+<meta property="og:description" content="أهمية التبديل هي تقنية فحص النموذج التي تقيس مساهمة كل ميزة في الأداء الإحصائي للنموذج fitted على مجموعة بيانات جدولي معينة. هذه التقنية مفيدة بشكل خاص للمقدّرات غير الخطية أو غير الشفافة، وتتضمن خ..." />
+<meta property="og:image" content="https://scikit-learn/stable/_images/permuted_predictive_feature.png" />
+<meta property="og:image:alt" content="scikit-learn" />
+<meta name="description" content="أهمية التبديل هي تقنية فحص النموذج التي تقيس مساهمة كل ميزة في الأداء الإحصائي للنموذج fitted على مجموعة بيانات جدولي معينة. هذه التقنية مفيدة بشكل خاص للمقدّرات غير الخطية أو غير الشفافة، وتتضمن خ..." />
+
+    <title>4.2. أهمية التبديل &#8212; scikit-learn 1.6.dev0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css?v=7f9a90b1" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyterlite_sphinx.css?v=ca70e7f1" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/colors.css?v=cc94ab7d" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/custom.css?v=85b0813d" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../_static/documentation_options.js?v=3cd28d06"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=97f0b27d"></script>
+    <script src="../_static/jupyterlite_sphinx.js?v=d6bdf5f8"></script>
+    <script src="../_static/translations.js?v=87cb2081"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script data-domain="scikit-learn.org" defer="defer" src="https://views.scientific-python.org/js/script.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'modules/permutation_importance';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://scikit-learn.org/dev/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1.6.dev0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/scripts/dropdown.js?v=e2048168"></script>
+    <script src="../_static/scripts/version-switcher.js?v=a6dd8357"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="search" title="بحث" href="../search.html" />
+    <link rel="next" title="5. التصورات المرئية" href="../visualizations.html" />
+    <link rel="prev" title="4.1. مخططات الاعتماد الجزئي والتوقع الشرطي الفردي" href="partial_dependence.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ar"/>
+  <meta name="docsearch:version" content="1.6" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/scikit-learn-logo-small.png" class="logo__image only-light" alt="scikit-learn homepage"/>
+    <img src="../_static/scikit-learn-logo-small.png" class="logo__image only-dark pst-js-only" alt="scikit-learn homepage"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    دليل المستخدم
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../support.html">
+    الدعم الفني
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../related_projects.html">
+    مشاريع ذات علاقة
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../about.html">
+    من نحن
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    دليل المستخدم
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../support.html">
+    الدعم الفني
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../related_projects.html">
+    مشاريع ذات علاقة
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../about.html">
+    من نحن
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../supervised_learning.html">1. التعليم الخاضع للإشراف</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="linear_model.html">1.1. النماذج الخطية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lda_qda.html">1.2. تحليل التمييز الخطي والتربيعي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernel_ridge.html">1.3. انحدار حافة النواة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svm.html">1.4. آلات الدعم المتجهية (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sgd.html">1.5. التحسين التدريجي العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neighbors.html">1.6. أقرب الجيران</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gaussian_process.html">1.7. العمليات الغاوسية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cross_decomposition.html">1.8. التحليل المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="naive_bayes.html">1.9. خوارزميات بايز الساذجة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tree.html">1.10. شجرة القرار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ensemble.html">1.11. المجموعات: تعزيز التدرج، الغابات العشوائية، التجميع، التصويت، التكديس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multiclass.html">1.12. خوارزميات متعددة التصنيف ومتعددة الإخراج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature_selection.html">1.13. اختيار الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="semi_supervised.html">1.14. التعليم شبه الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="isotonic.html">1.15. الانحدار المتساوي التوتر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibration.html">1.16. معايرة الاحتمال</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_networks_supervised.html">1.17. نماذج الشبكات العصبية (الخاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../unsupervised_learning.html">2. التعليم الغير خاضع للإشراف</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="mixture.html">2.1. نماذج خليط غاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manifold.html">2.2. تعلم المشعبات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clustering.html">2.3. التجميع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="biclustering.html">2.4. التجميع الثنائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decomposition.html">2.5. تحليل الإشارات إلى مكونات (مشاكل تحليل المصفوفات)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="covariance.html">2.6. تقدير التباين المشترك</a></li>
+<li class="toctree-l2"><a class="reference internal" href="outlier_detection.html">2.7. كشف القيم الغريبة والقيم المتطرفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="density.html">2.8. تقدير الكثافة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_networks_unsupervised.html">2.9. نماذج الشبكة العصبية (غير خاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../model_selection.html">3. تقييم وإختيار النموذج</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="cross_validation.html">3.1. التحقق المتبادل: تقييم أداء المقدر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grid_search.html">3.2. ضبط المعلمات الفائقة لمُقدِّر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classification_threshold.html">3.3. ضبط عتبة القرار لتنبؤ الفئة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_evaluation.html">3.4. المقاييس والتهديف: تحديد جودة التنبؤات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learning_curve.html">3.5. منحنيات التحقق من الصحة: رسم الدرجات لتقييم النماذج</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../inspection.html">4. الفحص</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="partial_dependence.html">4.1. مخططات الاعتماد الجزئي والتوقع الشرطي الفردي</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">4.2. أهمية التبديل</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualizations.html">5. التصورات المرئية</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../data_transforms.html">6. تحويلات مجموعات البيانات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="compose.html">6.1. خطوط الأنابيب والمقدرات المركبة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature_extraction.html">6.2. استخراج الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html">6.3. المعالجة المسبقة للبيانات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="impute.html">6.4. تعويض القيم المفقودة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unsupervised_reduction.html">6.5. تخفيض الأبعاد غير الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="random_projection.html">6.6. الإسقاط العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernel_approximation.html">6.7. Kernel Approximation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">6.8. مقاييس المقارنة الزوجية، والصلات، والنوى (Kernels)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing_targets.html">6.9. تحويل هدف التنبؤ (<code class="docutils literal notranslate"><span class="pre">y</span></code>)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/toy_dataset.html">7. مجموعات بيانات تجريبية</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/real_world.html">8. مجموعات بيانات العالم الحقيقي</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/sample_generators.html">9. مجموعات بيانات مولدة</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/loading_other_datasets.html">10. تحميل مجموعات بيانات أخرى</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../computing.html">11. الحوسبة مع scikit-learn</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../computing/scaling_strategies.html">11.1. استراتيجيات للقياس حسابيًا: بيانات أكبر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../computing/computational_performance.html">11.2. الأداء الحسابي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../computing/parallelism.html">11.3. التوازي وإدارة الموارد والتهيئة</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../model_persistence.html">12. حفظ النموذج</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../common_pitfalls.html">13. المزالق الشائعة والممارسات الموصى بها</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../dispatching.html">14. Dispatching</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="array_api.html">14.1. دعم المدخلات المتوافقة مع <code class="docutils literal notranslate"><span class="pre">Array</span> <span class="pre">API</span></code></a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../machine_learning_map.html">15. اختيار المقدر المناسب</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../presentations.html">16. المصادر الخارجية ومقاطع الفيديو والمحادثات</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../user_guide.html" class="nav-link">دليل المستخدم</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../inspection.html" class="nav-link"><span class="section-number">4. </span>الفحص</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">4.2. </span>أهمية التبديل</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="permutation-importance">
+<span id="id1"></span><h1><span class="section-number">4.2. </span>أهمية التبديل<a class="headerlink" href="#permutation-importance" title="Link to this heading">#</a></h1>
+<p>أهمية التبديل هي تقنية فحص النموذج التي تقيس مساهمة كل ميزة في الأداء الإحصائي للنموذج <a class="reference internal" href="../glossary.html#term-fitted"><span class="xref std std-term">fitted</span></a> على مجموعة بيانات جدولي معينة. هذه التقنية مفيدة بشكل خاص للمقدّرات غير الخطية أو غير الشفافة، وتتضمن خلط قيم ميزة واحدة بشكل عشوائي ومراقبة التدهور الناتج في درجة النموذج <a class="footnote-reference brackets" href="#id6" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. من خلال كسر العلاقة بين الميزة والهدف، نحدد مدى اعتماد النموذج على هذه الميزة المحددة.</p>
+<p>في الأشكال التالية، نلاحظ تأثير تبديل الميزات على الارتباط
+بين الميزة والهدف وبالتالي على الأداء الإحصائي للنموذج.</p>
+<img alt="../_images/permuted_predictive_feature.png" class="align-center" src="../_images/permuted_predictive_feature.png" />
+<img alt="../_images/permuted_non_predictive_feature.png" class="align-center" src="../_images/permuted_non_predictive_feature.png" />
+<p>في الشكل العلوي، نلاحظ أن تبديل ميزة تنبؤية يكسر
+الارتباط بين الميزة والهدف، وبالتالي ينخفض الأداء الإحصائي للنموذج. في الشكل السفلي، نلاحظ أن تبديل
+ميزة غير تنبؤية لا يتسبب في تدهور كبير في الأداء الإحصائي للنموذج.</p>
+<p>تتمثل إحدى المزايا الرئيسية لأهمية التبديل في أنها
+لا تعتمد على النموذج، أي يمكن تطبيقها على أي نموذج مدرب. علاوة على ذلك، يمكن
+حسابها عدة مرات مع تبديلات مختلفة للميزة، مما يوفر المزيد
+من قياس التباين في أهمية الميزات المقدرة للنموذج المدرب المحدد.</p>
+<p>يوضح الشكل أدناه أهمية التبديل ل
+<a class="reference internal" href="generated/sklearn.ensemble.RandomForestClassifier.html#sklearn.ensemble.RandomForestClassifier" title="sklearn.ensemble.RandomForestClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomForestClassifier</span></code></a> المدرب على نسخة موسعة
+من مجموعة بيانات التيتانيك تحتوي على <code class="docutils literal notranslate"><span class="pre">random_cat</span></code> و <code class="docutils literal notranslate"><span class="pre">random_num</span></code>
+ميزات، أي ميزة تصنيف وميزة رقمية غير مرتبطة بأي شكل من الأشكال مع المتغير المستهدف:</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/inspection/plot_permutation_importance.html"><img alt="../_images/sphx_glr_plot_permutation_importance_002.png" src="../_images/sphx_glr_plot_permutation_importance_002.png" style="width: 448.0px; height: 336.0px;" />
+</a>
+</figure>
+<div class="admonition warning">
+<p class="admonition-title">تحذير</p>
+<p>الميزات التي تعتبر ذات <strong>أهمية منخفضة لنموذج سيء</strong> (درجة التحقق المتقاطع منخفضة) قد تكون <strong>مهمة للغاية لنموذج جيد</strong>.
+لذلك من المهم دائمًا تقييم القوة التنبؤية للنموذج
+باستخدام مجموعة محجوزة (أو أفضل مع التحقق المتقاطع) قبل حساب
+الأهميات. لا تعكس أهمية التبديل القيمة التنبؤية الجوهرية لميزة بحد ذاتها ولكن <strong>مدى أهمية هذه الميزة
+لنموذج معين</strong>.</p>
+</div>
+<p>تقوم دالة <a class="reference internal" href="generated/sklearn.inspection.permutation_importance.html#sklearn.inspection.permutation_importance" title="sklearn.inspection.permutation_importance"><code class="xref py py-func docutils literal notranslate"><span class="pre">permutation_importance</span></code></a> بحساب أهمية الميزة
+من <a class="reference internal" href="../glossary.html#term-estimators"><span class="xref std std-term">estimators</span></a> لمجموعة بيانات معينة. يحدد معلمة <code class="docutils literal notranslate"><span class="pre">n_repeats</span></code>
+عدد المرات التي يتم فيها خلط ميزة عشوائيًا وإرجاع عينة من أهمية الميزة.</p>
+<p>لنأخذ في الاعتبار نموذج الانحدار المدرب التالي:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_diabetes</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">Ridge</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">diabetes</span> <span class="o">=</span> <span class="n">load_diabetes</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_val</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">diabetes</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">diabetes</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">Ridge</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">)</span>
+<span class="go">0.356...</span>
+</pre></div>
+</div>
+<p>أداؤه التحقق، المقاس عبر درجة <span class="math notranslate nohighlight">\(R^2\)</span>،
+أكبر بكثير من مستوى الصدفة. هذا يجعل من الممكن استخدام
+<a class="reference internal" href="generated/sklearn.inspection.permutation_importance.html#sklearn.inspection.permutation_importance" title="sklearn.inspection.permutation_importance"><code class="xref py py-func docutils literal notranslate"><span class="pre">permutation_importance</span></code></a> وظيفة للتحقق من الميزات الأكثر تنبؤية:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.inspection</span> <span class="kn">import</span> <span class="n">permutation_importance</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">permutation_importance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">,</span>
+<span class="gp">... </span>                           <span class="n">n_repeats</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+<span class="gp">... </span>                           <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">importances_mean</span><span class="o">.</span><span class="n">argsort</span><span class="p">()[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+<span class="gp">... </span>    <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">importances_mean</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">r</span><span class="o">.</span><span class="n">importances_std</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">diabetes</span><span class="o">.</span><span class="n">feature_names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">&lt;8</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="gp">... </span>              <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">importances_mean</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="gp">... </span>              <span class="sa">f</span><span class="s2">&quot; +/- </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">importances_std</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">s5      0.204 +/- 0.050</span>
+<span class="go">bmi     0.176 +/- 0.048</span>
+<span class="go">bp      0.088 +/- 0.033</span>
+<span class="go">sex     0.056 +/- 0.023</span>
+</pre></div>
+</div>
+<p>لاحظ أن قيم الأهمية للميزات الأعلى تمثل جزءًا كبيرًا من درجة المرجع 0.356.</p>
+<p>يمكن حساب أهمية التبديل إما على مجموعة التدريب أو على
+مجموعة اختبار أو تحقق محجوزة. باستخدام مجموعة محجوزة يجعل من الممكن
+تسليط الضوء على الميزات التي تساهم أكثر في قوة التعميم للنموذج
+المفحوص. الميزات المهمة في مجموعة التدريب ولكن ليس على
+المجموعة المحجوزة قد تتسبب في الإفراط في تناسب النموذج.</p>
+<p>تعتمد أهمية التبديل على دالة الدرجة التي يتم تحديدها
+مع حجة <code class="docutils literal notranslate"><span class="pre">scoring</span></code>. تقبل هذه الحجة العديد من الدلائل،
+والتي تكون أكثر كفاءة من الناحية الحسابية من الاستدعاء التسلسلي
+<a class="reference internal" href="generated/sklearn.inspection.permutation_importance.html#sklearn.inspection.permutation_importance" title="sklearn.inspection.permutation_importance"><code class="xref py py-func docutils literal notranslate"><span class="pre">permutation_importance</span></code></a> عدة مرات مع درجة مختلفة، حيث يعيد استخدام تنبؤات النموذج.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="مثال-على-أهمية-التبديل-باستخدام-العديد-من-الدلائل">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">مثال على أهمية التبديل باستخدام العديد من الدلائل<a class="headerlink" href="#مثال-على-أهمية-التبديل-باستخدام-العديد-من-الدلائل" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">في المثال أدناه، نستخدم قائمة من المقاييس، ولكن هناك تنسيقات إدخال أكثر،
+كما هو موثق في <a class="reference internal" href="model_evaluation.html#multimetric-scoring"><span class="std std-ref">استخدام تقييم متعدد المقاييس</span></a>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">scoring</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;r2&#39;</span><span class="p">,</span> <span class="s1">&#39;neg_mean_absolute_percentage_error&#39;</span><span class="p">,</span> <span class="s1">&#39;neg_mean_squared_error&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r_multi</span> <span class="o">=</span> <span class="n">permutation_importance</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">model</span><span class="p">,</span> <span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">,</span> <span class="n">n_repeats</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">scoring</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">metric</span> <span class="ow">in</span> <span class="n">r_multi</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">metric</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">r</span> <span class="o">=</span> <span class="n">r_multi</span><span class="p">[</span><span class="n">metric</span><span class="p">]</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">importances_mean</span><span class="o">.</span><span class="n">argsort</span><span class="p">()[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">importances_mean</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">r</span><span class="o">.</span><span class="n">importances_std</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    </span><span class="si">{</span><span class="n">diabetes</span><span class="o">.</span><span class="n">feature_names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">&lt;8</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="gp">... </span>                  <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">importances_mean</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="gp">... </span>                  <span class="sa">f</span><span class="s2">&quot; +/- </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">importances_std</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">r2</span>
+<span class="go">    s5      0.204 +/- 0.050</span>
+<span class="go">    bmi     0.176 +/- 0.048</span>
+<span class="go">    bp      0.088 +/- 0.033</span>
+<span class="go">    sex     0.056 +/- 0.023</span>
+<span class="go">neg_mean_absolute_percentage_error</span>
+<span class="go">    s5      0.081 +/- 0.020</span>
+<span class="go">    bmi     0.064 +/- 0.015</span>
+<span class="go">    bp      0.029 +/- 0.010</span>
+<span class="go">neg_mean_squared_error</span>
+<span class="go">    s5      1013.866 +/- 246.445</span>
+<span class="go">    bmi     872.726 +/- 240.298</span>
+<span class="go">    bp      438.663 +/- 163.022</span>
+<span class="go">    sex     277.376 +/- 115.123</span>
+</pre></div>
+</div>
+<p class="sd-card-text">ترتيب الميزات هو نفسه تقريبًا لمقاييس مختلفة حتى إذا كانت مقاييس الأهمية مختلفة جدًا. ومع ذلك، هذا غير
+مضمون وقد تؤدي المقاييس المختلفة إلى أهمية ميزة مختلفة بشكل كبير، خاصة بالنسبة للنماذج المدربة على مشاكل التصنيف غير المتوازنة،
+حيث <strong>قد يكون اختيار مقياس التصنيف حاسمًا</strong>.</p>
+</div>
+</details><section id="id3">
+<h2><span class="section-number">4.2.1. </span>مخطط خوارزمية أهمية التبديل<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<ul>
+<li><p>المدخلات: نموذج تنبؤي مدرب <span class="math notranslate nohighlight">\(m\)</span>، مجموعة بيانات جدولي (تدريب أو
+التحقق) <span class="math notranslate nohighlight">\(D\)</span>.</p></li>
+<li><p>احسب درجة المرجع <span class="math notranslate nohighlight">\(s\)</span> للنموذج <span class="math notranslate nohighlight">\(m\)</span> على البيانات
+<span class="math notranslate nohighlight">\(D\)</span> (على سبيل المثال الدقة لمصنّف أو <span class="math notranslate nohighlight">\(R^2\)</span> لمصنّف).</p></li>
+<li><p>لكل ميزة <span class="math notranslate nohighlight">\(j\)</span> (عمود من <span class="math notranslate nohighlight">\(D\)</span>):</p>
+<ul>
+<li><p>لكل تكرار <span class="math notranslate nohighlight">\(k\)</span> في <span class="math notranslate nohighlight">\({1, ..., K}\)</span>:</p>
+<ul class="simple">
+<li><p>قم بخلط عمود <span class="math notranslate nohighlight">\(j\)</span> من مجموعة البيانات <span class="math notranslate nohighlight">\(D\)</span> بشكل عشوائي لإنشاء
+نسخة فاسدة من البيانات باسم <span class="math notranslate nohighlight">\(\tilde{D}_{k,j}\)</span>.</p></li>
+<li><p>احسب درجة <span class="math notranslate nohighlight">\(s_{k,j}\)</span> للنموذج <span class="math notranslate nohighlight">\(m\)</span> على البيانات الفاسدة
+<span class="math notranslate nohighlight">\(\tilde{D}_{k,j}\)</span>.</p></li>
+</ul>
+</li>
+<li><p>احسب الأهمية <span class="math notranslate nohighlight">\(i_j\)</span> للميزة <span class="math notranslate nohighlight">\(f_j\)</span> المحددة على النحو التالي:</p>
+<div class="math notranslate nohighlight">
+\[i_j = s - \frac{1}{K} \sum_{k=1}^{K} s_{k,j}\]</div>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id4">
+<h2><span class="section-number">4.2.2. </span>العلاقة بأهمية الشجرة القائمة على الشوائب<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>توفر النماذج القائمة على الشجرة مقياسًا بديلاً لـ <a class="reference internal" href="ensemble.html#random-forest-feature-importance"><span class="std std-ref">feature importances
+based on the mean decrease in impurity</span></a>
+(MDI). يتم تحديد الشوائب بواسطة معيار التقسيم لشجرة القرار (Gini أو Log Loss أو Mean Squared Error). ومع ذلك، يمكن لهذه الطريقة أن تعطي أهمية عالية للميزات التي قد لا تكون تنبؤية على البيانات غير المرئية عندما يكون النموذج مفرطًا في الملاءمة. من ناحية أخرى، تتجنب أهمية الميزة القائمة على التبديل هذه المشكلة، حيث يمكن حسابها على البيانات غير المرئية.</p>
+<p>علاوة على ذلك، فإن أهمية الميزة القائمة على الشوائب للشجرة <strong>متحيزة بشدة</strong> و <strong>تفضل الميزات ذات التعداد المرتفع</strong> (عادة الميزات الرقمية)
+على الميزات ذات التعداد المنخفض مثل الميزات الثنائية أو المتغيرات التصنيفية
+مع عدد صغير من الفئات المحتملة.</p>
+<p>لا تظهر أهمية الميزات القائمة على التبديل مثل هذا التحيز. بالإضافة إلى ذلك،
+يمكن حساب أهمية التبديل بأي مقياس للأداء على تنبؤات النموذج ويمكن استخدامها لتحليل أي فئة من النماذج (ليس فقط النماذج القائمة على الشجرة).</p>
+<p>يسلط المثال التالي الضوء على قيود أهمية الميزة القائمة على الشوائب على عكس أهمية الميزة القائمة على التبديل:
+<a class="reference internal" href="../auto_examples/inspection/plot_permutation_importance.html#sphx-glr-auto-examples-inspection-plot-permutation-importance-py"><span class="std std-ref">Permutation Importance vs Random Forest Feature Importance (MDI)</span></a>.</p>
+</section>
+<section id="id5">
+<h2><span class="section-number">4.2.3. </span>القيم المضللة على الميزات ذات الارتباط القوي<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>عندما تكون الميزتان مترابطتين ويتم تبديل إحدى الميزات، فإن النموذج
+لا يزال لديه حق الوصول إلى الأخيرة من خلال ميزته المرتبطة. يؤدي هذا إلى قيمة أهمية أقل للإبلاغ عن كلتا الميزتين، على الرغم من أنهما قد يكونان <em>في الواقع</em>
+مهمة.</p>
+<p>يوضح الشكل أدناه أهمية التبديل ل
+<a class="reference internal" href="generated/sklearn.ensemble.RandomForestClassifier.html#sklearn.ensemble.RandomForestClassifier" title="sklearn.ensemble.RandomForestClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomForestClassifier</span></code></a> المدرب باستخدام
+<a class="reference internal" href="../datasets/toy_dataset.html#breast-cancer-dataset"><span class="std std-ref">Breast cancer wisconsin (diagnostic) dataset</span></a>، الذي يحتوي على ميزات مترابطة بقوة. سيوحي التفسير الساذج بأن جميع الميزات غير مهمة:</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/inspection/plot_permutation_importance_multicollinear.html"><img alt="../_images/sphx_glr_plot_permutation_importance_multicollinear_002.png" src="../_images/sphx_glr_plot_permutation_importance_multicollinear_002.png" style="width: 489.99999999999994px; height: 420.0px;" />
+</a>
+</figure>
+<p>تتمثل إحدى طرق التعامل مع المشكلة في تجميع الميزات المترابطة والاحتفاظ بميزة واحدة فقط من كل مجموعة.</p>
+<figure class="align-center">
+<a class="reference external image-reference" href="../auto_examples/inspection/plot_permutation_importance_multicollinear.html"><img alt="../_images/sphx_glr_plot_permutation_importance_multicollinear_004.png" src="../_images/sphx_glr_plot_permutation_importance_multicollinear_004.png" style="width: 489.99999999999994px; height: 420.0px;" />
+</a>
+</figure>
+<p>للحصول على مزيد من التفاصيل حول هذه الاستراتيجية، راجع المثال
+<a class="reference internal" href="../auto_examples/inspection/plot_permutation_importance_multicollinear.html#sphx-glr-auto-examples-inspection-plot-permutation-importance-multicollinear-py"><span class="std std-ref">Permutation Importance with Multicollinear or Correlated Features</span></a>.</p>
+<p class="rubric">أمثلة</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../auto_examples/inspection/plot_permutation_importance.html#sphx-glr-auto-examples-inspection-plot-permutation-importance-py"><span class="std std-ref">Permutation Importance vs Random Forest Feature Importance (MDI)</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/inspection/plot_permutation_importance_multicollinear.html#sphx-glr-auto-examples-inspection-plot-permutation-importance-multicollinear-py"><span class="std std-ref">Permutation Importance with Multicollinear or Correlated Features</span></a></p></li>
+</ul>
+<p class="rubric">المراجع</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id6" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
+<p>L. Breiman, <a class="reference external" href="https://doi.org/10.1023/A:1010933404324">&quot;Random Forests&quot;</a>,
+Machine Learning, 45(1), 5-32, 2001.</p>
+</aside>
+</aside>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  <div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item">
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="partial_dependence.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">السابق</p>
+        <p class="prev-next-title"><span class="section-number">4.1. </span>مخططات الاعتماد الجزئي والتوقع الشرطي الفردي</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../visualizations.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">التالي</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>التصورات المرئية</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+                </footer>
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.2.1. مخطط خوارزمية أهمية التبديل</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4.2.2. العلاقة بأهمية الشجرة القائمة على الشوائب</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">4.2.3. القيم المضللة على الميزات ذات الارتباط القوي</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/modules/permutation_importance.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> إظهار المصدر
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2007 - 2024, scikit-learn developers (BSD License) ### Translate into Arabic Eng. Ahmed Almaghz - 2024.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

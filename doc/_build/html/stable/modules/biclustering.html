@@ -1,0 +1,967 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ar" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="2.4. التجميع الثنائي" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://scikit-learn/stable/modules/biclustering.html" />
+<meta property="og:site_name" content="scikit-learn" />
+<meta property="og:description" content="تقوم خوارزميات التجميع الثنائي بتجميع صفوف وأعمدة مصفوفة البيانات في وقت واحد. تُعرف مجموعات الصفوف والأعمدة هذه باسم التجميعات الثنائية. يحدد كل منها مصفوفة فرعية من مصفوفة البيانات الأصلية ببعض ا..." />
+<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_spectral_coclustering_003.png" />
+<meta property="og:image:alt" content="scikit-learn" />
+<meta name="description" content="تقوم خوارزميات التجميع الثنائي بتجميع صفوف وأعمدة مصفوفة البيانات في وقت واحد. تُعرف مجموعات الصفوف والأعمدة هذه باسم التجميعات الثنائية. يحدد كل منها مصفوفة فرعية من مصفوفة البيانات الأصلية ببعض ا..." />
+
+    <title>2.4. التجميع الثنائي &#8212; scikit-learn 1.6.dev0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css?v=7f9a90b1" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyterlite_sphinx.css?v=ca70e7f1" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/colors.css?v=cc94ab7d" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/custom.css?v=85b0813d" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../_static/documentation_options.js?v=3cd28d06"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=97f0b27d"></script>
+    <script src="../_static/jupyterlite_sphinx.js?v=d6bdf5f8"></script>
+    <script src="../_static/translations.js?v=87cb2081"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script data-domain="scikit-learn.org" defer="defer" src="https://views.scientific-python.org/js/script.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'modules/biclustering';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://scikit-learn.org/dev/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1.6.dev0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/scripts/dropdown.js?v=e2048168"></script>
+    <script src="../_static/scripts/version-switcher.js?v=a6dd8357"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="search" title="بحث" href="../search.html" />
+    <link rel="next" title="2.5. تحليل الإشارات إلى مكونات (مشاكل تحليل المصفوفات)" href="decomposition.html" />
+    <link rel="prev" title="2.3. التجميع" href="clustering.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ar"/>
+  <meta name="docsearch:version" content="1.6" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/scikit-learn-logo-small.png" class="logo__image only-light" alt="scikit-learn homepage"/>
+    <img src="../_static/scikit-learn-logo-small.png" class="logo__image only-dark pst-js-only" alt="scikit-learn homepage"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    دليل المستخدم
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../support.html">
+    الدعم الفني
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../related_projects.html">
+    مشاريع ذات علاقة
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../about.html">
+    من نحن
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    دليل المستخدم
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../support.html">
+    الدعم الفني
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../related_projects.html">
+    مشاريع ذات علاقة
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../about.html">
+    من نحن
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../supervised_learning.html">1. التعليم الخاضع للإشراف</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="linear_model.html">1.1. النماذج الخطية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lda_qda.html">1.2. تحليل التمييز الخطي والتربيعي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernel_ridge.html">1.3. انحدار حافة النواة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svm.html">1.4. آلات الدعم المتجهية (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sgd.html">1.5. التحسين التدريجي العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neighbors.html">1.6. أقرب الجيران</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gaussian_process.html">1.7. العمليات الغاوسية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cross_decomposition.html">1.8. التحليل المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="naive_bayes.html">1.9. خوارزميات بايز الساذجة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tree.html">1.10. شجرة القرار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ensemble.html">1.11. المجموعات: تعزيز التدرج، الغابات العشوائية، التجميع، التصويت، التكديس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multiclass.html">1.12. خوارزميات متعددة التصنيف ومتعددة الإخراج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature_selection.html">1.13. اختيار الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="semi_supervised.html">1.14. التعليم شبه الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="isotonic.html">1.15. الانحدار المتساوي التوتر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibration.html">1.16. معايرة الاحتمال</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_networks_supervised.html">1.17. نماذج الشبكات العصبية (الخاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../unsupervised_learning.html">2. التعليم الغير خاضع للإشراف</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="mixture.html">2.1. نماذج خليط غاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manifold.html">2.2. تعلم المشعبات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clustering.html">2.3. التجميع</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.4. التجميع الثنائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decomposition.html">2.5. تحليل الإشارات إلى مكونات (مشاكل تحليل المصفوفات)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="covariance.html">2.6. تقدير التباين المشترك</a></li>
+<li class="toctree-l2"><a class="reference internal" href="outlier_detection.html">2.7. كشف القيم الغريبة والقيم المتطرفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="density.html">2.8. تقدير الكثافة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_networks_unsupervised.html">2.9. نماذج الشبكة العصبية (غير خاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../model_selection.html">3. تقييم وإختيار النموذج</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="cross_validation.html">3.1. التحقق المتبادل: تقييم أداء المقدر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grid_search.html">3.2. ضبط المعلمات الفائقة لمُقدِّر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classification_threshold.html">3.3. ضبط عتبة القرار لتنبؤ الفئة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_evaluation.html">3.4. المقاييس والتهديف: تحديد جودة التنبؤات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learning_curve.html">3.5. منحنيات التحقق من الصحة: رسم الدرجات لتقييم النماذج</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../inspection.html">4. الفحص</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="partial_dependence.html">4.1. مخططات الاعتماد الجزئي والتوقع الشرطي الفردي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="permutation_importance.html">4.2. أهمية التبديل</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualizations.html">5. التصورات المرئية</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../data_transforms.html">6. تحويلات مجموعات البيانات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="compose.html">6.1. خطوط الأنابيب والمقدرات المركبة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature_extraction.html">6.2. استخراج الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html">6.3. المعالجة المسبقة للبيانات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="impute.html">6.4. تعويض القيم المفقودة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unsupervised_reduction.html">6.5. تخفيض الأبعاد غير الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="random_projection.html">6.6. الإسقاط العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernel_approximation.html">6.7. Kernel Approximation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">6.8. مقاييس المقارنة الزوجية، والصلات، والنوى (Kernels)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing_targets.html">6.9. تحويل هدف التنبؤ (<code class="docutils literal notranslate"><span class="pre">y</span></code>)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/toy_dataset.html">7. مجموعات بيانات تجريبية</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/real_world.html">8. مجموعات بيانات العالم الحقيقي</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/sample_generators.html">9. مجموعات بيانات مولدة</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/loading_other_datasets.html">10. تحميل مجموعات بيانات أخرى</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../computing.html">11. الحوسبة مع scikit-learn</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../computing/scaling_strategies.html">11.1. استراتيجيات للقياس حسابيًا: بيانات أكبر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../computing/computational_performance.html">11.2. الأداء الحسابي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../computing/parallelism.html">11.3. التوازي وإدارة الموارد والتهيئة</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../model_persistence.html">12. حفظ النموذج</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../common_pitfalls.html">13. المزالق الشائعة والممارسات الموصى بها</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../dispatching.html">14. Dispatching</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="array_api.html">14.1. دعم المدخلات المتوافقة مع <code class="docutils literal notranslate"><span class="pre">Array</span> <span class="pre">API</span></code></a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../machine_learning_map.html">15. اختيار المقدر المناسب</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../presentations.html">16. المصادر الخارجية ومقاطع الفيديو والمحادثات</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../user_guide.html" class="nav-link">دليل المستخدم</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../unsupervised_learning.html" class="nav-link"><span class="section-number">2. </span>التعليم الغير خاضع للإشراف</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">2.4. </span>التجميع الثنائي</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="biclustering">
+<span id="id1"></span><h1><span class="section-number">2.4. </span>التجميع الثنائي<a class="headerlink" href="#biclustering" title="Link to this heading">#</a></h1>
+<p>تقوم خوارزميات التجميع الثنائي بتجميع صفوف وأعمدة مصفوفة البيانات في وقت واحد.
+تُعرف مجموعات الصفوف والأعمدة هذه باسم التجميعات الثنائية.
+يحدد كل منها مصفوفة فرعية من مصفوفة البيانات الأصلية ببعض الخصائص المطلوبة.</p>
+<p>على سبيل المثال، بالنظر إلى مصفوفة من الشكل <code class="docutils literal notranslate"><span class="pre">(10،</span> <span class="pre">10)</span></code>، فإن أحد التجميعات الثنائية المحتملة بثلاثة صفوف وعمودين يحث مصفوفة فرعية من الشكل <code class="docutils literal notranslate"><span class="pre">(3،</span> <span class="pre">2)</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rows</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">columns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="p">[</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="p">]</span>
+<span class="go">array([[ 1,  2],</span>
+<span class="go">       [21, 22],</span>
+<span class="go">       [31, 32]])</span>
+</pre></div>
+</div>
+<p>لأغراض التصور، بالنظر إلى التجميع الثنائي، قد يتم إعادة ترتيب صفوف وأعمدة مصفوفة البيانات لجعل التجميع الثنائي متجاورًا.</p>
+<p>تختلف الخوارزميات في كيفية تعريف التجميعات الثنائية. بعض الأنواع الشائعة تشمل:</p>
+<ul class="simple">
+<li><p>قيم ثابتة أو صفوف ثابتة أو أعمدة ثابتة</p></li>
+<li><p>قيم عالية أو منخفضة بشكل غير عادي</p></li>
+<li><p>مصفوفات فرعية ذات تباين منخفض</p></li>
+<li><p>صفوف أو أعمدة مترابطة</p></li>
+</ul>
+<p>تختلف الخوارزميات أيضًا في كيفية تعيين الصفوف والأعمدة للتجميعات الثنائية، مما يؤدي إلى هياكل تجميع ثنائي مختلفة.
+تحدث هياكل الكتل القطرية أو رقعة الشطرنج عندما يتم تقسيم الصفوف والأعمدة إلى أقسام.</p>
+<p>إذا كان كل صف وكل عمود ينتمي إلى مجموعة ثنائية واحدة بالضبط، فإن إعادة ترتيب صفوف وأعمدة مصفوفة البيانات تكشف عن التجميعات الثنائية على القطر.
+فيما يلي مثال على هذا الهيكل حيث تحتوي التجميعات الثنائية على قيم متوسطة أعلى من الصفوف والأعمدة الأخرى:</p>
+<figure class="align-center" id="id6">
+<a class="reference external image-reference" href="../auto_examples/bicluster/images/sphx_glr_plot_spectral_coclustering_003.png"><img alt="../_images/sphx_glr_plot_spectral_coclustering_003.png" src="../_images/sphx_glr_plot_spectral_coclustering_003.png" style="width: 240.0px; height: 240.0px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">مثال على التجميعات الثنائية التي تم تشكيلها عن طريق تقسيم الصفوف والأعمدة.</span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>في حالة رقعة الشطرنج، ينتمي كل صف إلى جميع مجموعات الأعمدة، وينتمي كل عمود إلى جميع مجموعات الصفوف.
+فيما يلي مثال على هذا الهيكل حيث يكون تباين القيم داخل كل مجموعة ثنائية صغيرًا:</p>
+<figure class="align-center" id="id7">
+<a class="reference external image-reference" href="../auto_examples/bicluster/images/sphx_glr_plot_spectral_biclustering_003.png"><img alt="../_images/sphx_glr_plot_spectral_biclustering_003.png" src="../_images/sphx_glr_plot_spectral_biclustering_003.png" style="width: 240.0px; height: 240.0px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">مثال على التجميعات الثنائية رقعة الشطرنج.</span><a class="headerlink" href="#id7" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>بعد ملاءمة نموذج، يمكن العثور على عضوية مجموعة الصفوف والأعمدة في سمات <code class="docutils literal notranslate"><span class="pre">rows_</span></code> و <code class="docutils literal notranslate"><span class="pre">columns_</span></code>. <code class="docutils literal notranslate"><span class="pre">rows_[i]</span></code> هو متجه ثنائي مع إدخالات غير صفرية تقابل الصفوف التي تنتمي إلى التجميع الثنائي <code class="docutils literal notranslate"><span class="pre">i</span></code>. وبالمثل، يشير <code class="docutils literal notranslate"><span class="pre">columns_[i]</span></code> إلى الأعمدة التي تنتمي إلى التجميع الثنائي <code class="docutils literal notranslate"><span class="pre">i</span></code>.</p>
+<p>تحتوي بعض النماذج أيضًا على سمات <code class="docutils literal notranslate"><span class="pre">row_labels_</span></code> و <code class="docutils literal notranslate"><span class="pre">column_labels_</span></code>.
+تقسم هذه النماذج الصفوف والأعمدة، كما هو الحال في هياكل التجميع الثنائي للكتل القطرية ورقعة الشطرنج.</p>
+<div class="admonition note">
+<p class="admonition-title">ملاحظة</p>
+<p>للتجميع الثنائي العديد من الأسماء الأخرى في مجالات مختلفة بما في ذلك التجميع المشترك، والتجميع ثنائي الوضع، والتجميع ثنائي الاتجاه، والتجميع الكتلي، والتجميع ثنائي الاتجاه المقترن، إلخ.
+تعكس أسماء بعض الخوارزميات، مثل خوارزمية التجميع المشترك الطيفي، هذه الأسماء البديلة.</p>
+</div>
+<section id="spectral-coclustering">
+<span id="id2"></span><h2><span class="section-number">2.4.1. </span>التجميع المشترك الطيفي<a class="headerlink" href="#spectral-coclustering" title="Link to this heading">#</a></h2>
+<p>تجد خوارزمية <a class="reference internal" href="generated/sklearn.cluster.SpectralCoclustering.html#sklearn.cluster.SpectralCoclustering" title="sklearn.cluster.SpectralCoclustering"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpectralCoclustering</span></code></a> مجموعات ثنائية ذات قيم أعلى من تلك الموجودة في الصفوف والأعمدة الأخرى المقابلة.
+ينتمي كل صف وكل عمود إلى مجموعة ثنائية واحدة بالضبط، لذا فإن إعادة ترتيب الصفوف والأعمدة لجعل الأقسام متجاورة يكشف عن هذه القيم العالية على طول القطر:</p>
+<div class="admonition note">
+<p class="admonition-title">ملاحظة</p>
+<p>تعامل الخوارزمية مصفوفة بيانات الإدخال على أنها رسم بياني ثنائي: تتوافق صفوف وأعمدة المصفوفة مع مجموعتي الرؤوس، ويتوافق كل إدخال مع حافة بين صف وعمود.
+تقوم الخوارزمية بتقريب القطع الطبيعي لهذا الرسم البياني للعثور على رسوم بيانية فرعية ثقيلة.</p>
+</div>
+<section id="id3">
+<h3><span class="section-number">2.4.1.1. </span>الصيغة الرياضية<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>يمكن إيجاد حل تقريبي للقطع الطبيعي الأمثل من خلال تحليل القيمة الذاتية المعمم لـ Laplacian للرسم البياني.
+عادةً ما يعني هذا العمل مباشرةً مع مصفوفة Laplacian.
+إذا كانت مصفوفة البيانات الأصلية <span class="math notranslate nohighlight">\(A\)</span> لها شكل <span class="math notranslate nohighlight">\(m \times n\)</span>، فإن مصفوفة Laplacian للرسم البياني الثنائي المقابل لها شكل <span class="math notranslate nohighlight">\((m + n) \times (m + n)\)</span>.
+ومع ذلك، في هذه الحالة، من الممكن العمل مباشرةً مع <span class="math notranslate nohighlight">\(A\)</span>، وهو أصغر وأكثر كفاءة.</p>
+<p>يتم معالجة مصفوفة الإدخال <span class="math notranslate nohighlight">\(A\)</span> مسبقًا على النحو التالي:</p>
+<div class="math notranslate nohighlight">
+\[A_n = R^{-1/2} A C^{-1/2}\]</div>
+<p>حيث <span class="math notranslate nohighlight">\(R\)</span> هي المصفوفة القطرية مع الإدخال <span class="math notranslate nohighlight">\(i\)</span> يساوي <span class="math notranslate nohighlight">\(\sum_{j} A_{ij}\)</span> و <span class="math notranslate nohighlight">\(C\)</span> هي المصفوفة القطرية مع الإدخال <span class="math notranslate nohighlight">\(j\)</span> يساوي <span class="math notranslate nohighlight">\(\sum_{i} A_{ij}\)</span>.</p>
+<p>يوفر تحليل القيمة المفردة، <span class="math notranslate nohighlight">\(A_n = U \Sigma V^\top\)</span>،
+أقسام صفوف وأعمدة <span class="math notranslate nohighlight">\(A\)</span>.
+تعطي مجموعة فرعية من المتجهات المفردة اليسرى أقسام الصف، وتعطي مجموعة فرعية من المتجهات المفردة اليمنى أقسام العمود.</p>
+<p><span class="math notranslate nohighlight">\(\ell = \lceil \log_2 k \rceil\)</span> المتجهات المفردة، بدءًا من الثانية، توفر معلومات التقسيم المطلوبة.
+يتم استخدامها لتشكيل المصفوفة <span class="math notranslate nohighlight">\(Z\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}Z = \begin{bmatrix} R^{-1/2} U \\\\
+                    C^{-1/2} V
+      \end{bmatrix}\end{split}\]</div>
+<p>حيث أعمدة <span class="math notranslate nohighlight">\(U\)</span> هي <span class="math notranslate nohighlight">\(u_2, \dots, u_{\ell + 1}\)</span>، وبالمثل لـ <span class="math notranslate nohighlight">\(V\)</span>.</p>
+<p>ثم يتم تجميع صفوف <span class="math notranslate nohighlight">\(Z\)</span> باستخدام <a class="reference internal" href="clustering.html#k-means"><span class="std std-ref">k-means</span></a>. توفر التسميات <code class="docutils literal notranslate"><span class="pre">n_rows</span></code> الأولى تقسيم الصف، وتوفر التسميات <code class="docutils literal notranslate"><span class="pre">n_columns</span></code> المتبقية تقسيم العمود.</p>
+<p class="rubric">أمثلة</p>
+<ul class="simple">
+<li><p><span class="xref std std-ref">sphx_glr_auto_examples_bicluster/plot_spectral_coclustering.py</span>: مثال بسيط يوضح كيفية إنشاء مصفوفة بيانات مع مجموعات ثنائية وتطبيق هذه الطريقة عليها.</p></li>
+<li><p><span class="xref std std-ref">sphx_glr_auto_examples_bicluster/plot_bicluster_newsgroups.py</span>: مثال على إيجاد مجموعات ثنائية في مجموعة بيانات مجموعات الأخبار العشرين.</p></li>
+</ul>
+<p class="rubric">المراجع</p>
+<ul class="simple">
+<li><p>Dhillon، Inderjit S، 2001. <a class="reference external" href="https://doi.org/10.1145/502512.502550">Co-clustering documents and words using bipartite spectral graph partitioning</a></p></li>
+</ul>
+</section>
+</section>
+<section id="spectral-biclustering">
+<span id="id4"></span><h2><span class="section-number">2.4.2. </span>التجميع الثنائي الطيفي<a class="headerlink" href="#spectral-biclustering" title="Link to this heading">#</a></h2>
+<p>تفترض خوارزمية <a class="reference internal" href="generated/sklearn.cluster.SpectralBiclustering.html#sklearn.cluster.SpectralBiclustering" title="sklearn.cluster.SpectralBiclustering"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpectralBiclustering</span></code></a> أن مصفوفة بيانات الإدخال لها بنية رقعة شطرنج مخفية.
+قد يتم تقسيم صفوف وأعمدة المصفوفة ذات هذا الهيكل بحيث تكون إدخالات أي مجموعة ثنائية في حاصل الضرب الديكارتي لمجموعات الصفوف ومجموعات الأعمدة ثابتة تقريبًا.
+على سبيل المثال، إذا كان هناك قسمان للصفوف وثلاثة أقسام للأعمدة، فسينتمي كل صف إلى ثلاث مجموعات ثنائية، وسينتمي كل عمود إلى مجموعتين ثنائيتين.</p>
+<p>تقوم الخوارزمية بتقسيم صفوف وأعمدة المصفوفة بحيث توفر مصفوفة رقعة الشطرنج الثابتة الكتلية المقابلة تقريبًا جيدًا للمصفوفة الأصلية.</p>
+<blockquote>
+<div><p>الصيغة الرياضية</p>
+</div></blockquote>
+<hr class="docutils" />
+<p>يتم أولاً تطبيع مصفوفة الإدخال <span class="math notranslate nohighlight">\(A\)</span> لجعل نمط رقعة الشطرنج أكثر وضوحًا.
+هناك ثلاث طرق ممكنة:</p>
+<ol class="arabic simple">
+<li><p><em>تطبيع الصفوف والأعمدة المستقلة</em>، كما هو الحال في التجميع المشترك الطيفي.
+تجعل هذه الطريقة مجموع الصفوف ثابتًا ومجموع الأعمدة ثابتًا مختلفًا.</p></li>
+<li><p><strong>Bistochastization</strong>: تطبيع الصفوف والأعمدة المتكرر حتى التقارب.
+تجعل هذه الطريقة كل من الصفوف والأعمدة مجموعًا إلى نفس الثابت.</p></li>
+<li><p><strong>تطبيع السجل</strong>: يتم حساب سجل مصفوفة البيانات: <span class="math notranslate nohighlight">\(L = \log A\)</span>. ثم متوسط العمود <span class="math notranslate nohighlight">\(\overline{L_{i \cdot}}\)</span>، متوسط الصف
+<span class="math notranslate nohighlight">\(\overline{L_{\cdot j}}\)</span>، والمتوسط الإجمالي <span class="math notranslate nohighlight">\(\overline{L_{\cdot \cdot}}\)</span> من <span class="math notranslate nohighlight">\(L\)</span> يتم حسابها.
+يتم حساب المصفوفة النهائية وفقًا للصيغة</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[K_{ij} = L_{ij} - \overline{L_{i \cdot}} - \overline{L_{\cdot j}} + \overline{L_{\cdot \cdot}}\]</div>
+<p>بعد التطبيع، يتم حساب المتجهات المفردة القليلة الأولى، تمامًا كما هو الحال في خوارزمية التجميع المشترك الطيفي.</p>
+<p>إذا تم استخدام تطبيع السجل، فإن جميع المتجهات المفردة ذات مغزى.
+ومع ذلك، إذا تم استخدام التطبيع المستقل أو bistochastization، فإن المتجهات المفردة الأولى، <span class="math notranslate nohighlight">\(u_1\)</span> و <span class="math notranslate nohighlight">\(v_1\)</span>. يتم تجاهلها.
+من الآن فصاعدًا، تشير المتجهات المفردة &quot;الأولى&quot; إلى <span class="math notranslate nohighlight">\(u_2 \dots u_{p+1}\)</span> و <span class="math notranslate nohighlight">\(v_2 \dots v_{p+1}\)</span> باستثناء حالة تطبيع السجل.</p>
+<p>بالنظر إلى هذه المتجهات المفردة، يتم تصنيفها وفقًا لأيها يمكن تقريبه بشكل أفضل بواسطة متجه ثابت متقطع.
+تم العثور على التقريبات لكل متجه باستخدام k-means أحادي البعد وتم تسجيلها باستخدام المسافة الإقليدية.
+يتم اختيار مجموعة فرعية من أفضل متجه مفرد يسار ويمين.
+بعد ذلك، يتم عرض البيانات على هذه المجموعة الفرعية الأفضل من المتجهات المفردة وتجميعها.</p>
+<p>على سبيل المثال، إذا تم حساب <span class="math notranslate nohighlight">\(p\)</span> متجهات مفردة، فسيتم العثور على <span class="math notranslate nohighlight">\(q\)</span> الأفضل كما هو موضح، حيث <span class="math notranslate nohighlight">\(q&lt;p\)</span>.
+دع <span class="math notranslate nohighlight">\(U\)</span> تكون المصفوفة ذات الأعمدة <span class="math notranslate nohighlight">\(q\)</span> أفضل المتجهات المفردة اليسرى، وبالمثل <span class="math notranslate nohighlight">\(V\)</span> لليمين.
+لتقسيم الصفوف، يتم عرض صفوف <span class="math notranslate nohighlight">\(A\)</span> على مساحة <span class="math notranslate nohighlight">\(q\)</span> الأبعاد:
+<span class="math notranslate nohighlight">\(A * V\)</span>. معاملة <span class="math notranslate nohighlight">\(m\)</span> صفوف هذه المصفوفة <span class="math notranslate nohighlight">\(m \times q\)</span> كعينات والتجميع باستخدام k-means ينتج عنها تسميات الصفوف.
+وبالمثل، فإن إسقاط الأعمدة على <span class="math notranslate nohighlight">\(A^{\top} * U\)</span> وتجميع هذه المصفوفة <span class="math notranslate nohighlight">\(n \times q\)</span> ينتج عنه تسميات الأعمدة.</p>
+<p class="rubric">أمثلة</p>
+<ul class="simple">
+<li><p><span class="xref std std-ref">sphx_glr_auto_examples_bicluster/plot_spectral_biclustering.py</span>: مثال بسيط يوضح كيفية إنشاء مصفوفة رقعة الشطرنج وتجميعها ثنائيًا.</p></li>
+</ul>
+<p class="rubric">المراجع</p>
+<ul class="simple">
+<li><p>Kluger، Yuval، et. al.، 2003. <a class="reference external" href="https://doi.org/10.1101/gr.648603">Spectral biclustering of microarray
+data: coclustering genes and conditions</a></p></li>
+</ul>
+</section>
+<section id="biclustering-evaluation">
+<span id="id5"></span><h2><span class="section-number">2.4.3. </span>تقييم التجميع الثنائي<a class="headerlink" href="#biclustering-evaluation" title="Link to this heading">#</a></h2>
+<p>هناك طريقتان لتقييم نتيجة التجميع الثنائي: داخلي وخارجي.
+تعتمد المقاييس الداخلية، مثل استقرار الكتلة، فقط على البيانات والنتيجة نفسها.
+لا توجد حاليًا مقاييس تجميع ثنائي داخلي في scikit-learn.
+تشير المقاييس الخارجية إلى مصدر خارجي للمعلومات، مثل الحل الحقيقي.
+عند العمل مع بيانات حقيقية، يكون الحل الحقيقي غير معروف عادةً، ولكن قد يكون التجميع الثنائي للبيانات الاصطناعية مفيدًا لتقييم الخوارزميات على وجه التحديد لأن الحل الحقيقي معروف.</p>
+<p>لمقارنة مجموعة من التجميعات الثنائية التي تم العثور عليها بمجموعة التجميعات الثنائية الحقيقية، يلزم وجود مقياسين للتشابه:
+مقياس تشابه للتجميعات الثنائية الفردية، وطريقة لدمج أوجه التشابه الفردية هذه في درجة إجمالية.</p>
+<p>لمقارنة التجميعات الثنائية الفردية، تم استخدام عدة مقاييس.
+في الوقت الحالي، تم تنفيذ فهرس Jaccard فقط:</p>
+<div class="math notranslate nohighlight">
+\[J(A, B) = \frac{|A \cap B|}{|A| + |B| - |A \cap B|}\]</div>
+<p>حيث <span class="math notranslate nohighlight">\(A\)</span> و <span class="math notranslate nohighlight">\(B\)</span> عبارة عن مجموعات ثنائية، <span class="math notranslate nohighlight">\(|A \cap B|\)</span> هو عدد العناصر في تقاطعها.
+يصل فهرس Jaccard إلى الحد الأدنى له وهو 0 عندما لا تتداخل التجميعات الثنائية على الإطلاق ويصل إلى الحد الأقصى له وهو 1 عندما تكون متطابقة.</p>
+<p>تم تطوير عدة طرق لمقارنة مجموعتين من التجميعات الثنائية.
+في الوقت الحالي، تتوفر <a class="reference internal" href="generated/sklearn.metrics.consensus_score.html#sklearn.metrics.consensus_score" title="sklearn.metrics.consensus_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">consensus_score</span></code></a> (Hochreiter et. al.، 2010) فقط:</p>
+<ol class="arabic simple">
+<li><p>احسب أوجه تشابه التجميع الثنائي لأزواج التجميعات الثنائية، واحدة في كل مجموعة، باستخدام فهرس Jaccard أو مقياس مشابه.</p></li>
+<li><p>قم بتعيين التجميعات الثنائية من مجموعة إلى أخرى بطريقة فردية لزيادة مجموع أوجه التشابه بينها.
+يتم تنفيذ هذه الخطوة باستخدام <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.linear_sum_assignment.html#scipy.optimize.linear_sum_assignment" title="(in SciPy v1.14.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">scipy.optimize.linear_sum_assignment</span></code></a>، الذي يستخدم خوارزمية Jonker-Volgenant المعدلة.</p></li>
+<li><p>يتم قسمة مجموع أوجه التشابه النهائي على حجم المجموعة الأكبر.</p></li>
+</ol>
+<p>تحدث درجة الإجماع الدنيا، 0، عندما تكون جميع أزواج التجميعات الثنائية متباينة تمامًا.
+تحدث الدرجة القصوى، 1، عندما تكون كلتا المجموعتين متطابقتين.</p>
+<p class="rubric">المراجع</p>
+<ul class="simple">
+<li><p>Hochreiter، Bodenhofer، et. al.، 2010. <a class="reference external" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2881408/">FABIA: factor analysis for bicluster acquisition</a>.</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  <div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item">
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="clustering.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">السابق</p>
+        <p class="prev-next-title"><span class="section-number">2.3. </span>التجميع</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="decomposition.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">التالي</p>
+        <p class="prev-next-title"><span class="section-number">2.5. </span>تحليل الإشارات إلى مكونات (مشاكل تحليل المصفوفات)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+                </footer>
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spectral-coclustering">2.4.1. التجميع المشترك الطيفي</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.4.1.1. الصيغة الرياضية</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spectral-biclustering">2.4.2. التجميع الثنائي الطيفي</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#biclustering-evaluation">2.4.3. تقييم التجميع الثنائي</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/modules/biclustering.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> إظهار المصدر
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2007 - 2024, scikit-learn developers (BSD License) ### Translate into Arabic Eng. Ahmed Almaghz - 2024.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1066 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ar" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="11.3. التوازي وإدارة الموارد والتهيئة" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://scikit-learn/stable/computing/parallelism.html" />
+<meta property="og:site_name" content="scikit-learn" />
+<meta property="og:description" content="التوازي: يقوم بعض المقدرين والمرافقين في scikit-learn بتوازي العمليات المكلفة باستخدام عدة وحدات معالجة مركزية. اعتمادًا على نوع المقدر وأحيانًا على قيم معلمات الباني، يتم ذلك إما: مع التوازي عالي ..." />
+<meta property="og:image" content="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" />
+<meta property="og:image:alt" content="scikit-learn" />
+<meta name="description" content="التوازي: يقوم بعض المقدرين والمرافقين في scikit-learn بتوازي العمليات المكلفة باستخدام عدة وحدات معالجة مركزية. اعتمادًا على نوع المقدر وأحيانًا على قيم معلمات الباني، يتم ذلك إما: مع التوازي عالي ..." />
+
+    <title>11.3. التوازي وإدارة الموارد والتهيئة &#8212; scikit-learn 1.6.dev0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css?v=7f9a90b1" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyterlite_sphinx.css?v=ca70e7f1" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/colors.css?v=cc94ab7d" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/custom.css?v=85b0813d" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../_static/documentation_options.js?v=3cd28d06"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=97f0b27d"></script>
+    <script src="../_static/jupyterlite_sphinx.js?v=d6bdf5f8"></script>
+    <script src="../_static/translations.js?v=87cb2081"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script data-domain="scikit-learn.org" defer="defer" src="https://views.scientific-python.org/js/script.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'computing/parallelism';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://scikit-learn.org/dev/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1.6.dev0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/scripts/dropdown.js?v=e2048168"></script>
+    <script src="../_static/scripts/version-switcher.js?v=a6dd8357"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="search" title="بحث" href="../search.html" />
+    <link rel="next" title="12. حفظ النموذج" href="../model_persistence.html" />
+    <link rel="prev" title="11.2. الأداء الحسابي" href="computational_performance.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ar"/>
+  <meta name="docsearch:version" content="1.6" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/scikit-learn-logo-small.png" class="logo__image only-light" alt="scikit-learn homepage"/>
+    <img src="../_static/scikit-learn-logo-small.png" class="logo__image only-dark pst-js-only" alt="scikit-learn homepage"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    دليل المستخدم
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../support.html">
+    الدعم الفني
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../related_projects.html">
+    مشاريع ذات علاقة
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../about.html">
+    من نحن
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    دليل المستخدم
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../support.html">
+    الدعم الفني
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../related_projects.html">
+    مشاريع ذات علاقة
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../about.html">
+    من نحن
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../supervised_learning.html">1. التعليم الخاضع للإشراف</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/linear_model.html">1.1. النماذج الخطية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/lda_qda.html">1.2. تحليل التمييز الخطي والتربيعي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/kernel_ridge.html">1.3. انحدار حافة النواة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/svm.html">1.4. آلات الدعم المتجهية (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/sgd.html">1.5. التحسين التدريجي العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/neighbors.html">1.6. أقرب الجيران</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/gaussian_process.html">1.7. العمليات الغاوسية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/cross_decomposition.html">1.8. التحليل المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/naive_bayes.html">1.9. خوارزميات بايز الساذجة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/tree.html">1.10. شجرة القرار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/ensemble.html">1.11. المجموعات: تعزيز التدرج، الغابات العشوائية، التجميع، التصويت، التكديس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/multiclass.html">1.12. خوارزميات متعددة التصنيف ومتعددة الإخراج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/feature_selection.html">1.13. اختيار الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/semi_supervised.html">1.14. التعليم شبه الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/isotonic.html">1.15. الانحدار المتساوي التوتر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/calibration.html">1.16. معايرة الاحتمال</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/neural_networks_supervised.html">1.17. نماذج الشبكات العصبية (الخاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../unsupervised_learning.html">2. التعليم الغير خاضع للإشراف</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/mixture.html">2.1. نماذج خليط غاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/manifold.html">2.2. تعلم المشعبات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/clustering.html">2.3. التجميع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/biclustering.html">2.4. التجميع الثنائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/decomposition.html">2.5. تحليل الإشارات إلى مكونات (مشاكل تحليل المصفوفات)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/covariance.html">2.6. تقدير التباين المشترك</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/outlier_detection.html">2.7. كشف القيم الغريبة والقيم المتطرفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/density.html">2.8. تقدير الكثافة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/neural_networks_unsupervised.html">2.9. نماذج الشبكة العصبية (غير خاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../model_selection.html">3. تقييم وإختيار النموذج</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/cross_validation.html">3.1. التحقق المتبادل: تقييم أداء المقدر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/grid_search.html">3.2. ضبط المعلمات الفائقة لمُقدِّر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/classification_threshold.html">3.3. ضبط عتبة القرار لتنبؤ الفئة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/model_evaluation.html">3.4. المقاييس والتهديف: تحديد جودة التنبؤات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/learning_curve.html">3.5. منحنيات التحقق من الصحة: رسم الدرجات لتقييم النماذج</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../inspection.html">4. الفحص</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/partial_dependence.html">4.1. مخططات الاعتماد الجزئي والتوقع الشرطي الفردي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/permutation_importance.html">4.2. أهمية التبديل</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualizations.html">5. التصورات المرئية</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../data_transforms.html">6. تحويلات مجموعات البيانات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/compose.html">6.1. خطوط الأنابيب والمقدرات المركبة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/feature_extraction.html">6.2. استخراج الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/preprocessing.html">6.3. المعالجة المسبقة للبيانات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/impute.html">6.4. تعويض القيم المفقودة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/unsupervised_reduction.html">6.5. تخفيض الأبعاد غير الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/random_projection.html">6.6. الإسقاط العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/kernel_approximation.html">6.7. Kernel Approximation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/metrics.html">6.8. مقاييس المقارنة الزوجية، والصلات، والنوى (Kernels)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/preprocessing_targets.html">6.9. تحويل هدف التنبؤ (<code class="docutils literal notranslate"><span class="pre">y</span></code>)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/toy_dataset.html">7. مجموعات بيانات تجريبية</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/real_world.html">8. مجموعات بيانات العالم الحقيقي</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/sample_generators.html">9. مجموعات بيانات مولدة</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/loading_other_datasets.html">10. تحميل مجموعات بيانات أخرى</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../computing.html">11. الحوسبة مع scikit-learn</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="scaling_strategies.html">11.1. استراتيجيات للقياس حسابيًا: بيانات أكبر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="computational_performance.html">11.2. الأداء الحسابي</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">11.3. التوازي وإدارة الموارد والتهيئة</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../model_persistence.html">12. حفظ النموذج</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../common_pitfalls.html">13. المزالق الشائعة والممارسات الموصى بها</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../dispatching.html">14. Dispatching</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/array_api.html">14.1. دعم المدخلات المتوافقة مع <code class="docutils literal notranslate"><span class="pre">Array</span> <span class="pre">API</span></code></a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../machine_learning_map.html">15. اختيار المقدر المناسب</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../presentations.html">16. المصادر الخارجية ومقاطع الفيديو والمحادثات</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../user_guide.html" class="nav-link">دليل المستخدم</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../computing.html" class="nav-link"><span class="section-number">11. </span>الحوسبة مع scikit-learn</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">11.3. </span>التوازي وإدارة الموارد والتهيئة</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="id1">
+<h1><span class="section-number">11.3. </span>التوازي وإدارة الموارد والتهيئة<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<section id="parallelism">
+<span id="id2"></span><h2><span class="section-number">11.3.1. </span>التوازي<a class="headerlink" href="#parallelism" title="Link to this heading">#</a></h2>
+<p>يقوم بعض المقدرين والمرافقين في scikit-learn بتوازي العمليات المكلفة
+باستخدام عدة وحدات معالجة مركزية.</p>
+<p>اعتمادًا على نوع المقدر وأحيانًا على قيم معلمات الباني، يتم ذلك إما:</p>
+<ul class="simple">
+<li><p>مع التوازي عالي المستوى عبر <a class="reference external" href="https://joblib.readthedocs.io/en/latest/">joblib</a>.</p></li>
+<li><p>مع التوازي منخفض المستوى عبر OpenMP، المستخدم في كود C أو Cython.</p></li>
+<li><p>مع التوازي منخفض المستوى عبر BLAS، المستخدم بواسطة NumPy وSciPy للعمليات العامة
+على المصفوفات.</p></li>
+</ul>
+<p>معلمات <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code> للمقدرين تتحكم دائمًا في مقدار التوازي
+الذي يديره joblib (العمليات أو الخيوط اعتمادًا على backend joblib).
+التوازي على مستوى الخيوط الذي يديره OpenMP في كود Cython الخاص بـ scikit-learn
+أو بواسطة BLAS &amp; LAPACK الذي تستخدمه مكتبات NumPy وSciPy المستخدمة في scikit-learn
+يتم التحكم فيه دائمًا بواسطة متغيرات البيئة أو <code class="docutils literal notranslate"><span class="pre">threadpoolctl</span></code> كما هو موضح أدناه.
+لاحظ أن بعض المقدرين يمكنهم الاستفادة من جميع أنواع التوازي الثلاثة في نقاط مختلفة
+من طرق التدريب والتنبؤ الخاصة بهم.</p>
+<p>نصف هذه الأنواع الثلاثة من التوازي في الفقرات الفرعية التالية بمزيد من التفاصيل.</p>
+<section id="id3">
+<h3><span class="section-number">11.3.1.1. </span>التوازي عالي المستوى مع joblib<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>عندما يستخدم التنفيذ joblib، يمكن التحكم في عدد العمال
+(الخيوط أو العمليات) التي يتم إنشاؤها بالتوازي عبر
+المعلمة <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">ملاحظة</p>
+<p>أين (وكيف) يحدث التوازي في المقدرين الذين يستخدمون joblib عن طريق
+تحديد <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code> موثق حاليًا بشكل سيئ.
+يرجى مساعدتنا من خلال تحسين وثائقنا والتعامل مع <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/issues/14228">issue 14228</a>!</p>
+</div>
+<p>يمكن لـ joblib دعم كل من المعالجة المتعددة والتعدد الخيطي. ما إذا كان
+joblib يختار إنشاء خيط أو عملية يعتمد على <strong>backend</strong>
+الذي يستخدمه.</p>
+<p>يعتمد scikit-learn بشكل عام على backend <code class="docutils literal notranslate"><span class="pre">loky</span></code>، وهو backend الافتراضي لـ joblib. Loky هو backend متعدد العمليات. عند القيام
+بالمعالجة المتعددة، من أجل تجنب تكرار الذاكرة في كل عملية
+(الذي ليس معقولًا مع مجموعات البيانات الكبيرة)، سيقوم joblib بإنشاء <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.memmap.html">memmap</a>
+يمكن لجميع العمليات مشاركته، عندما تكون البيانات أكبر من 1MB.</p>
+<p>في بعض الحالات المحددة (عندما يطلق الكود الذي يتم تشغيله بالتوازي GIL)، سيشير scikit-learn إلى <code class="docutils literal notranslate"><span class="pre">joblib</span></code> بأن backend متعدد الخيوط
+يفضل.</p>
+<p>كمستخدم، يمكنك التحكم في backend الذي سيستخدمه joblib (بغض النظر
+عن ما يوصي به scikit-learn) باستخدام context manager:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">parallel_backend</span>
+
+<span class="k">with</span> <span class="n">parallel_backend</span><span class="p">(</span><span class="s1">&#39;threading&#39;</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="c1"># Your scikit-learn code here</span>
+</pre></div>
+</div>
+<p>يرجى الرجوع إلى <a class="reference external" href="https://joblib.readthedocs.io/en/latest/parallel.html#thread-based-parallelism-vs-process-based-parallelism">joblib's docs</a>
+لمزيد من التفاصيل.</p>
+<p>في الممارسة العملية، ما إذا كان التوازي مفيدًا في تحسين وقت التشغيل يعتمد
+على العديد من العوامل. عادة ما تكون فكرة جيدة للتجربة بدلاً من افتراض
+أن زيادة عدد العمال هي دائمًا أمر جيد. في بعض الحالات
+يمكن أن يكون ضارًا للغاية بالأداء لتشغيل عدة نسخ من بعض
+المقدرين أو الوظائف بالتوازي (انظر الإفراط في الاشتراك أدناه).</p>
+</section>
+<section id="openmp">
+<h3><span class="section-number">11.3.1.2. </span>التوازي منخفض المستوى مع OpenMP<a class="headerlink" href="#openmp" title="Link to this heading">#</a></h3>
+<p>يستخدم OpenMP لتوازي الكود المكتوب في Cython أو C، معتمدًا على
+التعدد الخيطي حصريًا. بشكل افتراضي، ستستخدم التنفيذات التي تستخدم OpenMP
+أكبر عدد ممكن من الخيوط، أي عدد الخيوط مثل وحدات المعالجة المركزية المنطقية.</p>
+<p>يمكنك التحكم في العدد الدقيق للخيوط المستخدمة إما:</p>
+<ul>
+<li><p>عبر متغير البيئة <code class="docutils literal notranslate"><span class="pre">OMP_NUM_THREADS</span></code>، على سبيل المثال عند:
+تشغيل نص برمجي بايثون:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1"><span class="nv">OMP_NUM_THREADS</span><span class="o">=</span><span class="m">4</span><span class="w"> </span>python<span class="w"> </span>my_script.py</span>
+</pre></div></div></li>
+<li><p>أو عبر <code class="docutils literal notranslate"><span class="pre">threadpoolctl</span></code> كما هو موضح بواسطة <a class="reference external" href="https://github.com/joblib/threadpoolctl/#setting-the-maximum-size-of-thread-pools">هذه القطعة من الوثائق</a>.</p></li>
+</ul>
+</section>
+<section id="numpy-scipy">
+<h3><span class="section-number">11.3.1.3. </span>الروتينات الموازية NumPy وSciPy من المكتبات العددية<a class="headerlink" href="#numpy-scipy" title="Link to this heading">#</a></h3>
+<p>يعتمد scikit-learn بشكل كبير على NumPy وSciPy، والذي يستدعي داخليًا
+الروتينات الخطية المتوازية (BLAS &amp; LAPACK) المنفذة في المكتبات
+مثل MKL وOpenBLAS أو BLIS.</p>
+<p>يمكنك التحكم في العدد الدقيق للخيوط التي تستخدمها BLAS لكل مكتبة
+باستخدام متغيرات البيئة، على وجه التحديد:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">MKL_NUM_THREADS</span></code> يحدد عدد الخيوط التي يستخدمها MKL،</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OPENBLAS_NUM_THREADS</span></code> يحدد عدد الخيوط التي يستخدمها OpenBLAS</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BLIS_NUM_THREADS</span></code> يحدد عدد الخيوط التي يستخدمها BLIS</p></li>
+</ul>
+<p>لاحظ أن BLAS &amp; LAPACK يمكن أن تتأثر أيضًا بـ
+<code class="docutils literal notranslate"><span class="pre">OMP_NUM_THREADS</span></code>. للتحقق مما إذا كان هذا هو الحال في بيئتك،
+يمكنك فحص كيفية تأثير عدد الخيوط المستخدمة بشكل فعال بواسطة هذه المكتبات
+عند تشغيل الأمر التالي في محيط bash أو zsh
+للقيم المختلفة لـ <code class="docutils literal notranslate"><span class="pre">OMP_NUM_THREADS</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nv">OMP_NUM_THREADS</span><span class="o">=</span><span class="m">2</span><span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>threadpoolctl<span class="w"> </span>-i<span class="w"> </span>numpy<span class="w"> </span>scipy</span>
+</pre></div></div><div class="admonition note">
+<p class="admonition-title">ملاحظة</p>
+<p>في وقت الكتابة (2022)، حزم NumPy وSciPy التي يتم توزيعها على pypi.org (أي تلك المثبتة عبر <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code>)
+وعلى قناة conda-forge (أي تلك المثبتة عبر
+<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">--channel</span> <span class="pre">conda-forge</span></code>) مرتبطة بـ OpenBLAS، بينما
+حزم NumPy وSciPy packages الموزعة على قناة conda الافتراضية من Anaconda.org (أي تلك المثبتة عبر <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span></code>)
+مرتبطة افتراضيًا بـ MKL.</p>
+</div>
+</section>
+<section id="id5">
+<h3><span class="section-number">11.3.1.4. </span>الإفراط في الاشتراك: إنشاء الكثير من الخيوط<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>من المستحسن عمومًا تجنب استخدام عدد أكبر بكثير من العمليات أو
+الخيوط من عدد وحدات المعالجة المركزية على الجهاز. يحدث الإفراط في الاشتراك عندما
+يقوم برنامج بتشغيل الكثير من الخيوط في نفس الوقت.</p>
+<p>لنفترض أن لديك جهازًا به 8 وحدات معالجة مركزية. ضع في اعتبارك حالة تقوم فيها بتشغيل
+<a class="reference internal" href="../modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearchCV</span></code></a> (موازاة مع joblib)
+مع <code class="docutils literal notranslate"><span class="pre">n_jobs=8</span></code> على
+<a class="reference internal" href="../modules/generated/sklearn.ensemble.HistGradientBoostingClassifier.html#sklearn.ensemble.HistGradientBoostingClassifier" title="sklearn.ensemble.HistGradientBoostingClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">HistGradientBoostingClassifier</span></code></a> (موازاة مع
+OpenMP). ستقوم كل مثيل من
+<a class="reference internal" href="../modules/generated/sklearn.ensemble.HistGradientBoostingClassifier.html#sklearn.ensemble.HistGradientBoostingClassifier" title="sklearn.ensemble.HistGradientBoostingClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">HistGradientBoostingClassifier</span></code></a> بإنشاء 8 خيوط
+(نظرًا لأن لديك 8 وحدات معالجة مركزية). هذا ما مجموعه <code class="docutils literal notranslate"><span class="pre">8</span> <span class="pre">*</span> <span class="pre">8</span> <span class="pre">=</span> <span class="pre">64</span></code> خيوط، مما
+يؤدي إلى الإفراط في الاشتراك في الموارد المادية لوحدات المعالجة المركزية وبالتالي
+إلى زيادة وقت الجدولة.</p>
+<p>يمكن أن يحدث الإفراط في الاشتراك بنفس الطريقة بالضبط مع الروتينات الموازية
+من MKL أو OpenBLAS أو BLIS المضمنة في مكالمات joblib.</p>
+<p>بدءًا من <code class="docutils literal notranslate"><span class="pre">joblib</span> <span class="pre">&gt;=</span> <span class="pre">0.14</span></code>، عندما يتم استخدام backend <code class="docutils literal notranslate"><span class="pre">loky</span></code> (الذي
+هو الافتراضي)، سيخبر joblib عملياته <strong>الفرعية</strong> بتحديد عدد الخيوط التي يمكنهم استخدامها، وذلك لتجنب الإفراط في الاشتراك. في الممارسة
+الخوارزمية التي يستخدمها joblib هي إخبار العمليات باستخدام <code class="docutils literal notranslate"><span class="pre">max_threads</span>
+<span class="pre">=</span> <span class="pre">n_cpus</span> <span class="pre">//</span> <span class="pre">n_jobs</span></code>، عبر متغير البيئة الخاص بهم. عودة إلى
+مثالنا من الأعلى، نظرًا لأن backend joblib من
+<a class="reference internal" href="../modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearchCV</span></code></a> هو <code class="docutils literal notranslate"><span class="pre">loky</span></code>، فإن كل عملية ستتمكن
+فقط من استخدام خيط واحد بدلاً من 8، وبالتالي التخفيف من مشكلة الإفراط في الاشتراك.</p>
+<p>لاحظ أنه:</p>
+<ul class="simple">
+<li><p>تعيين أحد متغيرات البيئة (<code class="docutils literal notranslate"><span class="pre">OMP_NUM_THREADS</span></code>،
+<code class="docutils literal notranslate"><span class="pre">MKL_NUM_THREADS</span></code>، <code class="docutils literal notranslate"><span class="pre">OPENBLAS_NUM_THREADS</span></code>، أو <code class="docutils literal notranslate"><span class="pre">BLIS_NUM_THREADS</span></code>)
+سيكون له الأسبقية على ما يحاول joblib القيام به. سيكون العدد الإجمالي للخيوط
+<code class="docutils literal notranslate"><span class="pre">n_jobs</span> <span class="pre">*</span> <span class="pre">&lt;LIB&gt;_NUM_THREADS</span></code>. لاحظ أن تعيين هذا
+الحد سيؤثر أيضًا على حساباتك في العملية الرئيسية، والتي ستستخدم فقط <code class="docutils literal notranslate"><span class="pre">&lt;LIB&gt;_NUM_THREADS</span></code>. يعرض joblib context manager للتحكم الدقيق في عدد الخيوط في عماله (انظر وثائق joblib المرتبطة أدناه).</p></li>
+<li><p>عندما يتم تكوين joblib لاستخدام backend <code class="docutils literal notranslate"><span class="pre">threading</span></code>، لا توجد</p></li>
+</ul>
+<p>آلية لتجنب الإفراط في الاشتراك عند استدعاء المكتبات الأصلية الموازية في الخيوط التي يديرها joblib.
+- جميع المقدرين في scikit-learn الذين يعتمدون صراحة على OpenMP في كود Cython الخاص بهم</p>
+<blockquote>
+<div><p>يستخدمون <code class="docutils literal notranslate"><span class="pre">threadpoolctl</span></code> داخليًا لتكييف أعداد الخيوط المستخدمة بواسطة OpenMP وربما BLAS المضمنة بحيث يتم تجنب الإفراط في الاشتراك.</p>
+</div></blockquote>
+<p>ستجد تفاصيل إضافية حول تخفيف joblib للإفراط في الاشتراك
+في <a class="reference external" href="https://joblib.readthedocs.io/en/latest/parallel.html#avoiding-over-subscription-of-cpu-resources">وثائق joblib</a>.</p>
+<p>ستجد تفاصيل إضافية حول التوازي في المكتبات بايثون العددية
+في <a class="reference external" href="https://thomasjpfan.github.io/parallelism-python-libraries-design/">هذه الوثيقة من Thomas J. Fan</a>.</p>
+</section>
+</section>
+<section id="id7">
+<h2><span class="section-number">11.3.2. </span>مفاتيح التهيئة<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<section id="python-api">
+<h3><span class="section-number">11.3.2.1. </span>Python API<a class="headerlink" href="#python-api" title="Link to this heading">#</a></h3>
+<p>يمكن استخدام <a class="reference internal" href="../modules/generated/sklearn.set_config.html#sklearn.set_config" title="sklearn.set_config"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.set_config</span></code></a> و <a class="reference internal" href="../modules/generated/sklearn.config_context.html#sklearn.config_context" title="sklearn.config_context"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.config_context</span></code></a> لتغيير
+معلمات التهيئة التي تتحكم في جانب التوازي.</p>
+</section>
+<section id="environment-variable">
+<span id="id8"></span><h3><span class="section-number">11.3.2.2. </span>متغيرات البيئة<a class="headerlink" href="#environment-variable" title="Link to this heading">#</a></h3>
+<p>يجب تعيين متغيرات البيئة هذه قبل استيراد scikit-learn.</p>
+<section id="sklearn-assume-finite">
+<h4><span class="section-number">11.3.2.2.1. </span><code class="docutils literal notranslate"><span class="pre">SKLEARN_ASSUME_FINITE</span></code><a class="headerlink" href="#sklearn-assume-finite" title="Link to this heading">#</a></h4>
+<p>يحدد القيمة الافتراضية لحجة <code class="docutils literal notranslate"><span class="pre">assume_finite</span></code> لـ
+<a class="reference internal" href="../modules/generated/sklearn.set_config.html#sklearn.set_config" title="sklearn.set_config"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.set_config</span></code></a>.</p>
+</section>
+<section id="sklearn-working-memory">
+<h4><span class="section-number">11.3.2.2.2. </span><code class="docutils literal notranslate"><span class="pre">SKLEARN_WORKING_MEMORY</span></code><a class="headerlink" href="#sklearn-working-memory" title="Link to this heading">#</a></h4>
+<p>يحدد القيمة الافتراضية لحجة <code class="docutils literal notranslate"><span class="pre">working_memory</span></code> لـ
+<a class="reference internal" href="../modules/generated/sklearn.set_config.html#sklearn.set_config" title="sklearn.set_config"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.set_config</span></code></a>.</p>
+</section>
+<section id="sklearn-seed">
+<h4><span class="section-number">11.3.2.2.3. </span><code class="docutils literal notranslate"><span class="pre">SKLEARN_SEED</span></code><a class="headerlink" href="#sklearn-seed" title="Link to this heading">#</a></h4>
+<p>يحدد البذرة للمولد العشوائي العالمي عند تشغيل الاختبارات، من أجل
+القابلية للتكرار.</p>
+<p>لاحظ أنه من المتوقع أن تعمل اختبارات scikit-learn بشكل حتمي مع
+الاستخدام الصريح للبذور المستقلة الخاصة بها بدلاً من الاعتماد على
+مولدات الأرقام العشوائية للبايثون أو مكتبة المعايير القياسية للبايثون للتأكد من أن نتائج الاختبار مستقلة عن ترتيب تنفيذ الاختبار. ومع ذلك، قد تنسى بعض الاختبارات استخدام البذر الصريح وهذه المتغير هي وسيلة للتحكم في الحالة الأولية للمولدات المذكورة أعلاه.</p>
+</section>
+<section id="sklearn-tests-global-random-seed">
+<h4><span class="section-number">11.3.2.2.4. </span><code class="docutils literal notranslate"><span class="pre">SKLEARN_TESTS_GLOBAL_RANDOM_SEED</span></code><a class="headerlink" href="#sklearn-tests-global-random-seed" title="Link to this heading">#</a></h4>
+<p>يتحكم في بذر مولد الأرقام العشوائية المستخدم في الاختبارات التي تعتمد على
+الـ <code class="docutils literal notranslate"><span class="pre">global_random_seed</span></code> fixture.</p>
+<p>تعتمد جميع الاختبارات التي تستخدم هذا الـ fixture على العقد بأن تمر بشكل حتمي
+لأي قيمة بذرة من 0 إلى 99.</p>
+<p>في عمليات بناء CI الليلية، يتم رسم <code class="docutils literal notranslate"><span class="pre">SKLEARN_TESTS_GLOBAL_RANDOM_SEED</span></code>
+بيئة متغير عشوائيًا في النطاق المذكور أعلاه وتعمل جميع الاختبارات
+التي تستخدم هذا الـ fixture على تلك البذرة المحددة. الهدف هو التأكد من أنه، مع مرور الوقت، سيقوم CI الخاص بنا بتشغيل
+جميع الاختبارات مع بذور مختلفة مع الحفاظ على مدة الاختبار لتشغيل واحد
+من مجموعة الاختبارات الكاملة محدودة. هذا سيتحقق من أن تأكيدات الاختبارات
+التي تم كتابتها لاستخدام هذا الـ fixture ليست معتمدة على قيمة بذرة محددة.</p>
+<p>يقتصر نطاق قيم البذور المقبولة على [0، 99] لأنه غالبًا ما يكون
+من غير الممكن كتابة اختبار يمكن أن يعمل لأي بذرة ممكنة ونريد
+تجنب وجود اختبارات تفشل عشوائيًا في CI.</p>
+<p>القيم الصالحة لـ <code class="docutils literal notranslate"><span class="pre">SKLEARN_TESTS_GLOBAL_RANDOM_SEED</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SKLEARN_TESTS_GLOBAL_RANDOM_SEED=&quot;42&quot;</span></code>: تشغيل الاختبارات مع بذرة ثابتة من 42</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SKLEARN_TESTS_GLOBAL_RANDOM_SEED=&quot;40-42&quot;</span></code>: تشغيل الاختبارات مع جميع البذور
+بين 40 و 42.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SKLEARN_TESTS_GLOBAL_RANDOM_SEED=&quot;all&quot;</span></code>: تشغيل الاختبارات مع جميع البذور
+بين 0 و 99. يمكن أن يستغرق هذا وقتًا طويلاً: استخدمه فقط لاختبارات فردية، وليس لمجموعة الاختبارات الكاملة!</p></li>
+</ul>
+<p>إذا لم يتم تعيين المتغير، فسيتم استخدام 42 كبذرة عالمية بطريقة حتمية. هذا يضمن أن
+مجموعة اختبارات scikit-learn تكون حتمية قدر الإمكان لتجنب إزعاج مُحسني الطرف الثالث الودودين لدينا. وبالمثل، لا ينبغي تعيين هذا المتغير في
+تكوين CI لسحب الطلبات للتأكد من أن مُحسنينا الودودين ليسوا أول من يواجه مشكلة حساسية البذور في اختبار غير مرتبط بتغييرات PR الخاصة بهم. فقط مُحسنو scikit-learn الذين يشاهدون نتائج عمليات البناء الليلية يتوقع أن يزعجهم هذا.</p>
+<p>عند كتابة اختبار جديد يستخدم هذا الـ fixture، يرجى استخدام
+الأمر التالي للتأكد من أنه يمر بشكل حتمي لجميع
+البذور المقبولة على جهازك المحلي:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nv">SKLEARN_TESTS_GLOBAL_RANDOM_SEED</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="w"> </span>pytest<span class="w"> </span>-v<span class="w"> </span>-k<span class="w"> </span>test_your_test_name</span>
+</pre></div></div></section>
+<section id="sklearn-skip-network-tests">
+<h4><span class="section-number">11.3.2.2.5. </span><code class="docutils literal notranslate"><span class="pre">SKLEARN_SKIP_NETWORK_TESTS</span></code><a class="headerlink" href="#sklearn-skip-network-tests" title="Link to this heading">#</a></h4>
+<p>عندما يتم تعيين هذه البيئة إلى قيمة غير صفرية، يتم تخطي الاختبارات التي تحتاج
+إلى الوصول إلى الشبكة. عندما لا يتم تعيين هذه البيئة، يتم تخطي اختبارات الشبكة.</p>
+</section>
+<section id="sklearn-run-float32-tests">
+<h4><span class="section-number">11.3.2.2.6. </span><code class="docutils literal notranslate"><span class="pre">SKLEARN_RUN_FLOAT32_TESTS</span></code><a class="headerlink" href="#sklearn-run-float32-tests" title="Link to this heading">#</a></h4>
+<p>عندما يتم تعيين هذه البيئة إلى '1'، يتم أيضًا تشغيل الاختبارات التي تستخدم
+<code class="docutils literal notranslate"><span class="pre">global_dtype</span></code> fixture على بيانات float32.
+عندما لا يتم تعيين هذه البيئة، يتم تشغيل الاختبارات فقط على
+بيانات float64.</p>
+</section>
+<section id="sklearn-enable-debug-cython-directives">
+<h4><span class="section-number">11.3.2.2.7. </span><code class="docutils literal notranslate"><span class="pre">SKLEARN_ENABLE_DEBUG_CYTHON_DIRECTIVES</span></code><a class="headerlink" href="#sklearn-enable-debug-cython-directives" title="Link to this heading">#</a></h4>
+<p>عندما يتم تعيين هذه البيئة إلى قيمة غير صفرية، يتم تعيين المشتق <code class="docutils literal notranslate"><span class="pre">Cython</span></code>،
+<code class="docutils literal notranslate"><span class="pre">boundscheck</span></code> إلى <code class="docutils literal notranslate"><span class="pre">True</span></code>. هذا مفيد للعثور على
+segfaults.</p>
+</section>
+<section id="sklearn-build-enable-debug-symbols">
+<h4><span class="section-number">11.3.2.2.8. </span><code class="docutils literal notranslate"><span class="pre">SKLEARN_BUILD_ENABLE_DEBUG_SYMBOLS</span></code><a class="headerlink" href="#sklearn-build-enable-debug-symbols" title="Link to this heading">#</a></h4>
+<p>عندما يتم تعيين هذه البيئة إلى قيمة غير صفرية، سيتم تضمين رموز التصحيح
+في الإضافات C المجمّعة. يتم تكوين رموز التصحيح فقط لأنظمة POSIX.</p>
+</section>
+<section id="sklearn-pairwise-dist-chunk-size">
+<h4><span class="section-number">11.3.2.2.9. </span><code class="docutils literal notranslate"><span class="pre">SKLEARN_PAIRWISE_DIST_CHUNK_SIZE</span></code><a class="headerlink" href="#sklearn-pairwise-dist-chunk-size" title="Link to this heading">#</a></h4>
+<p>يحدد هذا حجم الجزء الذي سيتم استخدامه بواسطة التطبيقات الأساسية لـ <code class="docutils literal notranslate"><span class="pre">PairwiseDistancesReductions</span></code>. القيمة الافتراضية هي <code class="docutils literal notranslate"><span class="pre">256</span></code> والتي ثبت أنها كافية على
+معظم الأجهزة.</p>
+<p>قد يرغب المستخدمون الذين يبحثون عن أفضل أداء في ضبط هذا المتغير باستخدام
+أسس 2 بحيث يحصلون على أفضل سلوك للتوازي لمعداتهم، خاصة فيما يتعلق
+بحجم ذاكرتهم المخبئية.</p>
+</section>
+<section id="sklearn-warnings-as-errors">
+<h4><span class="section-number">11.3.2.2.10. </span><code class="docutils literal notranslate"><span class="pre">SKLEARN_WARNINGS_AS_ERRORS</span></code><a class="headerlink" href="#sklearn-warnings-as-errors" title="Link to this heading">#</a></h4>
+<p>يتم استخدام متغير البيئة هذا لتحويل التحذيرات إلى أخطاء في الاختبارات وبناء الوثائق.</p>
+<p>يحدد بعض عمليات CI (Continuous Integration) <code class="docutils literal notranslate"><span class="pre">SKLEARN_WARNINGS_AS_ERRORS=1</span></code>، على سبيل المثال للتأكد من أننا نلتقط تحذيرات الإلغاء التدريجي من التبعيات الخاصة بنا وأننا نكيف كودنا.</p>
+<p>لتشغيل مع نفس إعداد &quot;التحذيرات كأخطاء&quot; كما في عمليات بناء CI هذه
+يمكنك تعيين <code class="docutils literal notranslate"><span class="pre">SKLEARN_WARNINGS_AS_ERRORS=1</span></code>.</p>
+<p>بشكل افتراضي، لا يتم تحويل التحذيرات إلى أخطاء. هذا هو الحال إذا
+تم إلغاء تعيين <code class="docutils literal notranslate"><span class="pre">SKLEARN_WARNINGS_AS_ERRORS</span></code>، أو <code class="docutils literal notranslate"><span class="pre">SKLEARN_WARNINGS_AS_ERRORS=0</span></code>.</p>
+<p>يستخدم هذا متغير البيئة مرشحات تحذير محددة لتجاهل بعض التحذيرات،
+نظرًا لأنه في بعض الأحيان تنشأ التحذيرات من مكتبات تابعة ولا يمكننا فعل الكثير حيالها. يمكنك الاطلاع على مرشحات التحذير في
+الدالة <code class="docutils literal notranslate"><span class="pre">_get_warnings_filters_info_list</span></code> في <code class="docutils literal notranslate"><span class="pre">sklearn/utils/_testing.py</span></code>.</p>
+<p>لاحظ أنه بالنسبة لبناء الوثائق، يتحقق <code class="docutils literal notranslate"><span class="pre">SKLEARN_WARNING_AS_ERRORS=1</span></code>
+من أن بناء الوثائق، خاصة تشغيل الأمثلة، لا ينتج أي تحذيرات. هذا يختلف عن <code class="docutils literal notranslate"><span class="pre">-W</span></code> <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> الذي يلتقط تحذيرات بناء الجملة في ملفات rst.</p>
+</section>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  <div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item">
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="computational_performance.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">السابق</p>
+        <p class="prev-next-title"><span class="section-number">11.2. </span>الأداء الحسابي</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../model_persistence.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">التالي</p>
+        <p class="prev-next-title"><span class="section-number">12. </span>حفظ النموذج</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+                </footer>
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parallelism">11.3.1. التوازي</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">11.3.1.1. التوازي عالي المستوى مع joblib</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openmp">11.3.1.2. التوازي منخفض المستوى مع OpenMP</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy-scipy">11.3.1.3. الروتينات الموازية NumPy وSciPy من المكتبات العددية</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">11.3.1.4. الإفراط في الاشتراك: إنشاء الكثير من الخيوط</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">11.3.2. مفاتيح التهيئة</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-api">11.3.2.1. Python API</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-variable">11.3.2.2. متغيرات البيئة</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sklearn-assume-finite">11.3.2.2.1. <code class="docutils literal notranslate"><span class="pre">SKLEARN_ASSUME_FINITE</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sklearn-working-memory">11.3.2.2.2. <code class="docutils literal notranslate"><span class="pre">SKLEARN_WORKING_MEMORY</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sklearn-seed">11.3.2.2.3. <code class="docutils literal notranslate"><span class="pre">SKLEARN_SEED</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sklearn-tests-global-random-seed">11.3.2.2.4. <code class="docutils literal notranslate"><span class="pre">SKLEARN_TESTS_GLOBAL_RANDOM_SEED</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sklearn-skip-network-tests">11.3.2.2.5. <code class="docutils literal notranslate"><span class="pre">SKLEARN_SKIP_NETWORK_TESTS</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sklearn-run-float32-tests">11.3.2.2.6. <code class="docutils literal notranslate"><span class="pre">SKLEARN_RUN_FLOAT32_TESTS</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sklearn-enable-debug-cython-directives">11.3.2.2.7. <code class="docutils literal notranslate"><span class="pre">SKLEARN_ENABLE_DEBUG_CYTHON_DIRECTIVES</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sklearn-build-enable-debug-symbols">11.3.2.2.8. <code class="docutils literal notranslate"><span class="pre">SKLEARN_BUILD_ENABLE_DEBUG_SYMBOLS</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sklearn-pairwise-dist-chunk-size">11.3.2.2.9. <code class="docutils literal notranslate"><span class="pre">SKLEARN_PAIRWISE_DIST_CHUNK_SIZE</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sklearn-warnings-as-errors">11.3.2.2.10. <code class="docutils literal notranslate"><span class="pre">SKLEARN_WARNINGS_AS_ERRORS</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/computing/parallelism.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> إظهار المصدر
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2007 - 2024, scikit-learn developers (BSD License) ### Translate into Arabic Eng. Ahmed Almaghz - 2024.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

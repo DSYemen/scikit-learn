@@ -1,0 +1,1188 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ar" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="6.4. تعويض القيم المفقودة" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://scikit-learn/stable/modules/impute.html" />
+<meta property="og:site_name" content="scikit-learn" />
+<meta property="og:description" content="لأسباب مُختلفة، تحتوي العديد من مجموعات البيانات في العالم الحقيقي على قيم مفقودة، غالبًا ما تتم ترميزها على أنها فراغات أو NaNs أو عناصر نائبة أخرى. ومع ذلك، فإن مجموعات البيانات هذه غير مُتوافقة ..." />
+<meta property="og:image" content="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" />
+<meta property="og:image:alt" content="scikit-learn" />
+<meta name="description" content="لأسباب مُختلفة، تحتوي العديد من مجموعات البيانات في العالم الحقيقي على قيم مفقودة، غالبًا ما تتم ترميزها على أنها فراغات أو NaNs أو عناصر نائبة أخرى. ومع ذلك، فإن مجموعات البيانات هذه غير مُتوافقة ..." />
+
+    <title>6.4. تعويض القيم المفقودة &#8212; scikit-learn 1.6.dev0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css?v=7f9a90b1" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyterlite_sphinx.css?v=ca70e7f1" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/colors.css?v=cc94ab7d" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/custom.css?v=85b0813d" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../_static/documentation_options.js?v=3cd28d06"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=97f0b27d"></script>
+    <script src="../_static/jupyterlite_sphinx.js?v=d6bdf5f8"></script>
+    <script src="../_static/translations.js?v=87cb2081"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script data-domain="scikit-learn.org" defer="defer" src="https://views.scientific-python.org/js/script.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'modules/impute';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://scikit-learn.org/dev/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1.6.dev0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/scripts/dropdown.js?v=e2048168"></script>
+    <script src="../_static/scripts/version-switcher.js?v=a6dd8357"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="search" title="بحث" href="../search.html" />
+    <link rel="next" title="6.5. تخفيض الأبعاد غير الخاضع للإشراف" href="unsupervised_reduction.html" />
+    <link rel="prev" title="6.3. المعالجة المسبقة للبيانات" href="preprocessing.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ar"/>
+  <meta name="docsearch:version" content="1.6" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/scikit-learn-logo-small.png" class="logo__image only-light" alt="scikit-learn homepage"/>
+    <img src="../_static/scikit-learn-logo-small.png" class="logo__image only-dark pst-js-only" alt="scikit-learn homepage"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    دليل المستخدم
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../support.html">
+    الدعم الفني
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../related_projects.html">
+    مشاريع ذات علاقة
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../about.html">
+    من نحن
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    دليل المستخدم
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../support.html">
+    الدعم الفني
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../related_projects.html">
+    مشاريع ذات علاقة
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../about.html">
+    من نحن
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../supervised_learning.html">1. التعليم الخاضع للإشراف</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="linear_model.html">1.1. النماذج الخطية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lda_qda.html">1.2. تحليل التمييز الخطي والتربيعي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernel_ridge.html">1.3. انحدار حافة النواة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svm.html">1.4. آلات الدعم المتجهية (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sgd.html">1.5. التحسين التدريجي العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neighbors.html">1.6. أقرب الجيران</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gaussian_process.html">1.7. العمليات الغاوسية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cross_decomposition.html">1.8. التحليل المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="naive_bayes.html">1.9. خوارزميات بايز الساذجة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tree.html">1.10. شجرة القرار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ensemble.html">1.11. المجموعات: تعزيز التدرج، الغابات العشوائية، التجميع، التصويت، التكديس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multiclass.html">1.12. خوارزميات متعددة التصنيف ومتعددة الإخراج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature_selection.html">1.13. اختيار الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="semi_supervised.html">1.14. التعليم شبه الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="isotonic.html">1.15. الانحدار المتساوي التوتر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibration.html">1.16. معايرة الاحتمال</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_networks_supervised.html">1.17. نماذج الشبكات العصبية (الخاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../unsupervised_learning.html">2. التعليم الغير خاضع للإشراف</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="mixture.html">2.1. نماذج خليط غاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manifold.html">2.2. تعلم المشعبات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clustering.html">2.3. التجميع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="biclustering.html">2.4. التجميع الثنائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decomposition.html">2.5. تحليل الإشارات إلى مكونات (مشاكل تحليل المصفوفات)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="covariance.html">2.6. تقدير التباين المشترك</a></li>
+<li class="toctree-l2"><a class="reference internal" href="outlier_detection.html">2.7. كشف القيم الغريبة والقيم المتطرفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="density.html">2.8. تقدير الكثافة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_networks_unsupervised.html">2.9. نماذج الشبكة العصبية (غير خاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../model_selection.html">3. تقييم وإختيار النموذج</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="cross_validation.html">3.1. التحقق المتبادل: تقييم أداء المقدر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grid_search.html">3.2. ضبط المعلمات الفائقة لمُقدِّر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classification_threshold.html">3.3. ضبط عتبة القرار لتنبؤ الفئة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_evaluation.html">3.4. المقاييس والتهديف: تحديد جودة التنبؤات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learning_curve.html">3.5. منحنيات التحقق من الصحة: رسم الدرجات لتقييم النماذج</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../inspection.html">4. الفحص</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="partial_dependence.html">4.1. مخططات الاعتماد الجزئي والتوقع الشرطي الفردي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="permutation_importance.html">4.2. أهمية التبديل</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualizations.html">5. التصورات المرئية</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../data_transforms.html">6. تحويلات مجموعات البيانات</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="compose.html">6.1. خطوط الأنابيب والمقدرات المركبة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature_extraction.html">6.2. استخراج الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html">6.3. المعالجة المسبقة للبيانات</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">6.4. تعويض القيم المفقودة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unsupervised_reduction.html">6.5. تخفيض الأبعاد غير الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="random_projection.html">6.6. الإسقاط العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernel_approximation.html">6.7. Kernel Approximation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">6.8. مقاييس المقارنة الزوجية، والصلات، والنوى (Kernels)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing_targets.html">6.9. تحويل هدف التنبؤ (<code class="docutils literal notranslate"><span class="pre">y</span></code>)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/toy_dataset.html">7. مجموعات بيانات تجريبية</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/real_world.html">8. مجموعات بيانات العالم الحقيقي</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/sample_generators.html">9. مجموعات بيانات مولدة</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/loading_other_datasets.html">10. تحميل مجموعات بيانات أخرى</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../computing.html">11. الحوسبة مع scikit-learn</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../computing/scaling_strategies.html">11.1. استراتيجيات للقياس حسابيًا: بيانات أكبر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../computing/computational_performance.html">11.2. الأداء الحسابي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../computing/parallelism.html">11.3. التوازي وإدارة الموارد والتهيئة</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../model_persistence.html">12. حفظ النموذج</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../common_pitfalls.html">13. المزالق الشائعة والممارسات الموصى بها</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../dispatching.html">14. Dispatching</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="array_api.html">14.1. دعم المدخلات المتوافقة مع <code class="docutils literal notranslate"><span class="pre">Array</span> <span class="pre">API</span></code></a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../machine_learning_map.html">15. اختيار المقدر المناسب</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../presentations.html">16. المصادر الخارجية ومقاطع الفيديو والمحادثات</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../user_guide.html" class="nav-link">دليل المستخدم</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../data_transforms.html" class="nav-link"><span class="section-number">6. </span>تحويلات مجموعات البيانات</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">6.4. </span>تعويض القيم المفقودة</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="impute">
+<span id="id1"></span><h1><span class="section-number">6.4. </span>تعويض القيم المفقودة<a class="headerlink" href="#impute" title="Link to this heading">#</a></h1>
+<p>لأسباب مُختلفة، تحتوي العديد من مجموعات البيانات في العالم الحقيقي على قيم مفقودة، غالبًا ما
+تتم ترميزها على أنها فراغات أو NaNs أو عناصر نائبة أخرى. ومع ذلك، فإن مجموعات البيانات هذه
+غير مُتوافقة مع مُقدِّرات scikit-learn التي تفترض أن جميع القيم في
+مصفوفة هي قيم رقمية، وأن جميعها لها معنى. تتمثل الإستراتيجية الأساسية
+لاستخدام مجموعات البيانات غير المكتملة في تجاهل الصفوف و / أو الأعمدة الكاملة التي تحتوي على
+قيم مفقودة. ومع ذلك، يأتي هذا على حساب فقدان البيانات التي قد تكون
+قيّمة (على الرغم من عدم اكتمالها). تتمثل الإستراتيجية الأفضل في تعويض القيم
+المفقودة، أي استنتاجها من الجزء المعروف من البيانات. انظر
+إدخال المُصطلحات في <a class="reference internal" href="../glossary.html#term-imputation"><span class="xref std std-term">imputation</span></a>.</p>
+<section id="id2">
+<h2><span class="section-number">6.4.1. </span>التعويض أحادي المتغير مقابل التعويض متعدد المتغيرات<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>أحد أنواع خوارزميات التعويض هو أحادي المتغير، والذي يعوض القيم في
+بُعد الميزة i باستخدام القيم غير المفقودة فقط في بُعد الميزة
+هذا (على سبيل المثال <a class="reference internal" href="generated/sklearn.impute.SimpleImputer.html#sklearn.impute.SimpleImputer" title="sklearn.impute.SimpleImputer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleImputer</span></code></a>). على النقيض من ذلك، تستخدم خوارزميات التعويض
+متعددة المتغيرات مجموعة أبعاد الميزات المتاحة بالكامل لتقدير
+القيم المفقودة (على سبيل المثال <a class="reference internal" href="generated/sklearn.impute.IterativeImputer.html#sklearn.impute.IterativeImputer" title="sklearn.impute.IterativeImputer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IterativeImputer</span></code></a>).</p>
+</section>
+<section id="single-imputer">
+<span id="id3"></span><h2><span class="section-number">6.4.2. </span>تعويض الميزات أحادية المتغير<a class="headerlink" href="#single-imputer" title="Link to this heading">#</a></h2>
+<p>تُوفر فئة <a class="reference internal" href="generated/sklearn.impute.SimpleImputer.html#sklearn.impute.SimpleImputer" title="sklearn.impute.SimpleImputer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleImputer</span></code></a> استراتيجيات أساسية لتعويض
+القيم المفقودة. يمكن تعويض القيم المفقودة بقيمة ثابتة مُقدمة، أو باستخدام
+إحصائيات (المتوسط أو الوسيط أو الأكثر تكرارًا) لكل عمود توجد فيه
+القيم المفقودة. تسمح هذه الفئة أيضًا بترميزات قيم مفقودة
+مُختلفة.</p>
+<p>يوضح المقتطف التالي كيفية استبدال القيم المفقودة،
+المُرمَّزة كـ <code class="docutils literal notranslate"><span class="pre">np.nan</span></code>، باستخدام متوسط قيم الأعمدة (المحور 0)
+التي تحتوي على القيم المفقودة:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <span class="n">SimpleImputer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imp</span> <span class="o">=</span> <span class="n">SimpleImputer</span><span class="p">(</span><span class="n">missing_values</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imp</span><span class="o">.</span><span class="n">fit</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+<span class="go">SimpleImputer()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">imp</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
+<span class="go">[[4.          2.        ]</span>
+<span class="go"> [6.          3.666...]</span>
+<span class="go"> [7.          6.        ]]</span>
+</pre></div>
+</div>
+<p>تدعم فئة <a class="reference internal" href="generated/sklearn.impute.SimpleImputer.html#sklearn.impute.SimpleImputer" title="sklearn.impute.SimpleImputer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleImputer</span></code></a> أيضًا المصفوفات المتفرقة:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">scipy.sparse</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">csc_matrix</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imp</span> <span class="o">=</span> <span class="n">SimpleImputer</span><span class="p">(</span><span class="n">missing_values</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imp</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">SimpleImputer(missing_values=-1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_test</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">csc_matrix</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">imp</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">())</span>
+<span class="go">[[3. 2.]</span>
+<span class="go"> [6. 3.]</span>
+<span class="go"> [7. 6.]]</span>
+</pre></div>
+</div>
+<p>لاحظ أن هذا التنسيق ليس مُخصصًا للاستخدام لتخزين القيم المفقودة
+ضمنيًا في المصفوفة لأنه سيجعلها كثيفة في وقت التحويل. يجب استخدام
+القيم المفقودة المُرمَّزة بـ 0 مع إدخال كثيف.</p>
+<p>تدعم فئة <a class="reference internal" href="generated/sklearn.impute.SimpleImputer.html#sklearn.impute.SimpleImputer" title="sklearn.impute.SimpleImputer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleImputer</span></code></a> أيضًا البيانات الفئوية المُمثلة كـ
+قيم سلسلة أو فئات pandas عند استخدام استراتيجية <code class="docutils literal notranslate"><span class="pre">'most_frequent'</span></code> أو
+<code class="docutils literal notranslate"><span class="pre">'constant'</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">],</span>
+<span class="gp">... </span>                   <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">],</span>
+<span class="gp">... </span>                   <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">],</span>
+<span class="gp">... </span>                   <span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imp</span> <span class="o">=</span> <span class="n">SimpleImputer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;most_frequent&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">imp</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
+<span class="go">[[&#39;a&#39; &#39;x&#39;]</span>
+<span class="go"> [&#39;a&#39; &#39;y&#39;]</span>
+<span class="go"> [&#39;a&#39; &#39;y&#39;]</span>
+<span class="go"> [&#39;b&#39; &#39;y&#39;]]</span>
+</pre></div>
+</div>
+<p>لمثال آخر عن الاستخدام، انظر <a class="reference internal" href="../auto_examples/impute/plot_missing_values.html#sphx-glr-auto-examples-impute-plot-missing-values-py"><span class="std std-ref">Imputing missing values before building an estimator</span></a>.</p>
+</section>
+<section id="iterative-imputer">
+<span id="id4"></span><h2><span class="section-number">6.4.3. </span>تعويض الميزات متعددة المتغيرات<a class="headerlink" href="#iterative-imputer" title="Link to this heading">#</a></h2>
+<p>النهج الأكثر تعقيدًا هو استخدام فئة <a class="reference internal" href="generated/sklearn.impute.IterativeImputer.html#sklearn.impute.IterativeImputer" title="sklearn.impute.IterativeImputer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IterativeImputer</span></code></a>،
+التي تُنمذج كل ميزة ذات قيم مفقودة كدالة لميزات أخرى،
+وتستخدم هذا التقدير للتعويض. يفعل ذلك بطريقة دائرية متكررة: في كل خطوة،
+يتم تعيين عمود ميزة كناتج <code class="docutils literal notranslate"><span class="pre">y</span></code> و
+يتم التعامل مع أعمدة الميزات الأخرى كمدخلات <code class="docutils literal notranslate"><span class="pre">X</span></code>. يتم ملاءمة مُنحدِر على <code class="docutils literal notranslate"><span class="pre">(X,</span>
+<span class="pre">y)</span></code> لـ <code class="docutils literal notranslate"><span class="pre">y</span></code> المعروف. ثم، يتم استخدام المُنحدِر للتنبؤ بالقيم المفقودة
+لـ <code class="docutils literal notranslate"><span class="pre">y</span></code>. يتم ذلك لكل ميزة بطريقة متكررة، ثم يتم
+تكراره لـ <code class="docutils literal notranslate"><span class="pre">max_iter</span></code> جولات تعويض. يتم إرجاع نتائج جولة
+التعويض الأخيرة.</p>
+<div class="admonition note">
+<p class="admonition-title">ملاحظة</p>
+<p>لا يزال هذا المُقدِّر <strong>تجريبيًا</strong> في الوقت الحالي: قد تتغير المعلمات الافتراضية أو
+تفاصيل السلوك دون أي دورة إهمال. سيؤدي حل
+المشاكل التالية إلى استقرار <a class="reference internal" href="generated/sklearn.impute.IterativeImputer.html#sklearn.impute.IterativeImputer" title="sklearn.impute.IterativeImputer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IterativeImputer</span></code></a>:
+معايير التقارب (<a class="reference external" href="https://github.com/scikit-learn/scikit-learn/issues/14338">#14338</a>)، المُقدِّرات الافتراضية (<a class="reference external" href="https://github.com/scikit-learn/scikit-learn/issues/13286">#13286</a>)،
+واستخدام الحالة العشوائية (<a class="reference external" href="https://github.com/scikit-learn/scikit-learn/issues/15611">#15611</a>). لاستخدامه، تحتاج إلى
+استيراد <code class="docutils literal notranslate"><span class="pre">enable_iterative_imputer</span></code> صراحةً.</p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.experimental</span> <span class="kn">import</span> <span class="n">enable_iterative_imputer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <span class="n">IterativeImputer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imp</span> <span class="o">=</span> <span class="n">IterativeImputer</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imp</span><span class="o">.</span><span class="n">fit</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">]])</span>
+<span class="go">IterativeImputer(random_state=0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_test</span> <span class="o">=</span> <span class="p">[[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">],</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># يتعلم النموذج أن الميزة الثانية هي ضعف الميزة الأولى</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">imp</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)))</span>
+<span class="go">[[ 1.  2.]</span>
+<span class="go"> [ 6. 12.]</span>
+<span class="go"> [ 3.  6.]]</span>
+</pre></div>
+</div>
+<p>يمكن استخدام كل من <a class="reference internal" href="generated/sklearn.impute.SimpleImputer.html#sklearn.impute.SimpleImputer" title="sklearn.impute.SimpleImputer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleImputer</span></code></a> و <a class="reference internal" href="generated/sklearn.impute.IterativeImputer.html#sklearn.impute.IterativeImputer" title="sklearn.impute.IterativeImputer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IterativeImputer</span></code></a> في
+خط أنابيب كطريقة لبناء مُقدِّر مُركب يدعم التعويض.
+انظر <a class="reference internal" href="../auto_examples/impute/plot_missing_values.html#sphx-glr-auto-examples-impute-plot-missing-values-py"><span class="std std-ref">Imputing missing values before building an estimator</span></a>.</p>
+<section id="iterativeimputer">
+<h3><span class="section-number">6.4.3.1. </span>مرونة IterativeImputer<a class="headerlink" href="#iterativeimputer" title="Link to this heading">#</a></h3>
+<p>هناك العديد من حزم التعويض الراسخة في نظام R البيئي لعلوم
+البيانات: Amelia و mi و mice و missForest، إلخ. missForest شائع، ويتبين
+أنه مثيل مُعين لخوارزميات تعويض متسلسلة مُختلفة
+والتي يمكن تطبيقها جميعًا باستخدام <a class="reference internal" href="generated/sklearn.impute.IterativeImputer.html#sklearn.impute.IterativeImputer" title="sklearn.impute.IterativeImputer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IterativeImputer</span></code></a> عن طريق تمرير
+مُنحدرات مُختلفة لاستخدامها في التنبؤ بقيم الميزات المفقودة. في
+حالة missForest، هذا المُنحدِر هو غابة عشوائية.
+انظر <a class="reference internal" href="../auto_examples/impute/plot_iterative_imputer_variants_comparison.html#sphx-glr-auto-examples-impute-plot-iterative-imputer-variants-comparison-py"><span class="std std-ref">Imputing missing values with variants of IterativeImputer</span></a>.</p>
+</section>
+<section id="multiple-imputation">
+<span id="id5"></span><h3><span class="section-number">6.4.3.2. </span>التعويض المتعدد مقابل التعويض الفردي<a class="headerlink" href="#multiple-imputation" title="Link to this heading">#</a></h3>
+<p>في مجتمع الإحصاء، من الشائع إجراء تعويضات متعددة،
+توليد، على سبيل المثال، <code class="docutils literal notranslate"><span class="pre">m</span></code> تعويضات مُنفصلة لمصفوفة
+ميزة واحدة. يتم بعد ذلك وضع كل من هذه التعويضات <code class="docutils literal notranslate"><span class="pre">m</span></code> من خلال
+خط أنابيب التحليل اللاحق (على سبيل المثال هندسة الميزات، التجميع،
+الانحدار، التصنيف). تسمح نتائج التحليل النهائية <code class="docutils literal notranslate"><span class="pre">m</span></code> (على سبيل المثال
+أخطاء التحقق من الصحة المُخصصة للاختبار) لعالم البيانات بالحصول على فهم
+لكيفية اختلاف نتائج التحليل كنتيجة لعدم اليقين المتأصل الناجم عن
+القيم المفقودة. تُسمى الممارسة المذكورة أعلاه التعويض المتعدد.</p>
+<p>استوحى تطبيقنا لـ <a class="reference internal" href="generated/sklearn.impute.IterativeImputer.html#sklearn.impute.IterativeImputer" title="sklearn.impute.IterativeImputer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IterativeImputer</span></code></a> من حزمة R MICE
+(التعويض المتعدد بواسطة المعادلات المتسلسلة) <a class="footnote-reference brackets" href="#id9" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>، ولكنه يختلف عنها
+من خلال إرجاع تعويض فردي بدلاً من تعويضات متعددة. ومع ذلك،
+يمكن أيضًا استخدام <a class="reference internal" href="generated/sklearn.impute.IterativeImputer.html#sklearn.impute.IterativeImputer" title="sklearn.impute.IterativeImputer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IterativeImputer</span></code></a> لتعويضات متعددة عن طريق تطبيقه
+بشكل متكرر على نفس مجموعة البيانات ببذور عشوائية مختلفة عندما
+<code class="docutils literal notranslate"><span class="pre">sample_posterior=True</span></code>. انظر <a class="footnote-reference brackets" href="#id10" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>، الفصل 4 لمزيد من المناقشة حول
+التعويضات المتعددة مقابل الفردية.</p>
+<p>لا تزال مشكلة مفتوحة حول مدى فائدة التعويض الفردي مقابل المتعدد
+في سياق التنبؤ والتصنيف عندما لا يكون المستخدم
+مهتمًا بقياس عدم اليقين بسبب القيم المفقودة.</p>
+<p>لاحظ أن استدعاء أسلوب <code class="docutils literal notranslate"><span class="pre">transform</span></code> لـ <a class="reference internal" href="generated/sklearn.impute.IterativeImputer.html#sklearn.impute.IterativeImputer" title="sklearn.impute.IterativeImputer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IterativeImputer</span></code></a>
+غير مسموح به لتغيير عدد العينات. لذلك لا يمكن تحقيق
+تعويضات متعددة باستدعاء واحد لـ <code class="docutils literal notranslate"><span class="pre">transform</span></code>.</p>
+</section>
+<section id="id8">
+<h3><span class="section-number">6.4.3.3. </span>المراجع<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id9" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://www.jstatsoft.org/article/view/v045i03">Stef van Buuren, Karin Groothuis-Oudshoorn (2011). &quot;mice: التعويض
+المتعدد بواسطة المعادلات المتسلسلة في R&quot;. Journal of Statistical Software 45:
+1-67.</a></p>
+</aside>
+<aside class="footnote brackets" id="id10" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">2</a><span class="fn-bracket">]</span></span>
+<p>Roderick J A Little and Donald B Rubin (1986). &quot;التحليل الإحصائي
+مع البيانات المفقودة&quot;. John Wiley &amp; Sons, Inc., New York, NY, USA.</p>
+</aside>
+</aside>
+</section>
+</section>
+<section id="knnimpute">
+<span id="id11"></span><h2><span class="section-number">6.4.4. </span>تعويض أقرب الجيران<a class="headerlink" href="#knnimpute" title="Link to this heading">#</a></h2>
+<p>تُوفر فئة <a class="reference internal" href="generated/sklearn.impute.KNNImputer.html#sklearn.impute.KNNImputer" title="sklearn.impute.KNNImputer"><code class="xref py py-class docutils literal notranslate"><span class="pre">KNNImputer</span></code></a> تعويضًا لملء القيم المفقودة
+باستخدام نهج أقرب جيران k. افتراضيًا، مقياس مسافة إقليدية
+يدعم القيم المفقودة،
+<a class="reference internal" href="generated/sklearn.metrics.pairwise.nan_euclidean_distances.html#sklearn.metrics.pairwise.nan_euclidean_distances" title="sklearn.metrics.pairwise.nan_euclidean_distances"><code class="xref py py-func docutils literal notranslate"><span class="pre">nan_euclidean_distances</span></code></a>، يُستخدم للعثور على
+أقرب الجيران. يتم تعويض كل ميزة مفقودة باستخدام قيم من
+<code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code> أقرب جيران لها قيمة للميزة. يتم حساب متوسط
+ميزة الجيران بشكل مُوحد أو موزون بالمسافة إلى كل
+جار. إذا كانت العينة تحتوي على أكثر من ميزة مفقودة، فقد يكون الجيران
+لهذه العينة مُختلفين اعتمادًا على الميزة المُعينة التي يتم تعويضها.
+عندما يكون عدد الجيران المتاحين أقل من <code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code> ولا توجد
+مسافات مُحددة لمجموعة التدريب، يتم استخدام متوسط مجموعة التدريب لتلك
+الميزة أثناء التعويض. إذا كان هناك جار واحد على الأقل بـ
+مسافة مُحددة، فسيتم استخدام المتوسط الموزون أو غير الموزون للجيران المتبقيين
+أثناء التعويض. إذا كانت الميزة مفقودة دائمًا في التدريب، فسيتم إزالتها
+أثناء <code class="docutils literal notranslate"><span class="pre">transform</span></code>. لمزيد من المعلومات حول المنهجية، انظر
+المرجع <a class="reference internal" href="#ol2001" id="id12"><span>[OL2001]</span></a>.</p>
+<p>يوضح المقتطف التالي كيفية استبدال القيم المفقودة،
+المُرمَّزة كـ <code class="docutils literal notranslate"><span class="pre">np.nan</span></code>، باستخدام متوسط قيمة الميزة لأقرب جارين
+من العينات ذات القيم المفقودة:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <span class="n">KNNImputer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nan</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">nan</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="n">nan</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imputer</span> <span class="o">=</span> <span class="n">KNNImputer</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="s2">&quot;uniform&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imputer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">array([[1. , 2. , 4. ],</span>
+<span class="go">       [3. , 4. , 3. ],</span>
+<span class="go">       [5.5, 6. , 5. ],</span>
+<span class="go">       [8. , 8. , 7. ]])</span>
+</pre></div>
+</div>
+<p>لمثال آخر عن الاستخدام، انظر <a class="reference internal" href="../auto_examples/impute/plot_missing_values.html#sphx-glr-auto-examples-impute-plot-missing-values-py"><span class="std std-ref">Imputing missing values before building an estimator</span></a>.</p>
+<p class="rubric">المراجع</p>
+<div role="list" class="citation-list">
+<div class="citation" id="ol2001" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id12">OL2001</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://academic.oup.com/bioinformatics/article/17/6/520/272365">Olga Troyanskaya, Michael Cantor, Gavin Sherlock, Pat Brown,
+Trevor Hastie, Robert Tibshirani, David Botstein and Russ B. Altman,
+أساليب تقدير القيمة المفقودة لرقائق الحمض النووي الدقيقة، BIOINFORMATICS
+المجلد 17 رقم 6، 2001 الصفحات 520-525.</a></p>
+</div>
+</div>
+</section>
+<section id="id13">
+<h2><span class="section-number">6.4.5. </span>الحفاظ على عدد الميزات ثابتًا<a class="headerlink" href="#id13" title="Link to this heading">#</a></h2>
+<p>افتراضيًا، ستُسقط مُعوضات scikit-learn الميزات الفارغة تمامًا، أي
+الأعمدة التي تحتوي على قيم مفقودة فقط. على سبيل المثال:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">imputer</span> <span class="o">=</span> <span class="n">SimpleImputer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imputer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">array([[1.],</span>
+<span class="go">       [2.],</span>
+<span class="go">       [3.]])</span>
+</pre></div>
+</div>
+<p>تم إسقاط الميزة الأولى في <code class="docutils literal notranslate"><span class="pre">X</span></code> التي تحتوي فقط على <code class="docutils literal notranslate"><span class="pre">np.nan</span></code> بعد
+التعويض. بينما لن تُساعد هذه الميزة في إعداد التنبؤ، فإن إسقاط
+الأعمدة سيُغير شكل <code class="docutils literal notranslate"><span class="pre">X</span></code> الذي قد يكون مُشكلًا عند استخدام
+المُعوضات في خط أنابيب تعلم آلي أكثر تعقيدًا. تُوفر المعلمة
+<code class="docutils literal notranslate"><span class="pre">keep_empty_features</span></code> خيار الاحتفاظ بالميزات الفارغة عن طريق التعويض
+بقيم ثابتة. في معظم الحالات، تكون هذه القيمة الثابتة صفرًا:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">imputer</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="n">keep_empty_features</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">SimpleImputer(keep_empty_features=True)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imputer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">array([[0., 1.],</span>
+<span class="go">       [0., 2.],</span>
+<span class="go">       [0., 3.]])</span>
+</pre></div>
+</div>
+</section>
+<section id="missing-indicator">
+<span id="id14"></span><h2><span class="section-number">6.4.6. </span>وضع علامة على القيم المُعوضة<a class="headerlink" href="#missing-indicator" title="Link to this heading">#</a></h2>
+<p>مُحوِّل <a class="reference internal" href="generated/sklearn.impute.MissingIndicator.html#sklearn.impute.MissingIndicator" title="sklearn.impute.MissingIndicator"><code class="xref py py-class docutils literal notranslate"><span class="pre">MissingIndicator</span></code></a> مفيد لتحويل مجموعة بيانات إلى
+مصفوفة ثنائية مُقابلة تُشير إلى وجود قيم مفقودة في
+مجموعة البيانات. هذا التحويل مفيد بالاقتران مع التعويض. عند
+استخدام التعويض، يمكن أن يكون الاحتفاظ بالمعلومات حول القيم التي كانت
+مفقودة مفيدًا. لاحظ أن كلاً من <a class="reference internal" href="generated/sklearn.impute.SimpleImputer.html#sklearn.impute.SimpleImputer" title="sklearn.impute.SimpleImputer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleImputer</span></code></a> و
+<a class="reference internal" href="generated/sklearn.impute.IterativeImputer.html#sklearn.impute.IterativeImputer" title="sklearn.impute.IterativeImputer"><code class="xref py py-class docutils literal notranslate"><span class="pre">IterativeImputer</span></code></a> لديهما معلمة منطقية <code class="docutils literal notranslate"><span class="pre">add_indicator</span></code>
+(<code class="docutils literal notranslate"><span class="pre">False</span></code> افتراضيًا) والتي عند تعيينها إلى <code class="docutils literal notranslate"><span class="pre">True</span></code> تُوفر طريقة مُريحة لـ
+تكديس ناتج مُحوِّل <a class="reference internal" href="generated/sklearn.impute.MissingIndicator.html#sklearn.impute.MissingIndicator" title="sklearn.impute.MissingIndicator"><code class="xref py py-class docutils literal notranslate"><span class="pre">MissingIndicator</span></code></a> مع
+ناتج المُعوض.</p>
+<p>عادةً ما يُستخدم <code class="docutils literal notranslate"><span class="pre">NaN</span></code> كعنصر نائب للقيم المفقودة. ومع ذلك، فإنه
+يفرض أن يكون نوع البيانات عائمًا. تسمح المعلمة <code class="docutils literal notranslate"><span class="pre">missing_values</span></code> بـ
+تحديد عنصر نائب آخر مثل عدد صحيح. في المثال التالي، سنستخدم
+<code class="docutils literal notranslate"><span class="pre">-1</span></code> كقيم مفقودة:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <span class="n">MissingIndicator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+<span class="gp">... </span>              <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>              <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">indicator</span> <span class="o">=</span> <span class="n">MissingIndicator</span><span class="p">(</span><span class="n">missing_values</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mask_missing_values_only</span> <span class="o">=</span> <span class="n">indicator</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mask_missing_values_only</span>
+<span class="go">array([[ True,  True, False],</span>
+<span class="go">       [False,  True,  True],</span>
+<span class="go">       [False,  True, False]])</span>
+</pre></div>
+</div>
+<p>تُستخدم معلمة <code class="docutils literal notranslate"><span class="pre">features</span></code> لاختيار الميزات التي يتم إنشاء القناع
+من أجلها. افتراضيًا، هي <code class="docutils literal notranslate"><span class="pre">'missing-only'</span></code> التي تُعيد قناع المُعوض
+للميزات التي تحتوي على قيم مفقودة في وقت <code class="docutils literal notranslate"><span class="pre">fit</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">indicator</span><span class="o">.</span><span class="n">features_</span>
+<span class="go">array([0, 1, 3])</span>
+</pre></div>
+</div>
+<p>يمكن تعيين معلمة <code class="docutils literal notranslate"><span class="pre">features</span></code> إلى <code class="docutils literal notranslate"><span class="pre">'all'</span></code> لإعادة جميع الميزات
+سواء كانت تحتوي على قيم مفقودة أم لا:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">indicator</span> <span class="o">=</span> <span class="n">MissingIndicator</span><span class="p">(</span><span class="n">missing_values</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">features</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mask_all</span> <span class="o">=</span> <span class="n">indicator</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mask_all</span>
+<span class="go">array([[ True,  True, False, False],</span>
+<span class="go">       [False,  True, False,  True],</span>
+<span class="go">       [False,  True, False, False]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">indicator</span><span class="o">.</span><span class="n">features_</span>
+<span class="go">array([0, 1, 2, 3])</span>
+</pre></div>
+</div>
+<p>عند استخدام <a class="reference internal" href="generated/sklearn.impute.MissingIndicator.html#sklearn.impute.MissingIndicator" title="sklearn.impute.MissingIndicator"><code class="xref py py-class docutils literal notranslate"><span class="pre">MissingIndicator</span></code></a> في
+<a class="reference internal" href="generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>، تأكد من استخدام
+<a class="reference internal" href="generated/sklearn.pipeline.FeatureUnion.html#sklearn.pipeline.FeatureUnion" title="sklearn.pipeline.FeatureUnion"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureUnion</span></code></a> أو
+<a class="reference internal" href="generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="sklearn.compose.ColumnTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code></a> لإضافة ميزات المؤشر إلى
+الميزات العادية. أولاً، نحصل على مجموعة بيانات <code class="docutils literal notranslate"><span class="pre">iris</span></code>، ونضيف بعض القيم
+المفقودة إليها.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <span class="n">SimpleImputer</span><span class="p">,</span> <span class="n">MissingIndicator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">FeatureUnion</span><span class="p">,</span> <span class="n">make_pipeline</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+<span class="gp">... </span>                                               <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>الآن ننشئ <a class="reference internal" href="generated/sklearn.pipeline.FeatureUnion.html#sklearn.pipeline.FeatureUnion" title="sklearn.pipeline.FeatureUnion"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureUnion</span></code></a>. سيتم تعويض جميع الميزات
+باستخدام <a class="reference internal" href="generated/sklearn.impute.SimpleImputer.html#sklearn.impute.SimpleImputer" title="sklearn.impute.SimpleImputer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleImputer</span></code></a>، من أجل تمكين المُصنِّفات من العمل
+مع هذه البيانات. بالإضافة إلى ذلك، فإنه يُضيف متغيرات المؤشر من
+<a class="reference internal" href="generated/sklearn.impute.MissingIndicator.html#sklearn.impute.MissingIndicator" title="sklearn.impute.MissingIndicator"><code class="xref py py-class docutils literal notranslate"><span class="pre">MissingIndicator</span></code></a>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">transformer</span> <span class="o">=</span> <span class="n">FeatureUnion</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">transformer_list</span><span class="o">=</span><span class="p">[</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="s1">&#39;features&#39;</span><span class="p">,</span> <span class="n">SimpleImputer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)),</span>
+<span class="gp">... </span>        <span class="p">(</span><span class="s1">&#39;indicators&#39;</span><span class="p">,</span> <span class="n">MissingIndicator</span><span class="p">())])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">transformer</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(100, 8)</span>
+</pre></div>
+</div>
+<p>بالطبع، لا يمكننا استخدام المُحوِّل لإجراء أي تنبؤات. يجب علينا
+تضمين هذا في <a class="reference internal" href="generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> مع مُصنف (على سبيل المثال،
+<a class="reference internal" href="generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier" title="sklearn.tree.DecisionTreeClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">DecisionTreeClassifier</span></code></a>) لتكون قادرًا على إجراء تنبؤات.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">transformer</span><span class="p">,</span> <span class="n">DecisionTreeClassifier</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(100,)</span>
+</pre></div>
+</div>
+</section>
+<section id="nan">
+<h2><span class="section-number">6.4.7. </span>المُقدِّرات التي تتعامل مع قيم NaN<a class="headerlink" href="#nan" title="Link to this heading">#</a></h2>
+<p>تم تصميم بعض المُقدِّرات للتعامل مع قيم NaN بدون مُعالجة مُسبقة.
+فيما يلي قائمة بهذه المُقدِّرات، مُصنفة حسب النوع
+(التجميع، المُنحدِر، المُصنف، التحويل):</p>
+<ul>
+<li><strong>Estimators that allow NaN values for type </strong><code class="docutils literal notranslate"><span class="pre">cluster</span></code><strong>:
+</strong><ul class="simple">
+<li><p><a class="reference external" href="./generated/sklearn.cluster.HDBSCAN.html">HDBSCAN</a></p></li>
+</ul>
+</li>
+<li><strong>Estimators that allow NaN values for type </strong><code class="docutils literal notranslate"><span class="pre">regressor</span></code><strong>:
+</strong><ul class="simple">
+<li><p><a class="reference external" href="./generated/sklearn.ensemble.BaggingRegressor.html">BaggingRegressor</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.tree.DecisionTreeRegressor.html">DecisionTreeRegressor</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.tree.ExtraTreeRegressor.html">ExtraTreeRegressor</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.ensemble.ExtraTreesRegressor.html">ExtraTreesRegressor</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.ensemble.HistGradientBoostingRegressor.html">HistGradientBoostingRegressor</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.ensemble.RandomForestRegressor.html">RandomForestRegressor</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.ensemble.StackingRegressor.html">StackingRegressor</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.ensemble.VotingRegressor.html">VotingRegressor</a></p></li>
+</ul>
+</li>
+<li><strong>Estimators that allow NaN values for type </strong><code class="docutils literal notranslate"><span class="pre">classifier</span></code><strong>:
+</strong><ul class="simple">
+<li><p><a class="reference external" href="./generated/sklearn.ensemble.BaggingClassifier.html">BaggingClassifier</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.tree.DecisionTreeClassifier.html">DecisionTreeClassifier</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.tree.ExtraTreeClassifier.html">ExtraTreeClassifier</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.ensemble.ExtraTreesClassifier.html">ExtraTreesClassifier</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.ensemble.HistGradientBoostingClassifier.html">HistGradientBoostingClassifier</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.ensemble.RandomForestClassifier.html">RandomForestClassifier</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.ensemble.StackingClassifier.html">StackingClassifier</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.ensemble.VotingClassifier.html">VotingClassifier</a></p></li>
+</ul>
+</li>
+<li><strong>Estimators that allow NaN values for type </strong><code class="docutils literal notranslate"><span class="pre">transformer</span></code><strong>:
+</strong><ul class="simple">
+<li><p><a class="reference external" href="./generated/sklearn.impute.IterativeImputer.html">IterativeImputer</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.impute.KNNImputer.html">KNNImputer</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.preprocessing.MaxAbsScaler.html">MaxAbsScaler</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.preprocessing.MinMaxScaler.html">MinMaxScaler</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.impute.MissingIndicator.html">MissingIndicator</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.preprocessing.OneHotEncoder.html">OneHotEncoder</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.preprocessing.OrdinalEncoder.html">OrdinalEncoder</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.preprocessing.PowerTransformer.html">PowerTransformer</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.preprocessing.QuantileTransformer.html">QuantileTransformer</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.ensemble.RandomTreesEmbedding.html">RandomTreesEmbedding</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.preprocessing.RobustScaler.html">RobustScaler</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.impute.SimpleImputer.html">SimpleImputer</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.ensemble.StackingClassifier.html">StackingClassifier</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.ensemble.StackingRegressor.html">StackingRegressor</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.preprocessing.StandardScaler.html">StandardScaler</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.preprocessing.TargetEncoder.html">TargetEncoder</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.feature_selection.VarianceThreshold.html">VarianceThreshold</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.ensemble.VotingClassifier.html">VotingClassifier</a></p></li>
+<li><p><a class="reference external" href="./generated/sklearn.ensemble.VotingRegressor.html">VotingRegressor</a></p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  <div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item">
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="preprocessing.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">السابق</p>
+        <p class="prev-next-title"><span class="section-number">6.3. </span>المعالجة المسبقة للبيانات</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="unsupervised_reduction.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">التالي</p>
+        <p class="prev-next-title"><span class="section-number">6.5. </span>تخفيض الأبعاد غير الخاضع للإشراف</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+                </footer>
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">6.4.1. التعويض أحادي المتغير مقابل التعويض متعدد المتغيرات</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#single-imputer">6.4.2. تعويض الميزات أحادية المتغير</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iterative-imputer">6.4.3. تعويض الميزات متعددة المتغيرات</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iterativeimputer">6.4.3.1. مرونة IterativeImputer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-imputation">6.4.3.2. التعويض المتعدد مقابل التعويض الفردي</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">6.4.3.3. المراجع</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knnimpute">6.4.4. تعويض أقرب الجيران</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">6.4.5. الحفاظ على عدد الميزات ثابتًا</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-indicator">6.4.6. وضع علامة على القيم المُعوضة</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nan">6.4.7. المُقدِّرات التي تتعامل مع قيم NaN</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/modules/impute.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> إظهار المصدر
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2007 - 2024, scikit-learn developers (BSD License) ### Translate into Arabic Eng. Ahmed Almaghz - 2024.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

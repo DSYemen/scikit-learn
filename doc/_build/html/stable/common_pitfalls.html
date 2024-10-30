@@ -1,0 +1,1304 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ar" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="13. المزالق الشائعة والممارسات الموصى بها" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://scikit-learn/stable/common_pitfalls.html" />
+<meta property="og:site_name" content="scikit-learn" />
+<meta property="og:description" content="الغرض من هذا الفصل هو توضيح بعض المزالق الشائعة والأنماط المضادة التي تحدث عند استخدام scikit-learn. يوفر أمثلة على ما لا يجب القيام به، إلى جانب مثال صحيح مناظر. ما قبل المعالجة غير المتسقة: يوفر ..." />
+<meta property="og:image" content="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" />
+<meta property="og:image:alt" content="scikit-learn" />
+<meta name="description" content="الغرض من هذا الفصل هو توضيح بعض المزالق الشائعة والأنماط المضادة التي تحدث عند استخدام scikit-learn. يوفر أمثلة على ما لا يجب القيام به، إلى جانب مثال صحيح مناظر. ما قبل المعالجة غير المتسقة: يوفر ..." />
+
+    <title>13. المزالق الشائعة والممارسات الموصى بها &#8212; scikit-learn 1.6.dev0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/plot_directive.css?v=7f9a90b1" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
+    <link rel="stylesheet" type="text/css" href="_static/jupyterlite_sphinx.css?v=ca70e7f1" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/colors.css?v=cc94ab7d" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/custom.css?v=85b0813d" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="_static/documentation_options.js?v=3cd28d06"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=97f0b27d"></script>
+    <script src="_static/jupyterlite_sphinx.js?v=d6bdf5f8"></script>
+    <script src="_static/translations.js?v=87cb2081"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script data-domain="scikit-learn.org" defer="defer" src="https://views.scientific-python.org/js/script.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'common_pitfalls';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://scikit-learn.org/dev/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1.6.dev0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="_static/scripts/dropdown.js?v=e2048168"></script>
+    <script src="_static/scripts/version-switcher.js?v=a6dd8357"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="search" title="بحث" href="search.html" />
+    <link rel="next" title="14. Dispatching" href="dispatching.html" />
+    <link rel="prev" title="12. حفظ النموذج" href="model_persistence.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ar"/>
+  <meta name="docsearch:version" content="1.6" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/scikit-learn-logo-small.png" class="logo__image only-light" alt="scikit-learn homepage"/>
+    <img src="_static/scikit-learn-logo-small.png" class="logo__image only-dark pst-js-only" alt="scikit-learn homepage"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="user_guide.html">
+    دليل المستخدم
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="support.html">
+    الدعم الفني
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="related_projects.html">
+    مشاريع ذات علاقة
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="about.html">
+    من نحن
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="user_guide.html">
+    دليل المستخدم
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="support.html">
+    الدعم الفني
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="related_projects.html">
+    مشاريع ذات علاقة
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="about.html">
+    من نحن
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="supervised_learning.html">1. التعليم الخاضع للإشراف</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/linear_model.html">1.1. النماذج الخطية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/lda_qda.html">1.2. تحليل التمييز الخطي والتربيعي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/kernel_ridge.html">1.3. انحدار حافة النواة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/svm.html">1.4. آلات الدعم المتجهية (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/sgd.html">1.5. التحسين التدريجي العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/neighbors.html">1.6. أقرب الجيران</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/gaussian_process.html">1.7. العمليات الغاوسية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cross_decomposition.html">1.8. التحليل المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/naive_bayes.html">1.9. خوارزميات بايز الساذجة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/tree.html">1.10. شجرة القرار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/ensemble.html">1.11. المجموعات: تعزيز التدرج، الغابات العشوائية، التجميع، التصويت، التكديس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/multiclass.html">1.12. خوارزميات متعددة التصنيف ومتعددة الإخراج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/feature_selection.html">1.13. اختيار الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/semi_supervised.html">1.14. التعليم شبه الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/isotonic.html">1.15. الانحدار المتساوي التوتر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/calibration.html">1.16. معايرة الاحتمال</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/neural_networks_supervised.html">1.17. نماذج الشبكات العصبية (الخاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="unsupervised_learning.html">2. التعليم الغير خاضع للإشراف</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/mixture.html">2.1. نماذج خليط غاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/manifold.html">2.2. تعلم المشعبات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/clustering.html">2.3. التجميع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/biclustering.html">2.4. التجميع الثنائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/decomposition.html">2.5. تحليل الإشارات إلى مكونات (مشاكل تحليل المصفوفات)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/covariance.html">2.6. تقدير التباين المشترك</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/outlier_detection.html">2.7. كشف القيم الغريبة والقيم المتطرفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/density.html">2.8. تقدير الكثافة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/neural_networks_unsupervised.html">2.9. نماذج الشبكة العصبية (غير خاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="model_selection.html">3. تقييم وإختيار النموذج</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/cross_validation.html">3.1. التحقق المتبادل: تقييم أداء المقدر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/grid_search.html">3.2. ضبط المعلمات الفائقة لمُقدِّر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/classification_threshold.html">3.3. ضبط عتبة القرار لتنبؤ الفئة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/model_evaluation.html">3.4. المقاييس والتهديف: تحديد جودة التنبؤات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/learning_curve.html">3.5. منحنيات التحقق من الصحة: رسم الدرجات لتقييم النماذج</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="inspection.html">4. الفحص</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/partial_dependence.html">4.1. مخططات الاعتماد الجزئي والتوقع الشرطي الفردي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/permutation_importance.html">4.2. أهمية التبديل</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="visualizations.html">5. التصورات المرئية</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="data_transforms.html">6. تحويلات مجموعات البيانات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/compose.html">6.1. خطوط الأنابيب والمقدرات المركبة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/feature_extraction.html">6.2. استخراج الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/preprocessing.html">6.3. المعالجة المسبقة للبيانات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/impute.html">6.4. تعويض القيم المفقودة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/unsupervised_reduction.html">6.5. تخفيض الأبعاد غير الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/random_projection.html">6.6. الإسقاط العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/kernel_approximation.html">6.7. Kernel Approximation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/metrics.html">6.8. مقاييس المقارنة الزوجية، والصلات، والنوى (Kernels)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/preprocessing_targets.html">6.9. تحويل هدف التنبؤ (<code class="docutils literal notranslate"><span class="pre">y</span></code>)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="datasets/toy_dataset.html">7. مجموعات بيانات تجريبية</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datasets/real_world.html">8. مجموعات بيانات العالم الحقيقي</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datasets/sample_generators.html">9. مجموعات بيانات مولدة</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datasets/loading_other_datasets.html">10. تحميل مجموعات بيانات أخرى</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="computing.html">11. الحوسبة مع scikit-learn</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="computing/scaling_strategies.html">11.1. استراتيجيات للقياس حسابيًا: بيانات أكبر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="computing/computational_performance.html">11.2. الأداء الحسابي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="computing/parallelism.html">11.3. التوازي وإدارة الموارد والتهيئة</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="model_persistence.html">12. حفظ النموذج</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">13. المزالق الشائعة والممارسات الموصى بها</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="dispatching.html">14. Dispatching</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/array_api.html">14.1. دعم المدخلات المتوافقة مع <code class="docutils literal notranslate"><span class="pre">Array</span> <span class="pre">API</span></code></a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="machine_learning_map.html">15. اختيار المقدر المناسب</a></li>
+<li class="toctree-l1"><a class="reference internal" href="presentations.html">16. المصادر الخارجية ومقاطع الفيديو والمحادثات</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="user_guide.html" class="nav-link">دليل المستخدم</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">13. </span>المزالق الشائعة والممارسات الموصى بها</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="common-pitfalls">
+<span id="id1"></span><h1><span class="section-number">13. </span>المزالق الشائعة والممارسات الموصى بها<a class="headerlink" href="#common-pitfalls" title="Link to this heading">#</a></h1>
+<p>الغرض من هذا الفصل هو توضيح بعض المزالق الشائعة
+والأنماط المضادة التي تحدث عند استخدام scikit-learn. يوفر
+أمثلة على ما <strong>لا</strong> يجب القيام به، إلى جانب مثال صحيح
+مناظر.</p>
+<section id="id2">
+<h2><span class="section-number">13.1. </span>ما قبل المعالجة غير المتسقة<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>يوفر scikit-learn مكتبة من <a class="reference internal" href="data_transforms.html#data-transforms"><span class="std std-ref">تحويلات مجموعات البيانات</span></a>، والتي
+قد تنظف (راجع <a class="reference internal" href="modules/preprocessing.html#preprocessing"><span class="std std-ref">المعالجة المسبقة للبيانات</span></a>)، تقلل
+(راجع <a class="reference internal" href="modules/unsupervised_reduction.html#data-reduction"><span class="std std-ref">تخفيض الأبعاد غير الخاضع للإشراف</span></a>)، توسع (راجع <a class="reference internal" href="modules/kernel_approximation.html#kernel-approximation"><span class="std std-ref">Kernel Approximation</span></a>)
+أو توليد (راجع <a class="reference internal" href="modules/feature_extraction.html#feature-extraction"><span class="std std-ref">استخراج الميزات</span></a>) تمثيلات الميزات.
+إذا تم استخدام هذه التحولات على البيانات أثناء تدريب نموذج، فيجب أيضًا
+استخدامها على مجموعات البيانات اللاحقة، سواء كانت بيانات الاختبار أو
+البيانات في نظام الإنتاج. وإلا، فسيتم تغيير مساحة الميزة،
+ولن يتمكن النموذج من الأداء بفعالية.</p>
+<p>بالنسبة للمثال التالي، دعنا ننشئ مجموعة بيانات اصطناعية بميزة
+واحدة:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_regression</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">random_state</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_regression</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>خطأ</strong></p>
+<p>تمت معايرة مجموعة البيانات التدريبية، ولكن ليس مجموعة بيانات الاختبار، لذا فإن أداء النموذج
+على مجموعة بيانات الاختبار أسوأ مما هو متوقع:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train_transformed</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_transformed</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span>
+<span class="go">62.80...</span>
+</pre></div>
+</div>
+<p><strong>صحيح</strong></p>
+<p>بدلاً من تمرير <code class="docutils literal notranslate"><span class="pre">X_test</span></code> غير المحول إلى <code class="docutils literal notranslate"><span class="pre">predict</span></code>، يجب علينا
+تحويل بيانات الاختبار، بنفس الطريقة التي حولنا بها بيانات التدريب:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X_test_transformed</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_transformed</span><span class="p">))</span>
+<span class="go">0.90...</span>
+</pre></div>
+</div>
+<p>بدلاً من ذلك، نوصي باستخدام <a class="reference internal" href="modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>، مما يجعل من السهل تسلسل التحولات
+مع المقدرات، ويقلل من احتمال نسيان التحول:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">LinearRegression</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="go">Pipeline(steps=[(&#39;standardscaler&#39;, StandardScaler()),</span>
+<span class="go">                (&#39;linearregression&#39;, LinearRegression())])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">))</span>
+<span class="go">0.90...</span>
+</pre></div>
+</div>
+<p>تساعد الأنابيب أيضًا في تجنب المزلق الشائع الآخر: تسرب بيانات الاختبار
+إلى بيانات التدريب.</p>
+</section>
+<section id="data-leakage">
+<span id="id3"></span><h2><span class="section-number">13.2. </span>تسرب البيانات<a class="headerlink" href="#data-leakage" title="Link to this heading">#</a></h2>
+<p>يحدث تسرب البيانات عندما يتم استخدام معلومات لن تكون متاحة في وقت التنبؤ
+عند بناء النموذج. يؤدي هذا إلى تقديرات أداء متفائلة للغاية، على سبيل المثال من <a class="reference internal" href="modules/cross_validation.html#cross-validation"><span class="std std-ref">cross-validation</span></a>، وبالتالي أداء أسوأ عندما يتم استخدام النموذج
+على بيانات جديدة بالفعل، على سبيل المثال أثناء الإنتاج.</p>
+<p>أحد الأسباب الشائعة هو عدم الحفاظ على مجموعات البيانات الفرعية للاختبار والتدريب منفصلة.
+يجب ألا تستخدم بيانات الاختبار مطلقًا لاتخاذ خيارات حول النموذج.
+<strong>القاعدة العامة هي عدم استدعاء</strong> <code class="docutils literal notranslate"><span class="pre">fit</span></code> <strong>على بيانات الاختبار</strong>. على الرغم من أن هذا
+قد يبدو واضحًا، إلا أنه من السهل تفويته في بعض الحالات، على سبيل المثال عند
+تطبيق خطوات ما قبل المعالجة.</p>
+<p>على الرغم من أنه يجب أن تتلقى كل من مجموعات البيانات الفرعية للتدريب والاختبار نفس
+تحويل ما قبل المعالجة (كما هو موضح في القسم السابق)، فمن المهم
+أن يتم تعلم هذه التحولات فقط من بيانات التدريب.
+على سبيل المثال، إذا كان لديك
+خطوة التطبيع حيث تقسم على القيمة المتوسطة، يجب أن يكون
+المتوسط هو متوسط مجموعة البيانات الفرعية للتدريب، <strong>ليس</strong> متوسط جميع البيانات. إذا تم تضمين
+مجموعة البيانات الفرعية للاختبار في حساب المتوسط، فإن المعلومات من مجموعة البيانات الفرعية للاختبار
+تؤثر على النموذج.</p>
+<section id="id4">
+<h3><span class="section-number">13.2.1. </span>كيفية تجنب تسرب البيانات<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>فيما يلي بعض النصائح لتجنب تسرب البيانات:</p>
+<ul>
+<li><p>قم دائمًا بتقسيم البيانات إلى مجموعات فرعية للتدريب والاختبار أولاً، خاصة
+قبل أي خطوات ما قبل المعالجة.</p></li>
+<li><p>لا تضمن بيانات الاختبار عند استخدام أساليب <code class="docutils literal notranslate"><span class="pre">fit</span></code> و <code class="docutils literal notranslate"><span class="pre">fit_transform</span></code>
+. يمكن أن يؤدي استخدام جميع البيانات، على سبيل المثال، <code class="docutils literal notranslate"><span class="pre">fit(X)</span></code>، إلى نتائج متفائلة للغاية
+الدرجات.</p>
+<p>على العكس من ذلك، يجب استخدام طريقة <code class="docutils literal notranslate"><span class="pre">transform</span></code> على كل من مجموعات البيانات الفرعية للتدريب والاختبار حيث يتم تطبيق نفس ما قبل المعالجة على جميع البيانات.
+يمكن تحقيق ذلك عن طريق استخدام <code class="docutils literal notranslate"><span class="pre">fit_transform</span></code> على مجموعة البيانات الفرعية للتدريب و
+<code class="docutils literal notranslate"><span class="pre">transform</span></code> على مجموعة البيانات الفرعية للاختبار.</p>
+</li>
+<li><p>تعتبر أنابيب scikit-learn <a class="reference internal" href="modules/compose.html#pipeline"><span class="std std-ref">pipeline</span></a> طريقة رائعة لمنع تسرب البيانات
+حيث تضمن أن يتم تنفيذ الطريقة المناسبة على مجموعة البيانات الفرعية الصحيحة. الأنبوب مثالي للاستخدام في
+وظائف التقاطع وضبط المعلمات.</p></li>
+</ul>
+<p>يتم تفصيل مثال على تسرب البيانات أثناء ما قبل المعالجة أدناه.</p>
+</section>
+<section id="id5">
+<h3><span class="section-number">13.2.2. </span>تسرب البيانات أثناء ما قبل المعالجة<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<div class="admonition note">
+<p class="admonition-title">ملاحظة</p>
+<p>نختار هنا توضيح تسرب البيانات بخطوة اختيار الميزة.
+ومع ذلك، فإن خطر التسرب هذا مهم مع جميع التحولات تقريبًا
+في scikit-learn، بما في ذلك (ولكن ليس على سبيل الحصر)
+<a class="reference internal" href="modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">StandardScaler</span></code></a>،
+<a class="reference internal" href="modules/generated/sklearn.impute.SimpleImputer.html#sklearn.impute.SimpleImputer" title="sklearn.impute.SimpleImputer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleImputer</span></code></a>، و
+<a class="reference internal" href="modules/generated/sklearn.decomposition.PCA.html#sklearn.decomposition.PCA" title="sklearn.decomposition.PCA"><code class="xref py py-class docutils literal notranslate"><span class="pre">PCA</span></code></a>.</p>
+</div>
+<p>يتوفر عدد من وظائف <a class="reference internal" href="modules/feature_selection.html#feature-selection"><span class="std std-ref">اختيار الميزات</span></a> في scikit-learn.
+يمكنهم المساعدة في إزالة الميزات غير ذات الصلة والمتكررة والضجيج، وكذلك
+تحسين وقت بناء النموذج وأدائه. كما هو الحال مع أي نوع آخر من
+ما قبل المعالجة، يجب استخدام اختيار الميزة <strong>فقط</strong> باستخدام بيانات التدريب.
+سيؤدي تضمين بيانات الاختبار في اختيار الميزة إلى تحيز نموذجك بشكل متفائل.</p>
+<p>للتدليل، سنقوم بإنشاء مشكلة تصنيف ثنائي مع
+10000 ميزة تم إنشاؤها عشوائيًا:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n_samples</span><span class="p">,</span> <span class="n">n_features</span><span class="p">,</span> <span class="n">n_classes</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">((</span><span class="n">n_samples</span><span class="p">,</span> <span class="n">n_features</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">n_classes</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>خطأ</strong></p>
+<p>يؤدي استخدام جميع البيانات لأداء اختيار الميزة إلى نتيجة دقة أعلى بكثير
+من الفرصة، على الرغم من أن أهدافنا عشوائية تمامًا.
+تعني هذه العشوائية أن <code class="docutils literal notranslate"><span class="pre">X</span></code> و <code class="docutils literal notranslate"><span class="pre">y</span></code> مستقلان، وبالتالي فإننا نتوقع
+الدقة لتكون حوالي 0.5. ومع ذلك، نظرًا لأن خطوة اختيار الميزة
+&quot;ترى&quot; بيانات الاختبار، فإن النموذج لديه ميزة غير عادلة. في المثال الخاطئ أدناه، نستخدم أولاً جميع البيانات لاختيار الميزة ثم
+قم بتقسيم البيانات إلى مجموعات فرعية للتدريب والاختبار لتناسب النموذج. النتيجة هي
+نتيجة دقة أعلى من المتوقع:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">SelectKBest</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">GradientBoostingClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># ما قبل المعالجة غير الصحيحة: يتم تحويل البيانات بالكامل</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_selected</span> <span class="o">=</span> <span class="n">SelectKBest</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">X_selected</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gbc</span> <span class="o">=</span> <span class="n">GradientBoostingClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gbc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="go">GradientBoostingClassifier(random_state=1)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">gbc</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="go">0.76</span>
+</pre></div>
+</div>
+<p><strong>صحيح</strong></p>
+<p>لتجنب تسرب البيانات، من الجيد تقسيم بياناتك إلى مجموعات فرعية للتدريب
+واختبار <strong>أولاً</strong>. يمكن بعد ذلك تشكيل اختيار الميزة باستخدام مجموعة بيانات التدريب فقط. لاحظ أنه كلما استخدمنا <code class="docutils literal notranslate"><span class="pre">fit</span></code> أو <code class="docutils literal notranslate"><span class="pre">fit_transform</span></code>، نستخدم فقط مجموعة بيانات التدريب. النتيجة هي ما نتوقعه للبيانات، قريب من الفرصة:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">select</span> <span class="o">=</span> <span class="n">SelectKBest</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train_selected</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gbc</span> <span class="o">=</span> <span class="n">GradientBoostingClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gbc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_selected</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="go">GradientBoostingClassifier(random_state=1)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_test_selected</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">gbc</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_selected</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="go">0.46</span>
+</pre></div>
+</div>
+<p>مرة أخرى، نوصي باستخدام <a class="reference internal" href="modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> لربط
+معًا مقدرات اختيار الميزة والنموذج. تضمن الأنابيب
+أنه يتم استخدام بيانات التدريب فقط عند تنفيذ <code class="docutils literal notranslate"><span class="pre">fit</span></code> ويتم استخدام بيانات الاختبار
+فقط لحساب نتيجة الدقة:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">SelectKBest</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">25</span><span class="p">),</span>
+<span class="gp">... </span>                         <span class="n">GradientBoostingClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="go">Pipeline(steps=[(&#39;selectkbest&#39;, SelectKBest(k=25)),</span>
+<span class="go">                (&#39;gradientboostingclassifier&#39;,</span>
+<span class="go">                GradientBoostingClassifier(random_state=1))])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="go">0.46</span>
+</pre></div>
+</div>
+<p>يمكن أيضًا تغذية الأنبوب في وظيفة التقاطع
+مثل <a class="reference internal" href="modules/generated/sklearn.model_selection.cross_val_score.html#sklearn.model_selection.cross_val_score" title="sklearn.model_selection.cross_val_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">cross_val_score</span></code></a>.
+مرة أخرى، تضمن الأنابيب أنه يتم استخدام مجموعة البيانات الفرعية الصحيحة والمقدر
+الطريقة المستخدمة أثناء التجهيز والتنبؤ:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">pipeline</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean accuracy: </span><span class="si">{</span><span class="n">scores</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">+/-</span><span class="si">{</span><span class="n">scores</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="go">متوسط الدقة: 0.46+/-0.07</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="randomness">
+<span id="id6"></span><h2><span class="section-number">13.3. </span>التحكم في العشوائية<a class="headerlink" href="#randomness" title="Link to this heading">#</a></h2>
+<p>بعض كائنات scikit-learn عشوائية بطبيعتها. هذه عادة ما تكون المقدرات
+(على سبيل المثال <a class="reference internal" href="modules/generated/sklearn.ensemble.RandomForestClassifier.html#sklearn.ensemble.RandomForestClassifier" title="sklearn.ensemble.RandomForestClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomForestClassifier</span></code></a>) ومقسّمات التقاطع (على سبيل المثال <a class="reference internal" href="modules/generated/sklearn.model_selection.KFold.html#sklearn.model_selection.KFold" title="sklearn.model_selection.KFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">KFold</span></code></a>). يتم التحكم في العشوائية لهذه الكائنات عبر
+معلمة <code class="docutils literal notranslate"><span class="pre">random_state</span></code> الخاصة بهم، كما هو موضح في
+<a class="reference internal" href="glossary.html#term-random_state"><span class="xref std std-term">Glossary</span></a>. يوسع هذا القسم إدخال المسرد
+، ويصف الممارسات الجيدة والمزالق الشائعة فيما يتعلق بهذا
+البارامتر الدقيق.</p>
+<div class="admonition note">
+<p class="admonition-title">ملاحظة</p>
+<p>ملخص التوصية</p>
+<p>للحصول على نتائج متينة مثالية للتقاطع (CV)، قم بتمرير
+<code class="docutils literal notranslate"><span class="pre">RandomState</span></code> عند إنشاء المقدرات، أو اترك <code class="docutils literal notranslate"><span class="pre">random_state</span></code>
+إلى <code class="docutils literal notranslate"><span class="pre">None</span></code>. يعد تمرير الأعداد الصحيحة إلى مقسّمات CV عادةً الخيار الأكثر أمانًا
+وهو مفضل؛ قد يكون تمرير <code class="docutils literal notranslate"><span class="pre">RandomState</span></code> إلى المقسّمات مفيدًا في بعض الأحيان لتحقيق حالات الاستخدام المحددة جدًا.
+بالنسبة لكل من المقدرات والمقسّمات، يؤدي تمرير عدد صحيح مقابل تمرير مثيل (أو <code class="docutils literal notranslate"><span class="pre">None</span></code>) إلى اختلافات دقيقة ولكنها مهمة،
+خاصة لإجراءات CV. هذه الاختلافات مهمة لفهمها عند الإبلاغ عن النتائج.</p>
+<p>للحصول على نتائج قابلة للتكرار عبر عمليات التنفيذ، قم بإزالة أي استخدام لـ
+<code class="docutils literal notranslate"><span class="pre">random_state=None</span></code>.</p>
+</div>
+<section id="none-randomstate-fit-split">
+<h3><span class="section-number">13.3.1. </span>استخدام <code class="docutils literal notranslate"><span class="pre">None</span></code> أو <code class="docutils literal notranslate"><span class="pre">RandomState</span></code>، والمكالمات المتكررة لـ <code class="docutils literal notranslate"><span class="pre">fit</span></code> و <code class="docutils literal notranslate"><span class="pre">split</span></code><a class="headerlink" href="#none-randomstate-fit-split" title="Link to this heading">#</a></h3>
+<p>يحدد معلمة <code class="docutils literal notranslate"><span class="pre">random_state</span></code> ما إذا كانت المكالمات المتعددة لـ <a class="reference internal" href="glossary.html#term-fit"><span class="xref std std-term">fit</span></a>
+(للمقدرات) أو لـ <a class="reference internal" href="glossary.html#term-split"><span class="xref std std-term">split</span></a> (لمقسّمات CV) ستنتج نفس
+النتائج، وفقًا لهذه القواعد:</p>
+<ul class="simple">
+<li><p>إذا تم تمرير عدد صحيح، فإن الاستدعاءات المتعددة لـ <code class="docutils literal notranslate"><span class="pre">fit</span></code> أو <code class="docutils literal notranslate"><span class="pre">split</span></code>
+دائمًا ما ينتج نفس النتائج.</p></li>
+<li><p>إذا تم تمرير <code class="docutils literal notranslate"><span class="pre">None</span></code> أو مثيل <code class="docutils literal notranslate"><span class="pre">RandomState</span></code>: <code class="docutils literal notranslate"><span class="pre">fit</span></code> و <code class="docutils literal notranslate"><span class="pre">split</span></code>
+ستؤدي إلى نتائج مختلفة في كل مرة يتم استدعاؤها، وسلسلة الاستدعاءات
+يستكشف جميع مصادر العشوائية. <code class="docutils literal notranslate"><span class="pre">None</span></code> هي القيمة الافتراضية لجميع
+معلمات <code class="docutils literal notranslate"><span class="pre">random_state</span></code>.</p></li>
+</ul>
+<p>نوضح هنا هذه القواعد لكل من المقدرات ومقسّمات CV.</p>
+<div class="admonition note">
+<p class="admonition-title">ملاحظة</p>
+<p>نظرًا لأن تمرير <code class="docutils literal notranslate"><span class="pre">random_state=None</span></code> يعادل تمرير مثيل <code class="docutils literal notranslate"><span class="pre">RandomState</span></code> العالمي
+من <code class="docutils literal notranslate"><span class="pre">numpy</span></code> (<code class="docutils literal notranslate"><span class="pre">random_state=np.random.mtrand._rand</span></code>)، فلن نذكر صراحةً
+<code class="docutils literal notranslate"><span class="pre">None</span></code> هنا. كل ما ينطبق على المثيلات ينطبق أيضًا على استخدام
+<code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+</div>
+<section id="id7">
+<h4><span class="section-number">13.3.1.1. </span>المقدرات<a class="headerlink" href="#id7" title="Link to this heading">#</a></h4>
+<p>يعني تمرير المثيلات أن الاستدعاءات المتعددة لـ <code class="docutils literal notranslate"><span class="pre">fit</span></code> لن تنتج نفس
+النتائج، حتى إذا تم تركيب المقدر على نفس البيانات وبنفس
+المعلمات:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">SGDClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">n_features</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sgd</span> <span class="o">=</span> <span class="n">SGDClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sgd</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">coef_</span>
+<span class="go">array([[ 8.85418642,  4.79084103, -3.13077794,  8.11915045, -0.56479934]])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sgd</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">coef_</span>
+<span class="go">array([[ 6.70814003,  5.25291366, -7.55212743,  5.18197458,  1.37845099]])</span>
+</pre></div>
+</div>
+<p>يمكننا أن نرى من المقتطف أعلاه أن الاستدعاءات المتكررة لـ <code class="docutils literal notranslate"><span class="pre">sgd.fit</span></code>
+أنتجت نماذج مختلفة، حتى إذا كانت البيانات هي نفسها. هذا لأن
+تم استهلاك مولد الأرقام العشوائية (RNG) للمقدر (أي تم تغييره)
+عندما يتم استدعاء <code class="docutils literal notranslate"><span class="pre">fit</span></code>، وسيتم استخدام هذا RNG المتحول في
+المكالمات اللاحقة لـ <code class="docutils literal notranslate"><span class="pre">fit</span></code>. بالإضافة إلى ذلك، يتم مشاركة كائن <code class="docutils literal notranslate"><span class="pre">rng</span></code> عبر جميع الكائنات
+التي تستخدمه، ونتيجة لذلك، تصبح هذه الكائنات مترابطة إلى حد ما. على سبيل المثال، سيؤثر المقدران اللذان يشتركان في نفس
+مثيل <code class="docutils literal notranslate"><span class="pre">RandomState</span></code> على بعضهما البعض، كما سنرى لاحقًا عندما
+نناقش الاستنساخ. هذه النقطة مهمة يجب مراعاتها عند تصحيح الأخطاء.</p>
+<p>إذا كنا قد مررنا عددًا صحيحًا إلى معلمة <code class="docutils literal notranslate"><span class="pre">random_state</span></code> الخاصة بـ
+<a class="reference internal" href="modules/generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="sklearn.linear_model.SGDClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDClassifier</span></code></a>، لكنا قد حصلنا على نفس
+النماذج، وبالتالي نفس الدرجات في كل مرة. عندما نمرر عددًا صحيحًا، يتم استخدام نفس RNG
+عبر جميع المكالمات لـ <code class="docutils literal notranslate"><span class="pre">fit</span></code>. ما يحدث داخليًا هو أنه على الرغم من
+يتم استهلاك RNG عند استدعاء <code class="docutils literal notranslate"><span class="pre">fit</span></code>، فإنه يتم دائمًا إعادة تعيينه إلى
+حالته الأصلية في بداية <code class="docutils literal notranslate"><span class="pre">fit</span></code>.</p>
+</section>
+<section id="cv">
+<h4><span class="section-number">13.3.1.2. </span>مقسّمات CV<a class="headerlink" href="#cv" title="Link to this heading">#</a></h4>
+<p>لدي مقسّمات CV العشوائية سلوك مشابه عند تمرير مثيل <code class="docutils literal notranslate"><span class="pre">RandomState</span></code>؛
+استدعاء <code class="docutils literal notranslate"><span class="pre">split</span></code> عدة مرات ينتج عنه تقسيمات بيانات مختلفة:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cv</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">cv</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">)</span>
+<span class="go">[0 3 5 6 7] [1 2 4 8 9]</span>
+<span class="go">[1 2 4 8 9] [0 3 5 6 7]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">cv</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">)</span>
+<span class="go">[0 4 6 7 8] [1 2 3 5 9]</span>
+<span class="go">[1 2 3 5 9] [0 4 6 7 8]</span>
+</pre></div>
+</div>
+<p>يمكننا أن نرى أن التقسيمات مختلفة من المرة الثانية التي يتم فيها استدعاء <code class="docutils literal notranslate"><span class="pre">split</span></code>. قد يؤدي هذا إلى نتائج غير متوقعة إذا كنت تقارن أداء
+المقدرات المتعددة عن طريق استدعاء <code class="docutils literal notranslate"><span class="pre">split</span></code> عدة مرات، كما سنرى في القسم التالي.</p>
+</section>
+</section>
+<section id="id8">
+<h3><span class="section-number">13.3.2. </span>المزالق الشائعة والتعقيدات<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>على الرغم من أن القواعد التي تحكم معلمة <code class="docutils literal notranslate"><span class="pre">random_state</span></code> تبدو بسيطة،
+إلا أن لها بعض الآثار الدقيقة. في بعض الحالات، يمكن أن يؤدي ذلك حتى إلى
+استنتاجات خاطئة.</p>
+<section id="id9">
+<h4><span class="section-number">13.3.2.1. </span>المقدرات<a class="headerlink" href="#id9" title="Link to this heading">#</a></h4>
+<p><strong>أنواع `random_state` المختلفة تؤدي إلى إجراءات تقاطع مختلفة</strong></p>
+<p>وفقًا لنوع معلمة <code class="docutils literal notranslate"><span class="pre">random_state</span></code>، سيتصرف المقدرات بشكل مختلف، خاصة في إجراءات التقاطع. ضع في اعتبارك
+المقتطف التالي:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rf_123</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">rf_123</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">array([0.85, 0.95, 0.95, 0.9 , 0.9 ])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rf_inst</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">rf_inst</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">array([0.9 , 0.95, 0.95, 0.9 , 0.9 ])</span>
+</pre></div>
+</div>
+<p>نرى أن نتائج التقاطع الصحيحة لـ <code class="docutils literal notranslate"><span class="pre">rf_123</span></code> و <code class="docutils literal notranslate"><span class="pre">rf_inst</span></code>
+مختلفة، كما هو متوقع حيث لم نمرر نفس معلمة <code class="docutils literal notranslate"><span class="pre">random_state</span></code>
+. ومع ذلك، فإن الاختلاف بين هذه الدرجات أكثر دقة مما يبدو، و <strong>إجراءات التقاطع التي قام بها</strong>
+<a class="reference internal" href="modules/generated/sklearn.model_selection.cross_val_score.html#sklearn.model_selection.cross_val_score" title="sklearn.model_selection.cross_val_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">cross_val_score</span></code></a> <strong>تختلف بشكل كبير في كل حالة</strong>:</p>
+<ul class="simple">
+<li><p>نظرًا لأنه تم تمرير عدد صحيح إلى <code class="docutils literal notranslate"><span class="pre">rf_123</span></code>، فإن كل استدعاء لـ <code class="docutils literal notranslate"><span class="pre">fit</span></code> يستخدم نفس RNG:
+هذا يعني أن جميع الخصائص العشوائية لمقدر الغابة العشوائية
+ستكون هي نفسها لكل من الطيات الخمس لإجراء CV. على وجه الخصوص،
+سيكون الجزء الفرعي (المختار عشوائيًا) من الميزات للمقدر هو نفسه عبر جميع الطيات.</p></li>
+<li><p>نظرًا لأنه تم تمرير مثيل <code class="docutils literal notranslate"><span class="pre">RandomState</span></code> إلى <code class="docutils literal notranslate"><span class="pre">rf_inst</span></code>، فإن كل استدعاء لـ <code class="docutils literal notranslate"><span class="pre">fit</span></code>
+يبدأ من RNG مختلف. ونتيجة لذلك، فإن المجموعة الفرعية العشوائية من الميزات
+ستكون مختلفة لكل الطيات.</p></li>
+</ul>
+<p>على الرغم من أن وجود RNG ثابت عبر الطيات ليس خاطئًا في حد ذاته، فإننا عادة ما نريد
+نتائج CV متينة فيما يتعلق بعشوائية المقدر. ونتيجة لذلك، قد يكون تمرير مثيل بدلاً من عدد صحيح
+أفضل، حيث سيسمح لـ RNG المقدر بالاختلاف لكل طية.</p>
+<div class="admonition note">
+<p class="admonition-title">ملاحظة</p>
+<p>هنا، سيستخدم <a class="reference internal" href="modules/generated/sklearn.model_selection.cross_val_score.html#sklearn.model_selection.cross_val_score" title="sklearn.model_selection.cross_val_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">cross_val_score</span></code></a> مقسّم CV غير عشوائي (كما هو الافتراضي)، لذا سيتم تقييم كل من المقدرات
+على نفس التقسيمات. هذا القسم ليس حول التباين في التقسيمات. أيضًا، سواء مررنا عددًا صحيحًا أو مثيلاً إلى
+<a class="reference internal" href="modules/generated/sklearn.datasets.make_classification.html#sklearn.datasets.make_classification" title="sklearn.datasets.make_classification"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_classification</span></code></a> ليس ذا صلة بغرض التوضيح لدينا: ما يهم هو ما نمرره إلى
+المقدر <a class="reference internal" href="modules/generated/sklearn.ensemble.RandomForestClassifier.html#sklearn.ensemble.RandomForestClassifier" title="sklearn.ensemble.RandomForestClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomForestClassifier</span></code></a>.</p>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="الاستنساخ">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">الاستنساخ<a class="headerlink" href="#الاستنساخ" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">تأثير جانبي دقيق آخر لتمرير مثيلات <code class="docutils literal notranslate"><span class="pre">RandomState</span></code> هو كيفية عمل
+<a class="reference internal" href="modules/generated/sklearn.base.clone.html#sklearn.base.clone" title="sklearn.base.clone"><code class="xref py py-func docutils literal notranslate"><span class="pre">clone</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">clone</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sd-card-text">نظرًا لأنه تم تمرير مثيل <code class="docutils literal notranslate"><span class="pre">RandomState</span></code> إلى <code class="docutils literal notranslate"><span class="pre">a</span></code>، فإن <code class="docutils literal notranslate"><span class="pre">a</span></code> و <code class="docutils literal notranslate"><span class="pre">b</span></code> ليسا استنساخات
+بالمعنى الدقيق للكلمة، ولكن استنساخات بالمعنى الإحصائي: <code class="docutils literal notranslate"><span class="pre">a</span></code> و <code class="docutils literal notranslate"><span class="pre">b</span></code>
+ستظل نماذج مختلفة، حتى عند استدعاء <code class="docutils literal notranslate"><span class="pre">fit(X,</span> <span class="pre">y)</span></code> على نفس
+البيانات. علاوة على ذلك، فإن <code class="docutils literal notranslate"><span class="pre">a</span></code> و <code class="docutils literal notranslate"><span class="pre">b</span></code> سيؤثران على بعضهما البعض حيث يتشاركان في نفس
+RNG الداخلي: سيؤدي استدعاء <code class="docutils literal notranslate"><span class="pre">a.fit</span></code> إلى استهلاك RNG الخاص بـ <code class="docutils literal notranslate"><span class="pre">b</span></code>، وسيؤدي استدعاء
+<code class="docutils literal notranslate"><span class="pre">b.fit</span></code> إلى استهلاك RNG الخاص بـ <code class="docutils literal notranslate"><span class="pre">a</span></code>، نظرًا لأنهما متطابقان. هذه النقطة صحيحة لأي مقدرات تشترك في
+معلمة <code class="docutils literal notranslate"><span class="pre">random_state</span></code>؛ ليس خاصًا بالاستنساخ.</p>
+<p class="sd-card-text">إذا تم تمرير عدد صحيح، فستكون <code class="docutils literal notranslate"><span class="pre">a</span></code> و <code class="docutils literal notranslate"><span class="pre">b</span></code> استنساخات دقيقة ولن يؤثرا على بعضهما البعض.</p>
+<div class="admonition warning">
+<p class="admonition-title">تحذير</p>
+<p class="sd-card-text">على الرغم من أن <a class="reference internal" href="modules/generated/sklearn.base.clone.html#sklearn.base.clone" title="sklearn.base.clone"><code class="xref py py-func docutils literal notranslate"><span class="pre">clone</span></code></a> نادرًا ما يتم استخدامه في كود المستخدم، إلا أنه يتم استدعاؤه بشكل مستمر في جميع أنحاء شفرة scikit-learn: على وجه الخصوص، معظم
+المقدرات الميتا التي تقبل المقدرات غير المجهزة تستدعي
+<a class="reference internal" href="modules/generated/sklearn.base.clone.html#sklearn.base.clone" title="sklearn.base.clone"><code class="xref py py-func docutils literal notranslate"><span class="pre">clone</span></code></a> داخليًا
+(<a class="reference internal" href="modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearchCV</span></code></a>،
+<a class="reference internal" href="modules/generated/sklearn.ensemble.StackingClassifier.html#sklearn.ensemble.StackingClassifier" title="sklearn.ensemble.StackingClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">StackingClassifier</span></code></a>،
+<a class="reference internal" href="modules/generated/sklearn.calibration.CalibratedClassifierCV.html#sklearn.calibration.CalibratedClassifierCV" title="sklearn.calibration.CalibratedClassifierCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">CalibratedClassifierCV</span></code></a>، إلخ).</p>
+</div>
+</div>
+</details></section>
+<section id="id10">
+<h4><span class="section-number">13.3.2.2. </span>مقسّمات CV<a class="headerlink" href="#id10" title="Link to this heading">#</a></h4>
+<p>عند تمرير مثيل <code class="docutils literal notranslate"><span class="pre">RandomState</span></code>، تنتج مقسّمات CV تقسيمات مختلفة
+في كل مرة يتم فيها استدعاء <code class="docutils literal notranslate"><span class="pre">split</span></code>. عند مقارنة المقدرات المختلفة، يمكن أن يؤدي ذلك إلى
+المبالغة في تقدير تباين الفرق في الأداء بين
+المقدرات:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.discriminant_analysis</span> <span class="kn">import</span> <span class="n">LinearDiscriminantAnalysis</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cv</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lda</span> <span class="o">=</span> <span class="n">LinearDiscriminantAnalysis</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nb</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">est</span> <span class="ow">in</span> <span class="p">(</span><span class="n">lda</span><span class="p">,</span> <span class="n">nb</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">est</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">))</span>
+<span class="go">[0.8  0.75 0.75 0.7  0.85]</span>
+<span class="go">[0.85 0.95 0.95 0.85 0.95]</span>
+</pre></div>
+</div>
+<p>سيكون إجراء مقارنة مباشرة لأداء
+<a class="reference internal" href="modules/generated/sklearn.discriminant_analysis.LinearDiscriminantAnalysis.html#sklearn.discriminant_analysis.LinearDiscriminantAnalysis" title="sklearn.discriminant_analysis.LinearDiscriminantAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearDiscriminantAnalysis</span></code></a>
+مقابل المقدر <a class="reference internal" href="modules/generated/sklearn.naive_bayes.GaussianNB.html#sklearn.naive_bayes.GaussianNB" title="sklearn.naive_bayes.GaussianNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianNB</span></code></a> <strong>على كل طية</strong> خطأً: <strong>التقسيمات التي يتم تقييم المقدرات عليها
+مختلفة</strong>. في الواقع، سيقوم <a class="reference internal" href="modules/generated/sklearn.model_selection.cross_val_score.html#sklearn.model_selection.cross_val_score" title="sklearn.model_selection.cross_val_score"><code class="xref py py-func docutils literal notranslate"><span class="pre">cross_val_score</span></code></a>
+باستدعاء <code class="docutils literal notranslate"><span class="pre">cv.split</span></code> على نفس
+مثيل <a class="reference internal" href="modules/generated/sklearn.model_selection.KFold.html#sklearn.model_selection.KFold" title="sklearn.model_selection.KFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">KFold</span></code></a>، ولكن ستكون التقسيمات
+مختلفة في كل مرة. هذا صحيح أيضًا لأي أداة تقوم باختيار النموذج عبر التقاطع، على سبيل المثال
+<a class="reference internal" href="modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearchCV</span></code></a> و
+<a class="reference internal" href="modules/generated/sklearn.model_selection.RandomizedSearchCV.html#sklearn.model_selection.RandomizedSearchCV" title="sklearn.model_selection.RandomizedSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomizedSearchCV</span></code></a>: الدرجات غير قابلة للمقارنة من طية إلى طية عبر مكالمات مختلفة لـ <code class="docutils literal notranslate"><span class="pre">search.fit</span></code>،
+نظرًا لأنه تم استدعاء <code class="docutils literal notranslate"><span class="pre">cv.split</span></code> عدة مرات. داخل مكالمة واحدة لـ
+<code class="docutils literal notranslate"><span class="pre">search.fit</span></code>، ومع ذلك، تكون المقارنة من طية إلى طية ممكنة حيث يقوم المقدر
+بالبحث فقط عن استدعاء <code class="docutils literal notranslate"><span class="pre">cv.split</span></code> مرة واحدة.</p>
+<p>للحصول على نتائج قابلة للمقارنة من طية إلى طية في جميع السيناريوهات، يجب تمرير عدد صحيح إلى
+مقسّم CV: <code class="docutils literal notranslate"><span class="pre">cv</span> <span class="pre">=</span> <span class="pre">KFold(shuffle=True,</span> <span class="pre">random_state=0)</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">ملاحظة</p>
+<p>على الرغم من أن المقارنة من طية إلى طية غير ممكنة مع مثيلات <code class="docutils literal notranslate"><span class="pre">RandomState</span></code>،
+يمكن للمرء مع ذلك توقع أن تسمح الدرجات المتوسطة باستنتاج ما إذا كان أحد المقدرات أفضل من الآخر، طالما تم استخدام عدد كافٍ من الطيات والبيانات.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">ملاحظة</p>
+<p>ما يهم في هذا المثال هو ما تم تمريره إلى
+<a class="reference internal" href="modules/generated/sklearn.model_selection.KFold.html#sklearn.model_selection.KFold" title="sklearn.model_selection.KFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">KFold</span></code></a>. سواء مررنا مثيل <code class="docutils literal notranslate"><span class="pre">RandomState</span></code> أو عددًا صحيحًا إلى
+<a class="reference internal" href="modules/generated/sklearn.datasets.make_classification.html#sklearn.datasets.make_classification" title="sklearn.datasets.make_classification"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_classification</span></code></a> ليس ذا صلة بغرض التوضيح لدينا. أيضًا، لا
+<a class="reference internal" href="modules/generated/sklearn.discriminant_analysis.LinearDiscriminantAnalysis.html#sklearn.discriminant_analysis.LinearDiscriminantAnalysis" title="sklearn.discriminant_analysis.LinearDiscriminantAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearDiscriminantAnalysis</span></code></a> ولا
+<a class="reference internal" href="modules/generated/sklearn.naive_bayes.GaussianNB.html#sklearn.naive_bayes.GaussianNB" title="sklearn.naive_bayes.GaussianNB"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianNB</span></code></a> هي مقدرات عشوائية.</p>
+</div>
+</section>
+</section>
+<section id="id11">
+<h3><span class="section-number">13.3.3. </span>توصيات عامة<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<section id="id12">
+<h4><span class="section-number">13.3.3.1. </span>الحصول على نتائج قابلة للتكرار عبر عمليات التنفيذ المتعددة<a class="headerlink" href="#id12" title="Link to this heading">#</a></h4>
+<p>من أجل الحصول على نتائج قابلة للتكرار (أي ثابتة) عبر عمليات التنفيذ المتعددة
+<em>تنفيذ البرنامج</em>، نحتاج إلى إزالة جميع استخدامات <code class="docutils literal notranslate"><span class="pre">random_state=None</span></code>، والتي
+هو الافتراضي. الطريقة الموصى بها هي إعلان متغير <code class="docutils literal notranslate"><span class="pre">rng</span></code> في أعلى
+البرنامج، ومرره إلى أي كائن يقبل معلمة <code class="docutils literal notranslate"><span class="pre">random_state</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span>
+<span class="gp">... </span>                                                    <span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+<span class="go">0.84</span>
+</pre></div>
+</div>
+<p>نحن الآن مضمونون أن نتيجة هذا البرنامج النصي ستكون دائمًا 0.84، بغض النظر عن عدد المرات التي ننفذها. يجب أن يؤثر تغيير متغير <code class="docutils literal notranslate"><span class="pre">rng</span></code> العالمي على النتائج، كما هو متوقع.</p>
+<p>من الممكن أيضًا إعلان متغير <code class="docutils literal notranslate"><span class="pre">rng</span></code> كعدد صحيح. ومع ذلك، قد يؤدي هذا إلى نتائج أقل متانة للتقاطع، كما سنرى في القسم التالي.</p>
+<div class="admonition note">
+<p class="admonition-title">ملاحظة</p>
+<p>لا نوصي بتعيين البذرة العالمية لـ <code class="docutils literal notranslate"><span class="pre">numpy</span></code> عن طريق استدعاء
+<code class="docutils literal notranslate"><span class="pre">np.random.seed(0)</span></code>. انظر <a class="reference external" href="https://stackoverflow.com/questions/5836335/consistently-create-same-random-numpy-array/5837352#comment6712034_5837352">هنا</a>
+للمناقشة.</p>
+</div>
+</section>
+<section id="id14">
+<h4><span class="section-number">13.3.3.2. </span>متانة نتائج التقاطع<a class="headerlink" href="#id14" title="Link to this heading">#</a></h4>
+<p>عندما نقيم أداء المقدر العشوائي عن طريق التقاطع، نريد
+تأكد من أن المقدر يمكنه تقديم تنبؤات دقيقة للبيانات الجديدة، ولكننا نريد أيضًا
+تأكد من أن المقدر متين فيما يتعلق بتهيئته العشوائية. على سبيل المثال، نود أن تكون تهيئة الأوزان العشوائية لـ
+<a class="reference internal" href="modules/generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="sklearn.linear_model.SGDClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDClassifier</span></code></a>
+متسقة عبر جميع الطيات: وإلا، عندما نقوم بتدريب هذا المقدر
+على بيانات جديدة، قد نحصل على حظ سيئ وقد تؤدي تهيئة عشوائية إلى
+أداء سيئ. وبالمثل، نريد أن تكون الغابة العشوائية متينة فيما يتعلق بمجموعة الميزات العشوائية التي سيستخدمها كل شجرة.</p>
+<p>لهذه الأسباب، من الأفضل تقييم أداء التقاطع عن طريق السماح للمقدر باستخدام
+RNG مختلف على كل طية. يتم ذلك عن طريق تمرير مثيل <code class="docutils literal notranslate"><span class="pre">RandomState</span></code> (أو <code class="docutils literal notranslate"><span class="pre">None</span></code>) إلى
+تهيئة المقدر.</p>
+<p>عندما نمرر عددًا صحيحًا، سيستخدم المقدر نفس RNG على كل طية:
+إذا كان أداء المقدر جيدًا (أو سيئًا)، كما هو مقدر من CV، فقد يكون ذلك لأننا
+حصلنا على حظ سعيد (أو سيئ) مع تلك البذرة المحددة. يؤدي تمرير المثيلات إلى نتائج أكثر متانة لـ CV، ويجعل
+مقارنة الخوارزميات المختلفة أكثر عدلاً. كما أنه يساعد في الحد من إغراء معاملة
+RNG المقدر كمعلمة يمكن ضبطها.</p>
+<p>سواء قمنا بتمرير مثيلات <code class="docutils literal notranslate"><span class="pre">RandomState</span></code> أو أعداد صحيحة إلى مقسّمات CV ليس له تأثير على المتانة، طالما تم استدعاء <code class="docutils literal notranslate"><span class="pre">split</span></code> مرة واحدة. عندما يتم استدعاء <code class="docutils literal notranslate"><span class="pre">split</span></code> عدة مرات، لم تعد المقارنة من طية إلى طية ممكنة. ونتيجة لذلك، فإن تمرير عدد صحيح إلى مقسّمات CV هو عادةً الخيار الأكثر أمانًا ويغطي معظم حالات الاستخدام.</p>
+</section>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  <div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item">
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="model_persistence.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">السابق</p>
+        <p class="prev-next-title"><span class="section-number">12. </span>حفظ النموذج</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="dispatching.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">التالي</p>
+        <p class="prev-next-title"><span class="section-number">14. </span>Dispatching</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+                </footer>
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">13.1. ما قبل المعالجة غير المتسقة</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-leakage">13.2. تسرب البيانات</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">13.2.1. كيفية تجنب تسرب البيانات</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">13.2.2. تسرب البيانات أثناء ما قبل المعالجة</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#randomness">13.3. التحكم في العشوائية</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#none-randomstate-fit-split">13.3.1. استخدام <code class="docutils literal notranslate"><span class="pre">None</span></code> أو <code class="docutils literal notranslate"><span class="pre">RandomState</span></code>، والمكالمات المتكررة لـ <code class="docutils literal notranslate"><span class="pre">fit</span></code> و <code class="docutils literal notranslate"><span class="pre">split</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">13.3.1.1. المقدرات</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cv">13.3.1.2. مقسّمات CV</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">13.3.2. المزالق الشائعة والتعقيدات</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">13.3.2.1. المقدرات</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">13.3.2.2. مقسّمات CV</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">13.3.3. توصيات عامة</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">13.3.3.1. الحصول على نتائج قابلة للتكرار عبر عمليات التنفيذ المتعددة</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">13.3.3.2. متانة نتائج التقاطع</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="_sources/common_pitfalls.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> إظهار المصدر
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2007 - 2024, scikit-learn developers (BSD License) ### Translate into Arabic Eng. Ahmed Almaghz - 2024.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

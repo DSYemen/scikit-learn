@@ -1,0 +1,870 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ar" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="حوكمة Scikit-learn وصنع القرار" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://scikit-learn/stable/governance.html" />
+<meta property="og:site_name" content="scikit-learn" />
+<meta property="og:description" content="الغرض من هذه الوثيقة هو إضفاء الطابع الرسمي على عملية الحوكمة التي يستخدمها مشروع Scikit-learn، لتوضيح كيفية اتخاذ القرارات وكيفية اختلاف عناصر مجتمعنا تتفاعل. تؤسس هذه الوثيقة هيكلًا لصنع القرار ي..." />
+<meta property="og:image" content="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" />
+<meta property="og:image:alt" content="scikit-learn" />
+<meta name="description" content="الغرض من هذه الوثيقة هو إضفاء الطابع الرسمي على عملية الحوكمة التي يستخدمها مشروع Scikit-learn، لتوضيح كيفية اتخاذ القرارات وكيفية اختلاف عناصر مجتمعنا تتفاعل. تؤسس هذه الوثيقة هيكلًا لصنع القرار ي..." />
+
+    <title>حوكمة Scikit-learn وصنع القرار &#8212; scikit-learn 1.6.dev0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/plot_directive.css?v=7f9a90b1" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
+    <link rel="stylesheet" type="text/css" href="_static/jupyterlite_sphinx.css?v=ca70e7f1" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/colors.css?v=cc94ab7d" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/custom.css?v=85b0813d" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="_static/documentation_options.js?v=3cd28d06"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=97f0b27d"></script>
+    <script src="_static/jupyterlite_sphinx.js?v=d6bdf5f8"></script>
+    <script src="_static/translations.js?v=87cb2081"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script data-domain="scikit-learn.org" defer="defer" src="https://views.scientific-python.org/js/script.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'governance';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://scikit-learn.org/dev/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1.6.dev0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="_static/scripts/dropdown.js?v=e2048168"></script>
+    <script src="_static/scripts/version-switcher.js?v=a6dd8357"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="search" title="بحث" href="search.html" />
+    <link rel="next" title="من نحن" href="about.html" />
+    <link rel="prev" title="Roadmap" href="roadmap.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ar"/>
+  <meta name="docsearch:version" content="1.6" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/scikit-learn-logo-small.png" class="logo__image only-light" alt="scikit-learn homepage"/>
+    <img src="_static/scikit-learn-logo-small.png" class="logo__image only-dark pst-js-only" alt="scikit-learn homepage"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="user_guide.html">
+    دليل المستخدم
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="support.html">
+    الدعم الفني
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="related_projects.html">
+    مشاريع ذات علاقة
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class=" current active">
+  <a class="nav-link dropdown-item nav-internal" href="#">
+    Governance
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="about.html">
+    من نحن
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="user_guide.html">
+    دليل المستخدم
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="support.html">
+    الدعم الفني
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="related_projects.html">
+    مشاريع ذات علاقة
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    Governance
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="about.html">
+    من نحن
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">حوكمة Scikit-learn وصنع القرار</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="scikit-learn">
+<span id="governance"></span><h1>حوكمة Scikit-learn وصنع القرار<a class="headerlink" href="#scikit-learn" title="Link to this heading">#</a></h1>
+<p>الغرض من هذه الوثيقة هو إضفاء الطابع الرسمي على عملية الحوكمة التي يستخدمها
+مشروع Scikit-learn، لتوضيح كيفية اتخاذ القرارات وكيفية اختلاف
+عناصر مجتمعنا تتفاعل.
+تؤسس هذه الوثيقة هيكلًا لصنع القرار يأخذ في الاعتبار
+التعليقات من جميع أعضاء المجتمع وتسعى جاهدة لإيجاد توافق في الآراء، بينما
+تجنب أي طريق مسدود.</p>
+<p>هذا مشروع مجتمعي قائم على الجدارة وتوافق الآراء. أي شخص لديه
+يمكن لأي شخص مهتم بالمشروع الانضمام إلى المجتمع والمساهمة في المشروع
+التصميم والمشاركة في عملية صنع القرار. تصف هذه الوثيقة
+كيف تتم هذه المشاركة وكيفية البدء في كسب الجدارة داخل
+مجتمع المشروع.</p>
+<section id="id1">
+<h2>الأدوار والمسؤوليات<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>نحن نفرق بين المساهمين والمساهمين الأساسيين والتقنية
+لجنة. يتمثل الاختلاف الرئيسي بينهم في حقوق التصويت الخاصة بهم: المساهمين
+ليس لديهم حقوق تصويت، بينما تتمتع المجموعتان الأخريان بحقوق التصويت،
+وكذلك أذونات للأدوات ذات الصلة بأدوارهم.</p>
+<section id="id2">
+<h3>المساهمون<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>المساهمون هم أعضاء المجتمع الذين يساهمون بطرق ملموسة في
+المشروع. يمكن لأي شخص أن يصبح مساهمًا، ويمكن أن تتخذ المساهمات أشكالًا عديدة
+- ليس فقط الكود - كما هو مفصل في <a class="reference internal" href="developers/contributing.html#contributing"><span class="std std-ref">دليل المساهمين</span></a>.
+لا توجد عملية لتصبح مساهمًا: بمجرد أن يساهم شخص ما في
+المشروع بأي شكل من الأشكال، فهم مساهمون.</p>
+</section>
+<section id="id3">
+<h3>المساهمون الأساسيون<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>يتمتع جميع أعضاء المساهمين الأساسيين بنفس حقوق التصويت والحق في الاقتراح
+أعضاء جدد في أي من الأدوار المدرجة أدناه. يتم تمثيل عضويتهم
+كعضو في المنظمة على Scikit-learn <a class="reference external" href="https://github.com/orgs/scikit-learn/people">منظمة GitHub</a>.</p>
+<p>هم أيضًا موضع ترحيب للانضمام إلينا <a class="reference external" href="https://github.com/scikit-learn/administrative/tree/master/meeting_notes">اجتماعات المساهمين الأساسيين الشهرية</a>.</p>
+<p>يمكن ترشيح الأعضاء الجدد من قبل أي عضو موجود. بمجرد أن يكونوا
+مرشحًا، سيكون هناك تصويت من قبل المساهمين الأساسيين الحاليين. التصويت على جديد
+الأعضاء هي إحدى الأنشطة القليلة التي تحدث في المشروع الخاص
+قائمة بريدية. في حين أنه من المتوقع أن تكون معظم الأصوات بالإجماع، أ
+أغلبية ثلثي الأصوات المدلى بها كافية. يجب أن يكون التصويت مفتوحًا لـ
+أسبوع واحد على الأقل.</p>
+<p>المساهمون الأساسيون الذين لم يساهموا في المشروع، المقابلة لـ
+دورهم، في الأشهر الـ 12 الماضية سيتم سؤالهم عما إذا كانوا يريدون أن يصبحوا فخريين
+أعضاء ويعلنون عن حقوقهم حتى يصبحوا نشطين مرة أخرى. قائمة
+الأعضاء، النشطون والفخريون (مع التواريخ التي أصبحوا فيها نشطين) علنيون
+على موقع Scikit-learn.</p>
+<p>تشكل الفرق التالية مجموعة المساهمين الأساسيين:</p>
+<ul>
+<li><p><strong>فريق تجربة المساهمين</strong>
+يعمل فريق تجربة المساهمين على تحسين تجربة المساهمين من خلال
+المساعدة في تصنيف المشكلات وطلبات السحب، بالإضافة إلى ملاحظة أي
+أنماط متكررة حيث قد يكافح الناس، والمساعدة في التحسين
+تلك الجوانب من المشروع.</p>
+<p>تحقيقًا لهذه الغاية، لديهم الأذونات المطلوبة على github لوضع العلامات وإغلاقها
+القضايا. <a class="reference internal" href="developers/bug_triaging.html#bug-triaging"><span class="std std-ref">عملهم</span></a> ضروري لتحسين
+التواصل في المشروع والحد من ازدحام متعقب المشكلات.</p>
+</li>
+<li id="communication-team"><p><strong>فريق التواصل</strong>
+يساعد أعضاء فريق الاتصال في التوعية والتواصل
+لـ Scikit-learn. هدف الفريق هو تطوير الوعي العام بـ
+Scikit-learn، من ميزاته واستخدامه، وكذلك العلامات التجارية.</p>
+<p>لهذا، يمكنهم تشغيل حسابات Scikit-learn على مختلف الشبكات الاجتماعية
+وإنتاج المواد. لديهم أيضًا الحقوق المطلوبة لمدونتنا
+مستودع وحسابات ومنصات أخرى ذات صلة.</p>
+</li>
+<li><p><strong>فريق التوثيق</strong>
+ينخرط أعضاء فريق التوثيق في توثيق المشروع
+من بين أمور أخرى. قد يشاركون أيضًا في جوانب أخرى من
+المشروع، ولكن تعتبر مراجعاتهم لمساهمات التوثيق
+موثوقة، ويمكن دمج هذه المساهمات.</p>
+<p>تحقيقًا لهذه الغاية، لديهم أذونات لدمج طلبات السحب في Scikit-learn's
+مستودع.</p>
+</li>
+<li><p><strong>فريق الصيانة</strong>
+المحافظون هم أعضاء المجتمع الذين أظهروا أنهم مكرسون لـ
+التطوير المستمر للمشروع من خلال المشاركة المستمرة مع
+المجتمع. لقد أظهروا أنه يمكن الوثوق بهم للحفاظ على Scikit-learn مع
+رعاية. كونك مسؤول صيانة يسمح للمساهمين بالمضي قدمًا بسهولة أكبر في
+الأنشطة المتعلقة بالمشروع من خلال منحهم الوصول المباشر إلى المشروع
+مستودع. من المتوقع أن يقوم المسؤولون عن الصيانة بمراجعة مساهمات الكود، ودمجها
+طلبات السحب المعتمدة، والإدلاء بأصوات لصالح وضد دمج طلب السحب،
+والمشاركة في تقرير التغييرات الرئيسية على واجهة برمجة التطبيقات.</p></li>
+</ul>
+</section>
+<section id="id5">
+<h3>اللجنة الفنية<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>أعضاء اللجنة الفنية (TC) هم مسؤولون عن الصيانة لديهم إضافات
+مسؤوليات لضمان حسن سير المشروع. من المتوقع أن يكون أعضاء TC
+المشاركة في التخطيط الاستراتيجي، والموافقة على التغييرات في
+نموذج الحوكمة. الغرض من TC هو ضمان التقدم السلس من
+منظور الصورة الكبيرة. في الواقع، التغييرات التي تؤثر على المشروع بأكمله تتطلب
+تحليل تركيبي وتوافق في الآراء صريح ومستنير. في الحالات
+التي يفشل فيها مجتمع المساهمين الأساسيين (الذي يضم أعضاء TC)
+للوصول إلى مثل هذا الإجماع في الإطار الزمني المطلوب، فإن TC هي الكيان
+لحل المشكلة. عضوية TC عن طريق ترشيح من قبل مساهم أساسي.
+سينتج عن الترشيح مناقشة لا يمكن أن تستغرق أكثر من شهر و
+ثم تصويت من قبل المساهمين الأساسيين والذي سيظل مفتوحًا لمدة أسبوع. TC
+تخضع أصوات عضوية لثلثي أغلبية جميع الأصوات المدلى بها وكذلك
+موافقة الأغلبية البسيطة من جميع أعضاء TC الحاليين. أعضاء TC الذين لا يفعلون ذلك
+من المتوقع أن يستقيلوا من المشاركة بنشاط في واجبات TC.</p>
+<p>تتكون اللجنة الفنية لـ Scikit-learn من <a class="reference external" href="https://github.com/thomasjpfan">Thomas Fan</a>، <a class="reference external" href="https://github.com/agramfort">Alexandre Gramfort</a>، <a class="reference external" href="https://github.com/ogrisel">Olivier Grisel</a>، <a class="reference external" href="https://github.com/adrinjalali">Adrin Jalali</a>، <a class="reference external" href="https://github.com/amueller">Andreas Müller</a>، <a class="reference external" href="https://github.com/jnothman">Joel Nothman</a> و <a class="reference external" href="https://github.com/GaelVaroquaux">Gaël Varoquaux</a>.</p>
+</section>
+</section>
+<section id="id6">
+<h2>عملية صنع القرار<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p>تتم القرارات المتعلقة بمستقبل المشروع من خلال المناقشة مع الجميع
+أعضاء المجتمع. تجري جميع مناقشات إدارة المشاريع غير الحساسة
+مكان على <a class="reference external" href="mailto:scikit-learn&#37;&#52;&#48;python&#46;org">قائمة بريدية</a>
+للمساهمين في المشروع
+و <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/issues">متعقب المشكلات</a>.
+من حين لآخر، تحدث مناقشة حساسة على قائمة خاصة.</p>
+<p>يستخدم Scikit-learn عملية &quot;البحث عن توافق في الآراء&quot; لاتخاذ القرارات. المجموعة
+يحاول إيجاد حل ليس له اعتراضات مفتوحة بين المساهمين الأساسيين.
+في أي وقت أثناء المناقشة، يمكن لأي مساهم أساسي الدعوة للتصويت،
+والتي ستختتم بعد شهر واحد من الدعوة للتصويت. يجب أن تكون معظم الأصوات
+مدعومًا بـ <a class="reference internal" href="#slep"><span class="std std-ref">SLEP</span></a>. إذا لم يكن هناك خيار يمكنه جمع ثلثي الأصوات
+مصبوب، يتم تصعيد القرار إلى TC، والذي بدوره سيستخدم الإجماع
+البحث مع خيار بديل للتصويت بالأغلبية البسيطة إذا لم يكن هناك إجماع
+يمكن العثور عليها في غضون شهر. هذا ما قد نشير إليه فيما بعد باسم &quot;<strong>القرار
+عملية صنع القرار</strong> &quot;.</p>
+<p>تتم القرارات (بالإضافة إلى إضافة مساهمين أساسيين وعضوية TC على النحو الوارد أعلاه)
+وفقًا للقواعد التالية:</p>
+<ul class="simple">
+<li><p><strong>تغييرات التوثيق الطفيفة</strong>، مثل إصلاحات الأخطاء المطبعية، أو الإضافة / التصحيح
+من جملة، ولكن لا يوجد تغيير في صفحة الهبوط <code class="docutils literal notranslate"><span class="pre">scikit-learn.org</span></code> أو
+صفحة &quot;حول&quot;: يتطلب +1 من قبل مسؤول الصيانة، لا -1 من قبل مسؤول الصيانة (كسول
+الإجماع)، يحدث على صفحة المشكلة أو طلب السحب. الصيانة
+من المتوقع أن يمنحوا &quot;وقتًا معقولًا&quot; للآخرين لإبداء رأيهم في
+طلب السحب إذا لم يكونوا واثقين من أن الآخرين سيوافقون.</p></li>
+<li><p><strong>تغييرات التعليمات البرمجية وتغييرات التوثيق الرئيسية</strong>
+تتطلب +1 من قبل اثنين من المسؤولين عن الصيانة، لا -1 من قبل مسؤول الصيانة (كسول
+الإجماع)، يحدث على إصدار صفحة طلب السحب.</p></li>
+<li><p><strong>التغييرات على مبادئ واجهة برمجة التطبيقات والتغييرات على التبعيات أو المدعومة
+الإصدارات</strong> تحدث عبر <a class="reference internal" href="#slep"><span class="std std-ref">مقترحات التحسين (SLEPs)</span></a> وتتبع عملية صنع القرار
+موضحة أعلاه.</p></li>
+<li><p><strong>التغييرات على نموذج الحوكمة</strong> تتبع العملية الموضحة في <a class="reference external" href="https://scikit-learn-enhancement-proposals.readthedocs.io/en/latest/slep020/proposal.html">SLEP020</a>.</p></li>
+</ul>
+<p>إذا تم الإدلاء بصوت حق النقض -1 على إجماع كسول، فيمكن للمقترح استئناف
+المجتمع والمحافظين ويمكن الموافقة على التغيير أو رفضه باستخدام
+إجراء صنع القرار الموضح أعلاه.</p>
+<section id="id9">
+<h3>تغييرات نموذج الحوكمة<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>تحدث تغييرات نموذج الحوكمة من خلال اقتراح تحسين أو GitHub Pull
+طلب. سيخضع اقتراح التحسين لـ &quot;<strong>عملية صنع القرار</strong>&quot;
+موصوفة في القسم السابق. بدلاً من ذلك، قد يقترح المؤلف تغييرًا
+مباشرة إلى نموذج الحوكمة مع GitHub Pull Request. لوجستيًا،
+يمكن للمؤلف فتح طلب سحب مسودة للحصول على تعليقات ومتابعة جديدة
+طلب سحب منقح للتصويت. بمجرد أن يكون المؤلف راضيًا عن حالة
+طلب السحب، يمكنهم الدعوة للتصويت على القائمة البريدية العامة. خلال
+فترة التصويت لمدة شهر واحد، لا يمكن أن يتغير طلب السحب. طلب سحب
+سيُحسب الموافقة على أنها تصويت إيجابي، و &quot;طلب التغييرات&quot; المراجعة
+سيُحسب على أنه تصويت سلبي. إذا كان ثلثا الأصوات المدلى بها إيجابية، إذن
+تم قبول تغيير نموذج الحوكمة.</p>
+</section>
+</section>
+<section id="sleps">
+<span id="slep"></span><h2>مقترحات التحسين (SLEPs)<a class="headerlink" href="#sleps" title="Link to this heading">#</a></h2>
+<p>لجميع الأصوات، يجب أن يكون الاقتراح قد تم نشره ومناقشته قبل
+التصويت. يجب أن يكون هذا الاقتراح وثيقة موحدة، في شكل
+&quot;اقتراح تحسين Scikit-Learn&quot; (SLEP)، بدلاً من مناقشة طويلة حول
+قضية. يجب تقديم SLEP كطلب سحب إلى <a class="reference external" href="https://scikit-learn-enhancement-proposals.readthedocs.io">مقترحات التحسين</a> باستخدام <a class="reference external" href="https://scikit-learn-enhancement-proposals.readthedocs.io/en/latest/slep_template.html">قالب SLEP</a>.
+<a class="reference external" href="https://scikit-learn-enhancement-proposals.readthedocs.io/en/latest/slep000/proposal.html">SLEP000</a>
+يصف العملية بمزيد من التفصيل.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  <div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item">
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="roadmap.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">السابق</p>
+        <p class="prev-next-title">Roadmap</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="about.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">التالي</p>
+        <p class="prev-next-title">من نحن</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+                </footer>
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">الأدوار والمسؤوليات</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">المساهمون</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">المساهمون الأساسيون</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">اللجنة الفنية</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">عملية صنع القرار</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">تغييرات نموذج الحوكمة</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sleps">مقترحات التحسين (SLEPs)</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="_sources/governance.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> إظهار المصدر
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2007 - 2024, scikit-learn developers (BSD License) ### Translate into Arabic Eng. Ahmed Almaghz - 2024.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

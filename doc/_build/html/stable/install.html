@@ -1,0 +1,1117 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ar" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="تثبيت scikit-learn" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://scikit-learn/stable/install.html" />
+<meta property="og:site_name" content="scikit-learn" />
+<meta property="og:description" content="هناك طرق مختلفة لتثبيت scikit-learn: قم بتثبيت أحدث إصدار رسمي. هذا هو أفضل نهج لمعظم المستخدمين. سوف يوفر إصدارًا ثابتًا وحزمًا مُعدة مسبقًا متاحة لمعظم الأنظمة الأساسية., قم بتثبيت إصدار scikit-l..." />
+<meta property="og:image" content="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" />
+<meta property="og:image:alt" content="scikit-learn" />
+<meta name="description" content="هناك طرق مختلفة لتثبيت scikit-learn: قم بتثبيت أحدث إصدار رسمي. هذا هو أفضل نهج لمعظم المستخدمين. سوف يوفر إصدارًا ثابتًا وحزمًا مُعدة مسبقًا متاحة لمعظم الأنظمة الأساسية., قم بتثبيت إصدار scikit-l..." />
+
+    <title>تثبيت scikit-learn &#8212; scikit-learn 1.6.dev0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/plot_directive.css?v=7f9a90b1" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
+    <link rel="stylesheet" type="text/css" href="_static/jupyterlite_sphinx.css?v=ca70e7f1" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/colors.css?v=cc94ab7d" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/custom.css?v=85b0813d" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="_static/documentation_options.js?v=3cd28d06"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=97f0b27d"></script>
+    <script src="_static/jupyterlite_sphinx.js?v=d6bdf5f8"></script>
+    <script src="_static/translations.js?v=87cb2081"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script data-domain="scikit-learn.org" defer="defer" src="https://views.scientific-python.org/js/script.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'install';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://scikit-learn.org/dev/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1.6.dev0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="_static/scripts/dropdown.js?v=e2048168"></script>
+    <script src="_static/scripts/version-switcher.js?v=a6dd8357"></script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="search" title="بحث" href="search.html" />
+    <link rel="next" title="دليل المستخدم" href="user_guide.html" />
+    <link rel="prev" title="Index" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ar"/>
+  <meta name="docsearch:version" content="1.6" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/scikit-learn-logo-small.png" class="logo__image only-light" alt="scikit-learn homepage"/>
+    <img src="_static/scikit-learn-logo-small.png" class="logo__image only-dark pst-js-only" alt="scikit-learn homepage"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="user_guide.html">
+    دليل المستخدم
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="support.html">
+    الدعم الفني
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="related_projects.html">
+    مشاريع ذات علاقة
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="about.html">
+    من نحن
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="user_guide.html">
+    دليل المستخدم
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="support.html">
+    الدعم الفني
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="related_projects.html">
+    مشاريع ذات علاقة
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="about.html">
+    من نحن
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">تثبيت scikit-learn</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="scikit-learn">
+<span id="installation-instructions"></span><h1>تثبيت scikit-learn<a class="headerlink" href="#scikit-learn" title="Link to this heading">#</a></h1>
+<p>هناك طرق مختلفة لتثبيت scikit-learn:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#install-official-release"><span class="std std-ref">قم بتثبيت أحدث إصدار رسمي</span></a>.
+هذا هو أفضل نهج لمعظم المستخدمين.
+سوف يوفر إصدارًا ثابتًا وحزمًا مُعدة مسبقًا متاحة لمعظم الأنظمة الأساسية.</p></li>
+<li><p>قم بتثبيت إصدار scikit-learn الذي يوفره
+<a class="reference internal" href="#install-by-distribution"><span class="std std-ref">نظام التشغيل أو توزيع Python</span></a>.
+هذا خيار سريع لأولئك الذين لديهم أنظمة تشغيل أو توزيعات Python تقوم بتوزيع scikit-learn.
+قد لا يوفر إصدار الإصدار الأخير.</p></li>
+<li><p><a class="reference internal" href="developers/advanced_installation.html#install-bleeding-edge"><span class="std std-ref">بناء الحزمة من المصدر</span></a>. هذا هو الأفضل للمستخدمين الذين يريدون أحدث الميزات وأروعها ولا يخشون تشغيل كود جديد تمامًا.
+هذا مطلوب أيضًا للمستخدمين الذين يرغبون في المساهمة في المشروع.</p></li>
+</ul>
+<section id="install-official-release">
+<span id="id1"></span><h2>تثبيت أحدث إصدار<a class="headerlink" href="#install-official-release" title="Link to this heading">#</a></h2>
+<style>
+  /* إظهار التسمية التوضيحية على الشاشات الكبيرة */
+  @media screen and (min-width: 960px) {
+    .install-instructions .sd-tab-set {
+      --tab-caption-width: 20%;
+    }
+
+    .install-instructions .sd-tab-set.tabs-os::before {
+      content: "نظام التشغيل";
+    }
+
+    .install-instructions .sd-tab-set.tabs-package-manager::before {
+      content: "مدير الحزم";
+    }
+  }
+</style><div class="install-instructions docutils">
+<div class="sd-tab-set tabs-os docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label tab-4" for="sd-tab-item-0">
+Windows</label><div class="sd-tab-content docutils">
+<div class="sd-tab-set tabs-package-manager docutils">
+<input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label tab-6" data-sync-group="tab" data-sync-id="package-manager-pip" for="sd-tab-item-3">
+pip</label><div class="sd-tab-content docutils">
+<p>قم بتثبيت إصدار 64 بت من Python 3، على سبيل المثال من
+<a class="reference external" href="https://www.python.org/downloads/windows/">الموقع الرسمي</a>.</p>
+<p>الآن قم بإنشاء <a class="reference external" href="https://docs.python.org/3/tutorial/venv.html">بيئة افتراضية (venv)</a> وقم بتثبيت scikit-learn.
+لاحظ أن البيئة الافتراضية اختيارية ولكن يوصى بها بشدة، من أجل تجنب التعارضات المحتملة مع الحزم الأخرى.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "PS C:\\> ";
+}
+</style><span class="prompt1"><span class="n">python</span> <span class="n">-m</span> <span class="n">venv</span> <span class="n">sklearn-env</span></span>
+<span class="prompt1"><span class="n">sklearn-env</span><span class="p">\</span><span class="n">Scripts</span><span class="p">\</span><span class="n">activate</span>  <span class="c"># تفعيل</span></span>
+<span class="prompt1"><span class="n">pip</span> <span class="n">install</span> <span class="n">-U</span> <span class="n">scikit-learn</span></span>
+</pre></div></div><p>للتحقق من التثبيت، يمكنك استخدام:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="n">python</span> <span class="n">-m</span> <span class="n">pip</span> <span class="n">show</span> <span class="n">scikit-learn</span>  <span class="c"># إظهار إصدار وموقع scikit-learn</span></span>
+<span class="prompt1"><span class="n">python</span> <span class="n">-m</span> <span class="n">pip</span> <span class="n">freeze</span>             <span class="c"># إظهار جميع الحزم المثبتة في البيئة</span></span>
+<span class="prompt1"><span class="n">python</span> <span class="n">-c</span> <span class="s2">&quot;import sklearn; sklearn.show_versions()&quot;</span></span>
+</pre></div></div></div>
+<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label tab-6" data-sync-group="tab" data-sync-id="package-manager-conda" for="sd-tab-item-4">
+conda</label><div class="sd-tab-content docutils">
+<p>Install conda using the
+<a class="reference external" href="https://github.com/conda-forge/miniforge#miniforge">miniforge installers</a> (no
+administrator permission required). Then run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt2:before {
+  content: "$ ";
+}
+</style><span class="prompt2">conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>sklearn-env<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>scikit-learn</span>
+<span class="prompt2">conda<span class="w"> </span>activate<span class="w"> </span>sklearn-env</span>
+</pre></div></div><p>In order to check your installation, you can use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2">conda<span class="w"> </span>list<span class="w"> </span>scikit-learn<span class="w">  </span><span class="c1"># show scikit-learn version and location</span></span>
+<span class="prompt2">conda<span class="w"> </span>list<span class="w">               </span><span class="c1"># show all installed packages in the environment</span></span>
+<span class="prompt2">python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import sklearn; sklearn.show_versions()&quot;</span></span>
+</pre></div></div></div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label tab-4" for="sd-tab-item-1">
+MacOS</label><div class="sd-tab-content docutils">
+<div class="sd-tab-set tabs-package-manager docutils">
+<input checked="checked" id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label tab-6" data-sync-group="tab" data-sync-id="package-manager-pip" for="sd-tab-item-5">
+pip</label><div class="sd-tab-content docutils">
+<p>قم بتثبيت Python 3 باستخدام <a class="reference external" href="https://brew.sh/">homebrew</a> (<code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">python</span></code>)
+أو عن طريق تثبيت الحزمة يدويًا من <a class="reference external" href="https://www.python.org/downloads/macos/">الموقع الرسمي</a>.</p>
+<p>الآن قم بإنشاء <a class="reference external" href="https://docs.python.org/3/tutorial/venv.html">بيئة افتراضية (venv)</a> وقم بتثبيت scikit-learn.
+لاحظ أن البيئة الافتراضية اختيارية ولكن يوصى بها بشدة، من أجل تجنب التعارضات المحتملة مع الحزم الأخرى.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2">python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>sklearn-env</span>
+<span class="prompt2"><span class="nb">source</span><span class="w"> </span>sklearn-env/bin/activate<span class="w">  </span><span class="c1"># تفعيل</span></span>
+<span class="prompt2">pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>scikit-learn</span>
+</pre></div></div><p>للتحقق من التثبيت، يمكنك استخدام:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2">python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>show<span class="w"> </span>scikit-learn<span class="w">  </span><span class="c1"># إظهار إصدار وموقع scikit-learn</span></span>
+<span class="prompt2">python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>freeze<span class="w">             </span><span class="c1"># إظهار جميع الحزم المثبتة في البيئة</span></span>
+<span class="prompt2">python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import sklearn; sklearn.show_versions()&quot;</span></span>
+</pre></div></div></div>
+<input id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label tab-6" data-sync-group="tab" data-sync-id="package-manager-conda" for="sd-tab-item-6">
+conda</label><div class="sd-tab-content docutils">
+<p>Install conda using the
+<a class="reference external" href="https://github.com/conda-forge/miniforge#miniforge">miniforge installers</a> (no
+administrator permission required). Then run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2">conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>sklearn-env<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>scikit-learn</span>
+<span class="prompt2">conda<span class="w"> </span>activate<span class="w"> </span>sklearn-env</span>
+</pre></div></div><p>In order to check your installation, you can use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2">conda<span class="w"> </span>list<span class="w"> </span>scikit-learn<span class="w">  </span><span class="c1"># show scikit-learn version and location</span></span>
+<span class="prompt2">conda<span class="w"> </span>list<span class="w">               </span><span class="c1"># show all installed packages in the environment</span></span>
+<span class="prompt2">python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import sklearn; sklearn.show_versions()&quot;</span></span>
+</pre></div></div></div>
+</div>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label tab-4" for="sd-tab-item-2">
+Linux</label><div class="sd-tab-content docutils">
+<div class="sd-tab-set tabs-package-manager docutils">
+<input checked="checked" id="sd-tab-item-7" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label tab-6" data-sync-group="tab" data-sync-id="package-manager-pip" for="sd-tab-item-7">
+pip</label><div class="sd-tab-content docutils">
+<p>عادةً ما يتم تثبيت Python 3 افتراضيًا على معظم توزيعات Linux.
+للتحقق مما إذا كان مثبتًا لديك، جرب:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2">python3<span class="w"> </span>--version</span>
+<span class="prompt2">pip3<span class="w"> </span>--version</span>
+</pre></div></div><p>إذا لم يكن Python 3 مثبتًا لديك، فيرجى تثبيت <code class="docutils literal notranslate"><span class="pre">python3</span></code> و <code class="docutils literal notranslate"><span class="pre">python3-pip</span></code> من مدير حزم التوزيع الخاص بك.</p>
+<p>الآن قم بإنشاء <a class="reference external" href="https://docs.python.org/3/tutorial/venv.html">بيئة افتراضية (venv)</a> وقم بتثبيت scikit-learn.
+لاحظ أن البيئة الافتراضية اختيارية ولكن يوصى بها بشدة، من أجل تجنب التعارضات المحتملة مع الحزم الأخرى.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2">python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>sklearn-env</span>
+<span class="prompt2"><span class="nb">source</span><span class="w"> </span>sklearn-env/bin/activate<span class="w">  </span><span class="c1"># تفعيل</span></span>
+<span class="prompt2">pip3<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>scikit-learn</span>
+</pre></div></div><p>للتحقق من التثبيت، يمكنك استخدام:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2">python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>show<span class="w"> </span>scikit-learn<span class="w">  </span><span class="c1"># إظهار إصدار وموقع scikit-learn</span></span>
+<span class="prompt2">python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>freeze<span class="w">             </span><span class="c1"># إظهار جميع الحزم المثبتة في البيئة</span></span>
+<span class="prompt2">python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import sklearn; sklearn.show_versions()&quot;</span></span>
+</pre></div></div></div>
+<input id="sd-tab-item-8" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label tab-6" data-sync-group="tab" data-sync-id="package-manager-conda" for="sd-tab-item-8">
+conda</label><div class="sd-tab-content docutils">
+<p>Install conda using the
+<a class="reference external" href="https://github.com/conda-forge/miniforge#miniforge">miniforge installers</a> (no
+administrator permission required). Then run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2">conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>sklearn-env<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>scikit-learn</span>
+<span class="prompt2">conda<span class="w"> </span>activate<span class="w"> </span>sklearn-env</span>
+</pre></div></div><p>In order to check your installation, you can use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2">conda<span class="w"> </span>list<span class="w"> </span>scikit-learn<span class="w">  </span><span class="c1"># show scikit-learn version and location</span></span>
+<span class="prompt2">conda<span class="w"> </span>list<span class="w">               </span><span class="c1"># show all installed packages in the environment</span></span>
+<span class="prompt2">python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import sklearn; sklearn.show_versions()&quot;</span></span>
+</pre></div></div></div>
+</div>
+</div>
+</div>
+</div>
+<p>يجعل استخدام بيئة معزولة مثل pip venv أو conda من الممكن تثبيت إصدار محدد من scikit-learn مع pip أو conda وتبعياتها بشكل مستقل عن أي حزم Python مثبتة مسبقًا.
+لا سيما في Linux، لا يُنصح بتثبيت حزم pip جنبًا إلى جنب مع الحزم التي يديرها مدير حزم التوزيع (apt، dnf، pacman ...).</p>
+<p>لاحظ أنه يجب عليك دائمًا تذكر تنشيط البيئة التي تختارها قبل تشغيل أي أمر Python كلما بدأت جلسة طرفية جديدة.</p>
+<p>إذا لم تكن قد قمت بتثبيت NumPy أو SciPy حتى الآن، فيمكنك أيضًا تثبيتها باستخدام conda أو pip.
+عند استخدام pip، يرجى التأكد من استخدام <em>العجلات الثنائية</em>، وعدم إعادة تجميع NumPy و SciPy من المصدر، وهو ما يمكن أن يحدث عند استخدام تكوينات معينة لنظام التشغيل والأجهزة (مثل Linux على Raspberry Pi).</p>
+<p>تتطلب إمكانات التخطيط في Scikit-learn (أي الوظائف التي تبدأ بـ <code class="docutils literal notranslate"><span class="pre">plot_</span></code> والفئات التي تنتهي بـ <code class="docutils literal notranslate"><span class="pre">Display</span></code>) Matplotlib.
+تتطلب الأمثلة Matplotlib وتتطلب بعض الأمثلة scikit-image أو pandas أو seaborn.
+يتم سرد الحد الأدنى من إصدار تبعيات scikit-learn أدناه جنبًا إلى جنب مع الغرض منه.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Dependency</p></th>
+<th class="head"><p>Minimum Version</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>numpy</p></td>
+<td><p>1.19.5</p></td>
+<td><p>build, install</p></td>
+</tr>
+<tr class="row-odd"><td><p>scipy</p></td>
+<td><p>1.6.0</p></td>
+<td><p>build, install</p></td>
+</tr>
+<tr class="row-even"><td><p>joblib</p></td>
+<td><p>1.2.0</p></td>
+<td><p>install</p></td>
+</tr>
+<tr class="row-odd"><td><p>threadpoolctl</p></td>
+<td><p>3.1.0</p></td>
+<td><p>install</p></td>
+</tr>
+<tr class="row-even"><td><p>cython</p></td>
+<td><p>3.0.10</p></td>
+<td><p>build</p></td>
+</tr>
+<tr class="row-odd"><td><p>meson-python</p></td>
+<td><p>0.16.0</p></td>
+<td><p>build</p></td>
+</tr>
+<tr class="row-even"><td><p>matplotlib</p></td>
+<td><p>3.3.4</p></td>
+<td><p>benchmark, docs, examples, tests</p></td>
+</tr>
+<tr class="row-odd"><td><p>scikit-image</p></td>
+<td><p>0.17.2</p></td>
+<td><p>docs, examples, tests</p></td>
+</tr>
+<tr class="row-even"><td><p>pandas</p></td>
+<td><p>1.1.5</p></td>
+<td><p>benchmark, docs, examples, tests</p></td>
+</tr>
+<tr class="row-odd"><td><p>seaborn</p></td>
+<td><p>0.9.0</p></td>
+<td><p>docs, examples</p></td>
+</tr>
+<tr class="row-even"><td><p>memory_profiler</p></td>
+<td><p>0.57.0</p></td>
+<td><p>benchmark, docs</p></td>
+</tr>
+<tr class="row-odd"><td><p>pytest</p></td>
+<td><p>7.1.2</p></td>
+<td><p>tests</p></td>
+</tr>
+<tr class="row-even"><td><p>pytest-cov</p></td>
+<td><p>2.9.0</p></td>
+<td><p>tests</p></td>
+</tr>
+<tr class="row-odd"><td><p>ruff</p></td>
+<td><p>0.5.1</p></td>
+<td><p>tests</p></td>
+</tr>
+<tr class="row-even"><td><p>black</p></td>
+<td><p>24.3.0</p></td>
+<td><p>tests</p></td>
+</tr>
+<tr class="row-odd"><td><p>mypy</p></td>
+<td><p>1.9</p></td>
+<td><p>tests</p></td>
+</tr>
+<tr class="row-even"><td><p>pyamg</p></td>
+<td><p>4.0.0</p></td>
+<td><p>tests</p></td>
+</tr>
+<tr class="row-odd"><td><p>polars</p></td>
+<td><p>0.20.30</p></td>
+<td><p>docs, tests</p></td>
+</tr>
+<tr class="row-even"><td><p>pyarrow</p></td>
+<td><p>12.0.0</p></td>
+<td><p>tests</p></td>
+</tr>
+<tr class="row-odd"><td><p>sphinx</p></td>
+<td><p>7.3.7</p></td>
+<td><p>docs</p></td>
+</tr>
+<tr class="row-even"><td><p>sphinx-copybutton</p></td>
+<td><p>0.5.2</p></td>
+<td><p>docs</p></td>
+</tr>
+<tr class="row-odd"><td><p>sphinx-gallery</p></td>
+<td><p>0.17.1</p></td>
+<td><p>docs</p></td>
+</tr>
+<tr class="row-even"><td><p>numpydoc</p></td>
+<td><p>1.2.0</p></td>
+<td><p>docs, tests</p></td>
+</tr>
+<tr class="row-odd"><td><p>Pillow</p></td>
+<td><p>7.1.2</p></td>
+<td><p>docs</p></td>
+</tr>
+<tr class="row-even"><td><p>pooch</p></td>
+<td><p>1.6.0</p></td>
+<td><p>docs, examples, tests</p></td>
+</tr>
+<tr class="row-odd"><td><p>sphinx-prompt</p></td>
+<td><p>1.4.0</p></td>
+<td><p>docs</p></td>
+</tr>
+<tr class="row-even"><td><p>sphinxext-opengraph</p></td>
+<td><p>0.9.1</p></td>
+<td><p>docs</p></td>
+</tr>
+<tr class="row-odd"><td><p>plotly</p></td>
+<td><p>5.14.0</p></td>
+<td><p>docs, examples</p></td>
+</tr>
+<tr class="row-even"><td><p>sphinxcontrib-sass</p></td>
+<td><p>0.3.4</p></td>
+<td><p>docs</p></td>
+</tr>
+<tr class="row-odd"><td><p>sphinx-remove-toctrees</p></td>
+<td><p>1.0.0.post1</p></td>
+<td><p>docs</p></td>
+</tr>
+<tr class="row-even"><td><p>sphinx-design</p></td>
+<td><p>0.6.0</p></td>
+<td><p>docs</p></td>
+</tr>
+<tr class="row-odd"><td><p>pydata-sphinx-theme</p></td>
+<td><p>0.15.3</p></td>
+<td><p>docs</p></td>
+</tr>
+<tr class="row-even"><td><p>conda-lock</p></td>
+<td><p>2.5.6</p></td>
+<td><p>maintenance</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">تحذير</p>
+<p>كان Scikit-learn 0.20 هو الإصدار الأخير الذي يدعم Python 2.7 و Python 3.4.
+يدعم Scikit-learn 0.21 Python 3.5-3.7.
+يدعم Scikit-learn 0.22 Python 3.5-3.8.
+يتطلب Scikit-learn 0.23-0.24 Python 3.6 أو أحدث.
+يدعم Scikit-learn 1.0 Python 3.7-3.10.
+يدعم Scikit-learn 1.1 و 1.2 و 1.3 Python 3.8-3.12
+يتطلب Scikit-learn 1.4 Python 3.9 أو أحدث.</p>
+</div>
+</section>
+<section id="install-by-distribution">
+<span id="id4"></span><h2>توزيعات الطرف الثالث من scikit-learn<a class="headerlink" href="#install-by-distribution" title="Link to this heading">#</a></h2>
+<p>توفر بعض توزيعات الجهات الخارجية إصدارات من scikit-learn مدمجة مع أنظمة إدارة الحزم الخاصة بها.</p>
+<p>يمكن أن تجعل هذه التثبيت والترقية أسهل بكثير للمستخدمين نظرًا لأن التكامل يتضمن القدرة على تثبيت التبعيات تلقائيًا (numpy، scipy) التي تتطلبها scikit-learn.</p>
+<p>فيما يلي قائمة غير كاملة بتوزيعات نظام التشغيل و python التي توفر إصدارها الخاص من scikit-learn.</p>
+<section id="alpine-linux">
+<h3>Alpine Linux<a class="headerlink" href="#alpine-linux" title="Link to this heading">#</a></h3>
+<p>يتم توفير حزمة Alpine Linux من خلال <a class="reference external" href="https://pkgs.alpinelinux.org/packages?name=py3-scikit-learn">المستودعات الرسمية</a> باسم <code class="docutils literal notranslate"><span class="pre">py3-scikit-learn</span></code> لـ Python.
+يمكن تثبيته عن طريق كتابة الأمر التالي:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2">sudo<span class="w"> </span>apk<span class="w"> </span>add<span class="w"> </span>py3-scikit-learn</span>
+</pre></div></div></section>
+<section id="arch-linux">
+<h3>Arch Linux<a class="headerlink" href="#arch-linux" title="Link to this heading">#</a></h3>
+<p>يتم توفير حزمة Arch Linux من خلال <a class="reference external" href="https://www.archlinux.org/packages/?q=scikit-learn">المستودعات الرسمية</a> باسم <code class="docutils literal notranslate"><span class="pre">python-scikit-learn</span></code> لـ Python.
+يمكن تثبيته عن طريق كتابة الأمر التالي:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2">sudo<span class="w"> </span>pacman<span class="w"> </span>-S<span class="w"> </span>python-scikit-learn</span>
+</pre></div></div></section>
+<section id="debian-ubuntu">
+<h3>Debian/Ubuntu<a class="headerlink" href="#debian-ubuntu" title="Link to this heading">#</a></h3>
+<p>تنقسم حزمة Debian / Ubuntu إلى ثلاث حزم مختلفة تسمى <code class="docutils literal notranslate"><span class="pre">python3-sklearn</span></code> (وحدات python) ، <code class="docutils literal notranslate"><span class="pre">python3-sklearn-lib</span></code> (التنفيذات والارتباطات منخفضة المستوى) ، <code class="docutils literal notranslate"><span class="pre">python3-sklearn-doc</span></code> (التوثيق).
+لاحظ أن scikit-learn يتطلب Python 3، ومن ثم الحاجة إلى استخدام أسماء الحزم التي تحمل لاحقة <code class="docutils literal notranslate"><span class="pre">python3-</span></code>.
+يمكن تثبيت الحزم باستخدام <code class="docutils literal notranslate"><span class="pre">apt-get</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2">sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>python3-sklearn<span class="w"> </span>python3-sklearn-lib<span class="w"> </span>python3-sklearn-doc</span>
+</pre></div></div></section>
+<section id="fedora">
+<h3>Fedora<a class="headerlink" href="#fedora" title="Link to this heading">#</a></h3>
+<p>تسمى حزمة Fedora <code class="docutils literal notranslate"><span class="pre">python3-scikit-learn</span></code> لإصدار python 3، وهو الإصدار الوحيد المتاح في Fedora.
+يمكن تثبيته باستخدام <code class="docutils literal notranslate"><span class="pre">dnf</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2">sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>python3-scikit-learn</span>
+</pre></div></div></section>
+<section id="netbsd">
+<h3>NetBSD<a class="headerlink" href="#netbsd" title="Link to this heading">#</a></h3>
+<p>يتوفر scikit-learn عبر <a class="reference external" href="http://pkgsrc-wip.sourceforge.net/">pkgsrc-wip</a>:
+<a class="reference external" href="https://pkgsrc.se/math/py-scikit-learn">https://pkgsrc.se/math/py-scikit-learn</a></p>
+</section>
+<section id="macports-for-mac-osx">
+<h3>MacPorts for Mac OSX<a class="headerlink" href="#macports-for-mac-osx" title="Link to this heading">#</a></h3>
+<p>تسمى حزمة MacPorts <code class="docutils literal notranslate"><span class="pre">py&lt;XY&gt;-scikits-learn</span></code>، حيث يشير <code class="docutils literal notranslate"><span class="pre">XY</span></code> إلى إصدار Python.
+يمكن تثبيته عن طريق كتابة الأمر التالي:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2">sudo<span class="w"> </span>port<span class="w"> </span>install<span class="w"> </span>py39-scikit-learn</span>
+</pre></div></div></section>
+<section id="anaconda-and-enthought-deployment-manager">
+<h3>Anaconda and Enthought Deployment Manager لجميع الأنظمة الأساسية المدعومة<a class="headerlink" href="#anaconda-and-enthought-deployment-manager" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://www.anaconda.com/download">Anaconda</a> و <a class="reference external" href="https://assets.enthought.com/downloads/">Enthought Deployment Manager</a> كلاهما مزود بـ scikit-learn بالإضافة إلى مجموعة كبيرة من مكتبة python العلمية لنظام التشغيل Windows و Mac OSX و Linux.</p>
+<p>يقدم Anaconda scikit-learn كجزء من توزيعه المجاني.</p>
+</section>
+<section id="intel-extension-for-scikit-learn">
+<h3>Intel Extension for Scikit-learn<a class="headerlink" href="#intel-extension-for-scikit-learn" title="Link to this heading">#</a></h3>
+<p>تحتفظ Intel بحزمة x86_64 محسّنة، متاحة في PyPI (عبر <code class="docutils literal notranslate"><span class="pre">pip</span></code>)، وفي قنوات conda <code class="docutils literal notranslate"><span class="pre">main</span></code> و <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> و <code class="docutils literal notranslate"><span class="pre">intel</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2">conda<span class="w"> </span>install<span class="w"> </span>scikit-learn-intelex</span>
+</pre></div></div><p>تحتوي هذه الحزمة على إصدار محسن من Intel للعديد من المقدرات.
+كلما لم يكن هناك تنفيذ بديل، يتم استخدام تنفيذ scikit-learn كخيار احتياطي.
+تأتي أدوات الحل المحسّنة هذه من مكتبة oneDAL C ++ وتم تحسينها لهندسة x86_64، وتم تحسينها لوحدات المعالجة المركزية Intel متعددة النواة.</p>
+<p>لاحظ أن أدوات الحل هذه غير ممكّنة افتراضيًا، يرجى الرجوع إلى <a class="reference external" href="https://intel.github.io/scikit-learn-intelex/latest/what-is-patching.html">scikit-learn-intelex</a> الوثائق لمزيد من التفاصيل حول سيناريوهات الاستخدام.
+مثال التصدير المباشر:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt3:before {
+  content: ">>> ";
+}
+</style><span class="prompt3"><span class="kn">from</span> <span class="nn">sklearnex.neighbors</span> <span class="kn">import</span> <span class="n">NearestNeighbors</span></span>
+</pre></div></div><p>يتم التحقق من التوافق مع أدوات حل scikit-learn القياسية عن طريق تشغيل مجموعة اختبار scikit-learn الكاملة عبر التكامل المستمر الآلي كما هو مذكور في <a class="github reference external" href="https://github.com/intel/scikit-learn-intelex">intel/scikit-learn-intelex</a>.
+إذا لاحظت أي مشكلة مع <code class="docutils literal notranslate"><span class="pre">scikit-learn-intelex</span></code>، فيرجى الإبلاغ عن المشكلة على <a class="reference external" href="https://github.com/intel/scikit-learn-intelex/issues">متعقب المشكلات</a>.</p>
+</section>
+<section id="winpython-for-windows">
+<h3>WinPython for Windows<a class="headerlink" href="#winpython-for-windows" title="Link to this heading">#</a></h3>
+<p>يقوم مشروع <a class="reference external" href="https://winpython.github.io/">WinPython</a> بتوزيع scikit-learn كملحق إضافي.</p>
+</section>
+</section>
+<section id="id6">
+<h2>استكشاف الأخطاء وإصلاحها<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p>إذا واجهت أخطاء غير متوقعة عند تثبيت scikit-learn، فيمكنك إرسال مشكلة إلى <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/issues">متعقب المشكلات</a>.
+قبل ذلك، يرجى أيضًا التأكد من التحقق من المشكلات الشائعة التالية.</p>
+<section id="windows">
+<span id="windows-longpath"></span><h3>خطأ ناتج عن حد طول مسار الملف على Windows<a class="headerlink" href="#windows" title="Link to this heading">#</a></h3>
+<p>يمكن أن يحدث أن يفشل pip في تثبيت الحزم عند الوصول إلى حد حجم المسار الافتراضي لـ Windows إذا تم تثبيت Python في موقع متداخل مثل بنية مجلد <code class="docutils literal notranslate"><span class="pre">AppData</span></code> ضمن دليل المستخدم الرئيسي، على سبيل المثال:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">username</span><span class="o">&gt;</span><span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">username</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Microsoft</span>\<span class="n">WindowsApps</span>\<span class="n">python</span><span class="o">.</span><span class="n">exe</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">scikit</span><span class="o">-</span><span class="n">learn</span>
+<span class="n">Collecting</span> <span class="n">scikit</span><span class="o">-</span><span class="n">learn</span>
+<span class="o">...</span>
+<span class="n">Installing</span> <span class="n">collected</span> <span class="n">packages</span><span class="p">:</span> <span class="n">scikit</span><span class="o">-</span><span class="n">learn</span>
+<span class="n">ERROR</span><span class="p">:</span> <span class="n">Could</span> <span class="ow">not</span> <span class="n">install</span> <span class="n">packages</span> <span class="n">due</span> <span class="n">to</span> <span class="n">an</span> <span class="ne">OSError</span><span class="p">:</span> <span class="p">[</span><span class="n">Errno</span> <span class="mi">2</span><span class="p">]</span> <span class="n">No</span> <span class="n">such</span> <span class="n">file</span> <span class="ow">or</span> <span class="n">directory</span><span class="p">:</span> <span class="s1">&#39;C:</span><span class="se">\\</span><span class="s1">Users</span><span class="se">\\</span><span class="s1">username</span><span class="se">\\</span><span class="s1">AppData</span><span class="se">\\</span><span class="s1">Local</span><span class="se">\\</span><span class="s1">Packages</span><span class="se">\\</span><span class="s1">PythonSoftwareFoundation.Python.3.7_qbz5n2kfra8p0</span><span class="se">\\</span><span class="s1">LocalCache</span><span class="se">\\</span><span class="s1">local-packages</span><span class="se">\\</span><span class="s1">Python37</span><span class="se">\\</span><span class="s1">site-packages</span><span class="se">\\</span><span class="s1">sklearn</span><span class="se">\\</span><span class="s1">datasets</span><span class="se">\\</span><span class="s1">tests</span><span class="se">\\</span><span class="s1">data</span><span class="se">\\</span><span class="s1">openml</span><span class="se">\\</span><span class="s1">292</span><span class="se">\\</span><span class="s1">api-v1-json-data-list-data_name-australian-limit-2-data_version-1-status-deactivated.json.gz&#39;</span>
+</pre></div>
+</div>
+<p>في هذه الحالة، من الممكن رفع هذا الحد في سجل Windows باستخدام أداة <code class="docutils literal notranslate"><span class="pre">regedit</span></code>:</p>
+<ol class="arabic">
+<li><p>اكتب &quot;regedit&quot; في قائمة ابدأ في Windows لبدء تشغيل <code class="docutils literal notranslate"><span class="pre">regedit</span></code>.</p></li>
+<li><p>انتقل إلى مفتاح <code class="docutils literal notranslate"><span class="pre">Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem</span></code>.</p></li>
+<li><p>قم بتحرير قيمة خاصية <code class="docutils literal notranslate"><span class="pre">LongPathsEnabled</span></code> لهذا المفتاح وقم بتعيينها على 1.</p></li>
+<li><p>أعد تثبيت scikit-learn (تجاهل التثبيت المعطل السابق):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="n">pip</span> <span class="n">install</span> <span class="p">-</span><span class="n">-exists-action</span><span class="p">=</span><span class="n">i</span> <span class="n">scikit-learn</span></span>
+</pre></div></div></li>
+</ol>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  <div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item">
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">السابق</p>
+        <p class="prev-next-title">Index</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="user_guide.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">التالي</p>
+        <p class="prev-next-title">دليل المستخدم</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+                </footer>
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-official-release">تثبيت أحدث إصدار</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-by-distribution">توزيعات الطرف الثالث من scikit-learn</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alpine-linux">Alpine Linux</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arch-linux">Arch Linux</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#debian-ubuntu">Debian/Ubuntu</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fedora">Fedora</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#netbsd">NetBSD</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#macports-for-mac-osx">MacPorts for Mac OSX</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anaconda-and-enthought-deployment-manager">Anaconda and Enthought Deployment Manager لجميع الأنظمة الأساسية المدعومة</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#intel-extension-for-scikit-learn">Intel Extension for Scikit-learn</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#winpython-for-windows">WinPython for Windows</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">استكشاف الأخطاء وإصلاحها</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windows">خطأ ناتج عن حد طول مسار الملف على Windows</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="_sources/install.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> إظهار المصدر
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2007 - 2024, scikit-learn developers (BSD License) ### Translate into Arabic Eng. Ahmed Almaghz - 2024.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,935 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ar" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="6.8. مقاييس المقارنة الزوجية، والصلات، والنوى (Kernels)" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://scikit-learn/stable/modules/metrics.html" />
+<meta property="og:site_name" content="scikit-learn" />
+<meta property="og:description" content="تُطبق الوحدة الفرعية sklearn.metrics.pairwise أدوات مساعدة لتقييم المسافات الزوجية أو صلة مجموعات العينات. تحتوي هذه الوحدة على كل من مقاييس المسافة والنوى. يتم إعطاء ملخص موجز عن الاثنين هنا. مقاي..." />
+<meta property="og:image" content="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" />
+<meta property="og:image:alt" content="scikit-learn" />
+<meta name="description" content="تُطبق الوحدة الفرعية sklearn.metrics.pairwise أدوات مساعدة لتقييم المسافات الزوجية أو صلة مجموعات العينات. تحتوي هذه الوحدة على كل من مقاييس المسافة والنوى. يتم إعطاء ملخص موجز عن الاثنين هنا. مقاي..." />
+
+    <title>6.8. مقاييس المقارنة الزوجية، والصلات، والنوى (Kernels) &#8212; scikit-learn 1.6.dev0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css?v=7f9a90b1" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyterlite_sphinx.css?v=ca70e7f1" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/colors.css?v=cc94ab7d" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/custom.css?v=85b0813d" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../_static/documentation_options.js?v=3cd28d06"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=97f0b27d"></script>
+    <script src="../_static/jupyterlite_sphinx.js?v=d6bdf5f8"></script>
+    <script src="../_static/translations.js?v=87cb2081"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script data-domain="scikit-learn.org" defer="defer" src="https://views.scientific-python.org/js/script.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'modules/metrics';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://scikit-learn.org/dev/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1.6.dev0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/scripts/dropdown.js?v=e2048168"></script>
+    <script src="../_static/scripts/version-switcher.js?v=a6dd8357"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="search" title="بحث" href="../search.html" />
+    <link rel="next" title="6.9. تحويل هدف التنبؤ (y)" href="preprocessing_targets.html" />
+    <link rel="prev" title="6.7. Kernel Approximation" href="kernel_approximation.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ar"/>
+  <meta name="docsearch:version" content="1.6" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/scikit-learn-logo-small.png" class="logo__image only-light" alt="scikit-learn homepage"/>
+    <img src="../_static/scikit-learn-logo-small.png" class="logo__image only-dark pst-js-only" alt="scikit-learn homepage"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    دليل المستخدم
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../support.html">
+    الدعم الفني
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../related_projects.html">
+    مشاريع ذات علاقة
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../about.html">
+    من نحن
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    دليل المستخدم
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../support.html">
+    الدعم الفني
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../related_projects.html">
+    مشاريع ذات علاقة
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../about.html">
+    من نحن
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../supervised_learning.html">1. التعليم الخاضع للإشراف</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="linear_model.html">1.1. النماذج الخطية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lda_qda.html">1.2. تحليل التمييز الخطي والتربيعي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernel_ridge.html">1.3. انحدار حافة النواة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svm.html">1.4. آلات الدعم المتجهية (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sgd.html">1.5. التحسين التدريجي العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neighbors.html">1.6. أقرب الجيران</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gaussian_process.html">1.7. العمليات الغاوسية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cross_decomposition.html">1.8. التحليل المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="naive_bayes.html">1.9. خوارزميات بايز الساذجة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tree.html">1.10. شجرة القرار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ensemble.html">1.11. المجموعات: تعزيز التدرج، الغابات العشوائية، التجميع، التصويت، التكديس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multiclass.html">1.12. خوارزميات متعددة التصنيف ومتعددة الإخراج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature_selection.html">1.13. اختيار الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="semi_supervised.html">1.14. التعليم شبه الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="isotonic.html">1.15. الانحدار المتساوي التوتر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibration.html">1.16. معايرة الاحتمال</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_networks_supervised.html">1.17. نماذج الشبكات العصبية (الخاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../unsupervised_learning.html">2. التعليم الغير خاضع للإشراف</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="mixture.html">2.1. نماذج خليط غاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manifold.html">2.2. تعلم المشعبات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clustering.html">2.3. التجميع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="biclustering.html">2.4. التجميع الثنائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decomposition.html">2.5. تحليل الإشارات إلى مكونات (مشاكل تحليل المصفوفات)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="covariance.html">2.6. تقدير التباين المشترك</a></li>
+<li class="toctree-l2"><a class="reference internal" href="outlier_detection.html">2.7. كشف القيم الغريبة والقيم المتطرفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="density.html">2.8. تقدير الكثافة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_networks_unsupervised.html">2.9. نماذج الشبكة العصبية (غير خاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../model_selection.html">3. تقييم وإختيار النموذج</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="cross_validation.html">3.1. التحقق المتبادل: تقييم أداء المقدر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grid_search.html">3.2. ضبط المعلمات الفائقة لمُقدِّر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classification_threshold.html">3.3. ضبط عتبة القرار لتنبؤ الفئة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_evaluation.html">3.4. المقاييس والتهديف: تحديد جودة التنبؤات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learning_curve.html">3.5. منحنيات التحقق من الصحة: رسم الدرجات لتقييم النماذج</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../inspection.html">4. الفحص</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="partial_dependence.html">4.1. مخططات الاعتماد الجزئي والتوقع الشرطي الفردي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="permutation_importance.html">4.2. أهمية التبديل</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualizations.html">5. التصورات المرئية</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../data_transforms.html">6. تحويلات مجموعات البيانات</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="compose.html">6.1. خطوط الأنابيب والمقدرات المركبة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature_extraction.html">6.2. استخراج الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html">6.3. المعالجة المسبقة للبيانات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="impute.html">6.4. تعويض القيم المفقودة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unsupervised_reduction.html">6.5. تخفيض الأبعاد غير الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="random_projection.html">6.6. الإسقاط العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernel_approximation.html">6.7. Kernel Approximation</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">6.8. مقاييس المقارنة الزوجية، والصلات، والنوى (Kernels)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing_targets.html">6.9. تحويل هدف التنبؤ (<code class="docutils literal notranslate"><span class="pre">y</span></code>)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/toy_dataset.html">7. مجموعات بيانات تجريبية</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/real_world.html">8. مجموعات بيانات العالم الحقيقي</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/sample_generators.html">9. مجموعات بيانات مولدة</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/loading_other_datasets.html">10. تحميل مجموعات بيانات أخرى</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../computing.html">11. الحوسبة مع scikit-learn</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../computing/scaling_strategies.html">11.1. استراتيجيات للقياس حسابيًا: بيانات أكبر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../computing/computational_performance.html">11.2. الأداء الحسابي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../computing/parallelism.html">11.3. التوازي وإدارة الموارد والتهيئة</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../model_persistence.html">12. حفظ النموذج</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../common_pitfalls.html">13. المزالق الشائعة والممارسات الموصى بها</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../dispatching.html">14. Dispatching</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="array_api.html">14.1. دعم المدخلات المتوافقة مع <code class="docutils literal notranslate"><span class="pre">Array</span> <span class="pre">API</span></code></a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../machine_learning_map.html">15. اختيار المقدر المناسب</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../presentations.html">16. المصادر الخارجية ومقاطع الفيديو والمحادثات</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../user_guide.html" class="nav-link">دليل المستخدم</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../data_transforms.html" class="nav-link"><span class="section-number">6. </span>تحويلات مجموعات البيانات</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">6.8. </span>مقاييس المقارنة الزوجية، والصلات، والنوى (Kernels)</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="kernels">
+<span id="metrics"></span><h1><span class="section-number">6.8. </span>مقاييس المقارنة الزوجية، والصلات، والنوى (Kernels)<a class="headerlink" href="#kernels" title="Link to this heading">#</a></h1>
+<p>تُطبق الوحدة الفرعية <a class="reference internal" href="../api/sklearn.metrics.html#module-sklearn.metrics.pairwise" title="sklearn.metrics.pairwise"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.metrics.pairwise</span></code></a> أدوات مساعدة لتقييم المسافات الزوجية أو صلة مجموعات العينات.</p>
+<p>تحتوي هذه الوحدة على كل من مقاييس المسافة والنوى. يتم إعطاء ملخص موجز عن الاثنين هنا.</p>
+<p>مقاييس المسافة هي دوال <code class="docutils literal notranslate"><span class="pre">d(a,</span> <span class="pre">b)</span></code> بحيث <code class="docutils literal notranslate"><span class="pre">d(a,</span> <span class="pre">b)</span> <span class="pre">&lt;</span> <span class="pre">d(a,</span> <span class="pre">c)</span></code> إذا اعتُبرت الكائنات <code class="docutils literal notranslate"><span class="pre">a</span></code> و <code class="docutils literal notranslate"><span class="pre">b</span></code> &quot;أكثر تشابهًا&quot; من الكائنات <code class="docutils literal notranslate"><span class="pre">a</span></code> و <code class="docutils literal notranslate"><span class="pre">c</span></code>. سيكون للكائنين المتشابهين تمامًا مسافة صفر. أحد الأمثلة الأكثر شيوعًا هو المسافة الإقليدية. لكي تكون مقياسًا &quot;حقيقيًا&quot;، يجب أن تلتزم بالشروط الأربعة التالية:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">d</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">لجميع</span> <span class="n">a</span> <span class="n">و</span> <span class="n">b</span>
+<span class="mf">2.</span> <span class="n">d</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="n">إذا</span> <span class="n">وفقط</span> <span class="n">إذا</span> <span class="n">a</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">تحديد</span> <span class="n">موجب</span>
+<span class="mf">3.</span> <span class="n">d</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">==</span> <span class="n">d</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">),</span> <span class="n">تناظر</span>
+<span class="mf">4.</span> <span class="n">d</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">d</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">+</span> <span class="n">d</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">),</span> <span class="n">متباينة</span> <span class="n">المثلث</span>
+</pre></div>
+</div>
+<p>النوى هي مقاييس التشابه، أي <code class="docutils literal notranslate"><span class="pre">s(a,</span> <span class="pre">b)</span> <span class="pre">&gt;</span> <span class="pre">s(a,</span> <span class="pre">c)</span></code> إذا اعتُبرت الكائنات <code class="docutils literal notranslate"><span class="pre">a</span></code> و <code class="docutils literal notranslate"><span class="pre">b</span></code> &quot;أكثر تشابهًا&quot; من الكائنات <code class="docutils literal notranslate"><span class="pre">a</span></code> و <code class="docutils literal notranslate"><span class="pre">c</span></code>. يجب أن تكون النواة أيضًا شبه محددة موجبة.</p>
+<p>هناك عدد من الطرق للتحويل بين مقياس المسافة ومقياس التشابه، مثل النواة. دع <code class="docutils literal notranslate"><span class="pre">D</span></code> تكون المسافة، و <code class="docutils literal notranslate"><span class="pre">S</span></code> تكون النواة:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">S</span> <span class="pre">=</span> <span class="pre">np.exp(-D</span> <span class="pre">*</span> <span class="pre">gamma)</span></code>, حيث إحدى الطرق التجريبية لاختيار <code class="docutils literal notranslate"><span class="pre">gamma</span></code> هي <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">num_features</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">S</span> <span class="pre">=</span> <span class="pre">1.</span> <span class="pre">/</span> <span class="pre">(D</span> <span class="pre">/</span> <span class="pre">np.max(D))</span></code></p></li>
+</ol>
+<p>يمكن تقييم المسافات بين متجهات الصفوف لـ <code class="docutils literal notranslate"><span class="pre">X</span></code> ومتجهات الصفوف لـ <code class="docutils literal notranslate"><span class="pre">Y</span></code> باستخدام <a class="reference internal" href="generated/sklearn.metrics.pairwise_distances.html#sklearn.metrics.pairwise_distances" title="sklearn.metrics.pairwise_distances"><code class="xref py py-func docutils literal notranslate"><span class="pre">pairwise_distances</span></code></a>. إذا تم حذف <code class="docutils literal notranslate"><span class="pre">Y</span></code>، يتم حساب المسافات الزوجية لمتجهات صفوف <code class="docutils literal notranslate"><span class="pre">X</span></code>. وبالمثل، يمكن استخدام <a class="reference internal" href="generated/sklearn.metrics.pairwise.pairwise_kernels.html#sklearn.metrics.pairwise.pairwise_kernels" title="sklearn.metrics.pairwise.pairwise_kernels"><code class="xref py py-func docutils literal notranslate"><span class="pre">pairwise.pairwise_kernels</span></code></a> لحساب النواة بين <code class="docutils literal notranslate"><span class="pre">X</span></code> و <code class="docutils literal notranslate"><span class="pre">Y</span></code> باستخدام دوال نواة مختلفة. راجع مرجع API لمزيد من التفاصيل.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">pairwise_distances</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics.pairwise</span> <span class="kn">import</span> <span class="n">pairwise_kernels</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pairwise_distances</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;manhattan&#39;</span><span class="p">)</span>
+<span class="go">array([[ 4.,  2.],</span>
+<span class="go">       [ 7.,  5.],</span>
+<span class="go">       [12., 10.]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pairwise_distances</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;manhattan&#39;</span><span class="p">)</span>
+<span class="go">array([[0., 3., 8.],</span>
+<span class="go">       [3., 0., 5.],</span>
+<span class="go">       [8., 5., 0.]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pairwise_kernels</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
+<span class="go">array([[ 2.,  7.],</span>
+<span class="go">       [ 3., 11.],</span>
+<span class="go">       [ 5., 18.]])</span>
+</pre></div>
+</div>
+<section id="cosine-similarity">
+<span id="id1"></span><h2><span class="section-number">6.8.1. </span>تشابه جيب التمام<a class="headerlink" href="#cosine-similarity" title="Link to this heading">#</a></h2>
+<p>تحسب <a class="reference internal" href="generated/sklearn.metrics.pairwise.cosine_similarity.html#sklearn.metrics.pairwise.cosine_similarity" title="sklearn.metrics.pairwise.cosine_similarity"><code class="xref py py-func docutils literal notranslate"><span class="pre">cosine_similarity</span></code></a> حاصل الضرب النقطي المعياري L2 للمتجهات. أي، إذا كان <span class="math notranslate nohighlight">\(x\)</span> و <span class="math notranslate nohighlight">\(y\)</span> متجهي صفوف، يتم تعريف تشابه جيب التمام <span class="math notranslate nohighlight">\(k\)</span> على النحو التالي:</p>
+<div class="math notranslate nohighlight">
+\[k(x, y) = \frac{x y^\top}{\|x\| \|y\|}\]</div>
+<p>يسمى هذا تشابه جيب التمام، لأن التطبيع الإقليدي (L2) يُسقط المتجهات على كرة الوحدة، وحاصل الضرب النقطي هو جيب تمام الزاوية بين النقاط التي تشير إليها المتجهات.</p>
+<p>تُعد هذه النواة خيارًا شائعًا لحساب تشابه المستندات الممثلة كمتجهات tf-idf. تقبل <a class="reference internal" href="generated/sklearn.metrics.pairwise.cosine_similarity.html#sklearn.metrics.pairwise.cosine_similarity" title="sklearn.metrics.pairwise.cosine_similarity"><code class="xref py py-func docutils literal notranslate"><span class="pre">cosine_similarity</span></code></a> مصفوفات <code class="docutils literal notranslate"><span class="pre">scipy.sparse</span></code>. (لاحظ أن وظيفة tf-idf في <code class="docutils literal notranslate"><span class="pre">sklearn.feature_extraction.text</span></code> يمكن أن تنتج متجهات معيارية، وفي هذه الحالة تكون <a class="reference internal" href="generated/sklearn.metrics.pairwise.cosine_similarity.html#sklearn.metrics.pairwise.cosine_similarity" title="sklearn.metrics.pairwise.cosine_similarity"><code class="xref py py-func docutils literal notranslate"><span class="pre">cosine_similarity</span></code></a> مكافئة لـ <a class="reference internal" href="generated/sklearn.metrics.pairwise.linear_kernel.html#sklearn.metrics.pairwise.linear_kernel" title="sklearn.metrics.pairwise.linear_kernel"><code class="xref py py-func docutils literal notranslate"><span class="pre">linear_kernel</span></code></a>، ولكنها أبطأ فقط.)</p>
+<p class="rubric">المراجع</p>
+<ul class="simple">
+<li><p>C.D. Manning, P. Raghavan and H. Schütze (2008). Introduction to
+Information Retrieval. Cambridge University Press.
+<a class="reference external" href="https://nlp.stanford.edu/IR-book/html/htmledition/the-vector-space-model-for-scoring-1.html">https://nlp.stanford.edu/IR-book/html/htmledition/the-vector-space-model-for-scoring-1.html</a></p></li>
+</ul>
+</section>
+<section id="linear-kernel">
+<span id="id2"></span><h2><span class="section-number">6.8.2. </span>النواة الخطية<a class="headerlink" href="#linear-kernel" title="Link to this heading">#</a></h2>
+<p>تحسب الدالة <a class="reference internal" href="generated/sklearn.metrics.pairwise.linear_kernel.html#sklearn.metrics.pairwise.linear_kernel" title="sklearn.metrics.pairwise.linear_kernel"><code class="xref py py-func docutils literal notranslate"><span class="pre">linear_kernel</span></code></a> النواة الخطية، أي حالة خاصة من <a class="reference internal" href="generated/sklearn.metrics.pairwise.polynomial_kernel.html#sklearn.metrics.pairwise.polynomial_kernel" title="sklearn.metrics.pairwise.polynomial_kernel"><code class="xref py py-func docutils literal notranslate"><span class="pre">polynomial_kernel</span></code></a> مع <code class="docutils literal notranslate"><span class="pre">degree=1</span></code> و <code class="docutils literal notranslate"><span class="pre">coef0=0</span></code> (متجانسة). إذا كان <code class="docutils literal notranslate"><span class="pre">x</span></code> و <code class="docutils literal notranslate"><span class="pre">y</span></code> متجهين عموديين، فإن نواتهما الخطية هي:</p>
+<div class="math notranslate nohighlight">
+\[k(x, y) = x^\top y\]</div>
+</section>
+<section id="polynomial-kernel">
+<span id="id3"></span><h2><span class="section-number">6.8.3. </span>النواة متعددة الحدود<a class="headerlink" href="#polynomial-kernel" title="Link to this heading">#</a></h2>
+<p>تحسب الدالة <a class="reference internal" href="generated/sklearn.metrics.pairwise.polynomial_kernel.html#sklearn.metrics.pairwise.polynomial_kernel" title="sklearn.metrics.pairwise.polynomial_kernel"><code class="xref py py-func docutils literal notranslate"><span class="pre">polynomial_kernel</span></code></a> النواة متعددة الحدود من الدرجة d بين متجهين. تُمثل النواة متعددة الحدود التشابه بين متجهين. من الناحية المفاهيمية، لا تأخذ النوى متعددة الحدود في الاعتبار التشابه بين المتجهات ضمن نفس البعد فحسب، بل أيضًا عبر الأبعاد. عند استخدامها في خوارزميات تعلم الآلة، يسمح هذا بحساب تفاعل الميزات.</p>
+<p>يتم تعريف النواة متعددة الحدود على النحو التالي:</p>
+<div class="math notranslate nohighlight">
+\[k(x, y) = (\gamma x^\top y +c_0)^d\]</div>
+<p>حيث:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code> هي متجهات الإدخال</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">d</span></code> هي درجة النواة</p></li>
+</ul>
+<p>إذا كان <span class="math notranslate nohighlight">\(c_0 = 0\)</span>، يُقال إن النواة متجانسة.</p>
+</section>
+<section id="sigmoid">
+<span id="sigmoid-kernel"></span><h2><span class="section-number">6.8.4. </span>النواة السينية (Sigmoid)<a class="headerlink" href="#sigmoid" title="Link to this heading">#</a></h2>
+<p>تحسب الدالة <a class="reference internal" href="generated/sklearn.metrics.pairwise.sigmoid_kernel.html#sklearn.metrics.pairwise.sigmoid_kernel" title="sklearn.metrics.pairwise.sigmoid_kernel"><code class="xref py py-func docutils literal notranslate"><span class="pre">sigmoid_kernel</span></code></a> النواة السينية بين متجهين. تُعرف النواة السينية أيضًا باسم الظل الزائدي، أو بيرسيبترون متعدد الطبقات (لأنه، في مجال الشبكة العصبية، غالبًا ما يتم استخدامه كدالة تنشيط الخلايا العصبية). يتم تعريفها على النحو التالي:</p>
+<div class="math notranslate nohighlight">
+\[k(x, y) = \tanh( \gamma x^\top y + c_0)\]</div>
+<p>حيث:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code> هي متجهات الإدخال</p></li>
+<li><p><span class="math notranslate nohighlight">\(\gamma\)</span> يُعرف بالميل</p></li>
+<li><p><span class="math notranslate nohighlight">\(c_0\)</span> يُعرف بالتقاطع</p></li>
+</ul>
+</section>
+<section id="rbf">
+<span id="rbf-kernel"></span><h2><span class="section-number">6.8.5. </span>نواة دالة أساس شعاعي (RBF)<a class="headerlink" href="#rbf" title="Link to this heading">#</a></h2>
+<p>تحسب الدالة <a class="reference internal" href="generated/sklearn.metrics.pairwise.rbf_kernel.html#sklearn.metrics.pairwise.rbf_kernel" title="sklearn.metrics.pairwise.rbf_kernel"><code class="xref py py-func docutils literal notranslate"><span class="pre">rbf_kernel</span></code></a> نواة دالة الأساس الشعاعي (RBF) بين متجهين. يتم تعريف هذه النواة على النحو التالي:</p>
+<div class="math notranslate nohighlight">
+\[k(x, y) = \exp( -\gamma \| x-y \|^2)\]</div>
+<p>حيث <code class="docutils literal notranslate"><span class="pre">x</span></code> و <code class="docutils literal notranslate"><span class="pre">y</span></code> هما متجهات الإدخال. إذا كان <span class="math notranslate nohighlight">\(\gamma = \sigma^{-2}\)</span>، تُعرف النواة باسم النواة الغاوسية للتباين <span class="math notranslate nohighlight">\(\sigma^2\)</span>.</p>
+</section>
+<section id="laplacian-kernel">
+<span id="id4"></span><h2><span class="section-number">6.8.6. </span>نواة لابلاس<a class="headerlink" href="#laplacian-kernel" title="Link to this heading">#</a></h2>
+<p>الدالة <a class="reference internal" href="generated/sklearn.metrics.pairwise.laplacian_kernel.html#sklearn.metrics.pairwise.laplacian_kernel" title="sklearn.metrics.pairwise.laplacian_kernel"><code class="xref py py-func docutils literal notranslate"><span class="pre">laplacian_kernel</span></code></a> هي متغير على نواة دالة الأساس الشعاعي المُعرَّفة على النحو التالي:</p>
+<div class="math notranslate nohighlight">
+\[k(x, y) = \exp( -\gamma \| x-y \|_1)\]</div>
+<p>حيث <code class="docutils literal notranslate"><span class="pre">x</span></code> و <code class="docutils literal notranslate"><span class="pre">y</span></code> هما متجهات الإدخال و <span class="math notranslate nohighlight">\(\|x-y\|_1\)</span> هي مسافة مانهاتن بين متجهات الإدخال.</p>
+<p>لقد أثبتت جدواها في تعلم الآلة المطبق على البيانات غير المزعجة. انظر على سبيل المثال <a class="reference external" href="https://onlinelibrary.wiley.com/doi/10.1002/qua.24954/abstract/">Machine learning for quantum mechanics in a nutshell</a>.</p>
+</section>
+<section id="chi2-kernel">
+<span id="id5"></span><h2><span class="section-number">6.8.7. </span>نواة مربع كاي<a class="headerlink" href="#chi2-kernel" title="Link to this heading">#</a></h2>
+<p>تُعد نواة مربع كاي خيارًا شائعًا جدًا لتدريب SVM غير الخطية في تطبيقات رؤية الكمبيوتر. يمكن حسابها باستخدام <a class="reference internal" href="generated/sklearn.metrics.pairwise.chi2_kernel.html#sklearn.metrics.pairwise.chi2_kernel" title="sklearn.metrics.pairwise.chi2_kernel"><code class="xref py py-func docutils literal notranslate"><span class="pre">chi2_kernel</span></code></a> ثم تمريرها إلى <a class="reference internal" href="generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC"><code class="xref py py-class docutils literal notranslate"><span class="pre">SVC</span></code></a> مع <code class="docutils literal notranslate"><span class="pre">kernel=&quot;precomputed&quot;</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics.pairwise</span> <span class="kn">import</span> <span class="n">chi2_kernel</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">.2</span><span class="p">,</span> <span class="mf">.8</span><span class="p">],</span> <span class="p">[</span><span class="mf">.7</span><span class="p">,</span> <span class="mf">.3</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">K</span> <span class="o">=</span> <span class="n">chi2_kernel</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">K</span>
+<span class="go">array([[1.        , 0.36787944, 0.89483932, 0.58364548],</span>
+<span class="go">       [0.36787944, 1.        , 0.51341712, 0.83822343],</span>
+<span class="go">       [0.89483932, 0.51341712, 1.        , 0.7768366 ],</span>
+<span class="go">       [0.58364548, 0.83822343, 0.7768366 , 1.        ]])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">svm</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;precomputed&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">svm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>
+<span class="go">array([0, 1, 0, 1])</span>
+</pre></div>
+</div>
+<p>يمكن أيضًا استخدامها مباشرة كوسيطة <code class="docutils literal notranslate"><span class="pre">kernel</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">svm</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="n">chi2_kernel</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">svm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">array([0, 1, 0, 1])</span>
+</pre></div>
+</div>
+<p>يتم إعطاء نواة مربع كاي بواسطة</p>
+<div class="math notranslate nohighlight">
+\[k(x, y) = \exp \left (-\gamma \sum_i \frac{(x[i] - y[i]) ^ 2}{x[i] + y[i]} \right )\]</div>
+<p>يفترض أن تكون البيانات غير سالبة، وغالبًا ما يتم تطبيعها للحصول على معيار L1 يساوي واحدًا. يتم ترشيد التطبيع مع الاتصال بمسافة مربع كاي، وهي مسافة بين توزيعات احتمالية منفصلة.</p>
+<p>غالبًا ما يتم استخدام نواة مربع كاي في الرسوم البيانية (أكياس) الكلمات المرئية.</p>
+<p class="rubric">المراجع</p>
+<ul class="simple">
+<li><p>Zhang, J. and Marszalek, M. and Lazebnik, S. and Schmid, C.
+Local features and kernels for classification of texture and object
+categories: A comprehensive study
+International Journal of Computer Vision 2007
+<a class="reference external" href="https://hal.archives-ouvertes.fr/hal-00171412/document">https://hal.archives-ouvertes.fr/hal-00171412/document</a></p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  <div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item">
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="kernel_approximation.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">السابق</p>
+        <p class="prev-next-title"><span class="section-number">6.7. </span>Kernel Approximation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="preprocessing_targets.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">التالي</p>
+        <p class="prev-next-title"><span class="section-number">6.9. </span>تحويل هدف التنبؤ (<code class="docutils literal notranslate"><span class="pre">y</span></code>)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+                </footer>
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cosine-similarity">6.8.1. تشابه جيب التمام</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-kernel">6.8.2. النواة الخطية</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#polynomial-kernel">6.8.3. النواة متعددة الحدود</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sigmoid">6.8.4. النواة السينية (Sigmoid)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rbf">6.8.5. نواة دالة أساس شعاعي (RBF)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#laplacian-kernel">6.8.6. نواة لابلاس</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chi2-kernel">6.8.7. نواة مربع كاي</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/modules/metrics.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> إظهار المصدر
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2007 - 2024, scikit-learn developers (BSD License) ### Translate into Arabic Eng. Ahmed Almaghz - 2024.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

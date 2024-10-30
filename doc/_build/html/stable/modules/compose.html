@@ -1,0 +1,1299 @@
+
+<!DOCTYPE html>
+
+
+<html lang="ar" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="6.1. خطوط الأنابيب والمقدرات المركبة" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://scikit-learn/stable/modules/compose.html" />
+<meta property="og:site_name" content="scikit-learn" />
+<meta property="og:description" content="لبناء مقدر مركب، عادةً ما يتم دمج المحولات مع محولات أخرى أو مع المتنبئين(مثل المصنفات أو عوامل الانحدار). الأداة الأكثر شيوعًا المستخدمة لتكوين المقدرات هي Pipeline. تتطلب خطوط الأنابيب أن تكون جم..." />
+<meta property="og:image" content="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" />
+<meta property="og:image:alt" content="scikit-learn" />
+<meta name="description" content="لبناء مقدر مركب، عادةً ما يتم دمج المحولات مع محولات أخرى أو مع المتنبئين(مثل المصنفات أو عوامل الانحدار). الأداة الأكثر شيوعًا المستخدمة لتكوين المقدرات هي Pipeline. تتطلب خطوط الأنابيب أن تكون جم..." />
+
+    <title>6.1. خطوط الأنابيب والمقدرات المركبة &#8212; scikit-learn 1.6.dev0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css?v=7f9a90b1" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vibur" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyterlite_sphinx.css?v=ca70e7f1" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/colors.css?v=cc94ab7d" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/custom.css?v=85b0813d" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../_static/documentation_options.js?v=3cd28d06"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=97f0b27d"></script>
+    <script src="../_static/jupyterlite_sphinx.js?v=d6bdf5f8"></script>
+    <script src="../_static/translations.js?v=87cb2081"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script data-domain="scikit-learn.org" defer="defer" src="https://views.scientific-python.org/js/script.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'modules/compose';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://scikit-learn.org/dev/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '1.6.dev0';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = true;
+        </script>
+    <script src="../_static/scripts/dropdown.js?v=e2048168"></script>
+    <script src="../_static/scripts/version-switcher.js?v=a6dd8357"></script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="search" title="بحث" href="../search.html" />
+    <link rel="next" title="6.2. استخراج الميزات" href="feature_extraction.html" />
+    <link rel="prev" title="6. تحويلات مجموعات البيانات" href="../data_transforms.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="ar"/>
+  <meta name="docsearch:version" content="1.6" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/scikit-learn-logo-small.png" class="logo__image only-light" alt="scikit-learn homepage"/>
+    <img src="../_static/scikit-learn-logo-small.png" class="logo__image only-dark pst-js-only" alt="scikit-learn homepage"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    دليل المستخدم
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../support.html">
+    الدعم الفني
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../related_projects.html">
+    مشاريع ذات علاقة
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../about.html">
+    من نحن
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="بحث" aria-label="بحث" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../install.html">
+    Install
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../user_guide.html">
+    دليل المستخدم
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../auto_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="https://blog.scikit-learn.org/">
+    Community
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started.html">
+    البدء
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../whats_new.html">
+    Release History
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../glossary.html">
+    Glossary
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../developers/index.html">
+    Development
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../faq.html">
+    FAQ
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../support.html">
+    الدعم الفني
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../related_projects.html">
+    مشاريع ذات علاقة
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../roadmap.html">
+    Roadmap
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../governance.html">
+    Governance
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../about.html">
+    من نحن
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/scikit-learn/scikit-learn" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../supervised_learning.html">1. التعليم الخاضع للإشراف</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="linear_model.html">1.1. النماذج الخطية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lda_qda.html">1.2. تحليل التمييز الخطي والتربيعي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernel_ridge.html">1.3. انحدار حافة النواة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svm.html">1.4. آلات الدعم المتجهية (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sgd.html">1.5. التحسين التدريجي العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neighbors.html">1.6. أقرب الجيران</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gaussian_process.html">1.7. العمليات الغاوسية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cross_decomposition.html">1.8. التحليل المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="naive_bayes.html">1.9. خوارزميات بايز الساذجة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tree.html">1.10. شجرة القرار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ensemble.html">1.11. المجموعات: تعزيز التدرج، الغابات العشوائية، التجميع، التصويت، التكديس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multiclass.html">1.12. خوارزميات متعددة التصنيف ومتعددة الإخراج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature_selection.html">1.13. اختيار الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="semi_supervised.html">1.14. التعليم شبه الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="isotonic.html">1.15. الانحدار المتساوي التوتر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibration.html">1.16. معايرة الاحتمال</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_networks_supervised.html">1.17. نماذج الشبكات العصبية (الخاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../unsupervised_learning.html">2. التعليم الغير خاضع للإشراف</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="mixture.html">2.1. نماذج خليط غاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manifold.html">2.2. تعلم المشعبات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clustering.html">2.3. التجميع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="biclustering.html">2.4. التجميع الثنائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decomposition.html">2.5. تحليل الإشارات إلى مكونات (مشاكل تحليل المصفوفات)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="covariance.html">2.6. تقدير التباين المشترك</a></li>
+<li class="toctree-l2"><a class="reference internal" href="outlier_detection.html">2.7. كشف القيم الغريبة والقيم المتطرفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="density.html">2.8. تقدير الكثافة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_networks_unsupervised.html">2.9. نماذج الشبكة العصبية (غير خاضعة للإشراف)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../model_selection.html">3. تقييم وإختيار النموذج</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="cross_validation.html">3.1. التحقق المتبادل: تقييم أداء المقدر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grid_search.html">3.2. ضبط المعلمات الفائقة لمُقدِّر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classification_threshold.html">3.3. ضبط عتبة القرار لتنبؤ الفئة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model_evaluation.html">3.4. المقاييس والتهديف: تحديد جودة التنبؤات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learning_curve.html">3.5. منحنيات التحقق من الصحة: رسم الدرجات لتقييم النماذج</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../inspection.html">4. الفحص</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="partial_dependence.html">4.1. مخططات الاعتماد الجزئي والتوقع الشرطي الفردي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="permutation_importance.html">4.2. أهمية التبديل</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../visualizations.html">5. التصورات المرئية</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../data_transforms.html">6. تحويلات مجموعات البيانات</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">6.1. خطوط الأنابيب والمقدرات المركبة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature_extraction.html">6.2. استخراج الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html">6.3. المعالجة المسبقة للبيانات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="impute.html">6.4. تعويض القيم المفقودة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="unsupervised_reduction.html">6.5. تخفيض الأبعاد غير الخاضع للإشراف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="random_projection.html">6.6. الإسقاط العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kernel_approximation.html">6.7. Kernel Approximation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">6.8. مقاييس المقارنة الزوجية، والصلات، والنوى (Kernels)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing_targets.html">6.9. تحويل هدف التنبؤ (<code class="docutils literal notranslate"><span class="pre">y</span></code>)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/toy_dataset.html">7. مجموعات بيانات تجريبية</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/real_world.html">8. مجموعات بيانات العالم الحقيقي</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/sample_generators.html">9. مجموعات بيانات مولدة</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../datasets/loading_other_datasets.html">10. تحميل مجموعات بيانات أخرى</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../computing.html">11. الحوسبة مع scikit-learn</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../computing/scaling_strategies.html">11.1. استراتيجيات للقياس حسابيًا: بيانات أكبر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../computing/computational_performance.html">11.2. الأداء الحسابي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../computing/parallelism.html">11.3. التوازي وإدارة الموارد والتهيئة</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../model_persistence.html">12. حفظ النموذج</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../common_pitfalls.html">13. المزالق الشائعة والممارسات الموصى بها</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../dispatching.html">14. Dispatching</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="array_api.html">14.1. دعم المدخلات المتوافقة مع <code class="docutils literal notranslate"><span class="pre">Array</span> <span class="pre">API</span></code></a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../machine_learning_map.html">15. اختيار المقدر المناسب</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../presentations.html">16. المصادر الخارجية ومقاطع الفيديو والمحادثات</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../user_guide.html" class="nav-link">دليل المستخدم</a></li>
+    
+    
+    <li class="breadcrumb-item"><a href="../data_transforms.html" class="nav-link"><span class="section-number">6. </span>تحويلات مجموعات البيانات</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">6.1. </span>خطوط الأنابيب والمقدرات المركبة</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="combining-estimators">
+<span id="id1"></span><h1><span class="section-number">6.1. </span>خطوط الأنابيب والمقدرات المركبة<a class="headerlink" href="#combining-estimators" title="Link to this heading">#</a></h1>
+<p>لبناء مقدر مركب، عادةً ما يتم دمج المحولات مع محولات أخرى أو مع <span class="xref std std-term">المتنبئين</span> (مثل المصنفات أو عوامل الانحدار).
+الأداة الأكثر شيوعًا المستخدمة لتكوين المقدرات هي <a class="reference internal" href="#pipeline"><span class="std std-ref">Pipeline</span></a>.
+تتطلب خطوط الأنابيب أن تكون جميع الخطوات باستثناء الأخيرة <span class="xref std std-term">محول</span>.
+يمكن أن تكون الخطوة الأخيرة أي شيء، محول، <span class="xref std std-term">متنبئ</span>، أو مقدر تجميع قد يكون أو لا يحتوي على طريقة <code class="docutils literal notranslate"><span class="pre">.predict(...)</span></code>.
+يعرض خط الأنابيب جميع الطرق التي يوفرها المقدر الأخير: إذا كانت الخطوة الأخيرة توفر طريقة <code class="docutils literal notranslate"><span class="pre">transform</span></code>، فسيكون لخط الأنابيب طريقة <code class="docutils literal notranslate"><span class="pre">transform</span></code> ويتصرف مثل المحول.
+إذا كانت الخطوة الأخيرة توفر طريقة <code class="docutils literal notranslate"><span class="pre">predict</span></code>، فسيكشف خط الأنابيب عن تلك الطريقة، وبالنظر إلى البيانات <a class="reference internal" href="../glossary.html#term-X"><span class="xref std std-term">X</span></a>، استخدم جميع الخطوات باستثناء الأخيرة لتحويل البيانات، ثم أعط تلك البيانات المحولة إلى طريقة <code class="docutils literal notranslate"><span class="pre">predict</span></code> للخطوة الأخيرة من خط الأنابيب.
+غالبًا ما تُستخدم الفئة <code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code> مع <a class="reference internal" href="#column-transformer"><span class="std std-ref">ColumnTransformer</span></a> أو <a class="reference internal" href="#feature-union"><span class="std std-ref">FeatureUnion</span></a> التي تربط ناتج المحولات في مساحة ميزة مركبة.
+يتعامل <a class="reference internal" href="#transformed-target-regressor"><span class="std std-ref">TransformedTargetRegressor</span></a> مع تحويل <span class="xref std std-term">الهدف</span> (أي تحويل السجل <a class="reference internal" href="../glossary.html#term-y"><span class="xref std std-term">y</span></a>).</p>
+<section id="pipeline">
+<span id="id2"></span><h2><span class="section-number">6.1.1. </span>Pipeline: سلسلة المقدرات<a class="headerlink" href="#pipeline" title="Link to this heading">#</a></h2>
+<p>يمكن استخدام <a class="reference internal" href="generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> لسلسلة مقدرات متعددة في واحد.
+هذا مفيد لأنه غالبًا ما يكون هناك تسلسل ثابت للخطوات في معالجة البيانات، على سبيل المثال اختيار الميزات والتطبيع والتصنيف. يخدم <a class="reference internal" href="generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> أغراضًا متعددة هنا:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>الراحة والتغليف</dt><dd><p>ما عليك سوى استدعاء <a class="reference internal" href="../glossary.html#term-fit"><span class="xref std std-term">fit</span></a> و <a class="reference internal" href="../glossary.html#term-predict"><span class="xref std std-term">predict</span></a> مرة واحدة على بياناتك لتناسب تسلسل كامل من المقدرات.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>اختيار المعلمة المشتركة</dt><dd><p>يمكنك <a class="reference internal" href="grid_search.html#grid-search"><span class="std std-ref">البحث في الشبكة</span></a> على معلمات جميع المقدرات في خط الأنابيب في وقت واحد.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>الأمان</dt><dd><p>تساعد خطوط الأنابيب على تجنب تسريب الإحصائيات من بيانات الاختبار الخاصة بك إلى النموذج المدرب في التحقق المتبادل، من خلال ضمان استخدام نفس العينات لتدريب المحولات والمتنبئين.</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>يجب أن تكون جميع المقدرات في خط الأنابيب، باستثناء الأخير، محولات (أي يجب أن يكون لها طريقة <a class="reference internal" href="../glossary.html#term-transform"><span class="xref std std-term">transform</span></a>).
+قد يكون المقدر الأخير من أي نوع (محول، مصنف، إلخ).</p>
+<div class="admonition note">
+<p class="admonition-title">ملاحظة</p>
+<p>إن استدعاء <code class="docutils literal notranslate"><span class="pre">fit</span></code> على خط الأنابيب هو نفسه استدعاء <code class="docutils literal notranslate"><span class="pre">fit</span></code> على كل مقدر بدوره، <code class="docutils literal notranslate"><span class="pre">transform</span></code>  الإدخال وتمريره إلى الخطوة التالية.
+يحتوي خط الأنابيب على جميع الطرق التي يمتلكها المقدر الأخير في خط الأنابيب، أي إذا كان المقدر الأخير هو مصنف، فيمكن استخدام <a class="reference internal" href="generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>  كمصنف.
+إذا كان المقدر الأخير هو محول، مرة أخرى، كذلك هو خط الأنابيب.</p>
+</div>
+<section id="id3">
+<h3><span class="section-number">6.1.1.1. </span>الاستخدام<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<section id="id4">
+<h4><span class="section-number">6.1.1.1.1. </span>بناء خط أنابيب<a class="headerlink" href="#id4" title="Link to this heading">#</a></h4>
+<p>يتم بناء <a class="reference internal" href="generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> باستخدام قائمة من أزواج <code class="docutils literal notranslate"><span class="pre">(key,</span> <span class="pre">value)</span></code>، حيث <code class="docutils literal notranslate"><span class="pre">key</span></code> عبارة عن سلسلة تحتوي على الاسم الذي تريد إعطائه لهذه الخطوة و <code class="docutils literal notranslate"><span class="pre">value</span></code> هو كائن مقدر:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">estimators</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;reduce_dim&#39;</span><span class="p">,</span> <span class="n">PCA</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;clf&#39;</span><span class="p">,</span> <span class="n">SVC</span><span class="p">())]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">estimators</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span>
+<span class="go">Pipeline(steps=[(&#39;reduce_dim&#39;, PCA()), (&#39;clf&#39;, SVC())])</span>
+</pre></div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="إصدار-مختصر-باستخدام-make_pipeline">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">إصدار مختصر باستخدام <a class="reference internal" href="generated/sklearn.pipeline.make_pipeline.html#sklearn.pipeline.make_pipeline" title="sklearn.pipeline.make_pipeline"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_pipeline</span></code></a><a class="headerlink" href="#إصدار-مختصر-باستخدام-make_pipeline" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">دالة الأداة المساعدة <a class="reference internal" href="generated/sklearn.pipeline.make_pipeline.html#sklearn.pipeline.make_pipeline" title="sklearn.pipeline.make_pipeline"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_pipeline</span></code></a> هي اختصار لبناء خطوط الأنابيب؛ يأخذ عددًا متغيرًا من المقدرات ويعيد خط أنابيب، مع ملء الأسماء تلقائيًا:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">make_pipeline</span><span class="p">(</span><span class="n">PCA</span><span class="p">(),</span> <span class="n">SVC</span><span class="p">())</span>
+<span class="go">Pipeline(steps=[(&#39;pca&#39;, PCA()), (&#39;svc&#39;, SVC())])</span>
+</pre></div>
+</div>
+</div>
+</details></section>
+<section id="id5">
+<h4><span class="section-number">6.1.1.1.2. </span>الوصول إلى خطوات خط الأنابيب<a class="headerlink" href="#id5" title="Link to this heading">#</a></h4>
+<p>يتم تخزين مقدرات خط الأنابيب كقائمة في سمة <code class="docutils literal notranslate"><span class="pre">steps</span></code>.
+يمكن استخراج خط أنابيب فرعي باستخدام تدوين التقطيع المستخدم بشكل شائع لتسلسلات Python مثل القوائم أو السلاسل (على الرغم من أنه يُسمح بخطوة واحدة فقط).
+هذا مناسب لأداء بعض التحويلات فقط (أو عكسها):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">Pipeline(steps=[(&#39;reduce_dim&#39;, PCA())])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span>
+<span class="go">Pipeline(steps=[(&#39;clf&#39;, SVC())])</span>
+</pre></div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="الوصول-إلى-خطوة-بالاسم-أو-الموضع">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">الوصول إلى خطوة بالاسم أو الموضع<a class="headerlink" href="#الوصول-إلى-خطوة-بالاسم-أو-الموضع" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">يمكن أيضًا الوصول إلى خطوة محددة عن طريق الفهرس أو الاسم عن طريق فهرسة (مع <code class="docutils literal notranslate"><span class="pre">[idx]</span></code>) خط الأنابيب:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span><span class="o">.</span><span class="n">steps</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">(&#39;reduce_dim&#39;, PCA())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">PCA()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span><span class="p">[</span><span class="s1">&#39;reduce_dim&#39;</span><span class="p">]</span>
+<span class="go">PCA()</span>
+</pre></div>
+</div>
+<p class="sd-card-text">تسمح سمة <code class="docutils literal notranslate"><span class="pre">named_steps</span></code> لـ <code class="docutils literal notranslate"><span class="pre">Pipeline</span></code> بالوصول إلى الخطوات بالاسم مع إكمال علامة التبويب في البيئات التفاعلية:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span><span class="o">.</span><span class="n">named_steps</span><span class="o">.</span><span class="n">reduce_dim</span> <span class="ow">is</span> <span class="n">pipe</span><span class="p">[</span><span class="s1">&#39;reduce_dim&#39;</span><span class="p">]</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</div>
+</details></section>
+<section id="id6">
+<h4><span class="section-number">6.1.1.1.3. </span>تتبع أسماء الميزات في خط أنابيب<a class="headerlink" href="#id6" title="Link to this heading">#</a></h4>
+<p>لتمكين فحص النموذج، <a class="reference internal" href="generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> لديه طريقة <code class="docutils literal notranslate"><span class="pre">get_feature_names_out()</span></code>، تمامًا مثل جميع المحولات.
+يمكنك استخدام تقطيع خط الأنابيب للحصول على أسماء الميزات التي تدخل في كل خطوة:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">SelectKBest</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="p">[</span>
+<span class="gp">... </span>   <span class="p">(</span><span class="s1">&#39;select&#39;</span><span class="p">,</span> <span class="n">SelectKBest</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">)),</span>
+<span class="gp">... </span>   <span class="p">(</span><span class="s1">&#39;clf&#39;</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">())])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+<span class="go">Pipeline(steps=[(&#39;select&#39;, SelectKBest(...)), (&#39;clf&#39;, LogisticRegression(...))])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
+<span class="go">array([&#39;x2&#39;, &#39;x3&#39;], ...)</span>
+</pre></div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="تخصيص-أسماء-الميزات">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">تخصيص أسماء الميزات<a class="headerlink" href="#تخصيص-أسماء-الميزات" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">يمكنك أيضًا توفير أسماء ميزات مخصصة لبيانات الإدخال باستخدام <code class="docutils literal notranslate"><span class="pre">get_feature_names_out</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+<span class="go">array([&#39;petal length (cm)&#39;, &#39;petal width (cm)&#39;], ...)</span>
+</pre></div>
+</div>
+</div>
+</details></section>
+<section id="pipeline-nested-parameters">
+<span id="id7"></span><h4><span class="section-number">6.1.1.1.4. </span>الوصول إلى المعلمات المتداخلة<a class="headerlink" href="#pipeline-nested-parameters" title="Link to this heading">#</a></h4>
+<p>من الشائع تعديل معلمات المقدر داخل خط الأنابيب.
+لذلك يتم تداخل هذه المعلمة لأنها تنتمي إلى خطوة فرعية معينة.
+يمكن الوصول إلى معلمات المقدرات في خط الأنابيب باستخدام بناء جملة <code class="docutils literal notranslate"><span class="pre">&lt;estimator&gt;__&lt;parameter&gt;</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;reduce_dim&quot;</span><span class="p">,</span> <span class="n">PCA</span><span class="p">()),</span> <span class="p">(</span><span class="s2">&quot;clf&quot;</span><span class="p">,</span> <span class="n">SVC</span><span class="p">())])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="n">clf__C</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="go">Pipeline(steps=[(&#39;reduce_dim&#39;, PCA()), (&#39;clf&#39;, SVC(C=10))])</span>
+</pre></div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="متى-يهم؟">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">متى يهم؟<a class="headerlink" href="#متى-يهم؟" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">هذا مهم بشكل خاص لإجراء عمليات بحث الشبكة:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">param_grid</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">reduce_dim__n_components</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="n">clf__C</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipe</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">param_grid</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sd-card-text">يمكن أيضًا استبدال الخطوات الفردية كمعلمات، ويمكن تجاهل الخطوات غير النهائية عن طريق تعيينها على <code class="docutils literal notranslate"><span class="pre">'passthrough'</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">param_grid</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">reduce_dim</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;passthrough&#39;</span><span class="p">,</span> <span class="n">PCA</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="n">PCA</span><span class="p">(</span><span class="mi">10</span><span class="p">)],</span>
+<span class="gp">... </span>                  <span class="n">clf</span><span class="o">=</span><span class="p">[</span><span class="n">SVC</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">()],</span>
+<span class="gp">... </span>                  <span class="n">clf__C</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipe</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">param_grid</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">شاهد أيضا</p>
+<ul class="simple">
+<li><p class="sd-card-text"><a class="reference internal" href="grid_search.html#composite-grid-search"><span class="std std-ref">مقدرات التركيب ومساحات المعلمات</span></a></p></li>
+</ul>
+</div>
+</div>
+</details><p class="rubric">أمثلة</p>
+<ul class="simple">
+<li><p><span class="xref std std-ref">sphx_glr_auto_examples_feature_selection/plot_feature_selection_pipeline.py</span></p></li>
+<li><p><span class="xref std std-ref">sphx_glr_auto_examples_model_selection/plot_grid_search_text_feature_extraction.py</span></p></li>
+<li><p><span class="xref std std-ref">sphx_glr_auto_examples_compose/plot_digits_pipe.py</span></p></li>
+<li><p><span class="xref std std-ref">sphx_glr_auto_examples_miscellaneous/plot_kernel_approximation.py</span></p></li>
+<li><p><span class="xref std std-ref">sphx_glr_auto_examples_svm/plot_svm_anova.py</span></p></li>
+<li><p><span class="xref std std-ref">sphx_glr_auto_examples_compose/plot_compare_reduction.py</span></p></li>
+<li><p><span class="xref std std-ref">sphx_glr_auto_examples_miscellaneous/plot_pipeline_display.py</span></p></li>
+</ul>
+</section>
+</section>
+<section id="pipeline-cache">
+<span id="id8"></span><h3><span class="section-number">6.1.1.2. </span>تخزين المحولات مؤقتًا: تجنب الحساب المتكرر<a class="headerlink" href="#pipeline-cache" title="Link to this heading">#</a></h3>
+<p>قد يكون تركيب المحولات مكلفًا من الناحية الحسابية. مع تعيين معلمة <code class="docutils literal notranslate"><span class="pre">memory</span></code>، سيقوم <a class="reference internal" href="generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> بتخزين كل محول مؤقتًا بعد استدعاء <code class="docutils literal notranslate"><span class="pre">fit</span></code>.
+تُستخدم هذه الميزة لتجنب حساب المحولات المناسبة داخل خط الأنابيب إذا كانت المعلمات وبيانات الإدخال متطابقة.
+مثال نموذجي هو حالة بحث الشبكة حيث يمكن تركيب المحولات مرة واحدة فقط وإعادة استخدامها لكل تكوين.
+لن يتم تخزين الخطوة الأخيرة مؤقتًا أبدًا، حتى لو كانت محولًا.</p>
+<p>المعلمة <code class="docutils literal notranslate"><span class="pre">memory</span></code> مطلوبة من أجل تخزين المحولات مؤقتًا.
+يمكن أن يكون <code class="docutils literal notranslate"><span class="pre">memory</span></code> إما سلسلة تحتوي على الدليل حيث يتم تخزين المحولات مؤقتًا أو كائن <a class="reference external" href="https://joblib.readthedocs.io/en/latest/memory.html">joblib.Memory</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tempfile</span> <span class="kn">import</span> <span class="n">mkdtemp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">shutil</span> <span class="kn">import</span> <span class="n">rmtree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">estimators</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;reduce_dim&#39;</span><span class="p">,</span> <span class="n">PCA</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;clf&#39;</span><span class="p">,</span> <span class="n">SVC</span><span class="p">())]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cachedir</span> <span class="o">=</span> <span class="n">mkdtemp</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">estimators</span><span class="p">,</span> <span class="n">memory</span><span class="o">=</span><span class="n">cachedir</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span>
+<span class="go">Pipeline(memory=...,</span>
+<span class="go">         steps=[(&#39;reduce_dim&#39;, PCA()), (&#39;clf&#39;, SVC())])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># امسح دليل التخزين المؤقت عندما لا تعود بحاجة إليه</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rmtree</span><span class="p">(</span><span class="n">cachedir</span><span class="p">)</span>
+</pre></div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="الآثار-الجانبية-لتخزين-المحولات-مؤقتًا">
+<summary class="sd-summary-title sd-card-header sd-bg-warning sd-bg-text-warning">
+<span class="sd-summary-text">الآثار الجانبية لتخزين المحولات مؤقتًا<a class="headerlink" href="#الآثار-الجانبية-لتخزين-المحولات-مؤقتًا" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">باستخدام <a class="reference internal" href="generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> بدون تمكين التخزين المؤقت، من الممكن فحص المثيل الأصلي مثل:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_digits</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_digits</span><span class="p">,</span> <span class="n">y_digits</span> <span class="o">=</span> <span class="n">load_digits</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pca1</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">svm1</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;reduce_dim&#39;</span><span class="p">,</span> <span class="n">pca1</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;clf&#39;</span><span class="p">,</span> <span class="n">svm1</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_digits</span><span class="p">,</span> <span class="n">y_digits</span><span class="p">)</span>
+<span class="go">Pipeline(steps=[(&#39;reduce_dim&#39;, PCA(n_components=10)), (&#39;clf&#39;, SVC())])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># يمكن فحص مثيل pca مباشرة</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pca1</span><span class="o">.</span><span class="n">components_</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(10, 64)</span>
+</pre></div>
+</div>
+<p class="sd-card-text">يؤدي تمكين التخزين المؤقت إلى استنساخ المحولات قبل التركيب.
+لذلك، لا يمكن فحص مثيل المحول المعطى لخط الأنابيب مباشرةً.
+في المثال التالي، سيؤدي الوصول إلى مثيل <a class="reference internal" href="generated/sklearn.decomposition.PCA.html#sklearn.decomposition.PCA" title="sklearn.decomposition.PCA"><code class="xref py py-class docutils literal notranslate"><span class="pre">PCA</span></code></a> <code class="docutils literal notranslate"><span class="pre">pca2</span></code> إلى حدوث <code class="docutils literal notranslate"><span class="pre">AttributeError</span></code> لأن <code class="docutils literal notranslate"><span class="pre">pca2</span></code> سيكون محولًا غير مناسب.
+بدلاً من ذلك، استخدم سمة <code class="docutils literal notranslate"><span class="pre">named_steps</span></code> لفحص المقدرات داخل خط الأنابيب:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cachedir</span> <span class="o">=</span> <span class="n">mkdtemp</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pca2</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">svm2</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cached_pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;reduce_dim&#39;</span><span class="p">,</span> <span class="n">pca2</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;clf&#39;</span><span class="p">,</span> <span class="n">svm2</span><span class="p">)],</span>
+<span class="gp">... </span>                       <span class="n">memory</span><span class="o">=</span><span class="n">cachedir</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cached_pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_digits</span><span class="p">,</span> <span class="n">y_digits</span><span class="p">)</span>
+<span class="go">Pipeline(memory=...,</span>
+<span class="go">         steps=[(&#39;reduce_dim&#39;, PCA(n_components=10)), (&#39;clf&#39;, SVC())])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cached_pipe</span><span class="o">.</span><span class="n">named_steps</span><span class="p">[</span><span class="s1">&#39;reduce_dim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">components_</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(10, 64)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># إزالة دليل التخزين المؤقت</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rmtree</span><span class="p">(</span><span class="n">cachedir</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details><p class="rubric">أمثلة</p>
+<ul class="simple">
+<li><p><span class="xref std std-ref">sphx_glr_auto_examples_compose/plot_compare_reduction.py</span></p></li>
+</ul>
+</section>
+</section>
+<section id="transformed-target-regressor">
+<span id="id9"></span><h2><span class="section-number">6.1.2. </span>تحويل الهدف في الانحدار<a class="headerlink" href="#transformed-target-regressor" title="Link to this heading">#</a></h2>
+<p>يقوم <a class="reference internal" href="generated/sklearn.compose.TransformedTargetRegressor.html#sklearn.compose.TransformedTargetRegressor" title="sklearn.compose.TransformedTargetRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformedTargetRegressor</span></code></a> بتحويل الأهداف <code class="docutils literal notranslate"><span class="pre">y</span></code> قبل ملاءمة نموذج الانحدار.
+يتم تعيين التنبؤات مرة أخرى إلى المساحة الأصلية عبر تحويل عكسي.
+يأخذ كوسيطة عامل الانحدار الذي سيتم استخدامه للتنبؤ، والمحول الذي سيتم تطبيقه على متغير الهدف:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_california_housing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">TransformedTargetRegressor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">QuantileTransformer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">fetch_california_housing</span><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="mi">2000</span><span class="p">,</span> <span class="p">:],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">2000</span><span class="p">]</span>  <span class="c1"># حدد مجموعة فرعية من البيانات</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">transformer</span> <span class="o">=</span> <span class="n">QuantileTransformer</span><span class="p">(</span><span class="n">output_distribution</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">regressor</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">regr</span> <span class="o">=</span> <span class="n">TransformedTargetRegressor</span><span class="p">(</span><span class="n">regressor</span><span class="o">=</span><span class="n">regressor</span><span class="p">,</span>
+<span class="gp">... </span>                                  <span class="n">transformer</span><span class="o">=</span><span class="n">transformer</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">regr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="go">TransformedTargetRegressor(...)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;R2 score: </span><span class="si">{0:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">regr</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)))</span>
+<span class="go">R2 score: 0.61</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">raw_target_regr</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;R2 score: </span><span class="si">{0:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">raw_target_regr</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)))</span>
+<span class="go">R2 score: 0.59</span>
+</pre></div>
+</div>
+<p>بالنسبة للتحويلات البسيطة، بدلاً من كائن Transformer، زوج من
+يمكن تمرير الدوال، وتحديد التحويل وتعيينه العكسي:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">inverse_func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>بعد ذلك، يتم إنشاء الكائن على النحو التالي:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">regr</span> <span class="o">=</span> <span class="n">TransformedTargetRegressor</span><span class="p">(</span><span class="n">regressor</span><span class="o">=</span><span class="n">regressor</span><span class="p">,</span>
+<span class="gp">... </span>                                  <span class="n">func</span><span class="o">=</span><span class="n">func</span><span class="p">,</span>
+<span class="gp">... </span>                                  <span class="n">inverse_func</span><span class="o">=</span><span class="n">inverse_func</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">regr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="go">TransformedTargetRegressor(...)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;R2 score: </span><span class="si">{0:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">regr</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)))</span>
+<span class="go">R2 score: 0.51</span>
+</pre></div>
+</div>
+<p>افتراضيًا، يتم فحص الدوال المقدمة في كل ملاءمة لتكون معكوسة لبعضها البعض. ومع ذلك، من الممكن تجاوز هذا الفحص عن طريق تعيين <code class="docutils literal notranslate"><span class="pre">check_inverse</span></code> على <code class="docutils literal notranslate"><span class="pre">False</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">inverse_func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">x</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">regr</span> <span class="o">=</span> <span class="n">TransformedTargetRegressor</span><span class="p">(</span><span class="n">regressor</span><span class="o">=</span><span class="n">regressor</span><span class="p">,</span>
+<span class="gp">... </span>                                  <span class="n">func</span><span class="o">=</span><span class="n">func</span><span class="p">,</span>
+<span class="gp">... </span>                                  <span class="n">inverse_func</span><span class="o">=</span><span class="n">inverse_func</span><span class="p">,</span>
+<span class="gp">... </span>                                  <span class="n">check_inverse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">regr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="go">TransformedTargetRegressor(...)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;R2 score: </span><span class="si">{0:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">regr</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)))</span>
+<span class="go">R2 score: -1.57</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">ملاحظة</p>
+<p>يمكن تشغيل التحويل عن طريق تعيين <code class="docutils literal notranslate"><span class="pre">transformer</span></code> أو الزوج
+من الدوال <code class="docutils literal notranslate"><span class="pre">func</span></code> و <code class="docutils literal notranslate"><span class="pre">inverse_func</span></code>. ومع ذلك، فإن تعيين كلا الخيارين سيرفع خطأ.</p>
+</div>
+<p class="rubric">أمثلة</p>
+<ul class="simple">
+<li><p><span class="xref std std-ref">sphx_glr_auto_examples_compose/plot_transformed_target.py</span></p></li>
+</ul>
+</section>
+<section id="featureunion">
+<span id="feature-union"></span><h2><span class="section-number">6.1.3. </span>FeatureUnion: مساحات ميزات مركبة<a class="headerlink" href="#featureunion" title="Link to this heading">#</a></h2>
+<p>يقوم <a class="reference internal" href="generated/sklearn.pipeline.FeatureUnion.html#sklearn.pipeline.FeatureUnion" title="sklearn.pipeline.FeatureUnion"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureUnion</span></code></a> بدمج العديد من كائنات المحول في محول جديد يجمع مخرجاتها.
+يأخذ <a class="reference internal" href="generated/sklearn.pipeline.FeatureUnion.html#sklearn.pipeline.FeatureUnion" title="sklearn.pipeline.FeatureUnion"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureUnion</span></code></a> قائمة بكائنات المحول.
+أثناء التركيب، يتم ملاءمة كل من هذه البيانات بشكل مستقل.
+يتم تطبيق المحولات بالتوازي، ويتم ربط مصفوفات الميزات التي تُخرجها جنبًا إلى جنب في مصفوفة أكبر.</p>
+<p>عندما تريد تطبيق تحويلات مختلفة على كل حقل من البيانات، انظر الفئة ذات الصلة <a class="reference internal" href="generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="sklearn.compose.ColumnTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code></a> (انظر <a class="reference internal" href="#column-transformer"><span class="std std-ref">دليل المستخدم</span></a>).</p>
+<p>يخدم <a class="reference internal" href="generated/sklearn.pipeline.FeatureUnion.html#sklearn.pipeline.FeatureUnion" title="sklearn.pipeline.FeatureUnion"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureUnion</span></code></a> نفس أغراض <a class="reference internal" href="generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> - الراحة وتقدير المعلمات والتحقق من الصحة المشتركة.</p>
+<p>يمكن دمج <a class="reference internal" href="generated/sklearn.pipeline.FeatureUnion.html#sklearn.pipeline.FeatureUnion" title="sklearn.pipeline.FeatureUnion"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureUnion</span></code></a> و <a class="reference internal" href="generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> لإنشاء نماذج معقدة.</p>
+<p>(لا توجد طريقة لـ <a class="reference internal" href="generated/sklearn.pipeline.FeatureUnion.html#sklearn.pipeline.FeatureUnion" title="sklearn.pipeline.FeatureUnion"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureUnion</span></code></a> للتحقق مما إذا كان محولين قد ينتجان ميزات متطابقة.
+ينتج اتحادًا فقط عندما تكون مجموعات الميزات منفصلة، والتأكد من أنها مسؤولية المتصل.)</p>
+<section id="id10">
+<h3><span class="section-number">6.1.3.1. </span>الاستخدام<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>يتم بناء <a class="reference internal" href="generated/sklearn.pipeline.FeatureUnion.html#sklearn.pipeline.FeatureUnion" title="sklearn.pipeline.FeatureUnion"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeatureUnion</span></code></a> باستخدام قائمة من أزواج <code class="docutils literal notranslate"><span class="pre">(key,</span> <span class="pre">value)</span></code>، حيث <code class="docutils literal notranslate"><span class="pre">key</span></code> هو الاسم الذي تريد إعطائه لتحويل معين (سلسلة عشوائية؛ فهو بمثابة معرف فقط) و <code class="docutils literal notranslate"><span class="pre">value</span></code> هو كائن مقدر:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">FeatureUnion</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">KernelPCA</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">estimators</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;linear_pca&#39;</span><span class="p">,</span> <span class="n">PCA</span><span class="p">()),</span> <span class="p">(</span><span class="s1">&#39;kernel_pca&#39;</span><span class="p">,</span> <span class="n">KernelPCA</span><span class="p">())]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">combined</span> <span class="o">=</span> <span class="n">FeatureUnion</span><span class="p">(</span><span class="n">estimators</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">combined</span>
+<span class="go">FeatureUnion(transformer_list=[(&#39;linear_pca&#39;, PCA()),</span>
+<span class="go">                               (&#39;kernel_pca&#39;, KernelPCA())])</span>
+</pre></div>
+</div>
+<p>مثل خطوط الأنابيب، تحتوي اتحادات الميزات على مُنشئ مختصر يسمى <a class="reference internal" href="generated/sklearn.pipeline.make_union.html#sklearn.pipeline.make_union" title="sklearn.pipeline.make_union"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_union</span></code></a> لا يتطلب تسمية صريحة للمكونات.</p>
+<p>مثل <code class="docutils literal notranslate"><span class="pre">Pipeline</span></code>، يمكن استبدال الخطوات الفردية باستخدام <code class="docutils literal notranslate"><span class="pre">set_params</span></code>، وتجاهلها عن طريق التعيين على <code class="docutils literal notranslate"><span class="pre">'drop'</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">combined</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="n">kernel_pca</span><span class="o">=</span><span class="s1">&#39;drop&#39;</span><span class="p">)</span>
+<span class="go">FeatureUnion(transformer_list=[(&#39;linear_pca&#39;, PCA()),</span>
+<span class="go">                               (&#39;kernel_pca&#39;, &#39;drop&#39;)])</span>
+</pre></div>
+</div>
+<p class="rubric">أمثلة</p>
+<ul class="simple">
+<li><p><span class="xref std std-ref">sphx_glr_auto_examples_compose/plot_feature_union.py</span></p></li>
+</ul>
+</section>
+</section>
+<section id="columntransformer">
+<span id="column-transformer"></span><h2><span class="section-number">6.1.4. </span>ColumnTransformer للبيانات غير المتجانسة<a class="headerlink" href="#columntransformer" title="Link to this heading">#</a></h2>
+<p>تحتوي العديد من مجموعات البيانات على ميزات من أنواع مختلفة، على سبيل المثال النص والعوامات والتواريخ، حيث يتطلب كل نوع من الميزات خطوات معالجة مسبقة أو استخراج ميزات منفصلة.
+غالبًا ما يكون من الأسهل معالجة البيانات مسبقًا قبل تطبيق طرق scikit-learn، على سبيل المثال باستخدام <a class="reference external" href="https://pandas.pydata.org/">pandas</a>.
+قد تكون معالجة بياناتك قبل تمريرها إلى scikit-learn مشكلة لأحد الأسباب التالية:</p>
+<ol class="arabic simple">
+<li><p>دمج الإحصائيات من بيانات الاختبار في المعالجات المسبقة يجعل درجات التحقق المتبادل غير موثوقة (تُعرف باسم <em>تسرب البيانات</em>)، على سبيل المثال في حالة المقاييس أو إدخال القيم المفقودة.</p></li>
+<li><p>قد ترغب في تضمين معلمات المعالجات المسبقة في <a class="reference internal" href="grid_search.html#grid-search"><span class="std std-ref">بحث المعلمات</span></a>.</p></li>
+</ol>
+<p>يساعد <a class="reference internal" href="generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="sklearn.compose.ColumnTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code></a> في إجراء تحويلات مختلفة لأعمدة مختلفة من البيانات، داخل <a class="reference internal" href="generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> آمن من تسرب البيانات ويمكن تحديد معلمات له.
+يعمل <a class="reference internal" href="generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="sklearn.compose.ColumnTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code></a> على المصفوفات والمصفوفات المتفرقة و <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/">pandas DataFrames</a>.</p>
+<p>يمكن تطبيق تحويل مختلف على كل عمود، مثل المعالجة المسبقة أو طريقة استخراج ميزات محددة:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">{</span><span class="s1">&#39;city&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;London&#39;</span><span class="p">,</span> <span class="s1">&#39;London&#39;</span><span class="p">,</span> <span class="s1">&#39;Paris&#39;</span><span class="p">,</span> <span class="s1">&#39;Sallisaw&#39;</span><span class="p">],</span>
+<span class="gp">... </span>     <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;His Last Bow&quot;</span><span class="p">,</span> <span class="s2">&quot;How Watson Learned the Trick&quot;</span><span class="p">,</span>
+<span class="gp">... </span>               <span class="s2">&quot;A Moveable Feast&quot;</span><span class="p">,</span> <span class="s2">&quot;The Grapes of Wrath&quot;</span><span class="p">],</span>
+<span class="gp">... </span>     <span class="s1">&#39;expert_rating&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+<span class="gp">... </span>     <span class="s1">&#39;user_rating&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">]})</span>
+</pre></div>
+</div>
+<p>بالنسبة لهذه البيانات، قد نرغب في ترميز عمود <code class="docutils literal notranslate"><span class="pre">'city'</span></code> كمتغير فئوي باستخدام <a class="reference internal" href="generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="sklearn.preprocessing.OneHotEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneHotEncoder</span></code></a> ولكن تطبيق <a class="reference internal" href="generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="sklearn.feature_extraction.text.CountVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a> على عمود <code class="docutils literal notranslate"><span class="pre">'title'</span></code>.
+نظرًا لأننا قد نستخدم طرق استخراج ميزات متعددة على نفس العمود، فإننا نعطي كل محول اسمًا فريدًا، على سبيل المثال <code class="docutils literal notranslate"><span class="pre">'city_category'</span></code> و <code class="docutils literal notranslate"><span class="pre">'title_bow'</span></code>.
+افتراضيًا، يتم تجاهل أعمدة التصنيف المتبقية (<code class="docutils literal notranslate"><span class="pre">remainder='drop'</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">ColumnTransformer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">column_trans</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[(</span><span class="s1">&#39;categories&#39;</span><span class="p">,</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;int&#39;</span><span class="p">),</span> <span class="p">[</span><span class="s1">&#39;city&#39;</span><span class="p">]),</span>
+<span class="gp">... </span>     <span class="p">(</span><span class="s1">&#39;title_bow&#39;</span><span class="p">,</span> <span class="n">CountVectorizer</span><span class="p">(),</span> <span class="s1">&#39;title&#39;</span><span class="p">)],</span>
+<span class="gp">... </span>    <span class="n">remainder</span><span class="o">=</span><span class="s1">&#39;drop&#39;</span><span class="p">,</span> <span class="n">verbose_feature_names_out</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">column_trans</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">ColumnTransformer(transformers=[(&#39;categories&#39;, OneHotEncoder(dtype=&#39;int&#39;),</span>
+<span class="go">                                 [&#39;city&#39;]),</span>
+<span class="go">                                (&#39;title_bow&#39;, CountVectorizer(), &#39;title&#39;)],</span>
+<span class="go">                  verbose_feature_names_out=False)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">column_trans</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()</span>
+<span class="go">array([&#39;city_London&#39;, &#39;city_Paris&#39;, &#39;city_Sallisaw&#39;, &#39;bow&#39;, &#39;feast&#39;,</span>
+<span class="go">&#39;grapes&#39;, &#39;his&#39;, &#39;how&#39;, &#39;last&#39;, &#39;learned&#39;, &#39;moveable&#39;, &#39;of&#39;, &#39;the&#39;,</span>
+<span class="go"> &#39;trick&#39;, &#39;watson&#39;, &#39;wrath&#39;], ...)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">column_trans</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="go">array([[1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0],</span>
+<span class="go">       [1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0],</span>
+<span class="go">       [0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],</span>
+<span class="go">       [0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1]]...)</span>
+</pre></div>
+</div>
+<p>في المثال أعلاه، يتوقع <a class="reference internal" href="generated/sklearn.feature_extraction.text.CountVectorizer.html#sklearn.feature_extraction.text.CountVectorizer" title="sklearn.feature_extraction.text.CountVectorizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a> مصفوفة أحادية البعد كمدخل، وبالتالي تم تحديد الأعمدة كسلسلة (<code class="docutils literal notranslate"><span class="pre">'title'</span></code>).
+ومع ذلك، يتوقع <a class="reference internal" href="generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="sklearn.preprocessing.OneHotEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneHotEncoder</span></code></a> مثل معظم المحولات الأخرى بيانات ثنائية الأبعاد، لذلك في هذه الحالة تحتاج إلى تحديد العمود كقائمة من السلاسل (<code class="docutils literal notranslate"><span class="pre">['city']</span></code>).</p>
+<p>بصرف النظر عن العددية أو قائمة العناصر الفردية، يمكن تحديد اختيار العمود كقائمة من عناصر متعددة، أو مصفوفة عدد صحيح، أو شريحة، أو قناع منطقي، أو باستخدام <a class="reference internal" href="generated/sklearn.compose.make_column_selector.html#sklearn.compose.make_column_selector" title="sklearn.compose.make_column_selector"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_column_selector</span></code></a>.
+يتم استخدام <a class="reference internal" href="generated/sklearn.compose.make_column_selector.html#sklearn.compose.make_column_selector" title="sklearn.compose.make_column_selector"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_column_selector</span></code></a> لتحديد الأعمدة بناءً على نوع البيانات أو اسم العمود:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">make_column_selector</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ct</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">([</span>
+<span class="gp">... </span>      <span class="p">(</span><span class="s1">&#39;scale&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">(),</span>
+<span class="gp">... </span>      <span class="n">make_column_selector</span><span class="p">(</span><span class="n">dtype_include</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">)),</span>
+<span class="gp">... </span>      <span class="p">(</span><span class="s1">&#39;onehot&#39;</span><span class="p">,</span>
+<span class="gp">... </span>      <span class="n">OneHotEncoder</span><span class="p">(),</span>
+<span class="gp">... </span>      <span class="n">make_column_selector</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="s1">&#39;city&#39;</span><span class="p">,</span> <span class="n">dtype_include</span><span class="o">=</span><span class="nb">object</span><span class="p">))])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ct</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">array([[ 0.904...,  0.      ,  1. ,  0. ,  0. ],</span>
+<span class="go">       [-1.507...,  1.414...,  1. ,  0. ,  0. ],</span>
+<span class="go">       [-0.301...,  0.      ,  0. ,  1. ,  0. ],</span>
+<span class="go">       [ 0.904..., -1.414...,  0. ,  0. ,  1. ]])</span>
+</pre></div>
+</div>
+<p>يمكن أن تشير السلاسل إلى الأعمدة إذا كان الإدخال عبارة عن إطار بيانات، ويتم دائمًا تفسير الأعداد الصحيحة على أنها أعمدة موضعية.</p>
+<p>يمكننا الاحتفاظ بأعمدة التصنيف المتبقية عن طريق تعيين <code class="docutils literal notranslate"><span class="pre">remainder='passthrough'</span></code>.
+يتم إلحاق القيم بنهاية التحويل:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">column_trans</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[(</span><span class="s1">&#39;city_category&#39;</span><span class="p">,</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;int&#39;</span><span class="p">),[</span><span class="s1">&#39;city&#39;</span><span class="p">]),</span>
+<span class="gp">... </span>     <span class="p">(</span><span class="s1">&#39;title_bow&#39;</span><span class="p">,</span> <span class="n">CountVectorizer</span><span class="p">(),</span> <span class="s1">&#39;title&#39;</span><span class="p">)],</span>
+<span class="gp">... </span>    <span class="n">remainder</span><span class="o">=</span><span class="s1">&#39;passthrough&#39;</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">column_trans</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="go">array([[1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 5, 4],</span>
+<span class="go">       [1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 3, 5],</span>
+<span class="go">       [0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 4, 4],</span>
+<span class="go">       [0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 5, 3]]...)</span>
+</pre></div>
+</div>
+<p>يمكن تعيين معلمة <code class="docutils literal notranslate"><span class="pre">remainder</span></code> إلى مقدر لتحويل أعمدة التصنيف المتبقية.
+يتم إلحاق القيم المحولة بنهاية التحويل:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">column_trans</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[(</span><span class="s1">&#39;city_category&#39;</span><span class="p">,</span> <span class="n">OneHotEncoder</span><span class="p">(),</span> <span class="p">[</span><span class="s1">&#39;city&#39;</span><span class="p">]),</span>
+<span class="gp">... </span>     <span class="p">(</span><span class="s1">&#39;title_bow&#39;</span><span class="p">,</span> <span class="n">CountVectorizer</span><span class="p">(),</span> <span class="s1">&#39;title&#39;</span><span class="p">)],</span>
+<span class="gp">... </span>    <span class="n">remainder</span><span class="o">=</span><span class="n">MinMaxScaler</span><span class="p">())</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">column_trans</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)[:,</span> <span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
+<span class="go">array([[1. , 0.5],</span>
+<span class="go">       [0. , 1. ],</span>
+<span class="go">       [0.5, 0.5],</span>
+<span class="go">       [1. , 0. ]])</span>
+</pre></div>
+</div>
+<p id="make-column-transformer">تتوفر دالة <a class="reference internal" href="generated/sklearn.compose.make_column_transformer.html#sklearn.compose.make_column_transformer" title="sklearn.compose.make_column_transformer"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_column_transformer</span></code></a> لإنشاء كائن <a class="reference internal" href="generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="sklearn.compose.ColumnTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code></a> بسهولة أكبر.
+على وجه التحديد، سيتم إعطاء الأسماء تلقائيًا.
+سيكون المكافئ للمثال أعلاه هو:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">make_column_transformer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">column_trans</span> <span class="o">=</span> <span class="n">make_column_transformer</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="n">OneHotEncoder</span><span class="p">(),</span> <span class="p">[</span><span class="s1">&#39;city&#39;</span><span class="p">]),</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="n">CountVectorizer</span><span class="p">(),</span> <span class="s1">&#39;title&#39;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">remainder</span><span class="o">=</span><span class="n">MinMaxScaler</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">column_trans</span>
+<span class="go">ColumnTransformer(remainder=MinMaxScaler(),</span>
+<span class="go">                  transformers=[(&#39;onehotencoder&#39;, OneHotEncoder(), [&#39;city&#39;]),</span>
+<span class="go">                                (&#39;countvectorizer&#39;, CountVectorizer(),</span>
+<span class="go">                                 &#39;title&#39;)])</span>
+</pre></div>
+</div>
+<p>إذا تم ملاءمة <a class="reference internal" href="generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="sklearn.compose.ColumnTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code></a> بإطار بيانات وكان إطار البيانات يحتوي فقط على أسماء أعمدة سلسلة، فسيتم استخدام أسماء الأعمدة لتحديد الأعمدة عند تحويل إطار البيانات:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ct</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span>
+<span class="gp">... </span>         <span class="p">[(</span><span class="s2">&quot;scale&quot;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">(),</span> <span class="p">[</span><span class="s2">&quot;expert_rating&quot;</span><span class="p">])])</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X_new</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;expert_rating&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>                      <span class="s2">&quot;ignored_new_col&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ct</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_new</span><span class="p">)</span>
+<span class="go">array([[ 0.9...],</span>
+<span class="go">       [ 2.1...],</span>
+<span class="go">       [-3.9...]])</span>
+</pre></div>
+</div>
+</section>
+<section id="visualizing-composite-estimators">
+<span id="id11"></span><h2><span class="section-number">6.1.5. </span>تصور المقدرات المركبة<a class="headerlink" href="#visualizing-composite-estimators" title="Link to this heading">#</a></h2>
+<p>يتم عرض المقدرات بتمثيل HTML عند عرضها في دفتر ملاحظات jupyter.
+هذا مفيد لتشخيص أو تصور خط أنابيب مع العديد من المقدرات.
+يتم تنشيط هذا التصور افتراضيًا:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">column_trans</span>  
+</pre></div>
+</div>
+<p>يمكن إلغاء تنشيطه عن طريق تعيين خيار <code class="docutils literal notranslate"><span class="pre">display</span></code> في <a class="reference internal" href="generated/sklearn.set_config.html#sklearn.set_config" title="sklearn.set_config"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_config</span></code></a> إلى &quot;text&quot;</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">set_config</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">set_config</span><span class="p">(</span><span class="n">display</span><span class="o">=</span><span class="s1">&#39;text&#39;</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># يعرض تمثيل النص في سياق jupyter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">column_trans</span>  
+</pre></div>
+</div>
+<p>يمكن رؤية مثال على إخراج HTML في قسم <strong>HTML representation of Pipeline</strong> من <span class="xref std std-ref">sphx_glr_auto_examples_compose/plot_column_transformer_mixed_types.py</span>.
+كبديل، يمكن كتابة HTML إلى ملف باستخدام <a class="reference internal" href="generated/sklearn.utils.estimator_html_repr.html#sklearn.utils.estimator_html_repr" title="sklearn.utils.estimator_html_repr"><code class="xref py py-func docutils literal notranslate"><span class="pre">estimator_html_repr</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="kn">import</span> <span class="n">estimator_html_repr</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;my_estimator.html&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>  
+<span class="gp">... </span>    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">estimator_html_repr</span><span class="p">(</span><span class="n">clf</span><span class="p">))</span>
+</pre></div>
+</div>
+<p class="rubric">أمثلة</p>
+<ul class="simple">
+<li><p><span class="xref std std-ref">sphx_glr_auto_examples_compose/plot_column_transformer.py</span></p></li>
+<li><p><span class="xref std std-ref">sphx_glr_auto_examples_compose/plot_column_transformer_mixed_types.py</span></p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  <div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item">
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../data_transforms.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">السابق</p>
+        <p class="prev-next-title"><span class="section-number">6. </span>تحويلات مجموعات البيانات</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="feature_extraction.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">التالي</p>
+        <p class="prev-next-title"><span class="section-number">6.2. </span>استخراج الميزات</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+                </footer>
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline">6.1.1. Pipeline: سلسلة المقدرات</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">6.1.1.1. الاستخدام</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">6.1.1.1.1. بناء خط أنابيب</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">6.1.1.1.2. الوصول إلى خطوات خط الأنابيب</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">6.1.1.1.3. تتبع أسماء الميزات في خط أنابيب</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-nested-parameters">6.1.1.1.4. الوصول إلى المعلمات المتداخلة</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-cache">6.1.1.2. تخزين المحولات مؤقتًا: تجنب الحساب المتكرر</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformed-target-regressor">6.1.2. تحويل الهدف في الانحدار</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#featureunion">6.1.3. FeatureUnion: مساحات ميزات مركبة</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">6.1.3.1. الاستخدام</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#columntransformer">6.1.4. ColumnTransformer للبيانات غير المتجانسة</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-composite-estimators">6.1.5. تصور المقدرات المركبة</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/modules/compose.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> إظهار المصدر
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2007 - 2024, scikit-learn developers (BSD License) ### Translate into Arabic Eng. Ahmed Almaghz - 2024.
+      <br/>
+    
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>
