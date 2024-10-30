@@ -198,165 +198,6 @@ These examples illustrate the main features of the releases of scikit-learn.
     </div>
 
 
-Biclustering
-------------
-
-Examples concerning biclustering techniques.
-
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbnails">
-
-.. thumbnail-parent-div-open
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to generate a checkerboard dataset and bicluster it using the SpectralBiclustering algorithm. The spectral biclustering algorithm is specifically designed to cluster data by simultaneously considering both the rows (samples) and columns (features) of a matrix. It aims to identify patterns not only between samples but also within subsets of samples, allowing for the detection of localized structure within the data. This makes spectral biclustering particularly well-suited for datasets where the order or arrangement of features is fixed, such as in images, time series, or genomes.">
-
-.. only:: html
-
-  .. image:: /auto_examples/bicluster/images/thumb/sphx_glr_plot_spectral_biclustering_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_bicluster_plot_spectral_biclustering.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">A demo of the Spectral Biclustering algorithm</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to generate a dataset and bicluster it using the Spectral Co-Clustering algorithm.">
-
-.. only:: html
-
-  .. image:: /auto_examples/bicluster/images/thumb/sphx_glr_plot_spectral_coclustering_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_bicluster_plot_spectral_coclustering.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">A demo of the Spectral Co-Clustering algorithm</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the Spectral Co-clustering algorithm on the twenty newsgroups dataset. The &#x27;comp.os.ms-windows.misc&#x27; category is excluded because it contains many posts containing nothing but data.">
-
-.. only:: html
-
-  .. image:: /auto_examples/bicluster/images/thumb/sphx_glr_plot_bicluster_newsgroups_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_bicluster_plot_bicluster_newsgroups.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Biclustering documents with the Spectral Co-clustering algorithm</div>
-    </div>
-
-
-.. thumbnail-parent-div-close
-
-.. raw:: html
-
-    </div>
-
-
-Calibration
------------------------
-
-Examples illustrating the calibration of predicted probabilities of classifiers.
-
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbnails">
-
-.. thumbnail-parent-div-open
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Well calibrated classifiers are probabilistic classifiers for which the output of predict_proba can be directly interpreted as a confidence level. For instance, a well calibrated (binary) classifier should classify the samples such that for the samples to which it gave a predict_proba value close to 0.8, approximately 80% actually belong to the positive class.">
-
-.. only:: html
-
-  .. image:: /auto_examples/calibration/images/thumb/sphx_glr_plot_compare_calibration_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_calibration_plot_compare_calibration.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Comparison of Calibration of Classifiers</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="When performing classification one often wants to predict not only the class label, but also the associated probability. This probability gives some kind of confidence on the prediction. This example demonstrates how to visualize how well calibrated the predicted probabilities are using calibration curves, also known as reliability diagrams. Calibration of an uncalibrated classifier will also be demonstrated.">
-
-.. only:: html
-
-  .. image:: /auto_examples/calibration/images/thumb/sphx_glr_plot_calibration_curve_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_calibration_plot_calibration_curve.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Probability Calibration curves</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how sigmoid calibration changes predicted probabilities for a 3-class classification problem. Illustrated is the standard 2-simplex, where the three corners correspond to the three classes. Arrows point from the probability vectors predicted by an uncalibrated classifier to the probability vectors predicted by the same classifier after sigmoid calibration on a hold-out validation set. Colors indicate the true class of an instance (red: class 1, green: class 2, blue: class 3).">
-
-.. only:: html
-
-  .. image:: /auto_examples/calibration/images/thumb/sphx_glr_plot_calibration_multiclass_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_calibration_plot_calibration_multiclass.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Probability Calibration for 3-class classification</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="When performing classification you often want to predict not only the class label, but also the associated probability. This probability gives you some kind of confidence on the prediction. However, not all classifiers provide well-calibrated probabilities, some being over-confident while others being under-confident. Thus, a separate calibration of predicted probabilities is often desirable as a postprocessing. This example illustrates two different methods for this calibration and evaluates the quality of the returned probabilities using Brier&#x27;s score (see https://en.wikipedia.org/wiki/Brier_score).">
-
-.. only:: html
-
-  .. image:: /auto_examples/calibration/images/thumb/sphx_glr_plot_calibration_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_calibration_plot_calibration.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Probability calibration of classifiers</div>
-    </div>
-
-
-.. thumbnail-parent-div-close
-
-.. raw:: html
-
-    </div>
-
-
 Classification
 -----------------------
 
@@ -5484,14 +5325,171 @@ Examples concerning the :mod:`sklearn.feature_extraction.text` module.
     </div>
 
 
+التجميع الثنائي
+-----------------
+
+أمثلة تتعلق بتقنيات التجميع الثنائي.
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="هذا المثال يوضح خوارزمية التجميع الطيفي المشترك على مجموعة بيانات مجموعات الأخبار العشرين. تم استبعاد الفئة &#x27;comp.os.ms-windows.misc&#x27; لأنها تحتوي على العديد من المنشورات التي لا تحتوي إلا على بيانات.">
+
+.. only:: html
+
+  .. image:: /auto_examples/bicluster/images/thumb/sphx_glr_plot_bicluster_newsgroups_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_bicluster_plot_bicluster_newsgroups.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">بكلسترينج المستندات باستخدام خوارزمية التجميع الطيفي المشترك</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="هذا المثال يوضح كيفية إنشاء مجموعة بيانات لوحة الشطرنج وتجميعها باستخدام خوارزمية SpectralBiclustering. تم تصميم خوارزمية التجميع الطيفي الثنائي خصيصًا لتجميع البيانات عن طريق النظر في كل من الصفوف (العينات) والأعمدة (الميزات) للمصفوفة في نفس الوقت. تهدف إلى تحديد الأنماط ليس فقط بين العينات ولكن أيضًا داخل المجموعات الفرعية من العينات، مما يسمح بالكشف عن البنية الموضعية داخل البيانات. وهذا يجعل التجميع الطيفي الثنائي مناسبًا بشكل خاص لمجموعات البيانات حيث يكون ترتيب الميزات أو ترتيبها ثابتًا، كما هو الحال في الصور أو السلاسل الزمنية أو الجينومات.">
+
+.. only:: html
+
+  .. image:: /auto_examples/bicluster/images/thumb/sphx_glr_plot_spectral_biclustering_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_bicluster_plot_spectral_biclustering.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">عرض توضيحي لخوارزمية التجميع الطيفي الثنائي</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="هذا المثال يوضح كيفية إنشاء مجموعة بيانات وتجميعها باستخدام خوارزمية التجميع الطيفي المشترك.">
+
+.. only:: html
+
+  .. image:: /auto_examples/bicluster/images/thumb/sphx_glr_plot_spectral_coclustering_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_bicluster_plot_spectral_coclustering.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">عرض توضيحي لخوارزمية التجميع الطيفي المشترك</div>
+    </div>
+
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+
+معايرة الإحتمالات
+-----------------------
+
+أمثلة توضح معايرة الاحتمالات المتوقعة للمصنفات.
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="عند إجراء التصنيف، غالبًا ما تريد التنبؤ ليس فقط بتسمية الفئة، ولكن أيضًا الاحتمالية المرتبطة بها. هذه الاحتمالية تعطيك نوعًا من الثقة في التنبؤ. ومع ذلك، لا توفر جميع المصنفات احتمالات معايرة جيدًا، بعضها مفرط الثقة في حين أن البعض الآخر غير واثق. لذلك، غالبًا ما تكون معايرة الاحتمالات المتوقعة مرغوبة كعملية ما بعد المعالجة. يوضح هذا المثال طريقتان مختلفتان لهذه المعايرة ويقيم جودة الاحتمالات المعادة باستخدام درجة Brier (انظر https://en.wikipedia.org/wiki/Brier_score).">
+
+.. only:: html
+
+  .. image:: /auto_examples/calibration/images/thumb/sphx_glr_plot_calibration_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_calibration_plot_calibration.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">معايرة احتمالات المصنفات</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال كيف أن معايرة سيجمويد calibration تغير الاحتمالات المتوقعة لمشكلة تصنيف ثلاثي الفئات. يتم توضيح المضلع الثنائي القياسي، حيث تتوافق الزوايا الثلاثة مع الفئات الثلاث. تشير الأسهم من متجهات الاحتمالات المتوقعة بواسطة مصنف غير معاير إلى متجهات الاحتمالات المتوقعة بواسطة نفس المصنف بعد معايرة سيجمويد على مجموعة بيانات التحقق. تشير الألوان إلى الفئة الحقيقية للعينة (الأحمر: الفئة 1، الأخضر: الفئة 2، الأزرق: الفئة 3).">
+
+.. only:: html
+
+  .. image:: /auto_examples/calibration/images/thumb/sphx_glr_plot_calibration_multiclass_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_calibration_plot_calibration_multiclass.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">معايرة الاحتمالات لتصنيف ثلاثي الفئات</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="المصنفات المعايرة جيدًا هي مصنفات احتمالية يمكن تفسير ناتجها من predict_proba مباشرةً كدرجة ثقة. على سبيل المثال، يجب أن يقوم المصنف المعاير جيدًا (الثنائي) بتصنيف العينات بحيث للعينات التي أعطاها قيمة predict_proba قريبة من 0.8، تنتمي بالفعل حوالي 80% إلى الفئة الإيجابية.">
+
+.. only:: html
+
+  .. image:: /auto_examples/calibration/images/thumb/sphx_glr_plot_compare_calibration_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_calibration_plot_compare_calibration.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">مقارنة معايرة المصنفات</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="عند إجراء التصنيف، غالبًا ما يرغب المرء في التنبؤ ليس فقط بتسمية الفئة، ولكن أيضًا بالاحتمالية المرتبطة بها. يعطي هذا الاحتمال نوعًا من الثقة في التنبؤ. يوضح هذا المثال كيفية تصور مدى جودة معايرة الاحتمالات المتوقعة باستخدام منحنيات المعايرة، والمعروفة أيضًا باسم مخططات الموثوقية. سيتم أيضًا توضيح معايرة مصنف غير معاير.">
+
+.. only:: html
+
+  .. image:: /auto_examples/calibration/images/thumb/sphx_glr_plot_calibration_curve_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_calibration_plot_calibration_curve.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">منحنيات معايرة الاحتمالية</div>
+    </div>
+
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+
 .. toctree::
    :hidden:
    :includehidden:
 
 
    /auto_examples/release_highlights/index.rst
-   /auto_examples/bicluster/index.rst
-   /auto_examples/calibration/index.rst
    /auto_examples/classification/index.rst
    /auto_examples/cluster/index.rst
    /auto_examples/covariance/index.rst
@@ -5522,6 +5520,8 @@ Examples concerning the :mod:`sklearn.feature_extraction.text` module.
    /auto_examples/svm/index.rst
    /auto_examples/exercises/index.rst
    /auto_examples/text/index.rst
+   /auto_examples/bicluster/index.rst
+   /auto_examples/calibration/index.rst
 
 
 .. only:: html

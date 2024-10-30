@@ -561,19 +561,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_22_0.html">Release Highlights for scikit-learn 0.22</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../bicluster/index.html">Biclustering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_spectral_biclustering.html">A demo of the Spectral Biclustering algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_spectral_coclustering.html">A demo of the Spectral Co-Clustering algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_bicluster_newsgroups.html">Biclustering documents with the Spectral Co-clustering algorithm</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../calibration/index.html">Calibration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../calibration/plot_compare_calibration.html">Comparison of Calibration of Classifiers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration_curve.html">Probability Calibration curves</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration_multiclass.html">Probability Calibration for 3-class classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration.html">Probability calibration of classifiers</a></li>
-</ul>
-</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../classification/index.html">Classification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../classification/plot_classifier_comparison.html">Classifier comparison</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../classification/plot_lda_qda.html">Linear and Quadratic Discriminant Analysis with covariance ellipsoid</a></li>
@@ -930,6 +917,19 @@
 <li class="toctree-l2"><a class="reference internal" href="../text/plot_hashing_vs_dict_vectorizer.html">FeatureHasher and DictVectorizer Comparison</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../bicluster/index.html">التجميع الثنائي</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_bicluster_newsgroups.html">بكلسترينج المستندات باستخدام خوارزمية التجميع الطيفي المشترك</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_spectral_biclustering.html">عرض توضيحي لخوارزمية التجميع الطيفي الثنائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_spectral_coclustering.html">عرض توضيحي لخوارزمية التجميع الطيفي المشترك</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../calibration/index.html">معايرة الإحتمالات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration.html">معايرة احتمالات المصنفات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration_multiclass.html">معايرة الاحتمالات لتصنيف ثلاثي الفئات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../calibration/plot_compare_calibration.html">مقارنة معايرة المصنفات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration_curve.html">منحنيات معايرة الاحتمالية</a></li>
+</ul>
+</details></li>
 </ul>
 </div>
 </nav></div>
@@ -1161,12 +1161,12 @@ Computing regularization path using the positive elastic net...
 </div>
 </div>
 <p class="rubric">Related examples</p>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The present example compares three l1-based regression models on a synthetic signal obtained from sparse and correlated features that are further corrupted with additive gaussian noise:"><img alt="" src="../../_images/sphx_glr_plot_lasso_and_elasticnet_thumb.png" />
-<p><a class="reference internal" href="plot_lasso_and_elasticnet.html#sphx-glr-auto-examples-linear-model-plot-lasso-and-elasticnet-py"><span class="std std-ref">L1-based models for Sparse Signals</span></a></p>
-  <div class="sphx-glr-thumbnail-title">L1-based models for Sparse Signals</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Comparison of the sparsity (percentage of zero coefficients) of solutions when L1, L2 and Elastic-Net penalty are used for different values of C. We can see that large values of C give more freedom to the model.  Conversely, smaller values of C constrain the model more. In the L1 penalty case, this leads to sparser solutions. As expected, the Elastic-Net penalty sparsity is between that of L1 and L2."><img alt="" src="../../_images/sphx_glr_plot_logistic_l1_l2_sparsity_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Comparison of the sparsity (percentage of zero coefficients) of solutions when L1, L2 and Elastic-Net penalty are used for different values of C. We can see that large values of C give more freedom to the model.  Conversely, smaller values of C constrain the model more. In the L1 penalty case, this leads to sparser solutions. As expected, the Elastic-Net penalty sparsity is between that of L1 and L2."><img alt="" src="../../_images/sphx_glr_plot_logistic_l1_l2_sparsity_thumb.png" />
 <p><a class="reference internal" href="plot_logistic_l1_l2_sparsity.html#sphx-glr-auto-examples-linear-model-plot-logistic-l1-l2-sparsity-py"><span class="std std-ref">L1 Penalty and Sparsity in Logistic Regression</span></a></p>
   <div class="sphx-glr-thumbnail-title">L1 Penalty and Sparsity in Logistic Regression</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The present example compares three l1-based regression models on a synthetic signal obtained from sparse and correlated features that are further corrupted with additive gaussian noise:"><img alt="" src="../../_images/sphx_glr_plot_lasso_and_elasticnet_thumb.png" />
+<p><a class="reference internal" href="plot_lasso_and_elasticnet.html#sphx-glr-auto-examples-linear-model-plot-lasso-and-elasticnet-py"><span class="std std-ref">L1-based models for Sparse Signals</span></a></p>
+  <div class="sphx-glr-thumbnail-title">L1-based models for Sparse Signals</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example focuses on model selection for Lasso models that are linear models with an L1 penalty for regression problems."><img alt="" src="../../_images/sphx_glr_plot_lasso_model_selection_thumb.png" />
 <p><a class="reference internal" href="plot_lasso_model_selection.html#sphx-glr-auto-examples-linear-model-plot-lasso-model-selection-py"><span class="std std-ref">Lasso model selection: AIC-BIC / cross-validation</span></a></p>
   <div class="sphx-glr-thumbnail-title">Lasso model selection: AIC-BIC / cross-validation</div>

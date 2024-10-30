@@ -1,7 +1,7 @@
 .. _realworld_examples:
 
-Examples based on real world datasets
--------------------------------------
+أمثلة مبنية على مجموعات بيانات من العالم الحقيقي
+------------------------------------------------------
 
-Applications to real world problems with some medium sized datasets or
-interactive user interface.
+تطبيقات على مشاكل العالم الحقيقي مع مجموعات بيانات متوسطة الحجم أو
+واجهة مستخدم تفاعلية.

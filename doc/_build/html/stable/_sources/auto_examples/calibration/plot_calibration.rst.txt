@@ -19,34 +19,33 @@
 
 
 ======================================
-Probability calibration of classifiers
+معايرة احتمالات المصنفات
 ======================================
 
-When performing classification you often want to predict not only
-the class label, but also the associated probability. This probability
-gives you some kind of confidence on the prediction. However, not all
-classifiers provide well-calibrated probabilities, some being over-confident
-while others being under-confident. Thus, a separate calibration of predicted
-probabilities is often desirable as a postprocessing. This example illustrates
-two different methods for this calibration and evaluates the quality of the
-returned probabilities using Brier's score
-(see https://en.wikipedia.org/wiki/Brier_score).
+عند إجراء التصنيف، غالبًا ما تريد التنبؤ ليس فقط
+بتسمية الفئة، ولكن أيضًا الاحتمالية المرتبطة بها. هذه الاحتمالية
+تعطيك نوعًا من الثقة في التنبؤ. ومع ذلك، لا توفر جميع
+المصنفات احتمالات معايرة جيدًا، بعضها مفرط الثقة
+في حين أن البعض الآخر غير واثق. لذلك، غالبًا ما تكون معايرة الاحتمالات المتوقعة
+مرغوبة كعملية ما بعد المعالجة. يوضح هذا المثال
+طريقتان مختلفتان لهذه المعايرة ويقيم جودة الاحتمالات المعادة باستخدام درجة Brier
+(انظر https://en.wikipedia.org/wiki/Brier_score).
 
-Compared are the estimated probability using a Gaussian naive Bayes classifier
-without calibration, with a sigmoid calibration, and with a non-parametric
-isotonic calibration. One can observe that only the non-parametric model is
-able to provide a probability calibration that returns probabilities close
-to the expected 0.5 for most of the samples belonging to the middle
-cluster with heterogeneous labels. This results in a significantly improved
-Brier score.
+يتم مقارنة الاحتمالية المقدرة باستخدام مصنف خوارزمية بايز الساذجة الغاوسية
+دون معايرة، مع معايرة سيجمويد، ومع معايرة غير معلمية
+إيزوتونية. يمكن ملاحظة أن النموذج غير المعلمي فقط هو
+قادر على توفير معايرة احتمالية تعيد احتمالات قريبة
+من المتوقع 0.5 لمعظم العينات التي تنتمي إلى المجموعة الوسطى
+مع تسميات متغايرة. يؤدي هذا إلى تحسن كبير
+في درجة Brier.
 
-.. GENERATED FROM PYTHON SOURCE LINES 25-29
+.. GENERATED FROM PYTHON SOURCE LINES 24-28
 
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري سكايلرن
+    # معرف الترخيص: BSD-3-Clause
 
 
 
@@ -55,34 +54,40 @@ Brier score.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-32
+.. GENERATED FROM PYTHON SOURCE LINES 29-31
 
-Generate synthetic dataset
+إنشاء مجموعة بيانات اصطناعية
 --------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 32-55
+.. GENERATED FROM PYTHON SOURCE LINES 31-60
 
 .. code-block:: Python
 
+    from matplotlib import cm
+    import matplotlib.pyplot as plt
+    from sklearn.naive_bayes import GaussianNB
+    from sklearn.metrics import brier_score_loss
+    from sklearn.calibration import CalibratedClassifierCV
     import numpy as np
 
     from sklearn.datasets import make_blobs
     from sklearn.model_selection import train_test_split
 
     n_samples = 50000
-    n_bins = 3  # use 3 bins for calibration_curve as we have 3 clusters here
+    n_bins = 3  # استخدم 3 صناديق لمعايرة المنحنى حيث لدينا 3 مجموعات هنا
 
-    # Generate 3 blobs with 2 classes where the second blob contains
-    # half positive samples and half negative samples. Probability in this
-    # blob is therefore 0.5.
+    # إنشاء 3 مجموعات مع فئتين حيث تحتوي المجموعة الثانية على
+    # نصف العينات الإيجابية ونصف العينات السلبية. الاحتمالية في هذه
+    # المجموعة هي 0.5.
     centers = [(-5, -5), (0, 0), (5, 5)]
-    X, y = make_blobs(n_samples=n_samples, centers=centers, shuffle=False, random_state=42)
+    X, y = make_blobs(n_samples=n_samples, centers=centers,
+                      shuffle=False, random_state=42)
 
     y[: n_samples // 2] = 0
-    y[n_samples // 2 :] = 1
+    y[n_samples // 2:] = 1
     sample_weight = np.random.RandomState(42).rand(y.shape[0])
 
-    # split train, test for calibration
+    # تقسيم البيانات إلى مجموعات التدريب والاختبار للمعايرة
     X_train, X_test, y_train, y_test, sw_train, sw_test = train_test_split(
         X, y, sample_weight, test_size=0.9, random_state=42
     )
@@ -94,30 +99,28 @@ Generate synthetic dataset
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 56-58
+.. GENERATED FROM PYTHON SOURCE LINES 61-63
 
-Gaussian Naive-Bayes
+خوارزمية بايز الساذجة الغاوسية
 --------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-88
+.. GENERATED FROM PYTHON SOURCE LINES 63-93
 
 .. code-block:: Python
 
-    from sklearn.calibration import CalibratedClassifierCV
-    from sklearn.metrics import brier_score_loss
-    from sklearn.naive_bayes import GaussianNB
 
-    # With no calibration
+    # بدون معايرة
     clf = GaussianNB()
-    clf.fit(X_train, y_train)  # GaussianNB itself does not support sample-weights
+    # خوارزمية بايز الساذجة الغاوسية نفسها لا تدعم الأوزان العشوائية
+    clf.fit(X_train, y_train)
     prob_pos_clf = clf.predict_proba(X_test)[:, 1]
 
-    # With isotonic calibration
+    # مع معايرة إيزوتونية
     clf_isotonic = CalibratedClassifierCV(clf, cv=2, method="isotonic")
     clf_isotonic.fit(X_train, y_train, sample_weight=sw_train)
     prob_pos_isotonic = clf_isotonic.predict_proba(X_test)[:, 1]
 
-    # With sigmoid calibration
+    # مع معايرة سيجمويد
     clf_sigmoid = CalibratedClassifierCV(clf, cv=2, method="sigmoid")
     clf_sigmoid.fit(X_train, y_train, sample_weight=sw_train)
     prob_pos_sigmoid = clf_sigmoid.predict_proba(X_test)[:, 1]
@@ -127,10 +130,12 @@ Gaussian Naive-Bayes
     clf_score = brier_score_loss(y_test, prob_pos_clf, sample_weight=sw_test)
     print("No calibration: %1.3f" % clf_score)
 
-    clf_isotonic_score = brier_score_loss(y_test, prob_pos_isotonic, sample_weight=sw_test)
+    clf_isotonic_score = brier_score_loss(
+        y_test, prob_pos_isotonic, sample_weight=sw_test)
     print("With isotonic calibration: %1.3f" % clf_isotonic_score)
 
-    clf_sigmoid_score = brier_score_loss(y_test, prob_pos_sigmoid, sample_weight=sw_test)
+    clf_sigmoid_score = brier_score_loss(
+        y_test, prob_pos_sigmoid, sample_weight=sw_test)
     print("With sigmoid calibration: %1.3f" % clf_sigmoid_score)
 
 
@@ -149,17 +154,15 @@ Gaussian Naive-Bayes
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 89-91
+.. GENERATED FROM PYTHON SOURCE LINES 94-96
 
-Plot data and the predicted probabilities
+رسم البيانات والاحتمالات المتوقعة
 -----------------------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 91-142
+.. GENERATED FROM PYTHON SOURCE LINES 96-145
 
 .. code-block:: Python
 
-    import matplotlib.pyplot as plt
-    from matplotlib import cm
 
     plt.figure()
     y_unique = np.unique(y)
@@ -236,7 +239,7 @@ Plot data and the predicted probabilities
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.352 seconds)
+   **Total running time of the script:** (0 minutes 0.370 seconds)
 
 
 .. _sphx_glr_download_auto_examples_calibration_plot_calibration.py:

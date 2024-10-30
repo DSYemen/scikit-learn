@@ -561,19 +561,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_22_0.html">Release Highlights for scikit-learn 0.22</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../bicluster/index.html">Biclustering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_spectral_biclustering.html">A demo of the Spectral Biclustering algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_spectral_coclustering.html">A demo of the Spectral Co-Clustering algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_bicluster_newsgroups.html">Biclustering documents with the Spectral Co-clustering algorithm</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../calibration/index.html">Calibration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../calibration/plot_compare_calibration.html">Comparison of Calibration of Classifiers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration_curve.html">Probability Calibration curves</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration_multiclass.html">Probability Calibration for 3-class classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration.html">Probability calibration of classifiers</a></li>
-</ul>
-</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../classification/index.html">Classification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../classification/plot_classifier_comparison.html">Classifier comparison</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../classification/plot_lda_qda.html">Linear and Quadratic Discriminant Analysis with covariance ellipsoid</a></li>
@@ -930,6 +917,19 @@
 <li class="toctree-l2"><a class="reference internal" href="../text/plot_hashing_vs_dict_vectorizer.html">FeatureHasher and DictVectorizer Comparison</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../bicluster/index.html">التجميع الثنائي</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_bicluster_newsgroups.html">بكلسترينج المستندات باستخدام خوارزمية التجميع الطيفي المشترك</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_spectral_biclustering.html">عرض توضيحي لخوارزمية التجميع الطيفي الثنائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_spectral_coclustering.html">عرض توضيحي لخوارزمية التجميع الطيفي المشترك</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../calibration/index.html">معايرة الإحتمالات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration.html">معايرة احتمالات المصنفات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration_multiclass.html">معايرة الاحتمالات لتصنيف ثلاثي الفئات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../calibration/plot_compare_calibration.html">مقارنة معايرة المصنفات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration_curve.html">منحنيات معايرة الاحتمالية</a></li>
+</ul>
+</details></li>
 </ul>
 </div>
 </nav></div>
@@ -1163,12 +1163,12 @@ between labels but also does not make strong assumptions about their correct ord
 <div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="In this example, we discuss the problem of classification when the target variable is composed of more than two classes. This is called multiclass classification."><img alt="" src="../../_images/sphx_glr_plot_multiclass_overview_thumb.png" />
 <p><a class="reference internal" href="../multiclass/plot_multiclass_overview.html#sphx-glr-auto-examples-multiclass-plot-multiclass-overview-py"><span class="std std-ref">Overview of multiclass training meta-estimators</span></a></p>
   <div class="sphx-glr-thumbnail-title">Overview of multiclass training meta-estimators</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to statistically compare the performance of models trained and evaluated using GridSearchCV."><img alt="" src="../../_images/sphx_glr_plot_grid_search_stats_thumb.png" />
-<p><a class="reference internal" href="../model_selection/plot_grid_search_stats.html#sphx-glr-auto-examples-model-selection-plot-grid-search-stats-py"><span class="std std-ref">Statistical comparison of models using grid search</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Statistical comparison of models using grid search</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Plot the classification probability for different classifiers. We use a 3 class dataset, and we classify it with a Support Vector classifier, L1 and L2 penalized logistic regression (multinomial multiclass), a One-Vs-Rest version with logistic regression, and Gaussian process classification."><img alt="" src="../../_images/sphx_glr_plot_classification_probability_thumb.png" />
 <p><a class="reference internal" href="../classification/plot_classification_probability.html#sphx-glr-auto-examples-classification-plot-classification-probability-py"><span class="std std-ref">Plot classification probability</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plot classification probability</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to statistically compare the performance of models trained and evaluated using GridSearchCV."><img alt="" src="../../_images/sphx_glr_plot_grid_search_stats_thumb.png" />
+<p><a class="reference internal" href="../model_selection/plot_grid_search_stats.html#sphx-glr-auto-examples-model-selection-plot-grid-search-stats-py"><span class="std std-ref">Statistical comparison of models using grid search</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Statistical comparison of models using grid search</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Transform your features into a higher dimensional, sparse space. Then train a linear model on these features."><img alt="" src="../../_images/sphx_glr_plot_feature_transformation_thumb.png" />
 <p><a class="reference internal" href="../ensemble/plot_feature_transformation.html#sphx-glr-auto-examples-ensemble-plot-feature-transformation-py"><span class="std std-ref">Feature transformations with ensembles of trees</span></a></p>
   <div class="sphx-glr-thumbnail-title">Feature transformations with ensembles of trees</div>

@@ -561,19 +561,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_22_0.html">Release Highlights for scikit-learn 0.22</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../bicluster/index.html">Biclustering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_spectral_biclustering.html">A demo of the Spectral Biclustering algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_spectral_coclustering.html">A demo of the Spectral Co-Clustering algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_bicluster_newsgroups.html">Biclustering documents with the Spectral Co-clustering algorithm</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../calibration/index.html">Calibration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../calibration/plot_compare_calibration.html">Comparison of Calibration of Classifiers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration_curve.html">Probability Calibration curves</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration_multiclass.html">Probability Calibration for 3-class classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration.html">Probability calibration of classifiers</a></li>
-</ul>
-</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../classification/index.html">Classification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../classification/plot_classifier_comparison.html">Classifier comparison</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../classification/plot_lda_qda.html">Linear and Quadratic Discriminant Analysis with covariance ellipsoid</a></li>
@@ -928,6 +915,19 @@
 <li class="toctree-l2"><a class="reference internal" href="../text/plot_document_classification_20newsgroups.html">Classification of text documents using sparse features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../text/plot_document_clustering.html">Clustering text documents using k-means</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../text/plot_hashing_vs_dict_vectorizer.html">FeatureHasher and DictVectorizer Comparison</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../bicluster/index.html">التجميع الثنائي</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_bicluster_newsgroups.html">بكلسترينج المستندات باستخدام خوارزمية التجميع الطيفي المشترك</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_spectral_biclustering.html">عرض توضيحي لخوارزمية التجميع الطيفي الثنائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_spectral_coclustering.html">عرض توضيحي لخوارزمية التجميع الطيفي المشترك</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../calibration/index.html">معايرة الإحتمالات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration.html">معايرة احتمالات المصنفات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration_multiclass.html">معايرة الاحتمالات لتصنيف ثلاثي الفئات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../calibration/plot_compare_calibration.html">مقارنة معايرة المصنفات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration_curve.html">منحنيات معايرة الاحتمالية</a></li>
 </ul>
 </details></li>
 </ul>
@@ -1504,12 +1504,12 @@ be seen on the plot of the decision function on the right-hand.</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The PCA does an unsupervised dimensionality reduction, while the logistic regression does the prediction."><img alt="" src="../../_images/sphx_glr_plot_digits_pipe_thumb.png" />
 <p><a class="reference internal" href="../compose/plot_digits_pipe.html#sphx-glr-auto-examples-compose-plot-digits-pipe-py"><span class="std std-ref">Pipelining: chaining a PCA and a logistic regression</span></a></p>
   <div class="sphx-glr-thumbnail-title">Pipelining: chaining a PCA and a logistic regression</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="When performing classification you often want to predict not only the class label, but also the associated probability. This probability gives you some kind of confidence on the prediction. However, not all classifiers provide well-calibrated probabilities, some being over-confident while others being under-confident. Thus, a separate calibration of predicted probabilities is often desirable as a postprocessing. This example illustrates two different methods for this calibration and evaluates the quality of the returned probabilities using Brier&#x27;s score (see https://en.wikipedia.org/wiki/Brier_score)."><img alt="" src="../../_images/sphx_glr_plot_calibration_thumb.png" />
-<p><a class="reference internal" href="../calibration/plot_calibration.html#sphx-glr-auto-examples-calibration-plot-calibration-py"><span class="std std-ref">Probability calibration of classifiers</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Probability calibration of classifiers</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="When performing classification one often wants to predict not only the class label, but also the associated probability. This probability gives some kind of confidence on the prediction. This example demonstrates how to visualize how well calibrated the predicted probabilities are using calibration curves, also known as reliability diagrams. Calibration of an uncalibrated classifier will also be demonstrated."><img alt="" src="../../_images/sphx_glr_plot_calibration_curve_thumb.png" />
-<p><a class="reference internal" href="../calibration/plot_calibration_curve.html#sphx-glr-auto-examples-calibration-plot-calibration-curve-py"><span class="std std-ref">Probability Calibration curves</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Probability Calibration curves</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The example compares prediction result of linear regression (linear model) and decision tree (tree based model) with and without discretization of real-valued features."><img alt="" src="../../_images/sphx_glr_plot_discretization_thumb.png" />
+<p><a class="reference internal" href="../preprocessing/plot_discretization.html#sphx-glr-auto-examples-preprocessing-plot-discretization-py"><span class="std std-ref">Using KBinsDiscretizer to discretize continuous features</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Using KBinsDiscretizer to discretize continuous features</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the problems of underfitting and overfitting and how we can use linear regression with polynomial features to approximate nonlinear functions. The plot shows the function that we want to approximate, which is a part of the cosine function. In addition, the samples from the real function and the approximations of different models are displayed. The models have polynomial features of different degrees. We can see that a linear function (polynomial with degree 1) is not sufficient to fit the training samples. This is called underfitting. A polynomial of degree 4 approximates the true function almost perfectly. However, for higher degrees the model will overfit the training data, i.e. it learns the noise of the training data. We evaluate quantitatively overfitting / underfitting by using cross-validation. We calculate the mean squared error (MSE) on the validation set, the higher, the less likely the model generalizes correctly from the training data."><img alt="" src="../../_images/sphx_glr_plot_underfitting_overfitting_thumb.png" />
+<p><a class="reference internal" href="../model_selection/plot_underfitting_overfitting.html#sphx-glr-auto-examples-model-selection-plot-underfitting-overfitting-py"><span class="std std-ref">Underfitting vs. Overfitting</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Underfitting vs. Overfitting</div>
 </div></div><p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
 </section>
 

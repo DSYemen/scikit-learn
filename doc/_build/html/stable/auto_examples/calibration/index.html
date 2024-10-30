@@ -7,16 +7,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Calibration" />
+<meta property="og:title" content="معايرة الإحتمالات" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/auto_examples/calibration/index.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="Examples illustrating the calibration of predicted probabilities of classifiers. Comparison of Calibration of Classifiers Probability Calibration curves Probability Calibration for 3-class classifi..." />
-<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_compare_calibration_thumb.png" />
+<meta property="og:description" content="أمثلة توضح معايرة الاحتمالات المتوقعة للمصنفات. معايرة احتمالات المصنفات معايرة الاحتمالات لتصنيف ثلاثي الفئات مقارنة معايرة المصنفات منحنيات معايرة الاحتمالية" />
+<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_calibration_thumb.png" />
 <meta property="og:image:alt" content="" />
-<meta name="description" content="Examples illustrating the calibration of predicted probabilities of classifiers. Comparison of Calibration of Classifiers Probability Calibration curves Probability Calibration for 3-class classifi..." />
+<meta name="description" content="أمثلة توضح معايرة الاحتمالات المتوقعة للمصنفات. معايرة احتمالات المصنفات معايرة الاحتمالات لتصنيف ثلاثي الفئات مقارنة معايرة المصنفات منحنيات معايرة الاحتمالية" />
 
-    <title>Calibration &#8212; scikit-learn 1.6.dev0 documentation</title>
+    <title>معايرة الإحتمالات &#8212; scikit-learn 1.6.dev0 documentation</title>
   
   
   
@@ -78,8 +78,8 @@
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="search" title="بحث" href="../../search.html" />
-    <link rel="next" title="Comparison of Calibration of Classifiers" href="plot_compare_calibration.html" />
-    <link rel="prev" title="Biclustering documents with the Spectral Co-clustering algorithm" href="../bicluster/plot_bicluster_newsgroups.html" />
+    <link rel="next" title="معايرة احتمالات المصنفات" href="plot_calibration.html" />
+    <link rel="prev" title="عرض توضيحي لخوارزمية التجميع الطيفي المشترك" href="../bicluster/plot_spectral_coclustering.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="ar"/>
   <meta name="docsearch:version" content="1.6" />
@@ -557,19 +557,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_22_0.html">Release Highlights for scikit-learn 0.22</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../bicluster/index.html">Biclustering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_spectral_biclustering.html">A demo of the Spectral Biclustering algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_spectral_coclustering.html">A demo of the Spectral Co-Clustering algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_bicluster_newsgroups.html">Biclustering documents with the Spectral Co-clustering algorithm</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Calibration</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="plot_compare_calibration.html">Comparison of Calibration of Classifiers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_calibration_curve.html">Probability Calibration curves</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_calibration_multiclass.html">Probability Calibration for 3-class classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_calibration.html">Probability calibration of classifiers</a></li>
-</ul>
-</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../classification/index.html">Classification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../classification/plot_classifier_comparison.html">Classifier comparison</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../classification/plot_lda_qda.html">Linear and Quadratic Discriminant Analysis with covariance ellipsoid</a></li>
@@ -926,6 +913,19 @@
 <li class="toctree-l2"><a class="reference internal" href="../text/plot_hashing_vs_dict_vectorizer.html">FeatureHasher and DictVectorizer Comparison</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../bicluster/index.html">التجميع الثنائي</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_bicluster_newsgroups.html">بكلسترينج المستندات باستخدام خوارزمية التجميع الطيفي المشترك</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_spectral_biclustering.html">عرض توضيحي لخوارزمية التجميع الطيفي الثنائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_spectral_coclustering.html">عرض توضيحي لخوارزمية التجميع الطيفي المشترك</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">معايرة الإحتمالات</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="plot_calibration.html">معايرة احتمالات المصنفات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_calibration_multiclass.html">معايرة الاحتمالات لتصنيف ثلاثي الفئات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_compare_calibration.html">مقارنة معايرة المصنفات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_calibration_curve.html">منحنيات معايرة الاحتمالية</a></li>
+</ul>
+</details></li>
 </ul>
 </div>
 </nav></div>
@@ -964,7 +964,7 @@
     
     <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Examples</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Calibration</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">معايرة الإحتمالات</span></li>
   </ul>
 </nav>
 </div>
@@ -981,21 +981,21 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="calibration">
-<span id="calibration-examples"></span><span id="sphx-glr-auto-examples-calibration"></span><h1>Calibration<a class="headerlink" href="#calibration" title="Link to this heading">#</a></h1>
-<p>Examples illustrating the calibration of predicted probabilities of classifiers.</p>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Well calibrated classifiers are probabilistic classifiers for which the output of predict_proba can be directly interpreted as a confidence level. For instance, a well calibrated (binary) classifier should classify the samples such that for the samples to which it gave a predict_proba value close to 0.8, approximately 80% actually belong to the positive class."><img alt="" src="../../_images/sphx_glr_plot_compare_calibration_thumb.png" />
-<p><a class="reference internal" href="plot_compare_calibration.html#sphx-glr-auto-examples-calibration-plot-compare-calibration-py"><span class="std std-ref">Comparison of Calibration of Classifiers</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Comparison of Calibration of Classifiers</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="When performing classification one often wants to predict not only the class label, but also the associated probability. This probability gives some kind of confidence on the prediction. This example demonstrates how to visualize how well calibrated the predicted probabilities are using calibration curves, also known as reliability diagrams. Calibration of an uncalibrated classifier will also be demonstrated."><img alt="" src="../../_images/sphx_glr_plot_calibration_curve_thumb.png" />
-<p><a class="reference internal" href="plot_calibration_curve.html#sphx-glr-auto-examples-calibration-plot-calibration-curve-py"><span class="std std-ref">Probability Calibration curves</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Probability Calibration curves</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how sigmoid calibration changes predicted probabilities for a 3-class classification problem. Illustrated is the standard 2-simplex, where the three corners correspond to the three classes. Arrows point from the probability vectors predicted by an uncalibrated classifier to the probability vectors predicted by the same classifier after sigmoid calibration on a hold-out validation set. Colors indicate the true class of an instance (red: class 1, green: class 2, blue: class 3)."><img alt="" src="../../_images/sphx_glr_plot_calibration_multiclass_thumb.png" />
-<p><a class="reference internal" href="plot_calibration_multiclass.html#sphx-glr-auto-examples-calibration-plot-calibration-multiclass-py"><span class="std std-ref">Probability Calibration for 3-class classification</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Probability Calibration for 3-class classification</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="When performing classification you often want to predict not only the class label, but also the associated probability. This probability gives you some kind of confidence on the prediction. However, not all classifiers provide well-calibrated probabilities, some being over-confident while others being under-confident. Thus, a separate calibration of predicted probabilities is often desirable as a postprocessing. This example illustrates two different methods for this calibration and evaluates the quality of the returned probabilities using Brier&#x27;s score (see https://en.wikipedia.org/wiki/Brier_score)."><img alt="" src="../../_images/sphx_glr_plot_calibration_thumb.png" />
-<p><a class="reference internal" href="plot_calibration.html#sphx-glr-auto-examples-calibration-plot-calibration-py"><span class="std std-ref">Probability calibration of classifiers</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Probability calibration of classifiers</div>
+  <section id="calibration-examples">
+<span id="sphx-glr-auto-examples-calibration"></span><span id="id1"></span><h1>معايرة الإحتمالات<a class="headerlink" href="#calibration-examples" title="Link to this heading">#</a></h1>
+<p>أمثلة توضح معايرة الاحتمالات المتوقعة للمصنفات.</p>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="عند إجراء التصنيف، غالبًا ما تريد التنبؤ ليس فقط بتسمية الفئة، ولكن أيضًا الاحتمالية المرتبطة بها. هذه الاحتمالية تعطيك نوعًا من الثقة في التنبؤ. ومع ذلك، لا توفر جميع المصنفات احتمالات معايرة جيدًا، بعضها مفرط الثقة في حين أن البعض الآخر غير واثق. لذلك، غالبًا ما تكون معايرة الاحتمالات المتوقعة مرغوبة كعملية ما بعد المعالجة. يوضح هذا المثال طريقتان مختلفتان لهذه المعايرة ويقيم جودة الاحتمالات المعادة باستخدام درجة Brier (انظر https://en.wikipedia.org/wiki/Brier_score)."><img alt="" src="../../_images/sphx_glr_plot_calibration_thumb.png" />
+<p><a class="reference internal" href="plot_calibration.html#sphx-glr-auto-examples-calibration-plot-calibration-py"><span class="std std-ref">معايرة احتمالات المصنفات</span></a></p>
+  <div class="sphx-glr-thumbnail-title">معايرة احتمالات المصنفات</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال كيف أن معايرة سيجمويد calibration تغير الاحتمالات المتوقعة لمشكلة تصنيف ثلاثي الفئات. يتم توضيح المضلع الثنائي القياسي، حيث تتوافق الزوايا الثلاثة مع الفئات الثلاث. تشير الأسهم من متجهات الاحتمالات المتوقعة بواسطة مصنف غير معاير إلى متجهات الاحتمالات المتوقعة بواسطة نفس المصنف بعد معايرة سيجمويد على مجموعة بيانات التحقق. تشير الألوان إلى الفئة الحقيقية للعينة (الأحمر: الفئة 1، الأخضر: الفئة 2، الأزرق: الفئة 3)."><img alt="" src="../../_images/sphx_glr_plot_calibration_multiclass_thumb.png" />
+<p><a class="reference internal" href="plot_calibration_multiclass.html#sphx-glr-auto-examples-calibration-plot-calibration-multiclass-py"><span class="std std-ref">معايرة الاحتمالات لتصنيف ثلاثي الفئات</span></a></p>
+  <div class="sphx-glr-thumbnail-title">معايرة الاحتمالات لتصنيف ثلاثي الفئات</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="المصنفات المعايرة جيدًا هي مصنفات احتمالية يمكن تفسير ناتجها من predict_proba مباشرةً كدرجة ثقة. على سبيل المثال، يجب أن يقوم المصنف المعاير جيدًا (الثنائي) بتصنيف العينات بحيث للعينات التي أعطاها قيمة predict_proba قريبة من 0.8، تنتمي بالفعل حوالي 80% إلى الفئة الإيجابية."><img alt="" src="../../_images/sphx_glr_plot_compare_calibration_thumb.png" />
+<p><a class="reference internal" href="plot_compare_calibration.html#sphx-glr-auto-examples-calibration-plot-compare-calibration-py"><span class="std std-ref">مقارنة معايرة المصنفات</span></a></p>
+  <div class="sphx-glr-thumbnail-title">مقارنة معايرة المصنفات</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="عند إجراء التصنيف، غالبًا ما يرغب المرء في التنبؤ ليس فقط بتسمية الفئة، ولكن أيضًا بالاحتمالية المرتبطة بها. يعطي هذا الاحتمال نوعًا من الثقة في التنبؤ. يوضح هذا المثال كيفية تصور مدى جودة معايرة الاحتمالات المتوقعة باستخدام منحنيات المعايرة، والمعروفة أيضًا باسم مخططات الموثوقية. سيتم أيضًا توضيح معايرة مصنف غير معاير."><img alt="" src="../../_images/sphx_glr_plot_calibration_curve_thumb.png" />
+<p><a class="reference internal" href="plot_calibration_curve.html#sphx-glr-auto-examples-calibration-plot-calibration-curve-py"><span class="std std-ref">منحنيات معايرة الاحتمالية</span></a></p>
+  <div class="sphx-glr-thumbnail-title">منحنيات معايرة الاحتمالية</div>
 </div></div><div class="toctree-wrapper compound">
 </div>
 </section>
@@ -1011,20 +1011,20 @@
     <div class="footer-article-item">
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../bicluster/plot_bicluster_newsgroups.html"
+       href="../bicluster/plot_spectral_coclustering.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">السابق</p>
-        <p class="prev-next-title">Biclustering documents with the Spectral Co-clustering algorithm</p>
+        <p class="prev-next-title">عرض توضيحي لخوارزمية التجميع الطيفي المشترك</p>
       </div>
     </a>
     <a class="right-next"
-       href="plot_compare_calibration.html"
+       href="plot_calibration.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">التالي</p>
-        <p class="prev-next-title">Comparison of Calibration of Classifiers</p>
+        <p class="prev-next-title">معايرة احتمالات المصنفات</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

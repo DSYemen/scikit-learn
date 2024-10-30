@@ -1,22 +1,20 @@
 """
 ==============================================
-A demo of the Spectral Co-Clustering algorithm
+عرض توضيحي لخوارزمية التجميع الطيفي المشترك
 ==============================================
 
-This example demonstrates how to generate a dataset and bicluster it
-using the Spectral Co-Clustering algorithm.
+هذا المثال يوضح كيفية إنشاء مجموعة بيانات وتجميعها
+باستخدام خوارزمية التجميع الطيفي المشترك.
 
-The dataset is generated using the ``make_biclusters`` function, which
-creates a matrix of small values and implants bicluster with large
-values. The rows and columns are then shuffled and passed to the
-Spectral Co-Clustering algorithm. Rearranging the shuffled matrix to
-make biclusters contiguous shows how accurately the algorithm found
-the biclusters.
+تم إنشاء مجموعة البيانات باستخدام الدالة ``make_biclusters``، والتي
+تنشئ مصفوفة من القيم الصغيرة وتزرع مجموعات التجميع الفرعية ذات القيم الكبيرة. يتم بعد ذلك خلط الصفوف والأعمدة وتمريرها إلى
+خوارزمية التجميع الطيفي المشترك. إعادة ترتيب المصفوفة المخلوطة لجعل مجموعات التجميع الفرعية متجاورة يُظهر مدى دقة الخوارزمية في العثور
+على مجموعات التجميع الفرعية.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 import numpy as np
 from matplotlib import pyplot as plt
@@ -43,7 +41,8 @@ plt.title("Shuffled dataset")
 
 model = SpectralCoclustering(n_clusters=5, random_state=0)
 model.fit(data)
-score = consensus_score(model.biclusters_, (rows[:, row_idx], columns[:, col_idx]))
+score = consensus_score(
+    model.biclusters_, (rows[:, row_idx], columns[:, col_idx]))
 
 print("consensus score: {:.3f}".format(score))
 

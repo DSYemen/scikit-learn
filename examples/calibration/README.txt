@@ -1,6 +1,6 @@
 .. _calibration_examples:
 
-Calibration
+معايرة الإحتمالات
 -----------------------
 
-Examples illustrating the calibration of predicted probabilities of classifiers.
+أمثلة توضح معايرة الاحتمالات المتوقعة للمصنفات.

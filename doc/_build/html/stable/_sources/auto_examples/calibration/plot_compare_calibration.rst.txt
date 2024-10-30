@@ -19,46 +19,53 @@
 
 
 ========================================
-Comparison of Calibration of Classifiers
+مقارنة معايرة المصنفات
 ========================================
 
-Well calibrated classifiers are probabilistic classifiers for which the output
-of :term:`predict_proba` can be directly interpreted as a confidence level.
-For instance, a well calibrated (binary) classifier should classify the samples
-such that for the samples to which it gave a :term:`predict_proba` value close
-to 0.8, approximately 80% actually belong to the positive class.
+المصنفات المعايرة جيدًا هي مصنفات احتمالية يمكن تفسير ناتجها
+من :term:`predict_proba` مباشرةً كدرجة ثقة.
+على سبيل المثال، يجب أن يقوم المصنف المعاير جيدًا (الثنائي) بتصنيف العينات
+بحيث للعينات التي أعطاها قيمة :term:`predict_proba` قريبة
+من 0.8، تنتمي بالفعل حوالي 80% إلى الفئة الإيجابية.
 
-In this example we will compare the calibration of four different
-models: :ref:`Logistic_regression`, :ref:`gaussian_naive_bayes`,
-:ref:`Random Forest Classifier <forest>` and :ref:`Linear SVM
+في هذا المثال، سنقارن معايرة أربعة نماذج مختلفة: :ref:`Logistic_regression`، :ref:`gaussian_naive_bayes`،
+:ref:`Random Forest Classifier <forest>` و :ref:`Linear SVM
 <svm_classification>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 20-22
+.. GENERATED FROM PYTHON SOURCE LINES 19-21
 
-Authors: The scikit-learn developers
-SPDX-License-Identifier: BSD-3-Clause
+المؤلفون: مطوري سكايلرن
+معرف الترخيص: BSD-3-Clause
 
-.. GENERATED FROM PYTHON SOURCE LINES 22-54
+.. GENERATED FROM PYTHON SOURCE LINES 21-61
 
 .. code-block:: Python
 
 
     #
-    # Dataset
+    # مجموعة البيانات
     # -------
     #
-    # We will use a synthetic binary classification dataset with 100,000 samples
-    # and 20 features. Of the 20 features, only 2 are informative, 2 are
-    # redundant (random combinations of the informative features) and the
-    # remaining 16 are uninformative (random numbers).
+    # سنستخدم مجموعة بيانات تصنيف ثنائية اصطناعية مع 100,000 عينة
+    # و20 ميزة. من 20 ميزة، فقط 2 هي معلوماتية، 2 هي
+    # مكررة (تركيبات عشوائية من الميزات المعلوماتية) والباقي
+    # 16 غير معلوماتية (أرقام عشوائية).
     #
-    # Of the 100,000 samples, 100 will be used for model fitting and the remaining
-    # for testing. Note that this split is quite unusual: the goal is to obtain
-    # stable calibration curve estimates for models that are potentially prone to
-    # overfitting. In practice, one should rather use cross-validation with more
-    # balanced splits but this would make the code of this example more complicated
-    # to follow.
+    # من 100,000 عينة، سيتم استخدام 100 لتدريب النماذج والباقي
+    # للاختبار. لاحظ أن هذا التقسيم غير عادي إلى حد ما: الهدف هو الحصول
+    # منحنيات معايرة مستقرة لتقديرات النماذج التي قد تكون عرضة للخطر
+    # الإفراط في التحديد. في الممارسة العملية، يجب استخدام التحقق المتقاطع مع المزيد
+    # تقسيمات متوازنة ولكن هذا من شأنه أن يجعل رمز هذا المثال أكثر تعقيدًا
+    # للمتابعة.
 
+    from matplotlib.gridspec import GridSpec
+    import matplotlib.pyplot as plt
+    from sklearn.naive_bayes import GaussianNB
+    from sklearn.linear_model import LogisticRegressionCV
+    from sklearn.ensemble import RandomForestClassifier
+    from sklearn.calibration import CalibrationDisplay
+    from sklearn.svm import LinearSVC
+    import numpy as np
     from sklearn.datasets import make_classification
     from sklearn.model_selection import train_test_split
 
@@ -81,28 +88,23 @@ SPDX-License-Identifier: BSD-3-Clause
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 55-66
+.. GENERATED FROM PYTHON SOURCE LINES 62-72
 
-Calibration curves
+منحنيات المعايرة
 ------------------
 
-Below, we train each of the four models with the small training dataset, then
-plot calibration curves (also known as reliability diagrams) using
-predicted probabilities of the test dataset. Calibration curves are created
-by binning predicted probabilities, then plotting the mean predicted
-probability in each bin against the observed frequency ('fraction of
-positives'). Below the calibration curve, we plot a histogram showing
-the distribution of the predicted probabilities or more specifically,
-the number of samples in each predicted probability bin.
+أدناه، نقوم بتدريب كل من النماذج الأربعة باستخدام مجموعة التدريب الصغيرة، ثم
+رسم منحنيات المعايرة (المعروفة أيضًا باسم الرسوم البيانية الموثوقية) باستخدام
+الاحتمالات المتوقعة لمجموعة اختبار البيانات. يتم إنشاء منحنيات المعايرة
+عن طريق تجميع الاحتمالات المتوقعة، ثم رسم متوسط الاحتمالية المتوقعة في كل صندوق مقابل
+التردد الملاحظ ('نسبة الإيجابيات'). أسفل منحنى المعايرة، نرسم مخططًا تاريخيًا يُظهر
+توزيع الاحتمالات المتوقعة أو على وجه التحديد،
+عدد العينات في كل صندوق من الاحتمالات المتوقعة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 66-92
+.. GENERATED FROM PYTHON SOURCE LINES 72-94
 
 .. code-block:: Python
 
-
-    import numpy as np
-
-    from sklearn.svm import LinearSVC
 
 
     class NaivelyCalibratedLinearSVC(LinearSVC):
@@ -132,24 +134,20 @@ the number of samples in each predicted probability bin.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 93-121
+.. GENERATED FROM PYTHON SOURCE LINES 95-119
 
 .. code-block:: Python
 
 
-    from sklearn.calibration import CalibrationDisplay
-    from sklearn.ensemble import RandomForestClassifier
-    from sklearn.linear_model import LogisticRegressionCV
-    from sklearn.naive_bayes import GaussianNB
 
-    # Define the classifiers to be compared in the study.
+    # تحديد المصنفات التي سيتم مقارنتها في الدراسة.
     #
-    # Note that we use a variant of the logistic regression model that can
-    # automatically tune its regularization parameter.
+    # لاحظ أننا نستخدم نسخة من نموذج الانحدار اللوجستي يمكنها
+    # ضبط معامل التنظيم تلقائيًا.
     #
-    # For a fair comparison, we should run a hyper-parameter search for all the
-    # classifiers but we don't do it here for the sake of keeping the example code
-    # concise and fast to execute.
+    # لمقارنة عادلة، يجب أن نقوم ببحث فرط المعلمات لجميع
+    # المصنفات ولكننا لا نفعل ذلك هنا من أجل الحفاظ على رمز المثال
+    # مختصر وسريع للتنفيذ.
     lr = LogisticRegressionCV(
         Cs=np.logspace(-6, 6, 101), cv=10, scoring="neg_log_loss", max_iter=1_000
     )
@@ -171,13 +169,11 @@ the number of samples in each predicted probability bin.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 122-168
+.. GENERATED FROM PYTHON SOURCE LINES 120-164
 
 .. code-block:: Python
 
 
-    import matplotlib.pyplot as plt
-    from matplotlib.gridspec import GridSpec
 
     fig = plt.figure(figsize=(10, 10))
     gs = GridSpec(4, 2)
@@ -203,7 +199,7 @@ the number of samples in each predicted probability bin.
     ax_calibration_curve.grid()
     ax_calibration_curve.set_title("Calibration plots")
 
-    # Add histogram
+    # إضافة مخطط تاريخي
     grid_positions = [(2, 0), (2, 1), (3, 0), (3, 1)]
     for i, (_, name) in enumerate(clf_list):
         row, col = grid_positions[i]
@@ -233,105 +229,93 @@ the number of samples in each predicted probability bin.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 169-282
+.. GENERATED FROM PYTHON SOURCE LINES 165-266
 
-Analysis of the results
+تحليل النتائج
 -----------------------
 
-:class:`~sklearn.linear_model.LogisticRegressionCV` returns reasonably well
-calibrated predictions despite the small training set size: its reliability
-curve is the closest to the diagonal among the four models.
+:class:`~sklearn.linear_model.LogisticRegressionCV` يعيد تنبؤات معايرة جيدة
+على الرغم من صغر حجم مجموعة التدريب: منحنى المعايرة الخاص به هو الأقرب إلى القطر بين النماذج الأربعة.
 
-Logistic regression is trained by minimizing the log-loss which is a strictly
-proper scoring rule: in the limit of infinite training data, strictly proper
-scoring rules are minimized by the model that predicts the true conditional
-probabilities. That (hypothetical) model would therefore be perfectly
-calibrated. However, using a proper scoring rule as training objective is not
-sufficient to guarantee a well-calibrated model by itself: even with a very
-large training set, logistic regression could still be poorly calibrated, if
-it was too strongly regularized or if the choice and preprocessing of input
-features made this model mis-specified (e.g. if the true decision boundary of
-the dataset is a highly non-linear function of the input features).
+يتم تدريب الانحدار اللوجستي عن طريق تقليل الخسارة اللوجستية التي هي قاعدة صارمة
+درجة التهديف: في حدود بيانات التدريب اللانهائية، يتم تقليل قواعد التسجيل الصارمة
+بواسطة النموذج الذي يتنبأ بالاحتمالات الشرطية الحقيقية. هذا (النموذج الافتراضي)
+سيكون معايرًا تمامًا. ومع ذلك، فإن استخدام قاعدة تسجيل صارمة كهدف للتدريب ليس
+كافيًا لضمان نموذج معاير جيدًا بحد ذاته: حتى مع
+مجموعة تدريب كبيرة جدًا، يمكن أن يكون الانحدار اللوجستي معايرًا بشكل سيء، إذا
+كان منظمًا بشكل مفرط أو إذا كان اختيار الميزات المدخلة يجعل هذا النموذج
+غير محدد (على سبيل المثال، إذا كان حد القرار الحقيقي لمجموعة البيانات هو
+دالة غير خطية للغاية للميزات المدخلة).
 
-In this example the training set was intentionally kept very small. In this
-setting, optimizing the log-loss can still lead to poorly calibrated models
-because of overfitting. To mitigate this, the
-:class:`~sklearn.linear_model.LogisticRegressionCV` class was configured to
-tune the `C` regularization parameter to also minimize the log-loss via inner
-cross-validation so as to find the best compromise for this model in the
-small training set setting.
+في هذا المثال، تم الاحتفاظ بمجموعة التدريب صغيرة عمدًا. في هذا
+الإعداد، يمكن أن يؤدي تقليل الخسارة اللوجستية إلى نماذج معايرة بشكل سيء
+بسبب الإفراط في التحديد. لتخفيف ذلك، تم تكوين فئة
+:class:`~sklearn.linear_model.LogisticRegressionCV` لتعديل
+معامل التنظيم C أيضًا لتقليل الخسارة اللوجستية عبر التحقق المتقاطع الداخلي
+للعثور على أفضل حل وسط لهذا النموذج في
+إعداد مجموعة التدريب الصغيرة.
 
-Because of the finite training set size and the lack of guarantee for
-well-specification, we observe that the calibration curve of the logistic
-regression model is close but not perfectly on the diagonal. The shape of the
-calibration curve of this model can be interpreted as slightly
-under-confident: the predicted probabilities are a bit too close to 0.5
-compared to the true fraction of positive samples.
+بسبب حجم مجموعة التدريب المحدود وعدم وجود ضمان لـ
+المعايرة الجيدة، نلاحظ أن منحنى المعايرة لنموذج الانحدار اللوجستي قريب ولكن ليس تمامًا على القطر. يمكن تفسير شكل منحنى المعايرة لهذا النموذج على أنه
+غير واثق: الاحتمالات المتوقعة قريبة جدًا من 0.5
+مقارنة بنسبة الفئة الإيجابية الحقيقية.
 
-The other methods all output less well calibrated probabilities:
+جميع الطرق الأخرى تخرج احتمالات أقل معايرة:
 
-* :class:`~sklearn.naive_bayes.GaussianNB` tends to push probabilities to 0
-  or 1 (see histogram) on this particular dataset (over-confidence). This is
-  mainly because the naive Bayes equation only provides correct estimate of
-  probabilities when the assumption that features are conditionally
-  independent holds [2]_. However, features can be correlated and this is the case
-  with this dataset, which contains 2 features generated as random linear
-  combinations of the informative features. These correlated features are
-  effectively being 'counted twice', resulting in pushing the predicted
-  probabilities towards 0 and 1 [3]_. Note, however, that changing the seed
-  used to generate the dataset can lead to widely varying results for the
-  naive Bayes estimator.
+* :class:`~sklearn.naive_bayes.GaussianNB` تميل إلى دفع الاحتمالات إلى 0
+  أو 1 (انظر المخطط التاريخي) على هذه المجموعة البيانات المحددة (الثقة المفرطة). هذا هو
+بشكل أساسي لأن معادلة خوارزمية بايز الساذجة توفر تقديرًا صحيحًا فقط
+الاحتمالات عندما يفترض أن الميزات مشروطة
+مستقل [2]_. ومع ذلك، يمكن أن تكون الميزات مترابطة وهذا هو الحال
+مع هذه المجموعة البيانات، والتي تحتوي على 2 ميزات تم إنشاؤها كتركيبات خطية
+عشوائية من الميزات المعلوماتية. يتم حساب هذه الميزات المترابطة بشكل فعال
+'عد مرتين'، مما يؤدي إلى دفع الاحتمالات المتوقعة نحو 0 و1 [3]_. لاحظ، مع ذلك، أن تغيير البذرة
+المستخدمة لتوليد مجموعة البيانات يمكن أن يؤدي إلى نتائج مختلفة على نطاق واسع لمقدّر خوارزمية بايز الساذجة.
 
-* :class:`~sklearn.svm.LinearSVC` is not a natural probabilistic classifier.
-  In order to interpret its prediction as such, we naively scaled the output
-  of the :term:`decision_function` into [0, 1] by applying min-max scaling in
-  the `NaivelyCalibratedLinearSVC` wrapper class defined above. This
-  estimator shows a typical sigmoid-shaped calibration curve on this data:
-  predictions larger than 0.5 correspond to samples with an even larger
-  effective positive class fraction (above the diagonal), while predictions
-  below 0.5 corresponds to even lower positive class fractions (below the
-  diagonal). This under-confident predictions are typical for maximum-margin
-  methods [1]_.
+* :class:`~sklearn.svm.LinearSVC` ليس مصنفًا احتماليًا طبيعيًا.
+  لتفسير تنبؤاته كاحتمالية، قمنا بتوسيع نطاق ناتج
+  من :term:`decision_function` إلى [0، 1] عن طريق تطبيق التوسيع النطاق في
+  فئة NaivelyCalibratedLinearSVC المحددة أعلاه. يظهر هذا
+  المصنف منحنى معايرة على شكل حرف S على هذه البيانات:
+  تنبؤات أكبر من 0.5 تقابل العينات مع حتى أكبر
+  نسبة الفئة الإيجابية الفعالة (فوق القطر)، في حين أن التنبؤات
+  أقل من 0.5 تقابل حتى انخفاض نسب الفئة الإيجابية (أسفل القطر). هذه التنبؤات غير الواثقة هي نموذجية للأساليب ذات الهامش الأقصى [1]_.
 
 * :class:`~sklearn.ensemble.RandomForestClassifier`'s prediction histogram
-  shows peaks at approx. 0.2 and 0.9 probability, while probabilities close to
-  0 or 1 are very rare. An explanation for this is given by [1]_:
-  "Methods such as bagging and random forests that average
-  predictions from a base set of models can have difficulty making
-  predictions near 0 and 1 because variance in the underlying base models
-  will bias predictions that should be near zero or one away from these
-  values. Because predictions are restricted to the interval [0, 1], errors
-  caused by variance tend to be one-sided near zero and one. For example, if
-  a model should predict p = 0 for a case, the only way bagging can achieve
-  this is if all bagged trees predict zero. If we add noise to the trees that
-  bagging is averaging over, this noise will cause some trees to predict
-  values larger than 0 for this case, thus moving the average prediction of
-  the bagged ensemble away from 0. We observe this effect most strongly with
-  random forests because the base-level trees trained with random forests
-  have relatively high variance due to feature subsetting." This effect can
-  make random forests under-confident. Despite this possible bias, note that
-  the trees themselves are fit by minimizing either the Gini or Entropy
-  criterion, both of which lead to splits that minimize proper scoring rules:
-  the Brier score or the log-loss respectively. See :ref:`the user guide
-  <tree_mathematical_formulation>` for more details. This can explain why
-  this model shows a good enough calibration curve on this particular example
-  dataset. Indeed the Random Forest model is not significantly more
-  under-confident than the Logistic Regression model.
+  يظهر قمم عند تقريبًا 0.2 و0.9 احتمالية، في حين أن الاحتمالات القريبة من
+  0 أو 1 نادرة جدًا. يمكن تفسير هذا على النحو التالي [1]_:
+  "الطرق مثل التجميع والغابات العشوائية التي متوسط
+  تنبؤات من مجموعة من النماذج الأساسية يمكن أن يكون لها صعوبة في إجراء
+  التنبؤات بالقرب من 0 و1 لأن التباين في النماذج الأساسية
+  سيؤدي إلى تحيز التنبؤات التي يجب أن تكون قريبة من الصفر أو الواحد بعيدًا عن هذه
+  القيم. لأن التنبؤات مقيدة بالمدى [0، 1]، فإن الأخطاء
+  الناجمة عن التباين تميل إلى أن تكون أحادية الجانب بالقرب من الصفر والواحد. على سبيل المثال، إذا
+  كان على النموذج التنبؤ بـ p = 0 لعينة، فإن الطريقة الوحيدة للتجميع هي
+  إذا تنبأت جميع الأشجار المجمّعة بصفر. إذا أضفنا ضوضاء إلى الأشجار التي
+  يتم تجميعها، فإن هذه الضوضاء ستؤدي إلى تنبؤ بعض الأشجار
+  بقيم أكبر من 0 لهذه العينة، وبالتالي تحريك متوسط التنبؤات
+  لمجموعة الأشجار المجمّعة بعيدًا عن الصفر. نلاحظ هذا التأثير بشكل أقوى مع
+  الغابات العشوائية لأن الأشجار الأساسية المدربة باستخدام الغابات العشوائية
+  لديها تباين عالٍ نسبيًا بسبب تقسيم الميزات الفرعية. "هذا التأثير يمكن أن يجعل الغابات العشوائية غير واثقة. على الرغم من هذا التحيز المحتمل، لاحظ أن
+  يتم تدريب الأشجار نفسها عن طريق تقليل معيار جيني أو Entropy
+ ، وكلاهما يؤدي إلى تقسيمات تقلل من قواعد التسجيل الصارمة:
+  درجة Brier أو الخسارة اللوجستية على التوالي. انظر :ref:`دليل المستخدم
+  <tree_mathematical_formulation>` لمزيد من التفاصيل. هذا يمكن أن يفسر لماذا
+  هذا النموذج يظهر منحنى معايرة جيد بما فيه الكفاية على هذه المجموعة البيانات
+  معينة. في الواقع، نموذج الغابة العشوائية ليس أقل ثقة بشكل كبير
+  من نموذج الانحدار اللوجستي.
 
-Feel free to re-run this example with different random seeds and other
-dataset generation parameters to see how different the calibration plots can
-look. In general, Logistic Regression and Random Forest will tend to be the
-best calibrated classifiers, while SVC will often display the typical
-under-confident miscalibration. The naive Bayes model is also often poorly
-calibrated but the general shape of its calibration curve can vary widely
-depending on the dataset.
+لا تتردد في إعادة تشغيل هذا المثال باستخدام بذور عشوائية مختلفة ومعلمات أخرى
+لتوليد مجموعة البيانات لمشاهدة مدى اختلاف مخططات المعايرة. بشكل عام، الانحدار اللوجستي والغابة العشوائية
+سيميلان إلى أن يكونا المصنفان الأكثر معايرة، في حين أن SVC سيعرض في كثير من الأحيان
+معايرة غير واثقة. غالبًا ما يكون نموذج خوارزمية بايز الساذجة غير معاير جيدًا أيضًا ولكن الشكل العام
+لمنحنى المعايرة يمكن أن يختلف على نطاق واسع اعتمادًا على مجموعة البيانات.
 
-Finally, note that for some dataset seeds, all models are poorly calibrated,
-even when tuning the regularization parameter as above. This is bound to
-happen when the training size is too small or when the model is severely
-misspecified.
+أخيرًا، لاحظ أنه بالنسبة لبعض بذور مجموعة البيانات، تكون جميع النماذج معايرة بشكل سيء،
+حتى عند ضبط معامل التنظيم كما هو موضح أعلاه. هذا أمر محتوم
+عندما يكون حجم التدريب صغيرًا جدًا أو عندما يكون النموذج غير محدد بشدة.
 
-References
+المراجع
 ----------
 
 .. [1] `Predicting Good Probabilities with Supervised Learning
@@ -352,7 +336,7 @@ References
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 3.094 seconds)
+   **Total running time of the script:** (0 minutes 3.070 seconds)
 
 
 .. _sphx_glr_download_auto_examples_calibration_plot_compare_calibration.py:
