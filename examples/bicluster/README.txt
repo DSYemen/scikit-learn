@@ -1,6 +1,6 @@
 .. _bicluster_examples:
 
-Biclustering
-------------
+التجميع الثنائي
+-----------------
 
-Examples concerning biclustering techniques.
+أمثلة تتعلق بتقنيات التجميع الثنائي.

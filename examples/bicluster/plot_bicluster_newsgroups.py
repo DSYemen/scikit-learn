@@ -1,30 +1,27 @@
 """
-================================================================
-Biclustering documents with the Spectral Co-clustering algorithm
-================================================================
+========================================================================
+التجميع الثنائي المستندات باستخدام خوارزمية التجميع الطيفي المشترك
+========================================================================
 
-This example demonstrates the Spectral Co-clustering algorithm on the
-twenty newsgroups dataset. The 'comp.os.ms-windows.misc' category is
-excluded because it contains many posts containing nothing but data.
+هذا المثال يوضح خوارزمية التجميع الطيفي المشترك على
+مجموعة بيانات مجموعات الأخبار العشرين. تم استبعاد الفئة 'comp.os.ms-windows.misc'
+لأنها تحتوي على العديد من المنشورات التي لا تحتوي إلا على بيانات.
 
-The TF-IDF vectorized posts form a word frequency matrix, which is
-then biclustered using Dhillon's Spectral Co-Clustering algorithm. The
-resulting document-word biclusters indicate subsets words used more
-often in those subsets documents.
+المنشورات المتجهة TF-IDF تشكل مصفوفة تكرار الكلمات، والتي يتم بعد ذلك
+تجمعها باستخدام خوارزمية Dhillon's Spectral Co-Clustering. تشير مجموعات التجميع الفرعية للوثائق-الكلمات الناتجة
+إلى مجموعات فرعية من الكلمات المستخدمة بشكل متكرر أكثر في تلك المستندات الفرعية.
 
-For a few of the best biclusters, its most common document categories
-and its ten most important words get printed. The best biclusters are
-determined by their normalized cut. The best words are determined by
-comparing their sums inside and outside the bicluster.
+بالنسبة لبعض أفضل مجموعات التجميع الفرعية، يتم طباعة فئات المستندات الأكثر شيوعًا
+وأهم عشر كلمات لها. يتم تحديد أفضل مجموعات التجميع الفرعية من خلال قطعها المعيارية. يتم تحديد أفضل الكلمات
+من خلال مقارنة مجموعها داخل وخارج مجموعة التجميع الفرعية.
 
-For comparison, the documents are also clustered using
-MiniBatchKMeans. The document clusters derived from the biclusters
-achieve a better V-measure than clusters found by MiniBatchKMeans.
+لمقارنة، يتم أيضًا تجميع المستندات باستخدام MiniBatchKMeans. تحقق مجموعات المستندات المشتقة من مجموعات التجميع الفرعية
+قياس V أفضل من المجموعات التي وجدها MiniBatchKMeans.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 from collections import Counter
 from time import time
 
@@ -52,7 +49,7 @@ class NumberNormalizingVectorizer(TfidfVectorizer):
         return lambda doc: list(number_normalizer(tokenize(doc)))
 
 
-# exclude 'comp.os.ms-windows.misc'
+# استبعاد 'comp.os.ms-windows.misc'
 categories = [
     "alt.atheism",
     "comp.graphics",
@@ -71,7 +68,6 @@ categories = [
     "soc.religion.christian",
     "talk.politics.guns",
     "talk.politics.mideast",
-    "talk.politics.misc",
     "talk.religion.misc",
 ]
 newsgroups = fetch_20newsgroups(categories=categories)
@@ -126,7 +122,8 @@ def bicluster_ncut(i):
     return cut / weight
 
 
-bicluster_ncuts = list(bicluster_ncut(i) for i in range(len(newsgroups.target_names)))
+bicluster_ncuts = list(bicluster_ncut(i)
+                       for i in range(len(newsgroups.target_names)))
 best_idx = np.argsort(bicluster_ncuts)[:5]
 
 print()

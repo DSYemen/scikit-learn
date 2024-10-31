@@ -7,16 +7,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Cython Best Practices, Conventions and Knowledge" />
+<meta property="og:title" content="أفضل ممارسات Cython والاتفاقيات والمعرفة" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/developers/cython.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="This documents tips to develop Cython code in scikit-learn. Tips for developing with Cython in scikit-learn: Tips to ease development: Time spent reading Cython's documentation is not time lost., I..." />
+<meta property="og:description" content="يوثق هذا النصائح لتطوير كود Cython في scikit-learn. نصائح للتطوير باستخدام Cython في scikit-learn: نصائح لتسهيل التطوير: الوقت الذي تقضيه في قراءة وثائق Cython ليس وقتًا ضائعًا., إذا كنت تنوي استخد..." />
 <meta property="og:image" content="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" />
 <meta property="og:image:alt" content="scikit-learn" />
-<meta name="description" content="This documents tips to develop Cython code in scikit-learn. Tips for developing with Cython in scikit-learn: Tips to ease development: Time spent reading Cython's documentation is not time lost., I..." />
+<meta name="description" content="يوثق هذا النصائح لتطوير كود Cython في scikit-learn. نصائح للتطوير باستخدام Cython في scikit-learn: نصائح لتسهيل التطوير: الوقت الذي تقضيه في قراءة وثائق Cython ليس وقتًا ضائعًا., إذا كنت تنوي استخد..." />
 
-    <title>Cython Best Practices, Conventions and Knowledge &#8212; scikit-learn 1.6.dev0 documentation</title>
+    <title>أفضل ممارسات Cython والاتفاقيات والمعرفة &#8212; scikit-learn 1.6.dev0 documentation</title>
   
   
   
@@ -78,8 +78,8 @@
     <link rel="icon" href="../_static/favicon.ico"/>
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="search" title="بحث" href="../search.html" />
-    <link rel="next" title="Installing the development version of scikit-learn" href="advanced_installation.html" />
-    <link rel="prev" title="How to optimize for speed" href="performance.html" />
+    <link rel="next" title="تثبيت نسخة التطوير من scikit-learn" href="advanced_installation.html" />
+    <link rel="prev" title="كيفية التحسين من أجل السرعة" href="performance.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="ar"/>
   <meta name="docsearch:version" content="1.6" />
@@ -549,17 +549,17 @@
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="minimal_reproducer.html">Crafting a minimal reproducer for scikit-learn</a></li>
-<li class="toctree-l1"><a class="reference internal" href="develop.html">Developing scikit-learn estimators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tips.html">Developers' Tips and Tricks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="utilities.html">Utilities for Developers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="performance.html">How to optimize for speed</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Cython Best Practices, Conventions and Knowledge</a></li>
-<li class="toctree-l1"><a class="reference internal" href="advanced_installation.html">Installing the development version of scikit-learn</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bug_triaging.html">Bug triaging and issue curation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="maintainer.html">Maintainer Information</a></li>
-<li class="toctree-l1"><a class="reference internal" href="plotting.html">Developing with the Plotting API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">المساهمة</a></li>
+<li class="toctree-l1"><a class="reference internal" href="minimal_reproducer.html">صياغة مُكرِّر بسيط لـ scikit-learn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="develop.html">تطوير مقدرات scikit-learn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tips.html">نصائح وحيل للمطورين</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utilities.html">أدوات مساعدة للمطورين</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">كيفية التحسين من أجل السرعة</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">أفضل ممارسات Cython والاتفاقيات والمعرفة</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_installation.html">تثبيت نسخة التطوير من scikit-learn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bug_triaging.html">تصنيف الأخطاء ومعالجة المشكلات</a></li>
+<li class="toctree-l1"><a class="reference internal" href="maintainer.html">معلومات المسؤول</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html">التطوير باستخدام واجهة برمجة تطبيقات تصور البيانات</a></li>
 </ul>
 </div>
 </nav></div>
@@ -598,7 +598,7 @@
     
     <li class="breadcrumb-item"><a href="index.html" class="nav-link">دليل المطورين</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Cython Best Practices, Conventions and Knowledge</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">أفضل ممارسات Cython والاتفاقيات والمعرفة</span></li>
   </ul>
 </nav>
 </div>
@@ -615,127 +615,127 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="cython-best-practices-conventions-and-knowledge">
-<span id="cython"></span><h1>Cython Best Practices, Conventions and Knowledge<a class="headerlink" href="#cython-best-practices-conventions-and-knowledge" title="Link to this heading">#</a></h1>
-<p>This documents tips to develop Cython code in scikit-learn.</p>
-<section id="tips-for-developing-with-cython-in-scikit-learn">
-<h2>Tips for developing with Cython in scikit-learn<a class="headerlink" href="#tips-for-developing-with-cython-in-scikit-learn" title="Link to this heading">#</a></h2>
-<section id="tips-to-ease-development">
-<h3>Tips to ease development<a class="headerlink" href="#tips-to-ease-development" title="Link to this heading">#</a></h3>
+  <section id="cython">
+<span id="id1"></span><h1>أفضل ممارسات Cython والاتفاقيات والمعرفة<a class="headerlink" href="#cython" title="Link to this heading">#</a></h1>
+<p>يوثق هذا النصائح لتطوير كود Cython في scikit-learn.</p>
+<section id="cython-scikit-learn">
+<h2>نصائح للتطوير باستخدام Cython في scikit-learn<a class="headerlink" href="#cython-scikit-learn" title="Link to this heading">#</a></h2>
+<section id="id2">
+<h3>نصائح لتسهيل التطوير<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <ul>
-<li><p>Time spent reading <a class="reference external" href="https://cython.readthedocs.io/en/latest/">Cython's documentation</a> is not time lost.</p></li>
-<li><p>If you intend to use OpenMP: On MacOS, system's distribution of <code class="docutils literal notranslate"><span class="pre">clang</span></code> does not implement OpenMP.
-You can install the <code class="docutils literal notranslate"><span class="pre">compilers</span></code> package available on <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> which comes with an implementation of OpenMP.</p></li>
-<li><p>Activating <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/blob/62a017efa047e9581ae7df8bbaa62cf4c0544ee4/sklearn/_build_utils/__init__.py#L68-L87">checks</a> might help. E.g. for activating boundscheck use:</p>
+<li><p>الوقت الذي تقضيه في قراءة <a class="reference external" href="https://cython.readthedocs.io/en/latest/">وثائق Cython</a> ليس وقتًا ضائعًا.</p></li>
+<li><p>إذا كنت تنوي استخدام OpenMP: في نظام MacOS، لا يُنفِّذ توزيع النظام <code class="docutils literal notranslate"><span class="pre">clang</span></code> لـ OpenMP.
+يمكنك تثبيت حزمة <code class="docutils literal notranslate"><span class="pre">compilers</span></code> المتاحة على <code class="docutils literal notranslate"><span class="pre">conda-forge</span></code> التي تأتي مع تنفيذ OpenMP.</p></li>
+<li><p>قد يساعد تنشيط <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/blob/62a017efa047e9581ae7df8bbaa62cf4c0544ee4/sklearn/_build_utils/__init__.py#L68-L87">الفحوصات</a>. على سبيل المثال، لتنشيط boundscheck، استخدم:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">SKLEARN_ENABLE_DEBUG_CYTHON_DIRECTIVES</span><span class="o">=</span><span class="m">1</span>
 </pre></div>
 </div>
 </li>
-<li><p><a class="reference external" href="https://cython.readthedocs.io/en/latest/src/quickstart/build.html#using-the-jupyter-notebook">Start from scratch in a notebook</a> to understand how to use Cython and to get feedback on your work quickly.
-If you plan to use OpenMP for your implementations in your Jupyter Notebook, do add extra compiler and linkers arguments in the Cython magic.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># For GCC and for clang</span>
+<li><p><a class="reference external" href="https://cython.readthedocs.io/en/latest/src/quickstart/build.html#using-the-jupyter-notebook">ابدأ من الصفر في دفتر ملاحظات</a> لفهم كيفية استخدام Cython والحصول على تعليقات على عملك بسرعة.
+إذا كنت تخطط لاستخدام OpenMP لعمليات التنفيذ الخاصة بك في Jupyter Notebook، فقم بإضافة وسيطات مترجم ورابط إضافية في Cython magic.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># لـ GCC و clang</span>
 <span class="o">%%</span><span class="n">cython</span> <span class="o">--</span><span class="nb">compile</span><span class="o">-</span><span class="n">args</span><span class="o">=-</span><span class="n">fopenmp</span> <span class="o">--</span><span class="n">link</span><span class="o">-</span><span class="n">args</span><span class="o">=-</span><span class="n">fopenmp</span>
-<span class="c1"># For Microsoft&#39;s compilers</span>
+<span class="c1"># لمترجمات Microsoft</span>
 <span class="o">%%</span><span class="n">cython</span> <span class="o">--</span><span class="nb">compile</span><span class="o">-</span><span class="n">args</span><span class="o">=/</span><span class="n">openmp</span> <span class="o">--</span><span class="n">link</span><span class="o">-</span><span class="n">args</span><span class="o">=/</span><span class="n">openmp</span>
 </pre></div>
 </div>
 </li>
-<li><p>To debug C code (e.g. a segfault), do use <code class="docutils literal notranslate"><span class="pre">gdb</span></code> with:</p>
+<li><p>لتصحيح أخطاء كود C (على سبيل المثال، segfault)، استخدم <code class="docutils literal notranslate"><span class="pre">gdb</span></code> مع:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gdb<span class="w"> </span>--ex<span class="w"> </span>r<span class="w"> </span>--args<span class="w"> </span>python<span class="w"> </span>./entrypoint_to_bug_reproducer.py
 </pre></div>
 </div>
 </li>
-<li><p>To have access to some value in place to debug in <code class="docutils literal notranslate"><span class="pre">cdef</span> <span class="pre">(nogil)</span></code> context, use:</p>
+<li><p>للوصول إلى بعض القيمة في مكانها لتصحيح الأخطاء في سياق <code class="docutils literal notranslate"><span class="pre">cdef</span> <span class="pre">(nogil)</span></code>، استخدم:</p>
 <div class="highlight-cython notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="k">gil</span><span class="p">:</span>
     <span class="k">print</span><span class="p">(</span><span class="n">state_to_print</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
-<li><p>Note that Cython cannot parse f-strings with <code class="docutils literal notranslate"><span class="pre">{var=}</span></code> expressions, e.g.</p>
+<li><p>لاحظ أن Cython لا يمكنه تحليل سلاسل f مع تعبيرات <code class="docutils literal notranslate"><span class="pre">{var=}</span></code>، على سبيل المثال</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>print<span class="o">(</span>f<span class="s2">&quot;{test_val=}&quot;</span><span class="o">)</span>
 </pre></div>
 </div>
 </li>
-<li><p>scikit-learn codebase has a lot of non-unified (fused) types (re)definitions.
-There currently is <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/issues/25572">ongoing work to simplify and unify that across the codebase</a>.
-For now, make sure you understand which concrete types are used ultimately.</p></li>
-<li><p>You might find this alias to compile individual Cython extension handy:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># You might want to add this alias to your shell script config.</span>
+<li><p>تحتوي قاعدة كود scikit-learn على الكثير من تعريفات (إعادة تعريفات) الأنواع غير الموحدة (المدمجة).
+هناك حاليًا <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/issues/25572">عمل جارٍ لتبسيط ذلك وتوحيده عبر قاعدة التعليمات البرمجية</a>.
+في الوقت الحالي، تأكد من فهمك للأنواع الملموسة التي يتم استخدامها في النهاية.</p></li>
+<li><p>قد تجد هذا الاسم المستعار لتجميع ملحق Cython الفردي مفيدًا:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># قد ترغب في إضافة هذا الاسم المستعار إلى تكوين البرنامج النصي shell الخاص بك.</span>
 <span class="n">alias</span> <span class="n">cythonX</span><span class="o">=</span><span class="s2">&quot;cython -X language_level=3 -X boundscheck=False -X wraparound=False -X initializedcheck=False -X nonecheck=False -X cdivision=True&quot;</span>
 
-<span class="c1"># This generates `source.c` as if you had recompiled scikit-learn entirely.</span>
+<span class="c1"># يقوم هذا بإنشاء `source.c` كما لو كنت قد قمت بإعادة تجميع scikit-learn بالكامل.</span>
 <span class="n">cythonX</span> <span class="o">--</span><span class="n">annotate</span> <span class="n">source</span><span class="o">.</span><span class="n">pyx</span>
 </pre></div>
 </div>
 </li>
-<li><p>Using the <code class="docutils literal notranslate"><span class="pre">--annotate</span></code> option with this flag allows generating a HTML report of code annotation.
-This report indicates interactions with the CPython interpreter on a line-by-line basis.
-Interactions with the CPython interpreter must be avoided as much as possible in
-the computationally intensive sections of the algorithms.
-For more information, please refer to <a class="reference external" href="https://cython.readthedocs.io/en/latest/src/tutorial/cython_tutorial.html#primes">this section of Cython's tutorial</a></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># This generates a HTML report (`source.html`) for `source.c`.</span>
+<li><p>يسمح استخدام خيار <code class="docutils literal notranslate"><span class="pre">--annotate</span></code> مع هذا العلم بإنشاء تقرير HTML لتعليق توضيحي للتعليمات البرمجية.
+يشير هذا التقرير إلى التفاعلات مع مترجم CPython على أساس كل سطر على حدة.
+يجب تجنب التفاعلات مع مترجم CPython قدر الإمكان في
+الأقسام كثيفة الحساب للخوارزميات.
+لمزيد من المعلومات، يرجى الرجوع إلى <a class="reference external" href="https://cython.readthedocs.io/en/latest/src/tutorial/cython_tutorial.html#primes">هذا القسم من برنامج Cython التعليمي</a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># يقوم هذا بإنشاء تقرير HTML (`source.html`) لـ `source.c`.</span>
 <span class="n">cythonX</span> <span class="o">--</span><span class="n">annotate</span> <span class="n">source</span><span class="o">.</span><span class="n">pyx</span>
 </pre></div>
 </div>
 </li>
 </ul>
 </section>
-<section id="tips-for-performance">
-<h3>Tips for performance<a class="headerlink" href="#tips-for-performance" title="Link to this heading">#</a></h3>
+<section id="id8">
+<h3>نصائح للأداء<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
 <ul>
-<li><p>Understand the GIL in context for CPython (which problems it solves, what are its limitations)
-and get a good understanding of when Cython will be mapped to C code free of interactions with
-CPython, when it will not, and when it cannot (e.g. presence of interactions with Python
-objects, which include functions). In this regard, <a class="reference external" href="https://peps.python.org/pep-0703/">PEP073</a>
-provides a good overview and context and pathways for removal.</p></li>
-<li><p>Make sure you have deactivated <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/blob/62a017efa047e9581ae7df8bbaa62cf4c0544ee4/sklearn/_build_utils/__init__.py#L68-L87">checks</a>.</p></li>
-<li><p>Always prefer memoryviews instead over <code class="docutils literal notranslate"><span class="pre">cnp.ndarray</span></code> when possible: memoryviews are lightweight.</p></li>
-<li><p>Avoid memoryview slicing: memoryview slicing might be costly or misleading in some cases and
-we better not use it, even if handling fewer dimensions in some context would be preferable.</p></li>
-<li><p>Decorate final classes or methods with <code class="docutils literal notranslate"><span class="pre">&#64;final</span></code> (this allows removing virtual tables when needed)</p></li>
-<li><p>Inline methods and function when it makes sense</p></li>
-<li><p>In doubt, read the generated C or C++ code if you can: &quot;The fewer C instructions and indirections
-for a line of Cython code, the better&quot; is a good rule of thumb.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">nogil</span></code> declarations are just hints: when declaring the <code class="docutils literal notranslate"><span class="pre">cdef</span></code> functions
-as nogil, it means that they can be called without holding the GIL, but it does not release
-the GIL when entering them. You have to do that yourself either by passing <code class="docutils literal notranslate"><span class="pre">nogil=True</span></code> to
-<code class="docutils literal notranslate"><span class="pre">cython.parallel.prange</span></code> explicitly, or by using an explicit context manager:</p>
+<li><p>افهم GIL في سياق CPython (المشكلات التي يحلها، وما هي حدوده)
+واحصل على فهم جيد لوقت تعيين Cython إلى كود C خالٍ من التفاعلات مع
+CPython، ومتى لن يتم ذلك، ومتى لا يمكن ذلك (على سبيل المثال، وجود تفاعلات مع كائنات Python،
+والتي تتضمن دوال). في هذا الصدد، يوفر <a class="reference external" href="https://peps.python.org/pep-0703/">PEP073</a>
+نظرة عامة جيدة وسياقًا ومسارات للإزالة.</p></li>
+<li><p>تأكد من أنك قمت بإلغاء تنشيط <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/blob/62a017efa047e9581ae7df8bbaa62cf4c0544ee4/sklearn/_build_utils/__init__.py#L68-L87">الفحوصات</a>.</p></li>
+<li><p>فضّل دائمًا عروض الذاكرة على <code class="docutils literal notranslate"><span class="pre">cnp.ndarray</span></code> كلما أمكن ذلك: عروض الذاكرة خفيفة الوزن.</p></li>
+<li><p>تجنب تقسيم عروض الذاكرة: قد يكون تقسيم عروض الذاكرة مكلفًا أو مضللًا في بعض الحالات
+ومن الأفضل عدم استخدامه، حتى لو كان التعامل مع أبعاد أقل في بعض السياقات أمرًا مفضلًا.</p></li>
+<li><p>زيِّن الفئات أو الأساليب النهائية بـ <code class="docutils literal notranslate"><span class="pre">&#64;final</span></code> (يسمح هذا بإزالة الجداول الافتراضية عند الحاجة)</p></li>
+<li><p>دوال وأساليب مضمنة عندما يكون ذلك منطقيًا</p></li>
+<li><p>في حالة الشك، اقرأ كود C أو C++ الذي تم إنشاؤه إذا استطعت: &quot;كلما قل عدد تعليمات C والتوجيهات غير المباشرة
+لسطر كود Cython، كان ذلك أفضل&quot; هي قاعدة جيدة.</p></li>
+<li><p>إعلانات <code class="docutils literal notranslate"><span class="pre">nogil</span></code> هي مجرد تلميحات: عند الإعلان عن دوال <code class="docutils literal notranslate"><span class="pre">cdef</span></code>
+على أنها nogil، فهذا يعني أنه يمكن استدعاؤها دون الاحتفاظ بـ GIL، لكنها لا تُطلِق
+GIL عند الدخول إليها. عليك أن تفعل ذلك بنفسك إما عن طريق تمرير <code class="docutils literal notranslate"><span class="pre">nogil=True</span></code> إلى
+<code class="docutils literal notranslate"><span class="pre">cython.parallel.prange</span></code> صراحةً، أو باستخدام مدير سياق صريح:</p>
 <div class="highlight-cython notranslate"><div class="highlight"><pre><span></span><span class="k">cdef</span> <span class="kr">inline</span> <span class="kt">void</span> <span class="nf">my_func</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="k">nogil</span><span class="p">:</span>
 
-    <span class="c"># Some logic interacting with CPython, e.g. allocating arrays via NumPy.</span>
+    <span class="c"># بعض المنطق الذي يتفاعل مع CPython، على سبيل المثال تخصيص مصفوفات عبر NumPy.</span>
 
     <span class="k">with</span> <span class="k">nogil</span><span class="p">:</span>
-        <span class="c"># The code here is run as is it were written in C.</span>
+        <span class="c"># يتم تشغيل الكود هنا كما لو كان مكتوبًا بلغة C.</span>
 
     <span class="k">return</span> <span class="mf">0</span>
 </pre></div>
 </div>
-<p>This item is based on <a class="reference external" href="https://github.com/cython/cython/issues/2798#issuecomment-459971828">this comment from Stéfan's Benhel</a></p>
+<p>يعتمد هذا العنصر على <a class="reference external" href="https://github.com/cython/cython/issues/2798#issuecomment-459971828">هذا التعليق من Stéfan Benhel</a></p>
 </li>
-<li><p>Direct calls to BLAS routines are possible via interfaces defined in <code class="docutils literal notranslate"><span class="pre">sklearn.utils._cython_blas</span></code>.</p></li>
+<li><p>يمكن إجراء استدعاءات مباشرة لإجراءات BLAS عبر واجهات مُعرَّفة في <code class="docutils literal notranslate"><span class="pre">sklearn.utils._cython_blas</span></code>.</p></li>
 </ul>
 </section>
-<section id="using-openmp">
-<h3>Using OpenMP<a class="headerlink" href="#using-openmp" title="Link to this heading">#</a></h3>
-<p>Since scikit-learn can be built without OpenMP, it's necessary to protect each
-direct call to OpenMP.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">_openmp_helpers</span></code> module, available in
+<section id="openmp">
+<h3>استخدام OpenMP<a class="headerlink" href="#openmp" title="Link to this heading">#</a></h3>
+<p>نظرًا لأنه يمكن بناء scikit-learn بدون OpenMP، فمن الضروري حماية كل
+استدعاء مباشر لـ OpenMP.</p>
+<p>توفر وحدة <code class="docutils literal notranslate"><span class="pre">_openmp_helpers</span></code>، المتاحة في
 <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/blob/main/sklearn/utils/_openmp_helpers.pyx">sklearn/utils/_openmp_helpers.pyx</a>
-provides protected versions of the OpenMP routines. To use OpenMP routines, they
-must be <code class="docutils literal notranslate"><span class="pre">cimported</span></code> from this module and not from the OpenMP library directly:</p>
+إصدارات محمية من إجراءات OpenMP. لاستخدام إجراءات OpenMP، يجب
+<code class="docutils literal notranslate"><span class="pre">cimported</span></code> من هذه الوحدة وليس من مكتبة OpenMP مباشرةً:</p>
 <div class="highlight-cython notranslate"><div class="highlight"><pre><span></span><span class="k">from</span> <span class="nn">sklearn.utils._openmp_helpers</span> <span class="k">cimport</span> <span class="n">omp_get_max_threads</span>
 <span class="n">max_threads</span> <span class="o">=</span> <span class="n">omp_get_max_threads</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>The parallel loop, <code class="docutils literal notranslate"><span class="pre">prange</span></code>, is already protected by cython and can be used directly
-from <code class="docutils literal notranslate"><span class="pre">cython.parallel</span></code>.</p>
-<section id="types">
-<h4>Types<a class="headerlink" href="#types" title="Link to this heading">#</a></h4>
-<p>Cython code requires to use explicit types. This is one of the reasons you get a
-performance boost. In order to avoid code duplication, we have a central place
-for the most used types in
+<p>حلقات التكرار المتوازية، <code class="docutils literal notranslate"><span class="pre">prange</span></code>، محمية بالفعل بواسطة cython ويمكن استخدامها مباشرةً
+من <code class="docutils literal notranslate"><span class="pre">cython.parallel</span></code>.</p>
+<section id="id10">
+<h4>الأنواع<a class="headerlink" href="#id10" title="Link to this heading">#</a></h4>
+<p>يتطلب كود Cython استخدام أنواع صريحة. هذا أحد أسباب حصولك على
+زيادة في الأداء. لتجنب ازدواجية التعليمات البرمجية، لدينا مكان مركزي
+للأنواع الأكثر استخدامًا في
 <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/blob/main/sklearn/utils/_typedefs.pyd">sklearn/utils/_typedefs.pyd</a>.
-Ideally you start by having a look there and <code class="docutils literal notranslate"><span class="pre">cimport</span></code> types you need, for example</p>
+من الناحية المثالية، تبدأ بإلقاء نظرة هناك و <code class="docutils literal notranslate"><span class="pre">cimport</span></code> الأنواع التي تحتاجها، على سبيل المثال</p>
 <div class="highlight-cython notranslate"><div class="highlight"><pre><span></span><span class="k">from</span> <span class="nn">sklear.utils._typedefs</span> <span class="k">cimport</span> <span class="n">float32</span><span class="p">,</span> <span class="n">float64</span>
 </pre></div>
 </div>
@@ -760,7 +760,7 @@ Ideally you start by having a look there and <code class="docutils literal notra
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">السابق</p>
-        <p class="prev-next-title">How to optimize for speed</p>
+        <p class="prev-next-title">كيفية التحسين من أجل السرعة</p>
       </div>
     </a>
     <a class="right-next"
@@ -768,7 +768,7 @@ Ideally you start by having a look there and <code class="docutils literal notra
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">التالي</p>
-        <p class="prev-next-title">Installing the development version of scikit-learn</p>
+        <p class="prev-next-title">تثبيت نسخة التطوير من scikit-learn</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -795,11 +795,11 @@ Ideally you start by having a look there and <code class="docutils literal notra
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tips-for-developing-with-cython-in-scikit-learn">Tips for developing with Cython in scikit-learn</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tips-to-ease-development">Tips to ease development</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tips-for-performance">Tips for performance</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-openmp">Using OpenMP</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#types">Types</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cython-scikit-learn">نصائح للتطوير باستخدام Cython في scikit-learn</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">نصائح لتسهيل التطوير</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">نصائح للأداء</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#openmp">استخدام OpenMP</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">الأنواع</a></li>
 </ul>
 </li>
 </ul>

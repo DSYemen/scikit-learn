@@ -19,40 +19,43 @@
 
 
 ==================================================
-Probability Calibration for 3-class classification
+معايرة الاحتمالات لتصنيف ثلاثي الفئات
 ==================================================
 
-This example illustrates how sigmoid :ref:`calibration <calibration>` changes
-predicted probabilities for a 3-class classification problem. Illustrated is
-the standard 2-simplex, where the three corners correspond to the three
-classes. Arrows point from the probability vectors predicted by an uncalibrated
-classifier to the probability vectors predicted by the same classifier after
-sigmoid calibration on a hold-out validation set. Colors indicate the true
-class of an instance (red: class 1, green: class 2, blue: class 3).
+يوضح هذا المثال كيف أن معايرة سيجمويد :ref:`calibration <calibration>` تغير
+الاحتمالات المتوقعة لمشكلة تصنيف ثلاثي الفئات. يتم توضيح
+المضلع الثنائي القياسي، حيث تتوافق الزوايا الثلاثة مع الفئات الثلاث. تشير الأسهم من متجهات الاحتمالات المتوقعة بواسطة مصنف غير معاير
+إلى متجهات الاحتمالات المتوقعة بواسطة نفس المصنف بعد
+معايرة سيجمويد على مجموعة بيانات التحقق. تشير الألوان إلى الفئة الحقيقية
+للعينة (الأحمر: الفئة 1، الأخضر: الفئة 2، الأزرق: الفئة 3).
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-29
+.. GENERATED FROM PYTHON SOURCE LINES 16-28
 
-Data
+البيانات
 ----
-Below, we generate a classification dataset with 2000 samples, 2 features
-and 3 target classes. We then split the data as follows:
+أدناه، نقوم بإنشاء مجموعة بيانات تصنيف مع 2000 عينة، ميزتين
+و3 فئات مستهدفة. ثم نقوم بتقسيم البيانات على النحو التالي:
 
-* train: 600 samples (for training the classifier)
-* valid: 400 samples (for calibrating predicted probabilities)
-* test: 1000 samples
+* train: 600 عينة (لتدريب المصنف)
+* valid: 400 عينة (لمعايرة الاحتمالات المتوقعة)
+* test: 1000 عينة
 
-Note that we also create `X_train_valid` and `y_train_valid`, which consists
-of both the train and valid subsets. This is used when we only want to train
-the classifier but not calibrate the predicted probabilities.
+لاحظ أننا نقوم أيضًا بإنشاء `X_train_valid` و `y_train_valid`، والتي تتكون
+من كل من مجموعات البيانات الفرعية للتدريب والتحقق. يتم استخدام هذا عندما نريد فقط تدريب
+المصنف ولكن لا نريد معايرة الاحتمالات المتوقعة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 29-47
+.. GENERATED FROM PYTHON SOURCE LINES 28-50
 
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري سكايلرن
+    # معرف الترخيص: BSD-3-Clause
 
+    from sklearn.metrics import log_loss
+    import matplotlib.pyplot as plt
+    from sklearn.calibration import CalibratedClassifierCV
+    from sklearn.ensemble import RandomForestClassifier
     import numpy as np
 
     from sklearn.datasets import make_blobs
@@ -74,21 +77,20 @@ the classifier but not calibrate the predicted probabilities.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 48-54
+.. GENERATED FROM PYTHON SOURCE LINES 51-57
 
-Fitting and calibration
+الملاءمة والمعايرة
 -----------------------
 
-First, we will train a :class:`~sklearn.ensemble.RandomForestClassifier`
-with 25 base estimators (trees) on the concatenated train and validation
-data (1000 samples). This is the uncalibrated classifier.
+أولاً، سنقوم بتدريب :class:`~sklearn.ensemble.RandomForestClassifier`
+مع 25 مصنفات أساسية (أشجار) على بيانات التدريب والتحقق
+المدمجة (1000 عينة). هذا هو المصنف غير المعاير.
 
-.. GENERATED FROM PYTHON SOURCE LINES 54-60
+.. GENERATED FROM PYTHON SOURCE LINES 57-62
 
 .. code-block:: Python
 
 
-    from sklearn.ensemble import RandomForestClassifier
 
     clf = RandomForestClassifier(n_estimators=25)
     clf.fit(X_train_valid, y_train_valid)
@@ -101,7 +103,7 @@ data (1000 samples). This is the uncalibrated classifier.
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-8 {
+    <style>#sk-container-id-1 {
       /* Definition of color scheme common for light and dark mode */
       --sklearn-color-text: #000;
       --sklearn-color-text-muted: #666;
@@ -132,15 +134,15 @@ data (1000 samples). This is the uncalibrated classifier.
       }
     }
 
-    #sk-container-id-8 {
+    #sk-container-id-1 {
       color: var(--sklearn-color-text);
     }
 
-    #sk-container-id-8 pre {
+    #sk-container-id-1 pre {
       padding: 0;
     }
 
-    #sk-container-id-8 input.sk-hidden--visually {
+    #sk-container-id-1 input.sk-hidden--visually {
       border: 0;
       clip: rect(1px 1px 1px 1px);
       clip: rect(1px, 1px, 1px, 1px);
@@ -152,7 +154,7 @@ data (1000 samples). This is the uncalibrated classifier.
       width: 1px;
     }
 
-    #sk-container-id-8 div.sk-dashed-wrapped {
+    #sk-container-id-1 div.sk-dashed-wrapped {
       border: 1px dashed var(--sklearn-color-line);
       margin: 0 0.4em 0.5em 0.4em;
       box-sizing: border-box;
@@ -160,7 +162,7 @@ data (1000 samples). This is the uncalibrated classifier.
       background-color: var(--sklearn-color-background);
     }
 
-    #sk-container-id-8 div.sk-container {
+    #sk-container-id-1 div.sk-container {
       /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
          but bootstrap.min.css set `[hidden] { display: none !important; }`
          so we also need the `!important` here to be able to override the
@@ -170,7 +172,7 @@ data (1000 samples). This is the uncalibrated classifier.
       position: relative;
     }
 
-    #sk-container-id-8 div.sk-text-repr-fallback {
+    #sk-container-id-1 div.sk-text-repr-fallback {
       display: none;
     }
 
@@ -186,14 +188,14 @@ data (1000 samples). This is the uncalibrated classifier.
 
     /* Parallel-specific style estimator block */
 
-    #sk-container-id-8 div.sk-parallel-item::after {
+    #sk-container-id-1 div.sk-parallel-item::after {
       content: "";
       width: 100%;
       border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
       flex-grow: 1;
     }
 
-    #sk-container-id-8 div.sk-parallel {
+    #sk-container-id-1 div.sk-parallel {
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -201,28 +203,28 @@ data (1000 samples). This is the uncalibrated classifier.
       position: relative;
     }
 
-    #sk-container-id-8 div.sk-parallel-item {
+    #sk-container-id-1 div.sk-parallel-item {
       display: flex;
       flex-direction: column;
     }
 
-    #sk-container-id-8 div.sk-parallel-item:first-child::after {
+    #sk-container-id-1 div.sk-parallel-item:first-child::after {
       align-self: flex-end;
       width: 50%;
     }
 
-    #sk-container-id-8 div.sk-parallel-item:last-child::after {
+    #sk-container-id-1 div.sk-parallel-item:last-child::after {
       align-self: flex-start;
       width: 50%;
     }
 
-    #sk-container-id-8 div.sk-parallel-item:only-child::after {
+    #sk-container-id-1 div.sk-parallel-item:only-child::after {
       width: 0;
     }
 
     /* Serial-specific style estimator block */
 
-    #sk-container-id-8 div.sk-serial {
+    #sk-container-id-1 div.sk-serial {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -240,14 +242,14 @@ data (1000 samples). This is the uncalibrated classifier.
 
     /* Pipeline and ColumnTransformer style (default) */
 
-    #sk-container-id-8 div.sk-toggleable {
+    #sk-container-id-1 div.sk-toggleable {
       /* Default theme specific background. It is overwritten whether we have a
       specific estimator or a Pipeline/ColumnTransformer */
       background-color: var(--sklearn-color-background);
     }
 
     /* Toggleable label */
-    #sk-container-id-8 label.sk-toggleable__label {
+    #sk-container-id-1 label.sk-toggleable__label {
       cursor: pointer;
       display: flex;
       width: 100%;
@@ -260,13 +262,13 @@ data (1000 samples). This is the uncalibrated classifier.
       gap: 0.5em;
     }
 
-    #sk-container-id-8 label.sk-toggleable__label .caption {
+    #sk-container-id-1 label.sk-toggleable__label .caption {
       font-size: 0.6rem;
       font-weight: lighter;
       color: var(--sklearn-color-text-muted);
     }
 
-    #sk-container-id-8 label.sk-toggleable__label-arrow:before {
+    #sk-container-id-1 label.sk-toggleable__label-arrow:before {
       /* Arrow on the left of the label */
       content: "▸";
       float: left;
@@ -274,13 +276,13 @@ data (1000 samples). This is the uncalibrated classifier.
       color: var(--sklearn-color-icon);
     }
 
-    #sk-container-id-8 label.sk-toggleable__label-arrow:hover:before {
+    #sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {
       color: var(--sklearn-color-text);
     }
 
     /* Toggleable content - dropdown */
 
-    #sk-container-id-8 div.sk-toggleable__content {
+    #sk-container-id-1 div.sk-toggleable__content {
       max-height: 0;
       max-width: 0;
       overflow: hidden;
@@ -289,12 +291,12 @@ data (1000 samples). This is the uncalibrated classifier.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-8 div.sk-toggleable__content.fitted {
+    #sk-container-id-1 div.sk-toggleable__content.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-8 div.sk-toggleable__content pre {
+    #sk-container-id-1 div.sk-toggleable__content pre {
       margin: 0.2em;
       border-radius: 0.25em;
       color: var(--sklearn-color-text);
@@ -302,79 +304,79 @@ data (1000 samples). This is the uncalibrated classifier.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-8 div.sk-toggleable__content.fitted pre {
+    #sk-container-id-1 div.sk-toggleable__content.fitted pre {
       /* unfitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-8 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    #sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
       max-height: 200px;
       max-width: 100%;
       overflow: auto;
     }
 
-    #sk-container-id-8 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    #sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
       content: "▾";
     }
 
     /* Pipeline/ColumnTransformer-specific style */
 
-    #sk-container-id-8 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-8 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-1 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator-specific style */
 
     /* Colorize estimator box */
-    #sk-container-id-8 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-8 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-1 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
-    #sk-container-id-8 div.sk-label label.sk-toggleable__label,
-    #sk-container-id-8 div.sk-label label {
+    #sk-container-id-1 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-1 div.sk-label label {
       /* The background is the default theme color */
       color: var(--sklearn-color-text-on-default-background);
     }
 
     /* On hover, darken the color of the background */
-    #sk-container-id-8 div.sk-label:hover label.sk-toggleable__label {
+    #sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
     /* Label box, darken color on hover, fitted */
-    #sk-container-id-8 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+    #sk-container-id-1 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator label */
 
-    #sk-container-id-8 div.sk-label label {
+    #sk-container-id-1 div.sk-label label {
       font-family: monospace;
       font-weight: bold;
       display: inline-block;
       line-height: 1.2em;
     }
 
-    #sk-container-id-8 div.sk-label-container {
+    #sk-container-id-1 div.sk-label-container {
       text-align: center;
     }
 
     /* Estimator-specific */
-    #sk-container-id-8 div.sk-estimator {
+    #sk-container-id-1 div.sk-estimator {
       font-family: monospace;
       border: 1px dotted var(--sklearn-color-border-box);
       border-radius: 0.25em;
@@ -384,18 +386,18 @@ data (1000 samples). This is the uncalibrated classifier.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-8 div.sk-estimator.fitted {
+    #sk-container-id-1 div.sk-estimator.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
     /* on hover */
-    #sk-container-id-8 div.sk-estimator:hover {
+    #sk-container-id-1 div.sk-estimator:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-8 div.sk-estimator.fitted:hover {
+    #sk-container-id-1 div.sk-estimator.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
@@ -483,7 +485,7 @@ data (1000 samples). This is the uncalibrated classifier.
 
     /* "?"-specific style due to the `<a>` HTML tag */
 
-    #sk-container-id-8 a.estimator_doc_link {
+    #sk-container-id-1 a.estimator_doc_link {
       float: right;
       font-size: 1rem;
       line-height: 1em;
@@ -498,42 +500,41 @@ data (1000 samples). This is the uncalibrated classifier.
       border: var(--sklearn-color-unfitted-level-1) 1pt solid;
     }
 
-    #sk-container-id-8 a.estimator_doc_link.fitted {
+    #sk-container-id-1 a.estimator_doc_link.fitted {
       /* fitted */
       border: var(--sklearn-color-fitted-level-1) 1pt solid;
       color: var(--sklearn-color-fitted-level-1);
     }
 
     /* On hover */
-    #sk-container-id-8 a.estimator_doc_link:hover {
+    #sk-container-id-1 a.estimator_doc_link:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-3);
       color: var(--sklearn-color-background);
       text-decoration: none;
     }
 
-    #sk-container-id-8 a.estimator_doc_link.fitted:hover {
+    #sk-container-id-1 a.estimator_doc_link.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-8" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>RandomForestClassifier(n_estimators=25)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-26" type="checkbox" checked><label for="sk-estimator-id-26" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>RandomForestClassifier</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.ensemble.RandomForestClassifier.html">?<span>Documentation for RandomForestClassifier</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>RandomForestClassifier(n_estimators=25)</pre></div> </div></div></div></div>
+    </style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>RandomForestClassifier(n_estimators=25)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>RandomForestClassifier</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.ensemble.RandomForestClassifier.html">?<span>Documentation for RandomForestClassifier</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>RandomForestClassifier(n_estimators=25)</pre></div> </div></div></div></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-65
+.. GENERATED FROM PYTHON SOURCE LINES 63-67
 
-To train the calibrated classifier, we start with the same
-:class:`~sklearn.ensemble.RandomForestClassifier` but train it using only
-the train data subset (600 samples) then calibrate, with `method='sigmoid'`,
-using the valid data subset (400 samples) in a 2-stage process.
+لتدريب المصنف المعاير، نبدأ بنفس
+:class:`~sklearn.ensemble.RandomForestClassifier` ولكن نقوم بتدريبه باستخدام فقط
+مجموعة البيانات الفرعية للتدريب (600 عينة) ثم المعايرة، مع `method='sigmoid'`،
+باستخدام مجموعة البيانات الفرعية للتحقق (400 عينة) في عملية من مرحلتين.
 
-.. GENERATED FROM PYTHON SOURCE LINES 65-73
+.. GENERATED FROM PYTHON SOURCE LINES 67-74
 
 .. code-block:: Python
 
 
-    from sklearn.calibration import CalibratedClassifierCV
 
     clf = RandomForestClassifier(n_estimators=25)
     clf.fit(X_train, y_train)
@@ -548,7 +549,7 @@ using the valid data subset (400 samples) in a 2-stage process.
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-9 {
+    <style>#sk-container-id-2 {
       /* Definition of color scheme common for light and dark mode */
       --sklearn-color-text: #000;
       --sklearn-color-text-muted: #666;
@@ -579,15 +580,15 @@ using the valid data subset (400 samples) in a 2-stage process.
       }
     }
 
-    #sk-container-id-9 {
+    #sk-container-id-2 {
       color: var(--sklearn-color-text);
     }
 
-    #sk-container-id-9 pre {
+    #sk-container-id-2 pre {
       padding: 0;
     }
 
-    #sk-container-id-9 input.sk-hidden--visually {
+    #sk-container-id-2 input.sk-hidden--visually {
       border: 0;
       clip: rect(1px 1px 1px 1px);
       clip: rect(1px, 1px, 1px, 1px);
@@ -599,7 +600,7 @@ using the valid data subset (400 samples) in a 2-stage process.
       width: 1px;
     }
 
-    #sk-container-id-9 div.sk-dashed-wrapped {
+    #sk-container-id-2 div.sk-dashed-wrapped {
       border: 1px dashed var(--sklearn-color-line);
       margin: 0 0.4em 0.5em 0.4em;
       box-sizing: border-box;
@@ -607,7 +608,7 @@ using the valid data subset (400 samples) in a 2-stage process.
       background-color: var(--sklearn-color-background);
     }
 
-    #sk-container-id-9 div.sk-container {
+    #sk-container-id-2 div.sk-container {
       /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
          but bootstrap.min.css set `[hidden] { display: none !important; }`
          so we also need the `!important` here to be able to override the
@@ -617,7 +618,7 @@ using the valid data subset (400 samples) in a 2-stage process.
       position: relative;
     }
 
-    #sk-container-id-9 div.sk-text-repr-fallback {
+    #sk-container-id-2 div.sk-text-repr-fallback {
       display: none;
     }
 
@@ -633,14 +634,14 @@ using the valid data subset (400 samples) in a 2-stage process.
 
     /* Parallel-specific style estimator block */
 
-    #sk-container-id-9 div.sk-parallel-item::after {
+    #sk-container-id-2 div.sk-parallel-item::after {
       content: "";
       width: 100%;
       border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
       flex-grow: 1;
     }
 
-    #sk-container-id-9 div.sk-parallel {
+    #sk-container-id-2 div.sk-parallel {
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -648,28 +649,28 @@ using the valid data subset (400 samples) in a 2-stage process.
       position: relative;
     }
 
-    #sk-container-id-9 div.sk-parallel-item {
+    #sk-container-id-2 div.sk-parallel-item {
       display: flex;
       flex-direction: column;
     }
 
-    #sk-container-id-9 div.sk-parallel-item:first-child::after {
+    #sk-container-id-2 div.sk-parallel-item:first-child::after {
       align-self: flex-end;
       width: 50%;
     }
 
-    #sk-container-id-9 div.sk-parallel-item:last-child::after {
+    #sk-container-id-2 div.sk-parallel-item:last-child::after {
       align-self: flex-start;
       width: 50%;
     }
 
-    #sk-container-id-9 div.sk-parallel-item:only-child::after {
+    #sk-container-id-2 div.sk-parallel-item:only-child::after {
       width: 0;
     }
 
     /* Serial-specific style estimator block */
 
-    #sk-container-id-9 div.sk-serial {
+    #sk-container-id-2 div.sk-serial {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -687,14 +688,14 @@ using the valid data subset (400 samples) in a 2-stage process.
 
     /* Pipeline and ColumnTransformer style (default) */
 
-    #sk-container-id-9 div.sk-toggleable {
+    #sk-container-id-2 div.sk-toggleable {
       /* Default theme specific background. It is overwritten whether we have a
       specific estimator or a Pipeline/ColumnTransformer */
       background-color: var(--sklearn-color-background);
     }
 
     /* Toggleable label */
-    #sk-container-id-9 label.sk-toggleable__label {
+    #sk-container-id-2 label.sk-toggleable__label {
       cursor: pointer;
       display: flex;
       width: 100%;
@@ -707,13 +708,13 @@ using the valid data subset (400 samples) in a 2-stage process.
       gap: 0.5em;
     }
 
-    #sk-container-id-9 label.sk-toggleable__label .caption {
+    #sk-container-id-2 label.sk-toggleable__label .caption {
       font-size: 0.6rem;
       font-weight: lighter;
       color: var(--sklearn-color-text-muted);
     }
 
-    #sk-container-id-9 label.sk-toggleable__label-arrow:before {
+    #sk-container-id-2 label.sk-toggleable__label-arrow:before {
       /* Arrow on the left of the label */
       content: "▸";
       float: left;
@@ -721,13 +722,13 @@ using the valid data subset (400 samples) in a 2-stage process.
       color: var(--sklearn-color-icon);
     }
 
-    #sk-container-id-9 label.sk-toggleable__label-arrow:hover:before {
+    #sk-container-id-2 label.sk-toggleable__label-arrow:hover:before {
       color: var(--sklearn-color-text);
     }
 
     /* Toggleable content - dropdown */
 
-    #sk-container-id-9 div.sk-toggleable__content {
+    #sk-container-id-2 div.sk-toggleable__content {
       max-height: 0;
       max-width: 0;
       overflow: hidden;
@@ -736,12 +737,12 @@ using the valid data subset (400 samples) in a 2-stage process.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-9 div.sk-toggleable__content.fitted {
+    #sk-container-id-2 div.sk-toggleable__content.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-9 div.sk-toggleable__content pre {
+    #sk-container-id-2 div.sk-toggleable__content pre {
       margin: 0.2em;
       border-radius: 0.25em;
       color: var(--sklearn-color-text);
@@ -749,79 +750,79 @@ using the valid data subset (400 samples) in a 2-stage process.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-9 div.sk-toggleable__content.fitted pre {
+    #sk-container-id-2 div.sk-toggleable__content.fitted pre {
       /* unfitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-9 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    #sk-container-id-2 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
       max-height: 200px;
       max-width: 100%;
       overflow: auto;
     }
 
-    #sk-container-id-9 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    #sk-container-id-2 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
       content: "▾";
     }
 
     /* Pipeline/ColumnTransformer-specific style */
 
-    #sk-container-id-9 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-2 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-9 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-2 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator-specific style */
 
     /* Colorize estimator box */
-    #sk-container-id-9 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-2 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-9 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-2 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
-    #sk-container-id-9 div.sk-label label.sk-toggleable__label,
-    #sk-container-id-9 div.sk-label label {
+    #sk-container-id-2 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-2 div.sk-label label {
       /* The background is the default theme color */
       color: var(--sklearn-color-text-on-default-background);
     }
 
     /* On hover, darken the color of the background */
-    #sk-container-id-9 div.sk-label:hover label.sk-toggleable__label {
+    #sk-container-id-2 div.sk-label:hover label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
     /* Label box, darken color on hover, fitted */
-    #sk-container-id-9 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+    #sk-container-id-2 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator label */
 
-    #sk-container-id-9 div.sk-label label {
+    #sk-container-id-2 div.sk-label label {
       font-family: monospace;
       font-weight: bold;
       display: inline-block;
       line-height: 1.2em;
     }
 
-    #sk-container-id-9 div.sk-label-container {
+    #sk-container-id-2 div.sk-label-container {
       text-align: center;
     }
 
     /* Estimator-specific */
-    #sk-container-id-9 div.sk-estimator {
+    #sk-container-id-2 div.sk-estimator {
       font-family: monospace;
       border: 1px dotted var(--sklearn-color-border-box);
       border-radius: 0.25em;
@@ -831,18 +832,18 @@ using the valid data subset (400 samples) in a 2-stage process.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-9 div.sk-estimator.fitted {
+    #sk-container-id-2 div.sk-estimator.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
     /* on hover */
-    #sk-container-id-9 div.sk-estimator:hover {
+    #sk-container-id-2 div.sk-estimator:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-9 div.sk-estimator.fitted:hover {
+    #sk-container-id-2 div.sk-estimator.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
@@ -930,7 +931,7 @@ using the valid data subset (400 samples) in a 2-stage process.
 
     /* "?"-specific style due to the `<a>` HTML tag */
 
-    #sk-container-id-9 a.estimator_doc_link {
+    #sk-container-id-2 a.estimator_doc_link {
       float: right;
       font-size: 1rem;
       line-height: 1em;
@@ -945,51 +946,50 @@ using the valid data subset (400 samples) in a 2-stage process.
       border: var(--sklearn-color-unfitted-level-1) 1pt solid;
     }
 
-    #sk-container-id-9 a.estimator_doc_link.fitted {
+    #sk-container-id-2 a.estimator_doc_link.fitted {
       /* fitted */
       border: var(--sklearn-color-fitted-level-1) 1pt solid;
       color: var(--sklearn-color-fitted-level-1);
     }
 
     /* On hover */
-    #sk-container-id-9 a.estimator_doc_link:hover {
+    #sk-container-id-2 a.estimator_doc_link:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-3);
       color: var(--sklearn-color-background);
       text-decoration: none;
     }
 
-    #sk-container-id-9 a.estimator_doc_link.fitted:hover {
+    #sk-container-id-2 a.estimator_doc_link.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-9" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>CalibratedClassifierCV(cv=&#x27;prefit&#x27;,
-                           estimator=RandomForestClassifier(n_estimators=25))</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-27" type="checkbox" ><label for="sk-estimator-id-27" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>CalibratedClassifierCV</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.calibration.CalibratedClassifierCV.html">?<span>Documentation for CalibratedClassifierCV</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>CalibratedClassifierCV(cv=&#x27;prefit&#x27;,
-                           estimator=RandomForestClassifier(n_estimators=25))</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-28" type="checkbox" ><label for="sk-estimator-id-28" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>estimator: RandomForestClassifier</div></div></label><div class="sk-toggleable__content fitted"><pre>RandomForestClassifier(n_estimators=25)</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-29" type="checkbox" ><label for="sk-estimator-id-29" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>RandomForestClassifier</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.ensemble.RandomForestClassifier.html">?<span>Documentation for RandomForestClassifier</span></a></div></label><div class="sk-toggleable__content fitted"><pre>RandomForestClassifier(n_estimators=25)</pre></div> </div></div></div></div></div></div></div></div></div>
+    </style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>CalibratedClassifierCV(cv=&#x27;prefit&#x27;,
+                           estimator=RandomForestClassifier(n_estimators=25))</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>CalibratedClassifierCV</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.calibration.CalibratedClassifierCV.html">?<span>Documentation for CalibratedClassifierCV</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>CalibratedClassifierCV(cv=&#x27;prefit&#x27;,
+                           estimator=RandomForestClassifier(n_estimators=25))</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>estimator: RandomForestClassifier</div></div></label><div class="sk-toggleable__content fitted"><pre>RandomForestClassifier(n_estimators=25)</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" ><label for="sk-estimator-id-4" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>RandomForestClassifier</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.ensemble.RandomForestClassifier.html">?<span>Documentation for RandomForestClassifier</span></a></div></label><div class="sk-toggleable__content fitted"><pre>RandomForestClassifier(n_estimators=25)</pre></div> </div></div></div></div></div></div></div></div></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 74-78
+.. GENERATED FROM PYTHON SOURCE LINES 75-79
 
-Compare probabilities
+مقارنة الاحتمالات
 ---------------------
-Below we plot a 2-simplex with arrows showing the change in predicted
-probabilities of the test samples.
+أدناه نرسم مضلع ثنائي مع أسهم توضح التغيير في الاحتمالات المتوقعة
+لعينات الاختبار.
 
-.. GENERATED FROM PYTHON SOURCE LINES 78-184
+.. GENERATED FROM PYTHON SOURCE LINES 79-185
 
 .. code-block:: Python
 
 
-    import matplotlib.pyplot as plt
 
     plt.figure(figsize=(10, 10))
     colors = ["r", "g", "b"]
 
     clf_probs = clf.predict_proba(X_test)
     cal_clf_probs = cal_clf.predict_proba(X_test)
-    # Plot arrows
+    # رسم الأسهم
     for i in range(clf_probs.shape[0]):
         plt.arrow(
             clf_probs[i, 0],
@@ -1000,15 +1000,15 @@ probabilities of the test samples.
             head_width=1e-2,
         )
 
-    # Plot perfect predictions, at each vertex
+    # رسم التوقعات المثالية، عند كل زاوية
     plt.plot([1.0], [0.0], "ro", ms=20, label="Class 1")
     plt.plot([0.0], [1.0], "go", ms=20, label="Class 2")
     plt.plot([0.0], [0.0], "bo", ms=20, label="Class 3")
 
-    # Plot boundaries of unit simplex
+    # رسم حدود المضلع الثنائي
     plt.plot([0.0, 1.0, 0.0, 0.0], [0.0, 0.0, 1.0, 0.0], "k", label="Simplex")
 
-    # Annotate points 6 points around the simplex, and mid point inside simplex
+    # إضافة تعليقات توضيحية للنقاط 6 نقاط حول المضلع الثنائي، ونقطة المنتصف داخل المضلع الثنائي
     plt.annotate(
         r"($\frac{1}{3}$, $\frac{1}{3}$, $\frac{1}{3}$)",
         xy=(1.0 / 3, 1.0 / 3),
@@ -1073,14 +1073,15 @@ probabilities of the test samples.
         horizontalalignment="center",
         verticalalignment="center",
     )
-    # Add grid
+    # إضافة شبكة
     plt.grid(False)
     for x in [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]:
         plt.plot([0, x], [x, 0], "k", alpha=0.2)
         plt.plot([0, 0 + (1 - x) / 2], [x, x + (1 - x) / 2], "k", alpha=0.2)
         plt.plot([x, x + (1 - x) / 2], [0, 0 + (1 - x) / 2], "k", alpha=0.2)
 
-    plt.title("Change of predicted probabilities on test samples after sigmoid calibration")
+    plt.title(
+        "Change of predicted probabilities on test samples after sigmoid calibration")
     plt.xlabel("Probability class 1")
     plt.ylabel("Probability class 2")
     plt.xlim(-0.05, 1.05)
@@ -1099,41 +1100,37 @@ probabilities of the test samples.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 185-211
+.. GENERATED FROM PYTHON SOURCE LINES 186-209
 
-In the figure above, each vertex of the simplex represents
-a perfectly predicted class (e.g., 1, 0, 0). The mid point
-inside the simplex represents predicting the three classes with equal
-probability (i.e., 1/3, 1/3, 1/3). Each arrow starts at the
-uncalibrated probabilities and end with the arrow head at the calibrated
-probability. The color of the arrow represents the true class of that test
-sample.
+في الشكل أعلاه، تمثل كل زاوية من زوايا المضلع الثنائي
+فئة متوقعة بشكل مثالي (على سبيل المثال، 1، 0، 0). نقطة المنتصف
+داخل المضلع الثنائي تمثل توقع الفئات الثلاث باحتمالية متساوية
+(أي، 1/3، 1/3، 1/3). يبدأ كل سهم من الاحتمالات غير المعايرة وينتهي برأس السهم عند الاحتمالية المعايرة. يمثل لون السهم الفئة الحقيقية لتلك العينة
+الاختبار.
 
-The uncalibrated classifier is overly confident in its predictions and
-incurs a large :ref:`log loss <log_loss>`. The calibrated classifier incurs
-a lower :ref:`log loss <log_loss>` due to two factors. First, notice in the
-figure above that the arrows generally point away from the edges of the
-simplex, where the probability of one class is 0. Second, a large proportion
-of the arrows point towards the true class, e.g., green arrows (samples where
-the true class is 'green') generally point towards the green vertex. This
-results in fewer over-confident, 0 predicted probabilities and at the same
-time an increase in the predicted probabilities of the correct class.
-Thus, the calibrated classifier produces more accurate predicted probabilities
-that incur a lower :ref:`log loss <log_loss>`
+المصنف غير المعاير مفرط الثقة في تنبؤاته ويتكبد
+:ref:`log loss <log_loss>` كبير. يتكبد المصنف المعاير
+:ref:`log loss <log_loss>` أقل بسبب عاملين. أولاً، لاحظ في
+الشكل أعلاه أن الأسهم تشير بشكل عام بعيدًا عن حواف المضلع الثنائي، حيث
+احتمال فئة واحدة هو 0. ثانيًا، نسبة كبيرة
+من الأسهم تشير إلى الفئة الحقيقية، على سبيل المثال، الأسهم الخضراء (العينات التي
+الفئة الحقيقية هي 'green') تشير بشكل عام إلى الزاوية الخضراء. يؤدي هذا إلى تنبؤات أقل ثقة، 0 احتمالية متوقعة وفي نفس
+الوقت زيادة في الاحتمالات المتوقعة للفئة الصحيحة.
+وبالتالي، ينتج المصنف المعاير احتمالات متوقعة أكثر دقة
+التي تتكبد :ref:`log loss <log_loss>` أقل
 
-We can show this objectively by comparing the :ref:`log loss <log_loss>` of
-the uncalibrated and calibrated classifiers on the predictions of the 1000
-test samples. Note that an alternative would have been to increase the number
-of base estimators (trees) of the
-:class:`~sklearn.ensemble.RandomForestClassifier` which would have resulted
-in a similar decrease in :ref:`log loss <log_loss>`.
+يمكننا إظهار هذا بشكل موضوعي من خلال مقارنة :ref:`log loss <log_loss>`
+للمصنف غير المعاير والمعاير على تنبؤات 1000
+عينات الاختبار. لاحظ أن البديل كان سيكون زيادة عدد
+المصنفات الأساسية (الأشجار) لـ
+:class:`~sklearn.ensemble.RandomForestClassifier` والتي كانت ستؤدي
+إلى انخفاض مماثل في :ref:`log loss <log_loss>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 211-221
+.. GENERATED FROM PYTHON SOURCE LINES 209-218
 
 .. code-block:: Python
 
 
-    from sklearn.metrics import log_loss
 
     score = log_loss(y_test, clf_probs)
     cal_score = log_loss(y_test, cal_clf_probs)
@@ -1157,27 +1154,26 @@ in a similar decrease in :ref:`log loss <log_loss>`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 222-226
+.. GENERATED FROM PYTHON SOURCE LINES 219-222
 
-Finally we generate a grid of possible uncalibrated probabilities over
-the 2-simplex, compute the corresponding calibrated probabilities and
-plot arrows for each. The arrows are colored according the highest
-uncalibrated probability. This illustrates the learned calibration map:
+أخيرًا نقوم بإنشاء شبكة من الاحتمالات غير المعايرة المحتملة عبر
+المضلع الثنائي، ونحسب الاحتمالات المعايرة ونرسم أسهم لكل منها. يتم تلوين الأسهم وفقًا لأعلى
+الاحتمالية غير المعايرة. يوضح هذا خريطة المعايرة التي تم تعلمها:
 
-.. GENERATED FROM PYTHON SOURCE LINES 226-276
+.. GENERATED FROM PYTHON SOURCE LINES 222-272
 
 .. code-block:: Python
 
 
     plt.figure(figsize=(10, 10))
-    # Generate grid of probability values
+    # إنشاء شبكة من قيم الاحتمالية
     p1d = np.linspace(0, 1, 20)
     p0, p1 = np.meshgrid(p1d, p1d)
     p2 = 1 - p0 - p1
     p = np.c_[p0.ravel(), p1.ravel(), p2.ravel()]
     p = p[p[:, 2] >= 0]
 
-    # Use the three class-wise calibrators to compute calibrated probabilities
+    # استخدام المصنفات الثلاثة لمعايرة الفئات لحساب الاحتمالات المعايرة
     calibrated_classifier = cal_clf.calibrated_classifiers_[0]
     prediction = np.vstack(
         [
@@ -1186,12 +1182,12 @@ uncalibrated probability. This illustrates the learned calibration map:
         ]
     ).T
 
-    # Re-normalize the calibrated predictions to make sure they stay inside the
-    # simplex. This same renormalization step is performed internally by the
-    # predict method of CalibratedClassifierCV on multiclass problems.
+    # إعادة تطبيع التنبؤات المعايرة للتأكد من أنها تبقى داخل
+    # المضلع الثنائي. تتم نفس خطوة إعادة التطبيع داخليًا بواسطة
+    # طريقة التنبؤ لـ CalibratedClassifierCV على مشاكل متعددة الفئات.
     prediction /= prediction.sum(axis=1)[:, None]
 
-    # Plot changes in predicted probabilities induced by the calibrators
+    # رسم التغييرات في الاحتمالات المتوقعة التي تسببها المصنفات المعايرة
     for i in range(prediction.shape[0]):
         plt.arrow(
             p[i, 0],
@@ -1202,7 +1198,7 @@ uncalibrated probability. This illustrates the learned calibration map:
             color=colors[np.argmax(p[i])],
         )
 
-    # Plot the boundaries of the unit simplex
+    # رسم حدود المضلع الثنائي
     plt.plot([0.0, 1.0, 0.0, 0.0], [0.0, 0.0, 1.0, 0.0], "k", label="Simplex")
 
     plt.grid(False)
@@ -1233,7 +1229,7 @@ uncalibrated probability. This illustrates the learned calibration map:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.714 seconds)
+   **Total running time of the script:** (0 minutes 1.806 seconds)
 
 
 .. _sphx_glr_download_auto_examples_calibration_plot_calibration_multiclass.py:

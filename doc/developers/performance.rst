@@ -1,89 +1,89 @@
 .. _performance-howto:
 
-=========================
-How to optimize for speed
-=========================
+==============================
+كيفية التحسين من أجل السرعة
+==============================
 
-The following gives some practical guidelines to help you write efficient
-code for the scikit-learn project.
+يقدم ما يلي بعض الإرشادات العملية لمساعدتك في كتابة تعليمات برمجية فعالة
+لمشروع scikit-learn.
 
 .. note::
 
-  While it is always useful to profile your code so as to **check
-  performance assumptions**, it is also highly recommended
-  to **review the literature** to ensure that the implemented algorithm
-  is the state of the art for the task before investing into costly
-  implementation optimization.
+  على الرغم من أنه من المفيد دائمًا تنميط التعليمات البرمجية الخاصة بك للتحقق من
+  **افتراضات الأداء**، يُوصى بشدة أيضًا
+  بـ **مراجعة الأدبيات** للتأكد من أن الخوارزمية المُنفذة
+  هي أحدث ما توصلت إليه التكنولوجيا للمهمة قبل الاستثمار في تحسين التنفيذ
+  المُكلف.
 
-  Times and times, hours of efforts invested in optimizing complicated
-  implementation details have been rendered irrelevant by the subsequent
-  discovery of simple **algorithmic tricks**, or by using another algorithm
-  altogether that is better suited to the problem.
+  مرارًا وتكرارًا، أصبحت ساعات الجهود المبذولة في تحسين تفاصيل التنفيذ
+  المعقدة غير ذات صلة باكتشاف **حيل خوارزمية** بسيطة لاحقًا،
+  أو باستخدام خوارزمية أخرى
+  أكثر ملاءمة للمشكلة تمامًا.
 
-  The section :ref:`warm-restarts` gives an example of such a trick.
+  يقدم القسم :ref:`warm-restarts` مثالاً على إحدى هذه الحيل.
 
 
-Python, Cython or C/C++?
-========================
+Python أو Cython أو C/C++؟
+===========================
 
 .. currentmodule:: sklearn
 
-In general, the scikit-learn project emphasizes the **readability** of
-the source code to make it easy for the project users to dive into the
-source code so as to understand how the algorithm behaves on their data
-but also for ease of maintainability (by the developers).
+بشكل عام، يؤكد مشروع scikit-learn على **قابلية قراءة**
+شفرة المصدر لتسهيل على مستخدمي المشروع الغوص في
+شفرة المصدر لفهم كيفية تصرف الخوارزمية على بياناتهم
+ولكن أيضًا لسهولة الصيانة (من قبل المطورين).
 
-When implementing a new algorithm is thus recommended to **start
-implementing it in Python using Numpy and Scipy** by taking care of avoiding
-looping code using the vectorized idioms of those libraries. In practice
-this means trying to **replace any nested for loops by calls to equivalent
-Numpy array methods**. The goal is to avoid the CPU wasting time in the
-Python interpreter rather than crunching numbers to fit your statistical
-model. It's generally a good idea to consider NumPy and SciPy performance tips:
+عند تنفيذ خوارزمية جديدة، يُوصى **بالبدء
+بتنفيذها في Python باستخدام Numpy و Scipy** عن طريق الحرص على تجنب
+كود التكرار باستخدام التعابير الاصطلاحية المتجهة لهذه المكتبات. من الناحية العملية،
+هذا يعني محاولة **استبدال أي حلقات for متداخلة باستدعاءات
+لأساليب مصفوفة Numpy المكافئة**. الهدف هو تجنب إضاعة وحدة المعالجة المركزية للوقت في
+مترجم Python بدلاً من معالجة الأرقام لتناسب نموذجك الإحصائي.
+من الجيد عمومًا مراعاة نصائح أداء NumPy و SciPy:
 https://scipy.github.io/old-wiki/pages/PerformanceTips
 
-Sometimes however an algorithm cannot be expressed efficiently in simple
-vectorized Numpy code. In this case, the recommended strategy is the
-following:
+ومع ذلك، في بعض الأحيان لا يمكن التعبير عن الخوارزمية بكفاءة في كود
+Numpy متجه بسيط. في هذه الحالة، فإن الاستراتيجية المُوصى بها هي
+التالي:
 
-1. **Profile** the Python implementation to find the main bottleneck and
-   isolate it in a **dedicated module level function**. This function
-   will be reimplemented as a compiled extension module.
+1. **نمِّط** تنفيذ Python للعثور على الاختناق الرئيسي و
+   اعزله في **دالة مستوى وحدة مخصصة**. سيتم
+   إعادة تنفيذ هذه الدالة كوحدة نمطية ملحق مُجمَّعة.
 
-2. If there exists a well maintained BSD or MIT **C/C++** implementation
-   of the same algorithm that is not too big, you can write a
-   **Cython wrapper** for it and include a copy of the source code
-   of the library in the scikit-learn source tree: this strategy is
-   used for the classes :class:`svm.LinearSVC`, :class:`svm.SVC` and
-   :class:`linear_model.LogisticRegression` (wrappers for liblinear
-   and libsvm).
+2. إذا كان هناك تنفيذ **C/C++** جيد الصيانة BSD أو MIT
+   لنفس الخوارزمية التي ليست كبيرة جدًا، فيمكنك كتابة
+   **مغلِّف Cython** لها وتضمين نسخة من شفرة المصدر
+   للمكتبة في شجرة مصدر scikit-learn: يتم استخدام هذه الاستراتيجية
+   للفئات :class:`svm.LinearSVC` و :class:`svm.SVC` و
+   :class:`linear_model.LogisticRegression` (مغلِّفات لـ liblinear
+   و libsvm).
 
-3. Otherwise, write an optimized version of your Python function using
-   **Cython** directly. This strategy is used
-   for the :class:`linear_model.ElasticNet` and
-   :class:`linear_model.SGDClassifier` classes for instance.
+3. خلاف ذلك، اكتب إصدارًا مُحسَّنًا من دالة Python باستخدام
+   **Cython** مباشرةً. تُستخدم هذه الاستراتيجية
+   للفئات :class:`linear_model.ElasticNet` و
+   :class:`linear_model.SGDClassifier` على سبيل المثال.
 
-4. **Move the Python version of the function in the tests** and use
-   it to check that the results of the compiled extension are consistent
-   with the gold standard, easy to debug Python version.
+4. **انقل إصدار Python للدالة في الاختبارات** و
+   استخدمه للتحقق من أن نتائج الملحق المُجمَّع تتوافق
+   مع المعيار الذهبي، إصدار Python سهل التصحيح.
 
-5. Once the code is optimized (not simple bottleneck spottable by
-   profiling), check whether it is possible to have **coarse grained
-   parallelism** that is amenable to **multi-processing** by using the
-   ``joblib.Parallel`` class.
+5. بمجرد تحسين الشفرة (وليس مجرد نقطة اختناق يمكن اكتشافها بواسطة
+   التنميط)، تحقق مما إذا كان من الممكن الحصول على **توازي خشن الحبيبات**
+   مناسب لـ **التعددية المعالجة** باستخدام
+   فئة ``joblib.Parallel``.
 
 .. _profiling-python-code:
 
-Profiling Python code
-=====================
+تنميط كود Python
+==================
 
-In order to profile Python code we recommend to write a script that
-loads and prepare you data and then use the IPython integrated profiler
-for interactively exploring the relevant part for the code.
+من أجل تنميط كود Python، نوصي بكتابة برنامج نصي يقوم
+بتحميل بياناتك وإعدادها ثم استخدام مُنمِّط IPython المُدمج
+لاستكشاف الجزء ذي الصلة من الشفرة بشكل تفاعلي.
 
-Suppose we want to profile the Non Negative Matrix Factorization module
-of scikit-learn. Let us setup a new IPython session and load the digits
-dataset and as in the :ref:`sphx_glr_auto_examples_classification_plot_digits_classification.py` example::
+لنفترض أننا نريد تنميط وحدة عامل المصفوفة غير السالب
+لـ scikit-learn. لنقم بإعداد جلسة IPython جديدة وتحميل مجموعة بيانات الأرقام
+كما في المثال :ref:`sphx_glr_auto_examples_classification_plot_digits_classification.py`::
 
   In [1]: from sklearn.decomposition import NMF
 
@@ -91,22 +91,22 @@ dataset and as in the :ref:`sphx_glr_auto_examples_classification_plot_digits_cl
 
   In [3]: X, _ = load_digits(return_X_y=True)
 
-Before starting the profiling session and engaging in tentative
-optimization iterations, it is important to measure the total execution
-time of the function we want to optimize without any kind of profiler
-overhead and save it somewhere for later reference::
+قبل بدء جلسة التنميط والمشاركة في تكرارات التحسين
+المؤقتة، من المهم قياس إجمالي وقت التنفيذ
+للدالة التي نريد تحسينها دون أي نوع من النفقات العامة للمُنمِّط
+وحفظها في مكان ما للرجوع إليها لاحقًا::
 
   In [4]: %timeit NMF(n_components=16, tol=1e-2).fit(X)
   1 loops, best of 3: 1.7 s per loop
 
-To have a look at the overall performance profile using the ``%prun``
-magic command::
+لإلقاء نظرة على ملف تعريف الأداء العام باستخدام أمر ``%prun``
+السحري::
 
   In [5]: %prun -l nmf.py NMF(n_components=16, tol=1e-2).fit(X)
-           14496 function calls in 1.682 CPU seconds
+           14496 استدعاء دالة في 1.682 ثانية لوحدة المعالجة المركزية
 
-     Ordered by: internal time
-     List reduced from 90 to 9 due to restriction <'nmf.py'>
+     مرتبة حسب: الوقت الداخلي
+     تم تقليص القائمة من 90 إلى 9 بسبب التقييد <'nmf.py'>
 
      ncalls  tottime  percall  cumtime  percall filename:lineno(function)
          36    0.609    0.017    1.499    0.042 nmf.py:151(_nls_subproblem)
@@ -119,22 +119,21 @@ magic command::
           1    0.000    0.000    0.000    0.000 nmf.py:337(__init__)
           1    0.000    0.000    1.681    1.681 nmf.py:461(fit)
 
-The ``tottime`` column is the most interesting: it gives to total time spent
-executing the code of a given function ignoring the time spent in executing the
-sub-functions. The real total time (local code + sub-function calls) is given by
-the ``cumtime`` column.
+عمود ``tottime`` هو الأكثر إثارة للاهتمام: فهو يعطي إجمالي الوقت الذي تم قضاؤه
+في تنفيذ شفرة دالة معينة مع تجاهل الوقت الذي تم قضاؤه في تنفيذ
+الدوال الفرعية. يتم إعطاء إجمالي الوقت الحقيقي (الشفرة المحلية + استدعاءات الدوال الفرعية) بواسطة
+عمود ``cumtime``.
 
-Note the use of the ``-l nmf.py`` that restricts the output to lines that
-contains the "nmf.py" string. This is useful to have a quick look at the hotspot
-of the nmf Python module it-self ignoring anything else.
+لاحظ استخدام ``-l nmf.py`` الذي يقصر الإخراج على الأسطر التي
+تحتوي على سلسلة "nmf.py". هذا مفيد لإلقاء نظرة سريعة على النقطة
+الساخنة لوحدة nmf Python نفسها مع تجاهل أي شيء آخر.
 
-Here is the beginning of the output of the same command without the ``-l nmf.py``
-filter::
+فيما يلي بداية ناتج نفس الأمر بدون عامل تصفية ``-l nmf.py``::
 
   In [5] %prun NMF(n_components=16, tol=1e-2).fit(X)
-           16159 function calls in 1.840 CPU seconds
+           16159 استدعاء دالة في 1.840 ثانية لوحدة المعالجة المركزية
 
-     Ordered by: internal time
+     مرتبة حسب: الوقت الداخلي
 
      ncalls  tottime  percall  cumtime  percall filename:lineno(function)
        2833    0.653    0.000    0.653    0.000 {numpy.core._dotblas.dot}
@@ -149,45 +148,48 @@ filter::
         748    0.009    0.000    0.065    0.000 nmf.py:28(norm)
   ...
 
-The above results show that the execution is largely dominated by
-dot products operations (delegated to blas). Hence there is probably
-no huge gain to expect by rewriting this code in Cython or C/C++: in
-this case out of the 1.7s total execution time, almost 0.7s are spent
-in compiled code we can consider optimal. By rewriting the rest of the
-Python code and assuming we could achieve a 1000% boost on this portion
-(which is highly unlikely given the shallowness of the Python loops),
-we would not gain more than a 2.4x speed-up globally.
+تُظهر النتائج أعلاه أن التنفيذ يهيمن عليه إلى حد كبير
+عمليات حاصل الضرب النقطي (المفوضة إلى blas). ومن ثم، ربما لا
+يوجد مكسب كبير متوقع من خلال إعادة كتابة هذه الشفرة في Cython أو C/C++: في
+هذه الحالة، من إجمالي وقت التنفيذ البالغ 1.7 ثانية، يتم قضاء ما يقرب من 0.7 ثانية
+في التعليمات البرمجية المُجمَّعة التي يمكننا اعتبارها مثالية. من خلال إعادة كتابة بقية
+كود Python بافتراض أنه يمكننا تحقيق زيادة بنسبة 1000٪ في هذا الجزء
+(وهو أمر غير مرجح للغاية نظرًا لضحالة حلقات Python)،
+لن نحصل على أكثر من 2.4x تسريع عالميًا.
 
-Hence major improvements can only be achieved by **algorithmic
-improvements** in this particular example (e.g. trying to find operation
-that are both costly and useless to avoid computing then rather than
-trying to optimize their implementation).
+ومن ثم، لا يمكن تحقيق تحسينات كبيرة إلا من خلال **التحسينات
+الخوارزمية** في هذا المثال المعين (على سبيل المثال، محاولة العثور على عملية
+مُكلفة وغير مجدية لتجنب حسابها بدلاً من
+محاولة تحسين تنفيذها).
 
-It is however still interesting to check what's happening inside the
-``_nls_subproblem`` function which is the hotspot if we only consider
-Python code: it takes around 100% of the accumulated time of the module. In
-order to better understand the profile of this specific function, let
-us install ``line_profiler`` and wire it to IPython:
+
+مع ذلك، لا يزال من المثير للاهتمام التحقق مما يحدث داخل
+دالة ``_nls_subproblem`` التي تُعد النقطة الساخنة إذا أخذنا في الاعتبار
+كود Python فقط: فهي تستغرق حوالي 100٪ من الوقت المُتراكم للوحدة. من أجل
+فهم ملف تعريف هذه الدالة المحددة بشكل أفضل، دعنا
+نُثبِّت ``line_profiler`` ونوصله بـ IPython:
 
 .. prompt:: bash $
 
   pip install line_profiler
 
-**Under IPython 0.13+**, first create a configuration profile:
+
+**ضمن IPython 0.13+**، قم أولاً بإنشاء ملف تعريف تكوين:
 
 .. prompt:: bash $
 
   ipython profile create
 
-Then register the line_profiler extension in
+ثم سجِّل امتداد line_profiler في
 ``~/.ipython/profile_default/ipython_config.py``::
 
     c.TerminalIPythonApp.extensions.append('line_profiler')
     c.InteractiveShellApp.extensions.append('line_profiler')
 
-This will register the ``%lprun`` magic command in the IPython terminal application and the other frontends such as qtconsole and notebook.
 
-Now restart IPython and let us use this new toy::
+سيؤدي هذا إلى تسجيل الأمر السحري ``%lprun`` في تطبيق محطة IPython والواجهات الأمامية الأخرى مثل qtconsole ودفتر الملاحظات.
+
+الآن أعد تشغيل IPython ودعنا نستخدم هذه الأداة الجديدة::
 
   In [1]: from sklearn.datasets import load_digits
 
@@ -197,16 +199,16 @@ Now restart IPython and let us use this new toy::
   In [3]: X, _ = load_digits(return_X_y=True)
 
   In [4]: %lprun -f _nls_subproblem NMF(n_components=16, tol=1e-2).fit(X)
-  Timer unit: 1e-06 s
+  وحدة المؤقت: 1e-06 ثانية
 
-  File: sklearn/decomposition/nmf.py
-  Function: _nls_subproblem at line 137
-  Total time: 1.73153 s
+  الملف: sklearn/decomposition/nmf.py
+  الدالة: _nls_subproblem في السطر 137
+  إجمالي الوقت: 1.73153 ثانية
 
-  Line #      Hits         Time  Per Hit   % Time  Line Contents
-  ==============================================================
+  رقم السطر      الزيارات        الوقت  لكل زيارة   ٪ الوقت  محتويات السطر
+  ===============================================================================
      137                                           def _nls_subproblem(V, W, H_init, tol, max_iter):
-     138                                               """Non-negative least square solver
+     138                                               """عامل المربعات الصغرى غير السالب
      ...
      170                                               """
      171        48         5863    122.1      0.3      if (H_init < 0).any():
@@ -216,7 +218,7 @@ Now restart IPython and let us use this new toy::
      175        48       112141   2336.3      5.8      WtV = np.dot(W.T, V)
      176        48        16144    336.3      0.8      WtW = np.dot(W.T, W)
      177
-     178                                               # values justified in the paper
+     178                                               # القيم مُبررة في الورقة
      179        48          144      3.0      0.0      alpha = 1
      180        48          113      2.4      0.0      beta = 0.1
      181       638         1880      2.9      0.1      for n_iter in range(1, max_iter + 1):
@@ -234,52 +236,51 @@ Now restart IPython and let us use this new toy::
      193      1474       515390    349.7     26.9              dQd = np.sum(np.dot(WtW, d) * d)
      ...
 
-By looking at the top values of the ``% Time`` column it is really easy to
-pin-point the most expensive expressions that would deserve additional care.
+من خلال النظر إلى القيم العليا لعمود ``٪ Time``، من السهل حقًا
+تحديد التعبيرات الأكثر تكلفة التي تستحق عناية إضافية.
 
 
-Memory usage profiling
-======================
+تنميط استخدام الذاكرة
+========================
 
-You can analyze in detail the memory usage of any Python code with the help of
-`memory_profiler <https://pypi.org/project/memory_profiler/>`_. First,
-install the latest version:
+يمكنك تحليل استخدام الذاكرة لأي كود Python بالتفصيل بمساعدة
+`memory_profiler <https://pypi.org/project/memory_profiler/>`_. أولاً،
+قم بتثبيت أحدث إصدار:
 
 .. prompt:: bash $
 
   pip install -U memory_profiler
 
-Then, setup the magics in a manner similar to ``line_profiler``.
+ثم قم بإعداد السحر بطريقة مشابهة لـ ``line_profiler``.
 
-**Under IPython 0.11+**, first create a configuration profile:
+**ضمن IPython 0.11+**، قم أولاً بإنشاء ملف تعريف تكوين:
 
 .. prompt:: bash $
 
     ipython profile create
 
 
-Then register the extension in
+ثم سجِّل الامتداد في
 ``~/.ipython/profile_default/ipython_config.py``
-alongside the line profiler::
+جنبًا إلى جنب مع مُنمِّط الخط::
 
     c.TerminalIPythonApp.extensions.append('memory_profiler')
     c.InteractiveShellApp.extensions.append('memory_profiler')
 
-This will register the ``%memit`` and ``%mprun`` magic commands in the
-IPython terminal application and the other frontends such as qtconsole and   notebook.
+سيؤدي هذا إلى تسجيل الأوامر السحرية ``%memit`` و ``%mprun`` في
+تطبيق محطة IPython والواجهات الأمامية الأخرى مثل qtconsole و دفتر الملاحظات.
 
-``%mprun`` is useful to examine, line-by-line, the memory usage of key
-functions in your program. It is very similar to ``%lprun``, discussed in the
-previous section. For example, from the ``memory_profiler`` ``examples``
-directory::
+``%mprun`` مفيد لفحص استخدام الذاكرة للدوال الرئيسية
+في برنامجك سطرًا بسطر. إنه مشابه جدًا لـ ``%lprun``، الذي تمت مناقشته في
+القسم السابق. على سبيل المثال، من دليل ``memory_profiler`` ``examples``::
 
     In [1] from example import my_func
 
     In [2] %mprun -f my_func my_func()
-    Filename: example.py
+    اسم الملف: example.py
 
-    Line #    Mem usage  Increment   Line Contents
-    ==============================================
+    رقم السطر    استخدام الذاكرة  الزيادة   محتويات السطر
+    ==========================================================
          3                           @profile
          4      5.97 MB    0.00 MB   def my_func():
          5     13.61 MB    7.64 MB       a = [1] * (10 ** 6)
@@ -287,61 +288,62 @@ directory::
          7     13.61 MB -152.59 MB       del b
          8     13.61 MB    0.00 MB       return a
 
-Another useful magic that ``memory_profiler`` defines is ``%memit``, which is
-analogous to ``%timeit``. It can be used as follows::
+
+أمر سحري مفيد آخر يُحدده ``memory_profiler`` هو ``%memit``، وهو
+مُشابه لـ ``%timeit``. يمكن استخدامه على النحو التالي::
 
     In [1]: import numpy as np
 
     In [2]: %memit np.zeros(1e7)
-    maximum of 3: 76.402344 MB per loop
+    الحد الأقصى من 3: 76.402344 ميغابايت لكل حلقة
 
-For more details, see the docstrings of the magics, using ``%memit?`` and
-``%mprun?``.
+لمزيد من التفاصيل، انظر سلاسل الوثائق الخاصة بالسحر، باستخدام ``%memit؟`` و
+``%mprun؟``.
 
 
-Using Cython
-============
+استخدام Cython
+================
 
-If profiling of the Python code reveals that the Python interpreter
-overhead is larger by one order of magnitude or more than the cost of the
-actual numerical computation (e.g. ``for`` loops over vector components,
-nested evaluation of conditional expression, scalar arithmetic...), it
-is probably adequate to extract the hotspot portion of the code as a
-standalone function in a ``.pyx`` file, add static type declarations and
-then use Cython to generate a C program suitable to be compiled as a
-Python extension module.
+إذا كشف تنميط كود Python أن النفقات العامة لمترجم Python
+أكبر بمرتبة واحدة من حيث الحجم أو أكثر من تكلفة
+الحساب العددي الفعلي (على سبيل المثال، حلقات ``for`` على مكونات المتجه،
+التقييم المتداخل للتعبير الشرطي، الحساب القياسي...)، فمن
+المناسب استخراج جزء النقطة الساخنة من الشفرة كـ
+دالة مستقلة في ملف ``.pyx``، وإضافة إعلانات النوع الثابت
+ثم استخدام Cython لإنشاء برنامج C مناسب ليتم تجميعه كـ
+وحدة نمطية ملحق Python.
 
-The `Cython's documentation <http://docs.cython.org/>`_ contains a tutorial and
-reference guide for developing such a module.
-For more information about developing in Cython for scikit-learn, see :ref:`cython`.
+تحتوي `وثائق Cython <http://docs.cython.org/>`_ على برنامج تعليمي ودليل
+مرجعي لتطوير مثل هذه الوحدة.
+لمزيد من المعلومات حول التطوير في Cython لـ scikit-learn، انظر :ref:`cython`.
 
 
 .. _profiling-compiled-extension:
 
-Profiling compiled extensions
-=============================
+تنميط الملحقات المُجمَّعة
+=========================
 
-When working with compiled extensions (written in C/C++ with a wrapper or
-directly as Cython extension), the default Python profiler is useless:
-we need a dedicated tool to introspect what's happening inside the
-compiled extension it-self.
+عند العمل مع الملحقات المُجمَّعة (مكتوبة بلغة C/C++ مع غلاف أو
+مباشرة كملحق Cython)، يكون مُنمِّط Python الافتراضي عديم الفائدة:
+نحن بحاجة إلى أداة مخصصة لاستقصاء ما يحدث داخل
+الملحق المُجمَّع نفسه.
 
-Using yep and gperftools
-------------------------
+استخدام yep و gperftools
+--------------------------
 
-Easy profiling without special compilation options use yep:
+تنميط سهل بدون خيارات تجميع خاصة استخدم yep:
 
 - https://pypi.org/project/yep/
 - https://fa.bianp.net/blog/2011/a-profiler-for-python-extensions
 
-Using a debugger, gdb
----------------------
+استخدام مُصحِّح أخطاء، gdb
+--------------------------
 
-* It is helpful to use ``gdb`` to debug. In order to do so, one must use
-  a Python interpreter built with debug support (debug symbols and proper
-  optimization). To create a new conda environment (which you might need
-  to deactivate and reactivate after building/installing) with a source-built
-  CPython interpreter:
+* من المفيد استخدام ``gdb`` لتصحيح الأخطاء. للقيام بذلك، يجب على المرء استخدام
+  مترجم Python تم تصميمه مع دعم التصحيح (رموز التصحيح والتحسين
+  المناسب). لإنشاء بيئة conda جديدة (التي قد تحتاج
+  إلى إلغاء تنشيطها وإعادة تنشيطها بعد البناء/التثبيت) باستخدام مترجم
+  CPython مبني من المصدر:
 
   .. code-block:: bash
 
@@ -356,51 +358,55 @@ Using a debugger, gdb
          make install
 
 
-Using gprof
------------
+استخدام gprof
+---------------
 
-In order to profile compiled Python extensions one could use ``gprof``
-after having recompiled the project with ``gcc -pg`` and using the
-``python-dbg`` variant of the interpreter on debian / ubuntu: however
-this approach requires to also have ``numpy`` and ``scipy`` recompiled
-with ``-pg`` which is rather complicated to get working.
+من أجل تنميط ملحقات Python المُجمَّعة، يمكن للمرء استخدام ``gprof``
+بعد إعادة تجميع المشروع باستخدام ``gcc -pg`` واستخدام
+متغير ``python-dbg`` للمترجم على debian / ubuntu: ومع ذلك
+يتطلب هذا النهج أيضًا إعادة تجميع ``numpy`` و ``scipy``
+باستخدام ``-pg`` وهو أمر معقد إلى حد ما لجعله يعمل.
 
-Fortunately there exist two alternative profilers that don't require you to
-recompile everything.
+لحسن الحظ، يوجد مُنمِّطان بديلان لا يتطلبان منك
+إعادة تجميع كل شيء.
 
-Using valgrind / callgrind / kcachegrind
-----------------------------------------
+
+استخدام valgrind / callgrind / kcachegrind
+--------------------------------------------
 
 kcachegrind
 ~~~~~~~~~~~
 
-``yep`` can be used to create a profiling report.
-``kcachegrind`` provides a graphical environment to visualize this report:
+يمكن استخدام ``yep`` لإنشاء تقرير تنميط.
+يوفر ``kcachegrind`` بيئة رسومية لتصور هذا التقرير:
 
 .. prompt:: bash $
 
-  # Run yep to profile some python script
+  # تشغيل yep لتنميط بعض البرامج النصية python
   python -m yep -c my_file.py
 
 .. prompt:: bash $
 
-  # open my_file.py.callgrin with kcachegrind
+  # افتح my_file.py.callgrin باستخدام kcachegrind
   kcachegrind my_file.py.prof
 
 .. note::
 
-   ``yep`` can be executed with the argument ``--lines`` or ``-l`` to compile
-   a profiling report 'line by line'.
+   يمكن تنفيذ ``yep`` مع الوسيطة ``--lines`` أو ``-l`` لتجميع
+   تقرير تنميط "سطرًا بسطر".
 
-Multi-core parallelism using ``joblib.Parallel``
-================================================
+التوازي متعدد النواة باستخدام ``joblib.Parallel``
+====================================================
 
-See `joblib documentation <https://joblib.readthedocs.io>`_
+انظر `وثائق joblib <https://joblib.readthedocs.io>`_
 
 
 .. _warm-restarts:
 
-A simple algorithmic trick: warm restarts
-=========================================
+خدعة خوارزمية بسيطة: عمليات إعادة التشغيل الدافئة
+======================================================
 
-See the glossary entry for :term:`warm_start`
+انظر إدخال المُصطلحات لـ :term:`warm_start`
+
+
+

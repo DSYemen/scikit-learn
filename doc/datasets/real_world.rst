@@ -1,14 +1,13 @@
 .. _real_world_datasets:
 
 مجموعات بيانات العالم الحقيقي
-=================================
+=======================
 
 .. currentmodule:: sklearn.datasets
 
-scikit-learn provides tools to load larger datasets, downloading them if
-necessary.
+يوفر scikit-learn أدوات لتحميل مجموعات بيانات أكبر، وتنزيلها إذا لزم الأمر.
 
-They can be loaded using the following functions:
+يمكن تحميلها باستخدام الدالات التالية:
 
 .. autosummary::
 

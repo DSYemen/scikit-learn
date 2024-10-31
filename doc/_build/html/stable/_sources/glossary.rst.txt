@@ -3,1066 +3,1114 @@
 .. _glossary:
 
 =========================================
-Glossary of Common Terms and API Elements
+مسرد المصطلحات الشائعة وعناصر واجهة برمجة التطبيقات
 =========================================
 
-This glossary hopes to definitively represent the tacit and explicit
-conventions applied in Scikit-learn and its API, while providing a reference
-for users and contributors. It aims to describe the concepts and either detail
-their corresponding API or link to other relevant parts of the documentation
-which do so. By linking to glossary entries from the API Reference and User
-Guide, we may minimize redundancy and inconsistency.
+يأمل هذا المسرد في تمثيل الاصطلاحات الضمنية والصريحة
+المطبقة في Scikit-learn وواجهة برمجة التطبيقات الخاصة به بشكل نهائي، مع توفير مرجع
+للمستخدمين والمساهمين. يهدف إلى وصف المفاهيم وإما تفصيل
+واجهة برمجة التطبيقات المقابلة لها أو ربطها بأجزاء أخرى ذات صلة من الوثائق
+التي تقوم بذلك. من خلال ربط إدخالات المسرد من مرجع واجهة برمجة التطبيقات ودليل
+المستخدم، قد نقلل من التكرار وعدم التناسق.
 
-We begin by listing general concepts (and any that didn't fit elsewhere), but
-more specific sets of related terms are listed below:
-:ref:`glossary_estimator_types`, :ref:`glossary_target_types`,
-:ref:`glossary_methods`, :ref:`glossary_parameters`,
-:ref:`glossary_attributes`, :ref:`glossary_sample_props`.
+نبدأ بإدراج المفاهيم العامة (وأي مفاهيم لم تكن مناسبة في أي مكان آخر)، ولكن
+يتم سرد مجموعات أكثر تحديدًا من المصطلحات ذات الصلة أدناه:
+:ref:`glossary_estimator_types`، :ref:`glossary_target_types`،
+:ref:`glossary_methods`، :ref:`glossary_parameters`،
+:ref:`glossary_attributes`، :ref:`glossary_sample_props`.
 
-General Concepts
+
+مفاهيم عامة
 ================
 
 .. glossary::
 
     1d
-    1d array
-        One-dimensional array. A NumPy array whose ``.shape`` has length 1.
-        A vector.
+    مصفوفة أحادية البعد
+        مصفوفة أحادية البعد. مصفوفة NumPy التي يبلغ طول ``.shape`` الخاص بها 1.
+        متجه.
 
     2d
-    2d array
-        Two-dimensional array. A NumPy array whose ``.shape`` has length 2.
-        Often represents a matrix.
+    مصفوفة ثنائية الأبعاد
+        مصفوفة ثنائية الأبعاد. مصفوفة NumPy التي يبلغ طول ``.shape`` الخاص بها 2.
+        غالبًا ما تُمثل مصفوفة.
 
-    API
-        Refers to both the *specific* interfaces for estimators implemented in
-        Scikit-learn and the *generalized* conventions across types of
-        estimators as described in this glossary and :ref:`overviewed in the
-        contributor documentation <api_overview>`.
+    واجهة برمجة التطبيقات
+        تشير إلى كل من الواجهات *المحددة* للمقدرات المُنفذة في
+        Scikit-learn والاصطلاحات *المعممة* عبر أنواع
+        المقدرات كما هو موضح في هذا المسرد و :ref:`نظرة عامة في وثائق
+        المساهم <api_overview>`.
 
-        The specific interfaces that constitute Scikit-learn's public API are
-        largely documented in :ref:`api_ref`. However, we less formally consider
-        anything as public API if none of the identifiers required to access it
-        begins with ``_``.  We generally try to maintain :term:`backwards
-        compatibility` for all objects in the public API.
+        تم توثيق الواجهات المحددة التي تُشكل واجهة برمجة التطبيقات العامة لـ Scikit-learn
+        إلى حد كبير في :ref:`api_ref`. ومع ذلك، فإننا نعتبر أي شيء أقل رسمية
+        كواجهة برمجة تطبيقات عامة إذا لم يبدأ أي من المُعرِّفات المطلوبة للوصول إليه
+        بـ ``_``. نحاول عمومًا الحفاظ على :term:`التوافق مع الإصدارات السابقة` لجميع
+        الكائنات في واجهة برمجة التطبيقات العامة.
 
-        Private API, including functions, modules and methods beginning ``_``
-        are not assured to be stable.
+        واجهة برمجة التطبيقات الخاصة، بما في ذلك الدوال والوحدات النمطية والأساليب التي تبدأ
+        بـ ``_`` غير مضمونة لتكون مستقرة.
 
-    array-like
-        The most common data format for *input* to Scikit-learn estimators and
-        functions, array-like is any type object for which
-        :func:`numpy.asarray` will produce an array of appropriate shape
-        (usually 1 or 2-dimensional) of appropriate dtype (usually numeric).
 
-        This includes:
+    يشبه المصفوفة
+        تنسيق البيانات الأكثر شيوعًا *لإدخال* مقدرات ودوال Scikit-learn،
+        يشبه المصفوفة هو أي كائن من نوع تنتج :func:`numpy.asarray` له
+        مصفوفة ذات شكل مناسب (عادةً ما تكون أحادية أو ثنائية الأبعاد) من نوع بيانات
+        مناسب (عادةً ما يكون رقميًا).
 
-        * a numpy array
-        * a list of numbers
-        * a list of length-k lists of numbers for some fixed length k
-        * a :class:`pandas.DataFrame` with all columns numeric
-        * a numeric :class:`pandas.Series`
+        يتضمن هذا:
 
-        It excludes:
+        * مصفوفة numpy
+        * قائمة من الأرقام
+        * قائمة من قوائم الأرقام بطول k لطول ثابت k
+        * :class:`pandas.DataFrame` مع جميع الأعمدة الرقمية
+        * :class:`pandas.Series` رقمية
 
-        * a :term:`sparse matrix`
-        * a sparse array
-        * an iterator
-        * a generator
+        يستبعد:
 
-        Note that *output* from scikit-learn estimators and functions (e.g.
-        predictions) should generally be arrays or sparse matrices, or lists
-        thereof (as in multi-output :class:`tree.DecisionTreeClassifier`'s
-        ``predict_proba``). An estimator where ``predict()`` returns a list or
-        a `pandas.Series` is not valid.
+        * :term:`مصفوفة متفرقة`
+        * مصفوفة متفرقة
+        * مُكرِّر
+        * مُولِّد
 
-    attribute
-    attributes
-        We mostly use attribute to refer to how model information is stored on
-        an estimator during fitting.  Any public attribute stored on an
-        estimator instance is required to begin with an alphabetic character
-        and end in a single underscore if it is set in :term:`fit` or
-        :term:`partial_fit`.  These are what is documented under an estimator's
-        *Attributes* documentation.  The information stored in attributes is
-        usually either: sufficient statistics used for prediction or
-        transformation; :term:`transductive` outputs such as :term:`labels_` or
-        :term:`embedding_`; or diagnostic data, such as
+        لاحظ أن *ناتج* مقدرات ودوال scikit-learn (على سبيل المثال،
+        التنبؤات) يجب أن يكون عمومًا مصفوفات أو مصفوفات متفرقة، أو قوائم
+        منها (كما هو الحال في :term:`متعدد المخرجات` :class:`tree.DecisionTreeClassifier`
+        ``predict_proba``). المقدر الذي يُعيد ``predict()`` الخاص به قائمة أو
+        `pandas.Series` غير صالح.
+
+    سمة
+    السمات
+        نستخدم السمة في الغالب للإشارة إلى كيفية تخزين معلومات النموذج في
+        مقدر أثناء التوفيق. أي سمة عامة مخزنة في نموذج
+        مقدر مطلوب أن تبدأ بحرف أبجدي وتنتهي بشرطة سفلية واحدة إذا تم تعيينها في
+        :term:`fit` أو :term:`partial_fit`. هذه هي ما يتم توثيقه ضمن
+        وثائق *السمات* الخاصة بالمقدر. المعلومات المخزنة في السمات
+        عادةً ما تكون إما: إحصائيات كافية تُستخدم للتنبؤ أو
+        التحويل؛ نواتج :term:`استنتاجية` مثل :term:`labels_` أو
+        :term:`embedding_`؛ أو بيانات تشخيصية، مثل
         :term:`feature_importances_`.
-        Common attributes are listed :ref:`below <glossary_attributes>`.
+        السمات الشائعة مُدرجة :ref:`أدناه <glossary_attributes>`.
 
-        A public attribute may have the same name as a constructor
-        :term:`parameter`, with a ``_`` appended.  This is used to store a
-        validated or estimated version of the user's input. For example,
-        :class:`decomposition.PCA` is constructed with an ``n_components``
-        parameter. From this, together with other parameters and the data,
-        PCA estimates the attribute ``n_components_``.
+        قد يكون للسمة العامة نفس اسم مُنشئ
+        :term:`parameter`، مع إلحاق ``_``. يُستخدم هذا لتخزين
+        إصدار تم التحقق من صحته أو تقديره من إدخال المستخدم. على سبيل المثال،
+        يتم إنشاء :class:`decomposition.PCA` باستخدام معلمة ``n_components``.
+        من هذا، جنبًا إلى جنب مع المعلمات الأخرى والبيانات،
+        يُقدِّر PCA السمة ``n_components_``.
 
-        Further private attributes used in prediction/transformation/etc. may
-        also be set when fitting.  These begin with a single underscore and are
-        not assured to be stable for public access.
+        قد يتم أيضًا تعيين سمات خاصة أخرى تُستخدم في التنبؤ/التحويل/إلخ.
+        عند التوفيق. تبدأ هذه بشرطة سفلية واحدة ولا يُضمن
+        أن تكون مستقرة للوصول العام.
 
-        A public attribute on an estimator instance that does not end in an
-        underscore should be the stored, unmodified value of an ``__init__``
-        :term:`parameter` of the same name.  Because of this equivalence, these
-        are documented under an estimator's *Parameters* documentation.
+        يجب أن تكون السمة العامة في نموذج مقدر لا ينتهي بشرطة سفلية
+        هي القيمة المخزنة وغير المعدلة لـ ``__init__``
+        :term:`parameter` التي تحمل نفس الاسم. نظرًا لهذا التكافؤ، يتم
+        توثيق هذه ضمن وثائق *المعلمات* الخاصة بالمقدر.
 
-    backwards compatibility
-        We generally try to maintain backward compatibility (i.e. interfaces
-        and behaviors may be extended but not changed or removed) from release
-        to release but this comes with some exceptions:
+    التوافق مع الإصدارات السابقة
+        نحاول عمومًا الحفاظ على التوافق مع الإصدارات السابقة (أي يمكن تمديد
+        الواجهات والسلوكيات ولكن لا يمكن تغييرها أو إزالتها) من إصدار
+        إلى إصدار، لكن هذا يأتي مع بعض الاستثناءات:
 
-        Public API only
-            The behavior of objects accessed through private identifiers
-            (those beginning ``_``) may be changed arbitrarily between
-            versions.
-        As documented
-            We will generally assume that the users have adhered to the
-            documented parameter types and ranges. If the documentation asks
-            for a list and the user gives a tuple, we do not assure consistent
-            behavior from version to version.
-        Deprecation
-            Behaviors may change following a :term:`deprecation` period
-            (usually two releases long).  Warnings are issued using Python's
-            :mod:`warnings` module.
-        Keyword arguments
-            We may sometimes assume that all optional parameters (other than X
-            and y to :term:`fit` and similar methods) are passed as keyword
-            arguments only and may be positionally reordered.
-        Bug fixes and enhancements
-            Bug fixes and -- less often -- enhancements may change the behavior
-            of estimators, including the predictions of an estimator trained on
-            the same data and :term:`random_state`.  When this happens, we
-            attempt to note it clearly in the changelog.
-        Serialization
-            We make no assurances that pickling an estimator in one version
-            will allow it to be unpickled to an equivalent model in the
-            subsequent version.  (For estimators in the sklearn package, we
-            issue a warning when this unpickling is attempted, even if it may
-            happen to work.)  See :ref:`persistence_limitations`.
+        واجهة برمجة التطبيقات العامة فقط
+            قد يتغير سلوك الكائنات التي يتم الوصول إليها من خلال المُعرِّفات الخاصة
+            (تلك التي تبدأ بـ ``_``) بشكل تعسفي بين
+            الإصدارات.
+        كما هو موثق
+            سنفترض عمومًا أن المستخدمين قد التزموا بأنواع
+            المعلمات الموثقة ونطاقاتها. إذا طلبت الوثائق
+            قائمة وأعطى المستخدم tuple، فإننا لا نضمن سلوكًا
+            متسقًا من إصدار إلى إصدار.
+        الإهمال
+            قد تتغير السلوكيات بعد فترة :term:`إهمال`
+            (عادة ما تكون إصدارين). يتم إصدار التحذيرات باستخدام وحدة
+            :mod:`warnings` الخاصة بـ Python.
+        وسيطات الكلمات الرئيسية
+            قد نفترض أحيانًا أنه يتم تمرير جميع المعلمات الاختيارية (بخلاف X
+            و y إلى :term:`fit` والأساليب المماثلة) كوسيطات ذات
+            كلمات رئيسية فقط وقد يتم إعادة ترتيبها موضعيًا.
+        إصلاحات الأخطاء والتحسينات
+            قد تُغيِّر إصلاحات الأخطاء - وفي كثير من الأحيان - التحسينات سلوك
+            المقدرات، بما في ذلك تنبؤات المقدر المُدرَّب على
+            نفس البيانات و :term:`random_state`. عندما يحدث هذا،
+            نحاول ملاحظته بوضوح في سجل التغيير.
+        التسلسل
+            لا نقدم أي ضمانات بأن تخليل المقدر في إصدار واحد
+            سيسمح بإلغاء تخليله إلى نموذج مكافئ في
+            الإصدار اللاحق. (بالنسبة للمقدرات في حزمة sklearn،
+            نُصدر تحذيرًا عند محاولة إلغاء التخليل هذا، حتى لو
+            حدث أنه يعمل.) انظر :ref:`persistence_limitations`.
         :func:`utils.estimator_checks.check_estimator`
-            We provide limited backwards compatibility assurances for the
-            estimator checks: we may add extra requirements on estimators
-            tested with this function, usually when these were informally
-            assumed but not formally tested.
+            نحن نقدم ضمانات توافق محدودة مع الإصدارات السابقة لفحوصات
+            المقدر: قد نضيف متطلبات إضافية على المقدرات
+            التي تم اختبارها باستخدام هذه الدالة، عادةً عندما كان يتم افتراضها بشكل غير رسمي
+            ولكن لم يتم اختبارها رسميًا.
 
-        Despite this informal contract with our users, the software is provided
-        as is, as stated in the license.  When a release inadvertently
-        introduces changes that are not backward compatible, these are known
-        as software regressions.
 
-    callable
-        A function, class or an object which implements the ``__call__``
-        method; anything that returns True when the argument of `callable()
+        على الرغم من هذا العقد غير الرسمي مع مستخدمينا، يتم توفير البرنامج
+        كما هو، كما هو مذكور في الترخيص. عندما يُسبب إصدار عن غير قصد
+        تغييرات غير متوافقة مع الإصدارات السابقة، تُعرف هذه
+        باسم انحدارات البرامج.
+
+    قابل للاستدعاء
+        دالة أو فئة أو كائن ينفذ أسلوب ``__call__``؛ أي شيء يُعيد True عندما تكون وسيطة `callable()
         <https://docs.python.org/3/library/functions.html#callable>`_.
 
-    categorical feature
-        A categorical or nominal :term:`feature` is one that has a
-        finite set of discrete values across the population of data.
-        These are commonly represented as columns of integers or
-        strings. Strings will be rejected by most scikit-learn
-        estimators, and integers will be treated as ordinal or
-        count-valued. For the use with most estimators, categorical
-        variables should be one-hot encoded. Notable exceptions include
-        tree-based models such as random forests and gradient boosting
-        models that often work better and faster with integer-coded
-        categorical variables.
-        :class:`~sklearn.preprocessing.OrdinalEncoder` helps encoding
-        string-valued categorical features as ordinal integers, and
-        :class:`~sklearn.preprocessing.OneHotEncoder` can be used to
-        one-hot encode categorical features.
-        See also :ref:`preprocessing_categorical_features` and the
+    ميزة فئوية
+        الميزة الفئوية أو الاسمية هي الميزة التي تحتوي على
+        مجموعة محدودة من القيم المنفصلة عبر مجموعة البيانات.
+        يتم تمثيلها عادةً كأعمدة من الأعداد الصحيحة أو
+        السلاسل. سيتم رفض السلاسل من قبل معظم مقدرات scikit-learn،
+        وسيتم التعامل مع الأعداد الصحيحة على أنها ترتيبية أو
+        قائمة على العد. للاستخدام مع معظم المقدرات،
+        يجب تشفير المتغيرات الفئوية بشكل أحادي الاتجاه. تشمل الاستثناءات البارزة
+        النماذج المستندة إلى الشجرة مثل الغابات العشوائية ونماذج التعزيز المتدرج
+        التي غالبًا ما تعمل بشكل أفضل وأسرع مع المتغيرات الفئوية المُرمَّزة بالأعداد الصحيحة.
+        :class:`~sklearn.preprocessing.OrdinalEncoder` يساعد في تشفير
+        الميزات الفئوية ذات القيمة السلسلة كأعداد صحيحة ترتيبية، و
+        :class:`~sklearn.preprocessing.OneHotEncoder` يمكن استخدامه لـ
+        تشفير الميزات الفئوية بشكل أحادي الاتجاه.
+        انظر أيضًا :ref:`preprocessing_categorical_features` وحزمة
         `categorical-encoding
         <https://github.com/scikit-learn-contrib/category_encoders>`_
-        package for tools related to encoding categorical features.
+        للحصول على أدوات تتعلق بتشفير الميزات الفئوية.
 
-    clone
-    cloned
-        To copy an :term:`estimator instance` and create a new one with
-        identical :term:`parameters`, but without any fitted
-        :term:`attributes`, using :func:`~sklearn.base.clone`.
 
-        When ``fit`` is called, a :term:`meta-estimator` usually clones
-        a wrapped estimator instance before fitting the cloned instance.
-        (Exceptions, for legacy reasons, include
-        :class:`~pipeline.Pipeline` and
+    استنساخ
+    مستنسخ
+        لنسخ :term:`نموذج مقدر` وإنشاء نموذج جديد باستخدام
+        :term:`معلمات` متطابقة، ولكن بدون أي :term:`سمات` مناسبة،
+        باستخدام :func:`~sklearn.base.clone`.
+
+        عندما يتم استدعاء ``fit``، عادةً ما يقوم :term:`مقدر التعريف التلوي` باستنساخ
+        نموذج مقدر مُغلَّف قبل ملاءمة النموذج المستنسخ.
+        (تشمل الاستثناءات، لأسباب تتعلق بالإصدارات القديمة،
+        :class:`~pipeline.Pipeline` و
         :class:`~pipeline.FeatureUnion`.)
 
-        If the estimator's `random_state` parameter is an integer (or if the
-        estimator doesn't have a `random_state` parameter), an *exact clone*
-        is returned: the clone and the original estimator will give the exact
-        same results. Otherwise, *statistical clone* is returned: the clone
-        might yield different results from the original estimator. More
-        details can be found in :ref:`randomness`.
+        إذا كانت معلمة `random_state` الخاصة بالمقدر عددًا صحيحًا (أو إذا
+        لم يكن لدى المقدر معلمة `random_state`)، فسيتم إرجاع
+        *استنساخ دقيق*: سيعطي الاستنساخ والمقدر الأصلي نفس
+        النتائج تمامًا. خلاف ذلك، يتم إرجاع *استنساخ إحصائي*: قد ينتج الاستنساخ
+        نتائج مختلفة عن المقدر الأصلي. يمكن العثور على مزيد من
+        التفاصيل في :ref:`randomness`.
 
-    common tests
-        This refers to the tests run on almost every estimator class in
-        Scikit-learn to check they comply with basic API conventions.  They are
-        available for external use through
-        :func:`utils.estimator_checks.check_estimator`, with most of the
-        implementation in ``sklearn/utils/estimator_checks.py``.
+    اختبارات شائعة
+        يشير هذا إلى الاختبارات التي يتم إجراؤها على كل فئة مقدر تقريبًا في
+        Scikit-learn للتحقق من امتثالها لاتفاقيات واجهة برمجة التطبيقات الأساسية. إنها
+        متاحة للاستخدام الخارجي من خلال
+        :func:`utils.estimator_checks.check_estimator`، مع وجود معظم
+        التنفيذ في ``sklearn/utils/estimator_checks.py``.
 
-        Note: Some exceptions to the common testing regime are currently
-        hard-coded into the library, but we hope to replace this by marking
-        exceptional behaviours on the estimator using semantic :term:`estimator
-        tags`.
 
-    cross-fitting
-    cross fitting
-        A resampling method that iteratively partitions data into mutually
-        exclusive subsets to fit two stages. During the first stage, the
-        mutually exclusive subsets enable predictions or transformations to be
-        computed on data not seen during training. The computed data is then
-        used in the second stage. The objective is to avoid having any
-        overfitting in the first stage introduce bias into the input data
-        distribution of the second stage.
-        For examples of its use, see: :class:`~preprocessing.TargetEncoder`,
-        :class:`~ensemble.StackingClassifier`,
-        :class:`~ensemble.StackingRegressor` and
+        ملاحظة: بعض الاستثناءات لنظام الاختبار الشائع مُرمَّزة حاليًا
+        في المكتبة، لكننا نأمل في استبدال هذا عن طريق وضع علامة على
+        السلوكيات الاستثنائية على المقدر باستخدام :term:`علامات المقدر` الدلالية.
+
+
+    التوفيق المتبادل
+        طريقة إعادة أخذ عينات تقسم البيانات بشكل متكرر إلى مجموعات فرعية متنافية بشكل متبادل
+        لملاءمة مرحلتين. خلال المرحلة الأولى، تُمكِّن المجموعات الفرعية
+        المتنافية بشكل متبادل من حساب التنبؤات أو التحويلات على البيانات التي لم
+        يتم رؤيتها أثناء التدريب. ثم يتم استخدام البيانات المحسوبة
+        في المرحلة الثانية. الهدف هو تجنب وجود أي
+        تكيف زائد في المرحلة الأولى يُسبب تحيزًا في توزيع بيانات الإدخال
+        للمرحلة الثانية.
+        للحصول على أمثلة على استخدامه، انظر: :class:`~preprocessing.TargetEncoder`،
+        :class:`~ensemble.StackingClassifier`،
+        :class:`~ensemble.StackingRegressor` و
         :class:`~calibration.CalibratedClassifierCV`.
 
-    cross-validation
-    cross validation
-        A resampling method that iteratively partitions data into mutually
-        exclusive 'train' and 'test' subsets so model performance can be
-        evaluated on unseen data. This conserves data as avoids the need to hold
-        out a 'validation' dataset and accounts for variability as multiple
-        rounds of cross validation are generally performed.
-        See :ref:`User Guide <cross_validation>` for more details.
 
-    deprecation
-        We use deprecation to slowly violate our :term:`backwards
-        compatibility` assurances, usually to:
+    التحقق المتبادل
+        طريقة إعادة أخذ عينات تقسم البيانات بشكل متكرر إلى مجموعات فرعية "تدريب" و "اختبار"
+        متنافية بشكل متبادل بحيث يمكن تقييم أداء النموذج على البيانات غير المرئية. يحافظ هذا على البيانات
+        ويتجنب الحاجة إلى استبعاد مجموعة بيانات "التحقق من الصحة" ويُراعي التباين حيث يتم
+        إجراء جولات متعددة من التحقق المتبادل بشكل عام.
+        انظر :ref:`دليل المستخدم <cross_validation>` لمزيد من التفاصيل.
 
-        * change the default value of a parameter; or
-        * remove a parameter, attribute, method, class, etc.
 
-        We will ordinarily issue a warning when a deprecated element is used,
-        although there may be limitations to this.  For instance, we will raise
-        a warning when someone sets a parameter that has been deprecated, but
-        may not when they access that parameter's attribute on the estimator
-        instance.
+    الإهمال
+        نستخدم الإهمال لانتهاك ضمانات :term:`التوافق مع الإصدارات السابقة` الخاصة بنا ببطء،
+        عادةً لـ:
 
-        See the :ref:`Contributors' Guide <contributing_deprecation>`.
+        * تغيير القيمة الافتراضية لمعلمة؛ أو
+        * إزالة معلمة أو سمة أو أسلوب أو فئة، إلخ.
 
-    dimensionality
-        May be used to refer to the number of :term:`features` (i.e.
-        :term:`n_features`), or columns in a 2d feature matrix.
-        Dimensions are, however, also used to refer to the length of a NumPy
-        array's shape, distinguishing a 1d array from a 2d matrix.
 
-    docstring
-        The embedded documentation for a module, class, function, etc., usually
-        in code as a string at the beginning of the object's definition, and
-        accessible as the object's ``__doc__`` attribute.
+        سنُصدر عادةً تحذيرًا عند استخدام عنصر مُهمَل،
+        على الرغم من أنه قد تكون هناك قيود على هذا. على سبيل المثال، سنطرح
+        تحذيرًا عندما يُعيِّن شخص ما معلمة تم إهمالها، ولكن
+        قد لا نفعل ذلك عند الوصول إلى سمة هذه المعلمة في نموذج
+        المقدر.
 
-        We try to adhere to `PEP257
-        <https://www.python.org/dev/peps/pep-0257/>`_, and follow `NumpyDoc
-        conventions <https://numpydoc.readthedocs.io/en/latest/format.html>`_.
+        انظر :ref:`دليل المساهمين <contributing_deprecation>`.
 
-    double underscore
-    double underscore notation
-        When specifying parameter names for nested estimators, ``__`` may be
-        used to separate between parent and child in some contexts. The most
-        common use is when setting parameters through a meta-estimator with
-        :term:`set_params` and hence in specifying a search grid in
-        :ref:`parameter search <grid_search>`. See :term:`parameter`.
-        It is also used in :meth:`pipeline.Pipeline.fit` for passing
-        :term:`sample properties` to the ``fit`` methods of estimators in
-        the pipeline.
 
-    dtype
-    data type
-        NumPy arrays assume a homogeneous data type throughout, available in
-        the ``.dtype`` attribute of an array (or sparse matrix). We generally
-        assume simple data types for scikit-learn data: float or integer.
-        We may support object or string data types for arrays before encoding
-        or vectorizing.  Our estimators do not work with struct arrays, for
-        instance.
+    الأبعاد
+        قد يُستخدم للإشارة إلى عدد :term:`الميزات` (أي
+        :term:`n_features`)، أو الأعمدة في مصفوفة ميزات ثنائية الأبعاد.
+        ومع ذلك، تُستخدم الأبعاد أيضًا للإشارة إلى طول شكل مصفوفة NumPy،
+        مما يميز المصفوفة أحادية الأبعاد عن المصفوفة ثنائية الأبعاد.
 
-        Our documentation can sometimes give information about the dtype
-        precision, e.g. `np.int32`, `np.int64`, etc. When the precision is
-        provided, it refers to the NumPy dtype. If an arbitrary precision is
-        used, the documentation will refer to dtype `integer` or `floating`.
-        Note that in this case, the precision can be platform dependent.
-        The `numeric` dtype refers to accepting both `integer` and `floating`.
 
-        When it comes to choosing between 64-bit dtype (i.e. `np.float64` and
-        `np.int64`) and 32-bit dtype (i.e. `np.float32` and `np.int32`), it
-        boils down to a trade-off between efficiency and precision. The 64-bit
-        types offer more accurate results due to their lower floating-point
-        error, but demand more computational resources, resulting in slower
-        operations and increased memory usage. In contrast, 32-bit types
-        promise enhanced operation speed and reduced memory consumption, but
-        introduce a larger floating-point error. The efficiency improvement are
-        dependent on lower level optimization such as like vectorization,
-        single instruction multiple dispatch (SIMD), or cache optimization but
-        crucially on the compatibility of the algorithm in use.
+    سلسلة وثائق
+        الوثائق المُضمنة لوحدة نمطية أو فئة أو دالة، إلخ، عادةً
+        في التعليمات البرمجية كسلسلة في بداية تعريف الكائن، و
+        يمكن الوصول إليها كسمة ``__doc__`` للكائن.
 
-        Specifically, the choice of precision should account for whether the
-        employed algorithm can effectively leverage `np.float32`. Some
-        algorithms, especially certain minimization methods, are exclusively
-        coded for `np.float64`, meaning that even if `np.float32` is passed, it
-        triggers an automatic conversion back to `np.float64`. This not only
-        negates the intended computational savings but also introduces
-        additional overhead, making operations with `np.float32` unexpectedly
-        slower and more memory-intensive due to this extra conversion step.
+        نحاول الالتزام بـ `PEP257
+        <https://www.python.org/dev/peps/pep-0257/>`_، ونتبع اتفاقيات `NumpyDoc
+        <https://numpydoc.readthedocs.io/en/latest/format.html>`_.
 
-    duck typing
-        We try to apply `duck typing
-        <https://en.wikipedia.org/wiki/Duck_typing>`_ to determine how to
-        handle some input values (e.g. checking whether a given estimator is
-        a classifier).  That is, we avoid using ``isinstance`` where possible,
-        and rely on the presence or absence of attributes to determine an
-        object's behaviour.  Some nuance is required when following this
-        approach:
 
-        * For some estimators, an attribute may only be available once it is
-          :term:`fitted`.  For instance, we cannot a priori determine if
-          :term:`predict_proba` is available in a grid search where the grid
-          includes alternating between a probabilistic and a non-probabilistic
-          predictor in the final step of the pipeline.  In the following, we
-          can only determine if ``clf`` is probabilistic after fitting it on
-          some data::
+    شرطة سفلية مزدوجة
+    ترميز الشرطة السفلية المزدوجة
+        عند تحديد أسماء المعلمات للمقدرات المتداخلة، قد يتم
+        استخدام ``__`` للفصل بين الأصل والفرع في بعض السياقات. الاستخدام الأكثر
+        شيوعًا هو عند تعيين المعلمات من خلال مقدر تعريف تلوي باستخدام
+        :term:`set_params` وبالتالي في تحديد شبكة بحث في
+        :ref:`بحث المعلمة <grid_search>`. انظر :term:`parameter`.
+        يُستخدم أيضًا في :meth:`pipeline.Pipeline.fit` لتمرير
+        :term:`خصائص العينة` إلى أساليب ``fit`` الخاصة بالمقدرات في
+        خط الأنابيب.
+
+
+    نوع البيانات
+    نوع البيانات
+        تفترض مصفوفات NumPy نوع بيانات متجانس في كل مكان، متاح في
+        سمة ``.dtype`` لمصفوفة (أو مصفوفة متفرقة). نفترض عمومًا أنواع بيانات
+        بسيطة لبيانات scikit-learn: عدد عشري أو عدد صحيح.
+        قد ندعم أنواع بيانات الكائن أو السلسلة للمصفوفات قبل التشفير
+        أو التحويل إلى متجه. لا تعمل المقدرات الخاصة بنا مع مصفوفات الهياكل، على
+        سبيل المثال.
+
+        يمكن أن تقدم وثائقنا أحيانًا معلومات حول دقة نوع البيانات،
+        على سبيل المثال `np.int32`، `np.int64`، إلخ. عندما يتم توفير الدقة،
+        فإنها تشير إلى نوع بيانات NumPy. إذا تم استخدام دقة عشوائية،
+        فستشير الوثائق إلى نوع البيانات `integer` أو `floating`.
+        لاحظ أنه في هذه الحالة، يمكن أن تكون الدقة معتمدة على النظام الأساسي.
+        يشير نوع البيانات `numeric` إلى قبول كل من `integer` و `floating`.
+
+
+        عندما يتعلق الأمر بالاختيار بين نوع البيانات 64 بت (أي `np.float64` و
+        `np.int64`) ونوع البيانات 32 بت (أي `np.float32` و `np.int32`)،
+        فإن الأمر يتعلق بالمفاضلة بين الكفاءة والدقة. تُقدم أنواع 64 بت
+        نتائج أكثر دقة نظرًا لخطأ النقطة العائمة الأقل، لكنها تتطلب المزيد من موارد
+        الحوسبة، مما يؤدي إلى عمليات أبطأ وزيادة استخدام الذاكرة. على النقيض من ذلك،
+        تعد أنواع 32 بت بتحسين سرعة التشغيل وتقليل استهلاك الذاكرة، ولكن
+        تُسبب خطأ أكبر في النقطة العائمة. يعتمد تحسين الكفاءة على
+        تحسين المستوى الأدنى مثل التحويل إلى متجه،
+        إرسال تعليمات متعددة واحدة (SIMD)، أو تحسين ذاكرة التخزين المؤقت ولكن
+        بشكل حاسم على توافق الخوارزمية المستخدمة.
+
+
+        على وجه التحديد، يجب أن يُراعي اختيار الدقة ما إذا كانت
+        الخوارزمية المستخدمة يمكنها الاستفادة بفعالية من `np.float32`. بعض
+        الخوارزميات، وخاصة أساليب التصغير، مُرمَّزة حصريًا
+        لـ `np.float64`، مما يعني أنه حتى لو تم تمرير `np.float32`،
+        فإنها تُشغِّل تحويلًا تلقائيًا مرة أخرى إلى `np.float64`. هذا لا
+        يلغي فقط وفورات الحساب المقصودة ولكنه يُسبب أيضًا
+        نفقات عامة إضافية، مما يجعل العمليات مع `np.float32` أبطأ بشكل غير متوقع
+        وأكثر كثافة في استخدام الذاكرة بسبب خطوة التحويل الإضافية هذه.
+
+
+    كتابة البطة
+        نحاول تطبيق `كتابة البطة
+        <https://en.wikipedia.org/wiki/Duck_typing>`_ لتحديد كيفية
+        التعامل مع بعض قيم الإدخال (على سبيل المثال، التحقق مما إذا كان مقدر معين
+        هو مصنف). أي أننا نتجنب استخدام ``isinstance`` حيثما أمكن ذلك،
+        ونعتمد على وجود أو غياب السمات لتحديد سلوك
+        الكائن. هناك حاجة إلى بعض الفروق الدقيقة عند اتباع هذا
+        النهج:
+
+        * بالنسبة لبعض المقدرات، قد لا تتوفر سمة إلا بمجرد
+          :term:`ملاءمتها`. على سبيل المثال، لا يمكننا تحديد ما إذا كان
+          :term:`predict_proba` متاحًا مسبقًا في بحث شبكي حيث تتضمن الشبكة
+          التناوب بين متنبئ احتمالي وغير احتمالي في الخطوة الأخيرة من خط
+          الأنابيب. في ما يلي، لا يمكننا تحديد ما إذا كان ``clf`` احتماليًا إلا بعد
+          ملاءمته على بعض البيانات::
 
               >>> from sklearn.model_selection import GridSearchCV
               >>> from sklearn.linear_model import SGDClassifier
               >>> clf = GridSearchCV(SGDClassifier(),
               ...                    param_grid={'loss': ['log_loss', 'hinge']})
 
-          This means that we can only check for duck-typed attributes after
-          fitting, and that we must be careful to make :term:`meta-estimators`
-          only present attributes according to the state of the underlying
-          estimator after fitting.
+          هذا يعني أنه لا يمكننا التحقق من السمات المكتوبة بالبط إلا بعد
+          الملاءمة، وأنه يجب أن نكون حريصين على جعل :term:`مقدرات التعريف التلوي`
+          تقدم فقط سمات وفقًا لحالة المقدر الأساسي بعد الملاءمة.
 
-        * Checking if an attribute is present (using ``hasattr``) is in general
-          just as expensive as getting the attribute (``getattr`` or dot
-          notation).  In some cases, getting the attribute may indeed be
-          expensive (e.g. for some implementations of
-          :term:`feature_importances_`, which may suggest this is an API design
-          flaw).  So code which does ``hasattr`` followed by ``getattr`` should
-          be avoided; ``getattr`` within a try-except block is preferred.
+        * التحقق مما إذا كانت سمة موجودة (باستخدام ``hasattr``) بشكل عام
+          مكلف مثل الحصول على السمة (``getattr`` أو ترميز
+          النقطة). في بعض الحالات، قد يكون الحصول على السمة مكلفًا بالفعل (على سبيل المثال،
+          بالنسبة لبعض تطبيقات
+          :term:`feature_importances_`، مما قد يشير إلى أن هذا عيب في تصميم واجهة برمجة التطبيقات).
+          لذا، يجب تجنب الشفرة التي تقوم بـ ``hasattr`` متبوعًا بـ ``getattr``؛ يُفضل
+          ``getattr`` داخل كتلة try-except.
 
-        * For determining some aspects of an estimator's expectations or
-          support for some feature, we use :term:`estimator tags` instead of
-          duck typing.
+        * لتحديد بعض جوانب توقعات المقدر أو
+          دعمه لميزة ما، نستخدم :term:`علامات المقدر` بدلاً من
+          كتابة البطة.
 
-    early stopping
-        This consists in stopping an iterative optimization method before the
-        convergence of the training loss, to avoid over-fitting. This is
-        generally done by monitoring the generalization score on a validation
-        set. When available, it is activated through the parameter
-        ``early_stopping`` or by setting a positive :term:`n_iter_no_change`.
+    الإيقاف المبكر
+        يتمثل هذا في إيقاف أسلوب التحسين التكراري قبل
+        تقارب فقدان التدريب، لتجنب التكيف الزائد. يتم ذلك
+        عمومًا عن طريق مراقبة درجة التعميم على مجموعة التحقق من الصحة. عند
+        توفرها، يتم تنشيطها من خلال المعلمة
+        ``early_stopping`` أو عن طريق تعيين :term:`n_iter_no_change` موجب.
 
-    estimator instance
-        We sometimes use this terminology to distinguish an :term:`estimator`
-        class from a constructed instance. For example, in the following,
-        ``cls`` is an estimator class, while ``est1`` and ``est2`` are
-        instances::
+
+    نموذج مقدر
+        نستخدم هذا المصطلح أحيانًا للتمييز بين فئة :term:`مقدر`
+        ونموذج تم إنشاؤه. على سبيل المثال، في ما يلي،
+        ``cls`` هي فئة مقدر، بينما ``est1`` و ``est2`` هما
+        نماذج::
 
             cls = RandomForestClassifier
             est1 = cls()
             est2 = RandomForestClassifier()
 
-    examples
-        We try to give examples of basic usage for most functions and
-        classes in the API:
+    أمثلة
+        نحاول تقديم أمثلة على الاستخدام الأساسي لمعظم الدوال و
+        الفئات في واجهة برمجة التطبيقات:
 
-        * as doctests in their docstrings (i.e. within the ``sklearn/`` library
-          code itself).
-        * as examples in the :ref:`example gallery <general_examples>`
-          rendered (using `sphinx-gallery
-          <https://sphinx-gallery.readthedocs.io/>`_) from scripts in the
-          ``examples/`` directory, exemplifying key features or parameters
-          of the estimator/function.  These should also be referenced from the
-          User Guide.
-        * sometimes in the :ref:`User Guide <user_guide>` (built from ``doc/``)
-          alongside a technical description of the estimator.
+        * كاختبارات وثائق في سلاسل الوثائق الخاصة بها (أي داخل شفرة مكتبة ``sklearn/``
+          نفسها).
+        * كأمثلة في :ref:`معرض الأمثلة <general_examples>`
+          المعروضة (باستخدام `sphinx-gallery
+          <https://sphinx-gallery.readthedocs.io/>`_) من البرامج النصية في
+          دليل ``examples/``، مع توضيح الميزات أو المعلمات الرئيسية
+          للمقدر/الدالة. يجب أيضًا الرجوع إلى هذه من
+          دليل المستخدم.
+        * أحيانًا في :ref:`دليل المستخدم <user_guide>` (مبني من ``doc/``)
+          جنبًا إلى جنب مع وصف فني للمقدر.
 
-    experimental
-        An experimental tool is already usable but its public API, such as
-        default parameter values or fitted attributes, is still subject to
-        change in future versions without the usual :term:`deprecation`
-        warning policy.
 
-    evaluation metric
-    evaluation metrics
-        Evaluation metrics give a measure of how well a model performs.  We may
-        use this term specifically to refer to the functions in :mod:`~sklearn.metrics`
-        (disregarding :mod:`~sklearn.metrics.pairwise`), as distinct from the
-        :term:`score` method and the :term:`scoring` API used in cross
-        validation. See :ref:`model_evaluation`.
+    تجريبي
+        أداة تجريبية قابلة للاستخدام بالفعل، لكن واجهة برمجة التطبيقات العامة الخاصة بها، مثل
+        قيم المعلمات الافتراضية أو السمات الملائمة، لا تزال عرضة
+        للتغيير في الإصدارات المستقبلية بدون سياسة تحذير :term:`الإهمال` المعتادة.
 
-        These functions usually accept a ground truth (or the raw data
-        where the metric evaluates clustering without a ground truth) and a
-        prediction, be it the output of :term:`predict` (``y_pred``),
-        of :term:`predict_proba` (``y_proba``), or of an arbitrary score
-        function including :term:`decision_function` (``y_score``).
-        Functions are usually named to end with ``_score`` if a greater
-        score indicates a better model, and ``_loss`` if a lesser score
-        indicates a better model.  This diversity of interface motivates
-        the scoring API.
+    مقياس التقييم
+    مقاييس التقييم
+        تقدم مقاييس التقييم مقياسًا لمدى جودة أداء النموذج. قد
+        نستخدم هذا المصطلح على وجه التحديد للإشارة إلى الدوال في :mod:`~sklearn.metrics`
+        (مع تجاهل :mod:`~sklearn.metrics.pairwise`)، على عكس
+        أسلوب :term:`score` وواجهة برمجة تطبيقات :term:`scoring` المستخدمة في التحقق المتبادل.
+        انظر :ref:`model_evaluation`.
 
-        Note that some estimators can calculate metrics that are not included
-        in :mod:`~sklearn.metrics` and are estimator-specific, notably model
-        likelihoods.
+        عادةً ما تقبل هذه الدوال حقيقة أساسية (أو البيانات الأولية
+        حيث يُقيِّم المقياس التجميع بدون حقيقة أساسية) وتنبؤًا، سواء كان
+        ناتج :term:`predict` (``y_pred``)،
+        أو :term:`predict_proba` (``y_proba``)، أو دالة تسجيل عشوائية
+        بما في ذلك :term:`decision_function` (``y_score``).
+        عادةً ما يتم تسمية الدوال بحيث تنتهي بـ ``_score`` إذا كانت الدرجة الأكبر
+        تشير إلى نموذج أفضل، و ``_loss`` إذا كانت الدرجة الأقل
+        تشير إلى نموذج أفضل. هذا التنوع في الواجهة يُحفز
+        واجهة برمجة تطبيقات التسجيل.
 
-    estimator tags
-        Estimator tags describe certain capabilities of an estimator.  This would
-        enable some runtime behaviors based on estimator inspection, but it
-        also allows each estimator to be tested for appropriate invariances
-        while being excepted from other :term:`common tests`.
+        لاحظ أن بعض المقدرات يمكنها حساب مقاييس غير مدرجة
+        في :mod:`~sklearn.metrics` وهي خاصة بالمقدر، ولا سيما احتمالات
+        النموذج.
 
-        Some aspects of estimator tags are currently determined through
-        the :term:`duck typing` of methods like ``predict_proba`` and through
-        some special attributes on estimator objects:
+
+    علامات المقدر
+        ميزة مقترحة (على سبيل المثال :issue:`8022`) يتم من خلالها وصف إمكانيات المقدر
+        من خلال مجموعة من العلامات الدلالية. سيُمكِّن هذا بعض السلوكيات في وقت التشغيل
+        بناءً على فحص المقدر، ولكنه
+        يسمح أيضًا باختبار كل مقدر من أجل الثوابت المناسبة
+        مع استثنائه من :term:`الاختبارات الشائعة` الأخرى.
+
+        يتم تحديد بعض جوانب علامات المقدر حاليًا من خلال
+        :term:`كتابة البطة` للأساليب مثل ``predict_proba`` ومن خلال
+        بعض السمات الخاصة على كائنات المقدر:
 
         .. glossary::
 
             ``_estimator_type``
-                This string-valued attribute identifies an estimator as being a
-                classifier, regressor, etc. It is set by mixins such as
-                :class:`base.ClassifierMixin`, but needs to be more explicitly
-                adopted on a :term:`meta-estimator`.  Its value should usually be
-                checked by way of a helper such as :func:`base.is_classifier`.
+                تُحدد هذه السمة ذات القيمة السلسلة المقدر على أنه
+                مصنف أو مقدر انحدار، إلخ. يتم تعيينها بواسطة mixins مثل
+                :class:`base.ClassifierMixin`، ولكنها تحتاج إلى اعتماد أكثر وضوحًا
+                على :term:`مقدر التعريف التلوي`. يجب عادةً فحص قيمتها
+                عن طريق مساعد مثل :func:`base.is_classifier`.
 
-        For more detailed info, see :ref:`estimator_tags`.
+        لمزيد من المعلومات التفصيلية، انظر :ref:`estimator_tags`.
 
-    feature
-    features
-    feature vector
-        In the abstract, a feature is a function (in its mathematical sense)
-        mapping a sampled object to a numeric or categorical quantity.
-        "Feature" is also commonly used to refer to these quantities, being the
-        individual elements of a vector representing a sample. In a data
-        matrix, features are represented as columns: each column contains the
-        result of applying a feature function to a set of samples.
+    ميزة
+    الميزات
+    متجه الميزات
+        بشكل تجريدي، الميزة هي دالة (بمعناها الرياضي)
+        تربط كائنًا تم أخذ عينة منه بكمية رقمية أو فئوية.
+        يُستخدم "الميزة" أيضًا بشكل شائع للإشارة إلى هذه الكميات، كونها العناصر
+        الفردية لمتجه يُمثل عينة. في مصفوفة البيانات، يتم تمثيل الميزات
+        كأعمدة: يحتوي كل عمود على نتيجة تطبيق دالة الميزة على مجموعة من
+        العينات.
 
-        Elsewhere features are known as attributes, predictors, regressors, or
-        independent variables.
 
-        Nearly all estimators in scikit-learn assume that features are numeric,
-        finite and not missing, even when they have semantically distinct
-        domains and distributions (categorical, ordinal, count-valued,
-        real-valued, interval). See also :term:`categorical feature` and
-        :term:`missing values`.
+        في أماكن أخرى، تُعرف الميزات باسم السمات أو المتنبئات أو المُتغيرات
+        المستقلة.
 
-        ``n_features`` indicates the number of features in a dataset.
+        تفترض جميع المقدرات تقريبًا في scikit-learn أن الميزات رقمية و
+        محدودة وغير مفقودة، حتى عندما يكون لها مجالات وتوزيعات دلالية
+        متميزة (فئوية، ترتيبية، قائمة على العد،
+        ذات قيمة حقيقية، فاصل). انظر أيضًا :term:`ميزة فئوية` و
+        :term:`قيم مفقودة`.
 
-    fitting
-        Calling :term:`fit` (or :term:`fit_transform`, :term:`fit_predict`,
-        etc.) on an estimator.
+        يشير ``n_features`` إلى عدد الميزات في مجموعة البيانات.
 
-    fitted
-        The state of an estimator after :term:`fitting`.
 
-        There is no conventional procedure for checking if an estimator
-        is fitted.  However, an estimator that is not fitted:
+    الملاءمة
+        استدعاء :term:`fit` (أو :term:`fit_transform`، :term:`fit_predict`،
+        إلخ) على مقدر.
 
-        * should raise :class:`exceptions.NotFittedError` when a prediction
-          method (:term:`predict`, :term:`transform`, etc.) is called.
-          (:func:`utils.validation.check_is_fitted` is used internally
-          for this purpose.)
-        * should not have any :term:`attributes` beginning with an alphabetic
-          character and ending with an underscore. (Note that a descriptor for
-          the attribute may still be present on the class, but hasattr should
-          return False)
+    ملائم
+        حالة المقدر بعد :term:`الملاءمة`.
 
-    function
-        We provide ad hoc function interfaces for many algorithms, while
-        :term:`estimator` classes provide a more consistent interface.
+        لا يوجد إجراء تقليدي للتحقق مما إذا كان المقدر
+        ملائمًا. ومع ذلك، فإن المقدر غير الملائم:
 
-        In particular, Scikit-learn may provide a function interface that fits
-        a model to some data and returns the learnt model parameters, as in
-        :func:`linear_model.enet_path`.  For transductive models, this also
-        returns the embedding or cluster labels, as in
-        :func:`manifold.spectral_embedding` or :func:`cluster.dbscan`.  Many
-        preprocessing transformers also provide a function interface, akin to
-        calling :term:`fit_transform`, as in
-        :func:`preprocessing.maxabs_scale`.  Users should be careful to avoid
-        :term:`data leakage` when making use of these
-        ``fit_transform``-equivalent functions.
+        * يجب أن يطرح :class:`exceptions.NotFittedError` عند استدعاء أسلوب التنبؤ
+          (:term:`predict`، :term:`transform`، إلخ).
+          (يُستخدم :func:`utils.validation.check_is_fitted` داخليًا
+          لهذا الغرض.)
+        * يجب ألا يحتوي على أي :term:`سمات` تبدأ بحرف أبجدي
+          وتنتهي بشرطة سفلية. (لاحظ أن واصف
+          السمة قد لا يزال موجودًا في الفئة، ولكن يجب أن
+          يُعيد hasattr القيمة False)
 
-        We do not have a strict policy about when to or when not to provide
-        function forms of estimators, but maintainers should consider
-        consistency with existing interfaces, and whether providing a function
-        would lead users astray from best practices (as regards data leakage,
-        etc.)
+    دالة
+        نحن نقدم واجهات دوال مخصصة للعديد من الخوارزميات، بينما
+        تقدم فئات :term:`المقدر` واجهة أكثر اتساقًا.
 
-    gallery
-        See :term:`examples`.
+        على وجه الخصوص، قد يقدم Scikit-learn واجهة دالة تُلائم
+        نموذجًا لبعض البيانات وتُعيد معلمات النموذج التي تم تعلمها، كما هو الحال في
+        :func:`linear_model.enet_path`. بالنسبة للنماذج الاستنتاجية، يُعيد هذا أيضًا
+        تضمين أو تسميات الكتلة، كما هو الحال في
+        :func:`manifold.spectral_embedding` أو :func:`cluster.dbscan`. تقدم العديد
+        من محولات المعالجة المسبقة أيضًا واجهة دالة، تُشبه
+        استدعاء :term:`fit_transform`، كما هو الحال في
+        :func:`preprocessing.maxabs_scale`. يجب أن يكون المستخدمون حريصين على تجنب
+        :term:`تسرب البيانات` عند استخدام هذه
+        الدوال المكافئة لـ ``fit_transform``.
 
-    hyperparameter
-    hyper-parameter
-        See :term:`parameter`.
+        ليس لدينا سياسة صارمة بشأن متى نقدم أو متى لا نقدم
+        أشكال دوال للمقدرات، ولكن يجب على المسؤولين عن الصيانة مراعاة
+        الاتساق مع الواجهات الحالية، وما إذا كان توفير دالة
+        سيؤدي إلى تضليل المستخدمين عن أفضل الممارسات (فيما يتعلق بتسرب البيانات،
+        إلخ.)
 
-    impute
-    imputation
-        Most machine learning algorithms require that their inputs have no
-        :term:`missing values`, and will not work if this requirement is
-        violated. Algorithms that attempt to fill in (or impute) missing values
-        are referred to as imputation algorithms.
+    معرض
+        انظر :term:`أمثلة`.
 
-    indexable
-        An :term:`array-like`, :term:`sparse matrix`, pandas DataFrame or
-        sequence (usually a list).
+    معلمة فائقة
+        انظر :term:`معلمة`.
 
-    induction
-    inductive
-        Inductive (contrasted with :term:`transductive`) machine learning
-        builds a model of some data that can then be applied to new instances.
-        Most estimators in Scikit-learn are inductive, having :term:`predict`
-        and/or :term:`transform` methods.
+
+    الإسناد
+        تتطلب معظم خوارزميات التعلم الآلي ألا تحتوي مدخلاتها على
+        :term:`قيم مفقودة`، ولن تعمل إذا تم انتهاك هذا الشرط.
+        يُشار إلى الخوارزميات التي تحاول ملء (أو إسناد) القيم المفقودة
+        باسم خوارزميات الإسناد.
+
+    قابل للفهرسة
+        :term:`يشبه المصفوفة`، :term:`مصفوفة متفرقة`، pandas DataFrame أو
+        متسلسلة (عادةً ما تكون قائمة).
+
+
+    الاستقراء
+    استنتاجي
+        التعلم الآلي الاستنتاجي (على النقيض من :term:`الاستنتاجي`) يبني نموذجًا لبعض البيانات
+        التي يمكن تطبيقها بعد ذلك على نماذج جديدة.
+        معظم المقدرات في Scikit-learn استنتاجية، ولديها أساليب :term:`predict`
+        و/أو :term:`transform`.
+
 
     joblib
-        A Python library (https://joblib.readthedocs.io) used in Scikit-learn to
-        facilite simple parallelism and caching.  Joblib is oriented towards
-        efficiently working with numpy arrays, such as through use of
-        :term:`memory mapping`. See :ref:`parallelism` for more
-        information.
+        مكتبة Python (https://joblib.readthedocs.io) تُستخدم في Scikit-learn لـ
+        تسهيل التوازي البسيط والتخزين المؤقت. يركز Joblib على
+        العمل بكفاءة مع مصفوفات numpy، مثل من خلال استخدام
+        :term:`تخطيط الذاكرة`. انظر :ref:`parallelism` لمزيد من
+        المعلومات.
 
-    label indicator matrix
-    multilabel indicator matrix
-    multilabel indicator matrices
-        The format used to represent multilabel data, where each row of a 2d
-        array or sparse matrix corresponds to a sample, each column
-        corresponds to a class, and each element is 1 if the sample is labeled
-        with the class and 0 if not.
+    مصفوفة مؤشر التسمية
+    مصفوفات مؤشر متعددة التسميات
+        التنسيق المستخدم لتمثيل بيانات متعددة التسميات، حيث يتوافق كل صف من مصفوفة ثنائية الأبعاد
+        أو مصفوفة متفرقة مع عينة، يتوافق كل عمود
+        مع فئة، وكل عنصر هو 1 إذا تم تسمية العينة
+        بالفئة و 0 إن لم يكن.
 
-    leakage
-    data leakage
-        A problem in cross validation where generalization performance can be
-        over-estimated since knowledge of the test data was inadvertently
-        included in training a model.  This is a risk, for instance, when
-        applying a :term:`transformer` to the entirety of a dataset rather
-        than each training portion in a cross validation split.
+    تسرب
+    تسرب البيانات
+        مشكلة في التحقق المتبادل حيث يمكن
+        المبالغة في تقدير أداء التعميم حيث تم تضمين معرفة بيانات الاختبار عن غير قصد
+        في تدريب نموذج. هذا خطر، على سبيل المثال، عند
+        تطبيق :term:`محول` على مجموعة بيانات بأكملها بدلاً من
+        كل جزء تدريب في تقسيم التحقق المتبادل.
 
-        We aim to provide interfaces (such as :mod:`~sklearn.pipeline` and
-        :mod:`~sklearn.model_selection`) that shield the user from data leakage.
 
-    memmapping
-    memory map
-    memory mapping
-        A memory efficiency strategy that keeps data on disk rather than
-        copying it into main memory.  Memory maps can be created for arrays
-        that can be read, written, or both, using :obj:`numpy.memmap`. When
-        using :term:`joblib` to parallelize operations in Scikit-learn, it
-        may automatically memmap large arrays to reduce memory duplication
-        overhead in multiprocessing.
+        نهدف إلى توفير واجهات (مثل :mod:`~sklearn.pipeline` و
+        :mod:`~sklearn.model_selection`) تحمي المستخدم من تسرب البيانات.
 
-    missing values
-        Most Scikit-learn estimators do not work with missing values. When they
-        do (e.g. in :class:`impute.SimpleImputer`), NaN is the preferred
-        representation of missing values in float arrays.  If the array has
-        integer dtype, NaN cannot be represented. For this reason, we support
-        specifying another ``missing_values`` value when :term:`imputation` or
-        learning can be performed in integer space.
-        :term:`Unlabeled data <unlabeled data>` is a special case of missing
-        values in the :term:`target`.
+
+    تخطيط الذاكرة
+        استراتيجية كفاءة الذاكرة التي تحتفظ بالبيانات على القرص بدلاً من
+        نسخها في الذاكرة الرئيسية. يمكن إنشاء خرائط الذاكرة للمصفوفات
+        التي يمكن قراءتها أو كتابتها أو كليهما، باستخدام :obj:`numpy.memmap`. عند
+        استخدام :term:`joblib` لموازاة العمليات في Scikit-learn، قد
+        يقوم تلقائيًا بتخطيط المصفوفات الكبيرة لتقليل النفقات العامة لازدواجية
+        الذاكرة في المعالجة المتعددة.
+
+
+    قيم مفقودة
+        لا تعمل معظم مقدرات Scikit-learn مع القيم المفقودة. عندما تعمل
+        (على سبيل المثال، في :class:`impute.SimpleImputer`)، فإن NaN هو التمثيل
+        المفضل للقيم المفقودة في المصفوفات العشرية. إذا كانت المصفوفة
+        ذات نوع بيانات عدد صحيح، فلا يمكن تمثيل NaN. لهذا السبب، ندعم
+        تحديد قيمة ``missing_values`` أخرى عند :term:`الإسناد` أو
+        يمكن إجراء التعلم في مساحة عدد صحيح.
+        :term:`البيانات غير المُعلَّمة <unlabeled data>` هي حالة خاصة للقيم المفقودة
+        في :term:`الهدف`.
 
     ``n_features``
-        The number of :term:`features`.
+        عدد :term:`الميزات`.
+
 
     ``n_outputs``
-        The number of :term:`outputs` in the :term:`target`.
+        عدد :term:`المخرجات` في :term:`الهدف`.
+
 
     ``n_samples``
-        The number of :term:`samples`.
+        عدد :term:`العينات`.
+
 
     ``n_targets``
-        Synonym for :term:`n_outputs`.
+        مرادف لـ:term:`n_outputs`.
 
-    narrative docs
-    narrative documentation
-        An alias for :ref:`User Guide <user_guide>`, i.e. documentation written
-        in ``doc/modules/``. Unlike the :ref:`API reference <api_ref>` provided
-        through docstrings, the User Guide aims to:
+    وثائق سردية
+        اسم مستعار لـ :ref:`دليل المستخدم <user_guide>`، أي الوثائق المكتوبة
+        في ``doc/modules/``. على عكس :ref:`مرجع واجهة برمجة التطبيقات <api_ref>` المقدم
+        من خلال سلاسل الوثائق، يهدف دليل المستخدم إلى:
 
-        * group tools provided by Scikit-learn together thematically or in
-          terms of usage;
-        * motivate why someone would use each particular tool, often through
-          comparison;
-        * provide both intuitive and technical descriptions of tools;
-        * provide or link to :term:`examples` of using key features of a
-          tool.
+        * تجميع الأدوات التي يوفرها Scikit-learn معًا بشكل موضوعي أو من حيث
+          الاستخدام؛
+        * تحفيز سبب استخدام شخص ما لأداة معينة، غالبًا من خلال
+          المقارنة؛
+        * تقديم أوصاف بديهية وفنية للأدوات؛
+        * تقديم أو ربط :term:`أمثلة` لاستخدام الميزات الرئيسية للأداة.
 
     np
-        A shorthand for Numpy due to the conventional import statement::
+        اختصار لـ Numpy نظرًا لعبارة الاستيراد التقليدية::
 
             import numpy as np
 
-    online learning
-        Where a model is iteratively updated by receiving each batch of ground
-        truth :term:`targets` soon after making predictions on corresponding
-        batch of data.  Intrinsically, the model must be usable for prediction
-        after each batch. See :term:`partial_fit`.
+    التعلم عبر الإنترنت
+        حيث يتم تحديث النموذج بشكل متكرر عن طريق تلقي كل دفعة من :term:`الأهداف`
+        الحقيقية الأساسية بعد وقت قصير من إجراء تنبؤات على الدفعة المقابلة
+        من البيانات. بطبيعة الحال، يجب أن يكون النموذج قابلاً للاستخدام للتنبؤ
+        بعد كل دفعة. انظر :term:`partial_fit`.
 
-    out-of-core
-        An efficiency strategy where not all the data is stored in main memory
-        at once, usually by performing learning on batches of data. See
+    خارج النواة
+        استراتيجية كفاءة حيث لا يتم تخزين جميع البيانات في الذاكرة الرئيسية
+        مرة واحدة، عادةً عن طريق إجراء التعلم على دفعات من البيانات. انظر
         :term:`partial_fit`.
 
-    outputs
-        Individual scalar/categorical variables per sample in the
-        :term:`target`.  For example, in multilabel classification each
-        possible label corresponds to a binary output. Also called *responses*,
-        *tasks* or *targets*.
-        See :term:`multiclass multioutput` and :term:`continuous multioutput`.
 
-    pair
-        A tuple of length two.
+    المخرجات
+        متغيرات قياسية/فئوية فردية لكل عينة في
+        :term:`الهدف`. على سبيل المثال، في التصنيف متعدد التسميات، يتوافق كل
+        تسمية ممكنة مع ناتج ثنائي. وتسمى أيضًا *الاستجابات* أو
+        *المهام* أو *الأهداف*.
+        انظر :term:`multiclass multioutput` و :term:`continuous multioutput`.
 
-    parameter
-    parameters
-    param
-    params
-        We mostly use *parameter* to refer to the aspects of an estimator that
-        can be specified in its construction. For example, ``max_depth`` and
-        ``random_state`` are parameters of :class:`~ensemble.RandomForestClassifier`.
-        Parameters to an estimator's constructor are stored unmodified as
-        attributes on the estimator instance, and conventionally start with an
-        alphabetic character and end with an alphanumeric character.  Each
-        estimator's constructor parameters are described in the estimator's
-        docstring.
+    زوج
+        tuple بطول اثنين.
 
-        We do not use parameters in the statistical sense, where parameters are
-        values that specify a model and can be estimated from data. What we
-        call parameters might be what statisticians call hyperparameters to the
-        model: aspects for configuring model structure that are often not
-        directly learnt from data.  However, our parameters are also used to
-        prescribe modeling operations that do not affect the learnt model, such
-        as :term:`n_jobs` for controlling parallelism.
+    معلمة
+    المعلمات
+        نستخدم *المعلمة* في الغالب للإشارة إلى جوانب المقدر التي
+        يمكن تحديدها في بنائه. على سبيل المثال، ``max_depth`` و
+        ``random_state`` هما معلمات :class:`~ensemble.RandomForestClassifier`.
+        يتم تخزين المعلمات الخاصة بمُنشئ المقدر دون تعديل كـ
+        سمات على نموذج المقدر، وتبدأ تقليديًا بحرف
+        أبجدي وتنتهي بحرف أبجدي رقمي. يتم وصف معلمات مُنشئ
+        كل مقدر في سلسلة وثائق المقدر.
 
-        When talking about the parameters of a :term:`meta-estimator`, we may
-        also be including the parameters of the estimators wrapped by the
-        meta-estimator.  Ordinarily, these nested parameters are denoted by
-        using a :term:`double underscore` (``__``) to separate between the
-        estimator-as-parameter and its parameter.  Thus ``clf =
+        لا نستخدم المعلمات بالمعنى الإحصائي، حيث تكون المعلمات
+        هي القيم التي تُحدد نموذجًا ويمكن تقديرها من البيانات. ما
+        نسميه معلمات قد يكون ما يسميه الإحصائيون المعلمات الفائقة للنموذج:
+        جوانب لتكوين بنية النموذج التي غالبًا لا يتم
+        تعلمها مباشرةً من البيانات. ومع ذلك، تُستخدم المعلمات الخاصة بنا أيضًا لـ
+        وصف عمليات النمذجة التي لا تؤثر على النموذج الذي تم تعلمه، مثل
+        :term:`n_jobs` للتحكم في التوازي.
+
+        عند الحديث عن معلمات :term:`مقدر التعريف التلوي`، قد
+        نقوم أيضًا بتضمين معلمات المقدرات التي يغلِّفها
+        مقدر التعريف التلوي. عادةً، يتم الإشارة إلى هذه المعلمات المتداخلة
+        باستخدام :term:`شرطة سفلية مزدوجة` (``__``) للفصل بين
+        المقدر كمعلمة ومعلمته. وبالتالي، ``clf =
         BaggingClassifier(estimator=DecisionTreeClassifier(max_depth=3))``
-        has a deep parameter ``estimator__max_depth`` with value ``3``,
-        which is accessible with ``clf.estimator.max_depth`` or
+        لديه معلمة عميقة ``estimator__max_depth`` بقيمة ``3``،
+        والتي يمكن الوصول إليها باستخدام ``clf.estimator.max_depth`` أو
         ``clf.get_params()['estimator__max_depth']``.
 
-        The list of parameters and their current values can be retrieved from
-        an :term:`estimator instance` using its :term:`get_params` method.
 
-        Between construction and fitting, parameters may be modified using
-        :term:`set_params`.  To enable this, parameters are not ordinarily
-        validated or altered when the estimator is constructed, or when each
-        parameter is set. Parameter validation is performed when :term:`fit` is
-        called.
+        يمكن استرداد قائمة المعلمات وقيمها الحالية من
+        :term:`نموذج مقدر` باستخدام أسلوب :term:`get_params` الخاص به.
 
-        Common parameters are listed :ref:`below <glossary_parameters>`.
+        بين الإنشاء والملاءمة، يمكن تعديل المعلمات باستخدام
+        :term:`set_params`. لتمكين هذا، لا يتم عادةً
+        التحقق من صحة المعلمات أو تغييرها عند إنشاء المقدر، أو عند تعيين كل
+        معلمة. يتم إجراء التحقق من صحة المعلمة عند استدعاء :term:`fit`.
 
-    pairwise metric
-    pairwise metrics
+        المعلمات الشائعة مُدرجة :ref:`أدناه <glossary_parameters>`.
 
-        In its broad sense, a pairwise metric defines a function for measuring
-        similarity or dissimilarity between two samples (with each ordinarily
-        represented as a :term:`feature vector`).  We particularly provide
-        implementations of distance metrics (as well as improper metrics like
-        Cosine Distance) through :func:`metrics.pairwise_distances`, and of
-        kernel functions (a constrained class of similarity functions) in
-        :func:`metrics.pairwise.pairwise_kernels`.  These can compute pairwise distance
-        matrices that are symmetric and hence store data redundantly.
+    مقياس زوجي
+    مقاييس زوجية
+        بمعناه الواسع، يُحدد المقياس الزوجي دالة لقياس
+        التشابه أو الاختلاف بين عينتين (مع تمثيل كل منهما عادةً
+        كـ :term:`متجه ميزة`). نحن نقدم بشكل خاص
+        تطبيقات لمقاييس المسافة (بالإضافة إلى المقاييس غير الصحيحة مثل
+        مسافة جيب التمام) من خلال :func:`metrics.pairwise_distances`، و
+        دوال النواة (فئة مقيدة من دوال التشابه) في
+        :func:`metrics.pairwise.pairwise_kernels`. يمكن لهذه حساب مصفوفات المسافة الزوجية
+        المتماثلة وبالتالي تخزين البيانات بشكل زائد عن الحاجة.
 
-        See also :term:`precomputed` and :term:`metric`.
+        انظر أيضًا :term:`محسوب مسبقًا` و :term:`مقياس`.
 
-        Note that for most distance metrics, we rely on implementations from
-        :mod:`scipy.spatial.distance`, but may reimplement for efficiency in
-        our context. The :class:`metrics.DistanceMetric` interface is used to implement
-        distance metrics for integration with efficient neighbors search.
+
+        لاحظ أنه بالنسبة لمعظم مقاييس المسافة، نعتمد على التطبيقات من
+        :mod:`scipy.spatial.distance`، ولكن قد نعيد التنفيذ من أجل الكفاءة في
+        سياقنا. تُستخدم واجهة :class:`metrics.DistanceMetric` لتنفيذ
+        مقاييس المسافة للتكامل مع بحث الجيران الفعال.
+
 
     pd
-        A shorthand for `Pandas <https://pandas.pydata.org>`_ due to the
-        conventional import statement::
+        اختصار لـ `Pandas <https://pandas.pydata.org>`_ نظرًا لعبارة
+        الاستيراد التقليدية::
 
             import pandas as pd
 
-    precomputed
-        Where algorithms rely on :term:`pairwise metrics`, and can be computed
-        from pairwise metrics alone, we often allow the user to specify that
-        the :term:`X` provided is already in the pairwise (dis)similarity
-        space, rather than in a feature space.  That is, when passed to
-        :term:`fit`, it is a square, symmetric matrix, with each vector
-        indicating (dis)similarity to every sample, and when passed to
-        prediction/transformation methods, each row corresponds to a testing
-        sample and each column to a training sample.
+    محسوب مسبقًا
+        حيث تعتمد الخوارزميات على :term:`المقاييس الزوجية`، ويمكن حسابها
+        من المقاييس الزوجية وحدها، غالبًا ما نسمح للمستخدم بتحديد
+        أن :term:`X` المقدم موجود بالفعل في مساحة (عدم) التشابه الزوجية،
+        بدلاً من مساحة الميزات. أي أنه عند تمريره إلى
+        :term:`fit`، فهو مصفوفة مربعة متماثلة، مع كل متجه
+        يشير إلى (عدم) التشابه مع كل عينة، وعندما يتم تمريره إلى
+        أساليب التنبؤ/التحويل، يتوافق كل صف مع عينة اختبار
+        وكل عمود مع عينة تدريب.
 
-        Use of precomputed X is usually indicated by setting a ``metric``,
-        ``affinity`` or ``kernel`` parameter to the string 'precomputed'. If
-        this is the case, then the estimator should set the `pairwise`
-        estimator tag as True.
 
-    rectangular
-        Data that can be represented as a matrix with :term:`samples` on the
-        first axis and a fixed, finite set of :term:`features` on the second
-        is called rectangular.
+        عادةً ما تتم الإشارة إلى استخدام X المحسوب مسبقًا عن طريق تعيين معلمة ``metric``
+        أو ``affinity`` أو ``kernel`` إلى السلسلة "precomputed". إذا
+        كان هذا هو الحال، فيجب على المقدر تعيين علامة المقدر `pairwise`
+        على أنها True.
 
-        This term excludes samples with non-vectorial structures, such as text,
-        an image of arbitrary size, a time series of arbitrary length, a set of
-        vectors, etc. The purpose of a :term:`vectorizer` is to produce
-        rectangular forms of such data.
 
-    sample
-    samples
-        We usually use this term as a noun to indicate a single feature vector.
-        Elsewhere a sample is called an instance, data point, or observation.
-        ``n_samples`` indicates the number of samples in a dataset, being the
-        number of rows in a data array :term:`X`.
+    مستطيلي
+        تسمى البيانات التي يمكن تمثيلها كمصفوفة بـ :term:`عينات` على
+        المحور الأول ومجموعة ثابتة ومحدودة من :term:`الميزات` على المحور الثاني
+        بالمستطيلة.
 
-    sample property
-    sample properties
-        A sample property is data for each sample (e.g. an array of length
-        n_samples) passed to an estimator method or a similar function,
-        alongside but distinct from the :term:`features` (``X``) and
-        :term:`target` (``y``). The most prominent example is
-        :term:`sample_weight`; see others at :ref:`glossary_sample_props`.
 
-        As of version 0.19 we do not have a consistent approach to handling
-        sample properties and their routing in :term:`meta-estimators`, though
-        a ``fit_params`` parameter is often used.
+        يستبعد هذا المصطلح العينات ذات الهياكل غير المتجهة، مثل النص،
+        وصورة ذات حجم عشوائي، وسلسلة زمنية ذات طول عشوائي، ومجموعة من
+        المتجهات، إلخ. الغرض من :term:`المحول المتجه` هو إنتاج
+        أشكال مستطيلة لمثل هذه البيانات.
+
+
+    عينة
+    عينات
+        عادةً ما نستخدم هذا المصطلح كاسم للإشارة إلى متجه ميزة واحد.
+        في مكان آخر، تسمى العينة نموذجًا أو نقطة بيانات أو ملاحظة.
+        يشير ``n_samples`` إلى عدد العينات في مجموعة البيانات، وهو عدد
+        الصفوف في مصفوفة البيانات :term:`X`.
+
+    خاصية العينة
+    خصائص العينة
+        خاصية العينة هي بيانات لكل عينة (على سبيل المثال، مصفوفة بطول
+        n_samples) يتم تمريرها إلى أسلوب مقدر أو دالة مماثلة،
+        جنبًا إلى جنب مع :term:`الميزات` (``X``) و
+        :term:`الهدف` (``y``) ولكنها مميزة عنها. المثال الأبرز هو
+        :term:`sample_weight`؛ انظر أمثلة أخرى في :ref:`glossary_sample_props`.
+
+        اعتبارًا من الإصدار 0.19، ليس لدينا نهج متسق للتعامل مع
+        خصائص العينة وتوجيهها في :term:`مقدرات التعريف التلوي`، على الرغم من
+        أنه غالبًا ما يتم استخدام معلمة ``fit_params``.
+
 
     scikit-learn-contrib
-        A venue for publishing Scikit-learn-compatible libraries that are
-        broadly authorized by the core developers and the contrib community,
-        but not maintained by the core developer team.
-        See https://scikit-learn-contrib.github.io.
+        مكان لنشر مكتبات متوافقة مع Scikit-learn تم
+        ترخيصها على نطاق واسع من قبل المطورين الأساسيين ومجتمع contrib،
+        ولكن لا تتم صيانتها من قبل فريق المطورين الأساسي.
+        انظر https://scikit-learn-contrib.github.io.
 
-    scikit-learn enhancement proposals
-    SLEP
-    SLEPs
-        Changes to the API principles and changes to dependencies or supported
-        versions happen via a :ref:`SLEP <slep>` and follows the
-        decision-making process outlined in :ref:`governance`.
-        For all votes, a proposal must have been made public and discussed before the
-        vote. Such a proposal must be a consolidated document, in the form of a
-        "Scikit-Learn Enhancement Proposal" (SLEP), rather than a long discussion on an
-        issue. A SLEP must be submitted as a pull-request to
-        `enhancement proposals <https://scikit-learn-enhancement-proposals.readthedocs.io>`_ using the
-        `SLEP template <https://scikit-learn-enhancement-proposals.readthedocs.io/en/latest/slep_template.html>`_.
 
-    semi-supervised
-    semi-supervised learning
-    semisupervised
-        Learning where the expected prediction (label or ground truth) is only
-        available for some samples provided as training data when
-        :term:`fitting` the model.  We conventionally apply the label ``-1``
-        to :term:`unlabeled` samples in semi-supervised classification.
+    مقترحات تحسين scikit-learn
+        تحدث التغييرات على مبادئ واجهة برمجة التطبيقات والتغييرات على التبعيات أو الإصدارات
+        المدعومة عبر :ref:`SLEP <slep>` وتتبع عملية
+        صنع القرار الموضحة في :ref:`governance`.
+        بالنسبة لجميع عمليات التصويت، يجب أن يكون الاقتراح قد تم نشره ومناقشته قبل
+        التصويت. يجب أن يكون هذا الاقتراح وثيقة موحدة، في شكل
+        "اقتراح تحسين Scikit-Learn" (SLEP)، بدلاً من مناقشة طويلة حول
+        مشكلة. يجب إرسال SLEP كطلب سحب إلى
+        `مقترحات التحسين <https://scikit-learn-enhancement-proposals.readthedocs.io>`_ باستخدام
+        `قالب SLEP <https://scikit-learn-enhancement-proposals.readthedocs.io/en/latest/slep_template.html>`_.
 
-    sparse matrix
-    sparse graph
-        A representation of two-dimensional numeric data that is more memory
-        efficient the corresponding dense numpy array where almost all elements
-        are zero. We use the :mod:`scipy.sparse` framework, which provides
-        several underlying sparse data representations, or *formats*.
-        Some formats are more efficient than others for particular tasks, and
-        when a particular format provides especial benefit, we try to document
-        this fact in Scikit-learn parameter descriptions.
 
-        Some sparse matrix formats (notably CSR, CSC, COO and LIL) distinguish
-        between *implicit* and *explicit* zeros. Explicit zeros are stored
-        (i.e. they consume memory in a ``data`` array) in the data structure,
-        while implicit zeros correspond to every element not otherwise defined
-        in explicit storage.
 
-        Two semantics for sparse matrices are used in Scikit-learn:
+    شبه خاضع للإشراف
+    التعلم شبه الخاضع للإشراف
+        التعلم حيث يكون التنبؤ المتوقع (التسمية أو الحقيقة الأساسية) متاحًا فقط
+        لبعض العينات المقدمة كبيانات تدريب عند :term:`ملاءمة`
+        النموذج. نطبق عادةً التسمية ``-1``
+        على العينات :term:`غير المُعلَّمة` في التصنيف شبه الخاضع للإشراف.
 
-        matrix semantics
-            The sparse matrix is interpreted as an array with implicit and
-            explicit zeros being interpreted as the number 0.  This is the
-            interpretation most often adopted, e.g. when sparse matrices
-            are used for feature matrices or :term:`multilabel indicator
-            matrices`.
-        graph semantics
-            As with :mod:`scipy.sparse.csgraph`, explicit zeros are
-            interpreted as the number 0, but implicit zeros indicate a masked
-            or absent value, such as the absence of an edge between two
-            vertices of a graph, where an explicit value indicates an edge's
-            weight. This interpretation is adopted to represent connectivity
-            in clustering, in representations of nearest neighborhoods
-            (e.g. :func:`neighbors.kneighbors_graph`), and for precomputed
-            distance representation where only distances in the neighborhood
-            of each point are required.
 
-        When working with sparse matrices, we assume that it is sparse for a
-        good reason, and avoid writing code that densifies a user-provided
-        sparse matrix, instead maintaining sparsity or raising an error if not
-        possible (i.e. if an estimator does not / cannot support sparse
-        matrices).
+    مصفوفة متفرقة
+    رسم بياني متفرق
+        تمثيل للبيانات الرقمية ثنائية الأبعاد أكثر كفاءة في استخدام الذاكرة
+        من مصفوفة numpy الكثيفة المقابلة حيث تكون جميع العناصر تقريبًا
+        صفراً. نستخدم إطار عمل :mod:`scipy.sparse`، الذي يوفر
+        العديد من تمثيلات البيانات المتفرقة الأساسية، أو *التنسيقات*.
+        تكون بعض التنسيقات أكثر كفاءة من غيرها لمهام معينة، و
+        عندما يوفر تنسيق معين فائدة خاصة، نحاول توثيق
+        هذه الحقيقة في أوصاف معلمات Scikit-learn.
 
-    stateless
-        An estimator is stateless if it does not store any information that is
-        obtained during :term:`fit`. This information can be either parameters
-        learned during :term:`fit` or statistics computed from the
-        training data. An estimator is stateless if it has no :term:`attributes`
-        apart from ones set in `__init__`. Calling :term:`fit` for these
-        estimators will only validate the public :term:`attributes` passed
-        in `__init__`.
+        تميز بعض تنسيقات المصفوفة المتفرقة (خاصة CSR و CSC و COO و LIL)
+        بين الأصفار *الضمنية* و *الصريحة*. يتم تخزين الأصفار الصريحة
+        (أي أنها تستهلك الذاكرة في مصفوفة ``data``) في بنية البيانات،
+        بينما تتوافق الأصفار الضمنية مع كل عنصر غير مُعرَّف بطريقة أخرى
+        في التخزين الصريح.
 
-    supervised
-    supervised learning
-        Learning where the expected prediction (label or ground truth) is
-        available for each sample when :term:`fitting` the model, provided as
-        :term:`y`.  This is the approach taken in a :term:`classifier` or
-        :term:`regressor` among other estimators.
+        يتم استخدام اثنين من دلالات المصفوفات المتفرقة في Scikit-learn:
 
-    target
-    targets
-        The *dependent variable* in :term:`supervised` (and
-        :term:`semisupervised`) learning, passed as :term:`y` to an estimator's
-        :term:`fit` method.  Also known as *dependent variable*, *outcome
-        variable*, *response variable*, *ground truth* or *label*. Scikit-learn
-        works with targets that have minimal structure: a class from a finite
-        set, a finite real-valued number, multiple classes, or multiple
-        numbers. See :ref:`glossary_target_types`.
 
-    transduction
-    transductive
-        A transductive (contrasted with :term:`inductive`) machine learning
-        method is designed to model a specific dataset, but not to apply that
-        model to unseen data.  Examples include :class:`manifold.TSNE`,
-        :class:`cluster.AgglomerativeClustering` and
+        دلالات المصفوفة
+            يتم تفسير المصفوفة المتفرقة على أنها مصفوفة مع تفسير الأصفار الضمنية
+            والصريحة على أنها الرقم 0. هذا هو
+            التفسير الأكثر استخدامًا، على سبيل المثال عندما يتم استخدام المصفوفات المتفرقة
+            لمصفوفات الميزات أو :term:`مصفوفات مؤشر متعددة التسميات`.
+        دلالات الرسم البياني
+            كما هو الحال مع :mod:`scipy.sparse.csgraph`، يتم
+            تفسير الأصفار الصريحة على أنها الرقم 0، لكن الأصفار الضمنية تشير إلى قيمة مُقنعة
+            أو غائبة، مثل عدم وجود حافة بين رأسين
+            لرسم بياني، حيث تشير القيمة الصريحة إلى وزن الحافة. يتم اعتماد هذا التفسير لتمثيل
+            الاتصال في التجميع، وفي تمثيلات أقرب الجيران
+            (على سبيل المثال :func:`neighbors.kneighbors_graph`)، ولتمثيل
+            المسافة المحسوبة مسبقًا حيث تكون المسافات في جوار
+            كل نقطة مطلوبة فقط.
+
+
+        عند العمل مع المصفوفات المتفرقة، نفترض أنها متفرقة لسبب
+        وجيه، ونتجنب كتابة كود يُكثِّف مصفوفة متفرقة يوفرها المستخدم،
+        بدلاً من الحفاظ على التناثر أو طرح خطأ إذا لم يكن
+        ذلك ممكنًا (أي إذا كان المقدر لا يدعم/لا يمكنه دعم المصفوفات
+        المتفرقة).
+
+
+    عديم الحالة
+        يكون المقدر عديم الحالة إذا لم يُخزِّن أي معلومات يتم
+        الحصول عليها أثناء :term:`fit`. يمكن أن تكون هذه المعلومات إما معلمات
+        تم تعلمها أثناء :term:`fit` أو إحصائيات محسوبة من
+        بيانات التدريب. يكون المقدر عديم الحالة إذا لم يكن لديه :term:`سمات`
+        بصرف النظر عن تلك التي تم تعيينها في `__init__`. سيؤدي استدعاء :term:`fit` لهذه
+        المقدرات إلى التحقق من صحة :term:`السمات` العامة التي تم تمريرها
+        في `__init__` فقط.
+
+
+    خاضع للإشراف
+    التعلم الخاضع للإشراف
+        التعلم حيث يكون التنبؤ المتوقع (التسمية أو الحقيقة الأساسية) متاحًا
+        لكل عينة عند :term:`ملاءمة` النموذج، يتم توفيره كـ
+        :term:`y`. هذا هو النهج المتبع في :term:`المصنف` أو
+        :term:`مقدر الانحدار` من بين المقدرات الأخرى.
+
+    الهدف
+    الأهداف
+        *المتغير التابع* في التعلم :term:`الخاضع للإشراف` (و
+        :term:`شبه الخاضع للإشراف`)، يتم تمريره كـ :term:`y` إلى أسلوب
+        :term:`fit` الخاص بالمقدر. يُعرف أيضًا باسم *المتغير التابع* أو *متغير
+        النتيجة* أو *متغير الاستجابة* أو *الحقيقة الأساسية* أو *التسمية*. يعمل Scikit-learn
+        مع الأهداف ذات البنية الدنيا: فئة من مجموعة محدودة،
+        رقم ذو قيمة حقيقية محدودة، فئات متعددة، أو أرقام
+        متعددة. انظر :ref:`glossary_target_types`.
+
+
+    الاستنتاج
+    استنتاجي
+        أسلوب التعلم الآلي الاستنتاجي (على النقيض من :term:`الاستقرائي`) مُصمم
+        لنمذجة مجموعة بيانات محددة، ولكن ليس لتطبيق هذا
+        النموذج على البيانات غير المرئية. تشمل الأمثلة :class:`manifold.TSNE`،
+        :class:`cluster.AgglomerativeClustering` و
         :class:`neighbors.LocalOutlierFactor`.
 
-    unlabeled
-    unlabeled data
-        Samples with an unknown ground truth when fitting; equivalently,
-        :term:`missing values` in the :term:`target`.  See also
-        :term:`semisupervised` and :term:`unsupervised` learning.
+    غير مُعلَّم
+    بيانات غير مُعلَّمة
+        عينات ذات حقيقة أساسية غير معروفة عند الملاءمة؛ على نحو مكافئ،
+        :term:`قيم مفقودة` في :term:`الهدف`. انظر أيضًا
+        التعلم :term:`شبه الخاضع للإشراف` و :term:`غير الخاضع للإشراف`.
 
-    unsupervised
-    unsupervised learning
-        Learning where the expected prediction (label or ground truth) is not
-        available for each sample when :term:`fitting` the model, as in
-        :term:`clusterers` and :term:`outlier detectors`.  Unsupervised
-        estimators ignore any :term:`y` passed to :term:`fit`.
+
+    غير خاضع للإشراف
+    التعلم غير الخاضع للإشراف
+        التعلم حيث لا يتوفر التنبؤ المتوقع (التسمية أو الحقيقة الأساسية)
+        لكل عينة عند :term:`ملاءمة` النموذج، كما هو الحال في
+        :term:`مُجمِّعات` و :term:`كاشفات القيم المتطرفة`. تتجاهل المقدرات
+        غير الخاضعة للإشراف أي :term:`y` تم تمريره إلى :term:`fit`.
+
+
+
 
 .. _glossary_estimator_types:
 
-Class APIs and Estimator Types
+واجهات برمجة تطبيقات الفئات وأنواع المقدرات
 ==============================
 
 .. glossary::
 
-    classifier
-    classifiers
-        A :term:`supervised` (or :term:`semi-supervised`) :term:`predictor`
-        with a finite set of discrete possible output values.
+    مصنف
+    المصنفات
+        :term:`متنبئ` :term:`خاضع للإشراف` (أو :term:`شبه خاضع للإشراف`)
+        مع مجموعة محدودة من قيم الإخراج المنفصلة الممكنة.
 
-        A classifier supports modeling some of :term:`binary`,
-        :term:`multiclass`, :term:`multilabel`, or :term:`multiclass
-        multioutput` targets.  Within scikit-learn, all classifiers support
-        multi-class classification, defaulting to using a one-vs-rest
-        strategy over the binary classification problem.
+        يدعم المصنف نمذجة بعض :term:`الثنائية` أو
+        :term:`متعددة الفئات` أو :term:`متعددة التسميات` أو :term:`متعددة الفئات
+        متعددة المخرجات` الأهداف. ضمن scikit-learn، تدعم جميع المصنفات
+        التصنيف متعدد الفئات، وتستخدم افتراضيًا استراتيجية واحد مقابل البقية
+        على مشكلة التصنيف الثنائي.
 
-        Classifiers must store a :term:`classes_` attribute after fitting,
-        and usually inherit from :class:`base.ClassifierMixin`, which sets
-        their :term:`_estimator_type` attribute.
 
-        A classifier can be distinguished from other estimators with
+        يجب على المصنفات تخزين سمة :term:`classes_` بعد الملاءمة،
+        وعادةً ما ترث من :class:`base.ClassifierMixin`، التي تُعيِّن
+        سمة :term:`_estimator_type` الخاصة بها.
+
+
+        يمكن تمييز المصنف عن المقدرات الأخرى باستخدام
         :func:`~base.is_classifier`.
 
-        A classifier must implement:
+
+        يجب على المصنف تنفيذ:
 
         * :term:`fit`
         * :term:`predict`
         * :term:`score`
 
-        It may also be appropriate to implement :term:`decision_function`,
-        :term:`predict_proba` and :term:`predict_log_proba`.
 
-    clusterer
-    clusterers
-        A :term:`unsupervised` :term:`predictor` with a finite set of discrete
-        output values.
+        قد يكون من المناسب أيضًا تنفيذ :term:`decision_function`،
+        :term:`predict_proba` و :term:`predict_log_proba`.
 
-        A clusterer usually stores :term:`labels_` after fitting, and must do
-        so if it is :term:`transductive`.
 
-        A clusterer must implement:
+    مُجمِّع
+    المُجمِّعات
+        :term:`متنبئ` :term:`غير خاضع للإشراف` مع مجموعة محدودة من قيم
+        الإخراج المنفصلة.
+
+        عادةً ما يُخزِّن المُجمِّع :term:`labels_` بعد الملاءمة، ويجب أن يفعل ذلك
+        إذا كان :term:`استنتاجيًا`.
+
+
+        يجب على المُجمِّع تنفيذ:
 
         * :term:`fit`
-        * :term:`fit_predict` if :term:`transductive`
-        * :term:`predict` if :term:`inductive`
+        * :term:`fit_predict` إذا كان :term:`استنتاجيًا`
+        * :term:`predict` إذا كان :term:`استقرائيًا`
 
-    density estimator
-        An :term:`unsupervised` estimation of input probability density
-        function. Commonly used techniques are:
 
-        * :ref:`kernel_density` - uses a kernel function, controlled by the
-          bandwidth parameter to represent density;
-        * :ref:`Gaussian mixture <mixture>` - uses mixture of Gaussian models
-          to represent density.
+    مقدر الكثافة
+        تقدير :term:`غير خاضع للإشراف` لدالة كثافة احتمالية الإدخال.
+        التقنيات شائعة الاستخدام هي:
 
-    estimator
-    estimators
-        An object which manages the estimation and decoding of a model. The
-        model is estimated as a deterministic function of:
+        * :ref:`kernel_density` - يستخدم دالة نواة، يتم التحكم فيها بواسطة
+          معلمة عرض النطاق الترددي لتمثيل الكثافة؛
+        * :ref:`خليط غاوسي <mixture>` - يستخدم خليطًا من نماذج غاوسية
+          لتمثيل الكثافة.
 
-        * :term:`parameters` provided in object construction or with
-          :term:`set_params`;
-        * the global :mod:`numpy.random` random state if the estimator's
-          :term:`random_state` parameter is set to None; and
-        * any data or :term:`sample properties` passed to the most recent
-          call to :term:`fit`, :term:`fit_transform` or :term:`fit_predict`,
-          or data similarly passed in a sequence of calls to
+
+    مقدر
+    المقدرات
+        كائن يُدير تقدير وفك تشفير نموذج. يتم تقدير النموذج كدالة حتمية لـ:
+
+        * :term:`معلمات` مقدمة في إنشاء الكائن أو مع
+          :term:`set_params`؛
+        * حالة عشوائية :mod:`numpy.random` العالمية إذا تم تعيين
+          معلمة :term:`random_state` الخاصة بالمقدر على لا شيء؛ و
+        * أي بيانات أو :term:`خصائص عينة` تم تمريرها إلى أحدث
+          استدعاء لـ :term:`fit`، :term:`fit_transform` أو :term:`fit_predict`،
+          أو بيانات تم تمريرها بشكل مشابه في سلسلة من الاستدعاءات لـ
           :term:`partial_fit`.
 
-        The estimated model is stored in public and private :term:`attributes`
-        on the estimator instance, facilitating decoding through prediction
-        and transformation methods.
 
-        Estimators must provide a :term:`fit` method, and should provide
-        :term:`set_params` and :term:`get_params`, although these are usually
-        provided by inheritance from :class:`base.BaseEstimator`.
+        يتم تخزين النموذج المُقدَّر في :term:`سمات` عامة وخاصة
+        على نموذج المقدر، مما يُسهِّل فك التشفير من خلال أساليب التنبؤ
+        والتحويل.
 
-        The core functionality of some estimators may also be available as a
-        :term:`function`.
 
-    feature extractor
-    feature extractors
-        A :term:`transformer` which takes input where each sample is not
-        represented as an :term:`array-like` object of fixed length, and
-        produces an :term:`array-like` object of :term:`features` for each
-        sample (and thus a 2-dimensional array-like for a set of samples).  In
-        other words, it (lossily) maps a non-rectangular data representation
-        into :term:`rectangular` data.
+        يجب أن توفر المقدرات أسلوب :term:`fit`، ويجب أن توفر
+        :term:`set_params` و :term:`get_params`، على الرغم من أنها عادةً ما يتم
+        توفيرها عن طريق الوراثة من :class:`base.BaseEstimator`.
 
-        Feature extractors must implement at least:
+
+        قد تتوفر الوظيفة الأساسية لبعض المقدرات أيضًا كـ
+        :term:`دالة`.
+
+
+    مستخرج الميزات
+    مستخرجات الميزات
+        :term:`محول` يأخذ مدخلات حيث لا يتم تمثيل كل عينة
+        ككائن :term:`يشبه المصفوفة` بطول ثابت، و
+        ينتج كائنًا :term:`يشبه المصفوفة` من :term:`الميزات` لكل
+        عينة (وبالتالي مصفوفة ثنائية الأبعاد تشبه مجموعة من العينات).  بمعنى آخر،
+        إنه يقوم بتعيين تمثيل بيانات غير مستطيل (مع فقد)
+        إلى بيانات :term:`مستطيلة`.
+
+
+        يجب أن تُنفذ مستخرجات الميزات على الأقل:
 
         * :term:`fit`
         * :term:`transform`
         * :term:`get_feature_names_out`
 
-    meta-estimator
-    meta-estimators
-    metaestimator
-    metaestimators
-        An :term:`estimator` which takes another estimator as a parameter.
-        Examples include :class:`pipeline.Pipeline`,
-        :class:`model_selection.GridSearchCV`,
-        :class:`feature_selection.SelectFromModel` and
+    مقدر التعريف التلوي
+    مقدرات التعريف التلوي
+        :term:`مقدر` يأخذ مقدرًا آخر كمعلمة.
+        تشمل الأمثلة :class:`pipeline.Pipeline`،
+        :class:`model_selection.GridSearchCV`،
+        :class:`feature_selection.SelectFromModel` و
         :class:`ensemble.BaggingClassifier`.
 
-        In a meta-estimator's :term:`fit` method, any contained estimators
-        should be :term:`cloned` before they are fit (although FIXME: Pipeline
-        and FeatureUnion do not do this currently). An exception to this is
-        that an estimator may explicitly document that it accepts a pre-fitted
-        estimator (e.g. using ``prefit=True`` in
-        :class:`feature_selection.SelectFromModel`). One known issue with this
-        is that the pre-fitted estimator will lose its model if the
-        meta-estimator is cloned.  A meta-estimator should have ``fit`` called
-        before prediction, even if all contained estimators are pre-fitted.
 
-        In cases where a meta-estimator's primary behaviors (e.g.
-        :term:`predict` or :term:`transform` implementation) are functions of
-        prediction/transformation methods of the provided *base estimator* (or
-        multiple base estimators), a meta-estimator should provide at least the
-        standard methods provided by the base estimator.  It may not be
-        possible to identify which methods are provided by the underlying
-        estimator until the meta-estimator has been :term:`fitted` (see also
-        :term:`duck typing`), for which
-        :func:`utils.metaestimators.available_if` may help.  It
-        should also provide (or modify) the :term:`estimator tags` and
-        :term:`classes_` attribute provided by the base estimator.
+        في أسلوب :term:`fit` الخاص بمقدر التعريف التلوي، يجب
+        :term:`استنساخ` أي مقدرات مُضمنة قبل ملاءمتها (على الرغم من FIXME:
+        لا يقوم Pipeline و FeatureUnion بذلك حاليًا). استثناء من ذلك هو
+        أن المقدر قد يوثق صراحةً أنه يقبل مقدرًا تم توفيقه مسبقًا (على سبيل المثال،
+        باستخدام ``prefit = True`` في
+        :class:`feature_selection.SelectFromModel`). إحدى المشكلات المعروفة المتعلقة بهذا
+        هي أن المقدر الملائم مسبقًا سيفقد نموذجه إذا تم
+        استنساخ مقدر التعريف التلوي. يجب استدعاء ``fit`` لمقدر التعريف التلوي
+        قبل التنبؤ، حتى لو كانت جميع المقدرات المُضمنة ملائمة مسبقًا.
 
-        Meta-estimators should be careful to validate data as minimally as
-        possible before passing it to an underlying estimator. This saves
-        computation time, and may, for instance, allow the underlying
-        estimator to easily work with data that is not :term:`rectangular`.
 
-    outlier detector
-    outlier detectors
-        An :term:`unsupervised` binary :term:`predictor` which models the
-        distinction between core and outlying samples.
+        في الحالات التي تكون فيها السلوكيات الأساسية لمقدر التعريف التلوي (على سبيل المثال،
+        تنفيذ :term:`predict` أو :term:`transform`) دوالًا لـ
+        أساليب التنبؤ/التحويل الخاصة بـ *المقدر الأساسي* المقدم (أو
+        مقدرات أساسية متعددة)، يجب أن يقدم مقدر التعريف التلوي على الأقل
+        الأساليب القياسية التي يوفرها المقدر الأساسي. قد لا يكون
+        من الممكن تحديد الأساليب التي يوفرها المقدر الأساسي حتى
+        يتم :term:`ملاءمة` مقدر التعريف التلوي (انظر أيضًا
+        :term:`كتابة البطة`)، والتي قد يساعد :func:`utils.metaestimators.available_if` فيها.
+        يجب أيضًا أن يقدم (أو يُعدِّل) :term:`علامات المقدر` و
+        سمة :term:`classes_` التي يوفرها المقدر الأساسي.
 
-        Outlier detectors must implement:
+
+        يجب أن تكون مقدرات التعريف التلوي حريصة على التحقق من صحة البيانات بأقل قدر ممكن
+        قبل تمريرها إلى مقدر أساسي. يوفر هذا
+        وقت الحساب، وقد يسمح، على سبيل المثال، للمقدر
+        الأساسي بالعمل بسهولة مع البيانات غير :term:`المستطيلة`.
+
+
+    كاشف القيم المتطرفة
+    كاشفات القيم المتطرفة
+        :term:`متنبئ` ثنائي :term:`غير خاضع للإشراف` يُنمذج
+        التمييز بين العينات الأساسية والمتطرفة.
+
+
+        يجب أن تُنفذ كاشفات القيم المتطرفة:
 
         * :term:`fit`
-        * :term:`fit_predict` if :term:`transductive`
-        * :term:`predict` if :term:`inductive`
+        * :term:`fit_predict` إذا كان :term:`استنتاجيًا`
+        * :term:`predict` إذا كان :term:`استقرائيًا`
 
-        Inductive outlier detectors may also implement
-        :term:`decision_function` to give a normalized inlier score where
-        outliers have score below 0.  :term:`score_samples` may provide an
-        unnormalized score per sample.
 
-    predictor
-    predictors
-        An :term:`estimator` supporting :term:`predict` and/or
-        :term:`fit_predict`. This encompasses :term:`classifier`,
-        :term:`regressor`, :term:`outlier detector` and :term:`clusterer`.
+        قد تُنفذ كاشفات القيم المتطرفة الاستقرائية أيضًا
+        :term:`decision_function` لإعطاء درجة غير طبيعية طبيعية حيث
+        تكون القيم المتطرفة ذات درجة أقل من 0. قد يوفر :term:`score_samples`
+        درجة غير طبيعية لكل عينة.
 
-        In statistics, "predictors" refers to :term:`features`.
+    المتنبئ
+    المتنبئات
+        :term:`مقدر` يدعم :term:`predict` و/أو
+        :term:`fit_predict`. يشمل هذا :term:`المصنف`،
+        :term:`مقدر الانحدار`، :term:`كاشف القيم المتطرفة` و :term:`المُجمِّع`.
 
-    regressor
-    regressors
-        A :term:`supervised` (or :term:`semi-supervised`) :term:`predictor`
-        with :term:`continuous` output values.
+        في الإحصاء، تشير "المتنبئات" إلى :term:`الميزات`.
 
-        Regressors usually inherit from :class:`base.RegressorMixin`, which
-        sets their :term:`_estimator_type` attribute.
 
-        A regressor can be distinguished from other estimators with
+
+    مقدر الانحدار
+    مقدرات الانحدار
+        :term:`متنبئ` :term:`خاضع للإشراف` (أو :term:`شبه خاضع للإشراف`)
+        بقيم ناتج :term:`مستمرة`.
+
+        عادةً ما ترث مقدرات الانحدار من :class:`base.RegressorMixin`، والتي
+        تُعيِّن سمة :term:`_estimator_type` الخاصة بها.
+
+        يمكن تمييز مقدر الانحدار عن المقدرات الأخرى باستخدام
         :func:`~base.is_regressor`.
 
-        A regressor must implement:
+        يجب أن يُنفذ مقدر الانحدار:
 
         * :term:`fit`
         * :term:`predict`
         * :term:`score`
 
-    transformer
-    transformers
-        An estimator supporting :term:`transform` and/or :term:`fit_transform`.
-        A purely :term:`transductive` transformer, such as
-        :class:`manifold.TSNE`, may not implement ``transform``.
 
-    vectorizer
-    vectorizers
-        See :term:`feature extractor`.
+    المحول
+    المحولات
+        مقدر يدعم :term:`transform` و/أو :term:`fit_transform`.
+        :term:`محول استنتاجي` بحت، مثل
+        :class:`manifold.TSNE`، قد لا يُنفذ ``transform``.
 
-There are further APIs specifically related to a small family of estimators,
-such as:
+    المحول المتجه
+        انظر :term:`مستخرج الميزات`.
+
+
+هناك المزيد من واجهات برمجة التطبيقات المتعلقة على وجه التحديد بعائلة صغيرة من المقدرات،
+مثل:
+
 
 .. glossary::
 
-    cross-validation splitter
-    CV splitter
-    cross-validation generator
-        A non-estimator family of classes used to split a dataset into a
-        sequence of train and test portions (see :ref:`cross_validation`),
-        by providing :term:`split` and :term:`get_n_splits` methods.
-        Note that unlike estimators, these do not have :term:`fit` methods
-        and do not provide :term:`set_params` or :term:`get_params`.
-        Parameter validation may be performed in ``__init__``.
+    مُقسِّم التحقق المتبادل
+    مُولِّد التحقق المتبادل
+        عائلة غير مقدرة من الفئات تُستخدم لتقسيم مجموعة بيانات إلى
+        سلسلة من أجزاء التدريب والاختبار (انظر :ref:`cross_validation`)،
+        عن طريق توفير أساليب :term:`split` و :term:`get_n_splits`.
+        لاحظ أنه على عكس المقدرات، لا تحتوي هذه على أساليب :term:`fit`
+        ولا توفر :term:`set_params` أو :term:`get_params`.
+        قد يتم إجراء التحقق من صحة المعلمات في ``__init__``.
 
-    cross-validation estimator
-        An estimator that has built-in cross-validation capabilities to
-        automatically select the best hyper-parameters (see the :ref:`User
-        Guide <grid_search>`). Some example of cross-validation estimators
-        are :class:`ElasticNetCV <linear_model.ElasticNetCV>` and
+
+
+    مقدر التحقق المتبادل
+        مقدر لديه إمكانيات تحقق متبادل مدمجة لـ
+        تحديد أفضل المعلمات الفائقة تلقائيًا (انظر :ref:`دليل
+        المستخدم <grid_search>`). بعض الأمثلة على مقدرات التحقق المتبادل
+        هي :class:`ElasticNetCV <linear_model.ElasticNetCV>` و
         :class:`LogisticRegressionCV <linear_model.LogisticRegressionCV>`.
-        Cross-validation estimators are named `EstimatorCV` and tend to be
-        roughly equivalent to `GridSearchCV(Estimator(), ...)`. The
-        advantage of using a cross-validation estimator over the canonical
-        :term:`estimator` class along with :ref:`grid search <grid_search>` is
-        that they can take advantage of warm-starting by reusing precomputed
-        results in the previous steps of the cross-validation process. This
-        generally leads to speed improvements. An exception is the
-        :class:`RidgeCV <linear_model.RidgeCV>` class, which can instead
-        perform efficient Leave-One-Out (LOO) CV. By default, all these
-        estimators, apart from :class:`RidgeCV <linear_model.RidgeCV>` with an
-        LOO-CV, will be refitted on the full training dataset after finding the
-        best combination of hyper-parameters.
+        يتم تسمية مقدرات التحقق المتبادل باسم `EstimatorCV` وتميل إلى
+        أن تكون مكافئة تقريبًا لـ `GridSearchCV(Estimator()، ...)`.
+        ميزة استخدام مقدر التحقق المتبادل على
+        فئة :term:`المقدر` الأساسية جنبًا إلى جنب مع :ref:`البحث الشبكي <grid_search>` هي
+        أنه يمكنهم الاستفادة من البدء الدافئ عن طريق إعادة استخدام النتائج المحسوبة
+        مسبقًا في الخطوات السابقة من عملية التحقق المتبادل. يؤدي هذا
+        عمومًا إلى تحسينات في السرعة. الاستثناء هو
+        فئة :class:`RidgeCV <linear_model.RidgeCV>`، والتي يمكنها بدلاً من ذلك
+        إجراء التحقق المتبادل Leave-One-Out (LOO) بكفاءة. افتراضيًا، سيتم إعادة
+        ملاءمة جميع هذه المقدرات، باستثناء :class:`RidgeCV <linear_model.RidgeCV>`
+        مع LOO-CV، على مجموعة بيانات التدريب الكاملة بعد العثور على
+        أفضل مجموعة من المعلمات الفائقة.
 
-    scorer
-        A non-estimator callable object which evaluates an estimator on given
-        test data, returning a number. Unlike :term:`evaluation metrics`,
-        a greater returned number must correspond with a *better* score.
-        See :ref:`scoring_parameter`.
 
-Further examples:
+
+    مسجِّل
+        كائن قابل للاستدعاء غير مقدر يُقيِّم مقدرًا على بيانات اختبار معينة،
+        ويُعيد رقمًا. على عكس :term:`مقاييس التقييم`،
+        يجب أن يتوافق الرقم المُعاد الأكبر مع درجة *أفضل*.
+        انظر :ref:`scoring_parameter`.
+
+
+أمثلة إضافية:
 
 * :class:`metrics.DistanceMetric`
 * :class:`gaussian_process.kernels.Kernel`
@@ -1070,828 +1118,985 @@ Further examples:
 
 .. _glossary_metadata_routing:
 
-Metadata Routing
+توجيه البيانات الوصفية
 ================
+
 
 .. glossary::
 
-    consumer
-        An object which consumes :term:`metadata`. This object is usually an
-        :term:`estimator`, a :term:`scorer`, or a :term:`CV splitter`. Consuming
-        metadata means using it in calculations, e.g. using
-        :term:`sample_weight` to calculate a certain type of score. Being a
-        consumer doesn't mean that the object always receives a certain
-        metadata, rather it means it can use it if it is provided.
+    مستهلك
+        كائن يستهلك :term:`بيانات وصفية`. عادةً ما يكون هذا الكائن
+        :term:`مقدرًا` أو :term:`مسجِّلاً` أو :term:`مُقسِّم CV`. استهلاك
+        البيانات الوصفية يعني استخدامها في العمليات الحسابية، على سبيل المثال استخدام
+        :term:`sample_weight` لحساب نوع معين من الدرجات. كونك
+        مستهلكًا لا يعني أن الكائن يتلقى دائمًا بيانات وصفية معينة،
+        بل يعني أنه يمكنه استخدامها إذا تم توفيرها.
 
-    metadata
-        Data which is related to the given :term:`X` and :term:`y` data, but
-        is not directly a part of the data, e.g. :term:`sample_weight` or
-        :term:`groups`, and is passed along to different objects and methods,
-        e.g. to a :term:`scorer` or a :term:`CV splitter`.
 
-    router
-        An object which routes metadata to :term:`consumers <consumer>`. This
-        object is usually a :term:`meta-estimator`, e.g.
-        :class:`~pipeline.Pipeline` or :class:`~model_selection.GridSearchCV`.
-        Some routers can also be a consumer. This happens for example when a
-        meta-estimator uses the given :term:`groups`, and it also passes it
-        along to some of its sub-objects, such as a :term:`CV splitter`.
 
-Please refer to :ref:`Metadata Routing User Guide <metadata_routing>` for more
-information.
+    بيانات وصفية
+        البيانات المتعلقة ببيانات :term:`X` و :term:`y` المعينة، ولكن
+        ليست جزءًا مباشرًا من البيانات، على سبيل المثال :term:`sample_weight` أو
+        :term:`groups`، ويتم تمريرها إلى كائنات وأساليب مختلفة،
+        على سبيل المثال إلى :term:`مسجِّل` أو :term:`مُقسِّم CV`.
+
+
+
+    موجه
+        كائن يُوجِّه البيانات الوصفية إلى :term:`المستهلكين <consumer>`. عادةً ما يكون هذا
+        الكائن :term:`مقدر تعريف تلوي`، على سبيل المثال
+        :class:`~pipeline.Pipeline` أو :class:`~model_selection.GridSearchCV`.
+        يمكن أن يكون بعض الموجهات أيضًا مستهلكًا. يحدث هذا على سبيل المثال عندما يستخدم
+        مقدر التعريف التلوي :term:`groups` المعينة، ويقوم أيضًا بتمريرها
+        إلى بعض الكائنات الفرعية الخاصة به، مثل :term:`مُقسِّم CV`.
+
+يرجى الرجوع إلى :ref:`دليل مستخدم توجيه البيانات الوصفية <metadata_routing>` لمزيد من
+المعلومات.
+
+
 
 .. _glossary_target_types:
 
-Target Types
+أنواع الأهداف
 ============
 
 .. glossary::
 
-    binary
-        A classification problem consisting of two classes.  A binary target
-        may  be represented as for a :term:`multiclass` problem but with only two
-        labels.  A binary decision function is represented as a 1d array.
+    ثنائي
+        مشكلة تصنيف تتكون من فئتين. قد يتم تمثيل الهدف الثنائي
+        لمشكلة :term:`متعددة الفئات` ولكن بتسميتين فقط. يتم تمثيل دالة القرار
+        الثنائية كمصفوفة أحادية الأبعاد.
 
-        Semantically, one class is often considered the "positive" class.
-        Unless otherwise specified (e.g. using :term:`pos_label` in
-        :term:`evaluation metrics`), we consider the class label with the
-        greater value (numerically or lexicographically) as the positive class:
-        of labels [0, 1], 1 is the positive class; of [1, 2], 2 is the positive
-        class; of ['no', 'yes'], 'yes' is the positive class; of ['no', 'YES'],
-        'no' is the positive class.  This affects the output of
-        :term:`decision_function`, for instance.
+        دلاليًا، غالبًا ما تُعتبر إحدى الفئات الفئة "الإيجابية".
+        ما لم يُحدد خلاف ذلك (على سبيل المثال، باستخدام :term:`pos_label` في
+        :term:`مقاييس التقييم`)، فإننا نعتبر تسمية الفئة ذات القيمة
+        الأكبر (عدديًا أو معجميًا) على أنها الفئة الإيجابية:
+        من التسميات [0، 1]، 1 هي الفئة الإيجابية؛ من [1، 2]، 2 هي الفئة
+        الإيجابية؛ من ["لا"، "نعم"]، "نعم" هي الفئة الإيجابية؛ من ["لا"، "نعم"]،
+        "لا" هي الفئة الإيجابية. يؤثر هذا على ناتج
+        :term:`decision_function`، على سبيل المثال.
 
-        Note that a dataset sampled from a multiclass ``y`` or a continuous
-        ``y`` may appear to be binary.
 
-        :func:`~utils.multiclass.type_of_target` will return 'binary' for
-        binary input, or a similar array with only a single class present.
+        لاحظ أن مجموعة البيانات التي تم أخذ عينات منها من ``y`` متعدد الفئات أو
+        ``y`` مستمر قد تبدو ثنائية.
 
-    continuous
-        A regression problem where each sample's target is a finite floating
-        point number represented as a 1-dimensional array of floats (or
-        sometimes ints).
 
-        :func:`~utils.multiclass.type_of_target` will return 'continuous' for
-        continuous input, but if the data is all integers, it will be
-        identified as 'multiclass'.
+        سيُعيد :func:`~utils.multiclass.type_of_target` القيمة "binary" لـ
+        الإدخال الثنائي، أو مصفوفة مماثلة بفئة واحدة فقط موجودة.
 
-    continuous multioutput
-    continuous multi-output
-    multioutput continuous
-    multi-output continuous
-        A regression problem where each sample's target consists of ``n_outputs``
-        :term:`outputs`, each one a finite floating point number, for a
-        fixed int ``n_outputs > 1`` in a particular dataset.
 
-        Continuous multioutput targets are represented as multiple
-        :term:`continuous` targets, horizontally stacked into an array
-        of shape ``(n_samples, n_outputs)``.
+    مستمر
+        مشكلة انحدار حيث يكون هدف كل عينة هو رقم فاصلة عائمة محدود
+        مُمثل كمصفوفة أحادية الأبعاد من العناصر العائمة (أو
+        أحيانًا أعداد صحيحة).
 
-        :func:`~utils.multiclass.type_of_target` will return
-        'continuous-multioutput' for continuous multioutput input, but if the
-        data is all integers, it will be identified as
-        'multiclass-multioutput'.
 
-    multiclass
-    multi-class
-        A classification problem consisting of more than two classes.  A
-        multiclass target may be represented as a 1-dimensional array of
-        strings or integers.  A 2d column vector of integers (i.e. a
-        single output in :term:`multioutput` terms) is also accepted.
+        سيُعيد :func:`~utils.multiclass.type_of_target` القيمة "continuous" لـ
+        الإدخال المستمر، ولكن إذا كانت جميع البيانات أعدادًا صحيحة، فسيتم
+        تحديدها على أنها "multiclass".
 
-        We do not officially support other orderable, hashable objects as class
-        labels, even if estimators may happen to work when given classification
-        targets of such type.
 
-        For semi-supervised classification, :term:`unlabeled` samples should
-        have the special label -1 in ``y``.
+    متعدد المخرجات مستمر
+    مستمر متعدد المخرجات
+        مشكلة انحدار حيث يتكون هدف كل عينة من ``n_outputs``
+        :term:`مخرجات`، كل منها رقم فاصلة عائمة محدود، لـ
+        عدد صحيح ثابت ``n_outputs > 1`` في مجموعة بيانات معينة.
 
-        Within scikit-learn, all estimators supporting binary classification
-        also support multiclass classification, using One-vs-Rest by default.
 
-        A :class:`preprocessing.LabelEncoder` helps to canonicalize multiclass
-        targets as integers.
+        يتم تمثيل الأهداف المستمرة متعددة المخرجات كأهداف
+        :term:`مستمرة` متعددة، مكدسة أفقيًا في مصفوفة
+        ذات شكل ``(n_samples، n_outputs)``.
 
-        :func:`~utils.multiclass.type_of_target` will return 'multiclass' for
-        multiclass input. The user may also want to handle 'binary' input
-        identically to 'multiclass'.
+        سيُعيد :func:`~utils.multiclass.type_of_target`
+        القيمة "continuous-multioutput" للإدخال المستمر متعدد المخرجات، ولكن إذا
+        كانت جميع البيانات أعدادًا صحيحة، فسيتم تحديدها على أنها
+        "multiclass-multioutput".
 
-    multiclass multioutput
-    multi-class multi-output
-    multioutput multiclass
-    multi-output multi-class
-        A classification problem where each sample's target consists of
-        ``n_outputs`` :term:`outputs`, each a class label, for a fixed int
-        ``n_outputs > 1`` in a particular dataset.  Each output has a
-        fixed set of available classes, and each sample is labeled with a
-        class for each output. An output may be binary or multiclass, and in
-        the case where all outputs are binary, the target is
-        :term:`multilabel`.
 
-        Multiclass multioutput targets are represented as multiple
-        :term:`multiclass` targets, horizontally stacked into an array
-        of shape ``(n_samples, n_outputs)``.
+    متعدد الفئات
+        مشكلة تصنيف تتكون من أكثر من فئتين.
+        يمكن تمثيل الهدف متعدد الفئات كمصفوفة أحادية الأبعاد من
+        السلاسل أو الأعداد الصحيحة. متجه عمود ثنائي الأبعاد من الأعداد الصحيحة (أي
+        ناتج واحد من حيث :term:`multioutput`) مقبول أيضًا.
 
-        XXX: For simplicity, we may not always support string class labels
-        for multiclass multioutput, and integer class labels should be used.
 
-        :mod:`~sklearn.multioutput` provides estimators which estimate multi-output
-        problems using multiple single-output estimators.  This may not fully
-        account for dependencies among the different outputs, which methods
-        natively handling the multioutput case (e.g. decision trees, nearest
-        neighbors, neural networks) may do better.
+        لا ندعم رسميًا كائنات أخرى قابلة للترتيب وقابلة للتجزئة كتسميات فئات،
+        حتى لو كانت المقدرات قد تعمل عند إعطاء أهداف تصنيف
+        من هذا النوع.
 
-        :func:`~utils.multiclass.type_of_target` will return
-        'multiclass-multioutput' for multiclass multioutput input.
+        بالنسبة للتصنيف شبه الخاضع للإشراف، يجب أن تحتوي العينات :term:`غير المُعلَّمة`
+        على التسمية الخاصة -1 في ``y``.
 
-    multilabel
-    multi-label
-        A :term:`multiclass multioutput` target where each output is
-        :term:`binary`.  This may be represented as a 2d (dense) array or
-        sparse matrix of integers, such that each column is a separate binary
-        target, where positive labels are indicated with 1 and negative labels
-        are usually -1 or 0.  Sparse multilabel targets are not supported
-        everywhere that dense multilabel targets are supported.
+        ضمن scikit-learn، تدعم جميع المقدرات التي تدعم التصنيف الثنائي
+        أيضًا التصنيف متعدد الفئات، باستخدام واحد مقابل البقية افتراضيًا.
 
-        Semantically, a multilabel target can be thought of as a set of labels
-        for each sample.  While not used internally,
-        :class:`preprocessing.MultiLabelBinarizer` is provided as a utility to
-        convert from a list of sets representation to a 2d array or sparse
-        matrix. One-hot encoding a multiclass target with
-        :class:`preprocessing.LabelBinarizer` turns it into a multilabel
-        problem.
 
-        :func:`~utils.multiclass.type_of_target` will return
-        'multilabel-indicator' for multilabel input, whether sparse or dense.
+        يساعد :class:`preprocessing.LabelEncoder` على تحويل أهداف
+        متعددة الفئات إلى أعداد صحيحة.
 
-    multioutput
-    multi-output
-        A target where each sample has multiple classification/regression
-        labels. See :term:`multiclass multioutput` and :term:`continuous
-        multioutput`. We do not currently support modelling mixed
-        classification and regression targets.
+
+        سيُعيد :func:`~utils.multiclass.type_of_target` القيمة "multiclass" لـ
+        الإدخال متعدد الفئات. قد يرغب المستخدم أيضًا في التعامل مع الإدخال "الثنائي"
+        بشكل مماثل لـ "multiclass".
+
+
+    متعدد الفئات ومتعدد المخرجات
+        مشكلة تصنيف حيث يتكون هدف كل عينة من
+        ``n_outputs`` :term:`مخرجات`، كل منها تسمية فئة، لعدد صحيح ثابت
+        ``n_outputs > 1`` في مجموعة بيانات معينة.  لكل ناتج مجموعة ثابتة
+        من الفئات المتاحة، وكل عينة مُعلَّمة بفئة
+        لكل ناتج. قد يكون الناتج ثنائيًا أو متعدد الفئات، وفي
+        الحالة التي تكون فيها جميع المخرجات ثنائية، يكون الهدف
+        :term:`متعدد التسميات`.
+
+
+        يتم تمثيل الأهداف متعددة الفئات ومتعددة المخرجات كأهداف
+        :term:`متعددة الفئات` متعددة، مكدسة أفقيًا في مصفوفة
+        ذات شكل ``(n_samples, n_outputs)``.
+
+
+        XXX: من أجل البساطة، قد لا ندعم دائمًا تسميات فئات السلاسل
+        للمخرجات متعددة الفئات ومتعددة المخرجات، ويجب استخدام تسميات فئات الأعداد الصحيحة.
+
+
+
+        يوفر :mod:`~sklearn.multioutput` مقدرات تُقدِّر المشكلات متعددة المخرجات
+        باستخدام مقدرات متعددة أحادية الناتج. قد لا يُراعي هذا
+        تمامًا التبعيات بين المخرجات المختلفة، والتي قد تعمل الأساليب
+        التي تتعامل أصلاً مع الحالة متعددة المخرجات (على سبيل المثال، أشجار القرار،
+        أقرب الجيران، الشبكات العصبية) بشكل أفضل.
+
+
+
+        سيُعيد :func:`~utils.multiclass.type_of_target`
+        القيمة "multiclass-multioutput" للإدخال متعدد الفئات ومتعدد المخرجات.
+
+
+
+    متعدد التسميات
+        هدف :term:`متعدد الفئات ومتعدد المخرجات` حيث يكون كل ناتج
+        :term:`ثنائيًا`. قد يتم تمثيل هذا كمصفوفة ثنائية الأبعاد (كثيفة) أو
+        مصفوفة متفرقة من الأعداد الصحيحة، بحيث يكون كل عمود هدفًا ثنائيًا منفصلاً،
+        حيث تتم الإشارة إلى التسميات الإيجابية بالرقم 1 وعادةً ما تكون التسميات السلبية
+        -1 أو 0. لا يتم دعم الأهداف المتفرقة متعددة التسميات
+        في كل مكان يتم فيه دعم الأهداف الكثيفة متعددة التسميات.
+
+
+        دلاليًا، يمكن اعتبار الهدف متعدد التسميات كمجموعة من التسميات
+        لكل عينة. على الرغم من عدم استخدامه داخليًا،
+        يتم توفير :class:`preprocessing.MultiLabelBinarizer` كأداة مساعدة لـ
+        التحويل من قائمة التمثيلات المحددة إلى مصفوفة ثنائية الأبعاد أو مصفوفة
+        متفرقة. يؤدي تشفير الهدف متعدد الفئات بشكل أحادي الاتجاه باستخدام
+        :class:`preprocessing.LabelBinarizer` إلى تحويله إلى مشكلة متعددة
+        التسميات.
+
+
+        سيُعيد :func:`~utils.multiclass.type_of_target`
+        القيمة "multilabel-indicator" للإدخال متعدد التسميات، سواء كان متفرقًا أو كثيفًا.
+
+
+    متعدد المخرجات
+        هدف حيث تحتوي كل عينة على تسميات تصنيف/انحدار
+        متعددة. انظر :term:`multiclass multioutput` و :term:`continuous
+        multioutput`. لا ندعم حاليًا نمذجة أهداف التصنيف والانحدار
+        المختلطة.
+
+
 
 .. _glossary_methods:
 
-Methods
+الأساليب
 =======
 
 .. glossary::
 
     ``decision_function``
-        In a fitted :term:`classifier` or :term:`outlier detector`, predicts a
-        "soft" score for each sample in relation to each class, rather than the
-        "hard" categorical prediction produced by :term:`predict`.  Its input
-        is usually only some observed data, :term:`X`.
+        في :term:`مصنف` أو :term:`كاشف قيم متطرفة` ملائم، يتنبأ
+        بدرجة "ناعمة" لكل عينة فيما يتعلق بكل فئة، بدلاً من
+        التنبؤ الفئوي "الصعب" الذي ينتجه :term:`predict`.  يكون إدخاله
+        عادةً مجرد بعض البيانات المرصودة، :term:`X`.
 
-        If the estimator was not already :term:`fitted`, calling this method
-        should raise a :class:`exceptions.NotFittedError`.
+        إذا لم يكن المقدر :term:`ملائمًا` بالفعل، فيجب أن يطرح استدعاء هذا الأسلوب
+        :class:`exceptions.NotFittedError`.
 
-        Output conventions:
 
-        binary classification
-            A 1-dimensional array, where values strictly greater than zero
-            indicate the positive class (i.e. the last class in
+        اتفاقيات الإخراج:
+
+        التصنيف الثنائي
+            مصفوفة أحادية الأبعاد، حيث تشير القيم الأكبر من الصفر
+            بشكل صارم إلى الفئة الإيجابية (أي الفئة الأخيرة في
             :term:`classes_`).
-        multiclass classification
-            A 2-dimensional array, where the row-wise arg-maximum is the
-            predicted class.  Columns are ordered according to
+
+
+        التصنيف متعدد الفئات
+            مصفوفة ثنائية الأبعاد، حيث يكون الحد الأقصى للوسيطة حسب الصف هو
+            الفئة المتوقعة. يتم ترتيب الأعمدة وفقًا لـ
             :term:`classes_`.
-        multilabel classification
-            Scikit-learn is inconsistent in its representation of :term:`multilabel`
-            decision functions. It may be represented one of two ways:
 
-            - List of 2d arrays, each array of shape: (`n_samples`, 2), like in
-              multiclass multioutput. List is of length `n_labels`.
 
-            - Single 2d array of shape (`n_samples`, `n_labels`), with each
-              'column' in the array corresponding to the individual binary
-              classification decisions. This is identical to the
-              multiclass classification format, though its semantics differ: it
-              should be interpreted, like in the binary case, by thresholding at
+        التصنيف متعدد التسميات
+            Scikit-learn غير متسق في تمثيل دوال القرار :term:`متعددة التسميات`.
+            قد يتم تمثيلها بإحدى طريقتين:
+
+
+            - قائمة من المصفوفات ثنائية الأبعاد، كل مصفوفة ذات شكل: (`n_samples`، 2)، كما هو الحال في
+              الإخراج متعدد الفئات ومتعدد المخرجات. القائمة بطول `n_labels`.
+
+
+            - مصفوفة ثنائية الأبعاد مفردة ذات شكل (`n_samples`، `n_labels`)، مع كل
+              "عمود" في المصفوفة يتوافق مع قرارات التصنيف الثنائي
+              الفردية. هذا مطابق لتنسيق
+              التصنيف متعدد الفئات، على الرغم من اختلاف دلالاته: يجب تفسيره، كما هو الحال في
+              الحالة الثنائية، عن طريق تحديد العتبة عند
               0.
 
-        multioutput classification
-            A list of 2d arrays, corresponding to each multiclass decision
-            function.
-        outlier detection
-            A 1-dimensional array, where a value greater than or equal to zero
-            indicates an inlier.
+        تصنيف متعدد المخرجات
+            قائمة من المصفوفات ثنائية الأبعاد، تقابل كل دالة قرار متعددة
+            الفئات.
+
+
+        كشف القيم المتطرفة
+            مصفوفة أحادية الأبعاد، حيث تشير القيمة الأكبر من أو تساوي الصفر
+            إلى قيمة داخلية.
+
 
     ``fit``
-        The ``fit`` method is provided on every estimator. It usually takes some
-        :term:`samples` ``X``, :term:`targets` ``y`` if the model is supervised,
-        and potentially other :term:`sample properties` such as
-        :term:`sample_weight`.  It should:
+        يتم توفير أسلوب ``fit`` في كل مقدر. عادةً ما يأخذ بعض
+        :term:`العينات` ``X``، :term:`الأهداف` ``y`` إذا كان النموذج خاضعًا للإشراف،
+        وربما :term:`خصائص عينة` أخرى مثل
+        :term:`sample_weight`.  يجب أن يقوم بما يلي:
 
-        * clear any prior :term:`attributes` stored on the estimator, unless
-          :term:`warm_start` is used;
-        * validate and interpret any :term:`parameters`, ideally raising an
-          error if invalid;
-        * validate the input data;
-        * estimate and store model attributes from the estimated parameters and
-          provided data; and
-        * return the now :term:`fitted` estimator to facilitate method
-          chaining.
+        * مسح أي :term:`سمات` سابقة مخزنة على المقدر، ما لم
+          يتم استخدام :term:`warm_start`؛
+        * التحقق من صحة أي :term:`معلمات` وتفسيرها، ويفضل طرح
+          خطأ إذا كانت غير صالحة؛
+        * التحقق من صحة بيانات الإدخال؛
+        * تقدير وتخزين سمات النموذج من المعلمات المقدرة و
+          البيانات المقدمة؛ و
+        * إرجاع المقدر :term:`الملائم` الآن لتسهيل تسلسل الأساليب.
 
-        :ref:`glossary_target_types` describes possible formats for ``y``.
+
+        يصف :ref:`glossary_target_types` التنسيقات الممكنة لـ ``y``.
+
 
     ``fit_predict``
-        Used especially for :term:`unsupervised`, :term:`transductive`
-        estimators, this fits the model and returns the predictions (similar to
-        :term:`predict`) on the training data. In clusterers, these predictions
-        are also stored in the :term:`labels_` attribute, and the output of
-        ``.fit_predict(X)`` is usually equivalent to ``.fit(X).predict(X)``.
-        The parameters to ``fit_predict`` are the same as those to ``fit``.
+        يُستخدم خاصةً للمقدرات :term:`غير الخاضعة للإشراف` و :term:`الاستنتاجية`،
+        يُلائم هذا النموذج ويُعيد التنبؤات (على غرار
+        :term:`predict`) على بيانات التدريب. في المُجمِّعات، يتم أيضًا تخزين هذه التنبؤات
+        في سمة :term:`labels_`، وعادةً ما يكون ناتج
+        ``.fit_predict(X)`` مكافئًا لـ ``.fit(X).predict(X)``.
+        معلمات ``fit_predict`` هي نفس معلمات ``fit``.
+
 
     ``fit_transform``
-        A method on :term:`transformers` which fits the estimator and returns
-        the transformed training data. It takes parameters as in :term:`fit`
-        and its output should have the same shape as calling ``.fit(X,
-        ...).transform(X)``. There are nonetheless rare cases where
-        ``.fit_transform(X, ...)`` and ``.fit(X, ...).transform(X)`` do not
-        return the same value, wherein training data needs to be handled
-        differently (due to model blending in stacked ensembles, for instance;
-        such cases should be clearly documented).
-        :term:`Transductive <transductive>` transformers may also provide
-        ``fit_transform`` but not :term:`transform`.
+        أسلوب على :term:`المحولات` الذي يُلائم المقدر ويُعيد
+        بيانات التدريب المُحوَّلة. يأخذ معلمات كما في :term:`fit`
+        ويجب أن يكون ناتجه بنفس شكل استدعاء ``.fit(X،
+        ...).transform(X)``. ومع ذلك، هناك حالات نادرة لا
+        يُعيد فيها ``.fit_transform(X، ...)`` و ``.fit(X، ...).transform(X)`` نفس القيمة،
+        حيث تحتاج بيانات التدريب إلى معالجة
+        بشكل مختلف (بسبب مزج النماذج في المجموعات المكدسة، على سبيل المثال؛
+        يجب توثيق هذه الحالات بوضوح).
+        قد يوفر المحولات :term:`الاستنتاجية <transductive>` أيضًا
+        ``fit_transform`` ولكن ليس :term:`transform`.
 
-        One reason to implement ``fit_transform`` is that performing ``fit``
-        and ``transform`` separately would be less efficient than together.
-        :class:`base.TransformerMixin` provides a default implementation,
-        providing a consistent interface across transformers where
-        ``fit_transform`` is or is not specialized.
+        أحد أسباب تنفيذ ``fit_transform`` هو أن إجراء ``fit``
+        و ``transform`` بشكل منفصل سيكون أقل كفاءة من إجرائهما معًا.
+        يوفر :class:`base.TransformerMixin` تنفيذًا افتراضيًا،
+        مما يوفر واجهة متسقة عبر المحولات حيث
+        ``fit_transform`` متخصص أو غير متخصص.
 
-        In :term:`inductive` learning -- where the goal is to learn a
-        generalized model that can be applied to new data -- users should be
-        careful not to apply ``fit_transform`` to the entirety of a dataset
-        (i.e. training and test data together) before further modelling, as
-        this results in :term:`data leakage`.
+
+        في التعلم :term:`الاستقرائي` - حيث يكون الهدف هو تعلم
+        نموذج معمم يمكن تطبيقه على بيانات جديدة - يجب على المستخدمين
+        الحرص على عدم تطبيق ``fit_transform`` على مجموعة بيانات بأكملها
+        (أي بيانات التدريب والاختبار معًا) قبل إجراء مزيد من النمذجة، حيث
+        يؤدي هذا إلى :term:`تسرب البيانات`.
+
 
     ``get_feature_names_out``
-        Primarily for :term:`feature extractors`, but also used for other
-        transformers to provide string names for each column in the output of
-        the estimator's :term:`transform` method.  It outputs an array of
-        strings and may take an array-like of strings as input, corresponding
-        to the names of input columns from which output column names can
-        be generated.  If `input_features` is not passed in, then the
-        `feature_names_in_` attribute will be used. If the
-        `feature_names_in_` attribute is not defined, then the
-        input names are named `[x0, x1, ..., x(n_features_in_ - 1)]`.
+        بشكل أساسي لـ :term:`مستخرجات الميزات`، ولكن أيضًا يُستخدم لمحولات
+        أخرى لتوفير أسماء سلاسل لكل عمود في ناتج
+        أسلوب :term:`transform` الخاص بالمقدر.  يُخرج مصفوفة من
+        السلاسل وقد يأخذ مصفوفة تشبه السلاسل كمدخلات، تقابل
+        أسماء أعمدة الإدخال التي يمكن من خلالها
+        إنشاء أسماء أعمدة الإخراج. إذا لم يتم تمرير `input_features`، فسيتم
+        استخدام سمة `feature_names_in_`. إذا لم يتم تعريف
+        سمة `feature_names_in_`، فسيتم تسمية
+        أسماء الإدخال `[x0, x1, ..., x(n_features_in_ - 1)]`.
+
 
     ``get_n_splits``
-        On a :term:`CV splitter` (not an estimator), returns the number of
-        elements one would get if iterating through the return value of
-        :term:`split` given the same parameters.  Takes the same parameters as
+        على :term:`مُقسِّم CV` (ليس مقدرًا)، يُعيد عدد
+        العناصر التي سيحصل عليها المرء إذا كرر من خلال القيمة المعادة
+        لـ :term:`split` بالنظر إلى نفس المعلمات. يأخذ نفس معلمات
         split.
 
-    ``get_params``
-        Gets all :term:`parameters`, and their values, that can be set using
-        :term:`set_params`.  A parameter ``deep`` can be used, when set to
-        False to only return those parameters not including ``__``, i.e.  not
-        due to indirection via contained estimators.
 
-        Most estimators adopt the definition from :class:`base.BaseEstimator`,
-        which simply adopts the parameters defined for ``__init__``.
-        :class:`pipeline.Pipeline`, among others, reimplements ``get_params``
-        to declare the estimators named in its ``steps`` parameters as
-        themselves being parameters.
+    ``get_params``
+        يحصل على جميع :term:`المعلمات` وقيمها، والتي يمكن تعيينها باستخدام
+        :term:`set_params`. يمكن استخدام معلمة ``deep``، عند تعيينها على
+        False لإرجاع تلك المعلمات التي لا تتضمن ``__`` فقط، أي
+        ليس بسبب التوجيه غير المباشر عبر المقدرات المُضمنة.
+
+
+
+        تعتمد معظم المقدرات التعريف من :class:`base.BaseEstimator`،
+        الذي يعتمد ببساطة المعلمات المُحددة لـ ``__init__``.
+        :class:`pipeline.Pipeline`، من بين أمور أخرى، يُعيد تنفيذ ``get_params``
+        للإعلان عن المقدرات المسماة في معلمات ``steps`` الخاصة به على
+        أنها معلمات في حد ذاتها.
+
 
     ``partial_fit``
-        Facilitates fitting an estimator in an online fashion.  Unlike ``fit``,
-        repeatedly calling ``partial_fit`` does not clear the model, but
-        updates it with the data provided. The portion of data
-        provided to ``partial_fit`` may be called a mini-batch.
-        Each mini-batch must be of consistent shape, etc. In iterative
-        estimators, ``partial_fit`` often only performs a single iteration.
+        يُسهِّل ملاءمة المقدر بطريقة عبر الإنترنت. على عكس ``fit``،
+        لا يؤدي استدعاء ``partial_fit`` بشكل متكرر إلى مسح النموذج، ولكن
+        يُحدِّثه بالبيانات المقدمة. قد يُطلق على جزء البيانات
+        المقدم إلى ``partial_fit`` اسم دفعة صغيرة.
+        يجب أن يكون كل دفعة صغيرة ذات شكل متسق، إلخ. في المقدرات
+        التكرارية، غالبًا ما يُجري ``partial_fit`` تكرارًا واحدًا فقط.
 
-        ``partial_fit`` may also be used for :term:`out-of-core` learning,
-        although usually limited to the case where learning can be performed
-        online, i.e. the model is usable after each ``partial_fit`` and there
-        is no separate processing needed to finalize the model.
-        :class:`cluster.Birch` introduces the convention that calling
-        ``partial_fit(X)`` will produce a model that is not finalized, but the
-        model can be finalized by calling ``partial_fit()`` i.e. without
-        passing a further mini-batch.
 
-        Generally, estimator parameters should not be modified between calls
-        to ``partial_fit``, although ``partial_fit`` should validate them
-        as well as the new mini-batch of data.  In contrast, ``warm_start``
-        is used to repeatedly fit the same estimator with the same data
-        but varying parameters.
+        يمكن أيضًا استخدام ``partial_fit`` للتعلم :term:`خارج النواة`،
+        على الرغم من أنه يقتصر عادةً على الحالة التي يمكن فيها إجراء التعلم
+        عبر الإنترنت، أي أن النموذج قابل للاستخدام بعد كل ``partial_fit`` ولا
+        توجد معالجة منفصلة مطلوبة لإنهاء النموذج.
+        يُقدِّم :class:`cluster.Birch` الاصطلاح القائل بأن استدعاء
+        ``partial_fit(X)`` سينتج نموذجًا غير مُنتهٍ، ولكن
+        يمكن إنهاء النموذج عن طريق استدعاء ``partial_fit()`` أي بدون
+        تمرير دفعة صغيرة أخرى.
 
-        Like ``fit``, ``partial_fit`` should return the estimator object.
 
-        To clear the model, a new estimator should be constructed, for instance
-        with :func:`base.clone`.
+        بشكل عام، لا ينبغي تعديل معلمات المقدر بين استدعاءات
+        ``partial_fit``، على الرغم من أن ``partial_fit`` يجب أن يتحقق من صحتها
+        بالإضافة إلى الدفعة الصغيرة الجديدة من البيانات. على النقيض من ذلك،
+        يُستخدم ``warm_start`` لملاءمة نفس المقدر بشكل متكرر بنفس البيانات
+        ولكن مع معلمات مختلفة.
 
-        NOTE: Using ``partial_fit`` after ``fit`` results in undefined behavior.
+
+
+        مثل ``fit``، يجب أن يُعيد ``partial_fit`` كائن المقدر.
+
+
+
+        لمسح النموذج، يجب إنشاء مقدر جديد، على سبيل المثال
+        باستخدام :func:`base.clone`.
+
+
+
+        ملاحظة: يؤدي استخدام ``partial_fit`` بعد ``fit`` إلى سلوك غير مُحدد.
+
 
     ``predict``
-        Makes a prediction for each sample, usually only taking :term:`X` as
-        input (but see under regressor output conventions below). In a
-        :term:`classifier` or :term:`regressor`, this prediction is in the same
-        target space used in fitting (e.g. one of {'red', 'amber', 'green'} if
-        the ``y`` in fitting consisted of these strings).  Despite this, even
-        when ``y`` passed to :term:`fit` is a list or other array-like, the
-        output of ``predict`` should always be an array or sparse matrix. In a
-        :term:`clusterer` or :term:`outlier detector` the prediction is an
-        integer.
+        يُجري تنبؤًا لكل عينة، وعادةً ما يأخذ :term:`X` فقط كمدخلات
+        (ولكن انظر أسفل اتفاقيات ناتج مقدر الانحدار أدناه). في
+        :term:`المصنف` أو :term:`مقدر الانحدار`، يكون هذا التنبؤ في نفس
+        مساحة الهدف المستخدمة في الملاءمة (على سبيل المثال، أحد {"أحمر"، "كهرماني"، "أخضر"}
+        إذا كان ``y`` في الملاءمة يتكون من هذه السلاسل). على الرغم من ذلك، حتى
+        عندما يكون ``y`` الذي تم تمريره إلى :term:`fit` عبارة عن قائمة أو مصفوفة أخرى تشبه المصفوفة،
+        يجب أن يكون ناتج ``predict`` دائمًا مصفوفة أو مصفوفة متفرقة. في
+        :term:`مُجمِّع` أو :term:`كاشف قيم متطرفة`، يكون التنبؤ
+        عددًا صحيحًا.
 
-        If the estimator was not already :term:`fitted`, calling this method
-        should raise a :class:`exceptions.NotFittedError`.
 
-        Output conventions:
+        إذا لم يكن المقدر :term:`ملائمًا` بالفعل، فيجب أن يطرح استدعاء هذا الأسلوب
+        :class:`exceptions.NotFittedError`.
 
-        classifier
-            An array of shape ``(n_samples,)`` ``(n_samples, n_outputs)``.
-            :term:`Multilabel <multilabel>` data may be represented as a sparse
-            matrix if a sparse matrix was used in fitting. Each element should
-            be one of the values in the classifier's :term:`classes_`
-            attribute.
+        اتفاقيات الإخراج:
 
-        clusterer
-            An array of shape ``(n_samples,)`` where each value is from 0 to
-            ``n_clusters - 1`` if the corresponding sample is clustered,
-            and -1 if the sample is not clustered, as in
+        مصنف
+            مصفوفة ذات شكل ``(n_samples,)`` ``(n_samples, n_outputs)``.
+            قد يتم تمثيل بيانات :term:`متعددة التسميات <multilabel>` كمصفوفة متفرقة
+            إذا تم استخدام مصفوفة متفرقة في الملاءمة. يجب أن يكون كل عنصر
+            أحد القيم في سمة :term:`classes_` الخاصة بالمصنف.
+
+
+
+        مُجمِّع
+            مصفوفة ذات شكل ``(n_samples,)`` حيث تكون كل قيمة من 0 إلى
+            ``n_clusters - 1`` إذا تم تجميع العينة المقابلة،
+            و -1 إذا لم يتم تجميع العينة، كما هو الحال في
             :func:`cluster.dbscan`.
 
-        outlier detector
-            An array of shape ``(n_samples,)`` where each value is -1 for an
-            outlier and 1 otherwise.
 
-        regressor
-            A numeric array of shape ``(n_samples,)``, usually float64.
-            Some regressors have extra options in their ``predict`` method,
-            allowing them to return standard deviation (``return_std=True``)
-            or covariance (``return_cov=True``) relative to the predicted
-            value.  In this case, the return value is a tuple of arrays
-            corresponding to (prediction mean, std, cov) as required.
+
+        كاشف القيم المتطرفة
+            مصفوفة ذات شكل ``(n_samples,)`` حيث تكون كل قيمة -1 للقيمة
+            المتطرفة و 1 خلاف ذلك.
+
+
+
+        مقدر الانحدار
+            مصفوفة رقمية ذات شكل ``(n_samples,)``، عادةً float64.
+            تحتوي بعض مقدرات الانحدار على خيارات إضافية في أسلوب ``predict`` الخاص بها،
+            مما يسمح لها بإرجاع الانحراف المعياري (``return_std = True``)
+            أو التباين المشترك (``return_cov = True``) بالنسبة إلى القيمة
+            المتوقعة. في هذه الحالة، تكون القيمة المعادة عبارة عن tuple من المصفوفات
+            المقابلة لـ (متوسط ​​التنبؤ، الانحراف المعياري، التباين المشترك) حسب الحاجة.
+
 
     ``predict_log_proba``
-        The natural logarithm of the output of :term:`predict_proba`, provided
-        to facilitate numerical stability.
+        اللوغاريتم الطبيعي لناتج :term:`predict_proba`، المقدم
+        لتسهيل الاستقرار العددي.
+
 
     ``predict_proba``
-        A method in :term:`classifiers` and :term:`clusterers` that can
-        return probability estimates for each class/cluster.  Its input is
-        usually only some observed data, :term:`X`.
+        أسلوب في :term:`المصنفات` و :term:`المُجمِّعات` يمكنه
+        إرجاع تقديرات الاحتمالية لكل فئة/كتلة.  يكون إدخاله
+        عادةً مجرد بعض البيانات المرصودة، :term:`X`.
 
-        If the estimator was not already :term:`fitted`, calling this method
-        should raise a :class:`exceptions.NotFittedError`.
 
-        Output conventions are like those for :term:`decision_function` except
-        in the :term:`binary` classification case, where one column is output
-        for each class (while ``decision_function`` outputs a 1d array). For
-        binary and multiclass predictions, each row should add to 1.
 
-        Like other methods, ``predict_proba`` should only be present when the
-        estimator can make probabilistic predictions (see :term:`duck typing`).
-        This means that the presence of the method may depend on estimator
-        parameters (e.g. in :class:`linear_model.SGDClassifier`) or training
-        data (e.g. in :class:`model_selection.GridSearchCV`) and may only
-        appear after fitting.
+        إذا لم يكن المقدر :term:`ملائمًا` بالفعل، فيجب أن يطرح استدعاء هذا الأسلوب
+        :class:`exceptions.NotFittedError`.
+
+
+
+        تشبه اتفاقيات الإخراج تلك الخاصة بـ :term:`decision_function` باستثناء
+        حالة التصنيف :term:`الثنائي`، حيث يتم إخراج عمود واحد
+        لكل فئة (بينما يُخرج ``decision_function`` مصفوفة أحادية الأبعاد). بالنسبة
+        للتنبؤات الثنائية ومتعددة الفئات، يجب أن يضيف كل صف إلى 1.
+
+
+        مثل الأساليب الأخرى، يجب ألا يكون ``predict_proba`` موجودًا إلا عندما
+        يمكن للمقدر إجراء تنبؤات احتمالية (انظر :term:`كتابة البطة`).
+        هذا يعني أن وجود الأسلوب قد يعتمد على معلمات
+        المقدر (على سبيل المثال، في :class:`linear_model.SGDClassifier`) أو بيانات
+        التدريب (على سبيل المثال، في :class:`model_selection.GridSearchCV`) وقد لا
+        يظهر إلا بعد الملاءمة.
+
 
     ``score``
-        A method on an estimator, usually a :term:`predictor`, which evaluates
-        its predictions on a given dataset, and returns a single numerical
-        score.  A greater return value should indicate better predictions;
-        accuracy is used for classifiers and R^2 for regressors by default.
+        أسلوب على مقدر، عادةً :term:`متنبئ`، يُقيِّم
+        تنبؤاته على مجموعة بيانات معينة، ويُعيد درجة
+        عددية واحدة. يجب أن تشير قيمة الإرجاع الأكبر إلى تنبؤات أفضل؛
+        يتم استخدام الدقة للمصنفات و R^2 لمقدرات الانحدار افتراضيًا.
 
-        If the estimator was not already :term:`fitted`, calling this method
-        should raise a :class:`exceptions.NotFittedError`.
 
-        Some estimators implement a custom, estimator-specific score function,
-        often the likelihood of the data under the model.
+        إذا لم يكن المقدر :term:`ملائمًا` بالفعل، فيجب أن يطرح استدعاء هذا الأسلوب
+        :class:`exceptions.NotFittedError`.
+
+
+        تُنفذ بعض المقدرات دالة تسجيل مخصصة خاصة بالمقدر،
+        غالبًا احتمالية البيانات في ظل النموذج.
 
     ``score_samples``
-        A method that returns a score for each given sample. The exact
-        definition of *score* varies from one class to another. In the case of
-        density estimation, it can be the log density model on the data, and in
-        the case of outlier detection, it can be the opposite of the outlier
-        factor of the data.
+        أسلوب يُعيد درجة لكل عينة معينة. التعريف الدقيق
+        لـ *الدرجة* يختلف من فئة إلى أخرى. في حالة
+        تقدير الكثافة، يمكن أن يكون نموذج كثافة السجل على البيانات، وفي
+        حالة اكتشاف القيم المتطرفة، يمكن أن يكون عكس عامل
+        القيم المتطرفة للبيانات.
 
-        If the estimator was not already :term:`fitted`, calling this method
-        should raise a :class:`exceptions.NotFittedError`.
+
+
+        إذا لم يكن المقدر :term:`ملائمًا` بالفعل، فيجب أن يطرح استدعاء هذا الأسلوب
+        :class:`exceptions.NotFittedError`.
+
+
 
     ``set_params``
-        Available in any estimator, takes keyword arguments corresponding to
-        keys in :term:`get_params`.  Each is provided a new value to assign
-        such that calling ``get_params`` after ``set_params`` will reflect the
-        changed :term:`parameters`.  Most estimators use the implementation in
-        :class:`base.BaseEstimator`, which handles nested parameters and
-        otherwise sets the parameter as an attribute on the estimator.
-        The method is overridden in :class:`pipeline.Pipeline` and related
-        estimators.
+        متاح في أي مقدر، يأخذ وسيطات ذات كلمات رئيسية تقابل
+        المفاتيح في :term:`get_params`. يتم توفير قيمة جديدة لكل منها
+        لتعيينها بحيث يعكس استدعاء ``get_params`` بعد ``set_params``
+        :term:`المعلمات` التي تم تغييرها. تستخدم معظم المقدرات التنفيذ في
+        :class:`base.BaseEstimator`، الذي يتعامل مع المعلمات المتداخلة و
+        يُعيِّن المعلمة كسمة على المقدر.
+        يتم تجاوز الأسلوب في :class:`pipeline.Pipeline` والمقدرات ذات الصلة.
+
 
     ``split``
-        On a :term:`CV splitter` (not an estimator), this method accepts
-        parameters (:term:`X`, :term:`y`, :term:`groups`), where all may be
-        optional, and returns an iterator over ``(train_idx, test_idx)``
-        pairs.  Each of {train,test}_idx is a 1d integer array, with values
-        from 0 from ``X.shape[0] - 1`` of any length, such that no values
-        appear in both some ``train_idx`` and its corresponding ``test_idx``.
+        على :term:`مُقسِّم CV` (ليس مقدرًا)، يقبل هذا الأسلوب
+        معلمات (:term:`X`، :term:`y`، :term:`groups`)، حيث قد تكون جميعها
+        اختيارية، ويُعيد مُكرِّرًا على أزواج ``(train_idx, test_idx)``.
+        كل من {train,test}_idx عبارة عن مصفوفة أعداد صحيحة أحادية الأبعاد، بقيم
+        من 0 من ``X.shape[0] - 1`` بأي طول، بحيث لا تظهر أي قيم
+        في كل من ``train_idx`` و ``test_idx`` المقابل لها.
+
 
     ``transform``
-        In a :term:`transformer`, transforms the input, usually only :term:`X`,
-        into some transformed space (conventionally notated as :term:`Xt`).
-        Output is an array or sparse matrix of length :term:`n_samples` and
-        with the number of columns fixed after :term:`fitting`.
+        في :term:`محول`، يُحوِّل الإدخال، عادةً :term:`X` فقط،
+        إلى مساحة مُحوَّلة (يتم تدوينها تقليديًا على أنها :term:`Xt`).
+        يكون الناتج عبارة عن مصفوفة أو مصفوفة متفرقة بطول :term:`n_samples` و
+        مع عدد ثابت من الأعمدة بعد :term:`الملاءمة`.
 
-        If the estimator was not already :term:`fitted`, calling this method
-        should raise a :class:`exceptions.NotFittedError`.
+
+        إذا لم يكن المقدر :term:`ملائمًا` بالفعل، فيجب أن يطرح استدعاء هذا الأسلوب
+        :class:`exceptions.NotFittedError`.
+
+
+
 
 .. _glossary_parameters:
 
-Parameters
+المعلمات
 ==========
 
-These common parameter names, specifically used in estimator construction
-(see concept :term:`parameter`), sometimes also appear as parameters of
-functions or non-estimator constructors.
+
+تظهر أسماء المعلمات الشائعة هذه، المستخدمة على وجه التحديد في إنشاء المقدر
+(انظر المفهوم :term:`parameter`)، أحيانًا كمعلمات
+للدوال أو منشئي غير مقدر.
+
 
 .. glossary::
 
     ``class_weight``
-        Used to specify sample weights when fitting classifiers as a function
-        of the :term:`target` class.  Where :term:`sample_weight` is also
-        supported and given, it is multiplied by the ``class_weight``
-        contribution. Similarly, where ``class_weight`` is used in a
-        :term:`multioutput` (including :term:`multilabel`) tasks, the weights
-        are multiplied across outputs (i.e. columns of ``y``).
+        يُستخدم لتحديد أوزان العينة عند ملاءمة المصنفات كدالة
+        لفئة :term:`الهدف`. حيث يتم أيضًا
+        دعم :term:`sample_weight` وتقديمه، يتم ضربه في مساهمة ``class_weight``.
+        وبالمثل، حيث يتم استخدام ``class_weight`` في مهام
+        :term:`متعددة المخرجات` (بما في ذلك :term:`متعددة التسميات`)، يتم ضرب الأوزان
+        عبر المخرجات (أي أعمدة ``y``).
 
-        By default, all samples have equal weight such that classes are
-        effectively weighted by their prevalence in the training data.
-        This could be achieved explicitly with ``class_weight={label1: 1,
-        label2: 1, ...}`` for all class labels.
 
-        More generally, ``class_weight`` is specified as a dict mapping class
-        labels to weights (``{class_label: weight}``), such that each sample
-        of the named class is given that weight.
+        افتراضيًا، يكون لجميع العينات وزن متساوٍ بحيث يتم
+        ترجيح الفئات بشكل فعال من خلال انتشارها في بيانات التدريب.
+        يمكن تحقيق ذلك صراحةً باستخدام ``class_weight={label1: 1,
+        label2: 1, ...}`` لجميع تسميات الفئات.
 
-        ``class_weight='balanced'`` can be used to give all classes
-        equal weight by giving each sample a weight inversely related
-        to its class's prevalence in the training data:
-        ``n_samples / (n_classes * np.bincount(y))``. Class weights will be
-        used differently depending on the algorithm: for linear models (such
-        as linear SVM or logistic regression), the class weights will alter the
-        loss function by weighting the loss of each sample by its class weight.
-        For tree-based algorithms, the class weights will be used for
-        reweighting the splitting criterion.
-        **Note** however that this rebalancing does not take the weight of
-        samples in each class into account.
 
-        For multioutput classification, a list of dicts is used to specify
-        weights for each output. For example, for four-class multilabel
-        classification weights should be ``[{0: 1, 1: 1}, {0: 1, 1: 5}, {0: 1,
-        1: 1}, {0: 1, 1: 1}]`` instead of ``[{1:1}, {2:5}, {3:1}, {4:1}]``.
+        بشكل أكثر عمومية، يتم تحديد ``class_weight`` كقاموس يقوم بتعيين تسميات الفئات
+        إلى الأوزان (``{class_label: weight}``)، بحيث يتم إعطاء كل عينة
+        من الفئة المسماة هذا الوزن.
 
-        The ``class_weight`` parameter is validated and interpreted with
+
+        يمكن استخدام ``class_weight="balanced"`` لإعطاء جميع الفئات
+        وزنًا متساويًا عن طريق إعطاء كل عينة وزنًا يتناسب عكسيًا
+        مع انتشار فئتها في بيانات التدريب:
+        ``n_samples / (n_classes * np.bincount(y))``. سيتم استخدام أوزان الفئات
+        بشكل مختلف اعتمادًا على الخوارزمية: بالنسبة للنماذج الخطية (مثل
+        SVM الخطي أو الانحدار اللوجستي)، ستُغير أوزان الفئات دالة
+        الفقدان عن طريق ترجيح فقدان كل عينة بوزن فئتها.
+        بالنسبة للخوارزميات المستندة إلى الشجرة، سيتم استخدام أوزان الفئات من أجل
+        إعادة ترجيح معيار التقسيم.
+        **لاحظ** مع ذلك أن إعادة التوازن هذه لا تأخذ وزن
+        العينات في كل فئة في الاعتبار.
+
+
+
+        بالنسبة للتصنيف متعدد المخرجات، يتم استخدام قائمة من القواميس لتحديد
+        الأوزان لكل ناتج. على سبيل المثال، بالنسبة لأوزان التصنيف متعدد التسميات
+        ذات الأربع فئات، يجب أن تكون ``[{0: 1, 1: 1}, {0: 1, 1: 5}, {0: 1,
+        1: 1}, {0: 1, 1: 1}]`` بدلاً من ``[{1:1}, {2:5}, {3:1}, {4:1}]``.
+
+
+        يتم التحقق من صحة معلمة ``class_weight`` وتفسيرها باستخدام
         :func:`utils.class_weight.compute_class_weight`.
 
+
     ``cv``
-        Determines a cross validation splitting strategy, as used in
-        cross-validation based routines. ``cv`` is also available in estimators
-        such as :class:`multioutput.ClassifierChain` or
-        :class:`calibration.CalibratedClassifierCV` which use the predictions
-        of one estimator as training data for another, to not overfit the
-        training supervision.
+        يُحدد استراتيجية تقسيم التحقق المتبادل، كما هو مستخدم في
+        الإجراءات القائمة على التحقق المتبادل. ``cv`` متاح أيضًا في المقدرات
+        مثل :class:`multioutput.ClassifierChain` أو
+        :class:`calibration.CalibratedClassifierCV` التي تستخدم تنبؤات
+        مقدر واحد كبيانات تدريب لمقدر آخر، لعدم الإفراط في ملاءمة
+        إشراف التدريب.
 
-        Possible inputs for ``cv`` are usually:
 
-        - An integer, specifying the number of folds in K-fold cross
-          validation. K-fold will be stratified over classes if the estimator
-          is a classifier (determined by :func:`base.is_classifier`) and the
-          :term:`targets` may represent a binary or multiclass (but not
-          multioutput) classification problem (determined by
+        عادةً ما تكون المدخلات الممكنة لـ ``cv`` هي:
+
+
+        - عدد صحيح، يُحدد عدد الطيات في التحقق المتبادل K-fold.
+          سيتم تصنيف K-fold على الفئات إذا كان المقدر
+          مصنفًا (مُحدد بواسطة :func:`base.is_classifier`) وقد تُمثل
+          :term:`الأهداف` مشكلة تصنيف ثنائية أو متعددة الفئات (ولكن ليس
+          متعددة المخرجات) (مُحددة بواسطة
           :func:`utils.multiclass.type_of_target`).
-        - A :term:`cross-validation splitter` instance. Refer to the
-          :ref:`User Guide <cross_validation>` for splitters available
-          within Scikit-learn.
-        - An iterable yielding train/test splits.
+        - نموذج :term:`مقسِّم التحقق المتبادل`. ارجع إلى
+          :ref:`دليل المستخدم <cross_validation>` للبحث عن المقسمات المتاحة
+          ضمن Scikit-learn.
+        - مُكرِّر ينتج عنه تقسيمات تدريب/اختبار.
 
-        With some exceptions (especially where not using cross validation at
-        all is an option), the default is 5-fold.
 
-        ``cv`` values are validated and interpreted with
+        مع بعض الاستثناءات (خاصةً عندما لا يكون عدم استخدام التحقق المتبادل على
+        الإطلاق خيارًا)، يكون الإعداد الافتراضي هو 5 أضعاف.
+
+
+
+        يتم التحقق من صحة قيم ``cv`` وتفسيرها باستخدام
         :func:`model_selection.check_cv`.
 
+
     ``kernel``
-        Specifies the kernel function to be used by Kernel Method algorithms.
-        For example, the estimators :class:`svm.SVC` and
-        :class:`gaussian_process.GaussianProcessClassifier` both have a
-        ``kernel`` parameter that takes the name of the kernel to use as string
-        or a callable kernel function used to compute the kernel matrix. For
-        more reference, see the :ref:`kernel_approximation` and the
-        :ref:`gaussian_process` user guides.
+        يُحدد دالة النواة التي سيتم استخدامها بواسطة خوارزميات أسلوب النواة.
+        على سبيل المثال، المقدرات :class:`svm.SVC` و
+        :class:`gaussian_process.GaussianProcessClassifier` كلاهما يحتوي على
+        معلمة ``kernel`` تأخذ اسم النواة المراد استخدامها كسلسلة
+        أو دالة نواة قابلة للاستدعاء تُستخدم لحساب مصفوفة النواة. لمزيد من
+        المرجع، انظر :ref:`kernel_approximation` و
+        :ref:`gaussian_process` أدلة المستخدم.
+
 
     ``max_iter``
-        For estimators involving iterative optimization, this determines the
-        maximum number of iterations to be performed in :term:`fit`.  If
-        ``max_iter`` iterations are run without convergence, a
-        :class:`exceptions.ConvergenceWarning` should be raised.  Note that the
-        interpretation of "a single iteration" is inconsistent across
-        estimators: some, but not all, use it to mean a single epoch (i.e. a
-        pass over every sample in the data).
+        بالنسبة للمقدرات التي تتضمن تحسينًا تكراريًا، يُحدد هذا الحد الأقصى لعدد
+        التكرارات التي سيتم إجراؤها في :term:`fit`.  إذا
+        تم تشغيل تكرارات ``max_iter`` دون تقارب،
+        فيجب طرح :class:`exceptions.ConvergenceWarning`. لاحظ أن
+        تفسير "تكرار واحد" غير متسق عبر
+        المقدرات: يستخدمه البعض، ولكن ليس الكل، للإشارة إلى حقبة واحدة (أي
+        تمريرة على كل عينة في البيانات).
 
-        FIXME perhaps we should have some common tests about the relationship
-        between ConvergenceWarning and max_iter.
+
+        FIXME ربما يجب أن يكون لدينا بعض الاختبارات الشائعة حول العلاقة
+        بين ConvergenceWarning و max_iter.
+
 
     ``memory``
-        Some estimators make use of :class:`joblib.Memory` to
-        store partial solutions during fitting. Thus when ``fit`` is called
-        again, those partial solutions have been memoized and can be reused.
+        تستخدم بعض المقدرات :class:`joblib.Memory` لـ
+        تخزين الحلول الجزئية أثناء الملاءمة. وبالتالي، عند استدعاء ``fit``
+        مرة أخرى، يتم حفظ هذه الحلول الجزئية في الذاكرة ويمكن إعادة استخدامها.
 
-        A ``memory`` parameter can be specified as a string with a path to a
-        directory, or a :class:`joblib.Memory` instance (or an object with a
-        similar interface, i.e. a ``cache`` method) can be used.
 
-        ``memory`` values are validated and interpreted with
+        يمكن تحديد معلمة ``memory`` كسلسلة مع مسار إلى
+        دليل، أو يمكن استخدام نموذج :class:`joblib.Memory` (أو كائن بواجهة
+        مماثلة، أي أسلوب ``cache``).
+
+
+        يتم التحقق من صحة قيم ``memory`` وتفسيرها باستخدام
         :func:`utils.validation.check_memory`.
 
+
     ``metric``
-        As a parameter, this is the scheme for determining the distance between
-        two data points.  See :func:`metrics.pairwise_distances`.  In practice,
-        for some algorithms, an improper distance metric (one that does not
-        obey the triangle inequality, such as Cosine Distance) may be used.
+        كمعلمة، هذا هو المخطط لتحديد المسافة بين
+        نقطتي بيانات.  انظر :func:`metrics.pairwise_distances`.  من الناحية العملية،
+        بالنسبة لبعض الخوارزميات، قد يتم استخدام مقياس مسافة غير صحيح (مقياس لا
+        يطيع متباينة المثلث، مثل مسافة جيب التمام).
 
-        XXX: hierarchical clustering uses ``affinity`` with this meaning.
 
-        We also use *metric* to refer to :term:`evaluation metrics`, but avoid
-        using this sense as a parameter name.
+
+        XXX: يستخدم التجميع الهرمي ``affinity`` بهذا المعنى.
+
+
+
+        نستخدم أيضًا *metric* للإشارة إلى :term:`مقاييس التقييم`، لكننا نتجنب
+        استخدام هذا المعنى كاسم معلمة.
+
 
     ``n_components``
-        The number of features which a :term:`transformer` should transform the
-        input into. See :term:`components_` for the special case of affine
-        projection.
+        عدد الميزات التي يجب أن يُحوِّل :term:`المحول`
+        الإدخال إليها. انظر :term:`components_` للحالة الخاصة للإسقاط
+        التآلفي.
+
+
 
     ``n_iter_no_change``
-        Number of iterations with no improvement to wait before stopping the
-        iterative procedure. This is also known as a *patience* parameter. It
-        is typically used with :term:`early stopping` to avoid stopping too
-        early.
+        عدد التكرارات التي لا يوجد فيها تحسين للانتظار قبل إيقاف الإجراء
+        التكراري. يُعرف هذا أيضًا باسم معلمة *الصبر*.
+        عادةً ما يتم استخدامه مع :term:`الإيقاف المبكر` لتجنب الإيقاف مبكرًا جدًا.
+
 
     ``n_jobs``
-        This parameter is used to specify how many concurrent processes or
-        threads should be used for routines that are parallelized with
+        تُستخدم هذه المعلمة لتحديد عدد العمليات أو
+        المواضيع المتزامنة التي يجب استخدامها للإجراءات المتوازية مع
         :term:`joblib`.
 
-        ``n_jobs`` is an integer, specifying the maximum number of concurrently
-        running workers. If 1 is given, no joblib parallelism is used at all,
-        which is useful for debugging. If set to -1, all CPUs are used. For
-        ``n_jobs`` below -1, (n_cpus + 1 + n_jobs) are used. For example with
-        ``n_jobs=-2``, all CPUs but one are used.
 
-        ``n_jobs`` is ``None`` by default, which means *unset*; it will
-        generally be interpreted as ``n_jobs=1``, unless the current
-        :class:`joblib.Parallel` backend context specifies otherwise.
+        ``n_jobs`` هو عدد صحيح، يُحدد الحد الأقصى لعدد العمال
+        قيد التشغيل بشكل متزامن. إذا تم إعطاء 1، فلن يتم استخدام توازي joblib على الإطلاق،
+        وهو أمر مفيد لتصحيح الأخطاء. إذا تم تعيينها على -1، فسيتم استخدام جميع وحدات المعالجة المركزية.
+        بالنسبة لـ ``n_jobs`` أقل من -1، يتم استخدام (n_cpus + 1 + n_jobs). على سبيل المثال،
+        مع ``n_jobs = -2``، يتم استخدام جميع وحدات المعالجة المركزية باستثناء واحدة.
 
-        Note that even if ``n_jobs=1``, low-level parallelism (via Numpy and OpenMP)
-        might be used in some configuration.
 
-        For more details on the use of ``joblib`` and its interactions with
-        scikit-learn, please refer to our :ref:`parallelism notes
-        <parallelism>`.
+        ``n_jobs`` هي ``None`` افتراضيًا، مما يعني *غير معينة*؛ سيتم
+        تفسيرها عمومًا على أنها ``n_jobs=1``، ما لم يُحدد خلاف ذلك في سياق
+        الخلفية الحالي :class:`joblib.Parallel`.
+
+
+
+        لاحظ أنه حتى لو كانت ``n_jobs = 1``، فقد يتم استخدام التوازي منخفض المستوى (عبر Numpy و OpenMP)
+        في بعض التكوينات.
+
+
+
+        لمزيد من التفاصيل حول استخدام ``joblib`` وتفاعلاتها مع
+        scikit-learn، يرجى الرجوع إلى :ref:`ملاحظات التوازي
+        الخاصة بنا <parallelism>`.
+
 
     ``pos_label``
-        Value with which positive labels must be encoded in binary
-        classification problems in which the positive class is not assumed.
-        This value is typically required to compute asymmetric evaluation
-        metrics such as precision and recall.
+        القيمة التي يجب أن تُرمَّز بها التسميات الإيجابية في مشكلات
+        التصنيف الثنائي التي لا يُفترض فيها الفئة الإيجابية.
+        تكون هذه القيمة مطلوبة عادةً لحساب مقاييس التقييم غير المتماثلة مثل
+        الدقة والاستدعاء.
+
 
     ``random_state``
-        Whenever randomization is part of a Scikit-learn algorithm, a
-        ``random_state`` parameter may be provided to control the random number
-        generator used.  Note that the mere presence of ``random_state`` doesn't
-        mean that randomization is always used, as it may be dependent on
-        another parameter, e.g. ``shuffle``, being set.
+        كلما كانت العشوائية جزءًا من خوارزمية Scikit-learn،
+        يمكن توفير معلمة ``random_state`` للتحكم في مُولِّد الأرقام العشوائية
+        المستخدم. لاحظ أن مجرد وجود ``random_state`` لا
+        يعني أن العشوائية تُستخدم دائمًا، حيث قد تعتمد على
+        معلمة أخرى، على سبيل المثال ``shuffle``، يتم تعيينها.
 
-        The passed value will have an effect on the reproducibility of the
-        results returned by the function (:term:`fit`, :term:`split`, or any
-        other function like :func:`~sklearn.cluster.k_means`). `random_state`'s
-        value may be:
 
-        None (default)
-            Use the global random state instance from :mod:`numpy.random`.
-            Calling the function multiple times will reuse
-            the same instance, and will produce different results.
+        ستؤثر القيمة التي تم تمريرها على إمكانية تكرار
+        النتائج التي تُعيدها الدالة (:term:`fit`، :term:`split`، أو أي
+        دالة أخرى مثل :func:`~sklearn.cluster.k_means`). قد تكون قيمة `random_state`:
 
-        An integer
-            Use a new random number generator seeded by the given integer.
-            Using an int will produce the same results across different calls.
-            However, it may be
-            worthwhile checking that your results are stable across a
-            number of different distinct random seeds. Popular integer
-            random seeds are 0 and `42
+
+        لا شيء (افتراضي)
+            استخدم نموذج الحالة العشوائية العالمية من :mod:`numpy.random`.
+            سيؤدي استدعاء الدالة عدة مرات إلى إعادة استخدام
+            نفس النموذج، وسينتج عنه نتائج مختلفة.
+
+
+
+        عدد صحيح
+            استخدم مُولِّد أرقام عشوائية جديد تم إنشاؤه بواسطة العدد الصحيح المحدد.
+            سيؤدي استخدام عدد صحيح إلى إنتاج نفس النتائج عبر استدعاءات مختلفة. ومع ذلك، قد يكون
+            من المفيد التحقق من استقرار نتائجك عبر
+            عدد من بذور عشوائية مميزة مختلفة. بذور عشوائية أعداد صحيحة
+            شائعة هي 0 و `42
             <https://en.wikipedia.org/wiki/Answer_to_the_Ultimate_Question_of_Life%2C_the_Universe%2C_and_Everything>`_.
-            Integer values must be in the range `[0, 2**32 - 1]`.
+            يجب أن تكون القيم الصحيحة في النطاق `[0، 2**32 - 1]`.
 
-        A :class:`numpy.random.RandomState` instance
-            Use the provided random state, only affecting other users
-            of that same random state instance. Calling the function
-            multiple times will reuse the same instance, and
-            will produce different results.
 
-        :func:`utils.check_random_state` is used internally to validate the
-        input ``random_state`` and return a :class:`~numpy.random.RandomState`
-        instance.
 
-        For more details on how to control the randomness of scikit-learn
-        objects and avoid common pitfalls, you may refer to :ref:`randomness`.
+        نموذج :class:`numpy.random.RandomState`
+            استخدم الحالة العشوائية المقدمة، مما يؤثر فقط على المستخدمين الآخرين
+            لنفس نموذج الحالة العشوائية. سيؤدي استدعاء الدالة
+            عدة مرات إلى إعادة استخدام نفس النموذج، و
+            سينتج عنه نتائج مختلفة.
+
+
+        يتم استخدام :func:`utils.check_random_state` داخليًا للتحقق من صحة
+        ``random_state`` المدخلة وإرجاع نموذج :class:`~numpy.random.RandomState`.
+
+
+        لمزيد من التفاصيل حول كيفية التحكم في عشوائية كائنات scikit-learn
+        وتجنب الأخطاء الشائعة، يمكنك الرجوع إلى :ref:`randomness`.
+
+
 
     ``scoring``
-        Specifies the score function to be maximized (usually by :ref:`cross
-        validation <cross_validation>`), or -- in some cases -- multiple score
-        functions to be reported. The score function can be a string accepted
-        by :func:`metrics.get_scorer` or a callable :term:`scorer`, not to be
-        confused with an :term:`evaluation metric`, as the latter have a more
-        diverse API.  ``scoring`` may also be set to None, in which case the
-        estimator's :term:`score` method is used.  See :ref:`scoring_parameter`
-        in the User Guide.
+        يُحدد دالة الدرجة التي سيتم تكبيرها (عادةً عن طريق :ref:`التحقق
+        المتبادل <cross_validation>`)، أو - في بعض الحالات - دوال تسجيل متعددة
+        ليتم الإبلاغ عنها. يمكن أن تكون دالة الدرجة سلسلة يقبلها
+        :func:`metrics.get_scorer` أو :term:`مسجِّل` قابل للاستدعاء، لا ينبغي
+        الخلط بينه وبين :term:`مقياس التقييم`، لأن الأخير لديه واجهة برمجة تطبيقات أكثر
+        تنوعًا. قد يتم أيضًا تعيين ``scoring`` على لا شيء، وفي هذه الحالة
+        يتم استخدام أسلوب :term:`score` الخاص بالمقدر.  انظر :ref:`scoring_parameter`
+        في دليل المستخدم.
 
-        Where multiple metrics can be evaluated, ``scoring`` may be given
-        either as a list of unique strings, a dictionary with names as keys and
-        callables as values or a callable that returns a dictionary. Note that
-        this does *not* specify which score function is to be maximized, and
-        another parameter such as ``refit`` maybe used for this purpose.
+        حيث يمكن تقييم مقاييس متعددة، قد يتم إعطاء ``scoring``
+        إما كقائمة من السلاسل الفريدة، أو قاموس بأسماء كمفاتيح وقيم
+        قابلة للاستدعاء أو قيمة قابلة للاستدعاء تُعيد قاموسًا. لاحظ أن
+        هذا *لا* يُحدد دالة الدرجة التي سيتم تكبيرها، و
+        قد يتم استخدام معلمة أخرى مثل ``refit`` لهذا الغرض.
 
 
-        The ``scoring`` parameter is validated and interpreted using
+        يتم التحقق من صحة معلمة ``scoring`` وتفسيرها باستخدام
         :func:`metrics.check_scoring`.
 
+
     ``verbose``
-        Logging is not handled very consistently in Scikit-learn at present,
-        but when it is provided as an option, the ``verbose`` parameter is
-        usually available to choose no logging (set to False). Any True value
-        should enable some logging, but larger integers (e.g. above 10) may be
-        needed for full verbosity.  Verbose logs are usually printed to
-        Standard Output.
-        Estimators should not produce any output on Standard Output with the
-        default ``verbose`` setting.
+        لا تتم معالجة التسجيل بشكل متسق للغاية في Scikit-learn في الوقت الحالي،
+        ولكن عندما يتم توفيره كخيار، عادةً ما تتوفر معلمة ``verbose`` لاختيار عدم
+        التسجيل (تعيين على False). يجب أن تُمكِّن أي قيمة True
+        بعض التسجيل، ولكن قد تكون هناك حاجة إلى أعداد صحيحة أكبر (على سبيل المثال، أعلى من 10)
+        للحصول على إطناب كامل. عادةً ما تتم طباعة سجلات مطولة إلى
+        الإخراج القياسي.
+        يجب ألا تُنتج المقدرات أي ناتج على الإخراج القياسي مع
+        إعداد ``verbose`` الافتراضي.
+
+
 
     ``warm_start``
+        عند ملاءمة مقدر بشكل متكرر على نفس مجموعة البيانات، ولكن
+        لقيم معلمات متعددة (مثل العثور على القيمة التي تزيد الأداء
+        كما في :ref:`البحث الشبكي <grid_search>`)، قد يكون من الممكن
+        إعادة استخدام جوانب النموذج التي تم تعلمها من قيمة المعلمة السابقة،
+        مما يوفر الوقت. عندما تكون ``warm_start`` صحيحة، يتم استخدام :term:`السمات`
+        :term:`الملائمة` الحالية لتهيئة النموذج الجديد
+        في استدعاء لاحق لـ :term:`fit`.
 
-        When fitting an estimator repeatedly on the same dataset, but for
-        multiple parameter values (such as to find the value maximizing
-        performance as in :ref:`grid search <grid_search>`), it may be possible
-        to reuse aspects of the model learned from the previous parameter value,
-        saving time.  When ``warm_start`` is true, the existing :term:`fitted`
-        model :term:`attributes` are used to initialize the new model
-        in a subsequent call to :term:`fit`.
 
-        Note that this is only applicable for some models and some
-        parameters, and even some orders of parameter values. In general, there
-        is an interaction between ``warm_start`` and the parameter controlling
-        the number of iterations of the estimator.
 
-        For estimators imported from :mod:`~sklearn.ensemble`,
-        ``warm_start`` will interact with ``n_estimators`` or ``max_iter``.
-        For these models, the number of iterations, reported via
-        ``len(estimators_)`` or ``n_iter_``, corresponds the total number of
-        estimators/iterations learnt since the initialization of the model.
-        Thus, if a model was already initialized with `N` estimators, and `fit`
-        is called with ``n_estimators`` or ``max_iter`` set to `M`, the model
-        will train `M - N` new estimators.
+        لاحظ أن هذا ينطبق فقط على بعض النماذج وبعض
+        المعلمات، وحتى بعض أوامر قيم المعلمات. بشكل عام، هناك
+        تفاعل بين ``warm_start`` والمعلمة التي تتحكم في
+        عدد تكرارات المقدر.
 
-        Other models, usually using gradient-based solvers, have a different
-        behavior. They all expose a ``max_iter`` parameter. The reported
-        ``n_iter_`` corresponds to the number of iteration done during the last
-        call to ``fit`` and will be at most ``max_iter``. Thus, we do not
-        consider the state of the estimator since the initialization.
 
-        :term:`partial_fit` also retains the model between calls, but differs:
-        with ``warm_start`` the parameters change and the data is
-        (more-or-less) constant across calls to ``fit``; with ``partial_fit``,
-        the mini-batch of data changes and model parameters stay fixed.
 
-        There are cases where you want to use ``warm_start`` to fit on
-        different, but closely related data. For example, one may initially fit
-        to a subset of the data, then fine-tune the parameter search on the
-        full dataset. For classification, all data in a sequence of
-        ``warm_start`` calls to ``fit`` must include samples from each class.
+        بالنسبة للمقدرات المستوردة من :mod:`~sklearn.ensemble`،
+        ستتفاعل ``warm_start`` مع ``n_estimators`` أو ``max_iter``.
+        بالنسبة لهذه النماذج، يتوافق عدد التكرارات، المبلغ عنه عبر
+        ``len(estimators_)`` أو ``n_iter_``، مع إجمالي عدد
+        المقدرات/التكرارات التي تم تعلمها منذ تهيئة النموذج.
+        وبالتالي، إذا كان النموذج قد تم تهيئته بالفعل بـ `N` من المقدرات، ويتم استدعاء `fit`
+        مع تعيين ``n_estimators`` أو ``max_iter`` على `M`، فسيدرِّب النموذج
+        `M - N` من المقدرات الجديدة.
+
+
+        النماذج الأخرى، التي تستخدم عادةً أدوات حل تعتمد على التدرج، لها سلوك
+        مختلف. تعرض جميعها معلمة ``max_iter``.
+        يتوافق ``n_iter_`` المبلغ عنه مع عدد التكرارات التي تم إجراؤها أثناء آخر
+        استدعاء لـ ``fit`` وسيكون على الأكثر ``max_iter``. وبالتالي، فإننا لا
+        نأخذ في الاعتبار حالة المقدر منذ التهيئة.
+
+
+        يحتفظ :term:`partial_fit` أيضًا بالنموذج بين الاستدعاءات، ولكنه يختلف:
+        مع ``warm_start`` تتغير المعلمات وتكون البيانات
+        (أكثر أو أقل) ثابتة عبر استدعاءات ``fit``؛ مع ``partial_fit``،
+        تتغير الدفعة الصغيرة من البيانات وتبقى معلمات النموذج ثابتة.
+
+
+        هناك حالات تريد فيها استخدام ``warm_start`` للملاءمة على
+        بيانات مختلفة، لكنها وثيقة الصلة. على سبيل المثال، قد يتم الملاءمة
+        في البداية لمجموعة فرعية من البيانات، ثم ضبط بحث المعلمة على
+        مجموعة البيانات الكاملة. بالنسبة للتصنيف، يجب أن تتضمن جميع البيانات في سلسلة
+        من استدعاءات ``warm_start`` لـ ``fit`` عينات من كل فئة.
+
 
 .. _glossary_attributes:
 
-Attributes
+السمات
 ==========
 
-See concept :term:`attribute`.
+انظر المفهوم :term:`السمة`.
+
 
 .. glossary::
 
     ``classes_``
-        A list of class labels known to the :term:`classifier`, mapping each
-        label to a numerical index used in the model representation our output.
-        For instance, the array output from :term:`predict_proba` has columns
-        aligned with ``classes_``. For :term:`multi-output` classifiers,
-        ``classes_`` should be a list of lists, with one class listing for
-        each output.  For each output, the classes should be sorted
-        (numerically, or lexicographically for strings).
+        قائمة بتسميات الفئات المعروفة لـ :term:`المصنف`، تعيِّن كل
+        تسمية إلى فهرس رقمي مستخدم في تمثيل النموذج أو ناتجنا.
+        على سبيل المثال، تحتوي المصفوفة الناتجة من :term:`predict_proba` على أعمدة
+        محاذية لـ ``classes_``. بالنسبة للمصنفات :term:`متعددة المخرجات`،
+        يجب أن تكون ``classes_`` قائمة من القوائم، مع قائمة فئة واحدة
+        لكل ناتج.  لكل ناتج، يجب فرز الفئات
+        (عدديًا أو معجميًا للسلاسل).
 
-        ``classes_`` and the mapping to indices is often managed with
+
+        غالبًا ما تتم إدارة ``classes_`` والتعيين إلى الفهارس باستخدام
         :class:`preprocessing.LabelEncoder`.
 
-    ``components_``
-        An affine transformation matrix of shape ``(n_components, n_features)``
-        used in many linear :term:`transformers` where :term:`n_components` is
-        the number of output features and :term:`n_features` is the number of
-        input features.
 
-        See also :term:`components_` which is a similar attribute for linear
-        predictors.
+    ``components_``
+        مصفوفة تحويل تآلفي ذات شكل ``(n_components, n_features)``
+        تُستخدم في العديد من :term:`المحولات` الخطية حيث :term:`n_components` هو
+        عدد ميزات الإخراج و :term:`n_features` هو عدد ميزات
+        الإدخال.
+
+
+        انظر أيضًا :term:`components_` وهي سمة مماثلة للمتنبئات
+        الخطية.
+
 
     ``coef_``
-        The weight/coefficient matrix of a generalized linear model
-        :term:`predictor`, of shape ``(n_features,)`` for binary classification
-        and single-output regression, ``(n_classes, n_features)`` for
-        multiclass classification and ``(n_targets, n_features)`` for
-        multi-output regression. Note this does not include the intercept
-        (or bias) term, which is stored in ``intercept_``.
+        مصفوفة الوزن/المعامل لنموذج خطي معمم
+        :term:`متنبئ`، ذات شكل ``(n_features,)`` للتصنيف الثنائي
+        والانحدار أحادي الناتج، ``(n_classes, n_features)`` لـ
+        التصنيف متعدد الفئات و ``(n_targets, n_features)`` لـ
+        الانحدار متعدد المخرجات. لاحظ أن هذا لا يتضمن مصطلح التقاطع
+        (أو التحيز)، والذي يتم تخزينه في ``intercept_``.
 
-        When available, ``feature_importances_`` is not usually provided as
-        well, but can be calculated as the  norm of each feature's entry in
+
+
+        عندما تكون متاحة، لا يتم توفير ``feature_importances_`` عادةً أيضًا،
+        ولكن يمكن حسابها كمعيار إدخال كل ميزة في
         ``coef_``.
 
-        See also :term:`components_` which is a similar attribute for linear
-        transformers.
+
+        انظر أيضًا :term:`components_` وهي سمة مماثلة للمحولات
+        الخطية.
+
 
     ``embedding_``
-        An embedding of the training data in :ref:`manifold learning
-        <manifold>` estimators, with shape ``(n_samples, n_components)``,
-        identical to the output of :term:`fit_transform`.  See also
+        تضمين لبيانات التدريب في مقدرات :ref:`تعلم متعدد الشعب
+        <manifold>`، ذات شكل ``(n_samples, n_components)``،
+        مطابق لناتج :term:`fit_transform`.  انظر أيضًا
         :term:`labels_`.
 
+
     ``n_iter_``
-        The number of iterations actually performed when fitting an iterative
-        estimator that may stop upon convergence. See also :term:`max_iter`.
+        عدد التكرارات التي تم إجراؤها فعليًا عند ملاءمة مقدر تكراري
+        قد يتوقف عند التقارب. انظر أيضًا :term:`max_iter`.
+
 
     ``feature_importances_``
-        A vector of shape ``(n_features,)`` available in some
-        :term:`predictors` to provide a relative measure of the importance of
-        each feature in the predictions of the model.
+        متجه ذو شكل ``(n_features,)`` متاح في بعض
+        :term:`المتنبئات` لتوفير مقياس نسبي لأهمية
+        كل ميزة في تنبؤات النموذج.
+
+
 
     ``labels_``
-        A vector containing a cluster label for each sample of the training
-        data in :term:`clusterers`, identical to the output of
-        :term:`fit_predict`.  See also :term:`embedding_`.
+        متجه يحتوي على تسمية كتلة لكل عينة من بيانات التدريب
+        في :term:`المُجمِّعات`، مطابق لناتج
+        :term:`fit_predict`.  انظر أيضًا :term:`embedding_`.
+
 
 .. _glossary_sample_props:
 
-Data and sample properties
+خصائص البيانات والعينة
 ==========================
 
-See concept :term:`sample property`.
+
+انظر المفهوم :term:`خاصية العينة`.
+
 
 .. glossary::
 
     ``groups``
-        Used in cross-validation routines to identify samples that are correlated.
-        Each value is an identifier such that, in a supporting
-        :term:`CV splitter`, samples from some ``groups`` value may not
-        appear in both a training set and its corresponding test set.
-        See :ref:`group_cv`.
+        يُستخدم في إجراءات التحقق المتبادل لتحديد العينات المترابطة.
+        كل قيمة هي مُعرِّف بحيث، في :term:`مُقسِّم CV` داعم،
+        قد لا تظهر العينات من قيمة ``groups`` في كل من مجموعة التدريب
+        ومجموعة الاختبار المقابلة لها.
+        انظر :ref:`group_cv`.
+
 
     ``sample_weight``
-        A relative weight for each sample.  Intuitively, if all weights are
-        integers, a weighted model or score should be equivalent to that
-        calculated when repeating the sample the number of times specified in
-        the weight.  Weights may be specified as floats, so that sample weights
-        are usually equivalent up to a constant positive scaling factor.
+        وزن نسبي لكل عينة.  بشكل حدسي، إذا كانت جميع الأوزان
+        أعدادًا صحيحة، فيجب أن يكون النموذج أو الدرجة الموزونة مكافئة لتلك
+        المحسوبة عند تكرار العينة بعدد المرات المحددة في
+        الوزن. قد يتم تحديد الأوزان كعناصر عشرية، بحيث تكون أوزان العينة
+        عادةً مكافئة لعامل قياس ثابت موجب.
 
-        FIXME  Is this interpretation always the case in practice? We have no
-        common tests.
 
-        Some estimators, such as decision trees, support negative weights.
-        FIXME: This feature or its absence may not be tested or documented in
-        many estimators.
+        FIXME هل هذا التفسير هو الحال دائمًا في الممارسة؟ ليس لدينا
+        اختبارات شائعة.
 
-        This is not entirely the case where other parameters of the model
-        consider the number of samples in a region, as with ``min_samples`` in
-        :class:`cluster.DBSCAN`.  In this case, a count of samples becomes
-        to a sum of their weights.
 
-        In classification, sample weights can also be specified as a function
-        of class with the :term:`class_weight` estimator :term:`parameter`.
+        تدعم بعض المقدرات، مثل أشجار القرار، الأوزان السلبية.
+        FIXME: قد لا يتم اختبار هذه الميزة أو غيابها أو توثيقها في
+        العديد من المقدرات.
+
+
+
+        هذا ليس هو الحال تمامًا عندما تأخذ معلمات أخرى للنموذج
+        في الاعتبار عدد العينات في منطقة ما، كما هو الحال مع ``min_samples`` في
+        :class:`cluster.DBSCAN`. في هذه الحالة، يصبح عدد العينات
+        مجموع أوزانها.
+
+
+        في التصنيف، يمكن أيضًا تحديد أوزان العينة كدالة
+        للفئة مع :term:`معلمة` المقدر :term:`class_weight`.
+
 
     ``X``
-        Denotes data that is observed at training and prediction time, used as
-        independent variables in learning.  The notation is uppercase to denote
-        that it is ordinarily a matrix (see :term:`rectangular`).
-        When a matrix, each sample may be represented by a :term:`feature`
-        vector, or a vector of :term:`precomputed` (dis)similarity with each
-        training sample. ``X`` may also not be a matrix, and may require a
-        :term:`feature extractor` or a :term:`pairwise metric` to turn it into
-        one before learning a model.
+        يشير إلى البيانات التي يتم ملاحظتها في وقت التدريب والتنبؤ، وتُستخدم كـ
+        متغيرات مستقلة في التعلم. يكون الترميز بأحرف كبيرة للإشارة
+        إلى أنه عادةً ما يكون مصفوفة (انظر :term:`مستطيلي`).
+        عندما تكون مصفوفة، يمكن تمثيل كل عينة بواسطة متجه :term:`ميزة`،
+        أو متجه :term:`محسوب مسبقًا` (عدم) تشابه مع كل
+        عينة تدريب. قد لا يكون ``X`` مصفوفة أيضًا، وقد يتطلب
+        :term:`مستخرج ميزات` أو :term:`مقياس زوجي` لتحويله إلى
+        واحد قبل تعلم نموذج.
+
+
 
     ``Xt``
-        Shorthand for "transformed :term:`X`".
+        اختصار لـ "X :term:`مُحوَّل`".
 
     ``y``
     ``Y``
-        Denotes data that may be observed at training time as the dependent
-        variable in learning, but which is unavailable at prediction time, and
-        is usually the :term:`target` of prediction.  The notation may be
-        uppercase to denote that it is a matrix, representing
-        :term:`multi-output` targets, for instance; but usually we use ``y``
-        and sometimes do so even when multiple outputs are assumed.
+        يشير إلى البيانات التي قد يتم ملاحظتها في وقت التدريب كمتغير
+        تابع في التعلم، ولكنها غير متوفرة في وقت التنبؤ، و
+        عادةً ما تكون :term:`هدف` التنبؤ. قد يكون الترميز
+        بأحرف كبيرة للإشارة إلى أنه مصفوفة، يمثل
+        :term:`مخرجات متعددة`، على سبيل المثال؛ ولكن عادةً ما نستخدم ``y`` و
+        أحيانًا نفعل ذلك حتى عند افتراض مخرجات متعددة.
+
+
+

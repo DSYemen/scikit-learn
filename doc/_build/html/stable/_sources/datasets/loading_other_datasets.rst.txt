@@ -1,110 +1,87 @@
 .. _loading_other_datasets:
 
 تحميل مجموعات بيانات أخرى
-======================
+============================
 
 .. currentmodule:: sklearn.datasets
 
 .. _sample_images:
 
-Sample images
--------------
+صور عينة
+---------
 
-Scikit-learn also embeds a couple of sample JPEG images published under Creative
-Commons license by their authors. Those images can be useful to test algorithms
-and pipelines on 2D data.
+يحتوي Scikit-learn أيضًا على بعض صور JPEG العينة المنشورة بموجب ترخيص المشاع الإبداعي من قبل مؤلفيها. يمكن أن تكون هذه الصور مفيدة لاختبار الخوارزميات وخطوط الأنابيب على البيانات ثنائية الأبعاد.
 
 .. autosummary::
 
    load_sample_images
    load_sample_image
 
-.. plot::
-   :context: close-figs
+.. image:: ../auto_examples/cluster/images/sphx_glr_plot_color_quantization_001.png
+   :target: ../auto_examples/cluster/plot_color_quantization.html
    :scale: 30
    :align: right
-   :include-source: False
 
-    import matplotlib.pyplot as plt
-    from sklearn.datasets import load_sample_image
-
-    china = load_sample_image("china.jpg")
-    plt.imshow(china)
-    plt.axis('off')
-    plt.tight_layout()
-    plt.show()
 
 .. warning::
 
-  The default coding of images is based on the ``uint8`` dtype to
-  spare memory. Often machine learning algorithms work best if the
-  input is converted to a floating point representation first. Also,
-  if you plan to use ``matplotlib.pyplpt.imshow``, don't forget to scale to the range
-  0 - 1 as done in the following example.
+  يعتمد الترميز الافتراضي للصور على نوع البيانات ``uint8`` لتوفير الذاكرة. غالبًا ما تعمل خوارزميات التعلم الآلي بشكل أفضل إذا تم تحويل المدخلات إلى تمثيل نقطة عائمة أولاً. أيضًا، إذا كنت تخطط لاستخدام ``matplotlib.pyplpt.imshow``، فلا تنسَ تغيير النطاق إلى 0-1 كما هو موضح في المثال التالي.
+
+.. rubric:: أمثلة
+
+* :ref:`sphx_glr_auto_examples_cluster_plot_color_quantization.py`
 
 .. _libsvm_loader:
 
-Datasets in svmlight / libsvm format
-------------------------------------
+مجموعات البيانات بتنسيق svmlight / libsvm
+--------------------------------------------
 
-scikit-learn includes utility functions for loading
-datasets in the svmlight / libsvm format. In this format, each line
-takes the form ``<label> <feature-id>:<feature-value>
-<feature-id>:<feature-value> ...``. This format is especially suitable for sparse datasets.
-In this module, scipy sparse CSR matrices are used for ``X`` and numpy arrays are used for ``y``.
+يتضمن scikit-learn وظائف مساعدة لتحميل مجموعات البيانات بتنسيق svmlight / libsvm. في هذا التنسيق، يأخذ كل سطر الشكل ``<label> <feature-id>:<feature-value> <feature-id>:<feature-value> ...``. هذا التنسيق مناسب بشكل خاص لمجموعات البيانات المتفرقة. في هذه الوحدة، يتم استخدام مصفوفات CSR المتفرقة من scipy لـ ``X`` ومصفوفات numpy لـ ``y``.
 
-You may load a dataset like as follows::
+يمكنك تحميل مجموعة بيانات كما يلي::
 
   >>> from sklearn.datasets import load_svmlight_file
   >>> X_train, y_train = load_svmlight_file("/path/to/train_dataset.txt")
   ...                                                         # doctest: +SKIP
 
-You may also load two (or more) datasets at once::
+يمكنك أيضًا تحميل مجموعتي بيانات (أو أكثر) في وقت واحد::
 
   >>> X_train, y_train, X_test, y_test = load_svmlight_files(
   ...     ("/path/to/train_dataset.txt", "/path/to/test_dataset.txt"))
   ...                                                         # doctest: +SKIP
 
-In this case, ``X_train`` and ``X_test`` are guaranteed to have the same number
-of features. Another way to achieve the same result is to fix the number of
-features::
+في هذه الحالة، من المضمون أن يكون لـ ``X_train`` و ``X_test`` نفس عدد الميزات. هناك طريقة أخرى لتحقيق نفس النتيجة وهي تحديد عدد الميزات::
 
   >>> X_test, y_test = load_svmlight_file(
   ...     "/path/to/test_dataset.txt", n_features=X_train.shape[1])
   ...                                                         # doctest: +SKIP
 
-.. rubric:: Related links
+.. rubric:: روابط ذات صلة
 
-- `Public datasets in svmlight / libsvm format`: https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets
-- `Faster API-compatible implementation`: https://github.com/mblondel/svmlight-loader
+- `مجموعات البيانات العامة بتنسيق svmlight / libsvm`: https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets
+- `تنفيذ أسرع متوافق مع API`: https://github.com/mblondel/svmlight-loader
 
 ..
-    For doctests:
+    لاختبارات الوثائق:
 
     >>> import numpy as np
     >>> import os
 
 .. _openml:
 
-Downloading datasets from the openml.org repository
----------------------------------------------------
+تنزيل مجموعات البيانات من مستودع openml.org
+--------------------------------------------
 
-`openml.org <https://openml.org>`_ is a public repository for machine learning
-data and experiments, that allows everybody to upload open datasets.
+`openml.org <https://openml.org>`_ هو مستودع عام لبيانات وتجارب التعلم الآلي، والذي يسمح للجميع بتحميل مجموعات البيانات المفتوحة.
 
-The ``sklearn.datasets`` package is able to download datasets
-from the repository using the function
-:func:`sklearn.datasets.fetch_openml`.
+حزمة ``sklearn.datasets`` قادرة على تنزيل مجموعات البيانات من المستودع باستخدام الدالة :func:`sklearn.datasets.fetch_openml`.
 
-For example, to download a dataset of gene expressions in mice brains::
+على سبيل المثال، لتنزيل مجموعة بيانات عن تعبيرات الجينات في أدمغة الفئران::
 
   >>> from sklearn.datasets import fetch_openml
   >>> mice = fetch_openml(name='miceprotein', version=4)
 
-To fully specify a dataset, you need to provide a name and a version, though
-the version is optional, see :ref:`openml_versions` below.
-The dataset contains a total of 1080 examples belonging to 8 different
-classes::
+لتحديد مجموعة بيانات بالكامل، تحتاج إلى توفير اسم وإصدار، على الرغم من أن الإصدار اختياري، انظر :ref:`openml_versions` أدناه. تحتوي مجموعة البيانات على ما مجموعه 1080 مثالًا ينتمي إلى 8 فئات مختلفة::
 
   >>> mice.data.shape
   (1080, 77)
@@ -113,13 +90,12 @@ classes::
   >>> np.unique(mice.target)
   array(['c-CS-m', 'c-CS-s', 'c-SC-m', 'c-SC-s', 't-CS-m', 't-CS-s', 't-SC-m', 't-SC-s'], dtype=object)
 
-You can get more information on the dataset by looking at the ``DESCR``
-and ``details`` attributes::
+يمكنك الحصول على مزيد من المعلومات حول مجموعة البيانات من خلال النظر إلى السمتين ``DESCR`` و ``details``::
 
   >>> print(mice.DESCR) # doctest: +SKIP
-  **Author**: Clara Higuera, Katheleen J. Gardiner, Krzysztof J. Cios
-  **Source**: [UCI](https://archive.ics.uci.edu/ml/datasets/Mice+Protein+Expression) - 2015
-  **Please cite**: Higuera C, Gardiner KJ, Cios KJ (2015) Self-Organizing
+  **المؤلف**: Clara Higuera, Katheleen J. Gardiner, Krzysztof J. Cios
+  **المصدر**: [UCI](https://archive.ics.uci.edu/ml/datasets/Mice+Protein+Expression) - 2015
+  **الرجاء الاستشهاد**: Higuera C, Gardiner KJ, Cios KJ (2015) Self-Organizing
   Feature Maps Identify Proteins Critical to Learning in a Mouse Model of Down
   Syndrome. PLoS ONE 10(6): e0129126...
 
@@ -135,17 +111,12 @@ and ``details`` attributes::
   'md5_checksum': '3c479a6885bfa0438971388283a1ce32'}
 
 
-The ``DESCR`` contains a free-text description of the data, while ``details``
-contains a dictionary of meta-data stored by openml, like the dataset id.
-For more details, see the `OpenML documentation
-<https://docs.openml.org/#data>`_ The ``data_id`` of the mice protein dataset
-is 40966, and you can use this (or the name) to get more information on the
-dataset on the openml website::
+يحتوي ``DESCR`` على وصف نصي حر للبيانات، بينما يحتوي ``details`` على قاموس بيانات وصفية مخزنة بواسطة openml، مثل معرّف مجموعة البيانات. لمزيد من التفاصيل، انظر `وثائق OpenML <https://docs.openml.org/#data>`_. معرّف البيانات لمجموعة بيانات بروتين الفئران هو 40966، ويمكنك استخدام هذا (أو الاسم) للحصول على مزيد من المعلومات حول مجموعة البيانات على موقع openml::
 
   >>> mice.url
   'https://www.openml.org/d/40966'
 
-The ``data_id`` also uniquely identifies a dataset from OpenML::
+يحدد ``data_id`` أيضًا بشكل فريد مجموعة بيانات من OpenML::
 
   >>> mice = fetch_openml(data_id=40966)
   >>> mice.details # doctest: +SKIP
@@ -162,25 +133,17 @@ The ``data_id`` also uniquely identifies a dataset from OpenML::
 
 .. _openml_versions:
 
-Dataset Versions
-~~~~~~~~~~~~~~~~
+إصدارات مجموعة البيانات
+~~~~~~~~~~~~~~~~~~~~~~
 
-A dataset is uniquely specified by its ``data_id``, but not necessarily by its
-name. Several different "versions" of a dataset with the same name can exist
-which can contain entirely different datasets.
-If a particular version of a dataset has been found to contain significant
-issues, it might be deactivated. Using a name to specify a dataset will yield
-the earliest version of a dataset that is still active. That means that
-``fetch_openml(name="miceprotein")`` can yield different results
-at different times if earlier versions become inactive.
-You can see that the dataset with ``data_id`` 40966 that we fetched above is
-the first version of the "miceprotein" dataset::
+يتم تحديد مجموعة البيانات بشكل فريد بواسطة ``data_id``، ولكن ليس بالضرورة باسمها. يمكن أن توجد عدة "إصدارات" مختلفة لمجموعة بيانات بنفس الاسم والتي يمكن أن تحتوي على مجموعات بيانات مختلفة تمامًا.
+إذا تم العثور على إصدار معين من مجموعة بيانات يحتوي على مشكلات كبيرة، فقد يتم إلغاء تنشيطه. سيؤدي استخدام اسم لتحديد مجموعة بيانات إلى الحصول على الإصدار الأقدم من مجموعة البيانات الذي لا يزال نشطًا. هذا يعني أن ``fetch_openml(name="miceprotein")`` يمكن أن ينتج عنه نتائج مختلفة في أوقات مختلفة إذا أصبحت الإصدارات السابقة غير نشطة.
+يمكنك أن ترى أن مجموعة البيانات ذات ``data_id`` 40966 التي قمنا باستردادها أعلاه هي الإصدار الأول من مجموعة بيانات "miceprotein"::
 
   >>> mice.details['version']  #doctest: +SKIP
   '1'
 
-In fact, this dataset only has one version. The iris dataset on the other hand
-has multiple versions::
+في الواقع، تحتوي مجموعة البيانات هذه على إصدار واحد فقط. من ناحية أخرى، تحتوي مجموعة بيانات iris على إصدارات متعددة::
 
   >>> iris = fetch_openml(name="iris")
   >>> iris.details['version']  #doctest: +SKIP
@@ -200,17 +163,12 @@ has multiple versions::
   >>> iris_969.details['id']
   '969'
 
-Specifying the dataset by the name "iris" yields the lowest version, version 1,
-with the ``data_id`` 61. To make sure you always get this exact dataset, it is
-safest to specify it by the dataset ``data_id``. The other dataset, with
-``data_id`` 969, is version 3 (version 2 has become inactive), and contains a
-binarized version of the data::
+يؤدي تحديد مجموعة البيانات باسم "iris" إلى الحصول على الإصدار الأدنى، الإصدار 1، مع ``data_id`` 61. للتأكد من حصولك دائمًا على هذه المجموعة الدقيقة من البيانات، من الأكثر أمانًا تحديدها بواسطة ``data_id`` مجموعة البيانات. مجموعة البيانات الأخرى، مع ``data_id`` 969، هي الإصدار 3 (الإصدار 2 أصبح غير نشط)، وتحتوي على إصدار ثنائي من البيانات::
 
   >>> np.unique(iris_969.target)
   array(['N', 'P'], dtype=object)
 
-You can also specify both the name and the version, which also uniquely
-identifies the dataset::
+يمكنك أيضًا تحديد كل من الاسم والإصدار، اللذين يحددان أيضًا بشكل فريد مجموعة البيانات::
 
   >>> iris_version_3 = fetch_openml(name="iris", version=3)
   >>> iris_version_3.details['version']
@@ -219,7 +177,7 @@ identifies the dataset::
   '969'
 
 
-.. rubric:: References
+.. rubric:: المراجع
 
 * :arxiv:`Vanschoren, van Rijn, Bischl and Torgo. "OpenML: networked science in
   machine learning" ACM SIGKDD Explorations Newsletter, 15(2), 49-60, 2014.
@@ -227,91 +185,46 @@ identifies the dataset::
 
 .. _openml_parser:
 
-ARFF parser
-~~~~~~~~~~~
+محلل ARFF
+~~~~~~~~~
 
-From version 1.2, scikit-learn provides a new keyword argument `parser` that
-provides several options to parse the ARFF files provided by OpenML. The legacy
-parser (i.e. `parser="liac-arff"`) is based on the project
-`LIAC-ARFF <https://github.com/renatopp/liac-arff>`_. This parser is however
-slow and consume more memory than required. A new parser based on pandas
-(i.e. `parser="pandas"`) is both faster and more memory efficient.
-However, this parser does not support sparse data.
-Therefore, we recommend using `parser="auto"` which will use the best parser
-available for the requested dataset.
+من الإصدار 1.2، يوفر scikit-learn وسيطة كلمة رئيسية جديدة `parser` التي توفر العديد من الخيارات لتحليل ملفات ARFF التي يوفرها OpenML. يعتمد المحلل القديم (أي `parser="liac-arff"`) على مشروع `LIAC-ARFF <https://github.com/renatopp/liac-arff>`_. ومع ذلك، فإن هذا المحلل بطيء ويستهلك ذاكرة أكثر من المطلوب. المحلل الجديد الذي يعتمد على pandas (أي `parser="pandas"`) أسرع وأكثر كفاءة في استخدام الذاكرة. ومع ذلك، لا يدعم هذا المحلل البيانات المتفرقة. لذلك، نوصي باستخدام `parser="auto"` الذي سيستخدم أفضل محلل متاح لمجموعة البيانات المطلوبة.
 
-The `"pandas"` and `"liac-arff"` parsers can lead to different data types in
-the output. The notable differences are the following:
+يمكن أن يؤدي المحللان `"pandas"` و `"liac-arff"` إلى أنواع بيانات مختلفة في المخرجات. الاختلافات الملحوظة هي التالية:
 
-- The `"liac-arff"` parser always encodes categorical features as `str`
-  objects. To the contrary, the `"pandas"` parser instead infers the type while
-  reading and numerical categories will be casted into integers whenever
-  possible.
-- The `"liac-arff"` parser uses float64 to encode numerical features tagged as
-  'REAL' and 'NUMERICAL' in the metadata. The `"pandas"` parser instead infers
-  if these numerical features corresponds to integers and uses panda's Integer
-  extension dtype.
-- In particular, classification datasets with integer categories are typically
-  loaded as such `(0, 1, ...)` with the `"pandas"` parser while `"liac-arff"`
-  will force the use of string encoded class labels such as `"0"`, `"1"` and so
-  on.
-- The `"pandas"` parser will not strip single quotes - i.e. `'` - from string
-  columns. For instance, a string `'my string'` will be kept as is while the
-  `"liac-arff"` parser will strip the single quotes. For categorical columns,
-  the single quotes are stripped from the values.
+- يقوم المحلل `"liac-arff"` دائمًا بترميز الميزات الفئوية ككائنات `str`. على العكس من ذلك، يستنتج المحلل `"pandas"` النوع أثناء القراءة وسيتم تحويل الفئات الرقمية إلى أعداد صحيحة كلما أمكن ذلك.
+- يستخدم المحلل `"liac-arff"` float64 لترميز الميزات الرقمية الموسومة باسم 'REAL' و 'NUMERICAL' في البيانات الوصفية. يستنتج المحلل `"pandas"` بدلاً من ذلك ما إذا كانت هذه الميزات الرقمية تتوافق مع الأعداد الصحيحة ويستخدم نوع بيانات امتداد Integer الخاص بـ panda.
+- على وجه الخصوص، يتم تحميل مجموعات بيانات التصنيف ذات الفئات الصحيحة عادةً على هذا النحو `(0، 1، ...)` مع المحلل `"pandas"` بينما سيفرض `"liac-arff"` استخدام تسميات الفئات المشتركة كسلاسل مثل `"0"` و `"1"` وما إلى ذلك.
+- لن يقوم المحلل `"pandas"` بإزالة علامات الاقتباس المفردة - أي `'` - من أعمدة السلسلة. على سبيل المثال، سيتم الاحتفاظ بسلسلة `'my string'` كما هي بينما سيقوم المحلل `"liac-arff"` بإزالة علامات الاقتباس المفردة. بالنسبة لأعمدة الفئات، تتم إزالة علامات الاقتباس المفردة من القيم.
 
-In addition, when `as_frame=False` is used, the `"liac-arff"` parser returns
-ordinally encoded data where the categories are provided in the attribute
-`categories` of the `Bunch` instance. Instead, `"pandas"` returns a NumPy array
-were the categories. Then it's up to the user to design a feature
-engineering pipeline with an instance of  `OneHotEncoder` or
-`OrdinalEncoder` typically wrapped in a `ColumnTransformer` to
-preprocess the categorical columns explicitly. See for instance: :ref:`sphx_glr_auto_examples_compose_plot_column_transformer_mixed_types.py`.
+بالإضافة إلى ذلك، عند استخدام `as_frame = False`، يُرجع المحلل `"liac-arff"` بيانات مشفرة ترتيبيًا حيث يتم توفير الفئات في السمة `categories` لنموذج `Bunch`. بدلاً من ذلك، يُرجع `"pandas"` مصفوفة NumPy حيث الفئات. ثم يعود الأمر للمستخدم لتصميم خط أنابيب لهندسة الميزات مع نموذج من `OneHotEncoder` أو `OrdinalEncoder` ملفوف عادةً في `ColumnTransformer` لمعالجة الأعمدة الفئوية مسبقًا بشكل صريح. انظر على سبيل المثال: :ref:`sphx_glr_auto_examples_compose_plot_column_transformer_mixed_types.py`.
 
 .. _external_datasets:
 
-Loading from external datasets
-------------------------------
+التحميل من مجموعات بيانات خارجية
+---------------------------------
 
-scikit-learn works on any numeric data stored as numpy arrays or scipy sparse
-matrices. Other types that are convertible to numeric arrays such as pandas
-DataFrame are also acceptable.
+يعمل scikit-learn على أي بيانات رقمية مخزنة كمصفوفات numpy أو مصفوفات scipy المتفرقة. الأنواع الأخرى القابلة للتحويل إلى مصفوفات رقمية مثل pandas DataFrame مقبولة أيضًا.
 
-Here are some recommended ways to load standard columnar data into a
-format usable by scikit-learn:
+فيما يلي بعض الطرق الموصى بها لتحميل البيانات العمودية القياسية بتنسيق قابل للاستخدام بواسطة scikit-learn:
 
 * `pandas.io <https://pandas.pydata.org/pandas-docs/stable/io.html>`_
-  provides tools to read data from common formats including CSV, Excel, JSON
-  and SQL. DataFrames may also be constructed from lists of tuples or dicts.
-  Pandas handles heterogeneous data smoothly and provides tools for
-  manipulation and conversion into a numeric array suitable for scikit-learn.
+  يوفر أدوات لقراءة البيانات من التنسيقات الشائعة بما في ذلك CSV و Excel و JSON و SQL. يمكن أيضًا إنشاء DataFrames من قوائم tuples أو dicts. يتعامل Pandas مع البيانات غير المتجانسة بسلاسة ويوفر أدوات للمعالجة والتحويل إلى مصفوفة رقمية مناسبة لـ scikit-learn.
 * `scipy.io <https://docs.scipy.org/doc/scipy/reference/io.html>`_
-  specializes in binary formats often used in scientific computing
-  context such as .mat and .arff
+  متخصص في التنسيقات الثنائية التي غالبًا ما تستخدم في سياق الحوسبة العلمية مثل .mat و .arff
 * `numpy/routines.io <https://docs.scipy.org/doc/numpy/reference/routines.io.html>`_
-  for standard loading of columnar data into numpy arrays
-* scikit-learn's :func:`load_svmlight_file` for the svmlight or libSVM
-  sparse format
-* scikit-learn's :func:`load_files` for directories of text files where
-  the name of each directory is the name of each category and each file inside
-  of each directory corresponds to one sample from that category
+  للتحميل القياسي للبيانات العمودية في مصفوفات numpy
+* :func:`load_svmlight_file` من scikit-learn لتنسيق svmlight أو libSVM المتفرق
+* :func:`load_files` من scikit-learn لأدلة ملفات النص حيث يكون اسم كل دليل هو اسم كل فئة ويتوافق كل ملف داخل كل دليل مع عينة واحدة من تلك الفئة
 
-For some miscellaneous data such as images, videos, and audio, you may wish to
-refer to:
+بالنسبة لبعض البيانات المتنوعة مثل الصور ومقاطع الفيديو والصوت، قد ترغب في الرجوع إلى:
 
-* `skimage.io <https://scikit-image.org/docs/dev/api/skimage.io.html>`_ or
+* `skimage.io <https://scikit-image.org/docs/dev/api/skimage.io.html>`_ أو
   `Imageio <https://imageio.readthedocs.io/en/stable/reference/core_v3.html>`_
-  for loading images and videos into numpy arrays
-* `scipy.io.wavfile.read
-  <https://docs.scipy.org/doc/scipy/reference/generated/scipy.io.wavfile.read.html>`_
-  for reading WAV files into a numpy array
+  لتحميل الصور ومقاطع الفيديو في مصفوفات numpy
+* `scipy.io.wavfile.read <https://docs.scipy.org/doc/scipy/reference/generated/scipy.io.wavfile.read.html>`_
+ لقراءة ملفات WAV في مصفوفة numpy
 
-Categorical (or nominal) features stored as strings (common in pandas DataFrames)
-will need converting to numerical features using :class:`~sklearn.preprocessing.OneHotEncoder`
-or :class:`~sklearn.preprocessing.OrdinalEncoder` or similar.
-See :ref:`preprocessing`.
+ستحتاج الميزات الفئوية (أو الاسمية) المخزنة كسلاسل (شائعة في pandas DataFrames) إلى التحويل إلى ميزات رقمية باستخدام :class:`~sklearn.preprocessing.OneHotEncoder` أو :class:`~sklearn.preprocessing.OrdinalEncoder` أو ما شابه. انظر :ref:`preprocessing`.
 
-Note: if you manage your own numerical data it is recommended to use an
-optimized file format such as HDF5 to reduce data load times. Various libraries
-such as H5Py, PyTables and pandas provides a Python interface for reading and
-writing data in that format.
+ملاحظة: إذا كنت تدير بياناتك الرقمية الخاصة، فمن المستحسن استخدام تنسيق ملفات محسن مثل HDF5 لتقليل أوقات تحميل البيانات. توفر مكتبات مختلفة مثل H5Py و PyTables و pandas واجهة Python لقراءة وكتابة البيانات بهذا التنسيق.

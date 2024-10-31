@@ -18,29 +18,26 @@
 .. _sphx_glr_auto_examples_bicluster_plot_bicluster_newsgroups.py:
 
 
-================================================================
-Biclustering documents with the Spectral Co-clustering algorithm
-================================================================
+========================================================================
+التجميع الثنائي المستندات باستخدام خوارزمية التجميع الطيفي المشترك
+========================================================================
 
-This example demonstrates the Spectral Co-clustering algorithm on the
-twenty newsgroups dataset. The 'comp.os.ms-windows.misc' category is
-excluded because it contains many posts containing nothing but data.
+هذا المثال يوضح خوارزمية التجميع الطيفي المشترك على
+مجموعة بيانات مجموعات الأخبار العشرين. تم استبعاد الفئة 'comp.os.ms-windows.misc'
+لأنها تحتوي على العديد من المنشورات التي لا تحتوي إلا على بيانات.
 
-The TF-IDF vectorized posts form a word frequency matrix, which is
-then biclustered using Dhillon's Spectral Co-Clustering algorithm. The
-resulting document-word biclusters indicate subsets words used more
-often in those subsets documents.
+المنشورات المتجهة TF-IDF تشكل مصفوفة تكرار الكلمات، والتي يتم بعد ذلك
+تجمعها باستخدام خوارزمية Dhillon's Spectral Co-Clustering. تشير مجموعات التجميع الفرعية للوثائق-الكلمات الناتجة
+إلى مجموعات فرعية من الكلمات المستخدمة بشكل متكرر أكثر في تلك المستندات الفرعية.
 
-For a few of the best biclusters, its most common document categories
-and its ten most important words get printed. The best biclusters are
-determined by their normalized cut. The best words are determined by
-comparing their sums inside and outside the bicluster.
+بالنسبة لبعض أفضل مجموعات التجميع الفرعية، يتم طباعة فئات المستندات الأكثر شيوعًا
+وأهم عشر كلمات لها. يتم تحديد أفضل مجموعات التجميع الفرعية من خلال قطعها المعيارية. يتم تحديد أفضل الكلمات
+من خلال مقارنة مجموعها داخل وخارج مجموعة التجميع الفرعية.
 
-For comparison, the documents are also clustered using
-MiniBatchKMeans. The document clusters derived from the biclusters
-achieve a better V-measure than clusters found by MiniBatchKMeans.
+لمقارنة، يتم أيضًا تجميع المستندات باستخدام MiniBatchKMeans. تحقق مجموعات المستندات المشتقة من مجموعات التجميع الفرعية
+قياس V أفضل من المجموعات التي وجدها MiniBatchKMeans.
 
-.. GENERATED FROM PYTHON SOURCE LINES 25-164
+.. GENERATED FROM PYTHON SOURCE LINES 22-161
 
 
 
@@ -51,31 +48,31 @@ achieve a better V-measure than clusters found by MiniBatchKMeans.
 
     Vectorizing...
     Coclustering...
-    Done in 1.84s. V-measure: 0.4415
+    Done in 1.49s. V-measure: 0.4454
     MiniBatchKMeans...
-    Done in 1.59s. V-measure: 0.3015
+    Done in 1.27s. V-measure: 0.2964
 
     Best biclusters:
     ----------------
-    bicluster 0 : 8 documents, 6 words
-    categories   : 100% talk.politics.mideast
-    words        : cosmo, angmar, alfalfa, alphalpha, proline, benson
+    bicluster 0 : 1161 documents, 3165 words
+    categories   : 29% talk.politics.mideast, 27% soc.religion.christian, 26% alt.atheism
+    words        : god, jesus, christians, atheists, morality, kent, belief, sin, objective, resurrection
 
-    bicluster 1 : 1948 documents, 4325 words
-    categories   : 23% talk.politics.guns, 18% talk.politics.misc, 17% sci.med
-    words        : gun, guns, geb, banks, gordon, clinton, pitt, cdt, surrender, veal
+    bicluster 1 : 1653 documents, 4015 words
+    categories   : 28% talk.politics.guns, 19% sci.med, 15% soc.religion.christian
+    words        : gun, guns, geb, banks, firearms, gordon, dyer, amendment, pitt, cdt
 
-    bicluster 2 : 1259 documents, 3534 words
-    categories   : 27% soc.religion.christian, 25% talk.politics.mideast, 25% alt.atheism
-    words        : god, jesus, christians, kent, sin, objective, belief, christ, faith, moral
+    bicluster 2 : 2239 documents, 2805 words
+    categories   : 18% comp.sys.mac.hardware, 16% comp.sys.ibm.pc.hardware, 15% comp.graphics
+    words        : voltage, dsp, shipping, circuit, stereo, receiver, compression, processing, circuits, supply
 
-    bicluster 3 : 775 documents, 1623 words
-    categories   : 30% comp.windows.x, 25% comp.sys.ibm.pc.hardware, 20% comp.graphics
-    words        : scsi, nada, ide, vga, esdi, isa, kth, s3, vlb, bmug
+    bicluster 3 : 1732 documents, 2617 words
+    categories   : 27% rec.motorcycles, 23% rec.autos, 13% misc.forsale
+    words        : bike, car, dod, ride, engine, motorcycle, honda, bikes, behanna, helmet
 
-    bicluster 4 : 2180 documents, 2802 words
-    categories   : 18% comp.sys.mac.hardware, 16% sci.electronics, 16% comp.sys.ibm.pc.hardware
-    words        : voltage, shipping, circuit, receiver, processing, scope, mpce, analog, kolstad, umass
+    bicluster 4 : 12 documents, 149 words
+    categories   : 100% rec.sport.hockey
+    words        : scorer, unassisted, reichel, semak, sweeney, kovalenko, ricci, audette, momesso, nedved
 
 
 
@@ -88,8 +85,8 @@ achieve a better V-measure than clusters found by MiniBatchKMeans.
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري سكايلرن
+    # معرف الترخيص: BSD-3-Clause
     from collections import Counter
     from time import time
 
@@ -117,7 +114,7 @@ achieve a better V-measure than clusters found by MiniBatchKMeans.
             return lambda doc: list(number_normalizer(tokenize(doc)))
 
 
-    # exclude 'comp.os.ms-windows.misc'
+    # استبعاد 'comp.os.ms-windows.misc'
     categories = [
         "alt.atheism",
         "comp.graphics",
@@ -136,7 +133,6 @@ achieve a better V-measure than clusters found by MiniBatchKMeans.
         "soc.religion.christian",
         "talk.politics.guns",
         "talk.politics.mideast",
-        "talk.politics.misc",
         "talk.religion.misc",
     ]
     newsgroups = fetch_20newsgroups(categories=categories)
@@ -191,7 +187,8 @@ achieve a better V-measure than clusters found by MiniBatchKMeans.
         return cut / weight
 
 
-    bicluster_ncuts = list(bicluster_ncut(i) for i in range(len(newsgroups.target_names)))
+    bicluster_ncuts = list(bicluster_ncut(i)
+                           for i in range(len(newsgroups.target_names)))
     best_idx = np.argsort(bicluster_ncuts)[:5]
 
     print()
@@ -230,7 +227,7 @@ achieve a better V-measure than clusters found by MiniBatchKMeans.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 16.144 seconds)
+   **Total running time of the script:** (0 minutes 5.327 seconds)
 
 
 .. _sphx_glr_download_auto_examples_bicluster_plot_bicluster_newsgroups.py:

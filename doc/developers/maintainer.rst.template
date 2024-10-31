@@ -1,52 +1,49 @@
-Maintainer Information
-======================
 
-Releasing
----------
+معلومات المسؤول
+=================
 
-This section is about preparing a major/minor release, a release candidate (RC), or a
-bug-fix release. We follow `PEP440 <https://www.python.org/dev/peps/pep-0440/>`_ for
-the version scheme and to indicate different types of releases. Our convention is to
-follow the "major.minor.micro" scheme, although in practice there is no fundamental
-difference between major and minor releases and micro releases are bug-fix releases.
+الإصدار
+-------
 
-We adopted the following release schedule:
+يتعلق هذا القسم بإعداد إصدار رئيسي/ثانوي، أو إصدار مرشح (RC)، أو إصدار إصلاح الأخطاء. نتبع `PEP440 <https://www.python.org/dev/peps/pep-0440/>`_
+لمخطط الإصدار وللإشارة إلى أنواع مختلفة من الإصدارات. اتفاقيتنا هي
+اتباع مخطط "major.minor.micro"، على الرغم من أنه في الممارسة العملية لا يوجد فرق أساسي
+بين الإصدارات الرئيسية والثانوية والإصدارات الصغيرة هي إصدارات إصلاح الأخطاء.
 
-- Major/Minor releases every 6 months, usually in May and November. These releases
-  are numbered `X.Y.0` and are preceded by one or more release candidates `X.Y.0rcN`.
-- Bug-fix releases are done as needed between major/minor releases and only apply to
-  the last stable version. These releases are numbered `X.Y.Z`.
+اعتمدنا الجدول الزمني للإصدار التالي:
 
-.. rubric:: Preparation
+- الإصدارات الرئيسية/الثانوية كل 6 أشهر، عادة في شهري مايو ونوفمبر. يتم ترقيم هذه الإصدارات
+  `X.Y.0` ويسبقها إصدار مرشح واحد أو أكثر `X.Y.0rcN`.
+- يتم إجراء إصدارات إصلاح الأخطاء حسب الحاجة بين الإصدارات الرئيسية/الثانوية وتنطبق فقط على
+  أحدث إصدار مستقر. يتم ترقيم هذه الإصدارات `X.Y.Z`.
 
-- Confirm that all blockers tagged for the milestone have been resolved, and that other
-  issues tagged for the milestone can be postponed.
+.. rubric:: التحضير
 
-- Make sure the deprecations, FIXMEs, and TODOs tagged for the release have been taken
-  care of.
+- تأكد من حل جميع العوائق التي تم وضع علامة عليها للميل، وأن القضايا الأخرى التي تم وضع علامة عليها للميل
+  يمكن تأجيلها.
 
-- For major/minor final releases, make sure that a *Release Highlights* page has been
-  done as a runnable example and check that its HTML rendering looks correct. It should
-  be linked from the what's new file for the new version of scikit-learn.
+- تأكد من العناية بالتقادم وFIXMEs وTODOs التي تم وضع علامة عليها للإصدار.
 
-- Ensure that the changelog and commits correspond, and that the changelog is reasonably
-  well curated. In particular, make sure that the changelog entries are labeled and
-  ordered within each section. The order of the labels should be `|MajorFeature|`,
-  `|Feature|`, `|Efficiency|`, `|Enhancement|`, `|Fix|`, and `|API|`.
+- بالنسبة للإصدارات النهائية الرئيسية/الثانوية، تأكد من أن صفحة *Release Highlights* قد تم
+  تم ذلك كمثال قابل للتنفيذ وتحقق من أن عرض HTML الخاص به يبدو صحيحًا. يجب
+  أن يتم ربطه من ملف "ما الجديد" لإصدار scikit-learn الجديد.
 
-.. rubric:: Permissions
+- تأكد من أن سجل التغييرات والالتزامات تتوافق، وأن سجل التغييرات منظم بشكل معقول. على وجه الخصوص،
+  تأكد من أن إدخالات سجل التغييرات تحمل علامات ومصنفة داخل كل قسم. يجب أن يكون ترتيب العلامات
+  `|MajorFeature|`, `|Feature|`, `|Efficiency|`, `|Enhancement|`, `|Fix|`, و `|API|`.
 
-- The release manager must be a **maintainer** of the
-  https://github.com/scikit-learn/scikit-learn repository to be able to publish on
-  `pypi.org` and `test.pypi.org` (via a manual trigger of a dedicated Github Actions
-  workflow).
+.. rubric:: الأذونات
 
-- The release manager must be a **maintainer** of the
-  https://github.com/conda-forge/scikit-learn-feedstock repository to be able to publish
-  on `conda-forge`. This can be changed by editing the `recipe/meta.yaml` file in the
-  first release pull request.
+- يجب أن يكون مدير الإصدار **مسؤولاً** عن مستودع
+  https://github.com/scikit-learn/scikit-learn ليكون قادرًا على النشر على
+  `pypi.org` و `test.pypi.org` (عبر تشغيل يدوي لتدفق عمل GitHub Actions مخصص).
 
-Reference Steps
+- يجب أن يكون مدير الإصدار **مسؤولاً** عن مستودع
+  https://github.com/conda-forge/scikit-learn-feedstock ليكون قادرًا على النشر
+  على `conda-forge`. يمكن تغيير هذا عن طريق تحرير ملف `recipe/meta.yaml` في
+  طلب السحب الأول للإصدار.
+
+خطوات مرجعية
 ^^^^^^^^^^^^^^^
 
 .. tab-set::
@@ -67,197 +64,91 @@ Reference Steps
   .. tab-item:: {{ title }}
     :class-label: tab-4
 
-    Suppose that we are preparing the release `{{ version_full }}`.
+    لنفترض أننا نقوم بإعداد الإصدار `{{ version_full }}`.
 
     {% if key == "rc" %}
-    The first RC ideally counts as a **feature freeze**. Each coming release candidate
-    and the final release afterwards should include only minor documentation changes
-    and bug fixes. Any major enhancement or new feature should be excluded.
+    يعد أول إصدار مرشح مثاليًا بمثابة تجميد للميزات. يجب أن يتضمن كل إصدار مرشح قادم
+    والإصدار النهائي التالي فقط تغييرات طفيفة في الوثائق وإصلاحات الأخطاء. يجب استبعاد أي ميزة أو ميزة جديدة رئيسية.
 
-    - Create the release branch `{{ version_short }}.X` directly in the main repository,
-      where `X` is really the letter X, **not a placeholder**. The development for the
-      final and subsequent bug-fix releases of `{{ version_short }}` should also happen
-      under this branch with different tags.
+    - قم بإنشاء فرع الإصدار `{{ version_short }}.X` مباشرة في المستودع الرئيسي،
+      حيث `X` هو حرف X بالفعل، **ليس بديلاً**. يجب أن يحدث التطوير للإصدار النهائي
+      والإصدارات اللاحقة لإصلاح الأخطاء من `{{ version_short }}` تحت هذا الفرع أيضًا
+      مع علامات مختلفة.
 
       .. prompt:: bash
 
-        git fetch upstream main
         git checkout upstream/main
         git checkout -b {{ version_short }}.X
         git push --set-upstream upstream {{ version_short }}.X
     {% endif %}
 
+    - قم بإنشاء PR من الفرع `main` الذي يستهدف فرع `{{ version_short }}.X`.
+      قم بنسخ قائمة التحقق من الإصدار هذه إلى وصف هذا PR لتتبع
+      التقدم.
+
+      .. code-block:: markdown
+
+        * [ ] تحديث الأخبار وتاريخ "ما الجديد" في فرع الإصدار
+        * [ ] التراجع عن الأخبار وتاريخ "ما الجديد" في فرع الإصدار
+        {%- if key == "rc" %}
+        * [ ] تحديث إصدار sklearn dev0 في فرع main
+        {%- endif %}
+        * [ ] تعيين رقم الإصدار في فرع الإصدار
+        * [ ] تأكد من أنه يمكن بناء العجلات للإصدار بنجاح
+        * [ ] دمج PR مع علامة الالتزام `[cd build]` لتحميل العجلات إلى المستودع المرحلي
+        * [ ] تحميل العجلات وحزمة المصدر إلى https://test.pypi.org
+        * [ ] تحميل العجلات وحزمة المصدر إلى https://pypi.org
+        * [ ] تأكيد على قائمة البريد الإلكتروني وعلى تويتر، وعلى LinkedIn
+        {%- if key == "final" %}
+        * [ ] تحديث symlink لـ "stable" في https://github.com/scikit-learn/scikit-learn.github.io
+        {%- endif %}
+        {%- if key != "rc" %}
+        * [ ] تحديث SECURITY.md في فرع main
+        {%- endif %}
+
     {% if key != "rc" %}
-    - Create a new branch from the `main` branch, then start an interactive rebase from
-      `{{ version_short }}.X` to select the commits that need to be backported:
+    - إعادة قاعدة هذا PR من فرع `{{ version_short }}`.X:
 
       .. prompt:: bash
 
         git rebase -i upstream/{{ version_short }}.X
 
-      This will open an interactive rebase with the `git-rebase-todo` containing all the
-      latest commits on `main`. At this stage, you have to perform this interactive
-      rebase with at least someone else (to not forget something and to avoid doubts).
+      سيؤدي هذا إلى فتح إعادة قاعدة تفاعلية مع `git-rebase-todo` تحتوي على جميع
+      أحدث الالتزامات على `main`. في هذه المرحلة، يجب عليك إجراء هذه إعادة القاعدة التفاعلية
+      مع شخص آخر على الأقل (لتجنب نسيان شيء وتجنب الشكوك).
 
-      - Do not remove lines but drop commit by replacing `pick` with `drop`.
-      - Commits to pick for a bug-fix release are *generally* prefixed with `FIX`, `CI`,
-        and `DOC`. They should at least include all the commits of the merged PRs that
-        were milestoned for this release and/or documented as such in the changelog.
-      - Commits to `drop` for a bug-fix release are *generally* prefixed with `FEAT`,
-        `MAINT`, `ENH`, and `API`. Reasons for not including them is to prevent change
-        of behavior (which should only happen in major/minor releases).
-      - After having dropped or picked commits, **do not exit** but paste the content of
-        the `git-rebase-todo` message in the PR. This file is located at
+      - لا تقم بإزالة الأسطر ولكن قم بإسقاط الالتزام عن طريق استبدال `pick` بـ `drop`.
+      - الالتزامات لالتقاط لإصدار إصلاح الأخطاء عمومًا البادئة `FIX`، `CI`،
+        و `DOC`. يجب أن تتضمن على الأقل جميع الالتزامات من PRs التي تم وضع علامة عليها للميل
+        و/أو الموثقة على هذا النحو في سجل التغييرات.
+      - الالتزامات لـ `drop` لإصدار إصلاح الأخطاء عمومًا لها البادئة `FEAT`،
+        `MAINT`، `ENH`، و `API`. أسباب عدم تضمينها هي منع التغيير
+        السلوك (الذي يجب أن يحدث فقط في الإصدارات الرئيسية/الثانوية).
+    - لا تخرج ولكن الصق محتوى ملف `git-rebase-todo` في PR. يوجد هذا الملف في
         `.git/rebase-merge/git-rebase-todo`.
-      - Save and exit to start the interactive rebase. Resolve merge conflicts when
-        necessary.
+    - احفظ وأخرج لبدء إعادة القاعدة التفاعلية. حل تعارضات الدمج عند
+        الضرورة.
     {% endif %}
-
-    - Create a PR targeting the `{{ version_short }}.X` branch.
-      Copy the following release checklist to the description of this PR to track the
-      progress.
-
-      .. code-block:: markdown
-
-        {% if key == "rc" -%}
-        * [ ] Update the sklearn dev0 version in main branch
-        {%- endif %}
-        * [ ] Set the version number in the release branch
-        * [ ] Check that the wheels for the release can be built successfully
-        * [ ] Merge the PR with `[cd build]` commit message to upload wheels to the staging repo
-        * [ ] Upload the wheels and source tarball to https://test.pypi.org
-        * [ ] Create tag on the main repo
-        * [ ] Confirm bot detected at https://github.com/conda-forge/scikit-learn-feedstock
-              and wait for merge
-        * [ ] Upload the wheels and source tarball to PyPI
-        * [ ] Update news and what's new date in main branch
-        * [ ] Backport news and what's new date in release branch
-        {%- if key == "final" %}
-        * [ ] Update symlink for stable in https://github.com/scikit-learn/scikit-learn.github.io
-        {%- endif %}
-        {%- if key != "rc" %}
-        * [ ] Publish to https://github.com/scikit-learn/scikit-learn/releases
-        {%- endif %}
-        * [ ] Announce on mailing list and on Twitter, and LinkedIn
-        {%- if key != "rc" %}
-        * [ ] Update SECURITY.md in main branch
-        {%- endif %}
 
     {% if key == "rc" %}
-    - Create a PR from `main` and targeting `main` to increment the dev0 `__version__`
-      variable in `sklearn/__init__.py`. This means while we are in the release
-      candidate period, the latest stable is two version behind the `main` branch,
-      instead of one. In this PR targeting `main`, you should also include a new what's
-      new file under the `doc/whats_new/` directory so PRs that target the next version
-      can contribute their changelog entries to this file in parallel to the release
-      process.
+    - قم بإنشاء PR من `main` واستهدف `main` لزيادة متغير `__version__`
+      متغير في `sklearn/__init__.py`. هذا يعني أنه أثناء فترة الإصدار
+      المرشح، أحدث إصدار مستقر متأخر بمقدار نسختين عن فرع `main`،
+      بدلاً من واحد. في هذا PR الذي يستهدف `main`، يجب عليك أيضًا تضمين ملف "ما الجديد" الجديد
+      حتى تتمكن PRs التي تستهدف الإصدار التالي من المساهمة في إدخالات سجل التغييرات الخاصة بها في هذا الملف
+      بالتوازي مع عملية الإصدار.
     {% endif %}
 
-    - In the release branch, change the version number `__version__` in
-      `sklearn/__init__.py` to `{{ version_full }}`.
-
-    - Trigger the wheel builder with the `[cd build]` commit marker. See also the
-      `workflow runs of the wheel builder
-      <https://github.com/scikit-learn/scikit-learn/actions/workflows/wheels.yml>`_.
-
-      .. prompt:: bash
-
-        git commit --allow-empty -m "[cd build] Trigger wheel builder workflow"
-
-      .. note::
-
-        The acronym CD in `[cd build]` stands for `Continuous Delivery
-        <https://en.wikipedia.org/wiki/Continuous_delivery>`_ and refers to the
-        automation used to generate the release artifacts (binary and source
-        packages). This can be seen as an extension to CI which stands for `Continuous
-        Integration <https://en.wikipedia.org/wiki/Continuous_integration>`_. The CD
-        workflow on GitHub Actions is also used to automatically create nightly builds
-        and publish packages for the development branch of scikit-learn. See also
-        :ref:`install_nightly_builds`.
-
-    - Once all the CD jobs have completed successfully in the PR, merge it with the
-      `[cd build]` marker in the commit message. This time the results will be
-      uploaded to the staging area. You should then be able to upload the generated
-      artifacts (`.tar.gz` and `.whl` files) to https://test.pypi.org/ using the "Run
-      workflow" form for the `PyPI publishing workflow
-      <https://github.com/scikit-learn/scikit-learn/actions/workflows/publish_pypi.yml>`_.
-
-      .. warning::
-
-        This PR should be merged with the rebase mode instead of the usual squash mode
-        because we want to keep the history in the `{{ version_short }}.X` branch close
-        to the history of the main branch which will help for future bug fix releases.
-
-        In addition if on merging, the last commit, containing the `[cd build]` marker,
-        is empty, the CD jobs won't be triggered. In this case, you can directly push
-        a commit with the marker in the `{{ version_short }}.X` branch to trigger them.
-
-    - If the steps above went fine, proceed **with caution** to create a new tag for the
-      release. This should be done only when you are almost certain that the release is
-      ready, since adding a new tag to the main repository can trigger certain automated
-      processes.
-
-      .. prompt:: bash
-
-        git tag -a {{ version_full }}  # in the {{ version_short }}.X branch
-        git push git@github.com:scikit-learn/scikit-learn.git {{ version_full }}
-
-      .. warning::
-
-        Don't use the github interface for publishing the release as a way to create the
-        tag because it will automatically send notifications to all users that follow
-        the repo even though the website isn't updated and wheels aren't uploaded yet.
-
-    - Confirm that the bot has detected the tag on the conda-forge feedstock repository
-      https://github.com/conda-forge/scikit-learn-feedstock. If not, submit a PR for the
-      release, targeting the `{% if key == "rc" %}rc{% else %}main{% endif %}` branch.
-
-    - Trigger the `PyPI publishing workflow
-      <https://github.com/scikit-learn/scikit-learn/actions/workflows/publish_pypi.yml>`_
-      again, but this time to upload the artifacts to the real https://pypi.org/. To do
-      so, replace `testpypi` with `pypi` in the "Run workflow" form.
-
-      **Alternatively**, it is possible to collect locally the generated binary wheel
-      packages and source tarball and upload them all to PyPI.
-
-      .. dropdown:: Uploading artifacts from local
-
-        Check out at the release tag and run the following commands.
-
-        .. prompt:: bash
-
-          rm -r dist
-          python -m pip install -U wheelhouse_uploader twine
-          python -m wheelhouse_uploader fetch \
-            --version {{ version_full }} --local-folder dist scikit-learn \
-            https://pypi.anaconda.org/scikit-learn-wheels-staging/simple/scikit-learn/
-
-        These commands will download all the binary packages accumulated in the `staging
-        area on the anaconda.org hosting service
-        <https://anaconda.org/scikit-learn-wheels-staging/scikit-learn/files>`_ and put
-        them in your local `./dist` folder. Check the contents of the `./dist` folder:
-        it should contain all the wheels along with the source tarball `.tar.gz`. Make
-        sure you do not have developer versions or older versions of the scikit-learn
-        package in that folder. Before uploading to PyPI, you can test uploading to
-        `test.pypi.org` first.
-
-        .. prompt:: bash
-
-          twine upload --verbose --repository-url https://test.pypi.org/legacy/ dist/*
-
-        Then upload everything at once to `pypi.org`.
-
-        .. prompt:: bash
-
-          twine upload dist/*
+    - في فرع `{{ version_short }}`.X`، قم بتغيير رقم الإصدار `__version__` في
+      `sklearn/__init__.py` إلى `{{ version_full }}`.
 
     {% if key != "rc" %}
-    - In the `main` branch, edit the corresponding file in the `doc/whats_new` directory
-      to update the release date
-      {%- if key == "final" %}, link the release highlights example,{% endif %}
-      and add the list of contributor names. Suppose that the tag of the last release in
-      the previous major/minor version is `{{ previous_tag }}`, then you can use the
-      following command to retrieve the list of contributor names:
+    - في فرع `main`، قم بتحرير الملف المقابل في دليل `doc/whats_new`
+      لتحديث تاريخ الإصدار
+      {%- if key == "final" %}, ربط مثال أبرز الإصدارات،{% endif %}
+      وإضافة قائمة بأسماء المساهمين. لنفترض أن علامة الإصدار الأخير في
+      الإصدار السابق في الإصدار الرئيسي/الثانوي السابق هو `{{ previous_tag }}`، ثم يمكنك استخدام
+      الأمر التالي لاسترداد قائمة بأسماء المساهمين:
 
       .. prompt:: bash
 
@@ -268,20 +159,104 @@ Reference Steps
           sed "s/;/, /g;s/, $//" |
           fold -s
 
-      Then cherry-pick it in the release branch.
+      ثم قم باختيارها في فرع الإصدار `{{ version_short }}.X`.
 
-    - In the `main` branch, edit `doc/templates/index.html` to change the "News" section
-      in the landing page, along with the month of the release.
+    - في فرع `main`، قم بتحرير `doc/templates/index.html` لتغيير قسم "الأخبار"
+      في صفحة الهبوط، إلى جانب شهر الإصدار.
       {%- if key == "final" %}
-      Do not forget to remove old entries (two years or three releases ago) and update
-      the "On-going development" entry.
+      لا تنسَ إزالة الإدخالات القديمة (سنتان أو ثلاث إصدارات مضت) وتحديث
+      إدخال "التطوير الجاري".
       {%- endif %}
-      Then cherry-pick it in the release branch.
+      ثم قم باختياره في فرع الإصدار `{{ version_short }}.X`.
     {% endif %}
 
+    - قم بتشغيل أداة بناء العجلة مع علامة الالتزام `[cd build]`. راجع أيضًا
+      `تشغيل سير عمل أداة بناء العجلة
+      <https://github.com/scikit-learn/scikit-learn/actions/workflows/wheels.yml>`_.
+
+      .. prompt:: bash
+
+        git commit --allow-empty -m "[cd build] Trigger wheel builder workflow"
+
+      .. note::
+
+        يرمز الاختصار CD في `[cd build]` إلى `Continuous Delivery
+        <https://en.wikipedia.org/wiki/Continuous_delivery>`_ ويشير إلى
+        الأتمتة المستخدمة لتوليد عناصر الإصدار (الحزم الثنائية والمصدر)
+        . يمكن اعتبار هذا امتدادًا لـ CI الذي يرمز إلى `Continuous
+        Integration <https://en.wikipedia.org/wiki/Continuous_integration>`_. يستخدم سير عمل CD على GitHub Actions أيضًا لإنشاء إصدارات ليلية ونشر الحزم
+        لفرع التطوير من scikit-learn. راجع أيضًا :ref:`install_nightly_builds`.
+
+    - بمجرد اكتمال جميع وظائف CD بنجاح في PR، قم بدمجها مع
+      علامة `[cd build]` في رسالة الالتزام. هذه المرة سيتم
+      تحميل النتائج إلى منطقة المرحلية. بعد ذلك، يجب أن تتمكن من تحميل العناصر المولدة
+      (ملفات `.tar.gz` و `.whl`) إلى https://test.pypi.org/ باستخدام نموذج "تشغيل سير العمل"
+      لسير عمل النشر على PyPI
+      <https://github.com/scikit-learn/scikit-learn/actions/workflows/publish_pypi.yml>`_.
+
+      .. warning::
+
+        يجب دمج هذا PR باستخدام وضع إعادة القاعدة بدلاً من وضع السحق المعتاد
+        لأننا نريد الحفاظ على التاريخ في فرع `{{ version_short }}.X` قريبًا
+        تاريخ فرع `main` والذي سيساعد في الإصدارات المستقبلية لإصلاح الأخطاء.
+
+        بالإضافة إلى أنه إذا كان الالتزام الأخير، الذي يحتوي على علامة `[cd build]`، فارغًا،
+        لن يتم تشغيل وظائف CD. في هذه الحالة، يمكنك دفع التزام مباشرةً بعلامة في `{{ version_short }}.X`
+        لتشغيلها.
+
+    - إذا سارت الخطوات أعلاه على ما يرام، فانتقل **بحرص** لإنشاء علامة جديدة للإصدار. يجب القيام بذلك فقط عندما تكون
+      متأكدًا تقريبًا من أن الإصدار جاهز، حيث يمكن أن يؤدي إضافة علامة جديدة إلى المستودع الرئيسي إلى تشغيل
+      بعض العمليات الآلية.
+
+      .. prompt:: bash
+
+        git tag -a {{ version_full }}  # في فرع {{ version_short }}.X
+        git push git@github.com:scikit-learn/scikit-learn.git {{ version_full }}
+
+    - تأكد من أن البوت قد اكتشف العلامة على مستودع conda-forge feedstock
+      https://github.com/conda-forge/scikit-learn-feedstock. إذا لم يكن الأمر كذلك، فتقدم بطلب سحب للإصدار،
+      استهداف الفرع `{% if key == "rc" %}rc{% else %}main{% endif %}`.
+
+    - قم بتشغيل سير عمل النشر على PyPI
+      <https://github.com/scikit-learn/scikit-learn/actions/workflows/publish_pypi.yml>`__
+      مرة أخرى، ولكن هذه المرة لتحميل العناصر إلى https://pypi.org/ الحقيقي. للقيام بذلك،
+      استبدل `testpypi` بـ `pypi` في نموذج "تشغيل سير العمل".
+
+      **بدلاً من ذلك**، من الممكن جمع عجلات الحزم الثنائية المحلية وحزم المصدر وتحميلها جميعًا إلى PyPI.
+
+      .. dropdown:: تحميل العناصر من محلي
+
+        قم بالتحقق من علامة الإصدار وقم بتشغيل الأوامر التالية.
+
+        .. prompt:: bash
+
+          rm -r dist
+          python -m pip install -U wheelhouse_uploader twine
+          python -m wheelhouse_uploader fetch \
+            --version 0.99.0rc1 --local-folder dist scikit-learn \
+            https://pypi.anaconda.org/scikit-learn-wheels-staging/simple/scikit-learn/
+
+        ستقوم هذه الأوامر بتنزيل جميع الحزم الثنائية التي تم تجميعها في `منطقة المرحلية
+        على خدمة استضافة anaconda.org
+        <https://anaconda.org/scikit-learn-wheels-staging/scikit-learn/files>`_ ووضعها في
+        المجلد المحلي الخاص بك `./dist`. تحقق من محتويات المجلد `./dist`:
+        يجب أن يحتوي على جميع العجلات إلى جانب حزمة المصدر `.tar.gz`. تأكد من عدم وجود إصدارات مطورة أو إصدارات قديمة من حزمة scikit-learn
+        في هذا المجلد. قبل التحميل إلى PyPI، يمكنك اختبار التحميل إلى
+        `test.pypi.org` أولاً.
+
+        .. prompt:: bash
+
+          twine upload --verbose --repository-url https://test.pypi.org/legacy/ dist/*
+
+        ثم قم بتحميل كل شيء مرة واحدة إلى `pypi.org`.
+
+        .. prompt:: bash
+
+          twine upload dist/*
+
     {% if key == "final" %}
-    - Update the symlink for `stable` and the `latestStable` variable in
-      `versionwarning.js` in https://github.com/scikit-learn/scikit-learn.github.io.
+    - تحديث symlink لـ "stable" ومتغير `latestStable` في
+      `versionwarning.js` في https://github.com/scikit-learn/scikit-learn.github.io.
 
       .. prompt:: bash
 
@@ -299,111 +274,96 @@ Reference Steps
     {% endif %}
 
     {% if key != "rc" %}
-    - Publish the release at https://github.com/scikit-learn/scikit-learn/releases and
-      announce it on the mailing list and social networks. Remember to add a link to the
-      changelog in the release note. Ideally, only perform this step once the package
-      is available both on PyPI and conda-forge and once the website is up to date.
-    {% endif %}
-
-    {% if key != "rc" %}
-    - Update `SECURITY.md` to reflect the latest supported version `{{ version_full }}`.
+    - تحديث `SECURITY.md` لتعكس أحدث إصدار مدعوم `{{ version_full }}`.
     {% endif %}
   {% endfor %}
 
-Updating Authors List
+تحديث قائمة المؤلفين
 ---------------------
 
-This section is about updating :ref:`authors`. First create a `classic token on GitHub
-<https://github.com/settings/tokens/new>`_ with the `read:org` permission. Then run the
-following script and enter the token when prompted:
+يتعلق هذا القسم بتحديث :ref:`authors`. قم بإنشاء `رمز كلاسيكي على GitHub
+<https://github.com/settings/tokens/new>`_ مع إذن `read:org`. ثم قم بتشغيل
+النص البرمجي التالي وأدخل الرمز عند المطالبة:
 
 .. prompt:: bash
 
   cd build_tools
-  make authors  # Enter the token when prompted
+  make authors  # أدخل الرمز عند المطالبة
 
-Merging Pull Requests
----------------------
+دمج طلبات السحب
+------------------
 
-Individual commits are squashed when a PR is merged on GitHub. Before merging:
+يتم سحق الالتزامات الفردية عند دمج PR على GitHub. قبل الدمج:
 
-- The resulting commit title can be edited if necessary. Note that this will rename the
-  PR title by default.
-- The detailed description, containing the titles of all the commits, can be edited or
-  deleted.
-- For PRs with multiple code contributors, care must be taken to keep the
-  `Co-authored-by: name <name@example.com>` tags in the detailed description. This will
-  mark the PR as having `multiple co-authors
+- يمكن تحرير عنوان الالتزام الناتج إذا لزم الأمر. لاحظ أن هذا سيؤدي إلى إعادة تسمية
+  عنوان PR افتراضيًا.
+- يمكن تحرير الوصف التفصيلي، الذي يحتوي على عناوين جميع الالتزامات، أو حذفه.
+- بالنسبة إلى PRs مع عدة مساهمين في الكود، يجب توخي الحذر للحفاظ على
+  `Co-authored-by: name <name@example.com>` العلامات في الوصف التفصيلي. سيؤدي هذا إلى
+  وضع علامة على PR على أنه يحتوي على `عدة مؤلفين متعاونين
   <https://help.github.com/en/github/committing-changes-to-your-project/creating-a-commit-with-multiple-authors>`_.
-  Whether code contributions are significantly enough to merit co-authorship is left to
-  the maintainer's discretion, same as for the what's new entry.
+  سواء كانت المساهمات البرمجية مهمة بما يكفي لتبرير التأليف المشترك متروك لتقدير المسؤول، كما هو الحال بالنسبة لإدخال "ما الجديد".
 
-The `scikit-learn.org` Website
-------------------------------
+موقع scikit-learn.org
+-----------------------
 
-The scikit-learn website (https://scikit-learn.org) is hosted on GitHub, but should
-rarely be updated manually by pushing to the
-https://github.com/scikit-learn/scikit-learn.github.io repository. Most updates can be
-made by pushing to `main` (for `/dev`) or a release branch `A.B.X`, from which Circle CI
-builds and uploads the documentation automatically.
+يتم استضافة موقع scikit-learn (https://scikit-learn.org) على GitHub، ولكن يجب
+نادرًا ما يتم تحديثه يدويًا عن طريق الدفع إلى
+مستودع https://github.com/scikit-learn/scikit-learn.github.io. يمكن إجراء معظم التحديثات عن طريق الدفع إلى `main` (لـ `/dev`) أو فرع الإصدار `A.B.X`، والذي يقوم Circle CI
+ببنائه وتحميل الوثائق تلقائيًا.
 
-Experimental Features
+الميزات التجريبية
 ---------------------
 
-The :mod:`sklearn.experimental` module was introduced in 0.21 and contains
-experimental features and estimators that are subject to change without
-deprecation cycle.
+تم تقديم الوحدة النمطية :mod:`sklearn.experimental` في 0.21 وتحتوي
+على ميزات ومقدرات تجريبية تخضع للتغيير دون
+دورة التقادم.
 
-To create an experimental module, refer to the contents of `enable_halving_search_cv.py
-<https://github.com/scikit-learn/scikit-learn/blob/362cb92bb2f5b878229ea4f59519ad31c2fcee76/sklearn/experimental/enable_halving_search_cv.py>`__,
-or `enable_iterative_imputer.py
+لإنشاء وحدة نمطية تجريبية، راجع محتويات `enable_halving_search_cv.py
+<https://github.com/scikit-learn/scikit-learn/blob/362cb92bb2f5b878229ea4f59519ad31c2fcee76/sklearn/experimental/enable_halving_search_cv.py>`__،
+أو `enable_iterative_imputer.py
 <https://github.com/scikit-learn/scikit-learn/blob/c9c89cfc85dd8dfefd7921c16c87327d03140a06/sklearn/experimental/enable_iterative_imputer.py>`__.
 
 .. note::
 
-  These are permalinks as in 0.24, where these estimators are still experimental. They
-  might be stable at the time of reading, hence the permalink. See below for
-  instructions on the transition from experimental to stable.
+  هذه هي الروابط الدائمة كما في 0.24، حيث لا تزال هذه المقدرات تجريبية. قد تكون مستقرة في وقت القراءة، وبالتالي الرابط الدائم. راجع أدناه للحصول على التعليمات الخاصة بالانتقال من تجريبي إلى مستقر.
 
-Note that the public import path must be to a public subpackage (like `sklearn/ensemble`
-or `sklearn/impute`), not just a `.py` module. Also, the (private) experimental features
-that are imported must be in a submodule/subpackage of the public subpackage, e.g.
-`sklearn/ensemble/_hist_gradient_boosting/` or `sklearn/impute/_iterative.py`. This is
-needed so that pickles still work in the future when the features aren't experimental
-anymore.
+لاحظ أنه يجب أن يكون مسار الاستيراد العام إلى حزمة فرعية عامة (مثل `sklearn/ensemble`
+أو `sklearn/impute`)، وليس فقط ملف `.py`. أيضًا، يجب استيراد الميزات التجريبية الخاصة (الخاصة)
+في حزمة فرعية/حزمة فرعية للحزمة الفرعية العامة، على سبيل المثال
+`sklearn/ensemble/_hist_gradient_boosting/` أو `sklearn/impute/_iterative.py`. هذا
+مطلوب حتى تعمل عمليات التخليل في المستقبل عندما لا تكون الميزات تجريبية
+بعد الآن.
 
-To avoid type checker (e.g. `mypy`) errors a direct import of experimental estimators
-should be done in the parent module, protected by the `if typing.TYPE_CHECKING` check.
-See `sklearn/ensemble/__init__.py
-<https://github.com/scikit-learn/scikit-learn/blob/c9c89cfc85dd8dfefd7921c16c87327d03140a06/sklearn/ensemble/__init__.py>`__,
-or `sklearn/impute/__init__.py
+لتجنب أخطاء مدقق النوع (مثل `mypy`)، يجب إجراء استيراد مباشر للمقدرات التجريبية
+في الوحدة النمطية الأصلية، محميًا بواسطة التحقق من `if typing.TYPE_CHECKING`.
+راجع `sklearn/ensemble/__init__.py
+<https://github.com/scikit-learn/scikit-learn/blob/c9c89cfc85dd8dfefd7921c16c87327d03140a06/sklearn/ensemble/__init__.py>`__،
+أو `sklearn/impute/__init__.py
 <https://github.com/scikit-learn/scikit-learn/blob/c9c89cfc85dd8dfefd7921c16c87327d03140a06/sklearn/impute/__init__.py>`__
-for an example. Please also write basic tests following those in
+لمثال. يرجى أيضًا كتابة اختبارات أساسية وفقًا لتلك الموجودة في
 `test_enable_hist_gradient_boosting.py
 <https://github.com/scikit-learn/scikit-learn/blob/c9c89cfc85dd8dfefd7921c16c87327d03140a06/sklearn/experimental/tests/test_enable_hist_gradient_boosting.py>`__.
 
-Make sure every user-facing code you write explicitly mentions that the feature is
-experimental, and add a `# noqa` comment to avoid PEP8-related warnings::
+تأكد من أن كل كود يواجه المستخدم الذي تكتبه يذكر صراحةً أن الميزة تجريبية، وأضف تعليق `# noqa` لتجنب التحذيرات المتعلقة بـ PEP8::
 
-  # To use this experimental feature, we need to explicitly ask for it
+  # لاستخدام هذه الميزة التجريبية، نحتاج إلى طلبها صراحةً
   from sklearn.experimental import enable_iterative_imputer  # noqa
   from sklearn.impute import IterativeImputer
 
-For the docs to render properly, please also import `enable_my_experimental_feature` in
-`doc/conf.py`, otherwise sphinx will not be able to detect and import the corresponding
-modules. Note that using `from sklearn.experimental import *` **does not work**.
+لجعل الوثائق تظهر بشكل صحيح، يرجى أيضًا استيراد `enable_my_experimental_feature` في
+`doc/conf.py`، وإلا لن تتمكن sphinx من اكتشاف واستيراد الوحدات النمطية المقابلة. لاحظ أن استخدام `from sklearn.experimental import *` **لا يعمل**.
 
 .. note::
 
-  Some experimental classes and functions may not be included in the
-  :mod:`sklearn.experimental` module, e.g., `sklearn.datasets.fetch_openml`.
+  قد لا يتم تضمين بعض الفئات والوظائف التجريبية في الوحدة النمطية
+  :mod:`sklearn.experimental`، على سبيل المثال، `sklearn.datasets.fetch_openml`.
 
-Once the feature becomes stable, remove all occurrences of
-`enable_my_experimental_feature` in the scikit-learn code base and make the
-`enable_my_experimental_feature` a no-op that just raises a warning, as in
+بمجرد أن تصبح الميزة مستقرة، قم بإزالة جميع حالات حدوث `enable_my_experimental_feature` في قاعدة كود scikit-learn وجعل
+`enable_my_experimental_feature` لا تعمل إلا عن طريق رفع تحذير، كما هو الحال في
 `enable_hist_gradient_boosting.py
 <https://github.com/scikit-learn/scikit-learn/blob/main/sklearn/experimental/enable_hist_gradient_boosting.py>`__.
-The file should stay there indefinitely as we do not want to break users' code; we just
-incentivize them to remove that import with the warning. Also remember to update the
-tests accordingly, see `test_enable_hist_gradient_boosting.py
+يجب أن يظل الملف هناك إلى أجل غير مسمى حيث لا نريد كسر كود المستخدمين؛ نحن فقط
+نحفزهم على إزالة هذا الاستيراد بالتحذير. تذكر أيضًا تحديث
+الاختبارات وفقًا لذلك، راجع `test_enable_hist_gradient_boosting.py
 <https://github.com/scikit-learn/scikit-learn/blob/main/sklearn/experimental/tests/test_enable_hist_gradient_boosting.py>`__.

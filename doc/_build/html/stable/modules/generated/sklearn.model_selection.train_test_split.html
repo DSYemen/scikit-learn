@@ -11,10 +11,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/modules/generated/sklearn.model_selection.train_test_split.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="Gallery examples: Release Highlights for scikit-learn 0.22" />
-<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_release_highlights_0_22_0_thumb.png" />
+<meta property="og:description" content="Gallery examples: معايرة احتمالات المصنفات مقارنة معايرة المصنفات منحنيات معايرة الاحتمالية" />
+<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_calibration_thumb.png" />
 <meta property="og:image:alt" content="" />
-<meta name="description" content="Gallery examples: Release Highlights for scikit-learn 0.22" />
+<meta name="description" content="Gallery examples: معايرة احتمالات المصنفات مقارنة معايرة المصنفات منحنيات معايرة الاحتمالية" />
 
     <title>train_test_split &#8212; scikit-learn 1.6.dev0 documentation</title>
   
@@ -1304,7 +1304,7 @@
 <h1>train_test_split<a class="headerlink" href="#train-test-split" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="sklearn.model_selection.train_test_split">
-<span class="sig-prename descclassname"><span class="pre">sklearn.model_selection.</span></span><span class="sig-name descname"><span class="pre">train_test_split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">arrays</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stratify</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/001706117/sklearn/model_selection/_split.py#L2708"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.model_selection.train_test_split" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">sklearn.model_selection.</span></span><span class="sig-name descname"><span class="pre">train_test_split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">arrays</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stratify</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/9ca6f71e04/sklearn/model_selection/_split.py#L2708"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.model_selection.train_test_split" title="Link to this definition">#</a></dt>
 <dd><p>Split arrays or matrices into random train and test subsets.</p>
 <p>Quick utility that wraps input validation,
 <code class="docutils literal notranslate"><span class="pre">next(ShuffleSplit().split(X,</span> <span class="pre">y))</span></code>, and application to input data
@@ -1391,9 +1391,15 @@ input type.</p>
 
 <section id="gallery-examples">
 <h2>Gallery examples<a class="headerlink" href="#gallery-examples" title="Link to this heading">#</a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="We are pleased to announce the release of scikit-learn 0.22, which comes with many bug fixes and new features! We detail below a few of the major features of this release. For an exhaustive list of all the changes, please refer to the release notes &lt;release_notes_0_22&gt;."><img alt="" src="../../_images/sphx_glr_plot_release_highlights_0_22_0_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/release_highlights/plot_release_highlights_0_22_0.html#sphx-glr-auto-examples-release-highlights-plot-release-highlights-0-22-0-py"><span class="std std-ref">Release Highlights for scikit-learn 0.22</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Release Highlights for scikit-learn 0.22</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="عند إجراء التصنيف، غالبًا ما تريد التنبؤ ليس فقط بتسمية الفئة، ولكن أيضًا الاحتمالية المرتبطة بها. هذه الاحتمالية تعطيك نوعًا من الثقة في التنبؤ. ومع ذلك، لا توفر جميع المصنفات احتمالات معايرة جيدًا، بعضها مفرط الثقة في حين أن البعض الآخر غير واثق. لذلك، غالبًا ما تكون معايرة الاحتمالات المتوقعة مرغوبة كعملية ما بعد المعالجة. يوضح هذا المثال طريقتان مختلفتان لهذه المعايرة ويقيم جودة الاحتمالات المعادة باستخدام درجة Brier (انظر https://en.wikipedia.org/wiki/Brier_score)."><img alt="" src="../../_images/sphx_glr_plot_calibration_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/calibration/plot_calibration.html#sphx-glr-auto-examples-calibration-plot-calibration-py"><span class="std std-ref">معايرة احتمالات المصنفات</span></a></p>
+  <div class="sphx-glr-thumbnail-title">معايرة احتمالات المصنفات</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="المصنفات المعايرة جيدًا هي مصنفات احتمالية يمكن تفسير ناتجها من predict_proba مباشرةً كدرجة ثقة. على سبيل المثال، يجب أن يقوم المصنف المعاير جيدًا (الثنائي) بتصنيف العينات بحيث للعينات التي أعطاها قيمة predict_proba قريبة من 0.8، تنتمي بالفعل حوالي 80% إلى الفئة الإيجابية."><img alt="" src="../../_images/sphx_glr_plot_compare_calibration_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/calibration/plot_compare_calibration.html#sphx-glr-auto-examples-calibration-plot-compare-calibration-py"><span class="std std-ref">مقارنة معايرة المصنفات</span></a></p>
+  <div class="sphx-glr-thumbnail-title">مقارنة معايرة المصنفات</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="عند إجراء التصنيف، غالبًا ما يرغب المرء في التنبؤ ليس فقط بتسمية الفئة، ولكن أيضًا بالاحتمالية المرتبطة بها. يعطي هذا الاحتمال نوعًا من الثقة في التنبؤ. يوضح هذا المثال كيفية تصور مدى جودة معايرة الاحتمالات المتوقعة باستخدام منحنيات المعايرة، والمعروفة أيضًا باسم مخططات الموثوقية. سيتم أيضًا توضيح معايرة مصنف غير معاير."><img alt="" src="../../_images/sphx_glr_plot_calibration_curve_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/calibration/plot_calibration_curve.html#sphx-glr-auto-examples-calibration-plot-calibration-curve-py"><span class="std std-ref">منحنيات معايرة الاحتمالية</span></a></p>
+  <div class="sphx-glr-thumbnail-title">منحنيات معايرة الاحتمالية</div>
 </div></div></section>
 </section>
 

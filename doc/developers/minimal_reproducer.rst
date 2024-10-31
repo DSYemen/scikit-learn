@@ -1,58 +1,59 @@
+
 .. _minimal_reproducer:
 
-==============================================
-Crafting a minimal reproducer for scikit-learn
-==============================================
+=================================
+صياغة مُكرِّر بسيط لـ scikit-learn
+=================================
 
 
-Whether submitting a bug report, designing a suite of tests, or simply posting a
-question in the discussions, being able to craft minimal, reproducible examples
-(or minimal, workable examples) is the key to communicating effectively and
-efficiently with the community.
+سواء كان إرسال تقرير خطأ، أو تصميم مجموعة من الاختبارات، أو مجرد نشر سؤال
+في المناقشات، فإن القدرة على صياغة أمثلة بسيطة وقابلة للتكرار
+(أو أمثلة بسيطة وعاملة) هي المفتاح للتواصل الفعال و
+بكفاءة مع المجتمع.
 
-There are very good guidelines on the internet such as `this StackOverflow
-document <https://stackoverflow.com/help/mcve>`_ or `this blogpost by Matthew
+هناك إرشادات جيدة جدًا على الإنترنت مثل `وثيقة StackOverflow
+هذه <https://stackoverflow.com/help/mcve>`_ أو `هذه المدونة بواسطة Matthew
 Rocklin <https://matthewrocklin.com/blog/work/2018/02/28/minimal-bug-reports>`_
-on crafting Minimal Complete Verifiable Examples (referred below as MCVE).
-Our goal is not to be repetitive with those references but rather to provide a
-step-by-step guide on how to narrow down a bug until you have reached the
-shortest possible code to reproduce it.
+حول صياغة أمثلة قابلة للتحقق كاملة وبسيطة (يشار إليها أدناه باسم MCVE).
+هدفنا ليس أن نكون متكررين مع هذه المراجع، ولكن بالأحرى تقديم
+دليل خطوة بخطوة حول كيفية تضييق نطاق الخطأ حتى تصل إلى
+أقصر كود ممكن لإعادة إنتاجه.
 
-The first step before submitting a bug report to scikit-learn is to read the
-`Issue template
+الخطوة الأولى قبل إرسال تقرير خطأ إلى scikit-learn هي قراءة
+`قالب المشكلة
 <https://github.com/scikit-learn/scikit-learn/blob/main/.github/ISSUE_TEMPLATE/bug_report.yml>`_.
-It is already quite informative about the information you will be asked to
-provide.
+إنه غني بالمعلومات بالفعل حول المعلومات التي سيُطلب منك
+تقديمها.
 
 
 .. _good_practices:
 
-Good practices
-==============
+الممارسات الجيدة
+==================
 
-In this section we will focus on the **Steps/Code to Reproduce** section of the
-`Issue template
+في هذا القسم، سنركز على قسم **الخطوات/الشفرة لإعادة الإنتاج** من
+`قالب المشكلة
 <https://github.com/scikit-learn/scikit-learn/blob/main/.github/ISSUE_TEMPLATE/bug_report.yml>`_.
-We will start with a snippet of code that already provides a failing example but
-that has room for readability improvement. We then craft a MCVE from it.
+سنبدأ بمقتطف شفرة يوفر بالفعل مثالاً فاشلاً ولكنه
+يحتوي على مجال لتحسين قابلية القراءة. ثم نصنع MCVE منه.
 
-**Example**
+**مثال**
 
 .. code-block:: python
 
-    # I am currently working in a ML project and when I tried to fit a
-    # GradientBoostingRegressor instance to my_data.csv I get a UserWarning:
-    # "X has feature names, but DecisionTreeRegressor was fitted without
-    # feature names". You can get a copy of my dataset from
-    # https://example.com/my_data.csv and verify my features do have
-    # names. The problem seems to arise during fit when I pass an integer
-    # to the n_iter_no_change parameter.
+    # أعمل حاليًا في مشروع ML وعندما حاولت ملاءمة
+    # نموذج GradientBoostingRegressor لـ my_data.csv، تلقيت UserWarning:
+    # "X لديه أسماء ميزات، ولكن تم ملاءمة DecisionTreeRegressor بدون
+    # أسماء ميزات". يمكنك الحصول على نسخة من مجموعة البيانات الخاصة بي من
+    # https://example.com/my_data.csv والتحقق من أن ميزاتي تحتوي بالفعل
+    # على أسماء. يبدو أن المشكلة تنشأ أثناء التوفيق عندما أمرر عددًا صحيحًا
+    # إلى معلمة n_iter_no_change.
 
     df = pd.read_csv('my_data.csv')
-    X = df[["feature_name"]] # my features do have names
+    X = df[["feature_name"]] # ميزاتي تحتوي بالفعل على أسماء
     y = df["target"]
 
-    # We set random_state=42 for the train_test_split
+    # نقوم بتعيين random_state=42 لـ train_test_split
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.33, random_state=42
     )
@@ -61,12 +62,12 @@ that has room for readability improvement. We then craft a MCVE from it.
     X_train = scaler.fit_transform(X_train)
     X_test = scaler.transform(X_test)
 
-    # An instance with default n_iter_no_change raises no error nor warnings
+    # نموذج مع n_iter_no_change الافتراضي لا يُثير أي خطأ أو تحذيرات
     gbdt = GradientBoostingRegressor(random_state=0)
     gbdt.fit(X_train, y_train)
     default_score = gbdt.score(X_test, y_test)
 
-    # the bug appears when I change the value for n_iter_no_change
+    # يظهر الخطأ عندما أغير قيمة n_iter_no_change
     gbdt = GradientBoostingRegressor(random_state=0, n_iter_no_change=5)
     gbdt.fit(X_train, y_train)
     other_score = gbdt.score(X_test, y_test)
@@ -74,25 +75,25 @@ that has room for readability improvement. We then craft a MCVE from it.
     other_score = gbdt.score(X_test, y_test)
 
 
-Provide a failing code example with minimal comments
+تقديم مثال شفرة فاشل مع الحد الأدنى من التعليقات
 ----------------------------------------------------
 
-Writing instructions to reproduce the problem in English is often ambiguous.
-Better make sure that all the necessary details to reproduce the problem are
-illustrated in the Python code snippet to avoid any ambiguity. Besides, by this
-point you already provided a concise description in the **Describe the bug**
-section of the `Issue template
+غالبًا ما تكون كتابة التعليمات لإعادة إنتاج المشكلة باللغة الإنجليزية غامضة.
+من الأفضل التأكد من أن جميع التفاصيل اللازمة لإعادة إنتاج المشكلة
+موضحة في مقتطف شفرة Python لتجنب أي غموض. بالإضافة إلى ذلك، في هذه
+المرحلة، قدمت بالفعل وصفًا موجزًا ​​في قسم **وصف الخطأ** من
+`قالب المشكلة
 <https://github.com/scikit-learn/scikit-learn/blob/main/.github/ISSUE_TEMPLATE/bug_report.yml>`_.
 
-The following code, while **still not minimal**, is already **much better**
-because it can be copy-pasted in a Python terminal to reproduce the problem in
-one step. In particular:
+الشفرة التالية، على الرغم من **أنها لا تزال غير بسيطة**، فهي **أفضل بكثير**
+لأنه يمكن نسخها ولصقها في محطة Python لإعادة إنتاج المشكلة في
+خطوة واحدة. على وجه الخصوص:
 
-- it contains **all necessary imports statements**;
-- it can fetch the public dataset without having to manually download a
-  file and put it in the expected location on the disk.
+- تحتوي على **جميع عبارات الاستيراد الضرورية**؛
+- يمكنها جلب مجموعة البيانات العامة دون الحاجة إلى تنزيل
+  ملف يدويًا ووضعه في الموقع المتوقع على القرص.
 
-**Improved example**
+**مثال مُحسَّن**
 
 .. code-block:: python
 
@@ -117,35 +118,35 @@ one step. In particular:
     from sklearn.ensemble import GradientBoostingRegressor
 
     gbdt = GradientBoostingRegressor(random_state=0)
-    gbdt.fit(X_train, y_train)  # no warning
+    gbdt.fit(X_train, y_train)  # لا يوجد تحذير
     default_score = gbdt.score(X_test, y_test)
 
     gbdt = GradientBoostingRegressor(random_state=0, n_iter_no_change=5)
-    gbdt.fit(X_train, y_train)  # raises warning
+    gbdt.fit(X_train, y_train)  # يُثير تحذيرًا
     other_score = gbdt.score(X_test, y_test)
     other_score = gbdt.score(X_test, y_test)
 
 
-Boil down your script to something as small as possible
--------------------------------------------------------
+اختزل البرنامج النصي الخاص بك إلى شيء صغير قدر الإمكان
+-----------------------------------------------------------
 
-You have to ask yourself which lines of code are relevant and which are not for
-reproducing the bug. Deleting unnecessary lines of code or simplifying the
-function calls by omitting unrelated non-default options will help you and other
-contributors narrow down the cause of the bug.
+عليك أن تسأل نفسك أي أسطر من الشفرة ذات صلة وأيها غير ذات صلة
+لإعادة إنتاج الخطأ. سيؤدي حذف أسطر التعليمات البرمجية غير الضرورية أو تبسيط
+استدعاءات الدوال عن طريق حذف الخيارات غير الافتراضية غير ذات الصلة إلى مساعدتك أنت
+والمساهمين الآخرين على تضييق نطاق سبب الخطأ.
 
-In particular, for this specific example:
+على وجه الخصوص، لهذا المثال المحدد:
 
-- the warning has nothing to do with the `train_test_split` since it already
-  appears in the training step, before we use the test set.
-- similarly, the lines that compute the scores on the test set are not
-  necessary;
-- the bug can be reproduced for any value of `random_state` so leave it to its
-  default;
-- the bug can be reproduced without preprocessing the data with the
+- التحذير لا علاقة له بـ `train_test_split` لأنه يظهر بالفعل في خطوة
+  التدريب، قبل أن نستخدم مجموعة الاختبار.
+- وبالمثل، فإن الأسطر التي تحسب الدرجات في مجموعة الاختبار ليست
+  ضرورية؛
+- يمكن إعادة إنتاج الخطأ لأي قيمة لـ `random_state` لذا اتركه إلى قيمته
+  الافتراضية؛
+- يمكن إعادة إنتاج الخطأ دون معالجة البيانات مسبقًا باستخدام
   `StandardScaler`.
 
-**Improved example**
+**مثال مُحسَّن**
 
 .. code-block:: python
 
@@ -157,24 +158,24 @@ In particular, for this specific example:
     from sklearn.ensemble import GradientBoostingRegressor
 
     gbdt = GradientBoostingRegressor()
-    gbdt.fit(X, y)  # no warning
+    gbdt.fit(X, y)  # لا يوجد تحذير
 
     gbdt = GradientBoostingRegressor(n_iter_no_change=5)
-    gbdt.fit(X, y)  # raises warning
+    gbdt.fit(X, y)  # يُثير تحذيرًا
 
 
-**DO NOT** report your data unless it is extremely necessary
-------------------------------------------------------------
+**لا** تُبلغ عن بياناتك إلا إذا كانت ضرورية للغاية
+-------------------------------------------------------
 
-The idea is to make the code as self-contained as possible. For doing so, you
-can use a :ref:`synth_data`. It can be generated using numpy, pandas or the
-:mod:`sklearn.datasets` module. Most of the times the bug is not related to a
-particular structure of your data. Even if it is, try to find an available
-dataset that has similar characteristics to yours and that reproduces the
-problem. In this particular case, we are interested in data that has labeled
-feature names.
+الفكرة هي جعل الشفرة مكتفية ذاتيًا قدر الإمكان. للقيام بذلك، يمكنك
+استخدام :ref:`synth_data`. يمكن إنشاؤها باستخدام numpy أو pandas أو
+وحدة :mod:`sklearn.datasets`. في معظم الأوقات، لا يرتبط الخطأ
+ببنية معينة لبياناتك. حتى لو كان الأمر كذلك، فحاول العثور على مجموعة بيانات متاحة
+لها خصائص مشابهة لخصائصك وتعيد إنتاج
+المشكلة. في هذه الحالة بالذات، نحن مهتمون بالبيانات التي تحتوي على
+أسماء ميزات مُعلَّمة.
 
-**Improved example**
+**مثال مُحسَّن**
 
 .. code-block:: python
 
@@ -191,39 +192,38 @@ feature names.
     y = df["target"]
 
     gbdt = GradientBoostingRegressor()
-    gbdt.fit(X, y) # no warning
+    gbdt.fit(X, y) # لا يوجد تحذير
     gbdt = GradientBoostingRegressor(n_iter_no_change=5)
-    gbdt.fit(X, y) # raises warning
+    gbdt.fit(X, y) # يُثير تحذيرًا
 
-As already mentioned, the key to communication is the readability of the code
-and good formatting can really be a plus. Notice that in the previous snippet
-we:
+كما ذكرنا سابقًا، فإن مفتاح التواصل هو قابلية قراءة الكود، والتنسيق الجيد
+يمكن أن يكون إضافة حقيقية. لاحظ أنه في المقتطف السابق، قمنا بما يلي:
 
-- try to limit all lines to a maximum of 79 characters to avoid horizontal
-  scrollbars in the code snippets blocks rendered on the GitHub issue;
-- use blank lines to separate groups of related functions;
-- place all the imports in their own group at the beginning.
+- حاول تحديد جميع الأسطر بحد أقصى 79 حرفًا لتجنب أشرطة التمرير الأفقية في
+  كتل مقتطفات الشفرة التي يتم عرضها في مشكلة GitHub؛
+- استخدم أسطرًا فارغة لفصل مجموعات الدوال ذات الصلة؛
+- ضع جميع عمليات الاستيراد في مجموعتها الخاصة في البداية.
 
-The simplification steps presented in this guide can be implemented in a
-different order than the progression we have shown here. The important points
-are:
+يمكن تنفيذ خطوات التبسيط المقدمة في هذا الدليل بترتيب
+مختلف عن التقدم الذي عرضناه هنا. النقاط المهمة
+هي:
 
-- a minimal reproducer should be runnable by a simple copy-and-paste in a
-  python terminal;
-- it should be simplified as much as possible by removing any code steps
-  that are not strictly needed to reproducing the original problem;
-- it should ideally only rely on a minimal dataset generated on-the-fly by
-  running the code instead of relying on external data, if possible.
+- يجب أن يكون المُكرِّر البسيط قابلاً للتشغيل عن طريق النسخ واللصق البسيط في
+  محطة python؛
+- يجب تبسيطه قدر الإمكان عن طريق إزالة أي خطوات شفرة
+  ليست ضرورية تمامًا لإعادة إنتاج المشكلة الأصلية؛
+- من الناحية المثالية، يجب أن يعتمد فقط على مجموعة بيانات بسيطة تم إنشاؤها أثناء
+  التشغيل عن طريق تشغيل الشفرة بدلاً من الاعتماد على بيانات خارجية، إن أمكن.
 
 
-Use markdown formatting
+استخدم تنسيق markdown
 -----------------------
 
-To format code or text into its own distinct block, use triple backticks.
-`Markdown
+لتنسيق الشفرة أو النص في كتلة مميزة خاصة به، استخدم علامات اقتباس خلفية ثلاثية.
+يدعم `Markdown
 <https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax>`_
-supports an optional language identifier to enable syntax highlighting in your
-fenced code block. For example::
+معرف لغة اختياريًا لتمكين تمييز بناء الجملة في كتلة
+الشفرة المسيَّجة الخاصة بك. فمثلا::
 
     ```python
     from sklearn.datasets import make_blobs
@@ -233,7 +233,7 @@ fenced code block. For example::
     X, y = make_blobs(n_samples=n_samples, centers=n_components)
     ```
 
-will render a python formatted snippet as follows
+سيعرض مقتطفًا منسقًا بلغة python على النحو التالي
 
 .. code-block:: python
 
@@ -243,14 +243,15 @@ will render a python formatted snippet as follows
     n_components = 3
     X, y = make_blobs(n_samples=n_samples, centers=n_components)
 
-It is not necessary to create several blocks of code when submitting a bug
-report. Remember other reviewers are going to copy-paste your code and having a
-single cell will make their task easier.
 
-In the section named **Actual results** of the `Issue template
+ليس من الضروري إنشاء عدة كتل من الشفرة عند إرسال تقرير خطأ.
+تذكر أن المراجعين الآخرين سينسخون الشفرة الخاصة بك ولصقها، وسيؤدي وجود
+خلية واحدة إلى تسهيل مهمتهم.
+
+في القسم المسمى **النتائج الفعلية** من `قالب المشكلة
 <https://github.com/scikit-learn/scikit-learn/blob/main/.github/ISSUE_TEMPLATE/bug_report.yml>`_
-you are asked to provide the error message including the full traceback of the
-exception. In this case, use the `python-traceback` qualifier. For example::
+، يُطلب منك تقديم رسالة الخطأ بما في ذلك التتبع الكامل للاستثناء.
+في هذه الحالة، استخدم مُؤهِّل `python-traceback`. فمثلا::
 
     ```python-traceback
     ---------------------------------------------------------------------------
@@ -265,7 +266,7 @@ exception. In this case, use the `python-traceback` qualifier. For example::
     TypeError: __init__() got an unexpected keyword argument 'n_topics'
     ```
 
-yields the following when rendered:
+ينتج ما يلي عند العرض:
 
 .. code-block:: python
 
@@ -283,29 +284,29 @@ yields the following when rendered:
 
 .. _synth_data:
 
-Synthetic dataset
-=================
+مجموعة بيانات تركيبية
+========================
 
-Before choosing a particular synthetic dataset, first you have to identify the
-type of problem you are solving: Is it a classification, a regression,
-a clustering, etc?
+قبل اختيار مجموعة بيانات تركيبية معينة، عليك أولاً تحديد
+نوع المشكلة التي تحلها: هل هي تصنيف، انحدار،
+تجميع، إلخ؟
 
-Once that you narrowed down the type of problem, you need to provide a synthetic
-dataset accordingly. Most of the times you only need a minimalistic dataset.
-Here is a non-exhaustive list of tools that may help you.
+بمجرد تضييق نطاق نوع المشكلة، تحتاج إلى توفير مجموعة بيانات تركيبية
+وفقًا لذلك. في معظم الأوقات، تحتاج فقط إلى مجموعة بيانات بسيطة.
+إليك قائمة غير شاملة بالأدوات التي قد تساعدك.
 
 NumPy
 -----
 
-NumPy tools such as `numpy.random.randn
+يمكن استخدام أدوات NumPy مثل `numpy.random.randn
 <https://numpy.org/doc/stable/reference/random/generated/numpy.random.randn.html>`_
-and `numpy.random.randint
+و `numpy.random.randint
 <https://numpy.org/doc/stable/reference/random/generated/numpy.random.randint.html>`_
-can be used to create dummy numeric data.
+لإنشاء بيانات رقمية وهمية.
 
-- regression
+- الانحدار
 
-  Regressions take continuous numeric data as features and target.
+  يأخذ الانحدار بيانات رقمية متصلة كميزات وهدف.
 
   .. code-block:: python
 
@@ -316,14 +317,14 @@ can be used to create dummy numeric data.
       X = rng.randn(n_samples, n_features)
       y = rng.randn(n_samples)
 
-A similar snippet can be used as synthetic data when testing scaling tools such
-as :class:`sklearn.preprocessing.StandardScaler`.
+يمكن استخدام مقتطف مشابه كبيانات تركيبية عند اختبار أدوات القياس
+مثل :class:`sklearn.preprocessing.StandardScaler`.
 
-- classification
+- التصنيف
 
-  If the bug is not raised during when encoding a categorical variable, you can
-  feed numeric data to a classifier. Just remember to ensure that the target
-  is indeed an integer.
+  إذا لم يتم طرح الخطأ أثناء تشفير متغير فئوي، فيمكنك
+  تغذية البيانات الرقمية لمصنف. فقط تذكر التأكد من أن الهدف
+  هو بالفعل عدد صحيح.
 
   .. code-block:: python
 
@@ -332,11 +333,11 @@ as :class:`sklearn.preprocessing.StandardScaler`.
       rng = np.random.RandomState(0)
       n_samples, n_features = 5, 5
       X = rng.randn(n_samples, n_features)
-      y = rng.randint(0, 2, n_samples)  # binary target with values in {0, 1}
+      y = rng.randint(0, 2, n_samples)  # هدف ثنائي بقيم في {0، 1}
 
 
-  If the bug only happens with non-numeric class labels, you might want to
-  generate a random target with `numpy.random.choice
+  إذا حدث الخطأ فقط مع تسميات الفئات غير الرقمية، فقد ترغب في
+  إنشاء هدف عشوائي باستخدام `numpy.random.choice
   <https://numpy.org/doc/stable/reference/random/generated/numpy.random.choice.html>`_.
 
   .. code-block:: python
@@ -350,12 +351,13 @@ as :class:`sklearn.preprocessing.StandardScaler`.
           ["male", "female", "other"], size=n_samples, p=[0.49, 0.49, 0.02]
       )
 
+
 Pandas
 ------
 
-Some scikit-learn objects expect pandas dataframes as input. In this case you can
-transform numpy arrays into pandas objects using `pandas.DataFrame
-<https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html>`_, or
+تتوقع بعض كائنات scikit-learn إطارات بيانات pandas كمدخلات. في هذه الحالة، يمكنك
+تحويل مصفوفات numpy إلى كائنات pandas باستخدام `pandas.DataFrame
+<https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html>`_، أو
 `pandas.Series
 <https://pandas.pydata.org/docs/reference/api/pandas.Series.html>`_.
 
@@ -375,15 +377,15 @@ transform numpy arrays into pandas objects using `pandas.DataFrame
     )
     y = pd.Series(rng.randn(n_samples))
 
-In addition, scikit-learn includes various :ref:`sample_generators` that can be
-used to build artificial datasets of controlled size and complexity.
+بالإضافة إلى ذلك، يتضمن scikit-learn العديد من :ref:`sample_generators` التي يمكن
+استخدامها لبناء مجموعات بيانات اصطناعية ذات حجم وتعقيد متحكم بهما.
 
 `make_regression`
 -----------------
 
-As hinted by the name, :class:`sklearn.datasets.make_regression` produces
-regression targets with noise as an optionally-sparse random linear combination
-of random features.
+كما يوحي الاسم، ينتج :class:`sklearn.datasets.make_regression`
+أهداف انحدار مع ضوضاء كمزيج خطي عشوائي اختياريًا متناثر
+من ميزات عشوائية.
 
 .. code-block:: python
 
@@ -394,9 +396,9 @@ of random features.
 `make_classification`
 ---------------------
 
-:class:`sklearn.datasets.make_classification` creates multiclass datasets with multiple Gaussian
-clusters per class. Noise can be introduced by means of correlated, redundant or
-uninformative features.
+ينشئ :class:`sklearn.datasets.make_classification` مجموعات بيانات متعددة الفئات مع مجموعات غاوسية
+متعددة لكل فئة. يمكن إدخال الضوضاء عن طريق ميزات مترابطة أو زائدة عن الحاجة أو
+غير مفيدة.
 
 .. code-block:: python
 
@@ -409,10 +411,10 @@ uninformative features.
 `make_blobs`
 ------------
 
-Similarly to `make_classification`, :class:`sklearn.datasets.make_blobs` creates
-multiclass datasets using normally-distributed clusters of points. It provides
-greater control regarding the centers and standard deviations of each cluster,
-and therefore it is useful to demonstrate clustering.
+على غرار `make_classification`، ينشئ :class:`sklearn.datasets.make_blobs`
+مجموعات بيانات متعددة الفئات باستخدام مجموعات من النقاط موزعة بشكل طبيعي. يوفر
+تحكمًا أكبر فيما يتعلق بمراكز وانحرافات معيارية لكل مجموعة،
+وبالتالي فهو مفيد لعرض التجميع.
 
 .. code-block:: python
 
@@ -420,15 +422,17 @@ and therefore it is useful to demonstrate clustering.
 
     X, y = make_blobs(n_samples=10, centers=3, n_features=2)
 
-Dataset loading utilities
--------------------------
+أدوات مساعدة لتحميل مجموعة البيانات
+--------------------------------------
 
-You can use the :ref:`datasets` to load and fetch several popular reference
-datasets. This option is useful when the bug relates to the particular structure
-of the data, e.g. dealing with missing values or image recognition.
+يمكنك استخدام :ref:`datasets` لتحميل وجلب العديد من مجموعات البيانات
+المرجعية الشائعة. يكون هذا الخيار مفيدًا عندما يرتبط الخطأ ببنية معينة
+للبيانات، على سبيل المثال التعامل مع القيم المفقودة أو التعرف على الصور.
 
 .. code-block:: python
 
     from sklearn.datasets import load_breast_cancer
 
     X, y = load_breast_cancer(return_X_y=True)
+
+

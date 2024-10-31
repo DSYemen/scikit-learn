@@ -19,30 +19,25 @@
 
 
 =============================================
-A demo of the Spectral Biclustering algorithm
+عرض توضيحي لخوارزمية التجميع الطيفي الثنائي
 =============================================
 
-This example demonstrates how to generate a checkerboard dataset and bicluster
-it using the :class:`~sklearn.cluster.SpectralBiclustering` algorithm. The
-spectral biclustering algorithm is specifically designed to cluster data by
-simultaneously considering both the rows (samples) and columns (features) of a
-matrix. It aims to identify patterns not only between samples but also within
-subsets of samples, allowing for the detection of localized structure within the
-data. This makes spectral biclustering particularly well-suited for datasets
-where the order or arrangement of features is fixed, such as in images, time
-series, or genomes.
+هذا المثال يوضح كيفية إنشاء مجموعة بيانات لوحة الشطرنج وتجميعها
+باستخدام خوارزمية :class:`~sklearn.cluster.SpectralBiclustering`. تم تصميم خوارزمية التجميع الطيفي الثنائي خصيصًا لتجميع البيانات عن طريق
+النظر في كل من الصفوف (العينات) والأعمدة (الميزات) للمصفوفة في نفس الوقت. تهدف إلى تحديد الأنماط ليس فقط بين العينات ولكن أيضًا داخل
+المجموعات الفرعية من العينات، مما يسمح بالكشف عن البنية الموضعية داخل
+البيانات. وهذا يجعل التجميع الطيفي الثنائي مناسبًا بشكل خاص لمجموعات البيانات
+حيث يكون ترتيب الميزات أو ترتيبها ثابتًا، كما هو الحال في الصور أو السلاسل الزمنية أو الجينومات.
 
-The data is generated, then shuffled and passed to the spectral biclustering
-algorithm. The rows and columns of the shuffled matrix are then rearranged to
-plot the biclusters found.
+يتم إنشاء البيانات، ثم يتم خلطها وتمريرها إلى خوارزمية التجميع الطيفي الثنائي. يتم بعد ذلك إعادة ترتيب الصفوف والأعمدة للمصفوفة المخلوطة لرسم مجموعات التجميع الفرعية التي تم العثور عليها.
 
-.. GENERATED FROM PYTHON SOURCE LINES 20-24
+.. GENERATED FROM PYTHON SOURCE LINES 15-19
 
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري سكايلرن
+    # معرف الترخيص: BSD-3-Clause
 
 
 
@@ -51,23 +46,25 @@ plot the biclusters found.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 25-35
+.. GENERATED FROM PYTHON SOURCE LINES 20-29
 
-Generate sample data
+إنشاء بيانات العينة
 --------------------
-We generate the sample data using the
-:func:`~sklearn.datasets.make_checkerboard` function. Each pixel within
-`shape=(300, 300)` represents with it's color a value from a uniform
-distribution. The noise is added from a normal distribution, where the value
-chosen for `noise` is the standard deviation.
+نقوم بإنشاء بيانات العينة باستخدام
+:func:`~sklearn.datasets.make_checkerboard`. يمثل كل بكسل داخل
+`shape=(300, 300)` بلون قيمة من توزيع موحد. تتم إضافة الضجيج من التوزيع الطبيعي، حيث يتم اختيار القيمة
+لـ `noise` هي الانحراف المعياري.
 
-As you can see, the data is distributed over 12 cluster cells and is
-relatively well distinguishable.
+كما ترى، يتم توزيع البيانات على 12 خلية تجميع وهي
+مميزة جيدًا نسبيًا.
 
-.. GENERATED FROM PYTHON SOURCE LINES 35-48
+.. GENERATED FROM PYTHON SOURCE LINES 29-45
 
 .. code-block:: Python
 
+    from sklearn.metrics import consensus_score
+    from sklearn.cluster import SpectralBiclustering
+    import numpy as np
     from matplotlib import pyplot as plt
 
     from sklearn.datasets import make_checkerboard
@@ -93,18 +90,17 @@ relatively well distinguishable.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 49-51
+.. GENERATED FROM PYTHON SOURCE LINES 46-48
 
-We shuffle the data and the goal is to reconstruct it afterwards using
+نقوم بخلط البيانات والهدف هو إعادة بنائها لاحقًا باستخدام
 :class:`~sklearn.cluster.SpectralBiclustering`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 51-58
+.. GENERATED FROM PYTHON SOURCE LINES 48-54
 
 .. code-block:: Python
 
-    import numpy as np
 
-    # Creating lists of shuffled row and column indices
+    # إنشاء قوائم من فهارس الصفوف والأعمدة المخلوطة
     rng = np.random.RandomState(0)
     row_idx_shuffled = rng.permutation(data.shape[0])
     col_idx_shuffled = rng.permutation(data.shape[1])
@@ -116,12 +112,12 @@ We shuffle the data and the goal is to reconstruct it afterwards using
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 59-61
+.. GENERATED FROM PYTHON SOURCE LINES 55-57
 
-We redefine the shuffled data and plot it. We observe that we lost the
-structure of original data matrix.
+نعيد تعريف البيانات المخلوطة ونرسمها. نلاحظ أننا فقدنا
+بنية مصفوفة البيانات الأصلية.
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-67
+.. GENERATED FROM PYTHON SOURCE LINES 57-63
 
 .. code-block:: Python
 
@@ -143,28 +139,28 @@ structure of original data matrix.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 68-74
+.. GENERATED FROM PYTHON SOURCE LINES 64-70
 
-Fitting `SpectralBiclustering`
+تناسب `SpectralBiclustering`
 ------------------------------
-We fit the model and compare the obtained clusters with the ground truth. Note
-that when creating the model we specify the same number of clusters that we
-used to create the dataset (`n_clusters = (4, 3)`), which will contribute to
-obtain a good result.
+نقوم بتناسب النموذج ومقارنة التجميعات الناتجة مع الحقيقة الأرضية. لاحظ
+أنه عند إنشاء النموذج، نقوم بتحديد نفس عدد التجميعات التي استخدمناها
+لإنشاء مجموعة البيانات (`n_clusters = (4, 3)`)، مما سيساهم في
+الحصول على نتيجة جيدة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 74-86
+.. GENERATED FROM PYTHON SOURCE LINES 70-82
 
 .. code-block:: Python
 
-    from sklearn.cluster import SpectralBiclustering
-    from sklearn.metrics import consensus_score
 
-    model = SpectralBiclustering(n_clusters=n_clusters, method="log", random_state=0)
+    model = SpectralBiclustering(
+        n_clusters=n_clusters, method="log", random_state=0)
     model.fit(data)
 
-    # Compute the similarity of two sets of biclusters
+    # حساب التشابه بين مجموعتين من مجموعات التجميع الفرعية
     score = consensus_score(
-        model.biclusters_, (rows[:, row_idx_shuffled], columns[:, col_idx_shuffled])
+        model.biclusters_, (rows[:, row_idx_shuffled],
+                            columns[:, col_idx_shuffled])
     )
     print(f"consensus score: {score:.1f}")
 
@@ -181,27 +177,26 @@ obtain a good result.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 87-89
+.. GENERATED FROM PYTHON SOURCE LINES 83-85
 
-The score is between 0 and 1, where 1 corresponds to a perfect matching. It
-shows the quality of the biclustering.
+النتيجة بين 0 و 1، حيث 1 يتوافق مع تطابق مثالي. إنه
+يظهر جودة التجميع الثنائي.
 
-.. GENERATED FROM PYTHON SOURCE LINES 91-98
+.. GENERATED FROM PYTHON SOURCE LINES 87-93
 
-Plotting results
+رسم النتائج
 ----------------
-Now, we rearrange the data based on the row and column labels assigned by the
-:class:`~sklearn.cluster.SpectralBiclustering` model in ascending order and
-plot again. The `row_labels_` range from 0 to 3, while the `column_labels_`
-range from 0 to 2, representing a total of 4 clusters per row and 3 clusters
-per column.
+الآن، نقوم بإعادة ترتيب البيانات بناءً على تسميات الصفوف والأعمدة التي قام النموذج بتعيينها
+:class:`~sklearn.cluster.SpectralBiclustering` بترتيب تصاعدي ورسمها مرة أخرى. تتراوح `row_labels_` من 0 إلى 3، بينما تتراوح `column_labels_`
+من 0 إلى 2، مما يمثل ما مجموعه 4 مجموعات تجميع لكل صف و 3 مجموعات
+لكل عمود.
 
-.. GENERATED FROM PYTHON SOURCE LINES 98-107
+.. GENERATED FROM PYTHON SOURCE LINES 93-102
 
 .. code-block:: Python
 
 
-    # Reordering first the rows and then the columns.
+    # إعادة ترتيب الصفوف أولاً ثم الأعمدة.
     reordered_rows = data[np.argsort(model.row_labels_)]
     reordered_data = reordered_rows[:, np.argsort(model.column_labels_)]
 
@@ -221,20 +216,21 @@ per column.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 108-113
+.. GENERATED FROM PYTHON SOURCE LINES 103-108
 
-As a last step, we want to demonstrate the relationships between the row
-and column labels assigned by the model. Therefore, we create a grid with
-:func:`numpy.outer`, which takes the sorted `row_labels_` and `column_labels_`
-and adds 1 to each to ensure that the labels start from 1 instead of 0 for
-better visualization.
+كخطوة أخيرة، نريد توضيح العلاقات بين تسميات الصفوف
+والأعمدة التي قام النموذج بتعيينها. لذلك، نقوم بإنشاء شبكة باستخدام
+:func:`numpy.outer`، والتي تأخذ `row_labels_` و `column_labels_`
+المرتبة وتضيف 1 إلى كل منها لضمان أن تبدأ التسميات من 1 بدلاً من 0 لتحسين
+العرض المرئي.
 
-.. GENERATED FROM PYTHON SOURCE LINES 113-120
+.. GENERATED FROM PYTHON SOURCE LINES 108-116
 
 .. code-block:: Python
 
     plt.matshow(
-        np.outer(np.sort(model.row_labels_) + 1, np.sort(model.column_labels_) + 1),
+        np.outer(np.sort(model.row_labels_) + 1,
+                 np.sort(model.column_labels_) + 1),
         cmap=plt.cm.Blues,
     )
     plt.title("Checkerboard structure of rearranged data")
@@ -252,16 +248,16 @@ better visualization.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 121-124
+.. GENERATED FROM PYTHON SOURCE LINES 117-120
 
-The outer product of the row and column label vectors shows a representation
-of the checkerboard structure, where different combinations of row and column
-labels are represented by different shades of blue.
+حاصل الضرب الخارجي لمتجهات تسميات الصفوف والأعمدة يظهر تمثيلًا
+لهيكل لوحة الشطرنج، حيث يتم تمثيل مجموعات مختلفة من تسميات الصفوف والأعمدة
+بظلال مختلفة من اللون الأزرق.
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.649 seconds)
+   **Total running time of the script:** (0 minutes 0.716 seconds)
 
 
 .. _sphx_glr_download_auto_examples_bicluster_plot_spectral_biclustering.py:
