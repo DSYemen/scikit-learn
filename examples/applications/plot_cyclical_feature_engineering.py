@@ -1,90 +1,107 @@
 """
 ================================
-Time-related feature engineering
+هندسة الميزات ذات الصلة بالوقت
 ================================
 
-This notebook introduces different strategies to leverage time-related features
-for a bike sharing demand regression task that is highly dependent on business
-cycles (days, weeks, months) and yearly season cycles.
+يُقدم هذا الدفتر طرقًا مختلفة للاستفادة من الميزات ذات الصلة بالوقت
+لمهمة انحدار طلب مشاركة الدراجات التي تعتمد بشكل كبير على دورات العمل
+(الأيام، والأسابيع، والشهور) ودورات المواسم السنوية.
 
-In the process, we introduce how to perform periodic feature engineering using
-the :class:`sklearn.preprocessing.SplineTransformer` class and its
-`extrapolation="periodic"` option.
+في هذه العملية، نُقدم كيفية إجراء هندسة الميزات الدورية باستخدام
+فئة :class:`sklearn.preprocessing.SplineTransformer` وخيار
+`extrapolation="periodic"` الخاص بها.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطورو scikit-learn
+# مُعرِّف ترخيص SPDX: BSD-3-Clause
 
 # %%
-# Data exploration on the Bike Sharing Demand dataset
+# استكشاف البيانات على مجموعة بيانات طلب مشاركة الدراجات
 # ---------------------------------------------------
 #
-# We start by loading the data from the OpenML repository.
+# نبدأ بتحميل البيانات من مستودع OpenML.
+from sklearn.kernel_approximation import Nystroem
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.pipeline import FeatureUnion
+from sklearn.preprocessing import SplineTransformer
+import pandas as pd
+from sklearn.preprocessing import FunctionTransformer
+from sklearn.preprocessing import MinMaxScaler, OneHotEncoder
+from sklearn.linear_model import RidgeCV
+import numpy as np
+from sklearn.pipeline import make_pipeline
+from sklearn.model_selection import cross_validate
+from sklearn.ensemble import HistGradientBoostingRegressor
+from sklearn.compose import ColumnTransformer
+from sklearn.model_selection import TimeSeriesSplit
+import matplotlib.pyplot as plt
 from sklearn.datasets import fetch_openml
 
 bike_sharing = fetch_openml("Bike_Sharing_Demand", version=2, as_frame=True)
 df = bike_sharing.frame
 
 # %%
-# To get a quick understanding of the periodic patterns of the data, let us
-# have a look at the average demand per hour during a week.
+# للحصول على فهم سريع للأنماط الدورية للبيانات، دعونا
+# نلقي نظرة على متوسط ​​الطلب في الساعة خلال الأسبوع.
 #
-# Note that the week starts on a Sunday, during the weekend. We can clearly
-# distinguish the commute patterns in the morning and evenings of the work days
-# and the leisure use of the bikes on the weekends with a more spread peak
-# demand around the middle of the days:
-import matplotlib.pyplot as plt
+# لاحظ أن الأسبوع يبدأ يوم الأحد، خلال عطلة نهاية الأسبوع. يمكننا بوضوح
+# تمييز أنماط التنقل في الصباح والمساء من أيام العمل
+# واستخدام الدراجات الترفيهي في عطلات نهاية الأسبوع مع ذروة طلب أكثر انتشارًا
+# في منتصف الأيام:
 
 fig, ax = plt.subplots(figsize=(12, 4))
 average_week_demand = df.groupby(["weekday", "hour"])["count"].mean()
 average_week_demand.plot(ax=ax)
 _ = ax.set(
-    title="Average hourly bike demand during the week",
+    title="متوسط ​​طلب الدراجات بالساعة خلال الأسبوع",
     xticks=[i * 24 for i in range(7)],
-    xticklabels=["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-    xlabel="Time of the week",
-    ylabel="Number of bike rentals",
+    xticklabels=["الأحد", "الاثنين", "الثلاثاء",
+                 "الأربعاء", "الخميس", "الجمعة", "السبت"],
+    xlabel="وقت الأسبوع",
+    ylabel="عدد تأجيرات الدراجات",
 )
 
 # %%
 #
-# The target of the prediction problem is the absolute count of bike rentals on
-# a hourly basis:
+# هدف مشكلة التنبؤ هو العدد المطلق لتأجيرات الدراجات على
+# أساس كل ساعة:
 df["count"].max()
 
 # %%
 #
-# Let us rescale the target variable (number of hourly bike rentals) to predict
-# a relative demand so that the mean absolute error is more easily interpreted
-# as a fraction of the maximum demand.
+# دعونا نعيد قياس متغير الهدف (عدد تأجيرات الدراجات بالساعة) للتنبؤ
+# بطلب نسبي بحيث يكون من السهل تفسير متوسط ​​الخطأ المطلق
+# كجزء بسيط من الحد الأقصى للطلب.
 #
 # .. note::
 #
-#     The fit method of the models used in this notebook all minimize the
-#     mean squared error to estimate the conditional mean.
-#     The absolute error, however, would estimate the conditional median.
+#     يقلل أسلوب الملاءمة للنماذج المستخدمة في هذا الدفتر جميعًا من
+#     متوسط ​​الخطأ التربيعي لتقدير المتوسط ​​الشرطي.
+#     ومع ذلك، سيُقدِّر الخطأ المطلق الوسيط الشرطي.
 #
-#     Nevertheless, when reporting performance measures on the test set in
-#     the discussion, we choose to focus on the mean absolute error instead
-#     of the (root) mean squared error because it is more intuitive to
-#     interpret. Note, however, that in this study the best models for one
-#     metric are also the best ones in terms of the other metric.
+#     ومع ذلك، عند الإبلاغ عن مقاييس الأداء على مجموعة الاختبار في
+#     المناقشة، نختار التركيز على متوسط ​​الخطأ المطلق بدلاً من
+#     متوسط ​​الخطأ التربيعي (الجذر) لأنه من الأسهل
+#     تفسيرها. لاحظ، مع ذلك، أنه في هذه الدراسة، فإن أفضل النماذج لمقياس واحد
+#     هي أيضًا الأفضل من حيث المقياس الآخر.
 y = df["count"] / df["count"].max()
+
 
 # %%
 fig, ax = plt.subplots(figsize=(12, 4))
 y.hist(bins=30, ax=ax)
 _ = ax.set(
-    xlabel="Fraction of rented fleet demand",
-    ylabel="Number of hours",
+    xlabel="جزء بسيط من طلب أسطول التأجير",
+    ylabel="عدد الساعات",
 )
 
+
 # %%
-# The input feature data frame is a time annotated hourly log of variables
-# describing the weather conditions. It includes both numerical and categorical
-# variables. Note that the time information has already been expanded into
-# several complementary columns.
+# إطار بيانات ميزة الإدخال هو سجل كل ساعة بعلامات زمنية للمتغيرات
+# التي تصف أحوال الطقس. يتضمن كلاً من المتغيرات الرقمية والفئوية.
+# لاحظ أنه قد تم بالفعل توسيع معلومات الوقت إلى
+# عدة أعمدة تكميلية.
 #
 X = df.drop("count", axis="columns")
 X
@@ -92,20 +109,21 @@ X
 # %%
 # .. note::
 #
-#    If the time information was only present as a date or datetime column, we
-#    could have expanded it into hour-in-the-day, day-in-the-week,
-#    day-in-the-month, month-in-the-year using pandas:
+#    إذا كانت معلومات الوقت موجودة فقط كعمود تاريخ أو عمود تاريخ ووقت،
+#    فكان من الممكن توسيعها إلى ساعة في اليوم، ويوم في الأسبوع،
+#    ويوم في الشهر، وشهر في السنة باستخدام pandas:
 #    https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#time-date-components
 #
-# We now introspect the distribution of the categorical variables, starting
-# with `"weather"`:
+# نستعرض الآن توزيع المتغيرات الفئوية، بدءًا
+# من `"weather"`:
 #
 X["weather"].value_counts()
 
+
 # %%
-# Since there are only 3 `"heavy_rain"` events, we cannot use this category to
-# train machine learning models with cross validation. Instead, we simplify the
-# representation by collapsing those into the `"rain"` category.
+# نظرًا لوجود 3 أحداث `"heavy_rain"` فقط، لا يمكننا استخدام هذه الفئة لـ
+# تدريب نماذج التعلم الآلي مع التحقق المتبادل. بدلاً من ذلك، نبسط
+# التمثيل عن طريق دمجها في فئة `"rain"`.
 #
 X["weather"] = (
     X["weather"]
@@ -117,26 +135,26 @@ X["weather"] = (
 # %%
 X["weather"].value_counts()
 
+
 # %%
-# As expected, the `"season"` variable is well balanced:
+# كما هو متوقع، فإن متغير `"season"` متوازن جيدًا:
 #
 X["season"].value_counts()
 
 # %%
-# Time-based cross-validation
+# التحقق المتبادل على أساس الوقت
 # ---------------------------
 #
-# Since the dataset is a time-ordered event log (hourly demand), we will use a
-# time-sensitive cross-validation splitter to evaluate our demand forecasting
-# model as realistically as possible. We use a gap of 2 days between the train
-# and test side of the splits. We also limit the training set size to make the
-# performance of the CV folds more stable.
+# نظرًا لأن مجموعة البيانات هي سجل أحداث مرتب زمنيًا (طلب كل ساعة)، فسنستخدم
+# مُقسِّمًا للتحقق المتبادل حساسًا للوقت لتقييم نموذج التنبؤ بالطلب
+# الخاص بنا بأكبر قدر ممكن من الواقعية. نستخدم فجوة لمدة يومين بين
+# جانب التدريب وجانب الاختبار من عمليات التقسيم. نقوم أيضًا بتحديد حجم مجموعة التدريب لجعل
+# أداء طيات التحقق المتبادل أكثر استقرارًا.
 #
-# 1000 test datapoints should be enough to quantify the performance of the
-# model. This represents a bit less than a month and a half of contiguous test
-# data:
+# يجب أن تكون 1000 نقطة بيانات اختبار كافية لتحديد أداء
+# النموذج. يُمثل هذا أقل بقليل من شهر ونصف من بيانات الاختبار
+# المتجاورة:
 
-from sklearn.model_selection import TimeSeriesSplit
 
 ts_cv = TimeSeriesSplit(
     n_splits=5,
@@ -146,8 +164,8 @@ ts_cv = TimeSeriesSplit(
 )
 
 # %%
-# Let us manually inspect the various splits to check that the
-# `TimeSeriesSplit` works as we expect, starting with the first split:
+# دعونا نفحص يدويًا التقسيمات المختلفة للتحقق من أن
+# `TimeSeriesSplit` يعمل كما نتوقع، بدءًا من التقسيم الأول:
 all_splits = list(ts_cv.split(X, y))
 train_0, test_0 = all_splits[0]
 
@@ -158,49 +176,46 @@ X.iloc[test_0]
 X.iloc[train_0]
 
 # %%
-# We now inspect the last split:
+# نفحص الآن التقسيم الأخير:
 train_4, test_4 = all_splits[4]
 
 # %%
 X.iloc[test_4]
 
+
 # %%
 X.iloc[train_4]
 
 # %%
-# All is well. We are now ready to do some predictive modeling!
+# كل شيء على ما يرام. نحن الآن جاهزون لإجراء بعض النمذجة التنبؤية!
 #
-# Gradient Boosting
+# تعزيز التدرج
 # -----------------
 #
-# Gradient Boosting Regression with decision trees is often flexible enough to
-# efficiently handle heterogeneous tabular data with a mix of categorical and
-# numerical features as long as the number of samples is large enough.
+# غالبًا ما يكون انحدار تعزيز التدرج مع أشجار القرار مرنًا بما يكفي لـ
+# معالجة البيانات الجدولية غير المتجانسة بكفاءة مع مزيج من الميزات الفئوية و
+# الرقمية طالما أن عدد العينات كبير بما يكفي.
 #
-# Here, we use the modern
-# :class:`~sklearn.ensemble.HistGradientBoostingRegressor` with native support
-# for categorical features. Therefore, we only need to set
-# `categorical_features="from_dtype"` such that features with categorical dtype
-# are considered categorical features. For reference, we extract the categorical
-# features from the dataframe based on the dtype. The internal trees use a dedicated
-# tree splitting rule for these features.
+# هنا، نستخدم
+# :class:`~sklearn.ensemble.HistGradientBoostingRegressor` الحديث مع دعم أصلي
+# للميزات الفئوية. لذلك، نحتاج فقط إلى تعيين
+# `categorical_features="from_dtype"` بحيث تُعتبر الميزات ذات نوع البيانات الفئوية
+# ميزات فئوية. كمرجع، نستخرج الميزات الفئوية من إطار البيانات بناءً على
+# نوع البيانات. تستخدم الأشجار الداخلية قاعدة تقسيم شجرة مخصصة لهذه الميزات.
 #
-# The numerical variables need no preprocessing and, for the sake of simplicity,
-# we only try the default hyper-parameters for this model:
-from sklearn.compose import ColumnTransformer
-from sklearn.ensemble import HistGradientBoostingRegressor
-from sklearn.model_selection import cross_validate
-from sklearn.pipeline import make_pipeline
+# لا تحتاج المتغيرات الرقمية إلى معالجة مسبقة، ومن أجل البساطة،
+# نجرب فقط المعلمات الفائقة الافتراضية لهذا النموذج:
 
-gbrt = HistGradientBoostingRegressor(categorical_features="from_dtype", random_state=42)
+gbrt = HistGradientBoostingRegressor(
+    categorical_features="from_dtype", random_state=42)
 categorical_columns = X.columns[X.dtypes == "category"]
-print("Categorical features:", categorical_columns.tolist())
+print("الميزات الفئوية:", categorical_columns.tolist())
+
 
 # %%
 #
-# Lets evaluate our gradient boosting model with the mean absolute error of the
-# relative demand averaged across our 5 time-based cross-validation splits:
-import numpy as np
+# دعونا نُقيِّم نموذج تعزيز التدرج الخاص بنا باستخدام متوسط ​​الخطأ المطلق للطلب
+# النسبي في المتوسط ​​عبر 5 تقسيمات للتحقق المتبادل على أساس الوقت:
 
 
 def evaluate(model, X, y, cv, model_prop=None, model_step=None):
@@ -219,39 +234,38 @@ def evaluate(model, X, y, cv, model_prop=None, model_step=None):
             ]
         else:
             values = [getattr(m, model_prop) for m in cv_results["estimator"]]
-        print(f"Mean model.{model_prop} = {np.mean(values)}")
+        print(f"متوسط model.{model_prop} = {np.mean(values)}")
     mae = -cv_results["test_neg_mean_absolute_error"]
     rmse = -cv_results["test_neg_root_mean_squared_error"]
     print(
-        f"Mean Absolute Error:     {mae.mean():.3f} +/- {mae.std():.3f}\n"
-        f"Root Mean Squared Error: {rmse.mean():.3f} +/- {rmse.std():.3f}"
+        f"متوسط ​​الخطأ المطلق:     {mae.mean():.3f} +/- {mae.std():.3f}\n"
+        f"جذر متوسط ​​الخطأ التربيعي: {rmse.mean():.3f} +/- {rmse.std():.3f}"
     )
 
 
 evaluate(gbrt, X, y, cv=ts_cv, model_prop="n_iter_")
 
 # %%
-# We see that we set `max_iter` large enough such that early stopping took place.
+# نرى أننا قمنا بتعيين `max_iter` كبيرة بما يكفي بحيث يتم الإيقاف المبكر.
 #
-# This model has an average error around 4 to 5% of the maximum demand. This is
-# quite good for a first trial without any hyper-parameter tuning! We just had
-# to make the categorical variables explicit. Note that the time related
-# features are passed as is, i.e. without processing them. But this is not much
-# of a problem for tree-based models as they can learn a non-monotonic
-# relationship between ordinal input features and the target.
+# يبلغ متوسط ​​خطأ هذا النموذج حوالي 4 إلى 5٪ من الحد الأقصى للطلب. هذا
+# جيد جدًا للمحاولة الأولى بدون أي ضبط للمعلمات الفائقة! كان علينا فقط
+# توضيح المتغيرات الفئوية. لاحظ أنه يتم تمرير الميزات ذات الصلة
+# بالوقت كما هي، أي بدون معالجتها. لكن هذه ليست مشكلة كبيرة
+# للنماذج المستندة إلى الشجرة لأنها تستطيع تعلم علاقة غير رتيبة
+# بين ميزات الإدخال الترتيبية والهدف.
 #
-# This is not the case for linear regression models as we will see in the
-# following.
+# هذا ليس هو الحال بالنسبة لنماذج الانحدار الخطي كما سنرى في
+# ما يلي.
 #
-# Naive linear regression
+# الانحدار الخطي الساذج
 # -----------------------
 #
-# As usual for linear models, categorical variables need to be one-hot encoded.
-# For consistency, we scale the numerical features to the same 0-1 range using
-# :class:`~sklearn.preprocessing.MinMaxScaler`, although in this case it does not
-# impact the results much because they are already on comparable scales:
-from sklearn.linear_model import RidgeCV
-from sklearn.preprocessing import MinMaxScaler, OneHotEncoder
+# كالمعتاد بالنسبة للنماذج الخطية، يجب ترميز المتغيرات الفئوية بشكل أحادي الاتجاه.
+# من أجل الاتساق، نقوم بقياس الميزات الرقمية على نفس النطاق 0-1 باستخدام
+# :class:`~sklearn.preprocessing.MinMaxScaler`، على الرغم من أن هذا لا يؤثر
+# على النتائج كثيرًا في هذه الحالة لأنها بالفعل على مقاييس قابلة للمقارنة:
+
 
 one_hot_encoder = OneHotEncoder(handle_unknown="ignore", sparse_output=False)
 alphas = np.logspace(-6, 6, 25)
@@ -272,35 +286,34 @@ evaluate(
 
 
 # %%
-# It is affirmative to see that the selected `alpha_` is in our specified
-# range.
+# من المؤكد أن `alpha_` المحددة موجودة في نطاقنا المحدد.
 #
-# The performance is not good: the average error is around 14% of the maximum
-# demand. This is more than three times higher than the average error of the
-# gradient boosting model. We can suspect that the naive original encoding
-# (merely min-max scaled) of the periodic time-related features might prevent
-# the linear regression model to properly leverage the time information: linear
-# regression does not automatically model non-monotonic relationships between
-# the input features and the target. Non-linear terms have to be engineered in
-# the input.
+# الأداء ليس جيدًا: متوسط ​​الخطأ حوالي 14٪ من الحد الأقصى
+# للطلب. هذا أعلى بثلاث مرات من متوسط ​​خطأ نموذج
+# تعزيز التدرج. يمكننا أن نشك في أن الترميز الأصلي الساذج
+# (تم قياسه ببساطة من الحد الأدنى إلى الحد الأقصى) للميزات الدورية ذات الصلة
+# بالوقت قد يمنع نموذج الانحدار الخطي من الاستفادة بشكل صحيح من معلومات
+# الوقت: لا يُنمذج الانحدار الخطي تلقائيًا العلاقات غير الرتيبة بين
+# ميزات الإدخال والهدف. يجب هندسة المصطلحات غير الخطية في
+# الإدخال.
 #
-# For example, the raw numerical encoding of the `"hour"` feature prevents the
-# linear model from recognizing that an increase of hour in the morning from 6
-# to 8 should have a strong positive impact on the number of bike rentals while
-# an increase of similar magnitude in the evening from 18 to 20 should have a
-# strong negative impact on the predicted number of bike rentals.
+# على سبيل المثال، يمنع الترميز الرقمي الأولي لميزة `"hour"` النموذج
+# الخطي من التعرف على أن زيادة الساعة في الصباح من 6
+# إلى 8 يجب أن يكون لها تأثير إيجابي قوي على عدد تأجيرات الدراجات بينما
+# يجب أن يكون للزيادة ذات الحجم المماثل في المساء من 18 إلى 20 تأثير
+# سلبي قوي على العدد المتوقع لتأجيرات الدراجات.
 #
-# Time-steps as categories
+# الخطوات الزمنية كفئات
 # ------------------------
 #
-# Since the time features are encoded in a discrete manner using integers (24
-# unique values in the "hours" feature), we could decide to treat those as
-# categorical variables using a one-hot encoding and thereby ignore any
-# assumption implied by the ordering of the hour values.
+# نظرًا لأن ميزات الوقت مُرمَّزة بطريقة منفصلة باستخدام أعداد صحيحة (24
+# قيمة فريدة في ميزة "hours")، يمكننا أن نقرر التعامل مع هذه
+# كمتغيرات فئوية باستخدام ترميز أحادي الاتجاه وبالتالي تجاهل أي
+# افتراض ضمني بترتيب قيم الساعة.
 #
-# Using one-hot encoding for the time features gives the linear model a lot
-# more flexibility as we introduce one additional feature per discrete time
-# level.
+# يمنح استخدام الترميز الأحادي الاتجاه لميزات الوقت النموذج الخطي
+# مرونة أكبر بكثير حيث نُقدم ميزة إضافية واحدة لكل مستوى زمني
+# منفصل.
 one_hot_linear_pipeline = make_pipeline(
     ColumnTransformer(
         transformers=[
@@ -315,36 +328,34 @@ one_hot_linear_pipeline = make_pipeline(
 evaluate(one_hot_linear_pipeline, X, y, cv=ts_cv)
 
 # %%
-# The average error rate of this model is 10% which is much better than using
-# the original (ordinal) encoding of the time feature, confirming our intuition
-# that the linear regression model benefits from the added flexibility to not
-# treat time progression in a monotonic manner.
+# يبلغ متوسط ​​معدل الخطأ لهذا النموذج 10٪ وهو أفضل بكثير من استخدام
+# الترميز الأصلي (الترتيبي) لميزة الوقت، مما يؤكد حدسنا
+# بأن نموذج الانحدار الخطي يستفيد من المرونة المضافة لعدم
+# معالجة تقدم الوقت بطريقة رتيبة.
 #
-# However, this introduces a very large number of new features. If the time of
-# the day was represented in minutes since the start of the day instead of
-# hours, one-hot encoding would have introduced 1440 features instead of 24.
-# This could cause some significant overfitting. To avoid this we could use
-# :func:`sklearn.preprocessing.KBinsDiscretizer` instead to re-bin the number
-# of levels of fine-grained ordinal or numerical variables while still
-# benefitting from the non-monotonic expressivity advantages of one-hot
-# encoding.
+# ومع ذلك، يُسبب هذا عددًا كبيرًا جدًا من الميزات الجديدة. إذا تم تمثيل وقت
+# اليوم بالدقائق منذ بداية اليوم بدلاً من
+# الساعات، لكان الترميز الأحادي الاتجاه قد أدخل 1440 ميزة بدلاً من 24.
+# قد يُسبب هذا بعض التكيف الزائد الكبير. لتجنب ذلك، يمكننا استخدام
+# :func:`sklearn.preprocessing.KBinsDiscretizer` بدلاً من ذلك لإعادة تصنيف عدد
+# مستويات المتغيرات الترتيبية أو الرقمية الدقيقة مع الاستمرار
+# في الاستفادة من مزايا التعبير غير الرتيب للترميز
+# الأحادي الاتجاه.
 #
-# Finally, we also observe that one-hot encoding completely ignores the
-# ordering of the hour levels while this could be an interesting inductive bias
-# to preserve to some level. In the following we try to explore smooth,
-# non-monotonic encoding that locally preserves the relative ordering of time
-# features.
+# أخيرًا، نلاحظ أيضًا أن الترميز الأحادي الاتجاه يتجاهل تمامًا
+# ترتيب مستويات الساعة بينما قد يكون هذا تحيزًا استقرائيًا مثيرًا للاهتمام
+# للحفاظ عليه إلى حد ما. في ما يلي، نحاول استكشاف ترميز سلس
+# وغير رتيب يحافظ محليًا على الترتيب النسبي لميزات الوقت.
 #
-# Trigonometric features
+# الميزات المثلثية
 # ----------------------
 #
-# As a first attempt, we can try to encode each of those periodic features
-# using a sine and cosine transformation with the matching period.
+# كمحاولة أولى، يمكننا محاولة ترميز كل من هذه الميزات الدورية
+# باستخدام تحويل الجيب وجيب التمام مع الفترة المقابلة.
 #
-# Each ordinal time feature is transformed into 2 features that together encode
-# equivalent information in a non-monotonic way, and more importantly without
-# any jump between the first and the last value of the periodic range.
-from sklearn.preprocessing import FunctionTransformer
+# يتم تحويل كل ميزة زمنية ترتيبية إلى ميزتين تُرمِّزان معًا
+# معلومات مكافئة بطريقة غير رتيبة، والأهم من ذلك بدون
+# أي قفزة بين القيمة الأولى والأخيرة للنطاق الدوري.
 
 
 def sin_transformer(period):
@@ -357,9 +368,8 @@ def cos_transformer(period):
 
 # %%
 #
-# Let us visualize the effect of this feature expansion on some synthetic hour
-# data with a bit of extrapolation beyond hour=23:
-import pandas as pd
+# دعونا نتصور تأثير توسيع الميزة هذا على بعض بيانات الساعة
+# التركيبية مع القليل من الاستقراء بعد الساعة = 23:
 
 hour_df = pd.DataFrame(
     np.arange(26).reshape(-1, 1),
@@ -368,15 +378,15 @@ hour_df = pd.DataFrame(
 hour_df["hour_sin"] = sin_transformer(24).fit_transform(hour_df)["hour"]
 hour_df["hour_cos"] = cos_transformer(24).fit_transform(hour_df)["hour"]
 hour_df.plot(x="hour")
-_ = plt.title("Trigonometric encoding for the 'hour' feature")
+_ = plt.title("الترميز المثلثي لميزة 'hour'")
 
 # %%
 #
-# Let's use a 2D scatter plot with the hours encoded as colors to better see
-# how this representation maps the 24 hours of the day to a 2D space, akin to
-# some sort of a 24 hour version of an analog clock. Note that the "25th" hour
-# is mapped back to the 1st hour because of the periodic nature of the
-# sine/cosine representation.
+# دعونا نستخدم مخطط تشتت ثنائي الأبعاد مع الساعات المُرمَّزة كألوان لنرى بشكل أفضل
+# كيف يُعيِّن هذا التمثيل ساعات اليوم الأربع والعشرين إلى مساحة ثنائية الأبعاد، تُشبه
+# نوعًا من إصدار ساعة تناظرية لمدة 24 ساعة. لاحظ أن الساعة "الخامسة والعشرين"
+# يتم تعيينها مرة أخرى إلى الساعة الأولى بسبب الطبيعة الدورية لتمثيل
+# الجيب/جيب التمام.
 fig, ax = plt.subplots(figsize=(7, 5))
 sp = ax.scatter(hour_df["hour_sin"], hour_df["hour_cos"], c=hour_df["hour"])
 ax.set(
@@ -387,7 +397,8 @@ _ = fig.colorbar(sp)
 
 # %%
 #
-# We can now build a feature extraction pipeline using this strategy:
+# يمكننا الآن بناء خط أنابيب لاستخراج الميزات باستخدام هذه الاستراتيجية:
+
 cyclic_cossin_transformer = ColumnTransformer(
     transformers=[
         ("categorical", one_hot_encoder, categorical_columns),
@@ -409,25 +420,23 @@ evaluate(cyclic_cossin_linear_pipeline, X, y, cv=ts_cv)
 
 # %%
 #
-# The performance of our linear regression model with this simple feature
-# engineering is a bit better than using the original ordinal time features but
-# worse than using the one-hot encoded time features. We will further analyze
-# possible reasons for this disappointing outcome at the end of this notebook.
+# أداء نموذج الانحدار الخطي الخاص بنا مع هندسة الميزات البسيطة هذه
+# أفضل قليلاً من استخدام ميزات الوقت الترتيبية الأصلية ولكنه
+# أسوأ من استخدام ميزات الوقت المُرمَّزة بشكل أحادي الاتجاه. سنُحلل المزيد
+# من الأسباب المحتملة لهذه النتيجة المخيبة للآمال في نهاية هذا الدفتر.
 #
-# Periodic spline features
+# ميزات сплаين الدورية
 # ------------------------
 #
-# We can try an alternative encoding of the periodic time-related features
-# using spline transformations with a large enough number of splines, and as a
-# result a larger number of expanded features compared to the sine/cosine
-# transformation:
-from sklearn.preprocessing import SplineTransformer
+# يمكننا تجربة ترميز بديل لميزات الوقت الدورية ذات الصلة
+# باستخدام تحويلات сплаين مع عدد كبير بما يكفي من сплаين، ونتيجة
+# لذلك، عدد أكبر من الميزات الموسعة مقارنة بتحويل الجيب/جيب التمام:
 
 
 def periodic_spline_transformer(period, n_splines=None, degree=3):
     if n_splines is None:
         n_splines = period
-    n_knots = n_splines + 1  # periodic and include_bias is True
+    n_knots = n_splines + 1  # دوري و include_bias هو True
     return SplineTransformer(
         degree=degree,
         n_knots=n_knots,
@@ -439,8 +448,8 @@ def periodic_spline_transformer(period, n_splines=None, degree=3):
 
 # %%
 #
-# Again, let us visualize the effect of this feature expansion on some
-# synthetic hour data with a bit of extrapolation beyond hour=23:
+# مرة أخرى، دعونا نتصور تأثير توسيع الميزة هذا على بعض
+# بيانات الساعة التركيبية مع القليل من الاستقراء بعد الساعة = 23:
 hour_df = pd.DataFrame(
     np.linspace(0, 26, 1000).reshape(-1, 1),
     columns=["hour"],
@@ -450,26 +459,31 @@ splines_df = pd.DataFrame(
     splines,
     columns=[f"spline_{i}" for i in range(splines.shape[1])],
 )
-pd.concat([hour_df, splines_df], axis="columns").plot(x="hour", cmap=plt.cm.tab20b)
-_ = plt.title("Periodic spline-based encoding for the 'hour' feature")
+pd.concat([hour_df, splines_df], axis="columns").plot(
+    x="hour", cmap=plt.cm.tab20b)
+_ = plt.title("ترميز قائم على сплаين الدوري لميزة 'hour'")
 
 
 # %%
-# Thanks to the use of the `extrapolation="periodic"` parameter, we observe
-# that the feature encoding stays smooth when extrapolating beyond midnight.
+# بفضل استخدام معلمة `extrapolation="periodic"`، نلاحظ
+# أن ترميز الميزة يظل سلسًا عند الاستقراء إلى ما بعد منتصف الليل.
 #
-# We can now build a predictive pipeline using this alternative periodic
-# feature engineering strategy.
+# يمكننا الآن بناء خط أنابيب تنبؤي باستخدام استراتيجية هندسة
+# الميزات الدورية البديلة هذه.
 #
-# It is possible to use fewer splines than discrete levels for those ordinal
-# values. This makes spline-based encoding more efficient than one-hot encoding
-# while preserving most of the expressivity:
+# من الممكن استخدام عدد أقل من сплаين من المستويات المنفصلة لهذه القيم
+# الترتيبية. هذا يجعل الترميز القائم على сплаين أكثر كفاءة من الترميز
+# الأحادي الاتجاه مع الحفاظ على معظم التعبيرية:
+
 cyclic_spline_transformer = ColumnTransformer(
     transformers=[
         ("categorical", one_hot_encoder, categorical_columns),
-        ("cyclic_month", periodic_spline_transformer(12, n_splines=6), ["month"]),
-        ("cyclic_weekday", periodic_spline_transformer(7, n_splines=3), ["weekday"]),
-        ("cyclic_hour", periodic_spline_transformer(24, n_splines=12), ["hour"]),
+        ("cyclic_month", periodic_spline_transformer(
+            12, n_splines=6), ["month"]),
+        ("cyclic_weekday", periodic_spline_transformer(
+            7, n_splines=3), ["weekday"]),
+        ("cyclic_hour", periodic_spline_transformer(
+            24, n_splines=12), ["hour"]),
     ],
     remainder=MinMaxScaler(),
 )
@@ -479,20 +493,21 @@ cyclic_spline_linear_pipeline = make_pipeline(
 )
 evaluate(cyclic_spline_linear_pipeline, X, y, cv=ts_cv)
 
+
 # %%
-# Spline features make it possible for the linear model to successfully
-# leverage the periodic time-related features and reduce the error from ~14% to
-# ~10% of the maximum demand, which is similar to what we observed with the
-# one-hot encoded features.
+# تُمكِّن ميزات сплаين النموذج الخطي من الاستفادة
+# بنجاح من الميزات الدورية ذات الصلة بالوقت وتقليل الخطأ من ~ 14٪ إلى
+# ~ 10٪ من الحد الأقصى للطلب، وهو ما يُشبه ما لاحظناه مع
+# الميزات المُرمَّزة بشكل أحادي الاتجاه.
 #
-# Qualitative analysis of the impact of features on linear model predictions
+# التحليل النوعي لتأثير الميزات على تنبؤات النموذج الخطي
 # --------------------------------------------------------------------------
 #
-# Here, we want to visualize the impact of the feature engineering choices on
-# the time related shape of the predictions.
+# هنا، نريد تصور تأثير اختيارات هندسة الميزات على
+# الشكل المتعلق بالوقت للتنبؤات.
 #
-# To do so we consider an arbitrary time-based split to compare the predictions
-# on a range of held out data points.
+# للقيام بذلك، نعتبر تقسيمًا عشوائيًا قائمًا على الوقت لمقارنة التنبؤات
+# على مجموعة من نقاط البيانات المحتفظ بها.
 naive_linear_pipeline.fit(X.iloc[train_0], y.iloc[train_0])
 naive_linear_predictions = naive_linear_pipeline.predict(X.iloc[test_0])
 
@@ -500,73 +515,77 @@ one_hot_linear_pipeline.fit(X.iloc[train_0], y.iloc[train_0])
 one_hot_linear_predictions = one_hot_linear_pipeline.predict(X.iloc[test_0])
 
 cyclic_cossin_linear_pipeline.fit(X.iloc[train_0], y.iloc[train_0])
-cyclic_cossin_linear_predictions = cyclic_cossin_linear_pipeline.predict(X.iloc[test_0])
+cyclic_cossin_linear_predictions = cyclic_cossin_linear_pipeline.predict(
+    X.iloc[test_0])
 
 cyclic_spline_linear_pipeline.fit(X.iloc[train_0], y.iloc[train_0])
-cyclic_spline_linear_predictions = cyclic_spline_linear_pipeline.predict(X.iloc[test_0])
+cyclic_spline_linear_predictions = cyclic_spline_linear_pipeline.predict(
+    X.iloc[test_0])
 
 # %%
-# We visualize those predictions by zooming on the last 96 hours (4 days) of
-# the test set to get some qualitative insights:
+# نقوم بتصور هذه التنبؤات عن طريق التكبير على آخر 96 ساعة (4 أيام) من
+# مجموعة الاختبار للحصول على بعض الأفكار النوعية:
 last_hours = slice(-96, None)
 fig, ax = plt.subplots(figsize=(12, 4))
-fig.suptitle("Predictions by linear models")
+fig.suptitle("التنبؤات بواسطة النماذج الخطية")
 ax.plot(
     y.iloc[test_0].values[last_hours],
     "x-",
     alpha=0.2,
-    label="Actual demand",
+    label="الطلب الفعلي",
     color="black",
 )
-ax.plot(naive_linear_predictions[last_hours], "x-", label="Ordinal time features")
+ax.plot(naive_linear_predictions[last_hours],
+        "x-", label="ميزات الوقت الترتيبي")
 ax.plot(
     cyclic_cossin_linear_predictions[last_hours],
     "x-",
-    label="Trigonometric time features",
+    label="ميزات الوقت المثلثية",
 )
 ax.plot(
     cyclic_spline_linear_predictions[last_hours],
     "x-",
-    label="Spline-based time features",
+    label="ميزات الوقت القائمة على сплаين",
 )
 ax.plot(
     one_hot_linear_predictions[last_hours],
     "x-",
-    label="One-hot time features",
+    label="ميزات الوقت أحادية الاتجاه",
 )
 _ = ax.legend()
 
-# %%
-# We can draw the following conclusions from the above plot:
-#
-# - The **raw ordinal time-related features** are problematic because they do
-#   not capture the natural periodicity: we observe a big jump in the
-#   predictions at the end of each day when the hour features goes from 23 back
-#   to 0. We can expect similar artifacts at the end of each week or each year.
-#
-# - As expected, the **trigonometric features** (sine and cosine) do not have
-#   these discontinuities at midnight, but the linear regression model fails to
-#   leverage those features to properly model intra-day variations.
-#   Using trigonometric features for higher harmonics or additional
-#   trigonometric features for the natural period with different phases could
-#   potentially fix this problem.
-#
-# - the **periodic spline-based features** fix those two problems at once: they
-#   give more expressivity to the linear model by making it possible to focus
-#   on specific hours thanks to the use of 12 splines. Furthermore the
-#   `extrapolation="periodic"` option enforces a smooth representation between
-#   `hour=23` and `hour=0`.
-#
-# - The **one-hot encoded features** behave similarly to the periodic
-#   spline-based features but are more spiky: for instance they can better
-#   model the morning peak during the week days since this peak lasts shorter
-#   than an hour. However, we will see in the following that what can be an
-#   advantage for linear models is not necessarily one for more expressive
-#   models.
 
 # %%
-# We can also compare the number of features extracted by each feature
-# engineering pipeline:
+# يمكننا استخلاص الاستنتاجات التالية من الرسم البياني أعلاه:
+#
+# - **ميزات الوقت الترتيبية الأولية** مشكلة لأنها لا تلتقط
+#   الدورية الطبيعية: نلاحظ قفزة كبيرة في
+#   التنبؤات في نهاية كل يوم عندما تنتقل ميزات الساعة من 23 إلى
+#   0. يمكننا توقع قطع أثرية مماثلة في نهاية كل أسبوع أو كل عام.
+#
+# - كما هو متوقع، **الميزات المثلثية** (الجيب وجيب التمام) ليس لديها
+#   هذه الانقطاعات في منتصف الليل، لكن نموذج الانحدار الخطي يفشل في
+#   الاستفادة من هذه الميزات لنمذجة التغيرات داخل اليوم بشكل صحيح.
+#   يمكن أن يؤدي استخدام الميزات المثلثية للتوافقيات الأعلى أو الميزات
+#   المثلثية الإضافية للفترة الطبيعية ذات المراحل المختلفة إلى
+#   إصلاح هذه المشكلة.
+#
+# - تُصلح **الميزات الدورية القائمة على сплаين** هاتين المشكلتين في وقت واحد: فهي
+#   تمنح النموذج الخطي مزيدًا من التعبيرية من خلال تمكينه من التركيز
+#   على ساعات محددة بفضل استخدام 12 сплаين. علاوة على ذلك،
+#   يفرض خيار `extrapolation="periodic"` تمثيلًا سلسًا بين
+#   `hour=23` و `hour=0`.
+#
+# - تتصرف **الميزات المُرمَّزة بشكل أحادي الاتجاه** بشكل مشابه للميزات الدورية
+#   القائمة على сплаين ولكنها أكثر حدة: على سبيل المثال، يمكنها
+#   نمذجة ذروة الصباح خلال أيام الأسبوع بشكل أفضل نظرًا لأن هذه الذروة تستمر أقل
+#   من ساعة. ومع ذلك، سنرى في ما يلي أن ما يمكن أن يكون
+#   ميزة للنماذج الخطية ليس بالضرورة للنماذج الأكثر تعبيرية.
+
+
+# %%
+# يمكننا أيضًا مقارنة عدد الميزات التي استخرجها كل خط أنابيب لهندسة
+# الميزات:
 naive_linear_pipeline[:-1].transform(X).shape
 
 # %%
@@ -575,56 +594,60 @@ one_hot_linear_pipeline[:-1].transform(X).shape
 # %%
 cyclic_cossin_linear_pipeline[:-1].transform(X).shape
 
+
 # %%
 cyclic_spline_linear_pipeline[:-1].transform(X).shape
 
-# %%
-# This confirms that the one-hot encoding and the spline encoding strategies
-# create a lot more features for the time representation than the alternatives,
-# which in turn gives the downstream linear model more flexibility (degrees of
-# freedom) to avoid underfitting.
-#
-# Finally, we observe that none of the linear models can approximate the true
-# bike rentals demand, especially for the peaks that can be very sharp at rush
-# hours during the working days but much flatter during the week-ends: the most
-# accurate linear models based on splines or one-hot encoding tend to forecast
-# peaks of commuting-related bike rentals even on the week-ends and
-# under-estimate the commuting-related events during the working days.
-#
-# These systematic prediction errors reveal a form of under-fitting and can be
-# explained by the lack of interactions terms between features, e.g.
-# "workingday" and features derived from "hours". This issue will be addressed
-# in the following section.
 
 # %%
-# Modeling pairwise interactions with splines and polynomial features
+# يؤكد هذا أن استراتيجيات الترميز الأحادي الاتجاه والترميز القائم على сплаين
+# تُنشئ ميزات أكثر بكثير لتمثيل الوقت من البدائل،
+# مما يمنح بدوره النموذج الخطي في المراحل النهائية مزيدًا من المرونة (درجات
+# الحرية) لتجنب نقص الملاءمة.
+#
+# أخيرًا، نلاحظ أنه لا يمكن لأي من النماذج الخطية تقريب الطلب الحقيقي
+# على تأجير الدراجات، خاصة بالنسبة للقمم التي يمكن أن تكون حادة جدًا في ساعات
+# الذروة خلال أيام العمل ولكنها أكثر تسطحًا خلال عطلات نهاية الأسبوع: أكثر
+# النماذج الخطية دقة بناءً على сплаين أو الترميز الأحادي الاتجاه تميل إلى التنبؤ
+# بقمم تأجير الدراجات المتعلقة بالتنقل حتى في عطلات نهاية الأسبوع و
+# التقليل من تقدير الأحداث المتعلقة بالتنقل خلال أيام العمل.
+#
+# تكشف أخطاء التنبؤ المنهجية هذه عن شكل من أشكال نقص الملاءمة ويمكن
+# تفسيرها من خلال عدم وجود مصطلحات تفاعل بين الميزات، على سبيل المثال
+# "workingday" والميزات المشتقة من "hours". سيتم معالجة هذه المشكلة
+# في القسم التالي.
+
+
+# %%
+# نمذجة التفاعلات الزوجية مع ميزات сплаين ومتعددة الحدود
 # -------------------------------------------------------------------
 #
-# Linear models do not automatically capture interaction effects between input
-# features. It does not help that some features are marginally non-linear as is
-# the case with features constructed by `SplineTransformer` (or one-hot
-# encoding or binning).
+# لا تلتقط النماذج الخطية تلقائيًا تأثيرات التفاعل بين ميزات
+# الإدخال. لا يساعد ذلك في أن بعض الميزات غير خطية بشكل هامشي كما هو
+# الحال مع الميزات التي تم إنشاؤها بواسطة `SplineTransformer` (أو الترميز
+# الأحادي الاتجاه أو التصنيف).
 #
-# However, it is possible to use the `PolynomialFeatures` class on coarse
-# grained spline encoded hours to model the "workingday"/"hours" interaction
-# explicitly without introducing too many new variables:
-from sklearn.pipeline import FeatureUnion
-from sklearn.preprocessing import PolynomialFeatures
+# ومع ذلك، من الممكن استخدام فئة `PolynomialFeatures` على ساعات مُرمَّزة
+# بـ сплаين خشنة الحبيبات لنمذجة تفاعل "workingday"/"hours"
+# صراحةً بدون إدخال عدد كبير جدًا من المتغيرات الجديدة:
 
 hour_workday_interaction = make_pipeline(
     ColumnTransformer(
         [
-            ("cyclic_hour", periodic_spline_transformer(24, n_splines=8), ["hour"]),
-            ("workingday", FunctionTransformer(lambda x: x == "True"), ["workingday"]),
+            ("cyclic_hour", periodic_spline_transformer(
+                24, n_splines=8), ["hour"]),
+            ("workingday", FunctionTransformer(
+                lambda x: x == "True"), ["workingday"]),
         ]
     ),
     PolynomialFeatures(degree=2, interaction_only=True, include_bias=False),
 )
 
+
 # %%
-# Those features are then combined with the ones already computed in the
-# previous spline-base pipeline. We can observe a nice performance improvement
-# by modeling this pairwise interaction explicitly:
+# ثم يتم دمج هذه الميزات مع تلك المحسوبة بالفعل في
+# خط أنابيب сплаين السابق. يمكننا ملاحظة تحسن كبير في الأداء
+# عن طريق نمذجة هذا التفاعل الزوجي صراحةً:
 
 cyclic_spline_interactions_pipeline = make_pipeline(
     FeatureUnion(
@@ -638,23 +661,22 @@ cyclic_spline_interactions_pipeline = make_pipeline(
 evaluate(cyclic_spline_interactions_pipeline, X, y, cv=ts_cv)
 
 # %%
-# Modeling non-linear feature interactions with kernels
+# نمذجة تفاعلات الميزات غير الخطية باستخدام النوى
 # -----------------------------------------------------
 #
-# The previous analysis highlighted the need to model the interactions between
-# `"workingday"` and `"hours"`. Another example of a such a non-linear
-# interaction that we would like to model could be the impact of the rain that
-# might not be the same during the working days and the week-ends and holidays
-# for instance.
+# سلَّط التحليل السابق الضوء على الحاجة إلى نمذجة التفاعلات بين
+# `"workingday"` و `"hours"`. مثال آخر على مثل هذا التفاعل غير الخطي
+# الذي نود نمذجته هو تأثير المطر
+# الذي قد لا يكون هو نفسه خلال أيام العمل وعطلات نهاية الأسبوع والأعياد
+# على سبيل المثال.
 #
-# To model all such interactions, we could either use a polynomial expansion on
-# all marginal features at once, after their spline-based expansion. However,
-# this would create a quadratic number of features which can cause overfitting
-# and computational tractability issues.
+# لنمذجة كل هذه التفاعلات، يمكننا إما استخدام توسيع متعدد الحدود على
+# جميع الميزات الهامشية مرة واحدة، بعد توسيعها القائم على сплаين. ومع ذلك،
+# سيُنشئ هذا عددًا تربيعيًا من الميزات التي يمكن أن تُسبب مشكلات في التكيف الزائد
+# وقابلية التتبع الحسابي.
 #
-# Alternatively, we can use the Nyström method to compute an approximate
-# polynomial kernel expansion. Let us try the latter:
-from sklearn.kernel_approximation import Nystroem
+# بدلاً من ذلك، يمكننا استخدام طريقة Nyström لحساب توسيع نواة
+# متعدد الحدود تقريبي. دعونا نجرب هذا الأخير:
 
 cyclic_spline_poly_pipeline = make_pipeline(
     cyclic_spline_transformer,
@@ -663,18 +685,19 @@ cyclic_spline_poly_pipeline = make_pipeline(
 )
 evaluate(cyclic_spline_poly_pipeline, X, y, cv=ts_cv)
 
+
 # %%
 #
-# We observe that this model can almost rival the performance of the gradient
-# boosted trees with an average error around 5% of the maximum demand.
+# نلاحظ أن هذا النموذج يمكن أن ينافس تقريبًا أداء أشجار التعزيز
+# المتدرج بمتوسط ​​خطأ حوالي 5٪ من الحد الأقصى للطلب.
 #
-# Note that while the final step of this pipeline is a linear regression model,
-# the intermediate steps such as the spline feature extraction and the Nyström
-# kernel approximation are highly non-linear. As a result the compound pipeline
-# is much more expressive than a simple linear regression model with raw features.
+# لاحظ أنه على الرغم من أن الخطوة الأخيرة من خط الأنابيب هذا هي نموذج انحدار
+# خطي، فإن الخطوات الوسيطة مثل استخراج ميزة сплаين وتقريب
+# نواة Nyström غير خطية للغاية. نتيجة لذلك، يكون خط الأنابيب المركب
+# أكثر تعبيرية من نموذج الانحدار الخطي البسيط ذي الميزات الأولية.
 #
-# For the sake of completeness, we also evaluate the combination of one-hot
-# encoding and kernel approximation:
+# من أجل الاكتمال، نقوم أيضًا بتقييم مزيج من الترميز الأحادي
+# الاتجاه وتقريب النواة:
 
 one_hot_poly_pipeline = make_pipeline(
     ColumnTransformer(
@@ -691,146 +714,7 @@ evaluate(one_hot_poly_pipeline, X, y, cv=ts_cv)
 
 
 # %%
-# While one-hot encoded features were competitive with spline-based features
-# when using linear models, this is no longer the case when using a low-rank
-# approximation of a non-linear kernel: this can be explained by the fact that
-# spline features are smoother and allow the kernel approximation to find a
-# more expressive decision function.
-#
-# Let us now have a qualitative look at the predictions of the kernel models
-# and of the gradient boosted trees that should be able to better model
-# non-linear interactions between features:
-gbrt.fit(X.iloc[train_0], y.iloc[train_0])
-gbrt_predictions = gbrt.predict(X.iloc[test_0])
-
-one_hot_poly_pipeline.fit(X.iloc[train_0], y.iloc[train_0])
-one_hot_poly_predictions = one_hot_poly_pipeline.predict(X.iloc[test_0])
-
-cyclic_spline_poly_pipeline.fit(X.iloc[train_0], y.iloc[train_0])
-cyclic_spline_poly_predictions = cyclic_spline_poly_pipeline.predict(X.iloc[test_0])
-
-# %%
-# Again we zoom on the last 4 days of the test set:
-
-last_hours = slice(-96, None)
-fig, ax = plt.subplots(figsize=(12, 4))
-fig.suptitle("Predictions by non-linear regression models")
-ax.plot(
-    y.iloc[test_0].values[last_hours],
-    "x-",
-    alpha=0.2,
-    label="Actual demand",
-    color="black",
-)
-ax.plot(
-    gbrt_predictions[last_hours],
-    "x-",
-    label="Gradient Boosted Trees",
-)
-ax.plot(
-    one_hot_poly_predictions[last_hours],
-    "x-",
-    label="One-hot + polynomial kernel",
-)
-ax.plot(
-    cyclic_spline_poly_predictions[last_hours],
-    "x-",
-    label="Splines + polynomial kernel",
-)
-_ = ax.legend()
-
-
-# %%
-# First, note that trees can naturally model non-linear feature interactions
-# since, by default, decision trees are allowed to grow beyond a depth of 2
-# levels.
-#
-# Here, we can observe that the combinations of spline features and non-linear
-# kernels works quite well and can almost rival the accuracy of the gradient
-# boosting regression trees.
-#
-# On the contrary, one-hot encoded time features do not perform that well with
-# the low rank kernel model. In particular, they significantly over-estimate
-# the low demand hours more than the competing models.
-#
-# We also observe that none of the models can successfully predict some of the
-# peak rentals at the rush hours during the working days. It is possible that
-# access to additional features would be required to further improve the
-# accuracy of the predictions. For instance, it could be useful to have access
-# to the geographical repartition of the fleet at any point in time or the
-# fraction of bikes that are immobilized because they need servicing.
-#
-# Let us finally get a more quantitative look at the prediction errors of those
-# three models using the true vs predicted demand scatter plots:
-from sklearn.metrics import PredictionErrorDisplay
-
-fig, axes = plt.subplots(nrows=2, ncols=3, figsize=(13, 7), sharex=True, sharey="row")
-fig.suptitle("Non-linear regression models", y=1.0)
-predictions = [
-    one_hot_poly_predictions,
-    cyclic_spline_poly_predictions,
-    gbrt_predictions,
-]
-labels = [
-    "One hot +\npolynomial kernel",
-    "Splines +\npolynomial kernel",
-    "Gradient Boosted\nTrees",
-]
-plot_kinds = ["actual_vs_predicted", "residual_vs_predicted"]
-for axis_idx, kind in enumerate(plot_kinds):
-    for ax, pred, label in zip(axes[axis_idx], predictions, labels):
-        disp = PredictionErrorDisplay.from_predictions(
-            y_true=y.iloc[test_0],
-            y_pred=pred,
-            kind=kind,
-            scatter_kwargs={"alpha": 0.3},
-            ax=ax,
-        )
-        ax.set_xticks(np.linspace(0, 1, num=5))
-        if axis_idx == 0:
-            ax.set_yticks(np.linspace(0, 1, num=5))
-            ax.legend(
-                ["Best model", label],
-                loc="upper center",
-                bbox_to_anchor=(0.5, 1.3),
-                ncol=2,
-            )
-        ax.set_aspect("equal", adjustable="box")
-plt.show()
-# %%
-# This visualization confirms the conclusions we draw on the previous plot.
-#
-# All models under-estimate the high demand events (working day rush hours),
-# but gradient boosting a bit less so. The low demand events are well predicted
-# on average by gradient boosting while the one-hot polynomial regression
-# pipeline seems to systematically over-estimate demand in that regime. Overall
-# the predictions of the gradient boosted trees are closer to the diagonal than
-# for the kernel models.
-#
-# Concluding remarks
-# ------------------
-#
-# We note that we could have obtained slightly better results for kernel models
-# by using more components (higher rank kernel approximation) at the cost of
-# longer fit and prediction durations. For large values of `n_components`, the
-# performance of the one-hot encoded features would even match the spline
-# features.
-#
-# The `Nystroem` + `RidgeCV` regressor could also have been replaced by
-# :class:`~sklearn.neural_network.MLPRegressor` with one or two hidden layers
-# and we would have obtained quite similar results.
-#
-# The dataset we used in this case study is sampled on a hourly basis. However
-# cyclic spline-based features could model time-within-day or time-within-week
-# very efficiently with finer-grained time resolutions (for instance with
-# measurements taken every minute instead of every hours) without introducing
-# more features. One-hot encoding time representations would not offer this
-# flexibility.
-#
-# Finally, in this notebook we used `RidgeCV` because it is very efficient from
-# a computational point of view. However, it models the target variable as a
-# Gaussian random variable with constant variance. For positive regression
-# problems, it is likely that using a Poisson or Gamma distribution would make
-# more sense. This could be achieved by using
-# `GridSearchCV(TweedieRegressor(power=2), param_grid({"alpha": alphas}))`
-# instead of `RidgeCV`.
+# بينما كانت الميزات المُرمَّزة بشكل أحادي الاتجاه تنافسية مع الميزات القائمة
+# على сплаين عند استخدام نماذج خطية، لم يعد هذا هو الحال عند استخدام تقريب
+# منخفض الرتبة لنواة غير خطية: يمكن تفسير ذلك من خلال حقيقة أن
+# ميزات сплаين أكثر سلاسة وتسمح لتقريب النواة بالعثور على
