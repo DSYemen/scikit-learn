@@ -1,6 +1,7 @@
 .. _developing_estimator_examples:
 
-Developing Estimators
+تطوير المقدرين
 ---------------------
+Developing Estimators
 
-Examples concerning the development of Custom Estimator.
+أمثلة تتعلق بتطوير مُقدَر مخصص.

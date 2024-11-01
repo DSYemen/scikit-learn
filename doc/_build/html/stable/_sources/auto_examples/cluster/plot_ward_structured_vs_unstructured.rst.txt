@@ -19,36 +19,38 @@
 
 
 ===========================================================
-Hierarchical clustering: structured vs unstructured ward
+العنقدة الهرمية: العنقدة المنظمة وغير المنظمة
 ===========================================================
 
-Example builds a swiss roll dataset and runs
-hierarchical clustering on their position.
+مثال يبني مجموعة بيانات Swiss Roll ويقوم بتشغيل
+العنقدة الهرمية على موقعها.
 
-For more information, see :ref:`hierarchical_clustering`.
+لمزيد من المعلومات، راجع :ref:`hierarchical_clustering`.
 
-In a first step, the hierarchical clustering is performed without connectivity
-constraints on the structure and is solely based on distance, whereas in
-a second step the clustering is restricted to the k-Nearest Neighbors
-graph: it's a hierarchical clustering with structure prior.
+في الخطوة الأولى، يتم تنفيذ العنقدة الهرمية بدون قيود الاتصال
+على البنية وتستند فقط على المسافة، في حين أن في
+الخطوة الثانية، يتم تقييد العنقدة إلى رسم k-Nearest Neighbors
+البياني: إنها عنقدة هرمية ذات بنية مسبقة.
 
-Some of the clusters learned without connectivity constraints do not
-respect the structure of the swiss roll and extend across different folds of
-the manifolds. On the opposite, when opposing connectivity constraints,
-the clusters form a nice parcellation of the swiss roll.
+بعض المجموعات التي تم تعلمها بدون قيود الاتصال لا
+تحترم بنية Swiss Roll وتمتد عبر طيات مختلفة من
+الدوال. على العكس، عند معارضة قيود الاتصال،
+تشكل المجموعات تقسيمًا جيدًا لسويس رول.
 
-.. GENERATED FROM PYTHON SOURCE LINES 22-33
+.. GENERATED FROM PYTHON SOURCE LINES 21-34
 
 .. code-block:: Python
 
+    # المؤلفون: مطوري scikit-learn
+    # معرف الترخيص: BSD-3-Clause
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
-
+    from sklearn.neighbors import kneighbors_graph
+    import matplotlib.pyplot as plt
+    from sklearn.cluster import AgglomerativeClustering
     import time as time
 
-    # The following import is required
-    # for 3D projection to work with matplotlib < 3.2
+    # الاستيراد التالي مطلوب
+    # لعمل الإسقاط ثلاثي الأبعاد مع matplotlib < 3.2
     import mpl_toolkits.mplot3d  # noqa: F401
     import numpy as np
 
@@ -59,14 +61,14 @@ the clusters form a nice parcellation of the swiss roll.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 34-38
+.. GENERATED FROM PYTHON SOURCE LINES 35-39
 
-Generate data
+توليد البيانات
 -------------
 
-We start by generating the Swiss Roll dataset.
+نبدأ بتوليد مجموعة بيانات Swiss Roll.
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-46
+.. GENERATED FROM PYTHON SOURCE LINES 39-47
 
 .. code-block:: Python
 
@@ -85,20 +87,19 @@ We start by generating the Swiss Roll dataset.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 47-52
+.. GENERATED FROM PYTHON SOURCE LINES 48-53
 
-Compute clustering
+حساب العنقدة
 ------------------
 
-We perform AgglomerativeClustering which comes under Hierarchical Clustering
-without any connectivity constraints.
+نحن نؤدي AgglomerativeClustering الذي يأتي تحت العنقدة الهرمية
+بدون أي قيود اتصال.
 
-.. GENERATED FROM PYTHON SOURCE LINES 52-63
+.. GENERATED FROM PYTHON SOURCE LINES 53-63
 
 .. code-block:: Python
 
 
-    from sklearn.cluster import AgglomerativeClustering
 
     print("Compute unstructured hierarchical clustering...")
     st = time.time()
@@ -125,16 +126,15 @@ without any connectivity constraints.
 
 .. GENERATED FROM PYTHON SOURCE LINES 64-67
 
-Plot result
+رسم النتيجة
 -----------
-Plotting the unstructured hierarchical clusters.
+رسم العنقدة الهرمية غير المنظمة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 67-84
+.. GENERATED FROM PYTHON SOURCE LINES 67-83
 
 .. code-block:: Python
 
 
-    import matplotlib.pyplot as plt
 
     fig1 = plt.figure()
     ax1 = fig1.add_subplot(111, projection="3d", elev=7, azim=-80)
@@ -148,13 +148,13 @@ Plotting the unstructured hierarchical clusters.
             s=20,
             edgecolor="k",
         )
-    _ = fig1.suptitle(f"Without connectivity constraints (time {elapsed_time:.2f}s)")
+    _ = fig1.suptitle(f"بدون قيود الاتصال (الوقت {elapsed_time:.2f}s)")
 
 
 
 
 .. image-sg:: /auto_examples/cluster/images/sphx_glr_plot_ward_structured_vs_unstructured_001.png
-   :alt: Without connectivity constraints (time 0.03s)
+   :alt: بدون قيود الاتصال (الوقت 0.03s)
    :srcset: /auto_examples/cluster/images/sphx_glr_plot_ward_structured_vs_unstructured_001.png
    :class: sphx-glr-single-img
 
@@ -162,17 +162,16 @@ Plotting the unstructured hierarchical clusters.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 85-87
+.. GENERATED FROM PYTHON SOURCE LINES 84-86
 
-We are defining k-Nearest Neighbors with 10 neighbors
+نحن نحدد k-Nearest Neighbors مع 10 جيران
 -----------------------------------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 87-92
+.. GENERATED FROM PYTHON SOURCE LINES 86-91
 
 .. code-block:: Python
 
 
-    from sklearn.neighbors import kneighbors_graph
 
     connectivity = kneighbors_graph(X, n_neighbors=10, include_self=False)
 
@@ -183,14 +182,15 @@ We are defining k-Nearest Neighbors with 10 neighbors
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 93-97
 
-Compute clustering
+.. GENERATED FROM PYTHON SOURCE LINES 92-96
+
+حساب العنقدة
 ------------------
 
-We perform AgglomerativeClustering again with connectivity constraints.
+نحن نؤدي AgglomerativeClustering مرة أخرى مع قيود الاتصال.
 
-.. GENERATED FROM PYTHON SOURCE LINES 97-108
+.. GENERATED FROM PYTHON SOURCE LINES 96-106
 
 .. code-block:: Python
 
@@ -208,26 +208,25 @@ We perform AgglomerativeClustering again with connectivity constraints.
 
 
 
-
 .. rst-class:: sphx-glr-script-out
 
  .. code-block:: none
 
     Compute structured hierarchical clustering...
-    Elapsed time: 0.07s
+    Elapsed time: 0.08s
     Number of points: 1500
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 109-113
+.. GENERATED FROM PYTHON SOURCE LINES 107-111
 
-Plot result
+رسم النتيجة
 -----------
 
-Plotting the structured hierarchical clusters.
+رسم العنقدة الهرمية المنظمة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 113-129
+.. GENERATED FROM PYTHON SOURCE LINES 111-127
 
 .. code-block:: Python
 
@@ -251,7 +250,7 @@ Plotting the structured hierarchical clusters.
 
 
 .. image-sg:: /auto_examples/cluster/images/sphx_glr_plot_ward_structured_vs_unstructured_002.png
-   :alt: With connectivity constraints (time 0.07s)
+   :alt: With connectivity constraints (time 0.08s)
    :srcset: /auto_examples/cluster/images/sphx_glr_plot_ward_structured_vs_unstructured_002.png
    :class: sphx-glr-single-img
 
@@ -262,7 +261,7 @@ Plotting the structured hierarchical clusters.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.411 seconds)
+   **Total running time of the script:** (0 minutes 0.400 seconds)
 
 
 .. _sphx_glr_download_auto_examples_cluster_plot_ward_structured_vs_unstructured.py:

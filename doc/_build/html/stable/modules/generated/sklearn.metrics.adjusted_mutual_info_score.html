@@ -11,10 +11,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/modules/generated/sklearn.metrics.adjusted_mutual_info_score.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="Gallery examples: A demo of K-Means clustering on the handwritten digits data Adjustment for chance in clustering performance evaluation Demo of DBSCAN clustering algorithm Demo of affinity propaga..." />
-<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_kmeans_digits_thumb.png" />
+<meta property="og:description" content="Gallery examples: تعديل الفرصة في تقييم أداء التجميع" />
+<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_adjusted_for_chance_measures_thumb.png" />
 <meta property="og:image:alt" content="" />
-<meta name="description" content="Gallery examples: A demo of K-Means clustering on the handwritten digits data Adjustment for chance in clustering performance evaluation Demo of DBSCAN clustering algorithm Demo of affinity propaga..." />
+<meta name="description" content="Gallery examples: تعديل الفرصة في تقييم أداء التجميع" />
 
     <title>adjusted_mutual_info_score &#8212; scikit-learn 1.6.dev0 documentation</title>
   
@@ -1305,7 +1305,7 @@
 <h1>adjusted_mutual_info_score<a class="headerlink" href="#adjusted-mutual-info-score" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="sklearn.metrics.adjusted_mutual_info_score">
-<span class="sig-prename descclassname"><span class="pre">sklearn.metrics.</span></span><span class="sig-name descname"><span class="pre">adjusted_mutual_info_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels_pred</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'arithmetic'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/001706117/sklearn/metrics/cluster/_supervised.py#L926"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.metrics.adjusted_mutual_info_score" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">sklearn.metrics.</span></span><span class="sig-name descname"><span class="pre">adjusted_mutual_info_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels_pred</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'arithmetic'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/2a8d36cec9/sklearn/metrics/cluster/_supervised.py#L926"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.metrics.adjusted_mutual_info_score" title="Link to this definition">#</a></dt>
 <dd><p>Adjusted Mutual Information between two clusterings.</p>
 <p>Adjusted Mutual Information (AMI) is an adjustment of the Mutual
 Information (MI) score to account for chance. It accounts for the fact that
@@ -1400,18 +1400,9 @@ the assignment is totally in-complete, hence the AMI is null:</p>
 
 <section id="gallery-examples">
 <h2>Gallery examples<a class="headerlink" href="#gallery-examples" title="Link to this heading">#</a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="In this example we compare the various initialization strategies for K-means in terms of runtime and quality of the results."><img alt="" src="../../_images/sphx_glr_plot_kmeans_digits_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/cluster/plot_kmeans_digits.html#sphx-glr-auto-examples-cluster-plot-kmeans-digits-py"><span class="std std-ref">A demo of K-Means clustering on the handwritten digits data</span></a></p>
-  <div class="sphx-glr-thumbnail-title">A demo of K-Means clustering on the handwritten digits data</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="- a first experiment with fixed &quot;ground truth labels&quot; (and therefore fixed   number of classes) and randomly &quot;predicted labels&quot;; - a second experiment with varying &quot;ground truth labels&quot;, randomly &quot;predicted   labels&quot;. The &quot;predicted labels&quot; have the same number of classes and clusters   as the &quot;ground truth labels&quot;."><img alt="" src="../../_images/sphx_glr_plot_adjusted_for_chance_measures_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/cluster/plot_adjusted_for_chance_measures.html#sphx-glr-auto-examples-cluster-plot-adjusted-for-chance-measures-py"><span class="std std-ref">Adjustment for chance in clustering performance evaluation</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Adjustment for chance in clustering performance evaluation</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="DBSCAN (Density-Based Spatial Clustering of Applications with Noise) finds core samples in regions of high density and expands clusters from them. This algorithm is good for data which contains clusters of similar density."><img alt="" src="../../_images/sphx_glr_plot_dbscan_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/cluster/plot_dbscan.html#sphx-glr-auto-examples-cluster-plot-dbscan-py"><span class="std std-ref">Demo of DBSCAN clustering algorithm</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Demo of DBSCAN clustering algorithm</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Reference: Brendan J. Frey and Delbert Dueck, &quot;Clustering by Passing Messages Between Data Points&quot;, Science Feb. 2007"><img alt="" src="../../_images/sphx_glr_plot_affinity_propagation_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/cluster/plot_affinity_propagation.html#sphx-glr-auto-examples-cluster-plot-affinity-propagation-py"><span class="std std-ref">Demo of affinity propagation clustering algorithm</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Demo of affinity propagation clustering algorithm</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="- تجربة أولى مع &quot;علامات الحقيقة الأرضية&quot; الثابتة (وبالتالي عدد ثابت من الفئات) و&quot;علامات متوقعة&quot; عشوائية؛ - تجربة ثانية مع &quot;علامات الحقيقة الأرضية&quot; المتغيرة، &quot;علامات متوقعة&quot; عشوائية. تحتوي &quot;العلامات المتوقعة&quot; على نفس عدد الفئات والتجمعات مثل &quot;علامات الحقيقة الأرضية&quot;."><img alt="" src="../../_images/sphx_glr_plot_adjusted_for_chance_measures_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/cluster/plot_adjusted_for_chance_measures.html#sphx-glr-auto-examples-cluster-plot-adjusted-for-chance-measures-py"><span class="std std-ref">تعديل الفرصة في تقييم أداء التجميع</span></a></p>
+  <div class="sphx-glr-thumbnail-title">تعديل الفرصة في تقييم أداء التجميع</div>
 </div></div></section>
 </section>
 

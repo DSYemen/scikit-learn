@@ -18,39 +18,26 @@
 .. _sphx_glr_auto_examples_cluster_plot_segmentation_toy.py:
 
 
-===========================================
-Spectral clustering for image segmentation
-===========================================
+# ===========================================
+# التجميع الطيفي لتجزئة الصور
+# ===========================================
 
-In this example, an image with connected circles is generated and
-spectral clustering is used to separate the circles.
+في هذا المثال، يتم توليد صورة بدوائر متصلة ويتم استخدام التجميع الطيفي لفصل الدوائر.
 
-In these settings, the :ref:`spectral_clustering` approach solves the problem
-know as 'normalized graph cuts': the image is seen as a graph of
-connected voxels, and the spectral clustering algorithm amounts to
-choosing graph cuts defining regions while minimizing the ratio of the
-gradient along the cut, and the volume of the region.
+في هذه الإعدادات، يحل نهج :ref:`spectral_clustering` المشكلة المعروفة باسم "القطع الرسومية المعيارية": حيث يتم النظر إلى الصورة على أنها رسم بياني للبكسلات المتصلة، وتتمثل خوارزمية التجميع الطيفي في اختيار القطع الرسومية التي تحدد المناطق مع تقليل نسبة التدرج على طول القطع وحجم المنطقة.
 
-As the algorithm tries to balance the volume (ie balance the region
-sizes), if we take circles with different sizes, the segmentation fails.
+وبما أن الخوارزمية تحاول موازنة الحجم (أي موازنة أحجام المناطق)، إذا أخذنا دوائر بأحجام مختلفة، فإن التجزئة تفشل.
 
-In addition, as there is no useful information in the intensity of the image,
-or its gradient, we choose to perform the spectral clustering on a graph
-that is only weakly informed by the gradient. This is close to performing
-a Voronoi partition of the graph.
+بالإضافة إلى ذلك، نظرًا لعدم وجود معلومات مفيدة في شدة الصورة أو تدرجها، فإننا نختار إجراء التجميع الطيفي على رسم بياني يتم إعلامه بشكل ضعيف فقط بالتدرج. وهذا قريب من إجراء تقسيم فورونوي للرسم البياني.
 
-In addition, we use the mask of the objects to restrict the graph to the
-outline of the objects. In this example, we are interested in
-separating the objects one from the other, and not from the background.
+بالإضافة إلى ذلك، نستخدم قناع الأجسام لتقييد الرسم البياني إلى مخطط الأجسام. في هذا المثال، نحن مهتمون بفصل الأجسام عن بعضها البعض، وليس عن الخلفية.
 
-.. GENERATED FROM PYTHON SOURCE LINES 28-32
+.. GENERATED FROM PYTHON SOURCE LINES 16-19
 
 .. code-block:: Python
 
-
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
-
+    # المؤلفون: مطوري سكايت-ليرن
+    # معرف رخصة SPDX: BSD-3-Clause
 
 
 
@@ -58,15 +45,19 @@ separating the objects one from the other, and not from the background.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 33-35
 
-Generate the data
+.. GENERATED FROM PYTHON SOURCE LINES 20-22
+
+توليد البيانات
 -----------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 35-52
+.. GENERATED FROM PYTHON SOURCE LINES 22-42
 
 .. code-block:: Python
 
+    from sklearn.cluster import spectral_clustering
+    import matplotlib.pyplot as plt
+    from sklearn.feature_extraction import image
     import numpy as np
 
     l = 100
@@ -91,20 +82,19 @@ Generate the data
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 53-55
+.. GENERATED FROM PYTHON SOURCE LINES 43-45
 
-Plotting four circles
+رسم أربعة دوائر
 ---------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 55-65
+.. GENERATED FROM PYTHON SOURCE LINES 45-54
 
 .. code-block:: Python
 
     img = circle1 + circle2 + circle3 + circle4
 
-    # We use a mask that limits to the foreground: the problem that we are
-    # interested in here is not separating the objects from the background,
-    # but separating them one from the other.
+    # نستخدم قناعًا يحد من المقدمة: المشكلة التي نهتم بها هنا ليست فصل الأجسام عن الخلفية،
+    # ولكن فصلها عن بعضها البعض.
     mask = img.astype(bool)
 
     img = img.astype(float)
@@ -117,16 +107,15 @@ Plotting four circles
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 66-68
+.. GENERATED FROM PYTHON SOURCE LINES 55-57
 
-Convert the image into a graph with the value of the gradient on the
-edges.
+تحويل الصورة إلى رسم بياني مع قيمة التدرج على
+الحواف.
 
-.. GENERATED FROM PYTHON SOURCE LINES 68-72
+.. GENERATED FROM PYTHON SOURCE LINES 57-60
 
 .. code-block:: Python
 
-    from sklearn.feature_extraction import image
 
     graph = image.img_to_graph(img, mask=mask)
 
@@ -137,12 +126,12 @@ edges.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 73-75
+.. GENERATED FROM PYTHON SOURCE LINES 61-63
 
-Take a decreasing function of the gradient resulting in a segmentation
-that is close to a Voronoi partition
+خذ دالة متناقصة من التدرج مما يؤدي إلى تجزئة
+قريبة من تقسيم فورونوي
 
-.. GENERATED FROM PYTHON SOURCE LINES 75-77
+.. GENERATED FROM PYTHON SOURCE LINES 63-65
 
 .. code-block:: Python
 
@@ -155,18 +144,16 @@ that is close to a Voronoi partition
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 78-80
+.. GENERATED FROM PYTHON SOURCE LINES 66-68
 
-Here we perform spectral clustering using the arpack solver since amg is
-numerically unstable on this example. We then plot the results.
+هنا نقوم بالتجميع الطيفي باستخدام محلح arpack لأن amg غير مستقر
+رقميا في هذا المثال. ثم نقوم برسم النتائج.
 
-.. GENERATED FROM PYTHON SOURCE LINES 80-94
+.. GENERATED FROM PYTHON SOURCE LINES 68-80
 
 .. code-block:: Python
 
-    import matplotlib.pyplot as plt
 
-    from sklearn.cluster import spectral_clustering
 
     labels = spectral_clustering(graph, n_clusters=4, eigen_solver="arpack")
     label_im = np.full(mask.shape, -1.0)
@@ -190,15 +177,15 @@ numerically unstable on this example. We then plot the results.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 95-100
+.. GENERATED FROM PYTHON SOURCE LINES 81-86
 
-Plotting two circles
+رسم دائرتين
 --------------------
-Here we repeat the above process but only consider the first two circles
-we generated. Note that this results in a cleaner separation between the
-circles as the region sizes are easier to balance in this case.
+هنا نكرر العملية أعلاه ولكن نأخذ في الاعتبار الدائرتين الأوليين فقط
+قمنا بتوليدهما. لاحظ أن هذا يؤدي إلى فصل أنظف بين
+الدوائر حيث يسهل موازنة أحجام المناطق في هذه الحالة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 100-119
+.. GENERATED FROM PYTHON SOURCE LINES 86-105
 
 .. code-block:: Python
 
@@ -236,7 +223,7 @@ circles as the region sizes are easier to balance in this case.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.676 seconds)
+   **Total running time of the script:** (0 minutes 0.803 seconds)
 
 
 .. _sphx_glr_download_auto_examples_cluster_plot_segmentation_toy.py:

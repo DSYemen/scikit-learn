@@ -19,47 +19,43 @@
 
 
 ==========================
-Model Complexity Influence
+تأثير تعقيد النموذج
 ==========================
 
-Demonstrate how model complexity influences both prediction accuracy and
-computational performance.
+توضيح كيف يؤثر تعقيد النموذج على كل من دقة التنبؤ والأداء الحسابي.
 
-We will be using two datasets:
-    - :ref:`diabetes_dataset` for regression.
-      This dataset consists of 10 measurements taken from diabetes patients.
-      The task is to predict disease progression;
-    - :ref:`20newsgroups_dataset` for classification. This dataset consists of
-      newsgroup posts. The task is to predict on which topic (out of 20 topics)
-      the post is written about.
+سنستخدم مجموعتين من البيانات:
+    - :ref:`diabetes_dataset` للانحدار.
+      تتكون هذه المجموعة من 10 قياسات مأخوذة من مرضى السكري.
+      المهمة هي التنبؤ بتقدم المرض؛
+    - :ref:`20newsgroups_dataset` للتصنيف. تتكون هذه المجموعة من
+      منشورات مجموعات الأخبار. المهمة هي التنبؤ بالموضوع (من بين 20 موضوعًا)
+      الذي كتب عنه المنشور.
 
-We will model the complexity influence on three different estimators:
-    - :class:`~sklearn.linear_model.SGDClassifier` (for classification data)
-      which implements stochastic gradient descent learning;
+سنقوم بمحاكاة تأثير التعقيد على ثلاثة مقدرات مختلفة:
+    - :class:`~sklearn.linear_model.SGDClassifier` (لبيانات التصنيف)
+      الذي ينفذ تعلم الانحدار التدريجي العشوائي؛
 
-    - :class:`~sklearn.svm.NuSVR` (for regression data) which implements
-      Nu support vector regression;
+    - :class:`~sklearn.svm.NuSVR` (لبيانات الانحدار) الذي ينفذ
+      الانحدار المتجه الداعم لـ Nu؛
 
-    - :class:`~sklearn.ensemble.GradientBoostingRegressor` builds an additive
-      model in a forward stage-wise fashion. Notice that
-      :class:`~sklearn.ensemble.HistGradientBoostingRegressor` is much faster
-      than :class:`~sklearn.ensemble.GradientBoostingRegressor` starting with
-      intermediate datasets (`n_samples >= 10_000`), which is not the case for
-      this example.
+    - :class:`~sklearn.ensemble.GradientBoostingRegressor` يبني نموذجًا تراكميًا
+      بطريقة تدريجية للأمام. لاحظ أن
+      :class:`~sklearn.ensemble.HistGradientBoostingRegressor` أسرع بكثير
+      من :class:`~sklearn.ensemble.GradientBoostingRegressor` بدءًا من
+      مجموعات البيانات المتوسطة (`n_samples >= 10_000`)، والتي لا تنطبق على
+      هذا المثال.
 
 
-We make the model complexity vary through the choice of relevant model
-parameters in each of our selected models. Next, we will measure the influence
-on both computational performance (latency) and predictive power (MSE or
+نجعل تعقيد النموذج يختلف من خلال اختيار المعلمات ذات الصلة في كل من النماذج التي اخترناها. بعد ذلك، سنقيس التأثير على كل من الأداء الحسابي (الاستجابة) والقوة التنبؤية (MSE أو
 Hamming Loss).
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-57
+.. GENERATED FROM PYTHON SOURCE LINES 35-53
 
 .. code-block:: Python
 
-
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري scikit-learn
+    # معرف الترخيص: BSD-3-Clause
 
     import time
 
@@ -73,7 +69,7 @@ Hamming Loss).
     from sklearn.model_selection import train_test_split
     from sklearn.svm import NuSVR
 
-    # Initialize random generator
+    # تهيئة المولد العشوائي
     np.random.seed(0)
 
 
@@ -83,41 +79,43 @@ Hamming Loss).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-70
+.. GENERATED FROM PYTHON SOURCE LINES 54-66
 
-Load the data
+تحميل البيانات
 -------------
 
-First we load both datasets.
+أولاً نقوم بتحميل كل من مجموعات البيانات.
 
-.. note:: We are using
-   :func:`~sklearn.datasets.fetch_20newsgroups_vectorized` to download 20
-   newsgroups dataset. It returns ready-to-use features.
+.. ملاحظة:: نحن نستخدم
+   :func:`~sklearn.datasets.fetch_20newsgroups_vectorized` لتحميل مجموعة بيانات 20
+   مجموعات الأخبار. يعيد ميزات جاهزة للاستخدام.
 
-.. note:: ``X`` of the 20 newsgroups dataset is a sparse matrix while ``X``
-   of diabetes dataset is a numpy array.
+.. ملاحظة:: "X" لمجموعة بيانات مجموعات الأخبار هي مصفوفة متفرقة بينما "X"
+   لمجموعة بيانات مرض السكري هي مصفوفة numpy.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 70-93
+.. GENERATED FROM PYTHON SOURCE LINES 66-91
 
 .. code-block:: Python
 
 
 
     def generate_data(case):
-        """Generate regression/classification data."""
+        """توليد بيانات الانحدار/التصنيف."""
         if case == "regression":
             X, y = datasets.load_diabetes(return_X_y=True)
             train_size = 0.8
         elif case == "classification":
-            X, y = datasets.fetch_20newsgroups_vectorized(subset="all", return_X_y=True)
-            train_size = 0.4  # to make the example run faster
+            X, y = datasets.fetch_20newsgroups_vectorized(
+                subset="all", return_X_y=True)
+            train_size = 0.4  # لتشغيل المثال بشكل أسرع
 
         X_train, X_test, y_train, y_test = train_test_split(
             X, y, train_size=train_size, random_state=0
         )
 
-        data = {"X_train": X_train, "X_test": X_test, "y_train": y_train, "y_test": y_test}
+        data = {"X_train": X_train, "X_test": X_test,
+                "y_train": y_train, "y_test": y_test}
         return data
 
 
@@ -132,22 +130,18 @@ First we load both datasets.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 94-103
+.. GENERATED FROM PYTHON SOURCE LINES 92-98
 
-Benchmark influence
+تأثير المعيار
 -------------------
-Next, we can calculate the influence of the parameters on the given
-estimator. In each round, we will set the estimator with the new value of
-``changing_param`` and we will be collecting the prediction times, prediction
-performance and complexities to see how those changes affect the estimator.
-We will calculate the complexity using ``complexity_computer`` passed as a
-parameter.
+بعد ذلك، يمكننا حساب تأثير المعلمات على المقدر المعطى. في كل جولة، سنقوم بضبط المقدر بالقيمة الجديدة
+``changing_param`` وسنقوم بجمع أوقات التنبؤ، وأداء التنبؤ، والتعقيدات لرؤية كيفية تأثير تلك التغييرات على المقدر.
+سنقوم بحساب التعقيد باستخدام ``complexity_computer`` الممر كمعلمة.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 103-142
+.. GENERATED FROM PYTHON SOURCE LINES 98-136
 
 .. code-block:: Python
-
 
 
     def benchmark_influence(conf):
@@ -194,22 +188,21 @@ parameter.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 143-155
+.. GENERATED FROM PYTHON SOURCE LINES 137-148
 
-Choose parameters
+اختيار المعلمات
 -----------------
 
-We choose the parameters for each of our estimators by making
-a dictionary with all the necessary values.
-``changing_param`` is the name of the parameter which will vary in each
-estimator.
-Complexity will be defined by the ``complexity_label`` and calculated using
+نختار المعلمات لكل من مقدراتنا من خلال إنشاء
+قاموس بجميع القيم الضرورية.
+``changing_param`` هو اسم المعلمة التي ستتغير في كل
+مقدر.
+سيتم تعريف التعقيد بواسطة ``complexity_label`` وحسابه باستخدام
 `complexity_computer`.
-Also note that depending on the estimator type we are passing
-different data.
+لاحظ أيضًا أننا نمرر بيانات مختلفة اعتمادًا على نوع المقدر.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 155-216
+.. GENERATED FROM PYTHON SOURCE LINES 148-207
 
 .. code-block:: Python
 
@@ -279,29 +272,26 @@ different data.
 
 
 
+.. GENERATED FROM PYTHON SOURCE LINES 208-224
 
-
-.. GENERATED FROM PYTHON SOURCE LINES 217-234
-
-Run the code and plot the results
+تشغيل الكود ورسم النتائج
 ---------------------------------
 
-We defined all the functions required to run our benchmark. Now, we will loop
-over the different configurations that we defined previously. Subsequently,
-we can analyze the plots obtained from the benchmark:
-Relaxing the `L1` penalty in the SGD classifier reduces the prediction error
-but leads to an increase in the training time.
-We can draw a similar analysis regarding the training time which increases
-with the number of support vectors with a Nu-SVR. However, we observed that
-there is an optimal number of support vectors which reduces the prediction
-error. Indeed, too few support vectors lead to an under-fitted model while
-too many support vectors lead to an over-fitted model.
-The exact same conclusion can be drawn for the gradient-boosting model. The
-only the difference with the Nu-SVR is that having too many trees in the
-ensemble is not as detrimental.
+قمنا بتعريف جميع الدوال المطلوبة لتشغيل معيارنا. الآن، سنقوم بالدوران
+على التكوينات المختلفة التي قمنا بتعريفها مسبقًا. بعد ذلك،
+يمكننا تحليل الرسوم البيانية التي تم الحصول عليها من المعيار:
+يؤدي تخفيف عقوبة L1 في مصنف SGD إلى تقليل خطأ التنبؤ
+ولكن يؤدي إلى زيادة في وقت التدريب.
+يمكننا إجراء تحليل مماثل فيما يتعلق بوقت التدريب الذي يزيد
+مع عدد المتجهات الداعمة مع Nu-SVR. ومع ذلك، لاحظنا أن هناك
+عددًا مثاليًا من المتجهات الداعمة التي تقلل من خطأ التنبؤ. في الواقع، يؤدي عدد قليل جدًا من المتجهات الداعمة إلى نموذج غير مناسب بينما
+يؤدي عدد كبير جدًا من المتجهات الداعمة إلى نموذج مفرط في التكيف.
+يمكن استخلاص نفس الاستنتاج تمامًا للنموذج التدرج التدريجي.
+الفرق الوحيد مع Nu-SVR هو أن وجود عدد كبير جدًا من الأشجار في
+المجموعة ليس ضارًا بنفس القدر.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 234-281
+.. GENERATED FROM PYTHON SOURCE LINES 224-273
 
 .. code-block:: Python
 
@@ -309,13 +299,13 @@ ensemble is not as detrimental.
 
     def plot_influence(conf, mse_values, prediction_times, complexities):
         """
-        Plot influence of model complexity on both accuracy and latency.
+        رسم تأثير تعقيد النموذج على كل من الدقة والاستجابة.
         """
 
         fig = plt.figure()
         fig.subplots_adjust(right=0.75)
 
-        # first axes (prediction error)
+        # المحاور الأولى (خطأ التنبؤ)
         ax1 = fig.add_subplot(111)
         line1 = ax1.plot(complexities, mse_values, c="tab:blue", ls="-")[0]
         ax1.set_xlabel("Model Complexity (%s)" % conf["complexity_label"])
@@ -326,7 +316,7 @@ ensemble is not as detrimental.
         ax1.yaxis.label.set_color(line1.get_color())
         ax1.tick_params(axis="y", colors=line1.get_color())
 
-        # second axes (latency)
+        # المحاور الثانية (الاستجابة)
         ax2 = fig.add_subplot(111, sharex=ax1, frameon=False)
         line2 = ax2.plot(complexities, prediction_times, c="tab:orange", ls="-")[0]
         ax2.yaxis.tick_right()
@@ -348,8 +338,10 @@ ensemble is not as detrimental.
 
 
     for conf in configurations:
-        prediction_performances, prediction_times, complexities = benchmark_influence(conf)
-        plot_influence(conf, prediction_performances, prediction_times, complexities)
+        prediction_performances, prediction_times, complexities = benchmark_influence(
+            conf)
+        plot_influence(conf, prediction_performances,
+                       prediction_times, complexities)
     plt.show()
 
 
@@ -386,72 +378,72 @@ ensemble is not as detrimental.
 
     Benchmarking SGDClassifier(alpha=0.001, l1_ratio=0.25, loss='modified_huber',
                   n_iter_no_change=2, penalty='elasticnet', tol=0.1)
-    Complexity: 4948 | Hamming Loss (Misclassification Ratio): 0.2675 | Pred. Time: 0.061042s
+    Complexity: 4948 | Hamming Loss (Misclassification Ratio): 0.2675 | Pred. Time: 0.062088s
 
     Benchmarking SGDClassifier(alpha=0.001, l1_ratio=0.5, loss='modified_huber',
                   n_iter_no_change=2, penalty='elasticnet', tol=0.1)
-    Complexity: 1847 | Hamming Loss (Misclassification Ratio): 0.3264 | Pred. Time: 0.047604s
+    Complexity: 1847 | Hamming Loss (Misclassification Ratio): 0.3264 | Pred. Time: 0.046257s
 
     Benchmarking SGDClassifier(alpha=0.001, l1_ratio=0.75, loss='modified_huber',
                   n_iter_no_change=2, penalty='elasticnet', tol=0.1)
-    Complexity: 997 | Hamming Loss (Misclassification Ratio): 0.3383 | Pred. Time: 0.037714s
+    Complexity: 997 | Hamming Loss (Misclassification Ratio): 0.3383 | Pred. Time: 0.036946s
 
     Benchmarking SGDClassifier(alpha=0.001, l1_ratio=0.9, loss='modified_huber',
                   n_iter_no_change=2, penalty='elasticnet', tol=0.1)
-    Complexity: 802 | Hamming Loss (Misclassification Ratio): 0.3582 | Pred. Time: 0.035492s
+    Complexity: 802 | Hamming Loss (Misclassification Ratio): 0.3582 | Pred. Time: 0.033295s
 
     Benchmarking NuSVR(C=1000.0, gamma=3.0517578125e-05, nu=0.05)
-    Complexity: 18 | MSE: 5558.7313 | Pred. Time: 0.000243s
+    Complexity: 18 | MSE: 5558.7313 | Pred. Time: 0.000265s
 
     Benchmarking NuSVR(C=1000.0, gamma=3.0517578125e-05, nu=0.1)
-    Complexity: 36 | MSE: 5289.8022 | Pred. Time: 0.000312s
+    Complexity: 36 | MSE: 5289.8022 | Pred. Time: 0.000316s
 
     Benchmarking NuSVR(C=1000.0, gamma=3.0517578125e-05, nu=0.2)
-    Complexity: 72 | MSE: 5193.8353 | Pred. Time: 0.000492s
+    Complexity: 72 | MSE: 5193.8353 | Pred. Time: 0.000463s
 
     Benchmarking NuSVR(C=1000.0, gamma=3.0517578125e-05, nu=0.35)
-    Complexity: 124 | MSE: 5131.3279 | Pred. Time: 0.000678s
+    Complexity: 124 | MSE: 5131.3279 | Pred. Time: 0.000689s
 
     Benchmarking NuSVR(C=1000.0, gamma=3.0517578125e-05)
-    Complexity: 178 | MSE: 5149.0779 | Pred. Time: 0.000882s
+    Complexity: 178 | MSE: 5149.0779 | Pred. Time: 0.000906s
 
     Benchmarking GradientBoostingRegressor(learning_rate=0.05, max_depth=2, n_estimators=10)
-    Complexity: 10 | MSE: 4066.4812 | Pred. Time: 0.000285s
+    Complexity: 10 | MSE: 4066.4812 | Pred. Time: 0.000287s
 
     Benchmarking GradientBoostingRegressor(learning_rate=0.05, max_depth=2, n_estimators=25)
-    Complexity: 25 | MSE: 3551.1723 | Pred. Time: 0.000286s
+    Complexity: 25 | MSE: 3551.1723 | Pred. Time: 0.000296s
 
     Benchmarking GradientBoostingRegressor(learning_rate=0.05, max_depth=2, n_estimators=50)
-    Complexity: 50 | MSE: 3445.2171 | Pred. Time: 0.000315s
+    Complexity: 50 | MSE: 3445.2171 | Pred. Time: 0.000345s
 
     Benchmarking GradientBoostingRegressor(learning_rate=0.05, max_depth=2, n_estimators=75)
-    Complexity: 75 | MSE: 3433.0358 | Pred. Time: 0.000370s
+    Complexity: 75 | MSE: 3433.0358 | Pred. Time: 0.000383s
 
     Benchmarking GradientBoostingRegressor(learning_rate=0.05, max_depth=2)
-    Complexity: 100 | MSE: 3456.0602 | Pred. Time: 0.000433s
+    Complexity: 100 | MSE: 3456.0602 | Pred. Time: 0.000411s
 
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 282-293
+.. GENERATED FROM PYTHON SOURCE LINES 274-285
 
-Conclusion
+الخلاصة
 ----------
 
-As a conclusion, we can deduce the following insights:
+كخلاصة، يمكننا استنتاج الأفكار التالية:
 
-* a model which is more complex (or expressive) will require a larger
-  training time;
-* a more complex model does not guarantee to reduce the prediction error.
+* النموذج الذي يكون أكثر تعقيدًا (أو تعبيريًا) سيتطلب وقتًا أكبر
+  للتدريب؛
+* النموذج الأكثر تعقيدًا لا يضمن تقليل خطأ التنبؤ.
 
-These aspects are related to model generalization and avoiding model
-under-fitting or over-fitting.
+هذه الجوانب تتعلق بعمومية النموذج وتجنب نموذج
+عدم التكيف أو التكيف المفرط.
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 16.862 seconds)
+   **Total running time of the script:** (0 minutes 26.820 seconds)
 
 
 .. _sphx_glr_download_auto_examples_applications_plot_model_complexity_influence.py:

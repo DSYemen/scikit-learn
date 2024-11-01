@@ -19,70 +19,50 @@
 
 
 =============================
-Species distribution modeling
+نمذجة توزيع الأنواع
 =============================
 
-Modeling species' geographic distributions is an important
-problem in conservation biology. In this example, we
-model the geographic distribution of two South American
-mammals given past observations and 14 environmental
-variables. Since we have only positive examples (there are
-no unsuccessful observations), we cast this problem as a
-density estimation problem and use the :class:`~sklearn.svm.OneClassSVM`
-as our modeling tool. The dataset is provided by Phillips et. al. (2006).
-If available, the example uses
+نمذجة التوزيعات الجغرافية للأنواع هي مشكلة مهمة
+في علم الأحياء الحفاظي. في هذا المثال، نقوم
+بنمذجة التوزيع الجغرافي لثدييين من أمريكا الجنوبية
+بناءً على الملاحظات السابقة و14 متغيرًا بيئيًا. نظرًا لأن لدينا فقط أمثلة إيجابية (لا توجد ملاحظات غير ناجحة), فإننا نطرح هذه المشكلة كتقدير كثافة ونستخدم :class:`~sklearn.svm.OneClassSVM`
+كأداة النمذجة الخاصة بنا. توفر مجموعة البيانات من قبل فيليبس وآخرون. (2006).
+إذا كان متاحًا، يستخدم المثال
 `basemap <https://matplotlib.org/basemap/>`_
-to plot the coast lines and national boundaries of South America.
+لرسم خطوط السواحل والحدود الوطنية لأمريكا الجنوبية.
 
-The two species are:
+النوعان هما:
 
 - `Bradypus variegatus
-  <http://www.iucnredlist.org/details/3038/0>`_,
-  the brown-throated sloth.
+  <http://www.iucnredlist.org/details/3038/0>`_،
+  الكسلان ذو الحلق البني.
 
 - `Microryzomys minutus
-  <http://www.iucnredlist.org/details/13408/0>`_,
-  also known as the forest small rice rat, a rodent that lives in Peru,
-  Colombia, Ecuador, Peru, and Venezuela.
+  <http://www.iucnredlist.org/details/13408/0>`_،
+  المعروف أيضًا باسم فأر الأرز الصغير الغابوي، وهو قارض يعيش في بيرو،
+  كولومبيا، الإكوادور، بيرو، وفنزويلا.
 
-References
+مراجع
 ----------
 
-- `"Maximum entropy modeling of species geographic distributions"
+- `"نمذجة الحد الأقصى من الإنتروبيا لتوزيعات الأنواع الجغرافية"
   <http://rob.schapire.net/papers/ecolmod.pdf>`_
-  S. J. Phillips, R. P. Anderson, R. E. Schapire - Ecological Modelling,
-  190:231-259, 2006.
+  س. ج. فيليبس، ر. ب. أندرسون، ر. إي. شابير - النمذجة البيئية،
+  190:231-259، 2006.
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-247
-
-
-
-.. image-sg:: /auto_examples/applications/images/sphx_glr_plot_species_distribution_modeling_001.png
-   :alt: bradypus variegatus, microryzomys minutus
-   :srcset: /auto_examples/applications/images/sphx_glr_plot_species_distribution_modeling_001.png
-   :class: sphx-glr-single-img
+.. GENERATED FROM PYTHON SOURCE LINES 34-245
 
 
 .. rst-class:: sphx-glr-script-out
 
- .. code-block:: none
+.. code-block:: pytb
 
-    ________________________________________________________________________________
-    Modeling distribution of species 'bradypus variegatus'
-     - fit OneClassSVM ... done.
-     - plot coastlines from coverage
-     - predict species distribution
-
-     Area under the ROC curve : 0.868443
-    ________________________________________________________________________________
-    Modeling distribution of species 'microryzomys minutus'
-     - fit OneClassSVM ... done.
-     - plot coastlines from coverage
-     - predict species distribution
-
-     Area under the ROC curve : 0.993919
-
-    time elapsed: 8.66s
+    Traceback (most recent call last):
+      File "/project/workspace/examples/applications/plot_species_distribution_modeling.py", line 244, in <module>
+        plot_species_distribution()
+      File "/project/workspace/examples/applications/plot_species_distribution_modeling.py", line 169, in plot_species_distribution
+        plt.subplot(1, 2, i + 1)
+    TypeError: unsupported operand type(s) for +: 'Bunch' and 'int'
 
 
 
@@ -93,9 +73,8 @@ References
 
 .. code-block:: Python
 
-
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري سكايلرن
+    # معرف الترخيص: BSD-3-Clause
 
     from time import time
 
@@ -106,8 +85,8 @@ References
     from sklearn.datasets import fetch_species_distributions
     from sklearn.utils import Bunch
 
-    # if basemap is available, we'll use it.
-    # otherwise, we'll improvise later...
+    # إذا كان basemap متاحًا، فسنستخدمه.
+    # وإلا، فسنقوم بالارتجال لاحقًا...
     try:
         from mpl_toolkits.basemap import Basemap
 
@@ -117,48 +96,48 @@ References
 
 
     def construct_grids(batch):
-        """Construct the map grid from the batch object
+        """بناء شبكة الخريطة من كائن الدفعة
 
-        Parameters
+        المعلمات
         ----------
         batch : Batch object
-            The object returned by :func:`fetch_species_distributions`
+            الكائن الذي تم إرجاعه بواسطة :func:`fetch_species_distributions`
 
-        Returns
+        الإرجاع
         -------
         (xgrid, ygrid) : 1-D arrays
-            The grid corresponding to the values in batch.coverages
+            الشبكة المقابلة للقيم في batch.coverages
         """
-        # x,y coordinates for corner cells
+        # إحداثيات x,y لخلايا الزاوية
         xmin = batch.x_left_lower_corner + batch.grid_size
         xmax = xmin + (batch.Nx * batch.grid_size)
         ymin = batch.y_left_lower_corner + batch.grid_size
         ymax = ymin + (batch.Ny * batch.grid_size)
 
-        # x coordinates of the grid cells
+        # إحداثيات x لخلايا الشبكة
         xgrid = np.arange(xmin, xmax, batch.grid_size)
-        # y coordinates of the grid cells
+        # إحداثيات y لخلايا الشبكة
         ygrid = np.arange(ymin, ymax, batch.grid_size)
 
         return (xgrid, ygrid)
 
 
     def create_species_bunch(species_name, train, test, coverages, xgrid, ygrid):
-        """Create a bunch with information about a particular organism
+        """إنشاء حزمة معلومات حول كائن حي معين
 
-        This will use the test/train record arrays to extract the
-        data specific to the given species name.
+        سيستخدم هذا الدالة مصفوفات الاختبار/التدريب لاستخراج
+        البيانات الخاصة باسم النوع المحدد.
         """
         bunch = Bunch(name=" ".join(species_name.split("_")[:2]))
         species_name = species_name.encode("ascii")
         points = dict(test=test, train=train)
 
         for label, pts in points.items():
-            # choose points associated with the desired species
+            # اختيار النقاط المرتبطة بالنوع المطلوب
             pts = pts[pts["species"] == species_name]
             bunch["pts_%s" % label] = pts
 
-            # determine coverage values for each of the training & testing points
+            # تحديد قيم التغطية لكل من نقاط التدريب والاختبار
             ix = np.searchsorted(xgrid, pts["dd long"])
             iy = np.searchsorted(ygrid, pts["dd lat"])
             bunch["cov_%s" % label] = coverages[:, -iy, ix].T
@@ -170,26 +149,26 @@ References
         species=("bradypus_variegatus_0", "microryzomys_minutus_0")
     ):
         """
-        Plot the species distribution.
+        رسم توزيع الأنواع.
         """
         if len(species) > 2:
             print(
-                "Note: when more than two species are provided,"
-                " only the first two will be used"
+                "ملاحظة: عند توفير أكثر من نوعين،"
+                " سيتم استخدام النوعين الأولين فقط"
             )
 
         t0 = time()
 
-        # Load the compressed data
+        # تحميل البيانات المضغوطة
         data = fetch_species_distributions()
 
-        # Set up the data grid
+        # إعداد شبكة البيانات
         xgrid, ygrid = construct_grids(data)
 
-        # The grid in x,y coordinates
+        # الشبكة في إحداثيات x,y
         X, Y = np.meshgrid(xgrid, ygrid[::-1])
 
-        # create a bunch for each species
+        # إنشاء حزمة لكل نوع
         BV_bunch = create_species_bunch(
             species[0], data.train, data.test, data.coverages, xgrid, ygrid
         )
@@ -197,34 +176,38 @@ References
             species[1], data.train, data.test, data.coverages, xgrid, ygrid
         )
 
-        # background points (grid coordinates) for evaluation
+        # نقاط الخلفية (إحداثيات الشبكة) للتقييم
         np.random.seed(13)
         background_points = np.c_[
             np.random.randint(low=0, high=data.Ny, size=10000),
             np.random.randint(low=0, high=data.Nx, size=10000),
         ].T
 
-        # We'll make use of the fact that coverages[6] has measurements at all
-        # land points.  This will help us decide between land and water.
+        # سنستفيد من حقيقة أن coverages[6] لديها قياسات في جميع
+        # نقاط اليابسة. سيساعدنا هذا في التمييز بين اليابسة والماء.
         land_reference = data.coverages[6]
 
-        # Fit, predict, and plot for each species.
-        for i, species in enumerate([BV_bunch, MM_bunch]):
-            print("_" * 80)
-            print("Modeling distribution of species '%s'" % species.name)
+        # تناسب، توقع، ورسم لكل نوع.
+        for i,species in [[BV_bunch, MM_bunch]]:
+            print("_ " * 80)
+            print("نمذجة توزيع النوع '%s'" % species.name)
 
-            # Standardize features
+            # توحيد الميزات
+            mean = species.cov_train.mean(axis=0)
+            std = species.cov_train.std(axis=0)
+            train_cover_std = (species.cov_train - mean) / std
+            # توحيد الميزات
             mean = species.cov_train.mean(axis=0)
             std = species.cov_train.std(axis=0)
             train_cover_std = (species.cov_train - mean) / std
 
-            # Fit OneClassSVM
+            # تناسب OneClassSVM
             print(" - fit OneClassSVM ... ", end="")
             clf = svm.OneClassSVM(nu=0.1, kernel="rbf", gamma=0.5)
             clf.fit(train_cover_std)
-            print("done.")
+            print("تم.")
 
-            # Plot map of South America
+            # رسم خريطة أمريكا الجنوبية
             plt.subplot(1, 2, i + 1)
             if basemap:
                 print(" - plot coastlines using basemap")
@@ -248,10 +231,10 @@ References
 
             print(" - predict species distribution")
 
-            # Predict species distribution using the training data
+            # توقع توزيع الأنواع باستخدام بيانات التدريب
             Z = np.ones((data.Ny, data.Nx), dtype=np.float64)
 
-            # We'll predict only for the land points.
+            # سنقوم بالتنبؤ فقط لنقاط اليابسة.
             idx = np.where(land_reference > -9999)
             coverages_land = data.coverages[:, idx[0], idx[1]].T
 
@@ -262,11 +245,11 @@ References
             levels = np.linspace(Z.min(), Z.max(), 25)
             Z[land_reference == -9999] = -9999
 
-            # plot contours of the prediction
+            # رسم خطوط كفاف التوقع
             plt.contourf(X, Y, Z, levels=levels, cmap=plt.cm.Reds)
             plt.colorbar(format="%.2f")
 
-            # scatter training/testing points
+            # رسم نقاط التدريب/الاختبار
             plt.scatter(
                 species.pts_train["dd long"],
                 species.pts_train["dd lat"],
@@ -287,7 +270,7 @@ References
             plt.title(species.name)
             plt.axis("equal")
 
-            # Compute AUC with regards to background points
+            # حساب AUC فيما يتعلق بنقاط الخلفية
             pred_background = Z[background_points[0], background_points[1]]
             pred_test = clf.decision_function((species.cov_test - mean) / std)
             scores = np.r_[pred_test, pred_background]
@@ -303,10 +286,9 @@ References
     plot_species_distribution()
     plt.show()
 
-
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 8.824 seconds)
+   **Total running time of the script:** (0 minutes 0.252 seconds)
 
 
 .. _sphx_glr_download_auto_examples_applications_plot_species_distribution_modeling.py:

@@ -18,29 +18,29 @@
 .. _sphx_glr_auto_examples_cluster_plot_kmeans_stability_low_dim_dense.py:
 
 
-============================================================
-Empirical evaluation of the impact of k-means initialization
-============================================================
+======================================
+تقييم تجريبي لتأثير تهيئة k-means
+======================================
 
-Evaluate the ability of k-means initializations strategies to make
-the algorithm convergence robust, as measured by the relative standard
-deviation of the inertia of the clustering (i.e. the sum of squared
-distances to the nearest cluster center).
+تقييم قدرة إستراتيجيات تهيئة k-means على جعل
+خوارزمية التقارب قوية، كما يقاس بالانحراف المعياري النسبي
+للقصور الذاتي للتجميع (أي مجموع مربعات
+المسافات إلى أقرب مركز للتجميع).
 
-The first plot shows the best inertia reached for each combination
-of the model (``KMeans`` or ``MiniBatchKMeans``), and the init method
-(``init="random"`` or ``init="k-means++"``) for increasing values of the
-``n_init`` parameter that controls the number of initializations.
+الرسم البياني الأول يظهر أفضل قصور ذاتي تم الوصول إليه لكل مجموعة
+من النموذج (``KMeans`` أو ``MiniBatchKMeans``)، وطريقة التهيئة
+(``init="random"`` أو ``init="k-means++"``) لقيم متزايدة من المعامل
+``n_init`` الذي يتحكم في عدد التهيئات الأولية.
 
-The second plot demonstrates one single run of the ``MiniBatchKMeans``
-estimator using a ``init="random"`` and ``n_init=1``. This run leads to
-a bad convergence (local optimum), with estimated centers stuck
-between ground truth clusters.
+الرسم البياني الثاني يوضح تشغيل واحد للمقدر ``MiniBatchKMeans``
+باستخدام ``init="random"`` و ``n_init=1``. هذا التشغيل يؤدي إلى
+تقارب سيئ (مثالية جزئية)، مع مراكز مقدرة تعلق
+بين التجميعات الحقيقية.
 
-The dataset used for evaluation is a 2D grid of isotropic Gaussian
-clusters widely spaced.
+مجموعة البيانات المستخدمة للتقييم هي شبكة ثنائية الأبعاد من التوزيعات الغاوسية
+المتناظرة ومتباعدة بشكل واسع.
 
-.. GENERATED FROM PYTHON SOURCE LINES 25-133
+.. GENERATED FROM PYTHON SOURCE LINES 25-136
 
 
 
@@ -93,15 +93,15 @@ clusters widely spaced.
 
     random_state = np.random.RandomState(0)
 
-    # Number of run (with randomly generated dataset) for each strategy so as
-    # to be able to compute an estimate of the standard deviation
+    # عدد التشغيلات (مع مجموعة بيانات مولدة عشوائيًا) لكل استراتيجية حتى
+    # يمكن حساب تقدير للانحراف المعياري
     n_runs = 5
 
-    # k-means models can do several random inits so as to be able to trade
-    # CPU time for convergence robustness
+    # نماذج k-means يمكنها القيام بعدة تهيئات عشوائية حتى تتمكن من تبادل
+    # وقت CPU لتقوية التقارب
     n_init_range = np.array([1, 5, 10, 15, 20])
 
-    # Datasets generation parameters
+    # معلمات توليد مجموعات البيانات
     n_samples_per_center = 100
     grid_size = 3
     scale = 0.1
@@ -110,7 +110,8 @@ clusters widely spaced.
 
     def make_data(random_state, n_samples_per_center, grid_size, scale):
         random_state = check_random_state(random_state)
-        centers = np.array([[i, j] for i in range(grid_size) for j in range(grid_size)])
+        centers = np.array([[i, j] for i in range(grid_size)
+                           for j in range(grid_size)])
         n_clusters_true, n_features = centers.shape
 
         noise = random_state.normal(
@@ -118,11 +119,12 @@ clusters widely spaced.
         )
 
         X = np.concatenate([c + noise for c in centers])
-        y = np.concatenate([[i] * n_samples_per_center for i in range(n_clusters_true)])
+        y = np.concatenate(
+            [[i] * n_samples_per_center for i in range(n_clusters_true)])
         return shuffle(X, y, random_state=random_state)
 
 
-    # Part 1: Quantitative evaluation of various init methods
+    # الجزء الأول: التقييم الكمي لإستراتيجيات تهيئة مختلفة
 
 
     plt.figure()
@@ -133,7 +135,8 @@ clusters widely spaced.
         (KMeans, "k-means++", {}, "^-"),
         (KMeans, "random", {}, "o-"),
         (MiniBatchKMeans, "k-means++", {"max_no_improvement": 3}, "x-"),
-        (MiniBatchKMeans, "random", {"max_no_improvement": 3, "init_size": 500}, "d-"),
+        (MiniBatchKMeans, "random", {
+         "max_no_improvement": 3, "init_size": 500}, "d-"),
     ]
 
     for factory, init, params, format in cases:
@@ -162,7 +165,7 @@ clusters widely spaced.
     plt.legend(plots, legends)
     plt.title("Mean inertia for various k-means init across %d runs" % n_runs)
 
-    # Part 2: Qualitative visual inspection of the convergence
+    # الجزء الثاني: الفحص البصري النوعي للتقارب
 
     X, y = make_data(random_state, n_samples_per_center, grid_size, scale)
     km = MiniBatchKMeans(
@@ -192,7 +195,7 @@ clusters widely spaced.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.646 seconds)
+   **Total running time of the script:** (0 minutes 1.633 seconds)
 
 
 .. _sphx_glr_download_auto_examples_cluster_plot_kmeans_stability_low_dim_dense.py:

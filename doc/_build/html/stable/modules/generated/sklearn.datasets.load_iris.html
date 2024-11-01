@@ -11,10 +11,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/modules/generated/sklearn.datasets.load_iris.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="Gallery examples: Release Highlights for scikit-learn 0.22" />
-<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_release_highlights_0_22_0_thumb.png" />
+<meta property="og:description" content="Gallery examples: sphx_glr_auto_examples_decomposition_plot_incremental_pca.py تحليل العوامل (مع الدوران) لتصور الأنماط تحليل المكونات الرئيسية (PCA) على مجموعة بيانات Iris مقارنة بين الإسقاط ثنائي..." />
+<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_incremental_pca_thumb.png" />
 <meta property="og:image:alt" content="" />
-<meta name="description" content="Gallery examples: Release Highlights for scikit-learn 0.22" />
+<meta name="description" content="Gallery examples: sphx_glr_auto_examples_decomposition_plot_incremental_pca.py تحليل العوامل (مع الدوران) لتصور الأنماط تحليل المكونات الرئيسية (PCA) على مجموعة بيانات Iris مقارنة بين الإسقاط ثنائي..." />
 
     <title>load_iris &#8212; scikit-learn 1.6.dev0 documentation</title>
   
@@ -1304,7 +1304,7 @@
 <h1>load_iris<a class="headerlink" href="#load-iris" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="sklearn.datasets.load_iris">
-<span class="sig-prename descclassname"><span class="pre">sklearn.datasets.</span></span><span class="sig-name descname"><span class="pre">load_iris</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_X_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/001706117/sklearn/datasets/_base.py#L621"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.datasets.load_iris" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">sklearn.datasets.</span></span><span class="sig-name descname"><span class="pre">load_iris</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_X_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/2a8d36cec9/sklearn/datasets/_base.py#L621"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.datasets.load_iris" title="Link to this definition">#</a></dt>
 <dd><p>Load and return the iris dataset (classification).</p>
 <p>The iris dataset is a classic and very easy multi-class classification
 dataset.</p>
@@ -1405,15 +1405,30 @@ know their class name.</p>
 <span class="go">[np.str_(&#39;setosa&#39;), np.str_(&#39;versicolor&#39;), np.str_(&#39;virginica&#39;)]</span>
 </pre></div>
 </div>
-<p>See <a class="reference internal" href="../../auto_examples/decomposition/plot_pca_iris.html#sphx-glr-auto-examples-decomposition-plot-pca-iris-py"><span class="std std-ref">Principal Component Analysis (PCA) on Iris Dataset</span></a> for a more
+<p>See <a class="reference internal" href="../../auto_examples/decomposition/plot_pca_iris.html#sphx-glr-auto-examples-decomposition-plot-pca-iris-py"><span class="std std-ref">تحليل المكونات الرئيسية (PCA) على مجموعة بيانات Iris</span></a> for a more
 detailed example of how to work with the iris dataset.</p>
 </dd></dl>
 
 <section id="gallery-examples">
 <h2>Gallery examples<a class="headerlink" href="#gallery-examples" title="Link to this heading">#</a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="We are pleased to announce the release of scikit-learn 0.22, which comes with many bug fixes and new features! We detail below a few of the major features of this release. For an exhaustive list of all the changes, please refer to the release notes &lt;release_notes_0_22&gt;."><img alt="" src="../../_images/sphx_glr_plot_release_highlights_0_22_0_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/release_highlights/plot_release_highlights_0_22_0.html#sphx-glr-auto-examples-release-highlights-plot-release-highlights-0-22-0-py"><span class="std std-ref">Release Highlights for scikit-learn 0.22</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Release Highlights for scikit-learn 0.22</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="يستخدم تحليل المكونات الأساسية التزايدي (IPCA) عادة كبديل لتحليل المكونات الأساسية (PCA) عندما تكون مجموعة البيانات المراد تحليلها كبيرة جدًا بحيث لا يمكن تحميلها في الذاكرة. يقوم IPCA ببناء تقريب منخفض الرتبة لبيانات الإدخال باستخدام كمية من الذاكرة لا تعتمد على عدد عينات بيانات الإدخال. لا يزال يعتمد على ميزات بيانات الإدخال، ولكن تغيير حجم الدفعة يسمح بالتحكم في استخدام الذاكرة."><img alt="" src="../../_images/sphx_glr_plot_incremental_pca_thumb.png" />
+<p><span class="xref std std-ref">sphx_glr_auto_examples_decomposition_plot_incremental_pca.py</span></p>
+  <div class="sphx-glr-thumbnail-title"># تحليل المكونات الأساسية التزايدي</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="عند دراسة مجموعة بيانات Iris، نلاحظ أن طول السبلة وطول البتلة وعرض البتلة مترابطة بشكل كبير. عرض السبلة أقل تكراراً. يمكن لتقنيات تحليل المصفوفات الكشف عن هذه الأنماط الكامنة. لا يؤدي تطبيق الدوران على المكونات الناتجة إلى تحسين القيمة التنبؤية للمساحة الكامنة المستنبطة بشكل جوهري، ولكن يمكن أن يساعد في تصور بنيتها؛ هنا، على سبيل المثال، يجد دوران Varimax، والذي يتم العثور عليه عن طريق تعظيم التباين التربيعي للأوزان، بنية حيث يحمل المكون الثاني فقط بشكل إيجابي على عرض السبلة."><img alt="" src="../../_images/sphx_glr_plot_varimax_fa_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/decomposition/plot_varimax_fa.html#sphx-glr-auto-examples-decomposition-plot-varimax-fa-py"><span class="std std-ref">تحليل العوامل (مع الدوران) لتصور الأنماط</span></a></p>
+  <div class="sphx-glr-thumbnail-title">تحليل العوامل (مع الدوران) لتصور الأنماط</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="هذا المثال يوضح تقنية تحليل معروفة باسم تحليل المكونات الرئيسية (PCA) على مجموعة بيانات Iris."><img alt="" src="../../_images/sphx_glr_plot_pca_iris_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/decomposition/plot_pca_iris.html#sphx-glr-auto-examples-decomposition-plot-pca-iris-py"><span class="std std-ref">تحليل المكونات الرئيسية (PCA) على مجموعة بيانات Iris</span></a></p>
+  <div class="sphx-glr-thumbnail-title">تحليل المكونات الرئيسية (PCA) على مجموعة بيانات Iris</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="تمثل مجموعة بيانات آيريس 3 أنواع من زهور آيريس (سيتوسا، وفيرسيكولور، وفيرجينيكا) مع 4 خصائص: طول الكأس، وعرض الكأس، وطول البتلة، وعرض البتلة."><img alt="" src="../../_images/sphx_glr_plot_pca_vs_lda_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/decomposition/plot_pca_vs_lda.html#sphx-glr-auto-examples-decomposition-plot-pca-vs-lda-py"><span class="std std-ref">مقارنة بين الإسقاط ثنائي الأبعاد للمجموعة البيانات آيريس باستخدام LDA وPCA</span></a></p>
+  <div class="sphx-glr-thumbnail-title">مقارنة بين الإسقاط ثنائي الأبعاد للمجموعة البيانات آيريس باستخدام LDA وPCA</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="في العديد من الأمثلة الواقعية، هناك العديد من الطرق لاستخراج الميزات من مجموعة بيانات. غالبًا ما يكون من المفيد الجمع بين عدة طرق للحصول على أداء جيد. يوضح هذا المثال كيفية استخدام FeatureUnion لدمج الميزات التي تم الحصول عليها بواسطة PCA والاختيار أحادي المتغير."><img alt="" src="../../_images/sphx_glr_plot_feature_union_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/compose/plot_feature_union.html#sphx-glr-auto-examples-compose-plot-feature-union-py"><span class="std std-ref">دمج طرق استخراج ميزات متعددة</span></a></p>
+  <div class="sphx-glr-thumbnail-title">دمج طرق استخراج ميزات متعددة</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="ارسم أسطح القرار لغابات الأشجار العشوائية المدربة على أزواج من سمات مجموعة بيانات إيريس."><img alt="" src="../../_images/sphx_glr_plot_forest_iris_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/ensemble/plot_forest_iris.html#sphx-glr-auto-examples-ensemble-plot-forest-iris-py"><span class="std std-ref">رسم أسطح القرار لمجموعات الأشجار على مجموعة بيانات إيريس</span></a></p>
+  <div class="sphx-glr-thumbnail-title">رسم أسطح القرار لمجموعات الأشجار على مجموعة بيانات إيريس</div>
 </div></div></section>
 </section>
 

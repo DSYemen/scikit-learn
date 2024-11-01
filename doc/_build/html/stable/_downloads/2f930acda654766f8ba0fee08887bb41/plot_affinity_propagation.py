@@ -1,16 +1,14 @@
 """
 =================================================
-Demo of affinity propagation clustering algorithm
+عرض توضيحي لخوارزمية تجميع انتشار الانتماء
 =================================================
 
-Reference:
-Brendan J. Frey and Delbert Dueck, "Clustering by Passing Messages
-Between Data Points", Science Feb. 2007
-
+المرجع:
+برندان ج. فري وديلبرت دويك، "التجميع عن طريق تمرير الرسائل
+بين نقاط البيانات"، مجلة ساينس، فبراير 2007
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايت-ليرن
+# معرف الترخيص: BSD-3-Clause
 
 import numpy as np
 
@@ -19,7 +17,7 @@ from sklearn.cluster import AffinityPropagation
 from sklearn.datasets import make_blobs
 
 # %%
-# Generate sample data
+# توليد بيانات العينة
 # --------------------
 centers = [[1, 1], [-1, -1], [1, -1]]
 X, labels_true = make_blobs(
@@ -27,7 +25,7 @@ X, labels_true = make_blobs(
 )
 
 # %%
-# Compute Affinity Propagation
+# حساب انتشار الانتماء
 # ----------------------------
 af = AffinityPropagation(preference=-50, random_state=0).fit(X)
 cluster_centers_indices = af.cluster_centers_indices_
@@ -50,7 +48,7 @@ print(
 )
 
 # %%
-# Plot result
+# رسم النتيجة
 # -----------
 import matplotlib.pyplot as plt
 

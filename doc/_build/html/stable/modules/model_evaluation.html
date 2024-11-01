@@ -1304,7 +1304,7 @@ system</a>, Evol. Intel. (2015) 8: 89.</p>
 <p class="rubric">أمثلة</p>
 <ul class="simple">
 <li><p>انظر <a class="reference internal" href="../auto_examples/model_selection/plot_confusion_matrix.html#sphx-glr-auto-examples-model-selection-plot-confusion-matrix-py"><span class="std std-ref">Confusion matrix</span></a> للحصول على مثال على استخدام مصفوفة الارتباك لتقييم جودة ناتج المصنف.</p></li>
-<li><p>انظر <a class="reference internal" href="../auto_examples/classification/plot_digits_classification.html#sphx-glr-auto-examples-classification-plot-digits-classification-py"><span class="std std-ref">Recognizing hand-written digits</span></a> للحصول على مثال على استخدام مصفوفة الارتباك لتصنيف الأرقام المكتوبة بخط اليد.</p></li>
+<li><p>انظر <a class="reference internal" href="../auto_examples/classification/plot_digits_classification.html#sphx-glr-auto-examples-classification-plot-digits-classification-py"><span class="std std-ref">التعرف على الأرقام المكتوبة بخط اليد</span></a> للحصول على مثال على استخدام مصفوفة الارتباك لتصنيف الأرقام المكتوبة بخط اليد.</p></li>
 <li><p>انظر <a class="reference internal" href="../auto_examples/text/plot_document_classification_20newsgroups.html#sphx-glr-auto-examples-text-plot-document-classification-20newsgroups-py"><span class="std std-ref">Classification of text documents using sparse features</span></a> للحصول على مثال على استخدام مصفوفة الارتباك لتصنيف المستندات النصية.</p></li>
 </ul>
 </section>
@@ -1329,7 +1329,7 @@ system</a>, Evol. Intel. (2015) 8: 89.</p>
 </div>
 <p class="rubric">أمثلة</p>
 <ul class="simple">
-<li><p>انظر <a class="reference internal" href="../auto_examples/classification/plot_digits_classification.html#sphx-glr-auto-examples-classification-plot-digits-classification-py"><span class="std std-ref">Recognizing hand-written digits</span></a> للحصول على مثال على استخدام تقرير التصنيف للأرقام المكتوبة بخط اليد.</p></li>
+<li><p>انظر <a class="reference internal" href="../auto_examples/classification/plot_digits_classification.html#sphx-glr-auto-examples-classification-plot-digits-classification-py"><span class="std std-ref">التعرف على الأرقام المكتوبة بخط اليد</span></a> للحصول على مثال على استخدام تقرير التصنيف للأرقام المكتوبة بخط اليد.</p></li>
 <li><p>انظر <a class="reference internal" href="../auto_examples/model_selection/plot_grid_search_digits.html#sphx-glr-auto-examples-model-selection-plot-grid-search-digits-py"><span class="std std-ref">Custom refit strategy of a grid search with cross-validation</span></a> للحصول على مثال على استخدام تقرير التصنيف للبحث الشبكي مع التحقق المتبادل المتداخل.</p></li>
 </ul>
 </section>
@@ -1719,7 +1719,7 @@ Accessed April 21, 2021.</p>
 <span class="go">        [0, 1]]])</span>
 </pre></div>
 </div>
-<p>فيما يلي مثال يُوضح استخدام دالة <a class="reference internal" href="generated/sklearn.metrics.multilabel_confusion_matrix.html#sklearn.metrics.multilabel_confusion_matrix" title="sklearn.metrics.multilabel_confusion_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">multilabel_confusion_matrix</span></code></a> مع إدخال <span class="xref std std-term">متعدد الفئات</span>:</p>
+<p>فيما يلي مثال يُوضح استخدام دالة <a class="reference internal" href="generated/sklearn.metrics.multilabel_confusion_matrix.html#sklearn.metrics.multilabel_confusion_matrix" title="sklearn.metrics.multilabel_confusion_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">multilabel_confusion_matrix</span></code></a> مع إدخال <a class="reference internal" href="../glossary.html#term-108"><span class="xref std std-term">متعدد الفئات</span></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;ant&quot;</span><span class="p">,</span> <span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;ant&quot;</span><span class="p">,</span> <span class="s2">&quot;bird&quot;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ant&quot;</span><span class="p">,</span> <span class="s2">&quot;ant&quot;</span><span class="p">,</span> <span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;ant&quot;</span><span class="p">,</span> <span class="s2">&quot;cat&quot;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multilabel_confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span>
@@ -1869,7 +1869,7 @@ Accessed April 21, 2021.</p>
 <ul class="simple">
 <li><p>انظر <a class="reference internal" href="../auto_examples/model_selection/plot_roc.html#sphx-glr-auto-examples-model-selection-plot-roc-py"><span class="std std-ref">Multiclass Receiver Operating Characteristic (ROC)</span></a> للحصول على مثال على استخدام ROC لتقييم جودة ناتج المُصنف.</p></li>
 <li><p>انظر <a class="reference internal" href="../auto_examples/model_selection/plot_roc_crossval.html#sphx-glr-auto-examples-model-selection-plot-roc-crossval-py"><span class="std std-ref">Receiver Operating Characteristic (ROC) with cross validation</span></a> للحصول على مثال على استخدام ROC لتقييم جودة ناتج المُصنف، باستخدام التحقق المتبادل.</p></li>
-<li><p>انظر <a class="reference internal" href="../auto_examples/applications/plot_species_distribution_modeling.html#sphx-glr-auto-examples-applications-plot-species-distribution-modeling-py"><span class="std std-ref">Species distribution modeling</span></a> للحصول على مثال على استخدام ROC لنمذجة توزيع الأنواع.</p></li>
+<li><p>انظر <a class="reference internal" href="../auto_examples/applications/plot_species_distribution_modeling.html#sphx-glr-auto-examples-applications-plot-species-distribution-modeling-py"><span class="std std-ref">نمذجة توزيع الأنواع</span></a> للحصول على مثال على استخدام ROC لنمذجة توزيع الأنواع.</p></li>
 </ul>
 <p class="rubric">المراجع</p>
 <div role="list" class="citation-list">
@@ -2646,7 +2646,7 @@ Berlin, Heidelberg.</p></li>
 <p>ارجع إلى المثال أدناه للاطلاع على تقييم النموذج الذي يستخدم هذا العرض.</p>
 <p class="rubric">أمثلة</p>
 <ul class="simple">
-<li><p>انظر <a class="reference internal" href="../auto_examples/compose/plot_transformed_target.html#sphx-glr-auto-examples-compose-plot-transformed-target-py"><span class="std std-ref">Effect of transforming the targets in regression model</span></a> للحصول على مثال حول كيفية استخدام <a class="reference internal" href="generated/sklearn.metrics.PredictionErrorDisplay.html#sklearn.metrics.PredictionErrorDisplay" title="sklearn.metrics.PredictionErrorDisplay"><code class="xref py py-class docutils literal notranslate"><span class="pre">PredictionErrorDisplay</span></code></a> لتصور تحسين جودة التنبؤ لنموذج الانحدار الذي تم الحصول عليه عن طريق تحويل الهدف قبل التعلم.</p></li>
+<li><p>انظر <a class="reference internal" href="../auto_examples/compose/plot_transformed_target.html#sphx-glr-auto-examples-compose-plot-transformed-target-py"><span class="std std-ref">تأثير تحويل الأهداف في نموذج الانحدار</span></a> للحصول على مثال حول كيفية استخدام <a class="reference internal" href="generated/sklearn.metrics.PredictionErrorDisplay.html#sklearn.metrics.PredictionErrorDisplay" title="sklearn.metrics.PredictionErrorDisplay"><code class="xref py py-class docutils literal notranslate"><span class="pre">PredictionErrorDisplay</span></code></a> لتصور تحسين جودة التنبؤ لنموذج الانحدار الذي تم الحصول عليه عن طريق تحويل الهدف قبل التعلم.</p></li>
 </ul>
 </section>
 </section>

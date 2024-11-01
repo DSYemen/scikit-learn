@@ -1,26 +1,23 @@
 """
 =====================
-Classifier comparison
+مقارنة المصنفات
 =====================
 
-A comparison of several classifiers in scikit-learn on synthetic datasets.
-The point of this example is to illustrate the nature of decision boundaries
-of different classifiers.
-This should be taken with a grain of salt, as the intuition conveyed by
-these examples does not necessarily carry over to real datasets.
+مقارنة بين عدة مصنفات في scikit-learn على مجموعات بيانات اصطناعية.
+الغرض من هذا المثال هو توضيح طبيعة حدود القرار
+لمصنفات مختلفة.
+يجب أخذ هذا بعين الاعتبار، حيث أن الحدس الذي توفره
+هذه الأمثلة لا ينتقل بالضرورة إلى مجموعات البيانات الحقيقية.
 
-Particularly in high-dimensional spaces, data can more easily be separated
-linearly and the simplicity of classifiers such as naive Bayes and linear SVMs
-might lead to better generalization than is achieved by other classifiers.
+وبشكل خاص في المساحات ذات الأبعاد العالية، يمكن فصل البيانات بسهولة أكبر
+بشكل خطي وقد تؤدي بساطة المصنفات مثل بايز الساذج وSVMs الخطية
+إلى تعميم أفضل مما تحققه المصنفات الأخرى.
 
-The plots show training points in solid colors and testing points
-semi-transparent. The lower right shows the classification accuracy on the test
-set.
-
+توضح الرسوم البيانية نقاط التدريب بألوان صلبة ونقاط الاختبار
+شبه شفافة. يظهر الربع الأيمن السفلي دقة التصنيف على مجموعة الاختبار.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -114,6 +111,9 @@ for ds_cnt, ds in enumerate(datasets):
     i += 1
 
     # iterate over classifiers
+    for name, clf in zip(names, classifiers):
+        ax = plt.subplot(len(datasets), len(classifiers) + 1, i)
+# iterate over classifiers
     for name, clf in zip(names, classifiers):
         ax = plt.subplot(len(datasets), len(classifiers) + 1, i)
 

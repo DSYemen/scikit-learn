@@ -1,20 +1,17 @@
 """
 ==================
-Prediction Latency
+تأخير التنبؤ
 ==================
 
-This is an example showing the prediction latency of various scikit-learn
-estimators.
+هذا مثال يوضح تأخير التنبؤ لمختلف الخوارزميات في مكتبة ساي كيت ليرن.
 
-The goal is to measure the latency one can expect when doing predictions
-either in bulk or atomic (i.e. one by one) mode.
+الهدف هو قياس التأخير المتوقع عند إجراء التنبؤات إما بالجملة أو بالطريقة الذرية (أي واحدًا تلو الآخر).
 
-The plots represent the distribution of the prediction latency as a boxplot.
-
+تمثل المخططات توزيع تأخير التنبؤ على شكل مخطط صندوقي.
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري ساي كيت ليرن
+# معرف الترخيص: BSD-3-Clause
 
 import gc
 import time
@@ -33,17 +30,17 @@ from sklearn.utils import shuffle
 
 
 def _not_in_sphinx():
-    # Hack to detect whether we are running by the sphinx builder
+    # خدعة للكشف عما إذا كنا نعمل بواسطة باني سفينكس
     return "__file__" in globals()
 
 
 # %%
-# Benchmark and plot helper functions
+# وظائف مساعدة للقياس والرسم
 # -----------------------------------
 
 
 def atomic_benchmark_estimator(estimator, X_test, verbose=False):
-    """Measure runtime prediction of each instance."""
+    """قياس وقت تشغيل التنبؤ لكل مثيل."""
     n_instances = X_test.shape[0]
     runtimes = np.zeros(n_instances, dtype=float)
     for i in range(n_instances):
@@ -62,7 +59,7 @@ def atomic_benchmark_estimator(estimator, X_test, verbose=False):
 
 
 def bulk_benchmark_estimator(estimator, X_test, n_bulk_repeats, verbose):
-    """Measure runtime prediction of the whole input."""
+    """قياس وقت تشغيل التنبؤ للمدخلات بالكامل."""
     n_instances = X_test.shape[0]
     runtimes = np.zeros(n_bulk_repeats, dtype=float)
     for i in range(n_bulk_repeats):
@@ -82,18 +79,17 @@ def bulk_benchmark_estimator(estimator, X_test, n_bulk_repeats, verbose):
 
 def benchmark_estimator(estimator, X_test, n_bulk_repeats=30, verbose=False):
     """
-    Measure runtimes of prediction in both atomic and bulk mode.
+    قياس أوقات التشغيل للتنبؤ في الوضع الذري والمجمع.
 
-    Parameters
+    المعلمات
     ----------
-    estimator : already trained estimator supporting `predict()`
-    X_test : test input
-    n_bulk_repeats : how many times to repeat when evaluating bulk mode
+    estimator : خوارزمية مدربة بالفعل تدعم `predict()`
+    X_test : مدخلات الاختبار
+    n_bulk_repeats : عدد مرات التكرار عند تقييم الوضع المجمع
 
-    Returns
+    العائدات
     -------
-    atomic_runtimes, bulk_runtimes : a pair of `np.array` which contain the
-    runtimes in seconds.
+    atomic_runtimes, bulk_runtimes : زوج من `np.array` الذي يحتوي على أوقات التشغيل بالثواني.
 
     """
     atomic_runtimes = atomic_benchmark_estimator(estimator, X_test, verbose)
@@ -102,7 +98,7 @@ def benchmark_estimator(estimator, X_test, n_bulk_repeats=30, verbose=False):
 
 
 def generate_dataset(n_train, n_test, n_features, noise=0.1, verbose=False):
-    """Generate a regression dataset with the given parameters."""
+    """توليد مجموعة بيانات للانحدار بالمعايير المحددة."""
     if verbose:
         print("generating dataset...")
 
@@ -132,13 +128,13 @@ def generate_dataset(n_train, n_test, n_features, noise=0.1, verbose=False):
 
 def boxplot_runtimes(runtimes, pred_type, configuration):
     """
-    Plot a new `Figure` with boxplots of prediction runtimes.
+   رسم مخطط جديد مع مخططات صندوقية لأوقات التنبؤ.
 
-    Parameters
+    المعلمات
     ----------
-    runtimes : list of `np.array` of latencies in micro-seconds
-    cls_names : list of estimator class names that generated the runtimes
-    pred_type : 'bulk' or 'atomic'
+    runtimes : قائمة من `np.array` من التأخيرات بالميكروثانية
+    cls_names : قائمة من أسماء الخوارزميات التي ولدت أوقات التنبؤ
+    pred_type : 'bulk' أو 'atomic'
 
     """
 
@@ -174,7 +170,7 @@ def boxplot_runtimes(runtimes, pred_type, configuration):
 
 
 def benchmark(configuration):
-    """Run the whole benchmark."""
+    """تشغيل القياس بالكامل."""
     X_train, y_train, X_test, y_test = generate_dataset(
         configuration["n_train"], configuration["n_test"], configuration["n_features"]
     )
@@ -198,18 +194,18 @@ def benchmark(configuration):
 
 def n_feature_influence(estimators, n_train, n_test, n_features, percentile):
     """
-    Estimate influence of the number of features on prediction time.
+    تقدير تأثير عدد الميزات على وقت التنبؤ.
 
-    Parameters
+    المعلمات
     ----------
 
-    estimators : dict of (name (str), estimator) to benchmark
-    n_train : nber of training instances (int)
-    n_test : nber of testing instances (int)
-    n_features : list of feature-space dimensionality to test (int)
-    percentile : percentile at which to measure the speed (int [0-100])
+    estimators : قاموس من (الاسم (str)، الخوارزمية) للقياس
+    n_train : عدد مثيلات التدريب (int)
+    n_test : عدد مثيلات الاختبار (int)
+    n_features : قائمة بأبعاد المساحة المميزة للاختبار (int)
+    percentile : المئوية التي يتم عندها قياس السرعة (int [0-100])
 
-    Returns:
+    العائدات:
     --------
 
     percentiles : dict(estimator_name,
@@ -245,10 +241,8 @@ def plot_n_features_influence(percentiles, percentile):
     ax1.set_xlabel("#Features")
     ax1.set_ylabel("Prediction Time at %d%%-ile (us)" % percentile)
     plt.show()
-
-
 def benchmark_throughputs(configuration, duration_secs=0.1):
-    """benchmark throughput for different estimators."""
+    """قياس الإنتاجية للخوارزميات المختلفة."""
     X_train, y_train, X_test, y_test = generate_dataset(
         configuration["n_train"], configuration["n_test"], configuration["n_features"]
     )
@@ -294,7 +288,7 @@ def plot_benchmark_throughput(throughputs, configuration):
 
 
 # %%
-# Benchmark bulk/atomic prediction speed for various regressors
+# قياس سرعة التنبؤ بالجملة/الذرية لمختلف الخوارزميات
 # -------------------------------------------------------------
 
 configuration = {
@@ -327,7 +321,7 @@ configuration = {
 benchmark(configuration)
 
 # %%
-# Benchmark n_features influence on prediction speed
+# قياس تأثير n_features على سرعة التنبؤ
 # --------------------------------------------------
 
 percentile = 90
@@ -341,7 +335,7 @@ percentiles = n_feature_influence(
 plot_n_features_influence(percentiles, percentile)
 
 # %%
-# Benchmark throughput
+# قياس الإنتاجية
 # --------------------
 
 throughputs = benchmark_throughputs(configuration)

@@ -19,27 +19,21 @@
 
 
 ===========================================
-Lagged features for time series forecasting
+الميزات المتأخرة للتنبؤ بالسلاسل الزمنية
 ===========================================
 
-This example demonstrates how Polars-engineered lagged features can be used
-for time series forecasting with
-:class:`~sklearn.ensemble.HistGradientBoostingRegressor` on the Bike Sharing
-Demand dataset.
+هذا المثال يوضح كيفية استخدام الميزات المتأخرة التي تم تصميمها بواسطة Polars في التنبؤ بالسلاسل الزمنية باستخدام :class:`~sklearn.ensemble.HistGradientBoostingRegressor` على مجموعة بيانات طلب مشاركة الدراجات.
 
-See the example on
+راجع المثال على
 :ref:`sphx_glr_auto_examples_applications_plot_cyclical_feature_engineering.py`
-for some data exploration on this dataset and a demo on periodic feature
-engineering.
+لاستكشاف بعض البيانات حول هذه المجموعة والاطلاع على عرض توضيحي حول الهندسة الميزات الدورية.
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-21
+.. GENERATED FROM PYTHON SOURCE LINES 12-15
 
 .. code-block:: Python
 
-
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
-
+    # المؤلفون: مطوري scikit-learn
+    # معرف SPDX-License: BSD-3-Clause
 
 
 
@@ -47,26 +41,42 @@ engineering.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 22-35
 
-Analyzing the Bike Sharing Demand dataset
+.. GENERATED FROM PYTHON SOURCE LINES 16-29
+
+تحليل مجموعة بيانات طلب مشاركة الدراجات
 -----------------------------------------
 
-We start by loading the data from the OpenML repository as a raw parquet file
-to illustrate how to work with an arbitrary parquet file instead of hiding this
-step in a convenience tool such as `sklearn.datasets.fetch_openml`.
+نبدأ بتحميل البيانات من مستودع OpenML كملف Parquet خام
+لتوضيح كيفية العمل مع ملف Parquet عشوائي بدلاً من إخفاء هذه
+الخطوة في أداة ملائمة مثل `sklearn.datasets.fetch_openml`.
 
-The URL of the parquet file can be found in the JSON description of the
-Bike Sharing Demand dataset with id 44063 on openml.org
+يمكن العثور على عنوان URL لملف Parquet في الوصف JSON لمجموعة بيانات
+طلب مشاركة الدراجات مع معرف 44063 على openml.org
 (https://openml.org/search?type=data&status=active&id=44063).
 
-The `sha256` hash of the file is also provided to ensure the integrity of the
-downloaded file.
+يتم توفير هاش `sha256` للملف أيضًا لضمان سلامة الملف
+الذي تم تنزيله.
 
-.. GENERATED FROM PYTHON SOURCE LINES 35-48
+.. GENERATED FROM PYTHON SOURCE LINES 29-57
 
 .. code-block:: Python
 
+    from sklearn.model_selection import cross_validate
+    from sklearn.metrics import (
+        make_scorer,
+        mean_absolute_error,
+        mean_pinball_loss,
+        root_mean_squared_error,
+    )
+    from collections import defaultdict
+    from sklearn.model_selection import cross_val_score
+    from sklearn.model_selection import TimeSeriesSplit
+    from sklearn.metrics import mean_absolute_percentage_error
+    from sklearn.model_selection import train_test_split
+    from sklearn.ensemble import HistGradientBoostingRegressor
+    import matplotlib.pyplot as plt
+    import polars.selectors as cs
     import numpy as np
     import polars as pl
 
@@ -93,14 +103,14 @@ downloaded file.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 49-53
+.. GENERATED FROM PYTHON SOURCE LINES 58-62
 
-We load the parquet file with Polars for feature engineering. Polars
-automatically caches common subexpressions which are reused in multiple
-expressions (like `pl.col("count").shift(1)` below). See
-https://docs.pola.rs/user-guide/lazy/optimizations/ for more information.
+نقوم بتحميل ملف Parquet باستخدام Polars للهندسة الميزات. يقوم Polars
+تلقائيًا بتخزين التعبيرات الفرعية الشائعة التي يتم إعادة استخدامها في تعبيرات متعددة
+(مثل `pl.col("count").shift(1)` أدناه). راجع
+https://docs.pola.rs/user-guide/lazy/optimizations/ لمزيد من المعلومات.
 
-.. GENERATED FROM PYTHON SOURCE LINES 53-56
+.. GENERATED FROM PYTHON SOURCE LINES 62-65
 
 .. code-block:: Python
 
@@ -114,19 +124,19 @@ https://docs.pola.rs/user-guide/lazy/optimizations/ for more information.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 57-59
+.. GENERATED FROM PYTHON SOURCE LINES 66-68
 
-Next, we take a look at the statistical summary of the dataset
-so that we can better understand the data that we are working with.
+بعد ذلك، نلقي نظرة على الملخص الإحصائي لمجموعة البيانات
+حتى نتمكن من فهم البيانات التي نعمل عليها بشكل أفضل.
 
-.. GENERATED FROM PYTHON SOURCE LINES 59-64
+.. GENERATED FROM PYTHON SOURCE LINES 68-73
 
 .. code-block:: Python
 
-    import polars.selectors as cs
 
     summary = df.select(cs.numeric()).describe()
     summary
+
 
 
 
@@ -148,17 +158,16 @@ so that we can better understand the data that we are working with.
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 65-67
+.. GENERATED FROM PYTHON SOURCE LINES 74-76
 
-Let us look at the count of the seasons `"fall"`, `"spring"`, `"summer"`
-and `"winter"` present in the dataset to confirm they are balanced.
+دعنا نلقي نظرة على عدد المواسم `"fall"`، `"spring"`، `"summer"`
+و `"winter"` الموجودة في مجموعة البيانات للتأكد من أنها متوازنة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 67-73
+.. GENERATED FROM PYTHON SOURCE LINES 76-81
 
 .. code-block:: Python
 
 
-    import matplotlib.pyplot as plt
 
     df["season"].value_counts()
 
@@ -178,22 +187,22 @@ and `"winter"` present in the dataset to confirm they are balanced.
       white-space: pre-wrap;
     }
     </style>
-    <small>shape: (4, 2)</small><table border="1" class="dataframe"><thead><tr><th>season</th><th>count</th></tr><tr><td>cat</td><td>u32</td></tr></thead><tbody><tr><td>&quot;1&quot;</td><td>4242</td></tr><tr><td>&quot;2&quot;</td><td>4409</td></tr><tr><td>&quot;0&quot;</td><td>4496</td></tr><tr><td>&quot;3&quot;</td><td>4232</td></tr></tbody></table></div>
+    <small>shape: (4, 2)</small><table border="1" class="dataframe"><thead><tr><th>season</th><th>count</th></tr><tr><td>cat</td><td>u32</td></tr></thead><tbody><tr><td>&quot;1&quot;</td><td>4242</td></tr><tr><td>&quot;0&quot;</td><td>4496</td></tr><tr><td>&quot;2&quot;</td><td>4409</td></tr><tr><td>&quot;3&quot;</td><td>4232</td></tr></tbody></table></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 74-81
+.. GENERATED FROM PYTHON SOURCE LINES 82-89
 
-Generating Polars-engineered lagged features
+توليد الميزات المتأخرة المصممة بواسطة Polars
 --------------------------------------------
-Let's consider the problem of predicting the demand at the
-next hour given past demands. Since the demand is a continuous
-variable, one could intuitively use any regression model. However, we do
-not have the usual `(X_train, y_train)` dataset. Instead, we just have
-the `y_train` demand data sequentially organized by time.
+دعنا نأخذ في الاعتبار مشكلة التنبؤ بالطلب في
+الساعة التالية بناءً على الطلبات السابقة. نظرًا لأن الطلب هو متغير مستمر،
+يمكن للمرء أن يستخدم بشكل حدسي أي نموذج انحدار. ومع ذلك، لا نملك
+مجموعة البيانات المعتادة `(X_train, y_train)`. بدلاً من ذلك، لدينا فقط
+بيانات الطلب `y_train` منظمة تسلسليًا حسب الوقت.
 
-.. GENERATED FROM PYTHON SOURCE LINES 81-97
+.. GENERATED FROM PYTHON SOURCE LINES 89-105
 
 .. code-block:: Python
 
@@ -233,12 +242,11 @@ the `y_train` demand data sequentially organized by time.
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 98-100
+.. GENERATED FROM PYTHON SOURCE LINES 106-107
 
-Watch out however, the first lines have undefined values because their own
-past is unknown. This depends on how much lag we used:
+ولكن انتبه، فإن الأسطر الأولى لها قيم غير محددة لأن ماضيها غير معروف. يعتمد هذا على مقدار التأخير الذي استخدمناه:
 
-.. GENERATED FROM PYTHON SOURCE LINES 100-102
+.. GENERATED FROM PYTHON SOURCE LINES 107-109
 
 .. code-block:: Python
 
@@ -264,12 +272,12 @@ past is unknown. This depends on how much lag we used:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 103-105
+.. GENERATED FROM PYTHON SOURCE LINES 110-112
 
-We can now separate the lagged features in a matrix `X` and the target variable
-(the counts to predict) in an array of the same first dimension `y`.
+يمكننا الآن فصل الميزات المتأخرة في مصفوفة `X` ومتغير الهدف
+(العددات التي يتعين التنبؤ بها) في مصفوفة من نفس البعد الأول `y`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 105-110
+.. GENERATED FROM PYTHON SOURCE LINES 112-116
 
 .. code-block:: Python
 
@@ -277,7 +285,6 @@ We can now separate the lagged features in a matrix `X` and the target variable
     X = lagged_df.drop("count")
     y = lagged_df["count"]
     print("X shape: {}\ny shape: {}".format(X.shape, y.shape))
-
 
 
 
@@ -292,25 +299,20 @@ We can now separate the lagged features in a matrix `X` and the target variable
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 111-121
+.. GENERATED FROM PYTHON SOURCE LINES 117-124
 
-Naive evaluation of the next hour bike demand regression
+تقييم ساذج للتنبؤ بالطلب على الدراجات في الساعة التالية
 --------------------------------------------------------
-Let's randomly split our tabularized dataset to train a gradient
-boosting regression tree (GBRT) model and evaluate it using Mean
-Absolute Percentage Error (MAPE). If our model is aimed at forecasting
-(i.e., predicting future data from past data), we should not use training
-data that are ulterior to the testing data. In time series machine learning
-the "i.i.d" (independent and identically distributed) assumption does not
-hold true as the data points are not independent and have a temporal
-relationship.
+دعنا نقسم مجموعتنا المجدولة بشكل عشوائي لتدريب نموذج شجرة الانحدار المعزز
+(GBRT) وتقييمه باستخدام متوسط خطأ النسبة المئوية (MAPE). إذا كان نموذجنا يهدف إلى التنبؤ
+(أي التنبؤ ببيانات المستقبل من بيانات الماضي)، فيجب علينا عدم استخدام بيانات التدريب
+التي تكون لاحقة لبيانات الاختبار. في تعلم الآلة للسلاسل الزمنية
+لا يصح افتراض "i.i.d" (مستقل ومتطابق التوزيع) لأن نقاط البيانات ليست مستقلة ولها علاقة زمنية.
 
-.. GENERATED FROM PYTHON SOURCE LINES 121-130
+.. GENERATED FROM PYTHON SOURCE LINES 124-131
 
 .. code-block:: Python
 
-    from sklearn.ensemble import HistGradientBoostingRegressor
-    from sklearn.model_selection import train_test_split
 
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42
@@ -325,15 +327,14 @@ relationship.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 131-132
+.. GENERATED FROM PYTHON SOURCE LINES 132-133
 
-Taking a look at the performance of the model.
+إلقاء نظرة على أداء النموذج.
 
-.. GENERATED FROM PYTHON SOURCE LINES 132-137
+.. GENERATED FROM PYTHON SOURCE LINES 133-137
 
 .. code-block:: Python
 
-    from sklearn.metrics import mean_absolute_percentage_error
 
     y_pred = model.predict(X_test)
     mean_absolute_percentage_error(y_test, y_pred)
@@ -347,30 +348,29 @@ Taking a look at the performance of the model.
  .. code-block:: none
 
 
-    0.3889873516666431
+    0.3928958540837012
 
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 138-144
 
-Proper next hour forecasting evaluation
+تقييم التنبؤ الصحيح للساعة التالية
 ---------------------------------------
-Let's use a proper evaluation splitting strategies that takes into account
-the temporal structure of the dataset to evaluate our model's ability to
-predict data points in the future (to avoid cheating by reading values from
-the lagged features in the training set).
+دعنا نستخدم استراتيجيات تقسيم التقييم الصحيحة التي تأخذ في الاعتبار
+البنية الزمنية لمجموعة البيانات لتقييم قدرة النموذج على
+التنبؤ بنقاط البيانات في المستقبل (لتجنب الغش عن طريق قراءة القيم من
+الميزات المتأخرة في مجموعة التدريب).
 
-.. GENERATED FROM PYTHON SOURCE LINES 144-154
+.. GENERATED FROM PYTHON SOURCE LINES 144-153
 
 .. code-block:: Python
 
-    from sklearn.model_selection import TimeSeriesSplit
 
     ts_cv = TimeSeriesSplit(
-        n_splits=3,  # to keep the notebook fast enough on common laptops
-        gap=48,  # 2 days data gap between train and test
-        max_train_size=10000,  # keep train sets of comparable sizes
-        test_size=3000,  # for 2 or 3 digits of precision in scores
+        n_splits=3,  # للحفاظ على سرعة الكمبيوتر المحمول بما يكفي على أجهزة الكمبيوتر المحمولة الشائعة
+        gap=48,  # فجوة بيانات لمدة يومين بين التدريب والاختبار
+        max_train_size=10000,  # الحفاظ على مجموعات التدريب بأحجام قابلة للمقارنة
+        test_size=3000,  # للحصول على 2 أو 3 أرقام من الدقة في الدرجات
     )
     all_splits = list(ts_cv.split(X, y))
 
@@ -381,11 +381,11 @@ the lagged features in the training set).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 155-156
+.. GENERATED FROM PYTHON SOURCE LINES 154-155
 
-Training the model and evaluating its performance based on MAPE.
+تدريب النموذج وتقييم أدائه بناءً على MAPE.
 
-.. GENERATED FROM PYTHON SOURCE LINES 156-164
+.. GENERATED FROM PYTHON SOURCE LINES 155-163
 
 .. code-block:: Python
 
@@ -410,19 +410,18 @@ Training the model and evaluating its performance based on MAPE.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 165-170
+.. GENERATED FROM PYTHON SOURCE LINES 164-169
 
-The generalization error measured via a shuffled trained test split
-is too optimistic. The generalization via a time-based split is likely to
-be more representative of the true performance of the regression model.
-Let's assess this variability of our error evaluation with proper
-cross-validation:
+خطأ التعميم المقاس عبر تقسيم الاختبار المدرب العشوائي
+هو متفائل للغاية. من المرجح أن يكون التعميم عبر تقسيم زمني
+أكثر تمثيلاً للأداء الحقيقي لنموذج الانحدار.
+دعنا نقيم هذه التباين في تقييم الخطأ لدينا مع
+تقسيم الصحيح:
 
-.. GENERATED FROM PYTHON SOURCE LINES 170-177
+.. GENERATED FROM PYTHON SOURCE LINES 169-175
 
 .. code-block:: Python
 
-    from sklearn.model_selection import cross_val_score
 
     cv_mape_scores = -cross_val_score(
         model, X, y, cv=ts_cv, scoring="neg_mean_absolute_percentage_error"
@@ -442,13 +441,13 @@ cross-validation:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 178-181
+.. GENERATED FROM PYTHON SOURCE LINES 176-179
 
-The variability across splits is quite large! In a real life setting
-it would be advised to use more splits to better assess the variability.
-Let's report the mean CV scores and their standard deviation from now on.
+التباين عبر التقسيمات كبير جدًا! في إعداد الحياة الواقعية
+يُنصح باستخدام المزيد من التقسيمات لتقييم التباين بشكل أفضل.
+دعنا نبلغ عن متوسط درجات CV وانحرافها المعياري من الآن فصاعدًا.
 
-.. GENERATED FROM PYTHON SOURCE LINES 181-183
+.. GENERATED FROM PYTHON SOURCE LINES 179-181
 
 .. code-block:: Python
 
@@ -467,24 +466,15 @@ Let's report the mean CV scores and their standard deviation from now on.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 184-186
+.. GENERATED FROM PYTHON SOURCE LINES 182-184
 
-We can compute several combinations of evaluation metrics and loss functions,
-which are reported a bit below.
+يمكننا حساب العديد من مجموعات مقاييس التقييم ووظائف الخسارة،
+والتي يتم الإبلاغ عنها أدناه بقليل.
 
-.. GENERATED FROM PYTHON SOURCE LINES 186-236
+.. GENERATED FROM PYTHON SOURCE LINES 184-225
 
 .. code-block:: Python
 
-    from collections import defaultdict
-
-    from sklearn.metrics import (
-        make_scorer,
-        mean_absolute_error,
-        mean_pinball_loss,
-        root_mean_squared_error,
-    )
-    from sklearn.model_selection import cross_validate
 
 
     def consolidate_scores(cv_results, scores, metric):
@@ -533,26 +523,25 @@ which are reported a bit below.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 237-253
+.. GENERATED FROM PYTHON SOURCE LINES 226-241
 
-Modeling predictive uncertainty via quantile regression
+نمذجة عدم اليقين التنبؤي عبر الانحدار الكمي
 -------------------------------------------------------
-Instead of modeling the expected value of the distribution of
-:math:`Y|X` like the least squares and Poisson losses do, one could try to
-estimate quantiles of the conditional distribution.
+بدلاً من نمذجة القيمة المتوقعة لتوزيع
+:math:`Y|X` مثلما تفعل خسائر المربعات الصغرى و Poisson، يمكن للمرء أن يحاول
+تقدير الكميات لتوزيع الشرطي.
 
-:math:`Y|X=x_i` is expected to be a random variable for a given data point
-:math:`x_i` because we expect that the number of rentals cannot be 100%
-accurately predicted from the features. It can be influenced by other
-variables not properly captured by the existing lagged features. For
-instance whether or not it will rain in the next hour cannot be fully
-anticipated from the past hours bike rental data. This is what we
-call aleatoric uncertainty.
+:math:`Y|X=x_i` من المتوقع أن تكون متغيرًا عشوائيًا لنقطة بيانات معينة
+:math:`x_i` لأننا نتوقع أن عدد الإيجارات لا يمكن التنبؤ به بدقة 100%
+من الميزات. يمكن أن يتأثر بعوامل أخرى لا يتم التقاطها بشكل صحيح بواسطة
+الميزات المتأخرة الموجودة. على سبيل المثال، ما إذا كان سيمطر في الساعة التالية
+لا يمكن التنبؤ به بالكامل من بيانات إيجار الدراجات في الساعات السابقة. هذا ما نسميه
+عدم اليقين العشوائي.
 
-Quantile regression makes it possible to give a finer description of that
-distribution without making strong assumptions on its shape.
+يجعل الانحدار الكمي من الممكن إعطاء وصف أدق لهذا
+التوزيع دون افتراضات قوية حول شكله.
 
-.. GENERATED FROM PYTHON SOURCE LINES 253-278
+.. GENERATED FROM PYTHON SOURCE LINES 241-266
 
 .. code-block:: Python
 
@@ -596,16 +585,16 @@ distribution without making strong assumptions on its shape.
       white-space: pre-wrap;
     }
     </style>
-    <small>shape: (6, 8)</small><table border="1" class="dataframe"><thead><tr><th>loss</th><th>fit_time</th><th>MAPE</th><th>RMSE</th><th>MAE</th><th>pinball_loss_05</th><th>pinball_loss_50</th><th>pinball_loss_95</th></tr><tr><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td></tr></thead><tbody><tr><td>&quot;squared_error&quot;</td><td>&quot;0.34 ± 0.01 s&quot;</td><td>&quot;0.36 ± 0.07&quot;</td><td>&quot;62.3 ± 3.5&quot;</td><td>&quot;39.1 ± 2.3&quot;</td><td>&quot;17.7 ± 1.3&quot;</td><td>&quot;19.5 ± 1.1&quot;</td><td>&quot;21.4 ± 2.4&quot;</td></tr><tr><td>&quot;poisson&quot;</td><td>&quot;0.39 ± 0.03 s&quot;</td><td>&quot;0.32 ± 0.07&quot;</td><td>&quot;64.2 ± 4.0&quot;</td><td>&quot;39.3 ± 2.8&quot;</td><td>&quot;16.7 ± 1.5&quot;</td><td>&quot;19.7 ± 1.4&quot;</td><td>&quot;22.6 ± 3.0&quot;</td></tr><tr><td>&quot;absolute_error&quot;</td><td>&quot;0.49 ± 0.03 s&quot;</td><td>&quot;0.32 ± 0.06&quot;</td><td>&quot;64.6 ± 3.8&quot;</td><td>&quot;39.9 ± 3.2&quot;</td><td>&quot;17.1 ± 1.1&quot;</td><td>&quot;19.9 ± 1.6&quot;</td><td>&quot;22.7 ± 3.1&quot;</td></tr><tr><td>&quot;quantile 5&quot;</td><td>&quot;0.69 ± 0.01 s&quot;</td><td>&quot;0.41 ± 0.01&quot;</td><td>&quot;145.6 ± 20.9&quot;</td><td>&quot;92.5 ± 16.2&quot;</td><td>&quot;5.9 ± 0.9&quot;</td><td>&quot;46.2 ± 8.1&quot;</td><td>&quot;86.6 ± 15.3&quot;</td></tr><tr><td>&quot;quantile 50&quot;</td><td>&quot;0.75 ± 0.01 s&quot;</td><td>&quot;0.32 ± 0.06&quot;</td><td>&quot;64.6 ± 3.8&quot;</td><td>&quot;39.9 ± 3.2&quot;</td><td>&quot;17.1 ± 1.1&quot;</td><td>&quot;19.9 ± 1.6&quot;</td><td>&quot;22.7 ± 3.1&quot;</td></tr><tr><td>&quot;quantile 95&quot;</td><td>&quot;0.68 ± 0.05 s&quot;</td><td>&quot;1.07 ± 0.27&quot;</td><td>&quot;99.6 ± 8.7&quot;</td><td>&quot;72.0 ± 6.1&quot;</td><td>&quot;62.9 ± 7.4&quot;</td><td>&quot;36.0 ± 3.1&quot;</td><td>&quot;9.1 ± 1.3&quot;</td></tr></tbody></table></div>
+    <small>shape: (6, 8)</small><table border="1" class="dataframe"><thead><tr><th>loss</th><th>fit_time</th><th>MAPE</th><th>RMSE</th><th>MAE</th><th>pinball_loss_05</th><th>pinball_loss_50</th><th>pinball_loss_95</th></tr><tr><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td><td>str</td></tr></thead><tbody><tr><td>&quot;squared_error&quot;</td><td>&quot;0.33 ± 0.01 s&quot;</td><td>&quot;0.36 ± 0.07&quot;</td><td>&quot;62.3 ± 3.5&quot;</td><td>&quot;39.1 ± 2.3&quot;</td><td>&quot;17.7 ± 1.3&quot;</td><td>&quot;19.5 ± 1.1&quot;</td><td>&quot;21.4 ± 2.4&quot;</td></tr><tr><td>&quot;poisson&quot;</td><td>&quot;0.35 ± 0.01 s&quot;</td><td>&quot;0.32 ± 0.07&quot;</td><td>&quot;64.2 ± 4.0&quot;</td><td>&quot;39.3 ± 2.8&quot;</td><td>&quot;16.7 ± 1.5&quot;</td><td>&quot;19.7 ± 1.4&quot;</td><td>&quot;22.6 ± 3.0&quot;</td></tr><tr><td>&quot;absolute_error&quot;</td><td>&quot;0.49 ± 0.03 s&quot;</td><td>&quot;0.32 ± 0.06&quot;</td><td>&quot;64.6 ± 3.8&quot;</td><td>&quot;39.9 ± 3.2&quot;</td><td>&quot;17.1 ± 1.1&quot;</td><td>&quot;19.9 ± 1.6&quot;</td><td>&quot;22.7 ± 3.1&quot;</td></tr><tr><td>&quot;quantile 5&quot;</td><td>&quot;0.64 ± 0.02 s&quot;</td><td>&quot;0.41 ± 0.01&quot;</td><td>&quot;145.6 ± 20.9&quot;</td><td>&quot;92.5 ± 16.2&quot;</td><td>&quot;5.9 ± 0.9&quot;</td><td>&quot;46.2 ± 8.1&quot;</td><td>&quot;86.6 ± 15.3&quot;</td></tr><tr><td>&quot;quantile 50&quot;</td><td>&quot;0.68 ± 0.01 s&quot;</td><td>&quot;0.32 ± 0.06&quot;</td><td>&quot;64.6 ± 3.8&quot;</td><td>&quot;39.9 ± 3.2&quot;</td><td>&quot;17.1 ± 1.1&quot;</td><td>&quot;19.9 ± 1.6&quot;</td><td>&quot;22.7 ± 3.1&quot;</td></tr><tr><td>&quot;quantile 95&quot;</td><td>&quot;0.86 ± 0.10 s&quot;</td><td>&quot;1.07 ± 0.27&quot;</td><td>&quot;99.6 ± 8.7&quot;</td><td>&quot;72.0 ± 6.1&quot;</td><td>&quot;62.9 ± 7.4&quot;</td><td>&quot;36.0 ± 3.1&quot;</td><td>&quot;9.1 ± 1.3&quot;</td></tr></tbody></table></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 279-280
+.. GENERATED FROM PYTHON SOURCE LINES 267-268
 
-Let us take a look at the losses that minimise each metric.
+دعنا نلقي نظرة على الخسائر التي تقلل من كل مقياس.
 
-.. GENERATED FROM PYTHON SOURCE LINES 280-294
+.. GENERATED FROM PYTHON SOURCE LINES 268-282
 
 .. code-block:: Python
 
@@ -643,21 +632,21 @@ Let us take a look at the losses that minimise each metric.
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 295-306
+.. GENERATED FROM PYTHON SOURCE LINES 283-294
 
-Even if the score distributions overlap due to the variance in the dataset,
-it is true that the average RMSE is lower when `loss="squared_error"`, whereas
-the average MAPE is lower when `loss="absolute_error"` as expected. That is
-also the case for the Mean Pinball Loss with the quantiles 5 and 95. The score
-corresponding to the 50 quantile loss is overlapping with the score obtained
-by minimizing other loss functions, which is also the case for the MAE.
+حتى إذا كانت توزيعات الدرجات تتداخل بسبب التباين في مجموعة البيانات،
+فمن الصحيح أن متوسط RMSE أقل عندما `loss="squared_error"`، في حين أن
+متوسط MAPE أقل عندما `loss="absolute_error"` كما هو متوقع. هذا هو
+أيضًا الحال بالنسبة لمتوسط Pinball Loss مع الكميات 5 و95. الدرجات
+المقابلة لخسارة الكمية 50 تتداخل مع الدرجات التي تم الحصول عليها
+عن طريق تقليل وظائف الخسارة الأخرى، وهو أيضًا الحال بالنسبة لـ MAE.
 
-A qualitative look at the predictions
+نظرة نوعية على التنبؤات
 -------------------------------------
-We can now visualize the performance of the model with regards
-to the 5th percentile, median and the 95th percentile:
+يمكننا الآن تصور أداء النموذج فيما يتعلق
+بالخمسة بالمائة، والوسيط، والـ 95 بالمائة:
 
-.. GENERATED FROM PYTHON SOURCE LINES 306-335
+.. GENERATED FROM PYTHON SOURCE LINES 294-317
 
 .. code-block:: Python
 
@@ -666,9 +655,12 @@ to the 5th percentile, median and the 95th percentile:
 
     X_train, X_test = X[train_idx, :], X[test_idx, :]
     y_train, y_test = y[train_idx], y[test_idx]
+    X_train, X_test = X[train_idx, :], X[test_idx, :]
+    y_train, y_test = y[train_idx], y[test_idx]
 
     max_iter = 50
-    gbrt_mean_poisson = HistGradientBoostingRegressor(loss="poisson", max_iter=max_iter)
+    gbrt_mean_poisson = HistGradientBoostingRegressor(
+        loss="poisson", max_iter=max_iter)
     gbrt_mean_poisson.fit(X_train, y_train)
     mean_predictions = gbrt_mean_poisson.predict(X_test)
 
@@ -681,168 +673,17 @@ to the 5th percentile, median and the 95th percentile:
     gbrt_percentile_5 = HistGradientBoostingRegressor(
         loss="quantile", quantile=0.05, max_iter=max_iter
     )
-    gbrt_percentile_5.fit(X_train, y_train)
-    percentile_5_predictions = gbrt_percentile_5.predict(X_test)
-
-    gbrt_percentile_95 = HistGradientBoostingRegressor(
-        loss="quantile", quantile=0.95, max_iter=max_iter
-    )
-    gbrt_percentile_95.fit(X_train, y_train)
-    percentile_95_predictions = gbrt_percentile_95.predict(X_test)
 
 
 
 
 
 
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 336-337
-
-We can now take a look at the predictions made by the regression models:
-
-.. GENERATED FROM PYTHON SOURCE LINES 337-366
-
-.. code-block:: Python
-
-    last_hours = slice(-96, None)
-    fig, ax = plt.subplots(figsize=(15, 7))
-    plt.title("Predictions by regression models")
-    ax.plot(
-        y_test[last_hours],
-        "x-",
-        alpha=0.2,
-        label="Actual demand",
-        color="black",
-    )
-    ax.plot(
-        median_predictions[last_hours],
-        "^-",
-        label="GBRT median",
-    )
-    ax.plot(
-        mean_predictions[last_hours],
-        "x-",
-        label="GBRT mean (Poisson)",
-    )
-    ax.fill_between(
-        np.arange(96),
-        percentile_5_predictions[last_hours],
-        percentile_95_predictions[last_hours],
-        alpha=0.3,
-        label="GBRT 90% interval",
-    )
-    _ = ax.legend()
-
-
-
-
-.. image-sg:: /auto_examples/applications/images/sphx_glr_plot_time_series_lagged_features_001.png
-   :alt: Predictions by regression models
-   :srcset: /auto_examples/applications/images/sphx_glr_plot_time_series_lagged_features_001.png
-   :class: sphx-glr-single-img
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 367-388
-
-Here it's interesting to notice that the blue area between the 5% and 95%
-percentile estimators has a width that varies with the time of the day:
-
-- At night, the blue band is much narrower: the pair of models is quite
-  certain that there will be a small number of bike rentals. And furthermore
-  these seem correct in the sense that the actual demand stays in that blue
-  band.
-- During the day, the blue band is much wider: the uncertainty grows, probably
-  because of the variability of the weather that can have a very large impact,
-  especially on week-ends.
-- We can also see that during week-days, the commute pattern is still visible in
-  the 5% and 95% estimations.
-- Finally, it is expected that 10% of the time, the actual demand does not lie
-  between the 5% and 95% percentile estimates. On this test span, the actual
-  demand seems to be higher, especially during the rush hours. It might reveal that
-  our 95% percentile estimator underestimates the demand peaks. This could be be
-  quantitatively confirmed by computing empirical coverage numbers as done in
-  the :ref:`calibration of confidence intervals <calibration-section>`.
-
-Looking at the performance of non-linear regression models vs
-the best models:
-
-.. GENERATED FROM PYTHON SOURCE LINES 388-415
-
-.. code-block:: Python
-
-    from sklearn.metrics import PredictionErrorDisplay
-
-    fig, axes = plt.subplots(ncols=3, figsize=(15, 6), sharey=True)
-    fig.suptitle("Non-linear regression models")
-    predictions = [
-        median_predictions,
-        percentile_5_predictions,
-        percentile_95_predictions,
-    ]
-    labels = [
-        "Median",
-        "5th percentile",
-        "95th percentile",
-    ]
-    for ax, pred, label in zip(axes, predictions, labels):
-        PredictionErrorDisplay.from_predictions(
-            y_true=y_test,
-            y_pred=pred,
-            kind="residual_vs_predicted",
-            scatter_kwargs={"alpha": 0.3},
-            ax=ax,
-        )
-        ax.set(xlabel="Predicted demand", ylabel="True demand")
-        ax.legend(["Best model", label])
-
-    plt.show()
-
-
-
-
-.. image-sg:: /auto_examples/applications/images/sphx_glr_plot_time_series_lagged_features_002.png
-   :alt: Non-linear regression models
-   :srcset: /auto_examples/applications/images/sphx_glr_plot_time_series_lagged_features_002.png
-   :class: sphx-glr-single-img
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 416-439
-
-Conclusion
-----------
-Through this example we explored time series forecasting using lagged
-features. We compared a naive regression (using the standardized
-:class:`~sklearn.model_selection.train_test_split`) with a proper time
-series evaluation strategy using
-:class:`~sklearn.model_selection.TimeSeriesSplit`. We observed that the
-model trained using :class:`~sklearn.model_selection.train_test_split`,
-having a default value of `shuffle` set to `True` produced an overly
-optimistic Mean Average Percentage Error (MAPE). The results
-produced from the time-based split better represent the performance
-of our time-series regression model. We also analyzed the predictive uncertainty
-of our model via Quantile Regression. Predictions based on the 5th and
-95th percentile using `loss="quantile"` provide us with a quantitative estimate
-of the uncertainty of the forecasts made by our time series regression model.
-Uncertainty estimation can also be performed
-using `MAPIE <https://mapie.readthedocs.io/en/latest/index.html>`_,
-that provides an implementation based on recent work on conformal prediction
-methods and estimates both aleatoric and epistemic uncertainty at the same time.
-Furthermore, functionalities provided
-by `sktime <https://www.sktime.net/en/latest/users.html>`_
-can be used to extend scikit-learn estimators by making use of recursive time
-series forecasting, that enables dynamic predictions of future values.
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 11.930 seconds)
+   **Total running time of the script:** (0 minutes 12.648 seconds)
 
 
 .. _sphx_glr_download_auto_examples_applications_plot_time_series_lagged_features.py:

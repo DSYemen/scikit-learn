@@ -1,26 +1,25 @@
 """
-============================
-Faces dataset decompositions
-============================
+===============================
+تحليلات مجموعة بيانات الوجوه
+===============================
 
-This example applies to :ref:`olivetti_faces_dataset` different unsupervised
-matrix decomposition (dimension reduction) methods from the module
-:mod:`sklearn.decomposition` (see the documentation chapter
+يطبق هذا المثال على :ref:`olivetti_faces_dataset` طرقًا مختلفة لتحليل المصفوفة غير الخاضعة للإشراف (تقليل الأبعاد) من الوحدة
+:mod:`sklearn.decomposition` (انظر فصل الوثائق
 :ref:`decompositions`).
 
 
-- Authors: Vlad Niculae, Alexandre Gramfort
-- License: BSD 3 clause
+- المؤلفون: Vlad Niculae, Alexandre Gramfort
+- الترخيص: BSD 3 clause
 """
 
 # Authors: The scikit-learn developers
 # SPDX-License-Identifier: BSD-3-Clause
 
 # %%
-# Dataset preparation
+# إعداد مجموعة البيانات
 # -------------------
 #
-# Loading and preprocessing the Olivetti faces dataset.
+# تحميل ومعالجة مجموعة بيانات وجوه Olivetti.
 
 import logging
 
@@ -32,22 +31,24 @@ from sklearn.datasets import fetch_olivetti_faces
 
 rng = RandomState(0)
 
-# Display progress logs on stdout
-logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+# عرض سجلات التقدم على stdout
+logging.basicConfig(level=logging.INFO,
+                    format="%(asctime)s %(levelname)s %(message)s")
 
-faces, _ = fetch_olivetti_faces(return_X_y=True, shuffle=True, random_state=rng)
+faces, _ = fetch_olivetti_faces(
+    return_X_y=True, shuffle=True, random_state=rng)
 n_samples, n_features = faces.shape
 
-# Global centering (focus on one feature, centering all samples)
+# توسيط عام (التركيز على ميزة واحدة، توسيط جميع العينات)
 faces_centered = faces - faces.mean(axis=0)
 
-# Local centering (focus on one sample, centering all features)
+# توسيط محلي (التركيز على عينة واحدة، توسيط جميع الميزات)
 faces_centered -= faces_centered.mean(axis=1).reshape(n_samples, -1)
 
-print("Dataset consists of %d faces" % n_samples)
+print("تتكون مجموعة البيانات من %d وجه" % n_samples)
 
 # %%
-# Define a base function to plot the gallery of faces.
+# تعريف دالة أساسية لرسم معرض الوجوه.
 
 n_row, n_col = 2, 3
 n_components = n_row * n_col
@@ -76,39 +77,40 @@ def plot_gallery(title, images, n_col=n_col, n_row=n_row, cmap=plt.cm.gray):
         )
         ax.axis("off")
 
-    fig.colorbar(im, ax=axs, orientation="horizontal", shrink=0.99, aspect=40, pad=0.01)
+    fig.colorbar(im, ax=axs, orientation="horizontal",
+                 shrink=0.99, aspect=40, pad=0.01)
     plt.show()
 
 
 # %%
-# Let's take a look at our data. Gray color indicates negative values,
-# white indicates positive values.
+# لنلقِ نظرة على بياناتنا. يشير اللون الرمادي إلى القيم السالبة،
+# ويشير اللون الأبيض إلى القيم الموجبة.
 
-plot_gallery("Faces from dataset", faces_centered[:n_components])
+plot_gallery("وجوه من مجموعة البيانات", faces_centered[:n_components])
 
 # %%
-# Decomposition
+# التحليل
 # -------------
 #
-# Initialise different estimators for decomposition and fit each
-# of them on all images and plot some results. Each estimator extracts
-# 6 components as vectors :math:`h \in \mathbb{R}^{4096}`.
-# We just displayed these vectors in human-friendly visualisation as 64x64 pixel images.
+# تهيئة مقدرات مختلفة للتحليل وملاءمة كل منها
+# على جميع الصور ورسم بعض النتائج. يستخرج كل مقدر
+# 6 مكونات كمتجهات :math:`h \in \mathbb{R}^{4096}`.
+# لقد عرضنا هذه المتجهات فقط في تصور سهل الاستخدام كصور 64 × 64 بكسل.
 #
-# Read more in the :ref:`User Guide <decompositions>`.
+# اقرأ المزيد في :ref:`دليل المستخدم <decompositions>`.
 
 # %%
-# Eigenfaces - PCA using randomized SVD
+# الوجوه الذاتية - PCA باستخدام SVD العشوائي
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-# Linear dimensionality reduction using Singular Value Decomposition (SVD) of the data
-# to project it to a lower dimensional space.
+# تقليل الأبعاد الخطي باستخدام تحليل القيمة المفردة (SVD) للبيانات
+# لإسقاطها إلى مساحة ذات أبعاد أقل.
 #
 #
 # .. note::
 #
-#     The Eigenfaces estimator, via the :py:mod:`sklearn.decomposition.PCA`,
-#     also provides a scalar `noise_variance_` (the mean of pixelwise variance)
-#     that cannot be displayed as an image.
+#     يوفر مقدر الوجوه الذاتية، عبر :py:mod:`sklearn.decomposition.PCA`،
+#     أيضًا `noise_variance_` عددي (متوسط التباين لكل بكسل)
+#     الذي لا يمكن عرضه كصورة.
 
 # %%
 pca_estimator = decomposition.PCA(
@@ -116,25 +118,26 @@ pca_estimator = decomposition.PCA(
 )
 pca_estimator.fit(faces_centered)
 plot_gallery(
-    "Eigenfaces - PCA using randomized SVD", pca_estimator.components_[:n_components]
+    "الوجوه الذاتية - PCA باستخدام SVD العشوائي", pca_estimator.components_[
+        :n_components]
 )
 
 # %%
-# Non-negative components - NMF
+# المكونات غير السالبة - NMF
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #
-# Estimate non-negative original data as production of two non-negative matrices.
+# تقدير البيانات الأصلية غير السالبة كنتاج لمصفوفتين غير سالبتين.
 
 # %%
 nmf_estimator = decomposition.NMF(n_components=n_components, tol=5e-3)
-nmf_estimator.fit(faces)  # original non- negative dataset
-plot_gallery("Non-negative components - NMF", nmf_estimator.components_[:n_components])
+nmf_estimator.fit(faces)  # مجموعة البيانات الأصلية غير السالبة
+plot_gallery("المكونات غير السالبة - NMF",
+             nmf_estimator.components_[:n_components])
 
 # %%
-# Independent components - FastICA
+# المكونات المستقلة - FastICA
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-# Independent component analysis separates a multivariate vectors into additive
-# subcomponents that are maximally independent.
+# يفصل تحليل المكونات المستقلة متجهات متعددة المتغيرات إلى مكونات فرعية مضافة مستقلة إلى أقصى حد.
 
 # %%
 ica_estimator = decomposition.FastICA(
@@ -142,17 +145,16 @@ ica_estimator = decomposition.FastICA(
 )
 ica_estimator.fit(faces_centered)
 plot_gallery(
-    "Independent components - FastICA", ica_estimator.components_[:n_components]
+    "المكونات المستقلة - FastICA", ica_estimator.components_[:n_components]
 )
 
 # %%
-# Sparse components - MiniBatchSparsePCA
+# المكونات المتناثرة - MiniBatchSparsePCA
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #
-# Mini-batch sparse PCA (:class:`~sklearn.decomposition.MiniBatchSparsePCA`)
-# extracts the set of sparse components that best reconstruct the data. This
-# variant is faster but less accurate than the similar
-# :class:`~sklearn.decomposition.SparsePCA`.
+# يستخرج Mini-batch sparse PCA (:class:`~sklearn.decomposition.MiniBatchSparsePCA`)
+# مجموعة المكونات المتناثرة التي تعيد بناء البيانات بشكل أفضل. هذا المتغير
+# أسرع ولكنه أقل دقة من :class:`~sklearn.decomposition.SparsePCA` المماثل.
 
 # %%
 batch_pca_estimator = decomposition.MiniBatchSparsePCA(
@@ -160,33 +162,33 @@ batch_pca_estimator = decomposition.MiniBatchSparsePCA(
 )
 batch_pca_estimator.fit(faces_centered)
 plot_gallery(
-    "Sparse components - MiniBatchSparsePCA",
+    "المكونات المتناثرة - MiniBatchSparsePCA",
     batch_pca_estimator.components_[:n_components],
 )
 
 # %%
-# Dictionary learning
+# تعلم القاموس
 # ^^^^^^^^^^^^^^^^^^^
 #
-# By default, :class:`~sklearn.decomposition.MiniBatchDictionaryLearning`
-# divides the data into mini-batches and optimizes in an online manner by
-# cycling over the mini-batches for the specified number of iterations.
+# افتراضيًا، يقوم :class:`~sklearn.decomposition.MiniBatchDictionaryLearning`
+# بتقسيم البيانات إلى مجموعات صغيرة ويحسنها بطريقة متصلة بالإنترنت
+# عن طريق التدوير على المجموعات الصغيرة لعدد التكرارات المحدد.
 
 # %%
 batch_dict_estimator = decomposition.MiniBatchDictionaryLearning(
     n_components=n_components, alpha=0.1, max_iter=50, batch_size=3, random_state=rng
 )
 batch_dict_estimator.fit(faces_centered)
-plot_gallery("Dictionary learning", batch_dict_estimator.components_[:n_components])
+plot_gallery("تعلم القاموس", batch_dict_estimator.components_[:n_components])
 
 # %%
-# Cluster centers - MiniBatchKMeans
+# مراكز التجميع - MiniBatchKMeans
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #
-# :class:`sklearn.cluster.MiniBatchKMeans` is computationally efficient and
-# implements on-line learning with a
-# :meth:`~sklearn.cluster.MiniBatchKMeans.partial_fit` method. That is
-# why it could be beneficial to enhance some time-consuming algorithms with
+# :class:`sklearn.cluster.MiniBatchKMeans` فعال من الناحية الحسابية
+# وينفذ التعلم عبر الإنترنت باستخدام طريقة
+# :meth:`~sklearn.cluster.MiniBatchKMeans.partial_fit`. لهذا السبب
+# قد يكون من المفيد تحسين بعض الخوارزميات التي تستغرق وقتًا طويلاً باستخدام
 # :class:`~sklearn.cluster.MiniBatchKMeans`.
 
 # %%
@@ -199,24 +201,24 @@ kmeans_estimator = cluster.MiniBatchKMeans(
 )
 kmeans_estimator.fit(faces_centered)
 plot_gallery(
-    "Cluster centers - MiniBatchKMeans",
+    "مراكز التجميع - MiniBatchKMeans",
     kmeans_estimator.cluster_centers_[:n_components],
 )
 
 
 # %%
-# Factor Analysis components - FA
+# مكونات تحليل العوامل - FA
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #
-# :class:`~sklearn.decomposition.FactorAnalysis` is similar to
-# :class:`~sklearn.decomposition.PCA` but has the advantage of modelling the
-# variance in every direction of the input space independently (heteroscedastic
-# noise). Read more in the :ref:`User Guide <FA>`.
+# يشبه :class:`~sklearn.decomposition.FactorAnalysis`
+# :class:`~sklearn.decomposition.PCA` ولكنه يتميز بنمذجة
+# التباين في كل اتجاه لمساحة الإدخال بشكل مستقل (ضوضاء غير متجانسة). اقرأ المزيد في :ref:`دليل المستخدم <FA>`.
 
 # %%
-fa_estimator = decomposition.FactorAnalysis(n_components=n_components, max_iter=20)
+fa_estimator = decomposition.FactorAnalysis(
+    n_components=n_components, max_iter=20)
 fa_estimator.fit(faces_centered)
-plot_gallery("Factor Analysis (FA)", fa_estimator.components_[:n_components])
+plot_gallery("تحليل العوامل (FA)", fa_estimator.components_[:n_components])
 
 # --- Pixelwise variance
 plt.figure(figsize=(3.2, 3.6), facecolor="white", tight_layout=True)
@@ -230,49 +232,51 @@ plt.imshow(
     vmax=vmax,
 )
 plt.axis("off")
-plt.title("Pixelwise variance from \n Factor Analysis (FA)", size=16, wrap=True)
+plt.title("التباين لكل بكسل من \n تحليل العوامل (FA)", size=16, wrap=True)
 plt.colorbar(orientation="horizontal", shrink=0.8, pad=0.03)
 plt.show()
 
 # %%
-# Decomposition: Dictionary learning
+# التحليل: تعلم القاموس
 # ----------------------------------
 #
-# In the further section, let's consider :ref:`DictionaryLearning` more precisely.
-# Dictionary learning is a problem that amounts to finding a sparse representation
-# of the input data as a combination of simple elements. These simple elements form
-# a dictionary. It is possible to constrain the dictionary and/or coding coefficients
-# to be positive to match constraints that may be present in the data.
+# في القسم التالي، دعونا نفكر في :ref:`DictionaryLearning` بمزيد من الدقة.
+# تعلم القاموس هو مشكلة ترقى إلى إيجاد تمثيل متناثر
+# لبيانات الإدخال كمزيج من العناصر البسيطة. تشكل هذه العناصر البسيطة
+# قاموسًا. من الممكن تقييد القاموس و/أو معاملات الترميز
+# لتكون موجبة لتتناسب مع القيود التي قد تكون موجودة في البيانات.
 #
-# :class:`~sklearn.decomposition.MiniBatchDictionaryLearning` implements a
-# faster, but less accurate version of the dictionary learning algorithm that
-# is better suited for large datasets. Read more in the :ref:`User Guide
+# ينفذ :class:`~sklearn.decomposition.MiniBatchDictionaryLearning` نسخة
+# أسرع، ولكن أقل دقة من خوارزمية تعلم القاموس
+# وهي أكثر ملاءمة لمجموعات البيانات الكبيرة. اقرأ المزيد في :ref:`دليل المستخدم
 # <MiniBatchDictionaryLearning>`.
 
 # %%
-# Plot the same samples from our dataset but with another colormap.
-# Red indicates negative values, blue indicates positive values,
-# and white represents zeros.
+# ارسم نفس العينات من مجموعة البيانات الخاصة بنا ولكن باستخدام خريطة ألوان أخرى.
+# يشير اللون الأحمر إلى القيم السالبة، ويشير اللون الأزرق إلى القيم الموجبة،
+# ويمثل اللون الأبيض الأصفار.
 
-plot_gallery("Faces from dataset", faces_centered[:n_components], cmap=plt.cm.RdBu)
+
+plot_gallery("وجوه من مجموعة البيانات",
+             faces_centered[:n_components], cmap=plt.cm.RdBu)
 
 # %%
-# Similar to the previous examples, we change parameters and train
-# :class:`~sklearn.decomposition.MiniBatchDictionaryLearning` estimator on all
-# images. Generally, the dictionary learning and sparse encoding decompose
-# input data into the dictionary and the coding coefficients matrices. :math:`X
-# \approx UV`, where :math:`X = [x_1, . . . , x_n]`, :math:`X \in
-# \mathbb{R}^{m×n}`, dictionary :math:`U \in \mathbb{R}^{m×k}`, coding
-# coefficients :math:`V \in \mathbb{R}^{k×n}`.
+# على غرار الأمثلة السابقة، نقوم بتغيير المعلمات وتدريب
+# مقدر :class:`~sklearn.decomposition.MiniBatchDictionaryLearning` على جميع
+# الصور. بشكل عام، يقوم تعلم القاموس والترميز المتناثر
+# بتحليل بيانات الإدخال إلى مصفوفات القاموس ومعاملات الترميز. :math:`X
+# \approx UV`، حيث :math:`X = [x_1, . . . , x_n]`، :math:`X \in
+# \mathbb{R}^{m×n}`، قاموس :math:`U \in \mathbb{R}^{m×k}`، معاملات الترميز
+# :math:`V \in \mathbb{R}^{k×n}`.
 #
-# Also below are the results when the dictionary and coding
-# coefficients are positively constrained.
+# تظهر أدناه أيضًا النتائج عندما يكون القاموس ومعاملات الترميز
+# مقيدة بشكل إيجابي.
 
 # %%
-# Dictionary learning - positive dictionary
+# تعلم القاموس - قاموس إيجابي
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #
-# In the following section we enforce positivity when finding the dictionary.
+# في القسم التالي، نفرض الإيجابية عند إيجاد القاموس.
 
 # %%
 dict_pos_dict_estimator = decomposition.MiniBatchDictionaryLearning(
@@ -285,16 +289,16 @@ dict_pos_dict_estimator = decomposition.MiniBatchDictionaryLearning(
 )
 dict_pos_dict_estimator.fit(faces_centered)
 plot_gallery(
-    "Dictionary learning - positive dictionary",
+    "تعلم القاموس - قاموس إيجابي",
     dict_pos_dict_estimator.components_[:n_components],
     cmap=plt.cm.RdBu,
 )
 
 # %%
-# Dictionary learning - positive code
+# تعلم القاموس - رمز إيجابي
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #
-# Below we constrain the coding coefficients as a positive matrix.
+# أدناه نقيد معاملات الترميز كمصفوفة موجبة.
 
 # %%
 dict_pos_code_estimator = decomposition.MiniBatchDictionaryLearning(
@@ -308,17 +312,17 @@ dict_pos_code_estimator = decomposition.MiniBatchDictionaryLearning(
 )
 dict_pos_code_estimator.fit(faces_centered)
 plot_gallery(
-    "Dictionary learning - positive code",
+    "تعلم القاموس - رمز إيجابي",
     dict_pos_code_estimator.components_[:n_components],
     cmap=plt.cm.RdBu,
 )
 
 # %%
-# Dictionary learning - positive dictionary & code
+# تعلم القاموس - قاموس ورمز إيجابيان
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #
-# Also below are the results if the dictionary values and coding
-# coefficients are positively constrained.
+# تظهر أدناه أيضًا النتائج إذا كانت قيم القاموس ومعاملات الترميز
+# مقيدة بشكل إيجابي.
 
 # %%
 dict_pos_estimator = decomposition.MiniBatchDictionaryLearning(
@@ -333,7 +337,7 @@ dict_pos_estimator = decomposition.MiniBatchDictionaryLearning(
 )
 dict_pos_estimator.fit(faces_centered)
 plot_gallery(
-    "Dictionary learning - positive dictionary & code",
+    "تعلم القاموس - قاموس ورمز إيجابيان",
     dict_pos_estimator.components_[:n_components],
     cmap=plt.cm.RdBu,
 )

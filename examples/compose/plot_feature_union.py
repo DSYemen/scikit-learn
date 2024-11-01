@@ -1,18 +1,13 @@
 """
 =================================================
-Concatenating multiple feature extraction methods
+دمج طرق استخراج ميزات متعددة
 =================================================
 
-In many real-world examples, there are many ways to extract features from a
-dataset. Often it is beneficial to combine several methods to obtain good
-performance. This example shows how to use ``FeatureUnion`` to combine
-features obtained by PCA and univariate selection.
+في العديد من الأمثلة الواقعية، هناك العديد من الطرق لاستخراج الميزات من مجموعة بيانات. غالبًا ما يكون من المفيد الجمع بين عدة طرق للحصول على أداء جيد. يوضح هذا المثال كيفية استخدام ``FeatureUnion`` لدمج الميزات التي تم الحصول عليها بواسطة PCA والاختيار أحادي المتغير.
 
-Combining features using this transformer has the benefit that it allows
-cross validation and grid searches over the whole process.
+يُتيح دمج الميزات باستخدام هذا المحول ميزة أنه يسمح بالتحقق المتبادل والبحث الشبكي خلال العملية بأكملها.
 
-The combination used in this example is not particularly helpful on this
-dataset and is only used to illustrate the usage of FeatureUnion.
+إن التركيبة المستخدمة في هذا المثال ليست مفيدة بشكل خاص في مجموعة البيانات هذه ولا تُستخدم إلا لتوضيح استخدام FeatureUnion.
 
 """
 
@@ -30,23 +25,23 @@ iris = load_iris()
 
 X, y = iris.data, iris.target
 
-# This dataset is way too high-dimensional. Better do PCA:
+# مجموعة البيانات هذه عالية الأبعاد للغاية. من الأفضل القيام بـ PCA:
 pca = PCA(n_components=2)
 
-# Maybe some original features were good, too?
+# ربما كانت بعض الميزات الأصلية جيدة أيضًا؟
 selection = SelectKBest(k=1)
 
-# Build estimator from PCA and Univariate selection:
+# بناء مقدر من PCA والاختيار أحادي المتغير:
 
 combined_features = FeatureUnion([("pca", pca), ("univ_select", selection)])
 
-# Use combined features to transform dataset:
+# استخدام الميزات المدمجة لتحويل مجموعة البيانات:
 X_features = combined_features.fit(X, y).transform(X)
 print("Combined space has", X_features.shape[1], "features")
 
 svm = SVC(kernel="linear")
 
-# Do grid search over k, n_components and C:
+# إجراء بحث شبكي على k و n_components و C:
 
 pipeline = Pipeline([("features", combined_features), ("svm", svm)])
 

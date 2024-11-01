@@ -11,10 +11,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/modules/generated/sklearn.covariance.empirical_covariance.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="Gallery examples: Shrinkage covariance estimation: LedoitWolf vs OAS and max-likelihood" />
+<meta property="og:description" content="Gallery examples: تأثير تحويل الأهداف في نموذج الانحدار" />
 <meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_covariance_estimation_thumb.png" />
 <meta property="og:image:alt" content="" />
-<meta name="description" content="Gallery examples: Shrinkage covariance estimation: LedoitWolf vs OAS and max-likelihood" />
+<meta name="description" content="Gallery examples: تأثير تحويل الأهداف في نموذج الانحدار" />
 
     <title>empirical_covariance &#8212; scikit-learn 1.6.dev0 documentation</title>
   
@@ -1304,7 +1304,7 @@
 <h1>empirical_covariance<a class="headerlink" href="#empirical-covariance" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="sklearn.covariance.empirical_covariance">
-<span class="sig-prename descclassname"><span class="pre">sklearn.covariance.</span></span><span class="sig-name descname"><span class="pre">empirical_covariance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assume_centered</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/001706117/sklearn/covariance/_empirical_covariance.py#L58"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.covariance.empirical_covariance" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">sklearn.covariance.</span></span><span class="sig-name descname"><span class="pre">empirical_covariance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assume_centered</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/2a8d36cec9/sklearn/covariance/_empirical_covariance.py#L58"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.covariance.empirical_covariance" title="Link to this definition">#</a></dt>
 <dd><p>Compute the Maximum likelihood covariance estimator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1339,9 +1339,9 @@ If <code class="docutils literal notranslate"><span class="pre">False</span></co
 
 <section id="gallery-examples">
 <h2>Gallery examples<a class="headerlink" href="#gallery-examples" title="Link to this heading">#</a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="When working with covariance estimation, the usual approach is to use a maximum likelihood estimator, such as the EmpiricalCovariance. It is unbiased, i.e. it converges to the true (population) covariance when given many observations. However, it can also be beneficial to regularize it, in order to reduce its variance; this, in turn, introduces some bias. This example illustrates the simple regularization used in shrunk_covariance estimators. In particular, it focuses on how to set the amount of regularization, i.e. how to choose the bias-variance trade-off."><img alt="" src="../../_images/sphx_glr_plot_covariance_estimation_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/covariance/plot_covariance_estimation.html#sphx-glr-auto-examples-covariance-plot-covariance-estimation-py"><span class="std std-ref">Shrinkage covariance estimation: LedoitWolf vs OAS and max-likelihood</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Shrinkage covariance estimation: LedoitWolf vs OAS and max-likelihood</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="في هذا المثال، نقدم نظرة عامة على TransformedTargetRegressor. نستخدم مثالين لتوضيح فائدة تحويل الأهداف قبل تعلم نموذج انحدار خطي. يستخدم المثال الأول بيانات تركيبية بينما يعتمد المثال الثاني على مجموعة بيانات منازل Ames."><img alt="" src="../../_images/sphx_glr_plot_covariance_estimation_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/covariance/plot_covariance_estimation.html#sphx-glr-auto-examples-covariance-plot-covariance-estimation-py"><span class="std std-ref">تأثير تحويل الأهداف في نموذج الانحدار</span></a></p>
+  <div class="sphx-glr-thumbnail-title">تأثير تحويل الأهداف في نموذج الانحدار</div>
 </div></div></section>
 </section>
 

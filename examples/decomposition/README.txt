@@ -1,7 +1,7 @@
 .. _decomposition_examples:
 
-Decomposition
+تحليل التركيب
 -------------
-
-Examples concerning the :mod:`sklearn.decomposition` module.
+Decomposition
+أمثلة تتعلق بوحدة :mod:`sklearn.decomposition`.
 

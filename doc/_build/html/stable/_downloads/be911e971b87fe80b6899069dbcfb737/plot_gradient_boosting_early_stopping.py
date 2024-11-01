@@ -1,46 +1,29 @@
 """
 ===================================
-Early stopping in Gradient Boosting
+إيقاف التدريب المبكر في Gradient Boosting
 ===================================
 
-Gradient Boosting is an ensemble technique that combines multiple weak
-learners, typically decision trees, to create a robust and powerful
-predictive model. It does so in an iterative fashion, where each new stage
-(tree) corrects the errors of the previous ones.
+Gradient Boosting هي تقنية تجميعية تجمع بين عدة متعلمين ضعفاء، عادةً ما تكون أشجار القرار، لإنشاء نموذج تنبؤي قوي ومتين. تقوم بذلك بطريقة تكرارية، حيث تقوم كل مرحلة جديدة (شجرة) بتصحيح أخطاء المراحل السابقة.
 
-Early stopping is a technique in Gradient Boosting that allows us to find
-the optimal number of iterations required to build a model that generalizes
-well to unseen data and avoids overfitting. The concept is simple: we set
-aside a portion of our dataset as a validation set (specified using
-`validation_fraction`) to assess the model's performance during training.
-As the model is iteratively built with additional stages (trees), its
-performance on the validation set is monitored as a function of the
-number of steps.
+إيقاف التدريب المبكر هو تقنية في Gradient Boosting تسمح لنا بإيجاد العدد الأمثل من التكرارات المطلوبة لبناء نموذج يعمم جيدًا على البيانات غير المرئية ويتجنب الإفراط في الملاءمة. والمفهوم بسيط: نخصص جزءًا من مجموعة بياناتنا كمجموعة تحقق (محددة باستخدام `validation_fraction`) لتقييم أداء النموذج أثناء التدريب.
 
-Early stopping becomes effective when the model's performance on the
-validation set plateaus or worsens (within deviations specified by `tol`)
-over a certain number of consecutive stages (specified by `n_iter_no_change`).
-This signals that the model has reached a point where further iterations may
-lead to overfitting, and it's time to stop training.
+مع بناء النموذج بشكل تكراري مع مراحل إضافية (أشجار)، يتم مراقبة أدائه على مجموعة التحقق كدالة لعدد الخطوات.
 
-The number of estimators (trees) in the final model, when early stopping is
-applied, can be accessed using the `n_estimators_` attribute. Overall, early
-stopping is a valuable tool to strike a balance between model performance and
-efficiency in gradient boosting.
+يصبح إيقاف التدريب المبكر فعالًا عندما يستقر أداء النموذج على مجموعة التحقق أو يسوء (ضمن الانحرافات المحددة بواسطة `tol`) على مدى عدد معين من المراحل المتتالية (محددة بواسطة `n_iter_no_change`). وهذا يشير إلى أن النموذج وصل إلى نقطة حيث قد تؤدي التكرارات الإضافية إلى الإفراط في الملاءمة، وقد حان الوقت لإيقاف التدريب.
 
-License: BSD 3 clause
+يمكن الوصول إلى عدد المقدرين (الأشجار) في النموذج النهائي، عند تطبيق إيقاف التدريب المبكر، باستخدام خاصية `n_estimators_`. بشكل عام، يعتبر إيقاف التدريب المبكر أداة قيمة لتحقيق التوازن بين أداء النموذج والكفاءة في Gradient Boosting.
 
+الرخصة: BSD 3 clause
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الرخصة: BSD-3-Clause
 
 # %%
-# Data Preparation
+# إعداد البيانات
 # ----------------
-# First we load and prepares the California Housing Prices dataset for
-# training and evaluation. It subsets the dataset, splits it into training
-# and validation sets.
+# أولاً، نقوم بتحميل وإعداد مجموعة بيانات أسعار المنازل في كاليفورنيا
+# للتدريب والتقييم. نقوم بتقسيم المجموعة إلى مجموعات فرعية، ثم نقسمها إلى مجموعات تدريب
+# ومجموعات تحقق.
 
 import time
 
@@ -57,12 +40,11 @@ X, y = data.data[:600], data.target[:600]
 X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # %%
-# Model Training and Comparison
+# تدريب النموذج ومقارنته
 # -----------------------------
-# Two :class:`~sklearn.ensemble.GradientBoostingRegressor` models are trained:
-# one with and another without early stopping. The purpose is to compare their
-# performance. It also calculates the training time and the `n_estimators_`
-# used by both models.
+# يتم تدريب نموذجين من النوع :class:`~sklearn.ensemble.GradientBoostingRegressor`:
+# أحدهما مع إيقاف التدريب المبكر والآخر بدونه. الهدف هو مقارنة أدائهما. كما يتم حساب وقت التدريب و`n_estimators_`
+# المستخدمة في كلا النموذجين.
 
 params = dict(n_estimators=1000, max_depth=5, learning_rate=0.1, random_state=42)
 
@@ -84,12 +66,11 @@ training_time_early_stopping = time.time() - start_time
 estimators_early_stopping = gbm_early_stopping.n_estimators_
 
 # %%
-# Error Calculation
+# حساب الخطأ
 # -----------------
-# The code calculates the :func:`~sklearn.metrics.mean_squared_error` for both
-# training and validation datasets for the models trained in the previous
-# section. It computes the errors for each boosting iteration. The purpose is
-# to assess the performance and convergence of the models.
+# يحسب الكود :func:`~sklearn.metrics.mean_squared_error` لكل من
+# مجموعة التدريب ومجموعة التحقق للنموذجين المدربين في القسم السابق. يقوم بحساب الأخطاء لكل تكرار في عملية التعزيز. والهدف هو
+# تقييم أداء النموذجين ومدى تقاربهما.
 
 train_errors_without = []
 val_errors_without = []
@@ -105,7 +86,6 @@ for i, (train_pred, val_pred) in enumerate(
 ):
     train_errors_without.append(mean_squared_error(y_train, train_pred))
     val_errors_without.append(mean_squared_error(y_val, val_pred))
-
 for i, (train_pred, val_pred) in enumerate(
     zip(
         gbm_early_stopping.staged_predict(X_train),
@@ -116,14 +96,14 @@ for i, (train_pred, val_pred) in enumerate(
     val_errors_with.append(mean_squared_error(y_val, val_pred))
 
 # %%
-# Visualize Comparison
+# عرض المقارنة
 # --------------------
-# It includes three subplots:
+# يتضمن ثلاثة مخططات فرعية:
 #
-# 1. Plotting training errors of both models over boosting iterations.
-# 2. Plotting validation errors of both models over boosting iterations.
-# 3. Creating a bar chart to compare the training times and the estimator used
-#    of the models with and without early stopping.
+# 1. رسم أخطاء التدريب لكلا النموذجين على تكرارات التعزيز.
+# 2. رسم أخطاء التحقق لكلا النموذجين على تكرارات التعزيز.
+# 3. إنشاء مخطط شريطي لمقارنة أوقات التدريب والمقدر المستخدم
+#    في النموذجين مع وبدون إيقاف التدريب المبكر.
 #
 
 fig, axes = plt.subplots(ncols=3, figsize=(12, 4))
@@ -163,23 +143,22 @@ plt.tight_layout()
 plt.show()
 
 # %%
-# The difference in training error between the `gbm_full` and the
-# `gbm_early_stopping` stems from the fact that `gbm_early_stopping` sets
-# aside `validation_fraction` of the training data as internal validation set.
-# Early stopping is decided based on this internal validation score.
+# الفرق في خطأ التدريب بين `gbm_full` و
+# `gbm_early_stopping` ينبع من حقيقة أن `gbm_early_stopping` يخصص
+# `validation_fraction` من بيانات التدريب كمجموعة تحقق داخلية.
+# يتم اتخاذ قرار إيقاف التدريب المبكر بناءً على نتيجة التحقق الداخلية هذه.
 
 # %%
-# Summary
+# ملخص
 # -------
-# In our example with the :class:`~sklearn.ensemble.GradientBoostingRegressor`
-# model on the California Housing Prices dataset, we have demonstrated the
-# practical benefits of early stopping:
+# في مثالنا باستخدام النموذج :class:`~sklearn.ensemble.GradientBoostingRegressor`
+# على مجموعة بيانات أسعار المنازل في كاليفورنيا، قمنا بتوضيح
+# الفوائد العملية لإيقاف التدريب المبكر:
 #
-# - **Preventing Overfitting:** We showed how the validation error stabilizes
-#   or starts to increase after a certain point, indicating that the model
-#   generalizes better to unseen data. This is achieved by stopping the training
-#   process before overfitting occurs.
-# - **Improving Training Efficiency:** We compared training times between
-#   models with and without early stopping. The model with early stopping
-#   achieved comparable accuracy while requiring significantly fewer
-#   estimators, resulting in faster training.
+# - **منع الإفراط في الملاءمة:** أظهرنا كيف يستقر خطأ التحقق
+#   أو يبدأ في الزيادة بعد نقطة معينة، مما يشير إلى أن النموذج
+#   يعمم بشكل أفضل على البيانات غير المرئية. يتم تحقيق ذلك عن طريق إيقاف عملية التدريب
+#   قبل حدوث الإفراط في الملاءمة.
+# - **تحسين كفاءة التدريب:** قمنا بمقارنة أوقات التدريب بين
+#   النماذج مع وبدون إيقاف التدريب المبكر. حقق النموذج مع إيقاف التدريب المبكر
+#   دقة مماثلة بينما تطلب عددًا أقل بكثير من المقدرين، مما أدى إلى تدريب أسرع.

@@ -11,10 +11,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/modules/generated/sklearn.cluster.spectral_clustering.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="Gallery examples: Segmenting the picture of greek coins in regions Spectral clustering for image segmentation" />
-<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_coin_segmentation_thumb.png" />
+<meta property="og:description" content="Gallery examples: sphx_glr_auto_examples_cluster_plot_segmentation_toy.py" />
+<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_segmentation_toy_thumb.png" />
 <meta property="og:image:alt" content="" />
-<meta name="description" content="Gallery examples: Segmenting the picture of greek coins in regions Spectral clustering for image segmentation" />
+<meta name="description" content="Gallery examples: sphx_glr_auto_examples_cluster_plot_segmentation_toy.py" />
 
     <title>spectral_clustering &#8212; scikit-learn 1.6.dev0 documentation</title>
   
@@ -1304,7 +1304,7 @@
 <h1>spectral_clustering<a class="headerlink" href="#spectral-clustering" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="sklearn.cluster.spectral_clustering">
-<span class="sig-prename descclassname"><span class="pre">sklearn.cluster.</span></span><span class="sig-name descname"><span class="pre">spectral_clustering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">affinity</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_clusters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eigen_solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eigen_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assign_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'kmeans'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/001706117/sklearn/cluster/_spectral.py#L190"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.cluster.spectral_clustering" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">sklearn.cluster.</span></span><span class="sig-name descname"><span class="pre">spectral_clustering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">affinity</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_clusters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eigen_solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eigen_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assign_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'kmeans'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/2a8d36cec9/sklearn/cluster/_spectral.py#L190"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.cluster.spectral_clustering" title="Link to this definition">#</a></dt>
 <dd><p>Apply clustering to a projection of the normalized Laplacian.</p>
 <p>In practice Spectral Clustering is very useful when the structure of
 the individual clusters is highly non-convex or more generally when
@@ -1384,7 +1384,7 @@ in spectral clustering. In contrast to k-means and discretization, cluster_qr
 has no tuning parameters and is not an iterative method, yet may outperform
 k-means and discretization in terms of both quality and speed. For a detailed
 comparison of clustering strategies, refer to the following example:
-<a class="reference internal" href="../../auto_examples/cluster/plot_coin_segmentation.html#sphx-glr-auto-examples-cluster-plot-coin-segmentation-py"><span class="std std-ref">Segmenting the picture of greek coins in regions</span></a>.</p>
+<a class="reference internal" href="../../auto_examples/cluster/plot_coin_segmentation.html#sphx-glr-auto-examples-cluster-plot-coin-segmentation-py"><span class="std std-ref">تم تقسيم صورة العملات اليونانية إلى مناطق</span></a>.</p>
 <div class="versionchanged">
 <p><span class="versionmodified changed">Changed in version 1.1: </span>Added new labeling method 'cluster_qr'.</p>
 </div>
@@ -1467,12 +1467,9 @@ David Zhuzhunashvili, Andrew Knyazev</a></p>
 
 <section id="gallery-examples">
 <h2>Gallery examples<a class="headerlink" href="#gallery-examples" title="Link to this heading">#</a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This example uses spectral_clustering on a graph created from voxel-to-voxel difference on an image to break this image into multiple partly-homogeneous regions."><img alt="" src="../../_images/sphx_glr_plot_coin_segmentation_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/cluster/plot_coin_segmentation.html#sphx-glr-auto-examples-cluster-plot-coin-segmentation-py"><span class="std std-ref">Segmenting the picture of greek coins in regions</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Segmenting the picture of greek coins in regions</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="In this example, an image with connected circles is generated and spectral clustering is used to separate the circles."><img alt="" src="../../_images/sphx_glr_plot_segmentation_toy_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/cluster/plot_segmentation_toy.html#sphx-glr-auto-examples-cluster-plot-segmentation-toy-py"><span class="std std-ref">Spectral clustering for image segmentation</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Spectral clustering for image segmentation</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="في هذا المثال، يتم توليد صورة بدوائر متصلة ويتم استخدام التجميع الطيفي لفصل الدوائر."><img alt="" src="../../_images/sphx_glr_plot_segmentation_toy_thumb.png" />
+<p><span class="xref std std-ref">sphx_glr_auto_examples_cluster_plot_segmentation_toy.py</span></p>
+  <div class="sphx-glr-thumbnail-title"># ===========================================</div>
 </div></div></section>
 </section>
 

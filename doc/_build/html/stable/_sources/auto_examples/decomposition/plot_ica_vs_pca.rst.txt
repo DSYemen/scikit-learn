@@ -18,42 +18,37 @@
 .. _sphx_glr_auto_examples_decomposition_plot_ica_vs_pca.py:
 
 
-==========================
-FastICA on 2D point clouds
-==========================
+========================================
+FastICA على سحب النقاط ثنائية الأبعاد
+========================================
 
-This example illustrates visually in the feature space a comparison by
-results using two different component analysis techniques.
+يوضح هذا المثال بصريًا في فضاء الميزات مقارنة بالنتائج باستخدام تقنيتين مختلفتين لتحليل المكونات.
 
-:ref:`ICA` vs :ref:`PCA`.
+:ref:`ICA` مقابل :ref:`PCA`.
 
-Representing ICA in the feature space gives the view of 'geometric ICA':
-ICA is an algorithm that finds directions in the feature space
-corresponding to projections with high non-Gaussianity. These directions
-need not be orthogonal in the original feature space, but they are
-orthogonal in the whitened feature space, in which all directions
-correspond to the same variance.
+تمثيل ICA في فضاء الميزات يعطي نظرة على 'ICA الهندسي':
+ICA هو خوارزمية تجد اتجاهات في فضاء الميزات
+المرتبطة بالانحرافات ذات اللاغاوسية العالية. هذه الاتجاهات
+لا تحتاج إلى أن تكون متعامدة في فضاء الميزات الأصلي، ولكنها متعامدة
+في فضاء الميزات المبيض، حيث ترتبط جميع الاتجاهات
+بنفس التباين.
 
-PCA, on the other hand, finds orthogonal directions in the raw feature
-space that correspond to directions accounting for maximum variance.
+PCA، من ناحية أخرى، يجد اتجاهات متعامدة في فضاء الميزات الخام
+التي ترتبط باتجاهات تحسب التباين الأقصى.
 
-Here we simulate independent sources using a highly non-Gaussian
-process, 2 student T with a low number of degrees of freedom (top left
-figure). We mix them to create observations (top right figure).
-In this raw observation space, directions identified by PCA are
-represented by orange vectors. We represent the signal in the PCA space,
-after whitening by the variance corresponding to the PCA vectors (lower
-left). Running ICA corresponds to finding a rotation in this space to
-identify the directions of largest non-Gaussianity (lower right).
+هنا، نقوم بمحاكاة مصادر مستقلة باستخدام عملية غير غاوسية للغاية، 2 طالب T مع عدد منخفض من درجات الحرية (الشكل العلوي الأيسر). نقوم بمزجها لإنشاء الملاحظات (الشكل العلوي الأيمن).
+في هذا الفضاء الخام للملاحظات، يتم تمثيل الاتجاهات التي حددتها PCA
+بواسطة المتجهات البرتقالية. نمثل الإشارة في فضاء PCA،
+بعد التبييض بواسطة التباين المقابل للمتجهات PCA (الأسفل
+اليسار). تشغيل ICA يقابل إيجاد دوران في هذا الفضاء لتحديد
+اتجاهات اللاغاوسية القصوى (الأسفل الأيمن).
 
-.. GENERATED FROM PYTHON SOURCE LINES 31-35
+.. GENERATED FROM PYTHON SOURCE LINES 27-30
 
 .. code-block:: Python
 
-
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
-
+    # المؤلفون: مطوري سكايت-ليرن
+    # معرف SPDX-License: BSD-3-Clause
 
 
 
@@ -61,15 +56,17 @@ identify the directions of largest non-Gaussianity (lower right).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 36-38
 
-Generate sample data
+.. GENERATED FROM PYTHON SOURCE LINES 31-33
+
+توليد بيانات العينة
 --------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-58
+.. GENERATED FROM PYTHON SOURCE LINES 33-54
 
 .. code-block:: Python
 
+    import matplotlib.pyplot as plt
     import numpy as np
 
     from sklearn.decomposition import PCA, FastICA
@@ -78,16 +75,16 @@ Generate sample data
     S = rng.standard_t(1.5, size=(20000, 2))
     S[:, 0] *= 2.0
 
-    # Mix data
-    A = np.array([[1, 1], [0, 2]])  # Mixing matrix
+    # مزج البيانات
+    A = np.array([[1, 1], [0, 2]])  # مصفوفة المزج
 
-    X = np.dot(S, A.T)  # Generate observations
+    X = np.dot(S, A.T)  # توليد الملاحظات
 
     pca = PCA()
     S_pca_ = pca.fit(X).transform(X)
 
     ica = FastICA(random_state=rng, whiten="arbitrary-variance")
-    S_ica_ = ica.fit(X).transform(X)  # Estimate the sources
+    S_ica_ = ica.fit(X).transform(X)  # تقدير المصادر
 
 
 
@@ -97,16 +94,15 @@ Generate sample data
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 59-61
+.. GENERATED FROM PYTHON SOURCE LINES 55-57
 
-Plot results
+رسم النتائج
 ------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-116
+.. GENERATED FROM PYTHON SOURCE LINES 57-111
 
 .. code-block:: Python
 
-    import matplotlib.pyplot as plt
 
 
     def plot_samples(S, axis_list=None):
@@ -176,7 +172,7 @@ Plot results
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.442 seconds)
+   **Total running time of the script:** (0 minutes 0.443 seconds)
 
 
 .. _sphx_glr_download_auto_examples_decomposition_plot_ica_vs_pca.py:

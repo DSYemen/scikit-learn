@@ -7,16 +7,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Principal Component Analysis (PCA) on Iris Dataset" />
+<meta property="og:title" content="تحليل المكونات الرئيسية (PCA) على مجموعة بيانات Iris" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/auto_examples/decomposition/plot_pca_iris.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="This example shows a well known decomposition technique known as Principal Component Analysis (PCA) on the Iris dataset. This dataset is made of 4 features: sepal length, sepal width, petal length,..." />
+<meta property="og:description" content="هذا المثال يوضح تقنية تحليل معروفة باسم تحليل المكونات الرئيسية (PCA) على مجموعة بيانات Iris. تتكون هذه المجموعة من 4 خصائص: طول الكأس، وعرض الكأس، وطول البتلة، وعرض البتلة. نستخدم PCA لإسقاط هذا ا..." />
 <meta property="og:image" content="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" />
 <meta property="og:image:alt" content="scikit-learn" />
-<meta name="description" content="This example shows a well known decomposition technique known as Principal Component Analysis (PCA) on the Iris dataset. This dataset is made of 4 features: sepal length, sepal width, petal length,..." />
+<meta name="description" content="هذا المثال يوضح تقنية تحليل معروفة باسم تحليل المكونات الرئيسية (PCA) على مجموعة بيانات Iris. تتكون هذه المجموعة من 4 خصائص: طول الكأس، وعرض الكأس، وطول البتلة، وعرض البتلة. نستخدم PCA لإسقاط هذا ا..." />
 
-    <title>Principal Component Analysis (PCA) on Iris Dataset &#8212; scikit-learn 1.6.dev0 documentation</title>
+    <title>تحليل المكونات الرئيسية (PCA) على مجموعة بيانات Iris &#8212; scikit-learn 1.6.dev0 documentation</title>
   
   
   
@@ -78,8 +78,8 @@
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="search" title="بحث" href="../../search.html" />
-    <link rel="next" title="Sparse coding with a precomputed dictionary" href="plot_sparse_coding.html" />
-    <link rel="prev" title="Model selection with Probabilistic PCA and Factor Analysis (FA)" href="plot_pca_vs_fa_model_selection.html" />
+    <link rel="next" title="تحليلات مجموعة بيانات الوجوه" href="plot_faces_decomposition.html" />
+    <link rel="prev" title="تحليل العوامل (مع الدوران) لتصور الأنماط" href="plot_varimax_fa.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="ar"/>
   <meta name="docsearch:version" content="1.6" />
@@ -561,129 +561,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_22_0.html">Release Highlights for scikit-learn 0.22</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../classification/index.html">Classification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../classification/plot_classifier_comparison.html">Classifier comparison</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../classification/plot_lda_qda.html">Linear and Quadratic Discriminant Analysis with covariance ellipsoid</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../classification/plot_lda.html">Normal, Ledoit-Wolf and OAS Linear Discriminant Analysis for classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../classification/plot_classification_probability.html">Plot classification probability</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../classification/plot_digits_classification.html">Recognizing hand-written digits</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../cluster/index.html">Clustering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_digits.html">A demo of K-Means clustering on the handwritten digits data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_coin_ward_segmentation.html">A demo of structured Ward hierarchical clustering on an image of coins</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_mean_shift.html">A demo of the mean-shift clustering algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_adjusted_for_chance_measures.html">Adjustment for chance in clustering performance evaluation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_agglomerative_clustering.html">Agglomerative clustering with and without structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_agglomerative_clustering_metrics.html">Agglomerative clustering with different metrics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_plusplus.html">An example of K-Means++ initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_bisect_kmeans.html">Bisecting K-Means and Regular K-Means Performance Comparison</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_birch_vs_minibatchkmeans.html">Compare BIRCH and MiniBatchKMeans</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_cluster_comparison.html">Comparing different clustering algorithms on toy datasets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_linkage_comparison.html">Comparing different hierarchical linkage methods on toy datasets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_mini_batch_kmeans.html">Comparison of the K-Means and MiniBatchKMeans clustering algorithms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_dbscan.html">Demo of DBSCAN clustering algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_hdbscan.html">Demo of HDBSCAN clustering algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_optics.html">Demo of OPTICS clustering algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_affinity_propagation.html">Demo of affinity propagation clustering algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_assumptions.html">Demonstration of k-means assumptions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_stability_low_dim_dense.html">Empirical evaluation of the impact of k-means initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_digits_agglomeration.html">Feature agglomeration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_feature_agglomeration_vs_univariate_selection.html">Feature agglomeration vs. univariate selection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_ward_structured_vs_unstructured.html">Hierarchical clustering: structured vs unstructured ward</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_inductive_clustering.html">Inductive Clustering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_dict_face_patches.html">Online learning of a dictionary of parts of faces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_agglomerative_dendrogram.html">Plot Hierarchical Clustering Dendrogram</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_coin_segmentation.html">Segmenting the picture of greek coins in regions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_silhouette_analysis.html">Selecting the number of clusters with silhouette analysis on KMeans clustering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_segmentation_toy.html">Spectral clustering for image segmentation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_digits_linkage.html">Various Agglomerative Clustering on a 2D embedding of digits</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_face_compress.html">Vector Quantization Example</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../covariance/index.html">Covariance estimation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_lw_vs_oas.html">Ledoit-Wolf vs OAS estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_mahalanobis_distances.html">Robust covariance estimation and Mahalanobis distances relevance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_robust_vs_empirical_covariance.html">Robust vs Empirical covariance estimate</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_covariance_estimation.html">Shrinkage covariance estimation: LedoitWolf vs OAS and max-likelihood</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_sparse_cov.html">Sparse inverse covariance estimation</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../cross_decomposition/index.html">Cross decomposition</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../cross_decomposition/plot_compare_cross_decomposition.html">Compare cross decomposition methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cross_decomposition/plot_pcr_vs_pls.html">Principal Component Regression vs Partial Least Squares Regression</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../datasets/index.html">Dataset examples</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../datasets/plot_random_multilabel_dataset.html">Plot randomly generated multilabel dataset</a></li>
-</ul>
-</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../tree/index.html">Decision Trees</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../tree/plot_tree_regression.html">Decision Tree Regression</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tree/plot_iris_dtc.html">Plot the decision surface of decision trees trained on the iris dataset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tree/plot_cost_complexity_pruning.html">Post pruning decision trees with cost complexity pruning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tree/plot_unveil_tree_structure.html">Understanding the decision tree structure</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Decomposition</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="plot_ica_blind_source_separation.html">Blind source separation using FastICA</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_pca_vs_lda.html">Comparison of LDA and PCA 2D projection of Iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_faces_decomposition.html">Faces dataset decompositions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_varimax_fa.html">Factor Analysis (with rotation) to visualize patterns</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_ica_vs_pca.html">FastICA on 2D point clouds</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_image_denoising.html">Image denoising using dictionary learning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_incremental_pca.html">Incremental PCA</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_kernel_pca.html">Kernel PCA</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_pca_vs_fa_model_selection.html">Model selection with Probabilistic PCA and Factor Analysis (FA)</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Principal Component Analysis (PCA) on Iris Dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_sparse_coding.html">Sparse coding with a precomputed dictionary</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../developing_estimators/index.html">Developing Estimators</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../developing_estimators/sklearn_is_fitted.html"><code class="docutils literal notranslate"><span class="pre">__sklearn_is_fitted__</span></code> as Developer API</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../ensemble/index.html">Ensemble methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_categorical.html">Categorical Feature Support in Gradient Boosting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_stack_predictors.html">Combine predictors using stacking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_forest_hist_grad_boosting_comparison.html">Comparing Random Forests and Histogram Gradient Boosting models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_random_forest_regression_multioutput.html">Comparing random forests and the multi-output meta estimator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_adaboost_regression.html">Decision Tree Regression with AdaBoost</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_early_stopping.html">Early stopping in Gradient Boosting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_forest_importances.html">Feature importances with a forest of trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_feature_transformation.html">Feature transformations with ensembles of trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_hgbt_regression.html">Features in Histogram Gradient Boosting Trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_oob.html">Gradient Boosting Out-of-Bag estimates</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_regression.html">Gradient Boosting regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_regularization.html">Gradient Boosting regularization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_random_forest_embedding.html">Hashing feature transformation using Totally Random Trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_isolation_forest.html">IsolationForest example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_monotonic_constraints.html">Monotonic Constraints</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_adaboost_multiclass.html">Multi-class AdaBoosted Decision Trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_ensemble_oob.html">OOB Errors for Random Forests</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_probas.html">Plot class probabilities calculated by the VotingClassifier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_regressor.html">Plot individual and voting regression predictions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_decision_regions.html">Plot the decision boundaries of a VotingClassifier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_forest_iris.html">Plot the decision surfaces of ensembles of trees on the iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_quantile.html">Prediction Intervals for Gradient Boosting Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_bias_variance.html">Single estimator versus bagging: bias-variance decomposition</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_adaboost_twoclass.html">Two-class AdaBoost</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../applications/index.html">Examples based on real world datasets</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_tomography_l1_reconstruction.html">Compressive sensing: tomography reconstruction with L1 prior (Lasso)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_face_recognition.html">Faces recognition example using eigenfaces and SVMs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_digits_denoising.html">Image denoising using kernel PCA</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_time_series_lagged_features.html">Lagged features for time series forecasting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_model_complexity_influence.html">Model Complexity Influence</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_out_of_core_classification.html">Out-of-core classification of text documents</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_outlier_detection_wine.html">Outlier detection on a real data set</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_prediction_latency.html">Prediction Latency</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_species_distribution_modeling.html">Species distribution modeling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_cyclical_feature_engineering.html">Time-related feature engineering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_topics_extraction_with_nmf_lda.html">Topic extraction with Non-negative Matrix Factorization and Latent Dirichlet Allocation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_stock_market.html">Visualizing the stock market structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/wikipedia_principal_eigenvector.html">Wikipedia principal eigenvector</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../feature_selection/index.html">Feature Selection</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -859,15 +741,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mnist_filters.html">Visualization of MLP weights on MNIST</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../compose/index.html">Pipelines and composite estimators</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../compose/plot_column_transformer.html">Column Transformer with Heterogeneous Data Sources</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../compose/plot_column_transformer_mixed_types.html">Column Transformer with Mixed Types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../compose/plot_feature_union.html">Concatenating multiple feature extraction methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../compose/plot_transformed_target.html">Effect of transforming the targets in regression model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../compose/plot_digits_pipe.html">Pipelining: chaining a PCA and a logistic regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../compose/plot_compare_reduction.html">Selecting dimensionality reduction with Pipeline and GridSearchCV</a></li>
-</ul>
-</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../preprocessing/index.html">Preprocessing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_all_scaling.html">Compare the effect of different scalers on data with outliers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder.html">Comparing Target Encoder with Other Encoders</a></li>
@@ -917,10 +790,136 @@
 <li class="toctree-l2"><a class="reference internal" href="../text/plot_hashing_vs_dict_vectorizer.html">FeatureHasher and DictVectorizer Comparison</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../applications/index.html">أمثلة مبنية على مجموعات بيانات من العالم الحقيقي</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_out_of_core_classification.html">Out-of-core classification of text documents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_digits_denoising.html">إزالة التشويش من الصور باستخدام PCA النواة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_outlier_detection_wine.html">الكشف عن القيم الشاذة في مجموعة بيانات حقيقية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/wikipedia_principal_eigenvector.html">المتجه الذاتي الرئيسي لويكيبيديا</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_time_series_lagged_features.html">الميزات المتأخرة للتنبؤ بالسلاسل الزمنية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_model_complexity_influence.html">تأثير تعقيد النموذج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_prediction_latency.html">تأخير التنبؤ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_face_recognition.html">مثال على التعرف على الوجوه باستخدام الوجوه المميزة وآلات المتجهات الداعمة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_species_distribution_modeling.html">نمذجة توزيع الأنواع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_cyclical_feature_engineering.html">هندسة الميزات ذات الصلة بالوقت</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_stock_market.html">هيكلة سوق الأسهم المرئية</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../datasets/index.html">أمثلة مجموعات البيانات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/plot_random_multilabel_dataset.html">رسم مجموعة بيانات متعددة التصنيفات مُولدة عشوائياً</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../cluster/index.html">التجميع</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_segmentation_toy.html">توليد البيانات</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_agglomerative_clustering_metrics.html"># التجميع التجميعي مع مقاييس مختلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_agglomerative_clustering.html"># التجميع التجميعي مع وبغير بنية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_inductive_clustering.html">التصنيف الاستقرائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_ward_structured_vs_unstructured.html">العنقدة الهرمية: العنقدة المنظمة وغير المنظمة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_digits_agglomeration.html">تجميع الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_silhouette_analysis.html">تحليل السيلويت لتحديد عدد التجمعات في التجميع التجميعي KMeans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_digits.html">تطبيق خوارزمية k-means على مجموعة البيانات digits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_adjusted_for_chance_measures.html">تعديل الفرصة في تقييم أداء التجميع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_dict_face_patches.html">تعلم القاموس عبر الإنترنت لأجزاء الوجوه</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_stability_low_dim_dense.html">تقييم تجريبي لتأثير تهيئة k-means</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_coin_segmentation.html">تم تقسيم صورة العملات اليونانية إلى مناطق</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_assumptions.html">توضيح افتراضات خوارزمية كاي-مينز</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_agglomerative_dendrogram.html">رسم مخطط شجرة التجميع الهرمي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_coin_ward_segmentation.html">عرض توضيحي لتجميع هرمي منظم على صورة عملات معدنية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_dbscan.html">عرض توضيحي لخوارزمية التجميع DBSCAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_hdbscan.html">عرض توضيحي لخوارزمية التجميع HDBSCAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_optics.html">عرض توضيحي لخوارزمية التجميع OPTICS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_mean_shift.html">عرض توضيحي لخوارزمية التجميع متوسط التحول</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_affinity_propagation.html">عرض توضيحي لخوارزمية تجميع انتشار الانتماء</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_plusplus.html">مثال على التهيئة K-Means++</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_face_compress.html">مثال على تكميم المتجهات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_digits_linkage.html">مختلف خوارزميات التجميع الهرمي على تضمين ثنائي الأبعاد لمجموعة بيانات الأرقام</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_birch_vs_minibatchkmeans.html">مقارنة بين BIRCH و MiniBatchKMeans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_mini_batch_kmeans.html">مقارنة خوارزميات التجميع K-Means و MiniBatchKMeans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_cluster_comparison.html">مقارنة خوارزميات التجميع المختلفة على مجموعات البيانات التجريبية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_linkage_comparison.html">مقارنة طرق الربط الهرمي المختلفة على مجموعات بيانات تجريبية</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../bicluster/index.html">التجميع الثنائي</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_bicluster_newsgroups.html">بكلسترينج المستندات باستخدام خوارزمية التجميع الطيفي المشترك</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_bicluster_newsgroups.html">التجميع الثنائي للمستندات باستخدام خوارزمية التجميع الطيفي المشترك</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_spectral_biclustering.html">عرض توضيحي لخوارزمية التجميع الطيفي الثنائي</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_spectral_coclustering.html">عرض توضيحي لخوارزمية التجميع الطيفي المشترك</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../cross_decomposition/index.html">التحلل المتقاطع</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cross_decomposition/plot_pcr_vs_pls.html">الانحدار باستخدام المكونات الرئيسية مقابل الانحدار باستخدام المربعات الجزئية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cross_decomposition/plot_compare_cross_decomposition.html">مقارنة طرق التحليل التفاضلي</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../classification/index.html">التصنيف</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../classification/plot_lda.html">Normal, Ledoit-Wolf and OAS Linear Discriminant Analysis for classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classification/plot_digits_classification.html">التعرف على الأرقام المكتوبة بخط اليد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classification/plot_classification_probability.html">رسم احتمالية التصنيف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classification/plot_classifier_comparison.html">مقارنة المصنفات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classification/plot_lda_qda.html">توليد البيانات</a></li>
+
+
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">تحليل التركيب</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="plot_ica_vs_pca.html">FastICA على سحب النقاط ثنائية الأبعاد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_kernel_pca.html">Kernel PCA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_image_denoising.html">إزالة تشويش الصور باستخدام تعلم القاموس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_pca_vs_fa_model_selection.html">اختيار النموذج باستخدام التحليل الرئيسي للمكونات الاحتمالي وتحليل العوامل (FA)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_sparse_coding.html">الترميز المتناثر مع قاموس محسوب مسبقًا</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_varimax_fa.html">تحليل العوامل (مع الدوران) لتصور الأنماط</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">تحليل المكونات الرئيسية (PCA) على مجموعة بيانات Iris</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_faces_decomposition.html">تحليلات مجموعة بيانات الوجوه</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_ica_blind_source_separation.html">فصل المصدر الأعمى باستخدام FastICA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_pca_vs_lda.html">مقارنة بين الإسقاط ثنائي الأبعاد للمجموعة البيانات آيريس باستخدام LDA وPCA</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../developing_estimators/index.html">تطوير المقدرين</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../developing_estimators/sklearn_is_fitted.html"><code class="docutils literal notranslate"><span class="pre">__sklearn_is_fitted__</span></code> كـ API للمطورين</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../covariance/index.html">تقدير التغاير</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_covariance_estimation.html">تأثير تحويل الأهداف في نموذج الانحدار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_lw_vs_oas.html">تقدير Ledoit-Wolf مقابل OAS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_robust_vs_empirical_covariance.html">تقدير التغاير القوي مقابل التجريبي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_mahalanobis_distances.html">تقدير التغاير القوي وأهمية مسافات Mahalanobis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_sparse_cov.html">تقدير معكوس التغاير النادر</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../compose/index.html">خطوط الأنابيب والمقدرين المركبين</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compose/plot_compare_reduction.html">اختيار تقليل الأبعاد باستخدام Pipeline و GridSearchCV</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compose/plot_transformed_target.html">تأثير تحويل الأهداف في نموذج الانحدار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compose/plot_feature_union.html">دمج طرق استخراج ميزات متعددة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compose/plot_digits_pipe.html">ربط الأنابيب: ربط PCA والانحدار اللوجستي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compose/plot_column_transformer_mixed_types.html">محول الأعمدة مع الأنواع المختلطة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compose/plot_column_transformer.html">محول الأعمدة مع مصادر بيانات غير متجانسة</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../ensemble/index.html">طرق المجموعة</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_stack_predictors.html">Combine predictors using stacking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_random_forest_regression_multioutput.html">Comparing random forests and the multi-output meta estimator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_hgbt_regression.html">Features in Histogram Gradient Boosting Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_regression.html">Gradient Boosting regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_regularization.html">Gradient Boosting regularization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_random_forest_embedding.html">Hashing feature transformation using Totally Random Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_isolation_forest.html">IsolationForest example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_monotonic_constraints.html">Monotonic Constraints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_probas.html">Plot class probabilities calculated by the VotingClassifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_regressor.html">Plot individual and voting regression predictions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_decision_regions.html">Plot the decision boundaries of a VotingClassifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_quantile.html">Prediction Intervals for Gradient Boosting Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_ensemble_oob.html">أخطاء OOB لخوارزمية Random Forests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_forest_importances.html">أهمية الميزات باستخدام غابة من الأشجار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_early_stopping.html">إيقاف التدريب المبكر في Gradient Boosting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_adaboost_regression.html">انحدار شجرة القرار مع AdaBoost</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_feature_transformation.html">تحويل الميزات باستخدام مجموعات الأشجار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_adaboost_twoclass.html">تصنيف ثنائي باستخدام AdaBoost</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_oob.html">تقديرات Gradient Boosting Out-of-Bag</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_categorical.html">دعم الميزات التصنيفية في التدرج التعزيزي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_forest_iris.html">رسم أسطح القرار لمجموعات الأشجار على مجموعة بيانات إيريس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_adaboost_multiclass.html">شجرة قرارات معززة متعددة الفئات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_bias_variance.html">مقارنة بين المُقدر الفردي والتجميع: تحليل الانحياز والتشتت</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_forest_hist_grad_boosting_comparison.html">مقارنة بين نماذج الغابات العشوائية ورفع التدرج بالرسم البياني</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../calibration/index.html">معايرة الإحتمالات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -969,9 +968,9 @@
     <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Examples</a></li>
     
     
-    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Decomposition</a></li>
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">تحليل التركيب</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Principal Component Analysis (PCA) on Iris Dataset</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">تحليل المكونات الرئيسية (PCA) على مجموعة بيانات Iris</span></li>
   </ul>
 </nav>
 </div>
@@ -993,26 +992,24 @@
 <p><a class="reference internal" href="#sphx-glr-download-auto-examples-decomposition-plot-pca-iris-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code. or to run this example in your browser via JupyterLite or Binder</p>
 </div>
-<section class="sphx-glr-example-title" id="principal-component-analysis-pca-on-iris-dataset">
-<span id="sphx-glr-auto-examples-decomposition-plot-pca-iris-py"></span><h1>Principal Component Analysis (PCA) on Iris Dataset<a class="headerlink" href="#principal-component-analysis-pca-on-iris-dataset" title="Link to this heading">#</a></h1>
-<p>This example shows a well known decomposition technique known as Principal Component
-Analysis (PCA) on the
-<a class="reference external" href="https://en.wikipedia.org/wiki/Iris_flower_data_set">Iris dataset</a>.</p>
-<p>This dataset is made of 4 features: sepal length, sepal width, petal length, petal
-width. We use PCA to project this 4 feature space into a 3-dimensional space.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Authors: The scikit-learn developers</span>
-<span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
+<section class="sphx-glr-example-title" id="pca-iris">
+<span id="sphx-glr-auto-examples-decomposition-plot-pca-iris-py"></span><h1>تحليل المكونات الرئيسية (PCA) على مجموعة بيانات Iris<a class="headerlink" href="#pca-iris" title="Link to this heading">#</a></h1>
+<p>هذا المثال يوضح تقنية تحليل معروفة باسم تحليل المكونات الرئيسية (PCA) على
+<a class="reference external" href="https://en.wikipedia.org/wiki/Iris_flower_data_set">مجموعة بيانات Iris</a>.</p>
+<p>تتكون هذه المجموعة من 4 خصائص: طول الكأس، وعرض الكأس، وطول البتلة، وعرض البتلة. نستخدم PCA لإسقاط هذا الفضاء المكون من 4 خصائص إلى فضاء ثلاثي الأبعاد.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># المؤلفون: مطوري scikit-learn</span>
+<span class="c1"># معرف رخصة SPDX: BSD-3-Clause</span>
 </pre></div>
 </div>
-<section id="loading-the-iris-dataset">
-<h2>Loading the Iris dataset<a class="headerlink" href="#loading-the-iris-dataset" title="Link to this heading">#</a></h2>
-<p>The Iris dataset is directly available as part of scikit-learn. It can be loaded
-using the <a class="reference internal" href="../../modules/generated/sklearn.datasets.load_iris.html#sklearn.datasets.load_iris" title="sklearn.datasets.load_iris"><code class="xref py py-func docutils literal notranslate"><span class="pre">load_iris</span></code></a> function. With the default parameters,
-a <a class="reference internal" href="../../modules/generated/sklearn.utils.Bunch.html#sklearn.utils.Bunch" title="sklearn.utils.Bunch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bunch</span></code></a> object is returned, containing the data, the
-target values, the feature names, and the target names.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.datasets.load_iris.html#sklearn.datasets.load_iris" title="sklearn.datasets.load_iris" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><a href="../../modules/generated/sklearn.datasets.load_iris.html#sklearn.datasets.load_iris" title="sklearn.datasets.load_iris" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">load_iris</span></a></a>
+<section id="id1">
+<h2>تحميل مجموعة بيانات Iris<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>مجموعة بيانات Iris متوفرة مباشرة كجزء من scikit-learn. يمكن تحميلها
+باستخدام الدالة <a class="reference internal" href="../../modules/generated/sklearn.datasets.load_iris.html#sklearn.datasets.load_iris" title="sklearn.datasets.load_iris"><code class="xref py py-func docutils literal notranslate"><span class="pre">load_iris</span></code></a>. مع المعاملات الافتراضية،
+يتم إرجاع كائن <a class="reference internal" href="../../modules/generated/sklearn.utils.Bunch.html#sklearn.utils.Bunch" title="sklearn.utils.Bunch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bunch</span></code></a>، والذي يحتوي على البيانات،
+والقيم المستهدفة، وأسماء الخصائص، وأسماء الأهداف.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
 
-<span class="n">iris</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.datasets.load_iris.html#sklearn.datasets.load_iris" title="sklearn.datasets.load_iris" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><a href="../../modules/generated/sklearn.datasets.load_iris.html#sklearn.datasets.load_iris" title="sklearn.datasets.load_iris" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">load_iris</span></a></a><span class="p">(</span><span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">(</span><span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 </pre></div>
 </div>
@@ -1020,43 +1017,43 @@ target values, the feature names, and the target names.</p>
 </pre></div>
 </div>
 </section>
-<section id="plot-of-pairs-of-features-of-the-iris-dataset">
-<h2>Plot of pairs of features of the Iris dataset<a class="headerlink" href="#plot-of-pairs-of-features-of-the-iris-dataset" title="Link to this heading">#</a></h2>
-<p>Let's first plot the pairs of features of the Iris dataset.</p>
+<section id="id2">
+<h2>رسم بياني لأزواج الخصائص في مجموعة بيانات Iris<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>دعنا نرسم أولاً أزواج الخصائص في مجموعة بيانات Iris.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 
-<span class="c1"># Rename classes using the iris target names</span>
+<span class="c1"># إعادة تسمية الفئات باستخدام أسماء الأهداف في مجموعة بيانات Iris</span>
 <span class="n">iris</span><span class="o">.</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">target_names</span><span class="p">[</span><span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">]</span>
-<span class="n">_</span> <span class="o">=</span> <a href="https://seaborn.pydata.org/generated/seaborn.pairplot.html#seaborn.pairplot" title="seaborn.pairplot" class="sphx-glr-backref-module-seaborn sphx-glr-backref-type-py-function"><a href="https://seaborn.pydata.org/generated/seaborn.pairplot.html#seaborn.pairplot" title="seaborn.pairplot" class="sphx-glr-backref-module-seaborn sphx-glr-backref-type-py-function"><span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span></a></a><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">frame</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;target&quot;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">frame</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;target&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_pca_iris_001.png" srcset="../../_images/sphx_glr_plot_pca_iris_001.png" alt="plot pca iris" class = "sphx-glr-single-img"/><p>Each data point on each scatter plot refers to one of the 150 iris flowers
-in the dataset, with the color indicating their respective type
-(Setosa, Versicolor, and Virginica).</p>
-<p>You can already see a pattern regarding the Setosa type, which is
-easily identifiable based on its short and wide sepal. Only
-considering these two dimensions, sepal width and length, there's still
-overlap between the Versicolor and Virginica types.</p>
-<p>The diagonal of the plot shows the distribution of each feature. We observe
-that the petal width and the petal length are the most discriminant features
-for the three types.</p>
+<img src="../../_images/sphx_glr_plot_pca_iris_001.png" srcset="../../_images/sphx_glr_plot_pca_iris_001.png" alt="plot pca iris" class = "sphx-glr-single-img"/><p>كل نقطة بيانات على كل رسم بياني متفرق تشير إلى واحدة من زهور Iris
+الـ 150 في مجموعة البيانات، مع الإشارة إلى لونها إلى نوعها
+(Setosa، وVersicolor، وVirginica).</p>
+<p>يمكنك بالفعل ملاحظة نمط فيما يتعلق بنوع Setosa، والذي يمكن
+تحديده بسهولة بناءً على كأسها القصير والعريض. فقط
+بالنظر إلى هذين البعدين، طول وعرض الكأس، لا يزال هناك
+تداخل بين نوعي Versicolor وVirginica.</p>
+<p>يُظهر القطر التوزيع لكل خاصية. نلاحظ
+أن عرض البتلة وطول البتلة هما أكثر الخصائص تمييزًا
+للأنواع الثلاثة.</p>
 </section>
-<section id="plot-a-pca-representation">
-<h2>Plot a PCA representation<a class="headerlink" href="#plot-a-pca-representation" title="Link to this heading">#</a></h2>
-<p>Let's apply a Principal Component Analysis (PCA) to the iris dataset
-and then plot the irises across the first three PCA dimensions.
-This will allow us to better differentiate among the three types!</p>
+<section id="pca">
+<h2>رسم تمثيل PCA<a class="headerlink" href="#pca" title="Link to this heading">#</a></h2>
+<p>دعنا نطبق تحليل المكونات الرئيسية (PCA) على مجموعة بيانات Iris
+ثم نرسم زهور Iris عبر الأبعاد الثلاثة الأولى لـ PCA.
+سيسمح لنا ذلك بالتمييز بشكل أفضل بين الأنواع الثلاثة!</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-<span class="c1"># unused but required import for doing 3d projections with matplotlib &lt; 3.2</span>
+<span class="c1"># استيراد غير مستخدم ولكنه مطلوب للقيام بالرسوم البيانية ثلاثية الأبعاد باستخدام matplotlib &lt; 3.2</span>
 <span class="kn">import</span> <span class="nn">mpl_toolkits.mplot3d</span>  <span class="c1"># noqa: F401</span>
 
-<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.decomposition.PCA.html#sklearn.decomposition.PCA" title="sklearn.decomposition.PCA" class="sphx-glr-backref-module-sklearn-decomposition sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="../../modules/generated/sklearn.decomposition.PCA.html#sklearn.decomposition.PCA" title="sklearn.decomposition.PCA" class="sphx-glr-backref-module-sklearn-decomposition sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">PCA</span></a></a>
+<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
 
-<span class="n">fig</span> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html#matplotlib.pyplot.figure" title="matplotlib.pyplot.figure" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html#matplotlib.pyplot.figure" title="matplotlib.pyplot.figure" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span></a></a><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;3d&quot;</span><span class="p">,</span> <span class="n">elev</span><span class="o">=-</span><span class="mi">150</span><span class="p">,</span> <span class="n">azim</span><span class="o">=</span><span class="mi">110</span><span class="p">)</span>
 
-<span class="n">X_reduced</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.decomposition.PCA.html#sklearn.decomposition.PCA" title="sklearn.decomposition.PCA" class="sphx-glr-backref-module-sklearn-decomposition sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="../../modules/generated/sklearn.decomposition.PCA.html#sklearn.decomposition.PCA" title="sklearn.decomposition.PCA" class="sphx-glr-backref-module-sklearn-decomposition sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">PCA</span></a></a><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="n">X_reduced</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
 <span class="n">scatter</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
     <span class="n">X_reduced</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
     <span class="n">X_reduced</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
@@ -1075,7 +1072,7 @@ This will allow us to better differentiate among the three types!</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_ticklabels</span><span class="p">([])</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">zaxis</span><span class="o">.</span><span class="n">set_ticklabels</span><span class="p">([])</span>
 
-<span class="c1"># Add a legend</span>
+<span class="c1"># إضافة أسطورة</span>
 <span class="n">legend1</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span>
     <span class="n">scatter</span><span class="o">.</span><span class="n">legend_elements</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span>
     <span class="n">iris</span><span class="o">.</span><span class="n">target_names</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
@@ -1084,14 +1081,13 @@ This will allow us to better differentiate among the three types!</p>
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">legend1</span><span class="p">)</span>
 
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a></a><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_pca_iris_002.png" srcset="../../_images/sphx_glr_plot_pca_iris_002.png" alt="First three PCA dimensions" class = "sphx-glr-single-img"/><p>PCA will create 3 new features that are a linear combination of the 4 original
-features. In addition, this transformation maximizes the variance. With this
-transformation, we see that we can identify each species using only the first feature
-(i.e., first eigenvector).</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 3.493 seconds)</p>
+<img src="../../_images/sphx_glr_plot_pca_iris_002.png" srcset="../../_images/sphx_glr_plot_pca_iris_002.png" alt="First three PCA dimensions" class = "sphx-glr-single-img"/><p>ستقوم PCA بإنشاء 3 خصائص جديدة تكون مزيجًا خطيًا من الخصائص الأصلية الـ 4. بالإضافة إلى ذلك، تُعظِّم هذه التحويلة التباين. مع هذا
+التحويل، نرى أنه يمكننا تحديد كل نوع باستخدام الخاصية الأولى فقط
+(أي، المتجه الذاتي الأول).</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 3.495 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-decomposition-plot-pca-iris-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/scikit-learn/scikit-learn/main?urlpath=lab/tree/notebooks/auto_examples/decomposition/plot_pca_iris.ipynb"><img alt="Launch binder" src="../../_images/binder_badge_logo9.svg" style="width: 150px;" />
@@ -1112,15 +1108,15 @@ transformation, we see that we can identify each species using only the first fe
 </div>
 </div>
 <p class="rubric">Related examples</p>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The Iris dataset represents 3 kind of Iris flowers (Setosa, Versicolour and Virginica) with 4 attributes: sepal length, sepal width, petal length and petal width."><img alt="" src="../../_images/sphx_glr_plot_pca_vs_lda_thumb.png" />
-<p><a class="reference internal" href="plot_pca_vs_lda.html#sphx-glr-auto-examples-decomposition-plot-pca-vs-lda-py"><span class="std std-ref">Comparison of LDA and PCA 2D projection of Iris dataset</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Comparison of LDA and PCA 2D projection of Iris dataset</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="تمثل مجموعة بيانات آيريس 3 أنواع من زهور آيريس (سيتوسا، وفيرسيكولور، وفيرجينيكا) مع 4 خصائص: طول الكأس، وعرض الكأس، وطول البتلة، وعرض البتلة."><img alt="" src="../../_images/sphx_glr_plot_pca_vs_lda_thumb.png" />
+<p><a class="reference internal" href="plot_pca_vs_lda.html#sphx-glr-auto-examples-decomposition-plot-pca-vs-lda-py"><span class="std std-ref">مقارنة بين الإسقاط ثنائي الأبعاد للمجموعة البيانات آيريس باستخدام LDA وPCA</span></a></p>
+  <div class="sphx-glr-thumbnail-title">مقارنة بين الإسقاط ثنائي الأبعاد للمجموعة البيانات آيريس باستخدام LDA وPCA</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="يستخدم تحليل المكونات الأساسية التزايدي (IPCA) عادة كبديل لتحليل المكونات الأساسية (PCA) عندما تكون مجموعة البيانات المراد تحليلها كبيرة جدًا بحيث لا يمكن تحميلها في الذاكرة. يقوم IPCA ببناء تقريب منخفض الرتبة لبيانات الإدخال باستخدام كمية من الذاكرة لا تعتمد على عدد عينات بيانات الإدخال. لا يزال يعتمد على ميزات بيانات الإدخال، ولكن تغيير حجم الدفعة يسمح بالتحكم في استخدام الذاكرة."><img alt="" src="../../_images/sphx_glr_plot_incremental_pca_thumb.png" />
+<p><span class="xref std std-ref">sphx_glr_auto_examples_decomposition_plot_incremental_pca.py</span></p>
+  <div class="sphx-glr-thumbnail-title"># تحليل المكونات الأساسية التزايدي</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Plot the decision surface of a decision tree trained on pairs of features of the iris dataset."><img alt="" src="../../_images/sphx_glr_plot_iris_dtc_thumb.png" />
 <p><a class="reference internal" href="../tree/plot_iris_dtc.html#sphx-glr-auto-examples-tree-plot-iris-dtc-py"><span class="std std-ref">Plot the decision surface of decision trees trained on the iris dataset</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plot the decision surface of decision trees trained on the iris dataset</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Incremental principal component analysis (IPCA) is typically used as a replacement for principal component analysis (PCA) when the dataset to be decomposed is too large to fit in memory. IPCA builds a low-rank approximation for the input data using an amount of memory which is independent of the number of input data samples. It is still dependent on the input data features, but changing the batch size allows for control of memory usage."><img alt="" src="../../_images/sphx_glr_plot_incremental_pca_thumb.png" />
-<p><a class="reference internal" href="plot_incremental_pca.html#sphx-glr-auto-examples-decomposition-plot-incremental-pca-py"><span class="std std-ref">Incremental PCA</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Incremental PCA</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Plot decision surface of multi-class SGD on iris dataset. The hyperplanes corresponding to the three one-versus-all (OVA) classifiers are represented by the dashed lines."><img alt="" src="../../_images/sphx_glr_plot_sgd_iris_thumb.png" />
 <p><a class="reference internal" href="../linear_model/plot_sgd_iris.html#sphx-glr-auto-examples-linear-model-plot-sgd-iris-py"><span class="std std-ref">Plot multi-class SGD on the iris dataset</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plot multi-class SGD on the iris dataset</div>
@@ -1139,20 +1135,20 @@ transformation, we see that we can identify each species using only the first fe
     <div class="footer-article-item">
 <div class="prev-next-area">
     <a class="left-prev"
-       href="plot_pca_vs_fa_model_selection.html"
+       href="plot_varimax_fa.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">السابق</p>
-        <p class="prev-next-title">Model selection with Probabilistic PCA and Factor Analysis (FA)</p>
+        <p class="prev-next-title">تحليل العوامل (مع الدوران) لتصور الأنماط</p>
       </div>
     </a>
     <a class="right-next"
-       href="plot_sparse_coding.html"
+       href="plot_faces_decomposition.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">التالي</p>
-        <p class="prev-next-title">Sparse coding with a precomputed dictionary</p>
+        <p class="prev-next-title">تحليلات مجموعة بيانات الوجوه</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1179,9 +1175,9 @@ transformation, we see that we can identify each species using only the first fe
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-the-iris-dataset">Loading the Iris dataset</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-of-pairs-of-features-of-the-iris-dataset">Plot of pairs of features of the Iris dataset</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-a-pca-representation">Plot a PCA representation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">تحميل مجموعة بيانات Iris</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">رسم بياني لأزواج الخصائص في مجموعة بيانات Iris</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pca">رسم تمثيل PCA</a></li>
 </ul>
   </nav></div>
 

@@ -1,7 +1,7 @@
 .. _cross_decomposition_examples:
 
-Cross decomposition
+التحلل المتقاطع
 -------------------
 
-Examples concerning the :mod:`sklearn.cross_decomposition` module.
+أمثلة تتعلق بوحدة :mod:`sklearn.cross_decomposition` .
 

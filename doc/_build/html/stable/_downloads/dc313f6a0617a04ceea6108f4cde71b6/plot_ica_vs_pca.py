@@ -1,40 +1,36 @@
 """
-==========================
-FastICA on 2D point clouds
-==========================
+========================================
+FastICA على سحب النقاط ثنائية الأبعاد
+========================================
 
-This example illustrates visually in the feature space a comparison by
-results using two different component analysis techniques.
+يوضح هذا المثال بصريًا في فضاء الميزات مقارنة بالنتائج باستخدام تقنيتين مختلفتين لتحليل المكونات.
 
-:ref:`ICA` vs :ref:`PCA`.
+:ref:`ICA` مقابل :ref:`PCA`.
 
-Representing ICA in the feature space gives the view of 'geometric ICA':
-ICA is an algorithm that finds directions in the feature space
-corresponding to projections with high non-Gaussianity. These directions
-need not be orthogonal in the original feature space, but they are
-orthogonal in the whitened feature space, in which all directions
-correspond to the same variance.
+تمثيل ICA في فضاء الميزات يعطي نظرة على 'ICA الهندسي':
+ICA هو خوارزمية تجد اتجاهات في فضاء الميزات
+المرتبطة بالانحرافات ذات اللاغاوسية العالية. هذه الاتجاهات
+لا تحتاج إلى أن تكون متعامدة في فضاء الميزات الأصلي، ولكنها متعامدة
+في فضاء الميزات المبيض، حيث ترتبط جميع الاتجاهات
+بنفس التباين.
 
-PCA, on the other hand, finds orthogonal directions in the raw feature
-space that correspond to directions accounting for maximum variance.
+PCA، من ناحية أخرى، يجد اتجاهات متعامدة في فضاء الميزات الخام
+التي ترتبط باتجاهات تحسب التباين الأقصى.
 
-Here we simulate independent sources using a highly non-Gaussian
-process, 2 student T with a low number of degrees of freedom (top left
-figure). We mix them to create observations (top right figure).
-In this raw observation space, directions identified by PCA are
-represented by orange vectors. We represent the signal in the PCA space,
-after whitening by the variance corresponding to the PCA vectors (lower
-left). Running ICA corresponds to finding a rotation in this space to
-identify the directions of largest non-Gaussianity (lower right).
-
+هنا، نقوم بمحاكاة مصادر مستقلة باستخدام عملية غير غاوسية للغاية، 2 طالب T مع عدد منخفض من درجات الحرية (الشكل العلوي الأيسر). نقوم بمزجها لإنشاء الملاحظات (الشكل العلوي الأيمن).
+في هذا الفضاء الخام للملاحظات، يتم تمثيل الاتجاهات التي حددتها PCA
+بواسطة المتجهات البرتقالية. نمثل الإشارة في فضاء PCA،
+بعد التبييض بواسطة التباين المقابل للمتجهات PCA (الأسفل
+اليسار). تشغيل ICA يقابل إيجاد دوران في هذا الفضاء لتحديد
+اتجاهات اللاغاوسية القصوى (الأسفل الأيمن).
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايت-ليرن
+# معرف SPDX-License: BSD-3-Clause
 
 # %%
-# Generate sample data
+# توليد بيانات العينة
 # --------------------
+import matplotlib.pyplot as plt
 import numpy as np
 
 from sklearn.decomposition import PCA, FastICA
@@ -43,22 +39,21 @@ rng = np.random.RandomState(42)
 S = rng.standard_t(1.5, size=(20000, 2))
 S[:, 0] *= 2.0
 
-# Mix data
-A = np.array([[1, 1], [0, 2]])  # Mixing matrix
+# مزج البيانات
+A = np.array([[1, 1], [0, 2]])  # مصفوفة المزج
 
-X = np.dot(S, A.T)  # Generate observations
+X = np.dot(S, A.T)  # توليد الملاحظات
 
 pca = PCA()
 S_pca_ = pca.fit(X).transform(X)
 
 ica = FastICA(random_state=rng, whiten="arbitrary-variance")
-S_ica_ = ica.fit(X).transform(X)  # Estimate the sources
+S_ica_ = ica.fit(X).transform(X)  # تقدير المصادر
 
 
 # %%
-# Plot results
+# رسم النتائج
 # ------------
-import matplotlib.pyplot as plt
 
 
 def plot_samples(S, axis_list=None):

@@ -1,36 +1,34 @@
 """
 ================================
-Image denoising using kernel PCA
+إزالة التشويش من الصور باستخدام PCA النواة
 ================================
 
-This example shows how to use :class:`~sklearn.decomposition.KernelPCA` to
-denoise images. In short, we take advantage of the approximation function
-learned during `fit` to reconstruct the original image.
+هذا المثال يوضح كيفية استخدام :class:`~sklearn.decomposition.KernelPCA`
+لإزالة التشويش من الصور. باختصار، نستفيد من دالة التقريب المُتعلمة أثناء `fit`
+لإعادة بناء الصورة الأصلية.
 
-We will compare the results with an exact reconstruction using
+سنقارن النتائج مع إعادة بناء دقيقة باستخدام
 :class:`~sklearn.decomposition.PCA`.
 
-We will use USPS digits dataset to reproduce presented in Sect. 4 of [1]_.
+سنستخدم مجموعة بيانات أرقام USPS لإعادة إنتاج ما هو مُقدم في القسم 4 من [1]_.
 
-.. rubric:: References
+.. rubric:: المراجع
 
 .. [1] `Bakır, Gökhan H., Jason Weston, and Bernhard Schölkopf.
     "Learning to find pre-images."
     Advances in neural information processing systems 16 (2004): 449-456.
     <https://papers.nips.cc/paper/2003/file/ac1ad983e08ad3304a97e147f522747e-Paper.pdf>`_
-
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطورو scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# Load the dataset via OpenML
+# تحميل مجموعة البيانات عبر OpenML
 # ---------------------------
 #
-# The USPS digits datasets is available in OpenML. We use
-# :func:`~sklearn.datasets.fetch_openml` to get this dataset. In addition, we
-# normalize the dataset such that all pixel values are in the range (0, 1).
+# مجموعة بيانات أرقام USPS متوفرة في OpenML. نستخدم
+# :func:`~sklearn.datasets.fetch_openml` للحصول على هذه المجموعة. بالإضافة إلى ذلك، نقوم
+# بتطبيع المجموعة بحيث تكون جميع قيم البكسل في النطاق (0, 1).
 import numpy as np
 
 from sklearn.datasets import fetch_openml
@@ -41,19 +39,18 @@ X, y = fetch_openml(data_id=41082, as_frame=False, return_X_y=True)
 X = MinMaxScaler().fit_transform(X)
 
 # %%
-# The idea will be to learn a PCA basis (with and without a kernel) on
-# noisy images and then use these models to reconstruct and denoise these
-# images.
+# ستكون الفكرة هي تعلم أساس PCA (مع وبدون نواة) على
+# الصور المشوشة، ثم استخدام هذه النماذج لإعادة بناء وإزالة التشويش من هذه
+# الصور.
 #
-# Thus, we split our dataset into a training and testing set composed of 1,000
-# samples for the training and 100 samples for testing. These images are
-# noise-free and we will use them to evaluate the efficiency of the denoising
-# approaches. In addition, we create a copy of the original dataset and add a
-# Gaussian noise.
+# لذلك، نقسم مجموعتنا إلى مجموعة تدريب واختبار مكونة من 1,000
+# عينة للتدريب و 100 عينة للاختبار. هذه الصور
+# خالية من التشويش وسنستخدمها لتقييم كفاءة طرق إزالة التشويش. بالإضافة إلى ذلك، ننشئ نسخة من
+# مجموعة البيانات الأصلية ونضيف تشويشًا غاوسيًا.
 #
-# The idea of this application, is to show that we can denoise corrupted images
-# by learning a PCA basis on some uncorrupted images. We will use both a PCA
-# and a kernel-based PCA to solve this problem.
+# فكرة هذا التطبيق هي إظهار أننا يمكننا إزالة التشويش من الصور المشوشة
+# من خلال تعلم أساس PCA على بعض الصور غير المشوشة. سنستخدم كل من PCA
+# وPCA المعتمد على النواة لحل هذه المشكلة.
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, stratify=y, random_state=0, train_size=1_000, test_size=100
 )
@@ -66,13 +63,13 @@ noise = rng.normal(scale=0.25, size=X_train.shape)
 X_train_noisy = X_train + noise
 
 # %%
-# In addition, we will create a helper function to qualitatively assess the
-# image reconstruction by plotting the test images.
+# بالإضافة إلى ذلك، سننشئ دالة مساعدة لتقييم إعادة بناء الصورة
+# بشكل نوعي من خلال رسم الصور الاختبارية.
 import matplotlib.pyplot as plt
 
 
 def plot_digits(X, title):
-    """Small helper function to plot 100 digits."""
+    """دالة مساعدة صغيرة لرسم 100 رقم."""
     fig, axs = plt.subplots(nrows=10, ncols=10, figsize=(8, 8))
     for img, ax in zip(X, axs.ravel()):
         ax.imshow(img.reshape((16, 16)), cmap="Greys")
@@ -81,22 +78,22 @@ def plot_digits(X, title):
 
 
 # %%
-# In addition, we will use the mean squared error (MSE) to quantitatively
-# assess the image reconstruction.
+# بالإضافة إلى ذلك، سنستخدم متوسط الخطأ التربيعي (MSE) لتقييم إعادة بناء الصورة
+# بشكل كمي.
 #
-# Let's first have a look to see the difference between noise-free and noisy
-# images. We will check the test set in this regard.
-plot_digits(X_test, "Uncorrupted test images")
+# دعنا نلقي نظرة أولاً لنرى الفرق بين الصور الخالية من التشويش والصور المشوشة.
+# سنتحقق من مجموعة الاختبار في هذا الصدد.
+plot_digits(X_test, "صور الاختبار غير المشوشة")
 plot_digits(
-    X_test_noisy, f"Noisy test images\nMSE: {np.mean((X_test - X_test_noisy) ** 2):.2f}"
+    X_test_noisy, f"صور الاختبار المشوشة\nMSE: {np.mean((X_test - X_test_noisy) ** 2):.2f}"
 )
 
 # %%
-# Learn the `PCA` basis
+# تعلم أساس `PCA`
 # ---------------------
 #
-# We can now learn our PCA basis using both a linear PCA and a kernel PCA that
-# uses a radial basis function (RBF) kernel.
+# يمكننا الآن تعلم أساس PCA الخاص بنا باستخدام كل من PCA الخطي وPCA النواة الذي
+# يستخدم دالة أساس شعاعية (RBF).
 from sklearn.decomposition import PCA, KernelPCA
 
 pca = PCA(n_components=32, random_state=42)
@@ -111,41 +108,42 @@ kernel_pca = KernelPCA(
 
 pca.fit(X_train_noisy)
 _ = kernel_pca.fit(X_train_noisy)
+pca.fit(X_train_noisy)
+_ = kernel_pca.fit(X_train_noisy)
 
 # %%
-# Reconstruct and denoise test images
+# إعادة بناء وإزالة تشويش صور الاختبار
 # -----------------------------------
 #
-# Now, we can transform and reconstruct the noisy test set. Since we used less
-# components than the number of original features, we will get an approximation
-# of the original set. Indeed, by dropping the components explaining variance
-# in PCA the least, we hope to remove noise. Similar thinking happens in kernel
-# PCA; however, we expect a better reconstruction because we use a non-linear
-# kernel to learn the PCA basis and a kernel ridge to learn the mapping
-# function.
+# الآن، يمكننا تحويل وإعادة بناء مجموعة الاختبار المشوشة. نظرًا لأننا استخدمنا مكونات أقل
+# من عدد الخصائص الأصلية، فسنحصل على تقريب
+# من المجموعة الأصلية. في الواقع، من خلال إسقاط المكونات التي تفسر التباين
+# الأقل في PCA، نأمل في إزالة التشويش. يحدث تفكير مماثل في PCA النواة؛
+# ومع ذلك، نتوقع إعادة بناء أفضل لأننا نستخدم نواة غير خطية
+# لتعلم أساس PCA ودالة ريدج النواة لتعلم دالة الخريطة.
 X_reconstructed_kernel_pca = kernel_pca.inverse_transform(
     kernel_pca.transform(X_test_noisy)
 )
 X_reconstructed_pca = pca.inverse_transform(pca.transform(X_test_noisy))
 
 # %%
-plot_digits(X_test, "Uncorrupted test images")
+plot_digits(X_test, "صور الاختبار غير المشوشة")
 plot_digits(
     X_reconstructed_pca,
-    f"PCA reconstruction\nMSE: {np.mean((X_test - X_reconstructed_pca) ** 2):.2f}",
+    f"إعادة بناء PCA\nMSE: {np.mean((X_test - X_reconstructed_pca) ** 2):.2f}",
 )
 plot_digits(
     X_reconstructed_kernel_pca,
     (
-        "Kernel PCA reconstruction\n"
+        "إعادة بناء PCA النواة\n"
         f"MSE: {np.mean((X_test - X_reconstructed_kernel_pca) ** 2):.2f}"
     ),
 )
 
 # %%
-# PCA has a lower MSE than kernel PCA. However, the qualitative analysis might
-# not favor PCA instead of kernel PCA. We observe that kernel PCA is able to
-# remove background noise and provide a smoother image.
+# لدى PCA متوسط خطأ تربيعي (MSE) أقل من PCA النواة. ومع ذلك، قد لا يفضل التحليل النوعي
+# PCA بدلاً من PCA النواة. نلاحظ أن PCA النواة قادر على
+# إزالة التشويش الخلفي وتوفير صورة أكثر سلاسة.
 #
-# However, it should be noted that the results of the denoising with kernel PCA
-# will depend of the parameters `n_components`, `gamma`, and `alpha`.
+# ومع ذلك، تجدر الإشارة إلى أن نتائج إزالة التشويش باستخدام PCA النواة
+# ستعتمد على المعلمات `n_components` و`gamma` و`alpha`.

@@ -19,24 +19,19 @@
 
 
 ===================================
-Demo of DBSCAN clustering algorithm
+عرض توضيحي لخوارزمية التجميع DBSCAN
 ===================================
 
-DBSCAN (Density-Based Spatial Clustering of Applications with Noise) finds core
-samples in regions of high density and expands clusters from them. This
-algorithm is good for data which contains clusters of similar density.
+DBSCAN (Density-Based Spatial Clustering of Applications with Noise) يجد العينات الأساسية في مناطق ذات كثافة عالية ويوسع التجمعات منها. هذا الخوارزم جيد للبيانات التي تحتوي على تجمعات ذات كثافة مماثلة.
 
-See the :ref:`sphx_glr_auto_examples_cluster_plot_cluster_comparison.py` example
-for a demo of different clustering algorithms on 2D datasets.
+راجع مثال :ref:`sphx_glr_auto_examples_cluster_plot_cluster_comparison.py` لعرض توضيحي لخوارزميات تجميع مختلفة على مجموعات بيانات ثنائية الأبعاد.
 
-.. GENERATED FROM PYTHON SOURCE LINES 14-18
+.. GENERATED FROM PYTHON SOURCE LINES 10-13
 
 .. code-block:: Python
 
-
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
-
+    # المؤلفون: مطوري scikit-learn
+    # معرف الترخيص: BSD-3-Clause
 
 
 
@@ -44,14 +39,15 @@ for a demo of different clustering algorithms on 2D datasets.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 19-23
 
-Data generation
+.. GENERATED FROM PYTHON SOURCE LINES 14-18
+
+توليد البيانات
 ---------------
 
-We use :class:`~sklearn.datasets.make_blobs` to create 3 synthetic clusters.
+نستخدم :class:`~sklearn.datasets.make_blobs` لإنشاء 3 مجموعات صناعية.
 
-.. GENERATED FROM PYTHON SOURCE LINES 23-34
+.. GENERATED FROM PYTHON SOURCE LINES 18-29
 
 .. code-block:: Python
 
@@ -73,11 +69,11 @@ We use :class:`~sklearn.datasets.make_blobs` to create 3 synthetic clusters.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 35-36
+.. GENERATED FROM PYTHON SOURCE LINES 30-31
 
-We can visualize the resulting data:
+يمكننا تصور البيانات الناتجة:
 
-.. GENERATED FROM PYTHON SOURCE LINES 36-42
+.. GENERATED FROM PYTHON SOURCE LINES 31-37
 
 .. code-block:: Python
 
@@ -99,15 +95,15 @@ We can visualize the resulting data:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 43-48
+.. GENERATED FROM PYTHON SOURCE LINES 38-43
 
-Compute DBSCAN
+حساب DBSCAN
 --------------
 
-One can access the labels assigned by :class:`~sklearn.cluster.DBSCAN` using
-the `labels_` attribute. Noisy samples are given the label math:`-1`.
+يمكن الوصول إلى العلامات التي تم تعيينها بواسطة :class:`~sklearn.cluster.DBSCAN` باستخدام
+سمة `labels_`. يتم إعطاء العينات الضجيجية التسمية math:`-1`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 48-64
+.. GENERATED FROM PYTHON SOURCE LINES 43-59
 
 .. code-block:: Python
 
@@ -120,7 +116,7 @@ the `labels_` attribute. Noisy samples are given the label math:`-1`.
     db = DBSCAN(eps=0.3, min_samples=10).fit(X)
     labels = db.labels_
 
-    # Number of clusters in labels, ignoring noise if present.
+    # عدد التجمعات في العلامات، مع تجاهل الضجيج إذا كان موجودًا.
     n_clusters_ = len(set(labels)) - (1 if -1 in labels else 0)
     n_noise_ = list(labels).count(-1)
 
@@ -141,25 +137,25 @@ the `labels_` attribute. Noisy samples are given the label math:`-1`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 65-80
+.. GENERATED FROM PYTHON SOURCE LINES 60-75
 
-Clustering algorithms are fundamentally unsupervised learning methods.
-However, since :class:`~sklearn.datasets.make_blobs` gives access to the true
-labels of the synthetic clusters, it is possible to use evaluation metrics
-that leverage this "supervised" ground truth information to quantify the
-quality of the resulting clusters. Examples of such metrics are the
-homogeneity, completeness, V-measure, Rand-Index, Adjusted Rand-Index and
-Adjusted Mutual Information (AMI).
+خوارزميات التجميع هي أساليب تعلم غير خاضعة للإشراف بشكل أساسي.
+ومع ذلك، نظرًا لأن :class:`~sklearn.datasets.make_blobs` يتيح الوصول إلى العلامات الحقيقية
+للتجمعات الاصطناعية، فمن الممكن استخدام مقاييس التقييم
+التي تستفيد من معلومات "الإشراف" هذه لتقييم
+جودة التجمعات الناتجة. أمثلة على هذه المقاييس هي
+التجانس، والاكتمال، وV-measure، وRand-Index، وAdjusted Rand-Index،
+وAdjusted Mutual Information (AMI).
 
-If the ground truth labels are not known, evaluation can only be performed
-using the model results itself. In that case, the Silhouette Coefficient comes
-in handy.
+إذا لم تكن العلامات الحقيقية معروفة، يمكن إجراء التقييم
+باستخدام نتائج النموذج نفسه فقط. في هذه الحالة، يأتي
+معامل Silhouette Coefficient في متناول اليد.
 
-For more information, see the
+لمزيد من المعلومات، راجع
 :ref:`sphx_glr_auto_examples_cluster_plot_adjusted_for_chance_measures.py`
-example or the :ref:`clustering_evaluation` module.
+المثال أو الوحدة النمطية :ref:`clustering_evaluation`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 80-91
+.. GENERATED FROM PYTHON SOURCE LINES 75-86
 
 .. code-block:: Python
 
@@ -192,16 +188,15 @@ example or the :ref:`clustering_evaluation` module.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 92-98
+.. GENERATED FROM PYTHON SOURCE LINES 87-92
 
-Plot results
+عرض النتائج
 ------------
 
-Core samples (large dots) and non-core samples (small dots) are color-coded
-according to the assigned cluster. Samples tagged as noise are represented in
-black.
+يتم ترميز العينات الأساسية (النقاط الكبيرة) والعينات غير الأساسية (النقاط الصغيرة) بالألوان
+وفقًا للتجمع المعين. يتم تمثيل العينات الموسومة كضجيج باللون الأسود.
 
-.. GENERATED FROM PYTHON SOURCE LINES 98-133
+.. GENERATED FROM PYTHON SOURCE LINES 92-125
 
 .. code-block:: Python
 
@@ -237,10 +232,8 @@ black.
             markeredgecolor="k",
             markersize=6,
         )
-
     plt.title(f"Estimated number of clusters: {n_clusters_}")
     plt.show()
-
 
 
 .. image-sg:: /auto_examples/cluster/images/sphx_glr_plot_dbscan_002.png
@@ -255,7 +248,7 @@ black.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.216 seconds)
+   **Total running time of the script:** (0 minutes 0.233 seconds)
 
 
 .. _sphx_glr_download_auto_examples_cluster_plot_dbscan.py:

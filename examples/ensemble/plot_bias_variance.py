@@ -1,70 +1,28 @@
 """
 ============================================================
-Single estimator versus bagging: bias-variance decomposition
+مقارنة بين المُقدر الفردي والتجميع: تحليل الانحياز والتشتت
 ============================================================
 
-This example illustrates and compares the bias-variance decomposition of the
-expected mean squared error of a single estimator against a bagging ensemble.
+يوضح هذا المثال ويقارن تحليل الانحياز والتشتت للخطأ التربيعي المتوسط المتوقع لمقدر فردي مقابل مجموعة تجميع.
 
-In regression, the expected mean squared error of an estimator can be
-decomposed in terms of bias, variance and noise. On average over datasets of
-the regression problem, the bias term measures the average amount by which the
-predictions of the estimator differ from the predictions of the best possible
-estimator for the problem (i.e., the Bayes model). The variance term measures
-the variability of the predictions of the estimator when fit over different
-random instances of the same problem. Each problem instance is noted "LS", for
-"Learning Sample", in the following. Finally, the noise measures the irreducible part
-of the error which is due the variability in the data.
+في الانحدار، يمكن تحليل الخطأ التربيعي المتوسط المتوقع لمقدر من حيث الانحياز والتشتت والضوضاء. في المتوسط على مجموعات البيانات لمشكلة الانحدار، يقيس مصطلح الانحياز متوسط الكمية التي تختلف بها تنبؤات المقدر عن تنبؤات أفضل مقدر ممكن للمشكلة (أي نموذج بايز). يقيس مصطلح التشتت تباين تنبؤات المقدر عند التكيف على حالات مختلفة عشوائية من نفس المشكلة. يتم تمييز كل حالة للمشكلة بـ "LS"، والتي تعني "عينة التعلم"، فيما يلي. وأخيراً، تقيس الضوضاء الجزء الذي لا يمكن تخفيضه من الخطأ والذي يرجع إلى التباين في البيانات.
 
-The upper left figure illustrates the predictions (in dark red) of a single
-decision tree trained over a random dataset LS (the blue dots) of a toy 1d
-regression problem. It also illustrates the predictions (in light red) of other
-single decision trees trained over other (and different) randomly drawn
-instances LS of the problem. Intuitively, the variance term here corresponds to
-the width of the beam of predictions (in light red) of the individual
-estimators. The larger the variance, the more sensitive are the predictions for
-`x` to small changes in the training set. The bias term corresponds to the
-difference between the average prediction of the estimator (in cyan) and the
-best possible model (in dark blue). On this problem, we can thus observe that
-the bias is quite low (both the cyan and the blue curves are close to each
-other) while the variance is large (the red beam is rather wide).
+يوضح الشكل العلوي الأيسر تنبؤات (باللون الأحمر الداكن) لشجرة قرار فردية مدربة على مجموعة بيانات عشوائية LS (النقاط الزرقاء) لمشكلة انحدار تجريبية أحادية البعد. كما يوضح تنبؤات (باللون الأحمر الفاتح) لشجرات قرار فردية أخرى مدربة على مجموعات بيانات عشوائية أخرى (ومختلفة) من نفس المشكلة. بديهياً، يتوافق مصطلح التشتت هنا مع عرض حزمة تنبؤات (باللون الأحمر الفاتح) للمقدرات الفردية. كلما زاد التشتت، كلما زادت حساسية التنبؤات لـ "x" للتغيرات الصغيرة في مجموعة التدريب. يتوافق مصطلح الانحياز مع الفرق بين التنبؤ المتوسط للمقدر (باللون السماوي) وأفضل نموذج ممكن (باللون الأزرق الداكن). في هذه المشكلة، يمكننا أن نلاحظ أن الانحياز منخفض جدًا (كل من المنحنيات السماوية والزرقاء قريبة من بعضها البعض) في حين أن التشتت كبير (الحزمة الحمراء واسعة إلى حد ما).
 
-The lower left figure plots the pointwise decomposition of the expected mean
-squared error of a single decision tree. It confirms that the bias term (in
-blue) is low while the variance is large (in green). It also illustrates the
-noise part of the error which, as expected, appears to be constant and around
-`0.01`.
+يرسم الشكل السفلي الأيسر التحليل النقطي للخطأ التربيعي المتوسط المتوقع لشجرة قرار فردية. يؤكد أن مصطلح الانحياز (باللون الأزرق) منخفض في حين أن التشتت كبير (باللون الأخضر). كما يوضح أيضًا جزء الضوضاء من الخطأ والذي، كما هو متوقع، يبدو ثابتًا وحوالي 0.01.
 
-The right figures correspond to the same plots but using instead a bagging
-ensemble of decision trees. In both figures, we can observe that the bias term
-is larger than in the previous case. In the upper right figure, the difference
-between the average prediction (in cyan) and the best possible model is larger
-(e.g., notice the offset around `x=2`). In the lower right figure, the bias
-curve is also slightly higher than in the lower left figure. In terms of
-variance however, the beam of predictions is narrower, which suggests that the
-variance is lower. Indeed, as the lower right figure confirms, the variance
-term (in green) is lower than for single decision trees. Overall, the bias-
-variance decomposition is therefore no longer the same. The tradeoff is better
-for bagging: averaging several decision trees fit on bootstrap copies of the
-dataset slightly increases the bias term but allows for a larger reduction of
-the variance, which results in a lower overall mean squared error (compare the
-red curves int the lower figures). The script output also confirms this
-intuition. The total error of the bagging ensemble is lower than the total
-error of a single decision tree, and this difference indeed mainly stems from a
-reduced variance.
+تتوافق الأشكال اليمنى مع نفس الرسوم البيانية ولكن باستخدام مجموعة تجميع من شجرات القرار بدلاً من ذلك. في كلا الشكلين، يمكننا أن نلاحظ أن مصطلح الانحياز أكبر من الحالة السابقة. في الشكل العلوي الأيمن، الفرق بين التنبؤ المتوسط (باللون السماوي) وأفضل نموذج ممكن أكبر (على سبيل المثال، لاحظ الانزياح حول x=2). في الشكل السفلي الأيمن، منحنى الانحياز أعلى قليلاً أيضًا من الشكل السفلي الأيسر. من حيث التشتت، فإن حزمة التنبؤات أضيق، مما يشير إلى أن التشتت أقل. في الواقع، كما يؤكد الشكل السفلي الأيمن، فإن مصطلح التشتت (باللون الأخضر) أقل من شجرات القرار الفردية. بشكل عام، لم يعد تحليل الانحياز والتشتت هو نفسه. المقايضة أفضل للتجميع: إن حساب المتوسط لعدة شجرات قرار مدربة على نسخ التمهيد من مجموعة البيانات يزيد قليلاً من مصطلح الانحياز ولكنه يسمح بتخفيض أكبر للتشتت، مما يؤدي إلى خطأ تربيعي متوسط أقل بشكل عام (قارن المنحنيات الحمراء في الأشكال السفلية). يؤكد ناتج البرنامج النصي أيضًا على هذه الحدسية. الخطأ الكلي لمجموعة التجميع أقل من الخطأ الكلي لشجرة قرار فردية، وهذا الفرق ينبع في الواقع بشكل أساسي من تشتت أقل.
 
-For further details on bias-variance decomposition, see section 7.3 of [1]_.
+للحصول على مزيد من التفاصيل حول تحليل الانحياز والتشتت، راجع القسم 7.3 من [1]_.
 
-References
+مراجع
 ----------
 
 .. [1] T. Hastie, R. Tibshirani and J. Friedman,
        "Elements of Statistical Learning", Springer, 2009.
-
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -72,17 +30,14 @@ import numpy as np
 from sklearn.ensemble import BaggingRegressor
 from sklearn.tree import DecisionTreeRegressor
 
-# Settings
-n_repeat = 50  # Number of iterations for computing expectations
-n_train = 50  # Size of the training set
-n_test = 1000  # Size of the test set
-noise = 0.1  # Standard deviation of the noise
+# الإعدادات
+n_repeat = 50  # عدد التكرارات لحساب التوقعات
+n_train = 50  # حجم مجموعة التدريب
+n_test = 1000  # حجم مجموعة الاختبار
+noise = 0.1  # الانحراف المعياري للضوضاء
 np.random.seed(0)
 
-# Change this for exploring the bias-variance decomposition of other
-# estimators. This should work well for estimators with high variance (e.g.,
-# decision trees or KNN), but poorly for estimators with low variance (e.g.,
-# linear models).
+# قم بتغيير هذا لاستكشاف تحليل الانحياز والتشتت لمقدرات أخرى. يجب أن يعمل هذا بشكل جيد لمقدرات ذات تشتت عالٍ (مثل شجرات القرار أو KNN)، ولكن بشكل سيء لمقدرات ذات تشتت منخفض (مثل النماذج الخطية).
 estimators = [
     ("Tree", DecisionTreeRegressor()),
     ("Bagging(Tree)", BaggingRegressor(DecisionTreeRegressor())),
@@ -91,7 +46,7 @@ estimators = [
 n_estimators = len(estimators)
 
 
-# Generate data
+# توليد البيانات
 def f(x):
     x = x.ravel()
 
@@ -127,16 +82,16 @@ X_test, y_test = generate(n_samples=n_test, noise=noise, n_repeat=n_repeat)
 
 plt.figure(figsize=(10, 8))
 
-# Loop over estimators to compare
+# التكرار على estimators للمقارنة
 for n, (name, estimator) in enumerate(estimators):
-    # Compute predictions
+    # حساب التنبؤات
     y_predict = np.zeros((n_test, n_repeat))
 
     for i in range(n_repeat):
         estimator.fit(X_train[i], y_train[i])
         y_predict[:, i] = estimator.predict(X_test)
 
-    # Bias^2 + Variance + Noise decomposition of the mean squared error
+    # تحليل الانحياز^2 + التشتت + الضوضاء للخطأ التربيعي المتوسط
     y_error = np.zeros(n_test)
 
     for i in range(n_repeat):
@@ -152,11 +107,12 @@ for n, (name, estimator) in enumerate(estimators):
     print(
         "{0}: {1:.4f} (error) = {2:.4f} (bias^2) "
         " + {3:.4f} (var) + {4:.4f} (noise)".format(
-            name, np.mean(y_error), np.mean(y_bias), np.mean(y_var), np.mean(y_noise)
+            name, np.mean(y_error), np.mean(
+                y_bias), np.mean(y_var), np.mean(y_noise)
         )
     )
 
-    # Plot figures
+    # رسم الأشكال
     plt.subplot(2, n_estimators, n + 1)
     plt.plot(X_test, f(X_test), "b", label="$f(x)$")
     plt.plot(X_train[0], y_train[0], ".b", label="LS ~ $y = f(x)+noise$")
@@ -167,7 +123,8 @@ for n, (name, estimator) in enumerate(estimators):
         else:
             plt.plot(X_test, y_predict[:, i], "r", alpha=0.05)
 
-    plt.plot(X_test, np.mean(y_predict, axis=1), "c", label=r"$\mathbb{E}_{LS} \^y(x)$")
+    plt.plot(X_test, np.mean(y_predict, axis=1),
+             "c", label=r"$\mathbb{E}_{LS} \^y(x)$")
 
     plt.xlim([-5, 5])
     plt.title(name)

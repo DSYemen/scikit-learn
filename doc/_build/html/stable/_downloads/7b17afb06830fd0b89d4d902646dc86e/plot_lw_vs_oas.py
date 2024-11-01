@@ -1,20 +1,20 @@
 """
 =============================
-Ledoit-Wolf vs OAS estimation
+تقدير Ledoit-Wolf مقابل OAS
 =============================
 
-The usual covariance maximum likelihood estimate can be regularized
-using shrinkage. Ledoit and Wolf proposed a close formula to compute
-the asymptotically optimal shrinkage parameter (minimizing a MSE
-criterion), yielding the Ledoit-Wolf covariance estimate.
+يمكن تنظيم تقدير أقصى احتمال للتغاير المعتاد
+باستخدام الانكماش. اقترح Ledoit و Wolf صيغة مغلقة لحساب
+معامل الانكماش الأمثل بشكل مقارب (تقليل معيار MSE
+)، مما ينتج عنه تقدير التغاير Ledoit-Wolf.
 
-Chen et al. proposed an improvement of the Ledoit-Wolf shrinkage
-parameter, the OAS coefficient, whose convergence is significantly
-better under the assumption that the data are Gaussian.
+اقترح Chen وآخرون تحسينًا لمعامل انكماش Ledoit-Wolf،
+معامل OAS، الذي يكون تقاربه أفضل بكثير
+بافتراض أن البيانات غاوسية.
 
-This example, inspired from Chen's publication [1], shows a comparison
-of the estimated MSE of the LW and OAS methods, using Gaussian
-distributed data.
+يوضح هذا المثال، المستوحى من منشور Chen [1]، مقارنة
+بين MSE المقدرة لطريقة LW و OAS، باستخدام
+بيانات موزعة غاوسية.
 
 [1] "Shrinkage Algorithms for MMSE Covariance Estimation"
 Chen et al., IEEE Trans. on Sign. Proc., Volume 58, Issue 10, October 2010.
@@ -33,7 +33,7 @@ from sklearn.covariance import OAS, LedoitWolf
 np.random.seed(0)
 # %%
 n_features = 100
-# simulation covariance matrix (AR(1) process)
+# مصفوفة التغاير المحاكاة (عملية AR(1))
 r = 0.1
 real_cov = toeplitz(r ** np.arange(n_features))
 coloring_matrix = cholesky(real_cov)
@@ -46,7 +46,8 @@ lw_shrinkage = np.zeros((n_samples_range.size, repeat))
 oa_shrinkage = np.zeros((n_samples_range.size, repeat))
 for i, n_samples in enumerate(n_samples_range):
     for j in range(repeat):
-        X = np.dot(np.random.normal(size=(n_samples, n_features)), coloring_matrix.T)
+        X = np.dot(np.random.normal(
+            size=(n_samples, n_features)), coloring_matrix.T)
 
         lw = LedoitWolf(store_precision=False, assume_centered=True)
         lw.fit(X)
@@ -58,7 +59,7 @@ for i, n_samples in enumerate(n_samples_range):
         oa_mse[i, j] = oa.error_norm(real_cov, scaling=False)
         oa_shrinkage[i, j] = oa.shrinkage_
 
-# plot MSE
+# رسم MSE
 plt.subplot(2, 1, 1)
 plt.errorbar(
     n_samples_range,
@@ -76,12 +77,12 @@ plt.errorbar(
     color="darkorange",
     lw=2,
 )
-plt.ylabel("Squared error")
+plt.ylabel("الخطأ التربيعي")
 plt.legend(loc="upper right")
-plt.title("Comparison of covariance estimators")
+plt.title("مقارنة مقدرات التغاير")
 plt.xlim(5, 31)
 
-# plot shrinkage coefficient
+# رسم معامل الانكماش
 plt.subplot(2, 1, 2)
 plt.errorbar(
     n_samples_range,
@@ -100,7 +101,7 @@ plt.errorbar(
     lw=2,
 )
 plt.xlabel("n_samples")
-plt.ylabel("Shrinkage")
+plt.ylabel("الانكماش")
 plt.legend(loc="lower right")
 plt.ylim(plt.ylim()[0], 1.0 + (plt.ylim()[1] - plt.ylim()[0]) / 10.0)
 plt.xlim(5, 31)

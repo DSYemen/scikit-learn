@@ -1,43 +1,39 @@
 """
 ==========================
-Model Complexity Influence
+تأثير تعقيد النموذج
 ==========================
 
-Demonstrate how model complexity influences both prediction accuracy and
-computational performance.
+توضيح كيف يؤثر تعقيد النموذج على كل من دقة التنبؤ والأداء الحسابي.
 
-We will be using two datasets:
-    - :ref:`diabetes_dataset` for regression.
-      This dataset consists of 10 measurements taken from diabetes patients.
-      The task is to predict disease progression;
-    - :ref:`20newsgroups_dataset` for classification. This dataset consists of
-      newsgroup posts. The task is to predict on which topic (out of 20 topics)
-      the post is written about.
+سنستخدم مجموعتين من البيانات:
+    - :ref:`diabetes_dataset` للانحدار.
+      تتكون هذه المجموعة من 10 قياسات مأخوذة من مرضى السكري.
+      المهمة هي التنبؤ بتقدم المرض؛
+    - :ref:`20newsgroups_dataset` للتصنيف. تتكون هذه المجموعة من
+      منشورات مجموعات الأخبار. المهمة هي التنبؤ بالموضوع (من بين 20 موضوعًا)
+      الذي كتب عنه المنشور.
 
-We will model the complexity influence on three different estimators:
-    - :class:`~sklearn.linear_model.SGDClassifier` (for classification data)
-      which implements stochastic gradient descent learning;
+سنقوم بمحاكاة تأثير التعقيد على ثلاثة مقدرات مختلفة:
+    - :class:`~sklearn.linear_model.SGDClassifier` (لبيانات التصنيف)
+      الذي ينفذ تعلم الانحدار التدريجي العشوائي؛
 
-    - :class:`~sklearn.svm.NuSVR` (for regression data) which implements
-      Nu support vector regression;
+    - :class:`~sklearn.svm.NuSVR` (لبيانات الانحدار) الذي ينفذ
+      الانحدار المتجه الداعم لـ Nu؛
 
-    - :class:`~sklearn.ensemble.GradientBoostingRegressor` builds an additive
-      model in a forward stage-wise fashion. Notice that
-      :class:`~sklearn.ensemble.HistGradientBoostingRegressor` is much faster
-      than :class:`~sklearn.ensemble.GradientBoostingRegressor` starting with
-      intermediate datasets (`n_samples >= 10_000`), which is not the case for
-      this example.
+    - :class:`~sklearn.ensemble.GradientBoostingRegressor` يبني نموذجًا تراكميًا
+      بطريقة تدريجية للأمام. لاحظ أن
+      :class:`~sklearn.ensemble.HistGradientBoostingRegressor` أسرع بكثير
+      من :class:`~sklearn.ensemble.GradientBoostingRegressor` بدءًا من
+      مجموعات البيانات المتوسطة (`n_samples >= 10_000`)، والتي لا تنطبق على
+      هذا المثال.
 
 
-We make the model complexity vary through the choice of relevant model
-parameters in each of our selected models. Next, we will measure the influence
-on both computational performance (latency) and predictive power (MSE or
+نجعل تعقيد النموذج يختلف من خلال اختيار المعلمات ذات الصلة في كل من النماذج التي اخترناها. بعد ذلك، سنقيس التأثير على كل من الأداء الحسابي (الاستجابة) والقوة التنبؤية (MSE أو
 Hamming Loss).
 
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 import time
 
@@ -51,38 +47,40 @@ from sklearn.metrics import hamming_loss, mean_squared_error
 from sklearn.model_selection import train_test_split
 from sklearn.svm import NuSVR
 
-# Initialize random generator
+# تهيئة المولد العشوائي
 np.random.seed(0)
 
 ##############################################################################
-# Load the data
+# تحميل البيانات
 # -------------
 #
-# First we load both datasets.
+# أولاً نقوم بتحميل كل من مجموعات البيانات.
 #
-# .. note:: We are using
-#    :func:`~sklearn.datasets.fetch_20newsgroups_vectorized` to download 20
-#    newsgroups dataset. It returns ready-to-use features.
+# .. ملاحظة:: نحن نستخدم
+#    :func:`~sklearn.datasets.fetch_20newsgroups_vectorized` لتحميل مجموعة بيانات 20
+#    مجموعات الأخبار. يعيد ميزات جاهزة للاستخدام.
 #
-# .. note:: ``X`` of the 20 newsgroups dataset is a sparse matrix while ``X``
-#    of diabetes dataset is a numpy array.
+# .. ملاحظة:: "X" لمجموعة بيانات مجموعات الأخبار هي مصفوفة متفرقة بينما "X"
+#    لمجموعة بيانات مرض السكري هي مصفوفة numpy.
 #
 
 
 def generate_data(case):
-    """Generate regression/classification data."""
+    """توليد بيانات الانحدار/التصنيف."""
     if case == "regression":
         X, y = datasets.load_diabetes(return_X_y=True)
         train_size = 0.8
     elif case == "classification":
-        X, y = datasets.fetch_20newsgroups_vectorized(subset="all", return_X_y=True)
-        train_size = 0.4  # to make the example run faster
+        X, y = datasets.fetch_20newsgroups_vectorized(
+            subset="all", return_X_y=True)
+        train_size = 0.4  # لتشغيل المثال بشكل أسرع
 
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, train_size=train_size, random_state=0
     )
 
-    data = {"X_train": X_train, "X_test": X_test, "y_train": y_train, "y_test": y_test}
+    data = {"X_train": X_train, "X_test": X_test,
+            "y_train": y_train, "y_test": y_test}
     return data
 
 
@@ -91,16 +89,12 @@ classification_data = generate_data("classification")
 
 
 ##############################################################################
-# Benchmark influence
+# تأثير المعيار
 # -------------------
-# Next, we can calculate the influence of the parameters on the given
-# estimator. In each round, we will set the estimator with the new value of
-# ``changing_param`` and we will be collecting the prediction times, prediction
-# performance and complexities to see how those changes affect the estimator.
-# We will calculate the complexity using ``complexity_computer`` passed as a
-# parameter.
+# بعد ذلك، يمكننا حساب تأثير المعلمات على المقدر المعطى. في كل جولة، سنقوم بضبط المقدر بالقيمة الجديدة
+# ``changing_param`` وسنقوم بجمع أوقات التنبؤ، وأداء التنبؤ، والتعقيدات لرؤية كيفية تأثير تلك التغييرات على المقدر.
+# سنقوم بحساب التعقيد باستخدام ``complexity_computer`` الممر كمعلمة.
 #
-
 
 def benchmark_influence(conf):
     """
@@ -140,17 +134,16 @@ def benchmark_influence(conf):
 
 
 ##############################################################################
-# Choose parameters
+# اختيار المعلمات
 # -----------------
 #
-# We choose the parameters for each of our estimators by making
-# a dictionary with all the necessary values.
-# ``changing_param`` is the name of the parameter which will vary in each
-# estimator.
-# Complexity will be defined by the ``complexity_label`` and calculated using
+# نختار المعلمات لكل من مقدراتنا من خلال إنشاء
+# قاموس بجميع القيم الضرورية.
+# ``changing_param`` هو اسم المعلمة التي ستتغير في كل
+# مقدر.
+# سيتم تعريف التعقيد بواسطة ``complexity_label`` وحسابه باستخدام
 # `complexity_computer`.
-# Also note that depending on the estimator type we are passing
-# different data.
+# لاحظ أيضًا أننا نمرر بيانات مختلفة اعتمادًا على نوع المقدر.
 #
 
 
@@ -211,37 +204,34 @@ configurations = [
         "n_samples": 15,
     },
 ]
-
-
 ##############################################################################
-# Run the code and plot the results
+# تشغيل الكود ورسم النتائج
 # ---------------------------------
 #
-# We defined all the functions required to run our benchmark. Now, we will loop
-# over the different configurations that we defined previously. Subsequently,
-# we can analyze the plots obtained from the benchmark:
-# Relaxing the `L1` penalty in the SGD classifier reduces the prediction error
-# but leads to an increase in the training time.
-# We can draw a similar analysis regarding the training time which increases
-# with the number of support vectors with a Nu-SVR. However, we observed that
-# there is an optimal number of support vectors which reduces the prediction
-# error. Indeed, too few support vectors lead to an under-fitted model while
-# too many support vectors lead to an over-fitted model.
-# The exact same conclusion can be drawn for the gradient-boosting model. The
-# only the difference with the Nu-SVR is that having too many trees in the
-# ensemble is not as detrimental.
+# قمنا بتعريف جميع الدوال المطلوبة لتشغيل معيارنا. الآن، سنقوم بالدوران
+# على التكوينات المختلفة التي قمنا بتعريفها مسبقًا. بعد ذلك،
+# يمكننا تحليل الرسوم البيانية التي تم الحصول عليها من المعيار:
+# يؤدي تخفيف عقوبة L1 في مصنف SGD إلى تقليل خطأ التنبؤ
+# ولكن يؤدي إلى زيادة في وقت التدريب.
+# يمكننا إجراء تحليل مماثل فيما يتعلق بوقت التدريب الذي يزيد
+# مع عدد المتجهات الداعمة مع Nu-SVR. ومع ذلك، لاحظنا أن هناك
+# عددًا مثاليًا من المتجهات الداعمة التي تقلل من خطأ التنبؤ. في الواقع، يؤدي عدد قليل جدًا من المتجهات الداعمة إلى نموذج غير مناسب بينما
+# يؤدي عدد كبير جدًا من المتجهات الداعمة إلى نموذج مفرط في التكيف.
+# يمكن استخلاص نفس الاستنتاج تمامًا للنموذج التدرج التدريجي.
+# الفرق الوحيد مع Nu-SVR هو أن وجود عدد كبير جدًا من الأشجار في
+# المجموعة ليس ضارًا بنفس القدر.
 #
 
 
 def plot_influence(conf, mse_values, prediction_times, complexities):
     """
-    Plot influence of model complexity on both accuracy and latency.
+    رسم تأثير تعقيد النموذج على كل من الدقة والاستجابة.
     """
 
     fig = plt.figure()
     fig.subplots_adjust(right=0.75)
 
-    # first axes (prediction error)
+    # المحاور الأولى (خطأ التنبؤ)
     ax1 = fig.add_subplot(111)
     line1 = ax1.plot(complexities, mse_values, c="tab:blue", ls="-")[0]
     ax1.set_xlabel("Model Complexity (%s)" % conf["complexity_label"])
@@ -252,7 +242,7 @@ def plot_influence(conf, mse_values, prediction_times, complexities):
     ax1.yaxis.label.set_color(line1.get_color())
     ax1.tick_params(axis="y", colors=line1.get_color())
 
-    # second axes (latency)
+    # المحاور الثانية (الاستجابة)
     ax2 = fig.add_subplot(111, sharex=ax1, frameon=False)
     line2 = ax2.plot(complexities, prediction_times, c="tab:orange", ls="-")[0]
     ax2.yaxis.tick_right()
@@ -274,19 +264,21 @@ def plot_influence(conf, mse_values, prediction_times, complexities):
 
 
 for conf in configurations:
-    prediction_performances, prediction_times, complexities = benchmark_influence(conf)
-    plot_influence(conf, prediction_performances, prediction_times, complexities)
+    prediction_performances, prediction_times, complexities = benchmark_influence(
+        conf)
+    plot_influence(conf, prediction_performances,
+                   prediction_times, complexities)
 plt.show()
 
 ##############################################################################
-# Conclusion
+# الخلاصة
 # ----------
 #
-# As a conclusion, we can deduce the following insights:
+# كخلاصة، يمكننا استنتاج الأفكار التالية:
 #
-# * a model which is more complex (or expressive) will require a larger
-#   training time;
-# * a more complex model does not guarantee to reduce the prediction error.
+# * النموذج الذي يكون أكثر تعقيدًا (أو تعبيريًا) سيتطلب وقتًا أكبر
+#   للتدريب؛
+# * النموذج الأكثر تعقيدًا لا يضمن تقليل خطأ التنبؤ.
 #
-# These aspects are related to model generalization and avoiding model
-# under-fitting or over-fitting.
+# هذه الجوانب تتعلق بعمومية النموذج وتجنب نموذج
+# عدم التكيف أو التكيف المفرط.

@@ -18,40 +18,21 @@
 .. _sphx_glr_auto_examples_cluster_plot_agglomerative_clustering_metrics.py:
 
 
-Agglomerative clustering with different metrics
-===============================================
+======================================
+# التجميع التجميعي مع مقاييس مختلفة
+======================================
 
-Demonstrates the effect of different metrics on the hierarchical clustering.
+توضح تأثير مقاييس مختلفة على التجميع الهرمي.
 
-The example is engineered to show the effect of the choice of different
-metrics. It is applied to waveforms, which can be seen as
-high-dimensional vector. Indeed, the difference between metrics is
-usually more pronounced in high dimension (in particular for euclidean
-and cityblock).
+تم تصميم المثال لإظهار تأثير اختيار مقاييس مختلفة. يتم تطبيقه على الموجات، والتي يمكن اعتبارها متجهًا عالي الأبعاد. في الواقع، يكون الفرق بين المقاييس أكثر وضوحًا في الأبعاد العالية (خاصة بالنسبة للمقاييس الإقليدية والمدينة).
 
-We generate data from three groups of waveforms. Two of the waveforms
-(waveform 1 and waveform 2) are proportional one to the other. The cosine
-distance is invariant to a scaling of the data, as a result, it cannot
-distinguish these two waveforms. Thus even with no noise, clustering
-using this distance will not separate out waveform 1 and 2.
+نحن نولد البيانات من ثلاث مجموعات من الموجات. اثنان من الموجات (الموجة 1 والموجة 2) متناسبان مع بعضهما البعض. المسافة المثلثية ثابتة بالنسبة لقياس البيانات، ونتيجة لذلك، لا يمكنها التمييز بين هاتين الموجتين. وبالتالي، حتى بدون ضوضاء، فإن التجميع باستخدام هذه المسافة لن يفصل الموجة 1 والموجة 2.
 
-We add observation noise to these waveforms. We generate very sparse
-noise: only 6% of the time points contain noise. As a result, the
-l1 norm of this noise (ie "cityblock" distance) is much smaller than it's
-l2 norm ("euclidean" distance). This can be seen on the inter-class
-distance matrices: the values on the diagonal, that characterize the
-spread of the class, are much bigger for the Euclidean distance than for
-the cityblock distance.
+نضيف ضوضاء الملاحظة إلى هذه الموجات. نولد ضوضاء نادرة جدًا: تحتوي 6% فقط من نقاط الوقت على ضوضاء. ونتيجة لذلك، فإن المعيار l1 لهذه الضوضاء (أي مسافة "المدينة") أصغر بكثير من المعيار l2 ("المسافة الإقليدية"). يمكن ملاحظة ذلك على مصفوفات المسافة بين الفئات: القيم على القطر، التي تميز انتشار الفئة، أكبر بكثير للمسافة الإقليدية من مسافة المدينة.
 
-When we apply clustering to the data, we find that the clustering
-reflects what was in the distance matrices. Indeed, for the Euclidean
-distance, the classes are ill-separated because of the noise, and thus
-the clustering does not separate the waveforms. For the cityblock
-distance, the separation is good and the waveform classes are recovered.
-Finally, the cosine distance does not separate at all waveform 1 and 2,
-thus the clustering puts them in the same cluster.
+عندما نطبق التجميع على البيانات، نجد أن التجميع يعكس ما كان في مصفوفات المسافة. في الواقع، بالنسبة للمسافة الإقليدية، فإن الفئات غير منفصلة جيدًا بسبب الضوضاء، وبالتالي فإن التجميع لا يفصل الموجات. بالنسبة للمسافة بين المدن، يكون الفصل جيدًا ويتم استرداد فئات الموجات. أخيرًا، لا تفصل المسافة المثلثية على الإطلاق الموجة 1 والموجة 2، وبالتالي فإن التجميع يضعها في نفس المجموعة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 36-147
+.. GENERATED FROM PYTHON SOURCE LINES 16-126
 
 
 
@@ -113,9 +94,8 @@ thus the clustering puts them in the same cluster.
 
 .. code-block:: Python
 
-
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري سكايت-ليرن
+    # معرف الترخيص: BSD-3-Clause
 
     import matplotlib.patheffects as PathEffects
     import matplotlib.pyplot as plt
@@ -126,7 +106,7 @@ thus the clustering puts them in the same cluster.
 
     np.random.seed(0)
 
-    # Generate waveform data
+    # توليد بيانات الموجة
     n_features = 2000
     t = np.pi * np.linspace(0, 1, n_features)
 
@@ -142,7 +122,7 @@ thus the clustering puts them in the same cluster.
             phase_noise = 0.01 * np.random.normal()
             amplitude_noise = 0.04 * np.random.normal()
             additional_noise = 1 - 2 * np.random.rand(n_features)
-            # Make the noise sparse
+            # جعل الضوضاء نادرة
             additional_noise[np.abs(additional_noise) < 0.997] = 0
 
             X.append(
@@ -163,7 +143,7 @@ thus the clustering puts them in the same cluster.
 
     colors = ["#f7bd01", "#377eb8", "#f781bf"]
 
-    # Plot the ground-truth labelling
+    # رسم التصنيف الحقيقي
     plt.figure()
     plt.axes([0, 0, 1, 1])
     for l, color, n in zip(range(n_clusters), colors, labels):
@@ -177,7 +157,7 @@ thus the clustering puts them in the same cluster.
     plt.suptitle("Ground truth", size=20, y=1)
 
 
-    # Plot the distances
+    # رسم المسافات
     for index, metric in enumerate(["cosine", "euclidean", "cityblock"]):
         avg_dist = np.zeros((n_clusters, n_clusters))
         plt.figure(figsize=(5, 4.5))
@@ -197,9 +177,9 @@ thus the clustering puts them in the same cluster.
                     horizontalalignment="center",
                 )
                 t.set_path_effects(
-                    [PathEffects.withStroke(linewidth=5, foreground="w", alpha=0.5)]
+                    [PathEffects.withStroke(
+                        linewidth=5, foreground="w", alpha=0.5)]
                 )
-
         plt.imshow(avg_dist, interpolation="nearest", cmap="cividis", vmin=0)
         plt.xticks(range(n_clusters), labels, rotation=45)
         plt.yticks(range(n_clusters), labels)
@@ -208,7 +188,7 @@ thus the clustering puts them in the same cluster.
         plt.tight_layout()
 
 
-    # Plot clustering results
+    # رسم نتائج التجميع
     for index, metric in enumerate(["cosine", "euclidean", "cityblock"]):
         model = AgglomerativeClustering(
             n_clusters=n_clusters, linkage="average", metric=metric
@@ -228,7 +208,7 @@ thus the clustering puts them in the same cluster.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.128 seconds)
+   **Total running time of the script:** (0 minutes 1.207 seconds)
 
 
 .. _sphx_glr_download_auto_examples_cluster_plot_agglomerative_clustering_metrics.py:

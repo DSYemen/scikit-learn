@@ -1,10 +1,10 @@
 """
-=========================================================
-Feature agglomeration
-=========================================================
+=========================================
+تجميع الميزات
+=========================================
 
-These images show how similar features are merged together using
-feature agglomeration.
+توضح هذه الصور كيف يتم دمج الميزات المتشابهة معًا باستخدام
+تجميع الميزات.
 
 """
 
@@ -38,11 +38,12 @@ for i in range(4):
     plt.xticks(())
     plt.yticks(())
     if i == 1:
-        plt.title("Original data")
+        plt.title("البيانات الأصلية")
     plt.subplot(3, 4, 4 + i + 1)
-    plt.imshow(images_restored[i], cmap=plt.cm.gray, vmax=16, interpolation="nearest")
+    plt.imshow(images_restored[i], cmap=plt.cm.gray,
+               vmax=16, interpolation="nearest")
     if i == 1:
-        plt.title("Agglomerated data")
+        plt.title("البيانات المجمعة")
     plt.xticks(())
     plt.yticks(())
 
@@ -54,5 +55,5 @@ plt.imshow(
 )
 plt.xticks(())
 plt.yticks(())
-plt.title("Labels")
+plt.title("التسميات")
 plt.show()

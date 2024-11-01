@@ -11,10 +11,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/modules/generated/sklearn.metrics.accuracy_score.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="Gallery examples: Plot classification probability Multi-class AdaBoosted Decision Trees Probabilistic predictions with Gaussian process classification (GPC) Demonstration of multi-metric evaluation..." />
-<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_classification_probability_thumb.png" />
+<meta property="og:description" content="Gallery examples: شجرة قرارات معززة متعددة الفئات" />
+<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_adaboost_multiclass_thumb.png" />
 <meta property="og:image:alt" content="" />
-<meta name="description" content="Gallery examples: Plot classification probability Multi-class AdaBoosted Decision Trees Probabilistic predictions with Gaussian process classification (GPC) Demonstration of multi-metric evaluation..." />
+<meta name="description" content="Gallery examples: شجرة قرارات معززة متعددة الفئات" />
 
     <title>accuracy_score &#8212; scikit-learn 1.6.dev0 documentation</title>
   
@@ -1304,7 +1304,7 @@
 <h1>accuracy_score<a class="headerlink" href="#accuracy-score" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="sklearn.metrics.accuracy_score">
-<span class="sig-prename descclassname"><span class="pre">sklearn.metrics.</span></span><span class="sig-name descname"><span class="pre">accuracy_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_division</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'warn'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/001706117/sklearn/metrics/_classification.py#L149"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.metrics.accuracy_score" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">sklearn.metrics.</span></span><span class="sig-name descname"><span class="pre">accuracy_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zero_division</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'warn'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/2a8d36cec9/sklearn/metrics/_classification.py#L149"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.metrics.accuracy_score" title="Link to this definition">#</a></dt>
 <dd><p>Accuracy classification score.</p>
 <p>In multilabel classification, this function computes subset accuracy:
 the set of labels predicted for a sample must <em>exactly</em> match the
@@ -1373,27 +1373,9 @@ of samples with <code class="docutils literal notranslate"><span class="pre">nor
 
 <section id="gallery-examples">
 <h2>Gallery examples<a class="headerlink" href="#gallery-examples" title="Link to this heading">#</a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Plot the classification probability for different classifiers. We use a 3 class dataset, and we classify it with a Support Vector classifier, L1 and L2 penalized logistic regression (multinomial multiclass), a One-Vs-Rest version with logistic regression, and Gaussian process classification."><img alt="" src="../../_images/sphx_glr_plot_classification_probability_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/classification/plot_classification_probability.html#sphx-glr-auto-examples-classification-plot-classification-probability-py"><span class="std std-ref">Plot classification probability</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Plot classification probability</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how boosting can improve the prediction accuracy on a multi-label classification problem. It reproduces a similar experiment as depicted by Figure 1 in Zhu et al [1]_."><img alt="" src="../../_images/sphx_glr_plot_adaboost_multiclass_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/ensemble/plot_adaboost_multiclass.html#sphx-glr-auto-examples-ensemble-plot-adaboost-multiclass-py"><span class="std std-ref">Multi-class AdaBoosted Decision Trees</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Multi-class AdaBoosted Decision Trees</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the predicted probability of GPC for an RBF kernel with different choices of the hyperparameters. The first figure shows the predicted probability of GPC with arbitrarily chosen hyperparameters and with the hyperparameters corresponding to the maximum log-marginal-likelihood (LML)."><img alt="" src="../../_images/sphx_glr_plot_gpc_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/gaussian_process/plot_gpc.html#sphx-glr-auto-examples-gaussian-process-plot-gpc-py"><span class="std std-ref">Probabilistic predictions with Gaussian process classification (GPC)</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Probabilistic predictions with Gaussian process classification (GPC)</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Multiple metric parameter search can be done by setting the scoring parameter to a list of metric scorer names or a dict mapping the scorer names to the scorer callables."><img alt="" src="../../_images/sphx_glr_plot_multi_metric_evaluation_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/model_selection/plot_multi_metric_evaluation.html#sphx-glr-auto-examples-model-selection-plot-multi-metric-evaluation-py"><span class="std std-ref">Demonstration of multi-metric evaluation on cross_val_score and GridSearchCV</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Demonstration of multi-metric evaluation on cross_val_score and GridSearchCV</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Feature scaling through standardization, also called Z-score normalization, is an important preprocessing step for many machine learning algorithms. It involves rescaling each feature such that it has a standard deviation of 1 and a mean of 0."><img alt="" src="../../_images/sphx_glr_plot_scaling_importance_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/preprocessing/plot_scaling_importance.html#sphx-glr-auto-examples-preprocessing-plot-scaling-importance-py"><span class="std std-ref">Importance of Feature Scaling</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Importance of Feature Scaling</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the effect of a varying threshold on self-training. The breast_cancer dataset is loaded, and labels are deleted such that only 50 out of 569 samples have labels. A SelfTrainingClassifier is fitted on this dataset, with varying thresholds."><img alt="" src="../../_images/sphx_glr_plot_self_training_varying_threshold_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/semi_supervised/plot_self_training_varying_threshold.html#sphx-glr-auto-examples-semi-supervised-plot-self-training-varying-threshold-py"><span class="std std-ref">Effect of varying threshold for self-training</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Effect of varying threshold for self-training</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This is an example showing how scikit-learn can be used to classify documents by topics using a Bag of Words approach. This example uses a Tf-idf-weighted document-term sparse matrix to encode the features and demonstrates various classifiers that can efficiently handle sparse matrices."><img alt="" src="../../_images/sphx_glr_plot_document_classification_20newsgroups_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/text/plot_document_classification_20newsgroups.html#sphx-glr-auto-examples-text-plot-document-classification-20newsgroups-py"><span class="std std-ref">Classification of text documents using sparse features</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Classification of text documents using sparse features</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="هذا المثال يوضح كيف يمكن لتقنية التعزيز (Boosting) أن تحسن دقة التنبؤ في مشكلة تصنيف متعددة التصنيفات. وهو يعيد إنتاج تجربة مشابهة لما هو موضح في الشكل 1 في بحث Zhu et al [1]_."><img alt="" src="../../_images/sphx_glr_plot_adaboost_multiclass_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/ensemble/plot_adaboost_multiclass.html#sphx-glr-auto-examples-ensemble-plot-adaboost-multiclass-py"><span class="std std-ref">شجرة قرارات معززة متعددة الفئات</span></a></p>
+  <div class="sphx-glr-thumbnail-title">شجرة قرارات معززة متعددة الفئات</div>
 </div></div></section>
 </section>
 

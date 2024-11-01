@@ -1,19 +1,15 @@
 """
 ======================================================================
-A demo of structured Ward hierarchical clustering on an image of coins
+عرض توضيحي لتجميع هرمي منظم على صورة عملات معدنية
 ======================================================================
 
-Compute the segmentation of a 2D image with Ward hierarchical
-clustering. The clustering is spatially constrained in order
-for each segmented region to be in one piece.
-
+احسب تجزئة صورة ثنائية الأبعاد باستخدام التجميع الهرمي. التجميع مقيد مكانيًا لضمان أن تكون كل منطقة مجزأة قطعة واحدة.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# Generate data
+# توليد البيانات
 # -------------
 
 from skimage.data import coins
@@ -21,9 +17,9 @@ from skimage.data import coins
 orig_coins = coins()
 
 # %%
-# Resize it to 20% of the original size to speed up the processing
-# Applying a Gaussian filter for smoothing prior to down-scaling
-# reduces aliasing artifacts.
+# تغيير حجمها إلى 20% من الحجم الأصلي لتسريع المعالجة
+# تطبيق مرشح غاوسي للتنعيم قبل التغيير إلى حجم أصغر
+# يقلل من آثار التحجيم.
 
 import numpy as np
 from scipy.ndimage import gaussian_filter
@@ -40,17 +36,17 @@ rescaled_coins = rescale(
 X = np.reshape(rescaled_coins, (-1, 1))
 
 # %%
-# Define structure of the data
+# تحديد بنية البيانات
 # ----------------------------
 #
-# Pixels are connected to their neighbors.
+# البكسلات متصلة بجيرانها.
 
 from sklearn.feature_extraction.image import grid_to_graph
 
 connectivity = grid_to_graph(*rescaled_coins.shape)
 
 # %%
-# Compute clustering
+# حساب التجميع
 # ------------------
 
 import time as time
@@ -70,12 +66,12 @@ print(f"Number of pixels: {label.size}")
 print(f"Number of clusters: {np.unique(label).size}")
 
 # %%
-# Plot the results on an image
+# عرض النتائج على صورة
 # ----------------------------
 #
-# Agglomerative clustering is able to segment each coin however, we have had to
-# use a ``n_cluster`` larger than the number of coins because the segmentation
-# is finding a large in the background.
+# التجميع التجميعي قادر على تجزئة كل عملة معدنية، ولكن كان علينا
+# استخدام "n_cluster" أكبر من عدد العملات المعدنية لأن التجزئة
+# تجد منطقة كبيرة في الخلفية.
 
 import matplotlib.pyplot as plt
 

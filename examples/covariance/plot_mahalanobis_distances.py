@@ -1,56 +1,51 @@
 r"""
 ================================================================
-Robust covariance estimation and Mahalanobis distances relevance
+تقدير التغاير القوي وأهمية مسافات Mahalanobis
 ================================================================
 
-This example shows covariance estimation with Mahalanobis
-distances on Gaussian distributed data.
+يوضح هذا المثال تقدير التغاير باستخدام مسافات Mahalanobis
+على بيانات موزعة غاوسيًا.
 
-For Gaussian distributed data, the distance of an observation
-:math:`x_i` to the mode of the distribution can be computed using its
-Mahalanobis distance:
+بالنسبة للبيانات الموزعة غاوسيًا، يمكن حساب مسافة الملاحظة
+:math:`x_i` إلى مركز التوزيع باستخدام مسافة Mahalanobis:
 
 .. math::
 
     d_{(\mu,\Sigma)}(x_i)^2 = (x_i - \mu)^T\Sigma^{-1}(x_i - \mu)
 
-where :math:`\mu` and :math:`\Sigma` are the location and the covariance of
-the underlying Gaussian distributions.
+حيث :math:`\mu` و :math:`\Sigma` هما الموقع والتغاير
+لتوزيعات غاوسية الأساسية.
 
-In practice, :math:`\mu` and :math:`\Sigma` are replaced by some
-estimates. The standard covariance maximum likelihood estimate (MLE) is very
-sensitive to the presence of outliers in the data set and therefore,
-the downstream Mahalanobis distances also are. It would be better to
-use a robust estimator of covariance to guarantee that the estimation is
-resistant to "erroneous" observations in the dataset and that the
-calculated Mahalanobis distances accurately reflect the true
-organization of the observations.
+في الممارسة العملية، يتم استبدال :math:`\mu` و :math:`\Sigma` ببعض
+التقديرات. يكون تقدير أقصى احتمال للتغاير القياسي (MLE) حساسًا جدًا لوجود القيم المتطرفة في مجموعة البيانات، وبالتالي،
+فإن مسافات Mahalanobis اللاحقة هي أيضًا. سيكون من الأفضل
+استخدام مقدر قوي للتغاير لضمان أن يكون التقدير
+مقاوماً للملاحظات "الخاطئة" في مجموعة البيانات وأن
+مسافات Mahalanobis المحسوبة تعكس بدقة التنظيم الحقيقي للملاحظات.
 
-The Minimum Covariance Determinant estimator (MCD) is a robust,
-high-breakdown point (i.e. it can be used to estimate the covariance
-matrix of highly contaminated datasets, up to
-:math:`\frac{n_\text{samples}-n_\text{features}-1}{2}` outliers)
-estimator of covariance. The idea behind the MCD is to find
+مقدر الحد الأدنى لمحدد التغاير (MCD) هو مقدر قوي،
+عالي نقطة الانهيار (أي يمكن استخدامه لتقدير مصفوفة التغاير
+لمجموعات البيانات شديدة التلوث، حتى
+:math:`\frac{n_\text{samples}-n_\text{features}-1}{2}` قيم متطرفة)
+للتغاير. الفكرة وراء MCD هي إيجاد
 :math:`\frac{n_\text{samples}+n_\text{features}+1}{2}`
-observations whose empirical covariance has the smallest determinant,
-yielding a "pure" subset of observations from which to compute
-standards estimates of location and covariance. The MCD was introduced by
-P.J.Rousseuw in [1]_.
+ملاحظات يكون التغاير التجريبي لها هو المحدد الأصغر،
+مما ينتج عنه مجموعة فرعية "نقية" من الملاحظات التي يمكن من خلالها حساب
+التقديرات القياسية للموقع والتغاير. تم تقديم MCD بواسطة
+P.J.Rousseuw في [1]_.
 
-This example illustrates how the Mahalanobis distances are affected by
-outlying data. Observations drawn from a contaminating distribution
-are not distinguishable from the observations coming from the real,
-Gaussian distribution when using standard covariance MLE based Mahalanobis
-distances. Using MCD-based
-Mahalanobis distances, the two populations become
-distinguishable. Associated applications include outlier detection,
-observation ranking and clustering.
+يوضح هذا المثال كيف تتأثر مسافات Mahalanobis
+بالبيانات المتطرفة. الملاحظات المأخوذة من توزيع ملوث
+لا يمكن تمييزها عن الملاحظات القادمة من التوزيع الحقيقي،
+التوزيع الغاوسي عند استخدام مسافات Mahalanobis القياسية القائمة على MLE. باستخدام مسافات Mahalanobis القائمة على MCD،
+يصبح من الممكن تمييز التوزيعين. تشمل التطبيقات المرتبطة بها اكتشاف القيم المتطرفة،
+تصنيف الملاحظات والتجميع.
 
 .. note::
 
-    See also :ref:`sphx_glr_auto_examples_covariance_plot_robust_vs_empirical_covariance.py`
+    انظر أيضًا :ref:`sphx_glr_auto_examples_covariance_plot_robust_vs_empirical_covariance.py`
 
-.. rubric:: References
+.. rubric:: المراجع
 
 .. [1] P. J. Rousseeuw. `Least median of squares regression
     <http://web.ipac.caltech.edu/staff/fmasci/home/astro_refs/LeastMedianOfSquares.pdf>`_. J. Am
@@ -60,102 +55,101 @@ observation ranking and clustering.
     Proceedings of the National Academy of Sciences of the United States
     of America, 17, 684-688.
 
-"""  # noqa: E501
+"""
 
 # Authors: The scikit-learn developers
 # SPDX-License-Identifier: BSD-3-Clause
 
 # %%
-# Generate data
+# إنشاء البيانات
 # --------------
 #
-# First, we generate a dataset of 125 samples and 2 features. Both features
-# are Gaussian distributed with mean of 0 but feature 1 has a standard
-# deviation equal to 2 and feature 2 has a standard deviation equal to 1. Next,
-# 25 samples are replaced with Gaussian outlier samples where feature 1 has
-# a standard deviation equal to 1 and feature 2 has a standard deviation equal
-# to 7.
+# أولاً، نقوم بإنشاء مجموعة بيانات من 125 عينة وميزتين. كلا الميزتين
+# موزعتان غاوسية بمتوسط 0 ولكن الميزة 1 لها انحراف معياري
+# يساوي 2 والميزة 2 لها انحراف معياري يساوي 1. بعد ذلك،
+# يتم استبدال 25 عينة بعينات خارجية غاوسية حيث الميزة 1 لها
+# انحراف معياري يساوي 1 والميزة 2 لها انحراف معياري يساوي
+# 7.
 
 import numpy as np
 
-# for consistent results
+# من أجل نتائج متسقة
 np.random.seed(7)
 
 n_samples = 125
 n_outliers = 25
 n_features = 2
 
-# generate Gaussian data of shape (125, 2)
+# إنشاء بيانات غاوسية بشكل (125، 2)
 gen_cov = np.eye(n_features)
 gen_cov[0, 0] = 2.0
 X = np.dot(np.random.randn(n_samples, n_features), gen_cov)
-# add some outliers
+# إضافة بعض القيم المتطرفة
 outliers_cov = np.eye(n_features)
 outliers_cov[np.arange(1, n_features), np.arange(1, n_features)] = 7.0
 X[-n_outliers:] = np.dot(np.random.randn(n_outliers, n_features), outliers_cov)
 
 # %%
-# Comparison of results
+# مقارنة النتائج
 # ---------------------
 #
-# Below, we fit MCD and MLE based covariance estimators to our data and print
-# the estimated covariance matrices. Note that the estimated variance of
-# feature 2 is much higher with the MLE based estimator (7.5) than
-# that of the MCD robust estimator (1.2). This shows that the MCD based
-# robust estimator is much more resistant to the outlier samples, which were
-# designed to have a much larger variance in feature 2.
+# أدناه، نقوم بملاءمة مقدرات التغاير القائمة على MCD و MLE لبياناتنا ونطبع
+# مصفوفات التغاير المقدرة. لاحظ أن التباين المقدر
+# للميزة 2 أعلى بكثير مع المقدر القائم على MLE (7.5) من
+# ذلك الخاص بمقدر MCD القوي (1.2). يوضح هذا أن المقدر القوي القائم على MCD
+# أكثر مقاومة لعينات القيم المتطرفة، والتي تم
+# تصميمها لتكون ذات تباين أكبر بكثير في الميزة 2.
 
 import matplotlib.pyplot as plt
 
 from sklearn.covariance import EmpiricalCovariance, MinCovDet
 
-# fit a MCD robust estimator to data
+# ملاءمة مقدر MCD قوي للبيانات
 robust_cov = MinCovDet().fit(X)
-# fit a MLE estimator to data
+# ملاءمة مقدر MLE للبيانات
 emp_cov = EmpiricalCovariance().fit(X)
 print(
-    "Estimated covariance matrix:\nMCD (Robust):\n{}\nMLE:\n{}".format(
+    "مصفوفة التغاير المقدرة:\nMCD (قوي):\n{}\nMLE:\n{}".format(
         robust_cov.covariance_, emp_cov.covariance_
     )
 )
 
 # %%
-# To better visualize the difference, we plot contours of the
-# Mahalanobis distances calculated by both methods. Notice that the robust
-# MCD based Mahalanobis distances fit the inlier black points much better,
-# whereas the MLE based distances are more influenced by the outlier
-# red points.
+# لتوضيح الفرق بشكل أفضل، نرسم خطوط كفاف
+# لمسافات Mahalanobis المحسوبة بكلا الطريقتين. لاحظ أن مسافات Mahalanobis القوية القائمة على MCD تناسب النقاط السوداء الداخلية بشكل أفضل،
+# بينما تتأثر المسافات القائمة على MLE أكثر بالنقاط
+# الحمراء الخارجية.
 import matplotlib.lines as mlines
 
 fig, ax = plt.subplots(figsize=(10, 5))
-# Plot data set
+# رسم مجموعة البيانات
 inlier_plot = ax.scatter(X[:, 0], X[:, 1], color="black", label="inliers")
 outlier_plot = ax.scatter(
     X[:, 0][-n_outliers:], X[:, 1][-n_outliers:], color="red", label="outliers"
 )
 ax.set_xlim(ax.get_xlim()[0], 10.0)
-ax.set_title("Mahalanobis distances of a contaminated data set")
+ax.set_title("مسافات Mahalanobis لمجموعة بيانات ملوثة")
 
-# Create meshgrid of feature 1 and feature 2 values
+# إنشاء شبكة من قيم الميزة 1 والميزة 2
 xx, yy = np.meshgrid(
     np.linspace(plt.xlim()[0], plt.xlim()[1], 100),
     np.linspace(plt.ylim()[0], plt.ylim()[1], 100),
 )
 zz = np.c_[xx.ravel(), yy.ravel()]
-# Calculate the MLE based Mahalanobis distances of the meshgrid
+# حساب مسافات Mahalanobis القائمة على MLE للشبكة
 mahal_emp_cov = emp_cov.mahalanobis(zz)
 mahal_emp_cov = mahal_emp_cov.reshape(xx.shape)
 emp_cov_contour = plt.contour(
     xx, yy, np.sqrt(mahal_emp_cov), cmap=plt.cm.PuBu_r, linestyles="dashed"
 )
-# Calculate the MCD based Mahalanobis distances
+# حساب مسافات Mahalanobis القائمة على MCD
 mahal_robust_cov = robust_cov.mahalanobis(zz)
 mahal_robust_cov = mahal_robust_cov.reshape(xx.shape)
 robust_contour = ax.contour(
     xx, yy, np.sqrt(mahal_robust_cov), cmap=plt.cm.YlOrBr_r, linestyles="dotted"
 )
 
-# Add legend
+# إضافة وسيلة إيضاح
 ax.legend(
     [
         mlines.Line2D([], [], color="tab:blue", linestyle="dashed"),
@@ -163,7 +157,7 @@ ax.legend(
         inlier_plot,
         outlier_plot,
     ],
-    ["MLE dist", "MCD dist", "inliers", "outliers"],
+    ["مسافة MLE", "مسافة MCD", "القيم الداخلية", "القيم المتطرفة"],
     loc="upper right",
     borderaxespad=0,
 )
@@ -171,21 +165,21 @@ ax.legend(
 plt.show()
 
 # %%
-# Finally, we highlight the ability of MCD based Mahalanobis distances to
-# distinguish outliers. We take the cubic root of the Mahalanobis distances,
-# yielding approximately normal distributions (as suggested by Wilson and
-# Hilferty [2]_), then plot the values of inlier and outlier samples with
-# boxplots. The distribution of outlier samples is more separated from the
-# distribution of inlier samples for robust MCD based Mahalanobis distances.
+# أخيرًا، نسلط الضوء على قدرة مسافات Mahalanobis القائمة على MCD
+# على تمييز القيم المتطرفة. نأخذ الجذر التكعيبي لمسافات Mahalanobis،
+# مما ينتج عنه توزيعات طبيعية تقريبًا (كما اقترح ويلسون
+# وهيلفرتي [2]_), ثم ارسم قيم عينات القيم الداخلية والخارجية باستخدام
+# مخططات الصندوق. يكون توزيع عينات القيم المتطرفة أكثر انفصالًا عن
+# توزيع عينات القيم الداخلية لمسافات Mahalanobis القوية القائمة على MCD.
 
 fig, (ax1, ax2) = plt.subplots(1, 2)
 plt.subplots_adjust(wspace=0.6)
 
-# Calculate cubic root of MLE Mahalanobis distances for samples
+# حساب الجذر التكعيبي لمسافات MLE Mahalanobis للعينات
 emp_mahal = emp_cov.mahalanobis(X - np.mean(X, 0)) ** (0.33)
-# Plot boxplots
+# رسم مخططات الصندوق
 ax1.boxplot([emp_mahal[:-n_outliers], emp_mahal[-n_outliers:]], widths=0.25)
-# Plot individual samples
+# رسم العينات الفردية
 ax1.plot(
     np.full(n_samples - n_outliers, 1.26),
     emp_mahal[:-n_outliers],
@@ -195,13 +189,13 @@ ax1.plot(
 ax1.plot(np.full(n_outliers, 2.26), emp_mahal[-n_outliers:], "+k", markeredgewidth=1)
 ax1.axes.set_xticklabels(("inliers", "outliers"), size=15)
 ax1.set_ylabel(r"$\sqrt[3]{\rm{(Mahal. dist.)}}$", size=16)
-ax1.set_title("Using non-robust estimates\n(Maximum Likelihood)")
+ax1.set_title("استخدام تقديرات غير قوية\n(أقصى احتمال)")
 
-# Calculate cubic root of MCD Mahalanobis distances for samples
+# حساب الجذر التكعيبي لمسافات MCD Mahalanobis للعينات
 robust_mahal = robust_cov.mahalanobis(X - robust_cov.location_) ** (0.33)
-# Plot boxplots
+# رسم مخططات الصندوق
 ax2.boxplot([robust_mahal[:-n_outliers], robust_mahal[-n_outliers:]], widths=0.25)
-# Plot individual samples
+# رسم العينات الفردية
 ax2.plot(
     np.full(n_samples - n_outliers, 1.26),
     robust_mahal[:-n_outliers],
@@ -211,6 +205,6 @@ ax2.plot(
 ax2.plot(np.full(n_outliers, 2.26), robust_mahal[-n_outliers:], "+k", markeredgewidth=1)
 ax2.axes.set_xticklabels(("inliers", "outliers"), size=15)
 ax2.set_ylabel(r"$\sqrt[3]{\rm{(Mahal. dist.)}}$", size=16)
-ax2.set_title("Using robust estimates\n(Minimum Covariance Determinant)")
+ax2.set_title("استخدام تقديرات قوية\n(الحد الأدنى لمحدد التغاير)")
 
 plt.show()

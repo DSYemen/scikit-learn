@@ -11,10 +11,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="Gallery examples: هندسة الميزات ذات الصلة بالوقت" />
-<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_cyclical_feature_engineering_thumb.png" />
+<meta property="og:description" content="Gallery examples: محول الأعمدة مع الأنواع المختلطة تحويل الميزات باستخدام مجموعات الأشجار دعم الميزات التصنيفية في التدرج التعزيزي" />
+<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_column_transformer_mixed_types_thumb.png" />
 <meta property="og:image:alt" content="" />
-<meta name="description" content="Gallery examples: هندسة الميزات ذات الصلة بالوقت" />
+<meta name="description" content="Gallery examples: محول الأعمدة مع الأنواع المختلطة تحويل الميزات باستخدام مجموعات الأشجار دعم الميزات التصنيفية في التدرج التعزيزي" />
 
     <title>OneHotEncoder &#8212; scikit-learn 1.6.dev0 documentation</title>
   
@@ -1304,7 +1304,7 @@
 <h1>OneHotEncoder<a class="headerlink" href="#onehotencoder" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="sklearn.preprocessing.OneHotEncoder">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sklearn.preprocessing.</span></span><span class="sig-name descname"><span class="pre">OneHotEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories='auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse_output=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype=&lt;class</span> <span class="pre">'numpy.float64'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_unknown='error'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_frequency=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_categories=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_name_combiner='concat'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d95efa3a09/sklearn/preprocessing/_encoders.py#L465"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.preprocessing.OneHotEncoder" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sklearn.preprocessing.</span></span><span class="sig-name descname"><span class="pre">OneHotEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories='auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse_output=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype=&lt;class</span> <span class="pre">'numpy.float64'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_unknown='error'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_frequency=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_categories=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_name_combiner='concat'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/2a8d36cec9/sklearn/preprocessing/_encoders.py#L465"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.preprocessing.OneHotEncoder" title="Link to this definition">#</a></dt>
 <dd><p>Encode categorical features as a one-hot numeric array.</p>
 <p>The input to this transformer should be an array-like of integers or
 strings, denoting the values taken on by categorical (discrete) features.
@@ -1564,7 +1564,7 @@ values per feature and transform the data to a binary one-hot encoding.</p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="sklearn.preprocessing.OneHotEncoder.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d95efa3a09/sklearn/preprocessing/_encoders.py#L972"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.preprocessing.OneHotEncoder.fit" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/2a8d36cec9/sklearn/preprocessing/_encoders.py#L972"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.preprocessing.OneHotEncoder.fit" title="Link to this definition">#</a></dt>
 <dd><p>Fit OneHotEncoder to X.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1587,7 +1587,7 @@ values per feature and transform the data to a binary one-hot encoding.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sklearn.preprocessing.OneHotEncoder.fit_transform">
-<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">fit_params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d95efa3a09/sklearn/base.py#L766"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.preprocessing.OneHotEncoder.fit_transform" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">fit_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">fit_params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/2a8d36cec9/sklearn/base.py#L766"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.preprocessing.OneHotEncoder.fit_transform" title="Link to this definition">#</a></dt>
 <dd><p>Fit to data, then transform it.</p>
 <p>Fits transformer to <code class="docutils literal notranslate"><span class="pre">X</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> with optional parameters <code class="docutils literal notranslate"><span class="pre">fit_params</span></code>
 and returns a transformed version of <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
@@ -1613,7 +1613,7 @@ and returns a transformed version of <code class="docutils literal notranslate">
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sklearn.preprocessing.OneHotEncoder.get_feature_names_out">
-<span class="sig-name descname"><span class="pre">get_feature_names_out</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d95efa3a09/sklearn/preprocessing/_encoders.py#L1206"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.preprocessing.OneHotEncoder.get_feature_names_out" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_feature_names_out</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/2a8d36cec9/sklearn/preprocessing/_encoders.py#L1206"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.preprocessing.OneHotEncoder.get_feature_names_out" title="Link to this definition">#</a></dt>
 <dd><p>Get output feature names for transformation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1641,7 +1641,7 @@ match <code class="docutils literal notranslate"><span class="pre">feature_names
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sklearn.preprocessing.OneHotEncoder.get_metadata_routing">
-<span class="sig-name descname"><span class="pre">get_metadata_routing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d95efa3a09/sklearn/utils/_metadata_requests.py#L1497"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.preprocessing.OneHotEncoder.get_metadata_routing" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_metadata_routing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/2a8d36cec9/sklearn/utils/_metadata_requests.py#L1497"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.preprocessing.OneHotEncoder.get_metadata_routing" title="Link to this definition">#</a></dt>
 <dd><p>Get metadata routing of this object.</p>
 <p>Please check <a class="reference internal" href="../../metadata_routing.html#metadata-routing"><span class="std std-ref">User Guide</span></a> on how the routing
 mechanism works.</p>
@@ -1658,7 +1658,7 @@ routing information.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sklearn.preprocessing.OneHotEncoder.get_params">
-<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d95efa3a09/sklearn/base.py#L221"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.preprocessing.OneHotEncoder.get_params" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/2a8d36cec9/sklearn/base.py#L221"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.preprocessing.OneHotEncoder.get_params" title="Link to this definition">#</a></dt>
 <dd><p>Get parameters for this estimator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1685,7 +1685,7 @@ contained subobjects that are estimators.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sklearn.preprocessing.OneHotEncoder.inverse_transform">
-<span class="sig-name descname"><span class="pre">inverse_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d95efa3a09/sklearn/preprocessing/_encoders.py#L1087"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.preprocessing.OneHotEncoder.inverse_transform" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">inverse_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/2a8d36cec9/sklearn/preprocessing/_encoders.py#L1087"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.preprocessing.OneHotEncoder.inverse_transform" title="Link to this definition">#</a></dt>
 <dd><p>Convert the data back to the original representation.</p>
 <p>When unknown categories are encountered (all zeros in the
 one-hot encoding), <code class="docutils literal notranslate"><span class="pre">None</span></code> is used to represent this category. If the
@@ -1711,7 +1711,7 @@ category will be its inverse.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sklearn.preprocessing.OneHotEncoder.set_output">
-<span class="sig-name descname"><span class="pre">set_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d95efa3a09/sklearn/utils/_set_output.py#L392"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.preprocessing.OneHotEncoder.set_output" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/2a8d36cec9/sklearn/utils/_set_output.py#L392"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.preprocessing.OneHotEncoder.set_output" title="Link to this definition">#</a></dt>
 <dd><p>Set output container.</p>
 <p>See <a class="reference internal" href="../../auto_examples/miscellaneous/plot_set_output.html#sphx-glr-auto-examples-miscellaneous-plot-set-output-py"><span class="std std-ref">Introducing the set_output API</span></a>
 for an example on how to use the API.</p>
@@ -1742,7 +1742,7 @@ for an example on how to use the API.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sklearn.preprocessing.OneHotEncoder.set_params">
-<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d95efa3a09/sklearn/base.py#L245"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.preprocessing.OneHotEncoder.set_params" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/2a8d36cec9/sklearn/base.py#L245"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.preprocessing.OneHotEncoder.set_params" title="Link to this definition">#</a></dt>
 <dd><p>Set the parameters of this estimator.</p>
 <p>The method works on simple estimators as well as on nested objects
 (such as <a class="reference internal" href="sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>). The latter have
@@ -1766,7 +1766,7 @@ possible to update each component of a nested object.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sklearn.preprocessing.OneHotEncoder.transform">
-<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d95efa3a09/sklearn/preprocessing/_encoders.py#L1000"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.preprocessing.OneHotEncoder.transform" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/2a8d36cec9/sklearn/preprocessing/_encoders.py#L1000"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.preprocessing.OneHotEncoder.transform" title="Link to this definition">#</a></dt>
 <dd><p>Transform X using one-hot encoding.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">sparse_output=True</span></code> (default), it returns an instance of
 <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csr_matrix.html#scipy.sparse.csr_matrix" title="(in SciPy v1.14.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">scipy.sparse._csr.csr_matrix</span></code></a> (CSR format).</p>
@@ -1794,9 +1794,15 @@ returned.</p>
 
 <section id="gallery-examples">
 <h2>Gallery examples<a class="headerlink" href="#gallery-examples" title="Link to this heading">#</a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="يُقدم هذا الدفتر طرقًا مختلفة للاستفادة من الميزات ذات الصلة بالوقت لمهمة انحدار طلب مشاركة الدراجات التي تعتمد بشكل كبير على دورات العمل (الأيام، والأسابيع، والشهور) ودورات المواسم السنوية."><img alt="" src="../../_images/sphx_glr_plot_cyclical_feature_engineering_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/applications/plot_cyclical_feature_engineering.html#sphx-glr-auto-examples-applications-plot-cyclical-feature-engineering-py"><span class="std std-ref">هندسة الميزات ذات الصلة بالوقت</span></a></p>
-  <div class="sphx-glr-thumbnail-title">هندسة الميزات ذات الصلة بالوقت</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال كيفية تطبيق خطوط أنابيب مختلفة للمعالجة المسبقة واستخراج الميزات على مجموعات فرعية مختلفة من الميزات، باستخدام ColumnTransformer. هذا مفيد بشكل خاص في حالة مجموعات البيانات التي تحتوي على أنواع بيانات غير متجانسة، حيث قد نرغب في قياس الميزات الرقمية وترميز الميزات الفئوية بنظام الترميز الثنائي."><img alt="" src="../../_images/sphx_glr_plot_column_transformer_mixed_types_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/compose/plot_column_transformer_mixed_types.html#sphx-glr-auto-examples-compose-plot-column-transformer-mixed-types-py"><span class="std std-ref">محول الأعمدة مع الأنواع المختلطة</span></a></p>
+  <div class="sphx-glr-thumbnail-title">محول الأعمدة مع الأنواع المختلطة</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="قم بتحويل ميزاتك إلى مساحة متفرقة ذات أبعاد أعلى. ثم قم بتدريب نموذج خطي على هذه الميزات."><img alt="" src="../../_images/sphx_glr_plot_feature_transformation_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/ensemble/plot_feature_transformation.html#sphx-glr-auto-examples-ensemble-plot-feature-transformation-py"><span class="std std-ref">تحويل الميزات باستخدام مجموعات الأشجار</span></a></p>
+  <div class="sphx-glr-thumbnail-title">تحويل الميزات باستخدام مجموعات الأشجار</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="في هذا المثال، سنقارن أوقات التدريب وأداء التنبؤ لـ HistGradientBoostingRegressor مع استراتيجيات الترميز المختلفة للميزات التصنيفية. على وجه الخصوص، سنقيم:"><img alt="" src="../../_images/sphx_glr_plot_gradient_boosting_categorical_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/ensemble/plot_gradient_boosting_categorical.html#sphx-glr-auto-examples-ensemble-plot-gradient-boosting-categorical-py"><span class="std std-ref">دعم الميزات التصنيفية في التدرج التعزيزي</span></a></p>
+  <div class="sphx-glr-thumbnail-title">دعم الميزات التصنيفية في التدرج التعزيزي</div>
 </div></div></section>
 </section>
 

@@ -1,41 +1,36 @@
 """
 =====================================
-Multi-class AdaBoosted Decision Trees
+شجرة قرارات معززة متعددة الفئات
 =====================================
 
-This example shows how boosting can improve the prediction accuracy on a
-multi-label classification problem. It reproduces a similar experiment as
-depicted by Figure 1 in Zhu et al [1]_.
+هذا المثال يوضح كيف يمكن لتقنية التعزيز (Boosting) أن تحسن دقة التنبؤ في مشكلة تصنيف متعددة التصنيفات. وهو يعيد إنتاج تجربة مشابهة لما هو موضح في الشكل 1 في بحث Zhu et al [1]_.
 
-The core principle of AdaBoost (Adaptive Boosting) is to fit a sequence of weak
-learners (e.g. Decision Trees) on repeatedly re-sampled versions of the data.
-Each sample carries a weight that is adjusted after each training step, such
-that misclassified samples will be assigned higher weights. The re-sampling
-process with replacement takes into account the weights assigned to each sample.
-Samples with higher weights have a greater chance of being selected multiple
-times in the new data set, while samples with lower weights are less likely to
-be selected. This ensures that subsequent iterations of the algorithm focus on
-the difficult-to-classify samples.
+المبدأ الأساسي لتقنية AdaBoost (Adaptive Boosting) هو ملاءمة تسلسل من المتعلمين الضعفاء (مثل شجرة القرارات) على نسخ معادة العينة من البيانات.
+يحمل كل عينة وزنًا يتم تعديله بعد كل خطوة تدريب، بحيث يتم تعيين أوزان أعلى للعينات المصنفة بشكل خاطئ. تأخذ عملية إعادة العينة بعين الاعتبار الأوزان المعينة لكل عينة.
+العينات ذات الأوزان الأعلى لديها فرصة أكبر للاختيار عدة مرات في مجموعة البيانات الجديدة، بينما العينات ذات الأوزان الأقل من المرجح أن يتم اختيارها. وهذا يضمن أن التركيز في الحلقات اللاحقة من الخوارزمية يكون على العينات التي يصعب تصنيفها.
 
-.. rubric:: References
+.. rubric:: المراجع
 
 .. [1] :doi:`J. Zhu, H. Zou, S. Rosset, T. Hastie, "Multi-class adaboost."
     Statistics and its Interface 2.3 (2009): 349-360.
     <10.4310/SII.2009.v2.n3.a8>`
-
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# Creating the dataset
+# إنشاء مجموعة البيانات
 # --------------------
-# The classification dataset is constructed by taking a ten-dimensional standard
-# normal distribution (:math:`x` in :math:`R^{10}`) and defining three classes
-# separated by nested concentric ten-dimensional spheres such that roughly equal
-# numbers of samples are in each class (quantiles of the :math:`\chi^2`
-# distribution).
+# يتم إنشاء مجموعة بيانات التصنيف عن طريق أخذ توزيع طبيعي عشري الأبعاد (:math:`x` in :math:`R^{10}`) وتحديد ثلاث فئات
+# مفصولة بكرات عشرية الأبعاد متداخلة ومتمركزة بحيث يكون هناك أعداد متساوية تقريبًا
+# من العينات في كل فئة (الكميات المئوية لتوزيع :math:`\chi^2`).
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.metrics import accuracy_score
+from sklearn.dummy import DummyClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.model_selection import train_test_split
 from sklearn.datasets import make_gaussian_quantiles
 
 X, y = make_gaussian_quantiles(
@@ -43,36 +38,32 @@ X, y = make_gaussian_quantiles(
 )
 
 # %%
-# We split the dataset into 2 sets: 70 percent of the samples are used for
-# training and the remaining 30 percent for testing.
-from sklearn.model_selection import train_test_split
+# نقسم مجموعة البيانات إلى مجموعتين: 70% من العينات تستخدم للتدريب
+# و30% المتبقية للاختبار.
 
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, train_size=0.7, random_state=42
 )
 
 # %%
-# Training the `AdaBoostClassifier`
+# تدريب `AdaBoostClassifier`
 # ---------------------------------
-# We train the :class:`~sklearn.ensemble.AdaBoostClassifier`. The estimator
-# utilizes boosting to improve the classification accuracy. Boosting is a method
-# designed to train weak learners (i.e. `estimator`) that learn from their
-# predecessor's mistakes.
+# نقوم بتدريب :class:`~sklearn.ensemble.AdaBoostClassifier`. يستخدم هذا التقدير
+# تقنية التعزيز (Boosting) لتحسين دقة التصنيف. التعزيز هي طريقة
+# مصممة لتدريب المتعلمين الضعفاء (أي `estimator`) الذين يتعلمون من أخطاء
+# أسلافهم.
 #
-# Here, we define the weak learner as a
-# :class:`~sklearn.tree.DecisionTreeClassifier` and set the maximum number of
-# leaves to 8. In a real setting, this parameter should be tuned. We set it to a
-# rather low value to limit the runtime of the example.
+# هنا، نحدد المتعلم الضعيف كـ
+# :class:`~sklearn.tree.DecisionTreeClassifier` ونحدد العدد الأقصى للأوراق إلى 8. في الإعداد الحقيقي، يجب ضبط هذا المعامل. نضبطه على قيمة
+# منخفضة إلى حد ما للحد من وقت تشغيل المثال.
 #
-# The `SAMME` algorithm build into the
-# :class:`~sklearn.ensemble.AdaBoostClassifier` then uses the correct or
-# incorrect predictions made be the current weak learner to update the sample
-# weights used for training the consecutive weak learners. Also, the weight of
-# the weak learner itself is calculated based on its accuracy in classifying the
-# training examples. The weight of the weak learner determines its influence on
-# the final ensemble prediction.
-from sklearn.ensemble import AdaBoostClassifier
-from sklearn.tree import DecisionTreeClassifier
+# يستخدم خوارزمية `SAMME` المدمجة في
+# :class:`~sklearn.ensemble.AdaBoostClassifier` التنبؤات الصحيحة أو
+# الخاطئة التي يقوم بها المتعلم الضعيف الحالي لتحديث أوزان العينات المستخدمة
+# لتدريب المتعلمين الضعفاء المتتاليين. أيضًا، يتم حساب وزن
+# المتعلم الضعيف نفسه بناءً على دقته في تصنيف
+# الأمثلة التدريبية. يحدد وزن المتعلم الضعيف تأثيره على
+# التنبؤ النهائي للمجموعة.
 
 weak_learner = DecisionTreeClassifier(max_leaf_nodes=8)
 n_estimators = 300
@@ -82,22 +73,22 @@ adaboost_clf = AdaBoostClassifier(
     n_estimators=n_estimators,
     random_state=42,
 ).fit(X_train, y_train)
+adaboost_clf = AdaBoostClassifier(
+    estimator=weak_learner,
+    n_estimators=n_estimators,
+    random_state=42,
+).fit(X_train, y_train)
 
 # %%
-# Analysis
+# التحليل
 # --------
-# Convergence of the `AdaBoostClassifier`
+# تقارب `AdaBoostClassifier`
 # ***************************************
-# To demonstrate the effectiveness of boosting in improving accuracy, we
-# evaluate the misclassification error of the boosted trees in comparison to two
-# baseline scores. The first baseline score is the `misclassification_error`
-# obtained from a single weak-learner (i.e.
-# :class:`~sklearn.tree.DecisionTreeClassifier`), which serves as a reference
-# point. The second baseline score is obtained from the
-# :class:`~sklearn.dummy.DummyClassifier`, which predicts the most prevalent
-# class in a dataset.
-from sklearn.dummy import DummyClassifier
-from sklearn.metrics import accuracy_score
+# لإظهار فعالية التعزيز في تحسين الدقة، نقوم
+# بتقييم خطأ التصنيف الخاطئ للأشجار المعززة مقارنة بنقطتين مرجعيتين. النتيجة المرجعية الأولى هي `misclassification_error`
+# التي تم الحصول عليها من متعلم ضعيف واحد (أي
+# :class:`~sklearn.tree.DecisionTreeClassifier`)، والتي تخدم كنقطة مرجعية. النتيجة المرجعية الثانية يتم الحصول عليها من
+# :class:`~sklearn.dummy.DummyClassifier`، والذي يتنبأ بالفئة الأكثر شيوعًا في مجموعة البيانات.
 
 dummy_clf = DummyClassifier()
 
@@ -124,25 +115,23 @@ print(
 )
 
 # %%
-# After training the :class:`~sklearn.tree.DecisionTreeClassifier` model, the
-# achieved error surpasses the expected value that would have been obtained by
-# guessing the most frequent class label, as the
-# :class:`~sklearn.dummy.DummyClassifier` does.
+# بعد تدريب نموذج :class:`~sklearn.tree.DecisionTreeClassifier`، يتجاوز الخطأ
+# القيمة المتوقعة التي كان من المفترض الحصول عليها من خلال تخمين
+# تسمية الفئة الأكثر شيوعًا، كما يفعل
+# :class:`~sklearn.dummy.DummyClassifier`.
 #
-# Now, we calculate the `misclassification_error`, i.e. `1 - accuracy`, of the
-# additive model (:class:`~sklearn.tree.DecisionTreeClassifier`) at each
-# boosting iteration on the test set to assess its performance.
+# الآن، نقوم بحساب `misclassification_error`، أي `1 - accuracy`، للنموذج
+# الإضافي (:class:`~sklearn.tree.DecisionTreeClassifier`) في كل
+# حلقات التعزيز على مجموعة الاختبار لتقييم أدائه.
 #
-# We use :meth:`~sklearn.ensemble.AdaBoostClassifier.staged_predict` that makes
-# as many iterations as the number of fitted estimator (i.e. corresponding to
-# `n_estimators`). At iteration `n`, the predictions of AdaBoost only use the
-# `n` first weak learners. We compare these predictions with the true
-# predictions `y_test` and we, therefore, conclude on the benefit (or not) of adding a
-# new weak learner into the chain.
+# نستخدم :meth:`~sklearn.ensemble.AdaBoostClassifier.staged_predict` الذي يقوم
+# بعدد من الحلقات يساوي عدد التقديرات المجهزة (أي المقابلة لـ
+# `n_estimators`). في الحلقة `n`، تستخدم تنبؤات AdaBoost فقط `n`
+# من المتعلمين الضعفاء الأوائل. نقارن هذه التنبؤات مع التنبؤات الصحيحة `y_test`
+# وبالتالي نستنتج فائدة (أو عدم فائدة) إضافة متعلم
+# ضعيف جديد إلى السلسلة.
 #
-# We plot the misclassification error for the different stages:
-import matplotlib.pyplot as plt
-import pandas as pd
+# نرسم خطأ التصنيف الخاطئ للمراحل المختلفة:
 
 boosting_errors = pd.DataFrame(
     {
@@ -174,31 +163,27 @@ plt.plot(
 )
 plt.legend(["AdaBoost", "DecisionTreeClassifier", "DummyClassifier"], loc=1)
 plt.show()
+# %%
+# يوضح الرسم البياني خطأ التصنيف الخاطئ على مجموعة الاختبار بعد كل
+# حلقات التعزيز. نرى أن خطأ الأشجار المعززة يتقارب إلى
+# خطأ حوالي 0.3 بعد 50 حلقات، مما يشير إلى دقة أعلى بشكل ملحوظ مقارنة بشجرة واحدة، كما يوضح الخط المتقطع في الرسم البياني.
+#
+# يتذبذب خطأ التصنيف الخاطئ لأن خوارزمية `SAMME` تستخدم
+# المخرجات المنفصلة للمتعلمين الضعفاء لتدريب النموذج المعزز.
+#
+# يتأثر تقارب :class:`~sklearn.ensemble.AdaBoostClassifier` بشكل أساسي
+# بمعدل التعلم (أي `learning_rate`)، وعدد المتعلمين الضعفاء المستخدمين
+# (`n_estimators`)، وقدرة التعبير للمتعلمين الضعفاء
+# (مثل `max_leaf_nodes`).
 
 # %%
-# The plot shows the missclassification error on the test set after each
-# boosting iteration. We see that the error of the boosted trees converges to an
-# error of around 0.3 after 50 iterations, indicating a significantly higher
-# accuracy compared to a single tree, as illustrated by the dashed line in the
-# plot.
-#
-# The misclassification error jitters because the `SAMME` algorithm uses the
-# discrete outputs of the weak learners to train the boosted model.
-#
-# The convergence of :class:`~sklearn.ensemble.AdaBoostClassifier` is mainly
-# influenced by the learning rate (i.e. `learning_rate`), the number of weak
-# learners used (`n_estimators`), and the expressivity of the weak learners
-# (e.g. `max_leaf_nodes`).
-
-# %%
-# Errors and weights of the Weak Learners
+# أخطاء وأوزان المتعلمين الضعفاء
 # ***************************************
-# As previously mentioned, AdaBoost is a forward stagewise additive model. We
-# now focus on understanding the relationship between the attributed weights of
-# the weak learners and their statistical performance.
+# كما ذكرنا سابقًا، AdaBoost هو نموذج إضافي مرحلي للأمام. الآن، نركز على فهم
+# العلاقة بين الأوزان المنسوبة للمتعلمين الضعفاء وأدائهم الإحصائي.
 #
-# We use the fitted :class:`~sklearn.ensemble.AdaBoostClassifier`'s attributes
-# `estimator_errors_` and `estimator_weights_` to investigate this link.
+# نستخدم سمات :class:`~sklearn.ensemble.AdaBoostClassifier` المجهزة
+# `estimator_errors_` و`estimator_weights_` لاستكشاف هذه العلاقة.
 weak_learners_info = pd.DataFrame(
     {
         "Number of trees": range(1, n_estimators + 1),
@@ -219,34 +204,28 @@ fig.suptitle("Weak learner's errors and weights for the AdaBoostClassifier")
 fig.tight_layout()
 
 # %%
-# On the left plot, we show the weighted error of each weak learner on the
-# reweighted training set at each boosting iteration. On the right plot, we show
-# the weights associated with each weak learner later used to make the
-# predictions of the final additive model.
+# في الرسم البياني الأيسر، نعرض خطأ كل متعلم ضعيف على
+# مجموعة التدريب المعاد وزنها في كل حلقات التعزيز. في الرسم البياني الأيمن، نعرض
+# الأوزان المرتبطة بكل متعلم ضعيف والتي تستخدم لاحقًا لإجراء
+# تنبؤات النموذج الإضافي النهائي.
 #
-# We see that the error of the weak learner is the inverse of the weights. It
-# means that our additive model will trust more a weak learner that makes
-# smaller errors (on the training set) by increasing its impact on the final
-# decision. Indeed, this exactly is the formulation of updating the base
-# estimators' weights after each iteration in AdaBoost.
+# نرى أن خطأ المتعلم الضعيف هو عكس الأوزان. هذا يعني أن نموذجنا الإضافي سيثق أكثر بمتعلم ضعيف
+# يقوم بأخطاء أصغر (على مجموعة التدريب) عن طريق زيادة تأثيره على القرار النهائي. في الواقع، هذه هي صيغة تحديث أوزان
+# التقديرات الأساسية بعد كل حلقات في AdaBoost.
 #
-# .. dropdown:: Mathematical details
+# .. dropdown:: التفاصيل الرياضية
 #
-#    The weight associated with a weak learner trained at the stage :math:`m` is
-#    inversely associated with its misclassification error such that:
+#    الوزن المرتبط بمتعلم ضعيف مدرب في المرحلة :math:`m` يرتبط عكسيًا بخطأ التصنيف الخاطئ بحيث:
 #
 #    .. math:: \alpha^{(m)} = \log \frac{1 - err^{(m)}}{err^{(m)}} + \log (K - 1),
 #
-#    where :math:`\alpha^{(m)}` and :math:`err^{(m)}` are the weight and the error
-#    of the :math:`m` th weak learner, respectively, and :math:`K` is the number of
-#    classes in our classification problem.
+#    حيث :math:`\alpha^{(m)}` و:math:`err^{(m)}` هما الوزن والخطأ
+#    للمتعلم الضعيف :math:`m`، على التوالي، و:math:`K` هو عدد
+#    الفئات في مشكلة التصنيف لدينا.
 #
-# Another interesting observation boils down to the fact that the first weak
-# learners of the model make fewer errors than later weak learners of the
-# boosting chain.
+# ملاحظة أخرى مثيرة للاهتمام هي أن المتعلمين الضعفاء الأوائل للنموذج يقومون بأخطاء أقل من المتعلمين الضعفاء اللاحقين
+# في سلسلة التعزيز.
 #
-# The intuition behind this observation is the following: due to the sample
-# reweighting, later classifiers are forced to try to classify more difficult or
-# noisy samples and to ignore already well classified samples. Therefore, the
-# overall error on the training set will increase. That's why the weak learner's
-# weights are built to counter-balance the worse performing weak learners.
+# الحدس وراء هذه الملاحظة هو التالي: بسبب إعادة وزن العينات، يتم إجبار المتعلمين اللاحقين على محاولة
+# تصنيف العينات الأكثر صعوبة أو ضوضاء وتجاهل العينات المصنفة بالفعل بشكل جيد. لذلك، سيزداد الخطأ الإجمالي على
+# مجموعة التدريب. ولهذا السبب يتم بناء أوزان المتعلم الضعيف لموازنة المتعلمين الضعفاء ذوي الأداء الأسوأ.

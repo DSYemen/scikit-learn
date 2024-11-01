@@ -1,45 +1,34 @@
 """
 ================================================
-Categorical Feature Support in Gradient Boosting
+دعم الميزات التصنيفية في التدرج التعزيزي
 ================================================
 
 .. currentmodule:: sklearn
 
-In this example, we will compare the training times and prediction
-performances of :class:`~ensemble.HistGradientBoostingRegressor` with
-different encoding strategies for categorical features. In
-particular, we will evaluate:
+في هذا المثال، سنقارن أوقات التدريب وأداء التنبؤ لـ :class:`~ensemble.HistGradientBoostingRegressor` مع استراتيجيات الترميز المختلفة للميزات التصنيفية. على وجه الخصوص، سنقيم:
 
-- dropping the categorical features
-- using a :class:`~preprocessing.OneHotEncoder`
-- using an :class:`~preprocessing.OrdinalEncoder` and treat categories as
-  ordered, equidistant quantities
-- using an :class:`~preprocessing.OrdinalEncoder` and rely on the :ref:`native
-  category support <categorical_support_gbdt>` of the
-  :class:`~ensemble.HistGradientBoostingRegressor` estimator.
+- إسقاط الميزات التصنيفية
+- استخدام :class:`~preprocessing.OneHotEncoder`
+- استخدام :class:`~preprocessing.OrdinalEncoder` واعتبار الفئات كميات متساوية ومتباعدة
+- استخدام :class:`~preprocessing.OrdinalEncoder` والاعتماد على :ref:`الدعم الأصلي للفئات <categorical_support_gbdt>` لمقدر :class:`~ensemble.HistGradientBoostingRegressor`.
 
-We will work with the Ames Iowa Housing dataset which consists of numerical
-and categorical features, where the houses' sales prices is the target.
+سنعمل مع مجموعة بيانات Ames Iowa Housing التي تتكون من ميزات عددية وتصنيفية، حيث تكون أسعار مبيعات المنازل هي الهدف.
 
-See :ref:`sphx_glr_auto_examples_ensemble_plot_hgbt_regression.py` for an
-example showcasing some other features of
-:class:`~ensemble.HistGradientBoostingRegressor`.
-
+راجع :ref:`sphx_glr_auto_examples_ensemble_plot_hgbt_regression.py` لمثال يبرز بعض الميزات الأخرى لـ :class:`~ensemble.HistGradientBoostingRegressor`.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف SPDX-License: BSD-3-Clause
 
 # %%
-# Load Ames Housing dataset
+# تحميل مجموعة بيانات Ames Housing
 # -------------------------
-# First, we load the Ames Housing data as a pandas dataframe. The features
-# are either categorical or numerical:
+# أولاً، نقوم بتحميل بيانات Ames Housing كإطار بيانات pandas. الميزات
+# إما تصنيفية أو عددية:
 from sklearn.datasets import fetch_openml
 
 X, y = fetch_openml(data_id=42165, as_frame=True, return_X_y=True)
 
-# Select only a subset of features of X to make the example faster to run
+# حدد فقط مجموعة فرعية من ميزات X لجعل المثال أسرع في التشغيل
 categorical_columns_subset = [
     "BldgType",
     "GarageFinish",
@@ -79,10 +68,9 @@ print(f"Number of categorical features: {n_categorical_features}")
 print(f"Number of numerical features: {n_numerical_features}")
 
 # %%
-# Gradient boosting estimator with dropped categorical features
+# مقدر التدرج التعزيزي مع إسقاط الميزات التصنيفية
 # -------------------------------------------------------------
-# As a baseline, we create an estimator where the categorical features are
-# dropped:
+# كخط أساس، نقوم بإنشاء مقدر يتم فيه إسقاط الميزات التصنيفية:
 
 from sklearn.compose import make_column_selector, make_column_transformer
 from sklearn.ensemble import HistGradientBoostingRegressor
@@ -94,10 +82,10 @@ dropper = make_column_transformer(
 hist_dropped = make_pipeline(dropper, HistGradientBoostingRegressor(random_state=42))
 
 # %%
-# Gradient boosting estimator with one-hot encoding
+# مقدر التدرج التعزيزي مع الترميز أحادي الساخن
 # -------------------------------------------------
-# Next, we create a pipeline that will one-hot encode the categorical features
-# and let the rest of the numerical data to passthrough:
+# بعد ذلك، نقوم بإنشاء خط أنابيب سيقوم بترميز الميزات التصنيفية باستخدام الترميز أحادي الساخن
+# والسماح لبقية البيانات العددية بالمرور:
 
 from sklearn.preprocessing import OneHotEncoder
 
@@ -114,12 +102,13 @@ hist_one_hot = make_pipeline(
 )
 
 # %%
-# Gradient boosting estimator with ordinal encoding
+# مقدر التدرج التعزيزي مع الترميز الترتيبي
 # -------------------------------------------------
-# Next, we create a pipeline that will treat categorical features as if they
-# were ordered quantities, i.e. the categories will be encoded as 0, 1, 2,
-# etc., and treated as continuous features.
+# بعد ذلك، نقوم بإنشاء خط أنابيب سيعامل الميزات التصنيفية كما لو كانت
+# كميات مرتبة، أي سيتم ترميز الفئات على أنها 0، 1، 2،
+# إلخ، ويعامل على أنه ميزات مستمرة.
 
+import numpy as np
 import numpy as np
 
 from sklearn.preprocessing import OrdinalEncoder
@@ -130,9 +119,9 @@ ordinal_encoder = make_column_transformer(
         make_column_selector(dtype_include="category"),
     ),
     remainder="passthrough",
-    # Use short feature names to make it easier to specify the categorical
-    # variables in the HistGradientBoostingRegressor in the next step
-    # of the pipeline.
+    # استخدام أسماء الميزات القصيرة لجعل من السهل تحديد المتغيرات التصنيفية في
+    # HistGradientBoostingRegressor في الخطوة التالية
+    # من خط الأنابيب.
     verbose_feature_names_out=False,
 )
 
@@ -141,28 +130,28 @@ hist_ordinal = make_pipeline(
 )
 
 # %%
-# Gradient boosting estimator with native categorical support
+# مقدر التدرج التعزيزي مع الدعم التصنيفي الأصلي
 # -----------------------------------------------------------
-# We now create a :class:`~ensemble.HistGradientBoostingRegressor` estimator
-# that will natively handle categorical features. This estimator will not treat
-# categorical features as ordered quantities. We set
-# `categorical_features="from_dtype"` such that features with categorical dtype
-# are considered categorical features.
+# نقوم الآن بإنشاء مقدر :class:`~ensemble.HistGradientBoostingRegressor`
+# الذي سيتعامل مع الميزات التصنيفية بشكل أصلي. لن يعتبر هذا المقدر
+# الميزات التصنيفية كميات مرتبة. نحدد
+# `categorical_features="from_dtype"` بحيث تعتبر الميزات ذات النوع التصنيفي
+# ميزات تصنيفية.
 #
-# The main difference between this estimator and the previous one is that in
-# this one, we let the :class:`~ensemble.HistGradientBoostingRegressor` detect
-# which features are categorical from the DataFrame columns' dtypes.
+# الاختلاف الرئيسي بين هذا المقدر والمقدر السابق هو أنه في
+# هذا المقدر، نسمح لـ :class:`~ensemble.HistGradientBoostingRegressor` بالكشف
+# عن الميزات التصنيفية من أنواع أعمدة DataFrame.
 
 hist_native = HistGradientBoostingRegressor(
     random_state=42, categorical_features="from_dtype"
 )
 
 # %%
-# Model comparison
+# مقارنة النماذج
 # ----------------
-# Finally, we evaluate the models using cross validation. Here we compare the
-# models performance in terms of
-# :func:`~metrics.mean_absolute_percentage_error` and fit times.
+# أخيرًا، نقوم بتقييم النماذج باستخدام التحقق المتقاطع. هنا نقارن
+# أداء النماذج من حيث
+# :func:`~metrics.mean_absolute_percentage_error` وأوقات التجهيز.
 
 import matplotlib.pyplot as plt
 
@@ -215,48 +204,48 @@ def plot_results(figure_title):
 
 
 plot_results("Gradient Boosting on Ames Housing")
+plot_results("Gradient Boosting on Ames Housing")
 
 # %%
-# We see that the model with one-hot-encoded data is by far the slowest. This
-# is to be expected, since one-hot-encoding creates one additional feature per
-# category value (for each categorical feature), and thus more split points
-# need to be considered during fitting. In theory, we expect the native
-# handling of categorical features to be slightly slower than treating
-# categories as ordered quantities ('Ordinal'), since native handling requires
-# :ref:`sorting categories <categorical_support_gbdt>`. Fitting times should
-# however be close when the number of categories is small, and this may not
-# always be reflected in practice.
+# نرى أن النموذج الذي يحتوي على بيانات الترميز أحادي الساخن هو الأبطأ على الإطلاق. هذا
+# متوقع، حيث أن الترميز أحادي الساخن ينشئ ميزة إضافية واحدة لكل
+# قيمة فئة (لكل ميزة تصنيفية)، وبالتالي هناك حاجة إلى المزيد من نقاط الانقسام
+# للنظر فيها أثناء التجهيز. من الناحية النظرية، نتوقع أن يكون التعامل الأصلي
+# مع الميزات التصنيفية أبطأ قليلاً من معاملة الفئات على أنها كميات مرتبة ('Ordinal')،
+# حيث يتطلب التعامل الأصلي
+# :ref:`فرز الفئات <categorical_support_gbdt>`. يجب أن تكون أوقات التجهيز
+# قريبة عندما يكون عدد الفئات صغيرًا، وقد لا ينعكس ذلك دائمًا في الممارسة العملية.
 #
-# In terms of prediction performance, dropping the categorical features leads
-# to poorer performance. The three models that use categorical features have
-# comparable error rates, with a slight edge for the native handling.
+# من حيث أداء التنبؤ، يؤدي إسقاط الميزات التصنيفية إلى
+# أداء أضعف. تمتلك النماذج الثلاثة التي تستخدم الميزات التصنيفية
+# معدلات خطأ قابلة للمقارنة، مع ميزة طفيفة للتعامل الأصلي.
 
 # %%
-# Limiting the number of splits
+# تحديد عدد الانقسامات
 # -----------------------------
-# In general, one can expect poorer predictions from one-hot-encoded data,
-# especially when the tree depths or the number of nodes are limited: with
-# one-hot-encoded data, one needs more split points, i.e. more depth, in order
-# to recover an equivalent split that could be obtained in one single split
-# point with native handling.
+# بشكل عام، يمكن توقع تنبؤات أضعف من البيانات ذات الترميز أحادي الساخن،
+# خاصة عندما تكون أعماق الأشجار أو عدد العقد محدودة: مع
+# البيانات ذات الترميز أحادي الساخن، هناك حاجة إلى المزيد من نقاط الانقسام، أي المزيد من العمق،
+# من أجل استعادة انقسام مكافئ يمكن الحصول عليه في نقطة انقسام واحدة
+# مع التعامل الأصلي.
 #
-# This is also true when categories are treated as ordinal quantities: if
-# categories are `A..F` and the best split is `ACF - BDE` the one-hot-encoder
-# model will need 3 split points (one per category in the left node), and the
-# ordinal non-native model will need 4 splits: 1 split to isolate `A`, 1 split
-# to isolate `F`, and 2 splits to isolate `C` from `BCDE`.
+# هذا صحيح أيضًا عندما يتم التعامل مع الفئات على أنها كميات ترتيبية: إذا
+# كانت الفئات `A..F` والانقسام الأفضل هو `ACF - BDE`، فإن النموذج الذي يستخدم الترميز أحادي الساخن
+# سيحتاج إلى 3 نقاط انقسام (واحدة لكل فئة في العقدة اليسرى)، والنموذج غير الأصلي الترتيبي
+# سيحتاج إلى 4 انقسامات: 1 انقسام لعزل `A`، 1 انقسام
+# لعزل `F`، و2 انقسامات لعزل `C` من `BCDE`.
 #
-# How strongly the models' performances differ in practice will depend on the
-# dataset and on the flexibility of the trees.
+# يعتمد مدى اختلاف أداء النماذج في الممارسة العملية على
+# مجموعة البيانات وعلى مرونة الأشجار.
 #
-# To see this, let us re-run the same analysis with under-fitting models where
-# we artificially limit the total number of splits by both limiting the number
-# of trees and the depth of each tree.
+# لرؤية ذلك، دعنا نعيد تشغيل نفس التحليل مع نماذج غير ملائمة حيث
+# نقوم بشكل مصطنع بتحديد العدد الإجمالي للانقسامات من خلال تحديد عدد
+# الأشجار وعمق كل شجرة.
 
 for pipe in (hist_dropped, hist_one_hot, hist_ordinal, hist_native):
     if pipe is hist_native:
-        # The native model does not use a pipeline so, we can set the parameters
-        # directly.
+        # النموذج الأصلي لا يستخدم خط أنابيب لذا، يمكننا تعيين المعلمات
+        # مباشرة.
         pipe.set_params(max_depth=3, max_iter=15)
     else:
         pipe.set_params(
@@ -274,8 +263,8 @@ plot_results("Gradient Boosting on Ames Housing (few and small trees)")
 plt.show()
 
 # %%
-# The results for these under-fitting models confirm our previous intuition:
-# the native category handling strategy performs the best when the splitting
-# budget is constrained. The two other strategies (one-hot encoding and
-# treating categories as ordinal values) lead to error values comparable
-# to the baseline model that just dropped the categorical features altogether.
+# تؤكد نتائج هذه النماذج غير الملائمة حدسنا السابق:
+# استراتيجية التعامل مع الفئات الأصلية تؤدي الأداء الأفضل عندما تكون ميزانية الانقسام
+# مقيدة. تؤدي الاستراتيجيتان الأخريان (الترميز أحادي الساخن ومعاملة الفئات
+# على أنها قيم ترتيبية) إلى قيم خطأ قابلة للمقارنة
+# مع النموذج الأساسي الذي أسقط الميزات التصنيفية تمامًا.

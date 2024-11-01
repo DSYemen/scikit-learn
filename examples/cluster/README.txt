@@ -1,6 +1,6 @@
 .. _cluster_examples:
 
-Clustering
+التجميع
 ----------
 
-Examples concerning the :mod:`sklearn.cluster` module.
+أمثلة تتعلق بوحدة :mod:`sklearn.cluster` .

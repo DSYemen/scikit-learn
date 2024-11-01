@@ -1,58 +1,49 @@
 """
-==========================================================
-Adjustment for chance in clustering performance evaluation
-==========================================================
-This notebook explores the impact of uniformly-distributed random labeling on
-the behavior of some clustering evaluation metrics. For such purpose, the
-metrics are computed with a fixed number of samples and as a function of the number
-of clusters assigned by the estimator. The example is divided into two
-experiments:
+=============================================
+تعديل الفرصة في تقييم أداء التجميع
+=============================================
+يستكشف هذا الدفتر تأثير التصنيف العشوائي الموزع بشكل موحد على سلوك بعض مقاييس تقييم التجميع. لهذا الغرض، يتم حساب المقاييس بعدد ثابت من العينات ودالة لعدد التجمعات التي يعينها المقدر. وينقسم المثال إلى تجربتين:
 
-- a first experiment with fixed "ground truth labels" (and therefore fixed
-  number of classes) and randomly "predicted labels";
-- a second experiment with varying "ground truth labels", randomly "predicted
-  labels". The "predicted labels" have the same number of classes and clusters
-  as the "ground truth labels".
+- تجربة أولى مع "علامات الحقيقة الأرضية" الثابتة (وبالتالي عدد ثابت من الفئات) و"علامات متوقعة" عشوائية؛
+- تجربة ثانية مع "علامات الحقيقة الأرضية" المتغيرة، "علامات متوقعة" عشوائية. تحتوي "العلامات المتوقعة" على نفس عدد الفئات والتجمعات مثل "علامات الحقيقة الأرضية".
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف SPDX-License: BSD-3-Clause
 
 # %%
-# Defining the list of metrics to evaluate
+# تحديد قائمة المقاييس لتقييمها
 # ----------------------------------------
 #
-# Clustering algorithms are fundamentally unsupervised learning methods.
-# However, since we assign class labels for the synthetic clusters in this
-# example, it is possible to use evaluation metrics that leverage this
-# "supervised" ground truth information to quantify the quality of the resulting
-# clusters. Examples of such metrics are the following:
+# خوارزميات التجميع هي أساليب تعلم غير خاضعة للإشراف بشكل أساسي.
+# ومع ذلك، نظرًا لأننا نعين علامات الفئات للتجمعات الاصطناعية في هذا
+# المثال، فمن الممكن استخدام مقاييس التقييم التي تستفيد من هذه
+# معلومات "الإشراف" الحقيقة الأرضية لقياس جودة التجمعات الناتجة
+# المجموعات. أمثلة على هذه المقاييس هي ما يلي:
 #
-# - V-measure, the harmonic mean of completeness and homogeneity;
+# - V-measure، المتوسط التوافقي للاكتمال والتماثل؛
 #
-# - Rand index, which measures how frequently pairs of data points are grouped
-#   consistently according to the result of the clustering algorithm and the
-#   ground truth class assignment;
+# - Rand index، الذي يقيس مدى تكرار أزواج نقاط البيانات التي يتم تجميعها
+#   باستمرار وفقًا لنتيجة خوارزمية التجميع وتعيين فئة الحقيقة الأرضية؛
 #
-# - Adjusted Rand index (ARI), a chance-adjusted Rand index such that a random
-#   cluster assignment has an ARI of 0.0 in expectation;
+# - مؤشر Rand المعدل (ARI)، وهو مؤشر Rand المعدل بحيث يكون تعيين التجميع العشوائي
+#   لديه ARI من 0.0 في التوقع؛
 #
-# - Mutual Information (MI) is an information theoretic measure that quantifies
-#   how dependent are the two labelings. Note that the maximum value of MI for
-#   perfect labelings depends on the number of clusters and samples;
+# - معلومات متبادلة (MI) هي مقياس نظري للمعلومات يحدد مدى الاعتماد
+#   التسميات. لاحظ أن القيمة القصوى لـ MI للتسميات المثالية تعتمد على
+#   عدد التجمعات والعينات؛
 #
-# - Normalized Mutual Information (NMI), a Mutual Information defined between 0
-#   (no mutual information) in the limit of large number of data points and 1
-#   (perfectly matching label assignments, up to a permutation of the labels).
-#   It is not adjusted for chance: then the number of clustered data points is
-#   not large enough, the expected values of MI or NMI for random labelings can
-#   be significantly non-zero;
+# - معلومات متبادلة طبيعية (NMI)، معلومات متبادلة محددة بين 0
+#   (لا توجد معلومات متبادلة) في حد عدد كبير من نقاط البيانات و 1
+#   (تعيينات التسميات المطابقة تمامًا، حتى ترتيب التسميات).
+#   لا يتم تعديله للفرصة: ثم إذا لم يكن عدد نقاط البيانات المجمعة
+#   كبيرًا بما يكفي، فإن القيم المتوقعة لـ MI أو NMI للتسميات العشوائية يمكن
+#   أن تكون كبيرة بشكل كبير وغير صفرية؛
 #
-# - Adjusted Mutual Information (AMI), a chance-adjusted Mutual Information.
-#   Similarly to ARI, random cluster assignment has an AMI of 0.0 in
-#   expectation.
+# - معلومات متبادلة معدلة (AMI)، معلومات متبادلة معدلة.
+#   على غرار ARI، فإن تعيين التجميع العشوائي لديه AMI من 0.0
+#   في التوقع.
 #
-# For more information, see the :ref:`clustering_evaluation` module.
+# للحصول على مزيد من المعلومات، راجع وحدة التقييم :ref: `clustering_evaluation`.
 
 from sklearn import metrics
 
@@ -66,10 +57,10 @@ score_funcs = [
 ]
 
 # %%
-# First experiment: fixed ground truth labels and growing number of clusters
+# التجربة الأولى: علامات الحقيقة الأرضية الثابتة وعدد متزايد من التجمعات
 # --------------------------------------------------------------------------
 #
-# We first define a function that creates uniformly-distributed random labeling.
+# نحن نحدد أولاً دالة تخلق التصنيف العشوائي الموزع بشكل موحد.
 
 import numpy as np
 
@@ -81,10 +72,10 @@ def random_labels(n_samples, n_classes):
 
 
 # %%
-# Another function will use the `random_labels` function to create a fixed set
-# of ground truth labels (`labels_a`) distributed in `n_classes` and then score
-# several sets of randomly "predicted" labels (`labels_b`) to assess the
-# variability of a given metric at a given `n_clusters`.
+# ستستخدم دالة أخرى دالة `random_labels` لإنشاء مجموعة ثابتة
+# من علامات الحقيقة الأرضية (`labels_a`) الموزعة في `n_classes` ثم تسجيل
+# عدة مجموعات من العلامات "المتوقعة" عشوائيًا (`labels_b`) لتقييم
+# تقلب مقياس معين عند `n_clusters` معين.
 
 
 def fixed_classes_uniform_labelings_scores(
@@ -92,7 +83,6 @@ def fixed_classes_uniform_labelings_scores(
 ):
     scores = np.zeros((len(n_clusters_range), n_runs))
     labels_a = random_labels(n_samples=n_samples, n_classes=n_classes)
-
     for i, n_clusters in enumerate(n_clusters_range):
         for j in range(n_runs):
             labels_b = random_labels(n_samples=n_samples, n_classes=n_clusters)
@@ -101,8 +91,8 @@ def fixed_classes_uniform_labelings_scores(
 
 
 # %%
-# In this first example we set the number of classes (true number of clusters) to
-# `n_classes=10`. The number of clusters varies over the values provided by
+# في هذا المثال الأول، نحدد عدد الفئات (العدد الحقيقي للتجمعات) إلى
+# `n_classes=10`. يختلف عدد التجمعات عبر القيم المقدمة بواسطة
 # `n_clusters_range`.
 
 import matplotlib.pyplot as plt
@@ -144,20 +134,20 @@ plt.legend(plots, names, bbox_to_anchor=(0.5, 0.5))
 plt.show()
 
 # %%
-# The Rand index saturates for `n_clusters` > `n_classes`. Other non-adjusted
-# measures such as the V-Measure show a linear dependency between the number of
-# clusters and the number of samples.
+# يتشبع مؤشر Rand لـ `n_clusters` > `n_classes`. المقاييس الأخرى غير المعدلة
+# مثل V-Measure التي تظهر اعتمادًا خطيًا بين عدد التجمعات
+# وعدد العينات.
 #
-# Adjusted for chance measure, such as ARI and AMI, display some random
-# variations centered around a mean score of 0.0, independently of the number of
-# samples and clusters.
+# مقياس معدلة للفرصة، مثل ARI وAMI، تعرض بعض التباين العشوائي
+# حول متوسط النتيجة 0.0، بغض النظر عن عدد
+# العينات والتجمعات.
 #
-# Second experiment: varying number of classes and clusters
+# التجربة الثانية: عدد متغير من الفئات والتجمعات
 # ---------------------------------------------------------
 #
-# In this section we define a similar function that uses several metrics to
-# score 2 uniformly-distributed random labelings. In this case, the number of
-# classes and assigned number of clusters are matched for each possible value in
+# في هذا القسم، نحدد دالة مماثلة تستخدم عدة مقاييس
+# لتسجيل 2 تسميات عشوائية موزعة بشكل موحد. في هذه الحالة، يتم مطابقة عدد
+# الفئات وعدد التجمعات المعينة لكل قيمة ممكنة في
 # `n_clusters_range`.
 
 
@@ -173,16 +163,16 @@ def uniform_labelings_scores(score_func, n_samples, n_clusters_range, n_runs=5):
 
 
 # %%
-# In this case, we use `n_samples=100` to show the effect of having a number of
-# clusters similar or equal to the number of samples.
+# في هذه الحالة، نستخدم `n_samples=100` لإظهار تأثير وجود عدد من
+# التجمعات مماثلة أو متساوية لعدد العينات.
 
 n_samples = 100
 n_clusters_range = np.linspace(2, n_samples, 10).astype(int)
 
 plt.figure(2)
 
-plots = []
-names = []
+المخططات = []
+الأسماء = []
 
 for marker, (score_name, score_func) in zip("d^vx.,", score_funcs):
     scores = uniform_labelings_scores(score_func, n_samples, n_clusters_range)
@@ -199,31 +189,28 @@ for marker, (score_name, score_func) in zip("d^vx.,", score_funcs):
     names.append(score_name)
 
 plt.title(
-    "Clustering measures for 2 random uniform labelings\nwith equal number of clusters"
+    "مقاييس التجميع لتسميتين عشوائيتين موحدتين\nمع عدد متساوٍ من التجمعات"
 )
-plt.xlabel(f"Number of clusters (Number of samples is fixed to {n_samples})")
-plt.ylabel("Score value")
+plt.xlabel(f"عدد التجمعات (عدد العينات ثابت عند {n_samples})")
+plt.ylabel("قيمة النتيجة")
 plt.legend(plots, names)
 plt.ylim(bottom=-0.05, top=1.05)
 plt.show()
-
 # %%
-# We observe similar results as for the first experiment: adjusted for chance
-# metrics stay constantly near zero while other metrics tend to get larger with
-# finer-grained labelings. The mean V-measure of random labeling increases
-# significantly as the number of clusters is closer to the total number of
-# samples used to compute the measure. Furthermore, raw Mutual Information is
-# unbounded from above and its scale depends on the dimensions of the clustering
-# problem and the cardinality of the ground truth classes. This is why the
-# curve goes off the chart.
+# نلاحظ نتائج مماثلة للتجربة الأولى: المقاييس المعدلة للفرصة
+# تظل ثابتة بالقرب من الصفر بينما تميل المقاييس الأخرى إلى أن تصبح أكبر مع
+# التسميات الدقيقة. متوسط V-measure للتسمية العشوائية يزيد
+# بشكل كبير حيث يكون عدد التجمعات أقرب إلى العدد الإجمالي
+# العينات المستخدمة لحساب المقياس. علاوة على ذلك، فإن المعلومات المتبادلة الخام غير محدودة من الأعلى ونطاقها يعتمد على
+# أبعاد مشكلة التجميع وتكافؤ فئات الحقيقة الأرضية. هذا هو السبب في
+# المنحنى يخرج من المخطط.
 #
-# Only adjusted measures can hence be safely used as a consensus index to
-# evaluate the average stability of clustering algorithms for a given value of k
-# on various overlapping sub-samples of the dataset.
+# يمكن استخدام المقاييس المعدلة فقط بأمان كمؤشر توافق لتقييم
+# استقرار متوسط خوارزميات التجميع لقيمة معينة من k
+# على عينات فرعية متداخلة مختلفة من مجموعة البيانات.
 #
-# Non-adjusted clustering evaluation metric can therefore be misleading as they
-# output large values for fine-grained labelings, one could be lead to think
-# that the labeling has captured meaningful groups while they can be totally
-# random. In particular, such non-adjusted metrics should not be used to compare
-# the results of different clustering algorithms that output a different number
-# of clusters.
+# يمكن أن تكون مقاييس تقييم التجميع غير المعدلة مضللة لأنها
+# إخراج قيم كبيرة للتسميات الدقيقة، يمكن للمرء أن يقود التفكير
+# أن التسمية قد أسرت مجموعات ذات معنى بينما يمكن أن تكون عشوائية تمامًا. على وجه الخصوص، لا ينبغي استخدام مثل هذه المقاييس غير المعدلة لمقارنة
+# نتائج خوارزميات التجميع المختلفة التي تخرج عددًا مختلفًا
+# التجمعات.

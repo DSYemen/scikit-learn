@@ -19,26 +19,23 @@
 
 
 ===========================================
-Sparse coding with a precomputed dictionary
+الترميز المتناثر مع قاموس محسوب مسبقًا
 ===========================================
 
-Transform a signal as a sparse combination of Ricker wavelets. This example
-visually compares different sparse coding methods using the
-:class:`~sklearn.decomposition.SparseCoder` estimator. The Ricker (also known
-as Mexican hat or the second derivative of a Gaussian) is not a particularly
-good kernel to represent piecewise constant signals like this one. It can
-therefore be seen how much adding different widths of atoms matters and it
-therefore motivates learning the dictionary to best fit your type of signals.
+تحويل إشارة كمزيج متناثر من مويجات Ricker. يقارن هذا المثال
+بصريًا طرق الترميز المتناثر المختلفة باستخدام مقدر
+:class:`~sklearn.decomposition.SparseCoder`. إن مويجة Ricker (المعروفة أيضًا
+باسم القبعة المكسيكية أو المشتقة الثانية لدالة غاوسية) ليست نواة جيدة بشكل خاص لتمثيل الإشارات الثابتة متعددة التعريف مثل هذه الإشارة. لذلك يمكن ملاحظة مدى أهمية إضافة عروض مختلفة من الذرات، وبالتالي يحفز ذلك على تعلم القاموس ليناسب نوع الإشارات الخاصة بك على أفضل وجه.
 
-The richer dictionary on the right is not larger in size, heavier subsampling
-is performed in order to stay on the same order of magnitude.
+القاموس الأكثر ثراءً على اليمين ليس أكبر في الحجم، ويتم إجراء
+أخذ عينات فرعية أثقل من أجل البقاء في نفس ترتيب الحجم.
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-124
+.. GENERATED FROM PYTHON SOURCE LINES 15-124
 
 
 
 .. image-sg:: /auto_examples/decomposition/images/sphx_glr_plot_sparse_coding_001.png
-   :alt: Sparse coding against fixed width dictionary, Sparse coding against multiple widths dictionary
+   :alt: الترميز المتناثر مقابل قاموس عرض ثابت, الترميز المتناثر مقابل قاموس عروض متعددة
    :srcset: /auto_examples/decomposition/images/sphx_glr_plot_sparse_coding_001.png
    :class: sphx-glr-single-img
 
@@ -59,7 +56,7 @@ is performed in order to stay on the same order of magnitude.
 
 
     def ricker_function(resolution, center, width):
-        """Discrete sub-sampled Ricker (Mexican hat) wavelet"""
+        """مويجة Ricker (القبعة المكسيكية) الفرعية المتقطعة"""
         x = np.linspace(0, resolution - 1, resolution)
         x = (
             (2 / (np.sqrt(3 * width) * np.pi**0.25))
@@ -70,7 +67,7 @@ is performed in order to stay on the same order of magnitude.
 
 
     def ricker_matrix(width, resolution, n_components):
-        """Dictionary of Ricker (Mexican hat) wavelets"""
+        """قاموس مويجات Ricker (القبعة المكسيكية)"""
         centers = np.linspace(0, resolution - 1, n_components)
         D = np.empty((n_components, resolution))
         for i, center in enumerate(centers):
@@ -80,28 +77,30 @@ is performed in order to stay on the same order of magnitude.
 
 
     resolution = 1024
-    subsampling = 3  # subsampling factor
+    subsampling = 3  # معامل أخذ العينات الفرعية
     width = 100
     n_components = resolution // subsampling
 
-    # Compute a wavelet dictionary
-    D_fixed = ricker_matrix(width=width, resolution=resolution, n_components=n_components)
+    # حساب قاموس المويجات
+    D_fixed = ricker_matrix(
+        width=width, resolution=resolution, n_components=n_components)
     D_multi = np.r_[
         tuple(
-            ricker_matrix(width=w, resolution=resolution, n_components=n_components // 5)
+            ricker_matrix(width=w, resolution=resolution,
+                          n_components=n_components // 5)
             for w in (10, 50, 100, 500, 1000)
         )
     ]
 
-    # Generate a signal
+    # إنشاء إشارة
     y = np.linspace(0, resolution - 1, resolution)
     first_quarter = y < resolution / 4
     y[first_quarter] = 3.0
     y[np.logical_not(first_quarter)] = -1.0
 
-    # List the different sparse coding methods in the following format:
-    # (title, transform_algorithm, transform_alpha,
-    #  transform_n_nozero_coefs, color)
+    # سرد طرق الترميز المتناثر المختلفة بالتنسيق التالي:
+    # (العنوان، خوارزمية التحويل، ألفا التحويل،
+    #  معاملات التحويل غير الصفرية، اللون)
     estimators = [
         ("OMP", "omp", None, 15, "navy"),
         ("Lasso", "lasso_lars", 2, None, "turquoise"),
@@ -110,12 +109,12 @@ is performed in order to stay on the same order of magnitude.
 
     plt.figure(figsize=(13, 6))
     for subplot, (D, title) in enumerate(
-        zip((D_fixed, D_multi), ("fixed width", "multiple widths"))
+        zip((D_fixed, D_multi), ("عرض ثابت", "عروض متعددة"))
     ):
         plt.subplot(1, 2, subplot + 1)
-        plt.title("Sparse coding against %s dictionary" % title)
-        plt.plot(y, lw=lw, linestyle="--", label="Original signal")
-        # Do a wavelet approximation
+        plt.title("الترميز المتناثر مقابل قاموس %s" % title)
+        plt.plot(y, lw=lw, linestyle="--", label="الإشارة الأصلية")
+        # إجراء تقريب مويجي
         for title, algo, alpha, n_nonzero, color in estimators:
             coder = SparseCoder(
                 dictionary=D,
@@ -131,10 +130,11 @@ is performed in order to stay on the same order of magnitude.
                 x,
                 color=color,
                 lw=lw,
-                label="%s: %s nonzero coefs,\n%.2f error" % (title, density, squared_error),
+                label="%s: %s معاملات غير صفرية،\n%.2f خطأ" % (
+                    title, density, squared_error),
             )
 
-        # Soft thresholding debiasing
+        # إزالة تحيز العتبة الناعمة
         coder = SparseCoder(
             dictionary=D, transform_algorithm="threshold", transform_alpha=20
         )
@@ -147,7 +147,7 @@ is performed in order to stay on the same order of magnitude.
             x,
             color="darkorange",
             lw=lw,
-            label="Thresholding w/ debiasing:\n%d nonzero coefs, %.2f error"
+            label="العتبة مع إزالة التحيز:\n%d معاملات غير صفرية، %.2f خطأ"
             % (len(idx), squared_error),
         )
         plt.axis("tight")
@@ -158,7 +158,7 @@ is performed in order to stay on the same order of magnitude.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.284 seconds)
+   **Total running time of the script:** (0 minutes 0.334 seconds)
 
 
 .. _sphx_glr_download_auto_examples_decomposition_plot_sparse_coding.py:

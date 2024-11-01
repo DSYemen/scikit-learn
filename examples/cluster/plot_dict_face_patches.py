@@ -1,31 +1,21 @@
 """
-Online learning of a dictionary of parts of faces
+تعلم القاموس عبر الإنترنت لأجزاء الوجوه
 =================================================
 
-This example uses a large dataset of faces to learn a set of 20 x 20
-images patches that constitute faces.
+يستخدم هذا المثال مجموعة كبيرة من الوجوه لتعلم مجموعة من الصور مقاس 20x20 التي تشكل الوجوه.
 
-From the programming standpoint, it is interesting because it shows how
-to use the online API of the scikit-learn to process a very large
-dataset by chunks. The way we proceed is that we load an image at a time
-and extract randomly 50 patches from this image. Once we have accumulated
-500 of these patches (using 10 images), we run the
-:func:`~sklearn.cluster.MiniBatchKMeans.partial_fit` method
-of the online KMeans object, MiniBatchKMeans.
+من وجهة نظر البرمجة، إنه مثير للاهتمام لأنه يظهر كيفية استخدام واجهة برمجة التطبيقات عبر الإنترنت لـ scikit-learn لمعالجة مجموعة كبيرة جدًا من البيانات على شكل أجزاء. الطريقة التي نتبعها هي أننا نحمل صورة في كل مرة ونستخرج عشوائيًا 50 رقعة من هذه الصورة. بمجرد أن نكون قد جمعنا 500 من هذه الرقع (باستخدام 10 صور)، فإننا نستخدم طريقة
+:func:`~sklearn.cluster.MiniBatchKMeans.partial_fit`
+للكائن KMeans عبر الإنترنت، MiniBatchKMeans.
 
-The verbose setting on the MiniBatchKMeans enables us to see that some
-clusters are reassigned during the successive calls to
-partial-fit. This is because the number of patches that they represent
-has become too low, and it is better to choose a random new
-cluster.
-
+يسمح الإعداد المفصل على MiniBatchKMeans برؤية أنه يتم إعادة تعيين بعض المجموعات أثناء المكالمات المتتالية لـ
+partial-fit. هذا لأن عدد الرقع التي تمثلها أصبح منخفضًا للغاية، ومن الأفضل اختيار مجموعة جديدة عشوائية.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف SPDX-License: BSD-3-Clause
 
 # %%
-# Load the data
+# تحميل البيانات
 # -------------
 
 from sklearn import datasets
@@ -33,8 +23,8 @@ from sklearn import datasets
 faces = datasets.fetch_olivetti_faces()
 
 # %%
-# Learn the dictionary of images
-# ------------------------------
+# تعلم قاموس الصور
+# --------------------
 
 import time
 
@@ -51,7 +41,7 @@ patch_size = (20, 20)
 buffer = []
 t0 = time.time()
 
-# The online learning part: cycle over the whole dataset 6 times
+# جزء التعلم عبر الإنترنت: دورة عبر مجموعة البيانات الكاملة 6 مرات
 index = 0
 for _ in range(6):
     for img in faces.images:
@@ -72,8 +62,8 @@ dt = time.time() - t0
 print("done in %.2fs." % dt)
 
 # %%
-# Plot the results
-# ----------------
+# رسم النتائج
+# --------------
 
 import matplotlib.pyplot as plt
 

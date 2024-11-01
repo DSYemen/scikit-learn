@@ -1,39 +1,30 @@
 """
 ===============================================
-Feature transformations with ensembles of trees
+تحويل الميزات باستخدام مجموعات الأشجار
 ===============================================
 
-Transform your features into a higher dimensional, sparse space. Then train a
-linear model on these features.
+قم بتحويل ميزاتك إلى مساحة متفرقة ذات أبعاد أعلى. ثم قم بتدريب نموذج خطي على هذه الميزات.
 
-First fit an ensemble of trees (totally random trees, a random forest, or
-gradient boosted trees) on the training set. Then each leaf of each tree in the
-ensemble is assigned a fixed arbitrary feature index in a new feature space.
-These leaf indices are then encoded in a one-hot fashion.
+قم بتدريب مجموعة من الأشجار (أشجار عشوائية تمامًا، أو غابة عشوائية، أو أشجار معززة بالتدرج) على مجموعة التدريب. بعد ذلك، يتم تعيين فهرس ميزة عشوائي ثابت لكل ورقة من كل شجرة في المجموعة في مساحة ميزات جديدة. يتم بعد ذلك ترميز هذه المؤشرات الورقية بطريقة "واحد مقابل الكل".
 
-Each sample goes through the decisions of each tree of the ensemble and ends up
-in one leaf per tree. The sample is encoded by setting feature values for these
-leaves to 1 and the other feature values to 0.
+يمر كل عينة عبر قرارات كل شجرة في المجموعة وتنتهي في ورقة واحدة لكل شجرة. يتم ترميز العينة عن طريق تعيين قيم الميزات لهذه الأوراق إلى 1 وقيم الميزات الأخرى إلى 0.
 
-The resulting transformer has then learned a supervised, sparse,
-high-dimensional categorical embedding of the data.
-
+بعد ذلك، يكون المحول الناتج قد تعلم تضمينًا فئويًا إشرافيًا، متفرقًا، عالي الأبعاد للبيانات.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# First, we will create a large dataset and split it into three sets:
+# أولاً، سنقوم بإنشاء مجموعة بيانات كبيرة وتقسيمها إلى ثلاث مجموعات:
 #
-# - a set to train the ensemble methods which are later used to as a feature
-#   engineering transformer;
-# - a set to train the linear model;
-# - a set to test the linear model.
+# - مجموعة لتدريب طرق المجموعة والتي ستستخدم لاحقًا كمحول هندسة ميزات؛
+# - مجموعة لتدريب النموذج الخطي؛
+# - مجموعة لاختبار النموذج الخطي.
 #
-# It is important to split the data in such way to avoid overfitting by leaking
-# data.
+# من المهم تقسيم البيانات بهذه الطريقة لتجنب الإفراط في الملاءمة عن طريق تسريب البيانات.
 
+import matplotlib.pyplot as plt
+from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
 from sklearn.datasets import make_classification
 from sklearn.model_selection import train_test_split
 
@@ -47,17 +38,15 @@ X_train_ensemble, X_train_linear, y_train_ensemble, y_train_linear = train_test_
 )
 
 # %%
-# For each of the ensemble methods, we will use 10 estimators and a maximum
-# depth of 3 levels.
+# بالنسبة لكل من طرق المجموعة، سنستخدم 10 مقدرات وعمقًا أقصى يبلغ 3 مستويات.
 
 n_estimators = 10
 max_depth = 3
 
 # %%
-# First, we will start by training the random forest and gradient boosting on
-# the separated training set
+# أولاً، سنبدأ بتدريب الغابة العشوائية والتعزيز التدرجي على
+# مجموعة التدريب المنفصلة
 
-from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
 
 random_forest = RandomForestClassifier(
     n_estimators=n_estimators, max_depth=max_depth, random_state=10
@@ -70,13 +59,12 @@ gradient_boosting = GradientBoostingClassifier(
 _ = gradient_boosting.fit(X_train_ensemble, y_train_ensemble)
 
 # %%
-# Notice that :class:`~sklearn.ensemble.HistGradientBoostingClassifier` is much
-# faster than :class:`~sklearn.ensemble.GradientBoostingClassifier` starting
-# with intermediate datasets (`n_samples >= 10_000`), which is not the case of
-# the present example.
+# لاحظ أن :class:`~sklearn.ensemble.HistGradientBoostingClassifier` أسرع بكثير من :class:`~sklearn.ensemble.GradientBoostingClassifier` بدءًا
+# من مجموعات البيانات المتوسطة (`n_samples >= 10_000`)، والتي لا تنطبق على
+# المثال الحالي.
 #
-# The :class:`~sklearn.ensemble.RandomTreesEmbedding` is an unsupervised method
-# and thus does not required to be trained independently.
+# :class:`~sklearn.ensemble.RandomTreesEmbedding` هي طريقة غير مشرفة
+# وبالتالي لا تحتاج إلى التدريب بشكل مستقل.
 
 from sklearn.ensemble import RandomTreesEmbedding
 
@@ -85,23 +73,22 @@ random_tree_embedding = RandomTreesEmbedding(
 )
 
 # %%
-# Now, we will create three pipelines that will use the above embedding as
-# a preprocessing stage.
+# الآن، سنقوم بإنشاء ثلاث خطوط أنابيب ستستخدم التضمين أعلاه كـ
+# مرحلة ما قبل المعالجة.
 #
-# The random trees embedding can be directly pipelined with the logistic
-# regression because it is a standard scikit-learn transformer.
+# يمكن أن يتم تضمين الأشجار العشوائية مباشرة مع الانحدار اللوجستي لأنه محول قياسي في scikit-learn.
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import make_pipeline
 
-rt_model = make_pipeline(random_tree_embedding, LogisticRegression(max_iter=1000))
+rt_model = make_pipeline(random_tree_embedding,
+                         LogisticRegression(max_iter=1000))
 rt_model.fit(X_train_linear, y_train_linear)
 
 # %%
-# Then, we can pipeline random forest or gradient boosting with a logistic
-# regression. However, the feature transformation will happen by calling the
-# method `apply`. The pipeline in scikit-learn expects a call to `transform`.
-# Therefore, we wrapped the call to `apply` within a `FunctionTransformer`.
+# بعد ذلك، يمكننا أن ندمج الغابة العشوائية أو التعزيز التدرجي مع الانحدار اللوجستي. ومع ذلك، سيحدث تحويل الميزة عن طريق استدعاء
+# الطريقة `apply`. يتوقع خط الأنابيب في scikit-learn استدعاء لـ `transform`.
+# لذلك، قمنا بتغليف استدعاء `apply` داخل `FunctionTransformer`.
 
 from sklearn.preprocessing import FunctionTransformer, OneHotEncoder
 
@@ -110,7 +97,16 @@ def rf_apply(X, model):
     return model.apply(X)
 
 
-rf_leaves_yielder = FunctionTransformer(rf_apply, kw_args={"model": random_forest})
+rf_leaves_yielder = FunctionTransformer(
+    rf_apply, kw_args={"model": random_forest})
+
+
+def rf_apply(X, model):
+    return model.apply(X)
+
+
+rf_leaves_yielder = FunctionTransformer(
+    rf_apply, kw_args={"model": random_forest})
 
 rf_model = make_pipeline(
     rf_leaves_yielder,
@@ -137,9 +133,8 @@ gbdt_model = make_pipeline(
 gbdt_model.fit(X_train_linear, y_train_linear)
 
 # %%
-# We can finally show the different ROC curves for all the models.
+# يمكننا أخيرًا عرض منحنيات ROC المختلفة لجميع النماذج.
 
-import matplotlib.pyplot as plt
 
 from sklearn.metrics import RocCurveDisplay
 

@@ -1,12 +1,11 @@
 """
 =========================================================
-Pipelining: chaining a PCA and a logistic regression
+ربط الأنابيب: ربط PCA والانحدار اللوجستي
 =========================================================
 
-The PCA does an unsupervised dimensionality reduction, while the logistic
-regression does the prediction.
+يقوم PCA بتقليل الأبعاد بطريقة غير خاضعة للإشراف، بينما يقوم الانحدار اللوجستي بالتنبؤ.
 
-We use a GridSearchCV to set the dimensionality of the PCA
+نستخدم GridSearchCV لتعيين أبعاد PCA
 
 """
 
@@ -24,18 +23,19 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
-# Define a pipeline to search for the best combination of PCA truncation
-# and classifier regularization.
+# تعريف خط أنابيب للبحث عن أفضل مزيج من اقتطاع PCA
+# وانتظام المصنف.
 pca = PCA()
-# Define a Standard Scaler to normalize inputs
+# تعريف مقياس قياسي لتطبيع المدخلات
 scaler = StandardScaler()
 
-# set the tolerance to a large value to make the example faster
+# تعيين التسامح إلى قيمة كبيرة لجعل المثال أسرع
 logistic = LogisticRegression(max_iter=10000, tol=0.1)
-pipe = Pipeline(steps=[("scaler", scaler), ("pca", pca), ("logistic", logistic)])
+pipe = Pipeline(steps=[("scaler", scaler),
+                ("pca", pca), ("logistic", logistic)])
 
 X_digits, y_digits = datasets.load_digits(return_X_y=True)
-# Parameters of pipelines can be set using '__' separated parameter names:
+# يمكن تعيين معلمات خطوط الأنابيب باستخدام أسماء المعلمات المفصولة بـ '__':
 param_grid = {
     "pca__n_components": [5, 15, 30, 45, 60],
     "logistic__C": np.logspace(-4, 4, 4),
@@ -45,25 +45,26 @@ search.fit(X_digits, y_digits)
 print("Best parameter (CV score=%0.3f):" % search.best_score_)
 print(search.best_params_)
 
-# Plot the PCA spectrum
+# رسم طيف PCA
 pca.fit(X_digits)
 
 fig, (ax0, ax1) = plt.subplots(nrows=2, sharex=True, figsize=(6, 6))
 ax0.plot(
     np.arange(1, pca.n_components_ + 1), pca.explained_variance_ratio_, "+", linewidth=2
 )
-ax0.set_ylabel("PCA explained variance ratio")
+ax0.set_ylabel("نسبة التباين الموضحة بواسطة PCA")
 
 ax0.axvline(
     search.best_estimator_.named_steps["pca"].n_components,
     linestyle=":",
-    label="n_components chosen",
+    label="n_components المختارة",
 )
 ax0.legend(prop=dict(size=12))
 
-# For each number of components, find the best classifier results
+# لكل عدد من المكونات، ابحث عن أفضل نتائج المصنف
 components_col = "param_pca__n_components"
-is_max_test_score = pl.col("mean_test_score") == pl.col("mean_test_score").max()
+is_max_test_score = pl.col("mean_test_score") == pl.col(
+    "mean_test_score").max()
 best_clfs = (
     pl.LazyFrame(search.cv_results_)
     .filter(is_max_test_score.over(components_col))
@@ -76,7 +77,7 @@ ax1.errorbar(
     best_clfs["mean_test_score"],
     yerr=best_clfs["std_test_score"],
 )
-ax1.set_ylabel("Classification accuracy (val)")
+ax1.set_ylabel("دقة التصنيف (val)")
 ax1.set_xlabel("n_components")
 
 plt.xlim(-1, 70)

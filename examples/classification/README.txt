@@ -1,6 +1,6 @@
 .. _classification_examples:
 
-Classification
------------------------
+التصنيف
+---------
 
-General examples about classification algorithms.
+أمثلة عامة حول خوارزميات التصنيف

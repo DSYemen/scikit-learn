@@ -1,24 +1,21 @@
 """
 ===================================
-Demo of OPTICS clustering algorithm
+عرض توضيحي لخوارزمية التجميع OPTICS
 ===================================
 
 .. currentmodule:: sklearn
 
-Finds core samples of high density and expands clusters from them.
-This example uses data that is generated so that the clusters have
-different densities.
+يحدد العينات الأساسية ذات الكثافة العالية ويوسع التجمعات منها.
+يستخدم هذا المثال بيانات تم إنشاؤها بحيث يكون للتجمعات
+كثافات مختلفة.
 
-The :class:`~cluster.OPTICS` is first used with its Xi cluster detection
-method, and then setting specific thresholds on the reachability, which
-corresponds to :class:`~cluster.DBSCAN`. We can see that the different
-clusters of OPTICS's Xi method can be recovered with different choices of
-thresholds in DBSCAN.
-
+يتم استخدام :class:`~cluster.OPTICS` أولاً مع طريقة اكتشاف التجمعات Xi الخاصة به، ثم تعيين عتبات محددة على إمكانية الوصول، والتي
+تتوافق مع :class:`~cluster.DBSCAN`. يمكننا أن نرى أن التجمعات المختلفة
+لطريقة Xi في OPTICS يمكن استردادها مع خيارات مختلفة
+العتبات في DBSCAN.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# تعريف الترخيص: BSD-3-Clause
 
 import matplotlib.gridspec as gridspec
 import matplotlib.pyplot as plt
@@ -26,7 +23,7 @@ import numpy as np
 
 from sklearn.cluster import OPTICS, cluster_optics_dbscan
 
-# Generate sample data
+# توليد بيانات العينة
 
 np.random.seed(0)
 n_points_per_cluster = 250

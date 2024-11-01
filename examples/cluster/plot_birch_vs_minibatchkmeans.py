@@ -1,28 +1,16 @@
 """
 =================================
-Compare BIRCH and MiniBatchKMeans
+مقارنة بين BIRCH و MiniBatchKMeans
 =================================
 
-This example compares the timing of BIRCH (with and without the global
-clustering step) and MiniBatchKMeans on a synthetic dataset having
-25,000 samples and 2 features generated using make_blobs.
+يقارن هذا المثال توقيت BIRCH (مع وبدون خطوة التجميع العالمي) و MiniBatchKMeans على مجموعة بيانات اصطناعية تحتوي على 25,000 عينة و2 من الميزات التي تم إنشاؤها باستخدام make_blobs.
 
-Both ``MiniBatchKMeans`` and ``BIRCH`` are very scalable algorithms and could
-run efficiently on hundreds of thousands or even millions of datapoints. We
-chose to limit the dataset size of this example in the interest of keeping
-our Continuous Integration resource usage reasonable but the interested
-reader might enjoy editing this script to rerun it with a larger value for
-`n_samples`.
+كل من ``MiniBatchKMeans`` و ``BIRCH`` هي خوارزميات قابلة للتطوير للغاية ويمكنها العمل بكفاءة على مئات الآلاف أو حتى الملايين من نقاط البيانات. لقد اخترنا تحديد حجم مجموعة البيانات لهذا المثال للحفاظ على استخدام موارد التكامل المستمر لدينا معقولًا، ولكن القارئ المهتم قد يستمتع بتحرير هذا النص البرمجي لإعادة تشغيله بقيمة أكبر لـ `n_samples`.
 
-If ``n_clusters`` is set to None, the data is reduced from 25,000
-samples to a set of 158 clusters. This can be viewed as a preprocessing
-step before the final (global) clustering step that further reduces these
-158 clusters to 100 clusters.
-
+إذا تم تعيين ``n_clusters`` إلى None، يتم تقليل البيانات من 25,000 عينة إلى مجموعة من 158 مجموعة. يمكن اعتبار هذا كخطوة ما قبل المعالجة قبل خطوة التجميع (العالمي) النهائي التي تقلل هذه المجموعات 158 إلى 100 مجموعة.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 from itertools import cycle
 from time import time
@@ -35,35 +23,35 @@ from joblib import cpu_count
 from sklearn.cluster import Birch, MiniBatchKMeans
 from sklearn.datasets import make_blobs
 
-# Generate centers for the blobs so that it forms a 10 X 10 grid.
+# توليد مراكز للكتل بحيث تشكل شبكة 10X10.
 xx = np.linspace(-22, 22, 10)
 yy = np.linspace(-22, 22, 10)
 xx, yy = np.meshgrid(xx, yy)
 n_centers = np.hstack((np.ravel(xx)[:, np.newaxis], np.ravel(yy)[:, np.newaxis]))
 
-# Generate blobs to do a comparison between MiniBatchKMeans and BIRCH.
+# توليد كتل للمقارنة بين MiniBatchKMeans و BIRCH.
 X, y = make_blobs(n_samples=25000, centers=n_centers, random_state=0)
 
-# Use all colors that matplotlib provides by default.
+# استخدم جميع الألوان التي يوفرها matplotlib بشكل افتراضي.
 colors_ = cycle(colors.cnames.keys())
 
 fig = plt.figure(figsize=(12, 4))
 fig.subplots_adjust(left=0.04, right=0.98, bottom=0.1, top=0.9)
 
-# Compute clustering with BIRCH with and without the final clustering step
-# and plot.
+# حساب التجميع باستخدام BIRCH مع وبدون خطوة التجميع النهائي
+# والتخطيط.
 birch_models = [
     Birch(threshold=1.7, n_clusters=None),
     Birch(threshold=1.7, n_clusters=100),
 ]
-final_step = ["without global clustering", "with global clustering"]
+final_step = ["بدون التجميع العالمي", "مع التجميع العالمي"]
 
 for ind, (birch_model, info) in enumerate(zip(birch_models, final_step)):
     t = time()
     birch_model.fit(X)
-    print("BIRCH %s as the final step took %0.2f seconds" % (info, (time() - t)))
+    print("BIRCH %s كخطوة نهائية استغرقت %0.2f ثانية" % (info, (time() - t)))
 
-    # Plot result
+    # عرض النتيجة
     labels = birch_model.labels_
     centroids = birch_model.subcluster_centers_
     n_clusters = np.unique(labels).size
@@ -80,7 +68,7 @@ for ind, (birch_model, info) in enumerate(zip(birch_models, final_step)):
     ax.set_autoscaley_on(False)
     ax.set_title("BIRCH %s" % info)
 
-# Compute clustering with MiniBatchKMeans.
+# حساب التجميع باستخدام MiniBatchKMeans.
 mbk = MiniBatchKMeans(
     init="k-means++",
     n_clusters=100,
@@ -93,7 +81,7 @@ mbk = MiniBatchKMeans(
 t0 = time()
 mbk.fit(X)
 t_mini_batch = time() - t0
-print("Time taken to run MiniBatchKMeans %0.2f seconds" % t_mini_batch)
+print("الوقت المستغرق لتشغيل MiniBatchKMeans %0.2f ثانية" % t_mini_batch)
 mbk_means_labels_unique = np.unique(mbk.labels_)
 
 ax = fig.add_subplot(1, 3, 3)

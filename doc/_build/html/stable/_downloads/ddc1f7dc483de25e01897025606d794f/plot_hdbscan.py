@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 """
 ====================================
-Demo of HDBSCAN clustering algorithm
+عرض توضيحي لخوارزمية التجميع HDBSCAN
 ====================================
 .. currentmodule:: sklearn
 
-In this demo we will take a look at :class:`cluster.HDBSCAN` from the
-perspective of generalizing the :class:`cluster.DBSCAN` algorithm.
-We'll compare both algorithms on specific datasets. Finally we'll evaluate
-HDBSCAN's sensitivity to certain hyperparameters.
+في هذا العرض التوضيحي، سنلقي نظرة على :class:`cluster.HDBSCAN` من منظور تعميم خوارزمية :class:`cluster.DBSCAN`.
+سنقارن بين الخوارزميتين على مجموعات بيانات محددة. وأخيرًا، سنقيم حساسية HDBSCAN تجاه بعض المعاملات.
 
-We first define a couple utility functions for convenience.
+نحن نحدد أولاً بعض وظائف المنفعة للراحة.
 """
 
 # Authors: The scikit-learn developers
@@ -61,52 +59,44 @@ def plot(X, labels, probabilities=None, parameters=None, ground_truth=False, ax=
 
 
 # %%
-# Generate sample data
+# توليد بيانات العينة
 # --------------------
-# One of the greatest advantages of HDBSCAN over DBSCAN is its out-of-the-box
-# robustness. It's especially remarkable on heterogeneous mixtures of data.
-# Like DBSCAN, it can model arbitrary shapes and distributions, however unlike
-# DBSCAN it does not require specification of an arbitrary and sensitive
-# `eps` hyperparameter.
+# إحدى المزايا العظيمة لـ HDBSCAN على DBSCAN هي متانتها الجاهزة للاستخدام. إنها ملحوظة بشكل خاص على الخلطات غير المتجانسة للبيانات.
+# مثل DBSCAN، يمكنها نمذجة أشكال وتوزيعات عشوائية، ومع ذلك، على عكس DBSCAN، لا تتطلب تحديد معامل حساس `eps`.
 #
-# For example, below we generate a dataset from a mixture of three bi-dimensional
-# and isotropic Gaussian distributions.
+# على سبيل المثال، أدناه، نولد مجموعة بيانات من مزيج من ثلاثة توزيعات غاوسية ثنائية الأبعاد ومتساوية.
 centers = [[1, 1], [-1, -1], [1.5, -1.5]]
 X, labels_true = make_blobs(
     n_samples=750, centers=centers, cluster_std=[0.4, 0.1, 0.75], random_state=0
 )
 plot(X, labels=labels_true, ground_truth=True)
 # %%
-# Scale Invariance
+# عدم التغير في المقياس
 # -----------------
-# It's worth remembering that, while DBSCAN provides a default value for `eps`
-# parameter, it hardly has a proper default value and must be tuned for the
-# specific dataset at use.
+# من الجدير بالذكر أنه، في حين أن DBSCAN يوفر قيمة افتراضية لمعامل `eps`، إلا أنه لا يمتلك قيمة افتراضية مناسبة ويجب ضبطه لمجموعة البيانات المحددة قيد الاستخدام.
 #
-# As a simple demonstration, consider the clustering for a `eps` value tuned
-# for one dataset, and clustering obtained with the same value but applied to
-# rescaled versions of the dataset.
+# كمثال بسيط، ضع في اعتبارك التجميع لمعامل `eps` مضبوط
+# لمجموعة بيانات واحدة، والتجميع الذي تم الحصول عليه بنفس القيمة ولكن تم تطبيقه على
+# إصدارات مقياسها من مجموعة البيانات.
 fig, axes = plt.subplots(3, 1, figsize=(10, 12))
 dbs = DBSCAN(eps=0.3)
 for idx, scale in enumerate([1, 0.5, 3]):
     dbs.fit(X * scale)
     plot(X * scale, dbs.labels_, parameters={"scale": scale, "eps": 0.3}, ax=axes[idx])
-
 # %%
-# Indeed, in order to maintain the same results we would have to scale `eps` by
-# the same factor.
+# في الواقع، من أجل الحفاظ على نفس النتائج، سيتعين علينا ضبط `eps` بنفس العامل.
 fig, axis = plt.subplots(1, 1, figsize=(12, 5))
 dbs = DBSCAN(eps=0.9).fit(3 * X)
 plot(3 * X, dbs.labels_, parameters={"scale": 3, "eps": 0.9}, ax=axis)
 # %%
-# While standardizing data (e.g. using
-# :class:`sklearn.preprocessing.StandardScaler`) helps mitigate this problem,
-# great care must be taken to select the appropriate value for `eps`.
+# في حين أن توحيد البيانات (على سبيل المثال باستخدام
+# :class:`sklearn.preprocessing.StandardScaler`) يساعد في التخفيف من هذه المشكلة،
+# يجب توخي الحذر الشديد لاختيار القيمة المناسبة لـ `eps`.
 #
-# HDBSCAN is much more robust in this sense: HDBSCAN can be seen as
-# clustering over all possible values of `eps` and extracting the best
-# clusters from all possible clusters (see :ref:`User Guide <HDBSCAN>`).
-# One immediate advantage is that HDBSCAN is scale-invariant.
+# HDBSCAN أكثر متانة في هذا المعنى: يمكن اعتبار HDBSCAN
+# التجميع على جميع القيم الممكنة لـ `eps` واستخراج أفضل
+# التجمعات من جميع التجمعات الممكنة (انظر: ref:`User Guide <HDBSCAN>`).
+# إحدى المزايا الفورية هي أن HDBSCAN غير متغير في المقياس.
 fig, axes = plt.subplots(3, 1, figsize=(10, 12))
 hdb = HDBSCAN()
 for idx, scale in enumerate([1, 0.5, 3]):
@@ -119,13 +109,12 @@ for idx, scale in enumerate([1, 0.5, 3]):
         parameters={"scale": scale},
     )
 # %%
-# Multi-Scale Clustering
+# التجميع متعدد المقاييس
 # ----------------------
-# HDBSCAN is much more than scale invariant though -- it is capable of
-# multi-scale clustering, which accounts for clusters with varying density.
-# Traditional DBSCAN assumes that any potential clusters are homogeneous in
-# density. HDBSCAN is free from such constraints. To demonstrate this we
-# consider the following dataset
+# HDBSCAN أكثر من مجرد عدم التغير في المقياس - فهو قادر على
+# التجميع متعدد المقاييس، والذي يحسب حساب التجمعات ذات الكثافة المتغيرة.
+# يفترض DBSCAN التقليدي أن أي تجمعات محتملة متجانسة في
+# الكثافة. HDBSCAN خالي من مثل هذه القيود. لتوضيح ذلك، نأخذ في الاعتبار مجموعة البيانات التالية
 centers = [[-0.85, -0.85], [-0.85, 0.85], [3, 3], [3, -3]]
 X, labels_true = make_blobs(
     n_samples=750, centers=centers, cluster_std=[0.2, 0.35, 1.35, 1.35], random_state=0
@@ -133,17 +122,15 @@ X, labels_true = make_blobs(
 plot(X, labels=labels_true, ground_truth=True)
 
 # %%
-# This dataset is more difficult for DBSCAN due to the varying densities and
-# spatial separation:
+# هذه المجموعة أكثر صعوبة بالنسبة لـ DBSCAN بسبب الكثافة المتغيرة والانفصال المكاني:
 #
-# - If `eps` is too large then we risk falsely clustering the two dense
-#   clusters as one since their mutual reachability will extend
-#   clusters.
-# - If `eps` is too small, then we risk fragmenting the sparser clusters
-#   into many false clusters.
+# - إذا كان `eps` كبيرًا جدًا، فإننا نخاطر بتجميع التجمعات الكثيفة بشكل خاطئ كمجموعة واحدة نظرًا لأن قابلية الوصول المتبادل لها ستوسع
+# التجمعات.
+# - إذا كان `eps` صغيرًا جدًا، فإننا نخاطر بتجزئة التجمعات النادرة
+# إلى العديد من التجمعات الخاطئة.
 #
-# Not to mention this requires manually tuning choices of `eps` until we
-# find a tradeoff that we are comfortable with.
+# ناهيك عن أن هذا يتطلب خيارات ضبط يدوية لـ `eps` حتى نجد
+# حل وسط نشعر بالراحة معه.
 fig, axes = plt.subplots(2, 1, figsize=(10, 8))
 params = {"eps": 0.7}
 dbs = DBSCAN(**params).fit(X)
@@ -153,45 +140,41 @@ dbs = DBSCAN(**params).fit(X)
 plot(X, dbs.labels_, parameters=params, ax=axes[1])
 
 # %%
-# To properly cluster the two dense clusters, we would need a smaller value of
-# epsilon, however at `eps=0.3` we are already fragmenting the sparse clusters,
-# which would only become more severe as we decrease epsilon. Indeed it seems
-# that DBSCAN is incapable of simultaneously separating the two dense clusters
-# while preventing the sparse clusters from fragmenting. Let's compare with
+# لتجزئة التجمعات الكثيفة بشكل صحيح، سنحتاج إلى قيمة أصغر من
+# إبسيلون، ومع ذلك، في `eps=0.3`، فإننا بالفعل نجزئ التجمعات النادرة،
+# والتي ستصبح أكثر حدة مع تقليل إبسيلون. في الواقع يبدو أن
+# DBSCAN غير قادر على فصل التجمعات الكثيفة في نفس الوقت
+# أثناء منع التجمعات النادرة من التجزئة. دعنا نقارن مع
 # HDBSCAN.
 hdb = HDBSCAN().fit(X)
 plot(X, hdb.labels_, hdb.probabilities_)
 
 # %%
-# HDBSCAN is able to adapt to the multi-scale structure of the dataset without
-# requiring parameter tuning. While any sufficiently interesting dataset will
-# require tuning, this case demonstrates that HDBSCAN can yield qualitatively
-# better classes of clusterings without users' intervention which are
-# inaccessible via DBSCAN.
-
+# HDBSCAN قادر على التكيف مع البنية متعددة المقاييس لمجموعة البيانات دون
+# تتطلب ضبط المعاملات. في حين أن أي مجموعة بيانات مثيرة للاهتمام بما فيه الكفاية
+# سيتطلب الضبط، توضح هذه الحالة أن HDBSCAN يمكن أن يؤدي إلى نوعية أفضل
+# فئات التجميع دون تدخل المستخدم والتي لا يمكن الوصول إليها عبر DBSCAN.
 # %%
-# Hyperparameter Robustness
+# متانة المعاملات
 # -------------------------
-# Ultimately tuning will be an important step in any real world application, so
-# let's take a look at some of the most important hyperparameters for HDBSCAN.
-# While HDBSCAN is free from the `eps` parameter of DBSCAN, it does still have
-# some hyperparameters like `min_cluster_size` and `min_samples` which tune its
-# results regarding density. We will however see that HDBSCAN is relatively robust
-# to various real world examples thanks to those parameters whose clear meaning
-# helps tuning them.
+# في النهاية، سيكون الضبط خطوة مهمة في أي تطبيق في العالم الحقيقي، لذلك
+# دعنا نلقي نظرة على بعض المعاملات الأكثر أهمية لـ HDBSCAN.
+# في حين أن HDBSCAN خالٍ من معامل `eps` لـ DBSCAN، فإنه لا يزال يحتوي على
+# بعض المعاملات مثل `min_cluster_size` و `min_samples` التي تضبط نتائجه فيما يتعلق بالكثافة. ومع ذلك، سنرى أن HDBSCAN متين نسبيًا
+# لمختلف الأمثلة الواقعية بفضل هذه المعاملات التي يساعد معناها الواضح في ضبطها.
 #
 # `min_cluster_size`
 # ^^^^^^^^^^^^^^^^^^
-# `min_cluster_size` is the minimum number of samples in a group for that
-# group to be considered a cluster.
+# `min_cluster_size` هو الحد الأدنى لعدد العينات في مجموعة لكي
+# تعتبر المجموعة مجموعة.
 #
-# Clusters smaller than the ones of this size will be left as noise.
-# The default value is 5. This parameter is generally tuned to
-# larger values as needed. Smaller values will likely to lead to results with
-# fewer points labeled as noise. However values which too small will lead to
-# false sub-clusters being picked up and preferred. Larger values tend to be
-# more robust with respect to noisy datasets, e.g. high-variance clusters with
-# significant overlap.
+# ستترك التجمعات الأصغر من هذه الحجم كضجيج.
+# القيمة الافتراضية هي 5. يتم ضبط هذا المعامل بشكل عام على
+# قيم أكبر حسب الحاجة. من المرجح أن تؤدي القيم الأصغر إلى نتائج مع
+# عدد أقل من النقاط المسماة كضجيج. ومع ذلك، فإن القيم الصغيرة جدًا ستؤدي إلى
+# اختيار التجمعات الفرعية الخاطئة وتفضيلها. تميل القيم الأكبر إلى أن تكون
+# أكثر متانة فيما يتعلق بمجموعات البيانات الضجيج، على سبيل المثال، التجمعات عالية التباين مع
+# تداخل كبير.
 
 PARAM = ({"min_cluster_size": 5}, {"min_cluster_size": 3}, {"min_cluster_size": 25})
 fig, axes = plt.subplots(3, 1, figsize=(10, 12))
@@ -204,13 +187,13 @@ for i, param in enumerate(PARAM):
 # %%
 # `min_samples`
 # ^^^^^^^^^^^^^
-# `min_samples` is the number of samples in a neighborhood for a point to
-# be considered as a core point, including the point itself.
-# `min_samples` defaults to `min_cluster_size`.
-# Similarly to `min_cluster_size`, larger values for `min_samples` increase
-# the model's robustness to noise, but risks ignoring or discarding
-# potentially valid but small clusters.
-# `min_samples` better be tuned after finding a good value for `min_cluster_size`.
+# `min_samples` هو عدد العينات في حي لكي
+# تعتبر النقطة نقطة أساسية، بما في ذلك النقطة نفسها.
+# `min_samples` الافتراضي إلى `min_cluster_size`.
+# على غرار `min_cluster_size`، تزيد القيم الأكبر لـ `min_samples` من
+# متانة النموذج للضجيج، ولكنها تخاطر بتجاهل أو تجاهل
+# التجمعات المحتملة الصالحة ولكن الصغيرة.
+# من الأفضل ضبط `min_samples` بعد العثور على قيمة جيدة لـ `min_cluster_size`.
 
 PARAM = (
     {"min_cluster_size": 20, "min_samples": 5},
@@ -227,13 +210,13 @@ for i, param in enumerate(PARAM):
 # %%
 # `dbscan_clustering`
 # ^^^^^^^^^^^^^^^^^^^
-# During `fit`, `HDBSCAN` builds a single-linkage tree which encodes the
-# clustering of all points across all values of :class:`~cluster.DBSCAN`'s
-# `eps` parameter.
-# We can thus plot and evaluate these clusterings efficiently without fully
-# recomputing intermediate values such as core-distances, mutual-reachability,
-# and the minimum spanning tree. All we need to do is specify the `cut_distance`
-# (equivalent to `eps`) we want to cluster with.
+# أثناء `fit`، يقوم `HDBSCAN` ببناء شجرة ارتباط واحدة والتي تشفر
+# تجميع جميع النقاط عبر جميع القيم لـ :class:`~cluster.DBSCAN`'s
+# معامل `eps`.
+# يمكننا بالتالي رسم وتقييم هذه التجميعات بكفاءة دون إعادة حساب كاملة
+# القيم الوسيطة مثل المسافات الأساسية، والقابلية للوصول المتبادلة،
+# وشجرة الإمتداد الدنيا. كل ما نحتاج إلى فعله هو تحديد `cut_distance`
+# (المعادل لـ `eps`) نريد التجميع معه.
 
 PARAM = (
     {"cut_distance": 0.1},
