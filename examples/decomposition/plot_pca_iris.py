@@ -1,66 +1,63 @@
 """
-==================================================
-Principal Component Analysis (PCA) on Iris Dataset
-==================================================
+=========================================================
+تحليل المكونات الرئيسية (PCA) على مجموعة بيانات Iris
+=========================================================
 
-This example shows a well known decomposition technique known as Principal Component
-Analysis (PCA) on the
-`Iris dataset <https://en.wikipedia.org/wiki/Iris_flower_data_set>`_.
+هذا المثال يوضح تقنية تحليل معروفة باسم تحليل المكونات الرئيسية (PCA) على
+`مجموعة بيانات Iris <https://en.wikipedia.org/wiki/Iris_flower_data_set>`_.
 
-This dataset is made of 4 features: sepal length, sepal width, petal length, petal
-width. We use PCA to project this 4 feature space into a 3-dimensional space.
+تتكون هذه المجموعة من 4 خصائص: طول الكأس، وعرض الكأس، وطول البتلة، وعرض البتلة. نستخدم PCA لإسقاط هذا الفضاء المكون من 4 خصائص إلى فضاء ثلاثي الأبعاد.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف رخصة SPDX: BSD-3-Clause
 
 # %%
-# Loading the Iris dataset
+# تحميل مجموعة بيانات Iris
 # ------------------------
 #
-# The Iris dataset is directly available as part of scikit-learn. It can be loaded
-# using the :func:`~sklearn.datasets.load_iris` function. With the default parameters,
-# a :class:`~sklearn.utils.Bunch` object is returned, containing the data, the
-# target values, the feature names, and the target names.
+# مجموعة بيانات Iris متوفرة مباشرة كجزء من scikit-learn. يمكن تحميلها
+# باستخدام الدالة :func:`~sklearn.datasets.load_iris`. مع المعاملات الافتراضية،
+# يتم إرجاع كائن :class:`~sklearn.utils.Bunch`، والذي يحتوي على البيانات،
+# والقيم المستهدفة، وأسماء الخصائص، وأسماء الأهداف.
 from sklearn.datasets import load_iris
 
 iris = load_iris(as_frame=True)
 print(iris.keys())
 
 # %%
-# Plot of pairs of features of the Iris dataset
+# رسم بياني لأزواج الخصائص في مجموعة بيانات Iris
 # ---------------------------------------------
 #
-# Let's first plot the pairs of features of the Iris dataset.
+# دعنا نرسم أولاً أزواج الخصائص في مجموعة بيانات Iris.
 import seaborn as sns
 
-# Rename classes using the iris target names
+# إعادة تسمية الفئات باستخدام أسماء الأهداف في مجموعة بيانات Iris
 iris.frame["target"] = iris.target_names[iris.target]
 _ = sns.pairplot(iris.frame, hue="target")
 
 # %%
-# Each data point on each scatter plot refers to one of the 150 iris flowers
-# in the dataset, with the color indicating their respective type
-# (Setosa, Versicolor, and Virginica).
+# كل نقطة بيانات على كل رسم بياني متفرق تشير إلى واحدة من زهور Iris
+# الـ 150 في مجموعة البيانات، مع الإشارة إلى لونها إلى نوعها
+# (Setosa، وVersicolor، وVirginica).
 #
-# You can already see a pattern regarding the Setosa type, which is
-# easily identifiable based on its short and wide sepal. Only
-# considering these two dimensions, sepal width and length, there's still
-# overlap between the Versicolor and Virginica types.
+# يمكنك بالفعل ملاحظة نمط فيما يتعلق بنوع Setosa، والذي يمكن
+# تحديده بسهولة بناءً على كأسها القصير والعريض. فقط
+# بالنظر إلى هذين البعدين، طول وعرض الكأس، لا يزال هناك
+# تداخل بين نوعي Versicolor وVirginica.
 #
-# The diagonal of the plot shows the distribution of each feature. We observe
-# that the petal width and the petal length are the most discriminant features
-# for the three types.
+# يُظهر القطر التوزيع لكل خاصية. نلاحظ
+# أن عرض البتلة وطول البتلة هما أكثر الخصائص تمييزًا
+# للأنواع الثلاثة.
 #
-# Plot a PCA representation
+# رسم تمثيل PCA
 # -------------------------
-# Let's apply a Principal Component Analysis (PCA) to the iris dataset
-# and then plot the irises across the first three PCA dimensions.
-# This will allow us to better differentiate among the three types!
+# دعنا نطبق تحليل المكونات الرئيسية (PCA) على مجموعة بيانات Iris
+# ثم نرسم زهور Iris عبر الأبعاد الثلاثة الأولى لـ PCA.
+# سيسمح لنا ذلك بالتمييز بشكل أفضل بين الأنواع الثلاثة!
 
 import matplotlib.pyplot as plt
 
-# unused but required import for doing 3d projections with matplotlib < 3.2
+# استيراد غير مستخدم ولكنه مطلوب للقيام بالرسوم البيانية ثلاثية الأبعاد باستخدام matplotlib < 3.2
 import mpl_toolkits.mplot3d  # noqa: F401
 
 from sklearn.decomposition import PCA
@@ -87,7 +84,7 @@ ax.xaxis.set_ticklabels([])
 ax.yaxis.set_ticklabels([])
 ax.zaxis.set_ticklabels([])
 
-# Add a legend
+# إضافة أسطورة
 legend1 = ax.legend(
     scatter.legend_elements()[0],
     iris.target_names.tolist(),
@@ -99,7 +96,6 @@ ax.add_artist(legend1)
 plt.show()
 
 # %%
-# PCA will create 3 new features that are a linear combination of the 4 original
-# features. In addition, this transformation maximizes the variance. With this
-# transformation, we see that we can identify each species using only the first feature
-# (i.e., first eigenvector).
+# ستقوم PCA بإنشاء 3 خصائص جديدة تكون مزيجًا خطيًا من الخصائص الأصلية الـ 4. بالإضافة إلى ذلك، تُعظِّم هذه التحويلة التباين. مع هذا
+# التحويل، نرى أنه يمكننا تحديد كل نوع باستخدام الخاصية الأولى فقط
+# (أي، المتجه الذاتي الأول).

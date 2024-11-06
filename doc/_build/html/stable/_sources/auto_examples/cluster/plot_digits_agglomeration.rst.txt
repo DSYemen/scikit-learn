@@ -18,19 +18,19 @@
 .. _sphx_glr_auto_examples_cluster_plot_digits_agglomeration.py:
 
 
-=========================================================
-Feature agglomeration
-=========================================================
+=========================================
+تجميع الميزات
+=========================================
 
-These images show how similar features are merged together using
-feature agglomeration.
+توضح هذه الصور كيف يتم دمج الميزات المتشابهة معًا باستخدام
+تجميع الميزات.
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-59
+.. GENERATED FROM PYTHON SOURCE LINES 10-60
 
 
 
 .. image-sg:: /auto_examples/cluster/images/sphx_glr_plot_digits_agglomeration_001.png
-   :alt: Original data, Agglomerated data, Labels
+   :alt: البيانات الأصلية, البيانات المجمعة, التسميات
    :srcset: /auto_examples/cluster/images/sphx_glr_plot_digits_agglomeration_001.png
    :class: sphx-glr-single-img
 
@@ -71,11 +71,12 @@ feature agglomeration.
         plt.xticks(())
         plt.yticks(())
         if i == 1:
-            plt.title("Original data")
+            plt.title("البيانات الأصلية")
         plt.subplot(3, 4, 4 + i + 1)
-        plt.imshow(images_restored[i], cmap=plt.cm.gray, vmax=16, interpolation="nearest")
+        plt.imshow(images_restored[i], cmap=plt.cm.gray,
+                   vmax=16, interpolation="nearest")
         if i == 1:
-            plt.title("Agglomerated data")
+            plt.title("البيانات المجمعة")
         plt.xticks(())
         plt.yticks(())
 
@@ -87,13 +88,13 @@ feature agglomeration.
     )
     plt.xticks(())
     plt.yticks(())
-    plt.title("Labels")
+    plt.title("التسميات")
     plt.show()
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.158 seconds)
+   **Total running time of the script:** (0 minutes 0.165 seconds)
 
 
 .. _sphx_glr_download_auto_examples_cluster_plot_digits_agglomeration.py:

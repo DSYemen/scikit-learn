@@ -1,18 +1,15 @@
 """
 =============================================
-A demo of the mean-shift clustering algorithm
+عرض توضيحي لخوارزمية التجميع متوسط التحول
 =============================================
 
-Reference:
+المرجع:
 
-Dorin Comaniciu and Peter Meer, "Mean Shift: A robust approach toward
-feature space analysis". IEEE Transactions on Pattern Analysis and
-Machine Intelligence. 2002. pp. 603-619.
-
+دورين كومانيسيو وبيتر مير، "متوسط التحول: نهج قوي نحو
+تحليل مساحة الميزات". معاملات IEEE على تحليل الأنماط والذكاء الاصطناعي. 2002. ص 603-619.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايت-ليرن
+# معرف الترخيص-SPDX: BSD-3-Clause
 
 import numpy as np
 
@@ -20,16 +17,16 @@ from sklearn.cluster import MeanShift, estimate_bandwidth
 from sklearn.datasets import make_blobs
 
 # %%
-# Generate sample data
+# توليد بيانات العينة
 # --------------------
 centers = [[1, 1], [-1, -1], [1, -1]]
 X, _ = make_blobs(n_samples=10000, centers=centers, cluster_std=0.6)
 
 # %%
-# Compute clustering with MeanShift
+# حساب التجميع باستخدام MeanShift
 # ---------------------------------
 
-# The following bandwidth can be automatically detected using
+# يمكن الكشف عن عرض النطاق الترددي التالي تلقائيًا باستخدام
 bandwidth = estimate_bandwidth(X, quantile=0.2, n_samples=500)
 
 ms = MeanShift(bandwidth=bandwidth, bin_seeding=True)
@@ -40,10 +37,10 @@ cluster_centers = ms.cluster_centers_
 labels_unique = np.unique(labels)
 n_clusters_ = len(labels_unique)
 
-print("number of estimated clusters : %d" % n_clusters_)
+print("عدد التجمعات المقدرة: %d" % n_clusters_)
 
 # %%
-# Plot result
+# رسم النتيجة
 # -----------
 import matplotlib.pyplot as plt
 

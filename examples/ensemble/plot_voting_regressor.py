@@ -1,25 +1,25 @@
 """
 =================================================
-Plot individual and voting regression predictions
+رسم تنبؤات الانحدار الفردية والتصويتية
 =================================================
 
 .. currentmodule:: sklearn
 
-A voting regressor is an ensemble meta-estimator that fits several base
-regressors, each on the whole dataset. Then it averages the individual
-predictions to form a final prediction.
-We will use three different regressors to predict the data:
-:class:`~ensemble.GradientBoostingRegressor`,
-:class:`~ensemble.RandomForestRegressor`, and
+مُنحدِر التصويت هو مقدر تلوي جماعي يقوم بملاءمة العديد من المُنحدرات
+الأساسية، كل منها على مجموعة البيانات بأكملها. ثم يقوم بمتوسط ​​التنبؤات
+الفردية لتشكيل تنبؤ نهائي.
+سنستخدم ثلاثة مُنحدرات مختلفة للتنبؤ بالبيانات:
+:class:`~ensemble.GradientBoostingRegressor` و
+:class:`~ensemble.RandomForestRegressor` و
 :class:`~linear_model.LinearRegression`).
-Then the above 3 regressors will be used for the
+ثم سيتم استخدام المُنحدرات الثلاثة المذكورة أعلاه لـ
 :class:`~ensemble.VotingRegressor`.
 
-Finally, we will plot the predictions made by all models for comparison.
+أخيرًا، سنرسم التنبؤات التي تم إجراؤها بواسطة جميع النماذج للمقارنة.
 
-We will work with the diabetes dataset which consists of 10 features
-collected from a cohort of diabetes patients. The target is a quantitative
-measure of disease progression one year after baseline.
+سنعمل مع مجموعة بيانات مرض السكري التي تتكون من 10 ميزات
+تم جمعها من مجموعة من مرضى السكري. الهدف هو قياس كمي
+لتطور المرض بعد عام واحد من خط الأساس.
 
 """
 
@@ -37,16 +37,16 @@ from sklearn.ensemble import (
 from sklearn.linear_model import LinearRegression
 
 # %%
-# Training classifiers
+# تدريب المصنفات
 # --------------------------------
 #
-# First, we will load the diabetes dataset and initiate a gradient boosting
-# regressor, a random forest regressor and a linear regression. Next, we will
-# use the 3 regressors to build the voting regressor:
+# أولاً، سنقوم بتحميل مجموعة بيانات مرض السكري وبدء مُنحدِر التعزيز
+# المتدرج، ومُنحدِر غابة عشوائية، وانحدار خطي. بعد ذلك، سنستخدم
+# المُنحدرات الثلاثة لبناء مُنحدِر التصويت:
 
 X, y = load_diabetes(return_X_y=True)
 
-# Train classifiers
+# تدريب المصنفات
 reg1 = GradientBoostingRegressor(random_state=1)
 reg2 = RandomForestRegressor(random_state=1)
 reg3 = LinearRegression()
@@ -59,10 +59,10 @@ ereg = VotingRegressor([("gb", reg1), ("rf", reg2), ("lr", reg3)])
 ereg.fit(X, y)
 
 # %%
-# Making predictions
+# إجراء التنبؤات
 # --------------------------------
 #
-# Now we will use each of the regressors to make the 20 first predictions.
+# الآن سنستخدم كل مُنحدِر لإجراء التنبؤات العشرين الأولى.
 
 xt = X[:20]
 
@@ -72,11 +72,12 @@ pred3 = reg3.predict(xt)
 pred4 = ereg.predict(xt)
 
 # %%
-# Plot the results
+# رسم النتائج
 # --------------------------------
 #
-# Finally, we will visualize the 20 predictions. The red stars show the average
-# prediction made by :class:`~ensemble.VotingRegressor`.
+# أخيرًا، سنقوم بتصور التنبؤات العشرين. تُظهر النجوم الحمراء متوسط
+# ​​التنبؤ الذي تم إجراؤه بواسطة :class:`~ensemble.VotingRegressor`.
+
 
 plt.figure()
 plt.plot(pred1, "gd", label="GradientBoostingRegressor")
@@ -85,9 +86,11 @@ plt.plot(pred3, "ys", label="LinearRegression")
 plt.plot(pred4, "r*", ms=10, label="VotingRegressor")
 
 plt.tick_params(axis="x", which="both", bottom=False, top=False, labelbottom=False)
-plt.ylabel("predicted")
-plt.xlabel("training samples")
+plt.ylabel("متوقع")
+plt.xlabel("عينات التدريب")
 plt.legend(loc="best")
-plt.title("Regressor predictions and their average")
+plt.title("تنبؤات المُنحدِر ومتوسطها")
 
 plt.show()
+
+

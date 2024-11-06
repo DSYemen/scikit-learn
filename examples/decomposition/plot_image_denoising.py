@@ -1,34 +1,34 @@
 """
 =========================================
-Image denoising using dictionary learning
+إزالة تشويش الصور باستخدام تعلم القاموس
 =========================================
 
-An example comparing the effect of reconstructing noisy fragments
-of a raccoon face image using firstly online :ref:`DictionaryLearning` and
-various transform methods.
+مثال يقارن تأثير إعادة بناء أجزاء مشوشة
+من صورة وجه راكون باستخدام أولاً :ref:`DictionaryLearning` عبر الإنترنت
+وطرق تحويل مختلفة.
 
-The dictionary is fitted on the distorted left half of the image, and
-subsequently used to reconstruct the right half. Note that even better
-performance could be achieved by fitting to an undistorted (i.e.
-noiseless) image, but here we start from the assumption that it is not
-available.
+يتم ملاءمة القاموس على النصف الأيسر المشوه من الصورة، و
+يتم استخدامه لاحقًا لإعادة بناء النصف الأيمن. لاحظ أنه يمكن تحقيق أداء أفضل
+عن طريق ملاءمة صورة غير مشوهة (أي
+بدون تشويش)، ولكننا هنا نبدأ من افتراض أنها غير
+متوفرة.
 
-A common practice for evaluating the results of image denoising is by looking
-at the difference between the reconstruction and the original image. If the
-reconstruction is perfect this will look like Gaussian noise.
+من الممارسات الشائعة لتقييم نتائج إزالة تشويش الصور هي النظر
+إلى الفرق بين إعادة البناء والصورة الأصلية. إذا كانت
+إعادة البناء مثالية، فسيبدو هذا وكأنه ضوضاء غاوسية.
 
-It can be seen from the plots that the results of :ref:`omp` with two
-non-zero coefficients is a bit less biased than when keeping only one
-(the edges look less prominent). It is in addition closer from the ground
-truth in Frobenius norm.
+يمكن ملاحظة من الرسوم البيانية أن نتائج :ref:`omp` مع اثنين
+من المعاملات غير الصفرية أقل تحيزًا قليلاً من الاحتفاظ بمعامل واحد فقط
+(تبدو الحواف أقل بروزًا). بالإضافة إلى ذلك، فهي أقرب إلى الحقيقة
+الأصلية في قاعدة Frobenius.
 
-The result of :ref:`least_angle_regression` is much more strongly biased: the
-difference is reminiscent of the local intensity value of the original image.
+نتيجة :ref:`least_angle_regression` متحيزة بشكل أقوى:
+الفرق يذكرنا بقيمة الكثافة المحلية للصورة الأصلية.
 
-Thresholding is clearly not useful for denoising, but it is here to show that
-it can produce a suggestive output with very high speed, and thus be useful
-for other tasks such as object classification, where performance is not
-necessarily related to visualisation.
+من الواضح أن العتبة ليست مفيدة لإزالة التشويش، ولكنها هنا لإظهار
+أنه يمكنها إنتاج مخرجات موحية بسرعة عالية جدًا، وبالتالي تكون مفيدة
+للمهام الأخرى مثل تصنيف الكائنات، حيث لا يرتبط الأداء
+بالضرورة بالتصور.
 
 """
 
@@ -36,7 +36,7 @@ necessarily related to visualisation.
 # SPDX-License-Identifier: BSD-3-Clause
 
 # %%
-# Generate distorted image
+# إنشاء صورة مشوهة
 # ------------------------
 import numpy as np
 
@@ -47,11 +47,11 @@ except ImportError:
 
 raccoon_face = face(gray=True)
 
-# Convert from uint8 representation with values between 0 and 255 to
-# a floating point representation with values between 0 and 1.
+# تحويل من تمثيل uint8 بقيم بين 0 و 255 إلى
+# تمثيل فاصلة عائمة بقيم بين 0 و 1.
 raccoon_face = raccoon_face / 255.0
 
-# downsample for higher speed
+# تقليل العينات لسرعة أعلى
 raccoon_face = (
     raccoon_face[::4, ::4]
     + raccoon_face[1::4, ::4]
@@ -61,30 +61,30 @@ raccoon_face = (
 raccoon_face /= 4.0
 height, width = raccoon_face.shape
 
-# Distort the right half of the image
-print("Distorting image...")
+# تشويه النصف الأيمن من الصورة
+print("تشويه الصورة...")
 distorted = raccoon_face.copy()
 distorted[:, width // 2 :] += 0.075 * np.random.randn(height, width // 2)
 
 
 # %%
-# Display the distorted image
+# عرض الصورة المشوهة
 # ---------------------------
 import matplotlib.pyplot as plt
 
 
 def show_with_diff(image, reference, title):
-    """Helper function to display denoising"""
+    """دالة مساعدة لعرض إزالة التشويش"""
     plt.figure(figsize=(5, 3.3))
     plt.subplot(1, 2, 1)
-    plt.title("Image")
+    plt.title("الصورة")
     plt.imshow(image, vmin=0, vmax=1, cmap=plt.cm.gray, interpolation="nearest")
     plt.xticks(())
     plt.yticks(())
     plt.subplot(1, 2, 2)
     difference = image - reference
 
-    plt.title("Difference (norm: %.2f)" % np.sqrt(np.sum(difference**2)))
+    plt.title("الفرق (القاعدة: %.2f)" % np.sqrt(np.sum(difference**2)))
     plt.imshow(
         difference, vmin=-0.5, vmax=0.5, cmap=plt.cm.PuOr, interpolation="nearest"
     )
@@ -94,37 +94,37 @@ def show_with_diff(image, reference, title):
     plt.subplots_adjust(0.02, 0.02, 0.98, 0.79, 0.02, 0.2)
 
 
-show_with_diff(distorted, raccoon_face, "Distorted image")
+show_with_diff(distorted, raccoon_face, "الصورة المشوهة")
 
 
 # %%
-# Extract reference patches
+# استخراج الرقع المرجعية
 # ----------------------------
 from time import time
 
 from sklearn.feature_extraction.image import extract_patches_2d
 
-# Extract all reference patches from the left half of the image
-print("Extracting reference patches...")
+# استخراج جميع الرقع المرجعية من النصف الأيسر من الصورة
+print("استخراج الرقع المرجعية...")
 t0 = time()
 patch_size = (7, 7)
 data = extract_patches_2d(distorted[:, : width // 2], patch_size)
 data = data.reshape(data.shape[0], -1)
 data -= np.mean(data, axis=0)
 data /= np.std(data, axis=0)
-print(f"{data.shape[0]} patches extracted in %.2fs." % (time() - t0))
+print(f"{data.shape[0]} رقعة مستخرجة في %.2fs." % (time() - t0))
 
 
 # %%
-# Learn the dictionary from reference patches
+# تعلم القاموس من الرقع المرجعية
 # -------------------------------------------
 from sklearn.decomposition import MiniBatchDictionaryLearning
 
-print("Learning the dictionary...")
+print("تعلم القاموس...")
 t0 = time()
 dico = MiniBatchDictionaryLearning(
-    # increase to 300 for higher quality results at the cost of slower
-    # training times.
+    # زيادة إلى 300 للحصول على نتائج عالية الجودة على حساب أوقات
+    # تدريب أبطأ.
     n_components=50,
     batch_size=200,
     alpha=1.0,
@@ -132,7 +132,7 @@ dico = MiniBatchDictionaryLearning(
 )
 V = dico.fit(data).components_
 dt = time() - t0
-print(f"{dico.n_iter_} iterations / {dico.n_steps_} steps in {dt:.2f}.")
+print(f"{dico.n_iter_} تكرار / {dico.n_steps_} خطوة في {dt:.2f}.")
 
 plt.figure(figsize=(4.2, 4))
 for i, comp in enumerate(V[:100]):
@@ -141,31 +141,43 @@ for i, comp in enumerate(V[:100]):
     plt.xticks(())
     plt.yticks(())
 plt.suptitle(
-    "Dictionary learned from face patches\n"
-    + "Train time %.1fs on %d patches" % (dt, len(data)),
+    "قاموس تم تعلمه من رقع الوجه\n"
+    + "وقت التدريب %.1fs على %d رقعة" % (dt, len(data)),
     fontsize=16,
 )
 plt.subplots_adjust(0.08, 0.02, 0.92, 0.85, 0.08, 0.23)
 
 
 # %%
-# Extract noisy patches and reconstruct them using the dictionary
+# استخراج الرقع المشوشة وإعادة بنائها باستخدام القاموس
 # ---------------------------------------------------------------
 from sklearn.feature_extraction.image import reconstruct_from_patches_2d
 
-print("Extracting noisy patches... ")
+print("استخراج الرقع المشوشة... ")
 t0 = time()
 data = extract_patches_2d(distorted[:, width // 2 :], patch_size)
 data = data.reshape(data.shape[0], -1)
 intercept = np.mean(data, axis=0)
 data -= intercept
-print("done in %.2fs." % (time() - t0))
+print("تم في %.2fs." % (time() - t0))
 
 transform_algorithms = [
-    ("Orthogonal Matching Pursuit\n1 atom", "omp", {"transform_n_nonzero_coefs": 1}),
-    ("Orthogonal Matching Pursuit\n2 atoms", "omp", {"transform_n_nonzero_coefs": 2}),
-    ("Least-angle regression\n4 atoms", "lars", {"transform_n_nonzero_coefs": 4}),
-    ("Thresholding\n alpha=0.1", "threshold", {"transform_alpha": 0.1}),
+    (
+        "مطابقة المسار المتعامد\n1 ذرة",
+        "omp",
+        {"transform_n_nonzero_coefs": 1},
+    ),
+    (
+        "مطابقة المسار المتعامد\n2 ذرة",
+        "omp",
+        {"transform_n_nonzero_coefs": 2},
+    ),
+    (
+        "انحدار الزاوية الصغرى\n4 ذرات",
+        "lars",
+        {"transform_n_nonzero_coefs": 4},
+    ),
+    ("عتبة\n alpha=0.1", "threshold", {"transform_alpha": 0.1}),
 ]
 
 reconstructions = {}
@@ -186,7 +198,8 @@ for title, transform_algorithm, kwargs in transform_algorithms:
         patches, (height, width // 2)
     )
     dt = time() - t0
-    print("done in %.2fs." % dt)
-    show_with_diff(reconstructions[title], raccoon_face, title + " (time: %.1fs)" % dt)
+    print("تم في %.2fs." % dt)
+    show_with_diff(reconstructions[title], raccoon_face, title + " (الوقت: %.1fs)" % dt)
 
 plt.show()
+

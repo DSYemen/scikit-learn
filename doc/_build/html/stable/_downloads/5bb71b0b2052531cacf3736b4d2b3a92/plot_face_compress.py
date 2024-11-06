@@ -1,78 +1,75 @@
 """
 ===========================
-Vector Quantization Example
+مثال على تكميم المتجهات
 ===========================
 
-This example shows how one can use :class:`~sklearn.preprocessing.KBinsDiscretizer`
-to perform vector quantization on a set of toy image, the raccoon face.
+يوضح هذا المثال كيف يمكن استخدام :class:`~sklearn.preprocessing.KBinsDiscretizer`
+لإجراء تكميم المتجهات على مجموعة من الصور التجريبية، وجه الراكون.
 """
 
 # Authors: The scikit-learn developers
 # SPDX-License-Identifier: BSD-3-Clause
 
 # %%
-# Original image
+# الصورة الأصلية
 # --------------
 #
-# We start by loading the raccoon face image from SciPy. We will additionally check
-# a couple of information regarding the image, such as the shape and data type used
-# to store the image.
+# سنبدأ بتحميل صورة وجه الراكون من SciPy. سنقوم أيضًا بفحص
+# بعض المعلومات المتعلقة بالصورة، مثل الشكل ونوع البيانات المستخدم
+# لتخزين الصورة.
 #
-# Note that depending of the SciPy version, we have to adapt the import since the
-# function returning the image is not located in the same module. Also, SciPy >= 1.10
-# requires the package `pooch` to be installed.
+# لاحظ أنه اعتمادًا على إصدار SciPy، نحتاج إلى تعديل الاستيراد
+# نظرًا لأن الدالة التي تعيد الصورة ليست موجودة في نفس الوحدة.
+# أيضًا، يتطلب SciPy >= 1.10 تثبيت الحزمة `pooch`.
 try:  # Scipy >= 1.10
+    from sklearn.preprocessing import KBinsDiscretizer
+    import matplotlib.pyplot as plt
     from scipy.datasets import face
 except ImportError:
     from scipy.misc import face
 
 raccoon_face = face(gray=True)
 
-print(f"The dimension of the image is {raccoon_face.shape}")
-print(f"The data used to encode the image is of type {raccoon_face.dtype}")
-print(f"The number of bytes taken in RAM is {raccoon_face.nbytes}")
+print(f"البعد الخاص بالصورة هو {raccoon_face.shape}")
+print(f"البيانات المستخدمة لترميز الصورة هي من نوع {raccoon_face.dtype}")
+print(f"عدد البايتات المستخدمة في الذاكرة هو {raccoon_face.nbytes}")
 
 # %%
-# Thus the image is a 2D array of 768 pixels in height and 1024 pixels in width. Each
-# value is a 8-bit unsigned integer, which means that the image is encoded using 8
-# bits per pixel. The total memory usage of the image is 786 kilobytes (1 byte equals
-# 8 bits).
+# وبالتالي، فإن الصورة هي مصفوفة ثنائية الأبعاد بارتفاع 768 بكسل وعرض 1024 بكسل.
+# كل قيمة هي عدد صحيح غير موقع 8 بت، مما يعني أن الصورة مشفرة باستخدام 8 بت لكل بكسل.
+# إجمالي استخدام الذاكرة للصورة هو 786 كيلوبايت (1 بايت يساوي 8 بت).
 #
-# Using 8-bit unsigned integer means that the image is encoded using 256 different
-# shades of gray, at most. We can check the distribution of these values.
-import matplotlib.pyplot as plt
+# باستخدام عدد صحيح غير موقع 8 بت يعني أن الصورة مشفرة باستخدام 256 لونًا مختلفًا
+# من الرمادي، على الأكثر. يمكننا فحص توزيع هذه القيم.
 
 fig, ax = plt.subplots(ncols=2, figsize=(12, 4))
 
 ax[0].imshow(raccoon_face, cmap=plt.cm.gray)
 ax[0].axis("off")
-ax[0].set_title("Rendering of the image")
+ax[0].set_title("عرض الصورة")
 ax[1].hist(raccoon_face.ravel(), bins=256)
-ax[1].set_xlabel("Pixel value")
-ax[1].set_ylabel("Count of pixels")
-ax[1].set_title("Distribution of the pixel values")
-_ = fig.suptitle("Original image of a raccoon face")
+ax[1].set_xlabel("قيمة البكسل")
+ax[1].set_ylabel("عدد البكسلات")
+ax[1].set_title("توزيع قيم البكسل")
+_ = fig.suptitle("الصورة الأصلية لوجه الراكون")
 
 # %%
-# Compression via vector quantization
-# -----------------------------------
+# ضغط عبر تكميم المتجهات
+# ----------------------
 #
-# The idea behind compression via vector quantization is to reduce the number of
-# gray levels to represent an image. For instance, we can use 8 values instead
-# of 256 values. Therefore, it means that we could efficiently use 3 bits instead
-# of 8 bits to encode a single pixel and therefore reduce the memory usage by a
-# factor of approximately 2.5. We will later discuss about this memory usage.
+# الفكرة وراء ضغط عبر تكميم المتجهات هي تقليل عدد مستويات الرمادي لتمثيل الصورة.
+# على سبيل المثال، يمكننا استخدام 8 قيم بدلاً من 256 قيمة.
+# وبالتالي، فهذا يعني أننا يمكن أن نستخدم 3 بت بدلاً من 8 بت لترميز بكسل واحد
+# وبالتالي تقليل استخدام الذاكرة بمعامل تقريبًا 2.5. سنناقش لاحقًا حول استخدام الذاكرة.
 #
-# Encoding strategy
-# """""""""""""""""
+# استراتيجية الترميز
+# """""""""""""""""""
 #
-# The compression can be done using a
-# :class:`~sklearn.preprocessing.KBinsDiscretizer`. We need to choose a strategy
-# to define the 8 gray values to sub-sample. The simplest strategy is to define
-# them equally spaced, which correspond to setting `strategy="uniform"`. From
-# the previous histogram, we know that this strategy is certainly not optimal.
+# يمكن إجراء الضغط باستخدام :class:`~sklearn.preprocessing.KBinsDiscretizer`.
+# نحتاج إلى اختيار استراتيجية لتحديد 8 قيم رمادية للتحقيق.
+# أبسط استراتيجية هي تحديدها بشكل متساوٍ، مما يتوافق مع ضبط `strategy="uniform"`.
+# من الرسم البياني السابق، نعلم أن هذه الاستراتيجية ليست بالضرورة أمثل.
 
-from sklearn.preprocessing import KBinsDiscretizer
 
 n_bins = 8
 encoder = KBinsDiscretizer(
@@ -88,21 +85,20 @@ compressed_raccoon_uniform = encoder.fit_transform(raccoon_face.reshape(-1, 1)).
 fig, ax = plt.subplots(ncols=2, figsize=(12, 4))
 ax[0].imshow(compressed_raccoon_uniform, cmap=plt.cm.gray)
 ax[0].axis("off")
-ax[0].set_title("Rendering of the image")
+ax[0].set_title("عرض الصورة")
 ax[1].hist(compressed_raccoon_uniform.ravel(), bins=256)
-ax[1].set_xlabel("Pixel value")
-ax[1].set_ylabel("Count of pixels")
-ax[1].set_title("Sub-sampled distribution of the pixel values")
-_ = fig.suptitle("Raccoon face compressed using 3 bits and a uniform strategy")
+ax[1].set_xlabel("قيمة البكسل")
+ax[1].set_ylabel("عدد البكسلات")
+ax[1].set_title("توزيع القيم المحققة للبكسل")
+_ = fig.suptitle("وجه الراكون المضغوط باستخدام 3 بت واستراتيجية متساوية")
 
 # %%
-# Qualitatively, we can spot some small regions where we see the effect of the
-# compression (e.g. leaves on the bottom right corner). But after all, the resulting
-# image is still looking good.
+# نوعيًا، يمكننا ملاحظة بعض المناطق الصغيرة حيث نرى تأثير الضغط
+# (مثل الأوراق في الزاوية اليمنى السفلى). لكن بعد كل شيء، الصورة الناتجة
+# لا تزال تبدو جيدة.
 #
-# We observe that the distribution of pixels values have been mapped to 8
-# different values. We can check the correspondence between such values and the
-# original pixel values.
+# نلاحظ أن توزيع قيم البكسل تم تعيينه إلى 8 قيم مختلفة. يمكننا التحقق
+# من التطابق بين هذه القيم وقيم البكسل الأصلية.
 
 bin_edges = encoder.bin_edges_[0]
 bin_center = bin_edges[:-1] + (bin_edges[1:] - bin_edges[:-1]) / 2
@@ -114,14 +110,15 @@ ax.hist(raccoon_face.ravel(), bins=256)
 color = "tab:orange"
 for center in bin_center:
     ax.axvline(center, color=color)
-    ax.text(center - 10, ax.get_ybound()[1] + 100, f"{center:.1f}", color=color)
+    ax.text(center - 10, ax.get_ybound()
+            [1] + 100, f"{center:.1f}", color=color)
 
 # %%
-# As previously stated, the uniform sampling strategy is not optimal. Notice for
-# instance that the pixels mapped to the value 7 will encode a rather small
-# amount of information, whereas the mapped value 3 will represent a large
-# amount of counts. We can instead use a clustering strategy such as k-means to
-# find a more optimal mapping.
+# كما ذكرنا سابقًا، الاستراتيجية المتساوية للتحقيق ليست أمثل.
+# لاحظ على سبيل المثال أن البكسلات المعينة إلى القيمة 7 ستقوم بترميز
+# كمية صغيرة نسبيًا من المعلومات، بينما القيمة المعينة 3 ستمثل كمية
+# كبيرة من العدد. يمكننا بدلاً من ذلك استخدام استراتيجية تجميع مثل k-means
+# للعثور على تعيين أكثر امتثالًا.
 
 encoder = KBinsDiscretizer(
     n_bins=n_bins,
@@ -136,12 +133,12 @@ compressed_raccoon_kmeans = encoder.fit_transform(raccoon_face.reshape(-1, 1)).r
 fig, ax = plt.subplots(ncols=2, figsize=(12, 4))
 ax[0].imshow(compressed_raccoon_kmeans, cmap=plt.cm.gray)
 ax[0].axis("off")
-ax[0].set_title("Rendering of the image")
+ax[0].set_title("عرض الصورة")
 ax[1].hist(compressed_raccoon_kmeans.ravel(), bins=256)
-ax[1].set_xlabel("Pixel value")
-ax[1].set_ylabel("Number of pixels")
-ax[1].set_title("Distribution of the pixel values")
-_ = fig.suptitle("Raccoon face compressed using 3 bits and a K-means strategy")
+ax[1].set_xlabel("قيمة البكسل")
+ax[1].set_ylabel("عدد البكسلات")
+ax[1].set_title("توزيع قيم البكسل")
+_ = fig.suptitle("وجه الراكون المضغوط باستخدام 3 بت واستراتيجية K-means")
 
 # %%
 bin_edges = encoder.bin_edges_[0]
@@ -154,37 +151,38 @@ ax.hist(raccoon_face.ravel(), bins=256)
 color = "tab:orange"
 for center in bin_center:
     ax.axvline(center, color=color)
-    ax.text(center - 10, ax.get_ybound()[1] + 100, f"{center:.1f}", color=color)
+    ax.text(center - 10, ax.get_ybound()
+            [1] + 100, f"{center:.1f}", color=color)
 
 # %%
-# The counts in the bins are now more balanced and their centers are no longer
-# equally spaced. Note that we could enforce the same number of pixels per bin
-# by using the `strategy="quantile"` instead of `strategy="kmeans"`.
+# العدد في الصناديق الآن أكثر توازنًا ومراكزها لم تعد متساوية المسافات.
+# لاحظ أنه يمكننا فرض نفس عدد البكسلات في كل صندوق باستخدام `strategy="quantile"`
+# بدلاً من `strategy="kmeans"`.
 #
-# Memory footprint
+# استخدام الذاكرة
 # """"""""""""""""
 #
-# We previously stated that we should save 8 times less memory. Let's verify it.
+# ذكرنا سابقًا أننا يجب أن نوفر 8 مرات أقل من الذاكرة. دعونا نتحقق من ذلك.
 
-print(f"The number of bytes taken in RAM is {compressed_raccoon_kmeans.nbytes}")
-print(f"Compression ratio: {compressed_raccoon_kmeans.nbytes / raccoon_face.nbytes}")
-
-# %%
-# It is quite surprising to see that our compressed image is taking x8 more
-# memory than the original image. This is indeed the opposite of what we
-# expected. The reason is mainly due to the type of data used to encode the
-# image.
-
-print(f"Type of the compressed image: {compressed_raccoon_kmeans.dtype}")
+print(
+    f"عدد البايتات المستخدمة في الذاكرة هو {compressed_raccoon_kmeans.nbytes}")
+print(f"نسبة الضغط: {compressed_raccoon_kmeans.nbytes / raccoon_face.nbytes}")
 
 # %%
-# Indeed, the output of the :class:`~sklearn.preprocessing.KBinsDiscretizer` is
-# an array of 64-bit float. It means that it takes x8 more memory. However, we
-# use this 64-bit float representation to encode 8 values. Indeed, we will save
-# memory only if we cast the compressed image into an array of 3-bits integers. We
-# could use the method `numpy.ndarray.astype`. However, a 3-bits integer
-# representation does not exist and to encode the 8 values, we would need to use
-# the 8-bit unsigned integer representation as well.
+# من المدهش جدًا رؤية أن الصورة المضغوطة تستخدم ذاكرة أكثر بـ x8
+# من الصورة الأصلية. هذا هو بالضبط عكس ما كنا نتوقعه. السبب يرجع أساسًا
+# إلى نوع البيانات المستخدم لترميز الصورة.
+
+print(f"نوع الصورة المضغوطة: {compressed_raccoon_kmeans.dtype}")
+
+# %%
+# في الواقع، ناتج :class:`~sklearn.preprocessing.KBinsDiscretizer` هو
+# مصفوفة من النوع float64. هذا يعني أنها تستخدم ذاكرة أكثر بـ x8.
+# ومع ذلك، نحن نستخدم هذا التمثيل float64 لترميز 8 قيم. في الواقع،
+# سنوفر الذاكرة فقط إذا قمنا بتحويل الصورة المضغوطة إلى مصفوفة من الأعداد
+# الصحيحة التي تستخدم 3 بت. يمكننا استخدام طريقة `numpy.ndarray.astype`.
+# ومع ذلك، لا يوجد تمثيل عدد صحيح بـ 3 بت ولترميز الـ 8 قيم، سنحتاج إلى
+# استخدام تمثيل عدد صحيح غير موقع 8 بت أيضًا.
 #
-# In practice, observing a memory gain would require the original image to be in
-# a 64-bit float representation.
+# في الممارسة العملية، ملاحظة مكسب في الذاكرة ستتطلب أن تكون الصورة الأصلية
+# بتمثيل float64.

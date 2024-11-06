@@ -18,27 +18,22 @@
 .. _sphx_glr_auto_examples_cluster_plot_feature_agglomeration_vs_univariate_selection.py:
 
 
-==============================================
-Feature agglomeration vs. univariate selection
-==============================================
+# مقارنة بين تجميع الميزات والاختيار أحادي المتغير
 
-This example compares 2 dimensionality reduction strategies:
+هذا المثال يقارن بين استراتيجيتين لخفض الأبعاد:
 
-- univariate feature selection with Anova
+- اختيار الميزات أحادي المتغير باستخدام تحليل التباين (Anova)
 
-- feature agglomeration with Ward hierarchical clustering
+- تجميع الميزات باستخدام التجميع الهرمي لطريقة وارد (Ward hierarchical clustering)
 
-Both methods are compared in a regression problem using
-a BayesianRidge as supervised estimator.
+يتم مقارنة كلتا الطريقتين في مشكلة الانحدار باستخدام تقدير خوارزمية BayesianRidge.
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-20
+.. GENERATED FROM PYTHON SOURCE LINES 12-15
 
 .. code-block:: Python
 
-
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
-
+    # المؤلفون: مطوري سكايت-ليرن
+    # معرف الترخيص: BSD-3-Clause
 
 
 
@@ -46,7 +41,8 @@ a BayesianRidge as supervised estimator.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 21-36
+
+.. GENERATED FROM PYTHON SOURCE LINES 16-31
 
 .. code-block:: Python
 
@@ -72,16 +68,16 @@ a BayesianRidge as supervised estimator.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 37-38
+.. GENERATED FROM PYTHON SOURCE LINES 32-33
 
-Set parameters
+تعيين المعلمات
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-44
+.. GENERATED FROM PYTHON SOURCE LINES 33-39
 
 .. code-block:: Python
 
     n_samples = 200
-    size = 40  # image size
+    size = 40  # حجم الصورة
     roi_size = 15
     snr = 5.0
     np.random.seed(0)
@@ -93,11 +89,11 @@ Set parameters
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 45-46
+.. GENERATED FROM PYTHON SOURCE LINES 40-41
 
-Generate data
+توليد البيانات
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-58
+.. GENERATED FROM PYTHON SOURCE LINES 41-53
 
 .. code-block:: Python
 
@@ -106,7 +102,7 @@ Generate data
     coef[-roi_size:, -roi_size:] = 1.0
 
     X = np.random.randn(n_samples, size**2)
-    for x in X:  # smooth data
+    for x in X:  # تنعيم البيانات
         x[:] = ndimage.gaussian_filter(x.reshape(size, size), sigma=1.0).ravel()
     X -= X.mean(axis=0)
     X /= X.std(axis=0)
@@ -120,11 +116,11 @@ Generate data
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 59-60
+.. GENERATED FROM PYTHON SOURCE LINES 54-55
 
-add noise
+إضافة ضوضاء
 
-.. GENERATED FROM PYTHON SOURCE LINES 60-64
+.. GENERATED FROM PYTHON SOURCE LINES 55-59
 
 .. code-block:: Python
 
@@ -139,15 +135,15 @@ add noise
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 65-66
+.. GENERATED FROM PYTHON SOURCE LINES 60-61
 
-Compute the coefs of a Bayesian Ridge with GridSearch
+حساب معاملات خوارزمية Bayesian Ridge باستخدام GridSearch
 
-.. GENERATED FROM PYTHON SOURCE LINES 66-71
+.. GENERATED FROM PYTHON SOURCE LINES 61-66
 
 .. code-block:: Python
 
-    cv = KFold(2)  # cross-validation generator for model selection
+    cv = KFold(2)  # مولد للتحقق المتقاطع لاختيار النموذج
     ridge = BayesianRidge()
     cachedir = tempfile.mkdtemp()
     mem = Memory(location=cachedir, verbose=1)
@@ -159,20 +155,20 @@ Compute the coefs of a Bayesian Ridge with GridSearch
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 72-73
+.. GENERATED FROM PYTHON SOURCE LINES 67-68
 
-Ward agglomeration followed by BayesianRidge
+تجميع وارد يليه خوارزمية BayesianRidge
 
-.. GENERATED FROM PYTHON SOURCE LINES 73-83
+.. GENERATED FROM PYTHON SOURCE LINES 68-78
 
 .. code-block:: Python
 
     connectivity = grid_to_graph(n_x=size, n_y=size)
     ward = FeatureAgglomeration(n_clusters=10, connectivity=connectivity, memory=mem)
     clf = Pipeline([("ward", ward), ("ridge", ridge)])
-    # Select the optimal number of parcels with grid search
+    # اختيار العدد الأمثل من المجموعات باستخدام Grid Search
     clf = GridSearchCV(clf, {"ward__n_clusters": [10, 20, 30]}, n_jobs=1, cv=cv)
-    clf.fit(X, y)  # set the best parameters
+    clf.fit(X, y)  # تعيين أفضل المعلمات
     coef_ = clf.best_estimator_.steps[-1][1].coef_
     coef_ = clf.best_estimator_.steps[0][1].inverse_transform(coef_)
     coef_agglomeration_ = coef_.reshape(size, size)
@@ -210,20 +206,20 @@ Ward agglomeration followed by BayesianRidge
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 84-85
+.. GENERATED FROM PYTHON SOURCE LINES 79-80
 
-Anova univariate feature selection followed by BayesianRidge
+اختيار الميزات أحادي المتغير باستخدام تحليل التباين يليه خوارزمية BayesianRidge
 
-.. GENERATED FROM PYTHON SOURCE LINES 85-95
+.. GENERATED FROM PYTHON SOURCE LINES 80-90
 
 .. code-block:: Python
 
-    f_regression = mem.cache(feature_selection.f_regression)  # caching function
+    f_regression = mem.cache(feature_selection.f_regression)  # تخزين الوظيفة في الذاكرة
     anova = feature_selection.SelectPercentile(f_regression)
     clf = Pipeline([("anova", anova), ("ridge", ridge)])
-    # Select the optimal percentage of features with grid search
+    # اختيار النسبة المئوية المثلى من الميزات باستخدام Grid Search
     clf = GridSearchCV(clf, {"anova__percentile": [5, 10, 20]}, cv=cv)
-    clf.fit(X, y)  # set the best parameters
+    clf.fit(X, y)  # تعيين أفضل المعلمات
     coef_ = clf.best_estimator_.steps[-1][1].coef_
     coef_ = clf.best_estimator_.steps[0][1].inverse_transform(coef_.reshape(1, -1))
     coef_selection_ = coef_.reshape(size, size)
@@ -261,11 +257,11 @@ Anova univariate feature selection followed by BayesianRidge
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 96-97
+.. GENERATED FROM PYTHON SOURCE LINES 91-92
 
-Inverse the transformation to plot the results on an image
+عكس التحويل لعرض النتائج على صورة
 
-.. GENERATED FROM PYTHON SOURCE LINES 97-111
+.. GENERATED FROM PYTHON SOURCE LINES 92-106
 
 .. code-block:: Python
 
@@ -295,11 +291,11 @@ Inverse the transformation to plot the results on an image
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 112-113
+.. GENERATED FROM PYTHON SOURCE LINES 107-108
 
-Attempt to remove the temporary cachedir, but don't worry if it fails
+محاولة إزالة المجلد المؤقت، لا تقلق إذا فشلت العملية
 
-.. GENERATED FROM PYTHON SOURCE LINES 113-114
+.. GENERATED FROM PYTHON SOURCE LINES 108-108
 
 .. code-block:: Python
 
@@ -311,10 +307,9 @@ Attempt to remove the temporary cachedir, but don't worry if it fails
 
 
 
-
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.843 seconds)
+   **Total running time of the script:** (0 minutes 0.839 seconds)
 
 
 .. _sphx_glr_download_auto_examples_cluster_plot_feature_agglomeration_vs_univariate_selection.py:

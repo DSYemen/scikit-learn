@@ -1,65 +1,53 @@
 """
 ===============================================================
-Partial Dependence and Individual Conditional Expectation Plots
+مخططات التبعية الجزئية والتوقع الشرطي الفردي
 ===============================================================
 
-Partial dependence plots show the dependence between the target function [2]_
-and a set of features of interest, marginalizing over the values of all other
-features (the complement features). Due to the limits of human perception, the
-size of the set of features of interest must be small (usually, one or two)
-thus they are usually chosen among the most important features.
+توضح مخططات التبعية الجزئية العلاقة بين دالة الهدف [2]_
+ومجموعة من الميزات محل الاهتمام، مع تهميش قيم جميع الميزات الأخرى (الميزات المتممة). نظرًا لحدود الإدراك البشري، يجب أن يكون حجم مجموعة الميزات محل الاهتمام صغيرًا (عادةً، واحد أو اثنين) وبالتالي يتم اختيارها عادةً من بين أهم الميزات.
 
-Similarly, an individual conditional expectation (ICE) plot [3]_
-shows the dependence between the target function and a feature of interest.
-However, unlike partial dependence plots, which show the average effect of the
-features of interest, ICE plots visualize the dependence of the prediction on a
-feature for each :term:`sample` separately, with one line per sample.
-Only one feature of interest is supported for ICE plots.
+وبالمثل، يُظهر مخطط التوقع الشرطي الفردي (ICE) [3]_
+العلاقة بين دالة الهدف وميزة محل الاهتمام. ومع ذلك، على عكس مخططات التبعية الجزئية، والتي تُظهر متوسط تأثير الميزات محل الاهتمام، تُظهر مخططات ICE التبعية بين التنبؤ وميزة لكل :term:`عينة` على حدة، مع سطر واحد لكل عينة. يتم دعم ميزة واحدة فقط محل الاهتمام لمخططات ICE.
 
-This example shows how to obtain partial dependence and ICE plots from a
-:class:`~sklearn.neural_network.MLPRegressor` and a
-:class:`~sklearn.ensemble.HistGradientBoostingRegressor` trained on the
-bike sharing dataset. The example is inspired by [1]_.
+يوضح هذا المثال كيفية الحصول على مخططات التبعية الجزئية و ICE من
+:class:`~sklearn.neural_network.MLPRegressor` و
+:class:`~sklearn.ensemble.HistGradientBoostingRegressor` مُدرَّب على مجموعة بيانات مشاركة الدراجات. المثال مستوحى من [1]_.
 
-.. [1] `Molnar, Christoph. "Interpretable machine learning.
-       A Guide for Making Black Box Models Explainable",
+.. [1] `مولنار، كريستوف. "التعلم الآلي القابل للتفسير.
+       دليل لجعل نماذج الصندوق الأسود قابلة للتفسير"،
        2019. <https://christophm.github.io/interpretable-ml-book/>`_
 
-.. [2] For classification you can think of it as the regression score before
-       the link function.
+.. [2] بالنسبة للتصنيف، يمكنك اعتبارها على أنها نتيجة الانحدار قبل دالة الربط.
 
-.. [3] :arxiv:`Goldstein, A., Kapelner, A., Bleich, J., and Pitkin, E. (2015).
-       "Peeking Inside the Black Box: Visualizing Statistical Learning With Plots of
-       Individual Conditional Expectation". Journal of Computational and
-       Graphical Statistics, 24(1): 44-65 <1309.6392>`
+.. [3] :arxiv:`جولدشتاين، أ.، كابيلنر، أ.، بليتش، ج.، وبيتكين، إي. (2015).
+       "نظرة خاطفة داخل الصندوق الأسود: تصور التعلم الإحصائي باستخدام مخططات
+       التوقع الشرطي الفردي". مجلة الإحصاء الحسابي والرسومي، 24 (1): 44-65 <1309.6392>`
 """
 
 # Authors: The scikit-learn developers
 # SPDX-License-Identifier: BSD-3-Clause
 
 # %%
-# Bike sharing dataset preprocessing
+# معالجة مسبقة لمجموعة بيانات مشاركة الدراجات
 # ----------------------------------
 #
-# We will use the bike sharing dataset. The goal is to predict the number of bike
-# rentals using weather and season data as well as the datetime information.
+# سنستخدم مجموعة بيانات مشاركة الدراجات. الهدف هو التنبؤ بعدد تأجيرات الدراجات باستخدام بيانات الطقس والموسم بالإضافة إلى معلومات التاريخ والوقت.
 from sklearn.datasets import fetch_openml
 
 bikes = fetch_openml("Bike_Sharing_Demand", version=2, as_frame=True)
-# Make an explicit copy to avoid "SettingWithCopyWarning" from pandas
+# إنشاء نسخة صريحة لتجنب "SettingWithCopyWarning" من pandas
 X, y = bikes.data.copy(), bikes.target
 
-# We use only a subset of the data to speed up the example.
+# نستخدم فقط مجموعة فرعية من البيانات لتسريع المثال.
 X = X.iloc[::5, :]
 y = y[::5]
 
 # %%
-# The feature `"weather"` has a particularity: the category `"heavy_rain"` is a rare
-# category.
+# تتميز الميزة `"weather"` بخصوصية: الفئة `"heavy_rain"` فئة نادرة.
 X["weather"].value_counts()
 
 # %%
-# Because of this rare category, we collapse it into `"rain"`.
+# بسبب هذه الفئة النادرة، نقوم بدمجها في `"rain"`.
 X["weather"] = (
     X["weather"]
     .astype(object)
@@ -68,29 +56,25 @@ X["weather"] = (
 )
 
 # %%
-# We now have a closer look at the `"year"` feature:
+# نلقي نظرة فاحصة الآن على الميزة `"year"`:
 X["year"].value_counts()
 
 # %%
-# We see that we have data from two years. We use the first year to train the
-# model and the second year to test the model.
+# نرى أن لدينا بيانات من عامين. نستخدم السنة الأولى لتدريب
+# النموذج والسنة الثانية لاختبار النموذج.
 mask_training = X["year"] == 0.0
 X = X.drop(columns=["year"])
 X_train, y_train = X[mask_training], y[mask_training]
 X_test, y_test = X[~mask_training], y[~mask_training]
 
 # %%
-# We can check the dataset information to see that we have heterogeneous data types. We
-# have to preprocess the different columns accordingly.
+# يمكننا التحقق من معلومات مجموعة البيانات لمعرفة أن لدينا أنواع بيانات غير متجانسة. علينا معالجة الأعمدة المختلفة مسبقًا وفقًا لذلك.
 X_train.info()
 
 # %%
-# From the previous information, we will consider the `category` columns as nominal
-# categorical features. In addition, we will consider the date and time information as
-# categorical features as well.
+# من المعلومات السابقة، سنعتبر أعمدة `category` كميزات فئوية اسمية. بالإضافة إلى ذلك، سنعتبر معلومات التاريخ والوقت كميزات فئوية أيضًا.
 #
-# We manually define the columns containing numerical and categorical
-# features.
+# نقوم بتعريف الأعمدة التي تحتوي على ميزات رقمية وفئوية يدويًا.
 numerical_features = [
     "temp",
     "feel_temp",
@@ -100,13 +84,10 @@ numerical_features = [
 categorical_features = X_train.columns.drop(numerical_features)
 
 # %%
-# Before we go into the details regarding the preprocessing of the different machine
-# learning pipelines, we will try to get some additional intuition regarding the dataset
-# that will be helpful to understand the model's statistical performance and results of
-# the partial dependence analysis.
+# قبل الخوض في التفاصيل المتعلقة بالمعالجة المسبقة لخطوط أنابيب التعلم الآلي المختلفة، سنحاول الحصول على بعض الأفكار الإضافية بخصوص مجموعة البيانات التي ستكون مفيدة لفهم الأداء الإحصائي للنموذج ونتائج تحليل التبعية الجزئية.
 #
-# We plot the average number of bike rentals by grouping the data by season and
-# by year.
+# نرسم متوسط عدد تأجيرات الدراجات عن طريق تجميع البيانات حسب الموسم
+# وحسب السنة.
 from itertools import product
 
 import matplotlib.pyplot as plt
@@ -124,7 +105,7 @@ average_bike_rentals = bikes.frame.groupby(
 for ax, (idx, df) in zip(axs, average_bike_rentals.groupby("year")):
     df.groupby("season", observed=True).plot(ax=ax, legend=True)
 
-    # decorate the plot
+    # تزيين الرسم
     ax.set_xticks(
         np.linspace(
             start=xtick_start,
@@ -134,36 +115,29 @@ for ax, (idx, df) in zip(axs, average_bike_rentals.groupby("year")):
     )
     ax.set_xticklabels(xticklabels[xtick_start::xtick_period])
     ax.set_xlabel("")
-    ax.set_ylabel("Average number of bike rentals")
+    ax.set_ylabel("متوسط عدد تأجيرات الدراجات")
     ax.set_title(
-        f"Bike rental for {'2010 (train set)' if idx == 0.0 else '2011 (test set)'}"
+        f"تأجير الدراجات لـ {'2010 (مجموعة التدريب)' if idx == 0.0 else '2011 (مجموعة الاختبار)'}"
     )
     ax.set_ylim(0, 1_000)
     ax.set_xlim(0, len(xticklabels))
     ax.legend(loc=2)
 
 # %%
-# The first striking difference between the train and test set is that the number of
-# bike rentals is higher in the test set. For this reason, it will not be surprising to
-# get a machine learning model that underestimates the number of bike rentals. We
-# also observe that the number of bike rentals is lower during the spring season. In
-# addition, we see that during working days, there is a specific pattern around 6-7
-# am and 5-6 pm with some peaks of bike rentals. We can keep in mind these different
-# insights and use them to understand the partial dependence plot.
+# أوضح فرق بين مجموعة التدريب ومجموعة الاختبار هو أن عدد تأجيرات الدراجات أعلى في مجموعة الاختبار. لهذا السبب، لن يكون من المفاجئ الحصول على نموذج تعلم آلي يقلل من شأن عدد تأجيرات الدراجات. نلاحظ أيضًا أن عدد تأجيرات الدراجات أقل خلال فصل الربيع. بالإضافة إلى ذلك، نرى أنه خلال أيام العمل، هناك نمط محدد حوالي الساعة 6-7 صباحًا و 5-6 مساءً مع بعض ذروات تأجيرات الدراجات. يمكننا أن نضع في اعتبارنا هذه الأفكار المختلفة ونستخدمها لفهم مخطط التبعية الجزئية.
 #
-# Preprocessor for machine-learning models
+# المعالج المسبق لنماذج التعلم الآلي
 # ----------------------------------------
 #
-# Since we later use two different models, a
-# :class:`~sklearn.neural_network.MLPRegressor` and a
-# :class:`~sklearn.ensemble.HistGradientBoostingRegressor`, we create two different
-# preprocessors, specific for each model.
+# نظرًا لأننا سنستخدم لاحقًا نموذجين مختلفين،
+# :class:`~sklearn.neural_network.MLPRegressor` و
+# :class:`~sklearn.ensemble.HistGradientBoostingRegressor`، فإننا ننشئ معالجين مسبقين مختلفين، خاصين بكل نموذج.
 #
-# Preprocessor for the neural network model
+# المعالج المسبق لنموذج الشبكة العصبية
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
-# We will use a :class:`~sklearn.preprocessing.QuantileTransformer` to scale the
-# numerical features and encode the categorical features with a
+# سنستخدم :class:`~sklearn.preprocessing.QuantileTransformer` لقياس
+# الميزات الرقمية وتشفير الميزات الفئوية باستخدام
 # :class:`~sklearn.preprocessing.OneHotEncoder`.
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder, QuantileTransformer
@@ -177,11 +151,11 @@ mlp_preprocessor = ColumnTransformer(
 mlp_preprocessor
 
 # %%
-# Preprocessor for the gradient boosting model
+# المعالج المسبق لنموذج التعزيز التدريجي
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
-# For the gradient boosting model, we leave the numerical features as-is and only
-# encode the categorical features using a
+# بالنسبة لنموذج التعزيز التدريجي، نترك الميزات الرقمية كما هي ونقوم فقط
+# بتشفير الميزات الفئوية باستخدام
 # :class:`~sklearn.preprocessing.OrdinalEncoder`.
 from sklearn.preprocessing import OrdinalEncoder
 
@@ -196,26 +170,22 @@ hgbdt_preprocessor = ColumnTransformer(
 hgbdt_preprocessor
 
 # %%
-# 1-way partial dependence with different models
+# التبعية الجزئية أحادية الاتجاه مع نماذج مختلفة
 # ----------------------------------------------
 #
-# In this section, we will compute 1-way partial dependence with two different
-# machine-learning models: (i) a multi-layer perceptron and (ii) a
-# gradient-boosting model. With these two models, we illustrate how to compute and
-# interpret both partial dependence plot (PDP) for both numerical and categorical
-# features and individual conditional expectation (ICE).
+# في هذا القسم، سنحسب التبعية الجزئية أحادية الاتجاه مع نموذجين مختلفين للتعلم الآلي: (1) شبكة عصبية متعددة الطبقات و (2) نموذج تعزيز تدريجي. باستخدام هذين النموذجين، نوضح كيفية حساب وتفسير كل من مخطط التبعية الجزئية (PDP) لكل من الميزات الرقمية والفئوية والتوقع الشرطي الفردي (ICE).
 #
-# Multi-layer perceptron
+# شبكة عصبية متعددة الطبقات
 # ~~~~~~~~~~~~~~~~~~~~~~
 #
-# Let's fit a :class:`~sklearn.neural_network.MLPRegressor` and compute
-# single-variable partial dependence plots.
+# دعونا نلائم :class:`~sklearn.neural_network.MLPRegressor` ونحسب
+# مخططات التبعية الجزئية أحادية المتغير.
 from time import time
 
 from sklearn.neural_network import MLPRegressor
 from sklearn.pipeline import make_pipeline
 
-print("Training MLPRegressor...")
+print("تدريب MLPRegressor...")
 tic = time()
 mlp_model = make_pipeline(
     mlp_preprocessor,
@@ -227,29 +197,19 @@ mlp_model = make_pipeline(
     ),
 )
 mlp_model.fit(X_train, y_train)
-print(f"done in {time() - tic:.3f}s")
-print(f"Test R2 score: {mlp_model.score(X_test, y_test):.2f}")
+print(f"تم في {time() - tic:.3f} ثانية")
+print(f"درجة R2 للاختبار: {mlp_model.score(X_test, y_test):.2f}")
 
 # %%
-# We configured a pipeline using the preprocessor that we created specifically for the
-# neural network and tuned the neural network size and learning rate to get a reasonable
-# compromise between training time and predictive performance on a test set.
+# قمنا بتهيئة خط أنابيب باستخدام المعالج المسبق الذي أنشأناه خصيصًا للشبكة العصبية وقمنا بضبط حجم الشبكة العصبية ومعدل التعلم للحصول على حل وسط معقول بين وقت التدريب والأداء التنبؤي على مجموعة الاختبار.
 #
-# Importantly, this tabular dataset has very different dynamic ranges for its
-# features. Neural networks tend to be very sensitive to features with varying
-# scales and forgetting to preprocess the numeric feature would lead to a very
-# poor model.
+# من المهم أن نلاحظ أن مجموعة البيانات الجدولية هذه لها نطاقات ديناميكية مختلفة جدًا لميزاتها. تميل الشبكات العصبية إلى أن تكون حساسة للغاية للميزات ذات المقاييس المتفاوتة، ونسيان المعالجة المسبقة للميزة الرقمية سيؤدي إلى نموذج ضعيف للغاية.
 #
-# It would be possible to get even higher predictive performance with a larger
-# neural network but the training would also be significantly more expensive.
+# سيكون من الممكن الحصول على أداء تنبؤي أعلى مع شبكة عصبية أكبر ولكن التدريب سيكون أيضًا أكثر تكلفة بكثير.
 #
-# Note that it is important to check that the model is accurate enough on a
-# test set before plotting the partial dependence since there would be little
-# use in explaining the impact of a given feature on the prediction function of
-# a model with poor predictive performance. In this regard, our MLP model works
-# reasonably well.
+# لاحظ أنه من المهم التحقق من أن النموذج دقيق بما فيه الكفاية على مجموعة الاختبار قبل رسم التبعية الجزئية حيث سيكون هناك فائدة قليلة في شرح تأثير ميزة معينة على دالة التنبؤ لنموذج ذو أداء تنبؤي ضعيف. في هذا الصدد، يعمل نموذج MLP الخاص بنا بشكل معقول.
 #
-# We will plot the averaged partial dependence.
+# سنرسم متوسط التبعية الجزئية.
 import matplotlib.pyplot as plt
 
 from sklearn.inspection import PartialDependenceDisplay
@@ -261,13 +221,13 @@ common_params = {
     "random_state": 0,
 }
 
-print("Computing partial dependence plots...")
+print("حساب مخططات التبعية الجزئية...")
 features_info = {
-    # features of interest
+    # الميزات محل الاهتمام
     "features": ["temp", "humidity", "windspeed", "season", "weather", "hour"],
-    # type of partial dependence plot
+    # نوع مخطط التبعية الجزئية
     "kind": "average",
-    # information regarding categorical features
+    # معلومات بخصوص الميزات الفئوية
     "categorical_features": categorical_features,
 }
 tic = time()
@@ -279,25 +239,25 @@ display = PartialDependenceDisplay.from_estimator(
     ax=ax,
     **common_params,
 )
-print(f"done in {time() - tic:.3f}s")
+print(f"تم في {time() - tic:.3f} ثانية")
 _ = display.figure_.suptitle(
     (
-        "Partial dependence of the number of bike rentals\n"
-        "for the bike rental dataset with an MLPRegressor"
+        "التبعية الجزئية لعدد تأجيرات الدراجات\n"
+        "لمجموعة بيانات تأجير الدراجات مع MLPRegressor"
     ),
     fontsize=16,
 )
 
 # %%
-# Gradient boosting
+# تعزيز تدريجي
 # ~~~~~~~~~~~~~~~~~
 #
-# Let's now fit a :class:`~sklearn.ensemble.HistGradientBoostingRegressor` and
-# compute the partial dependence on the same features. We also use the
-# specific preprocessor we created for this model.
+# دعونا الآن نلائم :class:`~sklearn.ensemble.HistGradientBoostingRegressor` و
+# نحسب التبعية الجزئية على نفس الميزات. نستخدم أيضًا
+# المعالج المسبق المحدد الذي أنشأناه لهذا النموذج.
 from sklearn.ensemble import HistGradientBoostingRegressor
 
-print("Training HistGradientBoostingRegressor...")
+print("تدريب HistGradientBoostingRegressor...")
 tic = time()
 hgbdt_model = make_pipeline(
     hgbdt_preprocessor,
@@ -308,22 +268,21 @@ hgbdt_model = make_pipeline(
     ),
 )
 hgbdt_model.fit(X_train, y_train)
-print(f"done in {time() - tic:.3f}s")
-print(f"Test R2 score: {hgbdt_model.score(X_test, y_test):.2f}")
+print(f"تم في {time() - tic:.3f} ثانية")
+print(f"درجة R2 للاختبار: {hgbdt_model.score(X_test, y_test):.2f}")
 
 # %%
-# Here, we used the default hyperparameters for the gradient boosting model
-# without any preprocessing as tree-based models are naturally robust to
-# monotonic transformations of numerical features.
+# هنا، استخدمنا المعلمات الفائقة الافتراضية لنموذج التعزيز التدريجي
+# بدون أي معالجة مسبقة حيث أن النماذج القائمة على الأشجار قوية بشكل طبيعي
+# للتحويلات الرتيبة للميزات الرقمية.
 #
-# Note that on this tabular dataset, Gradient Boosting Machines are both
-# significantly faster to train and more accurate than neural networks. It is
-# also significantly cheaper to tune their hyperparameters (the defaults tend
-# to work well while this is not often the case for neural networks).
+# لاحظ أنه في مجموعة البيانات الجدولية هذه، تعد آلات التعزيز التدريجي
+# أسرع بكثير في التدريب وأكثر دقة من الشبكات العصبية. كما أنها
+# أرخص بكثير في ضبط المعلمات الفائقة (تميل الإعدادات الافتراضية
+# إلى العمل بشكل جيد بينما لا يكون هذا هو الحال غالبًا للشبكات العصبية).
 #
-# We will plot the partial dependence for some of the numerical and categorical
-# features.
-print("Computing partial dependence plots...")
+# سنرسم التبعية الجزئية لبعض الميزات الرقمية والفئوية.
+print("حساب مخططات التبعية الجزئية...")
 tic = time()
 _, ax = plt.subplots(ncols=3, nrows=2, figsize=(9, 8), constrained_layout=True)
 display = PartialDependenceDisplay.from_estimator(
@@ -333,46 +292,31 @@ display = PartialDependenceDisplay.from_estimator(
     ax=ax,
     **common_params,
 )
-print(f"done in {time() - tic:.3f}s")
+print(f"تم في {time() - tic:.3f} ثانية")
 _ = display.figure_.suptitle(
     (
-        "Partial dependence of the number of bike rentals\n"
-        "for the bike rental dataset with a gradient boosting"
+        "التبعية الجزئية لعدد تأجيرات الدراجات\n"
+        "لمجموعة بيانات تأجير الدراجات مع تعزيز تدريجي"
     ),
     fontsize=16,
 )
 
 # %%
-# Analysis of the plots
+# تحليل المخططات
 # ~~~~~~~~~~~~~~~~~~~~~
 #
-# We will first look at the PDPs for the numerical features. For both models, the
-# general trend of the PDP of the temperature is that the number of bike rentals is
-# increasing with temperature. We can make a similar analysis but with the opposite
-# trend for the humidity features. The number of bike rentals is decreasing when the
-# humidity increases. Finally, we see the same trend for the wind speed feature. The
-# number of bike rentals is decreasing when the wind speed is increasing for both
-# models. We also observe that :class:`~sklearn.neural_network.MLPRegressor` has much
-# smoother predictions than :class:`~sklearn.ensemble.HistGradientBoostingRegressor`.
+# سننظر أولاً في مخططات PDP للميزات الرقمية. لكلا النموذجين، الاتجاه العام لمخطط PDP لدرجة الحرارة هو أن عدد تأجيرات الدراجات يزداد مع درجة الحرارة. يمكننا إجراء تحليل مشابه ولكن مع اتجاه معاكس لميزات الرطوبة. يتناقص عدد تأجيرات الدراجات عندما تزداد الرطوبة. أخيرًا، نرى نفس الاتجاه لميزة سرعة الرياح. يتناقص عدد تأجيرات الدراجات عندما تزداد سرعة الرياح لكلا النموذجين. نلاحظ أيضًا أن :class:`~sklearn.neural_network.MLPRegressor` لديه تنبؤات أكثر سلاسة من :class:`~sklearn.ensemble.HistGradientBoostingRegressor`.
 #
-# Now, we will look at the partial dependence plots for the categorical features.
+# الآن، سننظر في مخططات التبعية الجزئية للميزات الفئوية.
 #
-# We observe that the spring season is the lowest bar for the season feature. With the
-# weather feature, the rain category is the lowest bar. Regarding the hour feature,
-# we see two peaks around the 7 am and 6 pm. These findings are in line with the
-# the observations we made earlier on the dataset.
+# نلاحظ أن فصل الربيع هو أدنى شريط لميزة الموسم. مع ميزة الطقس، تعد فئة المطر هي أدنى شريط. فيما يتعلق بميزة الساعة، نرى ذروتين حوالي الساعة 7 صباحًا و 6 مساءً. تتماشى هذه النتائج مع الملاحظات التي أدلينا بها سابقًا على مجموعة البيانات.
 #
-# However, it is worth noting that we are creating potential meaningless
-# synthetic samples if features are correlated.
+# ومع ذلك، تجدر الإشارة إلى أننا نقوم بإنشاء عينات اصطناعية محتملة لا معنى لها إذا كانت الميزات مترابطة.
 #
-# ICE vs. PDP
+# ICE مقابل PDP
 # ~~~~~~~~~~~
-# PDP is an average of the marginal effects of the features. We are averaging the
-# response of all samples of the provided set. Thus, some effects could be hidden. In
-# this regard, it is possible to plot each individual response. This representation is
-# called the Individual Effect Plot (ICE). In the plot below, we plot 50 randomly
-# selected ICEs for the temperature and humidity features.
-print("Computing partial dependence plots and individual conditional expectation...")
+# PDP هو متوسط التأثيرات الهامشية للميزات. نحن نحسب متوسط استجابة جميع عينات المجموعة المقدمة. وبالتالي، يمكن إخفاء بعض التأثيرات. في هذا الصدد، من الممكن رسم كل استجابة فردية. يُطلق على هذا التمثيل اسم مخطط التأثير الفردي (ICE). في الرسم التخطيطي أدناه، نرسم 50 ICE تم اختيارها عشوائيًا لميزات درجة الحرارة والرطوبة.
+print("حساب مخططات التبعية الجزئية وتوقع الشرطي الفردي...")
 tic = time()
 _, ax = plt.subplots(ncols=2, figsize=(6, 4), sharey=True, constrained_layout=True)
 
@@ -389,20 +333,13 @@ display = PartialDependenceDisplay.from_estimator(
     ax=ax,
     **common_params,
 )
-print(f"done in {time() - tic:.3f}s")
-_ = display.figure_.suptitle("ICE and PDP representations", fontsize=16)
+print(f"تم في {time() - tic:.3f} ثانية")
+_ = display.figure_.suptitle("تمثيلات ICE و PDP", fontsize=16)
 
 # %%
-# We see that the ICE for the temperature feature gives us some additional information:
-# Some of the ICE lines are flat while some others show a decrease of the dependence
-# for temperature above 35 degrees Celsius. We observe a similar pattern for the
-# humidity feature: some of the ICEs lines show a sharp decrease when the humidity is
-# above 80%.
+# نرى أن ICE لميزة درجة الحرارة يمنحنا بعض المعلومات الإضافية: بعض خطوط ICE مسطحة بينما يظهر البعض الآخر انخفاضًا في التبعية لدرجة حرارة أعلى من 35 درجة مئوية. نلاحظ نمطًا مشابهًا لميزة الرطوبة: تظهر بعض خطوط ICE انخفاضًا حادًا عندما تكون الرطوبة أعلى من 80٪.
 #
-# Not all ICE lines are parallel, this indicates that the model finds
-# interactions between features. We can repeat the experiment by constraining the
-# gradient boosting model to not use any interactions between features using the
-# parameter `interaction_cst`:
+# ليست كل خطوط ICE متوازية، وهذا يشير إلى أن النموذج يجد تفاعلات بين الميزات. يمكننا تكرار التجربة عن طريق تقييد نموذج التعزيز التدريجي على عدم استخدام أي تفاعلات بين الميزات باستخدام المعلمة `interaction_cst`:
 from sklearn.base import clone
 
 interaction_cst = [[i] for i in range(X_train.shape[1])]
@@ -411,7 +348,7 @@ hgbdt_model_without_interactions = (
     .set_params(histgradientboostingregressor__interaction_cst=interaction_cst)
     .fit(X_train, y_train)
 )
-print(f"Test R2 score: {hgbdt_model_without_interactions.score(X_test, y_test):.2f}")
+print(f"درجة R2 للاختبار: {hgbdt_model_without_interactions.score(X_test, y_test):.2f}")
 
 # %%
 _, ax = plt.subplots(ncols=2, figsize=(6, 4), sharey=True, constrained_layout=True)
@@ -424,18 +361,15 @@ display = PartialDependenceDisplay.from_estimator(
     ax=ax,
     **common_params,
 )
-_ = display.figure_.suptitle("ICE and PDP representations", fontsize=16)
+_ = display.figure_.suptitle("تمثيلات ICE و PDP", fontsize=16)
 
 # %%
-# 2D interaction plots
+# مخططات التفاعل ثنائية الأبعاد
 # --------------------
 #
-# PDPs with two features of interest enable us to visualize interactions among them.
-# However, ICEs cannot be plotted in an easy manner and thus interpreted. We will show
-# the representation of available in
-# :meth:`~sklearn.inspection.PartialDependenceDisplay.from_estimator` that is a 2D
-# heatmap.
-print("Computing partial dependence plots...")
+# تمكننا مخططات PDP ذات ميزتين محل الاهتمام من تصور التفاعلات بينهما. ومع ذلك، لا يمكن رسم مخططات ICE بطريقة سهلة وبالتالي تفسيرها. سنعرض التمثيل المتاح في
+# :meth:`~sklearn.inspection.PartialDependenceDisplay.from_estimator` وهو عبارة عن خريطة حرارية ثنائية الأبعاد.
+print("حساب مخططات التبعية الجزئية...")
 features_info = {
     "features": ["temp", "humidity", ("temp", "humidity")],
     "kind": "average",
@@ -449,29 +383,22 @@ display = PartialDependenceDisplay.from_estimator(
     ax=ax,
     **common_params,
 )
-print(f"done in {time() - tic:.3f}s")
+print(f"تم في {time() - tic:.3f} ثانية")
 _ = display.figure_.suptitle(
-    "1-way vs 2-way of numerical PDP using gradient boosting", fontsize=16
+    "PDP أحادي الاتجاه مقابل ثنائي الاتجاه للمتغيرات الرقمية باستخدام التعزيز التدريجي", fontsize=16
 )
 
+
 # %%
-# The two-way partial dependence plot shows the dependence of the number of bike rentals
-# on joint values of temperature and humidity.
-# We clearly see an interaction between the two features. For a temperature higher than
-# 20 degrees Celsius, the humidity has a impact on the number of bike rentals
-# that seems independent on the temperature.
+# يوضح مخطط التبعية الجزئية ثنائي الاتجاه اعتماد عدد تأجيرات الدراجات على القيم المشتركة لدرجة الحرارة والرطوبة.
+# نرى بوضوح تفاعلًا بين الميزتين. بالنسبة لدرجة حرارة أعلى من 20 درجة مئوية، يكون للرطوبة تأثير على عدد تأجيرات الدراجات يبدو مستقلاً عن درجة الحرارة.
 #
-# On the other hand, for temperatures lower than 20 degrees Celsius, both the
-# temperature and humidity continuously impact the number of bike rentals.
+# من ناحية أخرى، بالنسبة لدرجات حرارة أقل من 20 درجة مئوية، تؤثر كل من درجة الحرارة والرطوبة بشكل مستمر على عدد تأجيرات الدراجات.
 #
-# Furthermore, the slope of the of the impact ridge of the 20 degrees Celsius
-# threshold is very dependent on the humidity level: the ridge is steep under
-# dry conditions but much smoother under wetter conditions above 70% of humidity.
+# علاوة على ذلك، يعتمد ميل تأثير عتبة 20 درجة مئوية بشدة على مستوى الرطوبة: يكون الانحدار حادًا في ظل الظروف الجافة ولكنه أكثر سلاسة في ظل الظروف الأكثر رطوبة فوق 70٪ من الرطوبة.
 #
-# We now contrast those results with the same plots computed for the model
-# constrained to learn a prediction function that does not depend on such
-# non-linear feature interactions.
-print("Computing partial dependence plots...")
+# نقارن الآن هذه النتائج بنفس المخططات المحسوبة للنموذج المقيد لتعلم دالة تنبؤ لا تعتمد على مثل هذه التفاعلات غير الخطية للميزات.
+print("حساب مخططات التبعية الجزئية...")
 features_info = {
     "features": ["temp", "humidity", ("temp", "humidity")],
     "kind": "average",
@@ -485,34 +412,20 @@ display = PartialDependenceDisplay.from_estimator(
     ax=ax,
     **common_params,
 )
-print(f"done in {time() - tic:.3f}s")
+print(f"تم في {time() - tic:.3f} ثانية")
 _ = display.figure_.suptitle(
-    "1-way vs 2-way of numerical PDP using gradient boosting", fontsize=16
+    "PDP أحادي الاتجاه مقابل ثنائي الاتجاه للمتغيرات الرقمية باستخدام التعزيز التدريجي", fontsize=16
 )
 
 # %%
-# The 1D partial dependence plots for the model constrained to not model feature
-# interactions show local spikes for each features individually, in particular for
-# for the "humidity" feature. Those spikes might be reflecting a degraded behavior
-# of the model that attempts to somehow compensate for the forbidden interactions
-# by overfitting particular training points. Note that the predictive performance
-# of this model as measured on the test set is significantly worse than that of
-# the original, unconstrained model.
+# تُظهر مخططات التبعية الجزئية أحادية الأبعاد للنموذج المقيد بعدم نمذجة تفاعلات الميزات ارتفاعات محلية لكل ميزة على حدة، خاصة بالنسبة لميزة "الرطوبة". قد تعكس هذه الارتفاعات سلوكًا متدهورًا للنموذج الذي يحاول بطريقة ما تعويض التفاعلات المحظورة من خلال الإفراط في ملاءمة نقاط تدريب معينة. لاحظ أن الأداء التنبؤي لهذا النموذج كما تم قياسه في مجموعة الاختبار أسوأ بكثير من أداء النموذج الأصلي غير المقيد.
 #
-# Also note that the number of local spikes visible on those plots is depends on
-# the grid resolution parameter of the PD plot itself.
+# لاحظ أيضًا أن عدد الارتفاعات المحلية المرئية على هذه المخططات يعتمد على معلمة دقة الشبكة لمخطط PD نفسه.
 #
-# Those local spikes result in a noisily gridded 2D PD plot. It is quite
-# challenging to tell whether or not there are no interaction between those
-# features because of the high frequency oscillations in the humidity feature.
-# However it can clearly be seen that the simple interaction effect observed when
-# the temperature crosses the 20 degrees boundary is no longer visible for this
-# model.
+# تؤدي هذه الارتفاعات المحلية إلى مخطط PD ثنائي الأبعاد ذو شبكة صاخبة. من الصعب جدًا معرفة ما إذا كان هناك تفاعل بين هذه الميزات أم لا بسبب التذبذبات عالية التردد في ميزة الرطوبة. ومع ذلك، يمكن بوضوح رؤية أن تأثير التفاعل البسيط الذي لوحظ عندما تتجاوز درجة الحرارة حد 20 درجة لم يعد مرئيًا لهذا النموذج.
 #
-# The partial dependence between categorical features will provide a discrete
-# representation that can be shown as a heatmap. For instance the interaction between
-# the season, the weather, and the target would be as follow:
-print("Computing partial dependence plots...")
+# ستوفر التبعية الجزئية بين الميزات الفئوية تمثيلًا منفصلاً يمكن عرضه كخريطة حرارية. على سبيل المثال، سيكون التفاعل بين الموسم والطقس والهدف كما يلي:
+print("حساب مخططات التبعية الجزئية...")
 features_info = {
     "features": ["season", "weather", ("season", "weather")],
     "kind": "average",
@@ -528,18 +441,17 @@ display = PartialDependenceDisplay.from_estimator(
     **common_params,
 )
 
-print(f"done in {time() - tic:.3f}s")
+print(f"تم في {time() - tic:.3f} ثانية")
 _ = display.figure_.suptitle(
-    "1-way vs 2-way PDP of categorical features using gradient boosting", fontsize=16
+    "PDP أحادي الاتجاه مقابل ثنائي الاتجاه للميزات الفئوية باستخدام التعزيز التدريجي", fontsize=16
 )
 
 # %%
-# 3D representation
+# تمثيل ثلاثي الأبعاد
 # ~~~~~~~~~~~~~~~~~
 #
-# Let's make the same partial dependence plot for the 2 features interaction,
-# this time in 3 dimensions.
-# unused but required import for doing 3d projections with matplotlib < 3.2
+# دعونا ننشئ نفس مخطط التبعية الجزئية لتفاعل الميزتين، هذه المرة بأبعاد ثلاثية.
+# استيراد غير مستخدم ولكنه مطلوب لإجراء إسقاطات ثلاثية الأبعاد مع matplotlib <3.2
 import mpl_toolkits.mplot3d  # noqa: F401
 import numpy as np
 
@@ -560,13 +472,15 @@ surf = ax.plot_surface(XX, YY, Z, rstride=1, cstride=1, cmap=plt.cm.BuPu, edgeco
 ax.set_xlabel(features[0])
 ax.set_ylabel(features[1])
 fig.suptitle(
-    "PD of number of bike rentals on\nthe temperature and humidity GBDT model",
+    "PD لعدد تأجيرات الدراجات\nعلى درجة الحرارة والرطوبة نموذج GBDT",
     fontsize=16,
 )
-# pretty init view
+# عرض أولي جميل
 ax.view_init(elev=22, azim=122)
 clb = plt.colorbar(surf, pad=0.08, shrink=0.6, aspect=10)
-clb.ax.set_title("Partial\ndependence")
+clb.ax.set_title("التبعية\nالجزئية")
 plt.show()
 
 # %%
+
+

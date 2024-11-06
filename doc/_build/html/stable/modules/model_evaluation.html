@@ -1304,7 +1304,7 @@ system</a>, Evol. Intel. (2015) 8: 89.</p>
 <p class="rubric">أمثلة</p>
 <ul class="simple">
 <li><p>انظر <a class="reference internal" href="../auto_examples/model_selection/plot_confusion_matrix.html#sphx-glr-auto-examples-model-selection-plot-confusion-matrix-py"><span class="std std-ref">Confusion matrix</span></a> للحصول على مثال على استخدام مصفوفة الارتباك لتقييم جودة ناتج المصنف.</p></li>
-<li><p>انظر <a class="reference internal" href="../auto_examples/classification/plot_digits_classification.html#sphx-glr-auto-examples-classification-plot-digits-classification-py"><span class="std std-ref">Recognizing hand-written digits</span></a> للحصول على مثال على استخدام مصفوفة الارتباك لتصنيف الأرقام المكتوبة بخط اليد.</p></li>
+<li><p>انظر <a class="reference internal" href="../auto_examples/classification/plot_digits_classification.html#sphx-glr-auto-examples-classification-plot-digits-classification-py"><span class="std std-ref">التعرف على الأرقام المكتوبة بخط اليد</span></a> للحصول على مثال على استخدام مصفوفة الارتباك لتصنيف الأرقام المكتوبة بخط اليد.</p></li>
 <li><p>انظر <a class="reference internal" href="../auto_examples/text/plot_document_classification_20newsgroups.html#sphx-glr-auto-examples-text-plot-document-classification-20newsgroups-py"><span class="std std-ref">Classification of text documents using sparse features</span></a> للحصول على مثال على استخدام مصفوفة الارتباك لتصنيف المستندات النصية.</p></li>
 </ul>
 </section>
@@ -1329,7 +1329,7 @@ system</a>, Evol. Intel. (2015) 8: 89.</p>
 </div>
 <p class="rubric">أمثلة</p>
 <ul class="simple">
-<li><p>انظر <a class="reference internal" href="../auto_examples/classification/plot_digits_classification.html#sphx-glr-auto-examples-classification-plot-digits-classification-py"><span class="std std-ref">Recognizing hand-written digits</span></a> للحصول على مثال على استخدام تقرير التصنيف للأرقام المكتوبة بخط اليد.</p></li>
+<li><p>انظر <a class="reference internal" href="../auto_examples/classification/plot_digits_classification.html#sphx-glr-auto-examples-classification-plot-digits-classification-py"><span class="std std-ref">التعرف على الأرقام المكتوبة بخط اليد</span></a> للحصول على مثال على استخدام تقرير التصنيف للأرقام المكتوبة بخط اليد.</p></li>
 <li><p>انظر <a class="reference internal" href="../auto_examples/model_selection/plot_grid_search_digits.html#sphx-glr-auto-examples-model-selection-plot-grid-search-digits-py"><span class="std std-ref">Custom refit strategy of a grid search with cross-validation</span></a> للحصول على مثال على استخدام تقرير التصنيف للبحث الشبكي مع التحقق المتبادل المتداخل.</p></li>
 </ul>
 </section>
@@ -1719,7 +1719,7 @@ Accessed April 21, 2021.</p>
 <span class="go">        [0, 1]]])</span>
 </pre></div>
 </div>
-<p>فيما يلي مثال يُوضح استخدام دالة <a class="reference internal" href="generated/sklearn.metrics.multilabel_confusion_matrix.html#sklearn.metrics.multilabel_confusion_matrix" title="sklearn.metrics.multilabel_confusion_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">multilabel_confusion_matrix</span></code></a> مع إدخال <span class="xref std std-term">متعدد الفئات</span>:</p>
+<p>فيما يلي مثال يُوضح استخدام دالة <a class="reference internal" href="generated/sklearn.metrics.multilabel_confusion_matrix.html#sklearn.metrics.multilabel_confusion_matrix" title="sklearn.metrics.multilabel_confusion_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">multilabel_confusion_matrix</span></code></a> مع إدخال <a class="reference internal" href="../glossary.html#term-108"><span class="xref std std-term">متعدد الفئات</span></a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;ant&quot;</span><span class="p">,</span> <span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;ant&quot;</span><span class="p">,</span> <span class="s2">&quot;bird&quot;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ant&quot;</span><span class="p">,</span> <span class="s2">&quot;ant&quot;</span><span class="p">,</span> <span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;ant&quot;</span><span class="p">,</span> <span class="s2">&quot;cat&quot;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">multilabel_confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span>
@@ -1869,7 +1869,7 @@ Accessed April 21, 2021.</p>
 <ul class="simple">
 <li><p>انظر <a class="reference internal" href="../auto_examples/model_selection/plot_roc.html#sphx-glr-auto-examples-model-selection-plot-roc-py"><span class="std std-ref">Multiclass Receiver Operating Characteristic (ROC)</span></a> للحصول على مثال على استخدام ROC لتقييم جودة ناتج المُصنف.</p></li>
 <li><p>انظر <a class="reference internal" href="../auto_examples/model_selection/plot_roc_crossval.html#sphx-glr-auto-examples-model-selection-plot-roc-crossval-py"><span class="std std-ref">Receiver Operating Characteristic (ROC) with cross validation</span></a> للحصول على مثال على استخدام ROC لتقييم جودة ناتج المُصنف، باستخدام التحقق المتبادل.</p></li>
-<li><p>انظر <a class="reference internal" href="../auto_examples/applications/plot_species_distribution_modeling.html#sphx-glr-auto-examples-applications-plot-species-distribution-modeling-py"><span class="std std-ref">Species distribution modeling</span></a> للحصول على مثال على استخدام ROC لنمذجة توزيع الأنواع.</p></li>
+<li><p>انظر <a class="reference internal" href="../auto_examples/applications/plot_species_distribution_modeling.html#sphx-glr-auto-examples-applications-plot-species-distribution-modeling-py"><span class="std std-ref">نمذجة توزيع الأنواع</span></a> للحصول على مثال على استخدام ROC لنمذجة توزيع الأنواع.</p></li>
 </ul>
 <p class="rubric">المراجع</p>
 <div role="list" class="citation-list">
@@ -1989,7 +1989,7 @@ HI, 2007, pp. IV-229-IV-232.</p>
 </div>
 <p class="rubric">أمثلة</p>
 <ul class="simple">
-<li><p>انظر <a class="reference internal" href="../auto_examples/feature_selection/plot_rfe_with_cross_validation.html#sphx-glr-auto-examples-feature-selection-plot-rfe-with-cross-validation-py"><span class="std std-ref">Recursive feature elimination with cross-validation</span></a> للحصول على مثال على استخدام خسارة الصفر-واحد لإجراء استبعاد الميزات التكراري مع التحقق المتبادل.</p></li>
+<li><p>انظر <a class="reference internal" href="../auto_examples/feature_selection/plot_rfe_with_cross_validation.html#sphx-glr-auto-examples-feature-selection-plot-rfe-with-cross-validation-py"><span class="std std-ref">إزالة الميزات المتكررة باستخدام التحقق المتبادل</span></a> للحصول على مثال على استخدام خسارة الصفر-واحد لإجراء استبعاد الميزات التكراري مع التحقق المتبادل.</p></li>
 </ul>
 </section>
 <section id="brier-score-loss">
@@ -2306,7 +2306,7 @@ Berlin, Heidelberg.</p></li>
 </div>
 <p class="rubric">أمثلة</p>
 <ul class="simple">
-<li><p>انظر <a class="reference internal" href="../auto_examples/linear_model/plot_lasso_and_elasticnet.html#sphx-glr-auto-examples-linear-model-plot-lasso-and-elasticnet-py"><span class="std std-ref">L1-based models for Sparse Signals</span></a> للحصول على مثال على استخدام درجة R² لتقييم Lasso و Elastic Net على الإشارات المتفرقة.</p></li>
+<li><p>انظر <a class="reference internal" href="../auto_examples/linear_model/plot_lasso_and_elasticnet.html#sphx-glr-auto-examples-linear-model-plot-lasso-and-elasticnet-py"><span class="std std-ref">نماذج L1 للاشارات المتناثرة</span></a> للحصول على مثال على استخدام درجة R² لتقييم Lasso و Elastic Net على الإشارات المتفرقة.</p></li>
 </ul>
 </section>
 <section id="mean-absolute-error">
@@ -2352,7 +2352,7 @@ Berlin, Heidelberg.</p></li>
 </div>
 <p class="rubric">أمثلة</p>
 <ul class="simple">
-<li><p>انظر <a class="reference internal" href="../auto_examples/ensemble/plot_gradient_boosting_regression.html#sphx-glr-auto-examples-ensemble-plot-gradient-boosting-regression-py"><span class="std std-ref">Gradient Boosting regression</span></a> للحصول على مثال على استخدام متوسط الخطأ التربيعي لتقييم انحدار التعزيز المتدرج.</p></li>
+<li><p>انظر <a class="reference internal" href="../auto_examples/ensemble/plot_gradient_boosting_regression.html#sphx-glr-auto-examples-ensemble-plot-gradient-boosting-regression-py"><span class="std std-ref">انحدار التعزيز المتدرج</span></a> للحصول على مثال على استخدام متوسط الخطأ التربيعي لتقييم انحدار التعزيز المتدرج.</p></li>
 </ul>
 <p>أخذ الجذر التربيعي لـ MSE، ويسمى الجذر التربيعي لمتوسط الخطأ التربيعي (RMSE)، هو مقياس شائع آخر يُوفر قياسًا بنفس وحدات المتغير الهدف. RSME متاح من خلال الدالة <a class="reference internal" href="generated/sklearn.metrics.root_mean_squared_error.html#sklearn.metrics.root_mean_squared_error" title="sklearn.metrics.root_mean_squared_error"><code class="xref py py-func docutils literal notranslate"><span class="pre">root_mean_squared_error</span></code></a>.</p>
 </section>
@@ -2571,7 +2571,7 @@ Berlin, Heidelberg.</p></li>
 <p>من الممكن أيضًا بناء كائنات هدّاف لضبط المعلمات الفائقة. يجب تبديل إشارة الخسارة لضمان أن الأكبر يعني الأفضل كما هو موضح في المثال المرتبط أدناه.</p>
 <p class="rubric">أمثلة</p>
 <ul class="simple">
-<li><p>انظر <a class="reference internal" href="../auto_examples/ensemble/plot_gradient_boosting_quantile.html#sphx-glr-auto-examples-ensemble-plot-gradient-boosting-quantile-py"><span class="std std-ref">Prediction Intervals for Gradient Boosting Regression</span></a> للحصول على مثال على استخدام خسارة الكرة والدبابيس لتقييم وضبط المعلمات الفائقة لنماذج انحدار الكميات على البيانات ذات الضوضاء غير المتماثلة والقيم المتطرفة.</p></li>
+<li><p>انظر <a class="reference internal" href="../auto_examples/ensemble/plot_gradient_boosting_quantile.html#sphx-glr-auto-examples-ensemble-plot-gradient-boosting-quantile-py"><span class="std std-ref">فترات التنبؤ لانحدار التعزيز المتدرج</span></a> للحصول على مثال على استخدام خسارة الكرة والدبابيس لتقييم وضبط المعلمات الفائقة لنماذج انحدار الكميات على البيانات ذات الضوضاء غير المتماثلة والقيم المتطرفة.</p></li>
 </ul>
 </section>
 <section id="d2-score">
@@ -2646,7 +2646,7 @@ Berlin, Heidelberg.</p></li>
 <p>ارجع إلى المثال أدناه للاطلاع على تقييم النموذج الذي يستخدم هذا العرض.</p>
 <p class="rubric">أمثلة</p>
 <ul class="simple">
-<li><p>انظر <a class="reference internal" href="../auto_examples/compose/plot_transformed_target.html#sphx-glr-auto-examples-compose-plot-transformed-target-py"><span class="std std-ref">Effect of transforming the targets in regression model</span></a> للحصول على مثال حول كيفية استخدام <a class="reference internal" href="generated/sklearn.metrics.PredictionErrorDisplay.html#sklearn.metrics.PredictionErrorDisplay" title="sklearn.metrics.PredictionErrorDisplay"><code class="xref py py-class docutils literal notranslate"><span class="pre">PredictionErrorDisplay</span></code></a> لتصور تحسين جودة التنبؤ لنموذج الانحدار الذي تم الحصول عليه عن طريق تحويل الهدف قبل التعلم.</p></li>
+<li><p>انظر <a class="reference internal" href="../auto_examples/compose/plot_transformed_target.html#sphx-glr-auto-examples-compose-plot-transformed-target-py"><span class="std std-ref">تأثير تحويل الأهداف في نموذج الانحدار</span></a> للحصول على مثال حول كيفية استخدام <a class="reference internal" href="generated/sklearn.metrics.PredictionErrorDisplay.html#sklearn.metrics.PredictionErrorDisplay" title="sklearn.metrics.PredictionErrorDisplay"><code class="xref py py-class docutils literal notranslate"><span class="pre">PredictionErrorDisplay</span></code></a> لتصور تحسين جودة التنبؤ لنموذج الانحدار الذي تم الحصول عليه عن طريق تحويل الهدف قبل التعلم.</p></li>
 </ul>
 </section>
 </section>

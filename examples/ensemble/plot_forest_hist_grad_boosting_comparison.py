@@ -1,88 +1,73 @@
 """
 ===============================================================
-Comparing Random Forests and Histogram Gradient Boosting models
+مقارنة بين نماذج الغابات العشوائية ورفع التدرج بالرسم البياني
 ===============================================================
 
-In this example we compare the performance of Random Forest (RF) and Histogram
-Gradient Boosting (HGBT) models in terms of score and computation time for a
-regression dataset, though **all the concepts here presented apply to
-classification as well**.
+في هذا المثال، نقارن بين أداء نموذج الغابة العشوائية (RF) ونموذج رفع التدرج بالرسم البياني (HGBT) من حيث النتيجة ووقت الحساب لمجموعة بيانات الانحدار، على الرغم من أن **جميع المفاهيم المقدمة هنا تنطبق على التصنيف أيضًا**.
 
-The comparison is made by varying the parameters that control the number of
-trees according to each estimator:
+تتم المقارنة عن طريق تغيير المعلمات التي تتحكم في عدد الأشجار وفقًا لكل مقدر:
 
-- `n_estimators` controls the number of trees in the forest. It's a fixed number.
-- `max_iter` is the maximum number of iterations in a gradient boosting
-  based model. The number of iterations corresponds to the number of trees for
-  regression and binary classification problems. Furthermore, the actual number
-  of trees required by the model depends on the stopping criteria.
+- `n_estimators` يتحكم في عدد الأشجار في الغابة. إنه رقم ثابت.
+- `max_iter` هو العدد الأقصى للدورات في نموذج يعتمد على رفع التدرج. يتوافق عدد الدورات مع عدد الأشجار لمشاكل الانحدار والتصنيف الثنائي. علاوة على ذلك، يعتمد العدد الفعلي للأشجار التي يحتاجها النموذج على معايير التوقف.
 
-HGBT uses gradient boosting to iteratively improve the model's performance by
-fitting each tree to the negative gradient of the loss function with respect to
-the predicted value. RFs, on the other hand, are based on bagging and use a
-majority vote to predict the outcome.
+يستخدم HGBT رفع التدرج لتحسين أداء النموذج بشكل تكراري عن طريق ملاءمة كل شجرة للانحدار السلبي لدالة الخسارة فيما يتعلق بالقيمة المتوقعة. من ناحية أخرى، تستند RFs على طريقة التجميع وتستخدم تصويت الأغلبية للتنبؤ بالنتيجة.
 
-See the :ref:`User Guide <ensemble>` for more information on ensemble models or
-see :ref:`sphx_glr_auto_examples_ensemble_plot_hgbt_regression.py` for an
-example showcasing some other features of HGBT models.
+راجع :ref:`User Guide <ensemble>` لمزيد من المعلومات حول نماذج التجميع أو راجع :ref:`sphx_glr_auto_examples_ensemble_plot_hgbt_regression.py` لمثال يبرز بعض الميزات الأخرى لنماذج HGBT.
 """
-
-# Authors: The scikit-learn developers
+# المؤلفون: مطوري scikit-learn
 # SPDX-License-Identifier: BSD-3-Clause
 
 # %%
-# Load dataset
+# تحميل مجموعة البيانات
 # ------------
 
+from plotly.subplots import make_subplots
+import plotly.express as px
+import plotly.colors as colors
+from sklearn.model_selection import GridSearchCV, KFold
+from sklearn.ensemble import HistGradientBoostingRegressor, RandomForestRegressor
+import pandas as pd
+import joblib
 from sklearn.datasets import fetch_california_housing
 
 X, y = fetch_california_housing(return_X_y=True, as_frame=True)
 n_samples, n_features = X.shape
 
 # %%
-# HGBT uses a histogram-based algorithm on binned feature values that can
-# efficiently handle large datasets (tens of thousands of samples or more) with
-# a high number of features (see :ref:`Why_it's_faster`). The scikit-learn
-# implementation of RF does not use binning and relies on exact splitting, which
-# can be computationally expensive.
+# يستخدم HGBT خوارزمية تعتمد على الرسم البياني لقيم الميزات التي يمكنها
+# التعامل بكفاءة مع مجموعات البيانات الكبيرة (عشرات الآلاف من العينات أو أكثر) مع
+# عدد كبير من الميزات (انظر :ref:`Why_it's_faster`). لا يستخدم تنفيذ scikit-learn لـ RF التجميع ويعتمد على التقسيم الدقيق، والذي
+# يمكن أن يكون مكلفًا من الناحية الحسابية.
 
-print(f"The dataset consists of {n_samples} samples and {n_features} features")
+print(f"تتكون مجموعة البيانات من {n_samples} عينات و {n_features} ميزات")
 
 # %%
-# Compute score and computation times
+# حساب النتيجة وأوقات الحساب
 # -----------------------------------
 #
-# Notice that many parts of the implementation of
-# :class:`~sklearn.ensemble.HistGradientBoostingClassifier` and
-# :class:`~sklearn.ensemble.HistGradientBoostingRegressor` are parallelized by
-# default.
+# لاحظ أن العديد من أجزاء تنفيذ
+# :class:`~sklearn.ensemble.HistGradientBoostingClassifier` و
+# :class:`~sklearn.ensemble.HistGradientBoostingRegressor` موازية بشكل افتراضي.
 #
-# The implementation of :class:`~sklearn.ensemble.RandomForestRegressor` and
-# :class:`~sklearn.ensemble.RandomForestClassifier` can also be run on multiple
-# cores by using the `n_jobs` parameter, here set to match the number of
-# physical cores on the host machine. See :ref:`parallelism` for more
-# information.
+# يمكن أيضًا تشغيل تنفيذ :class:`~sklearn.ensemble.RandomForestRegressor` و
+# :class:`~sklearn.ensemble.RandomForestClassifier` على عدة
+# أنوية باستخدام معلمة `n_jobs`، هنا تم تعيينها لمطابقة عدد
+# الأنوية المادية على الجهاز المضيف. راجع :ref:`parallelism` لمزيد من
+# المعلومات.
 
-import joblib
 
 N_CORES = joblib.cpu_count(only_physical_cores=True)
-print(f"Number of physical cores: {N_CORES}")
+print(f"عدد الأنوية المادية: {N_CORES}")
 
 # %%
-# Unlike RF, HGBT models offer an early-stopping option (see
+# على عكس RF، توفر نماذج HGBT خيار التوقف المبكر (انظر
 # :ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_early_stopping.py`)
-# to avoid adding new unnecessary trees. Internally, the algorithm uses an
-# out-of-sample set to compute the generalization performance of the model at
-# each addition of a tree. Thus, if the generalization performance is not
-# improving for more than `n_iter_no_change` iterations, it stops adding trees.
+# لتجنب إضافة أشجار غير ضرورية. داخليًا، يستخدم الخوارزمية مجموعة خارج العينة لحساب أداء تعميم النموذج
+# عند كل إضافة لشجرة. وبالتالي، إذا لم يتحسن أداء التعميم لأكثر من `n_iter_no_change` دورات، فإنه يتوقف عن إضافة الأشجار.
 #
-# The other parameters of both models were tuned but the procedure is not shown
-# here to keep the example simple.
+# تم ضبط المعلمات الأخرى لكلا النموذجين ولكن الإجراء غير موضح
+# هنا للحفاظ على بساطة المثال.
 
-import pandas as pd
-
-from sklearn.ensemble import HistGradientBoostingRegressor, RandomForestRegressor
-from sklearn.model_selection import GridSearchCV, KFold
 
 models = {
     "Random Forest": RandomForestRegressor(
@@ -97,7 +82,6 @@ param_grids = {
     "Hist Gradient Boosting": {"max_iter": [10, 20, 50, 100, 300, 500]},
 }
 cv = KFold(n_splits=4, shuffle=True, random_state=0)
-
 results = []
 for name, model in models.items():
     grid_search = GridSearchCV(
@@ -106,28 +90,24 @@ for name, model in models.items():
         return_train_score=True,
         cv=cv,
     ).fit(X, y)
-    result = {"model": name, "cv_results": pd.DataFrame(grid_search.cv_results_)}
+    result = {"model": name, "cv_results": pd.DataFrame(
+        grid_search.cv_results_)}
     results.append(result)
 
 # %%
 # .. Note::
-#  Tuning the `n_estimators` for RF generally results in a waste of computer
-#  power. In practice one just needs to ensure that it is large enough so that
-#  doubling its value does not lead to a significant improvement of the testing
-#  score.
+#  ضبط `n_estimators` لـ RF يؤدي عادة إلى إهدار طاقة الكمبيوتر. في الممارسة العملية، يحتاج المرء فقط إلى التأكد من أنه كبير بما يكفي بحيث
+#  لا يؤدي مضاعفة قيمته إلى تحسين كبير لنتيجة الاختبار.
 #
-# Plot results
+# رسم النتائج
 # ------------
-# We can use a `plotly.express.scatter
+# يمكننا استخدام `plotly.express.scatter
 # <https://plotly.com/python-api-reference/generated/plotly.express.scatter.html>`_
-# to visualize the trade-off between elapsed computing time and mean test score.
-# Passing the cursor over a given point displays the corresponding parameters.
-# Error bars correspond to one standard deviation as computed in the different
-# folds of the cross-validation.
+# لتصور المقايضة بين وقت الحساب المنقضي ومتوسط نتيجة الاختبار.
+# تمرير المؤشر فوق نقطة معينة يعرض المعلمات المقابلة.
+# أشرطة الخطأ تقابل انحرافًا معياريًا واحدًا كما هو محدد في الطيات المختلفة
+# للتحقق المتقاطع.
 
-import plotly.colors as colors
-import plotly.express as px
-from plotly.subplots import make_subplots
 
 fig = make_subplots(
     rows=1,
@@ -197,30 +177,26 @@ fig.update_layout(
     legend=dict(x=0.72, y=0.05, traceorder="normal", borderwidth=1),
     title=dict(x=0.5, text="Speed-score trade-off of tree-based ensembles"),
 )
-
 # %%
-# Both HGBT and RF models improve when increasing the number of trees in the
-# ensemble. However, the scores reach a plateau where adding new trees just
-# makes fitting and scoring slower. The RF model reaches such plateau earlier
-# and can never reach the test score of the largest HGBDT model.
+# يتحسن كل من نماذج HGBT وRF عند زيادة عدد الأشجار في
+# التجميع. ومع ذلك، تصل النتائج إلى مستوى ثابت حيث يؤدي إضافة أشجار جديدة فقط
+# إلى جعل الملاءمة والتسجيل أبطأ. يصل نموذج RF إلى هذا المستوى الثابت في وقت سابق
+# ولا يمكنه أبدًا الوصول إلى نتيجة اختبار أكبر نموذج HGBDT.
 #
-# Note that the results shown on the above plot can change slightly across runs
-# and even more significantly when running on other machines: try to run this
-# example on your own local machine.
+# لاحظ أن النتائج المعروضة في الرسم البياني أعلاه يمكن أن تتغير قليلاً عبر الجولات
+# وحتى بشكل أكبر عند تشغيلها على أجهزة أخرى: حاول تشغيل هذا
+# المثال على جهازك المحلي.
 #
-# Overall, one should often observe that the Histogram-based gradient boosting
-# models uniformly dominate the Random Forest models in the "test score vs
-# training speed trade-off" (the HGBDT curve should be on the top left of the RF
-# curve, without ever crossing). The "test score vs prediction speed" trade-off
-# can also be more disputed, but it's most often favorable to HGBDT. It's always
-# a good idea to check both kinds of model (with hyper-parameter tuning) and
-# compare their performance on your specific problem to determine which model is
-# the best fit but **HGBT almost always offers a more favorable speed-accuracy
-# trade-off than RF**, either with the default hyper-parameters or including the
-# hyper-parameter tuning cost.
+# بشكل عام، يجب أن يلاحظ المرء غالبًا أن نماذج رفع التدرج القائمة على الرسم البياني
+# تهيمن بشكل موحد على نماذج الغابات العشوائية في "نتيجة الاختبار مقابل
+# مقايضة سرعة التدريب" (يجب أن يكون منحنى HGBDT في أعلى يسار منحنى RF، دون
+# أن يتقاطع أبدًا). يمكن أيضًا أن تكون مقايضة "نتيجة الاختبار مقابل سرعة التنبؤ"
+# أكثر تنازعًا، ولكنها في معظم الأحيان مواتية لـ HGBDT. من الجيد دائمًا التحقق من كلا النوعين من النماذج
+# (مع ضبط فرط المعلمات) ومقارنة أدائها على مشكلتك المحددة لتحديد النموذج الذي
+# أفضل ملاءمة ولكن **HGBT توفر دائمًا مقايضة سرعة-دقة أكثر ملاءمة من RF**، إما مع فرط المعلمات الافتراضية أو بما في ذلك
+# تكلفة ضبط فرط المعلمات.
 #
-# There is one exception to this rule of thumb though: when training a
-# multiclass classification model with a large number of possible classes, HGBDT
-# fits internally one-tree per class at each boosting iteration while the trees
-# used by the RF models are naturally multiclass which should improve the speed
-# accuracy trade-off of the RF models in this case.
+# هناك استثناء واحد لهذه القاعدة العامة على الرغم من ذلك: عند تدريب
+# نموذج تصنيف متعدد الفئات مع عدد كبير من الفئات المحتملة، يلائم HGBDT داخليًا شجرة واحدة لكل فئة في كل دورة رفع التدرج بينما الأشجار
+# التي تستخدمها نماذج RF متعددة الفئات بشكل طبيعي والتي يجب أن تحسن مقايضة السرعة والدقة
+# من نماذج RF في هذه الحالة.

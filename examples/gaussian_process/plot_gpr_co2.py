@@ -1,21 +1,14 @@
 """
 ====================================================================================
-Forecasting of CO2 level on Mona Loa dataset using Gaussian process regression (GPR)
+التنبؤ بمستوى ثاني أكسيد الكربون في مجموعة بيانات Mona Loa باستخدام انحدار العملية الغاوسية (GPR)
 ====================================================================================
 
-This example is based on Section 5.4.3 of "Gaussian Processes for Machine
-Learning" [1]_. It illustrates an example of complex kernel engineering
-and hyperparameter optimization using gradient ascent on the
-log-marginal-likelihood. The data consists of the monthly average atmospheric
-CO2 concentrations (in parts per million by volume (ppm)) collected at the
-Mauna Loa Observatory in Hawaii, between 1958 and 2001. The objective is to
-model the CO2 concentration as a function of the time :math:`t` and extrapolate
-for years after 2001.
+يستند هذا المثال إلى القسم 5.4.3 من "العمليات الغاوسية للتعلم الآلي" [1]_. يوضح مثالاً على هندسة النواة المعقدة وتحسين المعلمات الفائقة باستخدام صعود التدرج على الاحتمال الهامشي اللوغاريتمي. تتكون البيانات من متوسط ​​التركيزات الشهرية لثاني أكسيد الكربون في الغلاف الجوي (مقاسة بأجزاء لكل مليون من حيث الحجم (ppm)) التي تم جمعها في مرصد مونا لوا في هاواي ، بين عامي 1958 و 2001. الهدف هو نمذجة تركيز ثاني أكسيد الكربون كدالة للوقت :math:`t` واستقراءه للسنوات التي تلي عام 2001.
 
-.. rubric:: References
+.. rubric:: المراجع
 
-.. [1] `Rasmussen, Carl Edward. "Gaussian processes in machine learning."
-    Summer school on machine learning. Springer, Berlin, Heidelberg, 2003
+.. [1] `Rasmussen, Carl Edward. "العمليات الغاوسية في التعلم الآلي."
+    مدرسة صيفية عن التعلم الآلي. Springer, Berlin, Heidelberg, 2003
     <http://www.gaussianprocess.org/gpml/chapters/RW.pdf>`_.
 """
 
@@ -25,22 +18,17 @@ print(__doc__)
 # SPDX-License-Identifier: BSD-3-Clause
 
 # %%
-# Build the dataset
+# بناء مجموعة البيانات
 # -----------------
 #
-# We will derive a dataset from the Mauna Loa Observatory that collected air
-# samples. We are interested in estimating the concentration of CO2 and
-# extrapolate it for further year. First, we load the original dataset available
-# in OpenML as a pandas dataframe. This will be replaced with Polars
-# once `fetch_openml` adds a native support for it.
+# سنشتق مجموعة بيانات من مرصد مونا لوا الذي جمع عينات الهواء. نحن مهتمون بتقدير تركيز ثاني أكسيد الكربون واستقرائه للسنة التالية. أولاً ، نقوم بتحميل مجموعة البيانات الأصلية المتوفرة في OpenML كإطار بيانات pandas. سيتم استبدال هذا بـ Polars بمجرد أن يضيف `fetch_openml` دعمًا أصليًا له.
 from sklearn.datasets import fetch_openml
 
 co2 = fetch_openml(data_id=41187, as_frame=True)
 co2.frame.head()
 
 # %%
-# First, we process the original dataframe to create a date column and select
-# it along with the CO2 column.
+# أولاً ، نقوم بمعالجة إطار البيانات الأصلي لإنشاء عمود تاريخ وتحديده مع عمود ثاني أكسيد الكربون.
 import polars as pl
 
 co2_data = pl.DataFrame(co2.frame[["year", "month", "day", "co2"]]).select(
@@ -52,20 +40,16 @@ co2_data.head()
 co2_data["date"].min(), co2_data["date"].max()
 
 # %%
-# We see that we get CO2 concentration for some days from March, 1958 to
-# December, 2001. We can plot these raw information to have a better
-# understanding.
+# نرى أننا نحصل على تركيز ثاني أكسيد الكربون لبعض الأيام من مارس 1958 إلى ديسمبر 2001. يمكننا رسم هذه المعلومات الخام لفهم أفضل.
 import matplotlib.pyplot as plt
 
 plt.plot(co2_data["date"], co2_data["co2"])
-plt.xlabel("date")
-plt.ylabel("CO$_2$ concentration (ppm)")
-_ = plt.title("Raw air samples measurements from the Mauna Loa Observatory")
+plt.xlabel("التاريخ")
+plt.ylabel("تركيز CO$_2$ (ppm)")
+_ = plt.title("قياسات عينات الهواء الخام من مرصد مونا لوا")
 
 # %%
-# We will preprocess the dataset by taking a monthly average and drop month
-# for which no measurements were collected. Such a processing will have an
-# smoothing effect on the data.
+# سنقوم بمعالجة مجموعة البيانات عن طريق حساب المتوسط ​​الشهري وإسقاط الأشهر التي لم يتم جمع أي قياسات لها. سيكون لمثل هذه المعالجة تأثير تجانس على البيانات.
 
 co2_data = (
     co2_data.sort(by="date")
@@ -74,51 +58,34 @@ co2_data = (
     .drop_nulls()
 )
 plt.plot(co2_data["date"], co2_data["co2"])
-plt.xlabel("date")
-plt.ylabel("Monthly average of CO$_2$ concentration (ppm)")
+plt.xlabel("التاريخ")
+plt.ylabel("متوسط ​​تركيز CO$_2$ الشهري (ppm)")
 _ = plt.title(
-    "Monthly average of air samples measurements\nfrom the Mauna Loa Observatory"
+    "المتوسط ​​الشهري لقياسات عينات الهواء\nمن مرصد مونا لوا"
 )
 
 # %%
-# The idea in this example will be to predict the CO2 concentration in function
-# of the date. We are as well interested in extrapolating for upcoming year
-# after 2001.
+# ستكون الفكرة في هذا المثال هي التنبؤ بتركيز ثاني أكسيد الكربون كدالة للتاريخ. نحن مهتمون أيضًا باستقراء السنوات القادمة بعد عام 2001.
 #
-# As a first step, we will divide the data and the target to estimate. The data
-# being a date, we will convert it into a numeric.
+# كخطوة أولى ، سنقسم البيانات والهدف المراد تقديره. بما أن البيانات عبارة عن تاريخ ، فسنحولها إلى رقم.
 X = co2_data.select(
     pl.col("date").dt.year() + pl.col("date").dt.month() / 12
 ).to_numpy()
 y = co2_data["co2"].to_numpy()
 
 # %%
-# Design the proper kernel
+# تصميم النواة المناسبة
 # ------------------------
 #
-# To design the kernel to use with our Gaussian process, we can make some
-# assumption regarding the data at hand. We observe that they have several
-# characteristics: we see a long term rising trend, a pronounced seasonal
-# variation and some smaller irregularities. We can use different appropriate
-# kernel that would capture these features.
+# لتصميم النواة لاستخدامها مع عمليتنا الغاوسية ، يمكننا وضع بعض الافتراضات فيما يتعلق بالبيانات المتوفرة. نلاحظ أن لديها العديد من الخصائص: نرى اتجاهًا تصاعديًا طويل المدى ، وتغير موسمي واضح ، وبعض المخالفات الصغيرة. يمكننا استخدام نواة مناسبة مختلفة من شأنها التقاط هذه الميزات.
 #
-# First, the long term rising trend could be fitted using a radial basis
-# function (RBF) kernel with a large length-scale parameter. The RBF kernel
-# with a large length-scale enforces this component to be smooth. An trending
-# increase is not enforced as to give a degree of freedom to our model. The
-# specific length-scale and the amplitude are free hyperparameters.
+# أولاً ، يمكن ملاءمة الاتجاه التصاعدي طويل المدى باستخدام نواة دالة أساس شعاعي (RBF) مع معامل مقياس طول كبير. تفرض نواة RBF ذات مقياس الطول الكبير أن يكون هذا المكون سلسًا. لا يتم فرض زيادة في الاتجاه لإعطاء درجة من الحرية لنموذجنا. مقياس الطول المحدد والسعة هما معلمات فائقة حرة.
 from sklearn.gaussian_process.kernels import RBF
 
 long_term_trend_kernel = 50.0**2 * RBF(length_scale=50.0)
 
 # %%
-# The seasonal variation is explained by the periodic exponential sine squared
-# kernel with a fixed periodicity of 1 year. The length-scale of this periodic
-# component, controlling its smoothness, is a free parameter. In order to allow
-# decaying away from exact periodicity, the product with an RBF kernel is
-# taken. The length-scale of this RBF component controls the decay time and is
-# a further free parameter. This type of kernel is also known as locally
-# periodic kernel.
+# يتم تفسير التباين الموسمي بواسطة نواة الجيب الأسي التربيعي الدوري مع دورية ثابتة لمدة عام واحد. مقياس الطول لهذا المكون الدوري ، الذي يتحكم في نعومته ، هو معامل حر. من أجل السماح بالانحلال بعيدًا عن الدورية الدقيقة ، يتم أخذ حاصل الضرب مع نواة RBF. يتحكم مقياس الطول لمكون RBF هذا في وقت الانحلال وهو معامل حر إضافي. يُعرف هذا النوع من النواة أيضًا باسم النواة الدورية محليًا.
 from sklearn.gaussian_process.kernels import ExpSineSquared
 
 seasonal_kernel = (
@@ -128,21 +95,13 @@ seasonal_kernel = (
 )
 
 # %%
-# The small irregularities are to be explained by a rational quadratic kernel
-# component, whose length-scale and alpha parameter, which quantifies the
-# diffuseness of the length-scales, are to be determined. A rational quadratic
-# kernel is equivalent to an RBF kernel with several length-scale and will
-# better accommodate the different irregularities.
+# يتم تفسير المخالفات الصغيرة بواسطة مكون نواة تربيعي نسبي ، والذي سيتم تحديد مقياس طوله ومعامل ألفا ، اللذان يحددان مدى انتشار مقاييس الطول.  تُعادل النواة التربيعية النسبية نواة RBF ذات عدة مقاييس طول وستستوعب بشكل أفضل المخالفات المختلفة.
 from sklearn.gaussian_process.kernels import RationalQuadratic
 
 irregularities_kernel = 0.5**2 * RationalQuadratic(length_scale=1.0, alpha=1.0)
 
 # %%
-# Finally, the noise in the dataset can be accounted with a kernel consisting
-# of an RBF kernel contribution, which shall explain the correlated noise
-# components such as local weather phenomena, and a white kernel contribution
-# for the white noise. The relative amplitudes and the RBF's length scale are
-# further free parameters.
+# أخيرًا ، يمكن حساب الضوضاء في مجموعة البيانات بنواة تتكون من مساهمة نواة RBF ، والتي يجب أن تفسر مكونات الضوضاء المترابطة مثل ظواهر الطقس المحلي ، ومساهمة نواة بيضاء للضوضاء البيضاء. السعات النسبية ومقياس طول RBF هي معلمات حرة إضافية.
 from sklearn.gaussian_process.kernels import WhiteKernel
 
 noise_kernel = 0.1**2 * RBF(length_scale=0.1) + WhiteKernel(
@@ -150,22 +109,17 @@ noise_kernel = 0.1**2 * RBF(length_scale=0.1) + WhiteKernel(
 )
 
 # %%
-# Thus, our final kernel is an addition of all previous kernel.
+# وبالتالي ، فإن نواتنا النهائية هي إضافة جميع النوى السابقة.
 co2_kernel = (
     long_term_trend_kernel + seasonal_kernel + irregularities_kernel + noise_kernel
 )
 co2_kernel
 
 # %%
-# Model fitting and extrapolation
+# ملاءمة النموذج والاستقراء
 # -------------------------------
 #
-# Now, we are ready to use a Gaussian process regressor and fit the available
-# data. To follow the example from the literature, we will subtract the mean
-# from the target. We could have used `normalize_y=True`. However, doing so
-# would have also scaled the target (dividing `y` by its standard deviation).
-# Thus, the hyperparameters of the different kernel would have had different
-# meaning since they would not have been expressed in ppm.
+# الآن ، نحن جاهزون لاستخدام مُنحدِر عملية غاوسية وملاءمة البيانات المتاحة. لاتباع المثال من الأدبيات ، سنطرح المتوسط ​​من الهدف. كان بإمكاننا استخدام `normalize_y=True`. ومع ذلك ، فإن القيام بذلك كان سيؤدي أيضًا إلى قياس الهدف (بقسمة `y` على انحرافه المعياري). وبالتالي ، لكانت المعلمات الفائقة للنواة المختلفة لها معنى مختلف لأنه لم يكن من الممكن التعبير عنها بـ ppm.
 from sklearn.gaussian_process import GaussianProcessRegressor
 
 y_mean = y.mean()
@@ -173,13 +127,12 @@ gaussian_process = GaussianProcessRegressor(kernel=co2_kernel, normalize_y=False
 gaussian_process.fit(X, y - y_mean)
 
 # %%
-# Now, we will use the Gaussian process to predict on:
+# الآن ، سنستخدم العملية الغاوسية للتنبؤ على:
 #
-# - training data to inspect the goodness of fit;
-# - future data to see the extrapolation done by the model.
+# - بيانات التدريب لفحص مدى الملاءمة ؛
+# - البيانات المستقبلية لمعرفة الاستقراء الذي أجراه النموذج.
 #
-# Thus, we create synthetic data from 1958 to the current month. In addition,
-# we need to add the subtracted mean computed during training.
+# وبالتالي ، نقوم بإنشاء بيانات تركيبية من عام 1958 إلى الشهر الحالي. بالإضافة إلى ذلك ، نحتاج إلى إضافة المتوسط ​​المطروح المحسوب أثناء التدريب.
 import datetime
 
 import numpy as np
@@ -191,8 +144,8 @@ mean_y_pred, std_y_pred = gaussian_process.predict(X_test, return_std=True)
 mean_y_pred += y_mean
 
 # %%
-plt.plot(X, y, color="black", linestyle="dashed", label="Measurements")
-plt.plot(X_test, mean_y_pred, color="tab:blue", alpha=0.4, label="Gaussian process")
+plt.plot(X, y, color="black", linestyle="dashed", label="القياسات")
+plt.plot(X_test, mean_y_pred, color="tab:blue", alpha=0.4, label="العملية الغاوسية")
 plt.fill_between(
     X_test.ravel(),
     mean_y_pred - std_y_pred,
@@ -201,28 +154,22 @@ plt.fill_between(
     alpha=0.2,
 )
 plt.legend()
-plt.xlabel("Year")
-plt.ylabel("Monthly average of CO$_2$ concentration (ppm)")
+plt.xlabel("السنة")
+plt.ylabel("متوسط ​​تركيز CO$_2$ الشهري (ppm)")
 _ = plt.title(
-    "Monthly average of air samples measurements\nfrom the Mauna Loa Observatory"
+    "المتوسط ​​الشهري لقياسات عينات الهواء\nمن مرصد مونا لوا"
 )
 
 # %%
-# Our fitted model is capable to fit previous data properly and extrapolate to
-# future year with confidence.
+# نموذجنا المجهز قادر على ملاءمة البيانات السابقة بشكل صحيح والاستقراء للسنوات القادمة بثقة.
 #
-# Interpretation of kernel hyperparameters
+# تفسير المعلمات الفائقة للنواة
 # ----------------------------------------
 #
-# Now, we can have a look at the hyperparameters of the kernel.
+# الآن ، يمكننا إلقاء نظرة على المعلمات الفائقة للنواة.
 gaussian_process.kernel_
 
 # %%
-# Thus, most of the target signal, with the mean subtracted, is explained by a
-# long-term rising trend for ~45 ppm and a length-scale of ~52 years. The
-# periodic component has an amplitude of ~2.6ppm, a decay time of ~90 years and
-# a length-scale of ~1.5. The long decay time indicates that we have a
-# component very close to a seasonal periodicity. The correlated noise has an
-# amplitude of ~0.2 ppm with a length scale of ~0.12 years and a white-noise
-# contribution of ~0.04 ppm. Thus, the overall noise level is very small,
-# indicating that the data can be very well explained by the model.
+# وبالتالي ، يتم تفسير معظم إشارة الهدف ، مع طرح المتوسط ​​، من خلال اتجاه تصاعدي طويل المدى لحوالي 45 جزء في المليون ومقياس طول يبلغ حوالي 52 عامًا. المكون الدوري له سعة حوالي 2.6 جزء في المليون ، ووقت انحلال يبلغ حوالي 90 عامًا ، ومقياس طول يبلغ حوالي 1.5. يشير وقت الانحلال الطويل إلى أن لدينا مكونًا قريبًا جدًا من الدورية الموسمية. الضوضاء المترابطة لها سعة حوالي 0.2 جزء في المليون مع مقياس طول يبلغ حوالي 0.12 سنة ومساهمة ضوضاء بيضاء تبلغ حوالي 0.04 جزء في المليون. وبالتالي ، فإن مستوى الضوضاء الإجمالي صغير جدًا ، مما يشير إلى أنه يمكن تفسير البيانات جيدًا بواسطة النموذج.
+
+

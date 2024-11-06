@@ -1,24 +1,22 @@
 """
-===========================================================
-An example of K-Means++ initialization
-===========================================================
+===============================
+مثال على التهيئة K-Means++
+===============================
 
-An example to show the output of the :func:`sklearn.cluster.kmeans_plusplus`
-function for generating initial seeds for clustering.
+مثال لإظار ناتج دالة :func:`sklearn.cluster.kmeans_plusplus`
+لإنشاء بذور أولية للتجميع.
 
-K-Means++ is used as the default initialization for :ref:`k_means`.
-
+يتم استخدام K-Means++ كتهيئة افتراضية لـ :ref:`k_means`.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف رخصة SPDX: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 
 from sklearn.cluster import kmeans_plusplus
 from sklearn.datasets import make_blobs
 
-# Generate sample data
+# توليد بيانات العينة
 n_samples = 4000
 n_components = 4
 
@@ -27,10 +25,10 @@ X, y_true = make_blobs(
 )
 X = X[:, ::-1]
 
-# Calculate seeds from k-means++
+# حساب البذور من k-means++
 centers_init, indices = kmeans_plusplus(X, n_clusters=4, random_state=0)
 
-# Plot init seeds along side sample data
+# رسم البذور الأولية بجانب بيانات العينة
 plt.figure(1)
 colors = ["#4EACC5", "#FF9C34", "#4E9A06", "m"]
 

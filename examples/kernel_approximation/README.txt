@@ -1,6 +1,6 @@
 .. _kernel_approximation_examples:
 
-Kernel Approximation
+تقريب النواة
 --------------------
 
-Examples concerning the :mod:`sklearn.kernel_approximation` module.
+أمثلة تتعلق بوحدة :mod:`sklearn.kernel_approximation` .

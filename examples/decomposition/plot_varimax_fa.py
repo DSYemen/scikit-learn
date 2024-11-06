@@ -1,23 +1,12 @@
 """
-===============================================================
-Factor Analysis (with rotation) to visualize patterns
-===============================================================
+==============================================
+تحليل العوامل (مع الدوران) لتصور الأنماط
+==============================================
 
-Investigating the Iris dataset, we see that sepal length, petal
-length and petal width are highly correlated. Sepal width is
-less redundant. Matrix decomposition techniques can uncover
-these latent patterns. Applying rotations to the resulting
-components does not inherently improve the predictive value
-of the derived latent space, but can help visualise their
-structure; here, for example, the varimax rotation, which
-is found by maximizing the squared variances of the weights,
-finds a structure where the second component only loads
-positively on sepal width.
-
+عند دراسة مجموعة بيانات Iris، نلاحظ أن طول السبلة وطول البتلة وعرض البتلة مترابطة بشكل كبير. عرض السبلة أقل تكراراً. يمكن لتقنيات تحليل المصفوفات الكشف عن هذه الأنماط الكامنة. لا يؤدي تطبيق الدوران على المكونات الناتجة إلى تحسين القيمة التنبؤية للمساحة الكامنة المستنبطة بشكل جوهري، ولكن يمكن أن يساعد في تصور بنيتها؛ هنا، على سبيل المثال، يجد دوران Varimax، والذي يتم العثور عليه عن طريق تعظيم التباين التربيعي للأوزان، بنية حيث يحمل المكون الثاني فقط بشكل إيجابي على عرض السبلة.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -27,13 +16,13 @@ from sklearn.decomposition import PCA, FactorAnalysis
 from sklearn.preprocessing import StandardScaler
 
 # %%
-# Load Iris data
+# تحميل بيانات Iris
 data = load_iris()
 X = StandardScaler().fit_transform(data["data"])
 feature_names = data["feature_names"]
 
 # %%
-# Plot covariance of Iris features
+# رسم مصفوفة ارتباط ميزات Iris
 ax = plt.axes()
 
 im = ax.imshow(np.corrcoef(X.T), cmap="RdBu_r", vmin=-1, vmax=1)
@@ -44,11 +33,11 @@ ax.set_yticks([0, 1, 2, 3])
 ax.set_yticklabels(list(feature_names))
 
 plt.colorbar(im).ax.set_ylabel("$r$", rotation=0)
-ax.set_title("Iris feature correlation matrix")
+ax.set_title("مصفوفة ارتباط ميزات Iris")
 plt.tight_layout()
 
 # %%
-# Run factor analysis with Varimax rotation
+# تشغيل تحليل العوامل مع دوران Varimax
 n_comps = 2
 
 methods = [

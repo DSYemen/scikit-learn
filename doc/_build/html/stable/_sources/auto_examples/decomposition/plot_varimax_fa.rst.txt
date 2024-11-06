@@ -18,28 +18,18 @@
 .. _sphx_glr_auto_examples_decomposition_plot_varimax_fa.py:
 
 
-===============================================================
-Factor Analysis (with rotation) to visualize patterns
-===============================================================
+==============================================
+تحليل العوامل (مع الدوران) لتصور الأنماط
+==============================================
 
-Investigating the Iris dataset, we see that sepal length, petal
-length and petal width are highly correlated. Sepal width is
-less redundant. Matrix decomposition techniques can uncover
-these latent patterns. Applying rotations to the resulting
-components does not inherently improve the predictive value
-of the derived latent space, but can help visualise their
-structure; here, for example, the varimax rotation, which
-is found by maximizing the squared variances of the weights,
-finds a structure where the second component only loads
-positively on sepal width.
+عند دراسة مجموعة بيانات Iris، نلاحظ أن طول السبلة وطول البتلة وعرض البتلة مترابطة بشكل كبير. عرض السبلة أقل تكراراً. يمكن لتقنيات تحليل المصفوفات الكشف عن هذه الأنماط الكامنة. لا يؤدي تطبيق الدوران على المكونات الناتجة إلى تحسين القيمة التنبؤية للمساحة الكامنة المستنبطة بشكل جوهري، ولكن يمكن أن يساعد في تصور بنيتها؛ هنا، على سبيل المثال، يجد دوران Varimax، والذي يتم العثور عليه عن طريق تعظيم التباين التربيعي للأوزان، بنية حيث يحمل المكون الثاني فقط بشكل إيجابي على عرض السبلة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-29
+.. GENERATED FROM PYTHON SOURCE LINES 8-18
 
 .. code-block:: Python
 
-
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري scikit-learn
+    # معرف الترخيص: BSD-3-Clause
 
     import matplotlib.pyplot as plt
     import numpy as np
@@ -55,11 +45,11 @@ positively on sepal width.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-31
+.. GENERATED FROM PYTHON SOURCE LINES 19-20
 
-Load Iris data
+تحميل بيانات Iris
 
-.. GENERATED FROM PYTHON SOURCE LINES 31-35
+.. GENERATED FROM PYTHON SOURCE LINES 20-24
 
 .. code-block:: Python
 
@@ -74,11 +64,11 @@ Load Iris data
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 36-37
+.. GENERATED FROM PYTHON SOURCE LINES 25-26
 
-Plot covariance of Iris features
+رسم مصفوفة ارتباط ميزات Iris
 
-.. GENERATED FROM PYTHON SOURCE LINES 37-50
+.. GENERATED FROM PYTHON SOURCE LINES 26-39
 
 .. code-block:: Python
 
@@ -92,14 +82,14 @@ Plot covariance of Iris features
     ax.set_yticklabels(list(feature_names))
 
     plt.colorbar(im).ax.set_ylabel("$r$", rotation=0)
-    ax.set_title("Iris feature correlation matrix")
+    ax.set_title("مصفوفة ارتباط ميزات Iris")
     plt.tight_layout()
 
 
 
 
 .. image-sg:: /auto_examples/decomposition/images/sphx_glr_plot_varimax_fa_001.png
-   :alt: Iris feature correlation matrix
+   :alt: مصفوفة ارتباط ميزات Iris
    :srcset: /auto_examples/decomposition/images/sphx_glr_plot_varimax_fa_001.png
    :class: sphx-glr-single-img
 
@@ -107,11 +97,11 @@ Plot covariance of Iris features
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 51-52
+.. GENERATED FROM PYTHON SOURCE LINES 40-41
 
-Run factor analysis with Varimax rotation
+تشغيل تحليل العوامل مع دوران Varimax
 
-.. GENERATED FROM PYTHON SOURCE LINES 52-79
+.. GENERATED FROM PYTHON SOURCE LINES 41-67
 
 .. code-block:: Python
 
@@ -142,7 +132,6 @@ Run factor analysis with Varimax rotation
     fig.suptitle("Factors")
     plt.tight_layout()
     plt.show()
-
 
 
 .. image-sg:: /auto_examples/decomposition/images/sphx_glr_plot_varimax_fa_002.png
@@ -186,7 +175,7 @@ Run factor analysis with Varimax rotation
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.448 seconds)
+   **Total running time of the script:** (0 minutes 0.560 seconds)
 
 
 .. _sphx_glr_download_auto_examples_decomposition_plot_varimax_fa.py:

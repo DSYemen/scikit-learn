@@ -1,24 +1,14 @@
 """
 ====================================================================
-Probabilistic predictions with Gaussian process classification (GPC)
+التنبؤات الاحتمالية مع تصنيف العملية الغاوسية (GPC)
 ====================================================================
 
-This example illustrates the predicted probability of GPC for an RBF kernel
-with different choices of the hyperparameters. The first figure shows the
-predicted probability of GPC with arbitrarily chosen hyperparameters and with
-the hyperparameters corresponding to the maximum log-marginal-likelihood (LML).
+يوضح هذا المثال الاحتمال المتوقع لـ GPC لنواة RBF
+مع خيارات مختلفة للمعلمات الفائقة. يُظهر الشكل الأول الاحتمال المتوقع لـ GPC مع معلمات فائقة تم اختيارها عشوائيًا ومع المعلمات الفائقة المقابلة لأكبر احتمال هامشي لوغاريتمي (LML).
 
-While the hyperparameters chosen by optimizing LML have a considerable larger
-LML, they perform slightly worse according to the log-loss on test data. The
-figure shows that this is because they exhibit a steep change of the class
-probabilities at the class boundaries (which is good) but have predicted
-probabilities close to 0.5 far away from the class boundaries (which is bad)
-This undesirable effect is caused by the Laplace approximation used
-internally by GPC.
+بينما تتمتع المعلمات الفائقة التي تم اختيارها عن طريق تحسين LML باحتمال هامشي لوغاريتمي أكبر بكثير ، فإنها تعمل بشكل أسوأ قليلاً وفقًا لـ log-loss على بيانات الاختبار. يُظهر الشكل أن هذا بسبب أنها تُظهر تغيرًا حادًا في احتمالات الفئة عند حدود الفئة (وهو أمر جيد) ولكن لديها احتمالات متوقعة قريبة من 0.5 بعيدًا عن حدود الفئة (وهو أمر سيئ). يحدث هذا التأثير غير المرغوب فيه بسبب تقريب لابلاس المستخدم داخليًا بواسطة GPC.
 
-The second figure shows the log-marginal-likelihood for different choices of
-the kernel's hyperparameters, highlighting the two choices of the
-hyperparameters used in the first figure by black dots.
+يُظهر الشكل الثاني الاحتمال الهامشي اللوغاريتمي لاختيارات مختلفة لمعلمات النواة الفائقة ، مع إبراز خياري المعلمات الفائقة المستخدمة في الشكل الأول بنقاط سوداء.
 
 """
 
@@ -32,13 +22,13 @@ from sklearn.gaussian_process import GaussianProcessClassifier
 from sklearn.gaussian_process.kernels import RBF
 from sklearn.metrics import accuracy_score, log_loss
 
-# Generate data
+# توليد البيانات
 train_size = 50
 rng = np.random.RandomState(0)
 X = rng.uniform(0, 5, 100)[:, np.newaxis]
 y = np.array(X[:, 0] > 2.5, dtype=int)
 
-# Specify Gaussian Processes with fixed and optimized hyperparameters
+# تحديد عمليات غاوسية بمعلمات فائقة ثابتة ومحسنة
 gp_fix = GaussianProcessClassifier(kernel=1.0 * RBF(length_scale=1.0), optimizer=None)
 gp_fix.fit(X[:train_size], y[:train_size])
 
@@ -46,23 +36,23 @@ gp_opt = GaussianProcessClassifier(kernel=1.0 * RBF(length_scale=1.0))
 gp_opt.fit(X[:train_size], y[:train_size])
 
 print(
-    "Log Marginal Likelihood (initial): %.3f"
+    "الاحتمال الهامشي اللوغاريتمي (أولي): %.3f"
     % gp_fix.log_marginal_likelihood(gp_fix.kernel_.theta)
 )
 print(
-    "Log Marginal Likelihood (optimized): %.3f"
+    "الاحتمال الهامشي اللوغاريتمي (محسن): %.3f"
     % gp_opt.log_marginal_likelihood(gp_opt.kernel_.theta)
 )
 
 print(
-    "Accuracy: %.3f (initial) %.3f (optimized)"
+    "الدقة: %.3f (أولي) %.3f (محسن)"
     % (
         accuracy_score(y[:train_size], gp_fix.predict(X[:train_size])),
         accuracy_score(y[:train_size], gp_opt.predict(X[:train_size])),
     )
 )
 print(
-    "Log-loss: %.3f (initial) %.3f (optimized)"
+    "Log-loss: %.3f (أولي) %.3f (محسن)"
     % (
         log_loss(y[:train_size], gp_fix.predict_proba(X[:train_size])[:, 1]),
         log_loss(y[:train_size], gp_opt.predict_proba(X[:train_size])[:, 1]),
@@ -70,7 +60,7 @@ print(
 )
 
 
-# Plot posteriors
+# رسم التوزيعات اللاحقة
 plt.figure()
 plt.scatter(
     X[:train_size, 0], y[:train_size], c="k", label="Train data", edgecolors=(0, 0, 0)
@@ -91,13 +81,13 @@ plt.plot(
     "b",
     label="Optimized kernel: %s" % gp_opt.kernel_,
 )
-plt.xlabel("Feature")
-plt.ylabel("Class 1 probability")
+plt.xlabel("الميزة")
+plt.ylabel("احتمال الفئة 1")
 plt.xlim(0, 5)
 plt.ylim(-0.25, 1.5)
 plt.legend(loc="best")
 
-# Plot LML landscape
+# رسم المشهد LML
 plt.figure()
 theta0 = np.logspace(0, 8, 30)
 theta1 = np.logspace(-1, 1, 29)
@@ -120,8 +110,8 @@ plt.pcolor(Theta0, Theta1, LML)
 plt.xscale("log")
 plt.yscale("log")
 plt.colorbar()
-plt.xlabel("Magnitude")
-plt.ylabel("Length-scale")
-plt.title("Log-marginal-likelihood")
+plt.xlabel("الحجم")
+plt.ylabel("مقياس الطول")
+plt.title("الاحتمال الهامشي اللوغاريتمي")
 
 plt.show()

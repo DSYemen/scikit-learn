@@ -1,22 +1,14 @@
 """
 =================================================================
-Selecting dimensionality reduction with Pipeline and GridSearchCV
+اختيار تقليل الأبعاد باستخدام Pipeline و GridSearchCV
 =================================================================
 
-This example constructs a pipeline that does dimensionality
-reduction followed by prediction with a support vector
-classifier. It demonstrates the use of ``GridSearchCV`` and
-``Pipeline`` to optimize over different classes of estimators in a
-single CV run -- unsupervised ``PCA`` and ``NMF`` dimensionality
-reductions are compared to univariate feature selection during
-the grid search.
+يبني هذا المثال خط أنابيب يقوم بتقليل الأبعاد متبوعًا بالتنبؤ باستخدام مصنف متجه الدعم. يوضح استخدام ``GridSearchCV`` و
+``Pipeline`` للتحسين على فئات مختلفة من المقدرات في تشغيل CV واحد - تتم مقارنة تقليل الأبعاد غير الخاضع للإشراف ``PCA`` و ``NMF`` باختيار الميزات أحادي المتغير أثناء البحث الشبكي.
 
-Additionally, ``Pipeline`` can be instantiated with the ``memory``
-argument to memoize the transformers within the pipeline, avoiding to fit
-again the same transformers over and over.
+بالإضافة إلى ذلك، يمكن إنشاء مثيل لـ ``Pipeline`` باستخدام وسيطة ``memory`` لحفظ المحولات داخل خط الأنابيب، وتجنب ملاءمة نفس المحولات مرارًا وتكرارًا.
 
-Note that the use of ``memory`` to enable caching becomes interesting when the
-fitting of a transformer is costly.
+لاحظ أن استخدام ``memory`` لتمكين التخزين المؤقت يصبح مثيرًا للاهتمام عندما تكون ملاءمة المحول مكلفة.
 
 """
 
@@ -24,9 +16,12 @@ fitting of a transformer is costly.
 # SPDX-License-Identifier: BSD-3-Clause
 
 # %%
-# Illustration of ``Pipeline`` and ``GridSearchCV``
+# توضيح ``Pipeline`` و ``GridSearchCV``
 ###############################################################################
 
+from joblib import Memory
+from shutil import rmtree
+import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -43,7 +38,7 @@ X, y = load_digits(return_X_y=True)
 pipe = Pipeline(
     [
         ("scaling", MinMaxScaler()),
-        # the reduce_dim stage is populated by the param_grid
+        # يتم ملء مرحلة reduce_dim بواسطة param_grid
         ("reduce_dim", "passthrough"),
         ("classify", LinearSVC(dual=False, max_iter=10000)),
     ]
@@ -69,46 +64,41 @@ grid = GridSearchCV(pipe, n_jobs=1, param_grid=param_grid)
 grid.fit(X, y)
 
 # %%
-import pandas as pd
 
 mean_scores = np.array(grid.cv_results_["mean_test_score"])
-# scores are in the order of param_grid iteration, which is alphabetical
+# الدرجات بترتيب تكرار param_grid، وهو أبجدي
 mean_scores = mean_scores.reshape(len(C_OPTIONS), -1, len(N_FEATURES_OPTIONS))
-# select score for best C
+# تحديد الدرجة لأفضل C
 mean_scores = mean_scores.max(axis=0)
-# create a dataframe to ease plotting
+# إنشاء إطار بيانات لتسهيل التخطيط
 mean_scores = pd.DataFrame(
     mean_scores.T, index=N_FEATURES_OPTIONS, columns=reducer_labels
 )
 
 ax = mean_scores.plot.bar()
-ax.set_title("Comparing feature reduction techniques")
-ax.set_xlabel("Reduced number of features")
-ax.set_ylabel("Digit classification accuracy")
+ax.set_title("مقارنة تقنيات تقليل الميزات")
+ax.set_xlabel("العدد المخفض من الميزات")
+ax.set_ylabel("دقة تصنيف الأرقام")
 ax.set_ylim((0, 1))
 ax.legend(loc="upper left")
 
 plt.show()
 
 # %%
-# Caching transformers within a ``Pipeline``
+# تخزين المحولات مؤقتًا داخل ``Pipeline``
 # ##########################################
 #
-# It is sometimes worthwhile storing the state of a specific transformer
-# since it could be used again. Using a pipeline in ``GridSearchCV`` triggers
-# such situations. Therefore, we use the argument ``memory`` to enable caching.
+# من المفيد أحيانًا تخزين حالة محول معين
+# لأنه يمكن استخدامه مرة أخرى. استخدام خط أنابيب في ``GridSearchCV`` يؤدي
+# إلى مثل هذه المواقف. لذلك، نستخدم الوسيطة ``memory`` لتمكين التخزين المؤقت.
 #
 # .. warning::
-#     Note that this example is, however, only an illustration since for this
-#     specific case fitting PCA is not necessarily slower than loading the
-#     cache. Hence, use the ``memory`` constructor parameter when the fitting
-#     of a transformer is costly.
+#     لاحظ أن هذا المثال هو مجرد توضيح لأنه في هذه الحالة
+#     ملاءمة PCA ليست بالضرورة أبطأ من تحميل ذاكرة التخزين المؤقت. ومن ثم، استخدم معلمة المنشئ ``memory`` عندما تكون ملاءمة
+#     المحول مكلفة.
 
-from shutil import rmtree
 
-from joblib import Memory
-
-# Create a temporary folder to store the transformers of the pipeline
+# إنشاء مجلد مؤقت لتخزين محولات خط الأنابيب
 location = "cachedir"
 memory = Memory(location=location, verbose=10)
 cached_pipe = Pipeline(
@@ -116,17 +106,15 @@ cached_pipe = Pipeline(
     memory=memory,
 )
 
-# This time, a cached pipeline will be used within the grid search
+# هذه المرة، سيتم استخدام خط أنابيب مخزن مؤقتًا داخل البحث الشبكي
 
 
-# Delete the temporary cache before exiting
+# حذف ذاكرة التخزين المؤقت المؤقتة قبل الخروج
 memory.clear(warn=False)
 rmtree(location)
 
 # %%
-# The ``PCA`` fitting is only computed at the evaluation of the first
-# configuration of the ``C`` parameter of the ``LinearSVC`` classifier. The
-# other configurations of ``C`` will trigger the loading of the cached ``PCA``
-# estimator data, leading to save processing time. Therefore, the use of
-# caching the pipeline using ``memory`` is highly beneficial when fitting
-# a transformer is costly.
+# يتم حساب ملاءمة ``PCA`` فقط عند تقييم التكوين الأول
+# لمعلمة ``C`` لمصنف ``LinearSVC``. التكوينات الأخرى لـ ``C`` ستؤدي إلى تحميل بيانات مقدر ``PCA`` المخزنة مؤقتًا، مما يؤدي إلى توفير وقت المعالجة. لذلك، فإن استخدام
+# تخزين خط الأنابيب مؤقتًا باستخدام ``memory`` مفيد للغاية عندما تكون ملاءمة
+# المحول مكلفة.

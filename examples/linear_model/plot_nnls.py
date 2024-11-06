@@ -1,16 +1,15 @@
 """
 ==========================
-Non-negative least squares
+مربعات أقل غير سالبة
 ==========================
 
-In this example, we fit a linear model with positive constraints on the
-regression coefficients and compare the estimated coefficients to a classic
-linear regression.
+في هذا المثال، نقوم بملاءمة نموذج خطي مع قيود إيجابية على
+معاملات الانحدار ومقارنة المعاملات المقدرة مع الانحدار الخطي الكلاسيكي.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -18,27 +17,27 @@ import numpy as np
 from sklearn.metrics import r2_score
 
 # %%
-# Generate some random data
+# توليد بعض البيانات العشوائية
 np.random.seed(42)
 
 n_samples, n_features = 200, 50
 X = np.random.randn(n_samples, n_features)
 true_coef = 3 * np.random.randn(n_features)
-# Threshold coefficients to render them non-negative
+# عتبة المعاملات لجعلها غير سالبة
 true_coef[true_coef < 0] = 0
 y = np.dot(X, true_coef)
 
-# Add some noise
+# إضافة بعض الضوضاء
 y += 5 * np.random.normal(size=(n_samples,))
 
 # %%
-# Split the data in train set and test set
+# تقسيم البيانات إلى مجموعة تدريب ومجموعة اختبار
 from sklearn.model_selection import train_test_split
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5)
 
 # %%
-# Fit the Non-Negative least squares.
+# ملاءمة المربعات الأقل غير السالبة.
 from sklearn.linear_model import LinearRegression
 
 reg_nnls = LinearRegression(positive=True)
@@ -47,7 +46,7 @@ r2_score_nnls = r2_score(y_test, y_pred_nnls)
 print("NNLS R2 score", r2_score_nnls)
 
 # %%
-# Fit an OLS.
+# ملاءمة OLS.
 reg_ols = LinearRegression()
 y_pred_ols = reg_ols.fit(X_train, y_train).predict(X_test)
 r2_score_ols = r2_score(y_test, y_pred_ols)
@@ -55,10 +54,10 @@ print("OLS R2 score", r2_score_ols)
 
 
 # %%
-# Comparing the regression coefficients between OLS and NNLS, we can observe
-# they are highly correlated (the dashed line is the identity relation),
-# but the non-negative constraint shrinks some to 0.
-# The Non-Negative Least squares inherently yield sparse results.
+# عند مقارنة معاملات الانحدار بين OLS و NNLS، يمكننا ملاحظة
+# أنها مرتبطة ارتباطًا وثيقًا (الخط المتقطع هو علاقة الهوية)،
+# ولكن القيود غير السالبة تقلص بعضها إلى 0.
+# المربعات الأقل غير السالبة تعطي نتائج متفرقة بشكل متأصل.
 
 fig, ax = plt.subplots()
 ax.plot(reg_ols.coef_, reg_nnls.coef_, linewidth=0, marker=".")
@@ -68,5 +67,5 @@ low_y, high_y = ax.get_ylim()
 low = max(low_x, low_y)
 high = min(high_x, high_y)
 ax.plot([low, high], [low, high], ls="--", c=".3", alpha=0.5)
-ax.set_xlabel("OLS regression coefficients", fontweight="bold")
-ax.set_ylabel("NNLS regression coefficients", fontweight="bold")
+ax.set_xlabel("معاملات الانحدار OLS", fontweight="bold")
+ax.set_ylabel("معاملات الانحدار NNLS", fontweight="bold")

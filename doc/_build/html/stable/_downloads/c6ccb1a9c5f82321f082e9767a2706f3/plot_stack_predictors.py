@@ -1,18 +1,18 @@
 """
 =================================
-Combine predictors using stacking
+دمج المتنبئات باستخدام التكديس
 =================================
 
 .. currentmodule:: sklearn
 
-Stacking refers to a method to blend estimators. In this strategy, some
-estimators are individually fitted on some training data while a final
-estimator is trained using the stacked predictions of these base estimators.
+يشير التكديس إلى طريقة لمزج المقدرات. في هذه الاستراتيجية، يتم
+ملاءمة بعض المقدرات بشكل فردي على بعض بيانات التدريب بينما يتم تدريب
+مقدر نهائي باستخدام التنبؤات المكدسة لهذه المقدرات الأساسية.
 
-In this example, we illustrate the use case in which different regressors are
-stacked together and a final linear penalized regressor is used to output the
-prediction. We compare the performance of each individual regressor with the
-stacking strategy. Stacking slightly improves the overall performance.
+في هذا المثال، نوضح حالة الاستخدام التي يتم فيها تكديس مُنحدرات
+مختلفة معًا ويتم استخدام مُنحدِر خطي مُعاقَب نهائي لإخراج
+التنبؤ. نقارن أداء كل مُنحدِر فردي مع استراتيجية
+التكديس. يحسن التكديس الأداء العام بشكل طفيف.
 
 """
 
@@ -20,19 +20,19 @@ stacking strategy. Stacking slightly improves the overall performance.
 # SPDX-License-Identifier: BSD-3-Clause
 
 # %%
-# Download the dataset
+# تنزيل مجموعة البيانات
 # ####################
 #
-# We will use the `Ames Housing`_ dataset which was first compiled by Dean De Cock
-# and became better known after it was used in Kaggle challenge. It is a set
-# of 1460 residential homes in Ames, Iowa, each described by 80 features. We
-# will use it to predict the final logarithmic price of the houses. In this
-# example we will use only 20 most interesting features chosen using
-# GradientBoostingRegressor() and limit number of entries (here we won't go
-# into the details on how to select the most interesting features).
+# سنستخدم مجموعة بيانات `Ames Housing`_ التي تم تجميعها لأول مرة بواسطة Dean De Cock
+# وأصبحت أكثر شهرة بعد استخدامها في تحدي Kaggle. إنها مجموعة
+# من 1460 منزلًا سكنيًا في Ames، Iowa، كل منها موصوف بـ 80 ميزة. سنستخدمها
+# للتنبؤ بالسعر اللوغاريتمي النهائي للمنازل. في هذا المثال، سنستخدم
+# 20 ميزة فقط من أكثر الميزات إثارة للاهتمام تم اختيارها باستخدام
+# GradientBoostingRegressor () ونحد من عدد الإدخالات (لن نتطرق هنا
+# إلى التفاصيل حول كيفية تحديد الميزات الأكثر إثارة للاهتمام).
 #
-# The Ames housing dataset is not shipped with scikit-learn and therefore we
-# will fetch it from `OpenML`_.
+# لا يتم شحن مجموعة بيانات Ames Housing مع scikit-learn، وبالتالي سنقوم
+# بجلبها من `OpenML`_.
 #
 # .. _`Ames Housing`: http://jse.amstat.org/v19n3/decock.pdf
 # .. _`OpenML`: https://www.openml.org/d/42165
@@ -82,12 +82,12 @@ def load_ames_housing():
 X, y = load_ames_housing()
 
 # %%
-# Make pipeline to preprocess the data
+# إنشاء خط أنابيب لمعالجة البيانات مسبقًا
 # ####################################
 #
-# Before we can use Ames dataset we still need to do some preprocessing.
-# First, we will select the categorical and numerical columns of the dataset to
-# construct the first step of the pipeline.
+# قبل أن نتمكن من استخدام مجموعة بيانات Ames، ما زلنا بحاجة إلى إجراء بعض المعالجة المسبقة.
+# أولاً، سنحدد الأعمدة الفئوية والرقمية لمجموعة البيانات
+# لإنشاء الخطوة الأولى من خط الأنابيب.
 
 from sklearn.compose import make_column_selector
 
@@ -99,15 +99,16 @@ cat_selector(X)
 num_selector(X)
 
 # %%
-# Then, we will need to design preprocessing pipelines which depends on the
-# ending regressor. If the ending regressor is a linear model, one needs to
-# one-hot encode the categories. If the ending regressor is a tree-based model
-# an ordinal encoder will be sufficient. Besides, numerical values need to be
-# standardized for a linear model while the raw numerical data can be treated
-# as is by a tree-based model. However, both models need an imputer to
-# handle missing values.
+# بعد ذلك، سنحتاج إلى تصميم خطوط أنابيب المعالجة المسبقة التي تعتمد على
+# المُنحدِر النهائي. إذا كان المُنحدِر النهائي نموذجًا خطيًا، فيجب على المرء
+# ترميز الفئات بترميز واحد ساخن. إذا كان المُنحدِر النهائي نموذجًا قائمًا على الشجرة،
+# فسيكون المُرمز الترتيبي كافيًا. إلى جانب ذلك، يجب توحيد
+# القيم الرقمية للنموذج الخطي بينما يمكن معالجة البيانات الرقمية الأولية
+# كما هي بواسطة نموذج قائم على الشجرة. ومع ذلك، يحتاج كلا النموذجين إلى أداة
+# إكمال للتعامل مع القيم المفقودة.
 #
-# We will first design the pipeline required for the tree-based models.
+# سنقوم أولاً بتصميم خط الأنابيب المطلوب للنماذج القائمة على الشجرة.
+
 
 from sklearn.compose import make_column_transformer
 from sklearn.impute import SimpleImputer
@@ -127,8 +128,8 @@ tree_preprocessor = make_column_transformer(
 tree_preprocessor
 
 # %%
-# Then, we will now define the preprocessor used when the ending regressor
-# is a linear model.
+# بعد ذلك، سنحدد الآن المعالج المسبق المستخدم عندما يكون المُنحدِر
+# النهائي نموذجًا خطيًا.
 
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
@@ -143,24 +144,26 @@ linear_preprocessor = make_column_transformer(
 linear_preprocessor
 
 # %%
-# Stack of predictors on a single data set
+# مكدس المتنبئات على مجموعة بيانات واحدة
 # ########################################
 #
-# It is sometimes tedious to find the model which will best perform on a given
-# dataset. Stacking provide an alternative by combining the outputs of several
-# learners, without the need to choose a model specifically. The performance of
-# stacking is usually close to the best model and sometimes it can outperform
-# the prediction performance of each individual model.
+# يكون من الممل في بعض الأحيان العثور على النموذج الذي سيكون أفضل أداءً على
+# مجموعة بيانات معينة. يوفر التكديس بديلاً عن طريق دمج مخرجات العديد من
+# المتعلمين، دون الحاجة إلى اختيار نموذج محدد. عادة ما يكون أداء
+# التكديس قريبًا من أفضل نموذج، وأحيانًا يمكن أن يتفوق على أداء التنبؤ
+# لكل نموذج فردي.
 #
-# Here, we combine 3 learners (linear and non-linear) and use a ridge regressor
-# to combine their outputs together.
+# هنا، نقوم بدمج 3 متعلمين (خطي وغير خطي) ونستخدم مُنحدِر ريدج
+# لدمج مخرجاتهم معًا.
 #
 # .. note::
-#    Although we will make new pipelines with the processors which we wrote in
-#    the previous section for the 3 learners, the final estimator
-#    :class:`~sklearn.linear_model.RidgeCV()` does not need preprocessing of
-#    the data as it will be fed with the already preprocessed output from the 3
-#    learners.
+#    على الرغم من أننا سننشئ خطوط أنابيب جديدة مع المعالجات التي كتبناها في
+#    القسم السابق للمتعلمين الثلاثة، فإن المقدر النهائي
+#    :class:`~sklearn.linear_model.RidgeCV()` لا يحتاج إلى معالجة مسبقة
+#    للبيانات لأنه سيتم تغذيته بالمخرجات المعالجة مسبقًا من المتعلمين
+#    الثلاثة.
+
+
 
 from sklearn.linear_model import LassoCV
 
@@ -186,21 +189,22 @@ from sklearn.ensemble import StackingRegressor
 from sklearn.linear_model import RidgeCV
 
 estimators = [
-    ("Random Forest", rf_pipeline),
+    ("الغابة العشوائية", rf_pipeline),
     ("Lasso", lasso_pipeline),
-    ("Gradient Boosting", gbdt_pipeline),
+    ("التعزيز المتدرج", gbdt_pipeline),
 ]
 
 stacking_regressor = StackingRegressor(estimators=estimators, final_estimator=RidgeCV())
 stacking_regressor
 
 # %%
-# Measure and plot the results
+# قياس ورسم النتائج
 # ############################
 #
-# Now we can use Ames Housing dataset to make the predictions. We check the
-# performance of each individual predictor as well as of the stack of the
-# regressors.
+# الآن يمكننا استخدام مجموعة بيانات Ames Housing لإجراء التنبؤات. نتحقق من
+# أداء كل متنبئ فردي بالإضافة إلى مكدس
+# المُنحدرات.
+
 
 
 import time
@@ -214,7 +218,7 @@ fig, axs = plt.subplots(2, 2, figsize=(9, 7))
 axs = np.ravel(axs)
 
 for ax, (name, est) in zip(
-    axs, estimators + [("Stacking Regressor", stacking_regressor)]
+    axs, estimators + [("مُنحدِر التكديس", stacking_regressor)]
 ):
     scorers = {"R2": "r2", "MAE": "neg_mean_absolute_error"}
 
@@ -241,18 +245,22 @@ for ax, (name, est) in zip(
         scatter_kwargs={"alpha": 0.2, "color": "tab:blue"},
         line_kwargs={"color": "tab:red"},
     )
-    ax.set_title(f"{name}\nEvaluation in {elapsed_time:.2f} seconds")
+
+    ax.set_title(f"{name}\nالتقييم في {elapsed_time:.2f} ثانية")
+
 
     for name, score in scores.items():
         ax.plot([], [], " ", label=f"{name}: {score}")
     ax.legend(loc="upper left")
 
-plt.suptitle("Single predictors versus stacked predictors")
+plt.suptitle("المتنبئات الفردية مقابل المتنبئات المكدسة")
 plt.tight_layout()
 plt.subplots_adjust(top=0.9)
 plt.show()
 
 # %%
-# The stacked regressor will combine the strengths of the different regressors.
-# However, we also see that training the stacked regressor is much more
-# computationally expensive.
+# سيجمع مُنحدِر التكديس نقاط القوة لمختلف المُنحدرات.
+# ومع ذلك، نرى أيضًا أن تدريب مُنحدِر التكديس مكلف
+# حسابيًا أكثر.
+
+

@@ -19,26 +19,26 @@
 
 
 =================================================
-Plot individual and voting regression predictions
+رسم تنبؤات الانحدار الفردية والتصويتية
 =================================================
 
 .. currentmodule:: sklearn
 
-A voting regressor is an ensemble meta-estimator that fits several base
-regressors, each on the whole dataset. Then it averages the individual
-predictions to form a final prediction.
-We will use three different regressors to predict the data:
-:class:`~ensemble.GradientBoostingRegressor`,
-:class:`~ensemble.RandomForestRegressor`, and
+مُنحدِر التصويت هو مقدر تلوي جماعي يقوم بملاءمة العديد من المُنحدرات
+الأساسية، كل منها على مجموعة البيانات بأكملها. ثم يقوم بمتوسط ​​التنبؤات
+الفردية لتشكيل تنبؤ نهائي.
+سنستخدم ثلاثة مُنحدرات مختلفة للتنبؤ بالبيانات:
+:class:`~ensemble.GradientBoostingRegressor` و
+:class:`~ensemble.RandomForestRegressor` و
 :class:`~linear_model.LinearRegression`).
-Then the above 3 regressors will be used for the
+ثم سيتم استخدام المُنحدرات الثلاثة المذكورة أعلاه لـ
 :class:`~ensemble.VotingRegressor`.
 
-Finally, we will plot the predictions made by all models for comparison.
+أخيرًا، سنرسم التنبؤات التي تم إجراؤها بواسطة جميع النماذج للمقارنة.
 
-We will work with the diabetes dataset which consists of 10 features
-collected from a cohort of diabetes patients. The target is a quantitative
-measure of disease progression one year after baseline.
+سنعمل مع مجموعة بيانات مرض السكري التي تتكون من 10 ميزات
+تم جمعها من مجموعة من مرضى السكري. الهدف هو قياس كمي
+لتطور المرض بعد عام واحد من خط الأساس.
 
 .. GENERATED FROM PYTHON SOURCE LINES 25-39
 
@@ -67,12 +67,12 @@ measure of disease progression one year after baseline.
 
 .. GENERATED FROM PYTHON SOURCE LINES 40-46
 
-Training classifiers
+تدريب المصنفات
 --------------------------------
 
-First, we will load the diabetes dataset and initiate a gradient boosting
-regressor, a random forest regressor and a linear regression. Next, we will
-use the 3 regressors to build the voting regressor:
+أولاً، سنقوم بتحميل مجموعة بيانات مرض السكري وبدء مُنحدِر التعزيز
+المتدرج، ومُنحدِر غابة عشوائية، وانحدار خطي. بعد ذلك، سنستخدم
+المُنحدرات الثلاثة لبناء مُنحدِر التصويت:
 
 .. GENERATED FROM PYTHON SOURCE LINES 46-61
 
@@ -81,7 +81,7 @@ use the 3 regressors to build the voting regressor:
 
     X, y = load_diabetes(return_X_y=True)
 
-    # Train classifiers
+    # تدريب المصنفات
     reg1 = GradientBoostingRegressor(random_state=1)
     reg2 = RandomForestRegressor(random_state=1)
     reg3 = LinearRegression()
@@ -101,7 +101,7 @@ use the 3 regressors to build the voting regressor:
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-26 {
+    <style>#sk-container-id-17 {
       /* Definition of color scheme common for light and dark mode */
       --sklearn-color-text: #000;
       --sklearn-color-text-muted: #666;
@@ -132,15 +132,15 @@ use the 3 regressors to build the voting regressor:
       }
     }
 
-    #sk-container-id-26 {
+    #sk-container-id-17 {
       color: var(--sklearn-color-text);
     }
 
-    #sk-container-id-26 pre {
+    #sk-container-id-17 pre {
       padding: 0;
     }
 
-    #sk-container-id-26 input.sk-hidden--visually {
+    #sk-container-id-17 input.sk-hidden--visually {
       border: 0;
       clip: rect(1px 1px 1px 1px);
       clip: rect(1px, 1px, 1px, 1px);
@@ -152,7 +152,7 @@ use the 3 regressors to build the voting regressor:
       width: 1px;
     }
 
-    #sk-container-id-26 div.sk-dashed-wrapped {
+    #sk-container-id-17 div.sk-dashed-wrapped {
       border: 1px dashed var(--sklearn-color-line);
       margin: 0 0.4em 0.5em 0.4em;
       box-sizing: border-box;
@@ -160,7 +160,7 @@ use the 3 regressors to build the voting regressor:
       background-color: var(--sklearn-color-background);
     }
 
-    #sk-container-id-26 div.sk-container {
+    #sk-container-id-17 div.sk-container {
       /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
          but bootstrap.min.css set `[hidden] { display: none !important; }`
          so we also need the `!important` here to be able to override the
@@ -170,7 +170,7 @@ use the 3 regressors to build the voting regressor:
       position: relative;
     }
 
-    #sk-container-id-26 div.sk-text-repr-fallback {
+    #sk-container-id-17 div.sk-text-repr-fallback {
       display: none;
     }
 
@@ -186,14 +186,14 @@ use the 3 regressors to build the voting regressor:
 
     /* Parallel-specific style estimator block */
 
-    #sk-container-id-26 div.sk-parallel-item::after {
+    #sk-container-id-17 div.sk-parallel-item::after {
       content: "";
       width: 100%;
       border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
       flex-grow: 1;
     }
 
-    #sk-container-id-26 div.sk-parallel {
+    #sk-container-id-17 div.sk-parallel {
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -201,28 +201,28 @@ use the 3 regressors to build the voting regressor:
       position: relative;
     }
 
-    #sk-container-id-26 div.sk-parallel-item {
+    #sk-container-id-17 div.sk-parallel-item {
       display: flex;
       flex-direction: column;
     }
 
-    #sk-container-id-26 div.sk-parallel-item:first-child::after {
+    #sk-container-id-17 div.sk-parallel-item:first-child::after {
       align-self: flex-end;
       width: 50%;
     }
 
-    #sk-container-id-26 div.sk-parallel-item:last-child::after {
+    #sk-container-id-17 div.sk-parallel-item:last-child::after {
       align-self: flex-start;
       width: 50%;
     }
 
-    #sk-container-id-26 div.sk-parallel-item:only-child::after {
+    #sk-container-id-17 div.sk-parallel-item:only-child::after {
       width: 0;
     }
 
     /* Serial-specific style estimator block */
 
-    #sk-container-id-26 div.sk-serial {
+    #sk-container-id-17 div.sk-serial {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -240,14 +240,14 @@ use the 3 regressors to build the voting regressor:
 
     /* Pipeline and ColumnTransformer style (default) */
 
-    #sk-container-id-26 div.sk-toggleable {
+    #sk-container-id-17 div.sk-toggleable {
       /* Default theme specific background. It is overwritten whether we have a
       specific estimator or a Pipeline/ColumnTransformer */
       background-color: var(--sklearn-color-background);
     }
 
     /* Toggleable label */
-    #sk-container-id-26 label.sk-toggleable__label {
+    #sk-container-id-17 label.sk-toggleable__label {
       cursor: pointer;
       display: flex;
       width: 100%;
@@ -260,13 +260,13 @@ use the 3 regressors to build the voting regressor:
       gap: 0.5em;
     }
 
-    #sk-container-id-26 label.sk-toggleable__label .caption {
+    #sk-container-id-17 label.sk-toggleable__label .caption {
       font-size: 0.6rem;
       font-weight: lighter;
       color: var(--sklearn-color-text-muted);
     }
 
-    #sk-container-id-26 label.sk-toggleable__label-arrow:before {
+    #sk-container-id-17 label.sk-toggleable__label-arrow:before {
       /* Arrow on the left of the label */
       content: "▸";
       float: left;
@@ -274,13 +274,13 @@ use the 3 regressors to build the voting regressor:
       color: var(--sklearn-color-icon);
     }
 
-    #sk-container-id-26 label.sk-toggleable__label-arrow:hover:before {
+    #sk-container-id-17 label.sk-toggleable__label-arrow:hover:before {
       color: var(--sklearn-color-text);
     }
 
     /* Toggleable content - dropdown */
 
-    #sk-container-id-26 div.sk-toggleable__content {
+    #sk-container-id-17 div.sk-toggleable__content {
       max-height: 0;
       max-width: 0;
       overflow: hidden;
@@ -289,12 +289,12 @@ use the 3 regressors to build the voting regressor:
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-26 div.sk-toggleable__content.fitted {
+    #sk-container-id-17 div.sk-toggleable__content.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-26 div.sk-toggleable__content pre {
+    #sk-container-id-17 div.sk-toggleable__content pre {
       margin: 0.2em;
       border-radius: 0.25em;
       color: var(--sklearn-color-text);
@@ -302,79 +302,79 @@ use the 3 regressors to build the voting regressor:
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-26 div.sk-toggleable__content.fitted pre {
+    #sk-container-id-17 div.sk-toggleable__content.fitted pre {
       /* unfitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-26 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    #sk-container-id-17 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
       max-height: 200px;
       max-width: 100%;
       overflow: auto;
     }
 
-    #sk-container-id-26 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    #sk-container-id-17 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
       content: "▾";
     }
 
     /* Pipeline/ColumnTransformer-specific style */
 
-    #sk-container-id-26 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-17 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-26 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-17 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator-specific style */
 
     /* Colorize estimator box */
-    #sk-container-id-26 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-17 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-26 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-17 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
-    #sk-container-id-26 div.sk-label label.sk-toggleable__label,
-    #sk-container-id-26 div.sk-label label {
+    #sk-container-id-17 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-17 div.sk-label label {
       /* The background is the default theme color */
       color: var(--sklearn-color-text-on-default-background);
     }
 
     /* On hover, darken the color of the background */
-    #sk-container-id-26 div.sk-label:hover label.sk-toggleable__label {
+    #sk-container-id-17 div.sk-label:hover label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
     /* Label box, darken color on hover, fitted */
-    #sk-container-id-26 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+    #sk-container-id-17 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator label */
 
-    #sk-container-id-26 div.sk-label label {
+    #sk-container-id-17 div.sk-label label {
       font-family: monospace;
       font-weight: bold;
       display: inline-block;
       line-height: 1.2em;
     }
 
-    #sk-container-id-26 div.sk-label-container {
+    #sk-container-id-17 div.sk-label-container {
       text-align: center;
     }
 
     /* Estimator-specific */
-    #sk-container-id-26 div.sk-estimator {
+    #sk-container-id-17 div.sk-estimator {
       font-family: monospace;
       border: 1px dotted var(--sklearn-color-border-box);
       border-radius: 0.25em;
@@ -384,18 +384,18 @@ use the 3 regressors to build the voting regressor:
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-26 div.sk-estimator.fitted {
+    #sk-container-id-17 div.sk-estimator.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
     /* on hover */
-    #sk-container-id-26 div.sk-estimator:hover {
+    #sk-container-id-17 div.sk-estimator:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-26 div.sk-estimator.fitted:hover {
+    #sk-container-id-17 div.sk-estimator.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
@@ -483,7 +483,7 @@ use the 3 regressors to build the voting regressor:
 
     /* "?"-specific style due to the `<a>` HTML tag */
 
-    #sk-container-id-26 a.estimator_doc_link {
+    #sk-container-id-17 a.estimator_doc_link {
       float: right;
       font-size: 1rem;
       line-height: 1em;
@@ -498,39 +498,39 @@ use the 3 regressors to build the voting regressor:
       border: var(--sklearn-color-unfitted-level-1) 1pt solid;
     }
 
-    #sk-container-id-26 a.estimator_doc_link.fitted {
+    #sk-container-id-17 a.estimator_doc_link.fitted {
       /* fitted */
       border: var(--sklearn-color-fitted-level-1) 1pt solid;
       color: var(--sklearn-color-fitted-level-1);
     }
 
     /* On hover */
-    #sk-container-id-26 a.estimator_doc_link:hover {
+    #sk-container-id-17 a.estimator_doc_link:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-3);
       color: var(--sklearn-color-background);
       text-decoration: none;
     }
 
-    #sk-container-id-26 a.estimator_doc_link.fitted:hover {
+    #sk-container-id-17 a.estimator_doc_link.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-26" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>VotingRegressor(estimators=[(&#x27;gb&#x27;, GradientBoostingRegressor(random_state=1)),
+    </style><div id="sk-container-id-17" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>VotingRegressor(estimators=[(&#x27;gb&#x27;, GradientBoostingRegressor(random_state=1)),
                                 (&#x27;rf&#x27;, RandomForestRegressor(random_state=1)),
-                                (&#x27;lr&#x27;, LinearRegression())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-102" type="checkbox" ><label for="sk-estimator-id-102" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>VotingRegressor</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.ensemble.VotingRegressor.html">?<span>Documentation for VotingRegressor</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>VotingRegressor(estimators=[(&#x27;gb&#x27;, GradientBoostingRegressor(random_state=1)),
+                                (&#x27;lr&#x27;, LinearRegression())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-111" type="checkbox" ><label for="sk-estimator-id-111" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>VotingRegressor</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.ensemble.VotingRegressor.html">?<span>Documentation for VotingRegressor</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>VotingRegressor(estimators=[(&#x27;gb&#x27;, GradientBoostingRegressor(random_state=1)),
                                 (&#x27;rf&#x27;, RandomForestRegressor(random_state=1)),
-                                (&#x27;lr&#x27;, LinearRegression())])</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><label>gb</label></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-103" type="checkbox" ><label for="sk-estimator-id-103" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>GradientBoostingRegressor</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.ensemble.GradientBoostingRegressor.html">?<span>Documentation for GradientBoostingRegressor</span></a></div></label><div class="sk-toggleable__content fitted"><pre>GradientBoostingRegressor(random_state=1)</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><label>rf</label></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-104" type="checkbox" ><label for="sk-estimator-id-104" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>RandomForestRegressor</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.ensemble.RandomForestRegressor.html">?<span>Documentation for RandomForestRegressor</span></a></div></label><div class="sk-toggleable__content fitted"><pre>RandomForestRegressor(random_state=1)</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><label>lr</label></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-105" type="checkbox" ><label for="sk-estimator-id-105" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LinearRegression</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.linear_model.LinearRegression.html">?<span>Documentation for LinearRegression</span></a></div></label><div class="sk-toggleable__content fitted"><pre>LinearRegression()</pre></div> </div></div></div></div></div></div></div></div></div>
+                                (&#x27;lr&#x27;, LinearRegression())])</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><label>gb</label></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-112" type="checkbox" ><label for="sk-estimator-id-112" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>GradientBoostingRegressor</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.ensemble.GradientBoostingRegressor.html">?<span>Documentation for GradientBoostingRegressor</span></a></div></label><div class="sk-toggleable__content fitted"><pre>GradientBoostingRegressor(random_state=1)</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><label>rf</label></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-113" type="checkbox" ><label for="sk-estimator-id-113" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>RandomForestRegressor</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.ensemble.RandomForestRegressor.html">?<span>Documentation for RandomForestRegressor</span></a></div></label><div class="sk-toggleable__content fitted"><pre>RandomForestRegressor(random_state=1)</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><label>lr</label></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-114" type="checkbox" ><label for="sk-estimator-id-114" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LinearRegression</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.linear_model.LinearRegression.html">?<span>Documentation for LinearRegression</span></a></div></label><div class="sk-toggleable__content fitted"><pre>LinearRegression()</pre></div> </div></div></div></div></div></div></div></div></div>
     </div>
     <br />
     <br />
 
 .. GENERATED FROM PYTHON SOURCE LINES 62-66
 
-Making predictions
+إجراء التنبؤات
 --------------------------------
 
-Now we will use each of the regressors to make the 20 first predictions.
+الآن سنستخدم كل مُنحدِر لإجراء التنبؤات العشرين الأولى.
 
 .. GENERATED FROM PYTHON SOURCE LINES 66-74
 
@@ -553,15 +553,16 @@ Now we will use each of the regressors to make the 20 first predictions.
 
 .. GENERATED FROM PYTHON SOURCE LINES 75-80
 
-Plot the results
+رسم النتائج
 --------------------------------
 
-Finally, we will visualize the 20 predictions. The red stars show the average
-prediction made by :class:`~ensemble.VotingRegressor`.
+أخيرًا، سنقوم بتصور التنبؤات العشرين. تُظهر النجوم الحمراء متوسط
+​​التنبؤ الذي تم إجراؤه بواسطة :class:`~ensemble.VotingRegressor`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 80-94
+.. GENERATED FROM PYTHON SOURCE LINES 80-97
 
 .. code-block:: Python
+
 
 
     plt.figure()
@@ -571,17 +572,19 @@ prediction made by :class:`~ensemble.VotingRegressor`.
     plt.plot(pred4, "r*", ms=10, label="VotingRegressor")
 
     plt.tick_params(axis="x", which="both", bottom=False, top=False, labelbottom=False)
-    plt.ylabel("predicted")
-    plt.xlabel("training samples")
+    plt.ylabel("متوقع")
+    plt.xlabel("عينات التدريب")
     plt.legend(loc="best")
-    plt.title("Regressor predictions and their average")
+    plt.title("تنبؤات المُنحدِر ومتوسطها")
 
     plt.show()
 
 
 
+
+
 .. image-sg:: /auto_examples/ensemble/images/sphx_glr_plot_voting_regressor_001.png
-   :alt: Regressor predictions and their average
+   :alt: تنبؤات المُنحدِر ومتوسطها
    :srcset: /auto_examples/ensemble/images/sphx_glr_plot_voting_regressor_001.png
    :class: sphx-glr-single-img
 
@@ -592,7 +595,7 @@ prediction made by :class:`~ensemble.VotingRegressor`.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.971 seconds)
+   **Total running time of the script:** (0 minutes 1.001 seconds)
 
 
 .. _sphx_glr_download_auto_examples_ensemble_plot_voting_regressor.py:

@@ -1,61 +1,54 @@
 """
 ======================================
-Sparse inverse covariance estimation
+تقدير معكوس التغاير النادر
 ======================================
 
-Using the GraphicalLasso estimator to learn a covariance and sparse precision
-from a small number of samples.
+استخدام أداة تقدير GraphicalLasso لتعلم التغاير والانحراف النادر
+من عدد صغير من العينات.
 
-To estimate a probabilistic model (e.g. a Gaussian model), estimating the
-precision matrix, that is the inverse covariance matrix, is as important
-as estimating the covariance matrix. Indeed a Gaussian model is
-parametrized by the precision matrix.
+لتقدير نموذج احتمالي (مثل النموذج الغاوسي)، فإن تقدير مصفوفة الانحراف، أي مصفوفة معكوس التغاير، هو بنفس أهمية تقدير مصفوفة التغاير. في الواقع، يتم تحديد نموذج غاوسي بواسطة مصفوفة الانحراف.
 
-To be in favorable recovery conditions, we sample the data from a model
-with a sparse inverse covariance matrix. In addition, we ensure that the
-data is not too much correlated (limiting the largest coefficient of the
-precision matrix) and that there a no small coefficients in the
-precision matrix that cannot be recovered. In addition, with a small
-number of observations, it is easier to recover a correlation matrix
-rather than a covariance, thus we scale the time series.
+للحصول على ظروف استرداد مواتية، نقوم بجمع البيانات من نموذج
+بمصفوفة معكوس تغاير نادرة. بالإضافة إلى ذلك، نضمن أن
+البيانات ليست مرتبطة للغاية (تحديد أكبر معامل في
+مصفوفة الانحراف) وأنه لا يوجد معاملات صغيرة في
+مصفوفة الانحراف التي لا يمكن استردادها. بالإضافة إلى ذلك، مع عدد
+صغير من الملاحظات، من الأسهل استرداد مصفوفة الارتباط
+بدلاً من التغاير، وبالتالي نقوم بتصحيح سلسلة الوقت.
 
-Here, the number of samples is slightly larger than the number of
-dimensions, thus the empirical covariance is still invertible. However,
-as the observations are strongly correlated, the empirical covariance
-matrix is ill-conditioned and as a result its inverse --the empirical
-precision matrix-- is very far from the ground truth.
+هنا، عدد العينات أكبر قليلاً من عدد
+الأبعاد، وبالتالي فإن التغاير التجريبي لا يزال قابلًا للعكس. ومع ذلك،
+بما أن الملاحظات مرتبطة بقوة، فإن مصفوفة التغاير التجريبية
+سيئة الشرط ونتيجة لذلك، فإن معكوسها - التغاير التجريبي الدقيق -
+بعيد جدًا عن الحقيقة.
 
-If we use l2 shrinkage, as with the Ledoit-Wolf estimator, as the number
-of samples is small, we need to shrink a lot. As a result, the
-Ledoit-Wolf precision is fairly close to the ground truth precision, that
-is not far from being diagonal, but the off-diagonal structure is lost.
+إذا استخدمنا الانكماش l2، كما هو الحال مع أداة تقدير Ledoit-Wolf، حيث أن عدد
+العينات صغير، نحتاج إلى الانكماش كثيرًا. ونتيجة لذلك، فإن
+دقة Ledoit-Wolf قريبة جدًا من دقة الحقيقة، والتي
+ليست بعيدة عن كونها قطريًا، ولكن يتم فقدان البنية خارج القطر.
 
-The l1-penalized estimator can recover part of this off-diagonal
-structure. It learns a sparse precision. It is not able to
-recover the exact sparsity pattern: it detects too many non-zero
-coefficients. However, the highest non-zero coefficients of the l1
-estimated correspond to the non-zero coefficients in the ground truth.
-Finally, the coefficients of the l1 precision estimate are biased toward
-zero: because of the penalty, they are all smaller than the corresponding
-ground truth value, as can be seen on the figure.
+يمكن لأداة التقدير المعاقب l1 استرداد جزء من هذه البنية خارج القطر. إنها تتعلم الانحراف النادر. إنها غير قادرة على
+استرداد نمط التفرعات الدقيق: فهي تكتشف الكثير من المعاملات غير الصفرية. ومع ذلك، فإن أعلى المعاملات غير الصفرية المقدرة l1
+تتوافق مع المعاملات غير الصفرية في الحقيقة.
+أخيرًا، فإن معاملات تقدير الانحراف l1 متحيزة نحو
+الصفر: بسبب العقوبة، فهي جميعها أصغر من قيمة الحقيقة المقابلة، كما يمكن رؤيتها في الشكل.
 
-Note that, the color range of the precision matrices is tweaked to
-improve readability of the figure. The full range of values of the
-empirical precision is not displayed.
+لاحظ أن نطاق ألوان مصفوفات الانحراف يتم ضبطه لتحسين
+قابلية قراءة الشكل. لا يتم عرض النطاق الكامل لقيم التغاير التجريبي.
 
-The alpha parameter of the GraphicalLasso setting the sparsity of the model is
-set by internal cross-validation in the GraphicalLassoCV. As can be
-seen on figure 2, the grid to compute the cross-validation score is
-iteratively refined in the neighborhood of the maximum.
-
+يتم تعيين معامل alpha لأداة GraphicalLasso لتحديد ندرة النموذج بواسطة
+التحقق الداخلي من الصحة في GraphicalLassoCV. كما يمكن
+رؤيته في الشكل 2، يتم تكرار الشبكة لحساب درجة التحقق من الصحة
+في الجوار الأقصى.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# Generate the data
+# توليد البيانات
 # -----------------
+import matplotlib.pyplot as plt
+from sklearn.covariance import GraphicalLassoCV, ledoit_wolf
 import numpy as np
 from scipy import linalg
 
@@ -79,9 +72,8 @@ X -= X.mean(axis=0)
 X /= X.std(axis=0)
 
 # %%
-# Estimate the covariance
+# تقدير التغاير
 # -----------------------
-from sklearn.covariance import GraphicalLassoCV, ledoit_wolf
 
 emp_cov = np.dot(X.T, X) / n_samples
 
@@ -94,14 +86,13 @@ lw_cov_, _ = ledoit_wolf(X)
 lw_prec_ = linalg.inv(lw_cov_)
 
 # %%
-# Plot the results
+# رسم النتائج
 # ----------------
-import matplotlib.pyplot as plt
 
 plt.figure(figsize=(10, 6))
 plt.subplots_adjust(left=0.02, right=0.98)
 
-# plot the covariances
+# رسم التغايرات
 covs = [
     ("Empirical", emp_cov),
     ("Ledoit-Wolf", lw_cov_),
@@ -117,9 +108,7 @@ for i, (name, this_cov) in enumerate(covs):
     plt.xticks(())
     plt.yticks(())
     plt.title("%s covariance" % name)
-
-
-# plot the precisions
+# رسم الانحرافات
 precs = [
     ("Empirical", linalg.inv(emp_cov)),
     ("Ledoit-Wolf", lw_prec_),
@@ -146,10 +135,11 @@ for i, (name, this_prec) in enumerate(precs):
 
 # %%
 
-# plot the model selection metric
+# رسم مقياس اختيار النموذج
 plt.figure(figsize=(4, 3))
 plt.axes([0.2, 0.15, 0.75, 0.7])
-plt.plot(model.cv_results_["alphas"], model.cv_results_["mean_test_score"], "o-")
+plt.plot(model.cv_results_["alphas"],
+         model.cv_results_["mean_test_score"], "o-")
 plt.axvline(model.alpha_, color=".5")
 plt.title("Model selection")
 plt.ylabel("Cross-validation score")

@@ -1,26 +1,26 @@
 """
-=======================================
-Visualizing the stock market structure
-=======================================
+=============================
+هيكلة سوق الأسهم المرئية
+=============================
 
-This example employs several unsupervised learning techniques to extract
-the stock market structure from variations in historical quotes.
+يستخدم هذا المثال عدة تقنيات تعلم غير خاضعة للإشراف لاستخراج
+هيكل سوق الأسهم من الاختلافات في الاقتباسات التاريخية.
 
-The quantity that we use is the daily variation in quote price: quotes
-that are linked tend to fluctuate in relation to each other during a day.
+الكمية التي نستخدمها هي التغير اليومي في سعر الاقتباس: الاقتباسات
+المرتبطة تميل إلى التقلب فيما يتعلق ببعضها البعض خلال يوم.
 """
 
 # Authors: The scikit-learn developers
 # SPDX-License-Identifier: BSD-3-Clause
 
 # %%
-# Retrieve the data from Internet
+# استرجاع البيانات من الإنترنت
 # -------------------------------
 #
-# The data is from 2003 - 2008. This is reasonably calm: (not too long ago so
-# that we get high-tech firms, and before the 2008 crash). This kind of
-# historical data can be obtained from APIs like the
-# `data.nasdaq.com <https://data.nasdaq.com/>`_ and
+# البيانات من 2003 - 2008. هذا هادئ بشكل معقول: (ليس منذ وقت طويل بحيث
+# نحصل على شركات التكنولوجيا الفائقة، وقبل تحطم 2008). يمكن الحصول على هذا النوع من
+# البيانات التاريخية من واجهات برمجة التطبيقات مثل
+# `data.nasdaq.com <https://data.nasdaq.com/>`_ و
 # `alphavantage.co <https://www.alphavantage.co/>`_.
 
 import sys
@@ -103,47 +103,48 @@ for symbol in symbols:
 close_prices = np.vstack([q["close"] for q in quotes])
 open_prices = np.vstack([q["open"] for q in quotes])
 
-# The daily variations of the quotes are what carry the most information
+# التغيرات اليومية في الاقتباسات هي ما تحمل معظم المعلومات
 variation = close_prices - open_prices
 
 # %%
 # .. _stock_market:
 #
-# Learning a graph structure
+# تعلم هيكل الرسم البياني
 # --------------------------
 #
-# We use sparse inverse covariance estimation to find which quotes are
-# correlated conditionally on the others. Specifically, sparse inverse
-# covariance gives us a graph, that is a list of connections. For each
-# symbol, the symbols that it is connected to are those useful to explain
-# its fluctuations.
+# نستخدم تقدير معكوس التباين النادر للعثور على الاقتباسات التي
+# مترابطة شرطياً على الآخرين. على وجه التحديد، يعطينا معكوس التباين النادر
+# رسم بياني، وهو قائمة من الاتصالات. لكل
+# رمز، الرموز التي يتصل بها هي تلك المفيدة لشرح
+# تقلباته.
 
 from sklearn import covariance
 
 alphas = np.logspace(-1.5, 1, num=10)
 edge_model = covariance.GraphicalLassoCV(alphas=alphas)
 
-# standardize the time series: using correlations rather than covariance
-# former is more efficient for structure recovery
+# توحيد سلسلة الوقت: استخدام الارتباطات بدلاً من التباين
+# السابق أكثر كفاءة لاستعادة الهيكل
 X = variation.copy().T
 X /= X.std(axis=0)
 edge_model.fit(X)
 
+
 # %%
-# Clustering using affinity propagation
+# التجميع باستخدام انتشار الانتماء
 # -------------------------------------
 #
-# We use clustering to group together quotes that behave similarly. Here,
-# amongst the :ref:`various clustering techniques <clustering>` available
-# in the scikit-learn, we use :ref:`affinity_propagation` as it does
-# not enforce equal-size clusters, and it can choose automatically the
-# number of clusters from the data.
+# نستخدم التجميع لجمع الاقتباسات التي تتصرف بشكل مشابه. هنا،
+# من بين :ref:`تقنيات التجميع المختلفة <clustering>` المتاحة
+# في scikit-learn، نستخدم :ref:`affinity_propagation` كما أنه لا
+# لا تفرض مجموعات متساوية الحجم، ويمكنها اختيار عدد المجموعات تلقائيًا
+# من البيانات.
 #
-# Note that this gives us a different indication than the graph, as the
-# graph reflects conditional relations between variables, while the
-# clustering reflects marginal properties: variables clustered together can
-# be considered as having a similar impact at the level of the full stock
-# market.
+# لاحظ أن هذا يعطينا مؤشرًا مختلفًا عن الرسم البياني، حيث يعكس الرسم البياني
+# العلاقات الشرطية بين المتغيرات، في حين أن التجميع
+# يعكس الخصائص الهامشية: يمكن اعتبار المتغيرات المجمعة معًا
+# كأن لها تأثيرًا مماثلًا على مستوى سوق الأسهم بالكامل.
+
 
 from sklearn import cluster
 
@@ -154,18 +155,18 @@ for i in range(n_labels + 1):
     print(f"Cluster {i + 1}: {', '.join(names[labels == i])}")
 
 # %%
-# Embedding in 2D space
+# تضمين في مساحة ثنائية الأبعاد
 # ---------------------
 #
-# For visualization purposes, we need to lay out the different symbols on a
-# 2D canvas. For this we use :ref:`manifold` techniques to retrieve 2D
-# embedding.
-# We use a dense eigen_solver to achieve reproducibility (arpack is initiated
-# with the random vectors that we don't control). In addition, we use a large
-# number of neighbors to capture the large-scale structure.
+# لأغراض العرض، نحتاج إلى وضع الرموز المختلفة على
+# قماش ثنائي الأبعاد. لهذا نستخدم :ref:`manifold`
+# تقنيات لاسترداد تضمين ثنائي الأبعاد.
+# نستخدم محددًا كثيفًا للوصول إلى إمكانية إعادة الإنتاج (يتم بدء arpack
+# مع المتجهات العشوائية التي لا نتحكم فيها). بالإضافة إلى ذلك، نستخدم
+# عدد كبير من الجيران لالتقاط الهيكل واسع النطاق.
 
-# Finding a low-dimension embedding for visualization: find the best position of
-# the nodes (the stocks) on a 2D plane
+# العثور على تضمين منخفض الأبعاد للعرض: العثور على أفضل موضع
+# للعقد (الأسهم) على طائرة ثنائية الأبعاد
 
 from sklearn import manifold
 
@@ -176,21 +177,21 @@ node_position_model = manifold.LocallyLinearEmbedding(
 embedding = node_position_model.fit_transform(X.T).T
 
 # %%
-# Visualization
+# العرض المرئي
 # -------------
 #
-# The output of the 3 models are combined in a 2D graph where nodes
-# represents the stocks and edges the:
+# يتم دمج مخرجات النماذج الثلاثة في رسم بياني ثنائي الأبعاد حيث العقد
+# يمثل الأسهم والحافات:
 #
-# - cluster labels are used to define the color of the nodes
-# - the sparse covariance model is used to display the strength of the edges
-# - the 2D embedding is used to position the nodes in the plan
+# - تستخدم تسميات المجموعات لتحديد لون العقد
+# - يستخدم نموذج التباين النادر لعرض قوة الحواف
+# - يستخدم التضمين ثنائي الأبعاد لوضع العقد في الخطة
 #
-# This example has a fair amount of visualization-related code, as
-# visualization is crucial here to display the graph. One of the challenge
-# is to position the labels minimizing overlap. For this we use an
-# heuristic based on the direction of the nearest neighbor along each
-# axis.
+# يحتوي هذا المثال على كمية عادلة من التعليمات البرمجية المتعلقة بالعرض المرئي، حيث
+# العرض المرئي أمر بالغ الأهمية هنا لعرض الرسم البياني. أحد التحديات
+# هو وضع التسميات لتقليل التداخل. لهذا نستخدم
+# خوارزمية تقريبية تعتمد على اتجاه أقرب جار على طول كل
+# المحور.
 
 import matplotlib.pyplot as plt
 from matplotlib.collections import LineCollection
@@ -200,22 +201,22 @@ plt.clf()
 ax = plt.axes([0.0, 0.0, 1.0, 1.0])
 plt.axis("off")
 
-# Plot the graph of partial correlations
+# رسم رسم بياني للارتباطات الجزئية
 partial_correlations = edge_model.precision_.copy()
 d = 1 / np.sqrt(np.diag(partial_correlations))
 partial_correlations *= d
 partial_correlations *= d[:, np.newaxis]
 non_zero = np.abs(np.triu(partial_correlations, k=1)) > 0.02
 
-# Plot the nodes using the coordinates of our embedding
+# رسم العقد باستخدام إحداثيات التضمين الخاص بنا
 plt.scatter(
     embedding[0], embedding[1], s=100 * d**2, c=labels, cmap=plt.cm.nipy_spectral
 )
 
-# Plot the edges
+# رسم الحواف
 start_idx, end_idx = np.where(non_zero)
-# a sequence of (*line0*, *line1*, *line2*), where::
-#            linen = (x0, y0), (x1, y1), ... (xm, ym)
+# تتابع (*line0*، *line1*، *line2*)، حيث::
+#            linen = (x0, y0)، (x1, y1)، ... (xm, ym)
 segments = [
     [embedding[:, start], embedding[:, stop]] for start, stop in zip(start_idx, end_idx)
 ]
@@ -227,8 +228,8 @@ lc.set_array(values)
 lc.set_linewidths(15 * values)
 ax.add_collection(lc)
 
-# Add a label to each node. The challenge here is that we want to
-# position the labels to avoid overlap with other labels
+# إضافة تسمية لكل عقدة. التحدي هنا هو أننا نريد
+# وضع التسميات لتجنب التداخل مع التسميات الأخرى
 for index, (name, label, (x, y)) in enumerate(zip(names, labels, embedding.T)):
     dx = x - embedding[0]
     dx[index] = 1

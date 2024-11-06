@@ -1,30 +1,28 @@
 """
 ======================================================================
-Decision Boundaries of Multinomial and One-vs-Rest Logistic Regression
+حدود القرار للانحدار متعدد الحدود والانحدار اللوجستي من النوع واحد مقابل البقية
 ======================================================================
 
-This example compares decision boundaries of multinomial and one-vs-rest
-logistic regression on a 2D dataset with three classes.
+يقارن هذا المثال حدود القرار للانحدار متعدد الحدود والانحدار اللوجستي من النوع واحد مقابل البقية
+على مجموعة بيانات ثنائية الأبعاد بثلاث فئات.
 
-We make a comparison of the decision boundaries of both methods that is equivalent
-to call the method `predict`. In addition, we plot the hyperplanes that correspond to
-the line when the probability estimate for a class is of 0.5.
+نقوم بمقارنة حدود القرار لكلتا الطريقتين والتي تعادل استدعاء طريقة `predict`. بالإضافة إلى ذلك، نقوم برسم المستويات الفاصلة التي تقابل
+الخط عندما يكون تقدير الاحتمال لفئة معينة 0.5.
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# Dataset Generation
+# توليد مجموعة البيانات
 # ------------------
 #
-# We generate a synthetic dataset using :func:`~sklearn.datasets.make_blobs` function.
-# The dataset consists of 1,000 samples from three different classes,
-# centered around [-5, 0], [0, 1.5], and [5, -1]. After generation, we apply a linear
-# transformation to introduce some correlation between features and make the problem
-# more challenging. This results in a 2D dataset with three overlapping classes,
-# suitable for demonstrating the differences between multinomial and one-vs-rest
-# logistic regression.
+# نقوم بتوليد مجموعة بيانات اصطناعية باستخدام الدالة :func:`~sklearn.datasets.make_blobs`.
+# تتكون مجموعة البيانات من 1,000 عينة من ثلاث فئات مختلفة،
+# تتركز حول النقاط [-5, 0], [0, 1.5], و [5, -1]. بعد التوليد، نقوم بتطبيق تحويل خطي
+# لإدخال بعض الارتباط بين الميزات وجعل المشكلة
+# أكثر صعوبة. ينتج عن ذلك مجموعة بيانات ثنائية الأبعاد بثلاث فئات متداخلة،
+# مناسبة لإظهار الاختلافات بين الانحدار متعدد الحدود والانحدار اللوجستي من النوع واحد مقابل البقية.
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -43,12 +41,12 @@ _ = ax.legend(*scatter.legend_elements(), title="Classes")
 
 
 # %%
-# Classifier Training
+# تدريب المصنف
 # -------------------
 #
-# We train two different logistic regression classifiers: multinomial and one-vs-rest.
-# The multinomial classifier handles all classes simultaneously, while the one-vs-rest
-# approach trains a binary classifier for each class against all others.
+# نقوم بتدريب مصنفين مختلفين للانحدار اللوجستي: متعدد الحدود والنوع واحد مقابل البقية.
+# يتعامل المصنف متعدد الحدود مع جميع الفئات في نفس الوقت، بينما يقوم النوع واحد مقابل البقية
+# بتدريب مصنف ثنائي لكل فئة مقابل جميع الفئات الأخرى.
 from sklearn.linear_model import LogisticRegression
 from sklearn.multiclass import OneVsRestClassifier
 
@@ -59,11 +57,11 @@ accuracy_multinomial = logistic_regression_multinomial.score(X, y)
 accuracy_ovr = logistic_regression_ovr.score(X, y)
 
 # %%
-# Decision Boundaries Visualization
+# تصور حدود القرار
 # ---------------------------------
 #
-# Let's visualize the decision boundaries of both models that is provided by the
-# method `predict` of the classifiers.
+# دعنا نصور حدود القرار لكل من النموذجين والتي يوفرها
+# طريقة `predict` للمصنفين.
 from sklearn.inspection import DecisionBoundaryDisplay
 
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5), sharex=True, sharey=True)
@@ -94,21 +92,20 @@ for model, title, ax in [
 
 
 # %%
-# We see that the decision boundaries are different. This difference stems from their
-# approaches:
+# نرى أن حدود القرار مختلفة. ينبع هذا الاختلاف من نهجهم:
 #
-# - Multinomial logistic regression considers all classes simultaneously during
-#   optimization.
-# - One-vs-rest logistic regression fits each class independently against all others.
+# - الانحدار اللوجستي متعدد الحدود يأخذ في الاعتبار جميع الفئات في نفس الوقت أثناء
+#   التحسين.
+# - الانحدار اللوجستي من النوع واحد مقابل البقية يقوم بتدريب كل فئة بشكل مستقل مقابل جميع الفئات الأخرى.
 #
-# These distinct strategies can lead to varying decision boundaries, especially in
-# complex multi-class problems.
+# يمكن لهذه الاستراتيجيات المتميزة أن تؤدي إلى حدود قرار مختلفة، خاصة في
+# المشاكل متعددة الفئات المعقدة.
 #
-# Hyperplanes Visualization
+# تصور المستويات الفاصلة
 # --------------------------
 #
-# We also visualize the hyperplanes that correspond to the line when the probability
-# estimate for a class is of 0.5.
+# نقوم أيضا بتصور المستويات الفاصلة التي تقابل الخط عندما يكون تقدير الاحتمال
+# لفئة معينة 0.5.
 def plot_hyperplanes(classifier, X, ax):
     xmin, xmax = X[:, 0].min(), X[:, 0].max()
     ymin, ymax = X[:, 1].min(), X[:, 1].max()
@@ -155,39 +152,37 @@ for model, title, ax in [
 plt.show()
 
 # %%
-# While the hyperplanes for classes 0 and 2 are quite similar between the two methods,
-# we observe that the hyperplane for class 1 is notably different. This difference stems
-# from the fundamental approaches of one-vs-rest and multinomial logistic regression:
+# بينما المستويات الفاصلة للفئتين 0 و 2 متشابهة إلى حد ما بين الطريقتين،
+# نلاحظ أن المستوى الفاصل للفئة 1 مختلف بشكل ملحوظ. ينبع هذا الاختلاف من
+# النهج الأساسي للانحدار اللوجستي من النوع واحد مقابل البقية والانحدار اللوجستي متعدد الحدود:
 #
-# For one-vs-rest logistic regression:
+# بالنسبة للانحدار اللوجستي من النوع واحد مقابل البقية:
 #
-# - Each hyperplane is determined independently by considering one class against all
-#   others.
-# - For class 1, the hyperplane represents the decision boundary that best separates
-#   class 1 from the combined classes 0 and 2.
-# - This binary approach can lead to simpler decision boundaries but may not capture
-#   complex relationships between all classes simultaneously.
-# - There is no possible interpretation of the conditional class probabilities.
+# - يتم تحديد كل مستوى فاصل بشكل مستقل من خلال اعتبار فئة واحدة مقابل جميع
+#   الفئات الأخرى.
+# - بالنسبة للفئة 1، يمثل المستوى الفاصل حد القرار الذي يفصل بشكل أفضل
+#   الفئة 1 عن الفئتين 0 و 2 مجتمعتين.
+# - يمكن لهذا النهج الثنائي أن يؤدي إلى حدود قرار أبسط ولكن قد لا يلتقط
+#   العلاقات المعقدة بين جميع الفئات في نفس الوقت.
+# - لا يوجد تفسير ممكن للاحتمالات الشرطية للفئات.
 #
-# For multinomial logistic regression:
+# بالنسبة للانحدار اللوجستي متعدد الحدود:
 #
-# - All hyperplanes are determined simultaneously, considering the relationships between
-#   all classes at once.
-# - The loss minimized by the model is a proper scoring rule, which means that the model
-#   is optimized to estimate the conditional class probabilities that are, therefore,
-#   meaningful.
-# - Each hyperplane represents the decision boundary where the probability of one class
-#   becomes higher than the others, based on the overall probability distribution.
-# - This approach can capture more nuanced relationships between classes, potentially
-#   leading to more accurate classification in multi-class problems.
+# - يتم تحديد جميع المستويات الفاصلة في نفس الوقت، مع مراعاة العلاقات بين
+#   جميع الفئات في نفس الوقت.
+# - الخسارة التي يتم تقليلها بواسطة النموذج هي قاعدة تسجيل صحيحة، مما يعني أن النموذج
+#   يتم تحسينه لتقدير الاحتمالات الشرطية للفئات والتي تكون بالتالي
+#   ذات معنى.
+# - يمثل كل مستوى فاصل حد القرار حيث يصبح احتمال فئة واحدة
+#   أعلى من الفئات الأخرى، بناءً على توزيع الاحتمالات الكلي.
+# - يمكن لهذا النهج أن يلتقط العلاقات الأكثر دقة بين الفئات، مما يؤدي إلى
+#   تصنيف أكثر دقة في المشاكل متعددة الفئات.
 #
-# The difference in hyperplanes, especially for class 1, highlights how these methods
-# can produce different decision boundaries despite similar overall accuracy.
+# يبرز الاختلاف في المستويات الفاصلة، خاصة للفئة 1، كيف يمكن لهذه الطرق
+# أن تنتج حدود قرار مختلفة على الرغم من الدقة الكلية المتشابهة.
 #
-# In practice, using multinomial logistic regression is recommended since it minimizes a
-# well-formulated loss function, leading to better-calibrated class probabilities and
-# thus more interpretable results. When it comes to decision boundaries, one should
-# formulate a utility function to transform the class probabilities into a meaningful
-# quantity for the problem at hand. One-vs-rest allows for different decision boundaries
-# but does not allow for fine-grained control over the trade-off between the classes as
-# a utility function would.
+# في الممارسة العملية، يوصى باستخدام الانحدار اللوجستي متعدد الحدود لأنه يقلل من
+# دالة خسارة جيدة الصياغة، مما يؤدي إلى احتمالات أكثر توازناً للفئات وبالتالي نتائج أكثر قابلية للتفسير. عندما يتعلق الأمر بحدود القرار، يجب
+# صياغة دالة فائدة لتحويل احتمالات الفئات إلى كمية ذات معنى
+# للمشكلة المطروحة. يسمح النوع واحد مقابل البقية بحدود قرار مختلفة
+# ولكن لا يسمح بالتحكم الدقيق في المقايضة بين الفئات كما تفعل دالة الفائدة.

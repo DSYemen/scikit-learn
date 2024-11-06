@@ -1,27 +1,18 @@
 """
 ====================
-Inductive Clustering
+التصنيف الاستقرائي
 ====================
 
-Clustering can be expensive, especially when our dataset contains millions
-of datapoints. Many clustering algorithms are not :term:`inductive` and so
-cannot be directly applied to new data samples without recomputing the
-clustering, which may be intractable. Instead, we can use clustering to then
-learn an inductive model with a classifier, which has several benefits:
+يمكن أن تكون عملية التصنيف مكلفة، خاصة عندما تحتوي مجموعتنا البياناتية على ملايين النقاط البياناتية. العديد من خوارزميات التصنيف ليست :term:`استقرائية`، وبالتالي لا يمكن تطبيقها مباشرة على عينات بيانات جديدة دون إعادة حساب التصنيف، والذي قد يكون غير قابل للحساب. بدلاً من ذلك، يمكننا استخدام التصنيف لتعلم نموذج استقرائي باستخدام مصنف، والذي له عدة فوائد:
 
-- it allows the clusters to scale and apply to new data
-- unlike re-fitting the clusters to new samples, it makes sure the labelling
-  procedure is consistent over time
-- it allows us to use the inferential capabilities of the classifier to
-  describe or explain the clusters
+- يسمح للتصنيفات بالتوسع والتطبيق على بيانات جديدة
+- على عكس إعادة ملاءمة التصنيفات لعينات جديدة، فإنه يضمن اتساق إجراء التصنيف بمرور الوقت
+- يسمح لنا باستخدام القدرات الاستدلالية للمصنف لوصف أو شرح التصنيفات
 
-This example illustrates a generic implementation of a meta-estimator which
-extends clustering by inducing a classifier from the cluster labels.
-
+يوضح هذا المثال تنفيذًا عامًا لمصنف ميتا والذي يوسع التصنيف من خلال استنتاج مصنف من تسميات التصنيف.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايت-ليرن
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 
@@ -38,10 +29,10 @@ RANDOM_STATE = 42
 
 
 def _classifier_has(attr):
-    """Check if we can delegate a method to the underlying classifier.
+    """تحقق إذا كان يمكننا تفويض طريقة إلى المصنف الأساسي.
 
-    First, we check the first fitted classifier if available, otherwise we
-    check the unfitted classifier.
+    أولاً، نتحقق من المصنف الملائم الأول إذا كان متاحًا، وإلا فإننا
+    نتحقق من المصنف غير الملائم.
     """
     return lambda estimator: (
         hasattr(estimator.classifier_, attr)
@@ -77,7 +68,7 @@ def plot_scatter(X, color, alpha=0.5):
     return plt.scatter(X[:, 0], X[:, 1], c=color, alpha=alpha, edgecolor="k")
 
 
-# Generate some training data from clustering
+# توليد بعض بيانات التدريب من التصنيف
 X, y = make_blobs(
     n_samples=N_SAMPLES,
     cluster_std=[1.0, 1.0, 0.5],
@@ -86,7 +77,7 @@ X, y = make_blobs(
 )
 
 
-# Train a clustering algorithm on the training data and get the cluster labels
+# تدريب خوارزمية التصنيف على بيانات التدريب والحصول على تسميات التصنيف
 clusterer = AgglomerativeClustering(n_clusters=3)
 cluster_labels = clusterer.fit_predict(X)
 
@@ -97,7 +88,7 @@ plot_scatter(X, cluster_labels)
 plt.title("Ward Linkage")
 
 
-# Generate new samples and plot them along with the original dataset
+# توليد عينات جديدة ورسمها جنبًا إلى جنب مع مجموعة البيانات الأصلية
 X_new, y_new = make_blobs(
     n_samples=10, centers=[(-7, -1), (-2, 4), (3, 6)], random_state=RANDOM_STATE
 )
@@ -108,8 +99,7 @@ plot_scatter(X_new, "black", 1)
 plt.title("Unknown instances")
 
 
-# Declare the inductive learning model that it will be used to
-# predict cluster membership for unknown instances
+# إعلان نموذج التعلم الاستقرائي الذي سيتم استخدامه للتنبؤ بعضوية التصنيف للعينات غير المعروفة
 classifier = RandomForestClassifier(random_state=RANDOM_STATE)
 inductive_learner = InductiveClusterer(clusterer, classifier).fit(X)
 
@@ -120,7 +110,7 @@ ax = plt.subplot(133)
 plot_scatter(X, cluster_labels)
 plot_scatter(X_new, probable_clusters)
 
-# Plotting decision regions
+# رسم مناطق القرار
 DecisionBoundaryDisplay.from_estimator(
     inductive_learner, X, response_method="predict", alpha=0.4, ax=ax
 )

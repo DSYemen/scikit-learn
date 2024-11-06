@@ -687,7 +687,7 @@
                   
   <section id="permutation-importance">
 <span id="id1"></span><h1><span class="section-number">4.2. </span>أهمية التبديل<a class="headerlink" href="#permutation-importance" title="Link to this heading">#</a></h1>
-<p>أهمية التبديل هي تقنية فحص النموذج التي تقيس مساهمة كل ميزة في الأداء الإحصائي للنموذج <a class="reference internal" href="../glossary.html#term-fitted"><span class="xref std std-term">fitted</span></a> على مجموعة بيانات جدولي معينة. هذه التقنية مفيدة بشكل خاص للمقدّرات غير الخطية أو غير الشفافة، وتتضمن خلط قيم ميزة واحدة بشكل عشوائي ومراقبة التدهور الناتج في درجة النموذج <a class="footnote-reference brackets" href="#id6" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. من خلال كسر العلاقة بين الميزة والهدف، نحدد مدى اعتماد النموذج على هذه الميزة المحددة.</p>
+<p>أهمية التبديل هي تقنية فحص النموذج التي تقيس مساهمة كل ميزة في الأداء الإحصائي للنموذج <span class="xref std std-term">fitted</span> على مجموعة بيانات جدولي معينة. هذه التقنية مفيدة بشكل خاص للمقدّرات غير الخطية أو غير الشفافة، وتتضمن خلط قيم ميزة واحدة بشكل عشوائي ومراقبة التدهور الناتج في درجة النموذج <a class="footnote-reference brackets" href="#id6" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. من خلال كسر العلاقة بين الميزة والهدف، نحدد مدى اعتماد النموذج على هذه الميزة المحددة.</p>
 <p>في الأشكال التالية، نلاحظ تأثير تبديل الميزات على الارتباط
 بين الميزة والهدف وبالتالي على الأداء الإحصائي للنموذج.</p>
 <img alt="../_images/permuted_predictive_feature.png" class="align-center" src="../_images/permuted_predictive_feature.png" />
@@ -716,7 +716,7 @@
 لنموذج معين</strong>.</p>
 </div>
 <p>تقوم دالة <a class="reference internal" href="generated/sklearn.inspection.permutation_importance.html#sklearn.inspection.permutation_importance" title="sklearn.inspection.permutation_importance"><code class="xref py py-func docutils literal notranslate"><span class="pre">permutation_importance</span></code></a> بحساب أهمية الميزة
-من <a class="reference internal" href="../glossary.html#term-estimators"><span class="xref std std-term">estimators</span></a> لمجموعة بيانات معينة. يحدد معلمة <code class="docutils literal notranslate"><span class="pre">n_repeats</span></code>
+من <span class="xref std std-term">estimators</span> لمجموعة بيانات معينة. يحدد معلمة <code class="docutils literal notranslate"><span class="pre">n_repeats</span></code>
 عدد المرات التي يتم فيها خلط ميزة عشوائيًا وإرجاع عينة من أهمية الميزة.</p>
 <p>لنأخذ في الاعتبار نموذج الانحدار المدرب التالي:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_diabetes</span>
@@ -835,7 +835,7 @@ based on the mean decrease in impurity</span></a>
 <p>لا تظهر أهمية الميزات القائمة على التبديل مثل هذا التحيز. بالإضافة إلى ذلك،
 يمكن حساب أهمية التبديل بأي مقياس للأداء على تنبؤات النموذج ويمكن استخدامها لتحليل أي فئة من النماذج (ليس فقط النماذج القائمة على الشجرة).</p>
 <p>يسلط المثال التالي الضوء على قيود أهمية الميزة القائمة على الشوائب على عكس أهمية الميزة القائمة على التبديل:
-<a class="reference internal" href="../auto_examples/inspection/plot_permutation_importance.html#sphx-glr-auto-examples-inspection-plot-permutation-importance-py"><span class="std std-ref">Permutation Importance vs Random Forest Feature Importance (MDI)</span></a>.</p>
+<a class="reference internal" href="../auto_examples/inspection/plot_permutation_importance.html#sphx-glr-auto-examples-inspection-plot-permutation-importance-py"><span class="std std-ref">أهمية التبديل مقابل أهمية ميزة الغابة العشوائية (MDI)</span></a>.</p>
 </section>
 <section id="id5">
 <h2><span class="section-number">4.2.3. </span>القيم المضللة على الميزات ذات الارتباط القوي<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
@@ -855,11 +855,11 @@ based on the mean decrease in impurity</span></a>
 </a>
 </figure>
 <p>للحصول على مزيد من التفاصيل حول هذه الاستراتيجية، راجع المثال
-<a class="reference internal" href="../auto_examples/inspection/plot_permutation_importance_multicollinear.html#sphx-glr-auto-examples-inspection-plot-permutation-importance-multicollinear-py"><span class="std std-ref">Permutation Importance with Multicollinear or Correlated Features</span></a>.</p>
+<a class="reference internal" href="../auto_examples/inspection/plot_permutation_importance_multicollinear.html#sphx-glr-auto-examples-inspection-plot-permutation-importance-multicollinear-py"><span class="std std-ref">أهمية التبديل مع الميزات متعددة الخطية أو المرتبطة</span></a>.</p>
 <p class="rubric">أمثلة</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../auto_examples/inspection/plot_permutation_importance.html#sphx-glr-auto-examples-inspection-plot-permutation-importance-py"><span class="std std-ref">Permutation Importance vs Random Forest Feature Importance (MDI)</span></a></p></li>
-<li><p><a class="reference internal" href="../auto_examples/inspection/plot_permutation_importance_multicollinear.html#sphx-glr-auto-examples-inspection-plot-permutation-importance-multicollinear-py"><span class="std std-ref">Permutation Importance with Multicollinear or Correlated Features</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/inspection/plot_permutation_importance.html#sphx-glr-auto-examples-inspection-plot-permutation-importance-py"><span class="std std-ref">أهمية التبديل مقابل أهمية ميزة الغابة العشوائية (MDI)</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/inspection/plot_permutation_importance_multicollinear.html#sphx-glr-auto-examples-inspection-plot-permutation-importance-multicollinear-py"><span class="std std-ref">أهمية التبديل مع الميزات متعددة الخطية أو المرتبطة</span></a></p></li>
 </ul>
 <p class="rubric">المراجع</p>
 <aside class="footnote-list brackets">

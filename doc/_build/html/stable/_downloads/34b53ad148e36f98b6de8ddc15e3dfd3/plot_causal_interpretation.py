@@ -1,34 +1,21 @@
 """
 ===================================================
-Failure of Machine Learning to infer causal effects
+فشل التعلم الآلي في استنتاج الآثار السببية
 ===================================================
 
-Machine Learning models are great for measuring statistical associations.
-Unfortunately, unless we're willing to make strong assumptions about the data,
-those models are unable to infer causal effects.
+تُعد نماذج التعلم الآلي رائعة لقياس الارتباطات الإحصائية. لسوء الحظ، ما لم نكن على استعداد لوضع افتراضات قوية حول البيانات، فإن هذه النماذج غير قادرة على استنتاج الآثار السببية.
 
-To illustrate this, we will simulate a situation in which we try to answer one
-of the most important questions in economics of education: **what is the causal
-effect of earning a college degree on hourly wages?** Although the answer to
-this question is crucial to policy makers, `Omitted-Variable Biases
-<https://en.wikipedia.org/wiki/Omitted-variable_bias>`_ (OVB) prevent us from
-identifying that causal effect.
+لتوضيح ذلك، سنحاكي موقفًا نحاول فيه الإجابة على أحد أهم الأسئلة في اقتصاديات التعليم: **ما هو التأثير السببي للحصول على درجة جامعية على الأجور بالساعة؟** على الرغم من أن الإجابة على هذا السؤال بالغة الأهمية لواضعي السياسات، فإن `الانحيازات المتغيرة المحذوفة <https://en.wikipedia.org/wiki/Omitted-variable_bias>`_ (OVB) تمنعنا من تحديد هذا التأثير السببي.
 """
 
 # Authors: The scikit-learn developers
 # SPDX-License-Identifier: BSD-3-Clause
 
 # %%
-# The dataset: simulated hourly wages
+# مجموعة البيانات: أجور بالساعة محاكاة
 # -----------------------------------
 #
-# The data generating process is laid out in the code below. Work experience in
-# years and a measure of ability are drawn from Normal distributions; the
-# hourly wage of one of the parents is drawn from Beta distribution. We then
-# create an indicator of college degree which is positively impacted by ability
-# and parental hourly wage. Finally, we model hourly wages as a linear function
-# of all the previous variables and a random component. Note that all variables
-# have a positive effect on hourly wages.
+# يتم وضع عملية توليد البيانات في الكود أدناه. يتم استخلاص الخبرة العملية بالسنوات ومقياس القدرة من التوزيعات العادية. يتم استخلاص الأجر بالساعة لأحد الوالدين من توزيع بيتا. ثم نقوم بإنشاء مؤشر لدرجة جامعية تتأثر إيجابيًا بالقدرة والأجر بالساعة للوالدين. أخيرًا، نقوم بنمذجة الأجور بالساعة كدالة خطية لجميع المتغيرات السابقة ومكون عشوائي. لاحظ أن جميع المتغيرات لها تأثير إيجابي على الأجور بالساعة.
 import numpy as np
 import pandas as pd
 
@@ -63,12 +50,10 @@ hourly_wages = (
 hourly_wages[hourly_wages < 0] = 0
 
 # %%
-# Description of the simulated data
+# وصف البيانات المحاكاة
 # ---------------------------------
 #
-# The following plot shows the distribution of each variable, and pairwise
-# scatter plots. Key to our OVB story is the positive relationship between
-# ability and college degree.
+# يوضح الرسم التالي توزيع كل متغير، ومخططات التشتت الزوجية. مفتاح قصة OVB الخاصة بنا هو العلاقة الإيجابية بين القدرة والدرجة الجامعية.
 import seaborn as sns
 
 df = pd.DataFrame(
@@ -84,9 +69,7 @@ df = pd.DataFrame(
 grid = sns.pairplot(df, diag_kind="kde", corner=True)
 
 # %%
-# In the next section, we train predictive models and we therefore split the
-# target column from over features and we split the data into a training and a
-# testing set.
+# في القسم التالي، نقوم بتدريب نماذج تنبؤية، وبالتالي نقوم بتقسيم عمود الهدف من الميزات ونقسم البيانات إلى مجموعة تدريب ومجموعة اختبار.
 from sklearn.model_selection import train_test_split
 
 target_name = "hourly wage"
@@ -94,12 +77,10 @@ X, y = df.drop(columns=target_name), df[target_name]
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 
 # %%
-# Income prediction with fully observed variables
+# التنبؤ بالدخل مع المتغيرات المرصودة بالكامل
 # -----------------------------------------------
 #
-# First, we train a predictive model, a
-# :class:`~sklearn.linear_model.LinearRegression` model. In this experiment,
-# we assume that all variables used by the true generative model are available.
+# أولاً، نقوم بتدريب نموذج تنبؤي، وهو نموذج :class:`~sklearn.linear_model.LinearRegression`. في هذه التجربة، نفترض أن جميع المتغيرات التي يستخدمها نموذج التوليد الحقيقي متاحة.
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score
 
@@ -110,33 +91,28 @@ regressor_with_ability.fit(X_train[features_names], y_train)
 y_pred_with_ability = regressor_with_ability.predict(X_test[features_names])
 R2_with_ability = r2_score(y_test, y_pred_with_ability)
 
-print(f"R2 score with ability: {R2_with_ability:.3f}")
+print(f"درجة R2 مع القدرة: {R2_with_ability:.3f}")
 
 # %%
-# This model predicts well the hourly wages as shown by the high R2 score. We
-# plot the model coefficients to show that we exactly recover the values of
-# the true generative model.
+# يتنبأ هذا النموذج جيدًا بالأجور بالساعة كما هو موضح بدرجة R2 العالية. نرسم معاملات النموذج لإظهار أننا نسترجع بالضبط قيم نموذج التوليد الحقيقي.
 import matplotlib.pyplot as plt
 
 model_coef = pd.Series(regressor_with_ability.coef_, index=features_names)
 coef = pd.concat(
     [true_coef[features_names], model_coef],
-    keys=["Coefficients of true generative model", "Model coefficients"],
+    keys=["معاملات نموذج التوليد الحقيقي", "معاملات النموذج"],
     axis=1,
 )
 ax = coef.plot.barh()
-ax.set_xlabel("Coefficient values")
-ax.set_title("Coefficients of the linear regression including the ability features")
+ax.set_xlabel("قيم المعاملات")
+ax.set_title("معاملات الانحدار الخطي بما في ذلك ميزات القدرة")
 _ = plt.tight_layout()
 
 # %%
-# Income prediction with partial observations
+# التنبؤ بالدخل مع الملاحظات الجزئية
 # -------------------------------------------
 #
-# In practice, intellectual abilities are not observed or are only estimated
-# from proxies that inadvertently measure education as well (e.g. by IQ tests).
-# But omitting the "ability" feature from a linear model inflates the estimate
-# via a positive OVB.
+# من الناحية العملية، لا تتم ملاحظة القدرات الفكرية أو يتم تقديرها فقط من الوكلاء الذين يقيسون التعليم عن غير قصد أيضًا (على سبيل المثال، عن طريق اختبارات الذكاء). لكن حذف ميزة "القدرة" من نموذج خطي يؤدي إلى تضخيم التقدير من خلال OVB إيجابي.
 features_names = ["experience", "parent hourly wage", "college degree"]
 
 regressor_without_ability = LinearRegression()
@@ -144,46 +120,31 @@ regressor_without_ability.fit(X_train[features_names], y_train)
 y_pred_without_ability = regressor_without_ability.predict(X_test[features_names])
 R2_without_ability = r2_score(y_test, y_pred_without_ability)
 
-print(f"R2 score without ability: {R2_without_ability:.3f}")
+print(f"درجة R2 بدون القدرة: {R2_without_ability:.3f}")
 
 # %%
-# The predictive power of our model is similar when we omit the ability feature
-# in terms of R2 score. We now check if the coefficient of the model are
-# different from the true generative model.
+# القدرة التنبؤية لنموذجنا متشابهة عندما نحذف ميزة القدرة من حيث درجة R2. نتحقق الآن مما إذا كان معامل النموذج مختلفًا عن نموذج التوليد الحقيقي.
 
 model_coef = pd.Series(regressor_without_ability.coef_, index=features_names)
 coef = pd.concat(
     [true_coef[features_names], model_coef],
-    keys=["Coefficients of true generative model", "Model coefficients"],
+    keys=["معاملات نموذج التوليد الحقيقي", "معاملات النموذج"],
     axis=1,
 )
 ax = coef.plot.barh()
-ax.set_xlabel("Coefficient values")
-_ = ax.set_title("Coefficients of the linear regression excluding the ability feature")
+ax.set_xlabel("قيم المعاملات")
+_ = ax.set_title("معاملات الانحدار الخطي باستثناء ميزة القدرة")
 plt.tight_layout()
 plt.show()
 
 # %%
-# To compensate for the omitted variable, the model inflates the coefficient of
-# the college degree feature. Therefore, interpreting this coefficient value
-# as a causal effect of the true generative model is incorrect.
+# للتعويض عن المتغير المحذوف، يقوم النموذج بتضخيم معامل ميزة الدرجة الجامعية. لذلك، فإن تفسير قيمة هذا المعامل كتأثير سببي لنموذج التوليد الحقيقي غير صحيح.
 #
-# Lessons learned
+# الدروس المستفادة
 # ---------------
 #
-# Machine learning models are not designed for the estimation of causal
-# effects. While we showed this with a linear model, OVB can affect any type of
-# model.
+# لم يتم تصميم نماذج التعلم الآلي لتقدير الآثار السببية. بينما أظهرنا ذلك بنموذج خطي، يمكن أن يؤثر OVB على أي نوع من النماذج.
 #
-# Whenever interpreting a coefficient or a change in predictions brought about
-# by a change in one of the features, it is important to keep in mind
-# potentially unobserved variables that could be correlated with both the
-# feature in question and the target variable. Such variables are called
-# `Confounding Variables <https://en.wikipedia.org/wiki/Confounding>`_. In
-# order to still estimate causal effect in the presence of confounding,
-# researchers usually conduct experiments in which the treatment variable (e.g.
-# college degree) is randomized. When an experiment is prohibitively expensive
-# or unethical, researchers can sometimes use other causal inference techniques
-# such as `Instrumental Variables
-# <https://en.wikipedia.org/wiki/Instrumental_variables_estimation>`_ (IV)
-# estimations.
+# عند تفسير معامل أو تغيير في التنبؤات ناتج عن تغيير في إحدى الميزات، من المهم أن تضع في اعتبارك المتغيرات التي يحتمل ألا تتم ملاحظتها والتي يمكن أن تكون مرتبطة بكل من الميزة المعنية والمتغير الهدف. تسمى هذه المتغيرات `المتغيرات المربكة <https://en.wikipedia.org/wiki/Confounding>`_. من أجل تقدير التأثير السببي في وجود التشويش، عادةً ما يجري الباحثون تجارب يتم فيها اختيار متغير المعالجة (مثل الدرجة الجامعية) عشوائيًا. عندما تكون التجربة باهظة الثمن أو غير أخلاقية، يمكن للباحثين أحيانًا استخدام تقنيات استدلال سببي أخرى مثل تقديرات `المتغيرات الآلية <https://en.wikipedia.org/wiki/Instrumental_variables_estimation>`_ (IV).
+
+

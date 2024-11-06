@@ -1,27 +1,17 @@
 """
 =============================
-OOB Errors for Random Forests
+أخطاء OOB لخوارزمية Random Forests
 =============================
 
-The ``RandomForestClassifier`` is trained using *bootstrap aggregation*, where
-each new tree is fit from a bootstrap sample of the training observations
-:math:`z_i = (x_i, y_i)`. The *out-of-bag* (OOB) error is the average error for
-each :math:`z_i` calculated using predictions from the trees that do not
-contain :math:`z_i` in their respective bootstrap sample. This allows the
-``RandomForestClassifier`` to be fit and validated whilst being trained [1]_.
+تم تدريب خوارزمية ``RandomForestClassifier`` باستخدام *bootstrap aggregation*، حيث يتم ملاءمة كل شجرة جديدة من عينة bootstrap من الملاحظات التدريبية :math:`z_i = (x_i, y_i)`. خطأ *out-of-bag* (OOB) هو متوسط الخطأ لكل :math:`z_i` محسوبة باستخدام تنبؤات من الأشجار التي لا تحتوي على :math:`z_i` في عينة bootstrap الخاصة بها. يسمح هذا لخوارزمية ``RandomForestClassifier`` بالتدريب والتحقق أثناء التدريب [1]_.
 
-The example below demonstrates how the OOB error can be measured at the
-addition of each new tree during training. The resulting plot allows a
-practitioner to approximate a suitable value of ``n_estimators`` at which the
-error stabilizes.
+يوضح المثال أدناه كيفية قياس خطأ OOB عند إضافة كل شجرة جديدة أثناء التدريب. يسمح المخطط الناتج لممارس تقريب قيمة مناسبة لـ ``n_estimators`` والتي يستقر عندها الخطأ.
 
 .. [1] T. Hastie, R. Tibshirani and J. Friedman, "Elements of Statistical
        Learning Ed. 2", p592-593, Springer, 2009.
-
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 from collections import OrderedDict
 
@@ -32,7 +22,7 @@ from sklearn.ensemble import RandomForestClassifier
 
 RANDOM_STATE = 123
 
-# Generate a binary classification dataset.
+# إنشاء مجموعة بيانات للتصنيف الثنائي.
 X, y = make_classification(
     n_samples=500,
     n_features=25,
@@ -41,9 +31,9 @@ X, y = make_classification(
     random_state=RANDOM_STATE,
 )
 
-# NOTE: Setting the `warm_start` construction parameter to `True` disables
-# support for parallelized ensembles but is necessary for tracking the OOB
-# error trajectory during training.
+# ملاحظة: تعيين معلمة البناء `warm_start` إلى `True` تعطل
+# دعم المجموعات الموازية ولكنها ضرورية لتتبع مسار خطأ OOB
+# أثناء التدريب.
 ensemble_clfs = [
     (
         "RandomForestClassifier, max_features='sqrt'",
@@ -74,10 +64,10 @@ ensemble_clfs = [
     ),
 ]
 
-# Map a classifier name to a list of (<n_estimators>, <error rate>) pairs.
+# ربط اسم المصنف بقائمة من أزواج (<n_estimators>, <error rate>).
 error_rate = OrderedDict((label, []) for label, _ in ensemble_clfs)
 
-# Range of `n_estimators` values to explore.
+# نطاق قيم `n_estimators` لاستكشافها.
 min_estimators = 15
 max_estimators = 150
 
@@ -86,11 +76,11 @@ for label, clf in ensemble_clfs:
         clf.set_params(n_estimators=i)
         clf.fit(X, y)
 
-        # Record the OOB error for each `n_estimators=i` setting.
+        # تسجيل خطأ OOB لكل إعداد `n_estimators=i`.
         oob_error = 1 - clf.oob_score_
         error_rate[label].append((i, oob_error))
 
-# Generate the "OOB error rate" vs. "n_estimators" plot.
+# إنشاء مخطط "معدل خطأ OOB" مقابل "n_estimators".
 for label, clf_err in error_rate.items():
     xs, ys = zip(*clf_err)
     plt.plot(xs, ys, label=label)

@@ -18,22 +18,21 @@
 .. _sphx_glr_auto_examples_feature_selection_plot_feature_selection.py:
 
 
-============================
-Univariate Feature Selection
-============================
+===============================
+اختيار الميزة أحادية المتغير
+===============================
 
-This notebook is an example of using univariate feature selection
-to improve classification accuracy on a noisy dataset.
+هذا الدفتر هو مثال على استخدام اختيار الميزات أحادي المتغير
+لتحسين دقة التصنيف على مجموعة بيانات صاخبة.
 
-In this example, some noisy (non informative) features are added to
-the iris dataset. Support vector machine (SVM) is used to classify the
-dataset both before and after applying univariate feature selection.
-For each feature, we plot the p-values for the univariate feature selection
-and the corresponding weights of SVMs. With this, we will compare model
-accuracy and examine the impact of univariate feature selection on model
-weights.
+في هذا المثال، تتم إضافة بعض الميزات الصاخبة (غير المعلوماتية) إلى
+مجموعة بيانات iris. يتم استخدام آلة متجه الدعم (SVM) لتصنيف
+مجموعة البيانات قبل وبعد تطبيق اختيار الميزات أحادي المتغير.
+لكل ميزة، نرسم قيم p لاختيار الميزات أحادي المتغير
+والأوزان المقابلة لـ SVMs. مع هذا، سنقارن دقة النموذج
+ونفحص تأثير اختيار الميزات أحادي المتغير على أوزان النموذج.
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-22
+.. GENERATED FROM PYTHON SOURCE LINES 17-21
 
 .. code-block:: Python
 
@@ -48,13 +47,13 @@ weights.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 23-26
+.. GENERATED FROM PYTHON SOURCE LINES 22-25
 
-Generate sample data
+توليد بيانات العينة
 --------------------
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 26-43
+.. GENERATED FROM PYTHON SOURCE LINES 25-42
 
 .. code-block:: Python
 
@@ -82,16 +81,16 @@ Generate sample data
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 44-50
+.. GENERATED FROM PYTHON SOURCE LINES 43-49
 
-Univariate feature selection
+اختيار الميزات أحادي المتغير
 ----------------------------
 
-Univariate feature selection with F-test for feature scoring.
-We use the default selection function to select
-the four most significant features.
+اختيار الميزات أحادي المتغير مع اختبار F لتسجيل الميزات.
+نستخدم دالة الاختيار الافتراضية لتحديد
+أهم أربع ميزات.
 
-.. GENERATED FROM PYTHON SOURCE LINES 50-57
+.. GENERATED FROM PYTHON SOURCE LINES 49-56
 
 .. code-block:: Python
 
@@ -109,7 +108,7 @@ the four most significant features.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-69
+.. GENERATED FROM PYTHON SOURCE LINES 57-68
 
 .. code-block:: Python
 
@@ -119,8 +118,8 @@ the four most significant features.
     plt.figure(1)
     plt.clf()
     plt.bar(X_indices - 0.05, scores, width=0.2)
-    plt.title("Feature univariate score")
-    plt.xlabel("Feature number")
+    plt.title("درجة الميزة أحادية المتغير")
+    plt.xlabel("رقم الميزة")
     plt.ylabel(r"Univariate score ($-Log(p_{value})$)")
     plt.show()
 
@@ -128,7 +127,7 @@ the four most significant features.
 
 
 .. image-sg:: /auto_examples/feature_selection/images/sphx_glr_plot_feature_selection_001.png
-   :alt: Feature univariate score
+   :alt: درجة الميزة أحادية المتغير
    :srcset: /auto_examples/feature_selection/images/sphx_glr_plot_feature_selection_001.png
    :class: sphx-glr-single-img
 
@@ -136,20 +135,19 @@ the four most significant features.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 70-73
+.. GENERATED FROM PYTHON SOURCE LINES 69-71
 
-In the total set of features, only the 4 of the original features are significant.
-We can see that they have the highest score with univariate feature
-selection.
+في المجموعة الكلية من الميزات، فقط 4 من الميزات الأصلية مهمة.
+يمكننا أن نرى أن لديهم أعلى درجة مع اختيار الميزات أحادي المتغير.
 
-.. GENERATED FROM PYTHON SOURCE LINES 75-79
+.. GENERATED FROM PYTHON SOURCE LINES 74-78
 
-Compare with SVMs
+المقارنة مع SVMs
 -----------------
 
-Without univariate feature selection
+بدون اختيار الميزات أحادي المتغير
 
-.. GENERATED FROM PYTHON SOURCE LINES 79-94
+.. GENERATED FROM PYTHON SOURCE LINES 78-93
 
 .. code-block:: Python
 
@@ -160,7 +158,7 @@ Without univariate feature selection
     clf = make_pipeline(MinMaxScaler(), LinearSVC())
     clf.fit(X_train, y_train)
     print(
-        "Classification accuracy without selecting features: {:.3f}".format(
+        "دقة التصنيف بدون اختيار الميزات: {:.3f}".format(
             clf.score(X_test, y_test)
         )
     )
@@ -176,23 +174,23 @@ Without univariate feature selection
 
  .. code-block:: none
 
-    Classification accuracy without selecting features: 0.789
+    دقة التصنيف بدون اختيار الميزات: 0.789
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 95-96
+.. GENERATED FROM PYTHON SOURCE LINES 94-95
 
-After univariate feature selection
+بعد اختيار الميزات أحادي المتغير
 
-.. GENERATED FROM PYTHON SOURCE LINES 96-107
+.. GENERATED FROM PYTHON SOURCE LINES 95-106
 
 .. code-block:: Python
 
     clf_selected = make_pipeline(SelectKBest(f_classif, k=4), MinMaxScaler(), LinearSVC())
     clf_selected.fit(X_train, y_train)
     print(
-        "Classification accuracy after univariate feature selection: {:.3f}".format(
+        "دقة التصنيف بعد اختيار الميزات أحادي المتغير: {:.3f}".format(
             clf_selected.score(X_test, y_test)
         )
     )
@@ -208,12 +206,12 @@ After univariate feature selection
 
  .. code-block:: none
 
-    Classification accuracy after univariate feature selection: 0.868
+    دقة التصنيف بعد اختيار الميزات أحادي المتغير: 0.868
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 108-128
+.. GENERATED FROM PYTHON SOURCE LINES 107-127
 
 .. code-block:: Python
 
@@ -230,8 +228,8 @@ After univariate feature selection
         label="SVM weights after selection",
     )
 
-    plt.title("Comparing feature selection")
-    plt.xlabel("Feature number")
+    plt.title("مقارنة اختيار الميزات")
+    plt.xlabel("رقم الميزة")
     plt.yticks(())
     plt.axis("tight")
     plt.legend(loc="upper right")
@@ -241,7 +239,7 @@ After univariate feature selection
 
 
 .. image-sg:: /auto_examples/feature_selection/images/sphx_glr_plot_feature_selection_002.png
-   :alt: Comparing feature selection
+   :alt: مقارنة اختيار الميزات
    :srcset: /auto_examples/feature_selection/images/sphx_glr_plot_feature_selection_002.png
    :class: sphx-glr-single-img
 
@@ -249,18 +247,18 @@ After univariate feature selection
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 129-134
+.. GENERATED FROM PYTHON SOURCE LINES 128-133
 
-Without univariate feature selection, the SVM assigns a large weight
-to the first 4 original significant features, but also selects many of the
-non-informative features. Applying univariate feature selection before
-the SVM increases the SVM weight attributed to the significant features,
-and will thus improve classification.
+بدون اختيار الميزات أحادي المتغير، تعين SVM وزنًا كبيرًا
+لأول 4 ميزات أصلية مهمة، ولكنها تختار أيضًا العديد من
+الميزات غير المعلوماتية. تطبيق اختيار الميزات أحادي المتغير قبل
+SVM يزيد من وزن SVM المنسوب إلى الميزات المهمة،
+وبالتالي سيحسن التصنيف.
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.213 seconds)
+   **Total running time of the script:** (0 minutes 0.327 seconds)
 
 
 .. _sphx_glr_download_auto_examples_feature_selection_plot_feature_selection.py:

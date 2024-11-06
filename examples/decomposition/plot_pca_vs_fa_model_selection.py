@@ -1,37 +1,38 @@
 """
-===============================================================
-Model selection with Probabilistic PCA and Factor Analysis (FA)
-===============================================================
+====================================================================================
+اختيار النموذج باستخدام التحليل الرئيسي للمكونات الاحتمالي وتحليل العوامل (FA)
+====================================================================================
 
-Probabilistic PCA and Factor Analysis are probabilistic models.
-The consequence is that the likelihood of new data can be used
-for model selection and covariance estimation.
-Here we compare PCA and FA with cross-validation on low rank data corrupted
-with homoscedastic noise (noise variance
-is the same for each feature) or heteroscedastic noise (noise variance
-is the different for each feature). In a second step we compare the model
-likelihood to the likelihoods obtained from shrinkage covariance estimators.
+التحليل الرئيسي للمكونات الاحتمالي وتحليل العوامل هما نموذجان احتماليان.
+والنتيجة هي أنه يمكن استخدام احتمالية البيانات الجديدة
+لاختيار النموذج وتقدير التباين.
+هنا نقارن بين التحليل الرئيسي للمكونات وتحليل العوامل باستخدام التحقق المتقاطع على البيانات منخفضة الرتبة التي تتعرض للتشويش
+بضوضاء متماثلة (تكون تباين الضوضاء
+نفس الشيء لكل ميزة) أو الضوضاء غير المتماثلة (تكون تباين الضوضاء
+مختلفًا لكل ميزة). في الخطوة الثانية، نقارن بين نموذج
+الاحتمالية مع الاحتمالات التي تم الحصول عليها من مقدرات التباين الانكماشي.
 
-One can observe that with homoscedastic noise both FA and PCA succeed
-in recovering the size of the low rank subspace. The likelihood with PCA
-is higher than FA in this case. However PCA fails and overestimates
-the rank when heteroscedastic noise is present. Under appropriate
-circumstances (choice of the number of components), the held-out
-data is more likely for low rank models than for shrinkage models.
+يمكن ملاحظة أنه مع الضوضاء المتماثلة، ينجح كل من تحليل العوامل والتحليل الرئيسي للمكونات
+في استعادة حجم الفضاء منخفض الرتبة. الاحتمالية مع التحليل الرئيسي للمكونات
+أعلى من تحليل العوامل في هذه الحالة. ومع ذلك، يفشل التحليل الرئيسي للمكونات ويبالغ في تقدير
+الرتبة عند وجود ضوضاء غير متماثلة. في ظل الظروف المناسبة (اختيار عدد المكونات)، البيانات المحجوبة
+من المرجح أن تكون أكثر انخفاضًا في نماذج الرتبة من نماذج الانكماش.
 
-The automatic estimation from
-Automatic Choice of Dimensionality for PCA. NIPS 2000: 598-604
-by Thomas P. Minka is also compared.
-
+يتم أيضًا مقارنة التقدير التلقائي من
+الاختيار التلقائي للأبعاد للتحليل الرئيسي للمكونات. NIPS 2000: 598-604
+بواسطة توماس ب. مينكا.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# Create the data
+# إنشاء البيانات
 # ---------------
 
+from sklearn.model_selection import GridSearchCV, cross_val_score
+from sklearn.decomposition import PCA, FactorAnalysis
+from sklearn.covariance import LedoitWolf, ShrunkCovariance
+import matplotlib.pyplot as plt
 import numpy as np
 from scipy import linalg
 
@@ -41,24 +42,19 @@ rng = np.random.RandomState(42)
 U, _, _ = linalg.svd(rng.randn(n_features, n_features))
 X = np.dot(rng.randn(n_samples, rank), U[:, :rank].T)
 
-# Adding homoscedastic noise
+# إضافة ضوضاء متماثلة
 X_homo = X + sigma * rng.randn(n_samples, n_features)
 
-# Adding heteroscedastic noise
+# إضافة ضوضاء غير متماثلة
 sigmas = sigma * rng.rand(n_features) + sigma / 2.0
 X_hetero = X + rng.randn(n_samples, n_features) * sigmas
 
 # %%
-# Fit the models
+# ملاءمة النماذج
 # --------------
 
-import matplotlib.pyplot as plt
 
-from sklearn.covariance import LedoitWolf, ShrunkCovariance
-from sklearn.decomposition import PCA, FactorAnalysis
-from sklearn.model_selection import GridSearchCV, cross_val_score
-
-n_components = np.arange(0, n_features, 5)  # options for n_components
+n_components = np.arange(0, n_features, 5)  # الخيارات لـ n_components
 
 
 def compute_scores(X):
@@ -120,8 +116,7 @@ for X, title in [(X_homo, "Homoscedastic Noise"), (X_hetero, "Heteroscedastic No
         label="PCA MLE: %d" % n_components_pca_mle,
         linestyle="--",
     )
-
-    # compare with other covariance estimators
+# compare with other covariance estimators
     plt.axhline(
         shrunk_cov_score(X),
         color="violet",

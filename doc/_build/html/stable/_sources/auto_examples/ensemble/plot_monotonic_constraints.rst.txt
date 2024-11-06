@@ -19,25 +19,23 @@
 
 
 =====================
-Monotonic Constraints
+القيود الرتيبة
 =====================
 
-This example illustrates the effect of monotonic constraints on a gradient
-boosting estimator.
+يوضح هذا المثال تأثير القيود الرتيبة على مقدر التعزيز المتدرج.
 
-We build an artificial dataset where the target value is in general
-positively correlated with the first feature (with some random and
-non-random variations), and in general negatively correlated with the second
-feature.
+نقوم ببناء مجموعة بيانات اصطناعية حيث تكون قيمة الهدف بشكل عام مرتبطة بشكل إيجابي
+بالميزة الأولى (مع بعض الاختلافات العشوائية وغير العشوائية)، ومرتبطة بشكل سلبي
+بالميزة الثانية بشكل عام.
 
-By imposing a monotonic increase or a monotonic decrease constraint, respectively,
-on the features during the learning process, the estimator is able to properly follow
-the general trend instead of being subject to the variations.
+من خلال فرض قيد زيادة رتيبة أو قيد نقصان رتيب، على التوالي،
+على الميزات أثناء عملية التعلم، يكون المقدر قادرًا على اتباع الاتجاه
+العام بشكل صحيح بدلاً من أن يخضع للاختلافات.
 
-This example was inspired by the `XGBoost documentation
+استوحى هذا المثال من `وثائق XGBoost
 <https://xgboost.readthedocs.io/en/latest/tutorials/monotonic.html>`_.
 
-.. GENERATED FROM PYTHON SOURCE LINES 22-26
+.. GENERATED FROM PYTHON SOURCE LINES 20-24
 
 .. code-block:: Python
 
@@ -52,7 +50,7 @@ This example was inspired by the `XGBoost documentation
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 27-45
+.. GENERATED FROM PYTHON SOURCE LINES 25-43
 
 .. code-block:: Python
 
@@ -70,7 +68,7 @@ This example was inspired by the `XGBoost documentation
     X = np.c_[f_0, f_1]
     noise = rng.normal(loc=0.0, scale=0.01, size=n_samples)
 
-    # y is positively correlated with f_0, and negatively correlated with f_1
+    # y مرتبط بشكل إيجابي بـ f_0، ومرتبط بشكل سلبي بـ f_1
     y = 5 * f_0 + np.sin(10 * np.pi * f_0) - 5 * f_1 - np.cos(10 * np.pi * f_1) + noise
 
 
@@ -81,11 +79,11 @@ This example was inspired by the `XGBoost documentation
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-47
+.. GENERATED FROM PYTHON SOURCE LINES 44-45
 
-Fit a first model on this dataset without any constraints.
+ملاءمة نموذج أول على مجموعة البيانات هذه بدون أي قيود.
 
-.. GENERATED FROM PYTHON SOURCE LINES 47-50
+.. GENERATED FROM PYTHON SOURCE LINES 45-48
 
 .. code-block:: Python
 
@@ -100,7 +98,7 @@ Fit a first model on this dataset without any constraints.
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-24 {
+    <style>#sk-container-id-9 {
       /* Definition of color scheme common for light and dark mode */
       --sklearn-color-text: #000;
       --sklearn-color-text-muted: #666;
@@ -131,15 +129,15 @@ Fit a first model on this dataset without any constraints.
       }
     }
 
-    #sk-container-id-24 {
+    #sk-container-id-9 {
       color: var(--sklearn-color-text);
     }
 
-    #sk-container-id-24 pre {
+    #sk-container-id-9 pre {
       padding: 0;
     }
 
-    #sk-container-id-24 input.sk-hidden--visually {
+    #sk-container-id-9 input.sk-hidden--visually {
       border: 0;
       clip: rect(1px 1px 1px 1px);
       clip: rect(1px, 1px, 1px, 1px);
@@ -151,7 +149,7 @@ Fit a first model on this dataset without any constraints.
       width: 1px;
     }
 
-    #sk-container-id-24 div.sk-dashed-wrapped {
+    #sk-container-id-9 div.sk-dashed-wrapped {
       border: 1px dashed var(--sklearn-color-line);
       margin: 0 0.4em 0.5em 0.4em;
       box-sizing: border-box;
@@ -159,7 +157,7 @@ Fit a first model on this dataset without any constraints.
       background-color: var(--sklearn-color-background);
     }
 
-    #sk-container-id-24 div.sk-container {
+    #sk-container-id-9 div.sk-container {
       /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
          but bootstrap.min.css set `[hidden] { display: none !important; }`
          so we also need the `!important` here to be able to override the
@@ -169,7 +167,7 @@ Fit a first model on this dataset without any constraints.
       position: relative;
     }
 
-    #sk-container-id-24 div.sk-text-repr-fallback {
+    #sk-container-id-9 div.sk-text-repr-fallback {
       display: none;
     }
 
@@ -185,14 +183,14 @@ Fit a first model on this dataset without any constraints.
 
     /* Parallel-specific style estimator block */
 
-    #sk-container-id-24 div.sk-parallel-item::after {
+    #sk-container-id-9 div.sk-parallel-item::after {
       content: "";
       width: 100%;
       border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
       flex-grow: 1;
     }
 
-    #sk-container-id-24 div.sk-parallel {
+    #sk-container-id-9 div.sk-parallel {
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -200,28 +198,28 @@ Fit a first model on this dataset without any constraints.
       position: relative;
     }
 
-    #sk-container-id-24 div.sk-parallel-item {
+    #sk-container-id-9 div.sk-parallel-item {
       display: flex;
       flex-direction: column;
     }
 
-    #sk-container-id-24 div.sk-parallel-item:first-child::after {
+    #sk-container-id-9 div.sk-parallel-item:first-child::after {
       align-self: flex-end;
       width: 50%;
     }
 
-    #sk-container-id-24 div.sk-parallel-item:last-child::after {
+    #sk-container-id-9 div.sk-parallel-item:last-child::after {
       align-self: flex-start;
       width: 50%;
     }
 
-    #sk-container-id-24 div.sk-parallel-item:only-child::after {
+    #sk-container-id-9 div.sk-parallel-item:only-child::after {
       width: 0;
     }
 
     /* Serial-specific style estimator block */
 
-    #sk-container-id-24 div.sk-serial {
+    #sk-container-id-9 div.sk-serial {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -239,14 +237,14 @@ Fit a first model on this dataset without any constraints.
 
     /* Pipeline and ColumnTransformer style (default) */
 
-    #sk-container-id-24 div.sk-toggleable {
+    #sk-container-id-9 div.sk-toggleable {
       /* Default theme specific background. It is overwritten whether we have a
       specific estimator or a Pipeline/ColumnTransformer */
       background-color: var(--sklearn-color-background);
     }
 
     /* Toggleable label */
-    #sk-container-id-24 label.sk-toggleable__label {
+    #sk-container-id-9 label.sk-toggleable__label {
       cursor: pointer;
       display: flex;
       width: 100%;
@@ -259,13 +257,13 @@ Fit a first model on this dataset without any constraints.
       gap: 0.5em;
     }
 
-    #sk-container-id-24 label.sk-toggleable__label .caption {
+    #sk-container-id-9 label.sk-toggleable__label .caption {
       font-size: 0.6rem;
       font-weight: lighter;
       color: var(--sklearn-color-text-muted);
     }
 
-    #sk-container-id-24 label.sk-toggleable__label-arrow:before {
+    #sk-container-id-9 label.sk-toggleable__label-arrow:before {
       /* Arrow on the left of the label */
       content: "▸";
       float: left;
@@ -273,13 +271,13 @@ Fit a first model on this dataset without any constraints.
       color: var(--sklearn-color-icon);
     }
 
-    #sk-container-id-24 label.sk-toggleable__label-arrow:hover:before {
+    #sk-container-id-9 label.sk-toggleable__label-arrow:hover:before {
       color: var(--sklearn-color-text);
     }
 
     /* Toggleable content - dropdown */
 
-    #sk-container-id-24 div.sk-toggleable__content {
+    #sk-container-id-9 div.sk-toggleable__content {
       max-height: 0;
       max-width: 0;
       overflow: hidden;
@@ -288,12 +286,12 @@ Fit a first model on this dataset without any constraints.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-24 div.sk-toggleable__content.fitted {
+    #sk-container-id-9 div.sk-toggleable__content.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-24 div.sk-toggleable__content pre {
+    #sk-container-id-9 div.sk-toggleable__content pre {
       margin: 0.2em;
       border-radius: 0.25em;
       color: var(--sklearn-color-text);
@@ -301,79 +299,79 @@ Fit a first model on this dataset without any constraints.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-24 div.sk-toggleable__content.fitted pre {
+    #sk-container-id-9 div.sk-toggleable__content.fitted pre {
       /* unfitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-24 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    #sk-container-id-9 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
       max-height: 200px;
       max-width: 100%;
       overflow: auto;
     }
 
-    #sk-container-id-24 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    #sk-container-id-9 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
       content: "▾";
     }
 
     /* Pipeline/ColumnTransformer-specific style */
 
-    #sk-container-id-24 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-9 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-24 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-9 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator-specific style */
 
     /* Colorize estimator box */
-    #sk-container-id-24 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-9 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-24 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-9 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
-    #sk-container-id-24 div.sk-label label.sk-toggleable__label,
-    #sk-container-id-24 div.sk-label label {
+    #sk-container-id-9 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-9 div.sk-label label {
       /* The background is the default theme color */
       color: var(--sklearn-color-text-on-default-background);
     }
 
     /* On hover, darken the color of the background */
-    #sk-container-id-24 div.sk-label:hover label.sk-toggleable__label {
+    #sk-container-id-9 div.sk-label:hover label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
     /* Label box, darken color on hover, fitted */
-    #sk-container-id-24 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+    #sk-container-id-9 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator label */
 
-    #sk-container-id-24 div.sk-label label {
+    #sk-container-id-9 div.sk-label label {
       font-family: monospace;
       font-weight: bold;
       display: inline-block;
       line-height: 1.2em;
     }
 
-    #sk-container-id-24 div.sk-label-container {
+    #sk-container-id-9 div.sk-label-container {
       text-align: center;
     }
 
     /* Estimator-specific */
-    #sk-container-id-24 div.sk-estimator {
+    #sk-container-id-9 div.sk-estimator {
       font-family: monospace;
       border: 1px dotted var(--sklearn-color-border-box);
       border-radius: 0.25em;
@@ -383,18 +381,18 @@ Fit a first model on this dataset without any constraints.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-24 div.sk-estimator.fitted {
+    #sk-container-id-9 div.sk-estimator.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
     /* on hover */
-    #sk-container-id-24 div.sk-estimator:hover {
+    #sk-container-id-9 div.sk-estimator:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-24 div.sk-estimator.fitted:hover {
+    #sk-container-id-9 div.sk-estimator.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
@@ -482,7 +480,7 @@ Fit a first model on this dataset without any constraints.
 
     /* "?"-specific style due to the `<a>` HTML tag */
 
-    #sk-container-id-24 a.estimator_doc_link {
+    #sk-container-id-9 a.estimator_doc_link {
       float: right;
       font-size: 1rem;
       line-height: 1em;
@@ -497,35 +495,35 @@ Fit a first model on this dataset without any constraints.
       border: var(--sklearn-color-unfitted-level-1) 1pt solid;
     }
 
-    #sk-container-id-24 a.estimator_doc_link.fitted {
+    #sk-container-id-9 a.estimator_doc_link.fitted {
       /* fitted */
       border: var(--sklearn-color-fitted-level-1) 1pt solid;
       color: var(--sklearn-color-fitted-level-1);
     }
 
     /* On hover */
-    #sk-container-id-24 a.estimator_doc_link:hover {
+    #sk-container-id-9 a.estimator_doc_link:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-3);
       color: var(--sklearn-color-background);
       text-decoration: none;
     }
 
-    #sk-container-id-24 a.estimator_doc_link.fitted:hover {
+    #sk-container-id-9 a.estimator_doc_link.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-24" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>HistGradientBoostingRegressor()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-100" type="checkbox" checked><label for="sk-estimator-id-100" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>HistGradientBoostingRegressor</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.ensemble.HistGradientBoostingRegressor.html">?<span>Documentation for HistGradientBoostingRegressor</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>HistGradientBoostingRegressor()</pre></div> </div></div></div></div>
+    </style><div id="sk-container-id-9" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>HistGradientBoostingRegressor()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-55" type="checkbox" checked><label for="sk-estimator-id-55" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>HistGradientBoostingRegressor</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.ensemble.HistGradientBoostingRegressor.html">?<span>Documentation for HistGradientBoostingRegressor</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>HistGradientBoostingRegressor()</pre></div> </div></div></div></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 51-53
+.. GENERATED FROM PYTHON SOURCE LINES 49-51
 
-Fit a second model on this dataset with monotonic increase (1)
-and a monotonic decrease (-1) constraints, respectively.
+ملاءمة نموذج ثانٍ على مجموعة البيانات هذه مع قيود زيادة رتيبة (1)
+وقيد نقصان رتيب (-1)، على التوالي.
 
-.. GENERATED FROM PYTHON SOURCE LINES 53-57
+.. GENERATED FROM PYTHON SOURCE LINES 51-55
 
 .. code-block:: Python
 
@@ -541,7 +539,7 @@ and a monotonic decrease (-1) constraints, respectively.
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-25 {
+    <style>#sk-container-id-10 {
       /* Definition of color scheme common for light and dark mode */
       --sklearn-color-text: #000;
       --sklearn-color-text-muted: #666;
@@ -572,15 +570,15 @@ and a monotonic decrease (-1) constraints, respectively.
       }
     }
 
-    #sk-container-id-25 {
+    #sk-container-id-10 {
       color: var(--sklearn-color-text);
     }
 
-    #sk-container-id-25 pre {
+    #sk-container-id-10 pre {
       padding: 0;
     }
 
-    #sk-container-id-25 input.sk-hidden--visually {
+    #sk-container-id-10 input.sk-hidden--visually {
       border: 0;
       clip: rect(1px 1px 1px 1px);
       clip: rect(1px, 1px, 1px, 1px);
@@ -592,7 +590,7 @@ and a monotonic decrease (-1) constraints, respectively.
       width: 1px;
     }
 
-    #sk-container-id-25 div.sk-dashed-wrapped {
+    #sk-container-id-10 div.sk-dashed-wrapped {
       border: 1px dashed var(--sklearn-color-line);
       margin: 0 0.4em 0.5em 0.4em;
       box-sizing: border-box;
@@ -600,7 +598,7 @@ and a monotonic decrease (-1) constraints, respectively.
       background-color: var(--sklearn-color-background);
     }
 
-    #sk-container-id-25 div.sk-container {
+    #sk-container-id-10 div.sk-container {
       /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
          but bootstrap.min.css set `[hidden] { display: none !important; }`
          so we also need the `!important` here to be able to override the
@@ -610,7 +608,7 @@ and a monotonic decrease (-1) constraints, respectively.
       position: relative;
     }
 
-    #sk-container-id-25 div.sk-text-repr-fallback {
+    #sk-container-id-10 div.sk-text-repr-fallback {
       display: none;
     }
 
@@ -626,14 +624,14 @@ and a monotonic decrease (-1) constraints, respectively.
 
     /* Parallel-specific style estimator block */
 
-    #sk-container-id-25 div.sk-parallel-item::after {
+    #sk-container-id-10 div.sk-parallel-item::after {
       content: "";
       width: 100%;
       border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
       flex-grow: 1;
     }
 
-    #sk-container-id-25 div.sk-parallel {
+    #sk-container-id-10 div.sk-parallel {
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -641,28 +639,28 @@ and a monotonic decrease (-1) constraints, respectively.
       position: relative;
     }
 
-    #sk-container-id-25 div.sk-parallel-item {
+    #sk-container-id-10 div.sk-parallel-item {
       display: flex;
       flex-direction: column;
     }
 
-    #sk-container-id-25 div.sk-parallel-item:first-child::after {
+    #sk-container-id-10 div.sk-parallel-item:first-child::after {
       align-self: flex-end;
       width: 50%;
     }
 
-    #sk-container-id-25 div.sk-parallel-item:last-child::after {
+    #sk-container-id-10 div.sk-parallel-item:last-child::after {
       align-self: flex-start;
       width: 50%;
     }
 
-    #sk-container-id-25 div.sk-parallel-item:only-child::after {
+    #sk-container-id-10 div.sk-parallel-item:only-child::after {
       width: 0;
     }
 
     /* Serial-specific style estimator block */
 
-    #sk-container-id-25 div.sk-serial {
+    #sk-container-id-10 div.sk-serial {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -680,14 +678,14 @@ and a monotonic decrease (-1) constraints, respectively.
 
     /* Pipeline and ColumnTransformer style (default) */
 
-    #sk-container-id-25 div.sk-toggleable {
+    #sk-container-id-10 div.sk-toggleable {
       /* Default theme specific background. It is overwritten whether we have a
       specific estimator or a Pipeline/ColumnTransformer */
       background-color: var(--sklearn-color-background);
     }
 
     /* Toggleable label */
-    #sk-container-id-25 label.sk-toggleable__label {
+    #sk-container-id-10 label.sk-toggleable__label {
       cursor: pointer;
       display: flex;
       width: 100%;
@@ -700,13 +698,13 @@ and a monotonic decrease (-1) constraints, respectively.
       gap: 0.5em;
     }
 
-    #sk-container-id-25 label.sk-toggleable__label .caption {
+    #sk-container-id-10 label.sk-toggleable__label .caption {
       font-size: 0.6rem;
       font-weight: lighter;
       color: var(--sklearn-color-text-muted);
     }
 
-    #sk-container-id-25 label.sk-toggleable__label-arrow:before {
+    #sk-container-id-10 label.sk-toggleable__label-arrow:before {
       /* Arrow on the left of the label */
       content: "▸";
       float: left;
@@ -714,13 +712,13 @@ and a monotonic decrease (-1) constraints, respectively.
       color: var(--sklearn-color-icon);
     }
 
-    #sk-container-id-25 label.sk-toggleable__label-arrow:hover:before {
+    #sk-container-id-10 label.sk-toggleable__label-arrow:hover:before {
       color: var(--sklearn-color-text);
     }
 
     /* Toggleable content - dropdown */
 
-    #sk-container-id-25 div.sk-toggleable__content {
+    #sk-container-id-10 div.sk-toggleable__content {
       max-height: 0;
       max-width: 0;
       overflow: hidden;
@@ -729,12 +727,12 @@ and a monotonic decrease (-1) constraints, respectively.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-25 div.sk-toggleable__content.fitted {
+    #sk-container-id-10 div.sk-toggleable__content.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-25 div.sk-toggleable__content pre {
+    #sk-container-id-10 div.sk-toggleable__content pre {
       margin: 0.2em;
       border-radius: 0.25em;
       color: var(--sklearn-color-text);
@@ -742,79 +740,79 @@ and a monotonic decrease (-1) constraints, respectively.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-25 div.sk-toggleable__content.fitted pre {
+    #sk-container-id-10 div.sk-toggleable__content.fitted pre {
       /* unfitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-25 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    #sk-container-id-10 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
       max-height: 200px;
       max-width: 100%;
       overflow: auto;
     }
 
-    #sk-container-id-25 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    #sk-container-id-10 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
       content: "▾";
     }
 
     /* Pipeline/ColumnTransformer-specific style */
 
-    #sk-container-id-25 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-10 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-25 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-10 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator-specific style */
 
     /* Colorize estimator box */
-    #sk-container-id-25 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-10 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-25 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-10 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
-    #sk-container-id-25 div.sk-label label.sk-toggleable__label,
-    #sk-container-id-25 div.sk-label label {
+    #sk-container-id-10 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-10 div.sk-label label {
       /* The background is the default theme color */
       color: var(--sklearn-color-text-on-default-background);
     }
 
     /* On hover, darken the color of the background */
-    #sk-container-id-25 div.sk-label:hover label.sk-toggleable__label {
+    #sk-container-id-10 div.sk-label:hover label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
     /* Label box, darken color on hover, fitted */
-    #sk-container-id-25 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+    #sk-container-id-10 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator label */
 
-    #sk-container-id-25 div.sk-label label {
+    #sk-container-id-10 div.sk-label label {
       font-family: monospace;
       font-weight: bold;
       display: inline-block;
       line-height: 1.2em;
     }
 
-    #sk-container-id-25 div.sk-label-container {
+    #sk-container-id-10 div.sk-label-container {
       text-align: center;
     }
 
     /* Estimator-specific */
-    #sk-container-id-25 div.sk-estimator {
+    #sk-container-id-10 div.sk-estimator {
       font-family: monospace;
       border: 1px dotted var(--sklearn-color-border-box);
       border-radius: 0.25em;
@@ -824,18 +822,18 @@ and a monotonic decrease (-1) constraints, respectively.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-25 div.sk-estimator.fitted {
+    #sk-container-id-10 div.sk-estimator.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
     /* on hover */
-    #sk-container-id-25 div.sk-estimator:hover {
+    #sk-container-id-10 div.sk-estimator:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-25 div.sk-estimator.fitted:hover {
+    #sk-container-id-10 div.sk-estimator.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
@@ -923,7 +921,7 @@ and a monotonic decrease (-1) constraints, respectively.
 
     /* "?"-specific style due to the `<a>` HTML tag */
 
-    #sk-container-id-25 a.estimator_doc_link {
+    #sk-container-id-10 a.estimator_doc_link {
       float: right;
       font-size: 1rem;
       line-height: 1em;
@@ -938,34 +936,34 @@ and a monotonic decrease (-1) constraints, respectively.
       border: var(--sklearn-color-unfitted-level-1) 1pt solid;
     }
 
-    #sk-container-id-25 a.estimator_doc_link.fitted {
+    #sk-container-id-10 a.estimator_doc_link.fitted {
       /* fitted */
       border: var(--sklearn-color-fitted-level-1) 1pt solid;
       color: var(--sklearn-color-fitted-level-1);
     }
 
     /* On hover */
-    #sk-container-id-25 a.estimator_doc_link:hover {
+    #sk-container-id-10 a.estimator_doc_link:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-3);
       color: var(--sklearn-color-background);
       text-decoration: none;
     }
 
-    #sk-container-id-25 a.estimator_doc_link.fitted:hover {
+    #sk-container-id-10 a.estimator_doc_link.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-25" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>HistGradientBoostingRegressor(monotonic_cst=[1, -1])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-101" type="checkbox" checked><label for="sk-estimator-id-101" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>HistGradientBoostingRegressor</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.ensemble.HistGradientBoostingRegressor.html">?<span>Documentation for HistGradientBoostingRegressor</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>HistGradientBoostingRegressor(monotonic_cst=[1, -1])</pre></div> </div></div></div></div>
+    </style><div id="sk-container-id-10" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>HistGradientBoostingRegressor(monotonic_cst=[1, -1])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-56" type="checkbox" checked><label for="sk-estimator-id-56" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>HistGradientBoostingRegressor</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.ensemble.HistGradientBoostingRegressor.html">?<span>Documentation for HistGradientBoostingRegressor</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>HistGradientBoostingRegressor(monotonic_cst=[1, -1])</pre></div> </div></div></div></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-59
+.. GENERATED FROM PYTHON SOURCE LINES 56-57
 
-Let's display the partial dependence of the predictions on the two features.
+دعونا نعرض الاعتماد الجزئي للتنبؤات على الميزتين.
 
-.. GENERATED FROM PYTHON SOURCE LINES 59-89
+.. GENERATED FROM PYTHON SOURCE LINES 57-87
 
 .. code-block:: Python
 
@@ -975,17 +973,17 @@ Let's display the partial dependence of the predictions on the two features.
         X,
         features=[0, 1],
         feature_names=(
-            "First feature",
-            "Second feature",
+            "الميزة الأولى",
+            "الميزة الثانية",
         ),
-        line_kw={"linewidth": 4, "label": "unconstrained", "color": "tab:blue"},
+        line_kw={"linewidth": 4, "label": "بدون قيود", "color": "tab:blue"},
         ax=ax,
     )
     PartialDependenceDisplay.from_estimator(
         gbdt_with_monotonic_cst,
         X,
         features=[0, 1],
-        line_kw={"linewidth": 4, "label": "constrained", "color": "tab:orange"},
+        line_kw={"linewidth": 4, "label": "مقيد", "color": "tab:orange"},
         ax=disp.axes_,
     )
 
@@ -996,14 +994,14 @@ Let's display the partial dependence of the predictions on the two features.
         disp.axes_[0, f_idx].set_ylim(-6, 6)
 
     plt.legend()
-    fig.suptitle("Monotonic constraints effect on partial dependences")
+    fig.suptitle("تأثير القيود الرتيبة على التبعيات الجزئية")
     plt.show()
 
 
 
 
 .. image-sg:: /auto_examples/ensemble/images/sphx_glr_plot_monotonic_constraints_001.png
-   :alt: Monotonic constraints effect on partial dependences
+   :alt: تأثير القيود الرتيبة على التبعيات الجزئية
    :srcset: /auto_examples/ensemble/images/sphx_glr_plot_monotonic_constraints_001.png
    :class: sphx-glr-single-img
 
@@ -1011,23 +1009,23 @@ Let's display the partial dependence of the predictions on the two features.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 90-93
+.. GENERATED FROM PYTHON SOURCE LINES 88-91
 
-We can see that the predictions of the unconstrained model capture the
-oscillations of the data while the constrained model follows the general
-trend and ignores the local variations.
+يمكننا أن نرى أن تنبؤات النموذج غير المقيد تلتقط
+تذبذبات البيانات بينما يتبع النموذج المقيد الاتجاه
+العام ويتجاهل الاختلافات المحلية.
 
-.. GENERATED FROM PYTHON SOURCE LINES 95-102
+.. GENERATED FROM PYTHON SOURCE LINES 93-100
 
 .. _monotonic_cst_features_names:
 
-Using feature names to specify monotonic constraints
+استخدام أسماء الميزات لتحديد القيود الرتيبة
 ----------------------------------------------------
 
-Note that if the training data has feature names, it's possible to specify the
-monotonic constraints by passing a dictionary:
+لاحظ أنه إذا كانت بيانات التدريب تحتوي على أسماء ميزات، فمن الممكن تحديد
+القيود الرتيبة عن طريق تمرير قاموس:
 
-.. GENERATED FROM PYTHON SOURCE LINES 102-113
+.. GENERATED FROM PYTHON SOURCE LINES 100-113
 
 .. code-block:: Python
 
@@ -1046,6 +1044,8 @@ monotonic constraints by passing a dictionary:
 
 
 
+
+
 .. rst-class:: sphx-glr-script-out
 
  .. code-block:: none
@@ -1058,7 +1058,7 @@ monotonic constraints by passing a dictionary:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.871 seconds)
+   **Total running time of the script:** (0 minutes 0.832 seconds)
 
 
 .. _sphx_glr_download_auto_examples_ensemble_plot_monotonic_constraints.py:

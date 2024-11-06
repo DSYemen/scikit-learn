@@ -1,37 +1,35 @@
 """
 ===================================
-Compare cross decomposition methods
+مقارنة طرق التحليل التفاضلي
 ===================================
 
-Simple usage of various cross decomposition algorithms:
+الاستخدام البسيط لخوارزميات التحليل التفاضلي المختلفة:
 
 - PLSCanonical
-- PLSRegression, with multivariate response, a.k.a. PLS2
-- PLSRegression, with univariate response, a.k.a. PLS1
+- PLSRegression، مع استجابة متعددة المتغيرات، المعروف أيضًا باسم PLS2
+- PLSRegression، مع استجابة أحادية المتغير، المعروف أيضًا باسم PLS1
 - CCA
 
-Given 2 multivariate covarying two-dimensional datasets, X, and Y,
-PLS extracts the 'directions of covariance', i.e. the components of each
-datasets that explain the most shared variance between both datasets.
-This is apparent on the **scatterplot matrix** display: components 1 in
-dataset X and dataset Y are maximally correlated (points lie around the
-first diagonal). This is also true for components 2 in both dataset,
-however, the correlation across datasets for different components is
-weak: the point cloud is very spherical.
-
+نظرًا لوجود مجموعتين من البيانات ثنائية الأبعاد متعددة المتغيرات ومتغيرة التغاير، X و Y،
+يقوم PLS باستخراج 'اتجاهات التغاير'، أي مكونات كل
+مجموعات البيانات التي تفسر أكبر تغاير مشترك بين مجموعتي البيانات.
+هذا واضح على عرض **مصفوفة الرسم البياني**: المكونات 1 في
+مجموعة البيانات X ومجموعة البيانات Y متوافقة بشكل كبير (تتركز النقاط حول
+المحور الأول). هذا صحيح أيضًا للمكونات 2 في كلتا مجموعتي البيانات،
+ومع ذلك، فإن الارتباط عبر مجموعات البيانات لمكونات مختلفة
+ضعيف: سحابة النقاط كروية جدًا.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# Dataset based latent variables model
+# نموذج المتغيرات الكامنة القائم على مجموعة البيانات
 # ------------------------------------
 
 import numpy as np
 
 n = 500
-# 2 latents vars:
+# 2 متغيرات كامنة:
 l1 = np.random.normal(size=n)
 l2 = np.random.normal(size=n)
 
@@ -50,10 +48,10 @@ print("Corr(Y)")
 print(np.round(np.corrcoef(Y.T), 2))
 
 # %%
-# Canonical (symmetric) PLS
+# PLS التطابق (المتماثل)
 # -------------------------
 #
-# Transform data
+# تحويل البيانات
 # ~~~~~~~~~~~~~~
 
 from sklearn.cross_decomposition import PLSCanonical
@@ -64,12 +62,12 @@ X_train_r, Y_train_r = plsca.transform(X_train, Y_train)
 X_test_r, Y_test_r = plsca.transform(X_test, Y_test)
 
 # %%
-# Scatter plot of scores
+# رسم بياني متفرق لدرجات المكونات
 # ~~~~~~~~~~~~~~~~~~~~~~
 
 import matplotlib.pyplot as plt
 
-# On diagonal plot X vs Y scores on each components
+# على رسم بياني قطري X مقابل Y على كل مكون
 plt.figure(figsize=(12, 8))
 plt.subplot(221)
 plt.scatter(X_train_r[:, 0], Y_train_r[:, 0], label="train", marker="o", s=25)
@@ -97,7 +95,7 @@ plt.xticks(())
 plt.yticks(())
 plt.legend(loc="best")
 
-# Off diagonal plot components 1 vs 2 for X and Y
+# رسم بياني خارجي للمكونات 1 مقابل 2 لـ X و Y
 plt.subplot(222)
 plt.scatter(X_train_r[:, 0], X_train_r[:, 1], label="train", marker="*", s=50)
 plt.scatter(X_test_r[:, 0], X_test_r[:, 1], label="test", marker="*", s=50)
@@ -126,7 +124,7 @@ plt.yticks(())
 plt.show()
 
 # %%
-# PLS regression, with multivariate response, a.k.a. PLS2
+# الانحدار PLS، مع استجابة متعددة المتغيرات، المعروف أيضًا باسم PLS2
 # -------------------------------------------------------
 
 from sklearn.cross_decomposition import PLSRegression
@@ -136,9 +134,8 @@ q = 3
 p = 10
 X = np.random.normal(size=n * p).reshape((n, p))
 B = np.array([[1, 2] + [0] * (p - 2)] * q).T
-# each Yj = 1*X1 + 2*X2 + noize
+# كل Yj = 1*X1 + 2*X2 + ضجيج
 Y = np.dot(X, B) + np.random.normal(size=n * q).reshape((n, q)) + 5
-
 pls2 = PLSRegression(n_components=3)
 pls2.fit(X, Y)
 print("True B (such that: Y = XB + Err)")
@@ -149,7 +146,7 @@ print(np.round(pls2.coef_, 1))
 pls2.predict(X)
 
 # %%
-# PLS regression, with univariate response, a.k.a. PLS1
+# الانحدار PLS، مع استجابة أحادية المتغير، المعروف أيضًا باسم PLS1
 # -----------------------------------------------------
 
 n = 1000
@@ -158,12 +155,12 @@ X = np.random.normal(size=n * p).reshape((n, p))
 y = X[:, 0] + 2 * X[:, 1] + np.random.normal(size=n * 1) + 5
 pls1 = PLSRegression(n_components=3)
 pls1.fit(X, y)
-# note that the number of components exceeds 1 (the dimension of y)
+# لاحظ أن عدد المكونات يتجاوز 1 (بعد y)
 print("Estimated betas")
 print(np.round(pls1.coef_, 1))
 
 # %%
-# CCA (PLS mode B with symmetric deflation)
+# CCA (وضع PLS B مع الانكماش المتماثل)
 # -----------------------------------------
 
 from sklearn.cross_decomposition import CCA

@@ -18,15 +18,15 @@
 .. _sphx_glr_auto_examples_applications_plot_stock_market.py:
 
 
-=======================================
-Visualizing the stock market structure
-=======================================
+=============================
+هيكلة سوق الأسهم المرئية
+=============================
 
-This example employs several unsupervised learning techniques to extract
-the stock market structure from variations in historical quotes.
+يستخدم هذا المثال عدة تقنيات تعلم غير خاضعة للإشراف لاستخراج
+هيكل سوق الأسهم من الاختلافات في الاقتباسات التاريخية.
 
-The quantity that we use is the daily variation in quote price: quotes
-that are linked tend to fluctuate in relation to each other during a day.
+الكمية التي نستخدمها هي التغير اليومي في سعر الاقتباس: الاقتباسات
+المرتبطة تميل إلى التقلب فيما يتعلق ببعضها البعض خلال يوم.
 
 .. GENERATED FROM PYTHON SOURCE LINES 12-16
 
@@ -45,13 +45,13 @@ that are linked tend to fluctuate in relation to each other during a day.
 
 .. GENERATED FROM PYTHON SOURCE LINES 17-25
 
-Retrieve the data from Internet
+استرجاع البيانات من الإنترنت
 -------------------------------
 
-The data is from 2003 - 2008. This is reasonably calm: (not too long ago so
-that we get high-tech firms, and before the 2008 crash). This kind of
-historical data can be obtained from APIs like the
-`data.nasdaq.com <https://data.nasdaq.com/>`_ and
+البيانات من 2003 - 2008. هذا هادئ بشكل معقول: (ليس منذ وقت طويل بحيث
+نحصل على شركات التكنولوجيا الفائقة، وقبل تحطم 2008). يمكن الحصول على هذا النوع من
+البيانات التاريخية من واجهات برمجة التطبيقات مثل
+`data.nasdaq.com <https://data.nasdaq.com/>`_ و
 `alphavantage.co <https://www.alphavantage.co/>`_.
 
 .. GENERATED FROM PYTHON SOURCE LINES 25-109
@@ -139,7 +139,7 @@ historical data can be obtained from APIs like the
     close_prices = np.vstack([q["close"] for q in quotes])
     open_prices = np.vstack([q["open"] for q in quotes])
 
-    # The daily variations of the quotes are what carry the most information
+    # التغيرات اليومية في الاقتباسات هي ما تحمل معظم المعلومات
     variation = close_prices - open_prices
 
 
@@ -150,62 +150,62 @@ historical data can be obtained from APIs like the
 
  .. code-block:: none
 
-    Fetching quote history for np.str_('AAPL')
-    Fetching quote history for np.str_('AIG')
-    Fetching quote history for np.str_('AMZN')
-    Fetching quote history for np.str_('AXP')
-    Fetching quote history for np.str_('BA')
-    Fetching quote history for np.str_('BAC')
-    Fetching quote history for np.str_('CAJ')
-    Fetching quote history for np.str_('CAT')
-    Fetching quote history for np.str_('CL')
-    Fetching quote history for np.str_('CMCSA')
-    Fetching quote history for np.str_('COP')
-    Fetching quote history for np.str_('CSCO')
-    Fetching quote history for np.str_('CVC')
-    Fetching quote history for np.str_('CVS')
-    Fetching quote history for np.str_('CVX')
-    Fetching quote history for np.str_('DD')
-    Fetching quote history for np.str_('DELL')
-    Fetching quote history for np.str_('F')
-    Fetching quote history for np.str_('GD')
-    Fetching quote history for np.str_('GE')
-    Fetching quote history for np.str_('GS')
-    Fetching quote history for np.str_('GSK')
-    Fetching quote history for np.str_('HD')
-    Fetching quote history for np.str_('HMC')
-    Fetching quote history for np.str_('HPQ')
-    Fetching quote history for np.str_('IBM')
-    Fetching quote history for np.str_('JPM')
-    Fetching quote history for np.str_('K')
-    Fetching quote history for np.str_('KMB')
-    Fetching quote history for np.str_('KO')
-    Fetching quote history for np.str_('MAR')
-    Fetching quote history for np.str_('MCD')
-    Fetching quote history for np.str_('MMM')
-    Fetching quote history for np.str_('MSFT')
-    Fetching quote history for np.str_('NAV')
-    Fetching quote history for np.str_('NOC')
-    Fetching quote history for np.str_('NVS')
-    Fetching quote history for np.str_('PEP')
-    Fetching quote history for np.str_('PFE')
-    Fetching quote history for np.str_('PG')
-    Fetching quote history for np.str_('R')
-    Fetching quote history for np.str_('RTN')
-    Fetching quote history for np.str_('SAP')
-    Fetching quote history for np.str_('SNE')
-    Fetching quote history for np.str_('SNY')
-    Fetching quote history for np.str_('TM')
-    Fetching quote history for np.str_('TOT')
-    Fetching quote history for np.str_('TWX')
-    Fetching quote history for np.str_('TXN')
-    Fetching quote history for np.str_('UN')
-    Fetching quote history for np.str_('VLO')
-    Fetching quote history for np.str_('WFC')
-    Fetching quote history for np.str_('WMT')
-    Fetching quote history for np.str_('XOM')
-    Fetching quote history for np.str_('XRX')
-    Fetching quote history for np.str_('YHOO')
+    Fetching quote history for 'AAPL'
+    Fetching quote history for 'AIG'
+    Fetching quote history for 'AMZN'
+    Fetching quote history for 'AXP'
+    Fetching quote history for 'BA'
+    Fetching quote history for 'BAC'
+    Fetching quote history for 'CAJ'
+    Fetching quote history for 'CAT'
+    Fetching quote history for 'CL'
+    Fetching quote history for 'CMCSA'
+    Fetching quote history for 'COP'
+    Fetching quote history for 'CSCO'
+    Fetching quote history for 'CVC'
+    Fetching quote history for 'CVS'
+    Fetching quote history for 'CVX'
+    Fetching quote history for 'DD'
+    Fetching quote history for 'DELL'
+    Fetching quote history for 'F'
+    Fetching quote history for 'GD'
+    Fetching quote history for 'GE'
+    Fetching quote history for 'GS'
+    Fetching quote history for 'GSK'
+    Fetching quote history for 'HD'
+    Fetching quote history for 'HMC'
+    Fetching quote history for 'HPQ'
+    Fetching quote history for 'IBM'
+    Fetching quote history for 'JPM'
+    Fetching quote history for 'K'
+    Fetching quote history for 'KMB'
+    Fetching quote history for 'KO'
+    Fetching quote history for 'MAR'
+    Fetching quote history for 'MCD'
+    Fetching quote history for 'MMM'
+    Fetching quote history for 'MSFT'
+    Fetching quote history for 'NAV'
+    Fetching quote history for 'NOC'
+    Fetching quote history for 'NVS'
+    Fetching quote history for 'PEP'
+    Fetching quote history for 'PFE'
+    Fetching quote history for 'PG'
+    Fetching quote history for 'R'
+    Fetching quote history for 'RTN'
+    Fetching quote history for 'SAP'
+    Fetching quote history for 'SNE'
+    Fetching quote history for 'SNY'
+    Fetching quote history for 'TM'
+    Fetching quote history for 'TOT'
+    Fetching quote history for 'TWX'
+    Fetching quote history for 'TXN'
+    Fetching quote history for 'UN'
+    Fetching quote history for 'VLO'
+    Fetching quote history for 'WFC'
+    Fetching quote history for 'WMT'
+    Fetching quote history for 'XOM'
+    Fetching quote history for 'XRX'
+    Fetching quote history for 'YHOO'
 
 
 
@@ -214,16 +214,16 @@ historical data can be obtained from APIs like the
 
 .. _stock_market:
 
-Learning a graph structure
+تعلم هيكل الرسم البياني
 --------------------------
 
-We use sparse inverse covariance estimation to find which quotes are
-correlated conditionally on the others. Specifically, sparse inverse
-covariance gives us a graph, that is a list of connections. For each
-symbol, the symbols that it is connected to are those useful to explain
-its fluctuations.
+نستخدم تقدير معكوس التباين النادر للعثور على الاقتباسات التي
+مترابطة شرطياً على الآخرين. على وجه التحديد، يعطينا معكوس التباين النادر
+رسم بياني، وهو قائمة من الاتصالات. لكل
+رمز، الرموز التي يتصل بها هي تلك المفيدة لشرح
+تقلباته.
 
-.. GENERATED FROM PYTHON SOURCE LINES 120-132
+.. GENERATED FROM PYTHON SOURCE LINES 120-133
 
 .. code-block:: Python
 
@@ -233,8 +233,8 @@ its fluctuations.
     alphas = np.logspace(-1.5, 1, num=10)
     edge_model = covariance.GraphicalLassoCV(alphas=alphas)
 
-    # standardize the time series: using correlations rather than covariance
-    # former is more efficient for structure recovery
+    # توحيد سلسلة الوقت: استخدام الارتباطات بدلاً من التباين
+    # السابق أكثر كفاءة لاستعادة الهيكل
     X = variation.copy().T
     X /= X.std(axis=0)
     edge_model.fit(X)
@@ -244,10 +244,11 @@ its fluctuations.
 
 
 
+
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-27 {
+    <style>#sk-container-id-1 {
       /* Definition of color scheme common for light and dark mode */
       --sklearn-color-text: #000;
       --sklearn-color-text-muted: #666;
@@ -278,15 +279,15 @@ its fluctuations.
       }
     }
 
-    #sk-container-id-27 {
+    #sk-container-id-1 {
       color: var(--sklearn-color-text);
     }
 
-    #sk-container-id-27 pre {
+    #sk-container-id-1 pre {
       padding: 0;
     }
 
-    #sk-container-id-27 input.sk-hidden--visually {
+    #sk-container-id-1 input.sk-hidden--visually {
       border: 0;
       clip: rect(1px 1px 1px 1px);
       clip: rect(1px, 1px, 1px, 1px);
@@ -298,7 +299,7 @@ its fluctuations.
       width: 1px;
     }
 
-    #sk-container-id-27 div.sk-dashed-wrapped {
+    #sk-container-id-1 div.sk-dashed-wrapped {
       border: 1px dashed var(--sklearn-color-line);
       margin: 0 0.4em 0.5em 0.4em;
       box-sizing: border-box;
@@ -306,7 +307,7 @@ its fluctuations.
       background-color: var(--sklearn-color-background);
     }
 
-    #sk-container-id-27 div.sk-container {
+    #sk-container-id-1 div.sk-container {
       /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
          but bootstrap.min.css set `[hidden] { display: none !important; }`
          so we also need the `!important` here to be able to override the
@@ -316,7 +317,7 @@ its fluctuations.
       position: relative;
     }
 
-    #sk-container-id-27 div.sk-text-repr-fallback {
+    #sk-container-id-1 div.sk-text-repr-fallback {
       display: none;
     }
 
@@ -332,14 +333,14 @@ its fluctuations.
 
     /* Parallel-specific style estimator block */
 
-    #sk-container-id-27 div.sk-parallel-item::after {
+    #sk-container-id-1 div.sk-parallel-item::after {
       content: "";
       width: 100%;
       border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
       flex-grow: 1;
     }
 
-    #sk-container-id-27 div.sk-parallel {
+    #sk-container-id-1 div.sk-parallel {
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -347,28 +348,28 @@ its fluctuations.
       position: relative;
     }
 
-    #sk-container-id-27 div.sk-parallel-item {
+    #sk-container-id-1 div.sk-parallel-item {
       display: flex;
       flex-direction: column;
     }
 
-    #sk-container-id-27 div.sk-parallel-item:first-child::after {
+    #sk-container-id-1 div.sk-parallel-item:first-child::after {
       align-self: flex-end;
       width: 50%;
     }
 
-    #sk-container-id-27 div.sk-parallel-item:last-child::after {
+    #sk-container-id-1 div.sk-parallel-item:last-child::after {
       align-self: flex-start;
       width: 50%;
     }
 
-    #sk-container-id-27 div.sk-parallel-item:only-child::after {
+    #sk-container-id-1 div.sk-parallel-item:only-child::after {
       width: 0;
     }
 
     /* Serial-specific style estimator block */
 
-    #sk-container-id-27 div.sk-serial {
+    #sk-container-id-1 div.sk-serial {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -386,14 +387,14 @@ its fluctuations.
 
     /* Pipeline and ColumnTransformer style (default) */
 
-    #sk-container-id-27 div.sk-toggleable {
+    #sk-container-id-1 div.sk-toggleable {
       /* Default theme specific background. It is overwritten whether we have a
       specific estimator or a Pipeline/ColumnTransformer */
       background-color: var(--sklearn-color-background);
     }
 
     /* Toggleable label */
-    #sk-container-id-27 label.sk-toggleable__label {
+    #sk-container-id-1 label.sk-toggleable__label {
       cursor: pointer;
       display: flex;
       width: 100%;
@@ -406,13 +407,13 @@ its fluctuations.
       gap: 0.5em;
     }
 
-    #sk-container-id-27 label.sk-toggleable__label .caption {
+    #sk-container-id-1 label.sk-toggleable__label .caption {
       font-size: 0.6rem;
       font-weight: lighter;
       color: var(--sklearn-color-text-muted);
     }
 
-    #sk-container-id-27 label.sk-toggleable__label-arrow:before {
+    #sk-container-id-1 label.sk-toggleable__label-arrow:before {
       /* Arrow on the left of the label */
       content: "▸";
       float: left;
@@ -420,13 +421,13 @@ its fluctuations.
       color: var(--sklearn-color-icon);
     }
 
-    #sk-container-id-27 label.sk-toggleable__label-arrow:hover:before {
+    #sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {
       color: var(--sklearn-color-text);
     }
 
     /* Toggleable content - dropdown */
 
-    #sk-container-id-27 div.sk-toggleable__content {
+    #sk-container-id-1 div.sk-toggleable__content {
       max-height: 0;
       max-width: 0;
       overflow: hidden;
@@ -435,12 +436,12 @@ its fluctuations.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-27 div.sk-toggleable__content.fitted {
+    #sk-container-id-1 div.sk-toggleable__content.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-27 div.sk-toggleable__content pre {
+    #sk-container-id-1 div.sk-toggleable__content pre {
       margin: 0.2em;
       border-radius: 0.25em;
       color: var(--sklearn-color-text);
@@ -448,79 +449,79 @@ its fluctuations.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-27 div.sk-toggleable__content.fitted pre {
+    #sk-container-id-1 div.sk-toggleable__content.fitted pre {
       /* unfitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-27 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    #sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
       max-height: 200px;
       max-width: 100%;
       overflow: auto;
     }
 
-    #sk-container-id-27 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    #sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
       content: "▾";
     }
 
     /* Pipeline/ColumnTransformer-specific style */
 
-    #sk-container-id-27 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-27 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-1 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator-specific style */
 
     /* Colorize estimator box */
-    #sk-container-id-27 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-27 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-1 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
-    #sk-container-id-27 div.sk-label label.sk-toggleable__label,
-    #sk-container-id-27 div.sk-label label {
+    #sk-container-id-1 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-1 div.sk-label label {
       /* The background is the default theme color */
       color: var(--sklearn-color-text-on-default-background);
     }
 
     /* On hover, darken the color of the background */
-    #sk-container-id-27 div.sk-label:hover label.sk-toggleable__label {
+    #sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
     /* Label box, darken color on hover, fitted */
-    #sk-container-id-27 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+    #sk-container-id-1 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator label */
 
-    #sk-container-id-27 div.sk-label label {
+    #sk-container-id-1 div.sk-label label {
       font-family: monospace;
       font-weight: bold;
       display: inline-block;
       line-height: 1.2em;
     }
 
-    #sk-container-id-27 div.sk-label-container {
+    #sk-container-id-1 div.sk-label-container {
       text-align: center;
     }
 
     /* Estimator-specific */
-    #sk-container-id-27 div.sk-estimator {
+    #sk-container-id-1 div.sk-estimator {
       font-family: monospace;
       border: 1px dotted var(--sklearn-color-border-box);
       border-radius: 0.25em;
@@ -530,18 +531,18 @@ its fluctuations.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-27 div.sk-estimator.fitted {
+    #sk-container-id-1 div.sk-estimator.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
     /* on hover */
-    #sk-container-id-27 div.sk-estimator:hover {
+    #sk-container-id-1 div.sk-estimator:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-27 div.sk-estimator.fitted:hover {
+    #sk-container-id-1 div.sk-estimator.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
@@ -629,7 +630,7 @@ its fluctuations.
 
     /* "?"-specific style due to the `<a>` HTML tag */
 
-    #sk-container-id-27 a.estimator_doc_link {
+    #sk-container-id-1 a.estimator_doc_link {
       float: right;
       font-size: 1rem;
       line-height: 1em;
@@ -644,51 +645,51 @@ its fluctuations.
       border: var(--sklearn-color-unfitted-level-1) 1pt solid;
     }
 
-    #sk-container-id-27 a.estimator_doc_link.fitted {
+    #sk-container-id-1 a.estimator_doc_link.fitted {
       /* fitted */
       border: var(--sklearn-color-fitted-level-1) 1pt solid;
       color: var(--sklearn-color-fitted-level-1);
     }
 
     /* On hover */
-    #sk-container-id-27 a.estimator_doc_link:hover {
+    #sk-container-id-1 a.estimator_doc_link:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-3);
       color: var(--sklearn-color-background);
       text-decoration: none;
     }
 
-    #sk-container-id-27 a.estimator_doc_link.fitted:hover {
+    #sk-container-id-1 a.estimator_doc_link.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-27" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>GraphicalLassoCV(alphas=array([ 0.03162278,  0.05994843,  0.11364637,  0.21544347,  0.40842387,
-            0.77426368,  1.46779927,  2.7825594 ,  5.27499706, 10.        ]))</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-106" type="checkbox" checked><label for="sk-estimator-id-106" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>GraphicalLassoCV</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.covariance.GraphicalLassoCV.html">?<span>Documentation for GraphicalLassoCV</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>GraphicalLassoCV(alphas=array([ 0.03162278,  0.05994843,  0.11364637,  0.21544347,  0.40842387,
+    </style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>GraphicalLassoCV(alphas=array([ 0.03162278,  0.05994843,  0.11364637,  0.21544347,  0.40842387,
+            0.77426368,  1.46779927,  2.7825594 ,  5.27499706, 10.        ]))</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>GraphicalLassoCV</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.covariance.GraphicalLassoCV.html">?<span>Documentation for GraphicalLassoCV</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>GraphicalLassoCV(alphas=array([ 0.03162278,  0.05994843,  0.11364637,  0.21544347,  0.40842387,
             0.77426368,  1.46779927,  2.7825594 ,  5.27499706, 10.        ]))</pre></div> </div></div></div></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 133-147
+.. GENERATED FROM PYTHON SOURCE LINES 134-147
 
-Clustering using affinity propagation
+التجميع باستخدام انتشار الانتماء
 -------------------------------------
 
-We use clustering to group together quotes that behave similarly. Here,
-amongst the :ref:`various clustering techniques <clustering>` available
-in the scikit-learn, we use :ref:`affinity_propagation` as it does
-not enforce equal-size clusters, and it can choose automatically the
-number of clusters from the data.
+نستخدم التجميع لجمع الاقتباسات التي تتصرف بشكل مشابه. هنا،
+من بين :ref:`تقنيات التجميع المختلفة <clustering>` المتاحة
+في scikit-learn، نستخدم :ref:`affinity_propagation` كما أنه لا
+لا تفرض مجموعات متساوية الحجم، ويمكنها اختيار عدد المجموعات تلقائيًا
+من البيانات.
 
-Note that this gives us a different indication than the graph, as the
-graph reflects conditional relations between variables, while the
-clustering reflects marginal properties: variables clustered together can
-be considered as having a similar impact at the level of the full stock
-market.
+لاحظ أن هذا يعطينا مؤشرًا مختلفًا عن الرسم البياني، حيث يعكس الرسم البياني
+العلاقات الشرطية بين المتغيرات، في حين أن التجميع
+يعكس الخصائص الهامشية: يمكن اعتبار المتغيرات المجمعة معًا
+كأن لها تأثيرًا مماثلًا على مستوى سوق الأسهم بالكامل.
 
-.. GENERATED FROM PYTHON SOURCE LINES 147-156
+.. GENERATED FROM PYTHON SOURCE LINES 147-157
 
 .. code-block:: Python
+
 
 
     from sklearn import cluster
@@ -721,25 +722,25 @@ market.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 157-166
+.. GENERATED FROM PYTHON SOURCE LINES 158-167
 
-Embedding in 2D space
+تضمين في مساحة ثنائية الأبعاد
 ---------------------
 
-For visualization purposes, we need to lay out the different symbols on a
-2D canvas. For this we use :ref:`manifold` techniques to retrieve 2D
-embedding.
-We use a dense eigen_solver to achieve reproducibility (arpack is initiated
-with the random vectors that we don't control). In addition, we use a large
-number of neighbors to capture the large-scale structure.
+لأغراض العرض، نحتاج إلى وضع الرموز المختلفة على
+قماش ثنائي الأبعاد. لهذا نستخدم :ref:`manifold`
+تقنيات لاسترداد تضمين ثنائي الأبعاد.
+نستخدم محددًا كثيفًا للوصول إلى إمكانية إعادة الإنتاج (يتم بدء arpack
+مع المتجهات العشوائية التي لا نتحكم فيها). بالإضافة إلى ذلك، نستخدم
+عدد كبير من الجيران لالتقاط الهيكل واسع النطاق.
 
-.. GENERATED FROM PYTHON SOURCE LINES 166-178
+.. GENERATED FROM PYTHON SOURCE LINES 167-179
 
 .. code-block:: Python
 
 
-    # Finding a low-dimension embedding for visualization: find the best position of
-    # the nodes (the stocks) on a 2D plane
+    # العثور على تضمين منخفض الأبعاد للعرض: العثور على أفضل موضع
+    # للعقد (الأسهم) على طائرة ثنائية الأبعاد
 
     from sklearn import manifold
 
@@ -756,25 +757,25 @@ number of neighbors to capture the large-scale structure.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 179-194
+.. GENERATED FROM PYTHON SOURCE LINES 180-195
 
-Visualization
+العرض المرئي
 -------------
 
-The output of the 3 models are combined in a 2D graph where nodes
-represents the stocks and edges the:
+يتم دمج مخرجات النماذج الثلاثة في رسم بياني ثنائي الأبعاد حيث العقد
+يمثل الأسهم والحافات:
 
-- cluster labels are used to define the color of the nodes
-- the sparse covariance model is used to display the strength of the edges
-- the 2D embedding is used to position the nodes in the plan
+- تستخدم تسميات المجموعات لتحديد لون العقد
+- يستخدم نموذج التباين النادر لعرض قوة الحواف
+- يستخدم التضمين ثنائي الأبعاد لوضع العقد في الخطة
 
-This example has a fair amount of visualization-related code, as
-visualization is crucial here to display the graph. One of the challenge
-is to position the labels minimizing overlap. For this we use an
-heuristic based on the direction of the nearest neighbor along each
-axis.
+يحتوي هذا المثال على كمية عادلة من التعليمات البرمجية المتعلقة بالعرض المرئي، حيث
+العرض المرئي أمر بالغ الأهمية هنا لعرض الرسم البياني. أحد التحديات
+هو وضع التسميات لتقليل التداخل. لهذا نستخدم
+خوارزمية تقريبية تعتمد على اتجاه أقرب جار على طول كل
+المحور.
 
-.. GENERATED FROM PYTHON SOURCE LINES 194-275
+.. GENERATED FROM PYTHON SOURCE LINES 195-276
 
 .. code-block:: Python
 
@@ -787,22 +788,22 @@ axis.
     ax = plt.axes([0.0, 0.0, 1.0, 1.0])
     plt.axis("off")
 
-    # Plot the graph of partial correlations
+    # رسم رسم بياني للارتباطات الجزئية
     partial_correlations = edge_model.precision_.copy()
     d = 1 / np.sqrt(np.diag(partial_correlations))
     partial_correlations *= d
     partial_correlations *= d[:, np.newaxis]
     non_zero = np.abs(np.triu(partial_correlations, k=1)) > 0.02
 
-    # Plot the nodes using the coordinates of our embedding
+    # رسم العقد باستخدام إحداثيات التضمين الخاص بنا
     plt.scatter(
         embedding[0], embedding[1], s=100 * d**2, c=labels, cmap=plt.cm.nipy_spectral
     )
 
-    # Plot the edges
+    # رسم الحواف
     start_idx, end_idx = np.where(non_zero)
-    # a sequence of (*line0*, *line1*, *line2*), where::
-    #            linen = (x0, y0), (x1, y1), ... (xm, ym)
+    # تتابع (*line0*، *line1*، *line2*)، حيث::
+    #            linen = (x0, y0)، (x1, y1)، ... (xm, ym)
     segments = [
         [embedding[:, start], embedding[:, stop]] for start, stop in zip(start_idx, end_idx)
     ]
@@ -814,8 +815,8 @@ axis.
     lc.set_linewidths(15 * values)
     ax.add_collection(lc)
 
-    # Add a label to each node. The challenge here is that we want to
-    # position the labels to avoid overlap with other labels
+    # إضافة تسمية لكل عقدة. التحدي هنا هو أننا نريد
+    # وضع التسميات لتجنب التداخل مع التسميات الأخرى
     for index, (name, label, (x, y)) in enumerate(zip(names, labels, embedding.T)):
         dx = x - embedding[0]
         dx[index] = 1
@@ -874,7 +875,7 @@ axis.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 13.749 seconds)
+   **Total running time of the script:** (0 minutes 13.971 seconds)
 
 
 .. _sphx_glr_download_auto_examples_applications_plot_stock_market.py:

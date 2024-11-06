@@ -1,13 +1,13 @@
 """
 ==================================
-Comparing various online solvers
+مقارنة بين المحللات المختلفة عبر الإنترنت
 ==================================
-An example showing how different online solvers perform
-on the hand-written digits dataset.
+مثال يوضح كيف تؤدي المحللات المختلفة عبر الإنترنت
+على مجموعة بيانات الأرقام المكتوبة بخط اليد.
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايت-ليرن
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -22,7 +22,7 @@ from sklearn.linear_model import (
 from sklearn.model_selection import train_test_split
 
 heldout = [0.95, 0.90, 0.75, 0.50, 0.01]
-# Number of rounds to fit and evaluate an estimator.
+# عدد الجولات لتدريب وتقييم المحلل.
 rounds = 10
 X, y = datasets.load_digits(return_X_y=True)
 
@@ -49,7 +49,7 @@ classifiers = [
 xx = 1.0 - np.array(heldout)
 
 for name, clf in classifiers:
-    print("training %s" % name)
+    print("تدريب %s" % name)
     rng = np.random.RandomState(42)
     yy = []
     for i in heldout:
@@ -65,6 +65,6 @@ for name, clf in classifiers:
     plt.plot(xx, yy, label=name)
 
 plt.legend(loc="upper right")
-plt.xlabel("Proportion train")
-plt.ylabel("Test Error Rate")
+plt.xlabel("نسبة التدريب")
+plt.ylabel("معدل الخطأ في الاختبار")
 plt.show()

@@ -3,13 +3,11 @@
 Normal, Ledoit-Wolf and OAS Linear Discriminant Analysis for classification
 ===========================================================================
 
-This example illustrates how the Ledoit-Wolf and Oracle Approximating
-Shrinkage (OAS) estimators of covariance can improve classification.
-
+هذا المثال يوضح كيف أن مقدرات Ledoit-Wolf وOracle Approximating
+Shrinkage (OAS) لمصفوفة التباين يمكن أن تحسن التصنيف.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -18,25 +16,25 @@ from sklearn.covariance import OAS
 from sklearn.datasets import make_blobs
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 
-n_train = 20  # samples for training
-n_test = 200  # samples for testing
-n_averages = 50  # how often to repeat classification
-n_features_max = 75  # maximum number of features
-step = 4  # step size for the calculation
+n_train = 20  # عدد العينات للتدريب
+n_test = 200  # عدد العينات للاختبار
+n_averages = 50  # عدد مرات تكرار التصنيف
+n_features_max = 75  # الحد الأقصى لعدد الميزات
+step = 4  # حجم الخطوة للحساب
 
 
 def generate_data(n_samples, n_features):
-    """Generate random blob-ish data with noisy features.
+    """توليد بيانات عشوائية شبيهة بالكرات مع ميزات ضوضائية.
 
-    This returns an array of input data with shape `(n_samples, n_features)`
-    and an array of `n_samples` target labels.
+    هذه الدالة تعيد مصفوفة بيانات الإدخال بشكل `(n_samples, n_features)`
+    ومصفوفة لعلامات التصنيف `n_samples`.
 
-    Only one feature contains discriminative information, the other features
-    contain only noise.
+    ميزة واحدة فقط تحتوي على معلومات تمييزية، والميزات الأخرى
+    تحتوي فقط على ضوضاء.
     """
     X, y = make_blobs(n_samples=n_samples, n_features=1, centers=[[-2], [2]])
 
-    # add non-discriminative features
+    # إضافة ميزات غير تمييزية
     if n_features > 1:
         X = np.hstack([X, np.random.randn(n_samples, n_features - 1)])
     return X, y
@@ -49,8 +47,10 @@ for n_features in n_features_range:
     for _ in range(n_averages):
         X, y = generate_data(n_train, n_features)
 
-        clf1 = LinearDiscriminantAnalysis(solver="lsqr", shrinkage=None).fit(X, y)
-        clf2 = LinearDiscriminantAnalysis(solver="lsqr", shrinkage="auto").fit(X, y)
+        clf1 = LinearDiscriminantAnalysis(
+            solver="lsqr", shrinkage=None).fit(X, y)
+        clf2 = LinearDiscriminantAnalysis(
+            solver="lsqr", shrinkage="auto").fit(X, y)
         oa = OAS(store_precision=False, assume_centered=False)
         clf3 = LinearDiscriminantAnalysis(solver="lsqr", covariance_estimator=oa).fit(
             X, y

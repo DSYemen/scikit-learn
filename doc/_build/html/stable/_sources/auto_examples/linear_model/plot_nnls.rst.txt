@@ -19,20 +19,19 @@
 
 
 ==========================
-Non-negative least squares
+مربعات أقل غير سالبة
 ==========================
 
-In this example, we fit a linear model with positive constraints on the
-regression coefficients and compare the estimated coefficients to a classic
-linear regression.
+في هذا المثال، نقوم بملاءمة نموذج خطي مع قيود إيجابية على
+معاملات الانحدار ومقارنة المعاملات المقدرة مع الانحدار الخطي الكلاسيكي.
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-20
+.. GENERATED FROM PYTHON SOURCE LINES 10-19
 
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري سكايلرن
+    # معرف الترخيص: BSD-3-Clause
 
     import matplotlib.pyplot as plt
     import numpy as np
@@ -46,11 +45,11 @@ linear regression.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 21-22
+.. GENERATED FROM PYTHON SOURCE LINES 20-21
 
-Generate some random data
+توليد بعض البيانات العشوائية
 
-.. GENERATED FROM PYTHON SOURCE LINES 22-34
+.. GENERATED FROM PYTHON SOURCE LINES 21-33
 
 .. code-block:: Python
 
@@ -59,11 +58,11 @@ Generate some random data
     n_samples, n_features = 200, 50
     X = np.random.randn(n_samples, n_features)
     true_coef = 3 * np.random.randn(n_features)
-    # Threshold coefficients to render them non-negative
+    # عتبة المعاملات لجعلها غير سالبة
     true_coef[true_coef < 0] = 0
     y = np.dot(X, true_coef)
 
-    # Add some noise
+    # إضافة بعض الضوضاء
     y += 5 * np.random.normal(size=(n_samples,))
 
 
@@ -73,11 +72,11 @@ Generate some random data
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 35-36
+.. GENERATED FROM PYTHON SOURCE LINES 34-35
 
-Split the data in train set and test set
+تقسيم البيانات إلى مجموعة تدريب ومجموعة اختبار
 
-.. GENERATED FROM PYTHON SOURCE LINES 36-40
+.. GENERATED FROM PYTHON SOURCE LINES 35-39
 
 .. code-block:: Python
 
@@ -92,11 +91,11 @@ Split the data in train set and test set
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 41-42
+.. GENERATED FROM PYTHON SOURCE LINES 40-41
 
-Fit the Non-Negative least squares.
+ملاءمة المربعات الأقل غير السالبة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 42-49
+.. GENERATED FROM PYTHON SOURCE LINES 41-48
 
 .. code-block:: Python
 
@@ -120,11 +119,11 @@ Fit the Non-Negative least squares.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 50-51
+.. GENERATED FROM PYTHON SOURCE LINES 49-50
 
-Fit an OLS.
+ملاءمة OLS.
 
-.. GENERATED FROM PYTHON SOURCE LINES 51-57
+.. GENERATED FROM PYTHON SOURCE LINES 50-56
 
 .. code-block:: Python
 
@@ -147,14 +146,14 @@ Fit an OLS.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-62
+.. GENERATED FROM PYTHON SOURCE LINES 57-61
 
-Comparing the regression coefficients between OLS and NNLS, we can observe
-they are highly correlated (the dashed line is the identity relation),
-but the non-negative constraint shrinks some to 0.
-The Non-Negative Least squares inherently yield sparse results.
+عند مقارنة معاملات الانحدار بين OLS و NNLS، يمكننا ملاحظة
+أنها مرتبطة ارتباطًا وثيقًا (الخط المتقطع هو علاقة الهوية)،
+ولكن القيود غير السالبة تقلص بعضها إلى 0.
+المربعات الأقل غير السالبة تعطي نتائج متفرقة بشكل متأصل.
 
-.. GENERATED FROM PYTHON SOURCE LINES 62-73
+.. GENERATED FROM PYTHON SOURCE LINES 61-71
 
 .. code-block:: Python
 
@@ -167,9 +166,8 @@ The Non-Negative Least squares inherently yield sparse results.
     low = max(low_x, low_y)
     high = min(high_x, high_y)
     ax.plot([low, high], [low, high], ls="--", c=".3", alpha=0.5)
-    ax.set_xlabel("OLS regression coefficients", fontweight="bold")
-    ax.set_ylabel("NNLS regression coefficients", fontweight="bold")
-
+    ax.set_xlabel("معاملات الانحدار OLS", fontweight="bold")
+    ax.set_ylabel("معاملات الانحدار NNLS", fontweight="bold")
 
 
 .. image-sg:: /auto_examples/linear_model/images/sphx_glr_plot_nnls_001.png
@@ -183,14 +181,14 @@ The Non-Negative Least squares inherently yield sparse results.
  .. code-block:: none
 
 
-    Text(55.847222222222214, 0.5, 'NNLS regression coefficients')
+    Text(55.847222222222214, 0.5, 'معاملات الانحدار NNLS')
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.068 seconds)
+   **Total running time of the script:** (0 minutes 0.070 seconds)
 
 
 .. _sphx_glr_download_auto_examples_linear_model_plot_nnls.py:

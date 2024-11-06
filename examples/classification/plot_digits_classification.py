@@ -1,36 +1,30 @@
-"""
-================================
-Recognizing hand-written digits
-================================
-
-This example shows how scikit-learn can be used to recognize images of
-hand-written digits, from 0-9.
 
 """
+======================================
+التعرف على الأرقام المكتوبة بخط اليد
+======================================
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+هذا المثال يوضح كيفية استخدام scikit-learn للتعرف على صور الأرقام المكتوبة بخط اليد، من 0 إلى 9.
 
-# Standard scientific Python imports
+"""
+
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
+
+# استيراد مكتبات بايثون العلمية
 import matplotlib.pyplot as plt
 
-# Import datasets, classifiers and performance metrics
+# استيراد مجموعات البيانات، والتصنيفات، ومقاييس الأداء
 from sklearn import datasets, metrics, svm
 from sklearn.model_selection import train_test_split
 
 ###############################################################################
-# Digits dataset
+# مجموعة بيانات الأرقام
 # --------------
 #
-# The digits dataset consists of 8x8
-# pixel images of digits. The ``images`` attribute of the dataset stores
-# 8x8 arrays of grayscale values for each image. We will use these arrays to
-# visualize the first 4 images. The ``target`` attribute of the dataset stores
-# the digit each image represents and this is included in the title of the 4
-# plots below.
+# تتكون مجموعة بيانات الأرقام من صور بكسل بحجم 8x8. يحتوي خاصية "images" في مجموعة البيانات على مصفوفات 8x8 من قيم التدرج الرمادي لكل صورة. سنستخدم هذه المصفوفات لعرض أول 4 صور. يحتوي خاصية "target" في مجموعة البيانات على الرقم الذي تمثله كل صورة، ويتم تضمينه في عنوان الرسوم البيانية الأربعة أدناه.
 #
-# Note: if we were working from image files (e.g., 'png' files), we would load
-# them using :func:`matplotlib.pyplot.imread`.
+# ملاحظة: إذا كنا نعمل مع ملفات الصور (مثل ملفات 'png')، فسنقوم بتحميلها باستخدام: func:`matplotlib.pyplot.imread`.
 
 digits = datasets.load_digits()
 
@@ -41,41 +35,33 @@ for ax, image, label in zip(axes, digits.images, digits.target):
     ax.set_title("Training: %i" % label)
 
 ###############################################################################
-# Classification
+# التصنيف
 # --------------
 #
-# To apply a classifier on this data, we need to flatten the images, turning
-# each 2-D array of grayscale values from shape ``(8, 8)`` into shape
-# ``(64,)``. Subsequently, the entire dataset will be of shape
-# ``(n_samples, n_features)``, where ``n_samples`` is the number of images and
-# ``n_features`` is the total number of pixels in each image.
+# لتطبيق مصنف على هذه البيانات، نحتاج إلى تسطيح الصور، وتحويل كل مصفوفة 2-D من قيم التدرج الرمادي من الشكل ``(8, 8)`` إلى الشكل ``(64,)``. وبالتالي، ستكون مجموعة البيانات بأكملها على الشكل ``(n_samples, n_features)``، حيث ``n_samples`` هو عدد الصور و ``n_features`` هو العدد الإجمالي للبكسلات في كل صورة.
 #
-# We can then split the data into train and test subsets and fit a support
-# vector classifier on the train samples. The fitted classifier can
-# subsequently be used to predict the value of the digit for the samples
-# in the test subset.
+# بعد ذلك، يمكننا تقسيم البيانات إلى مجموعتين فرعيتين للتدريب والاختبار وتدريب مصنف ناقل الدعم على عينات التدريب. يمكن استخدام المصنف المدرب بعد ذلك للتنبؤ بقيمة الرقم لعينات مجموعة الاختبار.
 
-# flatten the images
+# تسطيح الصور
 n_samples = len(digits.images)
 data = digits.images.reshape((n_samples, -1))
 
-# Create a classifier: a support vector classifier
+# إنشاء مصنف: مصنف ناقل الدعم
 clf = svm.SVC(gamma=0.001)
 
-# Split data into 50% train and 50% test subsets
+# تقسيم البيانات إلى 50% للتدريب و50% للاختبار
 X_train, X_test, y_train, y_test = train_test_split(
     data, digits.target, test_size=0.5, shuffle=False
 )
 
-# Learn the digits on the train subset
+# تدريب المصنف على مجموعة التدريب
 clf.fit(X_train, y_train)
 
-# Predict the value of the digit on the test subset
+# التنبؤ بقيمة الرقم في مجموعة الاختبار
 predicted = clf.predict(X_test)
 
 ###############################################################################
-# Below we visualize the first 4 test samples and show their predicted
-# digit value in the title.
+# نعرض أدناه أول 4 عينات من مجموعة الاختبار ونظهر قيمة الرقم المتوقع في العنوان.
 
 _, axes = plt.subplots(nrows=1, ncols=4, figsize=(10, 3))
 for ax, image, prediction in zip(axes, X_test, predicted):
@@ -85,18 +71,23 @@ for ax, image, prediction in zip(axes, X_test, predicted):
     ax.set_title(f"Prediction: {prediction}")
 
 ###############################################################################
-# :func:`~sklearn.metrics.classification_report` builds a text report showing
-# the main classification metrics.
+# :func:`~sklearn.metrics.classification_report` ينشئ تقريراً نصياً يظهر
+# مقاييس التصنيف الرئيسية.
 
 print(
-    f"Classification report for classifier {clf}:\n"
+    f"تقرير التصنيف للمصنف {clf}:\n"
     f"{metrics.classification_report(y_test, predicted)}\n"
 )
 
 ###############################################################################
-# We can also plot a :ref:`confusion matrix <confusion_matrix>` of the
-# true digit values and the predicted digit values.
+# يمكننا أيضاً رسم مصفوفة الارتباك لل
+# قيم الأرقام الحقيقية والمتنبأ بها.
 
+disp = metrics.ConfusionMatrixDisplay.from_predictions(y_test, predicted)
+disp.figure_.suptitle("Confusion Matrix")
+print(f"Confusion matrix:\n{disp.confusion_matrix}")
+
+plt.show()
 disp = metrics.ConfusionMatrixDisplay.from_predictions(y_test, predicted)
 disp.figure_.suptitle("Confusion Matrix")
 print(f"Confusion matrix:\n{disp.confusion_matrix}")
@@ -104,25 +95,25 @@ print(f"Confusion matrix:\n{disp.confusion_matrix}")
 plt.show()
 
 ###############################################################################
-# If the results from evaluating a classifier are stored in the form of a
-# :ref:`confusion matrix <confusion_matrix>` and not in terms of `y_true` and
-# `y_pred`, one can still build a :func:`~sklearn.metrics.classification_report`
-# as follows:
+# إذا كانت نتائج تقييم المصنف مخزنة على شكل
+# مصفوفة ارتباك وليس على شكل `y_true` و
+# `y_pred`، يمكننا مع ذلك إنشاء تقرير تصنيف باستخدام: func:`~sklearn.metrics.classification_report`
+# كما يلي:
 
 
-# The ground truth and predicted lists
+# قوائم القيم الحقيقية والمتنبأ بها
 y_true = []
 y_pred = []
 cm = disp.confusion_matrix
 
-# For each cell in the confusion matrix, add the corresponding ground truths
-# and predictions to the lists
+# لكل خلية في مصفوفة الارتباك، أضف القيم الحقيقية والمتنبأ بها
+# إلى القوائم
 for gt in range(len(cm)):
     for pred in range(len(cm)):
         y_true += [gt] * cm[gt][pred]
         y_pred += [pred] * cm[gt][pred]
 
 print(
-    "Classification report rebuilt from confusion matrix:\n"
+    "تقرير التصنيف المعاد بناؤه من مصفوفة الارتباك:\n"
     f"{metrics.classification_report(y_true, y_pred)}\n"
 )

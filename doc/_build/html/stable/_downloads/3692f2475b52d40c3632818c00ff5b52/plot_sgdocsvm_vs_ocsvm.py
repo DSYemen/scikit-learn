@@ -1,26 +1,22 @@
 """
 ====================================================================
-One-Class SVM versus One-Class SVM using Stochastic Gradient Descent
+One-Class SVM مقابل One-Class SVM باستخدام Stochastic Gradient Descent
 ====================================================================
 
-This example shows how to approximate the solution of
-:class:`sklearn.svm.OneClassSVM` in the case of an RBF kernel with
-:class:`sklearn.linear_model.SGDOneClassSVM`, a Stochastic Gradient Descent
-(SGD) version of the One-Class SVM. A kernel approximation is first used in
-order to apply :class:`sklearn.linear_model.SGDOneClassSVM` which implements a
-linear One-Class SVM using SGD.
+يوضح هذا المثال كيفية تقريب حل
+:class:`sklearn.svm.OneClassSVM` في حالة استخدام نواة RBF مع
+:class:`sklearn.linear_model.SGDOneClassSVM`، وهي نسخة Stochastic Gradient Descent
+(SGD) من One-Class SVM. يتم استخدام تقريب النواة أولاً من أجل تطبيق
+:class:`sklearn.linear_model.SGDOneClassSVM` الذي ينفذ One-Class SVM خطي باستخدام SGD.
 
-Note that :class:`sklearn.linear_model.SGDOneClassSVM` scales linearly with
-the number of samples whereas the complexity of a kernelized
-:class:`sklearn.svm.OneClassSVM` is at best quadratic with respect to the
-number of samples. It is not the purpose of this example to illustrate the
-benefits of such an approximation in terms of computation time but rather to
-show that we obtain similar results on a toy dataset.
-
-"""  # noqa: E501
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+ملاحظة: :class:`sklearn.linear_model.SGDOneClassSVM` يتناسب خطياً مع
+عدد العينات في حين أن تعقيد :class:`sklearn.svm.OneClassSVM`
+الذي يستخدم نواة kernelized هو على الأقل تربيعي فيما يتعلق بعدد العينات.
+ليس الغرض من هذا المثال توضيح فوائد مثل هذا التقريب من حيث وقت الحساب،
+ولكن بدلاً من ذلك، لإظهار أننا نحصل على نتائج مماثلة على مجموعة بيانات تجريبية.
+"""
+# المؤلفون: مطورو scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 # %%
 import matplotlib
@@ -33,27 +29,27 @@ from sklearn.linear_model import SGDOneClassSVM
 from sklearn.pipeline import make_pipeline
 from sklearn.svm import OneClassSVM
 
-font = {"weight": "normal", "size": 15}
+line = {"weight": "normal", "size": 15}
 
-matplotlib.rc("font", **font)
+matplotlib.rc("font", **line)
 
 random_state = 42
 rng = np.random.RandomState(random_state)
 
-# Generate train data
+# توليد بيانات التدريب
 X = 0.3 * rng.randn(500, 2)
 X_train = np.r_[X + 2, X - 2]
-# Generate some regular novel observations
+# توليد بعض الملاحظات العادية الجديدة
 X = 0.3 * rng.randn(20, 2)
 X_test = np.r_[X + 2, X - 2]
-# Generate some abnormal novel observations
+# توليد بعض الملاحظات الشاذة الجديدة
 X_outliers = rng.uniform(low=-4, high=4, size=(20, 2))
 
-# OCSVM hyperparameters
+# فرط معلمات OCSVM
 nu = 0.05
 gamma = 2.0
 
-# Fit the One-Class SVM
+# ملاءمة One-Class SVM
 clf = OneClassSVM(gamma=gamma, kernel="rbf", nu=nu)
 clf.fit(X_train)
 y_pred_train = clf.predict(X_train)
@@ -63,7 +59,7 @@ n_error_train = y_pred_train[y_pred_train == -1].size
 n_error_test = y_pred_test[y_pred_test == -1].size
 n_error_outliers = y_pred_outliers[y_pred_outliers == 1].size
 
-# Fit the One-Class SVM using a kernel approximation and SGD
+# ملاءمة One-Class SVM باستخدام تقريب النواة و SGD
 transform = Nystroem(gamma=gamma, random_state=random_state)
 clf_sgd = SGDOneClassSVM(
     nu=nu, shuffle=True, fit_intercept=True, random_state=random_state, tol=1e-4
@@ -119,22 +115,22 @@ b2 = plt.scatter(X_test[:, 0], X_test[:, 1], c="blueviolet", s=s, edgecolors="k"
 c = plt.scatter(X_outliers[:, 0], X_outliers[:, 1], c="gold", s=s, edgecolors="k")
 
 ax.set(
-    title="One-Class SVM",
+    title="One-Class SVM",  # لم يتم تغيير هذا العنوان
     xlim=(-4.5, 4.5),
     ylim=(-4.5, 4.5),
     xlabel=(
-        f"error train: {n_error_train}/{X_train.shape[0]}; "
-        f"errors novel regular: {n_error_test}/{X_test.shape[0]}; "
-        f"errors novel abnormal: {n_error_outliers}/{X_outliers.shape[0]}"
+        f"أخطاء التدريب: {n_error_train}/{X_train.shape[0]}; "
+        f"أخطاء عادية جديدة: {n_error_test}/{X_test.shape[0]}; "
+        f"أخطاء شاذة جديدة: {n_error_outliers}/{X_outliers.shape[0]}"
     ),
 )
 _ = ax.legend(
-    [mlines.Line2D([], [], color="darkred", label="learned frontier"), b1, b2, c],
+    [mlines.Line2D([], [], color="darkred", label="الحدود المكتسبة"), b1, b2, c],
     [
-        "learned frontier",
-        "training observations",
-        "new regular observations",
-        "new abnormal observations",
+        "الحدود المكتسبة",
+        "ملاحظات التدريب",
+        "ملاحظات عادية جديدة",
+        "ملاحظات شاذة جديدة",
     ],
     loc="upper left",
 )
@@ -178,22 +174,22 @@ b2 = plt.scatter(X_test[:, 0], X_test[:, 1], c="blueviolet", s=s, edgecolors="k"
 c = plt.scatter(X_outliers[:, 0], X_outliers[:, 1], c="gold", s=s, edgecolors="k")
 
 ax.set(
-    title="Online One-Class SVM",
+    title="One-Class SVM عبر الإنترنت",
     xlim=(-4.5, 4.5),
     ylim=(-4.5, 4.5),
     xlabel=(
-        f"error train: {n_error_train_sgd}/{X_train.shape[0]}; "
-        f"errors novel regular: {n_error_test_sgd}/{X_test.shape[0]}; "
-        f"errors novel abnormal: {n_error_outliers_sgd}/{X_outliers.shape[0]}"
+        f"أخطاء التدريب: {n_error_train_sgd}/{X_train.shape[0]}; "
+        f"أخطاء عادية جديدة: {n_error_test_sgd}/{X_test.shape[0]}; "
+        f"أخطاء شاذة جديدة: {n_error_outliers_sgd}/{X_outliers.shape[0]}"
     ),
 )
 ax.legend(
-    [mlines.Line2D([], [], color="darkred", label="learned frontier"), b1, b2, c],
+    [mlines.Line2D([], [], color="darkred", label="الحدود المكتسبة"), b1, b2, c],
     [
-        "learned frontier",
-        "training observations",
-        "new regular observations",
-        "new abnormal observations",
+        "الحدود المكتسبة",
+        "ملاحظات التدريب",
+        "ملاحظات عادية جديدة",
+        "ملاحظات شاذة جديدة",
     ],
     loc="upper left",
 )

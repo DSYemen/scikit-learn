@@ -1,10 +1,10 @@
 """
 ===================================================
-Recursive feature elimination with cross-validation
+إزالة الميزات المتكررة باستخدام التحقق المتبادل
 ===================================================
 
-A Recursive Feature Elimination (RFE) example with automatic tuning of the
-number of features selected with cross-validation.
+مثال على حذف الميزات التكراري (RFE) مع الضبط التلقائي لعدد
+الميزات المحددة مع التحقق المتبادل.
 
 """
 
@@ -12,13 +12,13 @@ number of features selected with cross-validation.
 # SPDX-License-Identifier: BSD-3-Clause
 
 # %%
-# Data generation
+# توليد البيانات
 # ---------------
 #
-# We build a classification task using 3 informative features. The introduction
-# of 2 additional redundant (i.e. correlated) features has the effect that the
-# selected features vary depending on the cross-validation fold. The remaining
-# features are non-informative as they are drawn at random.
+# نقوم ببناء مهمة تصنيف باستخدام 3 ميزات إعلامية. إن إدخال
+# ميزتين إضافيتين متكررتين (أي مترابطتين) له تأثير أن الميزات
+# المحددة تختلف اعتمادًا على طية التحقق المتبادل. الميزات المتبقية
+# غير إعلامية حيث يتم رسمها عشوائيًا.
 
 from sklearn.datasets import make_classification
 
@@ -35,17 +35,17 @@ X, y = make_classification(
 )
 
 # %%
-# Model training and selection
+# تدريب النموذج واختياره
 # ----------------------------
 #
-# We create the RFE object and compute the cross-validated scores. The scoring
-# strategy "accuracy" optimizes the proportion of correctly classified samples.
+# نقوم بإنشاء كائن RFE وحساب الدرجات التي تم التحقق منها بشكل متبادل.
+# استراتيجية التسجيل "الدقة" تعمل على تحسين نسبة العينات المصنفة بشكل صحيح.
 
 from sklearn.feature_selection import RFECV
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import StratifiedKFold
 
-min_features_to_select = 1  # Minimum number of features to consider
+min_features_to_select = 1  # الحد الأدنى لعدد الميزات المطلوب مراعاتها
 clf = LogisticRegression()
 cv = StratifiedKFold(5)
 
@@ -59,13 +59,13 @@ rfecv = RFECV(
 )
 rfecv.fit(X, y)
 
-print(f"Optimal number of features: {rfecv.n_features_}")
+print(f"العدد الأمثل للميزات: {rfecv.n_features_}")
 
 # %%
-# In the present case, the model with 3 features (which corresponds to the true
-# generative model) is found to be the most optimal.
+# في الحالة الحالية، تم العثور على النموذج الذي يحتوي على 3 ميزات (والذي يتوافق مع
+# نموذج التوليد الحقيقي) هو الأمثل.
 #
-# Plot number of features VS. cross-validation scores
+# رسم عدد الميزات مقابل درجات التحقق المتبادل
 # ---------------------------------------------------
 
 import matplotlib.pyplot as plt
@@ -73,21 +73,23 @@ import pandas as pd
 
 cv_results = pd.DataFrame(rfecv.cv_results_)
 plt.figure()
-plt.xlabel("Number of features selected")
-plt.ylabel("Mean test accuracy")
+plt.xlabel("عدد الميزات المحددة")
+plt.ylabel("متوسط دقة الاختبار")
 plt.errorbar(
     x=cv_results["n_features"],
     y=cv_results["mean_test_score"],
     yerr=cv_results["std_test_score"],
 )
-plt.title("Recursive Feature Elimination \nwith correlated features")
+plt.title("حذف الميزات التكراري \nمع ميزات مترابطة")
 plt.show()
 
 # %%
-# From the plot above one can further notice a plateau of equivalent scores
-# (similar mean value and overlapping errorbars) for 3 to 5 selected features.
-# This is the result of introducing correlated features. Indeed, the optimal
-# model selected by the RFE can lie within this range, depending on the
-# cross-validation technique. The test accuracy decreases above 5 selected
-# features, this is, keeping non-informative features leads to over-fitting and
-# is therefore detrimental for the statistical performance of the models.
+# من الرسم البياني أعلاه، يمكن للمرء أن يلاحظ أيضًا هضبة من الدرجات المتكافئة
+# (متوسط قيمة متشابه وأشرطة خطأ متداخلة) لـ 3 إلى 5 ميزات محددة.
+# هذه هي نتيجة إدخال ميزات مترابطة. في الواقع، يمكن أن يقع النموذج
+# الأمثل الذي تم اختياره بواسطة RFE ضمن هذا النطاق، اعتمادًا على تقنية
+# التحقق المتبادل. تنخفض دقة الاختبار فوق 5 ميزات محددة، وهذا يعني أن
+# الاحتفاظ بالميزات غير الإعلامية يؤدي إلى فرط التخصيص وبالتالي فهو
+# ضار بالأداء الإحصائي للنماذج.
+
+

@@ -162,7 +162,8 @@ def stream_reuters_documents(data_path=None):
             total_sz_mb = "%.2f MB" % (size / 1e6)
             current_sz_mb = "%.2f MB" % ((blocknum * bs) / 1e6)
             if _not_in_sphinx():
-                sys.stdout.write("\rdownloaded %s / %s" % (current_sz_mb, total_sz_mb))
+                sys.stdout.write("\rdownloaded %s / %s" %
+                                 (current_sz_mb, total_sz_mb))
 
         archive_path = data_path / ARCHIVE_FILENAME
 
@@ -312,7 +313,8 @@ for i, (X_train_text, y_train) in enumerate(minibatch_iterators):
         tick = time.time()
         cls_stats[cls_name]["accuracy"] = cls.score(X_test, y_test)
         cls_stats[cls_name]["prediction_time"] = time.time() - tick
-        acc_history = (cls_stats[cls_name]["accuracy"], cls_stats[cls_name]["n_train"])
+        acc_history = (cls_stats[cls_name]["accuracy"],
+                       cls_stats[cls_name]["n_train"])
         cls_stats[cls_name]["accuracy_history"].append(acc_history)
         run_history = (
             cls_stats[cls_name]["accuracy"],
@@ -374,14 +376,16 @@ plt.legend(cls_names, loc="best")
 # Plot fitting times
 plt.figure()
 fig = plt.gcf()
-cls_runtime = [stats["total_fit_time"] for cls_name, stats in sorted(cls_stats.items())]
+cls_runtime = [stats["total_fit_time"]
+               for cls_name, stats in sorted(cls_stats.items())]
 
 cls_runtime.append(total_vect_time)
 cls_names.append("Vectorization")
 bar_colors = ["b", "g", "r", "c", "m", "y"]
 
 ax = plt.subplot(111)
-rectangles = plt.bar(range(len(cls_names)), cls_runtime, width=0.5, color=bar_colors)
+rectangles = plt.bar(range(len(cls_names)), cls_runtime,
+                     width=0.5, color=bar_colors)
 
 ax.set_xticks(np.linspace(0, len(cls_names) - 1, len(cls_names)))
 ax.set_xticklabels(cls_names, fontsize=10)
@@ -421,7 +425,8 @@ cls_runtime.append(vectorizing_time)
 cls_names.append("Hashing\n+Vect.")
 
 ax = plt.subplot(111)
-rectangles = plt.bar(range(len(cls_names)), cls_runtime, width=0.5, color=bar_colors)
+rectangles = plt.bar(range(len(cls_names)), cls_runtime,
+                     width=0.5, color=bar_colors)
 
 ax.set_xticks(np.linspace(0, len(cls_names) - 1, len(cls_names)))
 ax.set_xticklabels(cls_names, fontsize=8)

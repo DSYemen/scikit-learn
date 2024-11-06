@@ -1,21 +1,14 @@
 """
+=========================================================================
+مقارنة الأداء بين خوارزمية K-Means العادية وخوارزمية Bisecting K-Means
 =============================================================
-Bisecting K-Means and Regular K-Means Performance Comparison
-=============================================================
 
-This example shows differences between Regular K-Means algorithm and Bisecting K-Means.
+هذا المثال يوضح الفروق بين خوارزمية K-Means العادية وخوارزمية Bisecting K-Means.
 
-While K-Means clusterings are different when increasing n_clusters,
-Bisecting K-Means clustering builds on top of the previous ones. As a result, it
-tends to create clusters that have a more regular large-scale structure. This
-difference can be visually observed: for all numbers of clusters, there is a
-dividing line cutting the overall data cloud in two for BisectingKMeans, which is not
-present for regular K-Means.
-
+في حين أن التجميعات في خوارزمية K-Means تختلف عند زيادة n_clusters، فإن تجميع Bisecting K-Means يبني على التجميعات السابقة. ونتيجة لذلك، فإنها تميل إلى إنشاء مجموعات ذات بنية واسعة النطاق أكثر انتظامًا. يمكن ملاحظة هذا الاختلاف بصريًا: بالنسبة لجميع أعداد المجموعات، هناك خط فاصل يقسم سحابة البيانات الكلية إلى نصفين في خوارزمية BisectingKMeans، وهو غير موجود في خوارزمية K-Means العادية.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 
@@ -25,22 +18,22 @@ from sklearn.datasets import make_blobs
 print(__doc__)
 
 
-# Generate sample data
+# توليد بيانات العينة
 n_samples = 10000
 random_state = 0
 
 X, _ = make_blobs(n_samples=n_samples, centers=2, random_state=random_state)
 
-# Number of cluster centers for KMeans and BisectingKMeans
+# عدد مراكز التجميع لخوارزميتي KMeans و BisectingKMeans
 n_clusters_list = [4, 8, 16]
 
-# Algorithms to compare
+# الخوارزميات المراد مقارنتها
 clustering_algorithms = {
     "Bisecting K-Means": BisectingKMeans,
     "K-Means": KMeans,
 }
 
-# Make subplots for each variant
+# إنشاء مخططات فرعية لكل متغير
 fig, axs = plt.subplots(
     len(clustering_algorithms), len(n_clusters_list), figsize=(12, 5)
 )
@@ -59,7 +52,7 @@ for i, (algorithm_name, Algorithm) in enumerate(clustering_algorithms.items()):
         axs[j, i].set_title(f"{algorithm_name} : {n_clusters} clusters")
 
 
-# Hide x labels and tick labels for top plots and y ticks for right plots.
+# إخفاء تسميات المحور وتسميات التكتات للأشكال العلوية وتكتات المحور y للأشكال اليمنى.
 for ax in axs.flat:
     ax.label_outer()
     ax.set_xticks([])

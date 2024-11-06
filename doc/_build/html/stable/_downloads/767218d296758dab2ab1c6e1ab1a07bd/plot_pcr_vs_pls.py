@@ -1,49 +1,48 @@
 """
-==================================================================
-Principal Component Regression vs Partial Least Squares Regression
-==================================================================
+================================================================================
+الانحدار باستخدام المكونات الرئيسية مقابل الانحدار باستخدام المربعات الجزئية
+================================================================================
 
-This example compares `Principal Component Regression
-<https://en.wikipedia.org/wiki/Principal_component_regression>`_ (PCR) and
+يقارن هذا المثال بين `Principal Component Regression
+<https://en.wikipedia.org/wiki/Principal_component_regression>`_ (PCR) و
 `Partial Least Squares Regression
-<https://en.wikipedia.org/wiki/Partial_least_squares_regression>`_ (PLS) on a
-toy dataset. Our goal is to illustrate how PLS can outperform PCR when the
-target is strongly correlated with some directions in the data that have a
-low variance.
+<https://en.wikipedia.org/wiki/Partial_least_squares_regression>`_ (PLS) على
+مجموعة بيانات تجريبية. هدفنا هو توضيح كيف يمكن لـ PLS أن يتفوق على PCR عندما
+يكون الهدف مرتبطًا بقوة ببعض الاتجاهات في البيانات التي لها تباين منخفض.
 
-PCR is a regressor composed of two steps: first,
-:class:`~sklearn.decomposition.PCA` is applied to the training data, possibly
-performing dimensionality reduction; then, a regressor (e.g. a linear
-regressor) is trained on the transformed samples. In
-:class:`~sklearn.decomposition.PCA`, the transformation is purely
-unsupervised, meaning that no information about the targets is used. As a
-result, PCR may perform poorly in some datasets where the target is strongly
-correlated with *directions* that have low variance. Indeed, the
-dimensionality reduction of PCA projects the data into a lower dimensional
-space where the variance of the projected data is greedily maximized along
-each axis. Despite them having the most predictive power on the target, the
-directions with a lower variance will be dropped, and the final regressor
-will not be able to leverage them.
+PCR هو منظم يتكون من خطوتين: أولاً، يتم تطبيق
+:class:`~sklearn.decomposition.PCA` على بيانات التدريب، مما يؤدي
+ربما إلى تقليل الأبعاد؛ بعد ذلك، يتم تدريب منظم (على سبيل المثال، منظم خطي)
+على العينات المحولة. في
+:class:`~sklearn.decomposition.PCA`، يكون التحول غير خاضع للإشراف تمامًا،
+مما يعني أنه لا يتم استخدام أي معلومات حول الأهداف. ونتيجة لذلك، قد يؤدي PCR
+بشكل سيء في بعض مجموعات البيانات حيث يكون الهدف مرتبطًا بقوة بـ *الاتجاهات*
+التي لها تباين منخفض. في الواقع، يؤدي تقليل الأبعاد لـ PCA إلى إسقاط البيانات
+في مساحة ذات أبعاد أقل حيث يتم تعظيم تباين البيانات المسقطة بشكل جشع على طول
+كل محور. على الرغم من أن لديهم أكبر قدرة تنبؤية على الهدف، سيتم إسقاط الاتجاهات
+ذات التباين المنخفض، ولن يتمكن المنظم النهائي من الاستفادة منها.
 
-PLS is both a transformer and a regressor, and it is quite similar to PCR: it
-also applies a dimensionality reduction to the samples before applying a
-linear regressor to the transformed data. The main difference with PCR is
-that the PLS transformation is supervised. Therefore, as we will see in this
-example, it does not suffer from the issue we just mentioned.
-
+PLS هو محول ومنظم، وهو مشابه جدًا لـ PCR: فهو أيضًا يطبق تقليل الأبعاد على
+العينات قبل تطبيق منظم خطي على البيانات المحولة. الاختلاف الرئيسي مع PCR هو
+أن تحويل PLS خاضع للإشراف. لذلك، كما سنرى في هذا المثال، فإنه لا يعاني من
+المشكلة التي ذكرناها للتو.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف SPDX-License: BSD-3-Clause
 
 # %%
-# The data
+# البيانات
 # --------
 #
-# We start by creating a simple dataset with two features. Before we even dive
-# into PCR and PLS, we fit a PCA estimator to display the two principal
-# components of this dataset, i.e. the two directions that explain the most
-# variance in the data.
+# نبدأ بإنشاء مجموعة بيانات بسيطة بميزتين. قبل أن نغوص
+# في PCR و PLS، نقوم بتناسب مقدر PCA لعرض المكونين الرئيسيين
+# لهذه المجموعة من البيانات، أي الاتجاهين اللذين يفسرهما معظم
+# التباين في البيانات.
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import make_pipeline
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.cross_decomposition import PLSRegression
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -76,9 +75,9 @@ plt.legend()
 plt.show()
 
 # %%
-# For the purpose of this example, we now define the target `y` such that it is
-# strongly correlated with a direction that has a small variance. To this end,
-# we will project `X` onto the second component, and add some noise to it.
+# لغرض هذا المثال، نقوم الآن بتعريف الهدف `y` بحيث يكون
+# مرتبطًا بقوة باتجاه له تباين صغير. لتحقيق هذه الغاية،
+# سنقوم بإسقاط `X` على المكون الثاني، وإضافة بعض الضوضاء إليه.
 
 y = X.dot(pca.components_[1]) + rng.normal(size=n_samples) / 2
 
@@ -90,25 +89,18 @@ axes[1].scatter(X.dot(pca.components_[1]), y, alpha=0.3)
 axes[1].set(xlabel="Projected data onto second PCA component", ylabel="y")
 plt.tight_layout()
 plt.show()
-
 # %%
-# Projection on one component and predictive power
+# الإسقاط على مكون واحد والقدرة التنبؤية
 # ------------------------------------------------
 #
-# We now create two regressors: PCR and PLS, and for our illustration purposes
-# we set the number of components to 1. Before feeding the data to the PCA step
-# of PCR, we first standardize it, as recommended by good practice. The PLS
-# estimator has built-in scaling capabilities.
+# ننشئ الآن منظمين: PCR و PLS، ولأغراض التوضيح
+# نقوم بتعيين عدد المكونات إلى 1. قبل تغذية البيانات إلى خطوة PCA
+# من PCR، نقوم أولاً بتوحيدها، كما توصي الممارسة الجيدة. يحتوي مقدر PLS
+# على قدرات قياس مدمجة.
 #
-# For both models, we plot the projected data onto the first component against
-# the target. In both cases, this projected data is what the regressors will
-# use as training data.
-from sklearn.cross_decomposition import PLSRegression
-from sklearn.decomposition import PCA
-from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import train_test_split
-from sklearn.pipeline import make_pipeline
-from sklearn.preprocessing import StandardScaler
+# بالنسبة لكلا النموذجين، نرسم البيانات المسقطة على المكون الأول مقابل
+# الهدف. في كلتا الحالتين، هذه البيانات المسقطة هي ما ستستخدمه المنظمات
+# كبيانات تدريب.
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=rng)
 
@@ -132,37 +124,36 @@ axes[1].scatter(pls.transform(X_test), y_test, alpha=0.3, label="ground truth")
 axes[1].scatter(
     pls.transform(X_test), pls.predict(X_test), alpha=0.3, label="predictions"
 )
-axes[1].set(xlabel="Projected data onto first PLS component", ylabel="y", title="PLS")
+axes[1].set(xlabel="Projected data onto first PLS component",
+            ylabel="y", title="PLS")
 axes[1].legend()
 plt.tight_layout()
 plt.show()
 
 # %%
-# As expected, the unsupervised PCA transformation of PCR has dropped the
-# second component, i.e. the direction with the lowest variance, despite
-# it being the most predictive direction. This is because PCA is a completely
-# unsupervised transformation, and results in the projected data having a low
-# predictive power on the target.
+# كما هو متوقع، أسقط تحويل PCA غير الخاضع للإشراف لـ PCR المكون
+# الثاني، أي الاتجاه ذو التباين الأدنى، على الرغم من
+# كونه الاتجاه الأكثر تنبؤًا. ويرجع ذلك إلى أن تحويل PCA غير خاضع للإشراف تمامًا،
+# وينتج عنه بيانات مسقطة ذات قدرة تنبؤية منخفضة على الهدف.
 #
-# On the other hand, the PLS regressor manages to capture the effect of the
-# direction with the lowest variance, thanks to its use of target information
-# during the transformation: it can recognize that this direction is actually
-# the most predictive. We note that the first PLS component is negatively
-# correlated with the target, which comes from the fact that the signs of
-# eigenvectors are arbitrary.
+# من ناحية أخرى، يتمكن المنظم PLS من التقاط تأثير
+# الاتجاه ذو التباين الأدنى، بفضل استخدامه لمعلومات الهدف
+# أثناء التحول: يمكنه التعرف على أن هذا الاتجاه هو الأكثر تنبؤًا. نلاحظ أن المكون
+# الأول لـ PLS له علاقة سلبية بالهدف، وهو ما يأتي من حقيقة أن إشارات
+# المتجهات الذاتية تعسفية.
 #
-# We also print the R-squared scores of both estimators, which further confirms
-# that PLS is a better alternative than PCR in this case. A negative R-squared
-# indicates that PCR performs worse than a regressor that would simply predict
-# the mean of the target.
+# نطبع أيضًا درجات R-squared لكلا المقدرين، مما يؤكد
+# أن PLS هو بديل أفضل من PCR في هذه الحالة. يشير R-squared السلبي
+# إلى أن PCR يؤدي بشكل أسوأ من منظم سيقوم ببساطة بالتنبؤ
+# بمتوسط الهدف.
 
 print(f"PCR r-squared {pcr.score(X_test, y_test):.3f}")
 print(f"PLS r-squared {pls.score(X_test, y_test):.3f}")
 
 # %%
-# As a final remark, we note that PCR with 2 components performs as well as
-# PLS: this is because in this case, PCR was able to leverage the second
-# component which has the most preditive power on the target.
+# كملاحظة أخيرة، نلاحظ أن PCR بمكونين يؤدي بنفس جودة
+# PLS: ويرجع ذلك إلى أن PCR تمكن من الاستفادة من المكون
+# الثاني الذي له أكبر قدرة تنبؤية على الهدف.
 
 pca_2 = make_pipeline(PCA(n_components=2), LinearRegression())
 pca_2.fit(X_train, y_train)

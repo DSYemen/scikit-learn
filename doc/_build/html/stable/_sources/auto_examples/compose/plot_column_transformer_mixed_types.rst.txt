@@ -19,30 +19,27 @@
 
 
 ===================================
-Column Transformer with Mixed Types
+محول الأعمدة مع الأنواع المختلطة
 ===================================
 
 .. currentmodule:: sklearn
 
-This example illustrates how to apply different preprocessing and feature
-extraction pipelines to different subsets of features, using
-:class:`~compose.ColumnTransformer`. This is particularly handy for the
-case of datasets that contain heterogeneous data types, since we may want to
-scale the numeric features and one-hot encode the categorical ones.
+يوضح هذا المثال كيفية تطبيق خطوط أنابيب مختلفة للمعالجة المسبقة واستخراج الميزات على مجموعات فرعية مختلفة من الميزات، باستخدام
+:class:`~compose.ColumnTransformer`. هذا مفيد بشكل خاص في حالة مجموعات البيانات التي تحتوي على أنواع بيانات غير متجانسة، حيث قد نرغب في
+قياس الميزات الرقمية وترميز الميزات الفئوية بنظام الترميز الثنائي.
 
-In this example, the numeric data is standard-scaled after mean-imputation. The
-categorical data is one-hot encoded via ``OneHotEncoder``, which
-creates a new category for missing values. We further reduce the dimensionality
-by selecting categories using a chi-squared test.
+في هذا المثال، يتم توحيد قياس البيانات الرقمية بعد إسناد القيم المتوسطة.
+يتم ترميز البيانات الفئوية بنظام الترميز الثنائي عبر ``OneHotEncoder``، مما
+يؤدي إلى إنشاء فئة جديدة للقيم المفقودة. نقوم أيضًا بتقليل الأبعاد
+عن طريق تحديد الفئات باستخدام اختبار مربع كاي.
 
-In addition, we show two different ways to dispatch the columns to the
-particular pre-processor: by column names and by column data types.
+بالإضافة إلى ذلك، نعرض طريقتين مختلفتين لتوزيع الأعمدة على
+أداة المعالجة المسبقة الخاصة: حسب أسماء الأعمدة وحسب أنواع بيانات الأعمدة.
 
-Finally, the preprocessing pipeline is integrated in a full prediction pipeline
-using :class:`~pipeline.Pipeline`, together with a simple classification
-model.
+أخيرًا، يتم دمج خط أنابيب المعالجة المسبقة في خط أنابيب التنبؤ الكامل
+باستخدام :class:`~pipeline.Pipeline`، جنبًا إلى جنب مع نموذج تصنيف بسيط.
 
-.. GENERATED FROM PYTHON SOURCE LINES 27-31
+.. GENERATED FROM PYTHON SOURCE LINES 24-28
 
 .. code-block:: Python
 
@@ -57,10 +54,12 @@ model.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 32-45
+.. GENERATED FROM PYTHON SOURCE LINES 29-44
 
 .. code-block:: Python
 
+    import pandas as pd
+    from sklearn.compose import make_column_selector as selector
     import numpy as np
 
     from sklearn.compose import ColumnTransformer
@@ -81,17 +80,17 @@ model.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-47
+.. GENERATED FROM PYTHON SOURCE LINES 45-46
 
-Load data from https://www.openml.org/d/40945
+تحميل البيانات من https://www.openml.org/d/40945
 
-.. GENERATED FROM PYTHON SOURCE LINES 47-53
+.. GENERATED FROM PYTHON SOURCE LINES 46-52
 
 .. code-block:: Python
 
     X, y = fetch_openml("titanic", version=1, as_frame=True, return_X_y=True)
 
-    # Alternatively X and y can be obtained directly from the frame attribute:
+    # بدلاً من ذلك، يمكن الحصول على X و y مباشرةً من سمة الإطار:
     # X = titanic.frame.drop('survived', axis=1)
     # y = titanic.frame['survived']
 
@@ -102,35 +101,35 @@ Load data from https://www.openml.org/d/40945
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 54-72
+.. GENERATED FROM PYTHON SOURCE LINES 53-70
 
-Use ``ColumnTransformer`` by selecting column by names
+استخدام ``ColumnTransformer`` عن طريق تحديد العمود بالأسماء
 
-We will train our classifier with the following features:
+سندرب المصنف الخاص بنا بالمميزات التالية:
 
-Numeric Features:
+المميزات الرقمية:
 
-* ``age``: float;
-* ``fare``: float.
+* ``age``: عائم؛
+* ``fare``: عائم.
 
-Categorical Features:
+المميزات الفئوية:
 
-* ``embarked``: categories encoded as strings ``{'C', 'S', 'Q'}``;
-* ``sex``: categories encoded as strings ``{'female', 'male'}``;
-* ``pclass``: ordinal integers ``{1, 2, 3}``.
+* ``embarked``: فئات مشفرة كسلاسل ``{'C', 'S', 'Q'}``؛
+* ``sex``: فئات مشفرة كسلاسل ``{'female', 'male'}``؛
+* ``pclass``: أعداد صحيحة ترتيبية ``{1, 2, 3}``.
 
-We create the preprocessing pipelines for both numeric and categorical data.
-Note that ``pclass`` could either be treated as a categorical or numeric
-feature.
+نقوم بإنشاء خطوط أنابيب المعالجة المسبقة لكل من البيانات الرقمية والفئوية.
+لاحظ أنه يمكن معاملة ``pclass`` إما كميزة فئوية أو رقمية.
 
-.. GENERATED FROM PYTHON SOURCE LINES 72-92
+.. GENERATED FROM PYTHON SOURCE LINES 70-91
 
 .. code-block:: Python
 
 
     numeric_features = ["age", "fare"]
     numeric_transformer = Pipeline(
-        steps=[("imputer", SimpleImputer(strategy="median")), ("scaler", StandardScaler())]
+        steps=[("imputer", SimpleImputer(strategy="median")),
+               ("scaler", StandardScaler())]
     )
 
     categorical_features = ["embarked", "sex", "pclass"]
@@ -154,20 +153,22 @@ feature.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 93-95
+.. GENERATED FROM PYTHON SOURCE LINES 92-94
 
-Append classifier to preprocessing pipeline.
-Now we have a full prediction pipeline.
+إلحاق المصنف بخط أنابيب المعالجة المسبقة.
+الآن لدينا خط أنابيب تنبؤ كامل.
 
-.. GENERATED FROM PYTHON SOURCE LINES 95-104
+.. GENERATED FROM PYTHON SOURCE LINES 94-105
 
 .. code-block:: Python
 
     clf = Pipeline(
-        steps=[("preprocessor", preprocessor), ("classifier", LogisticRegression())]
+        steps=[("preprocessor", preprocessor),
+               ("classifier", LogisticRegression())]
     )
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=0)
 
     clf.fit(X_train, y_train)
     print("model score: %.3f" % clf.score(X_test, y_test))
@@ -185,14 +186,14 @@ Now we have a full prediction pipeline.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 105-109
+.. GENERATED FROM PYTHON SOURCE LINES 106-110
 
-HTML representation of ``Pipeline`` (display diagram)
+تمثيل HTML لـ ``Pipeline`` (عرض الرسم التخطيطي)
 
-When the ``Pipeline`` is printed out in a jupyter notebook an HTML
-representation of the estimator is displayed:
+عندما تتم طباعة ``Pipeline`` في دفتر ملاحظات jupyter، يتم عرض تمثيل HTML
+للمقدر:
 
-.. GENERATED FROM PYTHON SOURCE LINES 109-111
+.. GENERATED FROM PYTHON SOURCE LINES 110-112
 
 .. code-block:: Python
 
@@ -206,7 +207,7 @@ representation of the estimator is displayed:
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-66 {
+    <style>#sk-container-id-2 {
       /* Definition of color scheme common for light and dark mode */
       --sklearn-color-text: #000;
       --sklearn-color-text-muted: #666;
@@ -237,15 +238,15 @@ representation of the estimator is displayed:
       }
     }
 
-    #sk-container-id-66 {
+    #sk-container-id-2 {
       color: var(--sklearn-color-text);
     }
 
-    #sk-container-id-66 pre {
+    #sk-container-id-2 pre {
       padding: 0;
     }
 
-    #sk-container-id-66 input.sk-hidden--visually {
+    #sk-container-id-2 input.sk-hidden--visually {
       border: 0;
       clip: rect(1px 1px 1px 1px);
       clip: rect(1px, 1px, 1px, 1px);
@@ -257,7 +258,7 @@ representation of the estimator is displayed:
       width: 1px;
     }
 
-    #sk-container-id-66 div.sk-dashed-wrapped {
+    #sk-container-id-2 div.sk-dashed-wrapped {
       border: 1px dashed var(--sklearn-color-line);
       margin: 0 0.4em 0.5em 0.4em;
       box-sizing: border-box;
@@ -265,7 +266,7 @@ representation of the estimator is displayed:
       background-color: var(--sklearn-color-background);
     }
 
-    #sk-container-id-66 div.sk-container {
+    #sk-container-id-2 div.sk-container {
       /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
          but bootstrap.min.css set `[hidden] { display: none !important; }`
          so we also need the `!important` here to be able to override the
@@ -275,7 +276,7 @@ representation of the estimator is displayed:
       position: relative;
     }
 
-    #sk-container-id-66 div.sk-text-repr-fallback {
+    #sk-container-id-2 div.sk-text-repr-fallback {
       display: none;
     }
 
@@ -291,14 +292,14 @@ representation of the estimator is displayed:
 
     /* Parallel-specific style estimator block */
 
-    #sk-container-id-66 div.sk-parallel-item::after {
+    #sk-container-id-2 div.sk-parallel-item::after {
       content: "";
       width: 100%;
       border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
       flex-grow: 1;
     }
 
-    #sk-container-id-66 div.sk-parallel {
+    #sk-container-id-2 div.sk-parallel {
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -306,28 +307,28 @@ representation of the estimator is displayed:
       position: relative;
     }
 
-    #sk-container-id-66 div.sk-parallel-item {
+    #sk-container-id-2 div.sk-parallel-item {
       display: flex;
       flex-direction: column;
     }
 
-    #sk-container-id-66 div.sk-parallel-item:first-child::after {
+    #sk-container-id-2 div.sk-parallel-item:first-child::after {
       align-self: flex-end;
       width: 50%;
     }
 
-    #sk-container-id-66 div.sk-parallel-item:last-child::after {
+    #sk-container-id-2 div.sk-parallel-item:last-child::after {
       align-self: flex-start;
       width: 50%;
     }
 
-    #sk-container-id-66 div.sk-parallel-item:only-child::after {
+    #sk-container-id-2 div.sk-parallel-item:only-child::after {
       width: 0;
     }
 
     /* Serial-specific style estimator block */
 
-    #sk-container-id-66 div.sk-serial {
+    #sk-container-id-2 div.sk-serial {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -345,14 +346,14 @@ representation of the estimator is displayed:
 
     /* Pipeline and ColumnTransformer style (default) */
 
-    #sk-container-id-66 div.sk-toggleable {
+    #sk-container-id-2 div.sk-toggleable {
       /* Default theme specific background. It is overwritten whether we have a
       specific estimator or a Pipeline/ColumnTransformer */
       background-color: var(--sklearn-color-background);
     }
 
     /* Toggleable label */
-    #sk-container-id-66 label.sk-toggleable__label {
+    #sk-container-id-2 label.sk-toggleable__label {
       cursor: pointer;
       display: flex;
       width: 100%;
@@ -365,13 +366,13 @@ representation of the estimator is displayed:
       gap: 0.5em;
     }
 
-    #sk-container-id-66 label.sk-toggleable__label .caption {
+    #sk-container-id-2 label.sk-toggleable__label .caption {
       font-size: 0.6rem;
       font-weight: lighter;
       color: var(--sklearn-color-text-muted);
     }
 
-    #sk-container-id-66 label.sk-toggleable__label-arrow:before {
+    #sk-container-id-2 label.sk-toggleable__label-arrow:before {
       /* Arrow on the left of the label */
       content: "▸";
       float: left;
@@ -379,13 +380,13 @@ representation of the estimator is displayed:
       color: var(--sklearn-color-icon);
     }
 
-    #sk-container-id-66 label.sk-toggleable__label-arrow:hover:before {
+    #sk-container-id-2 label.sk-toggleable__label-arrow:hover:before {
       color: var(--sklearn-color-text);
     }
 
     /* Toggleable content - dropdown */
 
-    #sk-container-id-66 div.sk-toggleable__content {
+    #sk-container-id-2 div.sk-toggleable__content {
       max-height: 0;
       max-width: 0;
       overflow: hidden;
@@ -394,12 +395,12 @@ representation of the estimator is displayed:
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-66 div.sk-toggleable__content.fitted {
+    #sk-container-id-2 div.sk-toggleable__content.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-66 div.sk-toggleable__content pre {
+    #sk-container-id-2 div.sk-toggleable__content pre {
       margin: 0.2em;
       border-radius: 0.25em;
       color: var(--sklearn-color-text);
@@ -407,79 +408,79 @@ representation of the estimator is displayed:
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-66 div.sk-toggleable__content.fitted pre {
+    #sk-container-id-2 div.sk-toggleable__content.fitted pre {
       /* unfitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-66 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    #sk-container-id-2 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
       max-height: 200px;
       max-width: 100%;
       overflow: auto;
     }
 
-    #sk-container-id-66 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    #sk-container-id-2 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
       content: "▾";
     }
 
     /* Pipeline/ColumnTransformer-specific style */
 
-    #sk-container-id-66 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-2 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-66 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-2 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator-specific style */
 
     /* Colorize estimator box */
-    #sk-container-id-66 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-2 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-66 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-2 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
-    #sk-container-id-66 div.sk-label label.sk-toggleable__label,
-    #sk-container-id-66 div.sk-label label {
+    #sk-container-id-2 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-2 div.sk-label label {
       /* The background is the default theme color */
       color: var(--sklearn-color-text-on-default-background);
     }
 
     /* On hover, darken the color of the background */
-    #sk-container-id-66 div.sk-label:hover label.sk-toggleable__label {
+    #sk-container-id-2 div.sk-label:hover label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
     /* Label box, darken color on hover, fitted */
-    #sk-container-id-66 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+    #sk-container-id-2 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator label */
 
-    #sk-container-id-66 div.sk-label label {
+    #sk-container-id-2 div.sk-label label {
       font-family: monospace;
       font-weight: bold;
       display: inline-block;
       line-height: 1.2em;
     }
 
-    #sk-container-id-66 div.sk-label-container {
+    #sk-container-id-2 div.sk-label-container {
       text-align: center;
     }
 
     /* Estimator-specific */
-    #sk-container-id-66 div.sk-estimator {
+    #sk-container-id-2 div.sk-estimator {
       font-family: monospace;
       border: 1px dotted var(--sklearn-color-border-box);
       border-radius: 0.25em;
@@ -489,18 +490,18 @@ representation of the estimator is displayed:
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-66 div.sk-estimator.fitted {
+    #sk-container-id-2 div.sk-estimator.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
     /* on hover */
-    #sk-container-id-66 div.sk-estimator:hover {
+    #sk-container-id-2 div.sk-estimator:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-66 div.sk-estimator.fitted:hover {
+    #sk-container-id-2 div.sk-estimator.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
@@ -588,7 +589,7 @@ representation of the estimator is displayed:
 
     /* "?"-specific style due to the `<a>` HTML tag */
 
-    #sk-container-id-66 a.estimator_doc_link {
+    #sk-container-id-2 a.estimator_doc_link {
       float: right;
       font-size: 1rem;
       line-height: 1em;
@@ -603,25 +604,25 @@ representation of the estimator is displayed:
       border: var(--sklearn-color-unfitted-level-1) 1pt solid;
     }
 
-    #sk-container-id-66 a.estimator_doc_link.fitted {
+    #sk-container-id-2 a.estimator_doc_link.fitted {
       /* fitted */
       border: var(--sklearn-color-fitted-level-1) 1pt solid;
       color: var(--sklearn-color-fitted-level-1);
     }
 
     /* On hover */
-    #sk-container-id-66 a.estimator_doc_link:hover {
+    #sk-container-id-2 a.estimator_doc_link:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-3);
       color: var(--sklearn-color-background);
       text-decoration: none;
     }
 
-    #sk-container-id-66 a.estimator_doc_link.fitted:hover {
+    #sk-container-id-2 a.estimator_doc_link.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-66" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
+    </style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
                      ColumnTransformer(transformers=[(&#x27;num&#x27;,
                                                       Pipeline(steps=[(&#x27;imputer&#x27;,
                                                                        SimpleImputer(strategy=&#x27;median&#x27;)),
@@ -633,10 +634,10 @@ representation of the estimator is displayed:
                                                                        OneHotEncoder(handle_unknown=&#x27;ignore&#x27;)),
                                                                       (&#x27;selector&#x27;,
                                                                        SelectPercentile(percentile=50,
-                                                                                        score_func=&lt;function chi2 at 0x7fb1e72e8c10&gt;))]),
+                                                                                        score_func=&lt;function chi2 at 0x7f09b7480430&gt;))]),
                                                       [&#x27;embarked&#x27;, &#x27;sex&#x27;,
                                                        &#x27;pclass&#x27;])])),
-                    (&#x27;classifier&#x27;, LogisticRegression())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-260" type="checkbox" ><label for="sk-estimator-id-260" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
+                    (&#x27;classifier&#x27;, LogisticRegression())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox" ><label for="sk-estimator-id-6" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
                      ColumnTransformer(transformers=[(&#x27;num&#x27;,
                                                       Pipeline(steps=[(&#x27;imputer&#x27;,
                                                                        SimpleImputer(strategy=&#x27;median&#x27;)),
@@ -648,10 +649,10 @@ representation of the estimator is displayed:
                                                                        OneHotEncoder(handle_unknown=&#x27;ignore&#x27;)),
                                                                       (&#x27;selector&#x27;,
                                                                        SelectPercentile(percentile=50,
-                                                                                        score_func=&lt;function chi2 at 0x7fb1e72e8c10&gt;))]),
+                                                                                        score_func=&lt;function chi2 at 0x7f09b7480430&gt;))]),
                                                       [&#x27;embarked&#x27;, &#x27;sex&#x27;,
                                                        &#x27;pclass&#x27;])])),
-                    (&#x27;classifier&#x27;, LogisticRegression())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-261" type="checkbox" ><label for="sk-estimator-id-261" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>preprocessor: ColumnTransformer</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.compose.ColumnTransformer.html">?<span>Documentation for preprocessor: ColumnTransformer</span></a></div></label><div class="sk-toggleable__content fitted"><pre>ColumnTransformer(transformers=[(&#x27;num&#x27;,
+                    (&#x27;classifier&#x27;, LogisticRegression())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox" ><label for="sk-estimator-id-7" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>preprocessor: ColumnTransformer</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.compose.ColumnTransformer.html">?<span>Documentation for preprocessor: ColumnTransformer</span></a></div></label><div class="sk-toggleable__content fitted"><pre>ColumnTransformer(transformers=[(&#x27;num&#x27;,
                                      Pipeline(steps=[(&#x27;imputer&#x27;,
                                                       SimpleImputer(strategy=&#x27;median&#x27;)),
                                                      (&#x27;scaler&#x27;, StandardScaler())]),
@@ -661,24 +662,24 @@ representation of the estimator is displayed:
                                                       OneHotEncoder(handle_unknown=&#x27;ignore&#x27;)),
                                                      (&#x27;selector&#x27;,
                                                       SelectPercentile(percentile=50,
-                                                                       score_func=&lt;function chi2 at 0x7fb1e72e8c10&gt;))]),
-                                     [&#x27;embarked&#x27;, &#x27;sex&#x27;, &#x27;pclass&#x27;])])</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-262" type="checkbox" ><label for="sk-estimator-id-262" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>num</div></div></label><div class="sk-toggleable__content fitted"><pre>[&#x27;age&#x27;, &#x27;fare&#x27;]</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-263" type="checkbox" ><label for="sk-estimator-id-263" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SimpleImputer</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.impute.SimpleImputer.html">?<span>Documentation for SimpleImputer</span></a></div></label><div class="sk-toggleable__content fitted"><pre>SimpleImputer(strategy=&#x27;median&#x27;)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-264" type="checkbox" ><label for="sk-estimator-id-264" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content fitted"><pre>StandardScaler()</pre></div> </div></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-265" type="checkbox" ><label for="sk-estimator-id-265" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>cat</div></div></label><div class="sk-toggleable__content fitted"><pre>[&#x27;embarked&#x27;, &#x27;sex&#x27;, &#x27;pclass&#x27;]</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-266" type="checkbox" ><label for="sk-estimator-id-266" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>OneHotEncoder</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.OneHotEncoder.html">?<span>Documentation for OneHotEncoder</span></a></div></label><div class="sk-toggleable__content fitted"><pre>OneHotEncoder(handle_unknown=&#x27;ignore&#x27;)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-267" type="checkbox" ><label for="sk-estimator-id-267" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SelectPercentile</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.feature_selection.SelectPercentile.html">?<span>Documentation for SelectPercentile</span></a></div></label><div class="sk-toggleable__content fitted"><pre>SelectPercentile(percentile=50, score_func=&lt;function chi2 at 0x7fb1e72e8c10&gt;)</pre></div> </div></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-268" type="checkbox" ><label for="sk-estimator-id-268" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LogisticRegression</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a></div></label><div class="sk-toggleable__content fitted"><pre>LogisticRegression()</pre></div> </div></div></div></div></div></div>
+                                                                       score_func=&lt;function chi2 at 0x7f09b7480430&gt;))]),
+                                     [&#x27;embarked&#x27;, &#x27;sex&#x27;, &#x27;pclass&#x27;])])</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-8" type="checkbox" ><label for="sk-estimator-id-8" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>num</div></div></label><div class="sk-toggleable__content fitted"><pre>[&#x27;age&#x27;, &#x27;fare&#x27;]</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-9" type="checkbox" ><label for="sk-estimator-id-9" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SimpleImputer</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.impute.SimpleImputer.html">?<span>Documentation for SimpleImputer</span></a></div></label><div class="sk-toggleable__content fitted"><pre>SimpleImputer(strategy=&#x27;median&#x27;)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-10" type="checkbox" ><label for="sk-estimator-id-10" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content fitted"><pre>StandardScaler()</pre></div> </div></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-11" type="checkbox" ><label for="sk-estimator-id-11" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>cat</div></div></label><div class="sk-toggleable__content fitted"><pre>[&#x27;embarked&#x27;, &#x27;sex&#x27;, &#x27;pclass&#x27;]</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-12" type="checkbox" ><label for="sk-estimator-id-12" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>OneHotEncoder</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.OneHotEncoder.html">?<span>Documentation for OneHotEncoder</span></a></div></label><div class="sk-toggleable__content fitted"><pre>OneHotEncoder(handle_unknown=&#x27;ignore&#x27;)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-13" type="checkbox" ><label for="sk-estimator-id-13" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SelectPercentile</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.feature_selection.SelectPercentile.html">?<span>Documentation for SelectPercentile</span></a></div></label><div class="sk-toggleable__content fitted"><pre>SelectPercentile(percentile=50, score_func=&lt;function chi2 at 0x7f09b7480430&gt;)</pre></div> </div></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-14" type="checkbox" ><label for="sk-estimator-id-14" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LogisticRegression</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a></div></label><div class="sk-toggleable__content fitted"><pre>LogisticRegression()</pre></div> </div></div></div></div></div></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 112-120
+.. GENERATED FROM PYTHON SOURCE LINES 113-121
 
-Use ``ColumnTransformer`` by selecting column by data types
+استخدام ``ColumnTransformer`` عن طريق تحديد العمود حسب أنواع البيانات
 
-When dealing with a cleaned dataset, the preprocessing can be automatic by
-using the data types of the column to decide whether to treat a column as a
-numerical or categorical feature.
-:func:`sklearn.compose.make_column_selector` gives this possibility.
-First, let's only select a subset of columns to simplify our
-example.
+عند التعامل مع مجموعة بيانات منظفة، يمكن أن تكون المعالجة المسبقة تلقائية
+باستخدام أنواع بيانات العمود لتحديد ما إذا كان يجب معاملة العمود على أنه
+ميزة رقمية أو فئوية.
+:func:`sklearn.compose.make_column_selector` يعطي هذه الإمكانية.
+أولاً، لنحدد فقط مجموعة فرعية من الأعمدة لتبسيط
+مثالنا.
 
-.. GENERATED FROM PYTHON SOURCE LINES 120-124
+.. GENERATED FROM PYTHON SOURCE LINES 121-125
 
 .. code-block:: Python
 
@@ -693,11 +694,11 @@ example.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 125-126
+.. GENERATED FROM PYTHON SOURCE LINES 126-127
 
-Then, we introspect the information regarding each column data type.
+ثم، نتفحص المعلومات المتعلقة بكل نوع بيانات عمود.
 
-.. GENERATED FROM PYTHON SOURCE LINES 126-129
+.. GENERATED FROM PYTHON SOURCE LINES 127-130
 
 .. code-block:: Python
 
@@ -728,28 +729,27 @@ Then, we introspect the information regarding each column data type.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 130-135
+.. GENERATED FROM PYTHON SOURCE LINES 131-136
 
-We can observe that the `embarked` and `sex` columns were tagged as
-`category` columns when loading the data with ``fetch_openml``. Therefore, we
-can use this information to dispatch the categorical columns to the
-``categorical_transformer`` and the remaining columns to the
+يمكننا ملاحظة أن عمودي `embarked` و `sex` تم وضع علامة عليهما كأعمدة
+`category` عند تحميل البيانات باستخدام ``fetch_openml``. لذلك، يمكننا
+استخدام هذه المعلومات لتوزيع الأعمدة الفئوية على
+``categorical_transformer`` والأعمدة المتبقية على
 ``numerical_transformer``.
 
-.. GENERATED FROM PYTHON SOURCE LINES 137-142
+.. GENERATED FROM PYTHON SOURCE LINES 138-143
 
-.. note:: In practice, you will have to handle yourself the column data type.
-   If you want some columns to be considered as `category`, you will have to
-   convert them into categorical columns. If you are using pandas, you can
-   refer to their documentation regarding `Categorical data
+.. note:: عمليًا، سيتعين عليك التعامل بنفسك مع نوع بيانات العمود.
+   إذا كنت تريد اعتبار بعض الأعمدة على أنها `category`، فسيتعين عليك
+   تحويلها إلى أعمدة فئوية. إذا كنت تستخدم pandas، فيمكنك
+   الرجوع إلى وثائقهم المتعلقة بـ `البيانات الفئوية
    <https://pandas.pydata.org/pandas-docs/stable/user_guide/categorical.html>`_.
 
-.. GENERATED FROM PYTHON SOURCE LINES 142-160
+.. GENERATED FROM PYTHON SOURCE LINES 143-161
 
 .. code-block:: Python
 
 
-    from sklearn.compose import make_column_selector as selector
 
     preprocessor = ColumnTransformer(
         transformers=[
@@ -758,7 +758,8 @@ can use this information to dispatch the categorical columns to the
         ]
     )
     clf = Pipeline(
-        steps=[("preprocessor", preprocessor), ("classifier", LogisticRegression())]
+        steps=[("preprocessor", preprocessor),
+               ("classifier", LogisticRegression())]
     )
 
 
@@ -780,7 +781,7 @@ can use this information to dispatch the categorical columns to the
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-67 {
+    <style>#sk-container-id-3 {
       /* Definition of color scheme common for light and dark mode */
       --sklearn-color-text: #000;
       --sklearn-color-text-muted: #666;
@@ -811,15 +812,15 @@ can use this information to dispatch the categorical columns to the
       }
     }
 
-    #sk-container-id-67 {
+    #sk-container-id-3 {
       color: var(--sklearn-color-text);
     }
 
-    #sk-container-id-67 pre {
+    #sk-container-id-3 pre {
       padding: 0;
     }
 
-    #sk-container-id-67 input.sk-hidden--visually {
+    #sk-container-id-3 input.sk-hidden--visually {
       border: 0;
       clip: rect(1px 1px 1px 1px);
       clip: rect(1px, 1px, 1px, 1px);
@@ -831,7 +832,7 @@ can use this information to dispatch the categorical columns to the
       width: 1px;
     }
 
-    #sk-container-id-67 div.sk-dashed-wrapped {
+    #sk-container-id-3 div.sk-dashed-wrapped {
       border: 1px dashed var(--sklearn-color-line);
       margin: 0 0.4em 0.5em 0.4em;
       box-sizing: border-box;
@@ -839,7 +840,7 @@ can use this information to dispatch the categorical columns to the
       background-color: var(--sklearn-color-background);
     }
 
-    #sk-container-id-67 div.sk-container {
+    #sk-container-id-3 div.sk-container {
       /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
          but bootstrap.min.css set `[hidden] { display: none !important; }`
          so we also need the `!important` here to be able to override the
@@ -849,7 +850,7 @@ can use this information to dispatch the categorical columns to the
       position: relative;
     }
 
-    #sk-container-id-67 div.sk-text-repr-fallback {
+    #sk-container-id-3 div.sk-text-repr-fallback {
       display: none;
     }
 
@@ -865,14 +866,14 @@ can use this information to dispatch the categorical columns to the
 
     /* Parallel-specific style estimator block */
 
-    #sk-container-id-67 div.sk-parallel-item::after {
+    #sk-container-id-3 div.sk-parallel-item::after {
       content: "";
       width: 100%;
       border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
       flex-grow: 1;
     }
 
-    #sk-container-id-67 div.sk-parallel {
+    #sk-container-id-3 div.sk-parallel {
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -880,28 +881,28 @@ can use this information to dispatch the categorical columns to the
       position: relative;
     }
 
-    #sk-container-id-67 div.sk-parallel-item {
+    #sk-container-id-3 div.sk-parallel-item {
       display: flex;
       flex-direction: column;
     }
 
-    #sk-container-id-67 div.sk-parallel-item:first-child::after {
+    #sk-container-id-3 div.sk-parallel-item:first-child::after {
       align-self: flex-end;
       width: 50%;
     }
 
-    #sk-container-id-67 div.sk-parallel-item:last-child::after {
+    #sk-container-id-3 div.sk-parallel-item:last-child::after {
       align-self: flex-start;
       width: 50%;
     }
 
-    #sk-container-id-67 div.sk-parallel-item:only-child::after {
+    #sk-container-id-3 div.sk-parallel-item:only-child::after {
       width: 0;
     }
 
     /* Serial-specific style estimator block */
 
-    #sk-container-id-67 div.sk-serial {
+    #sk-container-id-3 div.sk-serial {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -919,14 +920,14 @@ can use this information to dispatch the categorical columns to the
 
     /* Pipeline and ColumnTransformer style (default) */
 
-    #sk-container-id-67 div.sk-toggleable {
+    #sk-container-id-3 div.sk-toggleable {
       /* Default theme specific background. It is overwritten whether we have a
       specific estimator or a Pipeline/ColumnTransformer */
       background-color: var(--sklearn-color-background);
     }
 
     /* Toggleable label */
-    #sk-container-id-67 label.sk-toggleable__label {
+    #sk-container-id-3 label.sk-toggleable__label {
       cursor: pointer;
       display: flex;
       width: 100%;
@@ -939,13 +940,13 @@ can use this information to dispatch the categorical columns to the
       gap: 0.5em;
     }
 
-    #sk-container-id-67 label.sk-toggleable__label .caption {
+    #sk-container-id-3 label.sk-toggleable__label .caption {
       font-size: 0.6rem;
       font-weight: lighter;
       color: var(--sklearn-color-text-muted);
     }
 
-    #sk-container-id-67 label.sk-toggleable__label-arrow:before {
+    #sk-container-id-3 label.sk-toggleable__label-arrow:before {
       /* Arrow on the left of the label */
       content: "▸";
       float: left;
@@ -953,13 +954,13 @@ can use this information to dispatch the categorical columns to the
       color: var(--sklearn-color-icon);
     }
 
-    #sk-container-id-67 label.sk-toggleable__label-arrow:hover:before {
+    #sk-container-id-3 label.sk-toggleable__label-arrow:hover:before {
       color: var(--sklearn-color-text);
     }
 
     /* Toggleable content - dropdown */
 
-    #sk-container-id-67 div.sk-toggleable__content {
+    #sk-container-id-3 div.sk-toggleable__content {
       max-height: 0;
       max-width: 0;
       overflow: hidden;
@@ -968,12 +969,12 @@ can use this information to dispatch the categorical columns to the
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-67 div.sk-toggleable__content.fitted {
+    #sk-container-id-3 div.sk-toggleable__content.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-67 div.sk-toggleable__content pre {
+    #sk-container-id-3 div.sk-toggleable__content pre {
       margin: 0.2em;
       border-radius: 0.25em;
       color: var(--sklearn-color-text);
@@ -981,79 +982,79 @@ can use this information to dispatch the categorical columns to the
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-67 div.sk-toggleable__content.fitted pre {
+    #sk-container-id-3 div.sk-toggleable__content.fitted pre {
       /* unfitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-67 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    #sk-container-id-3 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
       max-height: 200px;
       max-width: 100%;
       overflow: auto;
     }
 
-    #sk-container-id-67 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    #sk-container-id-3 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
       content: "▾";
     }
 
     /* Pipeline/ColumnTransformer-specific style */
 
-    #sk-container-id-67 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-3 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-67 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-3 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator-specific style */
 
     /* Colorize estimator box */
-    #sk-container-id-67 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-3 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-67 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-3 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
-    #sk-container-id-67 div.sk-label label.sk-toggleable__label,
-    #sk-container-id-67 div.sk-label label {
+    #sk-container-id-3 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-3 div.sk-label label {
       /* The background is the default theme color */
       color: var(--sklearn-color-text-on-default-background);
     }
 
     /* On hover, darken the color of the background */
-    #sk-container-id-67 div.sk-label:hover label.sk-toggleable__label {
+    #sk-container-id-3 div.sk-label:hover label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
     /* Label box, darken color on hover, fitted */
-    #sk-container-id-67 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+    #sk-container-id-3 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator label */
 
-    #sk-container-id-67 div.sk-label label {
+    #sk-container-id-3 div.sk-label label {
       font-family: monospace;
       font-weight: bold;
       display: inline-block;
       line-height: 1.2em;
     }
 
-    #sk-container-id-67 div.sk-label-container {
+    #sk-container-id-3 div.sk-label-container {
       text-align: center;
     }
 
     /* Estimator-specific */
-    #sk-container-id-67 div.sk-estimator {
+    #sk-container-id-3 div.sk-estimator {
       font-family: monospace;
       border: 1px dotted var(--sklearn-color-border-box);
       border-radius: 0.25em;
@@ -1063,18 +1064,18 @@ can use this information to dispatch the categorical columns to the
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-67 div.sk-estimator.fitted {
+    #sk-container-id-3 div.sk-estimator.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
     /* on hover */
-    #sk-container-id-67 div.sk-estimator:hover {
+    #sk-container-id-3 div.sk-estimator:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-67 div.sk-estimator.fitted:hover {
+    #sk-container-id-3 div.sk-estimator.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
@@ -1162,7 +1163,7 @@ can use this information to dispatch the categorical columns to the
 
     /* "?"-specific style due to the `<a>` HTML tag */
 
-    #sk-container-id-67 a.estimator_doc_link {
+    #sk-container-id-3 a.estimator_doc_link {
       float: right;
       font-size: 1rem;
       line-height: 1em;
@@ -1177,73 +1178,72 @@ can use this information to dispatch the categorical columns to the
       border: var(--sklearn-color-unfitted-level-1) 1pt solid;
     }
 
-    #sk-container-id-67 a.estimator_doc_link.fitted {
+    #sk-container-id-3 a.estimator_doc_link.fitted {
       /* fitted */
       border: var(--sklearn-color-fitted-level-1) 1pt solid;
       color: var(--sklearn-color-fitted-level-1);
     }
 
     /* On hover */
-    #sk-container-id-67 a.estimator_doc_link:hover {
+    #sk-container-id-3 a.estimator_doc_link:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-3);
       color: var(--sklearn-color-background);
       text-decoration: none;
     }
 
-    #sk-container-id-67 a.estimator_doc_link.fitted:hover {
+    #sk-container-id-3 a.estimator_doc_link.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-67" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
+    </style><div id="sk-container-id-3" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
                      ColumnTransformer(transformers=[(&#x27;num&#x27;,
                                                       Pipeline(steps=[(&#x27;imputer&#x27;,
                                                                        SimpleImputer(strategy=&#x27;median&#x27;)),
                                                                       (&#x27;scaler&#x27;,
                                                                        StandardScaler())]),
-                                                      &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fb1addf9210&gt;),
+                                                      &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7f09a4bb1e70&gt;),
                                                      (&#x27;cat&#x27;,
                                                       Pipeline(steps=[(&#x27;encoder&#x27;,
                                                                        OneHotEncoder(handle_unknown=&#x27;ignore&#x27;)),
                                                                       (&#x27;selector&#x27;,
                                                                        SelectPercentile(percentile=50,
-                                                                                        score_func=&lt;function chi2 at 0x7fb1e72e8c10&gt;))]),
-                                                      &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fb1addfb640&gt;)])),
-                    (&#x27;classifier&#x27;, LogisticRegression())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-269" type="checkbox" ><label for="sk-estimator-id-269" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
+                                                                                        score_func=&lt;function chi2 at 0x7f09b7480430&gt;))]),
+                                                      &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7f09a4bb31c0&gt;)])),
+                    (&#x27;classifier&#x27;, LogisticRegression())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-15" type="checkbox" ><label for="sk-estimator-id-15" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
                      ColumnTransformer(transformers=[(&#x27;num&#x27;,
                                                       Pipeline(steps=[(&#x27;imputer&#x27;,
                                                                        SimpleImputer(strategy=&#x27;median&#x27;)),
                                                                       (&#x27;scaler&#x27;,
                                                                        StandardScaler())]),
-                                                      &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fb1addf9210&gt;),
+                                                      &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7f09a4bb1e70&gt;),
                                                      (&#x27;cat&#x27;,
                                                       Pipeline(steps=[(&#x27;encoder&#x27;,
                                                                        OneHotEncoder(handle_unknown=&#x27;ignore&#x27;)),
                                                                       (&#x27;selector&#x27;,
                                                                        SelectPercentile(percentile=50,
-                                                                                        score_func=&lt;function chi2 at 0x7fb1e72e8c10&gt;))]),
-                                                      &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fb1addfb640&gt;)])),
-                    (&#x27;classifier&#x27;, LogisticRegression())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-270" type="checkbox" ><label for="sk-estimator-id-270" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>preprocessor: ColumnTransformer</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.compose.ColumnTransformer.html">?<span>Documentation for preprocessor: ColumnTransformer</span></a></div></label><div class="sk-toggleable__content fitted"><pre>ColumnTransformer(transformers=[(&#x27;num&#x27;,
+                                                                                        score_func=&lt;function chi2 at 0x7f09b7480430&gt;))]),
+                                                      &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7f09a4bb31c0&gt;)])),
+                    (&#x27;classifier&#x27;, LogisticRegression())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-16" type="checkbox" ><label for="sk-estimator-id-16" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>preprocessor: ColumnTransformer</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.compose.ColumnTransformer.html">?<span>Documentation for preprocessor: ColumnTransformer</span></a></div></label><div class="sk-toggleable__content fitted"><pre>ColumnTransformer(transformers=[(&#x27;num&#x27;,
                                      Pipeline(steps=[(&#x27;imputer&#x27;,
                                                       SimpleImputer(strategy=&#x27;median&#x27;)),
                                                      (&#x27;scaler&#x27;, StandardScaler())]),
-                                     &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fb1addf9210&gt;),
+                                     &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7f09a4bb1e70&gt;),
                                     (&#x27;cat&#x27;,
                                      Pipeline(steps=[(&#x27;encoder&#x27;,
                                                       OneHotEncoder(handle_unknown=&#x27;ignore&#x27;)),
                                                      (&#x27;selector&#x27;,
                                                       SelectPercentile(percentile=50,
-                                                                       score_func=&lt;function chi2 at 0x7fb1e72e8c10&gt;))]),
-                                     &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fb1addfb640&gt;)])</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-271" type="checkbox" ><label for="sk-estimator-id-271" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>num</div></div></label><div class="sk-toggleable__content fitted"><pre>&lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fb1addf9210&gt;</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-272" type="checkbox" ><label for="sk-estimator-id-272" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SimpleImputer</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.impute.SimpleImputer.html">?<span>Documentation for SimpleImputer</span></a></div></label><div class="sk-toggleable__content fitted"><pre>SimpleImputer(strategy=&#x27;median&#x27;)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-273" type="checkbox" ><label for="sk-estimator-id-273" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content fitted"><pre>StandardScaler()</pre></div> </div></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-274" type="checkbox" ><label for="sk-estimator-id-274" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>cat</div></div></label><div class="sk-toggleable__content fitted"><pre>&lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fb1addfb640&gt;</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-275" type="checkbox" ><label for="sk-estimator-id-275" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>OneHotEncoder</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.OneHotEncoder.html">?<span>Documentation for OneHotEncoder</span></a></div></label><div class="sk-toggleable__content fitted"><pre>OneHotEncoder(handle_unknown=&#x27;ignore&#x27;)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-276" type="checkbox" ><label for="sk-estimator-id-276" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SelectPercentile</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.feature_selection.SelectPercentile.html">?<span>Documentation for SelectPercentile</span></a></div></label><div class="sk-toggleable__content fitted"><pre>SelectPercentile(percentile=50, score_func=&lt;function chi2 at 0x7fb1e72e8c10&gt;)</pre></div> </div></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-277" type="checkbox" ><label for="sk-estimator-id-277" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LogisticRegression</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a></div></label><div class="sk-toggleable__content fitted"><pre>LogisticRegression()</pre></div> </div></div></div></div></div></div>
+                                                                       score_func=&lt;function chi2 at 0x7f09b7480430&gt;))]),
+                                     &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7f09a4bb31c0&gt;)])</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-17" type="checkbox" ><label for="sk-estimator-id-17" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>num</div></div></label><div class="sk-toggleable__content fitted"><pre>&lt;sklearn.compose._column_transformer.make_column_selector object at 0x7f09a4bb1e70&gt;</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-18" type="checkbox" ><label for="sk-estimator-id-18" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SimpleImputer</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.impute.SimpleImputer.html">?<span>Documentation for SimpleImputer</span></a></div></label><div class="sk-toggleable__content fitted"><pre>SimpleImputer(strategy=&#x27;median&#x27;)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-19" type="checkbox" ><label for="sk-estimator-id-19" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content fitted"><pre>StandardScaler()</pre></div> </div></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-20" type="checkbox" ><label for="sk-estimator-id-20" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>cat</div></div></label><div class="sk-toggleable__content fitted"><pre>&lt;sklearn.compose._column_transformer.make_column_selector object at 0x7f09a4bb31c0&gt;</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-21" type="checkbox" ><label for="sk-estimator-id-21" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>OneHotEncoder</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.OneHotEncoder.html">?<span>Documentation for OneHotEncoder</span></a></div></label><div class="sk-toggleable__content fitted"><pre>OneHotEncoder(handle_unknown=&#x27;ignore&#x27;)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-22" type="checkbox" ><label for="sk-estimator-id-22" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SelectPercentile</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.feature_selection.SelectPercentile.html">?<span>Documentation for SelectPercentile</span></a></div></label><div class="sk-toggleable__content fitted"><pre>SelectPercentile(percentile=50, score_func=&lt;function chi2 at 0x7f09b7480430&gt;)</pre></div> </div></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-23" type="checkbox" ><label for="sk-estimator-id-23" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LogisticRegression</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a></div></label><div class="sk-toggleable__content fitted"><pre>LogisticRegression()</pre></div> </div></div></div></div></div></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 161-164
+.. GENERATED FROM PYTHON SOURCE LINES 162-164
 
-The resulting score is not exactly the same as the one from the previous
-pipeline because the dtype-based selector treats the ``pclass`` column as
-a numeric feature instead of a categorical feature as previously:
+النتيجة الناتجة ليست تمامًا نفس النتيجة من خط الأنابيب السابق لأن المحدد القائم على dtype يعامل عمود ``pclass`` على أنه
+ميزة رقمية بدلاً من ميزة فئوية كما كان من قبل:
 
 .. GENERATED FROM PYTHON SOURCE LINES 164-167
 
@@ -1265,12 +1265,13 @@ a numeric feature instead of a categorical feature as previously:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 168-171
+.. GENERATED FROM PYTHON SOURCE LINES 168-172
 
 .. code-block:: Python
 
 
     selector(dtype_include="category")(X_train)
+
 
 
 
@@ -1285,24 +1286,24 @@ a numeric feature instead of a categorical feature as previously:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 172-184
+.. GENERATED FROM PYTHON SOURCE LINES 173-184
 
-Using the prediction pipeline in a grid search
+استخدام خط أنابيب التنبؤ في بحث شبكي
 
-Grid search can also be performed on the different preprocessing steps
-defined in the ``ColumnTransformer`` object, together with the classifier's
-hyperparameters as part of the ``Pipeline``.
-We will search for both the imputer strategy of the numeric preprocessing
-and the regularization parameter of the logistic regression using
-:class:`~sklearn.model_selection.RandomizedSearchCV`. This
-hyperparameter search randomly selects a fixed number of parameter
-settings configured by `n_iter`. Alternatively, one can use
-:class:`~sklearn.model_selection.GridSearchCV` but the cartesian product of
-the parameter space will be evaluated.
+يمكن أيضًا إجراء البحث الشبكي على خطوات المعالجة المسبقة المختلفة
+المحددة في كائن ``ColumnTransformer``، جنبًا إلى جنب مع معلمات المصنف الفائقة
+كجزء من ``Pipeline``.
+سنبحث عن كل من استراتيجية الإسناد للمعالجة المسبقة الرقمية
+ومعلمة التنظيم للانحدار اللوجستي باستخدام
+:class:`~sklearn.model_selection.RandomizedSearchCV`. يختار بحث المعلمات الفائقة هذا عشوائيًا عددًا ثابتًا من إعدادات المعلمات
+التي تم تكوينها بواسطة `n_iter`. بدلاً من ذلك، يمكن للمرء استخدام
+:class:`~sklearn.model_selection.GridSearchCV` ولكن سيتم تقييم المنتج الديكارتي
+لمساحة المعلمات.
 
-.. GENERATED FROM PYTHON SOURCE LINES 184-194
+.. GENERATED FROM PYTHON SOURCE LINES 184-195
 
 .. code-block:: Python
+
 
 
     param_grid = {
@@ -1322,7 +1323,7 @@ the parameter space will be evaluated.
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-68 {
+    <style>#sk-container-id-4 {
       /* Definition of color scheme common for light and dark mode */
       --sklearn-color-text: #000;
       --sklearn-color-text-muted: #666;
@@ -1353,15 +1354,15 @@ the parameter space will be evaluated.
       }
     }
 
-    #sk-container-id-68 {
+    #sk-container-id-4 {
       color: var(--sklearn-color-text);
     }
 
-    #sk-container-id-68 pre {
+    #sk-container-id-4 pre {
       padding: 0;
     }
 
-    #sk-container-id-68 input.sk-hidden--visually {
+    #sk-container-id-4 input.sk-hidden--visually {
       border: 0;
       clip: rect(1px 1px 1px 1px);
       clip: rect(1px, 1px, 1px, 1px);
@@ -1373,7 +1374,7 @@ the parameter space will be evaluated.
       width: 1px;
     }
 
-    #sk-container-id-68 div.sk-dashed-wrapped {
+    #sk-container-id-4 div.sk-dashed-wrapped {
       border: 1px dashed var(--sklearn-color-line);
       margin: 0 0.4em 0.5em 0.4em;
       box-sizing: border-box;
@@ -1381,7 +1382,7 @@ the parameter space will be evaluated.
       background-color: var(--sklearn-color-background);
     }
 
-    #sk-container-id-68 div.sk-container {
+    #sk-container-id-4 div.sk-container {
       /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
          but bootstrap.min.css set `[hidden] { display: none !important; }`
          so we also need the `!important` here to be able to override the
@@ -1391,7 +1392,7 @@ the parameter space will be evaluated.
       position: relative;
     }
 
-    #sk-container-id-68 div.sk-text-repr-fallback {
+    #sk-container-id-4 div.sk-text-repr-fallback {
       display: none;
     }
 
@@ -1407,14 +1408,14 @@ the parameter space will be evaluated.
 
     /* Parallel-specific style estimator block */
 
-    #sk-container-id-68 div.sk-parallel-item::after {
+    #sk-container-id-4 div.sk-parallel-item::after {
       content: "";
       width: 100%;
       border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
       flex-grow: 1;
     }
 
-    #sk-container-id-68 div.sk-parallel {
+    #sk-container-id-4 div.sk-parallel {
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -1422,28 +1423,28 @@ the parameter space will be evaluated.
       position: relative;
     }
 
-    #sk-container-id-68 div.sk-parallel-item {
+    #sk-container-id-4 div.sk-parallel-item {
       display: flex;
       flex-direction: column;
     }
 
-    #sk-container-id-68 div.sk-parallel-item:first-child::after {
+    #sk-container-id-4 div.sk-parallel-item:first-child::after {
       align-self: flex-end;
       width: 50%;
     }
 
-    #sk-container-id-68 div.sk-parallel-item:last-child::after {
+    #sk-container-id-4 div.sk-parallel-item:last-child::after {
       align-self: flex-start;
       width: 50%;
     }
 
-    #sk-container-id-68 div.sk-parallel-item:only-child::after {
+    #sk-container-id-4 div.sk-parallel-item:only-child::after {
       width: 0;
     }
 
     /* Serial-specific style estimator block */
 
-    #sk-container-id-68 div.sk-serial {
+    #sk-container-id-4 div.sk-serial {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -1461,14 +1462,14 @@ the parameter space will be evaluated.
 
     /* Pipeline and ColumnTransformer style (default) */
 
-    #sk-container-id-68 div.sk-toggleable {
+    #sk-container-id-4 div.sk-toggleable {
       /* Default theme specific background. It is overwritten whether we have a
       specific estimator or a Pipeline/ColumnTransformer */
       background-color: var(--sklearn-color-background);
     }
 
     /* Toggleable label */
-    #sk-container-id-68 label.sk-toggleable__label {
+    #sk-container-id-4 label.sk-toggleable__label {
       cursor: pointer;
       display: flex;
       width: 100%;
@@ -1481,13 +1482,13 @@ the parameter space will be evaluated.
       gap: 0.5em;
     }
 
-    #sk-container-id-68 label.sk-toggleable__label .caption {
+    #sk-container-id-4 label.sk-toggleable__label .caption {
       font-size: 0.6rem;
       font-weight: lighter;
       color: var(--sklearn-color-text-muted);
     }
 
-    #sk-container-id-68 label.sk-toggleable__label-arrow:before {
+    #sk-container-id-4 label.sk-toggleable__label-arrow:before {
       /* Arrow on the left of the label */
       content: "▸";
       float: left;
@@ -1495,13 +1496,13 @@ the parameter space will be evaluated.
       color: var(--sklearn-color-icon);
     }
 
-    #sk-container-id-68 label.sk-toggleable__label-arrow:hover:before {
+    #sk-container-id-4 label.sk-toggleable__label-arrow:hover:before {
       color: var(--sklearn-color-text);
     }
 
     /* Toggleable content - dropdown */
 
-    #sk-container-id-68 div.sk-toggleable__content {
+    #sk-container-id-4 div.sk-toggleable__content {
       max-height: 0;
       max-width: 0;
       overflow: hidden;
@@ -1510,12 +1511,12 @@ the parameter space will be evaluated.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-68 div.sk-toggleable__content.fitted {
+    #sk-container-id-4 div.sk-toggleable__content.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-68 div.sk-toggleable__content pre {
+    #sk-container-id-4 div.sk-toggleable__content pre {
       margin: 0.2em;
       border-radius: 0.25em;
       color: var(--sklearn-color-text);
@@ -1523,79 +1524,79 @@ the parameter space will be evaluated.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-68 div.sk-toggleable__content.fitted pre {
+    #sk-container-id-4 div.sk-toggleable__content.fitted pre {
       /* unfitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-68 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    #sk-container-id-4 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
       max-height: 200px;
       max-width: 100%;
       overflow: auto;
     }
 
-    #sk-container-id-68 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    #sk-container-id-4 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
       content: "▾";
     }
 
     /* Pipeline/ColumnTransformer-specific style */
 
-    #sk-container-id-68 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-4 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-68 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-4 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator-specific style */
 
     /* Colorize estimator box */
-    #sk-container-id-68 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-4 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-68 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-4 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
-    #sk-container-id-68 div.sk-label label.sk-toggleable__label,
-    #sk-container-id-68 div.sk-label label {
+    #sk-container-id-4 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-4 div.sk-label label {
       /* The background is the default theme color */
       color: var(--sklearn-color-text-on-default-background);
     }
 
     /* On hover, darken the color of the background */
-    #sk-container-id-68 div.sk-label:hover label.sk-toggleable__label {
+    #sk-container-id-4 div.sk-label:hover label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
     /* Label box, darken color on hover, fitted */
-    #sk-container-id-68 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+    #sk-container-id-4 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator label */
 
-    #sk-container-id-68 div.sk-label label {
+    #sk-container-id-4 div.sk-label label {
       font-family: monospace;
       font-weight: bold;
       display: inline-block;
       line-height: 1.2em;
     }
 
-    #sk-container-id-68 div.sk-label-container {
+    #sk-container-id-4 div.sk-label-container {
       text-align: center;
     }
 
     /* Estimator-specific */
-    #sk-container-id-68 div.sk-estimator {
+    #sk-container-id-4 div.sk-estimator {
       font-family: monospace;
       border: 1px dotted var(--sklearn-color-border-box);
       border-radius: 0.25em;
@@ -1605,18 +1606,18 @@ the parameter space will be evaluated.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-68 div.sk-estimator.fitted {
+    #sk-container-id-4 div.sk-estimator.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
     /* on hover */
-    #sk-container-id-68 div.sk-estimator:hover {
+    #sk-container-id-4 div.sk-estimator:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-68 div.sk-estimator.fitted:hover {
+    #sk-container-id-4 div.sk-estimator.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
@@ -1704,7 +1705,7 @@ the parameter space will be evaluated.
 
     /* "?"-specific style due to the `<a>` HTML tag */
 
-    #sk-container-id-68 a.estimator_doc_link {
+    #sk-container-id-4 a.estimator_doc_link {
       float: right;
       font-size: 1rem;
       line-height: 1em;
@@ -1719,37 +1720,37 @@ the parameter space will be evaluated.
       border: var(--sklearn-color-unfitted-level-1) 1pt solid;
     }
 
-    #sk-container-id-68 a.estimator_doc_link.fitted {
+    #sk-container-id-4 a.estimator_doc_link.fitted {
       /* fitted */
       border: var(--sklearn-color-fitted-level-1) 1pt solid;
       color: var(--sklearn-color-fitted-level-1);
     }
 
     /* On hover */
-    #sk-container-id-68 a.estimator_doc_link:hover {
+    #sk-container-id-4 a.estimator_doc_link:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-3);
       color: var(--sklearn-color-background);
       text-decoration: none;
     }
 
-    #sk-container-id-68 a.estimator_doc_link.fitted:hover {
+    #sk-container-id-4 a.estimator_doc_link.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-68" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>RandomizedSearchCV(estimator=Pipeline(steps=[(&#x27;preprocessor&#x27;,
+    </style><div id="sk-container-id-4" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>RandomizedSearchCV(estimator=Pipeline(steps=[(&#x27;preprocessor&#x27;,
                                                   ColumnTransformer(transformers=[(&#x27;num&#x27;,
                                                                                    Pipeline(steps=[(&#x27;imputer&#x27;,
                                                                                                     SimpleImputer(strategy=&#x27;median&#x27;)),
                                                                                                    (&#x27;scaler&#x27;,
                                                                                                     StandardScaler())]),
-                                                                                   &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fb1addf9210&gt;),
+                                                                                   &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7f09a4bb1e70&gt;),
                                                                                   (&#x27;cat&#x27;,
                                                                                    Pipeline(steps=[(&#x27;encoder&#x27;,
                                                                                                     OneHotEncoder(handle_unknown=&#x27;ignore&#x27;)),
                                                                                                    (&#x27;s...
-                                                                                                                     score_func=&lt;function chi2 at 0x7fb1e72e8c10&gt;))]),
-                                                                                   &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fb1addfb640&gt;)])),
+                                                                                                                     score_func=&lt;function chi2 at 0x7f09b7480430&gt;))]),
+                                                                                   &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7f09a4bb31c0&gt;)])),
                                                  (&#x27;classifier&#x27;,
                                                   LogisticRegression())]),
                        param_distributions={&#x27;classifier__C&#x27;: [0.1, 1.0, 10, 100],
@@ -1759,19 +1760,19 @@ the parameter space will be evaluated.
                                                                                         70],
                                             &#x27;preprocessor__num__imputer__strategy&#x27;: [&#x27;mean&#x27;,
                                                                                      &#x27;median&#x27;]},
-                       random_state=0)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-278" type="checkbox" ><label for="sk-estimator-id-278" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>RandomizedSearchCV</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.model_selection.RandomizedSearchCV.html">?<span>Documentation for RandomizedSearchCV</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>RandomizedSearchCV(estimator=Pipeline(steps=[(&#x27;preprocessor&#x27;,
+                       random_state=0)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-24" type="checkbox" ><label for="sk-estimator-id-24" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>RandomizedSearchCV</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.model_selection.RandomizedSearchCV.html">?<span>Documentation for RandomizedSearchCV</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>RandomizedSearchCV(estimator=Pipeline(steps=[(&#x27;preprocessor&#x27;,
                                                   ColumnTransformer(transformers=[(&#x27;num&#x27;,
                                                                                    Pipeline(steps=[(&#x27;imputer&#x27;,
                                                                                                     SimpleImputer(strategy=&#x27;median&#x27;)),
                                                                                                    (&#x27;scaler&#x27;,
                                                                                                     StandardScaler())]),
-                                                                                   &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fb1addf9210&gt;),
+                                                                                   &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7f09a4bb1e70&gt;),
                                                                                   (&#x27;cat&#x27;,
                                                                                    Pipeline(steps=[(&#x27;encoder&#x27;,
                                                                                                     OneHotEncoder(handle_unknown=&#x27;ignore&#x27;)),
                                                                                                    (&#x27;s...
-                                                                                                                     score_func=&lt;function chi2 at 0x7fb1e72e8c10&gt;))]),
-                                                                                   &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fb1addfb640&gt;)])),
+                                                                                                                     score_func=&lt;function chi2 at 0x7f09b7480430&gt;))]),
+                                                                                   &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7f09a4bb31c0&gt;)])),
                                                  (&#x27;classifier&#x27;,
                                                   LogisticRegression())]),
                        param_distributions={&#x27;classifier__C&#x27;: [0.1, 1.0, 10, 100],
@@ -1781,43 +1782,43 @@ the parameter space will be evaluated.
                                                                                         70],
                                             &#x27;preprocessor__num__imputer__strategy&#x27;: [&#x27;mean&#x27;,
                                                                                      &#x27;median&#x27;]},
-                       random_state=0)</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-279" type="checkbox" ><label for="sk-estimator-id-279" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>estimator: Pipeline</div></div></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
+                       random_state=0)</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-25" type="checkbox" ><label for="sk-estimator-id-25" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>estimator: Pipeline</div></div></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
                      ColumnTransformer(transformers=[(&#x27;num&#x27;,
                                                       Pipeline(steps=[(&#x27;imputer&#x27;,
                                                                        SimpleImputer(strategy=&#x27;median&#x27;)),
                                                                       (&#x27;scaler&#x27;,
                                                                        StandardScaler())]),
-                                                      &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fb1addf9210&gt;),
+                                                      &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7f09a4bb1e70&gt;),
                                                      (&#x27;cat&#x27;,
                                                       Pipeline(steps=[(&#x27;encoder&#x27;,
                                                                        OneHotEncoder(handle_unknown=&#x27;ignore&#x27;)),
                                                                       (&#x27;selector&#x27;,
                                                                        SelectPercentile(percentile=50,
-                                                                                        score_func=&lt;function chi2 at 0x7fb1e72e8c10&gt;))]),
-                                                      &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fb1addfb640&gt;)])),
-                    (&#x27;classifier&#x27;, LogisticRegression())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-280" type="checkbox" ><label for="sk-estimator-id-280" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>preprocessor: ColumnTransformer</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.compose.ColumnTransformer.html">?<span>Documentation for preprocessor: ColumnTransformer</span></a></div></label><div class="sk-toggleable__content "><pre>ColumnTransformer(transformers=[(&#x27;num&#x27;,
+                                                                                        score_func=&lt;function chi2 at 0x7f09b7480430&gt;))]),
+                                                      &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7f09a4bb31c0&gt;)])),
+                    (&#x27;classifier&#x27;, LogisticRegression())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-26" type="checkbox" ><label for="sk-estimator-id-26" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>preprocessor: ColumnTransformer</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.compose.ColumnTransformer.html">?<span>Documentation for preprocessor: ColumnTransformer</span></a></div></label><div class="sk-toggleable__content "><pre>ColumnTransformer(transformers=[(&#x27;num&#x27;,
                                      Pipeline(steps=[(&#x27;imputer&#x27;,
                                                       SimpleImputer(strategy=&#x27;median&#x27;)),
                                                      (&#x27;scaler&#x27;, StandardScaler())]),
-                                     &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fb1addf9210&gt;),
+                                     &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7f09a4bb1e70&gt;),
                                     (&#x27;cat&#x27;,
                                      Pipeline(steps=[(&#x27;encoder&#x27;,
                                                       OneHotEncoder(handle_unknown=&#x27;ignore&#x27;)),
                                                      (&#x27;selector&#x27;,
                                                       SelectPercentile(percentile=50,
-                                                                       score_func=&lt;function chi2 at 0x7fb1e72e8c10&gt;))]),
-                                     &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fb1addfb640&gt;)])</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-281" type="checkbox" ><label for="sk-estimator-id-281" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>num</div></div></label><div class="sk-toggleable__content "><pre>&lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fb1addf9210&gt;</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-282" type="checkbox" ><label for="sk-estimator-id-282" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>SimpleImputer</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.impute.SimpleImputer.html">?<span>Documentation for SimpleImputer</span></a></div></label><div class="sk-toggleable__content "><pre>SimpleImputer(strategy=&#x27;median&#x27;)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-283" type="checkbox" ><label for="sk-estimator-id-283" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content "><pre>StandardScaler()</pre></div> </div></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-284" type="checkbox" ><label for="sk-estimator-id-284" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>cat</div></div></label><div class="sk-toggleable__content "><pre>&lt;sklearn.compose._column_transformer.make_column_selector object at 0x7fb1addfb640&gt;</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-285" type="checkbox" ><label for="sk-estimator-id-285" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>OneHotEncoder</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.OneHotEncoder.html">?<span>Documentation for OneHotEncoder</span></a></div></label><div class="sk-toggleable__content "><pre>OneHotEncoder(handle_unknown=&#x27;ignore&#x27;)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-286" type="checkbox" ><label for="sk-estimator-id-286" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>SelectPercentile</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.feature_selection.SelectPercentile.html">?<span>Documentation for SelectPercentile</span></a></div></label><div class="sk-toggleable__content "><pre>SelectPercentile(percentile=50, score_func=&lt;function chi2 at 0x7fb1e72e8c10&gt;)</pre></div> </div></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-287" type="checkbox" ><label for="sk-estimator-id-287" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>LogisticRegression</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a></div></label><div class="sk-toggleable__content "><pre>LogisticRegression()</pre></div> </div></div></div></div></div></div></div></div></div></div></div>
+                                                                       score_func=&lt;function chi2 at 0x7f09b7480430&gt;))]),
+                                     &lt;sklearn.compose._column_transformer.make_column_selector object at 0x7f09a4bb31c0&gt;)])</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-27" type="checkbox" ><label for="sk-estimator-id-27" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>num</div></div></label><div class="sk-toggleable__content "><pre>&lt;sklearn.compose._column_transformer.make_column_selector object at 0x7f09a4bb1e70&gt;</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-28" type="checkbox" ><label for="sk-estimator-id-28" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>SimpleImputer</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.impute.SimpleImputer.html">?<span>Documentation for SimpleImputer</span></a></div></label><div class="sk-toggleable__content "><pre>SimpleImputer(strategy=&#x27;median&#x27;)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-29" type="checkbox" ><label for="sk-estimator-id-29" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content "><pre>StandardScaler()</pre></div> </div></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-30" type="checkbox" ><label for="sk-estimator-id-30" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>cat</div></div></label><div class="sk-toggleable__content "><pre>&lt;sklearn.compose._column_transformer.make_column_selector object at 0x7f09a4bb31c0&gt;</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-31" type="checkbox" ><label for="sk-estimator-id-31" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>OneHotEncoder</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.OneHotEncoder.html">?<span>Documentation for OneHotEncoder</span></a></div></label><div class="sk-toggleable__content "><pre>OneHotEncoder(handle_unknown=&#x27;ignore&#x27;)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-32" type="checkbox" ><label for="sk-estimator-id-32" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>SelectPercentile</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.feature_selection.SelectPercentile.html">?<span>Documentation for SelectPercentile</span></a></div></label><div class="sk-toggleable__content "><pre>SelectPercentile(percentile=50, score_func=&lt;function chi2 at 0x7f09b7480430&gt;)</pre></div> </div></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-33" type="checkbox" ><label for="sk-estimator-id-33" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>LogisticRegression</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a></div></label><div class="sk-toggleable__content "><pre>LogisticRegression()</pre></div> </div></div></div></div></div></div></div></div></div></div></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 195-198
+.. GENERATED FROM PYTHON SOURCE LINES 196-199
 
-Calling 'fit' triggers the cross-validated search for the best
-hyper-parameters combination:
+يؤدي استدعاء 'fit' إلى تشغيل البحث المتقاطع للتحقق من صحة أفضل
+مزيج من المعلمات الفائقة:
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 198-203
+.. GENERATED FROM PYTHON SOURCE LINES 199-204
 
 .. code-block:: Python
 
@@ -1840,11 +1841,11 @@ hyper-parameters combination:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 204-205
+.. GENERATED FROM PYTHON SOURCE LINES 205-206
 
-The internal cross-validation scores obtained by those parameters is:
+درجات التحقق المتقاطع الداخلي التي تم الحصول عليها بواسطة هذه المعلمات هي:
 
-.. GENERATED FROM PYTHON SOURCE LINES 205-207
+.. GENERATED FROM PYTHON SOURCE LINES 206-208
 
 .. code-block:: Python
 
@@ -1863,15 +1864,14 @@ The internal cross-validation scores obtained by those parameters is:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 208-209
+.. GENERATED FROM PYTHON SOURCE LINES 209-210
 
-We can also introspect the top grid search results as a pandas dataframe:
+يمكننا أيضًا فحص أفضل نتائج البحث الشبكي كإطار بيانات pandas:
 
-.. GENERATED FROM PYTHON SOURCE LINES 209-223
+.. GENERATED FROM PYTHON SOURCE LINES 210-223
 
 .. code-block:: Python
 
-    import pandas as pd
 
     cv_results = pd.DataFrame(search_cv.cv_results_)
     cv_results = cv_results.sort_values("mean_test_score", ascending=False)
@@ -1966,14 +1966,12 @@ We can also introspect the top grid search results as a pandas dataframe:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 224-228
+.. GENERATED FROM PYTHON SOURCE LINES 224-226
 
-The best hyper-parameters have be used to re-fit a final model on the full
-training set. We can evaluate that final model on held out test data that was
-not used for hyperparameter tuning.
+تم استخدام أفضل المعلمات الفائقة لإعادة ملاءمة نموذج نهائي على مجموعة التدريب الكاملة. يمكننا تقييم ذلك النموذج النهائي على بيانات الاختبار المحتجزة التي لم يتم استخدامها لضبط المعلمات الفائقة.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 228-232
+.. GENERATED FROM PYTHON SOURCE LINES 226-230
 
 .. code-block:: Python
 
@@ -1997,7 +1995,7 @@ not used for hyperparameter tuning.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.406 seconds)
+   **Total running time of the script:** (0 minutes 2.316 seconds)
 
 
 .. _sphx_glr_download_auto_examples_compose_plot_column_transformer_mixed_types.py:

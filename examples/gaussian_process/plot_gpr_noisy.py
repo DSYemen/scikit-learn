@@ -1,24 +1,21 @@
 """
 =========================================================================
-Ability of Gaussian process regression (GPR) to estimate data noise-level
+قدرة انحدار العمليات الغاوسية (GPR) على تقدير مستوى ضوضاء البيانات
 =========================================================================
 
-This example shows the ability of the
-:class:`~sklearn.gaussian_process.kernels.WhiteKernel` to estimate the noise
-level in the data. Moreover, we show the importance of kernel hyperparameters
-initialization.
+يوضح هذا المثال قدرة 
+:class:`~sklearn.gaussian_process.kernels.WhiteKernel`
+على تقدير مستوى الضوضاء في البيانات. علاوة على ذلك، سنوضح أهمية تهيئة المعلمات الفائقة للنواة.
 """
 
 # Authors: The scikit-learn developers
 # SPDX-License-Identifier: BSD-3-Clause
 
 # %%
-# Data generation
+# توليد البيانات
 # ---------------
 #
-# We will work in a setting where `X` will contain a single feature. We create a
-# function that will generate the target to be predicted. We will add an
-# option to add some noise to the generated target.
+# سنعمل في بيئة حيث سيحتوي `X` على ميزة واحدة. سننشئ دالة ستولد الهدف المراد التنبؤ به. سنضيف خيارًا لإضافة بعض الضوضاء إلى الهدف الذي تم إنشاؤه.
 import numpy as np
 
 
@@ -31,59 +28,52 @@ def target_generator(X, add_noise=False):
 
 
 # %%
-# Let's have a look to the target generator where we will not add any noise to
-# observe the signal that we would like to predict.
+# لنلقِ نظرة على مُولد الأهداف حيث لن نضيف أي ضوضاء لمراقبة الإشارة التي نرغب في التنبؤ بها.
 X = np.linspace(0, 5, num=80).reshape(-1, 1)
 y = target_generator(X, add_noise=False)
 
 # %%
 import matplotlib.pyplot as plt
 
-plt.plot(X, y, label="Expected signal")
+plt.plot(X, y, label="الإشارة المتوقعة")
 plt.legend()
 plt.xlabel("X")
 _ = plt.ylabel("y")
 
 # %%
-# The target is transforming the input `X` using a sine function. Now, we will
-# generate few noisy training samples. To illustrate the noise level, we will
-# plot the true signal together with the noisy training samples.
+# يقوم الهدف بتحويل المدخلات `X` باستخدام دالة الجيب. الآن، سنقوم بإنشاء بعض عينات التدريب المزعجة. لتوضيح مستوى الضوضاء، سنرسم الإشارة الحقيقية مع عينات التدريب المزعجة.
 rng = np.random.RandomState(0)
 X_train = rng.uniform(0, 5, size=20).reshape(-1, 1)
 y_train = target_generator(X_train, add_noise=True)
 
 # %%
-plt.plot(X, y, label="Expected signal")
+plt.plot(X, y, label="الإشارة المتوقعة")
 plt.scatter(
     x=X_train[:, 0],
     y=y_train,
     color="black",
     alpha=0.4,
-    label="Observations",
+    label="الملاحظات",
 )
 plt.legend()
 plt.xlabel("X")
 _ = plt.ylabel("y")
 
 # %%
-# Optimisation of kernel hyperparameters in GPR
+# تحسين المعلمات الفائقة للنواة في GPR
 # ---------------------------------------------
 #
-# Now, we will create a
+# الآن، سنقوم بإنشاء 
 # :class:`~sklearn.gaussian_process.GaussianProcessRegressor`
-# using an additive kernel adding a
-# :class:`~sklearn.gaussian_process.kernels.RBF` and
-# :class:`~sklearn.gaussian_process.kernels.WhiteKernel` kernels.
-# The :class:`~sklearn.gaussian_process.kernels.WhiteKernel` is a kernel that
-# will able to estimate the amount of noise present in the data while the
-# :class:`~sklearn.gaussian_process.kernels.RBF` will serve at fitting the
-# non-linearity between the data and the target.
+# باستخدام نواة مضافة تجمع بين نواتي
+# :class:`~sklearn.gaussian_process.kernels.RBF`
+# و
+# :class:`~sklearn.gaussian_process.kernels.WhiteKernel`.
+# النواة :class:`~sklearn.gaussian_process.kernels.WhiteKernel` هي نواة ستكون قادرة على تقدير كمية الضوضاء الموجودة في البيانات بينما ستعمل النواة :class:`~sklearn.gaussian_process.kernels.RBF` على ملاءمة اللاخطية بين البيانات والهدف.
 #
-# However, we will show that the hyperparameter space contains several local
-# minima. It will highlights the importance of initial hyperparameter values.
+# ومع ذلك، سنوضح أن مساحة المعلمات الفائقة تحتوي على العديد من الحدود الدنيا المحلية. وهذا سيبرز أهمية القيم الأولية للمعلمات الفائقة.
 #
-# We will create a model using a kernel with a high noise level and a large
-# length scale, which will explain all variations in the data by noise.
+# سنقوم بإنشاء نموذج باستخدام نواة ذات مستوى ضوضاء عالٍ ومقياس طول كبير، مما سيفسر جميع الاختلافات في البيانات بالضوضاء.
 from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.gaussian_process.kernels import RBF, WhiteKernel
 
@@ -95,32 +85,25 @@ gpr.fit(X_train, y_train)
 y_mean, y_std = gpr.predict(X, return_std=True)
 
 # %%
-plt.plot(X, y, label="Expected signal")
-plt.scatter(x=X_train[:, 0], y=y_train, color="black", alpha=0.4, label="Observations")
-plt.errorbar(X, y_mean, y_std, label="Posterior mean ± std")
+plt.plot(X, y, label="الإشارة المتوقعة")
+plt.scatter(x=X_train[:, 0], y=y_train, color="black", alpha=0.4, label="الملاحظات")
+plt.errorbar(X, y_mean, y_std, label="المتوسط اللاحق ± الانحراف المعياري")
 plt.legend()
 plt.xlabel("X")
 plt.ylabel("y")
 _ = plt.title(
     (
-        f"Initial: {kernel}\nOptimum: {gpr.kernel_}\nLog-Marginal-Likelihood: "
+        f"القيمة الأولية: {kernel}\nالقيمة المثلى: {gpr.kernel_}\nاحتمالية الهامش اللوغاريتمي: "
         f"{gpr.log_marginal_likelihood(gpr.kernel_.theta)}"
     ),
     fontsize=8,
 )
 # %%
-# We see that the optimum kernel found still has a high noise level and an even
-# larger length scale. The length scale reaches the maximum bound that we
-# allowed for this parameter and we got a warning as a result.
+# نرى أن النواة المثلى التي تم العثور عليها لا تزال ذات مستوى ضوضاء عالٍ ومقياس طول أكبر. يصل مقياس الطول إلى الحد الأقصى المسموح به لهذا المعلم وقد تلقينا تحذيرًا نتيجة لذلك.
 #
-# More importantly, we observe that the model does not provide useful
-# predictions: the mean prediction seems to be constant: it does not follow the
-# expected noise-free signal.
+# والأهم من ذلك، نلاحظ أن النموذج لا يقدم تنبؤات مفيدة: يبدو أن التنبؤ المتوسط ثابت: فهو لا يتبع الإشارة المتوقعة الخالية من الضوضاء.
 #
-# Now, we will initialize the :class:`~sklearn.gaussian_process.kernels.RBF`
-# with a larger `length_scale` initial value and the
-# :class:`~sklearn.gaussian_process.kernels.WhiteKernel` with a smaller initial
-# noise level lower while keeping the parameter bounds unchanged.
+# الآن، سنقوم بتهيئة :class:`~sklearn.gaussian_process.kernels.RBF` بقيمة أولية أكبر لـ `length_scale` و :class:`~sklearn.gaussian_process.kernels.WhiteKernel` بمستوى ضوضاء أولي أصغر مع الحفاظ على حدود المعلمات دون تغيير.
 kernel = 1.0 * RBF(length_scale=1e-1, length_scale_bounds=(1e-2, 1e3)) + WhiteKernel(
     noise_level=1e-2, noise_level_bounds=(1e-10, 1e1)
 )
@@ -129,31 +112,26 @@ gpr.fit(X_train, y_train)
 y_mean, y_std = gpr.predict(X, return_std=True)
 
 # %%
-plt.plot(X, y, label="Expected signal")
-plt.scatter(x=X_train[:, 0], y=y_train, color="black", alpha=0.4, label="Observations")
-plt.errorbar(X, y_mean, y_std, label="Posterior mean ± std")
+plt.plot(X, y, label="الإشارة المتوقعة")
+plt.scatter(x=X_train[:, 0], y=y_train, color="black", alpha=0.4, label="الملاحظات")
+plt.errorbar(X, y_mean, y_std, label="المتوسط اللاحق ± الانحراف المعياري")
 plt.legend()
 plt.xlabel("X")
 plt.ylabel("y")
 _ = plt.title(
     (
-        f"Initial: {kernel}\nOptimum: {gpr.kernel_}\nLog-Marginal-Likelihood: "
+        f"القيمة الأولية: {kernel}\nالقيمة المثلى: {gpr.kernel_}\nاحتمالية الهامش اللوغاريتمي: "
         f"{gpr.log_marginal_likelihood(gpr.kernel_.theta)}"
     ),
     fontsize=8,
 )
 
 # %%
-# First, we see that the model's predictions are more precise than the
-# previous model's: this new model is able to estimate the noise-free
-# functional relationship.
+# أولاً، نرى أن تنبؤات النموذج أكثر دقة من تنبؤات النموذج السابق: هذا النموذج الجديد قادر على تقدير العلاقة الدالية الخالية من الضوضاء.
 #
-# Looking at the kernel hyperparameters, we see that the best combination found
-# has a smaller noise level and shorter length scale than the first model.
+# بالنظر إلى المعلمات الفائقة للنواة، نرى أن أفضل توليفة تم العثور عليها تتميز بمستوى ضوضاء أقل ومقياس طول أقصر من النموذج الأول.
 #
-# We can inspect the Log-Marginal-Likelihood (LML) of
-# :class:`~sklearn.gaussian_process.GaussianProcessRegressor`
-# for different hyperparameters to get a sense of the local minima.
+# يمكننا فحص احتمالية الهامش اللوغاريتمي (LML) لـ :class:`~sklearn.gaussian_process.GaussianProcessRegressor` لمعلمات فائقة مختلفة للحصول على فكرة عن الحدود الدنيا المحلية.
 from matplotlib.colors import LogNorm
 
 length_scale = np.logspace(-2, 4, num=80)
@@ -179,23 +157,16 @@ plt.contour(
 plt.colorbar()
 plt.xscale("log")
 plt.yscale("log")
-plt.xlabel("Length-scale")
-plt.ylabel("Noise-level")
-plt.title("Log-marginal-likelihood")
+plt.xlabel("مقياس الطول")
+plt.ylabel("مستوى الضوضاء")
+plt.title("احتمالية الهامش اللوغاريتمي")
 plt.show()
 
 # %%
 #
-# We see that there are two local minima that correspond to the combination of
-# hyperparameters previously found. Depending on the initial values for the
-# hyperparameters, the gradient-based optimization might or might not
-# converge to the best model. It is thus important to repeat the optimization
-# several times for different initializations. This can be done by setting the
-# `n_restarts_optimizer` parameter of the
-# :class:`~sklearn.gaussian_process.GaussianProcessRegressor` class.
+# نرى أن هناك حدين أدنى محليين يتوافقان مع توليفة المعلمات الفائقة التي تم العثور عليها سابقًا. اعتمادًا على القيم الأولية للمعلمات الفائقة، قد يتقارب التحسين القائم على التدرج أو لا يتقارب مع أفضل نموذج. لذلك من المهم تكرار التحسين عدة مرات لتهيئات مختلفة. يمكن القيام بذلك عن طريق تعيين المعلمة `n_restarts_optimizer` للفئة :class:`~sklearn.gaussian_process.GaussianProcessRegressor`.
 #
-# Let's try again to fit our model with the bad initial values but this time
-# with 10 random restarts.
+# دعونا نحاول مرة أخرى ملاءمة نموذجنا بالقيم الأولية السيئة ولكن هذه المرة مع 10 عمليات إعادة تشغيل عشوائية.
 
 kernel = 1.0 * RBF(length_scale=1e1, length_scale_bounds=(1e-2, 1e3)) + WhiteKernel(
     noise_level=1, noise_level_bounds=(1e-10, 1e1)
@@ -207,15 +178,15 @@ gpr.fit(X_train, y_train)
 y_mean, y_std = gpr.predict(X, return_std=True)
 
 # %%
-plt.plot(X, y, label="Expected signal")
-plt.scatter(x=X_train[:, 0], y=y_train, color="black", alpha=0.4, label="Observations")
-plt.errorbar(X, y_mean, y_std, label="Posterior mean ± std")
+plt.plot(X, y, label="الإشارة المتوقعة")
+plt.scatter(x=X_train[:, 0], y=y_train, color="black", alpha=0.4, label="الملاحظات")
+plt.errorbar(X, y_mean, y_std, label="المتوسط اللاحق ± الانحراف المعياري")
 plt.legend()
 plt.xlabel("X")
 plt.ylabel("y")
 _ = plt.title(
     (
-        f"Initial: {kernel}\nOptimum: {gpr.kernel_}\nLog-Marginal-Likelihood: "
+        f"القيمة الأولية: {kernel}\nالقيمة المثلى: {gpr.kernel_}\nاحتمالية الهامش اللوغاريتمي: "
         f"{gpr.log_marginal_likelihood(gpr.kernel_.theta)}"
     ),
     fontsize=8,
@@ -223,5 +194,6 @@ _ = plt.title(
 
 # %%
 #
-# As we hoped, random restarts allow the optimization to find the best set
-# of hyperparameters despite the bad initial values.
+# كما كنا نأمل، تسمح عمليات إعادة التشغيل العشوائية للتحسين بالعثور على أفضل مجموعة من المعلمات الفائقة على الرغم من القيم الأولية السيئة.
+
+

@@ -1,15 +1,15 @@
 """
 ==========================
-SGD: convex loss functions
+SGD: دالات الخسارة المقعرة
 ==========================
 
-A plot that compares the various convex loss functions supported by
+رسم بياني يقارن بين دالات الخسارة المقعرة المختلفة المدعومة من قبل
 :class:`~sklearn.linear_model.SGDClassifier` .
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np

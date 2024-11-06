@@ -827,10 +827,10 @@ SGD العادي (راجع <span class="xref std std-ref">sgd_mathematical_formu
 متاحة كمصنف في <a class="reference internal" href="generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogisticRegression</span></code></a>.</p>
 <p class="rubric">أمثلة</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_sgd_separating_hyperplane.html#sphx-glr-auto-examples-linear-model-plot-sgd-separating-hyperplane-py"><span class="std std-ref">SGD: Maximum margin separating hyperplane</span></a></p></li>
-<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_sgd_iris.html#sphx-glr-auto-examples-linear-model-plot-sgd-iris-py"><span class="std std-ref">Plot multi-class SGD on the iris dataset</span></a></p></li>
-<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_sgd_weighted_samples.html#sphx-glr-auto-examples-linear-model-plot-sgd-weighted-samples-py"><span class="std std-ref">SGD: Weighted samples</span></a></p></li>
-<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_sgd_comparison.html#sphx-glr-auto-examples-linear-model-plot-sgd-comparison-py"><span class="std std-ref">Comparing various online solvers</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_sgd_separating_hyperplane.html#sphx-glr-auto-examples-linear-model-plot-sgd-separating-hyperplane-py"><span class="std std-ref">SGD: المستوى الفاصل ذو الهامش الأقصى</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_sgd_iris.html#sphx-glr-auto-examples-linear-model-plot-sgd-iris-py"><span class="std std-ref">رسم متعدد الفئات SGD على مجموعة بيانات الزهرة</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_sgd_weighted_samples.html#sphx-glr-auto-examples-linear-model-plot-sgd-weighted-samples-py"><span class="std std-ref">SGD: العينات المرجحة</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_sgd_comparison.html#sphx-glr-auto-examples-linear-model-plot-sgd-comparison-py"><span class="std std-ref">مقارنة بين المحللات المختلفة عبر الإنترنت</span></a></p></li>
 <li><p><a class="reference internal" href="../auto_examples/svm/plot_separating_hyperplane_unbalanced.html#sphx-glr-auto-examples-svm-plot-separating-hyperplane-unbalanced-py"><span class="std std-ref">SVM: Separating hyperplane for unbalanced classes</span></a>
 (راجع الملاحظة في المثال)</p></li>
 </ul>
@@ -903,7 +903,7 @@ SVM فئة واحدة المطبقة على نواة، والتي تم تنفي�
 </details><p>كما هو الحال في <a class="reference internal" href="generated/sklearn.linear_model.SGDClassifier.html#sklearn.linear_model.SGDClassifier" title="sklearn.linear_model.SGDClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDClassifier</span></code></a> و <a class="reference internal" href="generated/sklearn.linear_model.SGDRegressor.html#sklearn.linear_model.SGDRegressor" title="sklearn.linear_model.SGDRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDRegressor</span></code></a>، يدعم <a class="reference internal" href="generated/sklearn.linear_model.SGDOneClassSVM.html#sklearn.linear_model.SGDOneClassSVM" title="sklearn.linear_model.SGDOneClassSVM"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDOneClassSVM</span></code></a> متوسط SGD. يمكن تمكين المتوسط من خلال تعيين <code class="docutils literal notranslate"><span class="pre">average=True</span></code>.</p>
 <p class="rubric">أمثلة</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_sgdocsvm_vs_ocsvm.html#sphx-glr-auto-examples-linear-model-plot-sgdocsvm-vs-ocsvm-py"><span class="std std-ref">One-Class SVM versus One-Class SVM using Stochastic Gradient Descent</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/linear_model/plot_sgdocsvm_vs_ocsvm.html#sphx-glr-auto-examples-linear-model-plot-sgdocsvm-vs-ocsvm-py"><span class="std std-ref">One-Class SVM مقابل One-Class SVM باستخدام Stochastic Gradient Descent</span></a></p></li>
 </ul>
 </section>
 <section id="id9">
@@ -949,7 +949,7 @@ SVM فئة واحدة المطبقة على نواة، والتي تم تنفي�
 <p>في كلتا الحالتين، يتم تقييم المعيار مرة واحدة لكل عصر، وتتوقف الخوارزمية
 عندما لا يتحسن المعيار <code class="docutils literal notranslate"><span class="pre">n_iter_no_change</span></code> مرات متتالية. يتم تقييم التحسن
 مع التسامح المطلق <code class="docutils literal notranslate"><span class="pre">tol</span></code>، وتتوقف الخوارزمية في أي حال بعد عدد أقصى من التكرارات <code class="docutils literal notranslate"><span class="pre">max_iter</span></code>.</p>
-<p>راجع <a class="reference internal" href="../auto_examples/linear_model/plot_sgd_early_stopping.html#sphx-glr-auto-examples-linear-model-plot-sgd-early-stopping-py"><span class="std std-ref">Early stopping of Stochastic Gradient Descent</span></a> لمثال على آثار التوقف المبكر.</p>
+<p>راجع <a class="reference internal" href="../auto_examples/linear_model/plot_sgd_early_stopping.html#sphx-glr-auto-examples-linear-model-plot-sgd-early-stopping-py"><span class="std std-ref">إيقاف مبكر لنزول التدرج العشوائي</span></a> لمثال على آثار التوقف المبكر.</p>
 </section>
 <section id="id12">
 <h2><span class="section-number">1.5.7. </span>نصائح للاستخدام العملي<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>

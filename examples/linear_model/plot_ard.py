@@ -1,40 +1,31 @@
 """
-====================================
-Comparing Linear Bayesian Regressors
-====================================
+# مقارنة المنحنيات الخطية للانحدار البايزي
+=============================================
 
-This example compares two different bayesian regressors:
+يقارن هذا المثال بين طريقتين مختلفتين للانحدار البايزي:
 
-- a :ref:`automatic_relevance_determination`
-- a :ref:`bayesian_ridge_regression`
+- :ref:`automatic_relevance_determination`
+- :ref:`bayesian_ridge_regression`
 
-In the first part, we use an :ref:`ordinary_least_squares` (OLS) model as a
-baseline for comparing the models' coefficients with respect to the true
-coefficients. Thereafter, we show that the estimation of such models is done by
-iteratively maximizing the marginal log-likelihood of the observations.
+في الجزء الأول، نستخدم نموذج :ref:`ordinary_least_squares` (OLS) كخط أساس لمقارنة معاملات النماذج فيما يتعلق بالمعاملات الحقيقية. بعد ذلك، نوضح أن تقدير مثل هذه النماذج يتم عن طريق زيادة تسجيل الاحتمال الهامشي للملاحظات بشكل تكراري.
 
-In the last section we plot predictions and uncertainties for the ARD and the
-Bayesian Ridge regressions using a polynomial feature expansion to fit a
-non-linear relationship between `X` and `y`.
-
+في القسم الأخير، نرسم التنبؤات وعدم اليقين لكل من الانحدار البايزي والانحدار الخطي باستخدام توسيع الميزات متعددة الحدود لتناسب العلاقة غير الخطية بين `X` و `y`.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# Models robustness to recover the ground truth weights
+# متانة النماذج لاستعادة الأوزان الحقيقية
 # =====================================================
 #
-# Generate synthetic dataset
+# توليد مجموعة بيانات صناعية
 # --------------------------
 #
-# We generate a dataset where `X` and `y` are linearly linked: 10 of the
-# features of `X` will be used to generate `y`. The other features are not
-# useful at predicting `y`. In addition, we generate a dataset where `n_samples
-# == n_features`. Such a setting is challenging for an OLS model and leads
-# potentially to arbitrary large weights. Having a prior on the weights and a
-# penalty alleviates the problem. Finally, gaussian noise is added.
+# نقوم بتوليد مجموعة بيانات حيث `X` و `y` مرتبطان خطيًا: 10 من
+# ميزات `X` سيتم استخدامها لتوليد `y`. الميزات الأخرى ليست
+# مفيدة في التنبؤ بـ `y`. بالإضافة إلى ذلك، نقوم بتوليد مجموعة بيانات حيث `n_samples
+# == n_features`. مثل هذا الإعداد يمثل تحديًا لنموذج OLS وقد يؤدي
+# إلى أوزان كبيرة بشكل تعسفي. وجود تقدير مسبق للأوزان وعقوبة يخفف من المشكلة. وأخيرًا، تتم إضافة ضجيج غاوسي.
 
 from sklearn.datasets import make_regression
 
@@ -48,11 +39,11 @@ X, y, true_weights = make_regression(
 )
 
 # %%
-# Fit the regressors
+# ملاءمة المنحنيات
 # ------------------
 #
-# We now fit both Bayesian models and the OLS to later compare the models'
-# coefficients.
+# نقوم الآن بملاءمة كلا النموذجين البايزيين ونموذج OLS لمقارنة معاملات
+# النماذج لاحقًا.
 
 import pandas as pd
 
@@ -71,11 +62,11 @@ df = pd.DataFrame(
 )
 
 # %%
-# Plot the true and estimated coefficients
+# رسم المعاملات الحقيقية والمقدرة
 # ----------------------------------------
 #
-# Now we compare the coefficients of each model with the weights of
-# the true generative model.
+# نقارن الآن معاملات كل نموذج بأوزان
+# النموذج التوليدي الحقيقي.
 import matplotlib.pyplot as plt
 import seaborn as sns
 from matplotlib.colors import SymLogNorm
@@ -93,16 +84,14 @@ plt.tight_layout(rect=(0, 0, 1, 0.95))
 _ = plt.title("Models' coefficients")
 
 # %%
-# Due to the added noise, none of the models recover the true weights. Indeed,
-# all models always have more than 10 non-zero coefficients. Compared to the OLS
-# estimator, the coefficients using a Bayesian Ridge regression are slightly
-# shifted toward zero, which stabilises them. The ARD regression provides a
-# sparser solution: some of the non-informative coefficients are set exactly to
-# zero, while shifting others closer to zero. Some non-informative coefficients
-# are still present and retain large values.
+# بسبب الضجيج المُضاف، لا يستعيد أي من النماذج الأوزان الحقيقية. في الواقع،
+# جميع النماذج لديها دائمًا أكثر من 10 معاملات غير صفرية. مقارنة بمقدر OLS
+#، فإن المعاملات باستخدام الانحدار البايزي متعدد الحدود تتحول قليلاً
+# نحو الصفر، مما يجعلها أكثر استقرارًا. يوفر الانحدار البايزي متعدد الحدود حلاً أكثر ندرة: يتم تعيين بعض المعاملات غير المعلوماتية بدقة إلى
+# الصفر، في حين أن البعض الآخر أقرب إلى الصفر. لا تزال بعض المعاملات غير المعلوماتية موجودة وتحتفظ بقيم كبيرة.
 
 # %%
-# Plot the marginal log-likelihood
+# رسم تسجيل الاحتمال الهامشي
 # --------------------------------
 import numpy as np
 
@@ -117,15 +106,15 @@ plt.legend()
 _ = plt.title("Models log-likelihood")
 
 # %%
-# Indeed, both models minimize the log-likelihood up to an arbitrary cutoff
-# defined by the `max_iter` parameter.
+# في الواقع، يقلل كلا النموذجين من تسجيل الاحتمال حتى حد تعسفي
+# محدد بواسطة معلمة `max_iter`.
 #
-# Bayesian regressions with polynomial feature expansion
+# الانحدارات البايزية مع توسيع الميزات متعددة الحدود
 # ======================================================
-# Generate synthetic dataset
+# توليد مجموعة بيانات صناعية
 # --------------------------
-# We create a target that is a non-linear function of the input feature.
-# Noise following a standard uniform distribution is added.
+# نقوم بإنشاء هدف يكون دالة غير خطية للميزة المدخلة.
+# يتم إضافة ضجيج يتبع توزيع موحد قياسي.
 
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import PolynomialFeatures, StandardScaler
@@ -133,32 +122,29 @@ from sklearn.preprocessing import PolynomialFeatures, StandardScaler
 rng = np.random.RandomState(0)
 n_samples = 110
 
-# sort the data to make plotting easier later
+# فرز البيانات لتسهيل الرسم لاحقًا
 X = np.sort(-10 * rng.rand(n_samples) + 10)
 noise = rng.normal(0, 1, n_samples) * 1.35
 y = np.sqrt(X) * np.sin(X) + noise
 full_data = pd.DataFrame({"input_feature": X, "target": y})
 X = X.reshape((-1, 1))
 
-# extrapolation
+# الاستقراء
 X_plot = np.linspace(10, 10.4, 10)
 y_plot = np.sqrt(X_plot) * np.sin(X_plot)
 X_plot = np.concatenate((X, X_plot.reshape((-1, 1))))
 y_plot = np.concatenate((y - noise, y_plot))
 
 # %%
-# Fit the regressors
+# ملاءمة المنحنيات
 # ------------------
 #
-# Here we try a degree 10 polynomial to potentially overfit, though the bayesian
-# linear models regularize the size of the polynomial coefficients. As
-# `fit_intercept=True` by default for
-# :class:`~sklearn.linear_model.ARDRegression` and
-# :class:`~sklearn.linear_model.BayesianRidge`, then
-# :class:`~sklearn.preprocessing.PolynomialFeatures` should not introduce an
-# additional bias feature. By setting `return_std=True`, the bayesian regressors
-# return the standard deviation of the posterior distribution for the model
-# parameters.
+# هنا نحاول استخدام متعددة حدود من الدرجة 10 لإحداث زيادة في التكيف، على الرغم من أن النماذج الخطية البايزية تنظم حجم معاملات متعددة الحدود. بما أن
+# `fit_intercept=True` بشكل افتراضي لـ
+# :class:`~sklearn.linear_model.ARDRegression` و
+# :class:`~sklearn.linear_model.BayesianRidge`، فإن
+# :class:`~sklearn.preprocessing.PolynomialFeatures` لا يجب أن يقدم ميزة انحياز إضافية. من خلال تعيين `return_std=True`، فإن المنحنيات الانحدارية البايزية
+# تعيد الانحراف المعياري لتوزيع الاحتمال اللاحق لمعاملات النموذج.
 
 ard_poly = make_pipeline(
     PolynomialFeatures(degree=10, include_bias=False),
@@ -175,7 +161,7 @@ y_ard, y_ard_std = ard_poly.predict(X_plot, return_std=True)
 y_brr, y_brr_std = brr_poly.predict(X_plot, return_std=True)
 
 # %%
-# Plotting polynomial regressions with std errors of the scores
+# رسم الانحدارات متعددة الحدود مع أخطاء معايير الدرجات
 # -------------------------------------------------------------
 
 ax = sns.scatterplot(
@@ -202,11 +188,11 @@ ax.legend()
 _ = ax.set_title("Polynomial fit of a non-linear feature")
 
 # %%
-# The error bars represent one standard deviation of the predicted gaussian
-# distribution of the query points. Notice that the ARD regression captures the
-# ground truth the best when using the default parameters in both models, but
-# further reducing the `lambda_init` hyperparameter of the Bayesian Ridge can
-# reduce its bias (see example
+# تمثل أشرطة الخطأ انحرافًا معياريًا واحدًا للتوزيع الغاوسي
+# نقاط الاستعلام. لاحظ أن الانحدار البايزي متعدد الحدود يلتقط
+# الحقيقة الأرضية على أفضل وجه عند استخدام المعلمات الافتراضية في كلا النموذجين، ولكن
+# تقليل معلمة `lambda_init` للانحدار البايزي متعدد الحدود يمكن
+# أن يقلل من تحيزه (انظر المثال
 # :ref:`sphx_glr_auto_examples_linear_model_plot_bayesian_ridge_curvefit.py`).
-# Finally, due to the intrinsic limitations of a polynomial regression, both
-# models fail when extrapolating.
+# وأخيرًا، بسبب القيود الداخلية للانحدار متعدد الحدود، يفشل كلا
+# النموذجان عند الاستقراء.

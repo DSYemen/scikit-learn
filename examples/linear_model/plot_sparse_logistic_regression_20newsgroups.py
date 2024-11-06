@@ -1,22 +1,19 @@
 """
 ====================================================
-Multiclass sparse logistic regression on 20newgroups
+الانحدار اللوجستي المتناثر متعدد الفئات على 20newgroups
 ====================================================
 
-Comparison of multinomial logistic L1 vs one-versus-rest L1 logistic regression
-to classify documents from the newgroups20 dataset. Multinomial logistic
-regression yields more accurate results and is faster to train on the larger
-scale dataset.
+مقارنة الانحدار اللوجستي متعدد الحدود L1 مقابل الانحدار اللوجستي واحد مقابل البقية L1
+لتصنيف المستندات من مجموعة بيانات newgroups20. ينتج الانحدار اللوجستي
+متعدد الحدود نتائج أكثر دقة وهو أسرع في التدريب على مجموعة البيانات الأكبر حجمًا.
 
-Here we use the l1 sparsity that trims the weights of not informative
-features to zero. This is good if the goal is to extract the strongly
-discriminative vocabulary of each class. If the goal is to get the best
-predictive accuracy, it is better to use the non sparsity-inducing l2 penalty
-instead.
+هنا نستخدم التناثر l1 الذي يقلص أوزان الميزات غير المفيدة إلى الصفر. هذا جيد إذا كان
+الهدف هو استخراج المفردات التمييزية القوية لكل فئة. إذا كان الهدف هو الحصول على أفضل
+دقة تنبؤية، فمن الأفضل استخدام عقوبة l2 غير المسببة للتناثر بدلاً من ذلك.
 
-A more traditional (and possibly better) way to predict on a sparse subset of
-input features would be to use univariate feature selection followed by a
-traditional (l2-penalised) logistic regression model.
+هناك طريقة أكثر تقليدية (وربما أفضل) للتنبؤ على مجموعة فرعية متناثرة من
+ميزات الإدخال وهي استخدام اختيار الميزات أحادي المتغير متبوعًا بنموذج
+انحدار لوجستي تقليدي (معاقب بـ l2).
 
 """
 
@@ -38,10 +35,10 @@ from sklearn.multiclass import OneVsRestClassifier
 warnings.filterwarnings("ignore", category=ConvergenceWarning, module="sklearn")
 t0 = timeit.default_timer()
 
-# We use SAGA solver
+# نحن نستخدم مُحل SAGA
 solver = "saga"
 
-# Turn down for faster run time
+# قلل من أجل وقت تشغيل أسرع
 n_samples = 5000
 
 X, y = fetch_20newsgroups_vectorized(subset="all", return_X_y=True)
@@ -55,27 +52,27 @@ train_samples, n_features = X_train.shape
 n_classes = np.unique(y).shape[0]
 
 print(
-    "Dataset 20newsgroup, train_samples=%i, n_features=%i, n_classes=%i"
+    "مجموعة بيانات 20newsgroup، train_samples=%i، n_features=%i، n_classes=%i"
     % (train_samples, n_features, n_classes)
 )
 
 models = {
-    "ovr": {"name": "One versus Rest", "iters": [1, 2, 3]},
-    "multinomial": {"name": "Multinomial", "iters": [1, 2, 5]},
+    "ovr": {"name": "واحد مقابل البقية", "iters": [1, 2, 3]},
+    "multinomial": {"name": "متعدد الحدود", "iters": [1, 2, 5]},
 }
 
 for model in models:
-    # Add initial chance-level values for plotting purpose
+    # إضافة قيم مستوى الفرصة الأولية لأغراض الرسم
     accuracies = [1 / n_classes]
     times = [0]
     densities = [1]
 
     model_params = models[model]
 
-    # Small number of epochs for fast runtime
+    # عدد قليل من العهود لوقت تشغيل سريع
     for this_max_iter in model_params["iters"]:
         print(
-            "[model=%s, solver=%s] Number of epochs: %s"
+            "[model=%s, solver=%s] عدد العهود: %s"
             % (model_params["name"], solver, this_max_iter)
         )
         clf = LogisticRegression(
@@ -103,13 +100,13 @@ for model in models:
     models[model]["times"] = times
     models[model]["densities"] = densities
     models[model]["accuracies"] = accuracies
-    print("Test accuracy for model %s: %.4f" % (model, accuracies[-1]))
+    print("دقة الاختبار للنموذج %s: %.4f" % (model, accuracies[-1]))
     print(
-        "%% non-zero coefficients for model %s, per class:\n %s"
+        "%% معاملات غير صفرية للنموذج %s، لكل فئة:\n %s"
         % (model, densities[-1])
     )
     print(
-        "Run time (%i epochs) for model %s:%.2f"
+        "وقت التشغيل (%i عهود) للنموذج %s:%.2f"
         % (model_params["iters"][-1], model, times[-1])
     )
 
@@ -120,13 +117,15 @@ for model in models:
     name = models[model]["name"]
     times = models[model]["times"]
     accuracies = models[model]["accuracies"]
-    ax.plot(times, accuracies, marker="o", label="Model: %s" % name)
-    ax.set_xlabel("Train time (s)")
-    ax.set_ylabel("Test accuracy")
+    ax.plot(times, accuracies, marker="o", label="النموذج: %s" % name)
+    ax.set_xlabel("وقت التدريب (s)")
+    ax.set_ylabel("دقة الاختبار")
 ax.legend()
-fig.suptitle("Multinomial vs One-vs-Rest Logistic L1\nDataset %s" % "20newsgroups")
+fig.suptitle(
+    "متعدد الحدود مقابل واحد مقابل البقية اللوجستي L1\nمجموعة البيانات %s" % "20newsgroups"
+)
 fig.tight_layout()
 fig.subplots_adjust(top=0.85)
 run_time = timeit.default_timer() - t0
-print("Example run in %.3f s" % run_time)
+print("تم تشغيل المثال في %.3f s" % run_time)
 plt.show()

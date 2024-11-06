@@ -11,10 +11,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/modules/generated/sklearn.metrics.roc_curve.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="Gallery examples: Species distribution modeling Visualizations with Display Objects Detection error tradeoff (DET) curve Multiclass Receiver Operating Characteristic (ROC)" />
+<meta property="og:description" content="Gallery examples: نمذجة توزيع الأنواع" />
 <meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_species_distribution_modeling_thumb.png" />
 <meta property="og:image:alt" content="" />
-<meta name="description" content="Gallery examples: Species distribution modeling Visualizations with Display Objects Detection error tradeoff (DET) curve Multiclass Receiver Operating Characteristic (ROC)" />
+<meta name="description" content="Gallery examples: نمذجة توزيع الأنواع" />
 
     <title>roc_curve &#8212; scikit-learn 1.6.dev0 documentation</title>
   
@@ -1304,7 +1304,7 @@
 <h1>roc_curve<a class="headerlink" href="#roc-curve" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="sklearn.metrics.roc_curve">
-<span class="sig-prename descclassname"><span class="pre">sklearn.metrics.</span></span><span class="sig-name descname"><span class="pre">roc_curve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_score</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_intermediate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/001706117/sklearn/metrics/_ranking.py#L1041"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.metrics.roc_curve" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">sklearn.metrics.</span></span><span class="sig-name descname"><span class="pre">roc_curve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_score</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_intermediate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d6d4571215/sklearn/metrics/_ranking.py#L1041"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.metrics.roc_curve" title="Link to this definition">#</a></dt>
 <dd><p>Compute Receiver operating characteristic (ROC).</p>
 <p>Note: this implementation is restricted to the binary classification task.</p>
 <p>Read more in the <a class="reference internal" href="../model_evaluation.html#roc-metrics"><span class="std std-ref">User Guide</span></a>.</p>
@@ -1398,18 +1398,9 @@ Letters, 2006, 27(8):861-874.</p>
 
 <section id="gallery-examples">
 <h2>Gallery examples<a class="headerlink" href="#gallery-examples" title="Link to this heading">#</a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Modeling species&#x27; geographic distributions is an important problem in conservation biology. In this example, we model the geographic distribution of two South American mammals given past observations and 14 environmental variables. Since we have only positive examples (there are no unsuccessful observations), we cast this problem as a density estimation problem and use the OneClassSVM as our modeling tool. The dataset is provided by Phillips et. al. (2006). If available, the example uses basemap to plot the coast lines and national boundaries of South America."><img alt="" src="../../_images/sphx_glr_plot_species_distribution_modeling_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/applications/plot_species_distribution_modeling.html#sphx-glr-auto-examples-applications-plot-species-distribution-modeling-py"><span class="std std-ref">Species distribution modeling</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Species distribution modeling</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="In this example, we will construct display objects, ConfusionMatrixDisplay, RocCurveDisplay, and PrecisionRecallDisplay directly from their respective metrics. This is an alternative to using their corresponding plot functions when a model&#x27;s predictions are already computed or expensive to compute. Note that this is advanced usage, and in general we recommend using their respective plot functions."><img alt="" src="../../_images/sphx_glr_plot_display_object_visualization_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/miscellaneous/plot_display_object_visualization.html#sphx-glr-auto-examples-miscellaneous-plot-display-object-visualization-py"><span class="std std-ref">Visualizations with Display Objects</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Visualizations with Display Objects</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="In this example, we compare two binary classification multi-threshold metrics: the Receiver Operating Characteristic (ROC) and the Detection Error Tradeoff (DET). For such purpose, we evaluate two different classifiers for the same classification task."><img alt="" src="../../_images/sphx_glr_plot_det_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/model_selection/plot_det.html#sphx-glr-auto-examples-model-selection-plot-det-py"><span class="std std-ref">Detection error tradeoff (DET) curve</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Detection error tradeoff (DET) curve</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example describes the use of the Receiver Operating Characteristic (ROC) metric to evaluate the quality of multiclass classifiers."><img alt="" src="../../_images/sphx_glr_plot_roc_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/model_selection/plot_roc.html#sphx-glr-auto-examples-model-selection-plot-roc-py"><span class="std std-ref">Multiclass Receiver Operating Characteristic (ROC)</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Multiclass Receiver Operating Characteristic (ROC)</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="نمذجة التوزيعات الجغرافية للأنواع هي مشكلة مهمة في علم الأحياء الحفاظي. في هذا المثال، نقوم بنمذجة التوزيع الجغرافي لثدييين من أمريكا الجنوبية بناءً على الملاحظات السابقة و14 متغيرًا بيئيًا. نظرًا لأن لدينا فقط أمثلة إيجابية (لا توجد ملاحظات غير ناجحة), فإننا نطرح هذه المشكلة كتقدير كثافة ونستخدم OneClassSVM كأداة النمذجة الخاصة بنا. توفر مجموعة البيانات من قبل فيليبس وآخرون. (2006). إذا كان متاحًا، يستخدم المثال basemap لرسم خطوط السواحل والحدود الوطنية لأمريكا الجنوبية."><img alt="" src="../../_images/sphx_glr_plot_species_distribution_modeling_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/applications/plot_species_distribution_modeling.html#sphx-glr-auto-examples-applications-plot-species-distribution-modeling-py"><span class="std std-ref">نمذجة توزيع الأنواع</span></a></p>
+  <div class="sphx-glr-thumbnail-title">نمذجة توزيع الأنواع</div>
 </div></div></section>
 </section>
 

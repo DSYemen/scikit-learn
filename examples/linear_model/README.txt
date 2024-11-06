@@ -1,6 +1,6 @@
 .. _linear_examples:
 
-Generalized Linear Models
+النماذج الخطية المعممة
 -------------------------
 
-Examples concerning the :mod:`sklearn.linear_model` module.
+أمثلة تتعلق بوحدة :mod:`sklearn.linear_model`.

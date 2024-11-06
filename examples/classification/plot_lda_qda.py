@@ -1,27 +1,14 @@
 """
-====================================================================
-Linear and Quadratic Discriminant Analysis with covariance ellipsoid
-====================================================================
-
-This example plots the covariance ellipsoids of each class and the decision boundary
-learned by :class:`~sklearn.discriminant_analysis.LinearDiscriminantAnalysis` (LDA) and
-:class:`~sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis` (QDA). The
-ellipsoids display the double standard deviation for each class. With LDA, the standard
-deviation is the same for all the classes, while each class has its own standard
-deviation with QDA.
+هذا مثال لرسم حدود التمييز والقطع الناقص لتشتت كل فئة، والتي تم تعلمها بواسطة :class:`~sklearn.discriminant_analysis.LinearDiscriminantAnalysis` (LDA) و :class:`~sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis` (QDA). يُظهر القطع الناقص الانحراف المعياري المزدوج لكل فئة. مع LDA، يكون الانحراف المعياري هو نفسه لجميع الفئات، في حين أن لكل فئة انحرافها المعياري الخاص بها مع QDA.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# Data generation
+# توليد البيانات
 # ---------------
 #
-# First, we define a function to generate synthetic data. It creates two blobs centered
-# at `(0, 0)` and `(1, 1)`. Each blob is assigned a specific class. The dispersion of
-# the blob is controlled by the parameters `cov_class_1` and `cov_class_2`, that are the
-# covariance matrices used when generating the samples from the Gaussian distributions.
+# أولاً، نُعرّف دالة لتوليد بيانات صناعية. تقوم بإنشاء كتلتين مركزتين عند `(0, 0)` و `(1, 1)`. يتم تعيين فئة محددة لكل كتلة. يتم التحكم في تشتت الكتلة بواسطة المعاملات `cov_class_1` و `cov_class_2`، وهي مصفوفات التشتت المستخدمة عند توليد العينات من التوزيعات الغاوسية.
 import numpy as np
 
 
@@ -38,11 +25,7 @@ def make_data(n_samples, n_features, cov_class_1, cov_class_2, seed=0):
 
 
 # %%
-# We generate three datasets. In the first dataset, the two classes share the same
-# covariance matrix, and this covariance matrix has the specificity of being spherical
-# (isotropic). The second dataset is similar to the first one but does not enforce the
-# covariance to be spherical. Finally, the third dataset has a non-spherical covariance
-# matrix for each class.
+# نقوم بتوليد ثلاث مجموعات بيانات. في مجموعة البيانات الأولى، تشترك الفئتان في نفس مصفوفة التشتت، وتتميز هذه المصفوفة بأنها كروية (متساوية التشتت). مجموعة البيانات الثانية مماثلة للأولى ولكنها لا تفرض أن يكون التشتت كرويًا. وأخيرًا، تمتلك مجموعة البيانات الثالثة مصفوفة تشتت غير كروية لكل فئة.
 covariance = np.array([[1, 0], [0, 1]])
 X_isotropic_covariance, y_isotropic_covariance = make_data(
     n_samples=1_000,
@@ -71,20 +54,16 @@ X_different_covariance, y_different_covariance = make_data(
 
 
 # %%
-# Plotting Functions
+# دالات الرسم
 # ------------------
 #
-# The code below is used to plot several pieces of information from the estimators used,
-# i.e., :class:`~sklearn.discriminant_analysis.LinearDiscriminantAnalysis` (LDA) and
-# :class:`~sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis` (QDA). The
-# displayed information includes:
+# يستخدم الكود أدناه لرسم عدة معلومات من المقدرات المستخدمة، أي :class:`~sklearn.discriminant_analysis.LinearDiscriminantAnalysis` (LDA) و :class:`~sklearn.discriminant_analysis.QuadraticDiscriminantAnalysis` (QDA). وتشمل المعلومات المعروضة:
 #
-# - the decision boundary based on the probability estimate of the estimator;
-# - a scatter plot with circles representing the well-classified samples;
-# - a scatter plot with crosses representing the misclassified samples;
-# - the mean of each class, estimated by the estimator, marked with a star;
-# - the estimated covariance represented by an ellipse at 2 standard deviations from the
-#   mean.
+# - حدود التمييز بناءً على تقدير احتمالية المقدر؛
+# - رسم متفرق مع دوائر تمثل العينات المصنفة بشكل صحيح؛
+# - رسم متفرق مع علامات الصليب التي تمثل العينات المصنفة بشكل خاطئ؛
+# - متوسط كل فئة، المقدر بواسطة المقدر، مع علامة نجمية؛
+# - التشتت المقدر الممثل بقطع ناقص عند انحرافين معياريين من المتوسط.
 import matplotlib as mpl
 from matplotlib import colors
 
@@ -95,8 +74,8 @@ def plot_ellipse(mean, cov, color, ax):
     v, w = np.linalg.eigh(cov)
     u = w[0] / np.linalg.norm(w[0])
     angle = np.arctan(u[1] / u[0])
-    angle = 180 * angle / np.pi  # convert to degrees
-    # filled Gaussian at 2 standard deviation
+    angle = 180 * angle / np.pi  # التحويل إلى درجات
+    # Gaussian مملوء عند انحرافين معياريين
     ell = mpl.patches.Ellipse(
         mean,
         2 * v[0] ** 0.5,
@@ -109,8 +88,6 @@ def plot_ellipse(mean, cov, color, ax):
     ell.set_clip_box(ax.bbox)
     ell.set_alpha(0.4)
     ax.add_artist(ell)
-
-
 def plot_result(estimator, X, y, ax):
     cmap = colors.ListedColormap(["tab:red", "tab:blue"])
     DecisionBoundaryDisplay.from_estimator(
@@ -169,10 +146,10 @@ def plot_result(estimator, X, y, ax):
 
 
 # %%
-# Comparison of LDA and QDA
+# مقارنة LDA و QDA
 # -------------------------
 #
-# We compare the two estimators LDA and QDA on all three datasets.
+# نقارن بين المقدرين LDA و QDA على جميع مجموعات البيانات الثلاث.
 import matplotlib.pyplot as plt
 
 from sklearn.discriminant_analysis import (
@@ -208,21 +185,8 @@ fig.suptitle(
 plt.show()
 
 # %%
-# The first important thing to notice is that LDA and QDA are equivalent for the
-# first and second datasets. Indeed, the major difference is that LDA assumes
-# that the covariance matrix of each class is equal, while QDA estimates a
-# covariance matrix per class. Since in these cases the data generative process
-# has the same covariance matrix for both classes, QDA estimates two covariance
-# matrices that are (almost) equal and therefore equivalent to the covariance
-# matrix estimated by LDA.
+# أول شيء مهم يجب ملاحظته هو أن LDA و QDA متكافئان بالنسبة لمجموعتي البيانات الأولى والثانية. في الواقع، الاختلاف الرئيسي هو أن LDA يفترض أن مصفوفة التشتت لكل فئة متساوية، في حين أن QDA يقدر مصفوفة تشتت لكل فئة. بما أن عملية توليد البيانات في هذه الحالات لها نفس مصفوفة التشتت لكلتا الفئتين، فإن QDA يقدر مصفوفتي تشتت متساويتين (تقريبًا) وبالتالي متكافئتين مع مصفوفة التشتت المقدرة بواسطة LDA.
 #
-# In the first dataset the covariance matrix used to generate the dataset is
-# spherical, which results in a discriminant boundary that aligns with the
-# perpendicular bisector between the two means. This is no longer the case for
-# the second dataset. The discriminant boundary only passes through the middle
-# of the two means.
+# في مجموعة البيانات الأولى، تكون مصفوفة التشتت المستخدمة لتوليد مجموعة البيانات كروية، مما يؤدي إلى حدود تمييز تتطابق مع القاطع العمودي بين المتوسطين. لم يعد هذا هو الحال بالنسبة لمجموعة البيانات الثانية. تمر حدود التمييز فقط عبر منتصف المتوسطين.
 #
-# Finally, in the third dataset, we observe the real difference between LDA and
-# QDA. QDA fits two covariance matrices and provides a non-linear discriminant
-# boundary, whereas LDA underfits since it assumes that both classes share a
-# single covariance matrix.
+# وأخيرًا، في مجموعة البيانات الثالثة، نلاحظ الاختلاف الحقيقي بين LDA و QDA. يقوم QDA بضبط مصفوفتي تشتت ويوفر حدود تمييز غير خطية، في حين أن LDA لا يضبط بشكل صحيح لأنه يفترض أن كلا الفئتين تشتركان في مصفوفة تشتت واحدة.

@@ -1,27 +1,24 @@
 """
 ===================================
-Column Transformer with Mixed Types
+محول الأعمدة مع الأنواع المختلطة
 ===================================
 
 .. currentmodule:: sklearn
 
-This example illustrates how to apply different preprocessing and feature
-extraction pipelines to different subsets of features, using
-:class:`~compose.ColumnTransformer`. This is particularly handy for the
-case of datasets that contain heterogeneous data types, since we may want to
-scale the numeric features and one-hot encode the categorical ones.
+يوضح هذا المثال كيفية تطبيق خطوط أنابيب مختلفة للمعالجة المسبقة واستخراج الميزات على مجموعات فرعية مختلفة من الميزات، باستخدام
+:class:`~compose.ColumnTransformer`. هذا مفيد بشكل خاص في حالة مجموعات البيانات التي تحتوي على أنواع بيانات غير متجانسة، حيث قد نرغب في
+قياس الميزات الرقمية وترميز الميزات الفئوية بنظام الترميز الثنائي.
 
-In this example, the numeric data is standard-scaled after mean-imputation. The
-categorical data is one-hot encoded via ``OneHotEncoder``, which
-creates a new category for missing values. We further reduce the dimensionality
-by selecting categories using a chi-squared test.
+في هذا المثال، يتم توحيد قياس البيانات الرقمية بعد إسناد القيم المتوسطة.
+يتم ترميز البيانات الفئوية بنظام الترميز الثنائي عبر ``OneHotEncoder``، مما
+يؤدي إلى إنشاء فئة جديدة للقيم المفقودة. نقوم أيضًا بتقليل الأبعاد
+عن طريق تحديد الفئات باستخدام اختبار مربع كاي.
 
-In addition, we show two different ways to dispatch the columns to the
-particular pre-processor: by column names and by column data types.
+بالإضافة إلى ذلك، نعرض طريقتين مختلفتين لتوزيع الأعمدة على
+أداة المعالجة المسبقة الخاصة: حسب أسماء الأعمدة وحسب أنواع بيانات الأعمدة.
 
-Finally, the preprocessing pipeline is integrated in a full prediction pipeline
-using :class:`~pipeline.Pipeline`, together with a simple classification
-model.
+أخيرًا، يتم دمج خط أنابيب المعالجة المسبقة في خط أنابيب التنبؤ الكامل
+باستخدام :class:`~pipeline.Pipeline`، جنبًا إلى جنب مع نموذج تصنيف بسيط.
 
 """
 
@@ -29,6 +26,8 @@ model.
 # SPDX-License-Identifier: BSD-3-Clause
 
 # %%
+import pandas as pd
+from sklearn.compose import make_column_selector as selector
 import numpy as np
 
 from sklearn.compose import ColumnTransformer
@@ -43,36 +42,36 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 np.random.seed(0)
 
 # %%
-# Load data from https://www.openml.org/d/40945
+# تحميل البيانات من https://www.openml.org/d/40945
 X, y = fetch_openml("titanic", version=1, as_frame=True, return_X_y=True)
 
-# Alternatively X and y can be obtained directly from the frame attribute:
+# بدلاً من ذلك، يمكن الحصول على X و y مباشرةً من سمة الإطار:
 # X = titanic.frame.drop('survived', axis=1)
 # y = titanic.frame['survived']
 
 # %%
-# Use ``ColumnTransformer`` by selecting column by names
+# استخدام ``ColumnTransformer`` عن طريق تحديد العمود بالأسماء
 #
-# We will train our classifier with the following features:
+# سندرب المصنف الخاص بنا بالمميزات التالية:
 #
-# Numeric Features:
+# المميزات الرقمية:
 #
-# * ``age``: float;
-# * ``fare``: float.
+# * ``age``: عائم؛
+# * ``fare``: عائم.
 #
-# Categorical Features:
+# المميزات الفئوية:
 #
-# * ``embarked``: categories encoded as strings ``{'C', 'S', 'Q'}``;
-# * ``sex``: categories encoded as strings ``{'female', 'male'}``;
-# * ``pclass``: ordinal integers ``{1, 2, 3}``.
+# * ``embarked``: فئات مشفرة كسلاسل ``{'C', 'S', 'Q'}``؛
+# * ``sex``: فئات مشفرة كسلاسل ``{'female', 'male'}``؛
+# * ``pclass``: أعداد صحيحة ترتيبية ``{1, 2, 3}``.
 #
-# We create the preprocessing pipelines for both numeric and categorical data.
-# Note that ``pclass`` could either be treated as a categorical or numeric
-# feature.
+# نقوم بإنشاء خطوط أنابيب المعالجة المسبقة لكل من البيانات الرقمية والفئوية.
+# لاحظ أنه يمكن معاملة ``pclass`` إما كميزة فئوية أو رقمية.
 
 numeric_features = ["age", "fare"]
 numeric_transformer = Pipeline(
-    steps=[("imputer", SimpleImputer(strategy="median")), ("scaler", StandardScaler())]
+    steps=[("imputer", SimpleImputer(strategy="median")),
+           ("scaler", StandardScaler())]
 )
 
 categorical_features = ["embarked", "sex", "pclass"]
@@ -90,57 +89,58 @@ preprocessor = ColumnTransformer(
 )
 
 # %%
-# Append classifier to preprocessing pipeline.
-# Now we have a full prediction pipeline.
+# إلحاق المصنف بخط أنابيب المعالجة المسبقة.
+# الآن لدينا خط أنابيب تنبؤ كامل.
 clf = Pipeline(
-    steps=[("preprocessor", preprocessor), ("classifier", LogisticRegression())]
+    steps=[("preprocessor", preprocessor),
+           ("classifier", LogisticRegression())]
 )
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=0)
 
 clf.fit(X_train, y_train)
 print("model score: %.3f" % clf.score(X_test, y_test))
 
 # %%
-# HTML representation of ``Pipeline`` (display diagram)
+# تمثيل HTML لـ ``Pipeline`` (عرض الرسم التخطيطي)
 #
-# When the ``Pipeline`` is printed out in a jupyter notebook an HTML
-# representation of the estimator is displayed:
+# عندما تتم طباعة ``Pipeline`` في دفتر ملاحظات jupyter، يتم عرض تمثيل HTML
+# للمقدر:
 clf
 
 # %%
-# Use ``ColumnTransformer`` by selecting column by data types
+# استخدام ``ColumnTransformer`` عن طريق تحديد العمود حسب أنواع البيانات
 #
-# When dealing with a cleaned dataset, the preprocessing can be automatic by
-# using the data types of the column to decide whether to treat a column as a
-# numerical or categorical feature.
-# :func:`sklearn.compose.make_column_selector` gives this possibility.
-# First, let's only select a subset of columns to simplify our
-# example.
+# عند التعامل مع مجموعة بيانات منظفة، يمكن أن تكون المعالجة المسبقة تلقائية
+# باستخدام أنواع بيانات العمود لتحديد ما إذا كان يجب معاملة العمود على أنه
+# ميزة رقمية أو فئوية.
+# :func:`sklearn.compose.make_column_selector` يعطي هذه الإمكانية.
+# أولاً، لنحدد فقط مجموعة فرعية من الأعمدة لتبسيط
+# مثالنا.
 
 subset_feature = ["embarked", "sex", "pclass", "age", "fare"]
 X_train, X_test = X_train[subset_feature], X_test[subset_feature]
 
 # %%
-# Then, we introspect the information regarding each column data type.
+# ثم، نتفحص المعلومات المتعلقة بكل نوع بيانات عمود.
 
 X_train.info()
 
 # %%
-# We can observe that the `embarked` and `sex` columns were tagged as
-# `category` columns when loading the data with ``fetch_openml``. Therefore, we
-# can use this information to dispatch the categorical columns to the
-# ``categorical_transformer`` and the remaining columns to the
+# يمكننا ملاحظة أن عمودي `embarked` و `sex` تم وضع علامة عليهما كأعمدة
+# `category` عند تحميل البيانات باستخدام ``fetch_openml``. لذلك، يمكننا
+# استخدام هذه المعلومات لتوزيع الأعمدة الفئوية على
+# ``categorical_transformer`` والأعمدة المتبقية على
 # ``numerical_transformer``.
 
 # %%
-# .. note:: In practice, you will have to handle yourself the column data type.
-#    If you want some columns to be considered as `category`, you will have to
-#    convert them into categorical columns. If you are using pandas, you can
-#    refer to their documentation regarding `Categorical data
+# .. note:: عمليًا، سيتعين عليك التعامل بنفسك مع نوع بيانات العمود.
+#    إذا كنت تريد اعتبار بعض الأعمدة على أنها `category`، فسيتعين عليك
+#    تحويلها إلى أعمدة فئوية. إذا كنت تستخدم pandas، فيمكنك
+#    الرجوع إلى وثائقهم المتعلقة بـ `البيانات الفئوية
 #    <https://pandas.pydata.org/pandas-docs/stable/user_guide/categorical.html>`_.
 
-from sklearn.compose import make_column_selector as selector
 
 preprocessor = ColumnTransformer(
     transformers=[
@@ -149,7 +149,8 @@ preprocessor = ColumnTransformer(
     ]
 )
 clf = Pipeline(
-    steps=[("preprocessor", preprocessor), ("classifier", LogisticRegression())]
+    steps=[("preprocessor", preprocessor),
+           ("classifier", LogisticRegression())]
 )
 
 
@@ -158,9 +159,8 @@ print("model score: %.3f" % clf.score(X_test, y_test))
 clf
 
 # %%
-# The resulting score is not exactly the same as the one from the previous
-# pipeline because the dtype-based selector treats the ``pclass`` column as
-# a numeric feature instead of a categorical feature as previously:
+# النتيجة الناتجة ليست تمامًا نفس النتيجة من خط الأنابيب السابق لأن المحدد القائم على dtype يعامل عمود ``pclass`` على أنه
+# ميزة رقمية بدلاً من ميزة فئوية كما كان من قبل:
 
 selector(dtype_exclude="category")(X_train)
 
@@ -168,19 +168,20 @@ selector(dtype_exclude="category")(X_train)
 
 selector(dtype_include="category")(X_train)
 
+
 # %%
-# Using the prediction pipeline in a grid search
+# استخدام خط أنابيب التنبؤ في بحث شبكي
 #
-# Grid search can also be performed on the different preprocessing steps
-# defined in the ``ColumnTransformer`` object, together with the classifier's
-# hyperparameters as part of the ``Pipeline``.
-# We will search for both the imputer strategy of the numeric preprocessing
-# and the regularization parameter of the logistic regression using
-# :class:`~sklearn.model_selection.RandomizedSearchCV`. This
-# hyperparameter search randomly selects a fixed number of parameter
-# settings configured by `n_iter`. Alternatively, one can use
-# :class:`~sklearn.model_selection.GridSearchCV` but the cartesian product of
-# the parameter space will be evaluated.
+# يمكن أيضًا إجراء البحث الشبكي على خطوات المعالجة المسبقة المختلفة
+# المحددة في كائن ``ColumnTransformer``، جنبًا إلى جنب مع معلمات المصنف الفائقة
+# كجزء من ``Pipeline``.
+# سنبحث عن كل من استراتيجية الإسناد للمعالجة المسبقة الرقمية
+# ومعلمة التنظيم للانحدار اللوجستي باستخدام
+# :class:`~sklearn.model_selection.RandomizedSearchCV`. يختار بحث المعلمات الفائقة هذا عشوائيًا عددًا ثابتًا من إعدادات المعلمات
+# التي تم تكوينها بواسطة `n_iter`. بدلاً من ذلك، يمكن للمرء استخدام
+# :class:`~sklearn.model_selection.GridSearchCV` ولكن سيتم تقييم المنتج الديكارتي
+# لمساحة المعلمات.
+
 
 param_grid = {
     "preprocessor__num__imputer__strategy": ["mean", "median"],
@@ -192,8 +193,8 @@ search_cv = RandomizedSearchCV(clf, param_grid, n_iter=10, random_state=0)
 search_cv
 
 # %%
-# Calling 'fit' triggers the cross-validated search for the best
-# hyper-parameters combination:
+# يؤدي استدعاء 'fit' إلى تشغيل البحث المتقاطع للتحقق من صحة أفضل
+# مزيج من المعلمات الفائقة:
 #
 search_cv.fit(X_train, y_train)
 
@@ -201,12 +202,11 @@ print("Best params:")
 print(search_cv.best_params_)
 
 # %%
-# The internal cross-validation scores obtained by those parameters is:
+# درجات التحقق المتقاطع الداخلي التي تم الحصول عليها بواسطة هذه المعلمات هي:
 print(f"Internal CV score: {search_cv.best_score_:.3f}")
 
 # %%
-# We can also introspect the top grid search results as a pandas dataframe:
-import pandas as pd
+# يمكننا أيضًا فحص أفضل نتائج البحث الشبكي كإطار بيانات pandas:
 
 cv_results = pd.DataFrame(search_cv.cv_results_)
 cv_results = cv_results.sort_values("mean_test_score", ascending=False)
@@ -221,9 +221,7 @@ cv_results[
 ].head(5)
 
 # %%
-# The best hyper-parameters have be used to re-fit a final model on the full
-# training set. We can evaluate that final model on held out test data that was
-# not used for hyperparameter tuning.
+# تم استخدام أفضل المعلمات الفائقة لإعادة ملاءمة نموذج نهائي على مجموعة التدريب الكاملة. يمكننا تقييم ذلك النموذج النهائي على بيانات الاختبار المحتجزة التي لم يتم استخدامها لضبط المعلمات الفائقة.
 #
 print(
     "accuracy of the best model from randomized search: "

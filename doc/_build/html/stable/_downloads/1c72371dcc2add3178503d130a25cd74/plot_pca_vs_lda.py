@@ -1,25 +1,16 @@
 """
-=======================================================
-Comparison of LDA and PCA 2D projection of Iris dataset
-=======================================================
+==============================================================================
+مقارنة بين الإسقاط ثنائي الأبعاد للمجموعة البيانات آيريس باستخدام LDA وPCA
+==============================================================================
 
-The Iris dataset represents 3 kind of Iris flowers (Setosa, Versicolour
-and Virginica) with 4 attributes: sepal length, sepal width, petal length
-and petal width.
+تمثل مجموعة بيانات آيريس 3 أنواع من زهور آيريس (سيتوسا، وفيرسيكولور، وفيرجينيكا) مع 4 خصائص: طول الكأس، وعرض الكأس، وطول البتلة، وعرض البتلة.
 
-Principal Component Analysis (PCA) applied to this data identifies the
-combination of attributes (principal components, or directions in the
-feature space) that account for the most variance in the data. Here we
-plot the different samples on the 2 first principal components.
+تحدد تحليل المكونات الرئيسية (PCA) المطبق على هذه البيانات مجموعة الخصائص (المكونات الرئيسية، أو الاتجاهات في فضاء الميزات) التي تفسر معظم التباين في البيانات. هنا نرسم العينات المختلفة على أول مكونين رئيسيين.
 
-Linear Discriminant Analysis (LDA) tries to identify attributes that
-account for the most variance *between classes*. In particular,
-LDA, in contrast to PCA, is a supervised method, using known class labels.
-
+يحاول تحليل التمييز الخطي (LDA) تحديد الخصائص التي تفسر معظم التباين *بين الفئات*. وعلى وجه الخصوص، فإن LDA، على عكس PCA، هي طريقة مُشرفة تستخدم تسميات الفئات المعروفة.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايت-ليرن
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 
@@ -39,7 +30,7 @@ X_r = pca.fit(X).transform(X)
 lda = LinearDiscriminantAnalysis(n_components=2)
 X_r2 = lda.fit(X, y).transform(X)
 
-# Percentage of variance explained for each components
+# نسبة التباين الموضحة لكل مكون
 print(
     "explained variance ratio (first two components): %s"
     % str(pca.explained_variance_ratio_)

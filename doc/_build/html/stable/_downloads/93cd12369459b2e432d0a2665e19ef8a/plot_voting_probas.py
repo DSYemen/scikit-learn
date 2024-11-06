@@ -1,25 +1,25 @@
 """
 ===========================================================
-Plot class probabilities calculated by the VotingClassifier
+رسم احتمالات الفئات المحسوبة بواسطة VotingClassifier
 ===========================================================
 
 .. currentmodule:: sklearn
 
-Plot the class probabilities of the first sample in a toy dataset predicted by
-three different classifiers and averaged by the
+رسم احتمالات الفئات للعينة الأولى في مجموعة بيانات تجريبية متوقعة بواسطة
+ثلاثة مصنفات مختلفة ومتوسط بواسطة
 :class:`~ensemble.VotingClassifier`.
 
-First, three exemplary classifiers are initialized
-(:class:`~linear_model.LogisticRegression`, :class:`~naive_bayes.GaussianNB`,
-and :class:`~ensemble.RandomForestClassifier`) and used to initialize a
-soft-voting :class:`~ensemble.VotingClassifier` with weights `[1, 1, 5]`, which
-means that the predicted probabilities of the
-:class:`~ensemble.RandomForestClassifier` count 5 times as much as the weights
-of the other classifiers when the averaged probability is calculated.
+أولاً، تتم تهيئة ثلاثة مصنفات نموذجية
+(:class:`~linear_model.LogisticRegression` و :class:`~naive_bayes.GaussianNB`
+و :class:`~ensemble.RandomForestClassifier`) وتستخدم لتهيئة
+:class:`~ensemble.VotingClassifier` للتصويت الناعم مع أوزان `[1، 1، 5]`، مما
+يعني أن احتمالات التنبؤ لـ
+:class:`~ensemble.RandomForestClassifier` تحسب 5 مرات بقدر أوزان
+المصنفات الأخرى عند حساب الاحتمال المتوسط.
 
-To visualize the probability weighting, we fit each classifier on the training
-set and plot the predicted class probabilities for the first sample in this
-example dataset.
+لتصور ترجيح الاحتمال، نقوم بملاءمة كل مصنف على مجموعة التدريب
+ورسم احتمالات الفئات المتوقعة للعينة الأولى في مجموعة البيانات
+النموذجية هذه.
 
 """
 
@@ -45,23 +45,23 @@ eclf = VotingClassifier(
     weights=[1, 1, 5],
 )
 
-# predict class probabilities for all classifiers
+# تنبؤ باحتمالات الفئات لجميع المصنفات
 probas = [c.fit(X, y).predict_proba(X) for c in (clf1, clf2, clf3, eclf)]
 
-# get class probabilities for the first sample in the dataset
+# الحصول على احتمالات الفئات للعينة الأولى في مجموعة البيانات
 class1_1 = [pr[0, 0] for pr in probas]
 class2_1 = [pr[0, 1] for pr in probas]
 
 
-# plotting
+# الرسم
 
-N = 4  # number of groups
-ind = np.arange(N)  # group positions
-width = 0.35  # bar width
+N = 4  # عدد المجموعات
+ind = np.arange(N)  # مواضع المجموعات
+width = 0.35  # عرض الشريط
 
 fig, ax = plt.subplots()
 
-# bars for classifier 1-3
+# أشرطة للمصنف 1-3
 p1 = ax.bar(ind, np.hstack(([class1_1[:-1], [0]])), width, color="green", edgecolor="k")
 p2 = ax.bar(
     ind + width,
@@ -71,27 +71,27 @@ p2 = ax.bar(
     edgecolor="k",
 )
 
-# bars for VotingClassifier
+# أشرطة لـ VotingClassifier
 p3 = ax.bar(ind, [0, 0, 0, class1_1[-1]], width, color="blue", edgecolor="k")
 p4 = ax.bar(
     ind + width, [0, 0, 0, class2_1[-1]], width, color="steelblue", edgecolor="k"
 )
 
-# plot annotations
+# تعليقات بيانية
 plt.axvline(2.8, color="k", linestyle="dashed")
 ax.set_xticks(ind + width)
 ax.set_xticklabels(
     [
-        "LogisticRegression\nweight 1",
-        "GaussianNB\nweight 1",
-        "RandomForestClassifier\nweight 5",
-        "VotingClassifier\n(average probabilities)",
+        "LogisticRegression\n الوزن 1",
+        "GaussianNB\n الوزن 1",
+        "RandomForestClassifier\n الوزن 5",
+        "VotingClassifier\n (متوسط الاحتمالات)",
     ],
     rotation=40,
     ha="right",
 )
 plt.ylim([0, 1])
-plt.title("Class probabilities for sample 1 by different classifiers")
-plt.legend([p1[0], p2[0]], ["class 1", "class 2"], loc="upper left")
+plt.title("احتمالات الفئات للعينة 1 بواسطة مصنفات مختلفة")
+plt.legend([p1[0], p2[0]], ["الفئة 1", "الفئة 2"], loc="upper left")
 plt.tight_layout()
 plt.show()

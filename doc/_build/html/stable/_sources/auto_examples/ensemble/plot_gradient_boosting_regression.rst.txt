@@ -19,23 +19,18 @@
 
 
 ============================
-Gradient Boosting regression
+انحدار التعزيز المتدرج
 ============================
 
-This example demonstrates Gradient Boosting to produce a predictive
-model from an ensemble of weak predictive models. Gradient boosting can be used
-for regression and classification problems. Here, we will train a model to
-tackle a diabetes regression task. We will obtain the results from
-:class:`~sklearn.ensemble.GradientBoostingRegressor` with least squares loss
-and 500 regression trees of depth 4.
+يوضح هذا المثال التعزيز المتدرج لإنتاج نموذج تنبؤي من مجموعة من النماذج التنبؤية الضعيفة. يمكن استخدام التعزيز المتدرج لمشاكل الانحدار والتصنيف. هنا، سوف نقوم بتدريب نموذج لمعالجة مهمة انحدار مرض السكري. سنحصل على النتائج من
+:class:`~sklearn.ensemble.GradientBoostingRegressor` مع خسارة المربعات الصغرى و 500 شجرة انحدار بعمق 4.
 
-Note: For larger datasets (n_samples >= 10000), please refer to
-:class:`~sklearn.ensemble.HistGradientBoostingRegressor`. See
-:ref:`sphx_glr_auto_examples_ensemble_plot_hgbt_regression.py` for an example
-showcasing some other advantages of
+ملاحظة: لمجموعات البيانات الأكبر (n_samples >= 10000)، يرجى الرجوع إلى
+:class:`~sklearn.ensemble.HistGradientBoostingRegressor`. انظر
+:ref:`sphx_glr_auto_examples_ensemble_plot_hgbt_regression.py` للحصول على مثال يعرض بعض المزايا الأخرى لـ
 :class:`~ensemble.HistGradientBoostingRegressor`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 20-34
+.. GENERATED FROM PYTHON SOURCE LINES 15-29
 
 .. code-block:: Python
 
@@ -60,14 +55,14 @@ showcasing some other advantages of
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 35-39
+.. GENERATED FROM PYTHON SOURCE LINES 30-34
 
-Load the data
+تحميل البيانات
 -------------------------------------
 
-First we need to load the data.
+أولاً، نحتاج إلى تحميل البيانات.
 
-.. GENERATED FROM PYTHON SOURCE LINES 39-43
+.. GENERATED FROM PYTHON SOURCE LINES 34-38
 
 .. code-block:: Python
 
@@ -82,31 +77,31 @@ First we need to load the data.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 44-65
+.. GENERATED FROM PYTHON SOURCE LINES 39-60
 
-Data preprocessing
+تجهيز البيانات
 -------------------------------------
 
-Next, we will split our dataset to use 90% for training and leave the rest
-for testing. We will also set the regression model parameters. You can play
-with these parameters to see how the results change.
+بعد ذلك، سنقوم بتقسيم مجموعة البيانات لدينا لاستخدام 90٪ للتدريب وترك الباقي
+للاختبار. سنقوم أيضًا بتعيين معلمات نموذج الانحدار. يمكنك اللعب
+بهذه المعلمات لمعرفة كيفية تغير النتائج.
 
-`n_estimators` : the number of boosting stages that will be performed.
-Later, we will plot deviance against boosting iterations.
+`n_estimators` : عدد مراحل التعزيز التي سيتم إجراؤها.
+لاحقًا، سنقوم برسم الانحراف مقابل تكرارات التعزيز.
 
-`max_depth` : limits the number of nodes in the tree.
-The best value depends on the interaction of the input variables.
+`max_depth` : يحد من عدد العقد في الشجرة.
+تعتمد أفضل قيمة على تفاعل متغيرات الإدخال.
 
-`min_samples_split` : the minimum number of samples required to split an
-internal node.
+`min_samples_split` : الحد الأدنى لعدد العينات المطلوبة لتقسيم
+عقدة داخلية.
 
-`learning_rate` : how much the contribution of each tree will shrink.
+`learning_rate` : مقدار انكماش مساهمة كل شجرة.
 
-`loss` : loss function to optimize. The least squares function is  used in
-this case however, there are many other options (see
+`loss` : دالة الخسارة المراد تحسينها. يتم استخدام دالة المربعات الصغرى في
+هذه الحالة، ومع ذلك، هناك العديد من الخيارات الأخرى (انظر
 :class:`~sklearn.ensemble.GradientBoostingRegressor` ).
 
-.. GENERATED FROM PYTHON SOURCE LINES 65-78
+.. GENERATED FROM PYTHON SOURCE LINES 60-73
 
 .. code-block:: Python
 
@@ -130,15 +125,14 @@ this case however, there are many other options (see
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 79-84
+.. GENERATED FROM PYTHON SOURCE LINES 74-78
 
-Fit regression model
+ملاءمة نموذج الانحدار
 --------------------
 
-Now we will initiate the gradient boosting regressors and fit it with our
-training data. Let's also look and the mean squared error on the test data.
+الآن سنبدأ منحنيات انحدار التعزيز المتدرج ونلائمها مع بيانات التدريب الخاصة بنا. دعونا نلقي نظرة أيضًا على متوسط ​​مربع الخطأ في بيانات الاختبار.
 
-.. GENERATED FROM PYTHON SOURCE LINES 84-91
+.. GENERATED FROM PYTHON SOURCE LINES 78-85
 
 .. code-block:: Python
 
@@ -147,7 +141,7 @@ training data. Let's also look and the mean squared error on the test data.
     reg.fit(X_train, y_train)
 
     mse = mean_squared_error(y_test, reg.predict(X_test))
-    print("The mean squared error (MSE) on test set: {:.4f}".format(mse))
+    print("متوسط ​​مربع الخطأ (MSE) في مجموعة الاختبار: {:.4f}".format(mse))
 
 
 
@@ -157,20 +151,20 @@ training data. Let's also look and the mean squared error on the test data.
 
  .. code-block:: none
 
-    The mean squared error (MSE) on test set: 3016.1436
+    متوسط ​​مربع الخطأ (MSE) في مجموعة الاختبار: 3014.8748
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 92-97
+.. GENERATED FROM PYTHON SOURCE LINES 86-91
 
-Plot training deviance
+رسم انحراف التدريب
 ----------------------
 
-Finally, we will visualize the results. To do that we will first compute the
-test set deviance and then plot it against boosting iterations.
+أخيرًا، سنقوم بتصور النتائج. للقيام بذلك، سنقوم أولاً بحساب
+انحراف مجموعة الاختبار ثم رسمه مقابل تكرارات التعزيز.
 
-.. GENERATED FROM PYTHON SOURCE LINES 97-120
+.. GENERATED FROM PYTHON SOURCE LINES 91-114
 
 .. code-block:: Python
 
@@ -181,19 +175,19 @@ test set deviance and then plot it against boosting iterations.
 
     fig = plt.figure(figsize=(6, 6))
     plt.subplot(1, 1, 1)
-    plt.title("Deviance")
+    plt.title("الانحراف")
     plt.plot(
         np.arange(params["n_estimators"]) + 1,
         reg.train_score_,
         "b-",
-        label="Training Set Deviance",
+        label="انحراف مجموعة التدريب",
     )
     plt.plot(
-        np.arange(params["n_estimators"]) + 1, test_score, "r-", label="Test Set Deviance"
+        np.arange(params["n_estimators"]) + 1, test_score, "r-", label="انحراف مجموعة الاختبار"
     )
     plt.legend(loc="upper right")
-    plt.xlabel("Boosting Iterations")
-    plt.ylabel("Deviance")
+    plt.xlabel("تكرارات التعزيز")
+    plt.ylabel("الانحراف")
     fig.tight_layout()
     plt.show()
 
@@ -201,7 +195,7 @@ test set deviance and then plot it against boosting iterations.
 
 
 .. image-sg:: /auto_examples/ensemble/images/sphx_glr_plot_gradient_boosting_regression_001.png
-   :alt: Deviance
+   :alt: الانحراف
    :srcset: /auto_examples/ensemble/images/sphx_glr_plot_gradient_boosting_regression_001.png
    :class: sphx-glr-single-img
 
@@ -209,24 +203,22 @@ test set deviance and then plot it against boosting iterations.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 121-135
+.. GENERATED FROM PYTHON SOURCE LINES 115-127
 
-Plot feature importance
+رسم أهمية الميزة
 -----------------------
 
 .. warning::
-   Careful, impurity-based feature importances can be misleading for
-   **high cardinality** features (many unique values). As an alternative,
-   the permutation importances of ``reg`` can be computed on a
-   held out test set. See :ref:`permutation_importance` for more details.
+   احذر، يمكن أن تكون أهمية الميزات المستندة إلى الشوائب مضللة للميزات ذات
+   **الأهمية العالية** (العديد من القيم الفريدة). كبديل،
+   يمكن حساب أهمية التبديل لـ ``reg`` في
+   مجموعة اختبار معلقة. انظر :ref:`permutation_importance` لمزيد من التفاصيل.
 
-For this example, the impurity-based and permutation methods identify the
-same 2 strongly predictive features but not in the same order. The third most
-predictive feature, "bp", is also the same for the 2 methods. The remaining
-features are less predictive and the error bars of the permutation plot
-show that they overlap with 0.
+في هذا المثال، تحدد طرق الشوائب والتبديل نفس الميزتين التنبؤيتين القويتين ولكن ليس بنفس الترتيب. الميزة التنبؤية الثالثة، "bp"، هي أيضًا نفسها بالنسبة للطريقتين. الميزات
+المتبقية أقل تنبؤيةً وتُظهر أشرطة الخطأ في مخطط التبديل
+أنها تتداخل مع 0.
 
-.. GENERATED FROM PYTHON SOURCE LINES 135-167
+.. GENERATED FROM PYTHON SOURCE LINES 127-159
 
 .. code-block:: Python
 
@@ -238,7 +230,7 @@ show that they overlap with 0.
     plt.subplot(1, 2, 1)
     plt.barh(pos, feature_importance[sorted_idx], align="center")
     plt.yticks(pos, np.array(diabetes.feature_names)[sorted_idx])
-    plt.title("Feature Importance (MDI)")
+    plt.title("أهمية الميزة (MDI)")
 
     result = permutation_importance(
         reg, X_test, y_test, n_repeats=10, random_state=42, n_jobs=2
@@ -246,10 +238,10 @@ show that they overlap with 0.
     sorted_idx = result.importances_mean.argsort()
     plt.subplot(1, 2, 2)
 
-    # `labels` argument in boxplot is deprecated in matplotlib 3.9 and has been
-    # renamed to `tick_labels`. The following code handles this, but as a
-    # scikit-learn user you probably can write simpler code by using `labels=...`
-    # (matplotlib < 3.9) or `tick_labels=...` (matplotlib >= 3.9).
+    # تم إهمال وسيطة `labels` في boxplot في matplotlib 3.9 وتمت
+    # إعادة تسميتها إلى `tick_labels`. يتعامل الكود التالي مع هذا، ولكن بصفتك
+    # مستخدمًا لـ scikit-learn، فمن المحتمل أن تتمكن من كتابة كود أبسط باستخدام `labels=...`
+    # (matplotlib < 3.9) أو `tick_labels=...` (matplotlib >= 3.9).
     tick_labels_parameter_name = (
         "tick_labels"
         if parse_version(matplotlib.__version__) >= parse_version("3.9")
@@ -259,14 +251,14 @@ show that they overlap with 0.
         tick_labels_parameter_name: np.array(diabetes.feature_names)[sorted_idx]
     }
     plt.boxplot(result.importances[sorted_idx].T, vert=False, **tick_labels_dict)
-    plt.title("Permutation Importance (test set)")
+    plt.title("أهمية التبديل (مجموعة الاختبار)")
     fig.tight_layout()
     plt.show()
 
 
 
 .. image-sg:: /auto_examples/ensemble/images/sphx_glr_plot_gradient_boosting_regression_002.png
-   :alt: Feature Importance (MDI), Permutation Importance (test set)
+   :alt: أهمية الميزة (MDI), أهمية التبديل (مجموعة الاختبار)
    :srcset: /auto_examples/ensemble/images/sphx_glr_plot_gradient_boosting_regression_002.png
    :class: sphx-glr-single-img
 
@@ -277,7 +269,7 @@ show that they overlap with 0.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.607 seconds)
+   **Total running time of the script:** (0 minutes 1.928 seconds)
 
 
 .. _sphx_glr_download_auto_examples_ensemble_plot_gradient_boosting_regression.py:

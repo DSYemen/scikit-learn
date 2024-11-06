@@ -1,25 +1,24 @@
 """
 ==================================================
-Plot the decision boundaries of a VotingClassifier
+رسم حدود القرار لـ VotingClassifier
 ==================================================
 
 .. currentmodule:: sklearn
 
-Plot the decision boundaries of a :class:`~ensemble.VotingClassifier` for two
-features of the Iris dataset.
+رسم حدود القرار لـ :class:`~ensemble.VotingClassifier` لميزتين من مجموعة بيانات Iris.
 
-Plot the class probabilities of the first sample in a toy dataset predicted by
-three different classifiers and averaged by the
+رسم احتمالات الفئة للعينة الأولى في مجموعة بيانات تجريبية تم التنبؤ بها بواسطة
+ثلاثة مصنفات مختلفة وتم حساب متوسطها بواسطة
 :class:`~ensemble.VotingClassifier`.
 
-First, three exemplary classifiers are initialized
-(:class:`~tree.DecisionTreeClassifier`,
-:class:`~neighbors.KNeighborsClassifier`, and :class:`~svm.SVC`) and used to
-initialize a soft-voting :class:`~ensemble.VotingClassifier` with weights `[2,
-1, 2]`, which means that the predicted probabilities of the
-:class:`~tree.DecisionTreeClassifier` and :class:`~svm.SVC` each count 2 times
-as much as the weights of the :class:`~neighbors.KNeighborsClassifier`
-classifier when the averaged probability is calculated.
+أولاً، يتم تهيئة ثلاثة مصنفات نموذجية
+(:class:`~tree.DecisionTreeClassifier`،
+:class:`~neighbors.KNeighborsClassifier`، و :class:`~svm.SVC`) وتستخدم
+لتهيئة :class:`~ensemble.VotingClassifier` للتصويت الناعم مع أوزان `[2،
+1، 2]`، مما يعني أن الاحتمالات المتوقعة لـ
+:class:`~tree.DecisionTreeClassifier` و :class:`~svm.SVC` يتم احتساب كل منها مرتين
+بقدر أوزان مصنف :class:`~neighbors.KNeighborsClassifier`
+عندما يتم حساب الاحتمال المتوسط.
 
 """
 
@@ -37,12 +36,12 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 
-# Loading some example data
+# تحميل بعض بيانات المثال
 iris = datasets.load_iris()
 X = iris.data[:, [0, 2]]
 y = iris.target
 
-# Training classifiers
+# تدريب المصنفات
 clf1 = DecisionTreeClassifier(max_depth=4)
 clf2 = KNeighborsClassifier(n_neighbors=7)
 clf3 = SVC(gamma=0.1, kernel="rbf", probability=True)
@@ -57,12 +56,12 @@ clf2.fit(X, y)
 clf3.fit(X, y)
 eclf.fit(X, y)
 
-# Plotting decision regions
+# رسم مناطق القرار
 f, axarr = plt.subplots(2, 2, sharex="col", sharey="row", figsize=(10, 8))
 for idx, clf, tt in zip(
     product([0, 1], [0, 1]),
     [clf1, clf2, clf3, eclf],
-    ["Decision Tree (depth=4)", "KNN (k=7)", "Kernel SVM", "Soft Voting"],
+    ["شجرة القرار (العمق = 4)", "KNN (k = 7)", "Kernel SVM", "التصويت الناعم"],
 ):
     DecisionBoundaryDisplay.from_estimator(
         clf, X, alpha=0.4, ax=axarr[idx[0], idx[1]], response_method="predict"
@@ -71,3 +70,5 @@ for idx, clf, tt in zip(
     axarr[idx[0], idx[1]].set_title(tt)
 
 plt.show()
+
+

@@ -1,28 +1,19 @@
 """
+======================================================================================
+استخراج الموضوعات باستخدام تحليل المصفوفات غير السالبة وتخصيص ديريتشليت الكامن
 =======================================================================================
-Topic extraction with Non-negative Matrix Factorization and Latent Dirichlet Allocation
-=======================================================================================
 
-This is an example of applying :class:`~sklearn.decomposition.NMF` and
-:class:`~sklearn.decomposition.LatentDirichletAllocation` on a corpus
-of documents and extract additive models of the topic structure of the
-corpus.  The output is a plot of topics, each represented as bar plot
-using top few words based on weights.
+هذا مثال على تطبيق :class:`~sklearn.decomposition.NMF` و
+:class:`~sklearn.decomposition.LatentDirichletAllocation` على مجموعة من الوثائق واستخراج نماذج إضافية لهيكل الموضوعات في المجموعة.  المخرجات عبارة عن رسم بياني للموضوعات، يمثل كل منها رسمًا بيانيًا باستخدام عدد قليل من الكلمات العليا بناءً على الأوزان.
 
-Non-negative Matrix Factorization is applied with two different objective
-functions: the Frobenius norm, and the generalized Kullback-Leibler divergence.
-The latter is equivalent to Probabilistic Latent Semantic Indexing.
+يتم تطبيق تحليل المصفوفات غير السالبة مع دالتين مختلفتين للهدف: معيار فروبينيوس، والتباعد العام لكولباك-لايبلر.
+الأخير يعادل الفهرسة الدلالية الكامنة الاحتمالية.
 
-The default parameters (n_samples / n_features / n_components) should make
-the example runnable in a couple of tens of seconds. You can try to
-increase the dimensions of the problem, but be aware that the time
-complexity is polynomial in NMF. In LDA, the time complexity is
-proportional to (n_samples * iterations).
-
+يجب أن تجعل المعلمات الافتراضية (n_samples / n_features / n_components)
+المثال قابلاً للتشغيل في بضع عشرات من الثواني. يمكنك محاولة زيادة أبعاد المشكلة، ولكن كن على دراية بأن التعقيد الزمني هو كثير الحدود في NMF. في LDA، التعقيد الزمني يتناسب مع (n_samples * iterations).
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف SPDX-License: BSD-3-Clause
 
 from time import time
 
@@ -60,12 +51,12 @@ def plot_top_words(model, feature_names, n_top_words, title):
     plt.show()
 
 
-# Load the 20 newsgroups dataset and vectorize it. We use a few heuristics
-# to filter out useless terms early on: the posts are stripped of headers,
-# footers and quoted replies, and common English words, words occurring in
-# only one document or in at least 95% of the documents are removed.
+# تحميل مجموعة بيانات 20 newsgroups وتحويلها إلى ناقلات. نستخدم بعض الخوارزميات
+# لتصفية المصطلحات عديمة الفائدة في وقت مبكر: يتم إزالة المنشورات من الرؤوس،
+# الأقدام والردود المقتبسة، والكلمات الإنجليزية الشائعة، والكلمات التي تحدث في
+# وثيقة واحدة فقط أو في 95٪ على الأقل من الوثائق.
 
-print("Loading dataset...")
+print("تحميل مجموعة البيانات...")
 t0 = time()
 data, _ = fetch_20newsgroups(
     shuffle=True,
@@ -74,31 +65,31 @@ data, _ = fetch_20newsgroups(
     return_X_y=True,
 )
 data_samples = data[:n_samples]
-print("done in %0.3fs." % (time() - t0))
+print("تم في %0.3fs." % (time() - t0))
 
-# Use tf-idf features for NMF.
-print("Extracting tf-idf features for NMF...")
+# استخدام ميزات tf-idf لـ NMF.
+print("استخراج ميزات tf-idf لـ NMF...")
 tfidf_vectorizer = TfidfVectorizer(
     max_df=0.95, min_df=2, max_features=n_features, stop_words="english"
 )
 t0 = time()
 tfidf = tfidf_vectorizer.fit_transform(data_samples)
-print("done in %0.3fs." % (time() - t0))
+print("تم في %0.3fs." % (time() - t0))
 
-# Use tf (raw term count) features for LDA.
-print("Extracting tf features for LDA...")
+# استخدام ميزات tf (عدد المصطلحات الخام) لـ LDA.
+print("استخراج ميزات tf لـ LDA...")
 tf_vectorizer = CountVectorizer(
     max_df=0.95, min_df=2, max_features=n_features, stop_words="english"
 )
 t0 = time()
 tf = tf_vectorizer.fit_transform(data_samples)
-print("done in %0.3fs." % (time() - t0))
+print("تم في %0.3fs." % (time() - t0))
 print()
 
-# Fit the NMF model
+# ملاءمة نموذج NMF
 print(
-    "Fitting the NMF model (Frobenius norm) with tf-idf features, "
-    "n_samples=%d and n_features=%d..." % (n_samples, n_features)
+    "ملاءمة نموذج NMF (معيار فروبينيوس) مع ميزات tf-idf، "
+    "n_samples=%d و n_features=%d..." % (n_samples, n_features)
 )
 t0 = time()
 nmf = NMF(
@@ -110,20 +101,23 @@ nmf = NMF(
     alpha_H=0.00005,
     l1_ratio=1,
 ).fit(tfidf)
-print("done in %0.3fs." % (time() - t0))
+print("تم في %0.3fs." % (time() - t0))
 
 
 tfidf_feature_names = tfidf_vectorizer.get_feature_names_out()
 plot_top_words(
-    nmf, tfidf_feature_names, n_top_words, "Topics in NMF model (Frobenius norm)"
+    nmf, tfidf_feature_names, n_top_words, "الموضوعات في نموذج NMF (معيار فروبينيوس)"
+)
+tfidf_feature_names = tfidf_vectorizer.get_feature_names_out()
+plot_top_words(
+    nmf, tfidf_feature_names, n_top_words, "الموضوعات في نموذج NMF (معيار فروبينيوس)"
 )
 
-# Fit the NMF model
+# ملاءمة نموذج NMF
 print(
     "\n" * 2,
-    "Fitting the NMF model (generalized Kullback-Leibler "
-    "divergence) with tf-idf features, n_samples=%d and n_features=%d..."
-    % (n_samples, n_features),
+    "ملاءمة نموذج NMF (التباعد العام لكولباك-لايبلر) مع ميزات tf-idf، "
+    "n_samples=%d و n_features=%d..." % (n_samples, n_features),
 )
 t0 = time()
 nmf = NMF(
@@ -137,21 +131,21 @@ nmf = NMF(
     alpha_H=0.00005,
     l1_ratio=0.5,
 ).fit(tfidf)
-print("done in %0.3fs." % (time() - t0))
+print("تم في %0.3fs." % (time() - t0))
 
 tfidf_feature_names = tfidf_vectorizer.get_feature_names_out()
 plot_top_words(
     nmf,
     tfidf_feature_names,
     n_top_words,
-    "Topics in NMF model (generalized Kullback-Leibler divergence)",
+    "الموضوعات في نموذج NMF (التباعد العام لكولباك-لايبلر)",
 )
 
-# Fit the MiniBatchNMF model
+# ملاءمة نموذج MiniBatchNMF
 print(
     "\n" * 2,
-    "Fitting the MiniBatchNMF model (Frobenius norm) with tf-idf "
-    "features, n_samples=%d and n_features=%d, batch_size=%d..."
+    "ملاءمة نموذج MiniBatchNMF (معيار فروبينيوس) مع ميزات tf-idf "
+    "n_samples=%d و n_features=%d، batch_size=%d..."
     % (n_samples, n_features, batch_size),
 )
 t0 = time()
@@ -165,7 +159,7 @@ mbnmf = MiniBatchNMF(
     alpha_H=0.00005,
     l1_ratio=0.5,
 ).fit(tfidf)
-print("done in %0.3fs." % (time() - t0))
+print("تم في %0.3fs." % (time() - t0))
 
 
 tfidf_feature_names = tfidf_vectorizer.get_feature_names_out()
@@ -173,15 +167,15 @@ plot_top_words(
     mbnmf,
     tfidf_feature_names,
     n_top_words,
-    "Topics in MiniBatchNMF model (Frobenius norm)",
+    "الموضوعات في نموذج MiniBatchNMF (معيار فروبينيوس)",
 )
 
-# Fit the MiniBatchNMF model
+# ملاءمة نموذج MiniBatchNMF
 print(
     "\n" * 2,
-    "Fitting the MiniBatchNMF model (generalized Kullback-Leibler "
-    "divergence) with tf-idf features, n_samples=%d and n_features=%d, "
-    "batch_size=%d..." % (n_samples, n_features, batch_size),
+    "ملاءمة نموذج MiniBatchNMF (التباعد العام لكولباك-لايبلر) مع ميزات tf-idf، "
+    "n_samples=%d و n_features=%d، batch_size=%d..."
+    % (n_samples, n_features, batch_size),
 )
 t0 = time()
 mbnmf = MiniBatchNMF(
@@ -194,19 +188,19 @@ mbnmf = MiniBatchNMF(
     alpha_H=0.00005,
     l1_ratio=0.5,
 ).fit(tfidf)
-print("done in %0.3fs." % (time() - t0))
+print("تم في %0.3fs." % (time() - t0))
 
 tfidf_feature_names = tfidf_vectorizer.get_feature_names_out()
 plot_top_words(
     mbnmf,
     tfidf_feature_names,
     n_top_words,
-    "Topics in MiniBatchNMF model (generalized Kullback-Leibler divergence)",
+    "الموضوعات في نموذج MiniBatchNMF (التباعد العام لكولباك-لايبلر)",
 )
 
 print(
     "\n" * 2,
-    "Fitting LDA models with tf features, n_samples=%d and n_features=%d..."
+    "ملاءمة نماذج LDA مع ميزات tf، n_samples=%d و n_features=%d..."
     % (n_samples, n_features),
 )
 lda = LatentDirichletAllocation(
@@ -218,7 +212,7 @@ lda = LatentDirichletAllocation(
 )
 t0 = time()
 lda.fit(tf)
-print("done in %0.3fs." % (time() - t0))
+print("تم في %0.3fs." % (time() - t0))
 
 tf_feature_names = tf_vectorizer.get_feature_names_out()
-plot_top_words(lda, tf_feature_names, n_top_words, "Topics in LDA model")
+plot_top_words(lda, tf_feature_names, n_top_words, "الموضوعات في نموذج LDA")

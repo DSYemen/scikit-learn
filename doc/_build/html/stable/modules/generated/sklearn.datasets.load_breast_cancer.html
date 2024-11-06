@@ -11,10 +11,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/modules/generated/sklearn.datasets.load_breast_cancer.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="Gallery examples: Post pruning decision trees with cost complexity pruning Model-based and sequential feature selection Permutation Importance with Multicollinear or Correlated Features Effect of v..." />
-<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_cost_complexity_pruning_thumb.png" />
+<meta property="og:description" content="Gallery examples: Model-based and sequential feature selection أهمية التبديل مع الميزات متعددة الخطية أو المرتبطة" />
+<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_select_from_model_diabetes_thumb.png" />
 <meta property="og:image:alt" content="" />
-<meta name="description" content="Gallery examples: Post pruning decision trees with cost complexity pruning Model-based and sequential feature selection Permutation Importance with Multicollinear or Correlated Features Effect of v..." />
+<meta name="description" content="Gallery examples: Model-based and sequential feature selection أهمية التبديل مع الميزات متعددة الخطية أو المرتبطة" />
 
     <title>load_breast_cancer &#8212; scikit-learn 1.6.dev0 documentation</title>
   
@@ -1304,7 +1304,7 @@
 <h1>load_breast_cancer<a class="headerlink" href="#load-breast-cancer" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="sklearn.datasets.load_breast_cancer">
-<span class="sig-prename descclassname"><span class="pre">sklearn.datasets.</span></span><span class="sig-name descname"><span class="pre">load_breast_cancer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_X_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/001706117/sklearn/datasets/_base.py#L749"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.datasets.load_breast_cancer" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">sklearn.datasets.</span></span><span class="sig-name descname"><span class="pre">load_breast_cancer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_X_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d6d4571215/sklearn/datasets/_base.py#L749"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.datasets.load_breast_cancer" title="Link to this definition">#</a></dt>
 <dd><p>Load and return the breast cancer wisconsin dataset (classification).</p>
 <p>The breast cancer dataset is a classic and very easy binary classification
 dataset.</p>
@@ -1408,18 +1408,12 @@ know their class name.</p>
 
 <section id="gallery-examples">
 <h2>Gallery examples<a class="headerlink" href="#gallery-examples" title="Link to this heading">#</a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The DecisionTreeClassifier provides parameters such as min_samples_leaf and max_depth to prevent a tree from overfiting. Cost complexity pruning provides another option to control the size of a tree. In DecisionTreeClassifier, this pruning technique is parameterized by the cost complexity parameter, ccp_alpha. Greater values of ccp_alpha increase the number of nodes pruned. Here we only show the effect of ccp_alpha on regularizing the trees and how to choose a ccp_alpha based on validation scores."><img alt="" src="../../_images/sphx_glr_plot_cost_complexity_pruning_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/tree/plot_cost_complexity_pruning.html#sphx-glr-auto-examples-tree-plot-cost-complexity-pruning-py"><span class="std std-ref">Post pruning decision trees with cost complexity pruning</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Post pruning decision trees with cost complexity pruning</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates and compares two approaches for feature selection: SelectFromModel which is based on feature importance, and SequentialFeatureSelector which relies on a greedy approach."><img alt="" src="../../_images/sphx_glr_plot_select_from_model_diabetes_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال ويقارن نهجين لاختيار الميزات: SelectFromModel الذي يعتمد على أهمية الميزات، و SequentialFeatureSelector الذي يعتمد على نهج جشع."><img alt="" src="../../_images/sphx_glr_plot_select_from_model_diabetes_thumb.png" />
 <p><a class="reference internal" href="../../auto_examples/feature_selection/plot_select_from_model_diabetes.html#sphx-glr-auto-examples-feature-selection-plot-select-from-model-diabetes-py"><span class="std std-ref">Model-based and sequential feature selection</span></a></p>
   <div class="sphx-glr-thumbnail-title">Model-based and sequential feature selection</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="In this example, we compute the permutation_importance of the features to a trained RandomForestClassifier using the breast_cancer_dataset. The model can easily get about 97% accuracy on a test dataset. Because this dataset contains multicollinear features, the permutation importance shows that none of the features are important, in contradiction with the high test accuracy."><img alt="" src="../../_images/sphx_glr_plot_permutation_importance_multicollinear_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/inspection/plot_permutation_importance_multicollinear.html#sphx-glr-auto-examples-inspection-plot-permutation-importance-multicollinear-py"><span class="std std-ref">Permutation Importance with Multicollinear or Correlated Features</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Permutation Importance with Multicollinear or Correlated Features</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the effect of a varying threshold on self-training. The breast_cancer dataset is loaded, and labels are deleted such that only 50 out of 569 samples have labels. A SelfTrainingClassifier is fitted on this dataset, with varying thresholds."><img alt="" src="../../_images/sphx_glr_plot_self_training_varying_threshold_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/semi_supervised/plot_self_training_varying_threshold.html#sphx-glr-auto-examples-semi-supervised-plot-self-training-varying-threshold-py"><span class="std std-ref">Effect of varying threshold for self-training</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Effect of varying threshold for self-training</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="في هذا المثال، نحسب permutation_importance للميزات لـ RandomForestClassifier مدربة باستخدام breast_cancer_dataset. يمكن للنموذج بسهولة الحصول على دقة تبلغ حوالي 97% على مجموعة بيانات الاختبار. نظرًا لأن مجموعة البيانات هذه تحتوي على ميزات متعددة الخطية، فإن أهمية التبديل تُظهر أنه لا توجد أي من الميزات مهمة، في تناقض مع دقة الاختبار العالية."><img alt="" src="../../_images/sphx_glr_plot_permutation_importance_multicollinear_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/inspection/plot_permutation_importance_multicollinear.html#sphx-glr-auto-examples-inspection-plot-permutation-importance-multicollinear-py"><span class="std std-ref">أهمية التبديل مع الميزات متعددة الخطية أو المرتبطة</span></a></p>
+  <div class="sphx-glr-thumbnail-title">أهمية التبديل مع الميزات متعددة الخطية أو المرتبطة</div>
 </div></div></section>
 </section>
 

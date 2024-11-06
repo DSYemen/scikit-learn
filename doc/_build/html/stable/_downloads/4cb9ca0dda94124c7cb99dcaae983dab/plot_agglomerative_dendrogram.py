@@ -1,12 +1,12 @@
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوّرو scikit-learn
+# محدد هوية الترخيص-SPDX: BSD-3-Clause
 
 """
 =========================================
-Plot Hierarchical Clustering Dendrogram
+رسم مخطط شجرة التجميع الهرمي
 =========================================
-This example plots the corresponding dendrogram of a hierarchical clustering
-using AgglomerativeClustering and the dendrogram method available in scipy.
+هذا المثال يرسم مخطط شجرة التجميع المقابل لتجميع هرمي
+باستخدام AgglomerativeClustering وطريقة dendrogram المتوفرة في scipy.
 
 """
 
@@ -19,9 +19,9 @@ from sklearn.datasets import load_iris
 
 
 def plot_dendrogram(model, **kwargs):
-    # Create linkage matrix and then plot the dendrogram
+    # إنشاء مصفوفة الربط ثم رسم مخطط شجرة التجميع
 
-    # create the counts of samples under each node
+    # إنشاء تعداد العينات تحت كل عقدة
     counts = np.zeros(model.children_.shape[0])
     n_samples = len(model.labels_)
     for i, merge in enumerate(model.children_):
@@ -37,19 +37,19 @@ def plot_dendrogram(model, **kwargs):
         [model.children_, model.distances_, counts]
     ).astype(float)
 
-    # Plot the corresponding dendrogram
+    # رسم مخطط شجرة التجميع المقابل
     dendrogram(linkage_matrix, **kwargs)
 
 
 iris = load_iris()
 X = iris.data
 
-# setting distance_threshold=0 ensures we compute the full tree.
+# تعيين distance_threshold=0 يضمن حساب الشجرة الكاملة.
 model = AgglomerativeClustering(distance_threshold=0, n_clusters=None)
 
 model = model.fit(X)
-plt.title("Hierarchical Clustering Dendrogram")
-# plot the top three levels of the dendrogram
+plt.title("مخطط شجرة التجميع الهرمي")
+# رسم المستويات الثلاثة العليا من مخطط شجرة التجميع
 plot_dendrogram(model, truncate_mode="level", p=3)
-plt.xlabel("Number of points in node (or index of point if no parenthesis).")
+plt.xlabel("عدد النقاط في العقدة (أو مؤشر النقطة إذا لم يكن هناك قوسين).")
 plt.show()

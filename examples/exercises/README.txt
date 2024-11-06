@@ -1,4 +1,4 @@
-Tutorial exercises
+تمارين تعليمية
 ------------------
 
-Exercises for the tutorials
+تمارين للدروس التعليمية

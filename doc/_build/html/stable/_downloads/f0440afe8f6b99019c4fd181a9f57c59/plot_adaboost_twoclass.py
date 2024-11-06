@@ -1,24 +1,12 @@
 """
-==================
-Two-class AdaBoost
-==================
+===============================
+تصنيف ثنائي باستخدام AdaBoost
+===============================
 
-This example fits an AdaBoosted decision stump on a non-linearly separable
-classification dataset composed of two "Gaussian quantiles" clusters
-(see :func:`sklearn.datasets.make_gaussian_quantiles`) and plots the decision
-boundary and decision scores. The distributions of decision scores are shown
-separately for samples of class A and B. The predicted class label for each
-sample is determined by the sign of the decision score. Samples with decision
-scores greater than zero are classified as B, and are otherwise classified
-as A. The magnitude of a decision score determines the degree of likeness with
-the predicted class label. Additionally, a new dataset could be constructed
-containing a desired purity of class B, for example, by only selecting samples
-with a decision score above some value.
-
+هذا المثال يقوم بتدريب نموذج شجرة قرار معزز باستخدام AdaBoost على مجموعة بيانات تصنيف غير خطية، مكونة من مجموعتين "Gaussian quantiles" (انظر: :func:`sklearn.datasets.make_gaussian_quantiles`) ويعرض حدود القرار ودرجات القرار. يتم عرض توزيعات درجات القرار بشكل منفصل للعينات من الفئة A والفئة B. يتم تحديد تسمية الفئة المتوقعة لكل عينة بناءً على إشارة درجة القرار. يتم تصنيف العينات التي لها درجات قرار أكبر من الصفر على أنها من الفئة B، وإلا يتم تصنيفها على أنها من الفئة A. يحدد مقدار درجة القرار درجة التشابه مع تسمية الفئة المتوقعة. بالإضافة إلى ذلك، يمكن بناء مجموعة بيانات جديدة تحتوي على نقاء مرغوب فيه من الفئة B، على سبيل المثال، عن طريق اختيار العينات فقط بدرجة قرار أعلى من قيمة معينة.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -28,7 +16,7 @@ from sklearn.ensemble import AdaBoostClassifier
 from sklearn.inspection import DecisionBoundaryDisplay
 from sklearn.tree import DecisionTreeClassifier
 
-# Construct dataset
+# إنشاء مجموعة البيانات
 X1, y1 = make_gaussian_quantiles(
     cov=2.0, n_samples=200, n_features=2, n_classes=2, random_state=1
 )
@@ -38,7 +26,7 @@ X2, y2 = make_gaussian_quantiles(
 X = np.concatenate((X1, X2))
 y = np.concatenate((y1, -y2 + 1))
 
-# Create and fit an AdaBoosted decision tree
+# إنشاء وتدريب نموذج شجرة قرار معزز باستخدام AdaBoost
 bdt = AdaBoostClassifier(DecisionTreeClassifier(max_depth=1), n_estimators=200)
 bdt.fit(X, y)
 
@@ -48,7 +36,7 @@ class_names = "AB"
 
 plt.figure(figsize=(10, 5))
 
-# Plot the decision boundaries
+# رسم حدود القرار
 ax = plt.subplot(121)
 disp = DecisionBoundaryDisplay.from_estimator(
     bdt,
@@ -63,7 +51,7 @@ x_min, x_max = disp.xx0.min(), disp.xx0.max()
 y_min, y_max = disp.xx1.min(), disp.xx1.max()
 plt.axis("tight")
 
-# Plot the training points
+# رسم نقاط التدريب
 for i, n, c in zip(range(2), class_names, plot_colors):
     idx = np.where(y == i)
     plt.scatter(
@@ -80,7 +68,7 @@ plt.legend(loc="upper right")
 
 plt.title("Decision Boundary")
 
-# Plot the two-class decision scores
+# رسم درجات القرار ثنائية التصنيف
 twoclass_output = bdt.decision_function(X)
 plot_range = (twoclass_output.min(), twoclass_output.max())
 plt.subplot(122)

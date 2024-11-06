@@ -1,46 +1,45 @@
 """
 ===========================================================
-Plot Ridge coefficients as a function of the regularization
+رسم معاملات Ridge كدالة للتنظيم
 ===========================================================
 
-Shows the effect of collinearity in the coefficients of an estimator.
+يظهر هذا المثال تأثير التلازم في معاملات أداة التقدير.
 
 .. currentmodule:: sklearn.linear_model
 
-:class:`Ridge` Regression is the estimator used in this example.
-Each color represents a different feature of the
-coefficient vector, and this is displayed as a function of the
-regularization parameter.
+:class:`Ridge` الانحدار هو أداة التقدير المستخدمة في هذا المثال.
+يمثل كل لون ميزة مختلفة في
+متجه المعاملات، ويتم عرضه كدالة ل
+معامل التنظيم.
 
-This example also shows the usefulness of applying Ridge regression
-to highly ill-conditioned matrices. For such matrices, a slight
-change in the target variable can cause huge variances in the
-calculated weights. In such cases, it is useful to set a certain
-regularization (alpha) to reduce this variation (noise).
+يوضح هذا المثال أيضًا فائدة تطبيق الانحدار Ridge
+على المصفوفات ذات الشرط السيئ للغاية. بالنسبة لهذه المصفوفات، يمكن أن يسبب التغيير الطفيف في المتغير المستهدف تباينات كبيرة في
+الأوزان المحسوبة. في مثل هذه الحالات، من المفيد تعيين بعض
+التنظيم (alpha) للحد من هذا التباين (الضوضاء).
 
-When alpha is very large, the regularization effect dominates the
-squared loss function and the coefficients tend to zero.
-At the end of the path, as alpha tends toward zero
-and the solution tends towards the ordinary least squares, coefficients
-exhibit big oscillations. In practise it is necessary to tune alpha
-in such a way that a balance is maintained between both.
+عندما يكون alpha كبيرًا جدًا، تهيمن تأثيرات التنظيم على
+دالة الخسارة التربيعية وتميل المعاملات إلى الصفر.
+في نهاية المسار، عندما يقترب alpha من الصفر
+وتميل الحلول نحو المربعات العادية الأقل، تظهر المعاملات
+تذبذبات كبيرة. في الممارسة العملية، من الضروري ضبط alpha
+بطريقة تحافظ على التوازن بين الاثنين.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف SPDX-License: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
 
 from sklearn import linear_model
 
-# X is the 10x10 Hilbert matrix
+# X هي مصفوفة هيلبرت 10x10
 X = 1.0 / (np.arange(1, 11) + np.arange(0, 10)[:, np.newaxis])
 y = np.ones(10)
 
 # %%
-# Compute paths
+# حساب المسارات
 # -------------
 
 n_alphas = 200
@@ -53,14 +52,14 @@ for a in alphas:
     coefs.append(ridge.coef_)
 
 # %%
-# Display results
+# عرض النتائج
 # ---------------
 
 ax = plt.gca()
 
 ax.plot(alphas, coefs)
 ax.set_xscale("log")
-ax.set_xlim(ax.get_xlim()[::-1])  # reverse axis
+ax.set_xlim(ax.get_xlim()[::-1])  # عكس المحور
 plt.xlabel("alpha")
 plt.ylabel("weights")
 plt.title("Ridge coefficients as a function of the regularization")

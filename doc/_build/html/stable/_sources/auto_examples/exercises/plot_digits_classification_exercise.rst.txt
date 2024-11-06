@@ -19,17 +19,17 @@
 
 
 ================================
-Digits Classification Exercise
+تمرين تصنيف الأرقام
 ================================
 
-A tutorial exercise regarding the use of classification techniques on
-the Digits dataset.
+تمرين تعليمي يتعلق باستخدام تقنيات التصنيف على
+مجموعة بيانات الأرقام.
 
-This exercise is used in the :ref:`clf_tut` part of the
-:ref:`supervised_learning_tut` section of the
+يتم استخدام هذا التمرين في جزء :ref:`clf_tut` من
+قسم :ref:`supervised_learning_tut` من
 :ref:`stat_learn_tut_index`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 14-38
+.. GENERATED FROM PYTHON SOURCE LINES 14-40
 
 
 
@@ -38,8 +38,8 @@ This exercise is used in the :ref:`clf_tut` part of the
 
  .. code-block:: none
 
-    KNN score: 0.961111
-    LogisticRegression score: 0.933333
+    نتيجة KNN: 0.961111
+    نتيجة LogisticRegression: 0.933333
 
 
 
@@ -69,16 +69,18 @@ This exercise is used in the :ref:`clf_tut` part of the
     knn = neighbors.KNeighborsClassifier()
     logistic = linear_model.LogisticRegression(max_iter=1000)
 
-    print("KNN score: %f" % knn.fit(X_train, y_train).score(X_test, y_test))
+    print("نتيجة KNN: %f" % knn.fit(X_train, y_train).score(X_test, y_test))
     print(
-        "LogisticRegression score: %f"
+        "نتيجة LogisticRegression: %f"
         % logistic.fit(X_train, y_train).score(X_test, y_test)
     )
 
 
+
+
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.076 seconds)
+   **Total running time of the script:** (0 minutes 0.096 seconds)
 
 
 .. _sphx_glr_download_auto_examples_exercises_plot_digits_classification_exercise.py:

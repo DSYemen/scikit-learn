@@ -4,10 +4,10 @@
 
 .. _decomposition_examples:
 
-Decomposition
+تحليل التركيب
 -------------
-
-Examples concerning the :mod:`sklearn.decomposition` module.
+Decomposition
+أمثلة تتعلق بوحدة :mod:`sklearn.decomposition`.
 
 
 
@@ -20,109 +20,7 @@ Examples concerning the :mod:`sklearn.decomposition` module.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="An example of estimating sources from noisy data.">
-
-.. only:: html
-
-  .. image:: /auto_examples/decomposition/images/thumb/sphx_glr_plot_ica_blind_source_separation_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_decomposition_plot_ica_blind_source_separation.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Blind source separation using FastICA</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="The Iris dataset represents 3 kind of Iris flowers (Setosa, Versicolour and Virginica) with 4 attributes: sepal length, sepal width, petal length and petal width.">
-
-.. only:: html
-
-  .. image:: /auto_examples/decomposition/images/thumb/sphx_glr_plot_pca_vs_lda_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_decomposition_plot_pca_vs_lda.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Comparison of LDA and PCA 2D projection of Iris dataset</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example applies to olivetti_faces_dataset different unsupervised matrix decomposition (dimension reduction) methods from the module sklearn.decomposition (see the documentation chapter decompositions).">
-
-.. only:: html
-
-  .. image:: /auto_examples/decomposition/images/thumb/sphx_glr_plot_faces_decomposition_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_decomposition_plot_faces_decomposition.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Faces dataset decompositions</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Investigating the Iris dataset, we see that sepal length, petal length and petal width are highly correlated. Sepal width is less redundant. Matrix decomposition techniques can uncover these latent patterns. Applying rotations to the resulting components does not inherently improve the predictive value of the derived latent space, but can help visualise their structure; here, for example, the varimax rotation, which is found by maximizing the squared variances of the weights, finds a structure where the second component only loads positively on sepal width.">
-
-.. only:: html
-
-  .. image:: /auto_examples/decomposition/images/thumb/sphx_glr_plot_varimax_fa_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_decomposition_plot_varimax_fa.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Factor Analysis (with rotation) to visualize patterns</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates visually in the feature space a comparison by results using two different component analysis techniques.">
-
-.. only:: html
-
-  .. image:: /auto_examples/decomposition/images/thumb/sphx_glr_plot_ica_vs_pca_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_decomposition_plot_ica_vs_pca.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">FastICA on 2D point clouds</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="An example comparing the effect of reconstructing noisy fragments of a raccoon face image using firstly online DictionaryLearning and various transform methods.">
-
-.. only:: html
-
-  .. image:: /auto_examples/decomposition/images/thumb/sphx_glr_plot_image_denoising_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_decomposition_plot_image_denoising.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Image denoising using dictionary learning</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Incremental principal component analysis (IPCA) is typically used as a replacement for principal component analysis (PCA) when the dataset to be decomposed is too large to fit in memory. IPCA builds a low-rank approximation for the input data using an amount of memory which is independent of the number of input data samples. It is still dependent on the input data features, but changing the batch size allows for control of memory usage.">
+    <div class="sphx-glr-thumbcontainer" tooltip="يستخدم تحليل المكونات الأساسية التزايدي (IPCA) عادة كبديل لتحليل المكونات الأساسية (PCA) عندما تكون مجموعة البيانات المراد تحليلها كبيرة جدًا بحيث لا يمكن تحميلها في الذاكرة. يقوم IPCA ببناء تقريب منخفض الرتبة لبيانات الإدخال باستخدام كمية من الذاكرة لا تعتمد على عدد عينات بيانات الإدخال. لا يزال يعتمد على ميزات بيانات الإدخال، ولكن تغيير حجم الدفعة يسمح بالتحكم في استخدام الذاكرة.">
 
 .. only:: html
 
@@ -133,13 +31,30 @@ Examples concerning the :mod:`sklearn.decomposition` module.
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Incremental PCA</div>
+      <div class="sphx-glr-thumbnail-title"># تحليل المكونات الأساسية التزايدي</div>
     </div>
 
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows the difference between the Principal Components Analysis (~sklearn.decomposition.PCA) and its kernelized version (~sklearn.decomposition.KernelPCA).">
+    <div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال بصريًا في فضاء الميزات مقارنة بالنتائج باستخدام تقنيتين مختلفتين لتحليل المكونات.">
+
+.. only:: html
+
+  .. image:: /auto_examples/decomposition/images/thumb/sphx_glr_plot_ica_vs_pca_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_decomposition_plot_ica_vs_pca.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">FastICA على سحب النقاط ثنائية الأبعاد</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال الفرق بين تحليل المكونات الرئيسية (~sklearn.decomposition.PCA) ونسخته المطبقة مع النواة (~sklearn.decomposition.KernelPCA).">
 
 .. only:: html
 
@@ -156,7 +71,24 @@ Examples concerning the :mod:`sklearn.decomposition` module.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Probabilistic PCA and Factor Analysis are probabilistic models. The consequence is that the likelihood of new data can be used for model selection and covariance estimation. Here we compare PCA and FA with cross-validation on low rank data corrupted with homoscedastic noise (noise variance is the same for each feature) or heteroscedastic noise (noise variance is the different for each feature). In a second step we compare the model likelihood to the likelihoods obtained from shrinkage covariance estimators.">
+    <div class="sphx-glr-thumbcontainer" tooltip="مثال يقارن تأثير إعادة بناء أجزاء مشوشة من صورة وجه راكون باستخدام أولاً DictionaryLearning عبر الإنترنت وطرق تحويل مختلفة.">
+
+.. only:: html
+
+  .. image:: /auto_examples/decomposition/images/thumb/sphx_glr_plot_image_denoising_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_decomposition_plot_image_denoising.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">إزالة تشويش الصور باستخدام تعلم القاموس</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="التحليل الرئيسي للمكونات الاحتمالي وتحليل العوامل هما نموذجان احتماليان. والنتيجة هي أنه يمكن استخدام احتمالية البيانات الجديدة لاختيار النموذج وتقدير التباين. هنا نقارن بين التحليل الرئيسي للمكونات وتحليل العوامل باستخدام التحقق المتقاطع على البيانات منخفضة الرتبة التي تتعرض للتشويش بضوضاء متماثلة (تكون تباين الضوضاء نفس الشيء لكل ميزة) أو الضوضاء غير المتماثلة (تكون تباين الضوضاء مختلفًا لكل ميزة). في الخطوة الثانية، نقارن بين نموذج الاحتمالية مع الاحتمالات التي تم الحصول عليها من مقدرات التباين الانكماشي.">
 
 .. only:: html
 
@@ -167,30 +99,13 @@ Examples concerning the :mod:`sklearn.decomposition` module.
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Model selection with Probabilistic PCA and Factor Analysis (FA)</div>
+      <div class="sphx-glr-thumbnail-title">اختيار النموذج باستخدام التحليل الرئيسي للمكونات الاحتمالي وتحليل العوامل (FA)</div>
     </div>
 
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows a well known decomposition technique known as Principal Component Analysis (PCA) on the Iris dataset.">
-
-.. only:: html
-
-  .. image:: /auto_examples/decomposition/images/thumb/sphx_glr_plot_pca_iris_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_decomposition_plot_pca_iris.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Principal Component Analysis (PCA) on Iris Dataset</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Transform a signal as a sparse combination of Ricker wavelets. This example visually compares different sparse coding methods using the SparseCoder estimator. The Ricker (also known as Mexican hat or the second derivative of a Gaussian) is not a particularly good kernel to represent piecewise constant signals like this one. It can therefore be seen how much adding different widths of atoms matters and it therefore motivates learning the dictionary to best fit your type of signals.">
+    <div class="sphx-glr-thumbcontainer" tooltip="تحويل إشارة كمزيج متناثر من مويجات Ricker. يقارن هذا المثال بصريًا طرق الترميز المتناثر المختلفة باستخدام مقدر SparseCoder. إن مويجة Ricker (المعروفة أيضًا باسم القبعة المكسيكية أو المشتقة الثانية لدالة غاوسية) ليست نواة جيدة بشكل خاص لتمثيل الإشارات الثابتة متعددة التعريف مثل هذه الإشارة. لذلك يمكن ملاحظة مدى أهمية إضافة عروض مختلفة من الذرات، وبالتالي يحفز ذلك على تعلم القاموس ليناسب نوع الإشارات الخاصة بك على أفضل وجه.">
 
 .. only:: html
 
@@ -201,7 +116,92 @@ Examples concerning the :mod:`sklearn.decomposition` module.
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Sparse coding with a precomputed dictionary</div>
+      <div class="sphx-glr-thumbnail-title">الترميز المتناثر مع قاموس محسوب مسبقًا</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="عند دراسة مجموعة بيانات Iris، نلاحظ أن طول السبلة وطول البتلة وعرض البتلة مترابطة بشكل كبير. عرض السبلة أقل تكراراً. يمكن لتقنيات تحليل المصفوفات الكشف عن هذه الأنماط الكامنة. لا يؤدي تطبيق الدوران على المكونات الناتجة إلى تحسين القيمة التنبؤية للمساحة الكامنة المستنبطة بشكل جوهري، ولكن يمكن أن يساعد في تصور بنيتها؛ هنا، على سبيل المثال، يجد دوران Varimax، والذي يتم العثور عليه عن طريق تعظيم التباين التربيعي للأوزان، بنية حيث يحمل المكون الثاني فقط بشكل إيجابي على عرض السبلة.">
+
+.. only:: html
+
+  .. image:: /auto_examples/decomposition/images/thumb/sphx_glr_plot_varimax_fa_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_decomposition_plot_varimax_fa.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">تحليل العوامل (مع الدوران) لتصور الأنماط</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="هذا المثال يوضح تقنية تحليل معروفة باسم تحليل المكونات الرئيسية (PCA) على مجموعة بيانات Iris.">
+
+.. only:: html
+
+  .. image:: /auto_examples/decomposition/images/thumb/sphx_glr_plot_pca_iris_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_decomposition_plot_pca_iris.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">تحليل المكونات الرئيسية (PCA) على مجموعة بيانات Iris</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="يطبق هذا المثال على olivetti_faces_dataset طرقًا مختلفة لتحليل المصفوفة غير الخاضعة للإشراف (تقليل الأبعاد) من الوحدة sklearn.decomposition (انظر فصل الوثائق decompositions).">
+
+.. only:: html
+
+  .. image:: /auto_examples/decomposition/images/thumb/sphx_glr_plot_faces_decomposition_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_decomposition_plot_faces_decomposition.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">تحليلات مجموعة بيانات الوجوه</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="مثال على تقدير المصادر من بيانات مشوشة.">
+
+.. only:: html
+
+  .. image:: /auto_examples/decomposition/images/thumb/sphx_glr_plot_ica_blind_source_separation_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_decomposition_plot_ica_blind_source_separation.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">فصل المصدر الأعمى باستخدام FastICA</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="تمثل مجموعة بيانات آيريس 3 أنواع من زهور آيريس (سيتوسا، وفيرسيكولور، وفيرجينيكا) مع 4 خصائص: طول الكأس، وعرض الكأس، وطول البتلة، وعرض البتلة.">
+
+.. only:: html
+
+  .. image:: /auto_examples/decomposition/images/thumb/sphx_glr_plot_pca_vs_lda_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_decomposition_plot_pca_vs_lda.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">مقارنة بين الإسقاط ثنائي الأبعاد للمجموعة البيانات آيريس باستخدام LDA وPCA</div>
     </div>
 
 
@@ -215,15 +215,15 @@ Examples concerning the :mod:`sklearn.decomposition` module.
 .. toctree::
    :hidden:
 
+   /auto_examples/decomposition/plot_incremental_pca
+   /auto_examples/decomposition/plot_ica_vs_pca
+   /auto_examples/decomposition/plot_kernel_pca
+   /auto_examples/decomposition/plot_image_denoising
+   /auto_examples/decomposition/plot_pca_vs_fa_model_selection
+   /auto_examples/decomposition/plot_sparse_coding
+   /auto_examples/decomposition/plot_varimax_fa
+   /auto_examples/decomposition/plot_pca_iris
+   /auto_examples/decomposition/plot_faces_decomposition
    /auto_examples/decomposition/plot_ica_blind_source_separation
    /auto_examples/decomposition/plot_pca_vs_lda
-   /auto_examples/decomposition/plot_faces_decomposition
-   /auto_examples/decomposition/plot_varimax_fa
-   /auto_examples/decomposition/plot_ica_vs_pca
-   /auto_examples/decomposition/plot_image_denoising
-   /auto_examples/decomposition/plot_incremental_pca
-   /auto_examples/decomposition/plot_kernel_pca
-   /auto_examples/decomposition/plot_pca_vs_fa_model_selection
-   /auto_examples/decomposition/plot_pca_iris
-   /auto_examples/decomposition/plot_sparse_coding
 

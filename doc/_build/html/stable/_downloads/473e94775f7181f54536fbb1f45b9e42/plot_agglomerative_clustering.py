@@ -1,31 +1,15 @@
 """
-Agglomerative clustering with and without structure
+# التجميع التجميعي مع وبغير بنية
 ===================================================
 
-This example shows the effect of imposing a connectivity graph to capture
-local structure in the data. The graph is simply the graph of 20 nearest
-neighbors.
+هذا المثال يوضح تأثير فرض رسم بياني للاتصال لالتقاط البنية المحلية في البيانات. الرسم البياني هو ببساطة رسم بياني لأقرب 20 جارًا.
 
-There are two advantages of imposing a connectivity. First, clustering
-with sparse connectivity matrices is faster in general.
+هناك ميزتان لفرض الاتصال. أولاً، التجميع مع المصفوفات الاتصالية المتناثرة أسرع بشكل عام.
 
-Second, when using a connectivity matrix, single, average and complete
-linkage are unstable and tend to create a few clusters that grow very
-quickly. Indeed, average and complete linkage fight this percolation behavior
-by considering all the distances between two clusters when merging them (
-while single linkage exaggerates the behaviour by considering only the
-shortest distance between clusters). The connectivity graph breaks this
-mechanism for average and complete linkage, making them resemble the more
-brittle single linkage. This effect is more pronounced for very sparse graphs
-(try decreasing the number of neighbors in kneighbors_graph) and with
-complete linkage. In particular, having a very small number of neighbors in
-the graph, imposes a geometry that is close to that of single linkage,
-which is well known to have this percolation instability.
-
+ثانيًا، عند استخدام مصفوفة الاتصال، فإن الارتباط الفردي والمتوسط والكامل غير مستقرين ويميلون إلى إنشاء عدد قليل من التجمعات التي تنمو بسرعة كبيرة. في الواقع، يحارب الارتباط المتوسط والكامل هذا السلوك التغلغلي من خلال مراعاة جميع المسافات بين التجمعين عند دمجهما (بينما يبالغ الارتباط الفردي في السلوك من خلال مراعاة المسافة الأقصر فقط بين التجمعات). يكسر الرسم البياني للاتصال هذه الآلية للارتباط المتوسط والكامل، مما يجعلها تشبه الارتباط الفردي الهش. هذا التأثير أكثر وضوحًا للرسوم البيانية المتناثرة للغاية (حاول تقليل عدد الجيران في kneighbors_graph) ومع الارتباط الكامل. على وجه الخصوص، فإن وجود عدد صغير جدًا من الجيران في الرسم البياني يفرض هندسة قريبة من هندسة الارتباط الفردي، وهو معروف جيدًا بوجود عدم استقرار التغلغل هذا.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايت-ليرن
+# معرف SPDX-License: BSD-3-Clause
 
 import time
 
@@ -35,7 +19,7 @@ import numpy as np
 from sklearn.cluster import AgglomerativeClustering
 from sklearn.neighbors import kneighbors_graph
 
-# Generate sample data
+# توليد بيانات العينة
 n_samples = 1500
 np.random.seed(0)
 t = 1.5 * np.pi * (1 + 3 * np.random.rand(1, n_samples))
@@ -47,11 +31,10 @@ X = np.concatenate((x, y))
 X += 0.7 * np.random.randn(2, n_samples)
 X = X.T
 
-# Create a graph capturing local connectivity. Larger number of neighbors
-# will give more homogeneous clusters to the cost of computation
-# time. A very large number of neighbors gives more evenly distributed
-# cluster sizes, but may not impose the local manifold structure of
-# the data
+# إنشاء رسم بياني لالتقاط الاتصال المحلي. سيعطي عدد أكبر من الجيران
+# مجموعات أكثر تجانسًا بتكلفة وقت الحساب
+# الوقت. يعطي عدد كبير جدًا من الجيران أحجام مجموعات موزعة بالتساوي أكثر، ولكن قد لا يفرض البنية الهندسية المحلية
+# البيانات
 knn_graph = kneighbors_graph(X, 30, include_self=False)
 
 for connectivity in (None, knn_graph):

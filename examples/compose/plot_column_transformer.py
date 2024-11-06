@@ -1,20 +1,16 @@
 """
 ==================================================
-Column Transformer with Heterogeneous Data Sources
+محول الأعمدة مع مصادر بيانات غير متجانسة
 ==================================================
 
-Datasets can often contain components that require different feature
-extraction and processing pipelines. This scenario might occur when:
+يمكن أن تحتوي مجموعات البيانات غالبًا على مكونات تتطلب معالجة واستخراج مميزات مختلفة. قد يحدث هذا السيناريو عندما:
 
-1. your dataset consists of heterogeneous data types (e.g. raster images and
-   text captions),
-2. your dataset is stored in a :class:`pandas.DataFrame` and different columns
-   require different processing pipelines.
+1. تتكون مجموعة البيانات الخاصة بك من أنواع بيانات غير متجانسة (مثل صور نقطية ونصوص توضيحية)،
+2. يتم تخزين مجموعة البيانات الخاصة بك في :class:`pandas.DataFrame` وتتطلب أعمدة مختلفة خطوط أنابيب معالجة مختلفة.
 
-This example demonstrates how to use
-:class:`~sklearn.compose.ColumnTransformer` on a dataset containing
-different types of features. The choice of features is not particularly
-helpful, but serves to illustrate the technique.
+يوضح هذا المثال كيفية استخدام
+:class:`~sklearn.compose.ColumnTransformer` على مجموعة بيانات تحتوي على
+أنواع مختلفة من الميزات. اختيار الميزات ليس مفيدًا بشكل خاص، ولكنه يخدم لتوضيح التقنية.
 
 """
 
@@ -34,14 +30,13 @@ from sklearn.preprocessing import FunctionTransformer
 from sklearn.svm import LinearSVC
 
 ##############################################################################
-# 20 newsgroups dataset
+# مجموعة بيانات 20 مجموعة أخبار
 # ---------------------
 #
-# We will use the :ref:`20 newsgroups dataset <20newsgroups_dataset>`, which
-# comprises posts from newsgroups on 20 topics. This dataset is split
-# into train and test subsets based on messages posted before and after
-# a specific date. We will only use posts from 2 categories to speed up running
-# time.
+# سنستخدم :ref:`مجموعة بيانات 20 مجموعة أخبار <20newsgroups_dataset>`، والتي
+# تتألف من منشورات من مجموعات أخبار حول 20 موضوعًا. يتم تقسيم مجموعة البيانات هذه
+# إلى مجموعات فرعية للتدريب والاختبار بناءً على الرسائل المنشورة قبل وبعد
+# تاريخ محدد. سنستخدم فقط المنشورات من فئتين لتسريع وقت التشغيل.
 
 categories = ["sci.med", "sci.space"]
 X_train, y_train = fetch_20newsgroups(
@@ -60,39 +55,38 @@ X_test, y_test = fetch_20newsgroups(
 )
 
 ##############################################################################
-# Each feature comprises meta information about that post, such as the subject,
-# and the body of the news post.
+# تتضمن كل ميزة معلومات وصفية حول هذا المنشور، مثل الموضوع،
+# ونص منشور الأخبار.
 
 print(X_train[0])
 
 ##############################################################################
-# Creating transformers
+# إنشاء المحولات
 # ---------------------
 #
-# First, we would like a transformer that extracts the subject and
-# body of each post. Since this is a stateless transformation (does not
-# require state information from training data), we can define a function that
-# performs the data transformation then use
-# :class:`~sklearn.preprocessing.FunctionTransformer` to create a scikit-learn
-# transformer.
+# أولاً، نريد محولًا يستخرج الموضوع و
+# نص كل منشور. نظرًا لأن هذا تحويل عديم الحالة (لا
+# يتطلب معلومات الحالة من بيانات التدريب)، يمكننا تحديد دالة
+# تقوم بتحويل البيانات ثم استخدام
+# :class:`~sklearn.preprocessing.FunctionTransformer` لإنشاء محول scikit-learn.
 
 
 def subject_body_extractor(posts):
-    # construct object dtype array with two columns
-    # first column = 'subject' and second column = 'body'
+    # بناء مصفوفة من نوع كائن مع عمودين
+    # العمود الأول = 'subject' والعمود الثاني = 'body'
     features = np.empty(shape=(len(posts), 2), dtype=object)
     for i, text in enumerate(posts):
-        # temporary variable `_` stores '\n\n'
+        # المتغير المؤقت `_` يخزن '\n\n'
         headers, _, body = text.partition("\n\n")
-        # store body text in second column
+        # تخزين نص الجسم في العمود الثاني
         features[i, 1] = body
 
         prefix = "Subject:"
         sub = ""
-        # save text after 'Subject:' in first column
+        # حفظ النص بعد 'Subject:' في العمود الأول
         for line in headers.split("\n"):
             if line.startswith(prefix):
-                sub = line[len(prefix) :]
+                sub = line[len(prefix):]
                 break
         features[i, 0] = sub
 
@@ -102,8 +96,8 @@ def subject_body_extractor(posts):
 subject_body_transformer = FunctionTransformer(subject_body_extractor)
 
 ##############################################################################
-# We will also create a transformer that extracts the
-# length of the text and the number of sentences.
+# سننشئ أيضًا محولًا يستخرج
+# طول النص وعدد الجمل.
 
 
 def text_stats(posts):
@@ -113,28 +107,28 @@ def text_stats(posts):
 text_stats_transformer = FunctionTransformer(text_stats)
 
 ##############################################################################
-# Classification pipeline
+# خط أنابيب التصنيف
 # -----------------------
 #
-# The pipeline below extracts the subject and body from each post using
-# ``SubjectBodyExtractor``, producing a (n_samples, 2) array. This array is
-# then used to compute standard bag-of-words features for the subject and body
-# as well as text length and number of sentences on the body, using
-# ``ColumnTransformer``. We combine them, with weights, then train a
-# classifier on the combined set of features.
+# يستخرج خط الأنابيب أدناه الموضوع والنص من كل منشور باستخدام
+# ``SubjectBodyExtractor``، مما ينتج عنه مصفوفة (n_samples، 2). يتم استخدام هذه المصفوفة
+# بعد ذلك لحساب ميزات حقيبة الكلمات القياسية للموضوع والنص
+# بالإضافة إلى طول النص وعدد الجمل في النص، باستخدام
+# ``ColumnTransformer``. نقوم بدمجها، مع أوزان، ثم ندرب
+# مصنفًا على مجموعة الميزات المجمعة.
 
 pipeline = Pipeline(
     [
-        # Extract subject & body
+        # استخراج الموضوع والنص
         ("subjectbody", subject_body_transformer),
-        # Use ColumnTransformer to combine the subject and body features
+        # استخدام ColumnTransformer لدمج ميزات الموضوع والنص
         (
             "union",
             ColumnTransformer(
                 [
-                    # bag-of-words for subject (col 0)
+                    # حقيبة الكلمات للموضوع (العمود 0)
                     ("subject", TfidfVectorizer(min_df=50), 0),
-                    # bag-of-words with decomposition for body (col 1)
+                    # حقيبة الكلمات مع التحليل للنص (العمود 1)
                     (
                         "body_bow",
                         Pipeline(
@@ -145,7 +139,7 @@ pipeline = Pipeline(
                         ),
                         1,
                     ),
-                    # Pipeline for pulling text stats from post's body
+                    # خط أنابيب لسحب إحصائيات النص من نص المنشور
                     (
                         "body_stats",
                         Pipeline(
@@ -153,17 +147,17 @@ pipeline = Pipeline(
                                 (
                                     "stats",
                                     text_stats_transformer,
-                                ),  # returns a list of dicts
+                                ),  # يُرجع قائمة من القواميس
                                 (
                                     "vect",
                                     DictVectorizer(),
-                                ),  # list of dicts -> feature matrix
+                                ),  # قائمة القواميس -> مصفوفة الميزات
                             ]
                         ),
                         1,
                     ),
                 ],
-                # weight above ColumnTransformer features
+                # وزن ميزات ColumnTransformer أعلاه
                 transformer_weights={
                     "subject": 0.8,
                     "body_bow": 0.5,
@@ -171,16 +165,18 @@ pipeline = Pipeline(
                 },
             ),
         ),
-        # Use a SVC classifier on the combined features
+        # استخدام مصنف SVC على الميزات المجمعة
         ("svc", LinearSVC(dual=False)),
     ],
     verbose=True,
 )
 
+
 ##############################################################################
-# Finally, we fit our pipeline on the training data and use it to predict
-# topics for ``X_test``. Performance metrics of our pipeline are then printed.
+# أخيرًا، نقوم بملاءمة خط الأنابيب الخاص بنا على بيانات التدريب ونستخدمه للتنبؤ
+# بالموضوعات لـ ``X_test``. ثم تتم طباعة مقاييس أداء خط الأنابيب الخاص بنا.
 
 pipeline.fit(X_train, y_train)
 y_pred = pipeline.predict(X_test)
-print("Classification report:\n\n{}".format(classification_report(y_test, y_pred)))
+print("Classification report:\n\n{}".format(
+    classification_report(y_test, y_pred)))

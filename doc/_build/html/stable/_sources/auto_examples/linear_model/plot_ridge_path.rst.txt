@@ -19,45 +19,44 @@
 
 
 ===========================================================
-Plot Ridge coefficients as a function of the regularization
+رسم معاملات Ridge كدالة للتنظيم
 ===========================================================
 
-Shows the effect of collinearity in the coefficients of an estimator.
+يظهر هذا المثال تأثير التلازم في معاملات أداة التقدير.
 
 .. currentmodule:: sklearn.linear_model
 
-:class:`Ridge` Regression is the estimator used in this example.
-Each color represents a different feature of the
-coefficient vector, and this is displayed as a function of the
-regularization parameter.
+:class:`Ridge` الانحدار هو أداة التقدير المستخدمة في هذا المثال.
+يمثل كل لون ميزة مختلفة في
+متجه المعاملات، ويتم عرضه كدالة ل
+معامل التنظيم.
 
-This example also shows the usefulness of applying Ridge regression
-to highly ill-conditioned matrices. For such matrices, a slight
-change in the target variable can cause huge variances in the
-calculated weights. In such cases, it is useful to set a certain
-regularization (alpha) to reduce this variation (noise).
+يوضح هذا المثال أيضًا فائدة تطبيق الانحدار Ridge
+على المصفوفات ذات الشرط السيئ للغاية. بالنسبة لهذه المصفوفات، يمكن أن يسبب التغيير الطفيف في المتغير المستهدف تباينات كبيرة في
+الأوزان المحسوبة. في مثل هذه الحالات، من المفيد تعيين بعض
+التنظيم (alpha) للحد من هذا التباين (الضوضاء).
 
-When alpha is very large, the regularization effect dominates the
-squared loss function and the coefficients tend to zero.
-At the end of the path, as alpha tends toward zero
-and the solution tends towards the ordinary least squares, coefficients
-exhibit big oscillations. In practise it is necessary to tune alpha
-in such a way that a balance is maintained between both.
+عندما يكون alpha كبيرًا جدًا، تهيمن تأثيرات التنظيم على
+دالة الخسارة التربيعية وتميل المعاملات إلى الصفر.
+في نهاية المسار، عندما يقترب alpha من الصفر
+وتميل الحلول نحو المربعات العادية الأقل، تظهر المعاملات
+تذبذبات كبيرة. في الممارسة العملية، من الضروري ضبط alpha
+بطريقة تحافظ على التوازن بين الاثنين.
 
-.. GENERATED FROM PYTHON SOURCE LINES 29-42
+.. GENERATED FROM PYTHON SOURCE LINES 28-41
 
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري scikit-learn
+    # معرف SPDX-License: BSD-3-Clause
 
     import matplotlib.pyplot as plt
     import numpy as np
 
     from sklearn import linear_model
 
-    # X is the 10x10 Hilbert matrix
+    # X هي مصفوفة هيلبرت 10x10
     X = 1.0 / (np.arange(1, 11) + np.arange(0, 10)[:, np.newaxis])
     y = np.ones(10)
 
@@ -68,12 +67,12 @@ in such a way that a balance is maintained between both.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 43-45
+.. GENERATED FROM PYTHON SOURCE LINES 42-44
 
-Compute paths
+حساب المسارات
 -------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 45-55
+.. GENERATED FROM PYTHON SOURCE LINES 44-54
 
 .. code-block:: Python
 
@@ -94,12 +93,12 @@ Compute paths
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 56-58
+.. GENERATED FROM PYTHON SOURCE LINES 55-57
 
-Display results
+عرض النتائج
 ---------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-69
+.. GENERATED FROM PYTHON SOURCE LINES 57-67
 
 .. code-block:: Python
 
@@ -108,13 +107,12 @@ Display results
 
     ax.plot(alphas, coefs)
     ax.set_xscale("log")
-    ax.set_xlim(ax.get_xlim()[::-1])  # reverse axis
+    ax.set_xlim(ax.get_xlim()[::-1])  # عكس المحور
     plt.xlabel("alpha")
     plt.ylabel("weights")
     plt.title("Ridge coefficients as a function of the regularization")
     plt.axis("tight")
     plt.show()
-
 
 
 .. image-sg:: /auto_examples/linear_model/images/sphx_glr_plot_ridge_path_001.png
@@ -129,7 +127,7 @@ Display results
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.383 seconds)
+   **Total running time of the script:** (0 minutes 0.430 seconds)
 
 
 .. _sphx_glr_download_auto_examples_linear_model_plot_ridge_path.py:

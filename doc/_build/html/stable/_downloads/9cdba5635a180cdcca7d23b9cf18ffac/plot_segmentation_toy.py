@@ -1,37 +1,27 @@
 """
-===========================================
-Spectral clustering for image segmentation
-===========================================
+# ===========================================
+# التجميع الطيفي لتجزئة الصور
+# ===========================================
 
-In this example, an image with connected circles is generated and
-spectral clustering is used to separate the circles.
+في هذا المثال، يتم توليد صورة بدوائر متصلة ويتم استخدام التجميع الطيفي لفصل الدوائر.
 
-In these settings, the :ref:`spectral_clustering` approach solves the problem
-know as 'normalized graph cuts': the image is seen as a graph of
-connected voxels, and the spectral clustering algorithm amounts to
-choosing graph cuts defining regions while minimizing the ratio of the
-gradient along the cut, and the volume of the region.
+في هذه الإعدادات، يحل نهج :ref:`spectral_clustering` المشكلة المعروفة باسم "القطع الرسومية المعيارية": حيث يتم النظر إلى الصورة على أنها رسم بياني للبكسلات المتصلة، وتتمثل خوارزمية التجميع الطيفي في اختيار القطع الرسومية التي تحدد المناطق مع تقليل نسبة التدرج على طول القطع وحجم المنطقة.
 
-As the algorithm tries to balance the volume (ie balance the region
-sizes), if we take circles with different sizes, the segmentation fails.
+وبما أن الخوارزمية تحاول موازنة الحجم (أي موازنة أحجام المناطق)، إذا أخذنا دوائر بأحجام مختلفة، فإن التجزئة تفشل.
 
-In addition, as there is no useful information in the intensity of the image,
-or its gradient, we choose to perform the spectral clustering on a graph
-that is only weakly informed by the gradient. This is close to performing
-a Voronoi partition of the graph.
+بالإضافة إلى ذلك، نظرًا لعدم وجود معلومات مفيدة في شدة الصورة أو تدرجها، فإننا نختار إجراء التجميع الطيفي على رسم بياني يتم إعلامه بشكل ضعيف فقط بالتدرج. وهذا قريب من إجراء تقسيم فورونوي للرسم البياني.
 
-In addition, we use the mask of the objects to restrict the graph to the
-outline of the objects. In this example, we are interested in
-separating the objects one from the other, and not from the background.
-
+بالإضافة إلى ذلك، نستخدم قناع الأجسام لتقييد الرسم البياني إلى مخطط الأجسام. في هذا المثال، نحن مهتمون بفصل الأجسام عن بعضها البعض، وليس عن الخلفية.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايت-ليرن
+# معرف رخصة SPDX: BSD-3-Clause
 
 # %%
-# Generate the data
+# توليد البيانات
 # -----------------
+from sklearn.cluster import spectral_clustering
+import matplotlib.pyplot as plt
+from sklearn.feature_extraction import image
 import numpy as np
 
 l = 100
@@ -50,36 +40,32 @@ circle3 = (x - center3[0]) ** 2 + (y - center3[1]) ** 2 < radius3**2
 circle4 = (x - center4[0]) ** 2 + (y - center4[1]) ** 2 < radius4**2
 
 # %%
-# Plotting four circles
+# رسم أربعة دوائر
 # ---------------------
 img = circle1 + circle2 + circle3 + circle4
 
-# We use a mask that limits to the foreground: the problem that we are
-# interested in here is not separating the objects from the background,
-# but separating them one from the other.
+# نستخدم قناعًا يحد من المقدمة: المشكلة التي نهتم بها هنا ليست فصل الأجسام عن الخلفية،
+# ولكن فصلها عن بعضها البعض.
 mask = img.astype(bool)
 
 img = img.astype(float)
 img += 1 + 0.2 * np.random.randn(*img.shape)
 
 # %%
-# Convert the image into a graph with the value of the gradient on the
-# edges.
-from sklearn.feature_extraction import image
+# تحويل الصورة إلى رسم بياني مع قيمة التدرج على
+# الحواف.
 
 graph = image.img_to_graph(img, mask=mask)
 
 # %%
-# Take a decreasing function of the gradient resulting in a segmentation
-# that is close to a Voronoi partition
+# خذ دالة متناقصة من التدرج مما يؤدي إلى تجزئة
+# قريبة من تقسيم فورونوي
 graph.data = np.exp(-graph.data / graph.data.std())
 
 # %%
-# Here we perform spectral clustering using the arpack solver since amg is
-# numerically unstable on this example. We then plot the results.
-import matplotlib.pyplot as plt
+# هنا نقوم بالتجميع الطيفي باستخدام محلح arpack لأن amg غير مستقر
+# رقميا في هذا المثال. ثم نقوم برسم النتائج.
 
-from sklearn.cluster import spectral_clustering
 
 labels = spectral_clustering(graph, n_clusters=4, eigen_solver="arpack")
 label_im = np.full(mask.shape, -1.0)
@@ -92,11 +78,11 @@ axs[1].matshow(label_im)
 plt.show()
 
 # %%
-# Plotting two circles
+# رسم دائرتين
 # --------------------
-# Here we repeat the above process but only consider the first two circles
-# we generated. Note that this results in a cleaner separation between the
-# circles as the region sizes are easier to balance in this case.
+# هنا نكرر العملية أعلاه ولكن نأخذ في الاعتبار الدائرتين الأوليين فقط
+# قمنا بتوليدهما. لاحظ أن هذا يؤدي إلى فصل أنظف بين
+# الدوائر حيث يسهل موازنة أحجام المناطق في هذه الحالة.
 
 img = circle1 + circle2
 mask = img.astype(bool)

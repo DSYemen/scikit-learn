@@ -1,6 +1,7 @@
 .. _compose_examples:
 
-Pipelines and composite estimators
+خطوط الأنابيب والمقدرين المركبين
 ----------------------------------
+Pipelines and composite estimators
 
-Examples of how to compose transformers and pipelines from other estimators. See the :ref:`User Guide <combining_estimators>`.
+أمثلة حول كيفية تكوين المحولات وخطوط الأنابيب من مقدرين آخرين. راجع :ref:`دليل المستخدم <combining_estimators>`.

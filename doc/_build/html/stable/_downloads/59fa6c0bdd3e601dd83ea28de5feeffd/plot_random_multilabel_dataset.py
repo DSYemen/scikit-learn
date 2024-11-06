@@ -1,13 +1,12 @@
 """
 ==============================================
-Plot randomly generated multilabel dataset
+رسم مجموعة بيانات متعددة التصنيفات مُولدة عشوائياً
 ==============================================
 
-This illustrates the :func:`~sklearn.datasets.make_multilabel_classification`
-dataset generator. Each sample consists of counts of two features (up to 50 in
-total), which are differently distributed in each of two classes.
+هذا يوضح مولد مجموعة البيانات :func:`~sklearn.datasets.make_multilabel_classification`
+. تتكون كل عينة من عدد من ميزتين (حتى 50 في المجموع)، والتي تُوزع بشكل مختلف في كل من الفئتين.
 
-Points are labeled as follows, where Y means the class is present:
+تُصنف النقاط على النحو التالي، حيث يشير Y إلى وجود الفئة:
 
 =====  =====  =====  ======
   1      2      3    Color
@@ -21,22 +20,18 @@ Points are labeled as follows, where Y means the class is present:
   Y      Y      Y    Brown
 =====  =====  =====  ======
 
-A star marks the expected sample for each class; its size reflects the
-probability of selecting that class label.
+يُشير النجم إلى العينة المتوقعة لكل فئة؛ ويعكس حجمه احتمالية اختيار هذا التصنيف.
 
-The left and right examples highlight the ``n_labels`` parameter:
-more of the samples in the right plot have 2 or 3 labels.
+تُبرز الأمثلة على اليسار واليمين معامل "n_labels":
+حيث يوجد المزيد من العينات في الرسم البياني على اليمين والتي لديها 2 أو 3 تصنيفات.
 
-Note that this two-dimensional example is very degenerate:
-generally the number of features would be much greater than the
-"document length", while here we have much larger documents than vocabulary.
-Similarly, with ``n_classes > n_features``, it is much less likely that a
-feature distinguishes a particular class.
-
+ملاحظة: هذا المثال ثنائي الأبعاد مُنحرف جداً:
+بشكل عام، سيكون عدد الميزات أكبر بكثير من
+"طول الوثيقة"، في حين أن لدينا هنا وثائق أكبر بكثير من المفردات.
+وبالمثل، مع "n_classes > n_features"، من غير المرجح أن تُميز ميزة فئة معينة.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -56,8 +51,8 @@ COLORS = np.array(
     ]
 )
 
-# Use same random seed for multiple calls to make_multilabel_classification to
-# ensure same distributions
+# استخدام نفس البذرة العشوائية لعدة مكالمات إلى make_multilabel_classification ل
+# ضمان نفس التوزيعات
 RANDOM_SEED = np.random.randint(2**10)
 
 

@@ -1,25 +1,25 @@
 """
 ================================================================
-Comparing different hierarchical linkage methods on toy datasets
+مقارنة طرق الربط الهرمي المختلفة على مجموعات بيانات تجريبية
 ================================================================
 
-This example shows characteristics of different linkage
-methods for hierarchical clustering on datasets that are
-"interesting" but still in 2D.
+يوضح هذا المثال خصائص طرق الربط
+المختلفة للتجميع الهرمي على مجموعات البيانات التي
+"مثيرة للاهتمام" ولكنها لا تزال ثنائية الأبعاد.
 
-The main observations to make are:
+الملاحظات الرئيسية التي يجب إجراؤها هي:
 
-- single linkage is fast, and can perform well on
-  non-globular data, but it performs poorly in the
-  presence of noise.
-- average and complete linkage perform well on
-  cleanly separated globular clusters, but have mixed
-  results otherwise.
-- Ward is the most effective method for noisy data.
+- الربط الفردي سريع، ويمكن أن يعمل بشكل جيد على
+  البيانات غير الكروية، ولكنه يعمل بشكل سيئ في
+  وجود ضوضاء.
+- يعمل الربط المتوسط ​​والكامل بشكل جيد على
+  التجمعات الكروية المنفصلة بشكل نظيف، ولكن له نتائج مختلطة
+  خلاف ذلك.
+- Ward هي الطريقة الأكثر فعالية للبيانات المشوشة.
 
-While these examples give some intuition about the
-algorithms, this intuition might not apply to very high
-dimensional data.
+بينما تعطي هذه الأمثلة بعض الحدس حول
+الخوارزميات، فقد لا ينطبق هذا الحدس على البيانات عالية
+الأبعاد.
 
 """
 
@@ -37,33 +37,34 @@ from sklearn import cluster, datasets
 from sklearn.preprocessing import StandardScaler
 
 # %%
-# Generate datasets. We choose the size big enough to see the scalability
-# of the algorithms, but not too big to avoid too long running times
+# إنشاء مجموعات البيانات. نختار الحجم كبيرًا بما يكفي لرؤية قابلية التوسع
+# للخوارزميات، ولكن ليس كبيرًا جدًا لتجنب أوقات التشغيل الطويلة جدًا
 
 n_samples = 1500
 noisy_circles = datasets.make_circles(
     n_samples=n_samples, factor=0.5, noise=0.05, random_state=170
 )
-noisy_moons = datasets.make_moons(n_samples=n_samples, noise=0.05, random_state=170)
+noisy_moons = datasets.make_moons(
+    n_samples=n_samples, noise=0.05, random_state=170)
 blobs = datasets.make_blobs(n_samples=n_samples, random_state=170)
 rng = np.random.RandomState(170)
 no_structure = rng.rand(n_samples, 2), None
 
-# Anisotropicly distributed data
+# بيانات موزعة بشكل متباين الخواص
 X, y = datasets.make_blobs(n_samples=n_samples, random_state=170)
 transformation = [[0.6, -0.6], [-0.4, 0.8]]
 X_aniso = np.dot(X, transformation)
 aniso = (X_aniso, y)
 
-# blobs with varied variances
+# نقاط متغيرة التباينات
 varied = datasets.make_blobs(
     n_samples=n_samples, cluster_std=[1.0, 2.5, 0.5], random_state=170
 )
 
 # %%
-# Run the clustering and plot
+# تشغيل التجميع والرسم
 
-# Set up cluster parameters
+# إعداد معلمات التجميع
 plt.figure(figsize=(9 * 1.3 + 2, 14.5))
 plt.subplots_adjust(
     left=0.02, right=0.98, bottom=0.001, top=0.96, wspace=0.05, hspace=0.01
@@ -83,17 +84,17 @@ datasets = [
 ]
 
 for i_dataset, (dataset, algo_params) in enumerate(datasets):
-    # update parameters with dataset-specific values
+    # تحديث المعلمات بقيم خاصة بمجموعة البيانات
     params = default_base.copy()
     params.update(algo_params)
 
     X, y = dataset
 
-    # normalize dataset for easier parameter selection
+    # تسوية مجموعة البيانات لتسهيل اختيار المعلمات
     X = StandardScaler().fit_transform(X)
 
     # ============
-    # Create cluster objects
+    # إنشاء كائنات التجميع
     # ============
     ward = cluster.AgglomerativeClustering(
         n_clusters=params["n_clusters"], linkage="ward"
@@ -109,16 +110,16 @@ for i_dataset, (dataset, algo_params) in enumerate(datasets):
     )
 
     clustering_algorithms = (
-        ("Single Linkage", single),
-        ("Average Linkage", average),
-        ("Complete Linkage", complete),
-        ("Ward Linkage", ward),
+        ("ربط فردي", single),
+        ("ربط متوسط", average),
+        ("ربط كامل", complete),
+        ("ربط Ward", ward),
     )
 
     for name, algorithm in clustering_algorithms:
         t0 = time.time()
 
-        # catch warnings related to kneighbors_graph
+        # التقاط التحذيرات المتعلقة بـ kneighbors_graph
         with warnings.catch_warnings():
             warnings.filterwarnings(
                 "ignore",

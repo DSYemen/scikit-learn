@@ -19,12 +19,12 @@
 
 
 ==================================
-Comparing various online solvers
+مقارنة بين المحللات المختلفة عبر الإنترنت
 ==================================
-An example showing how different online solvers perform
-on the hand-written digits dataset.
+مثال يوضح كيف تؤدي المحللات المختلفة عبر الإنترنت
+على مجموعة بيانات الأرقام المكتوبة بخط اليد.
 
-.. GENERATED FROM PYTHON SOURCE LINES 8-71
+.. GENERATED FROM PYTHON SOURCE LINES 8-70
 
 
 
@@ -38,12 +38,12 @@ on the hand-written digits dataset.
 
  .. code-block:: none
 
-    training SGD
-    training ASGD
-    training Perceptron
-    training Passive-Aggressive I
-    training Passive-Aggressive II
-    training SAG
+    تدريب SGD
+    تدريب ASGD
+    تدريب Perceptron
+    تدريب Passive-Aggressive I
+    تدريب Passive-Aggressive II
+    تدريب SAG
 
 
 
@@ -55,8 +55,8 @@ on the hand-written digits dataset.
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري سكايت-ليرن
+    # معرف الترخيص: BSD-3-Clause
 
     import matplotlib.pyplot as plt
     import numpy as np
@@ -71,7 +71,7 @@ on the hand-written digits dataset.
     from sklearn.model_selection import train_test_split
 
     heldout = [0.95, 0.90, 0.75, 0.50, 0.01]
-    # Number of rounds to fit and evaluate an estimator.
+    # عدد الجولات لتدريب وتقييم المحلل.
     rounds = 10
     X, y = datasets.load_digits(return_X_y=True)
 
@@ -98,7 +98,7 @@ on the hand-written digits dataset.
     xx = 1.0 - np.array(heldout)
 
     for name, clf in classifiers:
-        print("training %s" % name)
+        print("تدريب %s" % name)
         rng = np.random.RandomState(42)
         yy = []
         for i in heldout:
@@ -114,14 +114,13 @@ on the hand-written digits dataset.
         plt.plot(xx, yy, label=name)
 
     plt.legend(loc="upper right")
-    plt.xlabel("Proportion train")
-    plt.ylabel("Test Error Rate")
+    plt.xlabel("نسبة التدريب")
+    plt.ylabel("معدل الخطأ في الاختبار")
     plt.show()
-
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 7.355 seconds)
+   **Total running time of the script:** (0 minutes 8.176 seconds)
 
 
 .. _sphx_glr_download_auto_examples_linear_model_plot_sgd_comparison.py:

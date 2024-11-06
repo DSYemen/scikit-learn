@@ -18,33 +18,31 @@
 .. _sphx_glr_auto_examples_cluster_plot_coin_segmentation.py:
 
 
+تم تقسيم صورة العملات اليونانية إلى مناطق
 ================================================
-Segmenting the picture of greek coins in regions
-================================================
 
-This example uses :ref:`spectral_clustering` on a graph created from
-voxel-to-voxel difference on an image to break this image into multiple
-partly-homogeneous regions.
+يستخدم هذا المثال :ref:`spectral_clustering` على رسم بياني تم إنشاؤه من
+الفرق بين البكسلات في صورة لتقسيم هذه الصورة إلى مناطق متعددة
+جزئيا متجانسة.
 
-This procedure (spectral clustering on an image) is an efficient
-approximate solution for finding normalized graph cuts.
+هذه العملية (التجميع الطيفي على صورة) هي حل تقريبي فعال
+لإيجاد القطع الرسومية المعيارية.
 
-There are three options to assign labels:
+هناك ثلاثة خيارات لتعيين التصنيفات:
 
-* 'kmeans' spectral clustering clusters samples in the embedding space
-  using a kmeans algorithm
-* 'discrete' iteratively searches for the closest partition
-  space to the embedding space of spectral clustering.
-* 'cluster_qr' assigns labels using the QR factorization with pivoting
-  that directly determines the partition in the embedding space.
+* 'kmeans' التجميع الطيفي يجمع العينات في مساحة التضمين
+  باستخدام خوارزمية kmeans
+* 'discrete' تبحث بشكل تكراري عن أقرب تقسيم
+  مساحة إلى مساحة تضمين التجميع الطيفي.
+* 'cluster_qr' يقوم بتعيين التصنيفات باستخدام تحليل QR مع التبديل
+  الذي يحدد التقسيم مباشرة في مساحة التضمين.
 
-.. GENERATED FROM PYTHON SOURCE LINES 22-62
+.. GENERATED FROM PYTHON SOURCE LINES 21-60
 
 .. code-block:: Python
 
-
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري scikit-learn
+    # معرف الترخيص: BSD-3-Clause
 
     import time
 
@@ -57,29 +55,29 @@ There are three options to assign labels:
     from sklearn.cluster import spectral_clustering
     from sklearn.feature_extraction import image
 
-    # load the coins as a numpy array
+    # تحميل العملات كصفيف numpy
     orig_coins = coins()
 
-    # Resize it to 20% of the original size to speed up the processing
-    # Applying a Gaussian filter for smoothing prior to down-scaling
-    # reduces aliasing artifacts.
+    # تغيير حجمه إلى 20% من الحجم الأصلي لتسريع المعالجة
+    # تطبيق مرشح غاوسي للتنعيم قبل تغيير الحجم
+    # يقلل من آثار التحجيم.
     smoothened_coins = gaussian_filter(orig_coins, sigma=2)
     rescaled_coins = rescale(smoothened_coins, 0.2, mode="reflect", anti_aliasing=False)
 
-    # Convert the image into a graph with the value of the gradient on the
-    # edges.
+    # تحويل الصورة إلى رسم بياني مع قيمة التدرج على
+    # الحواف.
     graph = image.img_to_graph(rescaled_coins)
 
-    # Take a decreasing function of the gradient: an exponential
-    # The smaller beta is, the more independent the segmentation is of the
-    # actual image. For beta=1, the segmentation is close to a voronoi
+    # خذ دالة متناقصة من التدرج: أسية
+    # كلما كان beta أصغر، كلما كانت القطعة مستقلة أكثر عن
+    # الصورة الفعلية. بالنسبة لـ beta=1، تكون القطعة قريبة من voronoi
     beta = 10
     eps = 1e-6
     graph.data = np.exp(-beta * graph.data / graph.data.std()) + eps
 
-    # The number of segmented regions to display needs to be chosen manually.
-    # The current version of 'spectral_clustering' does not support determining
-    # the number of good quality clusters automatically.
+    # يجب اختيار عدد المناطق المقسمة يدويًا.
+    # الإصدار الحالي من 'spectral_clustering' لا يدعم تحديد
+    # عدد المجموعات ذات الجودة الجيدة تلقائيًا.
     n_regions = 26
 
 
@@ -89,26 +87,26 @@ There are three options to assign labels:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 63-64
+.. GENERATED FROM PYTHON SOURCE LINES 61-62
 
-Compute and visualize the resulting regions
+حساب وعرض المناطق الناتجة
 
-.. GENERATED FROM PYTHON SOURCE LINES 64-105
+.. GENERATED FROM PYTHON SOURCE LINES 62-102
 
 .. code-block:: Python
 
 
-    # Computing a few extra eigenvectors may speed up the eigen_solver.
-    # The spectral clustering quality may also benefit from requesting
-    # extra regions for segmentation.
+    # حساب بعض المتجهات الذاتية الإضافية قد يسرع eigen_solver.
+    # قد تستفيد جودة التجميع الطيفي أيضًا من طلب
+    # مناطق إضافية للتقسيم.
     n_regions_plus = 3
 
-    # Apply spectral clustering using the default eigen_solver='arpack'.
-    # Any implemented solver can be used: eigen_solver='arpack', 'lobpcg', or 'amg'.
-    # Choosing eigen_solver='amg' requires an extra package called 'pyamg'.
-    # The quality of segmentation and the speed of calculations is mostly determined
-    # by the choice of the solver and the value of the tolerance 'eigen_tol'.
-    # TODO: varying eigen_tol seems to have no effect for 'lobpcg' and 'amg' #21243.
+    # تطبيق التجميع الطيفي باستخدام eigen_solver='arpack' الافتراضي.
+    # يمكن استخدام أي محقق تم تنفيذه: eigen_solver='arpack'، 'lobpcg'، أو 'amg'.
+    # اختيار eigen_solver='amg' يتطلب حزمة إضافية تسمى 'pyamg'.
+    # يتم تحديد جودة التقسيم وسرعة الحسابات بشكل أساسي
+    # من خلال اختيار المحقق وقيمة التسامح 'eigen_tol'.
+    # TODO: يبدو أن تغيير eigen_tol ليس له تأثير على 'lobpcg' و 'amg' #21243.
     for assign_labels in ("kmeans", "discretize", "cluster_qr"):
         t0 = time.time()
         labels = spectral_clustering(
@@ -132,13 +130,12 @@ Compute and visualize the resulting regions
         for l in range(n_regions):
             colors = [plt.cm.nipy_spectral((l + 4) / float(n_regions + 4))]
             plt.contour(labels == l, colors=colors)
-            # To view individual segments as appear comment in plt.pause(0.5)
+            # لعرض المقاطع الفردية كما تظهر قم بالتعليق في plt.pause(0.5)
     plt.show()
 
-    # TODO: After #21194 is merged and #21243 is fixed, check which eigen_solver
-    # is the best and set eigen_solver='arpack', 'lobpcg', or 'amg' and eigen_tol
-    # explicitly in this example.
-
+    # TODO: بعد دمج #21194 وإصلاح #21243، تحقق من أفضل محقق
+    # هو eigen_solver='arpack'، 'lobpcg'، أو 'amg' و eigen_tol
+    # بشكل صريح في هذا المثال.
 
 
 .. rst-class:: sphx-glr-horizontal
@@ -147,21 +144,21 @@ Compute and visualize the resulting regions
     *
 
       .. image-sg:: /auto_examples/cluster/images/sphx_glr_plot_coin_segmentation_001.png
-         :alt: Spectral clustering: kmeans, 2.16s
+         :alt: Spectral clustering: kmeans, 2.47s
          :srcset: /auto_examples/cluster/images/sphx_glr_plot_coin_segmentation_001.png
          :class: sphx-glr-multi-img
 
     *
 
       .. image-sg:: /auto_examples/cluster/images/sphx_glr_plot_coin_segmentation_002.png
-         :alt: Spectral clustering: discretize, 1.40s
+         :alt: Spectral clustering: discretize, 1.48s
          :srcset: /auto_examples/cluster/images/sphx_glr_plot_coin_segmentation_002.png
          :class: sphx-glr-multi-img
 
     *
 
       .. image-sg:: /auto_examples/cluster/images/sphx_glr_plot_coin_segmentation_003.png
-         :alt: Spectral clustering: cluster_qr, 1.35s
+         :alt: Spectral clustering: cluster_qr, 1.33s
          :srcset: /auto_examples/cluster/images/sphx_glr_plot_coin_segmentation_003.png
          :class: sphx-glr-multi-img
 
@@ -170,9 +167,9 @@ Compute and visualize the resulting regions
 
  .. code-block:: none
 
-    Spectral clustering: kmeans, 2.16s
-    Spectral clustering: discretize, 1.40s
-    Spectral clustering: cluster_qr, 1.35s
+    Spectral clustering: kmeans, 2.47s
+    Spectral clustering: discretize, 1.48s
+    Spectral clustering: cluster_qr, 1.33s
 
 
 
@@ -180,7 +177,7 @@ Compute and visualize the resulting regions
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 5.390 seconds)
+   **Total running time of the script:** (0 minutes 5.895 seconds)
 
 
 .. _sphx_glr_download_auto_examples_cluster_plot_coin_segmentation.py:

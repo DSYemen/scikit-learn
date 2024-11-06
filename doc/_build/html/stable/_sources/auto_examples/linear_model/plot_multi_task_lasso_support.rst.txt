@@ -19,24 +19,22 @@
 
 
 =============================================
-Joint feature selection with multi-task Lasso
+الاختيار المشترك للميزات باستخدام Lasso متعدد المهام
 =============================================
 
-The multi-task lasso allows to fit multiple regression problems
-jointly enforcing the selected features to be the same across
-tasks. This example simulates sequential measurements, each task
-is a time instant, and the relevant features vary in amplitude
-over time while being the same. The multi-task lasso imposes that
-features that are selected at one time point are select for all time
-point. This makes feature selection by the Lasso more stable.
+يسمح Lasso متعدد المهام بتناسب مشاكل الانحدار المتعددة
+فرض اختيار الميزات نفسها عبر
+المهام. يحاكي هذا المثال القياسات التسلسلية، حيث تمثل كل مهمة لحظة زمنية، وتختلف الميزات ذات الصلة في السعة
+بمرور الوقت مع بقائها نفسها. يفرض Lasso متعدد المهام أن
+الميزات التي يتم اختيارها في لحظة زمنية واحدة يتم اختيارها لجميع اللحظات الزمنية. وهذا يجعل اختيار الميزات بواسطة Lasso أكثر استقرارًا.
 
-.. GENERATED FROM PYTHON SOURCE LINES 15-19
+.. GENERATED FROM PYTHON SOURCE LINES 13-17
 
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري scikit-learn
+    # معرف الترخيص: BSD-3-Clause
 
 
 
@@ -45,12 +43,12 @@ point. This makes feature selection by the Lasso more stable.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 20-22
+.. GENERATED FROM PYTHON SOURCE LINES 18-20
 
-Generate data
+توليد البيانات
 -------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 22-38
+.. GENERATED FROM PYTHON SOURCE LINES 20-36
 
 .. code-block:: Python
 
@@ -59,7 +57,7 @@ Generate data
 
     rng = np.random.RandomState(42)
 
-    # Generate some 2D coefficients with sine waves with random frequency and phase
+    # توليد بعض معاملات ثنائية الأبعاد مع موجات الجيب ذات التردد العشوائي والطور
     n_samples, n_features, n_tasks = 100, 30, 40
     n_relevant_features = 5
     coef = np.zeros((n_tasks, n_features))
@@ -77,12 +75,12 @@ Generate data
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 39-41
+.. GENERATED FROM PYTHON SOURCE LINES 37-39
 
-Fit models
+ملاءمة النماذج
 ----------
 
-.. GENERATED FROM PYTHON SOURCE LINES 41-47
+.. GENERATED FROM PYTHON SOURCE LINES 39-45
 
 .. code-block:: Python
 
@@ -99,12 +97,12 @@ Fit models
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 48-50
+.. GENERATED FROM PYTHON SOURCE LINES 46-48
 
-Plot support and time series
+رسم الدعم والسلاسل الزمنية
 ----------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 50-83
+.. GENERATED FROM PYTHON SOURCE LINES 48-80
 
 .. code-block:: Python
 
@@ -114,20 +112,20 @@ Plot support and time series
     fig = plt.figure(figsize=(8, 5))
     plt.subplot(1, 2, 1)
     plt.spy(coef_lasso_)
-    plt.xlabel("Feature")
-    plt.ylabel("Time (or Task)")
+    plt.xlabel("الميزة")
+    plt.ylabel("الوقت (أو المهمة)")
     plt.text(10, 5, "Lasso")
     plt.subplot(1, 2, 2)
     plt.spy(coef_multi_task_lasso_)
-    plt.xlabel("Feature")
-    plt.ylabel("Time (or Task)")
+    plt.xlabel("الميزة")
+    plt.ylabel("الوقت (أو المهمة)")
     plt.text(10, 5, "MultiTaskLasso")
-    fig.suptitle("Coefficient non-zero location")
+    fig.suptitle("موقع المعامل غير الصفري")
 
     feature_to_plot = 0
     plt.figure()
     lw = 2
-    plt.plot(coef[:, feature_to_plot], color="seagreen", linewidth=lw, label="Ground truth")
+    plt.plot(coef[:, feature_to_plot], color="seagreen", linewidth=lw, label="الحقيقة الأرضية")
     plt.plot(
         coef_lasso_[:, feature_to_plot], color="cornflowerblue", linewidth=lw, label="Lasso"
     )
@@ -143,14 +141,13 @@ Plot support and time series
     plt.show()
 
 
-
 .. rst-class:: sphx-glr-horizontal
 
 
     *
 
       .. image-sg:: /auto_examples/linear_model/images/sphx_glr_plot_multi_task_lasso_support_001.png
-         :alt: Coefficient non-zero location
+         :alt: موقع المعامل غير الصفري
          :srcset: /auto_examples/linear_model/images/sphx_glr_plot_multi_task_lasso_support_001.png
          :class: sphx-glr-multi-img
 
@@ -168,7 +165,7 @@ Plot support and time series
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.273 seconds)
+   **Total running time of the script:** (0 minutes 0.295 seconds)
 
 
 .. _sphx_glr_download_auto_examples_linear_model_plot_multi_task_lasso_support.py:

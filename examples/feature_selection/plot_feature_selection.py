@@ -1,18 +1,17 @@
 """
-============================
-Univariate Feature Selection
-============================
+===============================
+اختيار الميزة أحادية المتغير
+===============================
 
-This notebook is an example of using univariate feature selection
-to improve classification accuracy on a noisy dataset.
+هذا الدفتر هو مثال على استخدام اختيار الميزات أحادي المتغير
+لتحسين دقة التصنيف على مجموعة بيانات صاخبة.
 
-In this example, some noisy (non informative) features are added to
-the iris dataset. Support vector machine (SVM) is used to classify the
-dataset both before and after applying univariate feature selection.
-For each feature, we plot the p-values for the univariate feature selection
-and the corresponding weights of SVMs. With this, we will compare model
-accuracy and examine the impact of univariate feature selection on model
-weights.
+في هذا المثال، تتم إضافة بعض الميزات الصاخبة (غير المعلوماتية) إلى
+مجموعة بيانات iris. يتم استخدام آلة متجه الدعم (SVM) لتصنيف
+مجموعة البيانات قبل وبعد تطبيق اختيار الميزات أحادي المتغير.
+لكل ميزة، نرسم قيم p لاختيار الميزات أحادي المتغير
+والأوزان المقابلة لـ SVMs. مع هذا، سنقارن دقة النموذج
+ونفحص تأثير اختيار الميزات أحادي المتغير على أوزان النموذج.
 
 """
 
@@ -20,7 +19,7 @@ weights.
 # SPDX-License-Identifier: BSD-3-Clause
 
 # %%
-# Generate sample data
+# توليد بيانات العينة
 # --------------------
 #
 import numpy as np
@@ -41,12 +40,12 @@ X = np.hstack((X, E))
 X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y, random_state=0)
 
 # %%
-# Univariate feature selection
+# اختيار الميزات أحادي المتغير
 # ----------------------------
 #
-# Univariate feature selection with F-test for feature scoring.
-# We use the default selection function to select
-# the four most significant features.
+# اختيار الميزات أحادي المتغير مع اختبار F لتسجيل الميزات.
+# نستخدم دالة الاختيار الافتراضية لتحديد
+# أهم أربع ميزات.
 from sklearn.feature_selection import SelectKBest, f_classif
 
 selector = SelectKBest(f_classif, k=4)
@@ -61,21 +60,21 @@ X_indices = np.arange(X.shape[-1])
 plt.figure(1)
 plt.clf()
 plt.bar(X_indices - 0.05, scores, width=0.2)
-plt.title("Feature univariate score")
-plt.xlabel("Feature number")
+plt.title("درجة الميزة أحادية المتغير")
+plt.xlabel("رقم الميزة")
 plt.ylabel(r"Univariate score ($-Log(p_{value})$)")
 plt.show()
 
 # %%
-# In the total set of features, only the 4 of the original features are significant.
-# We can see that they have the highest score with univariate feature
-# selection.
+# في المجموعة الكلية من الميزات، فقط 4 من الميزات الأصلية مهمة.
+# يمكننا أن نرى أن لديهم أعلى درجة مع اختيار الميزات أحادي المتغير.
+
 
 # %%
-# Compare with SVMs
+# المقارنة مع SVMs
 # -----------------
 #
-# Without univariate feature selection
+# بدون اختيار الميزات أحادي المتغير
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.svm import LinearSVC
@@ -83,7 +82,7 @@ from sklearn.svm import LinearSVC
 clf = make_pipeline(MinMaxScaler(), LinearSVC())
 clf.fit(X_train, y_train)
 print(
-    "Classification accuracy without selecting features: {:.3f}".format(
+    "دقة التصنيف بدون اختيار الميزات: {:.3f}".format(
         clf.score(X_test, y_test)
     )
 )
@@ -92,11 +91,11 @@ svm_weights = np.abs(clf[-1].coef_).sum(axis=0)
 svm_weights /= svm_weights.sum()
 
 # %%
-# After univariate feature selection
+# بعد اختيار الميزات أحادي المتغير
 clf_selected = make_pipeline(SelectKBest(f_classif, k=4), MinMaxScaler(), LinearSVC())
 clf_selected.fit(X_train, y_train)
 print(
-    "Classification accuracy after univariate feature selection: {:.3f}".format(
+    "دقة التصنيف بعد اختيار الميزات أحادي المتغير: {:.3f}".format(
         clf_selected.score(X_test, y_test)
     )
 )
@@ -118,16 +117,16 @@ plt.bar(
     label="SVM weights after selection",
 )
 
-plt.title("Comparing feature selection")
-plt.xlabel("Feature number")
+plt.title("مقارنة اختيار الميزات")
+plt.xlabel("رقم الميزة")
 plt.yticks(())
 plt.axis("tight")
 plt.legend(loc="upper right")
 plt.show()
 
 # %%
-# Without univariate feature selection, the SVM assigns a large weight
-# to the first 4 original significant features, but also selects many of the
-# non-informative features. Applying univariate feature selection before
-# the SVM increases the SVM weight attributed to the significant features,
-# and will thus improve classification.
+# بدون اختيار الميزات أحادي المتغير، تعين SVM وزنًا كبيرًا
+# لأول 4 ميزات أصلية مهمة، ولكنها تختار أيضًا العديد من
+# الميزات غير المعلوماتية. تطبيق اختيار الميزات أحادي المتغير قبل
+# SVM يزيد من وزن SVM المنسوب إلى الميزات المهمة،
+# وبالتالي سيحسن التصنيف.

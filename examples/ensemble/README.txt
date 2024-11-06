@@ -1,6 +1,7 @@
 .. _ensemble_examples:
 
+طرق المجموعة
+--------------
 Ensemble methods
-----------------
 
-Examples concerning the :mod:`sklearn.ensemble` module.
+أمثلة تتعلق بوحدة :mod:`sklearn.ensemble`.

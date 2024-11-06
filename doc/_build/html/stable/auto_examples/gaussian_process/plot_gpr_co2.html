@@ -7,16 +7,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Forecasting of CO2 level on Mona Loa dataset using Gaussian process regression (GPR)" />
+<meta property="og:title" content="التنبؤ بمستوى ثاني أكسيد الكربون في مجموعة بيانات Mona Loa باستخدام انحدار العملية الغاوسية (GPR)" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/auto_examples/gaussian_process/plot_gpr_co2.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="This example is based on Section 5.4.3 of &quot;Gaussian Processes for Machine Learning&quot; 1. It illustrates an example of complex kernel engineering and hyperparameter optimization using gradient ascent ..." />
+<meta property="og:description" content="يستند هذا المثال إلى القسم 5.4.3 من &quot;العمليات الغاوسية للتعلم الآلي&quot; 1. يوضح مثالاً على هندسة النواة المعقدة وتحسين المعلمات الفائقة باستخدام صعود التدرج على الاحتمال الهامشي اللوغاريتمي. تتكون الب..." />
 <meta property="og:image" content="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" />
 <meta property="og:image:alt" content="scikit-learn" />
-<meta name="description" content="This example is based on Section 5.4.3 of &quot;Gaussian Processes for Machine Learning&quot; 1. It illustrates an example of complex kernel engineering and hyperparameter optimization using gradient ascent ..." />
+<meta name="description" content="يستند هذا المثال إلى القسم 5.4.3 من &quot;العمليات الغاوسية للتعلم الآلي&quot; 1. يوضح مثالاً على هندسة النواة المعقدة وتحسين المعلمات الفائقة باستخدام صعود التدرج على الاحتمال الهامشي اللوغاريتمي. تتكون الب..." />
 
-    <title>Forecasting of CO2 level on Mona Loa dataset using Gaussian process regression (GPR) &#8212; scikit-learn 1.6.dev0 documentation</title>
+    <title>التنبؤ بمستوى ثاني أكسيد الكربون في مجموعة بيانات Mona Loa باستخدام انحدار العملية الغاوسية (GPR) &#8212; scikit-learn 1.6.dev0 documentation</title>
   
   
   
@@ -79,8 +79,8 @@
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="search" title="بحث" href="../../search.html" />
-    <link rel="next" title="Gaussian Processes regression: basic introductory example" href="plot_gpr_noisy_targets.html" />
-    <link rel="prev" title="Comparison of kernel ridge and Gaussian process regression" href="plot_compare_gpr_krr.html" />
+    <link rel="next" title="التنبؤات الاحتمالية مع تصنيف العملية الغاوسية (GPC)" href="plot_gpc.html" />
+    <link rel="prev" title="عملية غاوسية للتعلم الآلي" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="ar"/>
   <meta name="docsearch:version" content="1.6" />
@@ -562,138 +562,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_22_0.html">Release Highlights for scikit-learn 0.22</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../classification/index.html">Classification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../classification/plot_classifier_comparison.html">Classifier comparison</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../classification/plot_lda_qda.html">Linear and Quadratic Discriminant Analysis with covariance ellipsoid</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../classification/plot_lda.html">Normal, Ledoit-Wolf and OAS Linear Discriminant Analysis for classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../classification/plot_classification_probability.html">Plot classification probability</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../classification/plot_digits_classification.html">Recognizing hand-written digits</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../cluster/index.html">Clustering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_digits.html">A demo of K-Means clustering on the handwritten digits data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_coin_ward_segmentation.html">A demo of structured Ward hierarchical clustering on an image of coins</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_mean_shift.html">A demo of the mean-shift clustering algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_adjusted_for_chance_measures.html">Adjustment for chance in clustering performance evaluation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_agglomerative_clustering.html">Agglomerative clustering with and without structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_agglomerative_clustering_metrics.html">Agglomerative clustering with different metrics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_plusplus.html">An example of K-Means++ initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_bisect_kmeans.html">Bisecting K-Means and Regular K-Means Performance Comparison</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_birch_vs_minibatchkmeans.html">Compare BIRCH and MiniBatchKMeans</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_cluster_comparison.html">Comparing different clustering algorithms on toy datasets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_linkage_comparison.html">Comparing different hierarchical linkage methods on toy datasets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_mini_batch_kmeans.html">Comparison of the K-Means and MiniBatchKMeans clustering algorithms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_dbscan.html">Demo of DBSCAN clustering algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_hdbscan.html">Demo of HDBSCAN clustering algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_optics.html">Demo of OPTICS clustering algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_affinity_propagation.html">Demo of affinity propagation clustering algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_assumptions.html">Demonstration of k-means assumptions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_stability_low_dim_dense.html">Empirical evaluation of the impact of k-means initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_digits_agglomeration.html">Feature agglomeration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_feature_agglomeration_vs_univariate_selection.html">Feature agglomeration vs. univariate selection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_ward_structured_vs_unstructured.html">Hierarchical clustering: structured vs unstructured ward</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_inductive_clustering.html">Inductive Clustering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_dict_face_patches.html">Online learning of a dictionary of parts of faces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_agglomerative_dendrogram.html">Plot Hierarchical Clustering Dendrogram</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_coin_segmentation.html">Segmenting the picture of greek coins in regions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_silhouette_analysis.html">Selecting the number of clusters with silhouette analysis on KMeans clustering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_segmentation_toy.html">Spectral clustering for image segmentation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_digits_linkage.html">Various Agglomerative Clustering on a 2D embedding of digits</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_face_compress.html">Vector Quantization Example</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../covariance/index.html">Covariance estimation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_lw_vs_oas.html">Ledoit-Wolf vs OAS estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_mahalanobis_distances.html">Robust covariance estimation and Mahalanobis distances relevance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_robust_vs_empirical_covariance.html">Robust vs Empirical covariance estimate</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_covariance_estimation.html">Shrinkage covariance estimation: LedoitWolf vs OAS and max-likelihood</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_sparse_cov.html">Sparse inverse covariance estimation</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../cross_decomposition/index.html">Cross decomposition</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../cross_decomposition/plot_compare_cross_decomposition.html">Compare cross decomposition methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cross_decomposition/plot_pcr_vs_pls.html">Principal Component Regression vs Partial Least Squares Regression</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../datasets/index.html">Dataset examples</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../datasets/plot_random_multilabel_dataset.html">Plot randomly generated multilabel dataset</a></li>
-</ul>
-</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../tree/index.html">Decision Trees</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../tree/plot_tree_regression.html">Decision Tree Regression</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tree/plot_iris_dtc.html">Plot the decision surface of decision trees trained on the iris dataset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tree/plot_cost_complexity_pruning.html">Post pruning decision trees with cost complexity pruning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tree/plot_unveil_tree_structure.html">Understanding the decision tree structure</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../decomposition/index.html">Decomposition</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_ica_blind_source_separation.html">Blind source separation using FastICA</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_pca_vs_lda.html">Comparison of LDA and PCA 2D projection of Iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_faces_decomposition.html">Faces dataset decompositions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_varimax_fa.html">Factor Analysis (with rotation) to visualize patterns</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_ica_vs_pca.html">FastICA on 2D point clouds</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_image_denoising.html">Image denoising using dictionary learning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_incremental_pca.html">Incremental PCA</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_kernel_pca.html">Kernel PCA</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_pca_vs_fa_model_selection.html">Model selection with Probabilistic PCA and Factor Analysis (FA)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_pca_iris.html">Principal Component Analysis (PCA) on Iris Dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_sparse_coding.html">Sparse coding with a precomputed dictionary</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../developing_estimators/index.html">Developing Estimators</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../developing_estimators/sklearn_is_fitted.html"><code class="docutils literal notranslate"><span class="pre">__sklearn_is_fitted__</span></code> as Developer API</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../ensemble/index.html">Ensemble methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_categorical.html">Categorical Feature Support in Gradient Boosting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_stack_predictors.html">Combine predictors using stacking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_forest_hist_grad_boosting_comparison.html">Comparing Random Forests and Histogram Gradient Boosting models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_random_forest_regression_multioutput.html">Comparing random forests and the multi-output meta estimator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_adaboost_regression.html">Decision Tree Regression with AdaBoost</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_early_stopping.html">Early stopping in Gradient Boosting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_forest_importances.html">Feature importances with a forest of trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_feature_transformation.html">Feature transformations with ensembles of trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_hgbt_regression.html">Features in Histogram Gradient Boosting Trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_oob.html">Gradient Boosting Out-of-Bag estimates</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_regression.html">Gradient Boosting regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_regularization.html">Gradient Boosting regularization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_random_forest_embedding.html">Hashing feature transformation using Totally Random Trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_isolation_forest.html">IsolationForest example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_monotonic_constraints.html">Monotonic Constraints</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_adaboost_multiclass.html">Multi-class AdaBoosted Decision Trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_ensemble_oob.html">OOB Errors for Random Forests</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_probas.html">Plot class probabilities calculated by the VotingClassifier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_regressor.html">Plot individual and voting regression predictions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_decision_regions.html">Plot the decision boundaries of a VotingClassifier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_forest_iris.html">Plot the decision surfaces of ensembles of trees on the iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_quantile.html">Prediction Intervals for Gradient Boosting Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_bias_variance.html">Single estimator versus bagging: bias-variance decomposition</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_adaboost_twoclass.html">Two-class AdaBoost</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../applications/index.html">Examples based on real world datasets</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_tomography_l1_reconstruction.html">Compressive sensing: tomography reconstruction with L1 prior (Lasso)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_face_recognition.html">Faces recognition example using eigenfaces and SVMs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_digits_denoising.html">Image denoising using kernel PCA</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_time_series_lagged_features.html">Lagged features for time series forecasting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_model_complexity_influence.html">Model Complexity Influence</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_out_of_core_classification.html">Out-of-core classification of text documents</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_outlier_detection_wine.html">Outlier detection on a real data set</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_prediction_latency.html">Prediction Latency</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_species_distribution_modeling.html">Species distribution modeling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_cyclical_feature_engineering.html">Time-related feature engineering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_topics_extraction_with_nmf_lda.html">Topic extraction with Non-negative Matrix Factorization and Latent Dirichlet Allocation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_stock_market.html">Visualizing the stock market structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/wikipedia_principal_eigenvector.html">Wikipedia principal eigenvector</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../feature_selection/index.html">Feature Selection</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_f_test_vs_mi.html">Comparison of F-test and mutual information</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_select_from_model_diabetes.html">Model-based and sequential feature selection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_feature_selection_pipeline.html">Pipeline ANOVA SVM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_rfe_digits.html">Recursive feature elimination</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_rfe_with_cross_validation.html">Recursive feature elimination with cross-validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_feature_selection.html">Univariate Feature Selection</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../mixture/index.html">Gaussian Mixture Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -704,71 +577,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm.html">Gaussian Mixture Model Ellipsoids</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_selection.html">Gaussian Mixture Model Selection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_sin.html">Gaussian Mixture Model Sine Curve</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Gaussian Process for Machine Learning</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="plot_gpr_noisy.html">Ability of Gaussian process regression (GPR) to estimate data noise-level</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_compare_gpr_krr.html">Comparison of kernel ridge and Gaussian process regression</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Forecasting of CO2 level on Mona Loa dataset using Gaussian process regression (GPR)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_gpr_noisy_targets.html">Gaussian Processes regression: basic introductory example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_gpc_iris.html">Gaussian process classification (GPC) on iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_gpr_on_structured_data.html">Gaussian processes on discrete data structures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_gpc_xor.html">Illustration of Gaussian process classification (GPC) on the XOR dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_gpr_prior_posterior.html">Illustration of prior and posterior Gaussian process for different kernels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_gpc_isoprobability.html">Iso-probability lines for Gaussian Processes classification (GPC)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_gpc.html">Probabilistic predictions with Gaussian process classification (GPC)</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../linear_model/index.html">Generalized Linear Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ard.html">Comparing Linear Bayesian Regressors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_comparison.html">Comparing various online solvers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_bayesian_ridge_curvefit.html">Curve Fitting with Bayesian Ridge Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_logistic_multinomial.html">Decision Boundaries of Multinomial and One-vs-Rest Logistic Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_early_stopping.html">Early stopping of Stochastic Gradient Descent</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_elastic_net_precomputed_gram_matrix_with_weighted_samples.html">Fitting an Elastic Net with a precomputed Gram Matrix and Weighted Samples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_huber_vs_ridge.html">HuberRegressor vs Ridge on dataset with strong outliers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_multi_task_lasso_support.html">Joint feature selection with multi-task Lasso</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_logistic_l1_l2_sparsity.html">L1 Penalty and Sparsity in Logistic Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_and_elasticnet.html">L1-based models for Sparse Signals</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_lars_ic.html">Lasso model selection via information criteria</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_model_selection.html">Lasso model selection: AIC-BIC / cross-validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_dense_vs_sparse_data.html">Lasso on dense and sparse data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_lasso_lars_elasticnet_path.html">Lasso, Lasso-LARS, and Elastic Net paths</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_logistic.html">Logistic function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sparse_logistic_regression_mnist.html">MNIST classification using multinomial logistic + L1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sparse_logistic_regression_20newsgroups.html">Multiclass sparse logistic regression on 20newgroups</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_nnls.html">Non-negative least squares</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgdocsvm_vs_ocsvm.html">One-Class SVM versus One-Class SVM using Stochastic Gradient Descent</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ols.html">Ordinary Least Squares Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ols_ridge_variance.html">Ordinary Least Squares and Ridge Regression Variance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_omp.html">Orthogonal Matching Pursuit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ridge_path.html">Plot Ridge coefficients as a function of the regularization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_iris.html">Plot multi-class SGD on the iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_poisson_regression_non_normal_loss.html">Poisson regression and non-normal loss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_polynomial_interpolation.html">Polynomial and Spline interpolation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_quantile_regression.html">Quantile regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_logistic_path.html">Regularization path of L1- Logistic Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ridge_coeffs.html">Ridge coefficients as a function of the L2 Regularization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_robust_fit.html">Robust linear estimator fitting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ransac.html">Robust linear model estimation using RANSAC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_separating_hyperplane.html">SGD: Maximum margin separating hyperplane</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_penalties.html">SGD: Penalties</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_weighted_samples.html">SGD: Weighted samples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_loss_functions.html">SGD: convex loss functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_theilsen.html">Theil-Sen Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_tweedie_regression_insurance_claims.html">Tweedie regression on insurance claims</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../inspection/index.html">Inspection</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_linear_model_coefficient_interpretation.html">Common pitfalls in the interpretation of coefficients of linear models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_causal_interpretation.html">Failure of Machine Learning to infer causal effects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_partial_dependence.html">Partial Dependence and Individual Conditional Expectation Plots</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance.html">Permutation Importance vs Random Forest Feature Importance (MDI)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance_multicollinear.html">Permutation Importance with Multicollinear or Correlated Features</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../kernel_approximation/index.html">Kernel Approximation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../kernel_approximation/plot_scalable_poly_kernels.html">Scalable learning with polynomial kernel approximation</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../manifold/index.html">Manifold learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -796,11 +604,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_roc_curve_visualization_api.html">ROC Curve with Visualization API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_johnson_lindenstrauss_bound.html">The Johnson-Lindenstrauss bound for embedding with random projections</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_display_object_visualization.html">Visualizations with Display Objects</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../impute/index.html">Missing Value Imputation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../impute/plot_missing_values.html">Imputing missing values before building an estimator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../impute/plot_iterative_imputer_variants_comparison.html">Imputing missing values with variants of IterativeImputer</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../model_selection/index.html">Model Selection</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -860,15 +663,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mnist_filters.html">Visualization of MLP weights on MNIST</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../compose/index.html">Pipelines and composite estimators</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../compose/plot_column_transformer.html">Column Transformer with Heterogeneous Data Sources</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../compose/plot_column_transformer_mixed_types.html">Column Transformer with Mixed Types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../compose/plot_feature_union.html">Concatenating multiple feature extraction methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../compose/plot_transformed_target.html">Effect of transforming the targets in regression model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../compose/plot_digits_pipe.html">Pipelining: chaining a PCA and a logistic regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../compose/plot_compare_reduction.html">Selecting dimensionality reduction with Pipeline and GridSearchCV</a></li>
-</ul>
-</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../preprocessing/index.html">Preprocessing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_all_scaling.html">Compare the effect of different scalers on data with outliers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder.html">Comparing Target Encoder with Other Encoders</a></li>
@@ -906,22 +700,231 @@
 <li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_regression.html">Support Vector Regression (SVR) using linear and non-linear kernels</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../exercises/index.html">Tutorial exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_cv_diabetes.html">Cross-validation on diabetes Dataset Exercise</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_digits_classification_exercise.html">Digits Classification Exercise</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_iris_exercise.html">SVM Exercise</a></li>
-</ul>
-</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../text/index.html">Working with text documents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../text/plot_document_classification_20newsgroups.html">Classification of text documents using sparse features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../text/plot_document_clustering.html">Clustering text documents using k-means</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../text/plot_hashing_vs_dict_vectorizer.html">FeatureHasher and DictVectorizer Comparison</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../applications/index.html">أمثلة مبنية على مجموعات بيانات من العالم الحقيقي</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_out_of_core_classification.html">Out-of-core classification of text documents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_digits_denoising.html">إزالة التشويش من الصور باستخدام PCA النواة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_outlier_detection_wine.html">الكشف عن القيم الشاذة في مجموعة بيانات حقيقية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/wikipedia_principal_eigenvector.html">المتجه الذاتي الرئيسي لويكيبيديا</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_time_series_lagged_features.html">الميزات المتأخرة للتنبؤ بالسلاسل الزمنية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_model_complexity_influence.html">تأثير تعقيد النموذج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_prediction_latency.html">تأخير التنبؤ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_face_recognition.html">مثال على التعرف على الوجوه باستخدام الوجوه المميزة وآلات المتجهات الداعمة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_species_distribution_modeling.html">نمذجة توزيع الأنواع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_cyclical_feature_engineering.html">هندسة الميزات ذات الصلة بالوقت</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_stock_market.html">هيكلة سوق الأسهم المرئية</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../datasets/index.html">أمثلة مجموعات البيانات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/plot_random_multilabel_dataset.html">رسم مجموعة بيانات متعددة التصنيفات مُولدة عشوائياً</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../feature_selection/index.html">إختيار الميزة</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_select_from_model_diabetes.html">Model-based and sequential feature selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_feature_selection_pipeline.html">Pipeline ANOVA SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_rfe_with_cross_validation.html">إزالة الميزات المتكررة باستخدام التحقق المتبادل</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_rfe_digits.html">إزالة الميزة المتكررة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_feature_selection.html">اختيار الميزة أحادية المتغير</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_f_test_vs_mi.html">مقارنة بين اختبار F والمعلومات المتبادلة</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../cluster/index.html">التجميع</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_segmentation_toy.html">توليد البيانات</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_agglomerative_clustering_metrics.html"># التجميع التجميعي مع مقاييس مختلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_agglomerative_clustering.html"># التجميع التجميعي مع وبغير بنية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_inductive_clustering.html">التصنيف الاستقرائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_ward_structured_vs_unstructured.html">العنقدة الهرمية: العنقدة المنظمة وغير المنظمة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_digits_agglomeration.html">تجميع الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_silhouette_analysis.html">تحليل السيلويت لتحديد عدد التجمعات في التجميع التجميعي KMeans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_digits.html">تطبيق خوارزمية k-means على مجموعة البيانات digits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_adjusted_for_chance_measures.html">تعديل الفرصة في تقييم أداء التجميع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_dict_face_patches.html">تعلم القاموس عبر الإنترنت لأجزاء الوجوه</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_stability_low_dim_dense.html">تقييم تجريبي لتأثير تهيئة k-means</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_coin_segmentation.html">تم تقسيم صورة العملات اليونانية إلى مناطق</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_assumptions.html">توضيح افتراضات خوارزمية كاي-مينز</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_agglomerative_dendrogram.html">رسم مخطط شجرة التجميع الهرمي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_coin_ward_segmentation.html">عرض توضيحي لتجميع هرمي منظم على صورة عملات معدنية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_dbscan.html">عرض توضيحي لخوارزمية التجميع DBSCAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_hdbscan.html">عرض توضيحي لخوارزمية التجميع HDBSCAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_optics.html">عرض توضيحي لخوارزمية التجميع OPTICS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_mean_shift.html">عرض توضيحي لخوارزمية التجميع متوسط التحول</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_affinity_propagation.html">عرض توضيحي لخوارزمية تجميع انتشار الانتماء</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_plusplus.html">مثال على التهيئة K-Means++</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_face_compress.html">مثال على تكميم المتجهات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_digits_linkage.html">مختلف خوارزميات التجميع الهرمي على تضمين ثنائي الأبعاد لمجموعة بيانات الأرقام</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_birch_vs_minibatchkmeans.html">مقارنة بين BIRCH و MiniBatchKMeans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_mini_batch_kmeans.html">مقارنة خوارزميات التجميع K-Means و MiniBatchKMeans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_cluster_comparison.html">مقارنة خوارزميات التجميع المختلفة على مجموعات البيانات التجريبية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_linkage_comparison.html">مقارنة طرق الربط الهرمي المختلفة على مجموعات بيانات تجريبية</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../bicluster/index.html">التجميع الثنائي</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_bicluster_newsgroups.html">بكلسترينج المستندات باستخدام خوارزمية التجميع الطيفي المشترك</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_bicluster_newsgroups.html">التجميع الثنائي للمستندات باستخدام خوارزمية التجميع الطيفي المشترك</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_spectral_biclustering.html">عرض توضيحي لخوارزمية التجميع الطيفي الثنائي</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_spectral_coclustering.html">عرض توضيحي لخوارزمية التجميع الطيفي المشترك</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../cross_decomposition/index.html">التحلل المتقاطع</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cross_decomposition/plot_pcr_vs_pls.html">الانحدار باستخدام المكونات الرئيسية مقابل الانحدار باستخدام المربعات الجزئية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cross_decomposition/plot_compare_cross_decomposition.html">مقارنة طرق التحليل التفاضلي</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../classification/index.html">التصنيف</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../classification/plot_lda.html">Normal, Ledoit-Wolf and OAS Linear Discriminant Analysis for classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classification/plot_digits_classification.html">التعرف على الأرقام المكتوبة بخط اليد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classification/plot_classification_probability.html">رسم احتمالية التصنيف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classification/plot_classifier_comparison.html">مقارنة المصنفات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classification/plot_lda_qda.html">توليد البيانات</a></li>
+
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../inspection/index.html">الفحص</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance_multicollinear.html">أهمية التبديل مع الميزات متعددة الخطية أو المرتبطة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance.html">أهمية التبديل مقابل أهمية ميزة الغابة العشوائية (MDI)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_linear_model_coefficient_interpretation.html">المزالق الشائعة في تفسير معاملات النماذج الخطية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_causal_interpretation.html">فشل التعلم الآلي في استنتاج الآثار السببية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_partial_dependence.html">مخططات التبعية الجزئية والتوقع الشرطي الفردي</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../linear_model/index.html">النماذج الخطية المعممة</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_bayesian_ridge_curvefit.html">توليد بيانات توافقية مع الضوضاء</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ard.html"># مقارنة المنحنيات الخطية للانحدار البايزي</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_dense_vs_sparse_data.html">Lasso على البيانات الكثيفة والمتفرقة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgdocsvm_vs_ocsvm.html">One-Class SVM مقابل One-Class SVM باستخدام Stochastic Gradient Descent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_penalties.html">SGD: العقوبات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_weighted_samples.html">SGD: العينات المرجحة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_separating_hyperplane.html">SGD: المستوى الفاصل ذو الهامش الأقصى</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_loss_functions.html">SGD: دالات الخسارة المقعرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_early_stopping.html">إيقاف مبكر لنزول التدرج العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_lars_ic.html">اختيار نموذج لاصو عبر معايير المعلومات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_multi_task_lasso_support.html">الاختيار المشترك للميزات باستخدام Lasso متعدد المهام</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ols_ridge_variance.html">الانحدار الخطي العادي وانحدار ريدج والتباين</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sparse_logistic_regression_20newsgroups.html">الانحدار اللوجستي المتناثر متعدد الفئات على 20newgroups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_polynomial_interpolation.html">التكامل متعدد الحدود والتقسيم</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_logistic.html">الدالة اللوغستية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_poisson_regression_non_normal_loss.html">انحدار بواسون والخسارة غير الطبيعية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_tweedie_regression_insurance_claims.html">انحدار تويدي على مطالبات التأمين</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_theilsen.html">انحدار ثيل-سين</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_quantile_regression.html">انحدار كمي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sparse_logistic_regression_mnist.html">تصنيف MNIST باستخدام اللوغاريتم متعدد الحدود + L1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ransac.html">تقدير النموذج الخطي القوي باستخدام RANSAC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_robust_fit.html">تقدير خطي قوي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_elastic_net_precomputed_gram_matrix_with_weighted_samples.html">تناسب شبكة مرنة مع مصفوفة جرام مسبقة الحساب وعينات مرجحة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_logistic_multinomial.html">حدود القرار للانحدار متعدد الحدود والانحدار اللوجستي من النوع واحد مقابل البقية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_iris.html">رسم متعدد الفئات SGD على مجموعة بيانات الزهرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ridge_path.html">رسم معاملات Ridge كدالة للتنظيم</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_logistic_l1_l2_sparsity.html">عقوبة L1 والندرة في الانحدار اللوجستي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ols.html">مثال على المربعات الصغرى العادية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_nnls.html">مربعات أقل غير سالبة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_logistic_path.html">مسار التنظيم لـ L1 - الانحدار اللوجستي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_lasso_lars_elasticnet_path.html">مسارات لاصو ولاصو-لارس وشبكة مرنة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_omp.html">مطابقة متعامدة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ridge_coeffs.html">معاملات Ridge كدالة لتنظيم L2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_huber_vs_ridge.html">مقارنة بين HuberRegressor و Ridge على مجموعة بيانات تحتوي على قيم شاذة قوية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_comparison.html">مقارنة بين المحللات المختلفة عبر الإنترنت</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_and_elasticnet.html">نماذج L1 للاشارات المتناثرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_model_selection.html">نموذج لاصو: اختيار النموذج باستخدام معايير AIC-BIC والتحقق المتقاطع</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../decomposition/index.html">تحليل التركيب</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_ica_vs_pca.html">FastICA على سحب النقاط ثنائية الأبعاد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_kernel_pca.html">Kernel PCA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_image_denoising.html">إزالة تشويش الصور باستخدام تعلم القاموس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_pca_vs_fa_model_selection.html">اختيار النموذج باستخدام التحليل الرئيسي للمكونات الاحتمالي وتحليل العوامل (FA)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_sparse_coding.html">الترميز المتناثر مع قاموس محسوب مسبقًا</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_varimax_fa.html">تحليل العوامل (مع الدوران) لتصور الأنماط</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_pca_iris.html">تحليل المكونات الرئيسية (PCA) على مجموعة بيانات Iris</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_faces_decomposition.html">تحليلات مجموعة بيانات الوجوه</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_ica_blind_source_separation.html">فصل المصدر الأعمى باستخدام FastICA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_pca_vs_lda.html">مقارنة بين الإسقاط ثنائي الأبعاد للمجموعة البيانات آيريس باستخدام LDA وPCA</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../developing_estimators/index.html">تطوير المقدرين</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../developing_estimators/sklearn_is_fitted.html"><code class="docutils literal notranslate"><span class="pre">__sklearn_is_fitted__</span></code> كـ API للمطورين</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../impute/index.html">تعويض القيم المفقودة</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../impute/plot_missing_values.html">استنتاج القيم المفقودة قبل بناء أداة تقدير</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../impute/plot_iterative_imputer_variants_comparison.html">استنتاج القيم المفقودة مع متغيرات من IterativeImputer</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../covariance/index.html">تقدير التغاير</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_covariance_estimation.html">تأثير تحويل الأهداف في نموذج الانحدار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_lw_vs_oas.html">تقدير Ledoit-Wolf مقابل OAS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_robust_vs_empirical_covariance.html">تقدير التغاير القوي مقابل التجريبي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_mahalanobis_distances.html">تقدير التغاير القوي وأهمية مسافات Mahalanobis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_sparse_cov.html">تقدير معكوس التغاير النادر</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../kernel_approximation/index.html">تقريب النواة</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../kernel_approximation/plot_scalable_poly_kernels.html">التعلم القابل للتطوير مع تقريب نواة متعددة الحدود</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../exercises/index.html">تمارين تعليمية</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_cv_diabetes.html">التحقق المتقاطع على تمرين مجموعة بيانات مرض السكري</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_iris_exercise.html">تمرين SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_digits_classification_exercise.html">تمرين تصنيف الأرقام</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../compose/index.html">خطوط الأنابيب والمقدرين المركبين</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compose/plot_compare_reduction.html">اختيار تقليل الأبعاد باستخدام Pipeline و GridSearchCV</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compose/plot_transformed_target.html">تأثير تحويل الأهداف في نموذج الانحدار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compose/plot_feature_union.html">دمج طرق استخراج ميزات متعددة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compose/plot_digits_pipe.html">ربط الأنابيب: ربط PCA والانحدار اللوجستي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compose/plot_column_transformer_mixed_types.html">محول الأعمدة مع الأنواع المختلطة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compose/plot_column_transformer.html">محول الأعمدة مع مصادر بيانات غير متجانسة</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../ensemble/index.html">طرق المجموعة</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_ensemble_oob.html">أخطاء OOB لخوارزمية Random Forests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_forest_importances.html">أهمية الميزات باستخدام غابة من الأشجار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_early_stopping.html">إيقاف التدريب المبكر في Gradient Boosting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_monotonic_constraints.html">القيود الرتيبة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_hgbt_regression.html">الميزات في أشجار التعزيز المتدرج للهيستوغرام</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_regression.html">انحدار التعزيز المتدرج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_adaboost_regression.html">انحدار شجرة القرار مع AdaBoost</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_feature_transformation.html">تحويل الميزات باستخدام مجموعات الأشجار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_random_forest_embedding.html">تحويل ميزة التجزئة باستخدام الأشجار العشوائية تمامًا</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_adaboost_twoclass.html">تصنيف ثنائي باستخدام AdaBoost</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_oob.html">تقديرات Gradient Boosting Out-of-Bag</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_regularization.html">تنظيم التعزيز المتدرج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_categorical.html">دعم الميزات التصنيفية في التدرج التعزيزي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_stack_predictors.html">دمج المتنبئات باستخدام التكديس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_forest_iris.html">رسم أسطح القرار لمجموعات الأشجار على مجموعة بيانات إيريس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_probas.html">رسم احتمالات الفئات المحسوبة بواسطة VotingClassifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_regressor.html">رسم تنبؤات الانحدار الفردية والتصويتية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_decision_regions.html">رسم حدود القرار لـ VotingClassifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_adaboost_multiclass.html">شجرة قرارات معززة متعددة الفئات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_quantile.html">فترات التنبؤ لانحدار التعزيز المتدرج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_isolation_forest.html">مثال IsolationForest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_random_forest_regression_multioutput.html">مقارنة الغابات العشوائية ومقدر المخرجات المتعددة التلوي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_bias_variance.html">مقارنة بين المُقدر الفردي والتجميع: تحليل الانحياز والتشتت</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_forest_hist_grad_boosting_comparison.html">مقارنة بين نماذج الغابات العشوائية ورفع التدرج بالرسم البياني</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">عملية غاوسية للتعلم الآلي</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">التنبؤ بمستوى ثاني أكسيد الكربون في مجموعة بيانات Mona Loa باستخدام انحدار العملية الغاوسية (GPR)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_gpc.html">التنبؤات الاحتمالية مع تصنيف العملية الغاوسية (GPC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_gpr_on_structured_data.html">العمليات الغاوسية على هياكل البيانات المنقوصة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_gpr_noisy_targets.html">انحدار العمليات الغاوسية: مثال تمهيدي أساسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_gpc_iris.html">تصنيف العملية الغاوسية (GPC) على مجموعة بيانات iris</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_gpr_prior_posterior.html">توضيح العملية الغاوسية المسبقة واللاحقة لنوى مختلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_gpc_xor.html">توضيح تصنيف العملية الغاوسية (GPC) على مجموعة بيانات XOR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_gpc_isoprobability.html">خطوط تساوي الاحتمال لتصنيف العمليات الغاوسية (GPC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_gpr_noisy.html">قدرة انحدار العمليات الغاوسية (GPR) على تقدير مستوى ضوضاء البيانات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_compare_gpr_krr.html">مقارنة انحدار kernel ridge وانحدار العمليات الغاوسية</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../calibration/index.html">معايرة الإحتمالات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -970,9 +973,9 @@
     <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Examples</a></li>
     
     
-    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Gaussian Process for Machine Learning</a></li>
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">عملية غاوسية للتعلم الآلي</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Forecasting of CO2 level on Mona Loa dataset using Gaussian process regression (GPR)</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">التنبؤ بمستوى ثاني أكسيد الكربون في مجموعة بيانات Mona Loa باستخدام انحدار العملية الغاوسية (GPR)</span></li>
   </ul>
 </nav>
 </div>
@@ -994,22 +997,15 @@
 <p><a class="reference internal" href="#sphx-glr-download-auto-examples-gaussian-process-plot-gpr-co2-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code. or to run this example in your browser via JupyterLite or Binder</p>
 </div>
-<section class="sphx-glr-example-title" id="forecasting-of-co2-level-on-mona-loa-dataset-using-gaussian-process-regression-gpr">
-<span id="sphx-glr-auto-examples-gaussian-process-plot-gpr-co2-py"></span><h1>Forecasting of CO2 level on Mona Loa dataset using Gaussian process regression (GPR)<a class="headerlink" href="#forecasting-of-co2-level-on-mona-loa-dataset-using-gaussian-process-regression-gpr" title="Link to this heading">#</a></h1>
-<p>This example is based on Section 5.4.3 of &quot;Gaussian Processes for Machine
-Learning&quot; <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. It illustrates an example of complex kernel engineering
-and hyperparameter optimization using gradient ascent on the
-log-marginal-likelihood. The data consists of the monthly average atmospheric
-CO2 concentrations (in parts per million by volume (ppm)) collected at the
-Mauna Loa Observatory in Hawaii, between 1958 and 2001. The objective is to
-model the CO2 concentration as a function of the time <span class="math notranslate nohighlight">\(t\)</span> and extrapolate
-for years after 2001.</p>
-<p class="rubric">References</p>
+<section class="sphx-glr-example-title" id="mona-loa-gpr">
+<span id="sphx-glr-auto-examples-gaussian-process-plot-gpr-co2-py"></span><h1>التنبؤ بمستوى ثاني أكسيد الكربون في مجموعة بيانات Mona Loa باستخدام انحدار العملية الغاوسية (GPR)<a class="headerlink" href="#mona-loa-gpr" title="Link to this heading">#</a></h1>
+<p>يستند هذا المثال إلى القسم 5.4.3 من &quot;العمليات الغاوسية للتعلم الآلي&quot; <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. يوضح مثالاً على هندسة النواة المعقدة وتحسين المعلمات الفائقة باستخدام صعود التدرج على الاحتمال الهامشي اللوغاريتمي. تتكون البيانات من متوسط ​​التركيزات الشهرية لثاني أكسيد الكربون في الغلاف الجوي (مقاسة بأجزاء لكل مليون من حيث الحجم (ppm)) التي تم جمعها في مرصد مونا لوا في هاواي ، بين عامي 1958 و 2001. الهدف هو نمذجة تركيز ثاني أكسيد الكربون كدالة للوقت <span class="math notranslate nohighlight">\(t\)</span> واستقراءه للسنوات التي تلي عام 2001.</p>
+<p class="rubric">المراجع</p>
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="id2" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
-<p><a class="reference external" href="http://www.gaussianprocess.org/gpml/chapters/RW.pdf">Rasmussen, Carl Edward. &quot;Gaussian processes in machine learning.&quot;
-Summer school on machine learning. Springer, Berlin, Heidelberg, 2003</a>.</p>
+<p><a class="reference external" href="http://www.gaussianprocess.org/gpml/chapters/RW.pdf">Rasmussen, Carl Edward. &quot;العمليات الغاوسية في التعلم الآلي.&quot;
+مدرسة صيفية عن التعلم الآلي. Springer, Berlin, Heidelberg, 2003</a>.</p>
 </aside>
 </aside>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="vm">__doc__</span><span class="p">)</span>
@@ -1018,16 +1014,12 @@ Summer school on machine learning. Springer, Berlin, Heidelberg, 2003</a>.</p>
 <span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
 </pre></div>
 </div>
-<section id="build-the-dataset">
-<h2>Build the dataset<a class="headerlink" href="#build-the-dataset" title="Link to this heading">#</a></h2>
-<p>We will derive a dataset from the Mauna Loa Observatory that collected air
-samples. We are interested in estimating the concentration of CO2 and
-extrapolate it for further year. First, we load the original dataset available
-in OpenML as a pandas dataframe. This will be replaced with Polars
-once <code class="docutils literal notranslate"><span class="pre">fetch_openml</span></code> adds a native support for it.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.datasets.fetch_openml.html#sklearn.datasets.fetch_openml" title="sklearn.datasets.fetch_openml" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><a href="../../modules/generated/sklearn.datasets.fetch_openml.html#sklearn.datasets.fetch_openml" title="sklearn.datasets.fetch_openml" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_openml</span></a></a>
+<section id="id3">
+<h2>بناء مجموعة البيانات<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>سنشتق مجموعة بيانات من مرصد مونا لوا الذي جمع عينات الهواء. نحن مهتمون بتقدير تركيز ثاني أكسيد الكربون واستقرائه للسنة التالية. أولاً ، نقوم بتحميل مجموعة البيانات الأصلية المتوفرة في OpenML كإطار بيانات pandas. سيتم استبدال هذا بـ Polars بمجرد أن يضيف <code class="docutils literal notranslate"><span class="pre">fetch_openml</span></code> دعمًا أصليًا له.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.datasets.fetch_openml.html#sklearn.datasets.fetch_openml" title="sklearn.datasets.fetch_openml" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_openml</span></a>
 
-<span class="n">co2</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.datasets.fetch_openml.html#sklearn.datasets.fetch_openml" title="sklearn.datasets.fetch_openml" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><a href="../../modules/generated/sklearn.datasets.fetch_openml.html#sklearn.datasets.fetch_openml" title="sklearn.datasets.fetch_openml" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_openml</span></a></a><span class="p">(</span><span class="n">data_id</span><span class="o">=</span><span class="mi">41187</span><span class="p">,</span> <span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">co2</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.datasets.fetch_openml.html#sklearn.datasets.fetch_openml" title="sklearn.datasets.fetch_openml" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_openml</span></a><span class="p">(</span><span class="n">data_id</span><span class="o">=</span><span class="mi">41187</span><span class="p">,</span> <span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">co2</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1115,8 +1107,7 @@ once <code class="docutils literal notranslate"><span class="pre">fetch_openml</
 </div>
 </div>
 <br />
-<br /><p>First, we process the original dataframe to create a date column and select
-it along with the CO2 column.</p>
+<br /><p>أولاً ، نقوم بمعالجة إطار البيانات الأصلي لإنشاء عمود تاريخ وتحديده مع عمود ثاني أكسيد الكربون.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">polars</span> <span class="k">as</span> <span class="nn">pl</span>
 
 <span class="n">co2_data</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">co2</span><span class="o">.</span><span class="n">frame</span><span class="p">[[</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="s2">&quot;month&quot;</span><span class="p">,</span> <span class="s2">&quot;day&quot;</span><span class="p">,</span> <span class="s2">&quot;co2&quot;</span><span class="p">]])</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
@@ -1142,39 +1133,32 @@ it along with the CO2 column.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(datetime.date(1958, 3, 29), datetime.date(2001, 12, 29))
 </pre></div>
 </div>
-<p>We see that we get CO2 concentration for some days from March, 1958 to
-December, 2001. We can plot these raw information to have a better
-understanding.</p>
+<p>نرى أننا نحصل على تركيز ثاني أكسيد الكربون لبعض الأيام من مارس 1958 إلى ديسمبر 2001. يمكننا رسم هذه المعلومات الخام لفهم أفضل.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a></a><span class="p">(</span><span class="n">co2_data</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span> <span class="n">co2_data</span><span class="p">[</span><span class="s2">&quot;co2&quot;</span><span class="p">])</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xlabel.html#matplotlib.pyplot.xlabel" title="matplotlib.pyplot.xlabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xlabel.html#matplotlib.pyplot.xlabel" title="matplotlib.pyplot.xlabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span></a></a><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.ylabel.html#matplotlib.pyplot.ylabel" title="matplotlib.pyplot.ylabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.ylabel.html#matplotlib.pyplot.ylabel" title="matplotlib.pyplot.ylabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span></a></a><span class="p">(</span><span class="s2">&quot;CO$_2$ concentration (ppm)&quot;</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.title.html#matplotlib.pyplot.title" title="matplotlib.pyplot.title" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.title.html#matplotlib.pyplot.title" title="matplotlib.pyplot.title" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">title</span></a></a><span class="p">(</span><span class="s2">&quot;Raw air samples measurements from the Mauna Loa Observatory&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">co2_data</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span> <span class="n">co2_data</span><span class="p">[</span><span class="s2">&quot;co2&quot;</span><span class="p">])</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xlabel.html#matplotlib.pyplot.xlabel" title="matplotlib.pyplot.xlabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span></a><span class="p">(</span><span class="s2">&quot;التاريخ&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.ylabel.html#matplotlib.pyplot.ylabel" title="matplotlib.pyplot.ylabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span></a><span class="p">(</span><span class="s2">&quot;تركيز CO$_2$ (ppm)&quot;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.title.html#matplotlib.pyplot.title" title="matplotlib.pyplot.title" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">title</span></a><span class="p">(</span><span class="s2">&quot;قياسات عينات الهواء الخام من مرصد مونا لوا&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_gpr_co2_001.png" srcset="../../_images/sphx_glr_plot_gpr_co2_001.png" alt="Raw air samples measurements from the Mauna Loa Observatory" class = "sphx-glr-single-img"/><p>We will preprocess the dataset by taking a monthly average and drop month
-for which no measurements were collected. Such a processing will have an
-smoothing effect on the data.</p>
+<img src="../../_images/sphx_glr_plot_gpr_co2_001.png" srcset="../../_images/sphx_glr_plot_gpr_co2_001.png" alt="قياسات عينات الهواء الخام من مرصد مونا لوا" class = "sphx-glr-single-img"/><p>سنقوم بمعالجة مجموعة البيانات عن طريق حساب المتوسط ​​الشهري وإسقاط الأشهر التي لم يتم جمع أي قياسات لها. سيكون لمثل هذه المعالجة تأثير تجانس على البيانات.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">co2_data</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">co2_data</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">group_by_dynamic</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">every</span><span class="o">=</span><span class="s2">&quot;1mo&quot;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;co2&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
     <span class="o">.</span><span class="n">drop_nulls</span><span class="p">()</span>
 <span class="p">)</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a></a><span class="p">(</span><span class="n">co2_data</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span> <span class="n">co2_data</span><span class="p">[</span><span class="s2">&quot;co2&quot;</span><span class="p">])</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xlabel.html#matplotlib.pyplot.xlabel" title="matplotlib.pyplot.xlabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xlabel.html#matplotlib.pyplot.xlabel" title="matplotlib.pyplot.xlabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span></a></a><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.ylabel.html#matplotlib.pyplot.ylabel" title="matplotlib.pyplot.ylabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.ylabel.html#matplotlib.pyplot.ylabel" title="matplotlib.pyplot.ylabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span></a></a><span class="p">(</span><span class="s2">&quot;Monthly average of CO$_2$ concentration (ppm)&quot;</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.title.html#matplotlib.pyplot.title" title="matplotlib.pyplot.title" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.title.html#matplotlib.pyplot.title" title="matplotlib.pyplot.title" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">title</span></a></a><span class="p">(</span>
-    <span class="s2">&quot;Monthly average of air samples measurements</span><span class="se">\n</span><span class="s2">from the Mauna Loa Observatory&quot;</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">co2_data</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span> <span class="n">co2_data</span><span class="p">[</span><span class="s2">&quot;co2&quot;</span><span class="p">])</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xlabel.html#matplotlib.pyplot.xlabel" title="matplotlib.pyplot.xlabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span></a><span class="p">(</span><span class="s2">&quot;التاريخ&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.ylabel.html#matplotlib.pyplot.ylabel" title="matplotlib.pyplot.ylabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span></a><span class="p">(</span><span class="s2">&quot;متوسط ​​تركيز CO$_2$ الشهري (ppm)&quot;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.title.html#matplotlib.pyplot.title" title="matplotlib.pyplot.title" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">title</span></a><span class="p">(</span>
+    <span class="s2">&quot;المتوسط ​​الشهري لقياسات عينات الهواء</span><span class="se">\n</span><span class="s2">من مرصد مونا لوا&quot;</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_gpr_co2_002.png" srcset="../../_images/sphx_glr_plot_gpr_co2_002.png" alt="Monthly average of air samples measurements from the Mauna Loa Observatory" class = "sphx-glr-single-img"/><p>The idea in this example will be to predict the CO2 concentration in function
-of the date. We are as well interested in extrapolating for upcoming year
-after 2001.</p>
-<p>As a first step, we will divide the data and the target to estimate. The data
-being a date, we will convert it into a numeric.</p>
+<img src="../../_images/sphx_glr_plot_gpr_co2_002.png" srcset="../../_images/sphx_glr_plot_gpr_co2_002.png" alt="المتوسط ​​الشهري لقياسات عينات الهواء من مرصد مونا لوا" class = "sphx-glr-single-img"/><p>ستكون الفكرة في هذا المثال هي التنبؤ بتركيز ثاني أكسيد الكربون كدالة للتاريخ. نحن مهتمون أيضًا باستقراء السنوات القادمة بعد عام 2001.</p>
+<p>كخطوة أولى ، سنقسم البيانات والهدف المراد تقديره. بما أن البيانات عبارة عن تاريخ ، فسنحولها إلى رقم.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">co2_data</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
     <span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="p">()</span> <span class="o">+</span> <span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span><span class="p">()</span> <span class="o">/</span> <span class="mi">12</span>
 <span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
@@ -1182,62 +1166,40 @@ being a date, we will convert it into a numeric.</p>
 </pre></div>
 </div>
 </section>
-<section id="design-the-proper-kernel">
-<h2>Design the proper kernel<a class="headerlink" href="#design-the-proper-kernel" title="Link to this heading">#</a></h2>
-<p>To design the kernel to use with our Gaussian process, we can make some
-assumption regarding the data at hand. We observe that they have several
-characteristics: we see a long term rising trend, a pronounced seasonal
-variation and some smaller irregularities. We can use different appropriate
-kernel that would capture these features.</p>
-<p>First, the long term rising trend could be fitted using a radial basis
-function (RBF) kernel with a large length-scale parameter. The RBF kernel
-with a large length-scale enforces this component to be smooth. An trending
-increase is not enforced as to give a degree of freedom to our model. The
-specific length-scale and the amplitude are free hyperparameters.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.gaussian_process.kernels.RBF.html#sklearn.gaussian_process.kernels.RBF" title="sklearn.gaussian_process.kernels.RBF" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="../../modules/generated/sklearn.gaussian_process.kernels.RBF.html#sklearn.gaussian_process.kernels.RBF" title="sklearn.gaussian_process.kernels.RBF" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RBF</span></a></a>
+<section id="id4">
+<h2>تصميم النواة المناسبة<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>لتصميم النواة لاستخدامها مع عمليتنا الغاوسية ، يمكننا وضع بعض الافتراضات فيما يتعلق بالبيانات المتوفرة. نلاحظ أن لديها العديد من الخصائص: نرى اتجاهًا تصاعديًا طويل المدى ، وتغير موسمي واضح ، وبعض المخالفات الصغيرة. يمكننا استخدام نواة مناسبة مختلفة من شأنها التقاط هذه الميزات.</p>
+<p>أولاً ، يمكن ملاءمة الاتجاه التصاعدي طويل المدى باستخدام نواة دالة أساس شعاعي (RBF) مع معامل مقياس طول كبير. تفرض نواة RBF ذات مقياس الطول الكبير أن يكون هذا المكون سلسًا. لا يتم فرض زيادة في الاتجاه لإعطاء درجة من الحرية لنموذجنا. مقياس الطول المحدد والسعة هما معلمات فائقة حرة.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.gaussian_process.kernels.RBF.html#sklearn.gaussian_process.kernels.RBF" title="sklearn.gaussian_process.kernels.RBF" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RBF</span></a>
 
-<span class="n">long_term_trend_kernel</span> <span class="o">=</span> <span class="mf">50.0</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <a href="../../modules/generated/sklearn.gaussian_process.kernels.RBF.html#sklearn.gaussian_process.kernels.RBF" title="sklearn.gaussian_process.kernels.RBF" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="../../modules/generated/sklearn.gaussian_process.kernels.RBF.html#sklearn.gaussian_process.kernels.RBF" title="sklearn.gaussian_process.kernels.RBF" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RBF</span></a></a><span class="p">(</span><span class="n">length_scale</span><span class="o">=</span><span class="mf">50.0</span><span class="p">)</span>
+<span class="n">long_term_trend_kernel</span> <span class="o">=</span> <span class="mf">50.0</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <a href="../../modules/generated/sklearn.gaussian_process.kernels.RBF.html#sklearn.gaussian_process.kernels.RBF" title="sklearn.gaussian_process.kernels.RBF" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RBF</span></a><span class="p">(</span><span class="n">length_scale</span><span class="o">=</span><span class="mf">50.0</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The seasonal variation is explained by the periodic exponential sine squared
-kernel with a fixed periodicity of 1 year. The length-scale of this periodic
-component, controlling its smoothness, is a free parameter. In order to allow
-decaying away from exact periodicity, the product with an RBF kernel is
-taken. The length-scale of this RBF component controls the decay time and is
-a further free parameter. This type of kernel is also known as locally
-periodic kernel.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.gaussian_process.kernels.ExpSineSquared.html#sklearn.gaussian_process.kernels.ExpSineSquared" title="sklearn.gaussian_process.kernels.ExpSineSquared" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="../../modules/generated/sklearn.gaussian_process.kernels.ExpSineSquared.html#sklearn.gaussian_process.kernels.ExpSineSquared" title="sklearn.gaussian_process.kernels.ExpSineSquared" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ExpSineSquared</span></a></a>
+<p>يتم تفسير التباين الموسمي بواسطة نواة الجيب الأسي التربيعي الدوري مع دورية ثابتة لمدة عام واحد. مقياس الطول لهذا المكون الدوري ، الذي يتحكم في نعومته ، هو معامل حر. من أجل السماح بالانحلال بعيدًا عن الدورية الدقيقة ، يتم أخذ حاصل الضرب مع نواة RBF. يتحكم مقياس الطول لمكون RBF هذا في وقت الانحلال وهو معامل حر إضافي. يُعرف هذا النوع من النواة أيضًا باسم النواة الدورية محليًا.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.gaussian_process.kernels.ExpSineSquared.html#sklearn.gaussian_process.kernels.ExpSineSquared" title="sklearn.gaussian_process.kernels.ExpSineSquared" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ExpSineSquared</span></a>
 
 <span class="n">seasonal_kernel</span> <span class="o">=</span> <span class="p">(</span>
     <span class="mf">2.0</span><span class="o">**</span><span class="mi">2</span>
-    <span class="o">*</span> <a href="../../modules/generated/sklearn.gaussian_process.kernels.RBF.html#sklearn.gaussian_process.kernels.RBF" title="sklearn.gaussian_process.kernels.RBF" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="../../modules/generated/sklearn.gaussian_process.kernels.RBF.html#sklearn.gaussian_process.kernels.RBF" title="sklearn.gaussian_process.kernels.RBF" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RBF</span></a></a><span class="p">(</span><span class="n">length_scale</span><span class="o">=</span><span class="mf">100.0</span><span class="p">)</span>
-    <span class="o">*</span> <a href="../../modules/generated/sklearn.gaussian_process.kernels.ExpSineSquared.html#sklearn.gaussian_process.kernels.ExpSineSquared" title="sklearn.gaussian_process.kernels.ExpSineSquared" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="../../modules/generated/sklearn.gaussian_process.kernels.ExpSineSquared.html#sklearn.gaussian_process.kernels.ExpSineSquared" title="sklearn.gaussian_process.kernels.ExpSineSquared" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ExpSineSquared</span></a></a><span class="p">(</span><span class="n">length_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">periodicity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">periodicity_bounds</span><span class="o">=</span><span class="s2">&quot;fixed&quot;</span><span class="p">)</span>
+    <span class="o">*</span> <a href="../../modules/generated/sklearn.gaussian_process.kernels.RBF.html#sklearn.gaussian_process.kernels.RBF" title="sklearn.gaussian_process.kernels.RBF" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RBF</span></a><span class="p">(</span><span class="n">length_scale</span><span class="o">=</span><span class="mf">100.0</span><span class="p">)</span>
+    <span class="o">*</span> <a href="../../modules/generated/sklearn.gaussian_process.kernels.ExpSineSquared.html#sklearn.gaussian_process.kernels.ExpSineSquared" title="sklearn.gaussian_process.kernels.ExpSineSquared" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ExpSineSquared</span></a><span class="p">(</span><span class="n">length_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">periodicity</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">periodicity_bounds</span><span class="o">=</span><span class="s2">&quot;fixed&quot;</span><span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>The small irregularities are to be explained by a rational quadratic kernel
-component, whose length-scale and alpha parameter, which quantifies the
-diffuseness of the length-scales, are to be determined. A rational quadratic
-kernel is equivalent to an RBF kernel with several length-scale and will
-better accommodate the different irregularities.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.gaussian_process.kernels.RationalQuadratic.html#sklearn.gaussian_process.kernels.RationalQuadratic" title="sklearn.gaussian_process.kernels.RationalQuadratic" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="../../modules/generated/sklearn.gaussian_process.kernels.RationalQuadratic.html#sklearn.gaussian_process.kernels.RationalQuadratic" title="sklearn.gaussian_process.kernels.RationalQuadratic" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RationalQuadratic</span></a></a>
+<p>يتم تفسير المخالفات الصغيرة بواسطة مكون نواة تربيعي نسبي ، والذي سيتم تحديد مقياس طوله ومعامل ألفا ، اللذان يحددان مدى انتشار مقاييس الطول.  تُعادل النواة التربيعية النسبية نواة RBF ذات عدة مقاييس طول وستستوعب بشكل أفضل المخالفات المختلفة.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.gaussian_process.kernels.RationalQuadratic.html#sklearn.gaussian_process.kernels.RationalQuadratic" title="sklearn.gaussian_process.kernels.RationalQuadratic" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RationalQuadratic</span></a>
 
-<span class="n">irregularities_kernel</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <a href="../../modules/generated/sklearn.gaussian_process.kernels.RationalQuadratic.html#sklearn.gaussian_process.kernels.RationalQuadratic" title="sklearn.gaussian_process.kernels.RationalQuadratic" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="../../modules/generated/sklearn.gaussian_process.kernels.RationalQuadratic.html#sklearn.gaussian_process.kernels.RationalQuadratic" title="sklearn.gaussian_process.kernels.RationalQuadratic" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RationalQuadratic</span></a></a><span class="p">(</span><span class="n">length_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">irregularities_kernel</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <a href="../../modules/generated/sklearn.gaussian_process.kernels.RationalQuadratic.html#sklearn.gaussian_process.kernels.RationalQuadratic" title="sklearn.gaussian_process.kernels.RationalQuadratic" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RationalQuadratic</span></a><span class="p">(</span><span class="n">length_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Finally, the noise in the dataset can be accounted with a kernel consisting
-of an RBF kernel contribution, which shall explain the correlated noise
-components such as local weather phenomena, and a white kernel contribution
-for the white noise. The relative amplitudes and the RBF's length scale are
-further free parameters.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.gaussian_process.kernels.WhiteKernel.html#sklearn.gaussian_process.kernels.WhiteKernel" title="sklearn.gaussian_process.kernels.WhiteKernel" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="../../modules/generated/sklearn.gaussian_process.kernels.WhiteKernel.html#sklearn.gaussian_process.kernels.WhiteKernel" title="sklearn.gaussian_process.kernels.WhiteKernel" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">WhiteKernel</span></a></a>
+<p>أخيرًا ، يمكن حساب الضوضاء في مجموعة البيانات بنواة تتكون من مساهمة نواة RBF ، والتي يجب أن تفسر مكونات الضوضاء المترابطة مثل ظواهر الطقس المحلي ، ومساهمة نواة بيضاء للضوضاء البيضاء. السعات النسبية ومقياس طول RBF هي معلمات حرة إضافية.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.gaussian_process.kernels.WhiteKernel.html#sklearn.gaussian_process.kernels.WhiteKernel" title="sklearn.gaussian_process.kernels.WhiteKernel" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">WhiteKernel</span></a>
 
-<span class="n">noise_kernel</span> <span class="o">=</span> <span class="mf">0.1</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <a href="../../modules/generated/sklearn.gaussian_process.kernels.RBF.html#sklearn.gaussian_process.kernels.RBF" title="sklearn.gaussian_process.kernels.RBF" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="../../modules/generated/sklearn.gaussian_process.kernels.RBF.html#sklearn.gaussian_process.kernels.RBF" title="sklearn.gaussian_process.kernels.RBF" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RBF</span></a></a><span class="p">(</span><span class="n">length_scale</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span> <span class="o">+</span> <a href="../../modules/generated/sklearn.gaussian_process.kernels.WhiteKernel.html#sklearn.gaussian_process.kernels.WhiteKernel" title="sklearn.gaussian_process.kernels.WhiteKernel" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="../../modules/generated/sklearn.gaussian_process.kernels.WhiteKernel.html#sklearn.gaussian_process.kernels.WhiteKernel" title="sklearn.gaussian_process.kernels.WhiteKernel" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">WhiteKernel</span></a></a><span class="p">(</span>
+<span class="n">noise_kernel</span> <span class="o">=</span> <span class="mf">0.1</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <a href="../../modules/generated/sklearn.gaussian_process.kernels.RBF.html#sklearn.gaussian_process.kernels.RBF" title="sklearn.gaussian_process.kernels.RBF" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RBF</span></a><span class="p">(</span><span class="n">length_scale</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span> <span class="o">+</span> <a href="../../modules/generated/sklearn.gaussian_process.kernels.WhiteKernel.html#sklearn.gaussian_process.kernels.WhiteKernel" title="sklearn.gaussian_process.kernels.WhiteKernel" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">WhiteKernel</span></a><span class="p">(</span>
     <span class="n">noise_level</span><span class="o">=</span><span class="mf">0.1</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">noise_level_bounds</span><span class="o">=</span><span class="p">(</span><span class="mf">1e-5</span><span class="p">,</span> <span class="mf">1e5</span><span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Thus, our final kernel is an addition of all previous kernel.</p>
+<p>وبالتالي ، فإن نواتنا النهائية هي إضافة جميع النوى السابقة.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">co2_kernel</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">long_term_trend_kernel</span> <span class="o">+</span> <span class="n">seasonal_kernel</span> <span class="o">+</span> <span class="n">irregularities_kernel</span> <span class="o">+</span> <span class="n">noise_kernel</span>
 <span class="p">)</span>
@@ -1248,23 +1210,18 @@ further free parameters.</p>
 </pre></div>
 </div>
 </section>
-<section id="model-fitting-and-extrapolation">
-<h2>Model fitting and extrapolation<a class="headerlink" href="#model-fitting-and-extrapolation" title="Link to this heading">#</a></h2>
-<p>Now, we are ready to use a Gaussian process regressor and fit the available
-data. To follow the example from the literature, we will subtract the mean
-from the target. We could have used <code class="docutils literal notranslate"><span class="pre">normalize_y=True</span></code>. However, doing so
-would have also scaled the target (dividing <code class="docutils literal notranslate"><span class="pre">y</span></code> by its standard deviation).
-Thus, the hyperparameters of the different kernel would have had different
-meaning since they would not have been expressed in ppm.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.gaussian_process</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.gaussian_process.GaussianProcessRegressor.html#sklearn.gaussian_process.GaussianProcessRegressor" title="sklearn.gaussian_process.GaussianProcessRegressor" class="sphx-glr-backref-module-sklearn-gaussian_process sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="../../modules/generated/sklearn.gaussian_process.GaussianProcessRegressor.html#sklearn.gaussian_process.GaussianProcessRegressor" title="sklearn.gaussian_process.GaussianProcessRegressor" class="sphx-glr-backref-module-sklearn-gaussian_process sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">GaussianProcessRegressor</span></a></a>
+<section id="id5">
+<h2>ملاءمة النموذج والاستقراء<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>الآن ، نحن جاهزون لاستخدام مُنحدِر عملية غاوسية وملاءمة البيانات المتاحة. لاتباع المثال من الأدبيات ، سنطرح المتوسط ​​من الهدف. كان بإمكاننا استخدام <code class="docutils literal notranslate"><span class="pre">normalize_y=True</span></code>. ومع ذلك ، فإن القيام بذلك كان سيؤدي أيضًا إلى قياس الهدف (بقسمة <code class="docutils literal notranslate"><span class="pre">y</span></code> على انحرافه المعياري). وبالتالي ، لكانت المعلمات الفائقة للنواة المختلفة لها معنى مختلف لأنه لم يكن من الممكن التعبير عنها بـ ppm.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.gaussian_process</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.gaussian_process.GaussianProcessRegressor.html#sklearn.gaussian_process.GaussianProcessRegressor" title="sklearn.gaussian_process.GaussianProcessRegressor" class="sphx-glr-backref-module-sklearn-gaussian_process sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">GaussianProcessRegressor</span></a>
 
 <span class="n">y_mean</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="n">gaussian_process</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.gaussian_process.GaussianProcessRegressor.html#sklearn.gaussian_process.GaussianProcessRegressor" title="sklearn.gaussian_process.GaussianProcessRegressor" class="sphx-glr-backref-module-sklearn-gaussian_process sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="../../modules/generated/sklearn.gaussian_process.GaussianProcessRegressor.html#sklearn.gaussian_process.GaussianProcessRegressor" title="sklearn.gaussian_process.GaussianProcessRegressor" class="sphx-glr-backref-module-sklearn-gaussian_process sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">GaussianProcessRegressor</span></a></a><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="n">co2_kernel</span><span class="p">,</span> <span class="n">normalize_y</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">gaussian_process</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.gaussian_process.GaussianProcessRegressor.html#sklearn.gaussian_process.GaussianProcessRegressor" title="sklearn.gaussian_process.GaussianProcessRegressor" class="sphx-glr-backref-module-sklearn-gaussian_process sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">GaussianProcessRegressor</span></a><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="n">co2_kernel</span><span class="p">,</span> <span class="n">normalize_y</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">gaussian_process</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="n">y_mean</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
-<style>#sk-container-id-30 {
+<style>#sk-container-id-19 {
   /* Definition of color scheme common for light and dark mode */
   --sklearn-color-text: #000;
   --sklearn-color-text-muted: #666;
@@ -1295,15 +1252,15 @@ meaning since they would not have been expressed in ppm.</p>
   }
 }
 
-#sk-container-id-30 {
+#sk-container-id-19 {
   color: var(--sklearn-color-text);
 }
 
-#sk-container-id-30 pre {
+#sk-container-id-19 pre {
   padding: 0;
 }
 
-#sk-container-id-30 input.sk-hidden--visually {
+#sk-container-id-19 input.sk-hidden--visually {
   border: 0;
   clip: rect(1px 1px 1px 1px);
   clip: rect(1px, 1px, 1px, 1px);
@@ -1315,7 +1272,7 @@ meaning since they would not have been expressed in ppm.</p>
   width: 1px;
 }
 
-#sk-container-id-30 div.sk-dashed-wrapped {
+#sk-container-id-19 div.sk-dashed-wrapped {
   border: 1px dashed var(--sklearn-color-line);
   margin: 0 0.4em 0.5em 0.4em;
   box-sizing: border-box;
@@ -1323,7 +1280,7 @@ meaning since they would not have been expressed in ppm.</p>
   background-color: var(--sklearn-color-background);
 }
 
-#sk-container-id-30 div.sk-container {
+#sk-container-id-19 div.sk-container {
   /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
      but bootstrap.min.css set `[hidden] { display: none !important; }`
      so we also need the `!important` here to be able to override the
@@ -1333,7 +1290,7 @@ meaning since they would not have been expressed in ppm.</p>
   position: relative;
 }
 
-#sk-container-id-30 div.sk-text-repr-fallback {
+#sk-container-id-19 div.sk-text-repr-fallback {
   display: none;
 }
 
@@ -1349,14 +1306,14 @@ div.sk-item {
 
 /* Parallel-specific style estimator block */
 
-#sk-container-id-30 div.sk-parallel-item::after {
+#sk-container-id-19 div.sk-parallel-item::after {
   content: "";
   width: 100%;
   border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
   flex-grow: 1;
 }
 
-#sk-container-id-30 div.sk-parallel {
+#sk-container-id-19 div.sk-parallel {
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -1364,28 +1321,28 @@ div.sk-item {
   position: relative;
 }
 
-#sk-container-id-30 div.sk-parallel-item {
+#sk-container-id-19 div.sk-parallel-item {
   display: flex;
   flex-direction: column;
 }
 
-#sk-container-id-30 div.sk-parallel-item:first-child::after {
+#sk-container-id-19 div.sk-parallel-item:first-child::after {
   align-self: flex-end;
   width: 50%;
 }
 
-#sk-container-id-30 div.sk-parallel-item:last-child::after {
+#sk-container-id-19 div.sk-parallel-item:last-child::after {
   align-self: flex-start;
   width: 50%;
 }
 
-#sk-container-id-30 div.sk-parallel-item:only-child::after {
+#sk-container-id-19 div.sk-parallel-item:only-child::after {
   width: 0;
 }
 
 /* Serial-specific style estimator block */
 
-#sk-container-id-30 div.sk-serial {
+#sk-container-id-19 div.sk-serial {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1403,14 +1360,14 @@ clickable and can be expanded/collapsed.
 
 /* Pipeline and ColumnTransformer style (default) */
 
-#sk-container-id-30 div.sk-toggleable {
+#sk-container-id-19 div.sk-toggleable {
   /* Default theme specific background. It is overwritten whether we have a
   specific estimator or a Pipeline/ColumnTransformer */
   background-color: var(--sklearn-color-background);
 }
 
 /* Toggleable label */
-#sk-container-id-30 label.sk-toggleable__label {
+#sk-container-id-19 label.sk-toggleable__label {
   cursor: pointer;
   display: flex;
   width: 100%;
@@ -1423,13 +1380,13 @@ clickable and can be expanded/collapsed.
   gap: 0.5em;
 }
 
-#sk-container-id-30 label.sk-toggleable__label .caption {
+#sk-container-id-19 label.sk-toggleable__label .caption {
   font-size: 0.6rem;
   font-weight: lighter;
   color: var(--sklearn-color-text-muted);
 }
 
-#sk-container-id-30 label.sk-toggleable__label-arrow:before {
+#sk-container-id-19 label.sk-toggleable__label-arrow:before {
   /* Arrow on the left of the label */
   content: "▸";
   float: left;
@@ -1437,13 +1394,13 @@ clickable and can be expanded/collapsed.
   color: var(--sklearn-color-icon);
 }
 
-#sk-container-id-30 label.sk-toggleable__label-arrow:hover:before {
+#sk-container-id-19 label.sk-toggleable__label-arrow:hover:before {
   color: var(--sklearn-color-text);
 }
 
 /* Toggleable content - dropdown */
 
-#sk-container-id-30 div.sk-toggleable__content {
+#sk-container-id-19 div.sk-toggleable__content {
   max-height: 0;
   max-width: 0;
   overflow: hidden;
@@ -1452,12 +1409,12 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-30 div.sk-toggleable__content.fitted {
+#sk-container-id-19 div.sk-toggleable__content.fitted {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
-#sk-container-id-30 div.sk-toggleable__content pre {
+#sk-container-id-19 div.sk-toggleable__content pre {
   margin: 0.2em;
   border-radius: 0.25em;
   color: var(--sklearn-color-text);
@@ -1465,79 +1422,79 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-30 div.sk-toggleable__content.fitted pre {
+#sk-container-id-19 div.sk-toggleable__content.fitted pre {
   /* unfitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
-#sk-container-id-30 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+#sk-container-id-19 input.sk-toggleable__control:checked~div.sk-toggleable__content {
   /* Expand drop-down */
   max-height: 200px;
   max-width: 100%;
   overflow: auto;
 }
 
-#sk-container-id-30 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+#sk-container-id-19 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
   content: "▾";
 }
 
 /* Pipeline/ColumnTransformer-specific style */
 
-#sk-container-id-30 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-19 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-30 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-19 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
 /* Estimator-specific style */
 
 /* Colorize estimator box */
-#sk-container-id-30 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-19 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-30 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-19 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
-#sk-container-id-30 div.sk-label label.sk-toggleable__label,
-#sk-container-id-30 div.sk-label label {
+#sk-container-id-19 div.sk-label label.sk-toggleable__label,
+#sk-container-id-19 div.sk-label label {
   /* The background is the default theme color */
   color: var(--sklearn-color-text-on-default-background);
 }
 
 /* On hover, darken the color of the background */
-#sk-container-id-30 div.sk-label:hover label.sk-toggleable__label {
+#sk-container-id-19 div.sk-label:hover label.sk-toggleable__label {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
 /* Label box, darken color on hover, fitted */
-#sk-container-id-30 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+#sk-container-id-19 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
 /* Estimator label */
 
-#sk-container-id-30 div.sk-label label {
+#sk-container-id-19 div.sk-label label {
   font-family: monospace;
   font-weight: bold;
   display: inline-block;
   line-height: 1.2em;
 }
 
-#sk-container-id-30 div.sk-label-container {
+#sk-container-id-19 div.sk-label-container {
   text-align: center;
 }
 
 /* Estimator-specific */
-#sk-container-id-30 div.sk-estimator {
+#sk-container-id-19 div.sk-estimator {
   font-family: monospace;
   border: 1px dotted var(--sklearn-color-border-box);
   border-radius: 0.25em;
@@ -1547,18 +1504,18 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-30 div.sk-estimator.fitted {
+#sk-container-id-19 div.sk-estimator.fitted {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
 /* on hover */
-#sk-container-id-30 div.sk-estimator:hover {
+#sk-container-id-19 div.sk-estimator:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-30 div.sk-estimator.fitted:hover {
+#sk-container-id-19 div.sk-estimator.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-2);
 }
@@ -1646,7 +1603,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 
 /* "?"-specific style due to the `<a>` HTML tag */
 
-#sk-container-id-30 a.estimator_doc_link {
+#sk-container-id-19 a.estimator_doc_link {
   float: right;
   font-size: 1rem;
   line-height: 1em;
@@ -1661,83 +1618,74 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   border: var(--sklearn-color-unfitted-level-1) 1pt solid;
 }
 
-#sk-container-id-30 a.estimator_doc_link.fitted {
+#sk-container-id-19 a.estimator_doc_link.fitted {
   /* fitted */
   border: var(--sklearn-color-fitted-level-1) 1pt solid;
   color: var(--sklearn-color-fitted-level-1);
 }
 
 /* On hover */
-#sk-container-id-30 a.estimator_doc_link:hover {
+#sk-container-id-19 a.estimator_doc_link:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-3);
   color: var(--sklearn-color-background);
   text-decoration: none;
 }
 
-#sk-container-id-30 a.estimator_doc_link.fitted:hover {
+#sk-container-id-19 a.estimator_doc_link.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-3);
 }
-</style><div id="sk-container-id-30" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>GaussianProcessRegressor(kernel=50**2 * RBF(length_scale=50) + 2**2 * RBF(length_scale=100) * ExpSineSquared(length_scale=1, periodicity=1) + 0.5**2 * RationalQuadratic(alpha=1, length_scale=1) + 0.1**2 * RBF(length_scale=0.1) + WhiteKernel(noise_level=0.01))</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-113" type="checkbox" checked><label for="sk-estimator-id-113" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>GaussianProcessRegressor</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.gaussian_process.GaussianProcessRegressor.html">?<span>Documentation for GaussianProcessRegressor</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>GaussianProcessRegressor(kernel=50**2 * RBF(length_scale=50) + 2**2 * RBF(length_scale=100) * ExpSineSquared(length_scale=1, periodicity=1) + 0.5**2 * RationalQuadratic(alpha=1, length_scale=1) + 0.1**2 * RBF(length_scale=0.1) + WhiteKernel(noise_level=0.01))</pre></div> </div></div></div></div>
+</style><div id="sk-container-id-19" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>GaussianProcessRegressor(kernel=50**2 * RBF(length_scale=50) + 2**2 * RBF(length_scale=100) * ExpSineSquared(length_scale=1, periodicity=1) + 0.5**2 * RationalQuadratic(alpha=1, length_scale=1) + 0.1**2 * RBF(length_scale=0.1) + WhiteKernel(noise_level=0.01))</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-116" type="checkbox" checked><label for="sk-estimator-id-116" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>GaussianProcessRegressor</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.gaussian_process.GaussianProcessRegressor.html">?<span>Documentation for GaussianProcessRegressor</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>GaussianProcessRegressor(kernel=50**2 * RBF(length_scale=50) + 2**2 * RBF(length_scale=100) * ExpSineSquared(length_scale=1, periodicity=1) + 0.5**2 * RationalQuadratic(alpha=1, length_scale=1) + 0.1**2 * RBF(length_scale=0.1) + WhiteKernel(noise_level=0.01))</pre></div> </div></div></div></div>
 </div>
 <br />
-<br /><p>Now, we will use the Gaussian process to predict on:</p>
+<br /><p>الآن ، سنستخدم العملية الغاوسية للتنبؤ على:</p>
 <ul class="simple">
-<li><p>training data to inspect the goodness of fit;</p></li>
-<li><p>future data to see the extrapolation done by the model.</p></li>
+<li><p>بيانات التدريب لفحص مدى الملاءمة ؛</p></li>
+<li><p>البيانات المستقبلية لمعرفة الاستقراء الذي أجراه النموذج.</p></li>
 </ul>
-<p>Thus, we create synthetic data from 1958 to the current month. In addition,
-we need to add the subtracted mean computed during training.</p>
+<p>وبالتالي ، نقوم بإنشاء بيانات تركيبية من عام 1958 إلى الشهر الحالي. بالإضافة إلى ذلك ، نحتاج إلى إضافة المتوسط ​​المطروح المحسوب أثناء التدريب.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="n">today</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/datetime.html#datetime.datetime.now" title="datetime.datetime.now" class="sphx-glr-backref-module-datetime-datetime sphx-glr-backref-type-py-method"><a href="https://docs.python.org/3/library/datetime.html#datetime.datetime.now" title="datetime.datetime.now" class="sphx-glr-backref-module-datetime-datetime sphx-glr-backref-type-py-method"><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span></a></a><span class="p">()</span>
+<span class="n">today</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/datetime.html#datetime.datetime.now" title="datetime.datetime.now" class="sphx-glr-backref-module-datetime-datetime sphx-glr-backref-type-py-method"><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span></a><span class="p">()</span>
 <span class="n">current_month</span> <span class="o">=</span> <span class="n">today</span><span class="o">.</span><span class="n">year</span> <span class="o">+</span> <span class="n">today</span><span class="o">.</span><span class="n">month</span> <span class="o">/</span> <span class="mi">12</span>
-<span class="n">X_test</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><a href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a></a><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">1958</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="n">current_month</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">1_000</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">X_test</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">1958</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="n">current_month</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">1_000</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">mean_y_pred</span><span class="p">,</span> <span class="n">std_y_pred</span> <span class="o">=</span> <span class="n">gaussian_process</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">return_std</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">mean_y_pred</span> <span class="o">+=</span> <span class="n">y_mean</span>
 </pre></div>
 </div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a></a><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Measurements&quot;</span><span class="p">)</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a></a><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">mean_y_pred</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:blue&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Gaussian process&quot;</span><span class="p">)</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.fill_between.html#matplotlib.pyplot.fill_between" title="matplotlib.pyplot.fill_between" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.fill_between.html#matplotlib.pyplot.fill_between" title="matplotlib.pyplot.fill_between" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span></a></a><span class="p">(</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;القياسات&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">mean_y_pred</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:blue&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;العملية الغاوسية&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.fill_between.html#matplotlib.pyplot.fill_between" title="matplotlib.pyplot.fill_between" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span></a><span class="p">(</span>
     <span class="n">X_test</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
     <span class="n">mean_y_pred</span> <span class="o">-</span> <span class="n">std_y_pred</span><span class="p">,</span>
     <span class="n">mean_y_pred</span> <span class="o">+</span> <span class="n">std_y_pred</span><span class="p">,</span>
     <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:blue&quot;</span><span class="p">,</span>
     <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
 <span class="p">)</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html#matplotlib.pyplot.legend" title="matplotlib.pyplot.legend" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html#matplotlib.pyplot.legend" title="matplotlib.pyplot.legend" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span></a></a><span class="p">()</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xlabel.html#matplotlib.pyplot.xlabel" title="matplotlib.pyplot.xlabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xlabel.html#matplotlib.pyplot.xlabel" title="matplotlib.pyplot.xlabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span></a></a><span class="p">(</span><span class="s2">&quot;Year&quot;</span><span class="p">)</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.ylabel.html#matplotlib.pyplot.ylabel" title="matplotlib.pyplot.ylabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.ylabel.html#matplotlib.pyplot.ylabel" title="matplotlib.pyplot.ylabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span></a></a><span class="p">(</span><span class="s2">&quot;Monthly average of CO$_2$ concentration (ppm)&quot;</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.title.html#matplotlib.pyplot.title" title="matplotlib.pyplot.title" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.title.html#matplotlib.pyplot.title" title="matplotlib.pyplot.title" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">title</span></a></a><span class="p">(</span>
-    <span class="s2">&quot;Monthly average of air samples measurements</span><span class="se">\n</span><span class="s2">from the Mauna Loa Observatory&quot;</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html#matplotlib.pyplot.legend" title="matplotlib.pyplot.legend" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span></a><span class="p">()</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xlabel.html#matplotlib.pyplot.xlabel" title="matplotlib.pyplot.xlabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span></a><span class="p">(</span><span class="s2">&quot;السنة&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.ylabel.html#matplotlib.pyplot.ylabel" title="matplotlib.pyplot.ylabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span></a><span class="p">(</span><span class="s2">&quot;متوسط ​​تركيز CO$_2$ الشهري (ppm)&quot;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.title.html#matplotlib.pyplot.title" title="matplotlib.pyplot.title" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">title</span></a><span class="p">(</span>
+    <span class="s2">&quot;المتوسط ​​الشهري لقياسات عينات الهواء</span><span class="se">\n</span><span class="s2">من مرصد مونا لوا&quot;</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_gpr_co2_003.png" srcset="../../_images/sphx_glr_plot_gpr_co2_003.png" alt="Monthly average of air samples measurements from the Mauna Loa Observatory" class = "sphx-glr-single-img"/><p>Our fitted model is capable to fit previous data properly and extrapolate to
-future year with confidence.</p>
+<img src="../../_images/sphx_glr_plot_gpr_co2_003.png" srcset="../../_images/sphx_glr_plot_gpr_co2_003.png" alt="المتوسط ​​الشهري لقياسات عينات الهواء من مرصد مونا لوا" class = "sphx-glr-single-img"/><p>نموذجنا المجهز قادر على ملاءمة البيانات السابقة بشكل صحيح والاستقراء للسنوات القادمة بثقة.</p>
 </section>
-<section id="interpretation-of-kernel-hyperparameters">
-<h2>Interpretation of kernel hyperparameters<a class="headerlink" href="#interpretation-of-kernel-hyperparameters" title="Link to this heading">#</a></h2>
-<p>Now, we can have a look at the hyperparameters of the kernel.</p>
+<section id="id6">
+<h2>تفسير المعلمات الفائقة للنواة<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p>الآن ، يمكننا إلقاء نظرة على المعلمات الفائقة للنواة.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">gaussian_process</span><span class="o">.</span><span class="n">kernel_</span>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>44.8**2 * RBF(length_scale=51.6) + 2.64**2 * RBF(length_scale=91.5) * ExpSineSquared(length_scale=1.48, periodicity=1) + 0.536**2 * RationalQuadratic(alpha=2.89, length_scale=0.968) + 0.188**2 * RBF(length_scale=0.122) + WhiteKernel(noise_level=0.0367)
 </pre></div>
 </div>
-<p>Thus, most of the target signal, with the mean subtracted, is explained by a
-long-term rising trend for ~45 ppm and a length-scale of ~52 years. The
-periodic component has an amplitude of ~2.6ppm, a decay time of ~90 years and
-a length-scale of ~1.5. The long decay time indicates that we have a
-component very close to a seasonal periodicity. The correlated noise has an
-amplitude of ~0.2 ppm with a length scale of ~0.12 years and a white-noise
-contribution of ~0.04 ppm. Thus, the overall noise level is very small,
-indicating that the data can be very well explained by the model.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 4.197 seconds)</p>
+<p>وبالتالي ، يتم تفسير معظم إشارة الهدف ، مع طرح المتوسط ​​، من خلال اتجاه تصاعدي طويل المدى لحوالي 45 جزء في المليون ومقياس طول يبلغ حوالي 52 عامًا. المكون الدوري له سعة حوالي 2.6 جزء في المليون ، ووقت انحلال يبلغ حوالي 90 عامًا ، ومقياس طول يبلغ حوالي 1.5. يشير وقت الانحلال الطويل إلى أن لدينا مكونًا قريبًا جدًا من الدورية الموسمية. الضوضاء المترابطة لها سعة حوالي 0.2 جزء في المليون مع مقياس طول يبلغ حوالي 0.12 سنة ومساهمة ضوضاء بيضاء تبلغ حوالي 0.04 جزء في المليون. وبالتالي ، فإن مستوى الضوضاء الإجمالي صغير جدًا ، مما يشير إلى أنه يمكن تفسير البيانات جيدًا بواسطة النموذج.</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 9.082 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-gaussian-process-plot-gpr-co2-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/scikit-learn/scikit-learn/main?urlpath=lab/tree/notebooks/auto_examples/gaussian_process/plot_gpr_co2.ipynb"><img alt="Launch binder" src="../../_images/binder_badge_logo14.svg" style="width: 150px;" />
@@ -1758,18 +1706,18 @@ indicating that the data can be very well explained by the model.</p>
 </div>
 </div>
 <p class="rubric">Related examples</p>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="A simple one-dimensional regression example computed in two different ways:"><img alt="" src="../../_images/sphx_glr_plot_gpr_noisy_targets_thumb.png" />
-<p><a class="reference internal" href="plot_gpr_noisy_targets.html#sphx-glr-auto-examples-gaussian-process-plot-gpr-noisy-targets-py"><span class="std std-ref">Gaussian Processes regression: basic introductory example</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Gaussian Processes regression: basic introductory example</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows the ability of the WhiteKernel to estimate the noise level in the data. Moreover, we show the importance of kernel hyperparameters initialization."><img alt="" src="../../_images/sphx_glr_plot_gpr_noisy_thumb.png" />
-<p><a class="reference internal" href="plot_gpr_noisy.html#sphx-glr-auto-examples-gaussian-process-plot-gpr-noisy-py"><span class="std std-ref">Ability of Gaussian process regression (GPR) to estimate data noise-level</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Ability of Gaussian process regression (GPR) to estimate data noise-level</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates differences between a kernel ridge regression and a Gaussian process regression."><img alt="" src="../../_images/sphx_glr_plot_compare_gpr_krr_thumb.png" />
-<p><a class="reference internal" href="plot_compare_gpr_krr.html#sphx-glr-auto-examples-gaussian-process-plot-compare-gpr-krr-py"><span class="std std-ref">Comparison of kernel ridge and Gaussian process regression</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Comparison of kernel ridge and Gaussian process regression</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the predicted probability of GPC for an isotropic and anisotropic RBF kernel on a two-dimensional version for the iris-dataset. The anisotropic RBF kernel obtains slightly higher log-marginal-likelihood by assigning different length-scales to the two feature dimensions."><img alt="" src="../../_images/sphx_glr_plot_gpc_iris_thumb.png" />
-<p><a class="reference internal" href="plot_gpc_iris.html#sphx-glr-auto-examples-gaussian-process-plot-gpc-iris-py"><span class="std std-ref">Gaussian process classification (GPC) on iris dataset</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Gaussian process classification (GPC) on iris dataset</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال قدرة  WhiteKernel على تقدير مستوى الضوضاء في البيانات. علاوة على ذلك، سنوضح أهمية تهيئة المعلمات الفائقة للنواة."><img alt="" src="../../_images/sphx_glr_plot_gpr_noisy_thumb.png" />
+<p><a class="reference internal" href="plot_gpr_noisy.html#sphx-glr-auto-examples-gaussian-process-plot-gpr-noisy-py"><span class="std std-ref">قدرة انحدار العمليات الغاوسية (GPR) على تقدير مستوى ضوضاء البيانات</span></a></p>
+  <div class="sphx-glr-thumbnail-title">قدرة انحدار العمليات الغاوسية (GPR) على تقدير مستوى ضوضاء البيانات</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="مثال بسيط أحادي البعد للانحدار محسوب بطريقتين مختلفتين:"><img alt="" src="../../_images/sphx_glr_plot_gpr_noisy_targets_thumb.png" />
+<p><a class="reference internal" href="plot_gpr_noisy_targets.html#sphx-glr-auto-examples-gaussian-process-plot-gpr-noisy-targets-py"><span class="std std-ref">انحدار العمليات الغاوسية: مثال تمهيدي أساسي</span></a></p>
+  <div class="sphx-glr-thumbnail-title">انحدار العمليات الغاوسية: مثال تمهيدي أساسي</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال الاختلافات بين انحدار kernel ridge وانحدار العمليات الغاوسية."><img alt="" src="../../_images/sphx_glr_plot_compare_gpr_krr_thumb.png" />
+<p><a class="reference internal" href="plot_compare_gpr_krr.html#sphx-glr-auto-examples-gaussian-process-plot-compare-gpr-krr-py"><span class="std std-ref">مقارنة انحدار kernel ridge وانحدار العمليات الغاوسية</span></a></p>
+  <div class="sphx-glr-thumbnail-title">مقارنة انحدار kernel ridge وانحدار العمليات الغاوسية</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال GPC على بيانات XOR. تتم مقارنة نواة ثابتة ومتناحرة (RBF) بنواة غير ثابتة (DotProduct). في مجموعة البيانات هذه تحديدًا ، تحصل نواة DotProduct على نتائج أفضل بكثير لأن حدود الفئة خطية وتتوافق مع محاور الإحداثيات. بشكل عام ، غالبًا ما تحقق النوى الثابتة نتائج أفضل."><img alt="" src="../../_images/sphx_glr_plot_gpc_xor_thumb.png" />
+<p><a class="reference internal" href="plot_gpc_xor.html#sphx-glr-auto-examples-gaussian-process-plot-gpc-xor-py"><span class="std std-ref">توضيح تصنيف العملية الغاوسية (GPC) على مجموعة بيانات XOR</span></a></p>
+  <div class="sphx-glr-thumbnail-title">توضيح تصنيف العملية الغاوسية (GPC) على مجموعة بيانات XOR</div>
 </div></div><p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
 </section>
 </section>
@@ -1785,20 +1733,20 @@ indicating that the data can be very well explained by the model.</p>
     <div class="footer-article-item">
 <div class="prev-next-area">
     <a class="left-prev"
-       href="plot_compare_gpr_krr.html"
+       href="index.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">السابق</p>
-        <p class="prev-next-title">Comparison of kernel ridge and Gaussian process regression</p>
+        <p class="prev-next-title">عملية غاوسية للتعلم الآلي</p>
       </div>
     </a>
     <a class="right-next"
-       href="plot_gpr_noisy_targets.html"
+       href="plot_gpc.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">التالي</p>
-        <p class="prev-next-title">Gaussian Processes regression: basic introductory example</p>
+        <p class="prev-next-title">التنبؤات الاحتمالية مع تصنيف العملية الغاوسية (GPC)</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1825,10 +1773,10 @@ indicating that the data can be very well explained by the model.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-the-dataset">Build the dataset</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#design-the-proper-kernel">Design the proper kernel</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-fitting-and-extrapolation">Model fitting and extrapolation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation-of-kernel-hyperparameters">Interpretation of kernel hyperparameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">بناء مجموعة البيانات</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">تصميم النواة المناسبة</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">ملاءمة النموذج والاستقراء</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">تفسير المعلمات الفائقة للنواة</a></li>
 </ul>
   </nav></div>
 

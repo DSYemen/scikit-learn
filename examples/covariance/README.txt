@@ -1,6 +1,7 @@
 .. _covariance_examples:
 
-Covariance estimation
+تقدير التغاير
 ---------------------
+Covariance estimation
 
-Examples concerning the :mod:`sklearn.covariance` module.
+أمثلة تتعلق بوحدة :mod:`sklearn.covariance`.

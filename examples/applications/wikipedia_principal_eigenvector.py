@@ -1,31 +1,29 @@
 """
-===============================
-Wikipedia principal eigenvector
-===============================
+===================================
+المتجه الذاتي الرئيسي لويكيبيديا
+===================================
 
-A classical way to assert the relative importance of vertices in a
-graph is to compute the principal eigenvector of the adjacency matrix
-so as to assign to each vertex the values of the components of the first
-eigenvector as a centrality score: https://en.wikipedia.org/wiki/Eigenvector_centrality.
-On the graph of webpages and links those values are called the PageRank
-scores by Google.
+هناك طريقة كلاسيكية لتأكيد الأهمية النسبية للرؤوس في
+الرسم البياني هو حساب المتجه الذاتي الرئيسي لمصفوفة المجاورة
+حتى يتم تعيين قيم مكونات المتجه الذاتي الأول لكل رأس
+كدرجة مركزية: https://en.wikipedia.org/wiki/Eigenvector_centrality.
+على رسم بياني للصفحات والروابط تسمى هذه القيم بتصنيفات PageRank
+من قبل Google.
 
-The goal of this example is to analyze the graph of links inside
-wikipedia articles to rank articles by relative importance according to
-this eigenvector centrality.
+هدف هذا المثال هو تحليل الرسم البياني للروابط داخل
+مقالات ويكيبيديا لتصنيف المقالات حسب الأهمية النسبية
+وفقا لهذه المركزية المتجهة الذاتية.
 
-The traditional way to compute the principal eigenvector is to use the
-`power iteration method <https://en.wikipedia.org/wiki/Power_iteration>`_.
-Here the computation is achieved thanks to Martinsson's Randomized SVD
-algorithm implemented in scikit-learn.
+الطريقة التقليدية لحساب المتجه الذاتي الرئيسي هي استخدام
+`طريقة تكرار القوة <https://en.wikipedia.org/wiki/Power_iteration>`_.
+هنا يتم إنجاز الحساب بفضل خوارزمية SVD العشوائية لمارتينسون
+المطبقة في scikit-learn.
 
-The graph data is fetched from the DBpedia dumps. DBpedia is an extraction
-of the latent structured data of the Wikipedia content.
-
+يتم جلب بيانات الرسم البياني من إغراق DBpedia. DBpedia هي استخراج
+لبيانات ويكيبيديا الهيكلية الكامنة.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 import os
 from bz2 import BZ2File
@@ -61,9 +59,8 @@ for url, filename in resources:
             f.write(opener.read())
         print()
 
-
 # %%
-# Loading the redirect files
+# تحميل ملفات إعادة التوجيه
 # --------------------------
 def index(redirects, index_map, k):
     """Find the index of an article name after redirect resolution"""
@@ -113,12 +110,13 @@ def get_redirects(redirects_filename):
 
 
 # %%
-# Computing the Adjacency matrix
+# حساب مصفوفة المجاورة
 # ------------------------------
 def get_adjacency_matrix(redirects_filename, page_links_filename, limit=None):
     """Extract the adjacency graph as a scipy sparse matrix
 
     Redirects are resolved first.
+Redirects are resolved first.
 
     Returns X, the scipy sparse adjacency matrix, redirects as python
     dict from article names to article names and index_map a python dict
@@ -156,7 +154,7 @@ def get_adjacency_matrix(redirects_filename, page_links_filename, limit=None):
     return X, redirects, index_map
 
 
-# stop after 5M links to make it possible to work in RAM
+# التوقف بعد 5M من الروابط لجعل العمل ممكنا في RAM
 X, redirects, index_map = get_adjacency_matrix(
     redirects_filename, page_links_filename, limit=5000000
 )
@@ -164,22 +162,22 @@ names = {i: name for name, i in index_map.items()}
 
 
 # %%
-# Computing Principal Singular Vector using Randomized SVD
+# حساب المتجه المنفرد الرئيسي باستخدام SVD العشوائية
 # --------------------------------------------------------
 print("Computing the principal singular vectors using randomized_svd")
 t0 = time()
 U, s, V = randomized_svd(X, 5, n_iter=3)
 print("done in %0.3fs" % (time() - t0))
 
-# print the names of the wikipedia related strongest components of the
-# principal singular vector which should be similar to the highest eigenvector
+# طباعة أسماء أقوى مكونات ويكيبيديا ذات الصلة للمتجه المنفرد الرئيسي
+# والتي يجب أن تكون مشابهة لأعلى متجه ذاتي
 print("Top wikipedia pages according to principal singular vectors")
 pprint([names[i] for i in np.abs(U.T[0]).argsort()[-10:]])
 pprint([names[i] for i in np.abs(V[0]).argsort()[-10:]])
 
 
 # %%
-# Computing Centrality scores
+# حساب درجات المركزية
 # ---------------------------
 def centrality_scores(X, alpha=0.85, max_iter=100, tol=1e-10):
     """Power iteration computation of the principal eigenvector

@@ -1,33 +1,29 @@
 """
-=================================================
-Lasso model selection: AIC-BIC / cross-validation
-=================================================
+========================================================================
+نموذج لاصو: اختيار النموذج باستخدام معايير AIC-BIC والتحقق المتقاطع
+========================================================================
 
-This example focuses on model selection for Lasso models that are
-linear models with an L1 penalty for regression problems.
+يركز هذا المثال على اختيار النموذج لنموذج لاصو، وهي نماذج خطية مع عقوبة L1 لمشاكل الانحدار.
 
-Indeed, several strategies can be used to select the value of the
-regularization parameter: via cross-validation or using an information
-criterion, namely AIC or BIC.
+في الواقع، يمكن استخدام عدة استراتيجيات لاختيار قيمة معامل التنظيم: من خلال التحقق المتقاطع أو باستخدام معيار المعلومات، مثل AIC أو BIC.
 
-In what follows, we will discuss in details the different strategies.
+فيما يلي، سنناقش بالتفصيل الاستراتيجيات المختلفة.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايت-ليرن
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# Dataset
+# مجموعة البيانات
 # -------
-# In this example, we will use the diabetes dataset.
+# في هذا المثال، سنستخدم مجموعة بيانات مرض السكري.
 from sklearn.datasets import load_diabetes
 
 X, y = load_diabetes(return_X_y=True, as_frame=True)
 X.head()
 
 # %%
-# In addition, we add some random features to the original data to
-# better illustrate the feature selection performed by the Lasso model.
+# بالإضافة إلى ذلك، سنضيف بعض الميزات العشوائية إلى البيانات الأصلية لتوضيح
+# بشكل أفضل عملية اختيار الميزات التي يقوم بها نموذج لاصو.
 import numpy as np
 import pandas as pd
 
@@ -38,23 +34,21 @@ X_random = pd.DataFrame(
     columns=[f"random_{i:02d}" for i in range(n_random_features)],
 )
 X = pd.concat([X, X_random], axis=1)
-# Show only a subset of the columns
+# عرض مجموعة فرعية فقط من الأعمدة
 X[X.columns[::3]].head()
 
 # %%
-# Selecting Lasso via an information criterion
+# اختيار نموذج لاصو باستخدام معيار المعلومات
 # --------------------------------------------
-# :class:`~sklearn.linear_model.LassoLarsIC` provides a Lasso estimator that
-# uses the Akaike information criterion (AIC) or the Bayes information
-# criterion (BIC) to select the optimal value of the regularization
-# parameter alpha.
+# :class:`~sklearn.linear_model.LassoLarsIC` يوفر نموذج لاصو يستخدم معيار
+# معلومات أكايكي (AIC) أو معيار معلومات بايز (BIC) لاختيار القيمة المثلى لمعامل
+# التنظيم alpha.
 #
-# Before fitting the model, we will standardize the data with a
-# :class:`~sklearn.preprocessing.StandardScaler`. In addition, we will
-# measure the time to fit and tune the hyperparameter alpha in order to
-# compare with the cross-validation strategy.
+# قبل ملاءمة النموذج، سنقوم بتوحيد البيانات باستخدام
+# :class:`~sklearn.preprocessing.StandardScaler`. بالإضافة إلى ذلك، سنقوم
+# بقياس الوقت لملاءمة وضبط معامل alpha لكي نقارن مع استراتيجية التحقق المتقاطع.
 #
-# We will first fit a Lasso model with the AIC criterion.
+# سنقوم أولاً بملاءمة نموذج لاصو باستخدام معيار AIC.
 import time
 
 from sklearn.linear_model import LassoLarsIC
@@ -66,7 +60,7 @@ lasso_lars_ic = make_pipeline(StandardScaler(), LassoLarsIC(criterion="aic")).fi
 fit_time = time.time() - start_time
 
 # %%
-# We store the AIC metric for each value of alpha used during `fit`.
+# سنخزن معيار AIC لكل قيمة من قيم alpha المستخدمة خلال `fit`.
 results = pd.DataFrame(
     {
         "alphas": lasso_lars_ic[-1].alphas_,
@@ -76,14 +70,14 @@ results = pd.DataFrame(
 alpha_aic = lasso_lars_ic[-1].alpha_
 
 # %%
-# Now, we perform the same analysis using the BIC criterion.
+# الآن، سنقوم بنفس التحليل باستخدام معيار BIC.
 lasso_lars_ic.set_params(lassolarsic__criterion="bic").fit(X, y)
 results["BIC criterion"] = lasso_lars_ic[-1].criterion_
 alpha_bic = lasso_lars_ic[-1].alpha_
 
 
 # %%
-# We can check which value of `alpha` leads to the minimum AIC and BIC.
+# يمكننا التحقق من قيمة `alpha` التي تؤدي إلى الحد الأدنى من AIC وBIC.
 def highlight_min(x):
     x_min = x.min()
     return ["font-weight: bold" if v == x_min else "" for v in x]
@@ -92,10 +86,9 @@ def highlight_min(x):
 results.style.apply(highlight_min)
 
 # %%
-# Finally, we can plot the AIC and BIC values for the different alpha values.
-# The vertical lines in the plot correspond to the alpha chosen for each
-# criterion. The selected alpha corresponds to the minimum of the AIC or BIC
-# criterion.
+# أخيراً، يمكننا رسم قيم AIC وBIC لمختلف قيم alpha.
+# الخطوط العمودية في الرسم البياني تقابل قيمة alpha المختارة لكل معيار.
+# قيمة alpha المختارة تقابل الحد الأدنى من معيار AIC أو BIC.
 ax = results.plot()
 ax.vlines(
     alpha_aic,
@@ -122,35 +115,33 @@ _ = ax.set_title(
 )
 
 # %%
-# Model selection with an information-criterion is very fast. It relies on
-# computing the criterion on the in-sample set provided to `fit`. Both criteria
-# estimate the model generalization error based on the training set error and
-# penalize this overly optimistic error. However, this penalty relies on a
-# proper estimation of the degrees of freedom and the noise variance. Both are
-# derived for large samples (asymptotic results) and assume the model is
-# correct, i.e. that the data are actually generated by this model.
+# اختيار النموذج باستخدام معيار المعلومات سريع للغاية. يعتمد على
+# حساب المعيار على مجموعة العينات المقدمة إلى `fit`. كلا المعيارين
+# يقدران خطأ تعميم النموذج بناءً على خطأ مجموعة التدريب ويعاقبان هذا الخطأ
+# المتفائل بشكل مفرط. ومع ذلك، تعتمد هذه العقوبة على تقدير صحيح لدرجات الحرية
+# وتقلب الضوضاء. يتم اشتقاق كلاهما للعينات الكبيرة (النتائج التقاربية) ويفترض
+# أن النموذج صحيح، أي أن البيانات يتم توليدها بالفعل بواسطة هذا النموذج.
 #
-# These models also tend to break when the problem is badly conditioned (more
-# features than samples). It is then required to provide an estimate of the
-# noise variance.
+# تميل هذه النماذج أيضًا إلى التعطل عندما تكون المشكلة سيئة التكييف (أكثر
+# من الميزات من العينات). عندها يكون من الضروري توفير تقدير لتقلب الضوضاء.
 #
-# Selecting Lasso via cross-validation
+# اختيار نموذج لاصو باستخدام التحقق المتقاطع
 # ------------------------------------
-# The Lasso estimator can be implemented with different solvers: coordinate
-# descent and least angle regression. They differ with regards to their
-# execution speed and sources of numerical errors.
+# يمكن تنفيذ نموذج لاصو باستخدام محسنات مختلفة: الانحدار المنسق والانحدار
+# بزاوية أقل. تختلف هذه المحسنات فيما يتعلق بسرعة التنفيذ ومصادر الأخطاء
+# العددية.
 #
-# In scikit-learn, two different estimators are available with integrated
-# cross-validation: :class:`~sklearn.linear_model.LassoCV` and
-# :class:`~sklearn.linear_model.LassoLarsCV` that respectively solve the
-# problem with coordinate descent and least angle regression.
+# في سكايت-ليرن، هناك محسنان مختلفان متاحان مع التحقق المتقاطع المدمج:
+# :class:`~sklearn.linear_model.LassoCV` و:class:`~sklearn.linear_model.LassoLarsCV`
+# اللذان يحلان المشكلة باستخدام الانحدار المنسق والانحدار بزاوية أقل على
+# التوالي.
 #
-# In the remainder of this section, we will present both approaches. For both
-# algorithms, we will use a 20-fold cross-validation strategy.
+# في بقية هذا القسم، سنقدم كلا النهجين. بالنسبة لكلا الخوارزميتين، سنستخدم
+# استراتيجية التحقق المتقاطع 20-fold.
 #
-# Lasso via coordinate descent
+# نموذج لاصو باستخدام الانحدار المنسق
 # ............................
-# Let's start by making the hyperparameter tuning using
+# دعنا نبدأ بضبط المعامل باستخدام
 # :class:`~sklearn.linear_model.LassoCV`.
 from sklearn.linear_model import LassoCV
 
@@ -182,9 +173,9 @@ _ = plt.title(
 )
 
 # %%
-# Lasso via least angle regression
+# نموذج لاصو باستخدام الانحدار بزاوية أقل
 # ................................
-# Let's start by making the hyperparameter tuning using
+# دعنا نبدأ بضبط المعامل باستخدام
 # :class:`~sklearn.linear_model.LassoLarsCV`.
 from sklearn.linear_model import LassoLarsCV
 
@@ -211,39 +202,37 @@ plt.legend()
 _ = plt.title(f"Mean square error on each fold: Lars (train time: {fit_time:.2f}s)")
 
 # %%
-# Summary of cross-validation approach
+# ملخص نهج التحقق المتقاطع
 # ....................................
-# Both algorithms give roughly the same results.
+# كلا الخوارزميتين تعطيان نتائج متشابهة تقريبًا.
 #
-# Lars computes a solution path only for each kink in the path. As a result, it
-# is very efficient when there are only of few kinks, which is the case if
-# there are few features or samples. Also, it is able to compute the full path
-# without setting any hyperparameter. On the opposite, coordinate descent
-# computes the path points on a pre-specified grid (here we use the default).
-# Thus it is more efficient if the number of grid points is smaller than the
-# number of kinks in the path. Such a strategy can be interesting if the number
-# of features is really large and there are enough samples to be selected in
-# each of the cross-validation fold. In terms of numerical errors, for heavily
-# correlated variables, Lars will accumulate more errors, while the coordinate
-# descent algorithm will only sample the path on a grid.
+# يحسب Lars مسار الحل فقط لكل انحناء في المسار. ونتيجة لذلك، فهو فعال
+# للغاية عندما يكون هناك عدد قليل من الانحناءات، وهو الحال إذا كان هناك عدد
+# قليل من الميزات أو العينات. كما أنه قادر على حساب المسار الكامل دون
+# ضبط أي معامل. على العكس، يحسب الانحدار المنسق نقاط المسار على شبكة
+# محددة مسبقًا (هنا نستخدم الافتراضية).
+# وبالتالي فهو أكثر كفاءة إذا كان عدد نقاط الشبكة أصغر من عدد الانحناءات
+# في المسار. يمكن أن تكون هذه الاستراتيجية مثيرة للاهتمام إذا كان عدد
+# الميزات كبيرًا جدًا وكان هناك ما يكفي من العينات ليتم اختيارها في كل
+# طية من طيات التحقق المتقاطع. من حيث الأخطاء العددية، بالنسبة للمتغيرات
+# المترابطة بشدة، سيتراكم Lars المزيد من الأخطاء، بينما سيقوم خوارزمية
+# الانحدار المنسق باختيار المسار فقط على شبكة.
 #
-# Note how the optimal value of alpha varies for each fold. This illustrates
-# why nested-cross validation is a good strategy when trying to evaluate the
-# performance of a method for which a parameter is chosen by cross-validation:
-# this choice of parameter may not be optimal for a final evaluation on
-# unseen test set only.
+# لاحظ كيف تختلف القيمة المثلى لـ alpha لكل طية. يوضح هذا لماذا يعد
+# التحقق المتقاطع المضمن استراتيجية جيدة عند محاولة تقييم أداء طريقة يتم
+# اختيار معامل لها بواسطة التحقق المتقاطع: قد لا يكون هذا الاختيار
+# للمعامل الأمثل للتقييم النهائي على مجموعة اختبار غير مرئية فقط.
 #
-# Conclusion
+# الخلاصة
 # ----------
-# In this tutorial, we presented two approaches for selecting the best
-# hyperparameter `alpha`: one strategy finds the optimal value of `alpha`
-# by only using the training set and some information criterion, and another
-# strategy is based on cross-validation.
+# في هذا البرنامج التعليمي، قدمنا نهجين لاختيار أفضل معامل
+# `alpha`: استراتيجية واحدة تجد القيمة المثلى لـ `alpha`
+# باستخدام مجموعة التدريب فقط وبعض معايير المعلومات، واستراتيجية أخرى
+# تعتمد على التحقق المتقاطع.
 #
-# In this example, both approaches are working similarly. The in-sample
-# hyperparameter selection even shows its efficacy in terms of computational
-# performance. However, it can only be used when the number of samples is large
-# enough compared to the number of features.
+# في هذا المثال، يعمل كلا النهجين بشكل مشابه. اختيار المعامل داخل العينة
+# يظهر حتى فعاليته من حيث الأداء الحسابي. ومع ذلك، يمكن استخدامه فقط
+# عندما يكون عدد العينات كبيرًا بما فيه الكفاية مقارنةً بعدد الميزات.
 #
-# That's why hyperparameter optimization via cross-validation is a safe
-# strategy: it works in different settings.
+# لهذا السبب، يعد ضبط المعامل باستخدام التحقق المتقاطع استراتيجية آمنة:
+# تعمل في إعدادات مختلفة.

@@ -11,10 +11,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/modules/generated/sklearn.compose.make_column_selector.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="Gallery examples: Categorical Feature Support in Gradient Boosting Combine predictors using stacking Evaluation of outlier detection estimators Column Transformer with Mixed Types" />
-<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_gradient_boosting_categorical_thumb.png" />
+<meta property="og:description" content="Gallery examples: دمج المتنبئات باستخدام التكديس" />
+<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_stack_predictors_thumb.png" />
 <meta property="og:image:alt" content="" />
-<meta name="description" content="Gallery examples: Categorical Feature Support in Gradient Boosting Combine predictors using stacking Evaluation of outlier detection estimators Column Transformer with Mixed Types" />
+<meta name="description" content="Gallery examples: دمج المتنبئات باستخدام التكديس" />
 
     <title>make_column_selector &#8212; scikit-learn 1.6.dev0 documentation</title>
   
@@ -1304,7 +1304,7 @@
 <h1>make_column_selector<a class="headerlink" href="#make-column-selector" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="sklearn.compose.make_column_selector">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sklearn.compose.</span></span><span class="sig-name descname"><span class="pre">make_column_selector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype_include</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype_exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/001706117/sklearn/compose/_column_transformer.py#L1515"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.compose.make_column_selector" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sklearn.compose.</span></span><span class="sig-name descname"><span class="pre">make_column_selector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype_include</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype_exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d6d4571215/sklearn/compose/_column_transformer.py#L1515"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.compose.make_column_selector" title="Link to this definition">#</a></dt>
 <dd><p>Create a callable to select columns to be used with
 <a class="reference internal" href="sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="sklearn.compose.ColumnTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code></a>.</p>
 <p><a class="reference internal" href="#sklearn.compose.make_column_selector" title="sklearn.compose.make_column_selector"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_column_selector</span></code></a> can select columns based on datatype or the
@@ -1313,7 +1313,7 @@ criteria must match for a column to be selected.</p>
 <p>For an example of how to use <a class="reference internal" href="#sklearn.compose.make_column_selector" title="sklearn.compose.make_column_selector"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_column_selector</span></code></a> within a
 <a class="reference internal" href="sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="sklearn.compose.ColumnTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code></a> to select columns based on data type (i.e.
 <code class="docutils literal notranslate"><span class="pre">dtype</span></code>), refer to
-<a class="reference internal" href="../../auto_examples/compose/plot_column_transformer_mixed_types.html#sphx-glr-auto-examples-compose-plot-column-transformer-mixed-types-py"><span class="std std-ref">Column Transformer with Mixed Types</span></a>.</p>
+<a class="reference internal" href="../../auto_examples/compose/plot_column_transformer_mixed_types.html#sphx-glr-auto-examples-compose-plot-column-transformer-mixed-types-py"><span class="std std-ref">محول الأعمدة مع الأنواع المختلطة</span></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
@@ -1365,7 +1365,7 @@ None, column selection will not be selected based on pattern.</p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="sklearn.compose.make_column_selector.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/001706117/sklearn/compose/_column_transformer.py#L1580"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.compose.make_column_selector.__call__" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d6d4571215/sklearn/compose/_column_transformer.py#L1580"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.compose.make_column_selector.__call__" title="Link to this definition">#</a></dt>
 <dd><p>Callable for column selection to be used by a
 <a class="reference internal" href="sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="sklearn.compose.ColumnTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code></a>.</p>
 <dl class="field-list simple">
@@ -1382,18 +1382,9 @@ None, column selection will not be selected based on pattern.</p>
 
 <section id="gallery-examples">
 <h2>Gallery examples<a class="headerlink" href="#gallery-examples" title="Link to this heading">#</a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="In this example, we will compare the training times and prediction performances of HistGradientBoostingRegressor with different encoding strategies for categorical features. In particular, we will evaluate:"><img alt="" src="../../_images/sphx_glr_plot_gradient_boosting_categorical_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/ensemble/plot_gradient_boosting_categorical.html#sphx-glr-auto-examples-ensemble-plot-gradient-boosting-categorical-py"><span class="std std-ref">Categorical Feature Support in Gradient Boosting</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Categorical Feature Support in Gradient Boosting</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Stacking refers to a method to blend estimators. In this strategy, some estimators are individually fitted on some training data while a final estimator is trained using the stacked predictions of these base estimators."><img alt="" src="../../_images/sphx_glr_plot_stack_predictors_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/ensemble/plot_stack_predictors.html#sphx-glr-auto-examples-ensemble-plot-stack-predictors-py"><span class="std std-ref">Combine predictors using stacking</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Combine predictors using stacking</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example compares two outlier detection algorithms, namely local_outlier_factor (LOF) and isolation_forest (IForest), on real-world datasets available in sklearn.datasets. The goal is to show that different algorithms perform well on different datasets and contrast their training speed and sensitivity to hyperparameters."><img alt="" src="../../_images/sphx_glr_plot_outlier_detection_bench_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/miscellaneous/plot_outlier_detection_bench.html#sphx-glr-auto-examples-miscellaneous-plot-outlier-detection-bench-py"><span class="std std-ref">Evaluation of outlier detection estimators</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Evaluation of outlier detection estimators</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how to apply different preprocessing and feature extraction pipelines to different subsets of features, using ColumnTransformer. This is particularly handy for the case of datasets that contain heterogeneous data types, since we may want to scale the numeric features and one-hot encode the categorical ones."><img alt="" src="../../_images/sphx_glr_plot_column_transformer_mixed_types_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/compose/plot_column_transformer_mixed_types.html#sphx-glr-auto-examples-compose-plot-column-transformer-mixed-types-py"><span class="std std-ref">Column Transformer with Mixed Types</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Column Transformer with Mixed Types</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="يشير التكديس إلى طريقة لمزج المقدرات. في هذه الاستراتيجية، يتم ملاءمة بعض المقدرات بشكل فردي على بعض بيانات التدريب بينما يتم تدريب مقدر نهائي باستخدام التنبؤات المكدسة لهذه المقدرات الأساسية."><img alt="" src="../../_images/sphx_glr_plot_stack_predictors_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/ensemble/plot_stack_predictors.html#sphx-glr-auto-examples-ensemble-plot-stack-predictors-py"><span class="std std-ref">دمج المتنبئات باستخدام التكديس</span></a></p>
+  <div class="sphx-glr-thumbnail-title">دمج المتنبئات باستخدام التكديس</div>
 </div></div></section>
 </section>
 

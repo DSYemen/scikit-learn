@@ -19,23 +19,21 @@
 
 
 ===================================================
-Faces recognition example using eigenfaces and SVMs
+مثال على التعرف على الوجوه باستخدام الوجوه المميزة وآلات المتجهات الداعمة
 ===================================================
 
-The dataset used in this example is a preprocessed excerpt of the
-"Labeled Faces in the Wild", aka LFW_:
+مجموعة البيانات المستخدمة في هذا المثال هي مقتطف مُعالج مسبقًا من
+"الوجوه المسماة في البرية"، المعروف باسم LFW_:
 http://vis-www.cs.umass.edu/lfw/lfw-funneled.tgz (233MB)
 
 .. _LFW: http://vis-www.cs.umass.edu/lfw/
 
-.. GENERATED FROM PYTHON SOURCE LINES 13-17
+.. GENERATED FROM PYTHON SOURCE LINES 13-16
 
 .. code-block:: Python
 
-
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
-
+    # المؤلفون: مطوري سكايت-ليرن
+    # معرف الترخيص-SPDX: BSD-3-Clause
 
 
 
@@ -43,7 +41,8 @@ http://vis-www.cs.umass.edu/lfw/lfw-funneled.tgz (233MB)
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-30
+
+.. GENERATED FROM PYTHON SOURCE LINES 17-29
 
 .. code-block:: Python
 
@@ -66,31 +65,31 @@ http://vis-www.cs.umass.edu/lfw/lfw-funneled.tgz (233MB)
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 31-32
+.. GENERATED FROM PYTHON SOURCE LINES 30-31
 
-Download the data, if not already on disk and load it as numpy arrays
+تنزيل البيانات، إذا لم تكن موجودة بالفعل على القرص وتحميلها كمصفوفات نومبي
 
-.. GENERATED FROM PYTHON SOURCE LINES 32-54
+.. GENERATED FROM PYTHON SOURCE LINES 31-53
 
 .. code-block:: Python
 
 
     lfw_people = fetch_lfw_people(min_faces_per_person=70, resize=0.4)
 
-    # introspect the images arrays to find the shapes (for plotting)
+    # فحص مصفوفات الصور لمعرفة الأشكال (للرسم)
     n_samples, h, w = lfw_people.images.shape
 
-    # for machine learning we use the 2 data directly (as relative pixel
-    # positions info is ignored by this model)
+    # للتعلم الآلي، نستخدم البيانات مباشرةً (حيث يتم تجاهل معلومات مواضع البكسل النسبية
+    # بواسطة هذا النموذج)
     X = lfw_people.data
     n_features = X.shape[1]
 
-    # the label to predict is the id of the person
+    # التسمية التي يجب التنبؤ بها هي معرف الشخص
     y = lfw_people.target
     target_names = lfw_people.target_names
     n_classes = target_names.shape[0]
 
-    print("Total dataset size:")
+    print("حجم مجموعة البيانات الإجمالي:")
     print("n_samples: %d" % n_samples)
     print("n_features: %d" % n_features)
     print("n_classes: %d" % n_classes)
@@ -104,7 +103,7 @@ Download the data, if not already on disk and load it as numpy arrays
 
  .. code-block:: none
 
-    Total dataset size:
+    حجم مجموعة البيانات الإجمالي:
     n_samples: 1288
     n_features: 1850
     n_classes: 7
@@ -112,11 +111,11 @@ Download the data, if not already on disk and load it as numpy arrays
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 55-56
+.. GENERATED FROM PYTHON SOURCE LINES 54-55
 
-Split into a training set and a test and keep 25% of the data for testing.
+التقسيم إلى مجموعة تدريب ومجموعة اختبار والاحتفاظ بـ 25% من البيانات للاختبار.
 
-.. GENERATED FROM PYTHON SOURCE LINES 56-65
+.. GENERATED FROM PYTHON SOURCE LINES 55-64
 
 .. code-block:: Python
 
@@ -136,12 +135,12 @@ Split into a training set and a test and keep 25% of the data for testing.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 66-68
+.. GENERATED FROM PYTHON SOURCE LINES 65-67
 
-Compute a PCA (eigenfaces) on the face dataset (treated as unlabeled
-dataset): unsupervised feature extraction / dimensionality reduction
+حساب التحليل المكون الرئيسي (الوجوه المميزة) على مجموعة بيانات الوجه (المعالجة كمجموعة بيانات غير مصنفة):
+استخراج الميزات غير الخاضعة للإشراف / تقليل الأبعاد
 
-.. GENERATED FROM PYTHON SOURCE LINES 68-87
+.. GENERATED FROM PYTHON SOURCE LINES 67-86
 
 .. code-block:: Python
 
@@ -149,19 +148,19 @@ dataset): unsupervised feature extraction / dimensionality reduction
     n_components = 150
 
     print(
-        "Extracting the top %d eigenfaces from %d faces" % (n_components, X_train.shape[0])
+        "استخراج أفضل %d وجوه مميزة من %d وجوه" % (n_components, X_train.shape[0])
     )
     t0 = time()
     pca = PCA(n_components=n_components, svd_solver="randomized", whiten=True).fit(X_train)
-    print("done in %0.3fs" % (time() - t0))
+    print("تم الانتهاء في %0.3fs" % (time() - t0))
 
     eigenfaces = pca.components_.reshape((n_components, h, w))
 
-    print("Projecting the input data on the eigenfaces orthonormal basis")
+    print("رسم بيانات الإدخال على أساس الوجوه المميزة المتعامدة")
     t0 = time()
     X_train_pca = pca.transform(X_train)
     X_test_pca = pca.transform(X_test)
-    print("done in %0.3fs" % (time() - t0))
+    print("تم الانتهاء في %0.3fs" % (time() - t0))
 
 
 
@@ -172,24 +171,24 @@ dataset): unsupervised feature extraction / dimensionality reduction
 
  .. code-block:: none
 
-    Extracting the top 150 eigenfaces from 966 faces
-    done in 0.431s
-    Projecting the input data on the eigenfaces orthonormal basis
-    done in 0.056s
+    استخراج أفضل 150 وجوه مميزة من 966 وجوه
+    تم الانتهاء في 0.303s
+    رسم بيانات الإدخال على أساس الوجوه المميزة المتعامدة
+    تم الانتهاء في 0.023s
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 88-89
+.. GENERATED FROM PYTHON SOURCE LINES 87-88
 
-Train a SVM classification model
+تدريب نموذج تصنيف آلة المتجهات الداعمة
 
-.. GENERATED FROM PYTHON SOURCE LINES 89-105
+.. GENERATED FROM PYTHON SOURCE LINES 88-104
 
 .. code-block:: Python
 
 
-    print("Fitting the classifier to the training set")
+    print("ضبط المصنف على مجموعة التدريب")
     t0 = time()
     param_grid = {
         "C": loguniform(1e3, 1e5),
@@ -199,8 +198,8 @@ Train a SVM classification model
         SVC(kernel="rbf", class_weight="balanced"), param_grid, n_iter=10
     )
     clf = clf.fit(X_train_pca, y_train)
-    print("done in %0.3fs" % (time() - t0))
-    print("Best estimator found by grid search:")
+    print("تم الانتهاء في %0.3fs" % (time() - t0))
+    print("أفضل مقدر تم العثور عليه بواسطة البحث الشبكي:")
     print(clf.best_estimator_)
 
 
@@ -212,28 +211,27 @@ Train a SVM classification model
 
  .. code-block:: none
 
-    Fitting the classifier to the training set
-    done in 4.629s
-    Best estimator found by grid search:
-    SVC(C=np.float64(76823.03433306457), class_weight='balanced',
-        gamma=np.float64(0.0034189458230957995))
+    ضبط المصنف على مجموعة التدريب
+    تم الانتهاء في 5.084s
+    أفضل مقدر تم العثور عليه بواسطة البحث الشبكي:
+    SVC(C=7977.580335831192, class_weight='balanced', gamma=0.00369819428936649)
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 106-107
+.. GENERATED FROM PYTHON SOURCE LINES 105-106
 
-Quantitative evaluation of the model quality on the test set
+التقييم الكمي لجودة النموذج على مجموعة الاختبار
 
-.. GENERATED FROM PYTHON SOURCE LINES 107-121
+.. GENERATED FROM PYTHON SOURCE LINES 106-120
 
 .. code-block:: Python
 
 
-    print("Predicting people's names on the test set")
+    print("التنبؤ بأسماء الأشخاص على مجموعة الاختبار")
     t0 = time()
     y_pred = clf.predict(X_test_pca)
-    print("done in %0.3fs" % (time() - t0))
+    print("تم الانتهاء في %0.3fs" % (time() - t0))
 
     print(classification_report(y_test, y_pred, target_names=target_names))
     ConfusionMatrixDisplay.from_estimator(
@@ -256,38 +254,38 @@ Quantitative evaluation of the model quality on the test set
 
  .. code-block:: none
 
-    Predicting people's names on the test set
-    done in 0.039s
+    التنبؤ بأسماء الأشخاص على مجموعة الاختبار
+    تم الانتهاء في 0.058s
                        precision    recall  f1-score   support
 
-         Ariel Sharon       0.75      0.69      0.72        13
-         Colin Powell       0.72      0.87      0.79        60
-      Donald Rumsfeld       0.77      0.63      0.69        27
-        George W Bush       0.88      0.95      0.91       146
+         Ariel Sharon       0.78      0.54      0.64        13
+         Colin Powell       0.79      0.87      0.83        60
+      Donald Rumsfeld       0.80      0.59      0.68        27
+        George W Bush       0.87      0.97      0.92       146
     Gerhard Schroeder       0.95      0.80      0.87        25
-          Hugo Chavez       0.90      0.60      0.72        15
-           Tony Blair       0.93      0.75      0.83        36
+          Hugo Chavez       0.91      0.67      0.77        15
+           Tony Blair       0.94      0.81      0.87        36
 
-             accuracy                           0.84       322
-            macro avg       0.84      0.75      0.79       322
-         weighted avg       0.85      0.84      0.84       322
-
-
+             accuracy                           0.86       322
+            macro avg       0.86      0.75      0.79       322
+         weighted avg       0.86      0.86      0.85       322
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 122-123
 
-Qualitative evaluation of the predictions using matplotlib
 
-.. GENERATED FROM PYTHON SOURCE LINES 123-137
+.. GENERATED FROM PYTHON SOURCE LINES 121-122
+
+التقييم النوعي للتنبؤات باستخدام ماتبلوتليب
+
+.. GENERATED FROM PYTHON SOURCE LINES 122-136
 
 .. code-block:: Python
 
 
 
     def plot_gallery(images, titles, h, w, n_row=3, n_col=4):
-        """Helper function to plot a gallery of portraits"""
+        """دالة مساعدة لرسم معرض للصور الشخصية"""
         plt.figure(figsize=(1.8 * n_col, 2.4 * n_row))
         plt.subplots_adjust(bottom=0, left=0.01, right=0.99, top=0.90, hspace=0.35)
         for i in range(n_row * n_col):
@@ -305,11 +303,13 @@ Qualitative evaluation of the predictions using matplotlib
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 138-139
+.. GENERATED FROM PYTHON SOURCE LINES 137-140
 
-plot the result of the prediction on a portion of the test set
+رسم نتيجة التنبؤ على جزء من مجموعة الاختبار
+%%
+رسم نتيجة التنبؤ على جزء من مجموعة الاختبار
 
-.. GENERATED FROM PYTHON SOURCE LINES 139-152
+.. GENERATED FROM PYTHON SOURCE LINES 140-153
 
 .. code-block:: Python
 
@@ -318,7 +318,7 @@ plot the result of the prediction on a portion of the test set
     def title(y_pred, y_test, target_names, i):
         pred_name = target_names[y_pred[i]].rsplit(" ", 1)[-1]
         true_name = target_names[y_test[i]].rsplit(" ", 1)[-1]
-        return "predicted: %s\ntrue:      %s" % (pred_name, true_name)
+        return "المتنبأ به: %s\nالحقيقي:      %s" % (pred_name, true_name)
 
 
     prediction_titles = [
@@ -330,7 +330,7 @@ plot the result of the prediction on a portion of the test set
 
 
 .. image-sg:: /auto_examples/applications/images/sphx_glr_plot_face_recognition_002.png
-   :alt: predicted: Bush true:      Bush, predicted: Bush true:      Bush, predicted: Blair true:      Blair, predicted: Bush true:      Bush, predicted: Bush true:      Bush, predicted: Bush true:      Bush, predicted: Schroeder true:      Schroeder, predicted: Powell true:      Powell, predicted: Bush true:      Bush, predicted: Bush true:      Bush, predicted: Bush true:      Bush, predicted: Bush true:      Bush
+   :alt: المتنبأ به: Bush الحقيقي:      Bush, المتنبأ به: Bush الحقيقي:      Bush, المتنبأ به: Blair الحقيقي:      Blair, المتنبأ به: Bush الحقيقي:      Bush, المتنبأ به: Bush الحقيقي:      Bush, المتنبأ به: Bush الحقيقي:      Bush, المتنبأ به: Schroeder الحقيقي:      Schroeder, المتنبأ به: Powell الحقيقي:      Powell, المتنبأ به: Bush الحقيقي:      Bush, المتنبأ به: Bush الحقيقي:      Bush, المتنبأ به: Bush الحقيقي:      Bush, المتنبأ به: Bush الحقيقي:      Bush
    :srcset: /auto_examples/applications/images/sphx_glr_plot_face_recognition_002.png
    :class: sphx-glr-single-img
 
@@ -338,16 +338,16 @@ plot the result of the prediction on a portion of the test set
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 153-154
+.. GENERATED FROM PYTHON SOURCE LINES 154-155
 
-plot the gallery of the most significative eigenfaces
+رسم معرض الوجوه المميزة الأكثر دلالة
 
-.. GENERATED FROM PYTHON SOURCE LINES 154-160
+.. GENERATED FROM PYTHON SOURCE LINES 155-161
 
 .. code-block:: Python
 
 
-    eigenface_titles = ["eigenface %d" % i for i in range(eigenfaces.shape[0])]
+    eigenface_titles = ["الوجه المميز %d" % i for i in range(eigenfaces.shape[0])]
     plot_gallery(eigenfaces, eigenface_titles, h, w)
 
     plt.show()
@@ -356,7 +356,7 @@ plot the gallery of the most significative eigenfaces
 
 
 .. image-sg:: /auto_examples/applications/images/sphx_glr_plot_face_recognition_003.png
-   :alt: eigenface 0, eigenface 1, eigenface 2, eigenface 3, eigenface 4, eigenface 5, eigenface 6, eigenface 7, eigenface 8, eigenface 9, eigenface 10, eigenface 11
+   :alt: الوجه المميز 0, الوجه المميز 1, الوجه المميز 2, الوجه المميز 3, الوجه المميز 4, الوجه المميز 5, الوجه المميز 6, الوجه المميز 7, الوجه المميز 8, الوجه المميز 9, الوجه المميز 10, الوجه المميز 11
    :srcset: /auto_examples/applications/images/sphx_glr_plot_face_recognition_003.png
    :class: sphx-glr-single-img
 
@@ -364,17 +364,17 @@ plot the gallery of the most significative eigenfaces
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 161-165
+.. GENERATED FROM PYTHON SOURCE LINES 162-165
 
-Face recognition problem would be much more effectively solved by training
-convolutional neural networks but this family of models is outside of the scope of
-the scikit-learn library. Interested readers should instead try to use pytorch or
-tensorflow to implement such models.
+يمكن حل مشكلة التعرف على الوجه بشكل أكثر فعالية من خلال تدريب
+الشبكات العصبية التلافيفية، ولكن هذه العائلة من النماذج خارج نطاق
+مكتبة سكايت-ليرن. يجب على القراء المهتمين تجربة استخدام باي تورتش أو
+تنسور فلو لتنفيذ مثل هذه النماذج.
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 22.017 seconds)
+   **Total running time of the script:** (0 minutes 27.894 seconds)
 
 
 .. _sphx_glr_download_auto_examples_applications_plot_face_recognition.py:

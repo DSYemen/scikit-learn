@@ -7,16 +7,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Multi-class AdaBoosted Decision Trees" />
+<meta property="og:title" content="شجرة قرارات معززة متعددة الفئات" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/auto_examples/ensemble/plot_adaboost_multiclass.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="This example shows how boosting can improve the prediction accuracy on a multi-label classification problem. It reproduces a similar experiment as depicted by Figure 1 in Zhu et al 1. The core prin..." />
+<meta property="og:description" content="هذا المثال يوضح كيف يمكن لتقنية التعزيز (Boosting) أن تحسن دقة التنبؤ في مشكلة تصنيف متعددة التصنيفات. وهو يعيد إنتاج تجربة مشابهة لما هو موضح في الشكل 1 في بحث Zhu et al 1. المبدأ الأساسي لتقنية A..." />
 <meta property="og:image" content="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" />
 <meta property="og:image:alt" content="scikit-learn" />
-<meta name="description" content="This example shows how boosting can improve the prediction accuracy on a multi-label classification problem. It reproduces a similar experiment as depicted by Figure 1 in Zhu et al 1. The core prin..." />
+<meta name="description" content="هذا المثال يوضح كيف يمكن لتقنية التعزيز (Boosting) أن تحسن دقة التنبؤ في مشكلة تصنيف متعددة التصنيفات. وهو يعيد إنتاج تجربة مشابهة لما هو موضح في الشكل 1 في بحث Zhu et al 1. المبدأ الأساسي لتقنية A..." />
 
-    <title>Multi-class AdaBoosted Decision Trees &#8212; scikit-learn 1.6.dev0 documentation</title>
+    <title>شجرة قرارات معززة متعددة الفئات &#8212; scikit-learn 1.6.dev0 documentation</title>
   
   
   
@@ -79,8 +79,8 @@
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="search" title="بحث" href="../../search.html" />
-    <link rel="next" title="OOB Errors for Random Forests" href="plot_ensemble_oob.html" />
-    <link rel="prev" title="Monotonic Constraints" href="plot_monotonic_constraints.html" />
+    <link rel="next" title="فترات التنبؤ لانحدار التعزيز المتدرج" href="plot_gradient_boosting_quantile.html" />
+    <link rel="prev" title="رسم حدود القرار لـ VotingClassifier" href="plot_voting_decision_regions.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="ar"/>
   <meta name="docsearch:version" content="1.6" />
@@ -562,138 +562,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_22_0.html">Release Highlights for scikit-learn 0.22</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../classification/index.html">Classification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../classification/plot_classifier_comparison.html">Classifier comparison</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../classification/plot_lda_qda.html">Linear and Quadratic Discriminant Analysis with covariance ellipsoid</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../classification/plot_lda.html">Normal, Ledoit-Wolf and OAS Linear Discriminant Analysis for classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../classification/plot_classification_probability.html">Plot classification probability</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../classification/plot_digits_classification.html">Recognizing hand-written digits</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../cluster/index.html">Clustering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_digits.html">A demo of K-Means clustering on the handwritten digits data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_coin_ward_segmentation.html">A demo of structured Ward hierarchical clustering on an image of coins</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_mean_shift.html">A demo of the mean-shift clustering algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_adjusted_for_chance_measures.html">Adjustment for chance in clustering performance evaluation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_agglomerative_clustering.html">Agglomerative clustering with and without structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_agglomerative_clustering_metrics.html">Agglomerative clustering with different metrics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_plusplus.html">An example of K-Means++ initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_bisect_kmeans.html">Bisecting K-Means and Regular K-Means Performance Comparison</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_birch_vs_minibatchkmeans.html">Compare BIRCH and MiniBatchKMeans</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_cluster_comparison.html">Comparing different clustering algorithms on toy datasets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_linkage_comparison.html">Comparing different hierarchical linkage methods on toy datasets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_mini_batch_kmeans.html">Comparison of the K-Means and MiniBatchKMeans clustering algorithms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_dbscan.html">Demo of DBSCAN clustering algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_hdbscan.html">Demo of HDBSCAN clustering algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_optics.html">Demo of OPTICS clustering algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_affinity_propagation.html">Demo of affinity propagation clustering algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_assumptions.html">Demonstration of k-means assumptions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_stability_low_dim_dense.html">Empirical evaluation of the impact of k-means initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_digits_agglomeration.html">Feature agglomeration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_feature_agglomeration_vs_univariate_selection.html">Feature agglomeration vs. univariate selection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_ward_structured_vs_unstructured.html">Hierarchical clustering: structured vs unstructured ward</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_inductive_clustering.html">Inductive Clustering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_dict_face_patches.html">Online learning of a dictionary of parts of faces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_agglomerative_dendrogram.html">Plot Hierarchical Clustering Dendrogram</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_coin_segmentation.html">Segmenting the picture of greek coins in regions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_silhouette_analysis.html">Selecting the number of clusters with silhouette analysis on KMeans clustering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_segmentation_toy.html">Spectral clustering for image segmentation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_digits_linkage.html">Various Agglomerative Clustering on a 2D embedding of digits</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_face_compress.html">Vector Quantization Example</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../covariance/index.html">Covariance estimation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_lw_vs_oas.html">Ledoit-Wolf vs OAS estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_mahalanobis_distances.html">Robust covariance estimation and Mahalanobis distances relevance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_robust_vs_empirical_covariance.html">Robust vs Empirical covariance estimate</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_covariance_estimation.html">Shrinkage covariance estimation: LedoitWolf vs OAS and max-likelihood</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_sparse_cov.html">Sparse inverse covariance estimation</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../cross_decomposition/index.html">Cross decomposition</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../cross_decomposition/plot_compare_cross_decomposition.html">Compare cross decomposition methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cross_decomposition/plot_pcr_vs_pls.html">Principal Component Regression vs Partial Least Squares Regression</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../datasets/index.html">Dataset examples</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../datasets/plot_random_multilabel_dataset.html">Plot randomly generated multilabel dataset</a></li>
-</ul>
-</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../tree/index.html">Decision Trees</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../tree/plot_tree_regression.html">Decision Tree Regression</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tree/plot_iris_dtc.html">Plot the decision surface of decision trees trained on the iris dataset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tree/plot_cost_complexity_pruning.html">Post pruning decision trees with cost complexity pruning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../tree/plot_unveil_tree_structure.html">Understanding the decision tree structure</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../decomposition/index.html">Decomposition</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_ica_blind_source_separation.html">Blind source separation using FastICA</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_pca_vs_lda.html">Comparison of LDA and PCA 2D projection of Iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_faces_decomposition.html">Faces dataset decompositions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_varimax_fa.html">Factor Analysis (with rotation) to visualize patterns</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_ica_vs_pca.html">FastICA on 2D point clouds</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_image_denoising.html">Image denoising using dictionary learning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_incremental_pca.html">Incremental PCA</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_kernel_pca.html">Kernel PCA</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_pca_vs_fa_model_selection.html">Model selection with Probabilistic PCA and Factor Analysis (FA)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_pca_iris.html">Principal Component Analysis (PCA) on Iris Dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_sparse_coding.html">Sparse coding with a precomputed dictionary</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../developing_estimators/index.html">Developing Estimators</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../developing_estimators/sklearn_is_fitted.html"><code class="docutils literal notranslate"><span class="pre">__sklearn_is_fitted__</span></code> as Developer API</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Ensemble methods</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="plot_gradient_boosting_categorical.html">Categorical Feature Support in Gradient Boosting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_stack_predictors.html">Combine predictors using stacking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_forest_hist_grad_boosting_comparison.html">Comparing Random Forests and Histogram Gradient Boosting models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_random_forest_regression_multioutput.html">Comparing random forests and the multi-output meta estimator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_adaboost_regression.html">Decision Tree Regression with AdaBoost</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_gradient_boosting_early_stopping.html">Early stopping in Gradient Boosting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_forest_importances.html">Feature importances with a forest of trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_feature_transformation.html">Feature transformations with ensembles of trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_hgbt_regression.html">Features in Histogram Gradient Boosting Trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_gradient_boosting_oob.html">Gradient Boosting Out-of-Bag estimates</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_gradient_boosting_regression.html">Gradient Boosting regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_gradient_boosting_regularization.html">Gradient Boosting regularization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_random_forest_embedding.html">Hashing feature transformation using Totally Random Trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_isolation_forest.html">IsolationForest example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_monotonic_constraints.html">Monotonic Constraints</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Multi-class AdaBoosted Decision Trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_ensemble_oob.html">OOB Errors for Random Forests</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_voting_probas.html">Plot class probabilities calculated by the VotingClassifier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_voting_regressor.html">Plot individual and voting regression predictions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_voting_decision_regions.html">Plot the decision boundaries of a VotingClassifier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_forest_iris.html">Plot the decision surfaces of ensembles of trees on the iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_gradient_boosting_quantile.html">Prediction Intervals for Gradient Boosting Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_bias_variance.html">Single estimator versus bagging: bias-variance decomposition</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_adaboost_twoclass.html">Two-class AdaBoost</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../applications/index.html">Examples based on real world datasets</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_tomography_l1_reconstruction.html">Compressive sensing: tomography reconstruction with L1 prior (Lasso)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_face_recognition.html">Faces recognition example using eigenfaces and SVMs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_digits_denoising.html">Image denoising using kernel PCA</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_time_series_lagged_features.html">Lagged features for time series forecasting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_model_complexity_influence.html">Model Complexity Influence</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_out_of_core_classification.html">Out-of-core classification of text documents</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_outlier_detection_wine.html">Outlier detection on a real data set</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_prediction_latency.html">Prediction Latency</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_species_distribution_modeling.html">Species distribution modeling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_cyclical_feature_engineering.html">Time-related feature engineering</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_topics_extraction_with_nmf_lda.html">Topic extraction with Non-negative Matrix Factorization and Latent Dirichlet Allocation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/plot_stock_market.html">Visualizing the stock market structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../applications/wikipedia_principal_eigenvector.html">Wikipedia principal eigenvector</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../feature_selection/index.html">Feature Selection</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_f_test_vs_mi.html">Comparison of F-test and mutual information</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_select_from_model_diabetes.html">Model-based and sequential feature selection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_feature_selection_pipeline.html">Pipeline ANOVA SVM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_rfe_digits.html">Recursive feature elimination</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_rfe_with_cross_validation.html">Recursive feature elimination with cross-validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_feature_selection.html">Univariate Feature Selection</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../mixture/index.html">Gaussian Mixture Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -704,71 +577,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm.html">Gaussian Mixture Model Ellipsoids</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_selection.html">Gaussian Mixture Model Selection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_sin.html">Gaussian Mixture Model Sine Curve</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../gaussian_process/index.html">Gaussian Process for Machine Learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_noisy.html">Ability of Gaussian process regression (GPR) to estimate data noise-level</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_compare_gpr_krr.html">Comparison of kernel ridge and Gaussian process regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_co2.html">Forecasting of CO2 level on Mona Loa dataset using Gaussian process regression (GPR)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_noisy_targets.html">Gaussian Processes regression: basic introductory example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpc_iris.html">Gaussian process classification (GPC) on iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_on_structured_data.html">Gaussian processes on discrete data structures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpc_xor.html">Illustration of Gaussian process classification (GPC) on the XOR dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_prior_posterior.html">Illustration of prior and posterior Gaussian process for different kernels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpc_isoprobability.html">Iso-probability lines for Gaussian Processes classification (GPC)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpc.html">Probabilistic predictions with Gaussian process classification (GPC)</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../linear_model/index.html">Generalized Linear Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ard.html">Comparing Linear Bayesian Regressors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_comparison.html">Comparing various online solvers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_bayesian_ridge_curvefit.html">Curve Fitting with Bayesian Ridge Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_logistic_multinomial.html">Decision Boundaries of Multinomial and One-vs-Rest Logistic Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_early_stopping.html">Early stopping of Stochastic Gradient Descent</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_elastic_net_precomputed_gram_matrix_with_weighted_samples.html">Fitting an Elastic Net with a precomputed Gram Matrix and Weighted Samples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_huber_vs_ridge.html">HuberRegressor vs Ridge on dataset with strong outliers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_multi_task_lasso_support.html">Joint feature selection with multi-task Lasso</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_logistic_l1_l2_sparsity.html">L1 Penalty and Sparsity in Logistic Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_and_elasticnet.html">L1-based models for Sparse Signals</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_lars_ic.html">Lasso model selection via information criteria</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_model_selection.html">Lasso model selection: AIC-BIC / cross-validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_dense_vs_sparse_data.html">Lasso on dense and sparse data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_lasso_lars_elasticnet_path.html">Lasso, Lasso-LARS, and Elastic Net paths</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_logistic.html">Logistic function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sparse_logistic_regression_mnist.html">MNIST classification using multinomial logistic + L1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sparse_logistic_regression_20newsgroups.html">Multiclass sparse logistic regression on 20newgroups</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_nnls.html">Non-negative least squares</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgdocsvm_vs_ocsvm.html">One-Class SVM versus One-Class SVM using Stochastic Gradient Descent</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ols.html">Ordinary Least Squares Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ols_ridge_variance.html">Ordinary Least Squares and Ridge Regression Variance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_omp.html">Orthogonal Matching Pursuit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ridge_path.html">Plot Ridge coefficients as a function of the regularization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_iris.html">Plot multi-class SGD on the iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_poisson_regression_non_normal_loss.html">Poisson regression and non-normal loss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_polynomial_interpolation.html">Polynomial and Spline interpolation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_quantile_regression.html">Quantile regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_logistic_path.html">Regularization path of L1- Logistic Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ridge_coeffs.html">Ridge coefficients as a function of the L2 Regularization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_robust_fit.html">Robust linear estimator fitting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ransac.html">Robust linear model estimation using RANSAC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_separating_hyperplane.html">SGD: Maximum margin separating hyperplane</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_penalties.html">SGD: Penalties</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_weighted_samples.html">SGD: Weighted samples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_loss_functions.html">SGD: convex loss functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_theilsen.html">Theil-Sen Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_tweedie_regression_insurance_claims.html">Tweedie regression on insurance claims</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../inspection/index.html">Inspection</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_linear_model_coefficient_interpretation.html">Common pitfalls in the interpretation of coefficients of linear models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_causal_interpretation.html">Failure of Machine Learning to infer causal effects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_partial_dependence.html">Partial Dependence and Individual Conditional Expectation Plots</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance.html">Permutation Importance vs Random Forest Feature Importance (MDI)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance_multicollinear.html">Permutation Importance with Multicollinear or Correlated Features</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../kernel_approximation/index.html">Kernel Approximation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../kernel_approximation/plot_scalable_poly_kernels.html">Scalable learning with polynomial kernel approximation</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../manifold/index.html">Manifold learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -796,11 +604,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_roc_curve_visualization_api.html">ROC Curve with Visualization API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_johnson_lindenstrauss_bound.html">The Johnson-Lindenstrauss bound for embedding with random projections</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_display_object_visualization.html">Visualizations with Display Objects</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../impute/index.html">Missing Value Imputation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../impute/plot_missing_values.html">Imputing missing values before building an estimator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../impute/plot_iterative_imputer_variants_comparison.html">Imputing missing values with variants of IterativeImputer</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../model_selection/index.html">Model Selection</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -860,15 +663,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mnist_filters.html">Visualization of MLP weights on MNIST</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../compose/index.html">Pipelines and composite estimators</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../compose/plot_column_transformer.html">Column Transformer with Heterogeneous Data Sources</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../compose/plot_column_transformer_mixed_types.html">Column Transformer with Mixed Types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../compose/plot_feature_union.html">Concatenating multiple feature extraction methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../compose/plot_transformed_target.html">Effect of transforming the targets in regression model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../compose/plot_digits_pipe.html">Pipelining: chaining a PCA and a logistic regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../compose/plot_compare_reduction.html">Selecting dimensionality reduction with Pipeline and GridSearchCV</a></li>
-</ul>
-</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../preprocessing/index.html">Preprocessing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_all_scaling.html">Compare the effect of different scalers on data with outliers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder.html">Comparing Target Encoder with Other Encoders</a></li>
@@ -906,22 +700,231 @@
 <li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_regression.html">Support Vector Regression (SVR) using linear and non-linear kernels</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../exercises/index.html">Tutorial exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_cv_diabetes.html">Cross-validation on diabetes Dataset Exercise</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_digits_classification_exercise.html">Digits Classification Exercise</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_iris_exercise.html">SVM Exercise</a></li>
-</ul>
-</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../text/index.html">Working with text documents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../text/plot_document_classification_20newsgroups.html">Classification of text documents using sparse features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../text/plot_document_clustering.html">Clustering text documents using k-means</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../text/plot_hashing_vs_dict_vectorizer.html">FeatureHasher and DictVectorizer Comparison</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../applications/index.html">أمثلة مبنية على مجموعات بيانات من العالم الحقيقي</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_out_of_core_classification.html">Out-of-core classification of text documents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_digits_denoising.html">إزالة التشويش من الصور باستخدام PCA النواة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_outlier_detection_wine.html">الكشف عن القيم الشاذة في مجموعة بيانات حقيقية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/wikipedia_principal_eigenvector.html">المتجه الذاتي الرئيسي لويكيبيديا</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_time_series_lagged_features.html">الميزات المتأخرة للتنبؤ بالسلاسل الزمنية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_model_complexity_influence.html">تأثير تعقيد النموذج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_prediction_latency.html">تأخير التنبؤ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_face_recognition.html">مثال على التعرف على الوجوه باستخدام الوجوه المميزة وآلات المتجهات الداعمة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_species_distribution_modeling.html">نمذجة توزيع الأنواع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_cyclical_feature_engineering.html">هندسة الميزات ذات الصلة بالوقت</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../applications/plot_stock_market.html">هيكلة سوق الأسهم المرئية</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../datasets/index.html">أمثلة مجموعات البيانات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/plot_random_multilabel_dataset.html">رسم مجموعة بيانات متعددة التصنيفات مُولدة عشوائياً</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../feature_selection/index.html">إختيار الميزة</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_select_from_model_diabetes.html">Model-based and sequential feature selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_feature_selection_pipeline.html">Pipeline ANOVA SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_rfe_with_cross_validation.html">إزالة الميزات المتكررة باستخدام التحقق المتبادل</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_rfe_digits.html">إزالة الميزة المتكررة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_feature_selection.html">اختيار الميزة أحادية المتغير</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_f_test_vs_mi.html">مقارنة بين اختبار F والمعلومات المتبادلة</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../cluster/index.html">التجميع</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_segmentation_toy.html">توليد البيانات</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_agglomerative_clustering_metrics.html"># التجميع التجميعي مع مقاييس مختلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_agglomerative_clustering.html"># التجميع التجميعي مع وبغير بنية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_inductive_clustering.html">التصنيف الاستقرائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_ward_structured_vs_unstructured.html">العنقدة الهرمية: العنقدة المنظمة وغير المنظمة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_digits_agglomeration.html">تجميع الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_silhouette_analysis.html">تحليل السيلويت لتحديد عدد التجمعات في التجميع التجميعي KMeans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_digits.html">تطبيق خوارزمية k-means على مجموعة البيانات digits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_adjusted_for_chance_measures.html">تعديل الفرصة في تقييم أداء التجميع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_dict_face_patches.html">تعلم القاموس عبر الإنترنت لأجزاء الوجوه</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_stability_low_dim_dense.html">تقييم تجريبي لتأثير تهيئة k-means</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_coin_segmentation.html">تم تقسيم صورة العملات اليونانية إلى مناطق</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_assumptions.html">توضيح افتراضات خوارزمية كاي-مينز</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_agglomerative_dendrogram.html">رسم مخطط شجرة التجميع الهرمي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_coin_ward_segmentation.html">عرض توضيحي لتجميع هرمي منظم على صورة عملات معدنية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_dbscan.html">عرض توضيحي لخوارزمية التجميع DBSCAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_hdbscan.html">عرض توضيحي لخوارزمية التجميع HDBSCAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_optics.html">عرض توضيحي لخوارزمية التجميع OPTICS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_mean_shift.html">عرض توضيحي لخوارزمية التجميع متوسط التحول</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_affinity_propagation.html">عرض توضيحي لخوارزمية تجميع انتشار الانتماء</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_kmeans_plusplus.html">مثال على التهيئة K-Means++</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_face_compress.html">مثال على تكميم المتجهات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_digits_linkage.html">مختلف خوارزميات التجميع الهرمي على تضمين ثنائي الأبعاد لمجموعة بيانات الأرقام</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_birch_vs_minibatchkmeans.html">مقارنة بين BIRCH و MiniBatchKMeans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_mini_batch_kmeans.html">مقارنة خوارزميات التجميع K-Means و MiniBatchKMeans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_cluster_comparison.html">مقارنة خوارزميات التجميع المختلفة على مجموعات البيانات التجريبية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cluster/plot_linkage_comparison.html">مقارنة طرق الربط الهرمي المختلفة على مجموعات بيانات تجريبية</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../bicluster/index.html">التجميع الثنائي</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_bicluster_newsgroups.html">بكلسترينج المستندات باستخدام خوارزمية التجميع الطيفي المشترك</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_bicluster_newsgroups.html">التجميع الثنائي للمستندات باستخدام خوارزمية التجميع الطيفي المشترك</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_spectral_biclustering.html">عرض توضيحي لخوارزمية التجميع الطيفي الثنائي</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../bicluster/plot_spectral_coclustering.html">عرض توضيحي لخوارزمية التجميع الطيفي المشترك</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../cross_decomposition/index.html">التحلل المتقاطع</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cross_decomposition/plot_pcr_vs_pls.html">الانحدار باستخدام المكونات الرئيسية مقابل الانحدار باستخدام المربعات الجزئية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cross_decomposition/plot_compare_cross_decomposition.html">مقارنة طرق التحليل التفاضلي</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../classification/index.html">التصنيف</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../classification/plot_lda.html">Normal, Ledoit-Wolf and OAS Linear Discriminant Analysis for classification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classification/plot_digits_classification.html">التعرف على الأرقام المكتوبة بخط اليد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classification/plot_classification_probability.html">رسم احتمالية التصنيف</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classification/plot_classifier_comparison.html">مقارنة المصنفات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../classification/plot_lda_qda.html">توليد البيانات</a></li>
+
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../inspection/index.html">الفحص</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance_multicollinear.html">أهمية التبديل مع الميزات متعددة الخطية أو المرتبطة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance.html">أهمية التبديل مقابل أهمية ميزة الغابة العشوائية (MDI)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_linear_model_coefficient_interpretation.html">المزالق الشائعة في تفسير معاملات النماذج الخطية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_causal_interpretation.html">فشل التعلم الآلي في استنتاج الآثار السببية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_partial_dependence.html">مخططات التبعية الجزئية والتوقع الشرطي الفردي</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../linear_model/index.html">النماذج الخطية المعممة</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_bayesian_ridge_curvefit.html">توليد بيانات توافقية مع الضوضاء</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ard.html"># مقارنة المنحنيات الخطية للانحدار البايزي</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_dense_vs_sparse_data.html">Lasso على البيانات الكثيفة والمتفرقة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgdocsvm_vs_ocsvm.html">One-Class SVM مقابل One-Class SVM باستخدام Stochastic Gradient Descent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_penalties.html">SGD: العقوبات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_weighted_samples.html">SGD: العينات المرجحة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_separating_hyperplane.html">SGD: المستوى الفاصل ذو الهامش الأقصى</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_loss_functions.html">SGD: دالات الخسارة المقعرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_early_stopping.html">إيقاف مبكر لنزول التدرج العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_lars_ic.html">اختيار نموذج لاصو عبر معايير المعلومات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_multi_task_lasso_support.html">الاختيار المشترك للميزات باستخدام Lasso متعدد المهام</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ols_ridge_variance.html">الانحدار الخطي العادي وانحدار ريدج والتباين</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sparse_logistic_regression_20newsgroups.html">الانحدار اللوجستي المتناثر متعدد الفئات على 20newgroups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_polynomial_interpolation.html">التكامل متعدد الحدود والتقسيم</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_logistic.html">الدالة اللوغستية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_poisson_regression_non_normal_loss.html">انحدار بواسون والخسارة غير الطبيعية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_tweedie_regression_insurance_claims.html">انحدار تويدي على مطالبات التأمين</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_theilsen.html">انحدار ثيل-سين</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_quantile_regression.html">انحدار كمي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sparse_logistic_regression_mnist.html">تصنيف MNIST باستخدام اللوغاريتم متعدد الحدود + L1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ransac.html">تقدير النموذج الخطي القوي باستخدام RANSAC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_robust_fit.html">تقدير خطي قوي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_elastic_net_precomputed_gram_matrix_with_weighted_samples.html">تناسب شبكة مرنة مع مصفوفة جرام مسبقة الحساب وعينات مرجحة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_logistic_multinomial.html">حدود القرار للانحدار متعدد الحدود والانحدار اللوجستي من النوع واحد مقابل البقية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_iris.html">رسم متعدد الفئات SGD على مجموعة بيانات الزهرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ridge_path.html">رسم معاملات Ridge كدالة للتنظيم</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_logistic_l1_l2_sparsity.html">عقوبة L1 والندرة في الانحدار اللوجستي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ols.html">مثال على المربعات الصغرى العادية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_nnls.html">مربعات أقل غير سالبة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_logistic_path.html">مسار التنظيم لـ L1 - الانحدار اللوجستي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_lasso_lars_elasticnet_path.html">مسارات لاصو ولاصو-لارس وشبكة مرنة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_omp.html">مطابقة متعامدة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ridge_coeffs.html">معاملات Ridge كدالة لتنظيم L2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_huber_vs_ridge.html">مقارنة بين HuberRegressor و Ridge على مجموعة بيانات تحتوي على قيم شاذة قوية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_comparison.html">مقارنة بين المحللات المختلفة عبر الإنترنت</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_and_elasticnet.html">نماذج L1 للاشارات المتناثرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_model_selection.html">نموذج لاصو: اختيار النموذج باستخدام معايير AIC-BIC والتحقق المتقاطع</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../decomposition/index.html">تحليل التركيب</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_ica_vs_pca.html">FastICA على سحب النقاط ثنائية الأبعاد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_kernel_pca.html">Kernel PCA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_image_denoising.html">إزالة تشويش الصور باستخدام تعلم القاموس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_pca_vs_fa_model_selection.html">اختيار النموذج باستخدام التحليل الرئيسي للمكونات الاحتمالي وتحليل العوامل (FA)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_sparse_coding.html">الترميز المتناثر مع قاموس محسوب مسبقًا</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_varimax_fa.html">تحليل العوامل (مع الدوران) لتصور الأنماط</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_pca_iris.html">تحليل المكونات الرئيسية (PCA) على مجموعة بيانات Iris</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_faces_decomposition.html">تحليلات مجموعة بيانات الوجوه</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_ica_blind_source_separation.html">فصل المصدر الأعمى باستخدام FastICA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_pca_vs_lda.html">مقارنة بين الإسقاط ثنائي الأبعاد للمجموعة البيانات آيريس باستخدام LDA وPCA</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../developing_estimators/index.html">تطوير المقدرين</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../developing_estimators/sklearn_is_fitted.html"><code class="docutils literal notranslate"><span class="pre">__sklearn_is_fitted__</span></code> كـ API للمطورين</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../impute/index.html">تعويض القيم المفقودة</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../impute/plot_missing_values.html">استنتاج القيم المفقودة قبل بناء أداة تقدير</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../impute/plot_iterative_imputer_variants_comparison.html">استنتاج القيم المفقودة مع متغيرات من IterativeImputer</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../covariance/index.html">تقدير التغاير</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_covariance_estimation.html">تأثير تحويل الأهداف في نموذج الانحدار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_lw_vs_oas.html">تقدير Ledoit-Wolf مقابل OAS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_robust_vs_empirical_covariance.html">تقدير التغاير القوي مقابل التجريبي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_mahalanobis_distances.html">تقدير التغاير القوي وأهمية مسافات Mahalanobis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../covariance/plot_sparse_cov.html">تقدير معكوس التغاير النادر</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../kernel_approximation/index.html">تقريب النواة</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../kernel_approximation/plot_scalable_poly_kernels.html">التعلم القابل للتطوير مع تقريب نواة متعددة الحدود</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../exercises/index.html">تمارين تعليمية</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_cv_diabetes.html">التحقق المتقاطع على تمرين مجموعة بيانات مرض السكري</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_iris_exercise.html">تمرين SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_digits_classification_exercise.html">تمرين تصنيف الأرقام</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../compose/index.html">خطوط الأنابيب والمقدرين المركبين</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compose/plot_compare_reduction.html">اختيار تقليل الأبعاد باستخدام Pipeline و GridSearchCV</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compose/plot_transformed_target.html">تأثير تحويل الأهداف في نموذج الانحدار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compose/plot_feature_union.html">دمج طرق استخراج ميزات متعددة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compose/plot_digits_pipe.html">ربط الأنابيب: ربط PCA والانحدار اللوجستي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compose/plot_column_transformer_mixed_types.html">محول الأعمدة مع الأنواع المختلطة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compose/plot_column_transformer.html">محول الأعمدة مع مصادر بيانات غير متجانسة</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">طرق المجموعة</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="plot_ensemble_oob.html">أخطاء OOB لخوارزمية Random Forests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_forest_importances.html">أهمية الميزات باستخدام غابة من الأشجار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_gradient_boosting_early_stopping.html">إيقاف التدريب المبكر في Gradient Boosting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_monotonic_constraints.html">القيود الرتيبة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_hgbt_regression.html">الميزات في أشجار التعزيز المتدرج للهيستوغرام</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_gradient_boosting_regression.html">انحدار التعزيز المتدرج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_adaboost_regression.html">انحدار شجرة القرار مع AdaBoost</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_feature_transformation.html">تحويل الميزات باستخدام مجموعات الأشجار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_random_forest_embedding.html">تحويل ميزة التجزئة باستخدام الأشجار العشوائية تمامًا</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_adaboost_twoclass.html">تصنيف ثنائي باستخدام AdaBoost</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_gradient_boosting_oob.html">تقديرات Gradient Boosting Out-of-Bag</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_gradient_boosting_regularization.html">تنظيم التعزيز المتدرج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_gradient_boosting_categorical.html">دعم الميزات التصنيفية في التدرج التعزيزي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_stack_predictors.html">دمج المتنبئات باستخدام التكديس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_forest_iris.html">رسم أسطح القرار لمجموعات الأشجار على مجموعة بيانات إيريس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_voting_probas.html">رسم احتمالات الفئات المحسوبة بواسطة VotingClassifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_voting_regressor.html">رسم تنبؤات الانحدار الفردية والتصويتية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_voting_decision_regions.html">رسم حدود القرار لـ VotingClassifier</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">شجرة قرارات معززة متعددة الفئات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_gradient_boosting_quantile.html">فترات التنبؤ لانحدار التعزيز المتدرج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_isolation_forest.html">مثال IsolationForest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_random_forest_regression_multioutput.html">مقارنة الغابات العشوائية ومقدر المخرجات المتعددة التلوي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_bias_variance.html">مقارنة بين المُقدر الفردي والتجميع: تحليل الانحياز والتشتت</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_forest_hist_grad_boosting_comparison.html">مقارنة بين نماذج الغابات العشوائية ورفع التدرج بالرسم البياني</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../gaussian_process/index.html">عملية غاوسية للتعلم الآلي</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_co2.html">التنبؤ بمستوى ثاني أكسيد الكربون في مجموعة بيانات Mona Loa باستخدام انحدار العملية الغاوسية (GPR)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpc.html">التنبؤات الاحتمالية مع تصنيف العملية الغاوسية (GPC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_on_structured_data.html">العمليات الغاوسية على هياكل البيانات المنقوصة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_noisy_targets.html">انحدار العمليات الغاوسية: مثال تمهيدي أساسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpc_iris.html">تصنيف العملية الغاوسية (GPC) على مجموعة بيانات iris</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_prior_posterior.html">توضيح العملية الغاوسية المسبقة واللاحقة لنوى مختلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpc_xor.html">توضيح تصنيف العملية الغاوسية (GPC) على مجموعة بيانات XOR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpc_isoprobability.html">خطوط تساوي الاحتمال لتصنيف العمليات الغاوسية (GPC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_noisy.html">قدرة انحدار العمليات الغاوسية (GPR) على تقدير مستوى ضوضاء البيانات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_compare_gpr_krr.html">مقارنة انحدار kernel ridge وانحدار العمليات الغاوسية</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../calibration/index.html">معايرة الإحتمالات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -970,9 +973,9 @@
     <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Examples</a></li>
     
     
-    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Ensemble methods</a></li>
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">طرق المجموعة</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Multi-class AdaBoosted Decision Trees</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">شجرة قرارات معززة متعددة الفئات</span></li>
   </ul>
 </nav>
 </div>
@@ -994,80 +997,76 @@
 <p><a class="reference internal" href="#sphx-glr-download-auto-examples-ensemble-plot-adaboost-multiclass-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code. or to run this example in your browser via JupyterLite or Binder</p>
 </div>
-<section class="sphx-glr-example-title" id="multi-class-adaboosted-decision-trees">
-<span id="sphx-glr-auto-examples-ensemble-plot-adaboost-multiclass-py"></span><h1>Multi-class AdaBoosted Decision Trees<a class="headerlink" href="#multi-class-adaboosted-decision-trees" title="Link to this heading">#</a></h1>
-<p>This example shows how boosting can improve the prediction accuracy on a
-multi-label classification problem. It reproduces a similar experiment as
-depicted by Figure 1 in Zhu et al <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
-<p>The core principle of AdaBoost (Adaptive Boosting) is to fit a sequence of weak
-learners (e.g. Decision Trees) on repeatedly re-sampled versions of the data.
-Each sample carries a weight that is adjusted after each training step, such
-that misclassified samples will be assigned higher weights. The re-sampling
-process with replacement takes into account the weights assigned to each sample.
-Samples with higher weights have a greater chance of being selected multiple
-times in the new data set, while samples with lower weights are less likely to
-be selected. This ensures that subsequent iterations of the algorithm focus on
-the difficult-to-classify samples.</p>
-<p class="rubric">References</p>
+<section class="sphx-glr-example-title" id="sphx-glr-auto-examples-ensemble-plot-adaboost-multiclass-py">
+<span id="id1"></span><h1>شجرة قرارات معززة متعددة الفئات<a class="headerlink" href="#sphx-glr-auto-examples-ensemble-plot-adaboost-multiclass-py" title="Link to this heading">#</a></h1>
+<p>هذا المثال يوضح كيف يمكن لتقنية التعزيز (Boosting) أن تحسن دقة التنبؤ في مشكلة تصنيف متعددة التصنيفات. وهو يعيد إنتاج تجربة مشابهة لما هو موضح في الشكل 1 في بحث Zhu et al <a class="footnote-reference brackets" href="#id3" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
+<p>المبدأ الأساسي لتقنية AdaBoost (Adaptive Boosting) هو ملاءمة تسلسل من المتعلمين الضعفاء (مثل شجرة القرارات) على نسخ معادة العينة من البيانات.
+يحمل كل عينة وزنًا يتم تعديله بعد كل خطوة تدريب، بحيث يتم تعيين أوزان أعلى للعينات المصنفة بشكل خاطئ. تأخذ عملية إعادة العينة بعين الاعتبار الأوزان المعينة لكل عينة.
+العينات ذات الأوزان الأعلى لديها فرصة أكبر للاختيار عدة مرات في مجموعة البيانات الجديدة، بينما العينات ذات الأوزان الأقل من المرجح أن يتم اختيارها. وهذا يضمن أن التركيز في الحلقات اللاحقة من الخوارزمية يكون على العينات التي يصعب تصنيفها.</p>
+<p class="rubric">المراجع</p>
 <aside class="footnote-list brackets">
-<aside class="footnote brackets" id="id2" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<aside class="footnote brackets" id="id3" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://doi.org/10.4310/SII.2009.v2.n3.a8">J. Zhu, H. Zou, S. Rosset, T. Hastie, &quot;Multi-class adaboost.&quot;
 Statistics and its Interface 2.3 (2009): 349-360.</a></p>
 </aside>
 </aside>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Authors: The scikit-learn developers</span>
-<span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># المؤلفون: مطوري scikit-learn</span>
+<span class="c1"># معرف الترخيص: BSD-3-Clause</span>
 </pre></div>
 </div>
-<section id="creating-the-dataset">
-<h2>Creating the dataset<a class="headerlink" href="#creating-the-dataset" title="Link to this heading">#</a></h2>
-<p>The classification dataset is constructed by taking a ten-dimensional standard
-normal distribution (<span class="math notranslate nohighlight">\(x\)</span> in <span class="math notranslate nohighlight">\(R^{10}\)</span>) and defining three classes
-separated by nested concentric ten-dimensional spheres such that roughly equal
-numbers of samples are in each class (quantiles of the <span class="math notranslate nohighlight">\(\chi^2\)</span>
-distribution).</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.datasets.make_gaussian_quantiles.html#sklearn.datasets.make_gaussian_quantiles" title="sklearn.datasets.make_gaussian_quantiles" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><a href="../../modules/generated/sklearn.datasets.make_gaussian_quantiles.html#sklearn.datasets.make_gaussian_quantiles" title="sklearn.datasets.make_gaussian_quantiles" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">make_gaussian_quantiles</span></a></a>
+<section id="id4">
+<h2>إنشاء مجموعة البيانات<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>يتم إنشاء مجموعة بيانات التصنيف عن طريق أخذ توزيع طبيعي عشري الأبعاد (<span class="math notranslate nohighlight">\(x\)</span> in <span class="math notranslate nohighlight">\(R^{10}\)</span>) وتحديد ثلاث فئات
+مفصولة بكرات عشرية الأبعاد متداخلة ومتمركزة بحيث يكون هناك أعداد متساوية تقريبًا
+من العينات في كل فئة (الكميات المئوية لتوزيع <span class="math notranslate nohighlight">\(\chi^2\)</span>).</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.metrics.accuracy_score.html#sklearn.metrics.accuracy_score" title="sklearn.metrics.accuracy_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">accuracy_score</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.dummy</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.dummy.DummyClassifier.html#sklearn.dummy.DummyClassifier" title="sklearn.dummy.DummyClassifier" class="sphx-glr-backref-module-sklearn-dummy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">DummyClassifier</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier" title="sklearn.tree.DecisionTreeClassifier" class="sphx-glr-backref-module-sklearn-tree sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">DecisionTreeClassifier</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.ensemble.AdaBoostClassifier.html#sklearn.ensemble.AdaBoostClassifier" title="sklearn.ensemble.AdaBoostClassifier" class="sphx-glr-backref-module-sklearn-ensemble sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">AdaBoostClassifier</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.model_selection.train_test_split.html#sklearn.model_selection.train_test_split" title="sklearn.model_selection.train_test_split" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-function"><span class="n">train_test_split</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.datasets.make_gaussian_quantiles.html#sklearn.datasets.make_gaussian_quantiles" title="sklearn.datasets.make_gaussian_quantiles" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">make_gaussian_quantiles</span></a>
 
-<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.datasets.make_gaussian_quantiles.html#sklearn.datasets.make_gaussian_quantiles" title="sklearn.datasets.make_gaussian_quantiles" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><a href="../../modules/generated/sklearn.datasets.make_gaussian_quantiles.html#sklearn.datasets.make_gaussian_quantiles" title="sklearn.datasets.make_gaussian_quantiles" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">make_gaussian_quantiles</span></a></a><span class="p">(</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.datasets.make_gaussian_quantiles.html#sklearn.datasets.make_gaussian_quantiles" title="sklearn.datasets.make_gaussian_quantiles" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">make_gaussian_quantiles</span></a><span class="p">(</span>
     <span class="n">n_samples</span><span class="o">=</span><span class="mi">2_000</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>We split the dataset into 2 sets: 70 percent of the samples are used for
-training and the remaining 30 percent for testing.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.model_selection.train_test_split.html#sklearn.model_selection.train_test_split" title="sklearn.model_selection.train_test_split" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-function"><a href="../../modules/generated/sklearn.model_selection.train_test_split.html#sklearn.model_selection.train_test_split" title="sklearn.model_selection.train_test_split" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-function"><span class="n">train_test_split</span></a></a>
-
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.model_selection.train_test_split.html#sklearn.model_selection.train_test_split" title="sklearn.model_selection.train_test_split" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-function"><a href="../../modules/generated/sklearn.model_selection.train_test_split.html#sklearn.model_selection.train_test_split" title="sklearn.model_selection.train_test_split" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-function"><span class="n">train_test_split</span></a></a><span class="p">(</span>
+<p>نقسم مجموعة البيانات إلى مجموعتين: 70% من العينات تستخدم للتدريب
+و30% المتبقية للاختبار.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.model_selection.train_test_split.html#sklearn.model_selection.train_test_split" title="sklearn.model_selection.train_test_split" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-function"><span class="n">train_test_split</span></a><span class="p">(</span>
     <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </section>
-<section id="training-the-adaboostclassifier">
-<h2>Training the <code class="docutils literal notranslate"><span class="pre">AdaBoostClassifier</span></code><a class="headerlink" href="#training-the-adaboostclassifier" title="Link to this heading">#</a></h2>
-<p>We train the <a class="reference internal" href="../../modules/generated/sklearn.ensemble.AdaBoostClassifier.html#sklearn.ensemble.AdaBoostClassifier" title="sklearn.ensemble.AdaBoostClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">AdaBoostClassifier</span></code></a>. The estimator
-utilizes boosting to improve the classification accuracy. Boosting is a method
-designed to train weak learners (i.e. <code class="docutils literal notranslate"><span class="pre">estimator</span></code>) that learn from their
-predecessor's mistakes.</p>
-<p>Here, we define the weak learner as a
-<a class="reference internal" href="../../modules/generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier" title="sklearn.tree.DecisionTreeClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">DecisionTreeClassifier</span></code></a> and set the maximum number of
-leaves to 8. In a real setting, this parameter should be tuned. We set it to a
-rather low value to limit the runtime of the example.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">SAMME</span></code> algorithm build into the
-<a class="reference internal" href="../../modules/generated/sklearn.ensemble.AdaBoostClassifier.html#sklearn.ensemble.AdaBoostClassifier" title="sklearn.ensemble.AdaBoostClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">AdaBoostClassifier</span></code></a> then uses the correct or
-incorrect predictions made be the current weak learner to update the sample
-weights used for training the consecutive weak learners. Also, the weight of
-the weak learner itself is calculated based on its accuracy in classifying the
-training examples. The weight of the weak learner determines its influence on
-the final ensemble prediction.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.ensemble.AdaBoostClassifier.html#sklearn.ensemble.AdaBoostClassifier" title="sklearn.ensemble.AdaBoostClassifier" class="sphx-glr-backref-module-sklearn-ensemble sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="../../modules/generated/sklearn.ensemble.AdaBoostClassifier.html#sklearn.ensemble.AdaBoostClassifier" title="sklearn.ensemble.AdaBoostClassifier" class="sphx-glr-backref-module-sklearn-ensemble sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">AdaBoostClassifier</span></a></a>
-<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier" title="sklearn.tree.DecisionTreeClassifier" class="sphx-glr-backref-module-sklearn-tree sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="../../modules/generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier" title="sklearn.tree.DecisionTreeClassifier" class="sphx-glr-backref-module-sklearn-tree sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">DecisionTreeClassifier</span></a></a>
-
-<span class="n">weak_learner</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier" title="sklearn.tree.DecisionTreeClassifier" class="sphx-glr-backref-module-sklearn-tree sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="../../modules/generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier" title="sklearn.tree.DecisionTreeClassifier" class="sphx-glr-backref-module-sklearn-tree sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">DecisionTreeClassifier</span></a></a><span class="p">(</span><span class="n">max_leaf_nodes</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<section id="adaboostclassifier">
+<h2>تدريب <code class="docutils literal notranslate"><span class="pre">AdaBoostClassifier</span></code><a class="headerlink" href="#adaboostclassifier" title="Link to this heading">#</a></h2>
+<p>نقوم بتدريب <a class="reference internal" href="../../modules/generated/sklearn.ensemble.AdaBoostClassifier.html#sklearn.ensemble.AdaBoostClassifier" title="sklearn.ensemble.AdaBoostClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">AdaBoostClassifier</span></code></a>. يستخدم هذا التقدير
+تقنية التعزيز (Boosting) لتحسين دقة التصنيف. التعزيز هي طريقة
+مصممة لتدريب المتعلمين الضعفاء (أي <code class="docutils literal notranslate"><span class="pre">estimator</span></code>) الذين يتعلمون من أخطاء
+أسلافهم.</p>
+<p>هنا، نحدد المتعلم الضعيف كـ
+<a class="reference internal" href="../../modules/generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier" title="sklearn.tree.DecisionTreeClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">DecisionTreeClassifier</span></code></a> ونحدد العدد الأقصى للأوراق إلى 8. في الإعداد الحقيقي، يجب ضبط هذا المعامل. نضبطه على قيمة
+منخفضة إلى حد ما للحد من وقت تشغيل المثال.</p>
+<p>يستخدم خوارزمية <code class="docutils literal notranslate"><span class="pre">SAMME</span></code> المدمجة في
+<a class="reference internal" href="../../modules/generated/sklearn.ensemble.AdaBoostClassifier.html#sklearn.ensemble.AdaBoostClassifier" title="sklearn.ensemble.AdaBoostClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">AdaBoostClassifier</span></code></a> التنبؤات الصحيحة أو
+الخاطئة التي يقوم بها المتعلم الضعيف الحالي لتحديث أوزان العينات المستخدمة
+لتدريب المتعلمين الضعفاء المتتاليين. أيضًا، يتم حساب وزن
+المتعلم الضعيف نفسه بناءً على دقته في تصنيف
+الأمثلة التدريبية. يحدد وزن المتعلم الضعيف تأثيره على
+التنبؤ النهائي للمجموعة.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">weak_learner</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier" title="sklearn.tree.DecisionTreeClassifier" class="sphx-glr-backref-module-sklearn-tree sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">DecisionTreeClassifier</span></a><span class="p">(</span><span class="n">max_leaf_nodes</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
 <span class="n">n_estimators</span> <span class="o">=</span> <span class="mi">300</span>
 
-<span class="n">adaboost_clf</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.ensemble.AdaBoostClassifier.html#sklearn.ensemble.AdaBoostClassifier" title="sklearn.ensemble.AdaBoostClassifier" class="sphx-glr-backref-module-sklearn-ensemble sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="../../modules/generated/sklearn.ensemble.AdaBoostClassifier.html#sklearn.ensemble.AdaBoostClassifier" title="sklearn.ensemble.AdaBoostClassifier" class="sphx-glr-backref-module-sklearn-ensemble sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">AdaBoostClassifier</span></a></a><span class="p">(</span>
+<span class="n">adaboost_clf</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.ensemble.AdaBoostClassifier.html#sklearn.ensemble.AdaBoostClassifier" title="sklearn.ensemble.AdaBoostClassifier" class="sphx-glr-backref-module-sklearn-ensemble sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">AdaBoostClassifier</span></a><span class="p">(</span>
+    <span class="n">estimator</span><span class="o">=</span><span class="n">weak_learner</span><span class="p">,</span>
+    <span class="n">n_estimators</span><span class="o">=</span><span class="n">n_estimators</span><span class="p">,</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">adaboost_clf</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.ensemble.AdaBoostClassifier.html#sklearn.ensemble.AdaBoostClassifier" title="sklearn.ensemble.AdaBoostClassifier" class="sphx-glr-backref-module-sklearn-ensemble sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">AdaBoostClassifier</span></a><span class="p">(</span>
     <span class="n">estimator</span><span class="o">=</span><span class="n">weak_learner</span><span class="p">,</span>
     <span class="n">n_estimators</span><span class="o">=</span><span class="n">n_estimators</span><span class="p">,</span>
     <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
@@ -1075,26 +1074,20 @@ the final ensemble prediction.</p>
 </pre></div>
 </div>
 </section>
-<section id="analysis">
-<h2>Analysis<a class="headerlink" href="#analysis" title="Link to this heading">#</a></h2>
-<section id="convergence-of-the-adaboostclassifier">
-<h3>Convergence of the <code class="docutils literal notranslate"><span class="pre">AdaBoostClassifier</span></code><a class="headerlink" href="#convergence-of-the-adaboostclassifier" title="Link to this heading">#</a></h3>
-<p>To demonstrate the effectiveness of boosting in improving accuracy, we
-evaluate the misclassification error of the boosted trees in comparison to two
-baseline scores. The first baseline score is the <code class="docutils literal notranslate"><span class="pre">misclassification_error</span></code>
-obtained from a single weak-learner (i.e.
-<a class="reference internal" href="../../modules/generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier" title="sklearn.tree.DecisionTreeClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">DecisionTreeClassifier</span></code></a>), which serves as a reference
-point. The second baseline score is obtained from the
-<a class="reference internal" href="../../modules/generated/sklearn.dummy.DummyClassifier.html#sklearn.dummy.DummyClassifier" title="sklearn.dummy.DummyClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">DummyClassifier</span></code></a>, which predicts the most prevalent
-class in a dataset.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.dummy</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.dummy.DummyClassifier.html#sklearn.dummy.DummyClassifier" title="sklearn.dummy.DummyClassifier" class="sphx-glr-backref-module-sklearn-dummy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="../../modules/generated/sklearn.dummy.DummyClassifier.html#sklearn.dummy.DummyClassifier" title="sklearn.dummy.DummyClassifier" class="sphx-glr-backref-module-sklearn-dummy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">DummyClassifier</span></a></a>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.metrics.accuracy_score.html#sklearn.metrics.accuracy_score" title="sklearn.metrics.accuracy_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><a href="../../modules/generated/sklearn.metrics.accuracy_score.html#sklearn.metrics.accuracy_score" title="sklearn.metrics.accuracy_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">accuracy_score</span></a></a>
-
-<span class="n">dummy_clf</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.dummy.DummyClassifier.html#sklearn.dummy.DummyClassifier" title="sklearn.dummy.DummyClassifier" class="sphx-glr-backref-module-sklearn-dummy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="../../modules/generated/sklearn.dummy.DummyClassifier.html#sklearn.dummy.DummyClassifier" title="sklearn.dummy.DummyClassifier" class="sphx-glr-backref-module-sklearn-dummy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">DummyClassifier</span></a></a><span class="p">()</span>
+<section id="id5">
+<h2>التحليل<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<section id="id6">
+<h3>تقارب <code class="docutils literal notranslate"><span class="pre">AdaBoostClassifier</span></code><a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>لإظهار فعالية التعزيز في تحسين الدقة، نقوم
+بتقييم خطأ التصنيف الخاطئ للأشجار المعززة مقارنة بنقطتين مرجعيتين. النتيجة المرجعية الأولى هي <code class="docutils literal notranslate"><span class="pre">misclassification_error</span></code>
+التي تم الحصول عليها من متعلم ضعيف واحد (أي
+<a class="reference internal" href="../../modules/generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier" title="sklearn.tree.DecisionTreeClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">DecisionTreeClassifier</span></code></a>)، والتي تخدم كنقطة مرجعية. النتيجة المرجعية الثانية يتم الحصول عليها من
+<a class="reference internal" href="../../modules/generated/sklearn.dummy.DummyClassifier.html#sklearn.dummy.DummyClassifier" title="sklearn.dummy.DummyClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">DummyClassifier</span></code></a>، والذي يتنبأ بالفئة الأكثر شيوعًا في مجموعة البيانات.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">dummy_clf</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.dummy.DummyClassifier.html#sklearn.dummy.DummyClassifier" title="sklearn.dummy.DummyClassifier" class="sphx-glr-backref-module-sklearn-dummy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">DummyClassifier</span></a><span class="p">()</span>
 
 
 <span class="k">def</span> <span class="nf">misclassification_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
-    <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <a href="../../modules/generated/sklearn.metrics.accuracy_score.html#sklearn.metrics.accuracy_score" title="sklearn.metrics.accuracy_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><a href="../../modules/generated/sklearn.metrics.accuracy_score.html#sklearn.metrics.accuracy_score" title="sklearn.metrics.accuracy_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">accuracy_score</span></a></a><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <a href="../../modules/generated/sklearn.metrics.accuracy_score.html#sklearn.metrics.accuracy_score" title="sklearn.metrics.accuracy_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">accuracy_score</span></a><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
 
 
 <span class="n">weak_learners_misclassification_error</span> <span class="o">=</span> <span class="n">misclassification_error</span><span class="p">(</span>
@@ -1119,24 +1112,21 @@ class in a dataset.</p>
 DummyClassifier&#39;s misclassification_error: 0.692
 </pre></div>
 </div>
-<p>After training the <a class="reference internal" href="../../modules/generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier" title="sklearn.tree.DecisionTreeClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">DecisionTreeClassifier</span></code></a> model, the
-achieved error surpasses the expected value that would have been obtained by
-guessing the most frequent class label, as the
-<a class="reference internal" href="../../modules/generated/sklearn.dummy.DummyClassifier.html#sklearn.dummy.DummyClassifier" title="sklearn.dummy.DummyClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">DummyClassifier</span></code></a> does.</p>
-<p>Now, we calculate the <code class="docutils literal notranslate"><span class="pre">misclassification_error</span></code>, i.e. <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">-</span> <span class="pre">accuracy</span></code>, of the
-additive model (<a class="reference internal" href="../../modules/generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier" title="sklearn.tree.DecisionTreeClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">DecisionTreeClassifier</span></code></a>) at each
-boosting iteration on the test set to assess its performance.</p>
-<p>We use <a class="reference internal" href="../../modules/generated/sklearn.ensemble.AdaBoostClassifier.html#sklearn.ensemble.AdaBoostClassifier.staged_predict" title="sklearn.ensemble.AdaBoostClassifier.staged_predict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">staged_predict</span></code></a> that makes
-as many iterations as the number of fitted estimator (i.e. corresponding to
-<code class="docutils literal notranslate"><span class="pre">n_estimators</span></code>). At iteration <code class="docutils literal notranslate"><span class="pre">n</span></code>, the predictions of AdaBoost only use the
-<code class="docutils literal notranslate"><span class="pre">n</span></code> first weak learners. We compare these predictions with the true
-predictions <code class="docutils literal notranslate"><span class="pre">y_test</span></code> and we, therefore, conclude on the benefit (or not) of adding a
-new weak learner into the chain.</p>
-<p>We plot the misclassification error for the different stages:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-
-<span class="n">boosting_errors</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a></a><span class="p">(</span>
+<p>بعد تدريب نموذج <a class="reference internal" href="../../modules/generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier" title="sklearn.tree.DecisionTreeClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">DecisionTreeClassifier</span></code></a>، يتجاوز الخطأ
+القيمة المتوقعة التي كان من المفترض الحصول عليها من خلال تخمين
+تسمية الفئة الأكثر شيوعًا، كما يفعل
+<a class="reference internal" href="../../modules/generated/sklearn.dummy.DummyClassifier.html#sklearn.dummy.DummyClassifier" title="sklearn.dummy.DummyClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">DummyClassifier</span></code></a>.</p>
+<p>الآن، نقوم بحساب <code class="docutils literal notranslate"><span class="pre">misclassification_error</span></code>، أي <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">-</span> <span class="pre">accuracy</span></code>، للنموذج
+الإضافي (<a class="reference internal" href="../../modules/generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier" title="sklearn.tree.DecisionTreeClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">DecisionTreeClassifier</span></code></a>) في كل
+حلقات التعزيز على مجموعة الاختبار لتقييم أدائه.</p>
+<p>نستخدم <a class="reference internal" href="../../modules/generated/sklearn.ensemble.AdaBoostClassifier.html#sklearn.ensemble.AdaBoostClassifier.staged_predict" title="sklearn.ensemble.AdaBoostClassifier.staged_predict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">staged_predict</span></code></a> الذي يقوم
+بعدد من الحلقات يساوي عدد التقديرات المجهزة (أي المقابلة لـ
+<code class="docutils literal notranslate"><span class="pre">n_estimators</span></code>). في الحلقة <code class="docutils literal notranslate"><span class="pre">n</span></code>، تستخدم تنبؤات AdaBoost فقط <code class="docutils literal notranslate"><span class="pre">n</span></code>
+من المتعلمين الضعفاء الأوائل. نقارن هذه التنبؤات مع التنبؤات الصحيحة <code class="docutils literal notranslate"><span class="pre">y_test</span></code>
+وبالتالي نستنتج فائدة (أو عدم فائدة) إضافة متعلم
+ضعيف جديد إلى السلسلة.</p>
+<p>نرسم خطأ التصنيف الخاطئ للمراحل المختلفة:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">boosting_errors</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">(</span>
     <span class="p">{</span>
         <span class="s2">&quot;Number of trees&quot;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_estimators</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>
         <span class="s2">&quot;AdaBoost&quot;</span><span class="p">:</span> <span class="p">[</span>
@@ -1149,13 +1139,13 @@ new weak learner into the chain.</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Misclassification error on test set&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Convergence of AdaBoost algorithm&quot;</span><span class="p">)</span>
 
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a></a><span class="p">(</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span>
     <span class="p">[</span><span class="n">boosting_errors</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">boosting_errors</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span>
     <span class="p">[</span><span class="n">weak_learners_misclassification_error</span><span class="p">,</span> <span class="n">weak_learners_misclassification_error</span><span class="p">],</span>
     <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:orange&quot;</span><span class="p">,</span>
     <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a></a><span class="p">(</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span>
     <span class="p">[</span><span class="n">boosting_errors</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">boosting_errors</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span>
     <span class="p">[</span>
         <span class="n">dummy_classifiers_misclassification_error</span><span class="p">,</span>
@@ -1164,30 +1154,27 @@ new weak learner into the chain.</p>
     <span class="n">color</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">,</span>
     <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dotted&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html#matplotlib.pyplot.legend" title="matplotlib.pyplot.legend" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html#matplotlib.pyplot.legend" title="matplotlib.pyplot.legend" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span></a></a><span class="p">([</span><span class="s2">&quot;AdaBoost&quot;</span><span class="p">,</span> <span class="s2">&quot;DecisionTreeClassifier&quot;</span><span class="p">,</span> <span class="s2">&quot;DummyClassifier&quot;</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a></a><span class="p">()</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html#matplotlib.pyplot.legend" title="matplotlib.pyplot.legend" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span></a><span class="p">([</span><span class="s2">&quot;AdaBoost&quot;</span><span class="p">,</span> <span class="s2">&quot;DecisionTreeClassifier&quot;</span><span class="p">,</span> <span class="s2">&quot;DummyClassifier&quot;</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_adaboost_multiclass_001.png" srcset="../../_images/sphx_glr_plot_adaboost_multiclass_001.png" alt="Convergence of AdaBoost algorithm" class = "sphx-glr-single-img"/><p>The plot shows the missclassification error on the test set after each
-boosting iteration. We see that the error of the boosted trees converges to an
-error of around 0.3 after 50 iterations, indicating a significantly higher
-accuracy compared to a single tree, as illustrated by the dashed line in the
-plot.</p>
-<p>The misclassification error jitters because the <code class="docutils literal notranslate"><span class="pre">SAMME</span></code> algorithm uses the
-discrete outputs of the weak learners to train the boosted model.</p>
-<p>The convergence of <a class="reference internal" href="../../modules/generated/sklearn.ensemble.AdaBoostClassifier.html#sklearn.ensemble.AdaBoostClassifier" title="sklearn.ensemble.AdaBoostClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">AdaBoostClassifier</span></code></a> is mainly
-influenced by the learning rate (i.e. <code class="docutils literal notranslate"><span class="pre">learning_rate</span></code>), the number of weak
-learners used (<code class="docutils literal notranslate"><span class="pre">n_estimators</span></code>), and the expressivity of the weak learners
-(e.g. <code class="docutils literal notranslate"><span class="pre">max_leaf_nodes</span></code>).</p>
+<img src="../../_images/sphx_glr_plot_adaboost_multiclass_001.png" srcset="../../_images/sphx_glr_plot_adaboost_multiclass_001.png" alt="Convergence of AdaBoost algorithm" class = "sphx-glr-single-img"/><p>يوضح الرسم البياني خطأ التصنيف الخاطئ على مجموعة الاختبار بعد كل
+حلقات التعزيز. نرى أن خطأ الأشجار المعززة يتقارب إلى
+خطأ حوالي 0.3 بعد 50 حلقات، مما يشير إلى دقة أعلى بشكل ملحوظ مقارنة بشجرة واحدة، كما يوضح الخط المتقطع في الرسم البياني.</p>
+<p>يتذبذب خطأ التصنيف الخاطئ لأن خوارزمية <code class="docutils literal notranslate"><span class="pre">SAMME</span></code> تستخدم
+المخرجات المنفصلة للمتعلمين الضعفاء لتدريب النموذج المعزز.</p>
+<p>يتأثر تقارب <a class="reference internal" href="../../modules/generated/sklearn.ensemble.AdaBoostClassifier.html#sklearn.ensemble.AdaBoostClassifier" title="sklearn.ensemble.AdaBoostClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">AdaBoostClassifier</span></code></a> بشكل أساسي
+بمعدل التعلم (أي <code class="docutils literal notranslate"><span class="pre">learning_rate</span></code>)، وعدد المتعلمين الضعفاء المستخدمين
+(<code class="docutils literal notranslate"><span class="pre">n_estimators</span></code>)، وقدرة التعبير للمتعلمين الضعفاء
+(مثل <code class="docutils literal notranslate"><span class="pre">max_leaf_nodes</span></code>).</p>
 </section>
-<section id="errors-and-weights-of-the-weak-learners">
-<h3>Errors and weights of the Weak Learners<a class="headerlink" href="#errors-and-weights-of-the-weak-learners" title="Link to this heading">#</a></h3>
-<p>As previously mentioned, AdaBoost is a forward stagewise additive model. We
-now focus on understanding the relationship between the attributed weights of
-the weak learners and their statistical performance.</p>
-<p>We use the fitted <a class="reference internal" href="../../modules/generated/sklearn.ensemble.AdaBoostClassifier.html#sklearn.ensemble.AdaBoostClassifier" title="sklearn.ensemble.AdaBoostClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">AdaBoostClassifier</span></code></a>'s attributes
-<code class="docutils literal notranslate"><span class="pre">estimator_errors_</span></code> and <code class="docutils literal notranslate"><span class="pre">estimator_weights_</span></code> to investigate this link.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">weak_learners_info</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a></a><span class="p">(</span>
+<section id="id7">
+<h3>أخطاء وأوزان المتعلمين الضعفاء<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>كما ذكرنا سابقًا، AdaBoost هو نموذج إضافي مرحلي للأمام. الآن، نركز على فهم
+العلاقة بين الأوزان المنسوبة للمتعلمين الضعفاء وأدائهم الإحصائي.</p>
+<p>نستخدم سمات <a class="reference internal" href="../../modules/generated/sklearn.ensemble.AdaBoostClassifier.html#sklearn.ensemble.AdaBoostClassifier" title="sklearn.ensemble.AdaBoostClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">AdaBoostClassifier</span></code></a> المجهزة
+<code class="docutils literal notranslate"><span class="pre">estimator_errors_</span></code> و`estimator_weights_` لاستكشاف هذه العلاقة.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">weak_learners_info</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">(</span>
     <span class="p">{</span>
         <span class="s2">&quot;Number of trees&quot;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_estimators</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>
         <span class="s2">&quot;Errors&quot;</span><span class="p">:</span> <span class="n">adaboost_clf</span><span class="o">.</span><span class="n">estimator_errors_</span><span class="p">,</span>
@@ -1207,35 +1194,29 @@ the weak learners and their statistical performance.</p>
 <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_adaboost_multiclass_002.png" srcset="../../_images/sphx_glr_plot_adaboost_multiclass_002.png" alt="Weak learner's errors and weights for the AdaBoostClassifier, Weak learner's training error, Weak learner's weight" class = "sphx-glr-single-img"/><p>On the left plot, we show the weighted error of each weak learner on the
-reweighted training set at each boosting iteration. On the right plot, we show
-the weights associated with each weak learner later used to make the
-predictions of the final additive model.</p>
-<p>We see that the error of the weak learner is the inverse of the weights. It
-means that our additive model will trust more a weak learner that makes
-smaller errors (on the training set) by increasing its impact on the final
-decision. Indeed, this exactly is the formulation of updating the base
-estimators' weights after each iteration in AdaBoost.</p>
-<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="mathematical-details">
+<img src="../../_images/sphx_glr_plot_adaboost_multiclass_002.png" srcset="../../_images/sphx_glr_plot_adaboost_multiclass_002.png" alt="Weak learner's errors and weights for the AdaBoostClassifier, Weak learner's training error, Weak learner's weight" class = "sphx-glr-single-img"/><p>في الرسم البياني الأيسر، نعرض خطأ كل متعلم ضعيف على
+مجموعة التدريب المعاد وزنها في كل حلقات التعزيز. في الرسم البياني الأيمن، نعرض
+الأوزان المرتبطة بكل متعلم ضعيف والتي تستخدم لاحقًا لإجراء
+تنبؤات النموذج الإضافي النهائي.</p>
+<p>نرى أن خطأ المتعلم الضعيف هو عكس الأوزان. هذا يعني أن نموذجنا الإضافي سيثق أكثر بمتعلم ضعيف
+يقوم بأخطاء أصغر (على مجموعة التدريب) عن طريق زيادة تأثيره على القرار النهائي. في الواقع، هذه هي صيغة تحديث أوزان
+التقديرات الأساسية بعد كل حلقات في AdaBoost.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" id="التفاصيل-الرياضية">
 <summary class="sd-summary-title sd-card-header">
-<span class="sd-summary-text">Mathematical details<a class="headerlink" href="#mathematical-details" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">The weight associated with a weak learner trained at the stage <span class="math notranslate nohighlight">\(m\)</span> is
-inversely associated with its misclassification error such that:</p>
+<span class="sd-summary-text">التفاصيل الرياضية<a class="headerlink" href="#التفاصيل-الرياضية" title="Link to this dropdown">#</a></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">الوزن المرتبط بمتعلم ضعيف مدرب في المرحلة <span class="math notranslate nohighlight">\(m\)</span> يرتبط عكسيًا بخطأ التصنيف الخاطئ بحيث:</p>
 <div class="math notranslate nohighlight">
 \[\alpha^{(m)} = \log \frac{1 - err^{(m)}}{err^{(m)}} + \log (K - 1),\]</div>
-<p class="sd-card-text">where <span class="math notranslate nohighlight">\(\alpha^{(m)}\)</span> and <span class="math notranslate nohighlight">\(err^{(m)}\)</span> are the weight and the error
-of the <span class="math notranslate nohighlight">\(m\)</span> th weak learner, respectively, and <span class="math notranslate nohighlight">\(K\)</span> is the number of
-classes in our classification problem.</p>
+<p class="sd-card-text">حيث <span class="math notranslate nohighlight">\(\alpha^{(m)}\)</span> و:math:<code class="docutils literal notranslate"><span class="pre">err^{(m)}</span></code> هما الوزن والخطأ
+للمتعلم الضعيف <span class="math notranslate nohighlight">\(m\)</span>، على التوالي، و:math:<code class="docutils literal notranslate"><span class="pre">K</span></code> هو عدد
+الفئات في مشكلة التصنيف لدينا.</p>
 </div>
-</details><p>Another interesting observation boils down to the fact that the first weak
-learners of the model make fewer errors than later weak learners of the
-boosting chain.</p>
-<p>The intuition behind this observation is the following: due to the sample
-reweighting, later classifiers are forced to try to classify more difficult or
-noisy samples and to ignore already well classified samples. Therefore, the
-overall error on the training set will increase. That's why the weak learner's
-weights are built to counter-balance the worse performing weak learners.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 4.558 seconds)</p>
+</details><p>ملاحظة أخرى مثيرة للاهتمام هي أن المتعلمين الضعفاء الأوائل للنموذج يقومون بأخطاء أقل من المتعلمين الضعفاء اللاحقين
+في سلسلة التعزيز.</p>
+<p>الحدس وراء هذه الملاحظة هو التالي: بسبب إعادة وزن العينات، يتم إجبار المتعلمين اللاحقين على محاولة
+تصنيف العينات الأكثر صعوبة أو ضوضاء وتجاهل العينات المصنفة بالفعل بشكل جيد. لذلك، سيزداد الخطأ الإجمالي على
+مجموعة التدريب. ولهذا السبب يتم بناء أوزان المتعلم الضعيف لموازنة المتعلمين الضعفاء ذوي الأداء الأسوأ.</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 8.630 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-ensemble-plot-adaboost-multiclass-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/scikit-learn/scikit-learn/main?urlpath=lab/tree/notebooks/auto_examples/ensemble/plot_adaboost_multiclass.ipynb"><img alt="Launch binder" src="../../_images/binder_badge_logo11.svg" style="width: 150px;" />
@@ -1256,18 +1237,18 @@ weights are built to counter-balance the worse performing weak learners.</p>
 </div>
 </div>
 <p class="rubric">Related examples</p>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="A decision tree is boosted using the AdaBoost.R2 [1]_ algorithm on a 1D sinusoidal dataset with a small amount of Gaussian noise. 299 boosts (300 decision trees) is compared with a single decision tree regressor. As the number of boosts is increased the regressor can fit more detail."><img alt="" src="../../_images/sphx_glr_plot_adaboost_regression_thumb.png" />
-<p><a class="reference internal" href="plot_adaboost_regression.html#sphx-glr-auto-examples-ensemble-plot-adaboost-regression-py"><span class="std std-ref">Decision Tree Regression with AdaBoost</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Decision Tree Regression with AdaBoost</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Plot the decision surfaces of forests of randomized trees trained on pairs of features of the iris dataset."><img alt="" src="../../_images/sphx_glr_plot_forest_iris_thumb.png" />
-<p><a class="reference internal" href="plot_forest_iris.html#sphx-glr-auto-examples-ensemble-plot-forest-iris-py"><span class="std std-ref">Plot the decision surfaces of ensembles of trees on the iris dataset</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Plot the decision surfaces of ensembles of trees on the iris dataset</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Gradient Boosting is an ensemble technique that combines multiple weak learners, typically decision trees, to create a robust and powerful predictive model. It does so in an iterative fashion, where each new stage (tree) corrects the errors of the previous ones."><img alt="" src="../../_images/sphx_glr_plot_gradient_boosting_early_stopping_thumb.png" />
-<p><a class="reference internal" href="plot_gradient_boosting_early_stopping.html#sphx-glr-auto-examples-ensemble-plot-gradient-boosting-early-stopping-py"><span class="std std-ref">Early stopping in Gradient Boosting</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Early stopping in Gradient Boosting</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates Gradient Boosting to produce a predictive model from an ensemble of weak predictive models. Gradient boosting can be used for regression and classification problems. Here, we will train a model to tackle a diabetes regression task. We will obtain the results from GradientBoostingRegressor with least squares loss and 500 regression trees of depth 4."><img alt="" src="../../_images/sphx_glr_plot_gradient_boosting_regression_thumb.png" />
-<p><a class="reference internal" href="plot_gradient_boosting_regression.html#sphx-glr-auto-examples-ensemble-plot-gradient-boosting-regression-py"><span class="std std-ref">Gradient Boosting regression</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Gradient Boosting regression</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="ارسم أسطح القرار لغابات الأشجار العشوائية المدربة على أزواج من سمات مجموعة بيانات إيريس."><img alt="" src="../../_images/sphx_glr_plot_forest_iris_thumb.png" />
+<p><a class="reference internal" href="plot_forest_iris.html#sphx-glr-auto-examples-ensemble-plot-forest-iris-py"><span class="std std-ref">رسم أسطح القرار لمجموعات الأشجار على مجموعة بيانات إيريس</span></a></p>
+  <div class="sphx-glr-thumbnail-title">رسم أسطح القرار لمجموعات الأشجار على مجموعة بيانات إيريس</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="هذا المثال يقوم بتدريب نموذج شجرة قرار معزز باستخدام AdaBoost على مجموعة بيانات تصنيف غير خطية، مكونة من مجموعتين &quot;Gaussian quantiles&quot; (انظر: sklearn.datasets.make_gaussian_quantiles) ويعرض حدود القرار ودرجات القرار. يتم عرض توزيعات درجات القرار بشكل منفصل للعينات من الفئة A والفئة B. يتم تحديد تسمية الفئة المتوقعة لكل عينة بناءً على إشارة درجة القرار. يتم تصنيف العينات التي لها درجات قرار أكبر من الصفر على أنها من الفئة B، وإلا يتم تصنيفها على أنها من الفئة A. يحدد مقدار درجة القرار درجة التشابه مع تسمية الفئة المتوقعة. بالإضافة إلى ذلك، يمكن بناء مجموعة بيانات جديدة تحتوي على نقاء مرغوب فيه من الفئة B، على سبيل المثال، عن طريق اختيار العينات فقط بدرجة قرار أعلى من قيمة معينة."><img alt="" src="../../_images/sphx_glr_plot_adaboost_twoclass_thumb.png" />
+<p><a class="reference internal" href="plot_adaboost_twoclass.html#sphx-glr-auto-examples-ensemble-plot-adaboost-twoclass-py"><span class="std std-ref">تصنيف ثنائي باستخدام AdaBoost</span></a></p>
+  <div class="sphx-glr-thumbnail-title">تصنيف ثنائي باستخدام AdaBoost</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="شجرة القرار معززة باستخدام خوارزمية AdaBoost.R2 [1]_ على مجموعة بيانات جيبية أحادية البعد مع كمية صغيرة من الضوضاء الغاوسية. يتم مقارنة 299 دفعة (300 شجرة قرار) مع منظم شجرة قرار واحد. مع زيادة عدد الدفعات، يمكن لمنظم الانحدار أن يلائم المزيد من التفاصيل."><img alt="" src="../../_images/sphx_glr_plot_adaboost_regression_thumb.png" />
+<p><a class="reference internal" href="plot_adaboost_regression.html#sphx-glr-auto-examples-ensemble-plot-adaboost-regression-py"><span class="std std-ref">انحدار شجرة القرار مع AdaBoost</span></a></p>
+  <div class="sphx-glr-thumbnail-title">انحدار شجرة القرار مع AdaBoost</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="النموذج الذي يبالغ في التعميم يتعلم بيانات التدريب جيدًا جدًا، حيث يلتقط كل من الأنماط الأساسية والضوضاء في البيانات. ومع ذلك، عند تطبيقه على بيانات غير معروفة، قد لا تستمر الارتباطات المكتسبة. عادة ما نكتشف ذلك عندما نطبق تنبؤاتنا المدربة على بيانات الاختبار ونرى الأداء الإحصائي ينخفض بشكل كبير مقارنة ببيانات التدريب."><img alt="" src="../../_images/sphx_glr_plot_ridge_coeffs_thumb.png" />
+<p><a class="reference internal" href="../linear_model/plot_ridge_coeffs.html#sphx-glr-auto-examples-linear-model-plot-ridge-coeffs-py"><span class="std std-ref">معاملات Ridge كدالة لتنظيم L2</span></a></p>
+  <div class="sphx-glr-thumbnail-title">معاملات Ridge كدالة لتنظيم L2</div>
 </div></div><p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
 </section>
 </section>
@@ -1284,20 +1265,20 @@ weights are built to counter-balance the worse performing weak learners.</p>
     <div class="footer-article-item">
 <div class="prev-next-area">
     <a class="left-prev"
-       href="plot_monotonic_constraints.html"
+       href="plot_voting_decision_regions.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">السابق</p>
-        <p class="prev-next-title">Monotonic Constraints</p>
+        <p class="prev-next-title">رسم حدود القرار لـ VotingClassifier</p>
       </div>
     </a>
     <a class="right-next"
-       href="plot_ensemble_oob.html"
+       href="plot_gradient_boosting_quantile.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">التالي</p>
-        <p class="prev-next-title">OOB Errors for Random Forests</p>
+        <p class="prev-next-title">فترات التنبؤ لانحدار التعزيز المتدرج</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1324,11 +1305,11 @@ weights are built to counter-balance the worse performing weak learners.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-the-dataset">Creating the dataset</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-the-adaboostclassifier">Training the <code class="docutils literal notranslate"><span class="pre">AdaBoostClassifier</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis">Analysis</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-of-the-adaboostclassifier">Convergence of the <code class="docutils literal notranslate"><span class="pre">AdaBoostClassifier</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#errors-and-weights-of-the-weak-learners">Errors and weights of the Weak Learners</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">إنشاء مجموعة البيانات</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adaboostclassifier">تدريب <code class="docutils literal notranslate"><span class="pre">AdaBoostClassifier</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">التحليل</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">تقارب <code class="docutils literal notranslate"><span class="pre">AdaBoostClassifier</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">أخطاء وأوزان المتعلمين الضعفاء</a></li>
 </ul>
 </li>
 </ul>

@@ -1,31 +1,28 @@
 """
 ======================================
-Decision Tree Regression with AdaBoost
+انحدار شجرة القرار مع AdaBoost
 ======================================
 
-A decision tree is boosted using the AdaBoost.R2 [1]_ algorithm on a 1D
-sinusoidal dataset with a small amount of Gaussian noise.
-299 boosts (300 decision trees) is compared with a single decision tree
-regressor. As the number of boosts is increased the regressor can fit more
-detail.
+شجرة القرار معززة باستخدام خوارزمية AdaBoost.R2 [1]_ على مجموعة بيانات جيبية أحادية البعد مع كمية صغيرة من الضوضاء الغاوسية.
+يتم مقارنة 299 دفعة (300 شجرة قرار) مع منظم شجرة قرار واحد. مع زيادة عدد الدفعات، يمكن لمنظم الانحدار أن يلائم المزيد من التفاصيل.
 
-See :ref:`sphx_glr_auto_examples_ensemble_plot_hgbt_regression.py` for an
-example showcasing the benefits of using more efficient regression models such
-as :class:`~ensemble.HistGradientBoostingRegressor`.
+راجع :ref:`sphx_glr_auto_examples_ensemble_plot_hgbt_regression.py` لمثال يبرز فوائد استخدام نماذج الانحدار الأكثر كفاءة مثل :class:`~ensemble.HistGradientBoostingRegressor`.
 
 .. [1] `H. Drucker, "Improving Regressors using Boosting Techniques", 1997.
         <https://citeseerx.ist.psu.edu/doc_view/pid/8d49e2dedb817f2c3330e74b63c5fc86d2399ce3>`_
 
-"""
-
 # %%
-# Preparing the data
+# إعداد البيانات
 # ------------------
-# First, we prepare dummy data with a sinusoidal relationship and some gaussian noise.
+# أولاً، نقوم بإعداد بيانات وهمية بعلاقة جيبية وبعض الضوضاء الغاوسية.
+"""
+# المؤلفون: مطوري سكايت-ليرن
+# معرف الترخيص: BSD-3-Clause
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
-
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.ensemble import AdaBoostRegressor
 import numpy as np
 
 rng = np.random.RandomState(1)
@@ -33,17 +30,15 @@ X = np.linspace(0, 6, 100)[:, np.newaxis]
 y = np.sin(X).ravel() + np.sin(6 * X).ravel() + rng.normal(0, 0.1, X.shape[0])
 
 # %%
-# Training and prediction with DecisionTree and AdaBoost Regressors
+# التدريب والتنبؤ باستخدام منظمي شجرة القرار و AdaBoost
 # -----------------------------------------------------------------
-# Now, we define the classifiers and fit them to the data.
-# Then we predict on that same data to see how well they could fit it.
-# The first regressor is a `DecisionTreeRegressor` with `max_depth=4`.
-# The second regressor is an `AdaBoostRegressor` with a `DecisionTreeRegressor`
-# of `max_depth=4` as base learner and will be built with `n_estimators=300`
-# of those base learners.
+# الآن، نقوم بتعريف المنظمين وتناسبهم مع البيانات.
+# ثم نتوقع على تلك البيانات نفسها لنرى مدى ملاءمتها.
+# المنظم الأول هو `DecisionTreeRegressor` مع `max_depth=4`.
+# المنظم الثاني هو `AdaBoostRegressor` مع `DecisionTreeRegressor`
+# ب `max_depth=4` كمتعلم أساسي وسيتم بناؤه مع `n_estimators=300`
+# من تلك المتعلمات الأساسية.
 
-from sklearn.ensemble import AdaBoostRegressor
-from sklearn.tree import DecisionTreeRegressor
 
 regr_1 = DecisionTreeRegressor(max_depth=4)
 
@@ -58,13 +53,11 @@ y_1 = regr_1.predict(X)
 y_2 = regr_2.predict(X)
 
 # %%
-# Plotting the results
+# رسم النتائج
 # --------------------
-# Finally, we plot how well our two regressors,
-# single decision tree regressor and AdaBoost regressor, could fit the data.
+# أخيرًا، نرسم مدى ملاءمة منظمينا،
+# منظم شجرة القرار المفرد ومنظم AdaBoost، للبيانات.
 
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 colors = sns.color_palette("colorblind")
 

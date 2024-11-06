@@ -18,25 +18,24 @@
 .. _sphx_glr_auto_examples_classification_plot_digits_classification.py:
 
 
-================================
-Recognizing hand-written digits
-================================
+======================================
+التعرف على الأرقام المكتوبة بخط اليد
+======================================
 
-This example shows how scikit-learn can be used to recognize images of
-hand-written digits, from 0-9.
+هذا المثال يوضح كيفية استخدام scikit-learn للتعرف على صور الأرقام المكتوبة بخط اليد، من 0 إلى 9.
 
 .. GENERATED FROM PYTHON SOURCE LINES 10-21
 
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري scikit-learn
+    # معرف الترخيص: BSD-3-Clause
 
-    # Standard scientific Python imports
+    # استيراد مكتبات بايثون العلمية
     import matplotlib.pyplot as plt
 
-    # Import datasets, classifiers and performance metrics
+    # استيراد مجموعات البيانات، والتصنيفات، ومقاييس الأداء
     from sklearn import datasets, metrics, svm
     from sklearn.model_selection import train_test_split
 
@@ -47,22 +46,16 @@ hand-written digits, from 0-9.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 22-34
+.. GENERATED FROM PYTHON SOURCE LINES 22-28
 
-Digits dataset
+مجموعة بيانات الأرقام
 --------------
 
-The digits dataset consists of 8x8
-pixel images of digits. The ``images`` attribute of the dataset stores
-8x8 arrays of grayscale values for each image. We will use these arrays to
-visualize the first 4 images. The ``target`` attribute of the dataset stores
-the digit each image represents and this is included in the title of the 4
-plots below.
+تتكون مجموعة بيانات الأرقام من صور بكسل بحجم 8x8. يحتوي خاصية "images" في مجموعة البيانات على مصفوفات 8x8 من قيم التدرج الرمادي لكل صورة. سنستخدم هذه المصفوفات لعرض أول 4 صور. يحتوي خاصية "target" في مجموعة البيانات على الرقم الذي تمثله كل صورة، ويتم تضمينه في عنوان الرسوم البيانية الأربعة أدناه.
 
-Note: if we were working from image files (e.g., 'png' files), we would load
-them using :func:`matplotlib.pyplot.imread`.
+ملاحظة: إذا كنا نعمل مع ملفات الصور (مثل ملفات 'png')، فسنقوم بتحميلها باستخدام: func:`matplotlib.pyplot.imread`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 34-43
+.. GENERATED FROM PYTHON SOURCE LINES 28-37
 
 .. code-block:: Python
 
@@ -87,43 +80,36 @@ them using :func:`matplotlib.pyplot.imread`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 44-57
+.. GENERATED FROM PYTHON SOURCE LINES 38-44
 
-Classification
+التصنيف
 --------------
 
-To apply a classifier on this data, we need to flatten the images, turning
-each 2-D array of grayscale values from shape ``(8, 8)`` into shape
-``(64,)``. Subsequently, the entire dataset will be of shape
-``(n_samples, n_features)``, where ``n_samples`` is the number of images and
-``n_features`` is the total number of pixels in each image.
+لتطبيق مصنف على هذه البيانات، نحتاج إلى تسطيح الصور، وتحويل كل مصفوفة 2-D من قيم التدرج الرمادي من الشكل ``(8, 8)`` إلى الشكل ``(64,)``. وبالتالي، ستكون مجموعة البيانات بأكملها على الشكل ``(n_samples, n_features)``، حيث ``n_samples`` هو عدد الصور و ``n_features`` هو العدد الإجمالي للبكسلات في كل صورة.
 
-We can then split the data into train and test subsets and fit a support
-vector classifier on the train samples. The fitted classifier can
-subsequently be used to predict the value of the digit for the samples
-in the test subset.
+بعد ذلك، يمكننا تقسيم البيانات إلى مجموعتين فرعيتين للتدريب والاختبار وتدريب مصنف ناقل الدعم على عينات التدريب. يمكن استخدام المصنف المدرب بعد ذلك للتنبؤ بقيمة الرقم لعينات مجموعة الاختبار.
 
-.. GENERATED FROM PYTHON SOURCE LINES 57-76
+.. GENERATED FROM PYTHON SOURCE LINES 44-63
 
 .. code-block:: Python
 
 
-    # flatten the images
+    # تسطيح الصور
     n_samples = len(digits.images)
     data = digits.images.reshape((n_samples, -1))
 
-    # Create a classifier: a support vector classifier
+    # إنشاء مصنف: مصنف ناقل الدعم
     clf = svm.SVC(gamma=0.001)
 
-    # Split data into 50% train and 50% test subsets
+    # تقسيم البيانات إلى 50% للتدريب و50% للاختبار
     X_train, X_test, y_train, y_test = train_test_split(
         data, digits.target, test_size=0.5, shuffle=False
     )
 
-    # Learn the digits on the train subset
+    # تدريب المصنف على مجموعة التدريب
     clf.fit(X_train, y_train)
 
-    # Predict the value of the digit on the test subset
+    # التنبؤ بقيمة الرقم في مجموعة الاختبار
     predicted = clf.predict(X_test)
 
 
@@ -133,12 +119,11 @@ in the test subset.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 77-79
+.. GENERATED FROM PYTHON SOURCE LINES 64-65
 
-Below we visualize the first 4 test samples and show their predicted
-digit value in the title.
+نعرض أدناه أول 4 عينات من مجموعة الاختبار ونظهر قيمة الرقم المتوقع في العنوان.
 
-.. GENERATED FROM PYTHON SOURCE LINES 79-87
+.. GENERATED FROM PYTHON SOURCE LINES 65-73
 
 .. code-block:: Python
 
@@ -162,18 +147,18 @@ digit value in the title.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 88-90
+.. GENERATED FROM PYTHON SOURCE LINES 74-76
 
-:func:`~sklearn.metrics.classification_report` builds a text report showing
-the main classification metrics.
+:func:`~sklearn.metrics.classification_report` ينشئ تقريراً نصياً يظهر
+مقاييس التصنيف الرئيسية.
 
-.. GENERATED FROM PYTHON SOURCE LINES 90-96
+.. GENERATED FROM PYTHON SOURCE LINES 76-82
 
 .. code-block:: Python
 
 
     print(
-        f"Classification report for classifier {clf}:\n"
+        f"تقرير التصنيف للمصنف {clf}:\n"
         f"{metrics.classification_report(y_test, predicted)}\n"
     )
 
@@ -185,7 +170,7 @@ the main classification metrics.
 
  .. code-block:: none
 
-    Classification report for classifier SVC(gamma=0.001):
+    تقرير التصنيف للمصنف SVC(gamma=0.001):
                   precision    recall  f1-score   support
 
                0       1.00      0.99      0.99        88
@@ -208,12 +193,12 @@ the main classification metrics.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 97-99
+.. GENERATED FROM PYTHON SOURCE LINES 83-85
 
-We can also plot a :ref:`confusion matrix <confusion_matrix>` of the
-true digit values and the predicted digit values.
+يمكننا أيضاً رسم مصفوفة الارتباك لل
+قيم الأرقام الحقيقية والمتنبأ بها.
 
-.. GENERATED FROM PYTHON SOURCE LINES 99-106
+.. GENERATED FROM PYTHON SOURCE LINES 85-97
 
 .. code-block:: Python
 
@@ -223,14 +208,31 @@ true digit values and the predicted digit values.
     print(f"Confusion matrix:\n{disp.confusion_matrix}")
 
     plt.show()
+    disp = metrics.ConfusionMatrixDisplay.from_predictions(y_test, predicted)
+    disp.figure_.suptitle("Confusion Matrix")
+    print(f"Confusion matrix:\n{disp.confusion_matrix}")
+
+    plt.show()
 
 
 
 
-.. image-sg:: /auto_examples/classification/images/sphx_glr_plot_digits_classification_003.png
-   :alt: Confusion Matrix
-   :srcset: /auto_examples/classification/images/sphx_glr_plot_digits_classification_003.png
-   :class: sphx-glr-single-img
+.. rst-class:: sphx-glr-horizontal
+
+
+    *
+
+      .. image-sg:: /auto_examples/classification/images/sphx_glr_plot_digits_classification_003.png
+         :alt: Confusion Matrix
+         :srcset: /auto_examples/classification/images/sphx_glr_plot_digits_classification_003.png
+         :class: sphx-glr-multi-img
+
+    *
+
+      .. image-sg:: /auto_examples/classification/images/sphx_glr_plot_digits_classification_004.png
+         :alt: Confusion Matrix
+         :srcset: /auto_examples/classification/images/sphx_glr_plot_digits_classification_004.png
+         :class: sphx-glr-multi-img
 
 
 .. rst-class:: sphx-glr-script-out
@@ -248,40 +250,50 @@ true digit values and the predicted digit values.
      [ 0  0  0  0  0  1  0 88  0  0]
      [ 0  0  0  0  0  0  0  0 88  0]
      [ 0  0  0  1  0  1  0  0  0 90]]
+    Confusion matrix:
+    [[87  0  0  0  1  0  0  0  0  0]
+     [ 0 88  1  0  0  0  0  0  1  1]
+     [ 0  0 85  1  0  0  0  0  0  0]
+     [ 0  0  0 79  0  3  0  4  5  0]
+     [ 0  0  0  0 88  0  0  0  0  4]
+     [ 0  0  0  0  0 88  1  0  0  2]
+     [ 0  1  0  0  0  0 90  0  0  0]
+     [ 0  0  0  0  0  1  0 88  0  0]
+     [ 0  0  0  0  0  0  0  0 88  0]
+     [ 0  0  0  1  0  1  0  0  0 90]]
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 107-111
+.. GENERATED FROM PYTHON SOURCE LINES 98-102
 
-If the results from evaluating a classifier are stored in the form of a
-:ref:`confusion matrix <confusion_matrix>` and not in terms of `y_true` and
-`y_pred`, one can still build a :func:`~sklearn.metrics.classification_report`
-as follows:
+إذا كانت نتائج تقييم المصنف مخزنة على شكل
+مصفوفة ارتباك وليس على شكل `y_true` و
+`y_pred`، يمكننا مع ذلك إنشاء تقرير تصنيف باستخدام: func:`~sklearn.metrics.classification_report`
+كما يلي:
 
-.. GENERATED FROM PYTHON SOURCE LINES 111-129
+.. GENERATED FROM PYTHON SOURCE LINES 102-119
 
 .. code-block:: Python
 
 
 
-    # The ground truth and predicted lists
+    # قوائم القيم الحقيقية والمتنبأ بها
     y_true = []
     y_pred = []
     cm = disp.confusion_matrix
 
-    # For each cell in the confusion matrix, add the corresponding ground truths
-    # and predictions to the lists
+    # لكل خلية في مصفوفة الارتباك، أضف القيم الحقيقية والمتنبأ بها
+    # إلى القوائم
     for gt in range(len(cm)):
         for pred in range(len(cm)):
             y_true += [gt] * cm[gt][pred]
             y_pred += [pred] * cm[gt][pred]
 
     print(
-        "Classification report rebuilt from confusion matrix:\n"
+        "تقرير التصنيف المعاد بناؤه من مصفوفة الارتباك:\n"
         f"{metrics.classification_report(y_true, y_pred)}\n"
     )
-
 
 
 
@@ -289,7 +301,7 @@ as follows:
 
  .. code-block:: none
 
-    Classification report rebuilt from confusion matrix:
+    تقرير التصنيف المعاد بناؤه من مصفوفة الارتباك:
                   precision    recall  f1-score   support
 
                0       1.00      0.99      0.99        88
@@ -315,7 +327,7 @@ as follows:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.478 seconds)
+   **Total running time of the script:** (0 minutes 0.770 seconds)
 
 
 .. _sphx_glr_download_auto_examples_classification_plot_digits_classification.py:

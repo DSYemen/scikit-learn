@@ -19,24 +19,19 @@
 
 
 ==========================================
-Feature importances with a forest of trees
+أهمية الميزات باستخدام غابة من الأشجار
 ==========================================
 
-This example shows the use of a forest of trees to evaluate the importance of
-features on an artificial classification task. The blue bars are the feature
-importances of the forest, along with their inter-trees variability represented
-by the error bars.
+هذا المثال يوضح استخدام غابة من الأشجار لتقييم أهمية الميزات في مهمة تصنيف اصطناعية. تمثل الأعمدة الزرقاء أهمية الميزات للغابة، إلى جانب تباينها بين الأشجار الذي يمثله خطأ الأعمدة.
 
-As expected, the plot suggests that 3 features are informative, while the
-remaining are not.
+كما هو متوقع، يوضح الرسم البياني أن 3 ميزات مفيدة، في حين أن الميزات المتبقية ليست كذلك.
 
-.. GENERATED FROM PYTHON SOURCE LINES 15-21
+.. GENERATED FROM PYTHON SOURCE LINES 10-15
 
 .. code-block:: Python
 
-
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري سكايت-ليرن
+    # معرف الترخيص: BSD-3-Clause
 
     import matplotlib.pyplot as plt
 
@@ -47,16 +42,16 @@ remaining are not.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 22-28
+.. GENERATED FROM PYTHON SOURCE LINES 16-22
 
-Data generation and model fitting
+توليد البيانات وتناسب النموذج
 ---------------------------------
-We generate a synthetic dataset with only 3 informative features. We will
-explicitly not shuffle the dataset to ensure that the informative features
-will correspond to the three first columns of X. In addition, we will split
-our dataset into training and testing subsets.
+نقوم بتوليد مجموعة بيانات اصطناعية تحتوي على 3 ميزات مفيدة فقط. لن نقوم
+بخلط المجموعة بشكل صريح لضمان أن الميزات المفيدة
+ستتوافق مع الأعمدة الثلاثة الأولى من X. بالإضافة إلى ذلك، سنقوم بتقسيم
+مجموعة البيانات الخاصة بنا إلى مجموعات فرعية للتدريب والاختبار.
 
-.. GENERATED FROM PYTHON SOURCE LINES 28-43
+.. GENERATED FROM PYTHON SOURCE LINES 22-37
 
 .. code-block:: Python
 
@@ -82,11 +77,11 @@ our dataset into training and testing subsets.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 44-45
+.. GENERATED FROM PYTHON SOURCE LINES 38-39
 
-A random forest classifier will be fitted to compute the feature importances.
+سيتم تناسب مصنف غابة عشوائية لحساب أهمية الميزات.
 
-.. GENERATED FROM PYTHON SOURCE LINES 45-51
+.. GENERATED FROM PYTHON SOURCE LINES 39-45
 
 .. code-block:: Python
 
@@ -104,7 +99,7 @@ A random forest classifier will be fitted to compute the feature importances.
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-19 {
+    <style>#sk-container-id-5 {
       /* Definition of color scheme common for light and dark mode */
       --sklearn-color-text: #000;
       --sklearn-color-text-muted: #666;
@@ -135,15 +130,15 @@ A random forest classifier will be fitted to compute the feature importances.
       }
     }
 
-    #sk-container-id-19 {
+    #sk-container-id-5 {
       color: var(--sklearn-color-text);
     }
 
-    #sk-container-id-19 pre {
+    #sk-container-id-5 pre {
       padding: 0;
     }
 
-    #sk-container-id-19 input.sk-hidden--visually {
+    #sk-container-id-5 input.sk-hidden--visually {
       border: 0;
       clip: rect(1px 1px 1px 1px);
       clip: rect(1px, 1px, 1px, 1px);
@@ -155,7 +150,7 @@ A random forest classifier will be fitted to compute the feature importances.
       width: 1px;
     }
 
-    #sk-container-id-19 div.sk-dashed-wrapped {
+    #sk-container-id-5 div.sk-dashed-wrapped {
       border: 1px dashed var(--sklearn-color-line);
       margin: 0 0.4em 0.5em 0.4em;
       box-sizing: border-box;
@@ -163,7 +158,7 @@ A random forest classifier will be fitted to compute the feature importances.
       background-color: var(--sklearn-color-background);
     }
 
-    #sk-container-id-19 div.sk-container {
+    #sk-container-id-5 div.sk-container {
       /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
          but bootstrap.min.css set `[hidden] { display: none !important; }`
          so we also need the `!important` here to be able to override the
@@ -173,7 +168,7 @@ A random forest classifier will be fitted to compute the feature importances.
       position: relative;
     }
 
-    #sk-container-id-19 div.sk-text-repr-fallback {
+    #sk-container-id-5 div.sk-text-repr-fallback {
       display: none;
     }
 
@@ -189,14 +184,14 @@ A random forest classifier will be fitted to compute the feature importances.
 
     /* Parallel-specific style estimator block */
 
-    #sk-container-id-19 div.sk-parallel-item::after {
+    #sk-container-id-5 div.sk-parallel-item::after {
       content: "";
       width: 100%;
       border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
       flex-grow: 1;
     }
 
-    #sk-container-id-19 div.sk-parallel {
+    #sk-container-id-5 div.sk-parallel {
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -204,28 +199,28 @@ A random forest classifier will be fitted to compute the feature importances.
       position: relative;
     }
 
-    #sk-container-id-19 div.sk-parallel-item {
+    #sk-container-id-5 div.sk-parallel-item {
       display: flex;
       flex-direction: column;
     }
 
-    #sk-container-id-19 div.sk-parallel-item:first-child::after {
+    #sk-container-id-5 div.sk-parallel-item:first-child::after {
       align-self: flex-end;
       width: 50%;
     }
 
-    #sk-container-id-19 div.sk-parallel-item:last-child::after {
+    #sk-container-id-5 div.sk-parallel-item:last-child::after {
       align-self: flex-start;
       width: 50%;
     }
 
-    #sk-container-id-19 div.sk-parallel-item:only-child::after {
+    #sk-container-id-5 div.sk-parallel-item:only-child::after {
       width: 0;
     }
 
     /* Serial-specific style estimator block */
 
-    #sk-container-id-19 div.sk-serial {
+    #sk-container-id-5 div.sk-serial {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -243,14 +238,14 @@ A random forest classifier will be fitted to compute the feature importances.
 
     /* Pipeline and ColumnTransformer style (default) */
 
-    #sk-container-id-19 div.sk-toggleable {
+    #sk-container-id-5 div.sk-toggleable {
       /* Default theme specific background. It is overwritten whether we have a
       specific estimator or a Pipeline/ColumnTransformer */
       background-color: var(--sklearn-color-background);
     }
 
     /* Toggleable label */
-    #sk-container-id-19 label.sk-toggleable__label {
+    #sk-container-id-5 label.sk-toggleable__label {
       cursor: pointer;
       display: flex;
       width: 100%;
@@ -263,13 +258,13 @@ A random forest classifier will be fitted to compute the feature importances.
       gap: 0.5em;
     }
 
-    #sk-container-id-19 label.sk-toggleable__label .caption {
+    #sk-container-id-5 label.sk-toggleable__label .caption {
       font-size: 0.6rem;
       font-weight: lighter;
       color: var(--sklearn-color-text-muted);
     }
 
-    #sk-container-id-19 label.sk-toggleable__label-arrow:before {
+    #sk-container-id-5 label.sk-toggleable__label-arrow:before {
       /* Arrow on the left of the label */
       content: "▸";
       float: left;
@@ -277,13 +272,13 @@ A random forest classifier will be fitted to compute the feature importances.
       color: var(--sklearn-color-icon);
     }
 
-    #sk-container-id-19 label.sk-toggleable__label-arrow:hover:before {
+    #sk-container-id-5 label.sk-toggleable__label-arrow:hover:before {
       color: var(--sklearn-color-text);
     }
 
     /* Toggleable content - dropdown */
 
-    #sk-container-id-19 div.sk-toggleable__content {
+    #sk-container-id-5 div.sk-toggleable__content {
       max-height: 0;
       max-width: 0;
       overflow: hidden;
@@ -292,12 +287,12 @@ A random forest classifier will be fitted to compute the feature importances.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-19 div.sk-toggleable__content.fitted {
+    #sk-container-id-5 div.sk-toggleable__content.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-19 div.sk-toggleable__content pre {
+    #sk-container-id-5 div.sk-toggleable__content pre {
       margin: 0.2em;
       border-radius: 0.25em;
       color: var(--sklearn-color-text);
@@ -305,79 +300,79 @@ A random forest classifier will be fitted to compute the feature importances.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-19 div.sk-toggleable__content.fitted pre {
+    #sk-container-id-5 div.sk-toggleable__content.fitted pre {
       /* unfitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-19 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    #sk-container-id-5 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
       max-height: 200px;
       max-width: 100%;
       overflow: auto;
     }
 
-    #sk-container-id-19 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    #sk-container-id-5 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
       content: "▾";
     }
 
     /* Pipeline/ColumnTransformer-specific style */
 
-    #sk-container-id-19 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-5 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-19 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-5 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator-specific style */
 
     /* Colorize estimator box */
-    #sk-container-id-19 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-5 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-19 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-5 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
-    #sk-container-id-19 div.sk-label label.sk-toggleable__label,
-    #sk-container-id-19 div.sk-label label {
+    #sk-container-id-5 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-5 div.sk-label label {
       /* The background is the default theme color */
       color: var(--sklearn-color-text-on-default-background);
     }
 
     /* On hover, darken the color of the background */
-    #sk-container-id-19 div.sk-label:hover label.sk-toggleable__label {
+    #sk-container-id-5 div.sk-label:hover label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
     /* Label box, darken color on hover, fitted */
-    #sk-container-id-19 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+    #sk-container-id-5 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator label */
 
-    #sk-container-id-19 div.sk-label label {
+    #sk-container-id-5 div.sk-label label {
       font-family: monospace;
       font-weight: bold;
       display: inline-block;
       line-height: 1.2em;
     }
 
-    #sk-container-id-19 div.sk-label-container {
+    #sk-container-id-5 div.sk-label-container {
       text-align: center;
     }
 
     /* Estimator-specific */
-    #sk-container-id-19 div.sk-estimator {
+    #sk-container-id-5 div.sk-estimator {
       font-family: monospace;
       border: 1px dotted var(--sklearn-color-border-box);
       border-radius: 0.25em;
@@ -387,18 +382,18 @@ A random forest classifier will be fitted to compute the feature importances.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-19 div.sk-estimator.fitted {
+    #sk-container-id-5 div.sk-estimator.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
     /* on hover */
-    #sk-container-id-19 div.sk-estimator:hover {
+    #sk-container-id-5 div.sk-estimator:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-19 div.sk-estimator.fitted:hover {
+    #sk-container-id-5 div.sk-estimator.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
@@ -486,7 +481,7 @@ A random forest classifier will be fitted to compute the feature importances.
 
     /* "?"-specific style due to the `<a>` HTML tag */
 
-    #sk-container-id-19 a.estimator_doc_link {
+    #sk-container-id-5 a.estimator_doc_link {
       float: right;
       font-size: 1rem;
       line-height: 1em;
@@ -501,48 +496,47 @@ A random forest classifier will be fitted to compute the feature importances.
       border: var(--sklearn-color-unfitted-level-1) 1pt solid;
     }
 
-    #sk-container-id-19 a.estimator_doc_link.fitted {
+    #sk-container-id-5 a.estimator_doc_link.fitted {
       /* fitted */
       border: var(--sklearn-color-fitted-level-1) 1pt solid;
       color: var(--sklearn-color-fitted-level-1);
     }
 
     /* On hover */
-    #sk-container-id-19 a.estimator_doc_link:hover {
+    #sk-container-id-5 a.estimator_doc_link:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-3);
       color: var(--sklearn-color-background);
       text-decoration: none;
     }
 
-    #sk-container-id-19 a.estimator_doc_link.fitted:hover {
+    #sk-container-id-5 a.estimator_doc_link.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-19" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>RandomForestClassifier(random_state=0)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-87" type="checkbox" checked><label for="sk-estimator-id-87" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>RandomForestClassifier</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.ensemble.RandomForestClassifier.html">?<span>Documentation for RandomForestClassifier</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>RandomForestClassifier(random_state=0)</pre></div> </div></div></div></div>
+    </style><div id="sk-container-id-5" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>RandomForestClassifier(random_state=0)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-34" type="checkbox" checked><label for="sk-estimator-id-34" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>RandomForestClassifier</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.ensemble.RandomForestClassifier.html">?<span>Documentation for RandomForestClassifier</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>RandomForestClassifier(random_state=0)</pre></div> </div></div></div></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 52-62
+.. GENERATED FROM PYTHON SOURCE LINES 46-56
 
-Feature importance based on mean decrease in impurity
+أهمية الميزة بناءً على الانخفاض المتوسط في عدم النقاء
 -----------------------------------------------------
-Feature importances are provided by the fitted attribute
-`feature_importances_` and they are computed as the mean and standard
-deviation of accumulation of the impurity decrease within each tree.
+يتم توفير أهمية الميزات بواسطة الخاصية المناسبة
+`feature_importances_` ويتم حسابها كمتوسط وانحراف معياري
+تراكم انخفاض عدم النقاء داخل كل شجرة.
 
-.. warning::
-    Impurity-based feature importances can be misleading for **high
-    cardinality** features (many unique values). See
-    :ref:`permutation_importance` as an alternative below.
+.. تحذير::
+    يمكن أن تكون أهمية الميزات القائمة على عدم النقاء مضللة للميزات ذات **الارتفاع
+    cardinality** (العديد من القيم الفريدة). راجع
+    :ref:`permutation_importance` كبديل أدناه.
 
-.. GENERATED FROM PYTHON SOURCE LINES 62-73
+.. GENERATED FROM PYTHON SOURCE LINES 56-66
 
 .. code-block:: Python
 
     import time
-
     import numpy as np
 
     start_time = time.time()
@@ -565,11 +559,11 @@ deviation of accumulation of the impurity decrease within each tree.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 74-75
+.. GENERATED FROM PYTHON SOURCE LINES 67-68
 
-Let's plot the impurity-based importance.
+دعنا نرسم أهمية الانخفاض في عدم النقاء.
 
-.. GENERATED FROM PYTHON SOURCE LINES 75-85
+.. GENERATED FROM PYTHON SOURCE LINES 68-78
 
 .. code-block:: Python
 
@@ -595,17 +589,16 @@ Let's plot the impurity-based importance.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 86-93
+.. GENERATED FROM PYTHON SOURCE LINES 79-85
 
-We observe that, as expected, the three first features are found important.
+نلاحظ أنه، كما هو متوقع، يتم العثور على الميزات الثلاثة الأولى كأهمية.
 
-Feature importance based on feature permutation
+أهمية الميزة بناءً على تبديل الميزة
 -----------------------------------------------
-Permutation feature importance overcomes limitations of the impurity-based
-feature importance: they do not have a bias toward high-cardinality features
-and can be computed on a left-out test set.
+تتجاوز أهمية الميزة بالتبديل قيود أهمية الميزة القائمة على عدم النقاء: فهي لا تحتوي على تحيز نحو الميزات ذات cardinality العالي
+ويمكن حسابها على مجموعة اختبار مستبعدة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 93-104
+.. GENERATED FROM PYTHON SOURCE LINES 85-96
 
 .. code-block:: Python
 
@@ -628,19 +621,19 @@ and can be computed on a left-out test set.
 
  .. code-block:: none
 
-    Elapsed time to compute the importances: 0.669 seconds
+    Elapsed time to compute the importances: 0.799 seconds
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 105-109
+.. GENERATED FROM PYTHON SOURCE LINES 97-101
 
-The computation for full permutation importance is more costly. Features are
-shuffled n times and the model refitted to estimate the importance of it.
-Please see :ref:`permutation_importance` for more details. We can now plot
-the importance ranking.
+الحساب لأهمية التبديل الكامل أكثر تكلفة. يتم خلط الميزات
+n مرات ويتم إعادة تناسب النموذج لتقدير أهمية ذلك.
+يرجى الاطلاع على :ref:`permutation_importance` لمزيد من التفاصيل. يمكننا الآن رسم
+ترتيب الأهمية.
 
-.. GENERATED FROM PYTHON SOURCE LINES 109-117
+.. GENERATED FROM PYTHON SOURCE LINES 101-108
 
 .. code-block:: Python
 
@@ -654,7 +647,6 @@ the importance ranking.
 
 
 
-
 .. image-sg:: /auto_examples/ensemble/images/sphx_glr_plot_forest_importances_002.png
    :alt: Feature importances using permutation on full model
    :srcset: /auto_examples/ensemble/images/sphx_glr_plot_forest_importances_002.png
@@ -664,16 +656,16 @@ the importance ranking.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 118-121
+.. GENERATED FROM PYTHON SOURCE LINES 109-111
 
-The same features are detected as most important using both methods. Although
-the relative importances vary. As seen on the plots, MDI is less likely than
-permutation importance to fully omit a feature.
+يتم اكتشاف نفس الميزات كأهمية باستخدام كلتا الطريقتين. على الرغم من
+تختلف الأهمية النسبية. كما هو موضح في الرسوم البيانية، MDI أقل احتمالا من
+أهمية التبديل لإغفال ميزة تمامًا.
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.226 seconds)
+   **Total running time of the script:** (0 minutes 1.326 seconds)
 
 
 .. _sphx_glr_download_auto_examples_ensemble_plot_forest_importances.py:

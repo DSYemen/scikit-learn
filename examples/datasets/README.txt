@@ -1,6 +1,6 @@
 .. _dataset_examples:
 
-Dataset examples
------------------------
+أمثلة مجموعات البيانات
+--------------------------
 
-Examples concerning the :mod:`sklearn.datasets` module.
+أمثلة تتعلق بوحدة :mod:`sklearn.datasets` .

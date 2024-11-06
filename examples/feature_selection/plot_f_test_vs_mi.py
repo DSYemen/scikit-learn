@@ -1,25 +1,25 @@
 """
 ===========================================
-Comparison of F-test and mutual information
+مقارنة بين اختبار F والمعلومات المتبادلة
 ===========================================
 
-This example illustrates the differences between univariate F-test statistics
-and mutual information.
+يوضح هذا المثال الاختلافات بين إحصائيات اختبار F أحادي المتغير
+والمعلومات المتبادلة.
 
-We consider 3 features x_1, x_2, x_3 distributed uniformly over [0, 1], the
-target depends on them as follows:
+نحن نعتبر 3 ميزات x_1 و x_2 و x_3 موزعة بشكل منتظم على [0، 1]، الهدف
+يعتمد عليها على النحو التالي:
 
-y = x_1 + sin(6 * pi * x_2) + 0.1 * N(0, 1), that is the third feature is
-completely irrelevant.
+y = x_1 + sin(6 * pi * x_2) + 0.1 * N(0, 1)، أي أن الميزة الثالثة
+غير ذات صلة تمامًا.
 
-The code below plots the dependency of y against individual x_i and normalized
-values of univariate F-tests statistics and mutual information.
+يعرض الكود أدناه اعتماد y مقابل x_i الفردية والقيم الطبيعية
+لإحصائيات اختبار F أحادي المتغير والمعلومات المتبادلة.
 
-As F-test captures only linear dependency, it rates x_1 as the most
-discriminative feature. On the other hand, mutual information can capture any
-kind of dependency between variables and it rates x_2 as the most
-discriminative feature, which probably agrees better with our intuitive
-perception for this example. Both methods correctly mark x_3 as irrelevant.
+نظرًا لأن اختبار F يلتقط فقط التبعية الخطية، فإنه يصنف x_1 على أنها الميزة
+الأكثر تمييزًا. من ناحية أخرى، يمكن للمعلومات المتبادلة التقاط أي نوع
+من التبعية بين المتغيرات وتصنف x_2 على أنها الميزة الأكثر تمييزًا،
+مما يتفق على الأرجح بشكل أفضل مع إدراكنا الحدسي لهذا المثال.
+كلا الطريقتين تحدد x_3 بشكل صحيح على أنها غير ذات صلة.
 
 """
 

@@ -19,28 +19,25 @@
 
 
 ==========================================================================
-Fitting an Elastic Net with a precomputed Gram Matrix and Weighted Samples
+تناسب شبكة مرنة مع مصفوفة جرام مسبقة الحساب وعينات مرجحة
 ==========================================================================
 
-The following example shows how to precompute the gram matrix
-while using weighted samples with an :class:`~sklearn.linear_model.ElasticNet`.
+يوضح المثال التالي كيفية حساب مصفوفة جرام مسبقًا
+مع استخدام عينات مرجحة مع :class:`~sklearn.linear_model.ElasticNet`.
 
-If weighted samples are used, the design matrix must be centered and then
-rescaled by the square root of the weight vector before the gram matrix
-is computed.
+إذا تم استخدام عينات مرجحة، يجب أن يتم ترتيب مصفوفة التصميم ثم إعادة قياسها بواسطة الجذر التربيعي لمتجه الأوزان قبل حساب مصفوفة جرام.
 
 .. note::
-  `sample_weight` vector is also rescaled to sum to `n_samples`, see the
-   documentation for the `sample_weight` parameter to
-   :meth:`~sklearn.linear_model.ElasticNet.fit`.
+  يتم إعادة قياس متجه `sample_weight` أيضًا ليجمع إلى `n_samples`، راجع التوثيق لمتغير `sample_weight` في
+  :meth:`~sklearn.linear_model.ElasticNet.fit`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 19-23
+.. GENERATED FROM PYTHON SOURCE LINES 16-20
 
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري سكايلرن
+    # معرف الترخيص: BSD-3-Clause
 
 
 
@@ -49,11 +46,11 @@ is computed.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 24-25
+.. GENERATED FROM PYTHON SOURCE LINES 21-22
 
-Let's start by loading the dataset and creating some sample weights.
+دعنا نبدأ بتحميل مجموعة البيانات وإنشاء بعض أوزان العينات.
 
-.. GENERATED FROM PYTHON SOURCE LINES 25-38
+.. GENERATED FROM PYTHON SOURCE LINES 22-35
 
 .. code-block:: Python
 
@@ -67,7 +64,7 @@ Let's start by loading the dataset and creating some sample weights.
     X, y = make_regression(n_samples=n_samples, noise=0.5, random_state=rng)
 
     sample_weight = rng.lognormal(size=n_samples)
-    # normalize the sample weights
+    # قم بتطبيع أوزان العينات
     normalized_weights = sample_weight * (n_samples / (sample_weight.sum()))
 
 
@@ -77,13 +74,12 @@ Let's start by loading the dataset and creating some sample weights.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 39-42
+.. GENERATED FROM PYTHON SOURCE LINES 36-38
 
-To fit the elastic net using the `precompute` option together with the sample
-weights, we must first center the design matrix,  and rescale it by the
-normalized weights prior to computing the gram matrix.
+لتناسب الشبكة المرنة باستخدام خيار `precompute` مع أوزان العينات، يجب علينا أولاً ترتيب مصفوفة التصميم، وإعادة قياسها بواسطة الأوزان
+الموحدة قبل حساب مصفوفة جرام.
 
-.. GENERATED FROM PYTHON SOURCE LINES 42-47
+.. GENERATED FROM PYTHON SOURCE LINES 38-43
 
 .. code-block:: Python
 
@@ -99,14 +95,13 @@ normalized weights prior to computing the gram matrix.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 48-52
+.. GENERATED FROM PYTHON SOURCE LINES 44-47
 
-We can now proceed with fitting. We must passed the centered design matrix to
-`fit` otherwise the elastic net estimator will detect that it is uncentered
-and discard the gram matrix we passed. However, if we pass the scaled design
-matrix, the preprocessing code will incorrectly rescale it a second time.
+يمكننا الآن المتابعة بالتناسب. يجب أن نمرر مصفوفة التصميم المركزية إلى
+`fit` وإلا سيقوم مقدر الشبكة المرنة بالكشف عن أنها غير مركزة
+وسيقوم بتجاهل مصفوفة جرام التي قمنا بتمريرها. ومع ذلك، إذا قمنا بتمرير مصفوفة التصميم المقياس، فإن كود المعالجة المسبقة سيقوم بإعادة قياسها بشكل خاطئ للمرة الثانية.
 
-.. GENERATED FROM PYTHON SOURCE LINES 52-56
+.. GENERATED FROM PYTHON SOURCE LINES 47-50
 
 .. code-block:: Python
 
@@ -118,11 +113,10 @@ matrix, the preprocessing code will incorrectly rescale it a second time.
 
 
 
-
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-31 {
+    <style>#sk-container-id-1 {
       /* Definition of color scheme common for light and dark mode */
       --sklearn-color-text: #000;
       --sklearn-color-text-muted: #666;
@@ -153,15 +147,15 @@ matrix, the preprocessing code will incorrectly rescale it a second time.
       }
     }
 
-    #sk-container-id-31 {
+    #sk-container-id-1 {
       color: var(--sklearn-color-text);
     }
 
-    #sk-container-id-31 pre {
+    #sk-container-id-1 pre {
       padding: 0;
     }
 
-    #sk-container-id-31 input.sk-hidden--visually {
+    #sk-container-id-1 input.sk-hidden--visually {
       border: 0;
       clip: rect(1px 1px 1px 1px);
       clip: rect(1px, 1px, 1px, 1px);
@@ -173,7 +167,7 @@ matrix, the preprocessing code will incorrectly rescale it a second time.
       width: 1px;
     }
 
-    #sk-container-id-31 div.sk-dashed-wrapped {
+    #sk-container-id-1 div.sk-dashed-wrapped {
       border: 1px dashed var(--sklearn-color-line);
       margin: 0 0.4em 0.5em 0.4em;
       box-sizing: border-box;
@@ -181,7 +175,7 @@ matrix, the preprocessing code will incorrectly rescale it a second time.
       background-color: var(--sklearn-color-background);
     }
 
-    #sk-container-id-31 div.sk-container {
+    #sk-container-id-1 div.sk-container {
       /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
          but bootstrap.min.css set `[hidden] { display: none !important; }`
          so we also need the `!important` here to be able to override the
@@ -191,7 +185,7 @@ matrix, the preprocessing code will incorrectly rescale it a second time.
       position: relative;
     }
 
-    #sk-container-id-31 div.sk-text-repr-fallback {
+    #sk-container-id-1 div.sk-text-repr-fallback {
       display: none;
     }
 
@@ -207,14 +201,14 @@ matrix, the preprocessing code will incorrectly rescale it a second time.
 
     /* Parallel-specific style estimator block */
 
-    #sk-container-id-31 div.sk-parallel-item::after {
+    #sk-container-id-1 div.sk-parallel-item::after {
       content: "";
       width: 100%;
       border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
       flex-grow: 1;
     }
 
-    #sk-container-id-31 div.sk-parallel {
+    #sk-container-id-1 div.sk-parallel {
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -222,28 +216,28 @@ matrix, the preprocessing code will incorrectly rescale it a second time.
       position: relative;
     }
 
-    #sk-container-id-31 div.sk-parallel-item {
+    #sk-container-id-1 div.sk-parallel-item {
       display: flex;
       flex-direction: column;
     }
 
-    #sk-container-id-31 div.sk-parallel-item:first-child::after {
+    #sk-container-id-1 div.sk-parallel-item:first-child::after {
       align-self: flex-end;
       width: 50%;
     }
 
-    #sk-container-id-31 div.sk-parallel-item:last-child::after {
+    #sk-container-id-1 div.sk-parallel-item:last-child::after {
       align-self: flex-start;
       width: 50%;
     }
 
-    #sk-container-id-31 div.sk-parallel-item:only-child::after {
+    #sk-container-id-1 div.sk-parallel-item:only-child::after {
       width: 0;
     }
 
     /* Serial-specific style estimator block */
 
-    #sk-container-id-31 div.sk-serial {
+    #sk-container-id-1 div.sk-serial {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -261,14 +255,14 @@ matrix, the preprocessing code will incorrectly rescale it a second time.
 
     /* Pipeline and ColumnTransformer style (default) */
 
-    #sk-container-id-31 div.sk-toggleable {
+    #sk-container-id-1 div.sk-toggleable {
       /* Default theme specific background. It is overwritten whether we have a
       specific estimator or a Pipeline/ColumnTransformer */
       background-color: var(--sklearn-color-background);
     }
 
     /* Toggleable label */
-    #sk-container-id-31 label.sk-toggleable__label {
+    #sk-container-id-1 label.sk-toggleable__label {
       cursor: pointer;
       display: flex;
       width: 100%;
@@ -281,13 +275,13 @@ matrix, the preprocessing code will incorrectly rescale it a second time.
       gap: 0.5em;
     }
 
-    #sk-container-id-31 label.sk-toggleable__label .caption {
+    #sk-container-id-1 label.sk-toggleable__label .caption {
       font-size: 0.6rem;
       font-weight: lighter;
       color: var(--sklearn-color-text-muted);
     }
 
-    #sk-container-id-31 label.sk-toggleable__label-arrow:before {
+    #sk-container-id-1 label.sk-toggleable__label-arrow:before {
       /* Arrow on the left of the label */
       content: "▸";
       float: left;
@@ -295,13 +289,13 @@ matrix, the preprocessing code will incorrectly rescale it a second time.
       color: var(--sklearn-color-icon);
     }
 
-    #sk-container-id-31 label.sk-toggleable__label-arrow:hover:before {
+    #sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {
       color: var(--sklearn-color-text);
     }
 
     /* Toggleable content - dropdown */
 
-    #sk-container-id-31 div.sk-toggleable__content {
+    #sk-container-id-1 div.sk-toggleable__content {
       max-height: 0;
       max-width: 0;
       overflow: hidden;
@@ -310,12 +304,12 @@ matrix, the preprocessing code will incorrectly rescale it a second time.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-31 div.sk-toggleable__content.fitted {
+    #sk-container-id-1 div.sk-toggleable__content.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-31 div.sk-toggleable__content pre {
+    #sk-container-id-1 div.sk-toggleable__content pre {
       margin: 0.2em;
       border-radius: 0.25em;
       color: var(--sklearn-color-text);
@@ -323,79 +317,79 @@ matrix, the preprocessing code will incorrectly rescale it a second time.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-31 div.sk-toggleable__content.fitted pre {
+    #sk-container-id-1 div.sk-toggleable__content.fitted pre {
       /* unfitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-31 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    #sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
       max-height: 200px;
       max-width: 100%;
       overflow: auto;
     }
 
-    #sk-container-id-31 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    #sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
       content: "▾";
     }
 
     /* Pipeline/ColumnTransformer-specific style */
 
-    #sk-container-id-31 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-31 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-1 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator-specific style */
 
     /* Colorize estimator box */
-    #sk-container-id-31 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-31 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-1 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
-    #sk-container-id-31 div.sk-label label.sk-toggleable__label,
-    #sk-container-id-31 div.sk-label label {
+    #sk-container-id-1 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-1 div.sk-label label {
       /* The background is the default theme color */
       color: var(--sklearn-color-text-on-default-background);
     }
 
     /* On hover, darken the color of the background */
-    #sk-container-id-31 div.sk-label:hover label.sk-toggleable__label {
+    #sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
     /* Label box, darken color on hover, fitted */
-    #sk-container-id-31 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+    #sk-container-id-1 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator label */
 
-    #sk-container-id-31 div.sk-label label {
+    #sk-container-id-1 div.sk-label label {
       font-family: monospace;
       font-weight: bold;
       display: inline-block;
       line-height: 1.2em;
     }
 
-    #sk-container-id-31 div.sk-label-container {
+    #sk-container-id-1 div.sk-label-container {
       text-align: center;
     }
 
     /* Estimator-specific */
-    #sk-container-id-31 div.sk-estimator {
+    #sk-container-id-1 div.sk-estimator {
       font-family: monospace;
       border: 1px dotted var(--sklearn-color-border-box);
       border-radius: 0.25em;
@@ -405,18 +399,18 @@ matrix, the preprocessing code will incorrectly rescale it a second time.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-31 div.sk-estimator.fitted {
+    #sk-container-id-1 div.sk-estimator.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
     /* on hover */
-    #sk-container-id-31 div.sk-estimator:hover {
+    #sk-container-id-1 div.sk-estimator:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-31 div.sk-estimator.fitted:hover {
+    #sk-container-id-1 div.sk-estimator.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
@@ -504,7 +498,7 @@ matrix, the preprocessing code will incorrectly rescale it a second time.
 
     /* "?"-specific style due to the `<a>` HTML tag */
 
-    #sk-container-id-31 a.estimator_doc_link {
+    #sk-container-id-1 a.estimator_doc_link {
       float: right;
       font-size: 1rem;
       line-height: 1em;
@@ -519,25 +513,25 @@ matrix, the preprocessing code will incorrectly rescale it a second time.
       border: var(--sklearn-color-unfitted-level-1) 1pt solid;
     }
 
-    #sk-container-id-31 a.estimator_doc_link.fitted {
+    #sk-container-id-1 a.estimator_doc_link.fitted {
       /* fitted */
       border: var(--sklearn-color-fitted-level-1) 1pt solid;
       color: var(--sklearn-color-fitted-level-1);
     }
 
     /* On hover */
-    #sk-container-id-31 a.estimator_doc_link:hover {
+    #sk-container-id-1 a.estimator_doc_link:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-3);
       color: var(--sklearn-color-background);
       text-decoration: none;
     }
 
-    #sk-container-id-31 a.estimator_doc_link.fitted:hover {
+    #sk-container-id-1 a.estimator_doc_link.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-31" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>ElasticNet(alpha=0.01,
+    </style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>ElasticNet(alpha=0.01,
                precompute=array([[ 9.98809919e+04, -4.48938813e+02, -1.03237920e+03, ...,
             -2.25349312e+02, -3.53959628e+02, -1.67451144e+02],
            [-4.48938813e+02,  1.00768662e+05,  1.19112072e+02, ...,
@@ -550,7 +544,7 @@ matrix, the preprocessing code will incorrectly rescale it a second time.
            [-3.53959628e+02,  7.47987268e+01,  6.66670169e+02, ...,
             -4.58195950e+02,  9.98350372e+04,  5.60836363e+02],
            [-1.67451144e+02, -5.76195467e+02,  2.65799352e+02, ...,
-            -1.58667835e+02,  5.60836363e+02,  1.00911944e+05]]))</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-114" type="checkbox" checked><label for="sk-estimator-id-114" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>ElasticNet</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.linear_model.ElasticNet.html">?<span>Documentation for ElasticNet</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>ElasticNet(alpha=0.01,
+            -1.58667835e+02,  5.60836363e+02,  1.00911944e+05]]))</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>ElasticNet</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.linear_model.ElasticNet.html">?<span>Documentation for ElasticNet</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>ElasticNet(alpha=0.01,
                precompute=array([[ 9.98809919e+04, -4.48938813e+02, -1.03237920e+03, ...,
             -2.25349312e+02, -3.53959628e+02, -1.67451144e+02],
            [-4.48938813e+02,  1.00768662e+05,  1.19112072e+02, ...,
@@ -571,7 +565,7 @@ matrix, the preprocessing code will incorrectly rescale it a second time.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.820 seconds)
+   **Total running time of the script:** (0 minutes 0.911 seconds)
 
 
 .. _sphx_glr_download_auto_examples_linear_model_plot_elastic_net_precomputed_gram_matrix_with_weighted_samples.py:

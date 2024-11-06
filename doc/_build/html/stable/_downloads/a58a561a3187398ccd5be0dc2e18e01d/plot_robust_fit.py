@@ -1,37 +1,37 @@
 """
-Robust linear estimator fitting
-===============================
+================
+تقدير خطي قوي
+================
 
-Here a sine function is fit with a polynomial of order 3, for values
-close to zero.
+هنا يتم ملاءمة دالة الجيب مع متعددة حدود من الدرجة 3، للقيم
+قريبة من الصفر.
 
-Robust fitting is demoed in different situations:
+يتم عرض الملاءمة القوية في مواقف مختلفة:
 
-- No measurement errors, only modelling errors (fitting a sine with a
-  polynomial)
+- لا توجد أخطاء في القياس، فقط أخطاء في النمذجة (ملاءمة دالة الجيب مع
+  متعددة حدود)
 
-- Measurement errors in X
+- أخطاء في قياس X
 
-- Measurement errors in y
+- أخطاء في قياس y
 
-The median absolute deviation to non corrupt new data is used to judge
-the quality of the prediction.
+يتم استخدام الانحراف المتوسط المطلق للبيانات الجديدة غير الفاسدة للحكم
+على جودة التوقع.
 
-What we can see that:
+ما يمكننا رؤيته هو:
 
-- RANSAC is good for strong outliers in the y direction
+- RANSAC جيد للبيانات الشاذة القوية في اتجاه y
 
-- TheilSen is good for small outliers, both in direction X and y, but has
-  a break point above which it performs worse than OLS.
+- TheilSen جيد للبيانات الشاذة الصغيرة، في الاتجاهين X و y، ولكن لديه
+  نقطة كسر فوقها يؤدي إلى أداء أسوأ من OLS.
 
-- The scores of HuberRegressor may not be compared directly to both TheilSen
-  and RANSAC because it does not attempt to completely filter the outliers
-  but lessen their effect.
-
+- قد لا يتم مقارنة درجات HuberRegressor مباشرة مع كل من TheilSen
+  و RANSAC لأنه لا يحاول تصفية البيانات الشاذة تمامًا
+  ولكن تقليل تأثيرها.
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 import numpy as np
 from matplotlib import pyplot as plt
@@ -50,7 +50,7 @@ np.random.seed(42)
 
 X = np.random.normal(size=400)
 y = np.sin(X)
-# Make sure that it X is 2D
+# تأكد من أن X ثنائي الأبعاد
 X = X[:, np.newaxis]
 
 X_test = np.random.normal(size=200)

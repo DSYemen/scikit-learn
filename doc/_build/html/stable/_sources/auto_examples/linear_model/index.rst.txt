@@ -4,10 +4,10 @@
 
 .. _linear_examples:
 
-Generalized Linear Models
+النماذج الخطية المعممة
 -------------------------
 
-Examples concerning the :mod:`sklearn.linear_model` module.
+أمثلة تتعلق بوحدة :mod:`sklearn.linear_model`.
 
 
 
@@ -19,41 +19,7 @@ Examples concerning the :mod:`sklearn.linear_model` module.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example compares two different bayesian regressors:">
-
-.. only:: html
-
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_ard_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_linear_model_plot_ard.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Comparing Linear Bayesian Regressors</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Comparing various online solvers">
-
-.. only:: html
-
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_sgd_comparison_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_linear_model_plot_sgd_comparison.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Comparing various online solvers</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Computes a Bayesian Ridge Regression of Sinusoids.">
+    <div class="sphx-glr-thumbcontainer" tooltip="# يحسب الانحدار الخليط الخليط للمنحنيات التوافقية.">
 
 .. only:: html
 
@@ -64,166 +30,30 @@ Examples concerning the :mod:`sklearn.linear_model` module.
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Curve Fitting with Bayesian Ridge Regression</div>
+      <div class="sphx-glr-thumbnail-title"># ========================================================</div>
     </div>
 
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example compares decision boundaries of multinomial and one-vs-rest logistic regression on a 2D dataset with three classes.">
+    <div class="sphx-glr-thumbcontainer" tooltip="يقارن هذا المثال بين طريقتين مختلفتين للانحدار البايزي:">
 
 .. only:: html
 
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_logistic_multinomial_thumb.png
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_ard_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_linear_model_plot_logistic_multinomial.py`
+  :ref:`sphx_glr_auto_examples_linear_model_plot_ard.py`
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Decision Boundaries of Multinomial and One-vs-Rest Logistic Regression</div>
+      <div class="sphx-glr-thumbnail-title"># مقارنة المنحنيات الخطية للانحدار البايزي</div>
     </div>
 
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Stochastic Gradient Descent is an optimization technique which minimizes a loss function in a stochastic fashion, performing a gradient descent step sample by sample. In particular, it is a very efficient method to fit linear models.">
-
-.. only:: html
-
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_sgd_early_stopping_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_linear_model_plot_sgd_early_stopping.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Early stopping of Stochastic Gradient Descent</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="The following example shows how to precompute the gram matrix while using weighted samples with an ElasticNet.">
-
-.. only:: html
-
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_elastic_net_precomputed_gram_matrix_with_weighted_samples_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_linear_model_plot_elastic_net_precomputed_gram_matrix_with_weighted_samples.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Fitting an Elastic Net with a precomputed Gram Matrix and Weighted Samples</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Fit Ridge and HuberRegressor on a dataset with outliers.">
-
-.. only:: html
-
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_huber_vs_ridge_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_linear_model_plot_huber_vs_ridge.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">HuberRegressor vs Ridge on dataset with strong outliers</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="The multi-task lasso allows to fit multiple regression problems jointly enforcing the selected features to be the same across tasks. This example simulates sequential measurements, each task is a time instant, and the relevant features vary in amplitude over time while being the same. The multi-task lasso imposes that features that are selected at one time point are select for all time point. This makes feature selection by the Lasso more stable.">
-
-.. only:: html
-
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_multi_task_lasso_support_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_linear_model_plot_multi_task_lasso_support.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Joint feature selection with multi-task Lasso</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Comparison of the sparsity (percentage of zero coefficients) of solutions when L1, L2 and Elastic-Net penalty are used for different values of C. We can see that large values of C give more freedom to the model.  Conversely, smaller values of C constrain the model more. In the L1 penalty case, this leads to sparser solutions. As expected, the Elastic-Net penalty sparsity is between that of L1 and L2.">
-
-.. only:: html
-
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_logistic_l1_l2_sparsity_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_linear_model_plot_logistic_l1_l2_sparsity.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">L1 Penalty and Sparsity in Logistic Regression</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="The present example compares three l1-based regression models on a synthetic signal obtained from sparse and correlated features that are further corrupted with additive gaussian noise:">
-
-.. only:: html
-
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_lasso_and_elasticnet_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_linear_model_plot_lasso_and_elasticnet.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">L1-based models for Sparse Signals</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example reproduces the example of Fig. 2 of [ZHT2007]_. A LassoLarsIC estimator is fit on a diabetes dataset and the AIC and the BIC criteria are used to select the best model.">
-
-.. only:: html
-
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_lasso_lars_ic_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_linear_model_plot_lasso_lars_ic.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Lasso model selection via information criteria</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example focuses on model selection for Lasso models that are linear models with an L1 penalty for regression problems.">
-
-.. only:: html
-
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_lasso_model_selection_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_linear_model_plot_lasso_model_selection.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Lasso model selection: AIC-BIC / cross-validation</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="We show that linear_model.Lasso provides the same results for dense and sparse data and that in the case of sparse data the speed is improved.">
+    <div class="sphx-glr-thumbcontainer" tooltip="نبين أن linear_model.Lasso يوفر نفس النتائج للبيانات الكثيفة والمتفرقة وأن السرعة تتحسن في حالة البيانات المتفرقة.">
 
 .. only:: html
 
@@ -234,98 +64,13 @@ Examples concerning the :mod:`sklearn.linear_model` module.
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Lasso on dense and sparse data</div>
+      <div class="sphx-glr-thumbnail-title">Lasso على البيانات الكثيفة والمتفرقة</div>
     </div>
 
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to compute the &quot;paths&quot; of coefficients along the Lasso, Lasso-LARS, and Elastic Net regularization paths. In other words, it shows the relationship between the regularization parameter (alpha) and the coefficients.">
-
-.. only:: html
-
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_lasso_lasso_lars_elasticnet_path_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_linear_model_plot_lasso_lasso_lars_elasticnet_path.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Lasso, Lasso-LARS, and Elastic Net paths</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Shown in the plot is how the logistic regression would, in this synthetic dataset, classify values as either 0 or 1, i.e. class one or two, using the logistic curve.">
-
-.. only:: html
-
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_logistic_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_linear_model_plot_logistic.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Logistic function</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Here we fit a multinomial logistic regression with L1 penalty on a subset of the MNIST digits classification task. We use the SAGA algorithm for this purpose: this a solver that is fast when the number of samples is significantly larger than the number of features and is able to finely optimize non-smooth objective functions which is the case with the l1-penalty. Test accuracy reaches &gt; 0.8, while weight vectors remains sparse and therefore more easily interpretable.">
-
-.. only:: html
-
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_sparse_logistic_regression_mnist_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_linear_model_plot_sparse_logistic_regression_mnist.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">MNIST classification using multinomial logistic + L1</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Comparison of multinomial logistic L1 vs one-versus-rest L1 logistic regression to classify documents from the newgroups20 dataset. Multinomial logistic regression yields more accurate results and is faster to train on the larger scale dataset.">
-
-.. only:: html
-
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_sparse_logistic_regression_20newsgroups_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_linear_model_plot_sparse_logistic_regression_20newsgroups.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Multiclass sparse logistic regression on 20newgroups</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="In this example, we fit a linear model with positive constraints on the regression coefficients and compare the estimated coefficients to a classic linear regression.">
-
-.. only:: html
-
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_nnls_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_linear_model_plot_nnls.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Non-negative least squares</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to approximate the solution of sklearn.svm.OneClassSVM in the case of an RBF kernel with sklearn.linear_model.SGDOneClassSVM, a Stochastic Gradient Descent (SGD) version of the One-Class SVM. A kernel approximation is first used in order to apply sklearn.linear_model.SGDOneClassSVM which implements a linear One-Class SVM using SGD.">
+    <div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال كيفية تقريب حل sklearn.svm.OneClassSVM في حالة استخدام نواة RBF مع sklearn.linear_model.SGDOneClassSVM، وهي نسخة Stochastic Gradient Descent (SGD) من One-Class SVM. يتم استخدام تقريب النواة أولاً من أجل تطبيق sklearn.linear_model.SGDOneClassSVM الذي ينفذ One-Class SVM خطي باستخدام SGD.">
 
 .. only:: html
 
@@ -336,234 +81,13 @@ Examples concerning the :mod:`sklearn.linear_model` module.
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">One-Class SVM versus One-Class SVM using Stochastic Gradient Descent</div>
+      <div class="sphx-glr-thumbnail-title">One-Class SVM مقابل One-Class SVM باستخدام Stochastic Gradient Descent</div>
     </div>
 
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ordinary least squares (OLS) model called LinearRegression in scikit-learn.">
-
-.. only:: html
-
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_ols_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_linear_model_plot_ols.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Ordinary Least Squares Example</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Ridge regression is basically minimizing a penalised version of the least-squared function. The penalising shrinks the value of the regression coefficients. Despite the few data points in each dimension, the slope of the prediction is much more stable and the variance in the line itself is greatly reduced, in comparison to that of the standard linear regression">
-
-.. only:: html
-
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_ols_ridge_variance_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_linear_model_plot_ols_ridge_variance.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Ordinary Least Squares and Ridge Regression Variance</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Using orthogonal matching pursuit for recovering a sparse signal from a noisy measurement encoded with a dictionary">
-
-.. only:: html
-
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_omp_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_linear_model_plot_omp.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Orthogonal Matching Pursuit</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Shows the effect of collinearity in the coefficients of an estimator.">
-
-.. only:: html
-
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_ridge_path_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_linear_model_plot_ridge_path.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Plot Ridge coefficients as a function of the regularization</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Plot decision surface of multi-class SGD on iris dataset. The hyperplanes corresponding to the three one-versus-all (OVA) classifiers are represented by the dashed lines.">
-
-.. only:: html
-
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_sgd_iris_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_linear_model_plot_sgd_iris.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Plot multi-class SGD on the iris dataset</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of log-linear Poisson regression on the French Motor Third-Party Liability Claims dataset from [1]_ and compares it with a linear model fitted with the usual least squared error and a non-linear GBRT model fitted with the Poisson loss (and a log-link).">
-
-.. only:: html
-
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_poisson_regression_non_normal_loss_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_linear_model_plot_poisson_regression_non_normal_loss.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Poisson regression and non-normal loss</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates how to approximate a function with polynomials up to degree degree by using ridge regression. We show two different ways given n_samples of 1d points x_i:">
-
-.. only:: html
-
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_polynomial_interpolation_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_linear_model_plot_polynomial_interpolation.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Polynomial and Spline interpolation</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how quantile regression can predict non-trivial conditional quantiles.">
-
-.. only:: html
-
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_quantile_regression_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_linear_model_plot_quantile_regression.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Quantile regression</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip=" Train l1-penalized logistic regression models on a binary classification problem derived from the Iris dataset.">
-
-.. only:: html
-
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_logistic_path_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_linear_model_plot_logistic_path.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Regularization path of L1- Logistic Regression</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="A model that overfits learns the training data too well, capturing both the underlying patterns and the noise in the data. However, when applied to unseen data, the learned associations may not hold. We normally detect this when we apply our trained predictions to the test data and see the statistical performance drop significantly compared to the training data.">
-
-.. only:: html
-
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_ridge_coeffs_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_linear_model_plot_ridge_coeffs.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Ridge coefficients as a function of the L2 Regularization</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Here a sine function is fit with a polynomial of order 3, for values close to zero.">
-
-.. only:: html
-
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_robust_fit_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_linear_model_plot_robust_fit.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Robust linear estimator fitting</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="In this example, we see how to robustly fit a linear model to faulty data using the ransac_regression algorithm.">
-
-.. only:: html
-
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_ransac_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_linear_model_plot_ransac.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Robust linear model estimation using RANSAC</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Plot the maximum margin separating hyperplane within a two-class separable dataset using a linear Support Vector Machines classifier trained using SGD.">
-
-.. only:: html
-
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_sgd_separating_hyperplane_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_linear_model_plot_sgd_separating_hyperplane.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">SGD: Maximum margin separating hyperplane</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Contours of where the penalty is equal to 1 for the three penalties L1, L2 and elastic-net.">
+    <div class="sphx-glr-thumbcontainer" tooltip="مخططات توضح حيث تكون العقوبة تساوي 1 للعقوبات الثلاثة L1 وL2 وelastic-net.">
 
 .. only:: html
 
@@ -574,13 +98,13 @@ Examples concerning the :mod:`sklearn.linear_model` module.
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">SGD: Penalties</div>
+      <div class="sphx-glr-thumbnail-title">SGD: العقوبات</div>
     </div>
 
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Plot decision function of a weighted dataset, where the size of points is proportional to its weight.">
+    <div class="sphx-glr-thumbcontainer" tooltip="رسم دالة القرار لمجموعة بيانات مرجحة، حيث يتناسب حجم النقاط مع وزنها.">
 
 .. only:: html
 
@@ -591,13 +115,30 @@ Examples concerning the :mod:`sklearn.linear_model` module.
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">SGD: Weighted samples</div>
+      <div class="sphx-glr-thumbnail-title">SGD: العينات المرجحة</div>
     </div>
 
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="A plot that compares the various convex loss functions supported by SGDClassifier .">
+    <div class="sphx-glr-thumbcontainer" tooltip="ارسم المستوى الفاصل ذو الهامش الأقصى ضمن مجموعة بيانات ثنائية الفصل باستخدام مصنف آلات المتجهات الداعمة الخطي الذي تم تدريبه باستخدام SGD.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_sgd_separating_hyperplane_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_sgd_separating_hyperplane.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">SGD: المستوى الفاصل ذو الهامش الأقصى</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="رسم بياني يقارن بين دالات الخسارة المقعرة المختلفة المدعومة من قبل SGDClassifier .">
 
 .. only:: html
 
@@ -608,30 +149,149 @@ Examples concerning the :mod:`sklearn.linear_model` module.
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">SGD: convex loss functions</div>
+      <div class="sphx-glr-thumbnail-title">SGD: دالات الخسارة المقعرة</div>
     </div>
 
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Computes a Theil-Sen Regression on a synthetic dataset.">
+    <div class="sphx-glr-thumbcontainer" tooltip="نزول التدرج العشوائي هي تقنية تحسين تقلل من دالة الخسارة بطريقة عشوائية، حيث تقوم بخطوة نزول التدرج للعينة تلو الأخرى. وهي طريقة فعالة للغاية لملاءمة النماذج الخطية.">
 
 .. only:: html
 
-  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_theilsen_thumb.png
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_sgd_early_stopping_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_linear_model_plot_theilsen.py`
+  :ref:`sphx_glr_auto_examples_linear_model_plot_sgd_early_stopping.py`
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Theil-Sen Regression</div>
+      <div class="sphx-glr-thumbnail-title">إيقاف مبكر لنزول التدرج العشوائي</div>
     </div>
 
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of Poisson, Gamma and Tweedie regression on the French Motor Third-Party Liability Claims dataset, and is inspired by an R tutorial [1]_.">
+    <div class="sphx-glr-thumbcontainer" tooltip="هذا المثال يعيد إنتاج مثال الشكل 2 من [ZHT2007]_. يقوم مقدر LassoLarsIC بالتناسب مع مجموعة بيانات مرض السكري ويتم استخدام معياري معلومات أكايكي (AIC) ومعلومات بايز (BIC) لاختيار أفضل نموذج.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_lasso_lars_ic_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_lasso_lars_ic.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">اختيار نموذج لاصو عبر معايير المعلومات</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="يسمح Lasso متعدد المهام بتناسب مشاكل الانحدار المتعددة فرض اختيار الميزات نفسها عبر المهام. يحاكي هذا المثال القياسات التسلسلية، حيث تمثل كل مهمة لحظة زمنية، وتختلف الميزات ذات الصلة في السعة بمرور الوقت مع بقائها نفسها. يفرض Lasso متعدد المهام أن الميزات التي يتم اختيارها في لحظة زمنية واحدة يتم اختيارها لجميع اللحظات الزمنية. وهذا يجعل اختيار الميزات بواسطة Lasso أكثر استقرارًا.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_multi_task_lasso_support_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_multi_task_lasso_support.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">الاختيار المشترك للميزات باستخدام Lasso متعدد المهام</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="بسبب قلة النقاط في كل بُعد والخط المستقيم الذي يستخدمه الانحدار الخطي لمتابعة هذه النقاط بأفضل ما يمكن، فإن الضوضاء على الملاحظات ستسبب تباينًا كبيرًا كما هو موضح في الرسم البياني الأول. يمكن أن يختلف ميل كل خط بشكل كبير لكل توقع بسبب الضوضاء في الملاحظات.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_ols_ridge_variance_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_ols_ridge_variance.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">الانحدار الخطي العادي وانحدار ريدج والتباين</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="مقارنة الانحدار اللوجستي متعدد الحدود L1 مقابل الانحدار اللوجستي واحد مقابل البقية L1 لتصنيف المستندات من مجموعة بيانات newgroups20. ينتج الانحدار اللوجستي متعدد الحدود نتائج أكثر دقة وهو أسرع في التدريب على مجموعة البيانات الأكبر حجمًا.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_sparse_logistic_regression_20newsgroups_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_sparse_logistic_regression_20newsgroups.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">الانحدار اللوجستي المتناثر متعدد الفئات على 20newgroups</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال كيفية تقريب دالة باستخدام متعددات الحدود حتى الدرجة degree باستخدام الانحدار المحدب. نعرض طريقتين مختلفتين نظرًا لـ n_samples من النقاط 1d x_i:">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_polynomial_interpolation_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_polynomial_interpolation.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">التكامل متعدد الحدود والتقسيم</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="يوضح الرسم البياني كيف أن الانحدار اللوجستي، في مجموعة البيانات الاصطناعية هذه، سيصنف القيم إما 0 أو 1، أي الفئة الأولى أو الثانية، باستخدام المنحنى اللوغستي.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_logistic_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_logistic.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">الدالة اللوغستية</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال استخدام الانحدار اللوغاريتمي الخطي بواسون على مجموعة بيانات مطالبات المسؤولية الطرفية الثالثة للسيارات الفرنسية من [1]_ ويقارنها بنموذج خطي يتم تركيبه باستخدام خطأ المربعات الأقل المعتاد ونموذج GBRT غير خطي يتم تركيبه باستخدام خسارة بواسون (ورابط تسجيل الدخول).">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_poisson_regression_non_normal_loss_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_poisson_regression_non_normal_loss.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">انحدار بواسون والخسارة غير الطبيعية</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال استخدام الانحدار الشعاعي، جاما وتويدي على مجموعة بيانات مطالبات المسؤولية المدنية الفرنسية لطرف ثالث، مستوحى من درس تعليمي R [1]_.">
 
 .. only:: html
 
@@ -642,7 +302,347 @@ Examples concerning the :mod:`sklearn.linear_model` module.
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Tweedie regression on insurance claims</div>
+      <div class="sphx-glr-thumbnail-title">انحدار تويدي على مطالبات التأمين</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="يحسب انحدار ثيل-سين على مجموعة بيانات اصطناعية.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_theilsen_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_theilsen.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">انحدار ثيل-سين</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال كيف يمكن لانحدار كمي التنبؤ بالكميات الشرطية غير التافهة.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_quantile_regression_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_quantile_regression.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">انحدار كمي</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="هنا نقوم بضبط الانحدار اللوغاريتمي متعدد الحدود مع عقوبة L1 على مجموعة فرعية من مهمة تصنيف أرقام MNIST. نستخدم خوارزمية SAGA لهذا الغرض: هذه أداة حل سريعة عندما يكون عدد العينات أكبر بشكل ملحوظ من عدد الميزات وقادرة على تحسين دقيق وظائف الهدف غير الملساء والتي هي الحالة مع عقوبة l1. تصل دقة الاختبار &gt; 0.8، بينما تبقى متجهات الوزن متفرقة وبالتالي أكثر سهولة قابل للتفسير.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_sparse_logistic_regression_mnist_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_sparse_logistic_regression_mnist.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">تصنيف MNIST باستخدام اللوغاريتم متعدد الحدود + L1</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="في هذا المثال، نرى كيفية ملاءمة نموذج خطي بشكل قوي لبيانات معيبة باستخدام خوارزمية ransac_regression.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_ransac_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_ransac.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">تقدير النموذج الخطي القوي باستخدام RANSAC</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="هنا يتم ملاءمة دالة الجيب مع متعددة حدود من الدرجة 3، للقيم قريبة من الصفر.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_robust_fit_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_robust_fit.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">تقدير خطي قوي</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="يوضح المثال التالي كيفية حساب مصفوفة جرام مسبقًا مع استخدام عينات مرجحة مع ElasticNet.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_elastic_net_precomputed_gram_matrix_with_weighted_samples_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_elastic_net_precomputed_gram_matrix_with_weighted_samples.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">تناسب شبكة مرنة مع مصفوفة جرام مسبقة الحساب وعينات مرجحة</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="يقارن هذا المثال حدود القرار للانحدار متعدد الحدود والانحدار اللوجستي من النوع واحد مقابل البقية على مجموعة بيانات ثنائية الأبعاد بثلاث فئات.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_logistic_multinomial_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_logistic_multinomial.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">حدود القرار للانحدار متعدد الحدود والانحدار اللوجستي من النوع واحد مقابل البقية</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="رسم سطح القرار لمتعدد الفئات SGD على مجموعة بيانات الزهرة. تمثل الخطوط المتقطعة المستويات الفاصلة المقابلة للثلاثة مصنفات من نوع واحد مقابل الجميع (OVA).">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_sgd_iris_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_sgd_iris.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">رسم متعدد الفئات SGD على مجموعة بيانات الزهرة</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="يظهر هذا المثال تأثير التلازم في معاملات أداة التقدير.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_ridge_path_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_ridge_path.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">رسم معاملات Ridge كدالة للتنظيم</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="مقارنة الندرة (نسبة المعاملات الصفرية) للحلول عند استخدام عقوبة L1 و L2 و Elastic-Net لقيم مختلفة من C. يمكننا أن نرى أن القيم الكبيرة من C تعطي المزيد من الحرية للنموذج. على العكس من ذلك، القيم الأصغر من C تقيد النموذج أكثر. في حالة عقوبة L1، يؤدي ذلك إلى حلول أكثر ندرة. كما هو متوقع، ندرة عقوبة Elastic-Net تقع بين عقوبة L1 و L2.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_logistic_l1_l2_sparsity_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_logistic_l1_l2_sparsity.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">عقوبة L1 والندرة في الانحدار اللوجستي</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال كيفية استخدام نموذج المربعات الصغرى العادية (OLS) المسمى LinearRegression في مكتبة ساي كيت ليرن (scikit-learn).">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_ols_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_ols.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">مثال على المربعات الصغرى العادية</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="في هذا المثال، نقوم بملاءمة نموذج خطي مع قيود إيجابية على معاملات الانحدار ومقارنة المعاملات المقدرة مع الانحدار الخطي الكلاسيكي.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_nnls_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_nnls.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">مربعات أقل غير سالبة</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip=" قم بتدريب نماذج الانحدار اللوجستي المنتظمة بـ L1 على مشكلة تصنيف ثنائي مستمدة من مجموعة بيانات Iris.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_logistic_path_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_logistic_path.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">مسار التنظيم لـ L1 - الانحدار اللوجستي</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="هذا المثال يوضح كيفية حساب &quot;المسارات&quot; لمعاملات لاصو، لاصو-لارس، ومسارات الشبكة المرنة. وبعبارة أخرى، فإنه يظهر العلاقة بين معامل التنظيم (ألفا) والمعاملات.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_lasso_lasso_lars_elasticnet_path_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_lasso_lasso_lars_elasticnet_path.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">مسارات لاصو ولاصو-لارس وشبكة مرنة</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="استخدام مطابقة متعامدة لاستعادة إشارة متفرقة من قياس مشوش مشفر بقاموس">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_omp_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_omp.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">مطابقة متعامدة</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="النموذج الذي يبالغ في التعميم يتعلم بيانات التدريب جيدًا جدًا، حيث يلتقط كل من الأنماط الأساسية والضوضاء في البيانات. ومع ذلك، عند تطبيقه على بيانات غير معروفة، قد لا تستمر الارتباطات المكتسبة. عادة ما نكتشف ذلك عندما نطبق تنبؤاتنا المدربة على بيانات الاختبار ونرى الأداء الإحصائي ينخفض بشكل كبير مقارنة ببيانات التدريب.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_ridge_coeffs_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_ridge_coeffs.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">معاملات Ridge كدالة لتنظيم L2</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="قم بضبط نموذج Ridge و HuberRegressor على مجموعة بيانات تحتوي على قيم شاذة.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_huber_vs_ridge_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_huber_vs_ridge.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">مقارنة بين HuberRegressor و Ridge على مجموعة بيانات تحتوي على قيم شاذة قوية</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="مقارنة بين المحللات المختلفة عبر الإنترنت">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_sgd_comparison_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_sgd_comparison.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">مقارنة بين المحللات المختلفة عبر الإنترنت</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="يقارن المثال الحالي ثلاثة نماذج ارتجاع L1 على إشارة اصطناعية تم الحصول عليها من ميزات متناثرة ومتناسقة يتم إفسادها مع ضوضاء غاوسية إضافية:">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_lasso_and_elasticnet_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_lasso_and_elasticnet.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">نماذج L1 للاشارات المتناثرة</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="يركز هذا المثال على اختيار النموذج لنموذج لاصو، وهي نماذج خطية مع عقوبة L1 لمشاكل الانحدار.">
+
+.. only:: html
+
+  .. image:: /auto_examples/linear_model/images/thumb/sphx_glr_plot_lasso_model_selection_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_linear_model_plot_lasso_model_selection.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">نموذج لاصو: اختيار النموذج باستخدام معايير AIC-BIC والتحقق المتقاطع</div>
     </div>
 
 
@@ -656,41 +656,41 @@ Examples concerning the :mod:`sklearn.linear_model` module.
 .. toctree::
    :hidden:
 
-   /auto_examples/linear_model/plot_ard
-   /auto_examples/linear_model/plot_sgd_comparison
    /auto_examples/linear_model/plot_bayesian_ridge_curvefit
-   /auto_examples/linear_model/plot_logistic_multinomial
-   /auto_examples/linear_model/plot_sgd_early_stopping
-   /auto_examples/linear_model/plot_elastic_net_precomputed_gram_matrix_with_weighted_samples
-   /auto_examples/linear_model/plot_huber_vs_ridge
-   /auto_examples/linear_model/plot_multi_task_lasso_support
-   /auto_examples/linear_model/plot_logistic_l1_l2_sparsity
-   /auto_examples/linear_model/plot_lasso_and_elasticnet
-   /auto_examples/linear_model/plot_lasso_lars_ic
-   /auto_examples/linear_model/plot_lasso_model_selection
+   /auto_examples/linear_model/plot_ard
    /auto_examples/linear_model/plot_lasso_dense_vs_sparse_data
-   /auto_examples/linear_model/plot_lasso_lasso_lars_elasticnet_path
-   /auto_examples/linear_model/plot_logistic
-   /auto_examples/linear_model/plot_sparse_logistic_regression_mnist
-   /auto_examples/linear_model/plot_sparse_logistic_regression_20newsgroups
-   /auto_examples/linear_model/plot_nnls
    /auto_examples/linear_model/plot_sgdocsvm_vs_ocsvm
-   /auto_examples/linear_model/plot_ols
-   /auto_examples/linear_model/plot_ols_ridge_variance
-   /auto_examples/linear_model/plot_omp
-   /auto_examples/linear_model/plot_ridge_path
-   /auto_examples/linear_model/plot_sgd_iris
-   /auto_examples/linear_model/plot_poisson_regression_non_normal_loss
-   /auto_examples/linear_model/plot_polynomial_interpolation
-   /auto_examples/linear_model/plot_quantile_regression
-   /auto_examples/linear_model/plot_logistic_path
-   /auto_examples/linear_model/plot_ridge_coeffs
-   /auto_examples/linear_model/plot_robust_fit
-   /auto_examples/linear_model/plot_ransac
-   /auto_examples/linear_model/plot_sgd_separating_hyperplane
    /auto_examples/linear_model/plot_sgd_penalties
    /auto_examples/linear_model/plot_sgd_weighted_samples
+   /auto_examples/linear_model/plot_sgd_separating_hyperplane
    /auto_examples/linear_model/plot_sgd_loss_functions
-   /auto_examples/linear_model/plot_theilsen
+   /auto_examples/linear_model/plot_sgd_early_stopping
+   /auto_examples/linear_model/plot_lasso_lars_ic
+   /auto_examples/linear_model/plot_multi_task_lasso_support
+   /auto_examples/linear_model/plot_ols_ridge_variance
+   /auto_examples/linear_model/plot_sparse_logistic_regression_20newsgroups
+   /auto_examples/linear_model/plot_polynomial_interpolation
+   /auto_examples/linear_model/plot_logistic
+   /auto_examples/linear_model/plot_poisson_regression_non_normal_loss
    /auto_examples/linear_model/plot_tweedie_regression_insurance_claims
+   /auto_examples/linear_model/plot_theilsen
+   /auto_examples/linear_model/plot_quantile_regression
+   /auto_examples/linear_model/plot_sparse_logistic_regression_mnist
+   /auto_examples/linear_model/plot_ransac
+   /auto_examples/linear_model/plot_robust_fit
+   /auto_examples/linear_model/plot_elastic_net_precomputed_gram_matrix_with_weighted_samples
+   /auto_examples/linear_model/plot_logistic_multinomial
+   /auto_examples/linear_model/plot_sgd_iris
+   /auto_examples/linear_model/plot_ridge_path
+   /auto_examples/linear_model/plot_logistic_l1_l2_sparsity
+   /auto_examples/linear_model/plot_ols
+   /auto_examples/linear_model/plot_nnls
+   /auto_examples/linear_model/plot_logistic_path
+   /auto_examples/linear_model/plot_lasso_lasso_lars_elasticnet_path
+   /auto_examples/linear_model/plot_omp
+   /auto_examples/linear_model/plot_ridge_coeffs
+   /auto_examples/linear_model/plot_huber_vs_ridge
+   /auto_examples/linear_model/plot_sgd_comparison
+   /auto_examples/linear_model/plot_lasso_and_elasticnet
+   /auto_examples/linear_model/plot_lasso_model_selection
 

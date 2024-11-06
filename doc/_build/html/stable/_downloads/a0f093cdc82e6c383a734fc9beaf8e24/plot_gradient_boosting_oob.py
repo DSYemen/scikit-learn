@@ -1,29 +1,21 @@
 """
 ======================================
-Gradient Boosting Out-of-Bag estimates
+تقديرات Gradient Boosting Out-of-Bag
 ======================================
-Out-of-bag (OOB) estimates can be a useful heuristic to estimate
-the "optimal" number of boosting iterations.
-OOB estimates are almost identical to cross-validation estimates but
-they can be computed on-the-fly without the need for repeated model
-fitting.
-OOB estimates are only available for Stochastic Gradient Boosting
-(i.e. ``subsample < 1.0``), the estimates are derived from the improvement
-in loss based on the examples not included in the bootstrap sample
-(the so-called out-of-bag examples).
-The OOB estimator is a pessimistic estimator of the true
-test loss, but remains a fairly good approximation for a small number of trees.
-The figure shows the cumulative sum of the negative OOB improvements
-as a function of the boosting iteration. As you can see, it tracks the test
-loss for the first hundred iterations but then diverges in a
-pessimistic way.
-The figure also shows the performance of 3-fold cross validation which
-usually gives a better estimate of the test loss
-but is computationally more demanding.
+يمكن أن تكون تقديرات Out-of-Bag (OOB) وسيلة مفيدة لتقدير العدد "الأمثل" لدورات التعزيز.
+تتشابه تقديرات OOB تقريبًا مع تقديرات التحقق المتقاطع، ولكن يمكن حسابها أثناء التنفيذ دون الحاجة إلى تكرار ملاءمة النموذج.
+تتوفر تقديرات OOB فقط لتعزيز التدرج العشوائي
+(أي ``subsample < 1.0``)، وتُستمد التقديرات من التحسن في الخسارة بناءً على الأمثلة غير المدرجة في عينة التمهيد
+(ما يسمى الأمثلة خارج الكيس).
+المقدر OOB هو مقدر متشائم للخسارة الحقيقية للاختبار، ولكنه يبقى تقريبًا جيدًا لعدد صغير من الأشجار.
+يوضح الشكل المجموع التراكمي للتحسينات السلبية لـ OOB
+كدالة لدورة التعزيز. كما ترى، فإنه يتتبع خسارة الاختبار للمائة دورة الأولى ولكن بعد ذلك ينحرف بطريقة متشائمة.
+يوضح الشكل أيضًا أداء التحقق المتقاطع 3-fold الذي
+يعطي عادة تقديرًا أفضل لخسارة الاختبار
+ولكنه أكثر تطلبًا من الناحية الحسابية.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -111,6 +103,10 @@ oob_color = list(map(lambda x: x / 256.0, (190, 174, 212)))
 test_color = list(map(lambda x: x / 256.0, (127, 201, 127)))
 cv_color = list(map(lambda x: x / 256.0, (253, 192, 134)))
 
+# line type for the three curves
+oob_line = "dashed"
+test_line = "solid"
+cv_line = "dashdot"
 # line type for the three curves
 oob_line = "dashed"
 test_line = "solid"

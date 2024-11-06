@@ -11,10 +11,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/modules/generated/sklearn.inspection.permutation_importance.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="Gallery examples: Release Highlights for scikit-learn 0.22" />
-<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_release_highlights_0_22_0_thumb.png" />
+<meta property="og:description" content="Gallery examples: أهمية التبديل مع الميزات متعددة الخطية أو المرتبطة أهمية التبديل مقابل أهمية ميزة الغابة العشوائية (MDI) انحدار التعزيز المتدرج" />
+<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_permutation_importance_multicollinear_thumb.png" />
 <meta property="og:image:alt" content="" />
-<meta name="description" content="Gallery examples: Release Highlights for scikit-learn 0.22" />
+<meta name="description" content="Gallery examples: أهمية التبديل مع الميزات متعددة الخطية أو المرتبطة أهمية التبديل مقابل أهمية ميزة الغابة العشوائية (MDI) انحدار التعزيز المتدرج" />
 
     <title>permutation_importance &#8212; scikit-learn 1.6.dev0 documentation</title>
   
@@ -1304,9 +1304,9 @@
 <h1>permutation_importance<a class="headerlink" href="#permutation-importance" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="sklearn.inspection.permutation_importance">
-<span class="sig-prename descclassname"><span class="pre">sklearn.inspection.</span></span><span class="sig-name descname"><span class="pre">permutation_importance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">estimator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scoring</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_repeats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/001706117/sklearn/inspection/_permutation_importance.py#L114"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.inspection.permutation_importance" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">sklearn.inspection.</span></span><span class="sig-name descname"><span class="pre">permutation_importance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">estimator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scoring</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_repeats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d6d4571215/sklearn/inspection/_permutation_importance.py#L114"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.inspection.permutation_importance" title="Link to this definition">#</a></dt>
 <dd><p>Permutation importance for feature evaluation <a class="reference internal" href="#rd9e56ef97513-bre" id="id1">[BRE]</a>.</p>
-<p>The <a class="reference internal" href="../../glossary.html#term-estimator"><span class="xref std std-term">estimator</span></a> is required to be a fitted estimator. <code class="docutils literal notranslate"><span class="pre">X</span></code> can be the
+<p>The <span class="xref std std-term">estimator</span> is required to be a fitted estimator. <code class="docutils literal notranslate"><span class="pre">X</span></code> can be the
 data set used to train the estimator or a hold-out set. The permutation
 importance of a feature is calculated as follows. First, a baseline metric,
 defined by <a class="reference internal" href="../../glossary.html#term-scoring"><span class="xref std std-term">scoring</span></a>, is evaluated on a (potentially different)
@@ -1318,8 +1318,8 @@ permutating the feature column.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
-<dt><strong>estimator</strong><span class="classifier">object</span></dt><dd><p>An estimator that has already been <a class="reference internal" href="../../glossary.html#term-fitted"><span class="xref std std-term">fitted</span></a> and is compatible
-with <a class="reference internal" href="../../glossary.html#term-scorer"><span class="xref std std-term">scorer</span></a>.</p>
+<dt><strong>estimator</strong><span class="classifier">object</span></dt><dd><p>An estimator that has already been <span class="xref std std-term">fitted</span> and is compatible
+with <span class="xref std std-term">scorer</span>.</p>
 </dd>
 <dt><strong>X</strong><span class="classifier">ndarray or DataFrame, shape (n_samples, n_features)</span></dt><dd><p>Data on which permutation importance will be computed.</p>
 </dd>
@@ -1424,9 +1424,15 @@ the computational speed vs statistical accuracy trade-off of this method.</p>
 
 <section id="gallery-examples">
 <h2>Gallery examples<a class="headerlink" href="#gallery-examples" title="Link to this heading">#</a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="We are pleased to announce the release of scikit-learn 0.22, which comes with many bug fixes and new features! We detail below a few of the major features of this release. For an exhaustive list of all the changes, please refer to the release notes &lt;release_notes_0_22&gt;."><img alt="" src="../../_images/sphx_glr_plot_release_highlights_0_22_0_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/release_highlights/plot_release_highlights_0_22_0.html#sphx-glr-auto-examples-release-highlights-plot-release-highlights-0-22-0-py"><span class="std std-ref">Release Highlights for scikit-learn 0.22</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Release Highlights for scikit-learn 0.22</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="في هذا المثال، نحسب permutation_importance للميزات لـ RandomForestClassifier مدربة باستخدام breast_cancer_dataset. يمكن للنموذج بسهولة الحصول على دقة تبلغ حوالي 97% على مجموعة بيانات الاختبار. نظرًا لأن مجموعة البيانات هذه تحتوي على ميزات متعددة الخطية، فإن أهمية التبديل تُظهر أنه لا توجد أي من الميزات مهمة، في تناقض مع دقة الاختبار العالية."><img alt="" src="../../_images/sphx_glr_plot_permutation_importance_multicollinear_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/inspection/plot_permutation_importance_multicollinear.html#sphx-glr-auto-examples-inspection-plot-permutation-importance-multicollinear-py"><span class="std std-ref">أهمية التبديل مع الميزات متعددة الخطية أو المرتبطة</span></a></p>
+  <div class="sphx-glr-thumbnail-title">أهمية التبديل مع الميزات متعددة الخطية أو المرتبطة</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="في هذا المثال، سنقارن أهمية الميزة القائمة على الشوائب لـ RandomForestClassifier مع أهمية التبديل على مجموعة بيانات تيتانيك باستخدام permutation_importance. سنوضح أن أهمية الميزة القائمة على الشوائب يمكن أن تبالغ في أهمية الميزات الرقمية."><img alt="" src="../../_images/sphx_glr_plot_permutation_importance_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/inspection/plot_permutation_importance.html#sphx-glr-auto-examples-inspection-plot-permutation-importance-py"><span class="std std-ref">أهمية التبديل مقابل أهمية ميزة الغابة العشوائية (MDI)</span></a></p>
+  <div class="sphx-glr-thumbnail-title">أهمية التبديل مقابل أهمية ميزة الغابة العشوائية (MDI)</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال التعزيز المتدرج لإنتاج نموذج تنبؤي من مجموعة من النماذج التنبؤية الضعيفة. يمكن استخدام التعزيز المتدرج لمشاكل الانحدار والتصنيف. هنا، سوف نقوم بتدريب نموذج لمعالجة مهمة انحدار مرض السكري. سنحصل على النتائج من GradientBoostingRegressor مع خسارة المربعات الصغرى و 500 شجرة انحدار بعمق 4."><img alt="" src="../../_images/sphx_glr_plot_gradient_boosting_regression_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/ensemble/plot_gradient_boosting_regression.html#sphx-glr-auto-examples-ensemble-plot-gradient-boosting-regression-py"><span class="std std-ref">انحدار التعزيز المتدرج</span></a></p>
+  <div class="sphx-glr-thumbnail-title">انحدار التعزيز المتدرج</div>
 </div></div></section>
 </section>
 

@@ -11,10 +11,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/modules/generated/sklearn.metrics.mean_squared_error.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="Gallery examples: Early stopping in Gradient Boosting Gradient Boosting regression Prediction Intervals for Gradient Boosting Regression Model Complexity Influence Ordinary Least Squares Example Po..." />
-<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_gradient_boosting_early_stopping_thumb.png" />
+<meta property="og:description" content="Gallery examples: انحدار تويدي على مطالبات التأمين" />
+<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_tweedie_regression_insurance_claims_thumb.png" />
 <meta property="og:image:alt" content="" />
-<meta name="description" content="Gallery examples: Early stopping in Gradient Boosting Gradient Boosting regression Prediction Intervals for Gradient Boosting Regression Model Complexity Influence Ordinary Least Squares Example Po..." />
+<meta name="description" content="Gallery examples: انحدار تويدي على مطالبات التأمين" />
 
     <title>mean_squared_error &#8212; scikit-learn 1.6.dev0 documentation</title>
   
@@ -1304,7 +1304,7 @@
 <h1>mean_squared_error<a class="headerlink" href="#mean-squared-error" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="sklearn.metrics.mean_squared_error">
-<span class="sig-prename descclassname"><span class="pre">sklearn.metrics.</span></span><span class="sig-name descname"><span class="pre">mean_squared_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multioutput</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'uniform_average'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/001706117/sklearn/metrics/_regression.py#L432"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.metrics.mean_squared_error" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">sklearn.metrics.</span></span><span class="sig-name descname"><span class="pre">mean_squared_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multioutput</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'uniform_average'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d6d4571215/sklearn/metrics/_regression.py#L432"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.metrics.mean_squared_error" title="Link to this definition">#</a></dt>
 <dd><p>Mean squared error regression loss.</p>
 <p>Read more in the <a class="reference internal" href="../model_evaluation.html#mean-squared-error"><span class="std std-ref">User Guide</span></a>.</p>
 <dl class="field-list">
@@ -1355,36 +1355,9 @@ array of floating point values, one for each individual target.</p>
 
 <section id="gallery-examples">
 <h2>Gallery examples<a class="headerlink" href="#gallery-examples" title="Link to this heading">#</a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Gradient Boosting is an ensemble technique that combines multiple weak learners, typically decision trees, to create a robust and powerful predictive model. It does so in an iterative fashion, where each new stage (tree) corrects the errors of the previous ones."><img alt="" src="../../_images/sphx_glr_plot_gradient_boosting_early_stopping_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/ensemble/plot_gradient_boosting_early_stopping.html#sphx-glr-auto-examples-ensemble-plot-gradient-boosting-early-stopping-py"><span class="std std-ref">Early stopping in Gradient Boosting</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Early stopping in Gradient Boosting</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates Gradient Boosting to produce a predictive model from an ensemble of weak predictive models. Gradient boosting can be used for regression and classification problems. Here, we will train a model to tackle a diabetes regression task. We will obtain the results from GradientBoostingRegressor with least squares loss and 500 regression trees of depth 4."><img alt="" src="../../_images/sphx_glr_plot_gradient_boosting_regression_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/ensemble/plot_gradient_boosting_regression.html#sphx-glr-auto-examples-ensemble-plot-gradient-boosting-regression-py"><span class="std std-ref">Gradient Boosting regression</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Gradient Boosting regression</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how quantile regression can be used to create prediction intervals. See sphx_glr_auto_examples_ensemble_plot_hgbt_regression.py for an example showcasing some other features of HistGradientBoostingRegressor."><img alt="" src="../../_images/sphx_glr_plot_gradient_boosting_quantile_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/ensemble/plot_gradient_boosting_quantile.html#sphx-glr-auto-examples-ensemble-plot-gradient-boosting-quantile-py"><span class="std std-ref">Prediction Intervals for Gradient Boosting Regression</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Prediction Intervals for Gradient Boosting Regression</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Demonstrate how model complexity influences both prediction accuracy and computational performance."><img alt="" src="../../_images/sphx_glr_plot_model_complexity_influence_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/applications/plot_model_complexity_influence.html#sphx-glr-auto-examples-applications-plot-model-complexity-influence-py"><span class="std std-ref">Model Complexity Influence</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Model Complexity Influence</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ordinary least squares (OLS) model called LinearRegression in scikit-learn."><img alt="" src="../../_images/sphx_glr_plot_ols_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/linear_model/plot_ols.html#sphx-glr-auto-examples-linear-model-plot-ols-py"><span class="std std-ref">Ordinary Least Squares Example</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Ordinary Least Squares Example</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of log-linear Poisson regression on the French Motor Third-Party Liability Claims dataset from [1]_ and compares it with a linear model fitted with the usual least squared error and a non-linear GBRT model fitted with the Poisson loss (and a log-link)."><img alt="" src="../../_images/sphx_glr_plot_poisson_regression_non_normal_loss_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/linear_model/plot_poisson_regression_non_normal_loss.html#sphx-glr-auto-examples-linear-model-plot-poisson-regression-non-normal-loss-py"><span class="std std-ref">Poisson regression and non-normal loss</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Poisson regression and non-normal loss</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates how quantile regression can predict non-trivial conditional quantiles."><img alt="" src="../../_images/sphx_glr_plot_quantile_regression_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/linear_model/plot_quantile_regression.html#sphx-glr-auto-examples-linear-model-plot-quantile-regression-py"><span class="std std-ref">Quantile regression</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Quantile regression</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="A model that overfits learns the training data too well, capturing both the underlying patterns and the noise in the data. However, when applied to unseen data, the learned associations may not hold. We normally detect this when we apply our trained predictions to the test data and see the statistical performance drop significantly compared to the training data."><img alt="" src="../../_images/sphx_glr_plot_ridge_coeffs_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/linear_model/plot_ridge_coeffs.html#sphx-glr-auto-examples-linear-model-plot-ridge-coeffs-py"><span class="std std-ref">Ridge coefficients as a function of the L2 Regularization</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Ridge coefficients as a function of the L2 Regularization</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Here a sine function is fit with a polynomial of order 3, for values close to zero."><img alt="" src="../../_images/sphx_glr_plot_robust_fit_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/linear_model/plot_robust_fit.html#sphx-glr-auto-examples-linear-model-plot-robust-fit-py"><span class="std std-ref">Robust linear estimator fitting</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Robust linear estimator fitting</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of Poisson, Gamma and Tweedie regression on the French Motor Third-Party Liability Claims dataset, and is inspired by an R tutorial [1]_."><img alt="" src="../../_images/sphx_glr_plot_tweedie_regression_insurance_claims_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/linear_model/plot_tweedie_regression_insurance_claims.html#sphx-glr-auto-examples-linear-model-plot-tweedie-regression-insurance-claims-py"><span class="std std-ref">Tweedie regression on insurance claims</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Tweedie regression on insurance claims</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال استخدام الانحدار الشعاعي، جاما وتويدي على مجموعة بيانات مطالبات المسؤولية المدنية الفرنسية لطرف ثالث، مستوحى من درس تعليمي R [1]_."><img alt="" src="../../_images/sphx_glr_plot_tweedie_regression_insurance_claims_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/linear_model/plot_tweedie_regression_insurance_claims.html#sphx-glr-auto-examples-linear-model-plot-tweedie-regression-insurance-claims-py"><span class="std std-ref">انحدار تويدي على مطالبات التأمين</span></a></p>
+  <div class="sphx-glr-thumbnail-title">انحدار تويدي على مطالبات التأمين</div>
 </div></div></section>
 </section>
 

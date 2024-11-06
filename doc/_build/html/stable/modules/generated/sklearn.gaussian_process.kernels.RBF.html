@@ -11,10 +11,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/modules/generated/sklearn.gaussian_process.kernels.RBF.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="Gallery examples: Classifier comparison Plot classification probability Ability of Gaussian process regression (GPR) to estimate data noise-level Comparison of kernel ridge and Gaussian process reg..." />
-<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_classifier_comparison_thumb.png" />
+<meta property="og:description" content="Gallery examples: قدرة انحدار العمليات الغاوسية (GPR) على تقدير مستوى ضوضاء البيانات" />
+<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_gpr_noisy_thumb.png" />
 <meta property="og:image:alt" content="" />
-<meta name="description" content="Gallery examples: Classifier comparison Plot classification probability Ability of Gaussian process regression (GPR) to estimate data noise-level Comparison of kernel ridge and Gaussian process reg..." />
+<meta name="description" content="Gallery examples: قدرة انحدار العمليات الغاوسية (GPR) على تقدير مستوى ضوضاء البيانات" />
 
     <title>RBF &#8212; scikit-learn 1.6.dev0 documentation</title>
   
@@ -1305,7 +1305,7 @@
 <h1>RBF<a class="headerlink" href="#rbf" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="sklearn.gaussian_process.kernels.RBF">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sklearn.gaussian_process.kernels.</span></span><span class="sig-name descname"><span class="pre">RBF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">length_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length_scale_bounds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1e-05,</span> <span class="pre">100000.0)</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/001706117/sklearn/gaussian_process/kernels.py#L1445"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.gaussian_process.kernels.RBF" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sklearn.gaussian_process.kernels.</span></span><span class="sig-name descname"><span class="pre">RBF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">length_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length_scale_bounds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1e-05,</span> <span class="pre">100000.0)</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d6d4571215/sklearn/gaussian_process/kernels.py#L1445"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.gaussian_process.kernels.RBF" title="Link to this definition">#</a></dt>
 <dd><p>Radial basis function kernel (aka squared-exponential kernel).</p>
 <p>The RBF kernel is a stationary kernel. It is also known as the
 &quot;squared exponential&quot; kernel. It is parameterized by a length scale
@@ -1369,7 +1369,7 @@ Advice on Covariance functions&quot;.</a></p>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="sklearn.gaussian_process.kernels.RBF.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eval_gradient</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/001706117/sklearn/gaussian_process/kernels.py#L1527"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.gaussian_process.kernels.RBF.__call__" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eval_gradient</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d6d4571215/sklearn/gaussian_process/kernels.py#L1527"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.gaussian_process.kernels.RBF.__call__" title="Link to this definition">#</a></dt>
 <dd><p>Return the kernel k(X, Y) and optionally its gradient.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1414,7 +1414,7 @@ is True.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sklearn.gaussian_process.kernels.RBF.clone_with_theta">
-<span class="sig-name descname"><span class="pre">clone_with_theta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theta</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/001706117/sklearn/gaussian_process/kernels.py#L260"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.gaussian_process.kernels.RBF.clone_with_theta" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">clone_with_theta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theta</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d6d4571215/sklearn/gaussian_process/kernels.py#L260"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.gaussian_process.kernels.RBF.clone_with_theta" title="Link to this definition">#</a></dt>
 <dd><p>Returns a clone of self with given hyperparameters theta.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1428,7 +1428,7 @@ is True.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sklearn.gaussian_process.kernels.RBF.diag">
-<span class="sig-name descname"><span class="pre">diag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/001706117/sklearn/gaussian_process/kernels.py#L470"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.gaussian_process.kernels.RBF.diag" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">diag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d6d4571215/sklearn/gaussian_process/kernels.py#L470"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.gaussian_process.kernels.RBF.diag" title="Link to this definition">#</a></dt>
 <dd><p>Returns the diagonal of the kernel k(X, X).</p>
 <p>The result of this method is identical to np.diag(self(X)); however,
 it can be evaluated more efficiently since only the diagonal is
@@ -1451,7 +1451,7 @@ evaluated.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sklearn.gaussian_process.kernels.RBF.get_params">
-<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/001706117/sklearn/gaussian_process/kernels.py#L180"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.gaussian_process.kernels.RBF.get_params" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d6d4571215/sklearn/gaussian_process/kernels.py#L180"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.gaussian_process.kernels.RBF.get_params" title="Link to this definition">#</a></dt>
 <dd><p>Get parameters of this kernel.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1478,7 +1478,7 @@ contained subobjects that are estimators.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sklearn.gaussian_process.kernels.RBF.is_stationary">
-<span class="sig-name descname"><span class="pre">is_stationary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/001706117/sklearn/gaussian_process/kernels.py#L496"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.gaussian_process.kernels.RBF.is_stationary" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">is_stationary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d6d4571215/sklearn/gaussian_process/kernels.py#L496"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.gaussian_process.kernels.RBF.is_stationary" title="Link to this definition">#</a></dt>
 <dd><p>Returns whether the kernel is stationary.</p>
 </dd></dl>
 
@@ -1498,7 +1498,7 @@ compatibility.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sklearn.gaussian_process.kernels.RBF.set_params">
-<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/001706117/sklearn/gaussian_process/kernels.py#L220"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.gaussian_process.kernels.RBF.set_params" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">set_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d6d4571215/sklearn/gaussian_process/kernels.py#L220"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.gaussian_process.kernels.RBF.set_params" title="Link to this definition">#</a></dt>
 <dd><p>Set the parameters of this kernel.</p>
 <p>The method works on simple kernels as well as on nested kernels.
 The latter have parameters of the form <code class="docutils literal notranslate"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code>
@@ -1534,36 +1534,9 @@ length-scales naturally live on a log-scale.</p>
 
 <section id="gallery-examples">
 <h2>Gallery examples<a class="headerlink" href="#gallery-examples" title="Link to this heading">#</a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="A comparison of several classifiers in scikit-learn on synthetic datasets. The point of this example is to illustrate the nature of decision boundaries of different classifiers. This should be taken with a grain of salt, as the intuition conveyed by these examples does not necessarily carry over to real datasets."><img alt="" src="../../_images/sphx_glr_plot_classifier_comparison_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/classification/plot_classifier_comparison.html#sphx-glr-auto-examples-classification-plot-classifier-comparison-py"><span class="std std-ref">Classifier comparison</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Classifier comparison</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Plot the classification probability for different classifiers. We use a 3 class dataset, and we classify it with a Support Vector classifier, L1 and L2 penalized logistic regression (multinomial multiclass), a One-Vs-Rest version with logistic regression, and Gaussian process classification."><img alt="" src="../../_images/sphx_glr_plot_classification_probability_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/classification/plot_classification_probability.html#sphx-glr-auto-examples-classification-plot-classification-probability-py"><span class="std std-ref">Plot classification probability</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Plot classification probability</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows the ability of the WhiteKernel to estimate the noise level in the data. Moreover, we show the importance of kernel hyperparameters initialization."><img alt="" src="../../_images/sphx_glr_plot_gpr_noisy_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/gaussian_process/plot_gpr_noisy.html#sphx-glr-auto-examples-gaussian-process-plot-gpr-noisy-py"><span class="std std-ref">Ability of Gaussian process regression (GPR) to estimate data noise-level</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Ability of Gaussian process regression (GPR) to estimate data noise-level</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates differences between a kernel ridge regression and a Gaussian process regression."><img alt="" src="../../_images/sphx_glr_plot_compare_gpr_krr_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/gaussian_process/plot_compare_gpr_krr.html#sphx-glr-auto-examples-gaussian-process-plot-compare-gpr-krr-py"><span class="std std-ref">Comparison of kernel ridge and Gaussian process regression</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Comparison of kernel ridge and Gaussian process regression</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example is based on Section 5.4.3 of &quot;Gaussian Processes for Machine Learning&quot; [1]_. It illustrates an example of complex kernel engineering and hyperparameter optimization using gradient ascent on the log-marginal-likelihood. The data consists of the monthly average atmospheric CO2 concentrations (in parts per million by volume (ppm)) collected at the Mauna Loa Observatory in Hawaii, between 1958 and 2001. The objective is to model the CO2 concentration as a function of the time t and extrapolate for years after 2001."><img alt="" src="../../_images/sphx_glr_plot_gpr_co2_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/gaussian_process/plot_gpr_co2.html#sphx-glr-auto-examples-gaussian-process-plot-gpr-co2-py"><span class="std std-ref">Forecasting of CO2 level on Mona Loa dataset using Gaussian process regression (GPR)</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Forecasting of CO2 level on Mona Loa dataset using Gaussian process regression (GPR)</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="A simple one-dimensional regression example computed in two different ways:"><img alt="" src="../../_images/sphx_glr_plot_gpr_noisy_targets_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/gaussian_process/plot_gpr_noisy_targets.html#sphx-glr-auto-examples-gaussian-process-plot-gpr-noisy-targets-py"><span class="std std-ref">Gaussian Processes regression: basic introductory example</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Gaussian Processes regression: basic introductory example</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the predicted probability of GPC for an isotropic and anisotropic RBF kernel on a two-dimensional version for the iris-dataset. The anisotropic RBF kernel obtains slightly higher log-marginal-likelihood by assigning different length-scales to the two feature dimensions."><img alt="" src="../../_images/sphx_glr_plot_gpc_iris_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/gaussian_process/plot_gpc_iris.html#sphx-glr-auto-examples-gaussian-process-plot-gpc-iris-py"><span class="std std-ref">Gaussian process classification (GPC) on iris dataset</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Gaussian process classification (GPC) on iris dataset</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates GPC on XOR data. Compared are a stationary, isotropic kernel (RBF) and a non-stationary kernel (DotProduct). On this particular dataset, the DotProduct kernel obtains considerably better results because the class-boundaries are linear and coincide with the coordinate axes. In general, stationary kernels often obtain better results."><img alt="" src="../../_images/sphx_glr_plot_gpc_xor_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/gaussian_process/plot_gpc_xor.html#sphx-glr-auto-examples-gaussian-process-plot-gpc-xor-py"><span class="std std-ref">Illustration of Gaussian process classification (GPC) on the XOR dataset</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Illustration of Gaussian process classification (GPC) on the XOR dataset</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the prior and posterior of a GaussianProcessRegressor with different kernels. Mean, standard deviation, and 5 samples are shown for both prior and posterior distributions."><img alt="" src="../../_images/sphx_glr_plot_gpr_prior_posterior_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/gaussian_process/plot_gpr_prior_posterior.html#sphx-glr-auto-examples-gaussian-process-plot-gpr-prior-posterior-py"><span class="std std-ref">Illustration of prior and posterior Gaussian process for different kernels</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Illustration of prior and posterior Gaussian process for different kernels</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the predicted probability of GPC for an RBF kernel with different choices of the hyperparameters. The first figure shows the predicted probability of GPC with arbitrarily chosen hyperparameters and with the hyperparameters corresponding to the maximum log-marginal-likelihood (LML)."><img alt="" src="../../_images/sphx_glr_plot_gpc_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/gaussian_process/plot_gpc.html#sphx-glr-auto-examples-gaussian-process-plot-gpc-py"><span class="std std-ref">Probabilistic predictions with Gaussian process classification (GPC)</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Probabilistic predictions with Gaussian process classification (GPC)</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال قدرة  WhiteKernel على تقدير مستوى الضوضاء في البيانات. علاوة على ذلك، سنوضح أهمية تهيئة المعلمات الفائقة للنواة."><img alt="" src="../../_images/sphx_glr_plot_gpr_noisy_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/gaussian_process/plot_gpr_noisy.html#sphx-glr-auto-examples-gaussian-process-plot-gpr-noisy-py"><span class="std std-ref">قدرة انحدار العمليات الغاوسية (GPR) على تقدير مستوى ضوضاء البيانات</span></a></p>
+  <div class="sphx-glr-thumbnail-title">قدرة انحدار العمليات الغاوسية (GPR) على تقدير مستوى ضوضاء البيانات</div>
 </div></div></section>
 </section>
 

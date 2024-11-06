@@ -1,35 +1,34 @@
 """
 =============================================================================
-Various Agglomerative Clustering on a 2D embedding of digits
+مختلف خوارزميات التجميع الهرمي على تضمين ثنائي الأبعاد لمجموعة بيانات الأرقام
 =============================================================================
 
-An illustration of various linkage option for agglomerative clustering on
-a 2D embedding of the digits dataset.
+وثيقة توضيحية لخيارات الربط المختلفة للتجميع الهرمي على
+تضمين ثنائي الأبعاد لمجموعة بيانات الأرقام.
 
-The goal of this example is to show intuitively how the metrics behave, and
-not to find good clusters for the digits. This is why the example works on a
-2D embedding.
+الهدف من هذا المثال هو إظهار بشكل بديهي كيف تتصرف المقاييس،
+وليس العثور على أفضل أقسام للأرقام. لهذا السبب يعمل المثال على
+تضمين ثنائي الأبعاد.
 
-What this example shows us is the behavior "rich getting richer" of
-agglomerative clustering that tends to create uneven cluster sizes.
+ما يظهره هذا المثال لنا هو سلوك "الأغنياء يزدادون ثراء"
+للتجميع الهرمي الذي يميل إلى إنشاء أحجام غير متساوية للأقسام.
 
-This behavior is pronounced for the average linkage strategy,
-that ends up with a couple of clusters with few datapoints.
+هذا السلوك ملحوظ لاستراتيجية الربط المتوسطة،
+التي تنتهي ببضعة أقسام بعدد قليل من النقاط.
 
-The case of single linkage is even more pathologic with a very
-large cluster covering most digits, an intermediate size (clean)
-cluster with most zero digits and all other clusters being drawn
-from noise points around the fringes.
+حالة الربط الفردي أكثر سوءًا مع قسم كبير يغطي معظم الأرقام،
+وقسم متوسط الحجم (نظيف) يحتوي على معظم الأصفار وجميع الأقسام الأخرى
+تتكون من نقاط ضوضاء حول الحواف.
 
-The other linkage strategies lead to more evenly distributed
-clusters that are therefore likely to be less sensible to a
-random resampling of the dataset.
+استراتيجيات الربط الأخرى تؤدي إلى أقسام موزعة بشكل متساوٍ
+أكثر مما يجعلها أقل حساسية لإعادة أخذ عينات عشوائية من مجموعة البيانات.
 
 """
 
 # Authors: The scikit-learn developers
 # SPDX-License-Identifier: BSD-3-Clause
 
+from sklearn.cluster import AgglomerativeClustering
 from time import time
 
 import numpy as np
@@ -74,7 +73,6 @@ print("Computing embedding")
 X_red = manifold.SpectralEmbedding(n_components=2).fit_transform(X)
 print("Done.")
 
-from sklearn.cluster import AgglomerativeClustering
 
 for linkage in ("ward", "average", "complete", "single"):
     clustering = AgglomerativeClustering(linkage=linkage, n_clusters=10)

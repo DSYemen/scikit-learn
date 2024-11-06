@@ -1,24 +1,24 @@
 """
 =====================================================
-MNIST classification using multinomial logistic + L1
+تصنيف MNIST باستخدام اللوغاريتم متعدد الحدود + L1
 =====================================================
 
-Here we fit a multinomial logistic regression with L1 penalty on a subset of
-the MNIST digits classification task. We use the SAGA algorithm for this
-purpose: this a solver that is fast when the number of samples is significantly
-larger than the number of features and is able to finely optimize non-smooth
-objective functions which is the case with the l1-penalty. Test accuracy
-reaches > 0.8, while weight vectors remains *sparse* and therefore more easily
-*interpretable*.
+هنا نقوم بضبط الانحدار اللوغاريتمي متعدد الحدود مع عقوبة L1 على مجموعة فرعية
+من مهمة تصنيف أرقام MNIST. نستخدم خوارزمية SAGA لهذا
+الغرض: هذه أداة حل سريعة عندما يكون عدد العينات أكبر بشكل ملحوظ
+من عدد الميزات وقادرة على تحسين دقيق
+وظائف الهدف غير الملساء والتي هي الحالة مع عقوبة l1. تصل دقة الاختبار
+> 0.8، بينما تبقى متجهات الوزن *متفرقة* وبالتالي أكثر سهولة
+*قابل للتفسير*.
 
-Note that this accuracy of this l1-penalized linear model is significantly
-below what can be reached by an l2-penalized linear model or a non-linear
-multi-layer perceptron model on this dataset.
+ملاحظة: أن دقة هذا النموذج الخطي المعاقب عليه l1 أقل بكثير
+ما يمكن الوصول إليه بواسطة نموذج خطي معاقب عليه l2 أو نموذج متعدد الطبقات
+شبكة الإدراك غير الخطية على هذه المجموعة من البيانات.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 import time
 
@@ -31,11 +31,11 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.utils import check_random_state
 
-# Turn down for faster convergence
+# خفض للتقارب الأسرع
 t0 = time.time()
 train_samples = 5000
 
-# Load data from https://www.openml.org/d/554
+# تحميل البيانات من https://www.openml.org/d/554
 X, y = fetch_openml("mnist_784", version=1, return_X_y=True, as_frame=False)
 
 random_state = check_random_state(0)
@@ -52,7 +52,7 @@ scaler = StandardScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 
-# Turn up tolerance for faster convergence
+# زيادة التسامح للتقارب الأسرع
 clf = LogisticRegression(C=50.0 / train_samples, penalty="l1", solver="saga", tol=0.1)
 clf.fit(X_train, y_train)
 sparsity = np.mean(clf.coef_ == 0) * 100

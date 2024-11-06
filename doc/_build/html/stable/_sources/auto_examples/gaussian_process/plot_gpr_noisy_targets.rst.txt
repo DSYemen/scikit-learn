@@ -19,25 +19,21 @@
 
 
 =========================================================
-Gaussian Processes regression: basic introductory example
+انحدار العمليات الغاوسية: مثال تمهيدي أساسي
 =========================================================
 
-A simple one-dimensional regression example computed in two different ways:
+مثال بسيط أحادي البعد للانحدار محسوب بطريقتين مختلفتين:
 
-1. A noise-free case
-2. A noisy case with known noise-level per datapoint
+1. حالة خالية من الضوضاء
+2. حالة ضوضاء مع مستوى ضوضاء معروف لكل نقطة بيانات
 
-In both cases, the kernel's parameters are estimated using the maximum
-likelihood principle.
+في كلتا الحالتين، يتم تقدير معلمات النواة باستخدام مبدأ الاحتمالية القصوى.
 
-The figures illustrate the interpolating property of the Gaussian Process model
-as well as its probabilistic nature in the form of a pointwise 95% confidence
-interval.
+توضح الأشكال خاصية الاستيفاء لنموذج العملية الغاوسية بالإضافة إلى طبيعتها الاحتمالية في شكل فاصل ثقة بنسبة 95٪ لكل نقطة.
 
-Note that `alpha` is a parameter to control the strength of the Tikhonov
-regularization on the assumed training points' covariance matrix.
+لاحظ أن `alpha` هي معلمة للتحكم في قوة تنظيم تيخونوف على مصفوفة التغاير المفترضة لنقاط التدريب.
 
-.. GENERATED FROM PYTHON SOURCE LINES 21-25
+.. GENERATED FROM PYTHON SOURCE LINES 17-21
 
 .. code-block:: Python
 
@@ -52,15 +48,14 @@ regularization on the assumed training points' covariance matrix.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 26-31
+.. GENERATED FROM PYTHON SOURCE LINES 22-26
 
-Dataset generation
+توليد مجموعة البيانات
 ------------------
 
-We will start by generating a synthetic dataset. The true generative process
-is defined as :math:`f(x) = x \sin(x)`.
+سنبدأ بتوليد مجموعة بيانات اصطناعية. يتم تعريف عملية التوليد الحقيقية على أنها :math:`f(x) = x \sin(x)`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 31-36
+.. GENERATED FROM PYTHON SOURCE LINES 26-31
 
 .. code-block:: Python
 
@@ -76,7 +71,7 @@ is defined as :math:`f(x) = x \sin(x)`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 37-45
+.. GENERATED FROM PYTHON SOURCE LINES 32-40
 
 .. code-block:: Python
 
@@ -86,13 +81,13 @@ is defined as :math:`f(x) = x \sin(x)`.
     plt.legend()
     plt.xlabel("$x$")
     plt.ylabel("$f(x)$")
-    _ = plt.title("True generative process")
+    _ = plt.title("عملية التوليد الحقيقية")
 
 
 
 
 .. image-sg:: /auto_examples/gaussian_process/images/sphx_glr_plot_gpr_noisy_targets_001.png
-   :alt: True generative process
+   :alt: عملية التوليد الحقيقية
    :srcset: /auto_examples/gaussian_process/images/sphx_glr_plot_gpr_noisy_targets_001.png
    :class: sphx-glr-single-img
 
@@ -100,19 +95,16 @@ is defined as :math:`f(x) = x \sin(x)`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-55
+.. GENERATED FROM PYTHON SOURCE LINES 41-47
 
-We will use this dataset in the next experiment to illustrate how Gaussian
-Process regression is working.
+سنستخدم مجموعة البيانات هذه في التجربة التالية لتوضيح كيفية عمل انحدار العمليات الغاوسية.
 
-Example with noise-free target
+مثال مع هدف خالٍ من الضوضاء
 ------------------------------
 
-In this first example, we will use the true generative process without
-adding any noise. For training the Gaussian Process regression, we will only
-select few samples.
+في هذا المثال الأول، سنستخدم عملية التوليد الحقيقية دون إضافة أي ضوضاء. لتدريب انحدار العمليات الغاوسية، سنختار عينات قليلة فقط.
 
-.. GENERATED FROM PYTHON SOURCE LINES 55-59
+.. GENERATED FROM PYTHON SOURCE LINES 47-51
 
 .. code-block:: Python
 
@@ -127,13 +119,11 @@ select few samples.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 60-63
+.. GENERATED FROM PYTHON SOURCE LINES 52-53
 
-Now, we fit a Gaussian process on these few training data samples. We will
-use a radial basis function (RBF) kernel and a constant parameter to fit the
-amplitude.
+الآن، نقوم بملاءمة عملية غاوسية على عينات بيانات التدريب القليلة هذه. سنستخدم نواة دالة أساس شعاعية (RBF) ومعلمة ثابتة لملاءمة السعة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 63-71
+.. GENERATED FROM PYTHON SOURCE LINES 53-61
 
 .. code-block:: Python
 
@@ -158,38 +148,36 @@ amplitude.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 72-75
+.. GENERATED FROM PYTHON SOURCE LINES 62-63
 
-After fitting our model, we see that the hyperparameters of the kernel have
-been optimized. Now, we will use our kernel to compute the mean prediction
-of the full dataset and plot the 95% confidence interval.
+بعد ملاءمة نموذجنا، نرى أنه قد تم تحسين المعلمات الفائقة للنواة. الآن، سنستخدم نواتنا لحساب متوسط التنبؤ لمجموعة البيانات الكاملة ورسم فاصل الثقة بنسبة 95٪.
 
-.. GENERATED FROM PYTHON SOURCE LINES 75-92
+.. GENERATED FROM PYTHON SOURCE LINES 63-80
 
 .. code-block:: Python
 
     mean_prediction, std_prediction = gaussian_process.predict(X, return_std=True)
 
     plt.plot(X, y, label=r"$f(x) = x \sin(x)$", linestyle="dotted")
-    plt.scatter(X_train, y_train, label="Observations")
-    plt.plot(X, mean_prediction, label="Mean prediction")
+    plt.scatter(X_train, y_train, label="الملاحظات")
+    plt.plot(X, mean_prediction, label="متوسط التنبؤ")
     plt.fill_between(
         X.ravel(),
         mean_prediction - 1.96 * std_prediction,
         mean_prediction + 1.96 * std_prediction,
         alpha=0.5,
-        label=r"95% confidence interval",
+        label=r"فاصل ثقة 95%",
     )
     plt.legend()
     plt.xlabel("$x$")
     plt.ylabel("$f(x)$")
-    _ = plt.title("Gaussian process regression on noise-free dataset")
+    _ = plt.title("انحدار العمليات الغاوسية على مجموعة بيانات خالية من الضوضاء")
 
 
 
 
 .. image-sg:: /auto_examples/gaussian_process/images/sphx_glr_plot_gpr_noisy_targets_002.png
-   :alt: Gaussian process regression on noise-free dataset
+   :alt: انحدار العمليات الغاوسية على مجموعة بيانات خالية من الضوضاء
    :srcset: /auto_examples/gaussian_process/images/sphx_glr_plot_gpr_noisy_targets_002.png
    :class: sphx-glr-single-img
 
@@ -197,23 +185,18 @@ of the full dataset and plot the 95% confidence interval.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 93-106
+.. GENERATED FROM PYTHON SOURCE LINES 81-89
 
-We see that for a prediction made on a data point close to the one from the
-training set, the 95% confidence has a small amplitude. Whenever a sample
-falls far from training data, our model's prediction is less accurate and the
-model prediction is less precise (higher uncertainty).
+نرى أنه بالنسبة للتنبؤ الذي تم إجراؤه على نقطة بيانات قريبة من نقطة بيانات من مجموعة التدريب، فإن فاصل الثقة بنسبة 95٪ له سعة صغيرة. كلما كانت العينة بعيدة عن بيانات التدريب، فإن تنبؤ نموذجنا يكون أقل دقة ويكون التنبؤ بالنموذج أقل دقة (عدم يقين أعلى).
 
-Example with noisy targets
+مثال مع أهداف ضوضاء
 --------------------------
 
-We can repeat a similar experiment adding an additional noise to the target
-this time. It will allow seeing the effect of the noise on the fitted model.
+يمكننا تكرار تجربة مماثلة مع إضافة ضوضاء إضافية للهدف هذه المرة. سيسمح ذلك برؤية تأثير الضوضاء على النموذج الملائم.
 
-We add some random Gaussian noise to the target with an arbitrary
-standard deviation.
+نضيف بعض الضوضاء الغاوسية العشوائية للهدف مع انحراف معياري تعسفي.
 
-.. GENERATED FROM PYTHON SOURCE LINES 106-109
+.. GENERATED FROM PYTHON SOURCE LINES 89-92
 
 .. code-block:: Python
 
@@ -227,13 +210,11 @@ standard deviation.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 110-113
+.. GENERATED FROM PYTHON SOURCE LINES 93-94
 
-We create a similar Gaussian process model. In addition to the kernel, this
-time, we specify the parameter `alpha` which can be interpreted as the
-variance of a Gaussian noise.
+ننشئ نموذج عملية غاوسية مماثل. بالإضافة إلى النواة، هذه المرة، نحدد المعلمة `alpha` التي يمكن تفسيرها على أنها تباين ضوضاء غاوسي.
 
-.. GENERATED FROM PYTHON SOURCE LINES 113-119
+.. GENERATED FROM PYTHON SOURCE LINES 94-100
 
 .. code-block:: Python
 
@@ -250,11 +231,11 @@ variance of a Gaussian noise.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 120-121
+.. GENERATED FROM PYTHON SOURCE LINES 101-102
 
-Let's plot the mean prediction and the uncertainty region as before.
+دعونا نرسم متوسط التنبؤ ومنطقة عدم اليقين كما كان من قبل.
 
-.. GENERATED FROM PYTHON SOURCE LINES 121-146
+.. GENERATED FROM PYTHON SOURCE LINES 102-127
 
 .. code-block:: Python
 
@@ -267,27 +248,27 @@ Let's plot the mean prediction and the uncertainty region as before.
         color="tab:blue",
         marker=".",
         markersize=10,
-        label="Observations",
+        label="الملاحظات",
     )
-    plt.plot(X, mean_prediction, label="Mean prediction")
+    plt.plot(X, mean_prediction, label="متوسط التنبؤ")
     plt.fill_between(
         X.ravel(),
         mean_prediction - 1.96 * std_prediction,
         mean_prediction + 1.96 * std_prediction,
         color="tab:orange",
         alpha=0.5,
-        label=r"95% confidence interval",
+        label=r"فاصل ثقة 95%",
     )
     plt.legend()
     plt.xlabel("$x$")
     plt.ylabel("$f(x)$")
-    _ = plt.title("Gaussian process regression on a noisy dataset")
+    _ = plt.title("انحدار العمليات الغاوسية على مجموعة بيانات ضوضاء")
 
 
 
 
 .. image-sg:: /auto_examples/gaussian_process/images/sphx_glr_plot_gpr_noisy_targets_003.png
-   :alt: Gaussian process regression on a noisy dataset
+   :alt: انحدار العمليات الغاوسية على مجموعة بيانات ضوضاء
    :srcset: /auto_examples/gaussian_process/images/sphx_glr_plot_gpr_noisy_targets_003.png
    :class: sphx-glr-single-img
 
@@ -295,17 +276,14 @@ Let's plot the mean prediction and the uncertainty region as before.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 147-151
+.. GENERATED FROM PYTHON SOURCE LINES 128-129
 
-The noise affects the predictions close to the training samples: the
-predictive uncertainty near to the training samples is larger because we
-explicitly model a given level target noise independent of the input
-variable.
+تؤثر الضوضاء على التنبؤات القريبة من عينات التدريب: يكون عدم اليقين التنبؤي بالقرب من عينات التدريب أكبر لأننا نصمم صراحة مستوى ضوضاء هدف معين بشكل مستقل عن متغير الإدخال.
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.586 seconds)
+   **Total running time of the script:** (0 minutes 0.558 seconds)
 
 
 .. _sphx_glr_download_auto_examples_gaussian_process_plot_gpr_noisy_targets.py:
