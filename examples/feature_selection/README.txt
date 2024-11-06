@@ -1,6 +1,6 @@
 .. _feature_selection_examples:
 
-Feature Selection
+إختيار الميزة
 -----------------------
 
-Examples concerning the :mod:`sklearn.feature_selection` module.
+أمثلة تتعلق بوحدة :mod:`sklearn.feature_selection`.

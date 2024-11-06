@@ -7,16 +7,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Comparison of kernel ridge and Gaussian process regression" />
+<meta property="og:title" content="مقارنة انحدار kernel ridge وانحدار العمليات الغاوسية" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/auto_examples/gaussian_process/plot_compare_gpr_krr.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="This example illustrates differences between a kernel ridge regression and a Gaussian process regression. Both kernel ridge regression and Gaussian process regression are using a so-called &quot;kernel ..." />
+<meta property="og:description" content="يوضح هذا المثال الاختلافات بين انحدار kernel ridge وانحدار العمليات الغاوسية. يستخدم كل من انحدار kernel ridge وانحدار العمليات الغاوسية ما يسمى &quot;kernel trick&quot; لجعل نماذجهما معبرة بما يكفي لملاءمة ..." />
 <meta property="og:image" content="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" />
 <meta property="og:image:alt" content="scikit-learn" />
-<meta name="description" content="This example illustrates differences between a kernel ridge regression and a Gaussian process regression. Both kernel ridge regression and Gaussian process regression are using a so-called &quot;kernel ..." />
+<meta name="description" content="يوضح هذا المثال الاختلافات بين انحدار kernel ridge وانحدار العمليات الغاوسية. يستخدم كل من انحدار kernel ridge وانحدار العمليات الغاوسية ما يسمى &quot;kernel trick&quot; لجعل نماذجهما معبرة بما يكفي لملاءمة ..." />
 
-    <title>Comparison of kernel ridge and Gaussian process regression &#8212; scikit-learn 1.6.dev0 documentation</title>
+    <title>مقارنة انحدار kernel ridge وانحدار العمليات الغاوسية &#8212; scikit-learn 1.6.dev0 documentation</title>
   
   
   
@@ -79,8 +79,8 @@
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="search" title="بحث" href="../../search.html" />
-    <link rel="next" title="Forecasting of CO2 level on Mona Loa dataset using Gaussian process regression (GPR)" href="plot_gpr_co2.html" />
-    <link rel="prev" title="Ability of Gaussian process regression (GPR) to estimate data noise-level" href="plot_gpr_noisy.html" />
+    <link rel="next" title="معايرة الإحتمالات" href="../calibration/index.html" />
+    <link rel="prev" title="قدرة انحدار العمليات الغاوسية (GPR) على تقدير مستوى ضوضاء البيانات" href="plot_gpr_noisy.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="ar"/>
   <meta name="docsearch:version" content="1.6" />
@@ -569,15 +569,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../tree/plot_unveil_tree_structure.html">Understanding the decision tree structure</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../feature_selection/index.html">Feature Selection</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_f_test_vs_mi.html">Comparison of F-test and mutual information</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_select_from_model_diabetes.html">Model-based and sequential feature selection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_feature_selection_pipeline.html">Pipeline ANOVA SVM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_rfe_digits.html">Recursive feature elimination</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_rfe_with_cross_validation.html">Recursive feature elimination with cross-validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_feature_selection.html">Univariate Feature Selection</a></li>
-</ul>
-</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../mixture/index.html">Gaussian Mixture Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../mixture/plot_concentration_prior.html">Concentration Prior Type Analysis of Variation Bayesian Gaussian Mixture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_pdf.html">Density Estimation for a Gaussian mixture</a></li>
@@ -586,71 +577,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm.html">Gaussian Mixture Model Ellipsoids</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_selection.html">Gaussian Mixture Model Selection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_sin.html">Gaussian Mixture Model Sine Curve</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Gaussian Process for Machine Learning</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="plot_gpr_noisy.html">Ability of Gaussian process regression (GPR) to estimate data noise-level</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Comparison of kernel ridge and Gaussian process regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_gpr_co2.html">Forecasting of CO2 level on Mona Loa dataset using Gaussian process regression (GPR)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_gpr_noisy_targets.html">Gaussian Processes regression: basic introductory example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_gpc_iris.html">Gaussian process classification (GPC) on iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_gpr_on_structured_data.html">Gaussian processes on discrete data structures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_gpc_xor.html">Illustration of Gaussian process classification (GPC) on the XOR dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_gpr_prior_posterior.html">Illustration of prior and posterior Gaussian process for different kernels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_gpc_isoprobability.html">Iso-probability lines for Gaussian Processes classification (GPC)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_gpc.html">Probabilistic predictions with Gaussian process classification (GPC)</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../linear_model/index.html">Generalized Linear Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ard.html">Comparing Linear Bayesian Regressors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_comparison.html">Comparing various online solvers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_bayesian_ridge_curvefit.html">Curve Fitting with Bayesian Ridge Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_logistic_multinomial.html">Decision Boundaries of Multinomial and One-vs-Rest Logistic Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_early_stopping.html">Early stopping of Stochastic Gradient Descent</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_elastic_net_precomputed_gram_matrix_with_weighted_samples.html">Fitting an Elastic Net with a precomputed Gram Matrix and Weighted Samples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_huber_vs_ridge.html">HuberRegressor vs Ridge on dataset with strong outliers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_multi_task_lasso_support.html">Joint feature selection with multi-task Lasso</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_logistic_l1_l2_sparsity.html">L1 Penalty and Sparsity in Logistic Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_and_elasticnet.html">L1-based models for Sparse Signals</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_lars_ic.html">Lasso model selection via information criteria</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_model_selection.html">Lasso model selection: AIC-BIC / cross-validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_dense_vs_sparse_data.html">Lasso on dense and sparse data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_lasso_lars_elasticnet_path.html">Lasso, Lasso-LARS, and Elastic Net paths</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_logistic.html">Logistic function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sparse_logistic_regression_mnist.html">MNIST classification using multinomial logistic + L1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sparse_logistic_regression_20newsgroups.html">Multiclass sparse logistic regression on 20newgroups</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_nnls.html">Non-negative least squares</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgdocsvm_vs_ocsvm.html">One-Class SVM versus One-Class SVM using Stochastic Gradient Descent</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ols.html">Ordinary Least Squares Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ols_ridge_variance.html">Ordinary Least Squares and Ridge Regression Variance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_omp.html">Orthogonal Matching Pursuit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ridge_path.html">Plot Ridge coefficients as a function of the regularization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_iris.html">Plot multi-class SGD on the iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_poisson_regression_non_normal_loss.html">Poisson regression and non-normal loss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_polynomial_interpolation.html">Polynomial and Spline interpolation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_quantile_regression.html">Quantile regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_logistic_path.html">Regularization path of L1- Logistic Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ridge_coeffs.html">Ridge coefficients as a function of the L2 Regularization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_robust_fit.html">Robust linear estimator fitting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ransac.html">Robust linear model estimation using RANSAC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_separating_hyperplane.html">SGD: Maximum margin separating hyperplane</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_penalties.html">SGD: Penalties</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_weighted_samples.html">SGD: Weighted samples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_loss_functions.html">SGD: convex loss functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_theilsen.html">Theil-Sen Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_tweedie_regression_insurance_claims.html">Tweedie regression on insurance claims</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../inspection/index.html">Inspection</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_linear_model_coefficient_interpretation.html">Common pitfalls in the interpretation of coefficients of linear models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_causal_interpretation.html">Failure of Machine Learning to infer causal effects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_partial_dependence.html">Partial Dependence and Individual Conditional Expectation Plots</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance.html">Permutation Importance vs Random Forest Feature Importance (MDI)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance_multicollinear.html">Permutation Importance with Multicollinear or Correlated Features</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../kernel_approximation/index.html">Kernel Approximation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../kernel_approximation/plot_scalable_poly_kernels.html">Scalable learning with polynomial kernel approximation</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../manifold/index.html">Manifold learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -678,11 +604,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_roc_curve_visualization_api.html">ROC Curve with Visualization API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_johnson_lindenstrauss_bound.html">The Johnson-Lindenstrauss bound for embedding with random projections</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_display_object_visualization.html">Visualizations with Display Objects</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../impute/index.html">Missing Value Imputation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../impute/plot_missing_values.html">Imputing missing values before building an estimator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../impute/plot_iterative_imputer_variants_comparison.html">Imputing missing values with variants of IterativeImputer</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../model_selection/index.html">Model Selection</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -779,12 +700,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_regression.html">Support Vector Regression (SVR) using linear and non-linear kernels</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../exercises/index.html">Tutorial exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_cv_diabetes.html">Cross-validation on diabetes Dataset Exercise</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_digits_classification_exercise.html">Digits Classification Exercise</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_iris_exercise.html">SVM Exercise</a></li>
-</ul>
-</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../text/index.html">Working with text documents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../text/plot_document_classification_20newsgroups.html">Classification of text documents using sparse features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../text/plot_document_clustering.html">Clustering text documents using k-means</a></li>
@@ -807,6 +722,15 @@
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../datasets/index.html">أمثلة مجموعات البيانات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../datasets/plot_random_multilabel_dataset.html">رسم مجموعة بيانات متعددة التصنيفات مُولدة عشوائياً</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../feature_selection/index.html">إختيار الميزة</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_select_from_model_diabetes.html">Model-based and sequential feature selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_feature_selection_pipeline.html">Pipeline ANOVA SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_rfe_with_cross_validation.html">إزالة الميزات المتكررة باستخدام التحقق المتبادل</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_rfe_digits.html">إزالة الميزة المتكررة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_feature_selection.html">اختيار الميزة أحادية المتغير</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_f_test_vs_mi.html">مقارنة بين اختبار F والمعلومات المتبادلة</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../cluster/index.html">التجميع</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -862,6 +786,58 @@
 
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../inspection/index.html">الفحص</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance_multicollinear.html">أهمية التبديل مع الميزات متعددة الخطية أو المرتبطة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance.html">أهمية التبديل مقابل أهمية ميزة الغابة العشوائية (MDI)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_linear_model_coefficient_interpretation.html">المزالق الشائعة في تفسير معاملات النماذج الخطية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_causal_interpretation.html">فشل التعلم الآلي في استنتاج الآثار السببية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_partial_dependence.html">مخططات التبعية الجزئية والتوقع الشرطي الفردي</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../linear_model/index.html">النماذج الخطية المعممة</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_bayesian_ridge_curvefit.html">توليد بيانات توافقية مع الضوضاء</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ard.html"># مقارنة المنحنيات الخطية للانحدار البايزي</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_dense_vs_sparse_data.html">Lasso على البيانات الكثيفة والمتفرقة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgdocsvm_vs_ocsvm.html">One-Class SVM مقابل One-Class SVM باستخدام Stochastic Gradient Descent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_penalties.html">SGD: العقوبات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_weighted_samples.html">SGD: العينات المرجحة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_separating_hyperplane.html">SGD: المستوى الفاصل ذو الهامش الأقصى</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_loss_functions.html">SGD: دالات الخسارة المقعرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_early_stopping.html">إيقاف مبكر لنزول التدرج العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_lars_ic.html">اختيار نموذج لاصو عبر معايير المعلومات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_multi_task_lasso_support.html">الاختيار المشترك للميزات باستخدام Lasso متعدد المهام</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ols_ridge_variance.html">الانحدار الخطي العادي وانحدار ريدج والتباين</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sparse_logistic_regression_20newsgroups.html">الانحدار اللوجستي المتناثر متعدد الفئات على 20newgroups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_polynomial_interpolation.html">التكامل متعدد الحدود والتقسيم</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_logistic.html">الدالة اللوغستية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_poisson_regression_non_normal_loss.html">انحدار بواسون والخسارة غير الطبيعية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_tweedie_regression_insurance_claims.html">انحدار تويدي على مطالبات التأمين</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_theilsen.html">انحدار ثيل-سين</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_quantile_regression.html">انحدار كمي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sparse_logistic_regression_mnist.html">تصنيف MNIST باستخدام اللوغاريتم متعدد الحدود + L1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ransac.html">تقدير النموذج الخطي القوي باستخدام RANSAC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_robust_fit.html">تقدير خطي قوي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_elastic_net_precomputed_gram_matrix_with_weighted_samples.html">تناسب شبكة مرنة مع مصفوفة جرام مسبقة الحساب وعينات مرجحة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_logistic_multinomial.html">حدود القرار للانحدار متعدد الحدود والانحدار اللوجستي من النوع واحد مقابل البقية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_iris.html">رسم متعدد الفئات SGD على مجموعة بيانات الزهرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ridge_path.html">رسم معاملات Ridge كدالة للتنظيم</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_logistic_l1_l2_sparsity.html">عقوبة L1 والندرة في الانحدار اللوجستي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ols.html">مثال على المربعات الصغرى العادية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_nnls.html">مربعات أقل غير سالبة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_logistic_path.html">مسار التنظيم لـ L1 - الانحدار اللوجستي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_lasso_lars_elasticnet_path.html">مسارات لاصو ولاصو-لارس وشبكة مرنة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_omp.html">مطابقة متعامدة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_ridge_coeffs.html">معاملات Ridge كدالة لتنظيم L2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_huber_vs_ridge.html">مقارنة بين HuberRegressor و Ridge على مجموعة بيانات تحتوي على قيم شاذة قوية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_sgd_comparison.html">مقارنة بين المحللات المختلفة عبر الإنترنت</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_and_elasticnet.html">نماذج L1 للاشارات المتناثرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linear_model/plot_lasso_model_selection.html">نموذج لاصو: اختيار النموذج باستخدام معايير AIC-BIC والتحقق المتقاطع</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../decomposition/index.html">تحليل التركيب</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_ica_vs_pca.html">FastICA على سحب النقاط ثنائية الأبعاد</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_kernel_pca.html">Kernel PCA</a></li>
@@ -879,12 +855,27 @@
 <li class="toctree-l2"><a class="reference internal" href="../developing_estimators/sklearn_is_fitted.html"><code class="docutils literal notranslate"><span class="pre">__sklearn_is_fitted__</span></code> كـ API للمطورين</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../impute/index.html">تعويض القيم المفقودة</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../impute/plot_missing_values.html">استنتاج القيم المفقودة قبل بناء أداة تقدير</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../impute/plot_iterative_imputer_variants_comparison.html">استنتاج القيم المفقودة مع متغيرات من IterativeImputer</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../covariance/index.html">تقدير التغاير</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../covariance/plot_covariance_estimation.html">تأثير تحويل الأهداف في نموذج الانحدار</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../covariance/plot_lw_vs_oas.html">تقدير Ledoit-Wolf مقابل OAS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../covariance/plot_robust_vs_empirical_covariance.html">تقدير التغاير القوي مقابل التجريبي</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../covariance/plot_mahalanobis_distances.html">تقدير التغاير القوي وأهمية مسافات Mahalanobis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../covariance/plot_sparse_cov.html">تقدير معكوس التغاير النادر</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../kernel_approximation/index.html">تقريب النواة</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../kernel_approximation/plot_scalable_poly_kernels.html">التعلم القابل للتطوير مع تقريب نواة متعددة الحدود</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../exercises/index.html">تمارين تعليمية</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_cv_diabetes.html">التحقق المتقاطع على تمرين مجموعة بيانات مرض السكري</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_iris_exercise.html">تمرين SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_digits_classification_exercise.html">تمرين تصنيف الأرقام</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../compose/index.html">خطوط الأنابيب والمقدرين المركبين</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -897,30 +888,43 @@
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../ensemble/index.html">طرق المجموعة</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_stack_predictors.html">Combine predictors using stacking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_random_forest_regression_multioutput.html">Comparing random forests and the multi-output meta estimator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_hgbt_regression.html">Features in Histogram Gradient Boosting Trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_regression.html">Gradient Boosting regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_regularization.html">Gradient Boosting regularization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_random_forest_embedding.html">Hashing feature transformation using Totally Random Trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_isolation_forest.html">IsolationForest example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_monotonic_constraints.html">Monotonic Constraints</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_probas.html">Plot class probabilities calculated by the VotingClassifier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_regressor.html">Plot individual and voting regression predictions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_decision_regions.html">Plot the decision boundaries of a VotingClassifier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_quantile.html">Prediction Intervals for Gradient Boosting Regression</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_ensemble_oob.html">أخطاء OOB لخوارزمية Random Forests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_forest_importances.html">أهمية الميزات باستخدام غابة من الأشجار</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_early_stopping.html">إيقاف التدريب المبكر في Gradient Boosting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_monotonic_constraints.html">القيود الرتيبة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_hgbt_regression.html">الميزات في أشجار التعزيز المتدرج للهيستوغرام</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_regression.html">انحدار التعزيز المتدرج</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_adaboost_regression.html">انحدار شجرة القرار مع AdaBoost</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_feature_transformation.html">تحويل الميزات باستخدام مجموعات الأشجار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_random_forest_embedding.html">تحويل ميزة التجزئة باستخدام الأشجار العشوائية تمامًا</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_adaboost_twoclass.html">تصنيف ثنائي باستخدام AdaBoost</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_oob.html">تقديرات Gradient Boosting Out-of-Bag</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_regularization.html">تنظيم التعزيز المتدرج</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_categorical.html">دعم الميزات التصنيفية في التدرج التعزيزي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_stack_predictors.html">دمج المتنبئات باستخدام التكديس</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_forest_iris.html">رسم أسطح القرار لمجموعات الأشجار على مجموعة بيانات إيريس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_probas.html">رسم احتمالات الفئات المحسوبة بواسطة VotingClassifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_regressor.html">رسم تنبؤات الانحدار الفردية والتصويتية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_decision_regions.html">رسم حدود القرار لـ VotingClassifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_adaboost_multiclass.html">شجرة قرارات معززة متعددة الفئات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_quantile.html">فترات التنبؤ لانحدار التعزيز المتدرج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_isolation_forest.html">مثال IsolationForest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_random_forest_regression_multioutput.html">مقارنة الغابات العشوائية ومقدر المخرجات المتعددة التلوي</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_bias_variance.html">مقارنة بين المُقدر الفردي والتجميع: تحليل الانحياز والتشتت</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_forest_hist_grad_boosting_comparison.html">مقارنة بين نماذج الغابات العشوائية ورفع التدرج بالرسم البياني</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">عملية غاوسية للتعلم الآلي</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="plot_gpr_co2.html">التنبؤ بمستوى ثاني أكسيد الكربون في مجموعة بيانات Mona Loa باستخدام انحدار العملية الغاوسية (GPR)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_gpc.html">التنبؤات الاحتمالية مع تصنيف العملية الغاوسية (GPC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_gpr_on_structured_data.html">العمليات الغاوسية على هياكل البيانات المنقوصة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_gpr_noisy_targets.html">انحدار العمليات الغاوسية: مثال تمهيدي أساسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_gpc_iris.html">تصنيف العملية الغاوسية (GPC) على مجموعة بيانات iris</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_gpr_prior_posterior.html">توضيح العملية الغاوسية المسبقة واللاحقة لنوى مختلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_gpc_xor.html">توضيح تصنيف العملية الغاوسية (GPC) على مجموعة بيانات XOR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_gpc_isoprobability.html">خطوط تساوي الاحتمال لتصنيف العمليات الغاوسية (GPC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_gpr_noisy.html">قدرة انحدار العمليات الغاوسية (GPR) على تقدير مستوى ضوضاء البيانات</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">مقارنة انحدار kernel ridge وانحدار العمليات الغاوسية</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../calibration/index.html">معايرة الإحتمالات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -969,9 +973,9 @@
     <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Examples</a></li>
     
     
-    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Gaussian Process for Machine Learning</a></li>
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">عملية غاوسية للتعلم الآلي</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Comparison of kernel ridge and Gaussian process regression</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">مقارنة انحدار kernel ridge وانحدار العمليات الغاوسية</span></li>
   </ul>
 </nav>
 </div>
@@ -993,359 +997,346 @@
 <p><a class="reference internal" href="#sphx-glr-download-auto-examples-gaussian-process-plot-compare-gpr-krr-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code. or to run this example in your browser via JupyterLite or Binder</p>
 </div>
-<section class="sphx-glr-example-title" id="comparison-of-kernel-ridge-and-gaussian-process-regression">
-<span id="sphx-glr-auto-examples-gaussian-process-plot-compare-gpr-krr-py"></span><h1>Comparison of kernel ridge and Gaussian process regression<a class="headerlink" href="#comparison-of-kernel-ridge-and-gaussian-process-regression" title="Link to this heading">#</a></h1>
-<p>This example illustrates differences between a kernel ridge regression and a
-Gaussian process regression.</p>
-<p>Both kernel ridge regression and Gaussian process regression are using a
-so-called &quot;kernel trick&quot; to make their models expressive enough to fit
-the training data. However, the machine learning problems solved by the two
-methods are drastically different.</p>
-<p>Kernel ridge regression will find the target function that minimizes a loss
-function (the mean squared error).</p>
-<p>Instead of finding a single target function, the Gaussian process regression
-employs a probabilistic approach : a Gaussian posterior distribution over
-target functions is defined based on the Bayes' theorem, Thus prior
-probabilities on target functions are being combined with a likelihood function
-defined by the observed training data to provide estimates of the posterior
-distributions.</p>
-<p>We will illustrate these differences with an example and we will also focus on
-tuning the kernel hyperparameters.</p>
+<section class="sphx-glr-example-title" id="kernel-ridge">
+<span id="sphx-glr-auto-examples-gaussian-process-plot-compare-gpr-krr-py"></span><h1>مقارنة انحدار kernel ridge وانحدار العمليات الغاوسية<a class="headerlink" href="#kernel-ridge" title="Link to this heading">#</a></h1>
+<p>يوضح هذا المثال الاختلافات بين انحدار kernel ridge وانحدار العمليات الغاوسية.</p>
+<p>يستخدم كل من انحدار kernel ridge وانحدار العمليات الغاوسية ما يسمى &quot;kernel trick&quot; لجعل نماذجهما معبرة بما يكفي لملاءمة بيانات التدريب. ومع ذلك ، فإن مشاكل التعلم الآلي التي تم حلها بواسطة الطريقتين مختلفة بشكل كبير.</p>
+<p>سيجد انحدار kernel ridge دالة الهدف التي تقلل من دالة الخسارة (متوسط ​​الخطأ التربيعي).</p>
+<p>بدلاً من إيجاد دالة هدف واحدة ، يستخدم انحدار العمليات الغاوسية نهجًا احتماليًا: يتم تحديد التوزيع اللاحق الغاوسي على دوال الهدف بناءً على نظرية Bayes ، وبالتالي يتم دمج الاحتمالات السابقة على دوال الهدف مع دالة احتمالية محددة بواسطة بيانات التدريب المرصودة لتقديم تقديرات للتوزيعات اللاحقة.</p>
+<p>سنوضح هذه الاختلافات بمثال وسنركز أيضًا على ضبط المعلمات الفائقة للنواة.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Authors: The scikit-learn developers</span>
 <span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
 </pre></div>
 </div>
-<section id="generating-a-dataset">
-<h2>Generating a dataset<a class="headerlink" href="#generating-a-dataset" title="Link to this heading">#</a></h2>
-<p>We create a synthetic dataset. The true generative process will take a 1-D
-vector and compute its sine. Note that the period of this sine is thus
-<span class="math notranslate nohighlight">\(2 \pi\)</span>. We will reuse this information later in this example.</p>
+<section id="id1">
+<h2>توليد مجموعة بيانات<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>نقوم بإنشاء مجموعة بيانات اصطناعية. ستأخذ عملية التوليد الحقيقية متجهًا أحادي البعد وتحسب جيبها. لاحظ أن فترة هذا الجيب هي <span class="math notranslate nohighlight">\(2 \pi\)</span>. سنعيد استخدام هذه المعلومات لاحقًا في هذا المثال.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">1_000</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">target</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+<span class="n">rng</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/random/legacy.html#numpy.random.RandomState" title="numpy.random.RandomState" class="sphx-glr-backref-module-numpy-random sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span></a><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">1_000</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">target</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.sin.html#numpy.sin" title="numpy.sin" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-data"><span class="n">np</span><span class="o">.</span><span class="n">sin</span></a><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Now, we can imagine a scenario where we get observations from this true
-process. However, we will add some challenges:</p>
+<p>الآن ، يمكننا تخيل سيناريو حيث نحصل على ملاحظات من هذه العملية الحقيقية. ومع ذلك ، سنضيف بعض التحديات:</p>
 <ul class="simple">
-<li><p>the measurements will be noisy;</p></li>
-<li><p>only samples from the beginning of the signal will be available.</p></li>
+<li><p>ستكون القياسات صاخبة ؛</p></li>
+<li><p>ستكون العينات من بداية الإشارة فقط متاحة.</p></li>
 </ul>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">training_sample_indices</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">training_sample_indices</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.arange.html#numpy.arange" title="numpy.arange" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">arange</span></a><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">training_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">training_sample_indices</span><span class="p">]</span>
 <span class="n">training_noisy_target</span> <span class="o">=</span> <span class="n">target</span><span class="p">[</span><span class="n">training_sample_indices</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">rng</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span>
     <span class="nb">len</span><span class="p">(</span><span class="n">training_sample_indices</span><span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Let's plot the true signal and the noisy measurements available for training.</p>
+<p>دعونا نرسم الإشارة الحقيقية والقياسات الصاخبة المتاحة للتدريب.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True signal&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True signal&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.scatter.html#matplotlib.pyplot.scatter" title="matplotlib.pyplot.scatter" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span></a><span class="p">(</span>
     <span class="n">training_data</span><span class="p">,</span>
     <span class="n">training_noisy_target</span><span class="p">,</span>
     <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Noisy measurements&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;target&quot;</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span>
-    <span class="s2">&quot;Illustration of the true generative process and </span><span class="se">\n</span><span class="s2">&quot;</span>
-    <span class="s2">&quot;noisy measurements available during training&quot;</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html#matplotlib.pyplot.legend" title="matplotlib.pyplot.legend" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span></a><span class="p">()</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xlabel.html#matplotlib.pyplot.xlabel" title="matplotlib.pyplot.xlabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span></a><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.ylabel.html#matplotlib.pyplot.ylabel" title="matplotlib.pyplot.ylabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span></a><span class="p">(</span><span class="s2">&quot;target&quot;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.title.html#matplotlib.pyplot.title" title="matplotlib.pyplot.title" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">title</span></a><span class="p">(</span>
+    <span class="s2">&quot;توضيح عملية التوليد الحقيقية و </span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;القياسات الصاخبة المتاحة أثناء التدريب&quot;</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_compare_gpr_krr_001.png" srcset="../../_images/sphx_glr_plot_compare_gpr_krr_001.png" alt="Illustration of the true generative process and  noisy measurements available during training" class = "sphx-glr-single-img"/></section>
-<section id="limitations-of-a-simple-linear-model">
-<h2>Limitations of a simple linear model<a class="headerlink" href="#limitations-of-a-simple-linear-model" title="Link to this heading">#</a></h2>
-<p>First, we would like to highlight the limitations of a linear model given
-our dataset. We fit a <a class="reference internal" href="../../modules/generated/sklearn.linear_model.Ridge.html#sklearn.linear_model.Ridge" title="sklearn.linear_model.Ridge"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ridge</span></code></a> and check the
-predictions of this model on our dataset.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">Ridge</span>
+<img src="../../_images/sphx_glr_plot_compare_gpr_krr_001.png" srcset="../../_images/sphx_glr_plot_compare_gpr_krr_001.png" alt="توضيح عملية التوليد الحقيقية و  القياسات الصاخبة المتاحة أثناء التدريب" class = "sphx-glr-single-img"/></section>
+<section id="id2">
+<h2>حدود نموذج خطي بسيط<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>أولاً ، نود تسليط الضوء على حدود النموذج الخطي بالنظر إلى
+مجموعة البيانات الخاصة بنا. نقوم بملاءمة <a class="reference internal" href="../../modules/generated/sklearn.linear_model.Ridge.html#sklearn.linear_model.Ridge" title="sklearn.linear_model.Ridge"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ridge</span></code></a> ونتحقق من
+تنبؤات هذا النموذج على مجموعة البيانات الخاصة بنا.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.linear_model.Ridge.html#sklearn.linear_model.Ridge" title="sklearn.linear_model.Ridge" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Ridge</span></a>
 
-<span class="n">ridge</span> <span class="o">=</span> <span class="n">Ridge</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">training_data</span><span class="p">,</span> <span class="n">training_noisy_target</span><span class="p">)</span>
+<span class="n">ridge</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.linear_model.Ridge.html#sklearn.linear_model.Ridge" title="sklearn.linear_model.Ridge" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Ridge</span></a><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">training_data</span><span class="p">,</span> <span class="n">training_noisy_target</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True signal&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True signal&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.scatter.html#matplotlib.pyplot.scatter" title="matplotlib.pyplot.scatter" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span></a><span class="p">(</span>
     <span class="n">training_data</span><span class="p">,</span>
     <span class="n">training_noisy_target</span><span class="p">,</span>
     <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Noisy measurements&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ridge</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Ridge regression&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;target&quot;</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Limitation of a linear model such as ridge&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ridge</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Ridge regression&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html#matplotlib.pyplot.legend" title="matplotlib.pyplot.legend" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span></a><span class="p">()</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xlabel.html#matplotlib.pyplot.xlabel" title="matplotlib.pyplot.xlabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span></a><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.ylabel.html#matplotlib.pyplot.ylabel" title="matplotlib.pyplot.ylabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span></a><span class="p">(</span><span class="s2">&quot;target&quot;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.title.html#matplotlib.pyplot.title" title="matplotlib.pyplot.title" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">title</span></a><span class="p">(</span><span class="s2">&quot;حدود نموذج خطي مثل ridge&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_compare_gpr_krr_002.png" srcset="../../_images/sphx_glr_plot_compare_gpr_krr_002.png" alt="Limitation of a linear model such as ridge" class = "sphx-glr-single-img"/><p>Such a ridge regressor underfits data since it is not expressive enough.</p>
+<img src="../../_images/sphx_glr_plot_compare_gpr_krr_002.png" srcset="../../_images/sphx_glr_plot_compare_gpr_krr_002.png" alt="حدود نموذج خطي مثل ridge" class = "sphx-glr-single-img"/><p>مثل هذا المنحدر ridge لا يتناسب مع البيانات لأنه ليس معبرًا بما فيه الكفاية.</p>
 </section>
-<section id="kernel-methods-kernel-ridge-and-gaussian-process">
-<h2>Kernel methods: kernel ridge and Gaussian process<a class="headerlink" href="#kernel-methods-kernel-ridge-and-gaussian-process" title="Link to this heading">#</a></h2>
-<section id="kernel-ridge">
-<h3>Kernel ridge<a class="headerlink" href="#kernel-ridge" title="Link to this heading">#</a></h3>
-<p>We can make the previous linear model more expressive by using a so-called
-kernel. A kernel is an embedding from the original feature space to another
-one. Simply put, it is used to map our original data into a newer and more
-complex feature space. This new space is explicitly defined by the choice of
-kernel.</p>
-<p>In our case, we know that the true generative process is a periodic function.
-We can use a <a class="reference internal" href="../../modules/generated/sklearn.gaussian_process.kernels.ExpSineSquared.html#sklearn.gaussian_process.kernels.ExpSineSquared" title="sklearn.gaussian_process.kernels.ExpSineSquared"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExpSineSquared</span></code></a> kernel
-which allows recovering the periodicity. The class
-<a class="reference internal" href="../../modules/generated/sklearn.kernel_ridge.KernelRidge.html#sklearn.kernel_ridge.KernelRidge" title="sklearn.kernel_ridge.KernelRidge"><code class="xref py py-class docutils literal notranslate"><span class="pre">KernelRidge</span></code></a> will accept such a kernel.</p>
-<p>Using this model together with a kernel is equivalent to embed the data
-using the mapping function of the kernel and then apply a ridge regression.
-In practice, the data are not mapped explicitly; instead the dot product
-between samples in the higher dimensional feature space is computed using the
+<section id="id3">
+<h2>طرق النواة: kernel ridge و العملية الغاوسية<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<section id="id4">
+<h3>Kernel ridge<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>يمكننا جعل النموذج الخطي السابق أكثر تعبيرًا باستخدام ما يسمى
+النواة. النواة هي تضمين من مساحة الميزة الأصلية إلى أخرى.
+ببساطة ، يتم استخدامه لتعيين بياناتنا الأصلية في مساحة ميزة أحدث وأكثر
+تعقيدًا. يتم تعريف هذه المساحة الجديدة صراحةً من خلال اختيار
+النواة.</p>
+<p>في حالتنا ، نعلم أن عملية التوليد الحقيقية هي دالة دورية.
+يمكننا استخدام نواة <a class="reference internal" href="../../modules/generated/sklearn.gaussian_process.kernels.ExpSineSquared.html#sklearn.gaussian_process.kernels.ExpSineSquared" title="sklearn.gaussian_process.kernels.ExpSineSquared"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExpSineSquared</span></code></a>
+التي تسمح باستعادة الدورية. الفئة
+<a class="reference internal" href="../../modules/generated/sklearn.kernel_ridge.KernelRidge.html#sklearn.kernel_ridge.KernelRidge" title="sklearn.kernel_ridge.KernelRidge"><code class="xref py py-class docutils literal notranslate"><span class="pre">KernelRidge</span></code></a> ستقبل مثل هذه النواة.</p>
+<p>استخدام هذا النموذج مع النواة يعادل تضمين البيانات
+باستخدام دالة التعيين للنواة ثم تطبيق انحدار ridge.
+من الناحية العملية ، لا يتم تعيين البيانات بشكل صريح ؛ بدلاً من ذلك ، حاصل الضرب النقطي
+بين العينات في مساحة الميزة ذات الأبعاد الأعلى يتم حسابه باستخدام
 &quot;kernel trick&quot;.</p>
-<p>Thus, let's use such a <a class="reference internal" href="../../modules/generated/sklearn.kernel_ridge.KernelRidge.html#sklearn.kernel_ridge.KernelRidge" title="sklearn.kernel_ridge.KernelRidge"><code class="xref py py-class docutils literal notranslate"><span class="pre">KernelRidge</span></code></a>.</p>
+<p>وبالتالي ، دعونا نستخدم <a class="reference internal" href="../../modules/generated/sklearn.kernel_ridge.KernelRidge.html#sklearn.kernel_ridge.KernelRidge" title="sklearn.kernel_ridge.KernelRidge"><code class="xref py py-class docutils literal notranslate"><span class="pre">KernelRidge</span></code></a> .</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
 
-<span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <span class="n">ExpSineSquared</span>
-<span class="kn">from</span> <span class="nn">sklearn.kernel_ridge</span> <span class="kn">import</span> <span class="n">KernelRidge</span>
+<span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.gaussian_process.kernels.ExpSineSquared.html#sklearn.gaussian_process.kernels.ExpSineSquared" title="sklearn.gaussian_process.kernels.ExpSineSquared" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ExpSineSquared</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.kernel_ridge</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.kernel_ridge.KernelRidge.html#sklearn.kernel_ridge.KernelRidge" title="sklearn.kernel_ridge.KernelRidge" class="sphx-glr-backref-module-sklearn-kernel_ridge sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">KernelRidge</span></a>
 
-<span class="n">kernel_ridge</span> <span class="o">=</span> <span class="n">KernelRidge</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="n">ExpSineSquared</span><span class="p">())</span>
+<span class="n">kernel_ridge</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.kernel_ridge.KernelRidge.html#sklearn.kernel_ridge.KernelRidge" title="sklearn.kernel_ridge.KernelRidge" class="sphx-glr-backref-module-sklearn-kernel_ridge sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">KernelRidge</span></a><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><a href="../../modules/generated/sklearn.gaussian_process.kernels.ExpSineSquared.html#sklearn.gaussian_process.kernels.ExpSineSquared" title="sklearn.gaussian_process.kernels.ExpSineSquared" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ExpSineSquared</span></a><span class="p">())</span>
 
-<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">start_time</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span><span class="o">.</span><span class="n">time</span></a><span class="p">()</span>
 <span class="n">kernel_ridge</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">training_data</span><span class="p">,</span> <span class="n">training_noisy_target</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">&quot;Fitting KernelRidge with default kernel: </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_time</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> seconds&quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;ملاءمة KernelRidge مع النواة الافتراضية: </span><span class="si">{</span><a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span><span class="o">.</span><span class="n">time</span></a><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_time</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> ثانية&quot;</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Fitting KernelRidge with default kernel: 0.001 seconds
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>ملاءمة KernelRidge مع النواة الافتراضية: 0.001 ثانية
 </pre></div>
 </div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True signal&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True signal&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.scatter.html#matplotlib.pyplot.scatter" title="matplotlib.pyplot.scatter" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span></a><span class="p">(</span>
     <span class="n">training_data</span><span class="p">,</span>
     <span class="n">training_noisy_target</span><span class="p">,</span>
     <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Noisy measurements&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span>
     <span class="n">data</span><span class="p">,</span>
     <span class="n">kernel_ridge</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Kernel ridge&quot;</span><span class="p">,</span>
     <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashdot&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;target&quot;</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span>
-    <span class="s2">&quot;Kernel ridge regression with an exponential sine squared</span><span class="se">\n</span><span class="s2"> &quot;</span>
-    <span class="s2">&quot;kernel using default hyperparameters&quot;</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html#matplotlib.pyplot.legend" title="matplotlib.pyplot.legend" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span></a><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xlabel.html#matplotlib.pyplot.xlabel" title="matplotlib.pyplot.xlabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span></a><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.ylabel.html#matplotlib.pyplot.ylabel" title="matplotlib.pyplot.ylabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span></a><span class="p">(</span><span class="s2">&quot;target&quot;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.title.html#matplotlib.pyplot.title" title="matplotlib.pyplot.title" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">title</span></a><span class="p">(</span>
+    <span class="s2">&quot;انحدار Kernel ridge مع  exponential sine squared</span><span class="se">\n</span><span class="s2"> &quot;</span>
+    <span class="s2">&quot;النواة باستخدام المعلمات الفائقة الافتراضية&quot;</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_compare_gpr_krr_003.png" srcset="../../_images/sphx_glr_plot_compare_gpr_krr_003.png" alt="Kernel ridge regression with an exponential sine squared  kernel using default hyperparameters" class = "sphx-glr-single-img"/><p>This fitted model is not accurate. Indeed, we did not set the parameters of
-the kernel and instead used the default ones. We can inspect them.</p>
+<img src="../../_images/sphx_glr_plot_compare_gpr_krr_003.png" srcset="../../_images/sphx_glr_plot_compare_gpr_krr_003.png" alt="انحدار Kernel ridge مع  exponential sine squared  النواة باستخدام المعلمات الفائقة الافتراضية" class = "sphx-glr-single-img"/><p>هذا النموذج المجهز غير دقيق. في الواقع ، لم نقم بتعيين معلمات
+النواة واستخدمنا المعلمات الافتراضية بدلاً من ذلك. يمكننا فحصها.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">kernel_ridge</span><span class="o">.</span><span class="n">kernel</span>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>ExpSineSquared(length_scale=1, periodicity=1)
 </pre></div>
 </div>
-<p>Our kernel has two parameters: the length-scale and the periodicity. For our
-dataset, we use <code class="docutils literal notranslate"><span class="pre">sin</span></code> as the generative process, implying a
-<span class="math notranslate nohighlight">\(2 \pi\)</span>-periodicity for the signal. The default value of the parameter
-being <span class="math notranslate nohighlight">\(1\)</span>, it explains the high frequency observed in the predictions of
-our model.
-Similar conclusions could be drawn with the length-scale parameter. Thus, it
-tell us that the kernel parameters need to be tuned. We will use a randomized
-search to tune the different parameters the kernel ridge model: the <code class="docutils literal notranslate"><span class="pre">alpha</span></code>
-parameter and the kernel parameters.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">loguniform</span>
+<p>تحتوي نواتنا على معلمتين: مقياس الطول والدورية. بالنسبة لمجموعة البيانات الخاصة بنا ، نستخدم <code class="docutils literal notranslate"><span class="pre">sin</span></code> كعملية توليد ، مما يعني
+<span class="math notranslate nohighlight">\(2 \pi\)</span>-دورية للإشارة. القيمة الافتراضية للمعامل
+هي <span class="math notranslate nohighlight">\(1\)</span> ، وهذا يفسر التردد العالي الملاحظ في تنبؤات
+نموذجنا.
+يمكن استخلاص استنتاجات مماثلة مع معامل مقياس الطول. وبالتالي ،
+يخبرنا أن معلمات النواة بحاجة إلى الضبط. سنستخدم بحثًا عشوائيًا
+لضبط المعلمات المختلفة لنموذج kernel ridge: المعامل <code class="docutils literal notranslate"><span class="pre">alpha</span></code>
+ومعلمات النواة.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.loguniform.html#scipy.stats.loguniform" title="scipy.stats.loguniform" class="sphx-glr-backref-module-scipy-stats sphx-glr-backref-type-py-data"><span class="n">loguniform</span></a>
 
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">RandomizedSearchCV</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.model_selection.RandomizedSearchCV.html#sklearn.model_selection.RandomizedSearchCV" title="sklearn.model_selection.RandomizedSearchCV" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RandomizedSearchCV</span></a>
 
 <span class="n">param_distributions</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="n">loguniform</span><span class="p">(</span><span class="mf">1e0</span><span class="p">,</span> <span class="mf">1e3</span><span class="p">),</span>
-    <span class="s2">&quot;kernel__length_scale&quot;</span><span class="p">:</span> <span class="n">loguniform</span><span class="p">(</span><span class="mf">1e-2</span><span class="p">,</span> <span class="mf">1e2</span><span class="p">),</span>
-    <span class="s2">&quot;kernel__periodicity&quot;</span><span class="p">:</span> <span class="n">loguniform</span><span class="p">(</span><span class="mf">1e0</span><span class="p">,</span> <span class="mf">1e1</span><span class="p">),</span>
+    <span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.loguniform.html#scipy.stats.loguniform" title="scipy.stats.loguniform" class="sphx-glr-backref-module-scipy-stats sphx-glr-backref-type-py-data"><span class="n">loguniform</span></a><span class="p">(</span><span class="mf">1e0</span><span class="p">,</span> <span class="mf">1e3</span><span class="p">),</span>
+    <span class="s2">&quot;kernel__length_scale&quot;</span><span class="p">:</span> <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.loguniform.html#scipy.stats.loguniform" title="scipy.stats.loguniform" class="sphx-glr-backref-module-scipy-stats sphx-glr-backref-type-py-data"><span class="n">loguniform</span></a><span class="p">(</span><span class="mf">1e-2</span><span class="p">,</span> <span class="mf">1e2</span><span class="p">),</span>
+    <span class="s2">&quot;kernel__periodicity&quot;</span><span class="p">:</span> <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.loguniform.html#scipy.stats.loguniform" title="scipy.stats.loguniform" class="sphx-glr-backref-module-scipy-stats sphx-glr-backref-type-py-data"><span class="n">loguniform</span></a><span class="p">(</span><span class="mf">1e0</span><span class="p">,</span> <span class="mf">1e1</span><span class="p">),</span>
 <span class="p">}</span>
-<span class="n">kernel_ridge_tuned</span> <span class="o">=</span> <span class="n">RandomizedSearchCV</span><span class="p">(</span>
+<span class="n">kernel_ridge_tuned</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.model_selection.RandomizedSearchCV.html#sklearn.model_selection.RandomizedSearchCV" title="sklearn.model_selection.RandomizedSearchCV" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RandomizedSearchCV</span></a><span class="p">(</span>
     <span class="n">kernel_ridge</span><span class="p">,</span>
     <span class="n">param_distributions</span><span class="o">=</span><span class="n">param_distributions</span><span class="p">,</span>
     <span class="n">n_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
     <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">start_time</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span><span class="o">.</span><span class="n">time</span></a><span class="p">()</span>
 <span class="n">kernel_ridge_tuned</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">training_data</span><span class="p">,</span> <span class="n">training_noisy_target</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Time for KernelRidge fitting: </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_time</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;الوقت اللازم لملاءمة KernelRidge: </span><span class="si">{</span><a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span><span class="o">.</span><span class="n">time</span></a><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_time</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> ثانية&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time for KernelRidge fitting: 4.330 seconds
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>الوقت اللازم لملاءمة KernelRidge: 4.548 ثانية
 </pre></div>
 </div>
-<p>Fitting the model is now more computationally expensive since we have to try
-several combinations of hyperparameters. We can have a look at the
-hyperparameters found to get some intuitions.</p>
+<p>أصبحت ملاءمة النموذج الآن أكثر تكلفة من الناحية الحسابية نظرًا لأنه يتعين علينا تجربة
+عدة مجموعات من المعلمات الفائقة. يمكننا إلقاء نظرة على
+المعلمات الفائقة التي تم العثور عليها للحصول على بعض الحدس.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">kernel_ridge_tuned</span><span class="o">.</span><span class="n">best_params_</span>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>{&#39;alpha&#39;: np.float64(1.991584977345022), &#39;kernel__length_scale&#39;: np.float64(0.7986499491396734), &#39;kernel__periodicity&#39;: np.float64(6.6072758064261095)}
 </pre></div>
 </div>
-<p>Looking at the best parameters, we see that they are different from the
-defaults. We also see that the periodicity is closer to the expected value:
-<span class="math notranslate nohighlight">\(2 \pi\)</span>. We can now inspect the predictions of our tuned kernel ridge.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<p>بالنظر إلى أفضل المعلمات ، نرى أنها مختلفة عن
+الافتراضيات. نرى أيضًا أن الدورية أقرب إلى القيمة المتوقعة:
+<span class="math notranslate nohighlight">\(2 \pi\)</span>. يمكننا الآن فحص تنبؤات kernel ridge المضبوط لدينا.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">start_time</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span><span class="o">.</span><span class="n">time</span></a><span class="p">()</span>
 <span class="n">predictions_kr</span> <span class="o">=</span> <span class="n">kernel_ridge_tuned</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Time for KernelRidge predict: </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_time</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;الوقت اللازم للتنبؤ بـ KernelRidge: </span><span class="si">{</span><a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span><span class="o">.</span><span class="n">time</span></a><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_time</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> ثانية&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time for KernelRidge predict: 0.002 seconds
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>الوقت اللازم للتنبؤ بـ KernelRidge: 0.002 ثانية
 </pre></div>
 </div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True signal&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True signal&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.scatter.html#matplotlib.pyplot.scatter" title="matplotlib.pyplot.scatter" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span></a><span class="p">(</span>
     <span class="n">training_data</span><span class="p">,</span>
     <span class="n">training_noisy_target</span><span class="p">,</span>
     <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Noisy measurements&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span>
     <span class="n">data</span><span class="p">,</span>
     <span class="n">predictions_kr</span><span class="p">,</span>
     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Kernel ridge&quot;</span><span class="p">,</span>
     <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashdot&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;target&quot;</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span>
-    <span class="s2">&quot;Kernel ridge regression with an exponential sine squared</span><span class="se">\n</span><span class="s2"> &quot;</span>
-    <span class="s2">&quot;kernel using tuned hyperparameters&quot;</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html#matplotlib.pyplot.legend" title="matplotlib.pyplot.legend" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span></a><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xlabel.html#matplotlib.pyplot.xlabel" title="matplotlib.pyplot.xlabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span></a><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.ylabel.html#matplotlib.pyplot.ylabel" title="matplotlib.pyplot.ylabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span></a><span class="p">(</span><span class="s2">&quot;target&quot;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.title.html#matplotlib.pyplot.title" title="matplotlib.pyplot.title" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">title</span></a><span class="p">(</span>
+    <span class="s2">&quot;انحدار Kernel ridge مع  exponential sine squared</span><span class="se">\n</span><span class="s2"> &quot;</span>
+    <span class="s2">&quot;النواة باستخدام المعلمات الفائقة المضبوطة&quot;</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_compare_gpr_krr_004.png" srcset="../../_images/sphx_glr_plot_compare_gpr_krr_004.png" alt="Kernel ridge regression with an exponential sine squared  kernel using tuned hyperparameters" class = "sphx-glr-single-img"/><p>We get a much more accurate model. We still observe some errors mainly due to
-the noise added to the dataset.</p>
+<img src="../../_images/sphx_glr_plot_compare_gpr_krr_004.png" srcset="../../_images/sphx_glr_plot_compare_gpr_krr_004.png" alt="انحدار Kernel ridge مع  exponential sine squared  النواة باستخدام المعلمات الفائقة المضبوطة" class = "sphx-glr-single-img"/><p>نحصل على نموذج أكثر دقة. ما زلنا نلاحظ بعض الأخطاء ويرجع ذلك أساسًا إلى
+الضوضاء المضافة إلى مجموعة البيانات.</p>
 </section>
-<section id="gaussian-process-regression">
-<h3>Gaussian process regression<a class="headerlink" href="#gaussian-process-regression" title="Link to this heading">#</a></h3>
-<p>Now, we will use a
-<a class="reference internal" href="../../modules/generated/sklearn.gaussian_process.GaussianProcessRegressor.html#sklearn.gaussian_process.GaussianProcessRegressor" title="sklearn.gaussian_process.GaussianProcessRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianProcessRegressor</span></code></a> to fit the same
-dataset. When training a Gaussian process, the hyperparameters of the kernel
-are optimized during the fitting process. There is no need for an external
-hyperparameter search. Here, we create a slightly more complex kernel than
-for the kernel ridge regressor: we add a
-<a class="reference internal" href="../../modules/generated/sklearn.gaussian_process.kernels.WhiteKernel.html#sklearn.gaussian_process.kernels.WhiteKernel" title="sklearn.gaussian_process.kernels.WhiteKernel"><code class="xref py py-class docutils literal notranslate"><span class="pre">WhiteKernel</span></code></a> that is used to
-estimate the noise in the dataset.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.gaussian_process</span> <span class="kn">import</span> <span class="n">GaussianProcessRegressor</span>
-<span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <span class="n">WhiteKernel</span>
+<section id="id5">
+<h3>انحدار العملية الغاوسية<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>الآن ، سنستخدم
+<a class="reference internal" href="../../modules/generated/sklearn.gaussian_process.GaussianProcessRegressor.html#sklearn.gaussian_process.GaussianProcessRegressor" title="sklearn.gaussian_process.GaussianProcessRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianProcessRegressor</span></code></a> لملاءمة نفس
+مجموعة البيانات. عند تدريب عملية غاوسية ، يتم تحسين المعلمات الفائقة للنواة
+أثناء عملية الملاءمة. ليست هناك حاجة لبحث خارجي عن المعلمات الفائقة. هنا ، نقوم بإنشاء نواة أكثر تعقيدًا قليلاً من</p>
+<blockquote>
+<div><p>kernel ridge: نضيف</p>
+</div></blockquote>
+<p><a class="reference internal" href="../../modules/generated/sklearn.gaussian_process.kernels.WhiteKernel.html#sklearn.gaussian_process.kernels.WhiteKernel" title="sklearn.gaussian_process.kernels.WhiteKernel"><code class="xref py py-class docutils literal notranslate"><span class="pre">WhiteKernel</span></code></a> التي تُستخدم لـ
+تقدير الضوضاء في مجموعة البيانات.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.gaussian_process</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.gaussian_process.GaussianProcessRegressor.html#sklearn.gaussian_process.GaussianProcessRegressor" title="sklearn.gaussian_process.GaussianProcessRegressor" class="sphx-glr-backref-module-sklearn-gaussian_process sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">GaussianProcessRegressor</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.gaussian_process.kernels.WhiteKernel.html#sklearn.gaussian_process.kernels.WhiteKernel" title="sklearn.gaussian_process.kernels.WhiteKernel" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">WhiteKernel</span></a>
 
-<span class="n">kernel</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">ExpSineSquared</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="n">periodicity_bounds</span><span class="o">=</span><span class="p">(</span><span class="mf">1e-2</span><span class="p">,</span> <span class="mf">1e1</span><span class="p">))</span> <span class="o">+</span> <span class="n">WhiteKernel</span><span class="p">(</span>
+<span class="n">kernel</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">*</span> <a href="../../modules/generated/sklearn.gaussian_process.kernels.ExpSineSquared.html#sklearn.gaussian_process.kernels.ExpSineSquared" title="sklearn.gaussian_process.kernels.ExpSineSquared" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ExpSineSquared</span></a><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="n">periodicity_bounds</span><span class="o">=</span><span class="p">(</span><span class="mf">1e-2</span><span class="p">,</span> <span class="mf">1e1</span><span class="p">))</span> <span class="o">+</span> <a href="../../modules/generated/sklearn.gaussian_process.kernels.WhiteKernel.html#sklearn.gaussian_process.kernels.WhiteKernel" title="sklearn.gaussian_process.kernels.WhiteKernel" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">WhiteKernel</span></a><span class="p">(</span>
     <span class="mf">1e-1</span>
 <span class="p">)</span>
-<span class="n">gaussian_process</span> <span class="o">=</span> <span class="n">GaussianProcessRegressor</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">)</span>
-<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">gaussian_process</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.gaussian_process.GaussianProcessRegressor.html#sklearn.gaussian_process.GaussianProcessRegressor" title="sklearn.gaussian_process.GaussianProcessRegressor" class="sphx-glr-backref-module-sklearn-gaussian_process sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">GaussianProcessRegressor</span></a><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">)</span>
+<span class="n">start_time</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span><span class="o">.</span><span class="n">time</span></a><span class="p">()</span>
 <span class="n">gaussian_process</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">training_data</span><span class="p">,</span> <span class="n">training_noisy_target</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">&quot;Time for GaussianProcessRegressor fitting: </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_time</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> seconds&quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;الوقت اللازم لملاءمة GaussianProcessRegressor: </span><span class="si">{</span><a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span><span class="o">.</span><span class="n">time</span></a><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_time</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> ثانية&quot;</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time for GaussianProcessRegressor fitting: 0.031 seconds
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>الوقت اللازم لملاءمة GaussianProcessRegressor: 0.158 ثانية
 </pre></div>
 </div>
-<p>The computation cost of training a Gaussian process is much less than the
-kernel ridge that uses a randomized search. We can check the parameters of
-the kernels that we computed.</p>
+<p>التكلفة الحسابية لتدريب عملية غاوسية أقل بكثير من
+تكلفة kernel ridge التي تستخدم بحثًا عشوائيًا. يمكننا التحقق من معلمات
+النوى التي حسبناها.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">gaussian_process</span><span class="o">.</span><span class="n">kernel_</span>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>0.675**2 * ExpSineSquared(length_scale=1.34, periodicity=6.57) + WhiteKernel(noise_level=0.182)
 </pre></div>
 </div>
-<p>Indeed, we see that the parameters have been optimized. Looking at the
-<code class="docutils literal notranslate"><span class="pre">periodicity</span></code> parameter, we see that we found a period close to the
-theoretical value <span class="math notranslate nohighlight">\(2 \pi\)</span>. We can have a look now at the predictions of
-our model.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<p>في الواقع ، نرى أن المعلمات قد تم تحسينها. بالنظر إلى
+معامل <code class="docutils literal notranslate"><span class="pre">periodicity</span></code> ، نرى أننا وجدنا فترة قريبة من
+القيمة النظرية <span class="math notranslate nohighlight">\(2 \pi\)</span>. يمكننا الآن إلقاء نظرة على تنبؤات
+نموذجنا.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">start_time</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span><span class="o">.</span><span class="n">time</span></a><span class="p">()</span>
 <span class="n">mean_predictions_gpr</span><span class="p">,</span> <span class="n">std_predictions_gpr</span> <span class="o">=</span> <span class="n">gaussian_process</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span>
     <span class="n">data</span><span class="p">,</span>
     <span class="n">return_std</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">&quot;Time for GaussianProcessRegressor predict: </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_time</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> seconds&quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;الوقت اللازم للتنبؤ بـ GaussianProcessRegressor: </span><span class="si">{</span><a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span><span class="o">.</span><span class="n">time</span></a><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_time</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> ثانية&quot;</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Time for GaussianProcessRegressor predict: 0.002 seconds
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>الوقت اللازم للتنبؤ بـ GaussianProcessRegressor: 0.002 ثانية
 </pre></div>
 </div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True signal&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True signal&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.scatter.html#matplotlib.pyplot.scatter" title="matplotlib.pyplot.scatter" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span></a><span class="p">(</span>
     <span class="n">training_data</span><span class="p">,</span>
     <span class="n">training_noisy_target</span><span class="p">,</span>
     <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Noisy measurements&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="c1"># Plot the predictions of the kernel ridge</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+<span class="c1"># رسم تنبؤات kernel ridge</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span>
     <span class="n">data</span><span class="p">,</span>
     <span class="n">predictions_kr</span><span class="p">,</span>
     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Kernel ridge&quot;</span><span class="p">,</span>
     <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashdot&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="c1"># Plot the predictions of the gaussian process regressor</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+<span class="c1"># رسم تنبؤات انحدار العملية الغاوسية</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span>
     <span class="n">data</span><span class="p">,</span>
     <span class="n">mean_predictions_gpr</span><span class="p">,</span>
     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Gaussian process regressor&quot;</span><span class="p">,</span>
     <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dotted&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.fill_between.html#matplotlib.pyplot.fill_between" title="matplotlib.pyplot.fill_between" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span></a><span class="p">(</span>
     <span class="n">data</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
     <span class="n">mean_predictions_gpr</span> <span class="o">-</span> <span class="n">std_predictions_gpr</span><span class="p">,</span>
     <span class="n">mean_predictions_gpr</span> <span class="o">+</span> <span class="n">std_predictions_gpr</span><span class="p">,</span>
     <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:green&quot;</span><span class="p">,</span>
     <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;target&quot;</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Comparison between kernel ridge and gaussian process regressor&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html#matplotlib.pyplot.legend" title="matplotlib.pyplot.legend" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span></a><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xlabel.html#matplotlib.pyplot.xlabel" title="matplotlib.pyplot.xlabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span></a><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.ylabel.html#matplotlib.pyplot.ylabel" title="matplotlib.pyplot.ylabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span></a><span class="p">(</span><span class="s2">&quot;target&quot;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.title.html#matplotlib.pyplot.title" title="matplotlib.pyplot.title" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">title</span></a><span class="p">(</span><span class="s2">&quot;مقارنة بين kernel ridge وانحدار العملية الغاوسية&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_compare_gpr_krr_005.png" srcset="../../_images/sphx_glr_plot_compare_gpr_krr_005.png" alt="Comparison between kernel ridge and gaussian process regressor" class = "sphx-glr-single-img"/><p>We observe that the results of the kernel ridge and the Gaussian process
-regressor are close. However, the Gaussian process regressor also provide
-an uncertainty information that is not available with a kernel ridge.
-Due to the probabilistic formulation of the target functions, the
-Gaussian process can output the standard deviation (or the covariance)
-together with the mean predictions of the target functions.</p>
-<p>However, it comes at a cost: the time to compute the predictions is higher
-with a Gaussian process.</p>
+<img src="../../_images/sphx_glr_plot_compare_gpr_krr_005.png" srcset="../../_images/sphx_glr_plot_compare_gpr_krr_005.png" alt="مقارنة بين kernel ridge وانحدار العملية الغاوسية" class = "sphx-glr-single-img"/><p>نلاحظ أن نتائج kernel ridge وانحدار العملية الغاوسية
+متقاربة. ومع ذلك ، يوفر انحدار العملية الغاوسية أيضًا
+معلومات عدم اليقين التي لا تتوفر مع kernel ridge.
+نظرًا للصياغة الاحتمالية لدوال الهدف ،
+يمكن للعملية الغاوسية إخراج الانحراف المعياري (أو التغاير)
+جنبًا إلى جنب مع متوسط ​​تنبؤات دوال الهدف.</p>
+<p>ومع ذلك ، فإن هذا يأتي بتكلفة: الوقت اللازم لحساب التنبؤات يكون أعلى
+مع العملية الغاوسية.</p>
 </section>
 </section>
-<section id="final-conclusion">
-<h2>Final conclusion<a class="headerlink" href="#final-conclusion" title="Link to this heading">#</a></h2>
-<p>We can give a final word regarding the possibility of the two models to
-extrapolate. Indeed, we only provided the beginning of the signal as a
-training set. Using a periodic kernel forces our model to repeat the pattern
-found on the training set. Using this kernel information together with the
-capacity of the both models to extrapolate, we observe that the models will
-continue to predict the sine pattern.</p>
-<p>Gaussian process allows to combine kernels together. Thus, we could associate
-the exponential sine squared kernel together with a radial basis function
-kernel.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <span class="n">RBF</span>
+<section id="id6">
+<h2>الخلاصة النهائية<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p>يمكننا أن نقول كلمة أخيرة بخصوص إمكانية النموذجين
+للاستقراء. في الواقع ، قدمنا ​​فقط بداية الإشارة كمجموعة
+تدريب. استخدام نواة دورية يجبر نموذجنا على تكرار النمط
+الموجود في مجموعة التدريب. باستخدام معلومات النواة هذه جنبًا إلى جنب مع
+قدرة كلا النموذجين على الاستقراء ، نلاحظ أن النماذج ستستمر
+في التنبؤ بنمط الجيب.</p>
+<dl class="simple">
+<dt>تسمح العملية الغاوسية بدمج النوى معًا. وبالتالي ، يمكننا ربط</dt><dd><p>exponential sine squared kernel مع نواة دالة الأساس الشعاعي.</p>
+</dd>
+</dl>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.gaussian_process.kernels.RBF.html#sklearn.gaussian_process.kernels.RBF" title="sklearn.gaussian_process.kernels.RBF" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RBF</span></a>
 
-<span class="n">kernel</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">ExpSineSquared</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="n">periodicity_bounds</span><span class="o">=</span><span class="p">(</span><span class="mf">1e-2</span><span class="p">,</span> <span class="mf">1e1</span><span class="p">))</span> <span class="o">*</span> <span class="n">RBF</span><span class="p">(</span>
+<span class="n">kernel</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">*</span> <a href="../../modules/generated/sklearn.gaussian_process.kernels.ExpSineSquared.html#sklearn.gaussian_process.kernels.ExpSineSquared" title="sklearn.gaussian_process.kernels.ExpSineSquared" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ExpSineSquared</span></a><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="n">periodicity_bounds</span><span class="o">=</span><span class="p">(</span><span class="mf">1e-2</span><span class="p">,</span> <span class="mf">1e1</span><span class="p">))</span> <span class="o">*</span> <a href="../../modules/generated/sklearn.gaussian_process.kernels.RBF.html#sklearn.gaussian_process.kernels.RBF" title="sklearn.gaussian_process.kernels.RBF" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RBF</span></a><span class="p">(</span>
     <span class="n">length_scale</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">length_scale_bounds</span><span class="o">=</span><span class="s2">&quot;fixed&quot;</span>
-<span class="p">)</span> <span class="o">+</span> <span class="n">WhiteKernel</span><span class="p">(</span><span class="mf">1e-1</span><span class="p">)</span>
-<span class="n">gaussian_process</span> <span class="o">=</span> <span class="n">GaussianProcessRegressor</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">)</span>
+<span class="p">)</span> <span class="o">+</span> <a href="../../modules/generated/sklearn.gaussian_process.kernels.WhiteKernel.html#sklearn.gaussian_process.kernels.WhiteKernel" title="sklearn.gaussian_process.kernels.WhiteKernel" class="sphx-glr-backref-module-sklearn-gaussian_process-kernels sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">WhiteKernel</span></a><span class="p">(</span><span class="mf">1e-1</span><span class="p">)</span>
+<span class="n">gaussian_process</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.gaussian_process.GaussianProcessRegressor.html#sklearn.gaussian_process.GaussianProcessRegressor" title="sklearn.gaussian_process.GaussianProcessRegressor" class="sphx-glr-backref-module-sklearn-gaussian_process sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">GaussianProcessRegressor</span></a><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">)</span>
 <span class="n">gaussian_process</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">training_data</span><span class="p">,</span> <span class="n">training_noisy_target</span><span class="p">)</span>
 <span class="n">mean_predictions_gpr</span><span class="p">,</span> <span class="n">std_predictions_gpr</span> <span class="o">=</span> <span class="n">gaussian_process</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span>
     <span class="n">data</span><span class="p">,</span>
@@ -1353,48 +1344,48 @@ kernel.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True signal&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True signal&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.scatter.html#matplotlib.pyplot.scatter" title="matplotlib.pyplot.scatter" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span></a><span class="p">(</span>
     <span class="n">training_data</span><span class="p">,</span>
     <span class="n">training_noisy_target</span><span class="p">,</span>
     <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Noisy measurements&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="c1"># Plot the predictions of the kernel ridge</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+<span class="c1"># رسم تنبؤات kernel ridge</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span>
     <span class="n">data</span><span class="p">,</span>
     <span class="n">predictions_kr</span><span class="p">,</span>
     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Kernel ridge&quot;</span><span class="p">,</span>
     <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashdot&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="c1"># Plot the predictions of the gaussian process regressor</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+<span class="c1"># رسم تنبؤات انحدار العملية الغاوسية</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span>
     <span class="n">data</span><span class="p">,</span>
     <span class="n">mean_predictions_gpr</span><span class="p">,</span>
     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Gaussian process regressor&quot;</span><span class="p">,</span>
     <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dotted&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.fill_between.html#matplotlib.pyplot.fill_between" title="matplotlib.pyplot.fill_between" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span></a><span class="p">(</span>
     <span class="n">data</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
     <span class="n">mean_predictions_gpr</span> <span class="o">-</span> <span class="n">std_predictions_gpr</span><span class="p">,</span>
     <span class="n">mean_predictions_gpr</span> <span class="o">+</span> <span class="n">std_predictions_gpr</span><span class="p">,</span>
     <span class="n">color</span><span class="o">=</span><span class="s2">&quot;tab:green&quot;</span><span class="p">,</span>
     <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;target&quot;</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Effect of using a radial basis function kernel&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html#matplotlib.pyplot.legend" title="matplotlib.pyplot.legend" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span></a><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xlabel.html#matplotlib.pyplot.xlabel" title="matplotlib.pyplot.xlabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span></a><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.ylabel.html#matplotlib.pyplot.ylabel" title="matplotlib.pyplot.ylabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span></a><span class="p">(</span><span class="s2">&quot;target&quot;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.title.html#matplotlib.pyplot.title" title="matplotlib.pyplot.title" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">title</span></a><span class="p">(</span><span class="s2">&quot;تأثير استخدام نواة دالة الأساس الشعاعي&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_compare_gpr_krr_006.png" srcset="../../_images/sphx_glr_plot_compare_gpr_krr_006.png" alt="Effect of using a radial basis function kernel" class = "sphx-glr-single-img"/><p>The effect of using a radial basis function kernel will attenuate the
-periodicity effect once that no sample are available in the training.
-As testing samples get further away from the training ones, predictions
-are converging towards their mean and their standard deviation
-also increases.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 4.995 seconds)</p>
+<img src="../../_images/sphx_glr_plot_compare_gpr_krr_006.png" srcset="../../_images/sphx_glr_plot_compare_gpr_krr_006.png" alt="تأثير استخدام نواة دالة الأساس الشعاعي" class = "sphx-glr-single-img"/><p>سيؤدي تأثير استخدام نواة دالة الأساس الشعاعي إلى تخفيف
+تأثير الدورية بمجرد عدم توفر أي عينة في التدريب.
+كلما ابتعدت عينات الاختبار عن عينات التدريب ،
+تتقارب التنبؤات نحو متوسطها ويزداد انحرافها المعياري
+أيضًا.</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 5.513 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-gaussian-process-plot-compare-gpr-krr-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/scikit-learn/scikit-learn/main?urlpath=lab/tree/notebooks/auto_examples/gaussian_process/plot_compare_gpr_krr.ipynb"><img alt="Launch binder" src="../../_images/binder_badge_logo14.svg" style="width: 150px;" />
@@ -1415,18 +1406,18 @@ also increases.</p>
 </div>
 </div>
 <p class="rubric">Related examples</p>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="A simple one-dimensional regression example computed in two different ways:"><img alt="" src="../../_images/sphx_glr_plot_gpr_noisy_targets_thumb.png" />
-<p><a class="reference internal" href="plot_gpr_noisy_targets.html#sphx-glr-auto-examples-gaussian-process-plot-gpr-noisy-targets-py"><span class="std std-ref">Gaussian Processes regression: basic introductory example</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Gaussian Processes regression: basic introductory example</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Fit Ridge and HuberRegressor on a dataset with outliers."><img alt="" src="../../_images/sphx_glr_plot_huber_vs_ridge_thumb.png" />
-<p><a class="reference internal" href="../linear_model/plot_huber_vs_ridge.html#sphx-glr-auto-examples-linear-model-plot-huber-vs-ridge-py"><span class="std std-ref">HuberRegressor vs Ridge on dataset with strong outliers</span></a></p>
-  <div class="sphx-glr-thumbnail-title">HuberRegressor vs Ridge on dataset with strong outliers</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Shows the effect of collinearity in the coefficients of an estimator."><img alt="" src="../../_images/sphx_glr_plot_ridge_path_thumb.png" />
-<p><a class="reference internal" href="../linear_model/plot_ridge_path.html#sphx-glr-auto-examples-linear-model-plot-ridge-path-py"><span class="std std-ref">Plot Ridge coefficients as a function of the regularization</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Plot Ridge coefficients as a function of the regularization</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows the ability of the WhiteKernel to estimate the noise level in the data. Moreover, we show the importance of kernel hyperparameters initialization."><img alt="" src="../../_images/sphx_glr_plot_gpr_noisy_thumb.png" />
-<p><a class="reference internal" href="plot_gpr_noisy.html#sphx-glr-auto-examples-gaussian-process-plot-gpr-noisy-py"><span class="std std-ref">Ability of Gaussian process regression (GPR) to estimate data noise-level</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Ability of Gaussian process regression (GPR) to estimate data noise-level</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="مثال بسيط أحادي البعد للانحدار محسوب بطريقتين مختلفتين:"><img alt="" src="../../_images/sphx_glr_plot_gpr_noisy_targets_thumb.png" />
+<p><a class="reference internal" href="plot_gpr_noisy_targets.html#sphx-glr-auto-examples-gaussian-process-plot-gpr-noisy-targets-py"><span class="std std-ref">انحدار العمليات الغاوسية: مثال تمهيدي أساسي</span></a></p>
+  <div class="sphx-glr-thumbnail-title">انحدار العمليات الغاوسية: مثال تمهيدي أساسي</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="يستند هذا المثال إلى القسم 5.4.3 من &quot;العمليات الغاوسية للتعلم الآلي&quot; [1]_. يوضح مثالاً على هندسة النواة المعقدة وتحسين المعلمات الفائقة باستخدام صعود التدرج على الاحتمال الهامشي اللوغاريتمي. تتكون البيانات من متوسط ​​التركيزات الشهرية لثاني أكسيد الكربون في الغلاف الجوي (مقاسة بأجزاء لكل مليون من حيث الحجم (ppm)) التي تم جمعها في مرصد مونا لوا في هاواي ، بين عامي 1958 و 2001. الهدف هو نمذجة تركيز ثاني أكسيد الكربون كدالة للوقت t واستقراءه للسنوات التي تلي عام 2001."><img alt="" src="../../_images/sphx_glr_plot_gpr_co2_thumb.png" />
+<p><a class="reference internal" href="plot_gpr_co2.html#sphx-glr-auto-examples-gaussian-process-plot-gpr-co2-py"><span class="std std-ref">التنبؤ بمستوى ثاني أكسيد الكربون في مجموعة بيانات Mona Loa باستخدام انحدار العملية الغاوسية (GPR)</span></a></p>
+  <div class="sphx-glr-thumbnail-title">التنبؤ بمستوى ثاني أكسيد الكربون في مجموعة بيانات Mona Loa باستخدام انحدار العملية الغاوسية (GPR)</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال قدرة  WhiteKernel على تقدير مستوى الضوضاء في البيانات. علاوة على ذلك، سنوضح أهمية تهيئة المعلمات الفائقة للنواة."><img alt="" src="../../_images/sphx_glr_plot_gpr_noisy_thumb.png" />
+<p><a class="reference internal" href="plot_gpr_noisy.html#sphx-glr-auto-examples-gaussian-process-plot-gpr-noisy-py"><span class="std std-ref">قدرة انحدار العمليات الغاوسية (GPR) على تقدير مستوى ضوضاء البيانات</span></a></p>
+  <div class="sphx-glr-thumbnail-title">قدرة انحدار العمليات الغاوسية (GPR) على تقدير مستوى ضوضاء البيانات</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="يظهر هذا المثال تأثير التلازم في معاملات أداة التقدير."><img alt="" src="../../_images/sphx_glr_plot_ridge_path_thumb.png" />
+<p><a class="reference internal" href="../linear_model/plot_ridge_path.html#sphx-glr-auto-examples-linear-model-plot-ridge-path-py"><span class="std std-ref">رسم معاملات Ridge كدالة للتنظيم</span></a></p>
+  <div class="sphx-glr-thumbnail-title">رسم معاملات Ridge كدالة للتنظيم</div>
 </div></div><p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
 </section>
 </section>
@@ -1447,15 +1438,15 @@ also increases.</p>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">السابق</p>
-        <p class="prev-next-title">Ability of Gaussian process regression (GPR) to estimate data noise-level</p>
+        <p class="prev-next-title">قدرة انحدار العمليات الغاوسية (GPR) على تقدير مستوى ضوضاء البيانات</p>
       </div>
     </a>
     <a class="right-next"
-       href="plot_gpr_co2.html"
+       href="../calibration/index.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">التالي</p>
-        <p class="prev-next-title">Forecasting of CO2 level on Mona Loa dataset using Gaussian process regression (GPR)</p>
+        <p class="prev-next-title">معايرة الإحتمالات</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1482,14 +1473,14 @@ also increases.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-a-dataset">Generating a dataset</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations-of-a-simple-linear-model">Limitations of a simple linear model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-methods-kernel-ridge-and-gaussian-process">Kernel methods: kernel ridge and Gaussian process</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-ridge">Kernel ridge</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-process-regression">Gaussian process regression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">توليد مجموعة بيانات</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">حدود نموذج خطي بسيط</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">طرق النواة: kernel ridge و العملية الغاوسية</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Kernel ridge</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">انحدار العملية الغاوسية</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-conclusion">Final conclusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">الخلاصة النهائية</a></li>
 </ul>
   </nav></div>
 

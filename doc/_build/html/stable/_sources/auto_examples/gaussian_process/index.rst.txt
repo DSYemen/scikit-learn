@@ -4,10 +4,10 @@
 
 .. _gaussian_process_examples:
 
-Gaussian Process for Machine Learning
--------------------------------------
+عملية غاوسية للتعلم الآلي
+----------------------------
 
-Examples concerning the :mod:`sklearn.gaussian_process` module.
+أمثلة تتعلق بوحدة :mod:`sklearn.gaussian_process`.
 
 
 
@@ -20,41 +20,7 @@ Examples concerning the :mod:`sklearn.gaussian_process` module.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows the ability of the WhiteKernel to estimate the noise level in the data. Moreover, we show the importance of kernel hyperparameters initialization.">
-
-.. only:: html
-
-  .. image:: /auto_examples/gaussian_process/images/thumb/sphx_glr_plot_gpr_noisy_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_gaussian_process_plot_gpr_noisy.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Ability of Gaussian process regression (GPR) to estimate data noise-level</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates differences between a kernel ridge regression and a Gaussian process regression.">
-
-.. only:: html
-
-  .. image:: /auto_examples/gaussian_process/images/thumb/sphx_glr_plot_compare_gpr_krr_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_gaussian_process_plot_compare_gpr_krr.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Comparison of kernel ridge and Gaussian process regression</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example is based on Section 5.4.3 of &quot;Gaussian Processes for Machine Learning&quot; [1]_. It illustrates an example of complex kernel engineering and hyperparameter optimization using gradient ascent on the log-marginal-likelihood. The data consists of the monthly average atmospheric CO2 concentrations (in parts per million by volume (ppm)) collected at the Mauna Loa Observatory in Hawaii, between 1958 and 2001. The objective is to model the CO2 concentration as a function of the time t and extrapolate for years after 2001.">
+    <div class="sphx-glr-thumbcontainer" tooltip="يستند هذا المثال إلى القسم 5.4.3 من &quot;العمليات الغاوسية للتعلم الآلي&quot; [1]_. يوضح مثالاً على هندسة النواة المعقدة وتحسين المعلمات الفائقة باستخدام صعود التدرج على الاحتمال الهامشي اللوغاريتمي. تتكون البيانات من متوسط ​​التركيزات الشهرية لثاني أكسيد الكربون في الغلاف الجوي (مقاسة بأجزاء لكل مليون من حيث الحجم (ppm)) التي تم جمعها في مرصد مونا لوا في هاواي ، بين عامي 1958 و 2001. الهدف هو نمذجة تركيز ثاني أكسيد الكربون كدالة للوقت t واستقراءه للسنوات التي تلي عام 2001.">
 
 .. only:: html
 
@@ -65,115 +31,13 @@ Examples concerning the :mod:`sklearn.gaussian_process` module.
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Forecasting of CO2 level on Mona Loa dataset using Gaussian process regression (GPR)</div>
+      <div class="sphx-glr-thumbnail-title">التنبؤ بمستوى ثاني أكسيد الكربون في مجموعة بيانات Mona Loa باستخدام انحدار العملية الغاوسية (GPR)</div>
     </div>
 
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="A simple one-dimensional regression example computed in two different ways:">
-
-.. only:: html
-
-  .. image:: /auto_examples/gaussian_process/images/thumb/sphx_glr_plot_gpr_noisy_targets_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_gaussian_process_plot_gpr_noisy_targets.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Gaussian Processes regression: basic introductory example</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the predicted probability of GPC for an isotropic and anisotropic RBF kernel on a two-dimensional version for the iris-dataset. The anisotropic RBF kernel obtains slightly higher log-marginal-likelihood by assigning different length-scales to the two feature dimensions.">
-
-.. only:: html
-
-  .. image:: /auto_examples/gaussian_process/images/thumb/sphx_glr_plot_gpc_iris_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_gaussian_process_plot_gpc_iris.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Gaussian process classification (GPC) on iris dataset</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of Gaussian processes for regression and classification tasks on data that are not in fixed-length feature vector form. This is achieved through the use of kernel functions that operates directly on discrete structures such as variable-length sequences, trees, and graphs.">
-
-.. only:: html
-
-  .. image:: /auto_examples/gaussian_process/images/thumb/sphx_glr_plot_gpr_on_structured_data_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_gaussian_process_plot_gpr_on_structured_data.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Gaussian processes on discrete data structures</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates GPC on XOR data. Compared are a stationary, isotropic kernel (RBF) and a non-stationary kernel (DotProduct). On this particular dataset, the DotProduct kernel obtains considerably better results because the class-boundaries are linear and coincide with the coordinate axes. In general, stationary kernels often obtain better results.">
-
-.. only:: html
-
-  .. image:: /auto_examples/gaussian_process/images/thumb/sphx_glr_plot_gpc_xor_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_gaussian_process_plot_gpc_xor.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Illustration of Gaussian process classification (GPC) on the XOR dataset</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the prior and posterior of a GaussianProcessRegressor with different kernels. Mean, standard deviation, and 5 samples are shown for both prior and posterior distributions.">
-
-.. only:: html
-
-  .. image:: /auto_examples/gaussian_process/images/thumb/sphx_glr_plot_gpr_prior_posterior_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_gaussian_process_plot_gpr_prior_posterior.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Illustration of prior and posterior Gaussian process for different kernels</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="A two-dimensional classification example showing iso-probability lines for the predicted probabilities.">
-
-.. only:: html
-
-  .. image:: /auto_examples/gaussian_process/images/thumb/sphx_glr_plot_gpc_isoprobability_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_gaussian_process_plot_gpc_isoprobability.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Iso-probability lines for Gaussian Processes classification (GPC)</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the predicted probability of GPC for an RBF kernel with different choices of the hyperparameters. The first figure shows the predicted probability of GPC with arbitrarily chosen hyperparameters and with the hyperparameters corresponding to the maximum log-marginal-likelihood (LML).">
+    <div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال الاحتمال المتوقع لـ GPC لنواة RBF مع خيارات مختلفة للمعلمات الفائقة. يُظهر الشكل الأول الاحتمال المتوقع لـ GPC مع معلمات فائقة تم اختيارها عشوائيًا ومع المعلمات الفائقة المقابلة لأكبر احتمال هامشي لوغاريتمي (LML).">
 
 .. only:: html
 
@@ -184,7 +48,143 @@ Examples concerning the :mod:`sklearn.gaussian_process` module.
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Probabilistic predictions with Gaussian process classification (GPC)</div>
+      <div class="sphx-glr-thumbnail-title">التنبؤات الاحتمالية مع تصنيف العملية الغاوسية (GPC)</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال استخدام العمليات الغاوسية لمهام الانحدار والتصنيف على البيانات التي ليست في شكل متجه ميزات بطول ثابت. يتم تحقيق ذلك من خلال استخدام دوال النواة التي تعمل مباشرة على هياكل منقوصة مثل التسلسلات متغيرة الطول والأشجار والرسوم البيانية.">
+
+.. only:: html
+
+  .. image:: /auto_examples/gaussian_process/images/thumb/sphx_glr_plot_gpr_on_structured_data_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_gaussian_process_plot_gpr_on_structured_data.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">العمليات الغاوسية على هياكل البيانات المنقوصة</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="مثال بسيط أحادي البعد للانحدار محسوب بطريقتين مختلفتين:">
+
+.. only:: html
+
+  .. image:: /auto_examples/gaussian_process/images/thumb/sphx_glr_plot_gpr_noisy_targets_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_gaussian_process_plot_gpr_noisy_targets.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">انحدار العمليات الغاوسية: مثال تمهيدي أساسي</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال الاحتمال المتوقع لـ GPC لنواة RBF متناحرة وغير متناحرة على نسخة ثنائية الأبعاد لمجموعة بيانات iris. تحصل نواة RBF غير المتناحرة على احتمال هامشي لوغاريتمي أعلى قليلاً عن طريق تعيين مقاييس طول مختلفة لأبعاد الميزتين.">
+
+.. only:: html
+
+  .. image:: /auto_examples/gaussian_process/images/thumb/sphx_glr_plot_gpc_iris_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_gaussian_process_plot_gpc_iris.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">تصنيف العملية الغاوسية (GPC) على مجموعة بيانات iris</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال التوزيع المسبق واللاحق لـ GaussianProcessRegressor مع نوى مختلفة. يتم عرض المتوسط والانحراف المعياري و 5 عينات لكل من التوزيعات المسبقة واللاحقة.">
+
+.. only:: html
+
+  .. image:: /auto_examples/gaussian_process/images/thumb/sphx_glr_plot_gpr_prior_posterior_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_gaussian_process_plot_gpr_prior_posterior.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">توضيح العملية الغاوسية المسبقة واللاحقة لنوى مختلفة</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال GPC على بيانات XOR. تتم مقارنة نواة ثابتة ومتناحرة (RBF) بنواة غير ثابتة (DotProduct). في مجموعة البيانات هذه تحديدًا ، تحصل نواة DotProduct على نتائج أفضل بكثير لأن حدود الفئة خطية وتتوافق مع محاور الإحداثيات. بشكل عام ، غالبًا ما تحقق النوى الثابتة نتائج أفضل.">
+
+.. only:: html
+
+  .. image:: /auto_examples/gaussian_process/images/thumb/sphx_glr_plot_gpc_xor_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_gaussian_process_plot_gpc_xor.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">توضيح تصنيف العملية الغاوسية (GPC) على مجموعة بيانات XOR</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="مثال تصنيف ثنائي الأبعاد يوضح خطوط تساوي الاحتمال للاحتمالات المتوقعة.">
+
+.. only:: html
+
+  .. image:: /auto_examples/gaussian_process/images/thumb/sphx_glr_plot_gpc_isoprobability_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_gaussian_process_plot_gpc_isoprobability.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">خطوط تساوي الاحتمال لتصنيف العمليات الغاوسية (GPC)</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال قدرة  WhiteKernel على تقدير مستوى الضوضاء في البيانات. علاوة على ذلك، سنوضح أهمية تهيئة المعلمات الفائقة للنواة.">
+
+.. only:: html
+
+  .. image:: /auto_examples/gaussian_process/images/thumb/sphx_glr_plot_gpr_noisy_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_gaussian_process_plot_gpr_noisy.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">قدرة انحدار العمليات الغاوسية (GPR) على تقدير مستوى ضوضاء البيانات</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال الاختلافات بين انحدار kernel ridge وانحدار العمليات الغاوسية.">
+
+.. only:: html
+
+  .. image:: /auto_examples/gaussian_process/images/thumb/sphx_glr_plot_compare_gpr_krr_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_gaussian_process_plot_compare_gpr_krr.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">مقارنة انحدار kernel ridge وانحدار العمليات الغاوسية</div>
     </div>
 
 
@@ -198,14 +198,14 @@ Examples concerning the :mod:`sklearn.gaussian_process` module.
 .. toctree::
    :hidden:
 
-   /auto_examples/gaussian_process/plot_gpr_noisy
-   /auto_examples/gaussian_process/plot_compare_gpr_krr
    /auto_examples/gaussian_process/plot_gpr_co2
+   /auto_examples/gaussian_process/plot_gpc
+   /auto_examples/gaussian_process/plot_gpr_on_structured_data
    /auto_examples/gaussian_process/plot_gpr_noisy_targets
    /auto_examples/gaussian_process/plot_gpc_iris
-   /auto_examples/gaussian_process/plot_gpr_on_structured_data
-   /auto_examples/gaussian_process/plot_gpc_xor
    /auto_examples/gaussian_process/plot_gpr_prior_posterior
+   /auto_examples/gaussian_process/plot_gpc_xor
    /auto_examples/gaussian_process/plot_gpc_isoprobability
-   /auto_examples/gaussian_process/plot_gpc
+   /auto_examples/gaussian_process/plot_gpr_noisy
+   /auto_examples/gaussian_process/plot_compare_gpr_krr
 

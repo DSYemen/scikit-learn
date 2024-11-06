@@ -1,16 +1,15 @@
 """
 ===================
-Quantile regression
+انحدار كمي
 ===================
 
-This example illustrates how quantile regression can predict non-trivial
-conditional quantiles.
+يوضح هذا المثال كيف يمكن لانحدار كمي التنبؤ بالكميات الشرطية غير التافهة.
 
-The left figure shows the case when the error distribution is normal,
-but has non-constant variance, i.e. with heteroscedasticity.
+يوضح الشكل الأيسر الحالة عندما يكون توزيع الخطأ طبيعيًا،
+ولكن له تباين غير ثابت، أي مع تغاير التشتت.
 
-The right figure shows an example of an asymmetric error distribution,
-namely the Pareto distribution.
+يوضح الشكل الأيمن مثالًا لتوزيع خطأ غير متماثل،
+وهو توزيع باريتو.
 
 """
 
@@ -18,13 +17,13 @@ namely the Pareto distribution.
 # SPDX-License-Identifier: BSD-3-Clause
 
 # %%
-# Dataset generation
+# توليد مجموعة البيانات
 # ------------------
 #
-# To illustrate the behaviour of quantile regression, we will generate two
-# synthetic datasets. The true generative random processes for both datasets
-# will be composed by the same expected value with a linear relationship with a
-# single feature `x`.
+# لتوضيح سلوك انحدار كمي، سنقوم بإنشاء مجموعتي
+# بيانات اصطناعية. ستتكون العمليات العشوائية التوليدية الحقيقية لكلا
+# مجموعتي البيانات من نفس القيمة المتوقعة مع علاقة خطية مع
+# ميزة واحدة `x`.
 import numpy as np
 
 rng = np.random.RandomState(42)
@@ -33,82 +32,81 @@ X = x[:, np.newaxis]
 y_true_mean = 10 + 0.5 * x
 
 # %%
-# We will create two subsequent problems by changing the distribution of the
-# target `y` while keeping the same expected value:
+# سننشئ مشكلتين لاحقتين عن طريق تغيير توزيع
+# الهدف `y` مع الحفاظ على نفس القيمة المتوقعة:
 #
-# - in the first case, a heteroscedastic Normal noise is added;
-# - in the second case, an asymmetric Pareto noise is added.
+# - في الحالة الأولى، تتم إضافة ضوضاء عادية غير متجانسة التشتت؛
+# - في الحالة الثانية، تتم إضافة ضوضاء باريتو غير متماثلة.
 y_normal = y_true_mean + rng.normal(loc=0, scale=0.5 + 0.5 * x, size=x.shape[0])
 a = 5
 y_pareto = y_true_mean + 10 * (rng.pareto(a, size=x.shape[0]) - 1 / (a - 1))
 
 # %%
-# Let's first visualize the datasets as well as the distribution of the
-# residuals `y - mean(y)`.
+# دعونا أولاً نقوم بتصور مجموعات البيانات بالإضافة إلى توزيع
+# القيم المتبقية `y - mean(y)`.
 import matplotlib.pyplot as plt
 
 _, axs = plt.subplots(nrows=2, ncols=2, figsize=(15, 11), sharex="row", sharey="row")
 
-axs[0, 0].plot(x, y_true_mean, label="True mean")
-axs[0, 0].scatter(x, y_normal, color="black", alpha=0.5, label="Observations")
+axs[0, 0].plot(x, y_true_mean, label="المتوسط الحقيقي")
+axs[0, 0].scatter(x, y_normal, color="black", alpha=0.5, label="الملاحظات")
 axs[1, 0].hist(y_true_mean - y_normal, edgecolor="black")
 
 
-axs[0, 1].plot(x, y_true_mean, label="True mean")
-axs[0, 1].scatter(x, y_pareto, color="black", alpha=0.5, label="Observations")
+axs[0, 1].plot(x, y_true_mean, label="المتوسط الحقيقي")
+axs[0, 1].scatter(x, y_pareto, color="black", alpha=0.5, label="الملاحظات")
 axs[1, 1].hist(y_true_mean - y_pareto, edgecolor="black")
 
-axs[0, 0].set_title("Dataset with heteroscedastic Normal distributed targets")
-axs[0, 1].set_title("Dataset with asymmetric Pareto distributed target")
+axs[0, 0].set_title("مجموعة بيانات مع أهداف موزعة بشكل عادي غير متجانسة التشتت")
+axs[0, 1].set_title("مجموعة بيانات مع هدف موزع بشكل باريتو غير متماثل")
 axs[1, 0].set_title(
-    "Residuals distribution for heteroscedastic Normal distributed targets"
+    "توزيع القيم المتبقية لأهداف موزعة بشكل عادي غير متجانسة التشتت"
 )
-axs[1, 1].set_title("Residuals distribution for asymmetric Pareto distributed target")
+axs[1, 1].set_title("توزيع القيم المتبقية لهدف موزع بشكل باريتو غير متماثل")
 axs[0, 0].legend()
 axs[0, 1].legend()
 axs[0, 0].set_ylabel("y")
-axs[1, 0].set_ylabel("Counts")
+axs[1, 0].set_ylabel("العدد")
 axs[0, 1].set_xlabel("x")
 axs[0, 0].set_xlabel("x")
-axs[1, 0].set_xlabel("Residuals")
-_ = axs[1, 1].set_xlabel("Residuals")
+axs[1, 0].set_xlabel("القيم المتبقية")
+_ = axs[1, 1].set_xlabel("القيم المتبقية")
 
 # %%
-# With the heteroscedastic Normal distributed target, we observe that the
-# variance of the noise is increasing when the value of the feature `x` is
-# increasing.
+# مع الهدف الموزع بشكل عادي غير متجانسة التشتت، نلاحظ أن
+# تباين الضوضاء يزداد عندما تزداد قيمة الميزة `x`.
 #
-# With the asymmetric Pareto distributed target, we observe that the positive
-# residuals are bounded.
+# مع الهدف الموزع بشكل باريتو غير المتماثل، نلاحظ أن القيم
+# المتبقية الإيجابية محدودة.
 #
-# These types of noisy targets make the estimation via
-# :class:`~sklearn.linear_model.LinearRegression` less efficient, i.e. we need
-# more data to get stable results and, in addition, large outliers can have a
-# huge impact on the fitted coefficients. (Stated otherwise: in a setting with
-# constant variance, ordinary least squares estimators converge much faster to
-# the *true* coefficients with increasing sample size.)
+# هذه الأنواع من الأهداف الصاخبة تجعل التقدير عبر
+# :class:`~sklearn.linear_model.LinearRegression` أقل كفاءة، أي أننا نحتاج
+# إلى المزيد من البيانات للحصول على نتائج مستقرة، بالإضافة إلى أن القيم
+# المتطرفة الكبيرة يمكن أن يكون لها تأثير كبير على المعاملات المجهزة. (بعبارة أخرى:
+# في بيئة ذات تباين ثابت، تتقارب مقدرات المربعات الصغرى العادية بشكل أسرع
+# إلى المعاملات *الحقيقية* مع زيادة حجم العينة.)
 #
-# In this asymmetric setting, the median or different quantiles give additional
-# insights. On top of that, median estimation is much more robust to outliers
-# and heavy tailed distributions. But note that extreme quantiles are estimated
-# by very few data points. 95% quantile are more or less estimated by the 5%
-# largest values and thus also a bit sensitive outliers.
+# في هذا الوضع غير المتماثل، يعطي الوسيط أو الكميات المختلفة رؤى إضافية. علاوة على ذلك،
+# فإن تقدير الوسيط أكثر قوة بكثير للقيم المتطرفة والتوزيعات ذات الذيل الثقيل. لكن
+# لاحظ أن الكميات المتطرفة يتم تقديرها بواسطة عدد قليل جدًا من نقاط البيانات. يتم تقدير
+# الكمية 95% تقريبًا بواسطة أكبر 5% من القيم وبالتالي فهي أيضًا حساسة بعض الشيء
+# للقيم المتطرفة.
 #
-# In the remainder of this tutorial, we will show how
-# :class:`~sklearn.linear_model.QuantileRegressor` can be used in practice and
-# give the intuition into the properties of the fitted models. Finally,
-# we will compare the both :class:`~sklearn.linear_model.QuantileRegressor`
-# and :class:`~sklearn.linear_model.LinearRegression`.
+# في الجزء المتبقي من هذا البرنامج التعليمي، سنعرض كيفية
+# استخدام :class:`~sklearn.linear_model.QuantileRegressor` في الممارسة العملية
+# وإعطاء الحدس في خصائص النماذج المجهزة. أخيرًا،
+# سنقارن كلاً من :class:`~sklearn.linear_model.QuantileRegressor`
+# و :class:`~sklearn.linear_model.LinearRegression`.
 #
-# Fitting a `QuantileRegressor`
+# ملاءمة `QuantileRegressor`
 # -----------------------------
 #
-# In this section, we want to estimate the conditional median as well as
-# a low and high quantile fixed at 5% and 95%, respectively. Thus, we will get
-# three linear models, one for each quantile.
+# في هذا القسم، نريد تقدير الوسيط الشرطي بالإضافة إلى
+# كمي منخفض وعالي تم تثبيتهما عند 5% و 95% على التوالي. وبالتالي، سنحصل
+# على ثلاثة نماذج خطية، واحد لكل كمي.
 #
-# We will use the quantiles at 5% and 95% to find the outliers in the training
-# sample beyond the central 90% interval.
+# سنستخدم الكميات عند 5% و 95% للعثور على القيم المتطرفة في عينة التدريب
+# خارج الفاصل الزمني المركزي 90%.
 
 # %%
 from sklearn.linear_model import QuantileRegressor
@@ -131,13 +129,13 @@ for quantile in quantiles:
         )
 
 # %%
-# Now, we can plot the three linear models and the distinguished samples that
-# are within the central 90% interval from samples that are outside this
-# interval.
-plt.plot(X, y_true_mean, color="black", linestyle="dashed", label="True mean")
+# الآن، يمكننا رسم النماذج الخطية الثلاثة والعينات المميزة التي
+# تقع ضمن الفاصل الزمني المركزي 90% من العينات التي تقع خارج هذا
+# الفاصل الزمني.
+plt.plot(X, y_true_mean, color="black", linestyle="dashed", label="المتوسط الحقيقي")
 
 for quantile, y_pred in predictions.items():
-    plt.plot(X, y_pred, label=f"Quantile: {quantile}")
+    plt.plot(X, y_pred, label=f"الكمية: {quantile}")
 
 plt.scatter(
     x[out_bounds_predictions],
@@ -145,36 +143,36 @@ plt.scatter(
     color="black",
     marker="+",
     alpha=0.5,
-    label="Outside interval",
+    label="خارج الفاصل الزمني",
 )
 plt.scatter(
     x[~out_bounds_predictions],
     y_normal[~out_bounds_predictions],
     color="black",
     alpha=0.5,
-    label="Inside interval",
+    label="داخل الفاصل الزمني",
 )
 
 plt.legend()
 plt.xlabel("x")
 plt.ylabel("y")
-_ = plt.title("Quantiles of heteroscedastic Normal distributed target")
+_ = plt.title("الكميات للهدف الموزع بشكل عادي غير متجانسة التشتت")
 
 # %%
-# Since the noise is still Normally distributed, in particular is symmetric,
-# the true conditional mean and the true conditional median coincide. Indeed,
-# we see that the estimated median almost hits the true mean. We observe the
-# effect of having an increasing noise variance on the 5% and 95% quantiles:
-# the slopes of those quantiles are very different and the interval between
-# them becomes wider with increasing `x`.
+# نظرًا لأن الضوضاء لا تزال موزعة بشكل طبيعي، وخاصة متماثلة،
+# فإن المتوسط الشرطي الحقيقي والوسيط الشرطي الحقيقي يتطابقان. في الواقع،
+# نرى أن الوسيط المقدر يكاد يصطدم بالمتوسط الحقيقي. نلاحظ تأثير
+# وجود تباين ضوضاء متزايد على الكميات 5% و 95%:
+# منحدرات هذه الكميات مختلفة جدًا والفاصل الزمني بينها
+# يصبح أوسع مع زيادة `x`.
 #
-# To get an additional intuition regarding the meaning of the 5% and 95%
-# quantiles estimators, one can count the number of samples above and below the
-# predicted quantiles (represented by a cross on the above plot), considering
-# that we have a total of 100 samples.
+# للحصول على حدس إضافي بشأن معنى مقدرات الكميات 5% و 95%،
+# يمكن للمرء حساب عدد العينات أعلى وأسفل الكميات المتوقعة (ممثلة
+# بصليب على الرسم البياني أعلاه)، مع الأخذ في الاعتبار أن لدينا ما مجموعه
+# 100 عينة.
 #
-# We can repeat the same experiment using the asymmetric Pareto distributed
-# target.
+# يمكننا تكرار نفس التجربة باستخدام الهدف الموزع بشكل باريتو
+# غير المتماثل.
 quantiles = [0.05, 0.5, 0.95]
 predictions = {}
 out_bounds_predictions = np.zeros_like(y_true_mean, dtype=np.bool_)
@@ -193,10 +191,10 @@ for quantile in quantiles:
         )
 
 # %%
-plt.plot(X, y_true_mean, color="black", linestyle="dashed", label="True mean")
+plt.plot(X, y_true_mean, color="black", linestyle="dashed", label="المتوسط الحقيقي")
 
 for quantile, y_pred in predictions.items():
-    plt.plot(X, y_pred, label=f"Quantile: {quantile}")
+    plt.plot(X, y_pred, label=f"الكمية: {quantile}")
 
 plt.scatter(
     x[out_bounds_predictions],
@@ -204,47 +202,48 @@ plt.scatter(
     color="black",
     marker="+",
     alpha=0.5,
-    label="Outside interval",
+    label="خارج الفاصل الزمني",
 )
 plt.scatter(
     x[~out_bounds_predictions],
     y_pareto[~out_bounds_predictions],
     color="black",
     alpha=0.5,
-    label="Inside interval",
+    label="داخل الفاصل الزمني",
 )
 
 plt.legend()
 plt.xlabel("x")
 plt.ylabel("y")
-_ = plt.title("Quantiles of asymmetric Pareto distributed target")
+_ = plt.title("الكميات للهدف الموزع بشكل باريتو غير المتماثل")
 
 
 # %%
-# Due to the asymmetry of the distribution of the noise, we observe that the
-# true mean and estimated conditional median are different. We also observe
-# that each quantile model has different parameters to better fit the desired
-# quantile. Note that ideally, all quantiles would be parallel in this case,
-# which would become more visible with more data points or less extreme
-# quantiles, e.g. 10% and 90%.
+# نظرًا لعدم تناسق توزيع الضوضاء، نلاحظ أن
+# المتوسط الحقيقي والوسيط الشرطي المقدر مختلفان. نلاحظ أيضًا
+# أن كل نموذج كمي له معلمات مختلفة لملاءمة الكمية
+# المطلوبة بشكل أفضل. لاحظ أنه من الناحية المثالية، ستكون جميع الكميات
+# متوازية في هذه الحالة، وهو ما سيصبح أكثر وضوحًا مع المزيد من نقاط
+# البيانات أو الكميات الأقل تطرفًا، على سبيل المثال 10% و 90%.
 #
-# Comparing `QuantileRegressor` and `LinearRegression`
+# مقارنة `QuantileRegressor` و `LinearRegression`
 # ----------------------------------------------------
 #
-# In this section, we will linger on the difference regarding the error that
-# :class:`~sklearn.linear_model.QuantileRegressor` and
-# :class:`~sklearn.linear_model.LinearRegression` are minimizing.
+# في هذا القسم، سنتوقف عند الاختلاف فيما يتعلق بالخطأ الذي
+# يقوم :class:`~sklearn.linear_model.QuantileRegressor`
+# و :class:`~sklearn.linear_model.LinearRegression` بتقليله.
 #
-# Indeed, :class:`~sklearn.linear_model.LinearRegression` is a least squares
-# approach minimizing the mean squared error (MSE) between the training and
-# predicted targets. In contrast,
-# :class:`~sklearn.linear_model.QuantileRegressor` with `quantile=0.5`
-# minimizes the mean absolute error (MAE) instead.
+# في الواقع، :class:`~sklearn.linear_model.LinearRegression` هو نهج المربعات
+# الصغرى الذي يقلل من متوسط ​​مربع الخطأ (MSE) بين أهداف التدريب
+# والتنبؤ. في المقابل،
+# :class:`~sklearn.linear_model.QuantileRegressor` مع `quantile=0.5`
+# يقلل من متوسط ​​الخطأ المطلق (MAE) بدلاً من ذلك.
 #
-# Let's first compute the training errors of such models in terms of mean
-# squared error and mean absolute error. We will use the asymmetric Pareto
-# distributed target to make it more interesting as mean and median are not
-# equal.
+# دعونا أولاً نحسب أخطاء التدريب لمثل هذه النماذج من حيث متوسط
+# ​​مربع الخطأ ومتوسط ​​الخطأ المطلق. سنستخدم الهدف الموزع بشكل باريتو
+# غير المتماثل لجعله أكثر إثارة للاهتمام لأن المتوسط ​​والوسيط ليسا
+# متساويين.
+
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 
@@ -255,7 +254,7 @@ y_pred_lr = linear_regression.fit(X, y_pareto).predict(X)
 y_pred_qr = quantile_regression.fit(X, y_pareto).predict(X)
 
 print(
-    f"""Training error (in-sample performance)
+    f"""خطأ التدريب (الأداء داخل العينة)
     {linear_regression.__class__.__name__}:
     MAE = {mean_absolute_error(y_pareto, y_pred_lr):.3f}
     MSE = {mean_squared_error(y_pareto, y_pred_lr):.3f}
@@ -266,17 +265,18 @@ print(
 )
 
 # %%
-# On the training set, we see that MAE is lower for
-# :class:`~sklearn.linear_model.QuantileRegressor` than
-# :class:`~sklearn.linear_model.LinearRegression`. In contrast to that, MSE is
-# lower for :class:`~sklearn.linear_model.LinearRegression` than
-# :class:`~sklearn.linear_model.QuantileRegressor`. These results confirms that
-# MAE is the loss minimized by :class:`~sklearn.linear_model.QuantileRegressor`
-# while MSE is the loss minimized
+# في مجموعة التدريب، نرى أن MAE أقل بالنسبة لـ
+# :class:`~sklearn.linear_model.QuantileRegressor` من
+# :class:`~sklearn.linear_model.LinearRegression`. على عكس ذلك، فإن MSE
+# أقل بالنسبة لـ :class:`~sklearn.linear_model.LinearRegression` من
+# :class:`~sklearn.linear_model.QuantileRegressor`. تؤكد هذه النتائج أن
+# MAE هي الخسارة التي تم تقليلها بواسطة :class:`~sklearn.linear_model.QuantileRegressor`
+# بينما MSE هي الخسارة التي تم تقليلها بواسطة
 # :class:`~sklearn.linear_model.LinearRegression`.
 #
-# We can make a similar evaluation by looking at the test error obtained by
-# cross-validation.
+# يمكننا إجراء تقييم مشابه من خلال النظر إلى خطأ الاختبار الذي تم الحصول عليه
+# عن طريق التحقق المتقاطع.
+
 from sklearn.model_selection import cross_validate
 
 cv_results_lr = cross_validate(
@@ -294,7 +294,7 @@ cv_results_qr = cross_validate(
     scoring=["neg_mean_absolute_error", "neg_mean_squared_error"],
 )
 print(
-    f"""Test error (cross-validated performance)
+    f"""خطأ الاختبار (الأداء المتحقق متقاطعًا)
     {linear_regression.__class__.__name__}:
     MAE = {-cv_results_lr["test_neg_mean_absolute_error"].mean():.3f}
     MSE = {-cv_results_lr["test_neg_mean_squared_error"].mean():.3f}
@@ -305,4 +305,4 @@ print(
 )
 
 # %%
-# We reach similar conclusions on the out-of-sample evaluation.
+# نصل إلى استنتاجات مماثلة في التقييم خارج العينة.

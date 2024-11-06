@@ -1,16 +1,15 @@
 """
 =========================================================
-Logistic function
+الدالة اللوغستية
 =========================================================
 
-Shown in the plot is how the logistic regression would, in this
-synthetic dataset, classify values as either 0 or 1,
-i.e. class one or two, using the logistic curve.
+يوضح الرسم البياني كيف أن الانحدار اللوجستي، في مجموعة البيانات الاصطناعية هذه، سيصنف القيم إما 0 أو 1،
+أي الفئة الأولى أو الثانية، باستخدام المنحنى اللوغستي.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -18,7 +17,7 @@ from scipy.special import expit
 
 from sklearn.linear_model import LinearRegression, LogisticRegression
 
-# Generate a toy dataset, it's just a straight line with some Gaussian noise:
+# توليد مجموعة بيانات تجريبية، هي عبارة عن خط مستقيم مع بعض الضوضاء الغاوسية:
 xmin, xmax = -5, 5
 n_samples = 100
 np.random.seed(0)
@@ -29,11 +28,11 @@ X += 0.3 * np.random.normal(size=n_samples)
 
 X = X[:, np.newaxis]
 
-# Fit the classifier
+# تدريب المصنف
 clf = LogisticRegression(C=1e5)
 clf.fit(X, y)
 
-# and plot the result
+# رسم النتيجة
 plt.figure(1, figsize=(4, 3))
 plt.clf()
 plt.scatter(X.ravel(), y, label="example data", color="black", zorder=20)

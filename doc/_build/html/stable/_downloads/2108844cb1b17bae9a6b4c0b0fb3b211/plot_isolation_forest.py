@@ -1,18 +1,17 @@
 """
 =======================
-IsolationForest example
+مثال IsolationForest
 =======================
 
-An example using :class:`~sklearn.ensemble.IsolationForest` for anomaly
-detection.
+مثال يستخدم :class:`~sklearn.ensemble.IsolationForest` للكشف عن
+الشذوذ.
 
-The :ref:`isolation_forest` is an ensemble of "Isolation Trees" that "isolate"
-observations by recursive random partitioning, which can be represented by a
-tree structure. The number of splittings required to isolate a sample is lower
-for outliers and higher for inliers.
+:ref:`isolation_forest` هي مجموعة من "أشجار العزل" التي "تعزل"
+الملاحظات عن طريق التقسيم العشوائي التكراري، والذي يمكن تمثيله
+ببنية شجرة. يكون عدد التقسيمات المطلوبة لعزل عينة أقل
+بالنسبة للقيم المتطرفة وأعلى بالنسبة للقيم الداخلية.
 
-In the present example we demo two ways to visualize the decision boundary of an
-Isolation Forest trained on a toy dataset.
+في هذا المثال، نعرض طريقتين لتصور حدود القرار لـ Isolation Forest المدربة على مجموعة بيانات تجريبية.
 
 """
 
@@ -20,18 +19,17 @@ Isolation Forest trained on a toy dataset.
 # SPDX-License-Identifier: BSD-3-Clause
 
 # %%
-# Data generation
+# توليد البيانات
 # ---------------
 #
-# We generate two clusters (each one containing `n_samples`) by randomly
-# sampling the standard normal distribution as returned by
-# :func:`numpy.random.randn`. One of them is spherical and the other one is
-# slightly deformed.
+# نقوم بإنشاء مجموعتين (كل منهما تحتوي على `n_samples`) عن طريق أخذ عينات عشوائية
+# من التوزيع الطبيعي القياسي كما هو مسترجع بواسطة
+# :func:`numpy.random.randn`. إحداهما كروية والأخرى
+# مشوهة قليلاً.
 #
-# For consistency with the :class:`~sklearn.ensemble.IsolationForest` notation,
-# the inliers (i.e. the gaussian clusters) are assigned a ground truth label `1`
-# whereas the outliers (created with :func:`numpy.random.uniform`) are assigned
-# the label `-1`.
+# من أجل الاتساق مع تدوين :class:`~sklearn.ensemble.IsolationForest`،
+# يتم تعيين تصنيف أرضي `1` للقيم الداخلية (أي المجموعات الغاوسية)
+# بينما يتم تعيين التصنيف `-1` للقيم المتطرفة (التي تم إنشاؤها باستخدام :func:`numpy.random.uniform`).
 
 import numpy as np
 
@@ -40,8 +38,8 @@ from sklearn.model_selection import train_test_split
 n_samples, n_outliers = 120, 40
 rng = np.random.RandomState(0)
 covariance = np.array([[0.5, -0.1], [0.7, 0.4]])
-cluster_1 = 0.4 * rng.randn(n_samples, 2) @ covariance + np.array([2, 2])  # general
-cluster_2 = 0.3 * rng.randn(n_samples, 2) + np.array([-2, -2])  # spherical
+cluster_1 = 0.4 * rng.randn(n_samples, 2) @ covariance + np.array([2, 2])  # عام
+cluster_2 = 0.3 * rng.randn(n_samples, 2) + np.array([-2, -2])  # كروي
 outliers = rng.uniform(low=-4, high=4, size=(n_outliers, 2))
 
 X = np.concatenate([cluster_1, cluster_2, outliers])
@@ -52,19 +50,19 @@ y = np.concatenate(
 X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y, random_state=42)
 
 # %%
-# We can visualize the resulting clusters:
+# يمكننا تصور المجموعات الناتجة:
 
 import matplotlib.pyplot as plt
 
 scatter = plt.scatter(X[:, 0], X[:, 1], c=y, s=20, edgecolor="k")
 handles, labels = scatter.legend_elements()
 plt.axis("square")
-plt.legend(handles=handles, labels=["outliers", "inliers"], title="true class")
-plt.title("Gaussian inliers with \nuniformly distributed outliers")
+plt.legend(handles=handles, labels=["القيم المتطرفة", "القيم الداخلية"], title="التصنيف الحقيقي")
+plt.title("القيم الداخلية الغاوسية مع \nالقيم المتطرفة الموزعة بشكل موحد")
 plt.show()
 
 # %%
-# Training of the model
+# تدريب النموذج
 # ---------------------
 
 from sklearn.ensemble import IsolationForest
@@ -73,13 +71,13 @@ clf = IsolationForest(max_samples=100, random_state=0)
 clf.fit(X_train)
 
 # %%
-# Plot discrete decision boundary
+# رسم حدود القرار المنفصلة
 # -------------------------------
 #
-# We use the class :class:`~sklearn.inspection.DecisionBoundaryDisplay` to
-# visualize a discrete decision boundary. The background color represents
-# whether a sample in that given area is predicted to be an outlier
-# or not. The scatter plot displays the true labels.
+# نستخدم الفئة :class:`~sklearn.inspection.DecisionBoundaryDisplay`
+# لتصور حدود القرار المنفصلة. يمثل لون الخلفية
+# ما إذا كانت عينة في تلك المنطقة معينة متوقع أن تكون قيمة متطرفة
+# أم لا. يعرض مخطط التشتت التصنيفات الحقيقية.
 
 import matplotlib.pyplot as plt
 
@@ -92,25 +90,25 @@ disp = DecisionBoundaryDisplay.from_estimator(
     alpha=0.5,
 )
 disp.ax_.scatter(X[:, 0], X[:, 1], c=y, s=20, edgecolor="k")
-disp.ax_.set_title("Binary decision boundary \nof IsolationForest")
+disp.ax_.set_title("حدود القرار الثنائية \nلـ IsolationForest")
 plt.axis("square")
-plt.legend(handles=handles, labels=["outliers", "inliers"], title="true class")
+plt.legend(handles=handles, labels=["القيم المتطرفة", "القيم الداخلية"], title="التصنيف الحقيقي")
 plt.show()
 
 # %%
-# Plot path length decision boundary
+# رسم حدود قرار طول المسار
 # ----------------------------------
 #
-# By setting the `response_method="decision_function"`, the background of the
-# :class:`~sklearn.inspection.DecisionBoundaryDisplay` represents the measure of
-# normality of an observation. Such score is given by the path length averaged
-# over a forest of random trees, which itself is given by the depth of the leaf
-# (or equivalently the number of splits) required to isolate a given sample.
+# عن طريق تعيين `response_method="decision_function"`، تمثل خلفية
+# :class:`~sklearn.inspection.DecisionBoundaryDisplay` مقياس
+# طبيعية الملاحظة. يتم إعطاء هذه النتيجة بواسطة متوسط ​​طول المسار
+# على غابة من الأشجار العشوائية، والذي يتم إعطاؤه بواسطة عمق الورقة
+# (أو بشكل مكافئ عدد التقسيمات) المطلوبة لعزل عينة معينة.
 #
-# When a forest of random trees collectively produce short path lengths for
-# isolating some particular samples, they are highly likely to be anomalies and
-# the measure of normality is close to `0`. Similarly, large paths correspond to
-# values close to `1` and are more likely to be inliers.
+# عندما تنتج غابة من الأشجار العشوائية بشكل جماعي أطوال مسار قصيرة
+# لعزل بعض العينات المعينة، فمن المحتمل جدًا أن تكون شذوذًا
+# ويكون مقياس الطبيعية قريبًا من `0`. وبشكل مشابه، تتوافق المسارات الكبيرة
+# مع القيم القريبة من `1` ومن المرجح أن تكون قيمًا داخلية.
 
 disp = DecisionBoundaryDisplay.from_estimator(
     clf,
@@ -119,8 +117,10 @@ disp = DecisionBoundaryDisplay.from_estimator(
     alpha=0.5,
 )
 disp.ax_.scatter(X[:, 0], X[:, 1], c=y, s=20, edgecolor="k")
-disp.ax_.set_title("Path length decision boundary \nof IsolationForest")
+disp.ax_.set_title("حدود قرار طول المسار \nلـ IsolationForest")
 plt.axis("square")
-plt.legend(handles=handles, labels=["outliers", "inliers"], title="true class")
+plt.legend(handles=handles, labels=["القيم المتطرفة", "القيم الداخلية"], title="التصنيف الحقيقي")
 plt.colorbar(disp.ax_.collections[1])
 plt.show()
+
+

@@ -1,6 +1,6 @@
 .. _impute_examples:
 
-Missing Value Imputation
+تعويض القيم المفقودة
 ------------------------
 
-Examples concerning the :mod:`sklearn.impute` module.
+أمثلة تتعلق بوحدة :mod:`sklearn.impute` .

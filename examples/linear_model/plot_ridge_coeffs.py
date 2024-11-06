@@ -1,96 +1,95 @@
 """
 =========================================================
-Ridge coefficients as a function of the L2 Regularization
+معاملات Ridge كدالة لتنظيم L2
 =========================================================
 
-A model that overfits learns the training data too well, capturing both the
-underlying patterns and the noise in the data. However, when applied to unseen
-data, the learned associations may not hold. We normally detect this when we
-apply our trained predictions to the test data and see the statistical
-performance drop significantly compared to the training data.
+النموذج الذي يبالغ في التعميم يتعلم بيانات التدريب جيدًا جدًا، حيث يلتقط كل من
+الأنماط الأساسية والضوضاء في البيانات. ومع ذلك، عند تطبيقه على بيانات غير
+معروفة، قد لا تستمر الارتباطات المكتسبة. عادة ما نكتشف ذلك عندما
+نطبق تنبؤاتنا المدربة على بيانات الاختبار ونرى الأداء الإحصائي ينخفض بشكل
+كبير مقارنة ببيانات التدريب.
 
-One way to overcome overfitting is through regularization, which can be done by
-penalizing large weights (coefficients) in linear models, forcing the model to
-shrink all coefficients. Regularization reduces a model's reliance on specific
-information obtained from the training samples.
+تتمثل إحدى طرق التغلب على المبالغة في التعميم في التنظيم، والذي يمكن القيام به عن طريق
+معاقبة الأوزان الكبيرة (المعاملات) في النماذج الخطية، مما يجبر النموذج على
+تقلص جميع المعاملات. يقلل التنظيم من اعتماد النموذج على معلومات محددة
+تم الحصول عليها من عينات التدريب.
 
-This example illustrates how L2 regularization in a
-:class:`~sklearn.linear_model.Ridge` regression affects a model's performance by
-adding a penalty term to the loss that increases with the coefficients
+يوضح هذا المثال كيف يؤثر التنظيم L2 في
+:class:`~sklearn.linear_model.Ridge` الانحدار على أداء النموذج من خلال
+إضافة مصطلح عقوبة إلى الخسارة التي تزداد مع المعاملات
 :math:`\\beta`.
 
-The regularized loss function is given by: :math:`\\mathcal{L}(X, y, \\beta) =
+دالة الخسارة المنظمة تعطى بواسطة: :math:`\\mathcal{L}(X, y, \\beta) =
 \\| y - X \\beta \\|^{2}_{2} + \\alpha \\| \\beta \\|^{2}_{2}`
 
-where :math:`X` is the input data, :math:`y` is the target variable,
-:math:`\\beta` is the vector of coefficients associated with the features, and
-:math:`\\alpha` is the regularization strength.
+حيث :math:`X` هي بيانات الإدخال، :math:`y` هي المتغير المستهدف،
+:math:`\\beta` هو متجه المعاملات المرتبطة بالميزات، و
+:math:`\\alpha` هو قوة التنظيم.
 
-The regularized loss function aims to balance the trade-off between accurately
-predicting the training set and to prevent overfitting.
+تهدف دالة الخسارة المنظمة إلى تحقيق التوازن بين المقايضة بين التنبؤ بدقة
+بمجموعة التدريب ومنع المبالغة في التعميم.
 
-In this regularized loss, the left-hand side (e.g. :math:`\\|y -
-X\\beta\\|^{2}_{2}`) measures the squared difference between the actual target
-variable, :math:`y`, and the predicted values. Minimizing this term alone could
-lead to overfitting, as the model may become too complex and sensitive to noise
-in the training data.
+في هذه الخسارة المنظمة، الجانب الأيسر (على سبيل المثال :math:`\\|y -
+X\\beta\\|^{2}_{2}`) يقيس الفرق التربيعي بين المتغير المستهدف الفعلي، :math:`y`،
+والقيم المتوقعة. يمكن أن يؤدي تقليل هذا المصطلح وحده إلى المبالغة في التعميم،
+حيث قد يصبح النموذج معقدًا وحساسًا للضوضاء
+في بيانات التدريب.
 
-To address overfitting, Ridge regularization adds a constraint, called a penalty
-term, (:math:`\\alpha \\| \\beta\\|^{2}_{2}`) to the loss function. This penalty
-term is the sum of the squares of the model's coefficients, multiplied by the
-regularization strength :math:`\\alpha`. By introducing this constraint, Ridge
-regularization discourages any single coefficient :math:`\\beta_{i}` from taking
-an excessively large value and encourages smaller and more evenly distributed
-coefficients. Higher values of :math:`\\alpha` force the coefficients towards
-zero. However, an excessively high :math:`\\alpha` can result in an underfit
-model that fails to capture important patterns in the data.
+للتغلب على المبالغة في التعميم، يضيف تنظيم Ridge قيدًا، يسمى مصطلح العقوبة،
+(:math:`\\alpha \\| \\beta\\|^{2}_{2}`) إلى دالة الخسارة. هذا المصطلح العقابي هو
+مجموع مربعات معاملات النموذج، مضروبًا في
+قوة التنظيم :math:`\\alpha`. من خلال تقديم هذا القيد، يثبط تنظيم Ridge
+أي معامل فردي :math:`\\beta_{i}` من اتخاذ
+قيمة كبيرة بشكل مفرط ويشجع المعاملات الأصغر والأكثر توزيعًا بالتساوي. تجبر القيم الأعلى من :math:`\\alpha` المعاملات على
+الصفر. ومع ذلك، يمكن أن يؤدي :math:`\\alpha` المرتفع بشكل مفرط إلى نموذج غير مناسب
+يفشل في التقاط الأنماط المهمة في البيانات.
 
-Therefore, the regularized loss function combines the prediction accuracy term
-and the penalty term. By adjusting the regularization strength, practitioners
-can fine-tune the degree of constraint imposed on the weights, training a model
-capable of generalizing well to unseen data while avoiding overfitting.
+لذلك، تجمع دالة الخسارة المنظمة بين مصطلح دقة التنبؤ
+ومصطلح العقوبة. من خلال ضبط قوة التنظيم، يمكن للممارسين
+ضبط درجة القيد المفروض على الأوزان، وتدريب نموذج
+قادر على التعميم بشكل جيد على بيانات غير معروفة مع تجنب المبالغة في التعميم.
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# Purpose of this example
+# الغرض من هذا المثال
 # -----------------------
-# For the purpose of showing how Ridge regularization works, we will create a
-# non-noisy data set. Then we will train a regularized model on a range of
-# regularization strengths (:math:`\alpha`) and plot how the trained
-# coefficients and the mean squared error between those and the original values
-# behave as functions of the regularization strength.
+# لغرض إظهار كيفية عمل التنظيم Ridge، سنقوم بإنشاء
+# مجموعة بيانات غير ضوضائية. ثم سنقوم بتدريب نموذج منظم على نطاق من
+# قيم التنظيم (:math:`\alpha`) ونرسم كيف أن المعاملات المدربة
+# ومتوسط ​​الخطأ التربيعي بين تلك والقيم الأصلية
+# تتصرف كدالة لقوة التنظيم.
 #
-# Creating a non-noisy data set
+# إنشاء مجموعة بيانات غير ضوضائية
 # *****************************
-# We make a toy data set with 100 samples and 10 features, that's suitable to
-# detect regression. Out of the 10 features, 8 are informative and contribute to
-# the regression, while the remaining 2 features do not have any effect on the
-# target variable (their true coefficients are 0). Please note that in this
-# example the data is non-noisy, hence we can expect our regression model to
-# recover exactly the true coefficients w.
+# نقوم بإنشاء مجموعة بيانات تجريبية بها 100 عينة و10 ميزات، وهي مناسبة
+# للكشف عن الانحدار. من بين 10 ميزات، 8 منها مفيدة وتساهم في
+# الانحدار، في حين أن الميزتين المتبقيتين ليس لهما أي تأثير على
+# المتغير المستهدف (معاملاتها الحقيقية هي 0). يرجى ملاحظة أنه في هذا
+# المثال، البيانات غير ضوضائية، وبالتالي يمكننا توقع نموذج الانحدار الخاص بنا
+# لاستعادة المعاملات الحقيقية بالضبط w.
 from sklearn.datasets import make_regression
 
 X, y, w = make_regression(
     n_samples=100, n_features=10, n_informative=8, coef=True, random_state=1
 )
 
-# Obtain the true coefficients
-print(f"The true coefficient of this regression problem are:\n{w}")
+# الحصول على المعاملات الحقيقية
+print(f"معامل الانحدار الحقيقي لهذه المشكلة هو:\n{w}")
 
 # %%
-# Training the Ridge Regressor
+# تدريب منظم الانحدار
 # ****************************
-# We use :class:`~sklearn.linear_model.Ridge`, a linear model with L2
-# regularization. We train several models, each with a different value for the
-# model parameter `alpha`, which is a positive constant that multiplies the
-# penalty term, controlling the regularization strength. For each trained model
-# we then compute the error between the true coefficients `w` and the
-# coefficients found by the model `clf`. We store the identified coefficients
-# and the calculated errors for the corresponding coefficients in lists, which
-# makes it convenient for us to plot them.
+# نستخدم :class:`~sklearn.linear_model.Ridge`، وهو نموذج خطي مع L2
+# التنظيم. نقوم بتدريب عدة نماذج، كل منها بقيمة مختلفة لـ
+# معلمة النموذج `alpha`، وهي ثابتة إيجابية تضرب
+# مصطلح العقوبة، مما يتحكم في قوة التنظيم. بالنسبة لكل نموذج مدرب
+# ثم نحسب الخطأ بين المعاملات الحقيقية `w` و
+# المعاملات التي وجدها النموذج `clf`. نقوم بتخزين المعاملات المحددة
+# والأخطاء المحسوبة للمعاملات المقابلة في القوائم، مما
+# يجعل من الملائم لنا رسمها.
 import numpy as np
 
 from sklearn.linear_model import Ridge
@@ -98,26 +97,25 @@ from sklearn.metrics import mean_squared_error
 
 clf = Ridge()
 
-# Generate values for `alpha` that are evenly distributed on a logarithmic scale
+# توليد قيم لـ `alpha` موزعة بالتساوي على مقياس لوغاريتمي
 alphas = np.logspace(-3, 4, 200)
 coefs = []
 errors_coefs = []
 
-# Train the model with different regularisation strengths
+# تدريب النموذج بقيم تنظيم مختلفة
 for a in alphas:
     clf.set_params(alpha=a).fit(X, y)
     coefs.append(clf.coef_)
     errors_coefs.append(mean_squared_error(clf.coef_, w))
 
 # %%
-# Plotting trained Coefficients and Mean Squared Errors
+# رسم المعاملات المدربة ومتوسط ​​الخطأ التربيعي
 # *****************************************************
-# We now plot the 10 different regularized coefficients as a function of the
-# regularization parameter `alpha` where each color represents a different
-# coefficient.
+# نرسم الآن 10 معاملات منظمة مختلفة كدالة لـ
+# معلمة التنظيم `alpha` حيث يمثل كل لون معاملًا مختلفًا.
 #
-# On the right-hand-side, we plot how the errors of the coefficients from the
-# estimator change as a function of regularization.
+# على الجانب الأيمن، نرسم كيف تتغير أخطاء المعاملات من
+# المقدر كدالة للتنظيم.
 import matplotlib.pyplot as plt
 import pandas as pd
 
@@ -130,52 +128,48 @@ fig, axs = plt.subplots(1, 2, figsize=(20, 6))
 coefs.plot(
     ax=axs[0],
     logx=True,
-    title="Ridge coefficients as a function of the regularization strength",
+    title="معاملات Ridge كدالة لقوة التنظيم",
 )
-axs[0].set_ylabel("Ridge coefficient values")
+axs[0].set_ylabel("قيم معاملات Ridge")
 errors.plot(
     ax=axs[1],
     logx=True,
-    title="Coefficient error as a function of the regularization strength",
+    title="خطأ المعامل كدالة لقوة التنظيم",
 )
-_ = axs[1].set_ylabel("Mean squared error")
+_ = axs[1].set_ylabel("متوسط ​​الخطأ التربيعي")
 # %%
-# Interpreting the plots
+# تفسير الرسوم البيانية
 # **********************
-# The plot on the left-hand side shows how the regularization strength (`alpha`)
-# affects the Ridge regression coefficients. Smaller values of `alpha` (weak
-# regularization), allow the coefficients to closely resemble the true
-# coefficients (`w`) used to generate the data set. This is because no
-# additional noise was added to our artificial data set. As `alpha` increases,
-# the coefficients shrink towards zero, gradually reducing the impact of the
-# features that were formerly more significant.
+# يوضح الرسم البياني على الجانب الأيسر كيف تؤثر قوة التنظيم (`alpha`)
+# على معاملات الانحدار Ridge. تسمح قيم `alpha` الأصغر (التنظيم الضعيف)،
+# للمعاملات أن تشبه المعاملات الحقيقية (`w`) المستخدمة لتوليد مجموعة البيانات.
+# هذا لأن لم يتم
+# إضافة أي ضوضاء إضافية إلى مجموعة البيانات الاصطناعية الخاصة بنا. مع زيادة `alpha`،
+# تتقلص المعاملات نحو الصفر، مما يقلل تدريجياً من تأثير الميزات التي كانت أكثر أهمية سابقًا.
 #
-# The right-hand side plot shows the mean squared error (MSE) between the
-# coefficients found by the model and the true coefficients (`w`). It provides a
-# measure that relates to how exact our ridge model is in comparison to the true
-# generative model. A low error means that it found coefficients closer to the
-# ones of the true generative model. In this case, since our toy data set was
-# non-noisy, we can see that the least regularized model retrieves coefficients
-# closest to the true coefficients (`w`) (error is close to 0).
+# يظهر الرسم البياني على الجانب الأيمن الخطأ التربيعي المتوسط (MSE) بين
+# المعاملات التي وجدها النموذج والمعاملات الحقيقية (`w`). يوفر مقياسًا
+# يتعلق بمدى دقة نموذجنا Ridge مقارنة بنموذج التوليد الحقيقي. يعني الخطأ المنخفض أن النموذج وجد معاملات أقرب إلى
+# تلك الخاصة بنموذج التوليد الحقيقي. في هذه الحالة، نظرًا لأن مجموعة البيانات التجريبية الخاصة بنا
+# كانت غير ضوضائية، يمكننا أن نرى أن النموذج الأقل تنظيمًا يسترد المعاملات
+# الأقرب إلى المعاملات الحقيقية (`w`) (الخطأ قريب من 0).
 #
-# When `alpha` is small, the model captures the intricate details of the
-# training data, whether those were caused by noise or by actual information. As
-# `alpha` increases, the highest coefficients shrink more rapidly, rendering
-# their corresponding features less influential in the training process. This
-# can enhance a model's ability to generalize to unseen data (if there was a lot
-# of noise to capture), but it also poses the risk of losing performance if the
-# regularization becomes too strong compared to the amount of noise the data
-# contained (as in this example).
+# عندما يكون `alpha` صغيرًا، يلتقط النموذج التفاصيل الدقيقة لبيانات التدريب، سواء كانت
+# بسبب الضوضاء أو بسبب المعلومات الفعلية. مع زيادة `alpha`، تتقلص المعاملات الأعلى بسرعة أكبر، مما يجعل
+# ميزاتها المقابلة أقل تأثيرًا في عملية التدريب. يمكن أن يعزز هذا
+# قدرة النموذج على التعميم على بيانات غير معروفة (إذا كان هناك الكثير
+# من الضوضاء للالتقاط)، ولكنه يفرض أيضًا خطر فقدان الأداء إذا أصبح التنظيم
+# قويًا جدًا مقارنة بكمية الضوضاء التي تحتويها البيانات (كما في هذا المثال).
 #
-# In real-world scenarios where data typically includes noise, selecting an
-# appropriate `alpha` value becomes crucial in striking a balance between an
-# overfitting and an underfitting model.
+# في السيناريوهات الواقعية حيث تحتوي البيانات عادةً على ضوضاء، يصبح اختيار
+# قيمة `alpha` المناسبة أمرًا بالغ الأهمية في تحقيق التوازن بين نموذج المبالغة في التعميم
+# ونموذج غير مناسب.
 #
-# Here, we saw that :class:`~sklearn.linear_model.Ridge` adds a penalty to the
-# coefficients to fight overfitting. Another problem that occurs is linked to
-# the presence of outliers in the training dataset. An outlier is a data point
-# that differs significantly from other observations. Concretely, these outliers
-# impact the left-hand side term of the loss function that we showed earlier.
-# Some other linear models are formulated to be robust to outliers such as the
-# :class:`~sklearn.linear_model.HuberRegressor`. You can learn more about it in
-# the :ref:`sphx_glr_auto_examples_linear_model_plot_huber_vs_ridge.py` example.
+# هنا، رأينا أن :class:`~sklearn.linear_model.Ridge` يضيف عقوبة على
+# المعاملات لمكافحة المبالغة في التعميم. هناك مشكلة أخرى تحدث ترتبط
+# بوجود قيم شاذة في مجموعة بيانات التدريب. القيمة الشاذة هي نقطة بيانات
+# تختلف بشكل كبير عن الملاحظات الأخرى. بشكل ملموس، تؤثر هذه القيم الشاذة
+# على المصطلح الموجود على الجانب الأيسر من دالة الخسارة التي أظهرناها سابقًا.
+# بعض النماذج الخطية الأخرى مصممة لتكون قوية ضد القيم الشاذة مثل
+# :class:`~sklearn.linear_model.HuberRegressor`. يمكنك معرفة المزيد عنها في
+# مثال :ref:`sphx_glr_auto_examples_linear_model_plot_huber_vs_ridge.py`.

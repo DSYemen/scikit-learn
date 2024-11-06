@@ -1,13 +1,10 @@
 """
 ========================================================================
-Illustration of Gaussian process classification (GPC) on the XOR dataset
+توضيح تصنيف العملية الغاوسية (GPC) على مجموعة بيانات XOR
 ========================================================================
 
-This example illustrates GPC on XOR data. Compared are a stationary, isotropic
-kernel (RBF) and a non-stationary kernel (DotProduct). On this particular
-dataset, the DotProduct kernel obtains considerably better results because the
-class-boundaries are linear and coincide with the coordinate axes. In general,
-stationary kernels often obtain better results.
+يوضح هذا المثال GPC على بيانات XOR. تتم مقارنة نواة ثابتة ومتناحرة (RBF)
+بنواة غير ثابتة (DotProduct). في مجموعة البيانات هذه تحديدًا ، تحصل نواة DotProduct على نتائج أفضل بكثير لأن حدود الفئة خطية وتتوافق مع محاور الإحداثيات. بشكل عام ، غالبًا ما تحقق النوى الثابتة نتائج أفضل.
 
 """
 
@@ -25,13 +22,13 @@ rng = np.random.RandomState(0)
 X = rng.randn(200, 2)
 Y = np.logical_xor(X[:, 0] > 0, X[:, 1] > 0)
 
-# fit the model
+# ملاءمة النموذج
 plt.figure(figsize=(10, 5))
 kernels = [1.0 * RBF(length_scale=1.15), 1.0 * DotProduct(sigma_0=1.0) ** 2]
 for i, kernel in enumerate(kernels):
     clf = GaussianProcessClassifier(kernel=kernel, warm_start=True).fit(X, Y)
 
-    # plot the decision function for each datapoint on the grid
+    # رسم دالة القرار لكل نقطة بيانات على الشبكة
     Z = clf.predict_proba(np.vstack((xx.ravel(), yy.ravel())).T)[:, 1]
     Z = Z.reshape(xx.shape)
 

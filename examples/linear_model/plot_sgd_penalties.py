@@ -1,18 +1,18 @@
 """
 ==============
-SGD: Penalties
+SGD: العقوبات
 ==============
 
-Contours of where the penalty is equal to 1
-for the three penalties L1, L2 and elastic-net.
+مخططات توضح حيث تكون العقوبة تساوي 1
+للعقوبات الثلاثة L1 وL2 وelastic-net.
 
-All of the above are supported by :class:`~sklearn.linear_model.SGDClassifier`
-and :class:`~sklearn.linear_model.SGDRegressor`.
+جميع ما سبق مدعوم من قبل :class:`~sklearn.linear_model.SGDClassifier`
+و :class:`~sklearn.linear_model.SGDRegressor`.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np

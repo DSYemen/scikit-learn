@@ -1,7 +1,7 @@
 .. _inspection_examples:
 
-Inspection
+الفحص
 ----------
 
-Examples related to the :mod:`sklearn.inspection` module.
+أمثلة تتعلق بوحدة :mod:`sklearn.inspection` .
 

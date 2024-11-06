@@ -1,56 +1,54 @@
 """
 ==============================================
-Features in Histogram Gradient Boosting Trees
+الميزات في أشجار التعزيز المتدرج للهيستوغرام
 ==============================================
 
-:ref:`histogram_based_gradient_boosting` (HGBT) models may be one of the most
-useful supervised learning models in scikit-learn. They are based on a modern
-gradient boosting implementation comparable to LightGBM and XGBoost. As such,
-HGBT models are more feature rich than and often outperform alternative models
-like random forests, especially when the number of samples is larger than some
-ten thousands (see
+قد تكون نماذج :ref:`histogram_based_gradient_boosting` (HGBT) واحدة من أكثر
+نماذج التعلم الخاضع للإشراف فائدة في scikit-learn. إنها تستند إلى تطبيق حديث
+للتعزيز المتدرج قابل للمقارنة مع LightGBM و XGBoost. على هذا النحو،
+تتميز نماذج HGBT بميزات أكثر ثراءً وغالبًا ما تتفوق في الأداء على النماذج البديلة
+مثل الغابات العشوائية، خاصةً عندما يكون عدد العينات أكبر من عشرات الآلاف (انظر
 :ref:`sphx_glr_auto_examples_ensemble_plot_forest_hist_grad_boosting_comparison.py`).
 
-The top usability features of HGBT models are:
+أهم ميزات قابلية الاستخدام لنماذج HGBT هي:
 
-1. Several available loss functions for mean and quantile regression tasks, see
-   :ref:`Quantile loss <quantile_support_hgbdt>`.
-2. :ref:`categorical_support_gbdt`, see
+1. العديد من دوال الخسارة المتاحة لمهام انحدار المتوسط ​​والكمي، انظر
+   :ref:`خسارة الكم <quantile_support_hgbdt>`.
+2. :ref:`categorical_support_gbdt`، انظر
    :ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_categorical.py`.
-3. Early stopping.
-4. :ref:`nan_support_hgbt`, which avoids the need for an imputer.
+3. التوقف المبكر.
+4. :ref:`nan_support_hgbt`، مما يتجنب الحاجة إلى أداة إكمال.
 5. :ref:`monotonic_cst_gbdt`.
 6. :ref:`interaction_cst_hgbt`.
 
-This example aims at showcasing all points except 2 and 6 in a real life
-setting.
+يهدف هذا المثال إلى عرض جميع النقاط باستثناء 2 و 6 في بيئة واقعية.
 """
 
 # Authors: The scikit-learn developers
 # SPDX-License-Identifier: BSD-3-Clause
 
 # %%
-# Preparing the data
+# تحضير البيانات
 # ==================
-# The `electricity dataset <http://www.openml.org/d/151>`_ consists of data
-# collected from the Australian New South Wales Electricity Market. In this
-# market, prices are not fixed and are affected by supply and demand. They are
-# set every five minutes. Electricity transfers to/from the neighboring state of
-# Victoria were done to alleviate fluctuations.
+# تتكون `مجموعة بيانات الكهرباء <http://www.openml.org/d/151>`_ من البيانات
+# التي تم جمعها من سوق الكهرباء في نيو ساوث ويلز بأستراليا. في هذا
+# السوق، الأسعار غير ثابتة وتتأثر بالعرض والطلب. يتم
+# تحديدها كل خمس دقائق. تم إجراء عمليات نقل الكهرباء من / إلى ولاية فيكتوريا المجاورة
+# للتخفيف من التقلبات.
 #
-# The dataset, originally named ELEC2, contains 45,312 instances dated from 7
-# May 1996 to 5 December 1998. Each sample of the dataset refers to a period of
-# 30 minutes, i.e. there are 48 instances for each time period of one day. Each
-# sample on the dataset has 7 columns:
+# تحتوي مجموعة البيانات، المسماة في الأصل ELEC2، على 45312 مثيلًا مؤرخة من 7
+# مايو 1996 إلى 5 ديسمبر 1998. يشير كل نموذج من مجموعة البيانات إلى فترة
+# 30 دقيقة، أي هناك 48 مثيلًا لكل فترة زمنية ليوم واحد. يحتوي كل
+# نموذج في مجموعة البيانات على 7 أعمدة:
 #
-# - date: between 7 May 1996 to 5 December 1998. Normalized between 0 and 1;
-# - day: day of week (1-7);
-# - period: half hour intervals over 24 hours. Normalized between 0 and 1;
-# - nswprice/nswdemand: electricity price/demand of New South Wales;
-# - vicprice/vicdemand: electricity price/demand of Victoria.
+# - التاريخ: بين 7 مايو 1996 إلى 5 ديسمبر 1998. تم تطبيعها بين 0 و 1؛
+# - اليوم: يوم الأسبوع (1-7)؛
+# - الفترة: فترات نصف ساعة على مدار 24 ساعة. تم تطبيعها بين 0 و 1؛
+# - nswprice / nswdemand: سعر / طلب الكهرباء في نيو ساوث ويلز؛
+# - vicprice / vicdemand: سعر / طلب الكهرباء في فيكتوريا.
 #
-# Originally, it is a classification task, but here we use it for the regression
-# task to predict the scheduled electricity transfer between states.
+# في الأصل، إنها مهمة تصنيف، لكننا نستخدمها هنا لمهمة الانحدار
+# للتنبؤ بنقل الكهرباء المجدول بين الولايات.
 
 from sklearn.datasets import fetch_openml
 
@@ -60,14 +58,14 @@ electricity = fetch_openml(
 df = electricity.frame
 
 # %%
-# This particular dataset has a stepwise constant target for the first 17,760
-# samples:
+# تحتوي مجموعة البيانات هذه على هدف ثابت تدريجي لأول 17760
+# نموذجًا:
 
 df["transfer"][:17_760].unique()
 
 # %%
-# Let us drop those entries and explore the hourly electricity transfer over
-# different days of the week:
+# دعونا نتخلص من هذه الإدخالات ونستكشف نقل الكهرباء كل ساعة على مدار
+# أيام مختلفة من الأسبوع:
 
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -80,32 +78,32 @@ fig, ax = plt.subplots(figsize=(15, 10))
 pointplot = sns.lineplot(x=df["period"], y=df["transfer"], hue=df["day"], ax=ax)
 handles, lables = ax.get_legend_handles_labels()
 ax.set(
-    title="Hourly energy transfer for different days of the week",
-    xlabel="Normalized time of the day",
-    ylabel="Normalized energy transfer",
+    title="نقل الطاقة كل ساعة لأيام مختلفة من الأسبوع",
+    xlabel="الوقت الطبيعي من اليوم",
+    ylabel="نقل الطاقة الطبيعي",
 )
-_ = ax.legend(handles, ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"])
+_ = ax.legend(handles, ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"])
 
 # %%
-# Notice that energy transfer increases systematically during weekends.
+# لاحظ أن نقل الطاقة يزداد بشكل منهجي خلال عطلات نهاية الأسبوع.
 #
-# Effect of number of trees and early stopping
+# تأثير عدد الأشجار والتوقف المبكر
 # ============================================
-# For the sake of illustrating the effect of the (maximum) number of trees, we
-# train a :class:`~sklearn.ensemble.HistGradientBoostingRegressor` over the
-# daily electricity transfer using the whole dataset. Then we visualize its
-# predictions depending on the `max_iter` parameter. Here we don't try to
-# evaluate the performance of the model and its capacity to generalize but
-# rather its capability to learn from the training data.
+# من أجل توضيح تأثير (الحد الأقصى) لعدد الأشجار، نقوم
+# بتدريب :class:`~sklearn.ensemble.HistGradientBoostingRegressor` على
+# نقل الكهرباء اليومي باستخدام مجموعة البيانات بأكملها. ثم نقوم بتصور
+# تنبؤاتها اعتمادًا على معلمة `max_iter`. هنا لا نحاول
+# تقييم أداء النموذج وقدرته على التعميم ولكن
+# بالأحرى قدرته على التعلم من بيانات التدريب.
 
 from sklearn.ensemble import HistGradientBoostingRegressor
 from sklearn.model_selection import train_test_split
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, shuffle=False)
 
-print(f"Training sample size: {X_train.shape[0]}")
-print(f"Test sample size: {X_test.shape[0]}")
-print(f"Number of features: {X_train.shape[1]}")
+print(f"حجم عينة التدريب: {X_train.shape[0]}")
+print(f"حجم عينة الاختبار: {X_test.shape[0]}")
+print(f"عدد الميزات: {X_train.shape[1]}")
 
 # %%
 max_iter_list = [5, 50]
@@ -114,7 +112,7 @@ average_week_demand = (
 )
 colors = sns.color_palette("colorblind")
 fig, ax = plt.subplots(figsize=(10, 5))
-average_week_demand.plot(color=colors[0], label="recorded average", linewidth=2, ax=ax)
+average_week_demand.plot(color=colors[0], label="المتوسط المسجل", linewidth=2, ax=ax)
 
 for idx, max_iter in enumerate(max_iter_list):
     hgbt = HistGradientBoostingRegressor(
@@ -133,39 +131,40 @@ for idx, max_iter in enumerate(max_iter_list):
     )
 
 ax.set(
-    title="Predicted average energy transfer during the week",
+    title="متوسط ​​نقل الطاقة المتوقع خلال الأسبوع",
     xticks=[(i + 0.2) * 48 for i in range(7)],
-    xticklabels=["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-    xlabel="Time of the week",
-    ylabel="Normalized energy transfer",
+    xticklabels=["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"],
+    xlabel="وقت الأسبوع",
+    ylabel="نقل الطاقة الطبيعي",
 )
 _ = ax.legend()
 
 # %%
-# With just a few iterations, HGBT models can achieve convergence (see
-# :ref:`sphx_glr_auto_examples_ensemble_plot_forest_hist_grad_boosting_comparison.py`),
-# meaning that adding more trees does not improve the model anymore. In the
-# figure above, 5 iterations are not enough to get good predictions. With 50
-# iterations, we are already able to do a good job.
+# مع بضع تكرارات فقط، يمكن أن تحقق نماذج HGBT التقارب (انظر
+# :ref:`sphx_glr_auto_examples_ensemble_plot_forest_hist_grad_boosting_comparison.py`)،
+# مما يعني أن إضافة المزيد من الأشجار لا يحسن النموذج بعد الآن. في
+# الشكل أعلاه، 5 تكرارات ليست كافية للحصول على تنبؤات جيدة. مع 50
+# تكرارًا، نحن قادرون بالفعل على القيام بعمل جيد.
 #
-# Setting `max_iter` too high might degrade the prediction quality and cost a lot of
-# avoidable computing resources. Therefore, the HGBT implementation in scikit-learn
-# provides an automatic **early stopping** strategy. With it, the model
-# uses a fraction of the training data as internal validation set
-# (`validation_fraction`) and stops training if the validation score does not
-# improve (or degrades) after `n_iter_no_change` iterations up to a certain
-# tolerance (`tol`).
+# قد يؤدي تعيين `max_iter` مرتفعًا جدًا إلى تقليل جودة التنبؤ ويكلف الكثير من
+# موارد الحوسبة التي يمكن تجنبها. لذلك، يوفر تطبيق HGBT في scikit-learn
+# إستراتيجية **توقف مبكر** تلقائية. مع ذلك، يستخدم النموذج
+# جزءًا من بيانات التدريب كمجموعة تحقق داخلية
+# (`validation_fraction`) ويتوقف عن التدريب إذا لم تتحسن نتيجة التحقق
+# (أو تدهورت) بعد `n_iter_no_change` تكرارًا حتى حد معين
+# من التسامح (`tol`).
 #
-# Notice that there is a trade-off between `learning_rate` and `max_iter`:
-# Generally, smaller learning rates are preferable but require more iterations
-# to converge to the minimum loss, while larger learning rates converge faster
-# (less iterations/trees needed) but at the cost of a larger minimum loss.
+# لاحظ أن هناك مفاضلة بين `learning_rate` و `max_iter`:
+# بشكل عام، تكون معدلات التعلم الأصغر مفضلة ولكنها تتطلب المزيد من التكرارات
+# للتقارب إلى الحد الأدنى من الخسارة، بينما تتقارب معدلات التعلم الأكبر بشكل أسرع
+# (يتطلب تكرارات / أشجار أقل) ولكن على حساب خسارة دنيا أكبر.
 #
-# Because of this high correlation between the learning rate the number of iterations,
-# a good practice is to tune the learning rate along with all (important) other
-# hyperparameters, fit the HBGT on the training set with a large enough value
-# for `max_iter` and determine the best `max_iter` via early stopping and some
-# explicit `validation_fraction`.
+# نظرًا لهذا الارتباط العالي بين معدل التعلم وعدد التكرارات،
+# فإن الممارسة الجيدة هي ضبط معدل التعلم جنبًا إلى جنب مع جميع المعلمات الفائقة (المهمة) الأخرى،
+# ملاءمة HBGT على مجموعة التدريب بقيمة كبيرة بما يكفي
+# لـ `max_iter` وتحديد أفضل `max_iter` عبر التوقف المبكر وبعض
+# `validation_fraction` الصريحة.
+
 
 common_params = {
     "max_iter": 1_000,
@@ -182,15 +181,15 @@ hgbt.fit(X_train, y_train)
 _, ax = plt.subplots()
 plt.plot(-hgbt.validation_score_)
 _ = ax.set(
-    xlabel="number of iterations",
-    ylabel="root mean squared error",
-    title=f"Loss of hgbt with early stopping (n_iter={hgbt.n_iter_})",
+    xlabel="عدد التكرارات",
+    ylabel="جذر متوسط ​​مربع الخطأ",
+    title=f"خسارة hgbt مع التوقف المبكر (n_iter={hgbt.n_iter_})",
 )
 
 # %%
-# We can then overwrite the value for `max_iter` to a reasonable value and avoid
-# the extra computational cost of the inner validation. Rounding up the number
-# of iterations may account for variability of the training set:
+# يمكننا بعد ذلك الكتابة فوق قيمة `max_iter` إلى قيمة معقولة وتجنب
+# التكلفة الحسابية الإضافية للتحقق الداخلي. قد يفسر تقريب
+# عدد التكرارات تقلب مجموعة التدريب:
 
 import math
 
@@ -199,29 +198,29 @@ common_params["early_stopping"] = False
 hgbt = HistGradientBoostingRegressor(**common_params)
 
 # %%
-# .. note:: The inner validation done during early stopping is not optimal for
-#    time series.
+# .. note:: التحقق الداخلي الذي يتم إجراؤه أثناء التوقف المبكر ليس هو الأمثل
+#    لسلسلة زمنية.
 #
-# Support for missing values
+# دعم القيم المفقودة
 # ==========================
-# HGBT models have native support of missing values. During training, the tree
-# grower decides where samples with missing values should go (left or right
-# child) at each split, based on the potential gain. When predicting, these
-# samples are sent to the learnt child accordingly. If a feature had no missing
-# values during training, then for prediction, samples with missing values for that
-# feature are sent to the child with the most samples (as seen during fit).
+# تدعم نماذج HGBT القيم المفقودة بشكل أصلي. أثناء التدريب، يقرر مزارع الشجرة
+# أين يجب أن تذهب العينات ذات القيم المفقودة (الطفل الأيسر أو
+# الطفل الأيمن) عند كل تقسيم، بناءً على المكسب المحتمل. عند التنبؤ، يتم إرسال هذه
+# العينات إلى الطفل المتعلم وفقًا لذلك. إذا لم يكن لدى ميزة قيم مفقودة
+# أثناء التدريب، فعند التنبؤ، يتم إرسال العينات ذات القيم المفقودة لتلك
+# الميزة إلى الطفل الذي يحتوي على معظم العينات (كما هو موضح أثناء الملاءمة).
 #
-# The present example shows how HGBT regressions deal with values missing
-# completely at random (MCAR), i.e. the missingness does not depend on the
-# observed data or the unobserved data. We can simulate such scenario by
-# randomly replacing values from randomly selected features with `nan` values.
+# يوضح هذا المثال كيفية تعامل انحدارات HGBT مع القيم المفقودة
+# تمامًا بشكل عشوائي (MCAR)، أي أن الفقد لا يعتمد على
+# البيانات المرصودة أو البيانات غير المرصودة. يمكننا محاكاة مثل هذا السيناريو عن طريق
+# استبدال القيم بشكل عشوائي من ميزات مختارة عشوائيًا بقيم `nan`.
 
 import numpy as np
 
 from sklearn.metrics import root_mean_squared_error
 
 rng = np.random.RandomState(42)
-first_week = slice(0, 336)  # first week in the test set as 7 * 48 = 336
+first_week = slice(0, 336)  # الأسبوع الأول في مجموعة الاختبار هو 7 * 48 = 336
 missing_fraction_list = [0, 0.01, 0.03]
 
 
@@ -236,7 +235,7 @@ def generate_missing_values(X, missing_fraction):
 
 
 fig, ax = plt.subplots(figsize=(12, 6))
-ax.plot(y_test.values[first_week], label="Actual transfer")
+ax.plot(y_test.values[first_week], label="النقل الفعلي")
 
 for missing_fraction in missing_fraction_list:
     X_train_missing = generate_missing_values(X_train, missing_fraction)
@@ -250,24 +249,25 @@ for missing_fraction in missing_fraction_list:
         alpha=0.5,
     )
 ax.set(
-    title="Daily energy transfer predictions on data with MCAR values",
+    title="التنبؤات اليومية بنقل الطاقة على البيانات ذات قيم MCAR",
     xticks=[(i + 0.2) * 48 for i in range(7)],
-    xticklabels=["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-    xlabel="Time of the week",
-    ylabel="Normalized energy transfer",
+    xticklabels=["الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت", "الأحد"],
+    xlabel="وقت الأسبوع",
+    ylabel="نقل الطاقة الطبيعي",
 )
 _ = ax.legend(loc="lower right")
 
 # %%
-# As expected, the model degrades as the proportion of missing values increases.
+# كما هو متوقع، يتدهور النموذج مع زيادة نسبة القيم المفقودة.
 #
-# Support for quantile loss
+# دعم خسارة الكم
 # =========================
 #
-# The quantile loss in regression enables a view of the variability or
-# uncertainty of the target variable. For instance, predicting the 5th and 95th
-# percentiles can provide a 90% prediction interval, i.e. the range within which
-# we expect a new observed value to fall with 90% probability.
+# خسارة الكم في الانحدار تمكن من رؤية تباين أو
+# عدم يقين المتغير الهدف. على سبيل المثال، يمكن أن يوفر التنبؤ
+# بالحد الأدنى الخامس والحد الأقصى 95 فاصل تنبؤ بنسبة 90%، أي النطاق الذي
+# نتوقع أن تقع فيه قيمة جديدة ملحوظة باحتمال 90%.
+
 
 from sklearn.metrics import mean_pinball_loss
 
@@ -275,7 +275,7 @@ quantiles = [0.95, 0.05]
 predictions = []
 
 fig, ax = plt.subplots(figsize=(12, 6))
-ax.plot(y_test.values[first_week], label="Actual transfer")
+ax.plot(y_test.values[first_week], label="النقل الفعلي")
 
 for quantile in quantiles:
     hgbt_quantile = HistGradientBoostingRegressor(
@@ -300,53 +300,53 @@ ax.fill_between(
     alpha=0.1,
 )
 ax.set(
-    title="Daily energy transfer predictions with quantile loss",
+    title="التنبؤات اليومية بنقل الطاقة مع خسارة الكم",
     xticks=[(i + 0.2) * 48 for i in range(7)],
-    xticklabels=["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-    xlabel="Time of the week",
-    ylabel="Normalized energy transfer",
+    xticklabels=["الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت", "الأحد"],
+    xlabel="وقت الأسبوع",
+    ylabel="نقل الطاقة الطبيعي",
 )
 _ = ax.legend(loc="lower right")
 
 # %%
-# We observe a tendence to over-estimate the energy transfer. This could be be
-# quantitatively confirmed by computing empirical coverage numbers as done in
-# the :ref:`calibration of confidence intervals section <calibration-section>`.
-# Keep in mind that those predicted percentiles are just estimations from a
-# model. One can still improve the quality of such estimations by:
+# نلاحظ ميلًا إلى المبالغة في تقدير نقل الطاقة. يمكن تأكيد ذلك
+# كميًا عن طريق حساب أرقام التغطية التجريبية كما هو موضح في
+# :ref:`قسم معايرة فترات الثقة <calibration-section>`.
+# ضع في اعتبارك أن هذه النسب المئوية المتوقعة هي مجرد تقديرات من
+# نموذج. لا يزال بإمكان المرء تحسين جودة هذه التقديرات عن طريق:
 #
-# - collecting more data-points;
-# - better tuning of the model hyperparameters, see
-#   :ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_quantile.py`;
-# - engineering more predictive features from the same data, see
+# - جمع المزيد من نقاط البيانات؛
+# - ضبط أفضل لمعلمات النموذج الفائقة، انظر
+#   :ref:`sphx_glr_auto_examples_ensemble_plot_gradient_boosting_quantile.py`؛
+# - هندسة ميزات أكثر تنبؤية من نفس البيانات، انظر
 #   :ref:`sphx_glr_auto_examples_applications_plot_cyclical_feature_engineering.py`.
 #
-# Monotonic constraints
+# قيود رتيبة
 # =====================
 #
-# Given specific domain knowledge that requires the relationship between a
-# feature and the target to be monotonically increasing or decreasing, one can
-# enforce such behaviour in the predictions of a HGBT model using monotonic
-# constraints. This makes the model more interpretable and can reduce its
-# variance (and potentially mitigate overfitting) at the risk of increasing
-# bias. Monotonic constraints can also be used to enforce specific regulatory
-# requirements, ensure compliance and align with ethical considerations.
+# بالنظر إلى معرفة مجال محددة تتطلب أن تكون العلاقة بين
+# ميزة والهدف رتيبة متزايدة أو متناقصة، يمكن للمرء
+# فرض مثل هذا السلوك في تنبؤات نموذج HGBT باستخدام قيود
+# رتيبة. وهذا يجعل النموذج أكثر قابلية للتفسير ويمكن أن يقلل من
+# تباينه (ويحتمل أن يخفف من فرط التخصيص) مع خطر زيادة
+# التحيز. يمكن أيضًا استخدام القيود الرتيبة لفرض متطلبات تنظيمية محددة، وضمان الامتثال
+# ومحاذاة الاعتبارات الأخلاقية.
 #
-# In the present example, the policy of transferring energy from Victoria to New
-# South Wales is meant to alleviate price fluctuations, meaning that the model
-# predictions have to enforce such goal, i.e. transfer should increase with
-# price and demand in New South Wales, but also decrease with price and demand
-# in Victoria, in order to benefit both populations.
+# في هذا المثال، تهدف سياسة نقل الطاقة من فيكتوريا إلى نيو ساوث ويلز
+# إلى تخفيف تقلبات الأسعار، مما يعني أن تنبؤات النموذج
+# يجب أن تفرض مثل هذا الهدف، أي يجب أن يزداد النقل مع
+# السعر والطلب في نيو ساوث ويلز، ولكن أيضًا يتناقص مع السعر والطلب
+# في فيكتوريا، من أجل إفادة كلا السكانين.
 #
-# If the training data has feature names, it’s possible to specify the monotonic
-# constraints by passing a dictionary with the convention:
+# إذا كانت بيانات التدريب تحتوي على أسماء ميزات، فمن الممكن تحديد القيود
+# الرتيبة عن طريق تمرير قاموس بالاصطلاح التالي:
 #
-# - 1: monotonic increase
-# - 0: no constraint
-# - -1: monotonic decrease
+# - 1: زيادة رتيبة
+# - 0: بدون قيود
+# - -1: نقصان رتيب
 #
-# Alternatively, one can pass an array-like object encoding the above convention by
-# position.
+# بدلاً من ذلك، يمكن للمرء تمرير كائن يشبه المصفوفة يشفر الاصطلاح أعلاه
+# حسب الموضع.
 
 from sklearn.inspection import PartialDependenceDisplay
 
@@ -371,59 +371,62 @@ disp = PartialDependenceDisplay.from_estimator(
     hgbt_no_cst,
     X,
     features=["nswdemand", "nswprice"],
-    line_kw={"linewidth": 2, "label": "unconstrained", "color": "tab:blue"},
+    line_kw={"linewidth": 2, "label": "غير مقيد", "color": "tab:blue"},
     ax=ax[0],
 )
 PartialDependenceDisplay.from_estimator(
     hgbt_cst,
     X,
     features=["nswdemand", "nswprice"],
-    line_kw={"linewidth": 2, "label": "constrained", "color": "tab:orange"},
+    line_kw={"linewidth": 2, "label": "مقيد", "color": "tab:orange"},
     ax=disp.axes_,
 )
 disp = PartialDependenceDisplay.from_estimator(
     hgbt_no_cst,
     X,
     features=["vicdemand", "vicprice"],
-    line_kw={"linewidth": 2, "label": "unconstrained", "color": "tab:blue"},
+    line_kw={"linewidth": 2, "label": "غير مقيد", "color": "tab:blue"},
     ax=ax[1],
 )
 PartialDependenceDisplay.from_estimator(
     hgbt_cst,
     X,
     features=["vicdemand", "vicprice"],
-    line_kw={"linewidth": 2, "label": "constrained", "color": "tab:orange"},
+    line_kw={"linewidth": 2, "label": "مقيد", "color": "tab:orange"},
     ax=disp.axes_,
 )
 _ = plt.legend()
 
 # %%
-# Observe that `nswdemand` and `vicdemand` seem already monotonic without constraint.
-# This is a good example to show that the model with monotonicity constraints is
-# "overconstraining".
+# لاحظ أن `nswdemand` و `vicdemand` يبدوان بالفعل رتيبين بدون قيود.
+# هذا مثال جيد لإظهار أن النموذج ذو القيود الرتيبة
+# "مقيد بشكل مفرط".
 #
-# Additionally, we can verify that the predictive quality of the model is not
-# significantly degraded by introducing the monotonic constraints. For such
-# purpose we use :class:`~sklearn.model_selection.TimeSeriesSplit`
-# cross-validation to estimate the variance of the test score. By doing so we
-# guarantee that the training data does not succeed the testing data, which is
-# crucial when dealing with data that have a temporal relationship.
+# بالإضافة إلى ذلك، يمكننا التحقق من أن الجودة التنبؤية للنموذج لا
+# تتدهور بشكل كبير عن طريق إدخال القيود الرتيبة. لهذا
+# الغرض نستخدم :class:`~sklearn.model_selection.TimeSeriesSplit`
+# التحقق المتقاطع لتقدير تباين نتيجة الاختبار. من خلال القيام بذلك، نضمن
+# أن بيانات التدريب لا تتجاوز بيانات الاختبار، وهو أمر
+# بالغ الأهمية عند التعامل مع البيانات التي لها علاقة زمنية.
+
 
 from sklearn.metrics import make_scorer, root_mean_squared_error
 from sklearn.model_selection import TimeSeriesSplit, cross_validate
 
-ts_cv = TimeSeriesSplit(n_splits=5, gap=48, test_size=336)  # a week has 336 samples
+ts_cv = TimeSeriesSplit(n_splits=5, gap=48, test_size=336)  # أسبوع يحتوي على 336 عينة
 scorer = make_scorer(root_mean_squared_error)
 
 cv_results = cross_validate(hgbt_no_cst, X, y, cv=ts_cv, scoring=scorer)
 rmse = cv_results["test_score"]
-print(f"RMSE without constraints = {rmse.mean():.3f} +/- {rmse.std():.3f}")
+print(f"RMSE بدون قيود = {rmse.mean():.3f} +/- {rmse.std():.3f}")
 
 cv_results = cross_validate(hgbt_cst, X, y, cv=ts_cv, scoring=scorer)
 rmse = cv_results["test_score"]
-print(f"RMSE with constraints    = {rmse.mean():.3f} +/- {rmse.std():.3f}")
+print(f"RMSE مع قيود    = {rmse.mean():.3f} +/- {rmse.std():.3f}")
 
 # %%
-# That being said, notice the comparison is between two different models that
-# may be optimized by a different combination of hyperparameters. That is the
-# reason why we do no use the `common_params` in this section as done before.
+# ومع ذلك، لاحظ أن المقارنة تتم بين نموذجين مختلفين
+# قد يتم تحسينهما بواسطة مجموعة مختلفة من المعلمات الفائقة. هذا هو
+# السبب في أننا لا نستخدم `common_params` في هذا القسم كما فعلنا من قبل.
+
+

@@ -1,15 +1,11 @@
 """
 ==========================================================================
-Illustration of prior and posterior Gaussian process for different kernels
+توضيح العملية الغاوسية المسبقة واللاحقة لنوى مختلفة
 ==========================================================================
 
-This example illustrates the prior and posterior of a
-:class:`~sklearn.gaussian_process.GaussianProcessRegressor` with different
-kernels. Mean, standard deviation, and 5 samples are shown for both prior
-and posterior distributions.
+يوضح هذا المثال التوزيع المسبق واللاحق لـ :class:`~sklearn.gaussian_process.GaussianProcessRegressor` مع نوى مختلفة. يتم عرض المتوسط والانحراف المعياري و 5 عينات لكل من التوزيعات المسبقة واللاحقة.
 
-Here, we only give some illustration. To know more about kernels' formulation,
-refer to the :ref:`User Guide <gp_kernels>`.
+هنا، نعطي فقط بعض الرسوم التوضيحية. لمعرفة المزيد عن صياغة النوى، ارجع إلى :ref:`دليل المستخدم <gp_kernels>`.
 
 """
 
@@ -17,38 +13,29 @@ refer to the :ref:`User Guide <gp_kernels>`.
 # SPDX-License-Identifier: BSD-3-Clause
 
 # %%
-# Helper function
+# دالة مساعدة
 # ---------------
 #
-# Before presenting each individual kernel available for Gaussian processes,
-# we will define an helper function allowing us plotting samples drawn from
-# the Gaussian process.
+# قبل تقديم كل نواة متاحة بشكل فردي للعمليات الغاوسية، سنحدد دالة مساعدة تسمح لنا برسم عينات مأخوذة من العملية الغاوسية.
 #
-# This function will take a
-# :class:`~sklearn.gaussian_process.GaussianProcessRegressor` model and will
-# drawn sample from the Gaussian process. If the model was not fit, the samples
-# are drawn from the prior distribution while after model fitting, the samples are
-# drawn from the posterior distribution.
+# ستأخذ هذه الدالة نموذج :class:`~sklearn.gaussian_process.GaussianProcessRegressor` وستقوم برسم عينات من العملية الغاوسية. إذا لم يتم ملاءمة النموذج، فسيتم رسم العينات من التوزيع المسبق، بينما بعد ملاءمة النموذج، فسيتم رسم العينات من التوزيع اللاحق.
 import matplotlib.pyplot as plt
 import numpy as np
 
 
 def plot_gpr_samples(gpr_model, n_samples, ax):
-    """Plot samples drawn from the Gaussian process model.
+    """ارسم عينات مأخوذة من نموذج العملية الغاوسية.
 
-    If the Gaussian process model is not trained then the drawn samples are
-    drawn from the prior distribution. Otherwise, the samples are drawn from
-    the posterior distribution. Be aware that a sample here corresponds to a
-    function.
+    إذا لم يتم تدريب نموذج العملية الغاوسية، فسيتم رسم العينات المأخوذة من التوزيع المسبق. خلاف ذلك، يتم رسم العينات من التوزيع اللاحق. انتبه إلى أن العينة هنا تتوافق مع دالة.
 
-    Parameters
+    المعلمات
     ----------
     gpr_model : `GaussianProcessRegressor`
-        A :class:`~sklearn.gaussian_process.GaussianProcessRegressor` model.
+        نموذج :class:`~sklearn.gaussian_process.GaussianProcessRegressor`.
     n_samples : int
-        The number of samples to draw from the Gaussian process distribution.
-    ax : matplotlib axis
-        The matplotlib axis where to plot the samples.
+        عدد العينات المراد رسمها من توزيع العملية الغاوسية.
+    ax : محور matplotlib
+        محور matplotlib حيث يتم رسم العينات.
     """
     x = np.linspace(0, 5, 100)
     X = x.reshape(-1, 1)
@@ -62,16 +49,16 @@ def plot_gpr_samples(gpr_model, n_samples, ax):
             single_prior,
             linestyle="--",
             alpha=0.7,
-            label=f"Sampled function #{idx + 1}",
+            label=f"الدالة المعينة #{idx + 1}",
         )
-    ax.plot(x, y_mean, color="black", label="Mean")
+    ax.plot(x, y_mean, color="black", label="المتوسط")
     ax.fill_between(
         x,
         y_mean - y_std,
         y_mean + y_std,
         alpha=0.1,
         color="black",
-        label=r"$\pm$ 1 std. dev.",
+        label=r"$\pm$ 1 الانحراف المعياري",
     )
     ax.set_xlabel("x")
     ax.set_ylabel("y")
@@ -79,22 +66,21 @@ def plot_gpr_samples(gpr_model, n_samples, ax):
 
 
 # %%
-# Dataset and Gaussian process generation
+# توليد مجموعة البيانات والعملية الغاوسية
 # ---------------------------------------
-# We will create a training dataset that we will use in the different sections.
+# سننشئ مجموعة بيانات تدريب سنستخدمها في الأقسام المختلفة.
 rng = np.random.RandomState(4)
 X_train = rng.uniform(0, 5, 10).reshape(-1, 1)
 y_train = np.sin((X_train[:, 0] - 2.5) ** 2)
 n_samples = 5
 
 # %%
-# Kernel cookbook
+# دليل النواة
 # ---------------
 #
-# In this section, we illustrate some samples drawn from the prior and posterior
-# distributions of the Gaussian process with different kernels.
+# في هذا القسم، نوضح بعض العينات المأخوذة من التوزيعات المسبقة واللاحقة للعملية الغاوسية مع نوى مختلفة.
 #
-# Radial Basis Function kernel
+# نواة دالة الأساس الشعاعي
 # ............................
 from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.gaussian_process.kernels import RBF
@@ -104,29 +90,29 @@ gpr = GaussianProcessRegressor(kernel=kernel, random_state=0)
 
 fig, axs = plt.subplots(nrows=2, sharex=True, sharey=True, figsize=(10, 8))
 
-# plot prior
+# رسم التوزيع المسبق
 plot_gpr_samples(gpr, n_samples=n_samples, ax=axs[0])
-axs[0].set_title("Samples from prior distribution")
+axs[0].set_title("عينات من التوزيع المسبق")
 
-# plot posterior
+# رسم التوزيع اللاحق
 gpr.fit(X_train, y_train)
 plot_gpr_samples(gpr, n_samples=n_samples, ax=axs[1])
-axs[1].scatter(X_train[:, 0], y_train, color="red", zorder=10, label="Observations")
+axs[1].scatter(X_train[:, 0], y_train, color="red", zorder=10, label="الملاحظات")
 axs[1].legend(bbox_to_anchor=(1.05, 1.5), loc="upper left")
-axs[1].set_title("Samples from posterior distribution")
+axs[1].set_title("عينات من التوزيع اللاحق")
 
-fig.suptitle("Radial Basis Function kernel", fontsize=18)
+fig.suptitle("نواة دالة الأساس الشعاعي", fontsize=18)
 plt.tight_layout()
 
 # %%
-print(f"Kernel parameters before fit:\n{kernel})")
+print(f"معلمات النواة قبل الملاءمة:\n{kernel})")
 print(
-    f"Kernel parameters after fit: \n{gpr.kernel_} \n"
-    f"Log-likelihood: {gpr.log_marginal_likelihood(gpr.kernel_.theta):.3f}"
+    f"معلمات النواة بعد الملاءمة: \n{gpr.kernel_} \n"
+    f"احتمالية السجل: {gpr.log_marginal_likelihood(gpr.kernel_.theta):.3f}"
 )
 
 # %%
-# Rational Quadratic kernel
+# النواة التربيعية النسبية
 # .........................
 from sklearn.gaussian_process.kernels import RationalQuadratic
 
@@ -137,27 +123,27 @@ fig, axs = plt.subplots(nrows=2, sharex=True, sharey=True, figsize=(10, 8))
 
 # plot prior
 plot_gpr_samples(gpr, n_samples=n_samples, ax=axs[0])
-axs[0].set_title("Samples from prior distribution")
+axs[0].set_title("عينات من التوزيع المسبق")
 
 # plot posterior
 gpr.fit(X_train, y_train)
 plot_gpr_samples(gpr, n_samples=n_samples, ax=axs[1])
-axs[1].scatter(X_train[:, 0], y_train, color="red", zorder=10, label="Observations")
+axs[1].scatter(X_train[:, 0], y_train, color="red", zorder=10, label="الملاحظات")
 axs[1].legend(bbox_to_anchor=(1.05, 1.5), loc="upper left")
-axs[1].set_title("Samples from posterior distribution")
+axs[1].set_title("عينات من التوزيع اللاحق")
 
-fig.suptitle("Rational Quadratic kernel", fontsize=18)
+fig.suptitle("النواة التربيعية النسبية", fontsize=18)
 plt.tight_layout()
 
 # %%
-print(f"Kernel parameters before fit:\n{kernel})")
+print(f"معلمات النواة قبل الملاءمة:\n{kernel})")
 print(
-    f"Kernel parameters after fit: \n{gpr.kernel_} \n"
-    f"Log-likelihood: {gpr.log_marginal_likelihood(gpr.kernel_.theta):.3f}"
+    f"معلمات النواة بعد الملاءمة: \n{gpr.kernel_} \n"
+    f"احتمالية السجل: {gpr.log_marginal_likelihood(gpr.kernel_.theta):.3f}"
 )
 
 # %%
-# Exp-Sine-Squared kernel
+# نواة Exp-Sine-Squared
 # .......................
 from sklearn.gaussian_process.kernels import ExpSineSquared
 
@@ -173,27 +159,27 @@ fig, axs = plt.subplots(nrows=2, sharex=True, sharey=True, figsize=(10, 8))
 
 # plot prior
 plot_gpr_samples(gpr, n_samples=n_samples, ax=axs[0])
-axs[0].set_title("Samples from prior distribution")
+axs[0].set_title("عينات من التوزيع المسبق")
 
 # plot posterior
 gpr.fit(X_train, y_train)
 plot_gpr_samples(gpr, n_samples=n_samples, ax=axs[1])
-axs[1].scatter(X_train[:, 0], y_train, color="red", zorder=10, label="Observations")
+axs[1].scatter(X_train[:, 0], y_train, color="red", zorder=10, label="الملاحظات")
 axs[1].legend(bbox_to_anchor=(1.05, 1.5), loc="upper left")
-axs[1].set_title("Samples from posterior distribution")
+axs[1].set_title("عينات من التوزيع اللاحق")
 
-fig.suptitle("Exp-Sine-Squared kernel", fontsize=18)
+fig.suptitle("نواة Exp-Sine-Squared", fontsize=18)
 plt.tight_layout()
 
 # %%
-print(f"Kernel parameters before fit:\n{kernel})")
+print(f"معلمات النواة قبل الملاءمة:\n{kernel})")
 print(
-    f"Kernel parameters after fit: \n{gpr.kernel_} \n"
-    f"Log-likelihood: {gpr.log_marginal_likelihood(gpr.kernel_.theta):.3f}"
+    f"معلمات النواة بعد الملاءمة: \n{gpr.kernel_} \n"
+    f"احتمالية السجل: {gpr.log_marginal_likelihood(gpr.kernel_.theta):.3f}"
 )
 
 # %%
-# Dot-product kernel
+# نواة Dot-product 
 # ..................
 from sklearn.gaussian_process.kernels import ConstantKernel, DotProduct
 
@@ -206,27 +192,27 @@ fig, axs = plt.subplots(nrows=2, sharex=True, sharey=True, figsize=(10, 8))
 
 # plot prior
 plot_gpr_samples(gpr, n_samples=n_samples, ax=axs[0])
-axs[0].set_title("Samples from prior distribution")
+axs[0].set_title("عينات من التوزيع المسبق")
 
 # plot posterior
 gpr.fit(X_train, y_train)
 plot_gpr_samples(gpr, n_samples=n_samples, ax=axs[1])
-axs[1].scatter(X_train[:, 0], y_train, color="red", zorder=10, label="Observations")
+axs[1].scatter(X_train[:, 0], y_train, color="red", zorder=10, label="الملاحظات")
 axs[1].legend(bbox_to_anchor=(1.05, 1.5), loc="upper left")
-axs[1].set_title("Samples from posterior distribution")
+axs[1].set_title("عينات من التوزيع اللاحق")
 
-fig.suptitle("Dot-product kernel", fontsize=18)
+fig.suptitle("نواة Dot-product", fontsize=18)
 plt.tight_layout()
 
 # %%
-print(f"Kernel parameters before fit:\n{kernel})")
+print(f"معلمات النواة قبل الملاءمة:\n{kernel})")
 print(
-    f"Kernel parameters after fit: \n{gpr.kernel_} \n"
-    f"Log-likelihood: {gpr.log_marginal_likelihood(gpr.kernel_.theta):.3f}"
+    f"معلمات النواة بعد الملاءمة: \n{gpr.kernel_} \n"
+    f"احتمالية السجل: {gpr.log_marginal_likelihood(gpr.kernel_.theta):.3f}"
 )
 
 # %%
-# Matérn kernel
+# نواة Matérn
 # ..............
 from sklearn.gaussian_process.kernels import Matern
 
@@ -237,21 +223,23 @@ fig, axs = plt.subplots(nrows=2, sharex=True, sharey=True, figsize=(10, 8))
 
 # plot prior
 plot_gpr_samples(gpr, n_samples=n_samples, ax=axs[0])
-axs[0].set_title("Samples from prior distribution")
+axs[0].set_title("عينات من التوزيع المسبق")
 
 # plot posterior
 gpr.fit(X_train, y_train)
 plot_gpr_samples(gpr, n_samples=n_samples, ax=axs[1])
-axs[1].scatter(X_train[:, 0], y_train, color="red", zorder=10, label="Observations")
+axs[1].scatter(X_train[:, 0], y_train, color="red", zorder=10, label="الملاحظات")
 axs[1].legend(bbox_to_anchor=(1.05, 1.5), loc="upper left")
-axs[1].set_title("Samples from posterior distribution")
+axs[1].set_title("عينات من التوزيع اللاحق")
 
-fig.suptitle("Matérn kernel", fontsize=18)
+fig.suptitle("نواة Matérn", fontsize=18)
 plt.tight_layout()
 
 # %%
-print(f"Kernel parameters before fit:\n{kernel})")
+print(f"معلمات النواة قبل الملاءمة:\n{kernel})")
 print(
-    f"Kernel parameters after fit: \n{gpr.kernel_} \n"
-    f"Log-likelihood: {gpr.log_marginal_likelihood(gpr.kernel_.theta):.3f}"
+    f"معلمات النواة بعد الملاءمة: \n{gpr.kernel_} \n"
+    f"احتمالية السجل: {gpr.log_marginal_likelihood(gpr.kernel_.theta):.3f}"
 )
+
+

@@ -1,16 +1,15 @@
 """
-========================================
-Plot multi-class SGD on the iris dataset
-========================================
+=================================================
+رسم متعدد الفئات SGD على مجموعة بيانات الزهرة
+=================================================
 
-Plot decision surface of multi-class SGD on iris dataset.
-The hyperplanes corresponding to the three one-versus-all (OVA) classifiers
-are represented by the dashed lines.
+رسم سطح القرار لمتعدد الفئات SGD على مجموعة بيانات الزهرة.
+تمثل الخطوط المتقطعة المستويات الفاصلة المقابلة للثلاثة مصنفات من نوع واحد مقابل الجميع (OVA).
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري مكتبة ساي كيت ليرن
+# معرف رخصة SPDX: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -19,23 +18,23 @@ from sklearn import datasets
 from sklearn.inspection import DecisionBoundaryDisplay
 from sklearn.linear_model import SGDClassifier
 
-# import some data to play with
+# استيراد بعض البيانات للتجربة
 iris = datasets.load_iris()
 
-# we only take the first two features. We could
-# avoid this ugly slicing by using a two-dim dataset
+# نأخذ فقط أول ميزتين. يمكننا
+# تجنب هذا التقطيع غير المناسب باستخدام مجموعة بيانات ثنائية الأبعاد
 X = iris.data[:, :2]
 y = iris.target
 colors = "bry"
 
-# shuffle
+# الخلط
 idx = np.arange(X.shape[0])
 np.random.seed(13)
 np.random.shuffle(idx)
 X = X[idx]
 y = y[idx]
 
-# standardize
+# التوحيد
 mean = X.mean(axis=0)
 std = X.std(axis=0)
 X = (X - mean) / std
@@ -53,7 +52,7 @@ DecisionBoundaryDisplay.from_estimator(
 )
 plt.axis("tight")
 
-# Plot also the training points
+# رسم نقاط التدريب أيضًا
 for i, color in zip(clf.classes_, colors):
     idx = np.where(y == i)
     plt.scatter(
@@ -64,10 +63,10 @@ for i, color in zip(clf.classes_, colors):
         edgecolor="black",
         s=20,
     )
-plt.title("Decision surface of multi-class SGD")
+plt.title("سطح القرار لمتعدد الفئات SGD")
 plt.axis("tight")
 
-# Plot the three one-against-all classifiers
+# رسم المصنفات الثلاثة من نوع واحد مقابل الجميع
 xmin, xmax = plt.xlim()
 ymin, ymax = plt.ylim()
 coef = clf.coef_

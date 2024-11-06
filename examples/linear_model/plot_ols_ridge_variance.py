@@ -1,26 +1,15 @@
 """
-=========================================================
-Ordinary Least Squares and Ridge Regression Variance
-=========================================================
-Due to the few points in each dimension and the straight
-line that linear regression uses to follow these points
-as well as it can, noise on the observations will cause
-great variance as shown in the first plot. Every line's slope
-can vary quite a bit for each prediction due to the noise
-induced in the observations.
+===============================================
+الانحدار الخطي العادي وانحدار ريدج والتباين
+===============================================
 
-Ridge regression is basically minimizing a penalised version
-of the least-squared function. The penalising `shrinks` the
-value of the regression coefficients.
-Despite the few data points in each dimension, the slope
-of the prediction is much more stable and the variance
-in the line itself is greatly reduced, in comparison to that
-of the standard linear regression
+بسبب قلة النقاط في كل بُعد والخط المستقيم الذي يستخدمه الانحدار الخطي لمتابعة هذه النقاط بأفضل ما يمكن، فإن الضوضاء على الملاحظات ستسبب تباينًا كبيرًا كما هو موضح في الرسم البياني الأول. يمكن أن يختلف ميل كل خط بشكل كبير لكل توقع بسبب الضوضاء في الملاحظات.
 
+انحدار ريدج هو في الأساس تقليل نسخة مُعاقبة من دالة المربعات الصغرى. هذه العقوبة "تقلص" قيمة معاملات الانحدار.
+على الرغم من قلة نقاط البيانات في كل بُعد، فإن ميل التوقع أكثر استقرارًا، والتباين في الخط نفسه يقل بشكل كبير، مقارنة بالانحدار الخطي القياسي.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np

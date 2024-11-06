@@ -44,7 +44,8 @@ from sklearn.datasets import fetch_species_distributions
 from sklearn.utils import Bunch
 
 # إذا كان basemap متاحًا، فسنستخدمه.
-# وإلا، فسنقوم بالارتجال لاحقًا...
+# وإلا، فسوف نرتجل لاحقًا...
+
 try:
     from mpl_toolkits.basemap import Basemap
 
@@ -146,7 +147,7 @@ def plot_species_distribution(
     land_reference = data.coverages[6]
 
     # تناسب، توقع، ورسم لكل نوع.
-    for i,species in [[BV_bunch, MM_bunch]]:
+    for i, species in enumerate([BV_bunch, MM_bunch]):
         print("_ " * 80)
         print("نمذجة توزيع النوع '%s'" % species.name)
 

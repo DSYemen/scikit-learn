@@ -7,16 +7,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Curve Fitting with Bayesian Ridge Regression" />
+<meta property="og:title" content="توليد بيانات توافقية مع الضوضاء" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/auto_examples/linear_model/plot_bayesian_ridge_curvefit.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="Computes a Bayesian Ridge Regression of Sinusoids. See انحدار ريدج البايزي for more information on the regressor. In general, when fitting a curve with a polynomial by Bayesian ridge regression, th..." />
+<meta property="og:description" content="# ======================================================== # المنحنيات المناسبة باستخدام الانحدار الخليط الخليط # ========================================================# يحسب الانحدار الخليط الخل..." />
 <meta property="og:image" content="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" />
 <meta property="og:image:alt" content="scikit-learn" />
-<meta name="description" content="Computes a Bayesian Ridge Regression of Sinusoids. See انحدار ريدج البايزي for more information on the regressor. In general, when fitting a curve with a polynomial by Bayesian ridge regression, th..." />
+<meta name="description" content="# ======================================================== # المنحنيات المناسبة باستخدام الانحدار الخليط الخليط # ========================================================# يحسب الانحدار الخليط الخل..." />
 
-    <title>Curve Fitting with Bayesian Ridge Regression &#8212; scikit-learn 1.6.dev0 documentation</title>
+    <title>توليد بيانات توافقية مع الضوضاء &#8212; scikit-learn 1.6.dev0 documentation</title>
   
   
   
@@ -78,8 +78,8 @@
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="search" title="بحث" href="../../search.html" />
-    <link rel="next" title="Decision Boundaries of Multinomial and One-vs-Rest Logistic Regression" href="plot_logistic_multinomial.html" />
-    <link rel="prev" title="Comparing various online solvers" href="plot_sgd_comparison.html" />
+    <link rel="next" title="# مقارنة المنحنيات الخطية للانحدار البايزي" href="plot_ard.html" />
+    <link rel="prev" title="النماذج الخطية المعممة" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="ar"/>
   <meta name="docsearch:version" content="1.6" />
@@ -568,15 +568,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../tree/plot_unveil_tree_structure.html">Understanding the decision tree structure</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../feature_selection/index.html">Feature Selection</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_f_test_vs_mi.html">Comparison of F-test and mutual information</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_select_from_model_diabetes.html">Model-based and sequential feature selection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_feature_selection_pipeline.html">Pipeline ANOVA SVM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_rfe_digits.html">Recursive feature elimination</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_rfe_with_cross_validation.html">Recursive feature elimination with cross-validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_feature_selection.html">Univariate Feature Selection</a></li>
-</ul>
-</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../mixture/index.html">Gaussian Mixture Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../mixture/plot_concentration_prior.html">Concentration Prior Type Analysis of Variation Bayesian Gaussian Mixture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_pdf.html">Density Estimation for a Gaussian mixture</a></li>
@@ -585,71 +576,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm.html">Gaussian Mixture Model Ellipsoids</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_selection.html">Gaussian Mixture Model Selection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_sin.html">Gaussian Mixture Model Sine Curve</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../gaussian_process/index.html">Gaussian Process for Machine Learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_noisy.html">Ability of Gaussian process regression (GPR) to estimate data noise-level</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_compare_gpr_krr.html">Comparison of kernel ridge and Gaussian process regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_co2.html">Forecasting of CO2 level on Mona Loa dataset using Gaussian process regression (GPR)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_noisy_targets.html">Gaussian Processes regression: basic introductory example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpc_iris.html">Gaussian process classification (GPC) on iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_on_structured_data.html">Gaussian processes on discrete data structures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpc_xor.html">Illustration of Gaussian process classification (GPC) on the XOR dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_prior_posterior.html">Illustration of prior and posterior Gaussian process for different kernels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpc_isoprobability.html">Iso-probability lines for Gaussian Processes classification (GPC)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpc.html">Probabilistic predictions with Gaussian process classification (GPC)</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Generalized Linear Models</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="plot_ard.html">Comparing Linear Bayesian Regressors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_sgd_comparison.html">Comparing various online solvers</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Curve Fitting with Bayesian Ridge Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_logistic_multinomial.html">Decision Boundaries of Multinomial and One-vs-Rest Logistic Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_sgd_early_stopping.html">Early stopping of Stochastic Gradient Descent</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_elastic_net_precomputed_gram_matrix_with_weighted_samples.html">Fitting an Elastic Net with a precomputed Gram Matrix and Weighted Samples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_huber_vs_ridge.html">HuberRegressor vs Ridge on dataset with strong outliers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_multi_task_lasso_support.html">Joint feature selection with multi-task Lasso</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_logistic_l1_l2_sparsity.html">L1 Penalty and Sparsity in Logistic Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_lasso_and_elasticnet.html">L1-based models for Sparse Signals</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_lasso_lars_ic.html">Lasso model selection via information criteria</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_lasso_model_selection.html">Lasso model selection: AIC-BIC / cross-validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_lasso_dense_vs_sparse_data.html">Lasso on dense and sparse data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_lasso_lasso_lars_elasticnet_path.html">Lasso, Lasso-LARS, and Elastic Net paths</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_logistic.html">Logistic function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_sparse_logistic_regression_mnist.html">MNIST classification using multinomial logistic + L1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_sparse_logistic_regression_20newsgroups.html">Multiclass sparse logistic regression on 20newgroups</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_nnls.html">Non-negative least squares</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_sgdocsvm_vs_ocsvm.html">One-Class SVM versus One-Class SVM using Stochastic Gradient Descent</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_ols.html">Ordinary Least Squares Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_ols_ridge_variance.html">Ordinary Least Squares and Ridge Regression Variance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_omp.html">Orthogonal Matching Pursuit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_ridge_path.html">Plot Ridge coefficients as a function of the regularization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_sgd_iris.html">Plot multi-class SGD on the iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_poisson_regression_non_normal_loss.html">Poisson regression and non-normal loss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_polynomial_interpolation.html">Polynomial and Spline interpolation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_quantile_regression.html">Quantile regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_logistic_path.html">Regularization path of L1- Logistic Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_ridge_coeffs.html">Ridge coefficients as a function of the L2 Regularization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_robust_fit.html">Robust linear estimator fitting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_ransac.html">Robust linear model estimation using RANSAC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_sgd_separating_hyperplane.html">SGD: Maximum margin separating hyperplane</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_sgd_penalties.html">SGD: Penalties</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_sgd_weighted_samples.html">SGD: Weighted samples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_sgd_loss_functions.html">SGD: convex loss functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_theilsen.html">Theil-Sen Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_tweedie_regression_insurance_claims.html">Tweedie regression on insurance claims</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../inspection/index.html">Inspection</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_linear_model_coefficient_interpretation.html">Common pitfalls in the interpretation of coefficients of linear models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_causal_interpretation.html">Failure of Machine Learning to infer causal effects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_partial_dependence.html">Partial Dependence and Individual Conditional Expectation Plots</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance.html">Permutation Importance vs Random Forest Feature Importance (MDI)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance_multicollinear.html">Permutation Importance with Multicollinear or Correlated Features</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../kernel_approximation/index.html">Kernel Approximation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../kernel_approximation/plot_scalable_poly_kernels.html">Scalable learning with polynomial kernel approximation</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../manifold/index.html">Manifold learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -677,11 +603,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_roc_curve_visualization_api.html">ROC Curve with Visualization API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_johnson_lindenstrauss_bound.html">The Johnson-Lindenstrauss bound for embedding with random projections</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_display_object_visualization.html">Visualizations with Display Objects</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../impute/index.html">Missing Value Imputation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../impute/plot_missing_values.html">Imputing missing values before building an estimator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../impute/plot_iterative_imputer_variants_comparison.html">Imputing missing values with variants of IterativeImputer</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../model_selection/index.html">Model Selection</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -778,12 +699,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_regression.html">Support Vector Regression (SVR) using linear and non-linear kernels</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../exercises/index.html">Tutorial exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_cv_diabetes.html">Cross-validation on diabetes Dataset Exercise</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_digits_classification_exercise.html">Digits Classification Exercise</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_iris_exercise.html">SVM Exercise</a></li>
-</ul>
-</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../text/index.html">Working with text documents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../text/plot_document_classification_20newsgroups.html">Classification of text documents using sparse features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../text/plot_document_clustering.html">Clustering text documents using k-means</a></li>
@@ -806,6 +721,15 @@
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../datasets/index.html">أمثلة مجموعات البيانات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../datasets/plot_random_multilabel_dataset.html">رسم مجموعة بيانات متعددة التصنيفات مُولدة عشوائياً</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../feature_selection/index.html">إختيار الميزة</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_select_from_model_diabetes.html">Model-based and sequential feature selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_feature_selection_pipeline.html">Pipeline ANOVA SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_rfe_with_cross_validation.html">إزالة الميزات المتكررة باستخدام التحقق المتبادل</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_rfe_digits.html">إزالة الميزة المتكررة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_feature_selection.html">اختيار الميزة أحادية المتغير</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_f_test_vs_mi.html">مقارنة بين اختبار F والمعلومات المتبادلة</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../cluster/index.html">التجميع</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -861,6 +785,58 @@
 
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../inspection/index.html">الفحص</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance_multicollinear.html">أهمية التبديل مع الميزات متعددة الخطية أو المرتبطة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance.html">أهمية التبديل مقابل أهمية ميزة الغابة العشوائية (MDI)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_linear_model_coefficient_interpretation.html">المزالق الشائعة في تفسير معاملات النماذج الخطية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_causal_interpretation.html">فشل التعلم الآلي في استنتاج الآثار السببية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_partial_dependence.html">مخططات التبعية الجزئية والتوقع الشرطي الفردي</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">النماذج الخطية المعممة</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">توليد بيانات توافقية مع الضوضاء</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="plot_ard.html"># مقارنة المنحنيات الخطية للانحدار البايزي</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="plot_lasso_dense_vs_sparse_data.html">Lasso على البيانات الكثيفة والمتفرقة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_sgdocsvm_vs_ocsvm.html">One-Class SVM مقابل One-Class SVM باستخدام Stochastic Gradient Descent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_sgd_penalties.html">SGD: العقوبات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_sgd_weighted_samples.html">SGD: العينات المرجحة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_sgd_separating_hyperplane.html">SGD: المستوى الفاصل ذو الهامش الأقصى</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_sgd_loss_functions.html">SGD: دالات الخسارة المقعرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_sgd_early_stopping.html">إيقاف مبكر لنزول التدرج العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_lasso_lars_ic.html">اختيار نموذج لاصو عبر معايير المعلومات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_multi_task_lasso_support.html">الاختيار المشترك للميزات باستخدام Lasso متعدد المهام</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_ols_ridge_variance.html">الانحدار الخطي العادي وانحدار ريدج والتباين</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_sparse_logistic_regression_20newsgroups.html">الانحدار اللوجستي المتناثر متعدد الفئات على 20newgroups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_polynomial_interpolation.html">التكامل متعدد الحدود والتقسيم</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_logistic.html">الدالة اللوغستية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_poisson_regression_non_normal_loss.html">انحدار بواسون والخسارة غير الطبيعية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_tweedie_regression_insurance_claims.html">انحدار تويدي على مطالبات التأمين</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_theilsen.html">انحدار ثيل-سين</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_quantile_regression.html">انحدار كمي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_sparse_logistic_regression_mnist.html">تصنيف MNIST باستخدام اللوغاريتم متعدد الحدود + L1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_ransac.html">تقدير النموذج الخطي القوي باستخدام RANSAC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_robust_fit.html">تقدير خطي قوي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_elastic_net_precomputed_gram_matrix_with_weighted_samples.html">تناسب شبكة مرنة مع مصفوفة جرام مسبقة الحساب وعينات مرجحة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_logistic_multinomial.html">حدود القرار للانحدار متعدد الحدود والانحدار اللوجستي من النوع واحد مقابل البقية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_sgd_iris.html">رسم متعدد الفئات SGD على مجموعة بيانات الزهرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_ridge_path.html">رسم معاملات Ridge كدالة للتنظيم</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_logistic_l1_l2_sparsity.html">عقوبة L1 والندرة في الانحدار اللوجستي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_ols.html">مثال على المربعات الصغرى العادية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_nnls.html">مربعات أقل غير سالبة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_logistic_path.html">مسار التنظيم لـ L1 - الانحدار اللوجستي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_lasso_lasso_lars_elasticnet_path.html">مسارات لاصو ولاصو-لارس وشبكة مرنة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_omp.html">مطابقة متعامدة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_ridge_coeffs.html">معاملات Ridge كدالة لتنظيم L2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_huber_vs_ridge.html">مقارنة بين HuberRegressor و Ridge على مجموعة بيانات تحتوي على قيم شاذة قوية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_sgd_comparison.html">مقارنة بين المحللات المختلفة عبر الإنترنت</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_lasso_and_elasticnet.html">نماذج L1 للاشارات المتناثرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_lasso_model_selection.html">نموذج لاصو: اختيار النموذج باستخدام معايير AIC-BIC والتحقق المتقاطع</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../decomposition/index.html">تحليل التركيب</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_ica_vs_pca.html">FastICA على سحب النقاط ثنائية الأبعاد</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_kernel_pca.html">Kernel PCA</a></li>
@@ -878,12 +854,27 @@
 <li class="toctree-l2"><a class="reference internal" href="../developing_estimators/sklearn_is_fitted.html"><code class="docutils literal notranslate"><span class="pre">__sklearn_is_fitted__</span></code> كـ API للمطورين</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../impute/index.html">تعويض القيم المفقودة</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../impute/plot_missing_values.html">استنتاج القيم المفقودة قبل بناء أداة تقدير</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../impute/plot_iterative_imputer_variants_comparison.html">استنتاج القيم المفقودة مع متغيرات من IterativeImputer</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../covariance/index.html">تقدير التغاير</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../covariance/plot_covariance_estimation.html">تأثير تحويل الأهداف في نموذج الانحدار</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../covariance/plot_lw_vs_oas.html">تقدير Ledoit-Wolf مقابل OAS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../covariance/plot_robust_vs_empirical_covariance.html">تقدير التغاير القوي مقابل التجريبي</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../covariance/plot_mahalanobis_distances.html">تقدير التغاير القوي وأهمية مسافات Mahalanobis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../covariance/plot_sparse_cov.html">تقدير معكوس التغاير النادر</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../kernel_approximation/index.html">تقريب النواة</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../kernel_approximation/plot_scalable_poly_kernels.html">التعلم القابل للتطوير مع تقريب نواة متعددة الحدود</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../exercises/index.html">تمارين تعليمية</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_cv_diabetes.html">التحقق المتقاطع على تمرين مجموعة بيانات مرض السكري</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_iris_exercise.html">تمرين SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_digits_classification_exercise.html">تمرين تصنيف الأرقام</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../compose/index.html">خطوط الأنابيب والمقدرين المركبين</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -896,30 +887,43 @@
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../ensemble/index.html">طرق المجموعة</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_stack_predictors.html">Combine predictors using stacking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_random_forest_regression_multioutput.html">Comparing random forests and the multi-output meta estimator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_hgbt_regression.html">Features in Histogram Gradient Boosting Trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_regression.html">Gradient Boosting regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_regularization.html">Gradient Boosting regularization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_random_forest_embedding.html">Hashing feature transformation using Totally Random Trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_isolation_forest.html">IsolationForest example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_monotonic_constraints.html">Monotonic Constraints</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_probas.html">Plot class probabilities calculated by the VotingClassifier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_regressor.html">Plot individual and voting regression predictions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_decision_regions.html">Plot the decision boundaries of a VotingClassifier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_quantile.html">Prediction Intervals for Gradient Boosting Regression</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_ensemble_oob.html">أخطاء OOB لخوارزمية Random Forests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_forest_importances.html">أهمية الميزات باستخدام غابة من الأشجار</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_early_stopping.html">إيقاف التدريب المبكر في Gradient Boosting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_monotonic_constraints.html">القيود الرتيبة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_hgbt_regression.html">الميزات في أشجار التعزيز المتدرج للهيستوغرام</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_regression.html">انحدار التعزيز المتدرج</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_adaboost_regression.html">انحدار شجرة القرار مع AdaBoost</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_feature_transformation.html">تحويل الميزات باستخدام مجموعات الأشجار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_random_forest_embedding.html">تحويل ميزة التجزئة باستخدام الأشجار العشوائية تمامًا</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_adaboost_twoclass.html">تصنيف ثنائي باستخدام AdaBoost</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_oob.html">تقديرات Gradient Boosting Out-of-Bag</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_regularization.html">تنظيم التعزيز المتدرج</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_categorical.html">دعم الميزات التصنيفية في التدرج التعزيزي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_stack_predictors.html">دمج المتنبئات باستخدام التكديس</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_forest_iris.html">رسم أسطح القرار لمجموعات الأشجار على مجموعة بيانات إيريس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_probas.html">رسم احتمالات الفئات المحسوبة بواسطة VotingClassifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_regressor.html">رسم تنبؤات الانحدار الفردية والتصويتية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_decision_regions.html">رسم حدود القرار لـ VotingClassifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_adaboost_multiclass.html">شجرة قرارات معززة متعددة الفئات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_quantile.html">فترات التنبؤ لانحدار التعزيز المتدرج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_isolation_forest.html">مثال IsolationForest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_random_forest_regression_multioutput.html">مقارنة الغابات العشوائية ومقدر المخرجات المتعددة التلوي</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_bias_variance.html">مقارنة بين المُقدر الفردي والتجميع: تحليل الانحياز والتشتت</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_forest_hist_grad_boosting_comparison.html">مقارنة بين نماذج الغابات العشوائية ورفع التدرج بالرسم البياني</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../gaussian_process/index.html">عملية غاوسية للتعلم الآلي</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_co2.html">التنبؤ بمستوى ثاني أكسيد الكربون في مجموعة بيانات Mona Loa باستخدام انحدار العملية الغاوسية (GPR)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpc.html">التنبؤات الاحتمالية مع تصنيف العملية الغاوسية (GPC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_on_structured_data.html">العمليات الغاوسية على هياكل البيانات المنقوصة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_noisy_targets.html">انحدار العمليات الغاوسية: مثال تمهيدي أساسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpc_iris.html">تصنيف العملية الغاوسية (GPC) على مجموعة بيانات iris</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_prior_posterior.html">توضيح العملية الغاوسية المسبقة واللاحقة لنوى مختلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpc_xor.html">توضيح تصنيف العملية الغاوسية (GPC) على مجموعة بيانات XOR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpc_isoprobability.html">خطوط تساوي الاحتمال لتصنيف العمليات الغاوسية (GPC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_noisy.html">قدرة انحدار العمليات الغاوسية (GPR) على تقدير مستوى ضوضاء البيانات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_compare_gpr_krr.html">مقارنة انحدار kernel ridge وانحدار العمليات الغاوسية</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../calibration/index.html">معايرة الإحتمالات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -968,9 +972,9 @@
     <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Examples</a></li>
     
     
-    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Generalized Linear Models</a></li>
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">النماذج الخطية المعممة</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Curve Fitting with Bayesian Ridge Regression</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">توليد بيانات توافقية مع الضوضاء</span></li>
   </ul>
 </nav>
 </div>
@@ -992,64 +996,55 @@
 <p><a class="reference internal" href="#sphx-glr-download-auto-examples-linear-model-plot-bayesian-ridge-curvefit-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code. or to run this example in your browser via JupyterLite or Binder</p>
 </div>
-<section class="sphx-glr-example-title" id="curve-fitting-with-bayesian-ridge-regression">
-<span id="sphx-glr-auto-examples-linear-model-plot-bayesian-ridge-curvefit-py"></span><h1>Curve Fitting with Bayesian Ridge Regression<a class="headerlink" href="#curve-fitting-with-bayesian-ridge-regression" title="Link to this heading">#</a></h1>
-<p>Computes a Bayesian Ridge Regression of Sinusoids.</p>
-<p>See <a class="reference internal" href="../../modules/linear_model.html#bayesian-ridge-regression"><span class="std std-ref">انحدار ريدج البايزي</span></a> for more information on the regressor.</p>
-<p>In general, when fitting a curve with a polynomial by Bayesian ridge
-regression, the selection of initial values of
-the regularization parameters (alpha, lambda) may be important.
-This is because the regularization parameters are determined by an iterative
-procedure that depends on initial values.</p>
-<p>In this example, the sinusoid is approximated by a polynomial using different
-pairs of initial values.</p>
-<p>When starting from the default values (alpha_init = 1.90, lambda_init = 1.),
-the bias of the resulting curve is large, and the variance is small.
-So, lambda_init should be relatively small (1.e-3) so as to reduce the bias.</p>
-<p>Also, by evaluating log marginal likelihood (L) of
-these models, we can determine which one is better.
-It can be concluded that the model with larger L is more likely.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Authors: The scikit-learn developers</span>
-<span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
-</pre></div>
-</div>
-<section id="generate-sinusoidal-data-with-noise">
-<h2>Generate sinusoidal data with noise<a class="headerlink" href="#generate-sinusoidal-data-with-noise" title="Link to this heading">#</a></h2>
+<p class="sphx-glr-example-title" id="sphx-glr-auto-examples-linear-model-plot-bayesian-ridge-curvefit-py"># ========================================================
+# المنحنيات المناسبة باستخدام الانحدار الخليط الخليط
+# ========================================================</p>
+<p># يحسب الانحدار الخليط الخليط للمنحنيات التوافقية.</p>
+<p># راجع <a class="reference internal" href="../../modules/linear_model.html#bayesian-ridge-regression"><span class="std std-ref">انحدار ريدج البايزي</span></a> لمزيد من المعلومات حول المنحني.</p>
+<p># بشكل عام، عند ملاءمة منحنى باستخدام متعدد الحدود بواسطة الانحدار الخليط الخليط، قد يكون اختيار القيم الأولية لمعاملات التنظيم (alpha، lambda) مهمًا.
+# هذا لأن معاملات التنظيم يتم تحديدها بواسطة إجراء تكراري يعتمد على القيم الأولية.</p>
+<p># في هذا المثال، يتم تقريب المنحنى التوافقي بواسطة متعدد الحدود باستخدام أزواج مختلفة من القيم الأولية.</p>
+<p># عند البدء من القيم الافتراضية (alpha_init = 1.90, lambda_init = 1.)، يكون الانحياز للمنحنى الناتج كبيرًا، والتباين صغيرًا.
+# لذلك، يجب أن تكون lambda_init صغيرة نسبيًا (1.e-3) لتقليل الانحياز.</p>
+<p># أيضًا، من خلال تقييم الاحتمال الهامشي اللوغاريتمي (L) لهذه النماذج، يمكننا تحديد أيها أفضل.
+# يمكن الاستنتاج أن النموذج ذو L الأكبر أكثر احتمالًا.</p>
+<section id="id1">
+<h1>توليد بيانات توافقية مع الضوضاء<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 
 <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.sin.html#numpy.sin" title="numpy.sin" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-data"><span class="n">np</span><span class="o">.</span><span class="n">sin</span></a><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <a href="https://numpy.org/doc/stable/reference/constants.html#numpy.pi" title="numpy.pi" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-data"><span class="n">np</span><span class="o">.</span><span class="n">pi</span></a> <span class="o">*</span> <span class="n">x</span><span class="p">)</span>
 
 
 <span class="n">size</span> <span class="o">=</span> <span class="mi">25</span>
-<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">1234</span><span class="p">)</span>
+<span class="n">rng</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/random/legacy.html#numpy.random.RandomState" title="numpy.random.RandomState" class="sphx-glr-backref-module-numpy-random sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span></a><span class="p">(</span><span class="mi">1234</span><span class="p">)</span>
 <span class="n">x_train</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
 <span class="n">y_train</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
-<span class="n">x_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">x_test</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
-<section id="fit-by-cubic-polynomial">
-<h2>Fit by cubic polynomial<a class="headerlink" href="#fit-by-cubic-polynomial" title="Link to this heading">#</a></h2>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">BayesianRidge</span>
+<section id="id2">
+<h1>الملاءمة بواسطة متعدد الحدود من الدرجة الثالثة<a class="headerlink" href="#id2" title="Link to this heading">#</a></h1>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.linear_model.BayesianRidge.html#sklearn.linear_model.BayesianRidge" title="sklearn.linear_model.BayesianRidge" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">BayesianRidge</span></a>
 
 <span class="n">n_order</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vander</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">n_order</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">increasing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">X_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vander</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">n_order</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">increasing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">reg</span> <span class="o">=</span> <span class="n">BayesianRidge</span><span class="p">(</span><span class="n">tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">compute_score</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">X_train</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.vander.html#numpy.vander" title="numpy.vander" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">vander</span></a><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">n_order</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">increasing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">X_test</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.vander.html#numpy.vander" title="numpy.vander" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">vander</span></a><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">n_order</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">increasing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">reg</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.linear_model.BayesianRidge.html#sklearn.linear_model.BayesianRidge" title="sklearn.linear_model.BayesianRidge" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">BayesianRidge</span></a><span class="p">(</span><span class="n">tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">compute_score</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
-<section id="plot-the-true-and-predicted-curves-with-log-marginal-likelihood-l">
-<h2>Plot the true and predicted curves with log marginal likelihood (L)<a class="headerlink" href="#plot-the-true-and-predicted-curves-with-log-marginal-likelihood-l" title="Link to this heading">#</a></h2>
+<section id="l">
+<h1>رسم المنحنى الحقيقي والمتوقع مع الاحتمال الهامشي اللوغاريتمي (L)<a class="headerlink" href="#l" title="Link to this heading">#</a></h1>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="matplotlib.pyplot.subplots" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">axes</span><span class="p">):</span>
-    <span class="c1"># Bayesian ridge regression with different initial value pairs</span>
+    <span class="c1"># الانحدار الخليط الخليط مع أزواج مختلفة من القيم الأولية</span>
     <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">init</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">y_train</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">]</span>  <span class="c1"># Default values</span>
+        <span class="n">init</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.var.html#numpy.var" title="numpy.var" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">var</span></a><span class="p">(</span><span class="n">y_train</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">]</span>  <span class="c1"># القيم الافتراضية</span>
     <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">init</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1e-3</span><span class="p">]</span>
         <span class="n">reg</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="n">alpha_init</span><span class="o">=</span><span class="n">init</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">lambda_init</span><span class="o">=</span><span class="n">init</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
@@ -1073,11 +1068,11 @@ It can be concluded that the model with larger L is more likely.</p>
     <span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.tight_layout.html#matplotlib.pyplot.tight_layout" title="matplotlib.pyplot.tight_layout" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span></a><span class="p">()</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_bayesian_ridge_curvefit_001.png" srcset="../../_images/sphx_glr_plot_bayesian_ridge_curvefit_001.png" alt="$\alpha$_init$=1.90,\ \lambda$_init$=1.0$ (Default), $\alpha$_init$=1.00,\ \lambda$_init$=0.001$" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.304 seconds)</p>
+<img src="../../_images/sphx_glr_plot_bayesian_ridge_curvefit_001.png" srcset="../../_images/sphx_glr_plot_bayesian_ridge_curvefit_001.png" alt="$\alpha$_init$=1.90,\ \lambda$_init$=1.0$ (Default), $\alpha$_init$=1.00,\ \lambda$_init$=0.001$" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.388 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-linear-model-plot-bayesian-ridge-curvefit-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/scikit-learn/scikit-learn/main?urlpath=lab/tree/notebooks/auto_examples/linear_model/plot_bayesian_ridge_curvefit.ipynb"><img alt="Launch binder" src="../../_images/binder_badge_logo18.svg" style="width: 150px;" />
@@ -1098,20 +1093,19 @@ It can be concluded that the model with larger L is more likely.</p>
 </div>
 </div>
 <p class="rubric">Related examples</p>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This example compares two different bayesian regressors:"><img alt="" src="../../_images/sphx_glr_plot_ard_thumb.png" />
-<p><a class="reference internal" href="plot_ard.html#sphx-glr-auto-examples-linear-model-plot-ard-py"><span class="std std-ref">Comparing Linear Bayesian Regressors</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Comparing Linear Bayesian Regressors</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The example compares prediction result of linear regression (linear model) and decision tree (tree based model) with and without discretization of real-valued features."><img alt="" src="../../_images/sphx_glr_plot_discretization_thumb.png" />
-<p><a class="reference internal" href="../preprocessing/plot_discretization.html#sphx-glr-auto-examples-preprocessing-plot-discretization-py"><span class="std std-ref">Using KBinsDiscretizer to discretize continuous features</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Using KBinsDiscretizer to discretize continuous features</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates Gradient Boosting to produce a predictive model from an ensemble of weak predictive models. Gradient boosting can be used for regression and classification problems. Here, we will train a model to tackle a diabetes regression task. We will obtain the results from GradientBoostingRegressor with least squares loss and 500 regression trees of depth 4."><img alt="" src="../../_images/sphx_glr_plot_gradient_boosting_regression_thumb.png" />
-<p><a class="reference internal" href="../ensemble/plot_gradient_boosting_regression.html#sphx-glr-auto-examples-ensemble-plot-gradient-boosting-regression-py"><span class="std std-ref">Gradient Boosting regression</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Gradient Boosting regression</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="يقارن هذا المثال بين طريقتين مختلفتين للانحدار البايزي:"><img alt="" src="../../_images/sphx_glr_plot_ard_thumb.png" />
+<p><a class="reference internal" href="plot_ard.html#sphx-glr-auto-examples-linear-model-plot-ard-py"><span class="std std-ref"># مقارنة المنحنيات الخطية للانحدار البايزي</span></a></p>
+  <div class="sphx-glr-thumbnail-title"># مقارنة المنحنيات الخطية للانحدار البايزي</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="تقييم قدرة إستراتيجيات تهيئة k-means على جعل خوارزمية التقارب قوية، كما يقاس بالانحراف المعياري النسبي للقصور الذاتي للتجميع (أي مجموع مربعات المسافات إلى أقرب مركز للتجميع)."><img alt="" src="../../_images/sphx_glr_plot_kmeans_stability_low_dim_dense_thumb.png" />
 <p><a class="reference internal" href="../cluster/plot_kmeans_stability_low_dim_dense.html#sphx-glr-auto-examples-cluster-plot-kmeans-stability-low-dim-dense-py"><span class="std std-ref">تقييم تجريبي لتأثير تهيئة k-means</span></a></p>
   <div class="sphx-glr-thumbnail-title">تقييم تجريبي لتأثير تهيئة k-means</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال التعزيز المتدرج لإنتاج نموذج تنبؤي من مجموعة من النماذج التنبؤية الضعيفة. يمكن استخدام التعزيز المتدرج لمشاكل الانحدار والتصنيف. هنا، سوف نقوم بتدريب نموذج لمعالجة مهمة انحدار مرض السكري. سنحصل على النتائج من GradientBoostingRegressor مع خسارة المربعات الصغرى و 500 شجرة انحدار بعمق 4."><img alt="" src="../../_images/sphx_glr_plot_gradient_boosting_regression_thumb.png" />
+<p><a class="reference internal" href="../ensemble/plot_gradient_boosting_regression.html#sphx-glr-auto-examples-ensemble-plot-gradient-boosting-regression-py"><span class="std std-ref">انحدار التعزيز المتدرج</span></a></p>
+  <div class="sphx-glr-thumbnail-title">انحدار التعزيز المتدرج</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The example compares prediction result of linear regression (linear model) and decision tree (tree based model) with and without discretization of real-valued features."><img alt="" src="../../_images/sphx_glr_plot_discretization_thumb.png" />
+<p><a class="reference internal" href="../preprocessing/plot_discretization.html#sphx-glr-auto-examples-preprocessing-plot-discretization-py"><span class="std std-ref">Using KBinsDiscretizer to discretize continuous features</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Using KBinsDiscretizer to discretize continuous features</div>
 </div></div><p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</section>
 </section>
 
 
@@ -1125,20 +1119,20 @@ It can be concluded that the model with larger L is more likely.</p>
     <div class="footer-article-item">
 <div class="prev-next-area">
     <a class="left-prev"
-       href="plot_sgd_comparison.html"
+       href="index.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">السابق</p>
-        <p class="prev-next-title">Comparing various online solvers</p>
+        <p class="prev-next-title">النماذج الخطية المعممة</p>
       </div>
     </a>
     <a class="right-next"
-       href="plot_logistic_multinomial.html"
+       href="plot_ard.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">التالي</p>
-        <p class="prev-next-title">Decision Boundaries of Multinomial and One-vs-Rest Logistic Regression</p>
+        <p class="prev-next-title"># مقارنة المنحنيات الخطية للانحدار البايزي</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1165,10 +1159,11 @@ It can be concluded that the model with larger L is more likely.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-sinusoidal-data-with-noise">Generate sinusoidal data with noise</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-by-cubic-polynomial">Fit by cubic polynomial</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-true-and-predicted-curves-with-log-marginal-likelihood-l">Plot the true and predicted curves with log marginal likelihood (L)</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">توليد بيانات توافقية مع الضوضاء</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">الملاءمة بواسطة متعدد الحدود من الدرجة الثالثة</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#l">رسم المنحنى الحقيقي والمتوقع مع الاحتمال الهامشي اللوغاريتمي (L)</a></li>
 </ul>
+
   </nav></div>
 
   <div class="sidebar-secondary-item">

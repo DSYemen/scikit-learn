@@ -1,36 +1,25 @@
 """
-============================================
-Curve Fitting with Bayesian Ridge Regression
-============================================
+# ========================================================
+# المنحنيات المناسبة باستخدام الانحدار الخليط الخليط
+# ========================================================
 
-Computes a Bayesian Ridge Regression of Sinusoids.
+# يحسب الانحدار الخليط الخليط للمنحنيات التوافقية.
 
-See :ref:`bayesian_ridge_regression` for more information on the regressor.
+# راجع :ref:`bayesian_ridge_regression` لمزيد من المعلومات حول المنحني.
 
-In general, when fitting a curve with a polynomial by Bayesian ridge
-regression, the selection of initial values of
-the regularization parameters (alpha, lambda) may be important.
-This is because the regularization parameters are determined by an iterative
-procedure that depends on initial values.
+# بشكل عام، عند ملاءمة منحنى باستخدام متعدد الحدود بواسطة الانحدار الخليط الخليط، قد يكون اختيار القيم الأولية لمعاملات التنظيم (alpha، lambda) مهمًا.
+# هذا لأن معاملات التنظيم يتم تحديدها بواسطة إجراء تكراري يعتمد على القيم الأولية.
 
-In this example, the sinusoid is approximated by a polynomial using different
-pairs of initial values.
+# في هذا المثال، يتم تقريب المنحنى التوافقي بواسطة متعدد الحدود باستخدام أزواج مختلفة من القيم الأولية.
 
-When starting from the default values (alpha_init = 1.90, lambda_init = 1.),
-the bias of the resulting curve is large, and the variance is small.
-So, lambda_init should be relatively small (1.e-3) so as to reduce the bias.
+# عند البدء من القيم الافتراضية (alpha_init = 1.90, lambda_init = 1.)، يكون الانحياز للمنحنى الناتج كبيرًا، والتباين صغيرًا.
+# لذلك، يجب أن تكون lambda_init صغيرة نسبيًا (1.e-3) لتقليل الانحياز.
 
-Also, by evaluating log marginal likelihood (L) of
-these models, we can determine which one is better.
-It can be concluded that the model with larger L is more likely.
-
+# أيضًا، من خلال تقييم الاحتمال الهامشي اللوغاريتمي (L) لهذه النماذج، يمكننا تحديد أيها أفضل.
+# يمكن الاستنتاج أن النموذج ذو L الأكبر أكثر احتمالًا.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
-
 # %%
-# Generate sinusoidal data with noise
+# توليد بيانات توافقية مع الضوضاء
 # -----------------------------------
 import numpy as np
 
@@ -47,7 +36,7 @@ x_test = np.linspace(0.0, 1.0, 100)
 
 
 # %%
-# Fit by cubic polynomial
+# الملاءمة بواسطة متعدد الحدود من الدرجة الثالثة
 # -----------------------
 from sklearn.linear_model import BayesianRidge
 
@@ -57,15 +46,15 @@ X_test = np.vander(x_test, n_order + 1, increasing=True)
 reg = BayesianRidge(tol=1e-6, fit_intercept=False, compute_score=True)
 
 # %%
-# Plot the true and predicted curves with log marginal likelihood (L)
+# رسم المنحنى الحقيقي والمتوقع مع الاحتمال الهامشي اللوغاريتمي (L)
 # -------------------------------------------------------------------
 import matplotlib.pyplot as plt
 
 fig, axes = plt.subplots(1, 2, figsize=(8, 4))
 for i, ax in enumerate(axes):
-    # Bayesian ridge regression with different initial value pairs
+    # الانحدار الخليط الخليط مع أزواج مختلفة من القيم الأولية
     if i == 0:
-        init = [1 / np.var(y_train), 1.0]  # Default values
+        init = [1 / np.var(y_train), 1.0]  # القيم الافتراضية
     elif i == 1:
         init = [1.0, 1e-3]
         reg.set_params(alpha_init=init[0], lambda_init=init[1])

@@ -19,21 +19,14 @@
 
 
 ===================================================
-Failure of Machine Learning to infer causal effects
+فشل التعلم الآلي في استنتاج الآثار السببية
 ===================================================
 
-Machine Learning models are great for measuring statistical associations.
-Unfortunately, unless we're willing to make strong assumptions about the data,
-those models are unable to infer causal effects.
+تُعد نماذج التعلم الآلي رائعة لقياس الارتباطات الإحصائية. لسوء الحظ، ما لم نكن على استعداد لوضع افتراضات قوية حول البيانات، فإن هذه النماذج غير قادرة على استنتاج الآثار السببية.
 
-To illustrate this, we will simulate a situation in which we try to answer one
-of the most important questions in economics of education: **what is the causal
-effect of earning a college degree on hourly wages?** Although the answer to
-this question is crucial to policy makers, `Omitted-Variable Biases
-<https://en.wikipedia.org/wiki/Omitted-variable_bias>`_ (OVB) prevent us from
-identifying that causal effect.
+لتوضيح ذلك، سنحاكي موقفًا نحاول فيه الإجابة على أحد أهم الأسئلة في اقتصاديات التعليم: **ما هو التأثير السببي للحصول على درجة جامعية على الأجور بالساعة؟** على الرغم من أن الإجابة على هذا السؤال بالغة الأهمية لواضعي السياسات، فإن `الانحيازات المتغيرة المحذوفة <https://en.wikipedia.org/wiki/Omitted-variable_bias>`_ (OVB) تمنعنا من تحديد هذا التأثير السببي.
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-21
+.. GENERATED FROM PYTHON SOURCE LINES 10-14
 
 .. code-block:: Python
 
@@ -48,20 +41,14 @@ identifying that causal effect.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 22-32
+.. GENERATED FROM PYTHON SOURCE LINES 15-19
 
-The dataset: simulated hourly wages
+مجموعة البيانات: أجور بالساعة محاكاة
 -----------------------------------
 
-The data generating process is laid out in the code below. Work experience in
-years and a measure of ability are drawn from Normal distributions; the
-hourly wage of one of the parents is drawn from Beta distribution. We then
-create an indicator of college degree which is positively impacted by ability
-and parental hourly wage. Finally, we model hourly wages as a linear function
-of all the previous variables and a random component. Note that all variables
-have a positive effect on hourly wages.
+يتم وضع عملية توليد البيانات في الكود أدناه. يتم استخلاص الخبرة العملية بالسنوات ومقياس القدرة من التوزيعات العادية. يتم استخلاص الأجر بالساعة لأحد الوالدين من توزيع بيتا. ثم نقوم بإنشاء مؤشر لدرجة جامعية تتأثر إيجابيًا بالقدرة والأجر بالساعة للوالدين. أخيرًا، نقوم بنمذجة الأجور بالساعة كدالة خطية لجميع المتغيرات السابقة ومكون عشوائي. لاحظ أن جميع المتغيرات لها تأثير إيجابي على الأجور بالساعة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 32-65
+.. GENERATED FROM PYTHON SOURCE LINES 19-52
 
 .. code-block:: Python
 
@@ -105,16 +92,14 @@ have a positive effect on hourly wages.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 66-72
+.. GENERATED FROM PYTHON SOURCE LINES 53-57
 
-Description of the simulated data
+وصف البيانات المحاكاة
 ---------------------------------
 
-The following plot shows the distribution of each variable, and pairwise
-scatter plots. Key to our OVB story is the positive relationship between
-ability and college degree.
+يوضح الرسم التالي توزيع كل متغير، ومخططات التشتت الزوجية. مفتاح قصة OVB الخاصة بنا هو العلاقة الإيجابية بين القدرة والدرجة الجامعية.
 
-.. GENERATED FROM PYTHON SOURCE LINES 72-86
+.. GENERATED FROM PYTHON SOURCE LINES 57-71
 
 .. code-block:: Python
 
@@ -144,13 +129,11 @@ ability and college degree.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 87-90
+.. GENERATED FROM PYTHON SOURCE LINES 72-73
 
-In the next section, we train predictive models and we therefore split the
-target column from over features and we split the data into a training and a
-testing set.
+في القسم التالي، نقوم بتدريب نماذج تنبؤية، وبالتالي نقوم بتقسيم عمود الهدف من الميزات ونقسم البيانات إلى مجموعة تدريب ومجموعة اختبار.
 
-.. GENERATED FROM PYTHON SOURCE LINES 90-96
+.. GENERATED FROM PYTHON SOURCE LINES 73-79
 
 .. code-block:: Python
 
@@ -167,16 +150,14 @@ testing set.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 97-103
+.. GENERATED FROM PYTHON SOURCE LINES 80-84
 
-Income prediction with fully observed variables
+التنبؤ بالدخل مع المتغيرات المرصودة بالكامل
 -----------------------------------------------
 
-First, we train a predictive model, a
-:class:`~sklearn.linear_model.LinearRegression` model. In this experiment,
-we assume that all variables used by the true generative model are available.
+أولاً، نقوم بتدريب نموذج تنبؤي، وهو نموذج :class:`~sklearn.linear_model.LinearRegression`. في هذه التجربة، نفترض أن جميع المتغيرات التي يستخدمها نموذج التوليد الحقيقي متاحة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 103-115
+.. GENERATED FROM PYTHON SOURCE LINES 84-96
 
 .. code-block:: Python
 
@@ -190,7 +171,7 @@ we assume that all variables used by the true generative model are available.
     y_pred_with_ability = regressor_with_ability.predict(X_test[features_names])
     R2_with_ability = r2_score(y_test, y_pred_with_ability)
 
-    print(f"R2 score with ability: {R2_with_ability:.3f}")
+    print(f"درجة R2 مع القدرة: {R2_with_ability:.3f}")
 
 
 
@@ -200,18 +181,16 @@ we assume that all variables used by the true generative model are available.
 
  .. code-block:: none
 
-    R2 score with ability: 0.975
+    درجة R2 مع القدرة: 0.975
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 116-119
+.. GENERATED FROM PYTHON SOURCE LINES 97-98
 
-This model predicts well the hourly wages as shown by the high R2 score. We
-plot the model coefficients to show that we exactly recover the values of
-the true generative model.
+يتنبأ هذا النموذج جيدًا بالأجور بالساعة كما هو موضح بدرجة R2 العالية. نرسم معاملات النموذج لإظهار أننا نسترجع بالضبط قيم نموذج التوليد الحقيقي.
 
-.. GENERATED FROM PYTHON SOURCE LINES 119-132
+.. GENERATED FROM PYTHON SOURCE LINES 98-111
 
 .. code-block:: Python
 
@@ -220,19 +199,19 @@ the true generative model.
     model_coef = pd.Series(regressor_with_ability.coef_, index=features_names)
     coef = pd.concat(
         [true_coef[features_names], model_coef],
-        keys=["Coefficients of true generative model", "Model coefficients"],
+        keys=["معاملات نموذج التوليد الحقيقي", "معاملات النموذج"],
         axis=1,
     )
     ax = coef.plot.barh()
-    ax.set_xlabel("Coefficient values")
-    ax.set_title("Coefficients of the linear regression including the ability features")
+    ax.set_xlabel("قيم المعاملات")
+    ax.set_title("معاملات الانحدار الخطي بما في ذلك ميزات القدرة")
     _ = plt.tight_layout()
 
 
 
 
 .. image-sg:: /auto_examples/inspection/images/sphx_glr_plot_causal_interpretation_002.png
-   :alt: Coefficients of the linear regression including the ability features
+   :alt: معاملات الانحدار الخطي بما في ذلك ميزات القدرة
    :srcset: /auto_examples/inspection/images/sphx_glr_plot_causal_interpretation_002.png
    :class: sphx-glr-single-img
 
@@ -240,17 +219,14 @@ the true generative model.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 133-140
+.. GENERATED FROM PYTHON SOURCE LINES 112-116
 
-Income prediction with partial observations
+التنبؤ بالدخل مع الملاحظات الجزئية
 -------------------------------------------
 
-In practice, intellectual abilities are not observed or are only estimated
-from proxies that inadvertently measure education as well (e.g. by IQ tests).
-But omitting the "ability" feature from a linear model inflates the estimate
-via a positive OVB.
+من الناحية العملية، لا تتم ملاحظة القدرات الفكرية أو يتم تقديرها فقط من الوكلاء الذين يقيسون التعليم عن غير قصد أيضًا (على سبيل المثال، عن طريق اختبارات الذكاء). لكن حذف ميزة "القدرة" من نموذج خطي يؤدي إلى تضخيم التقدير من خلال OVB إيجابي.
 
-.. GENERATED FROM PYTHON SOURCE LINES 140-149
+.. GENERATED FROM PYTHON SOURCE LINES 116-125
 
 .. code-block:: Python
 
@@ -261,7 +237,7 @@ via a positive OVB.
     y_pred_without_ability = regressor_without_ability.predict(X_test[features_names])
     R2_without_ability = r2_score(y_test, y_pred_without_ability)
 
-    print(f"R2 score without ability: {R2_without_ability:.3f}")
+    print(f"درجة R2 بدون القدرة: {R2_without_ability:.3f}")
 
 
 
@@ -271,18 +247,16 @@ via a positive OVB.
 
  .. code-block:: none
 
-    R2 score without ability: 0.968
+    درجة R2 بدون القدرة: 0.968
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 150-153
+.. GENERATED FROM PYTHON SOURCE LINES 126-127
 
-The predictive power of our model is similar when we omit the ability feature
-in terms of R2 score. We now check if the coefficient of the model are
-different from the true generative model.
+القدرة التنبؤية لنموذجنا متشابهة عندما نحذف ميزة القدرة من حيث درجة R2. نتحقق الآن مما إذا كان معامل النموذج مختلفًا عن نموذج التوليد الحقيقي.
 
-.. GENERATED FROM PYTHON SOURCE LINES 153-166
+.. GENERATED FROM PYTHON SOURCE LINES 127-140
 
 .. code-block:: Python
 
@@ -290,12 +264,12 @@ different from the true generative model.
     model_coef = pd.Series(regressor_without_ability.coef_, index=features_names)
     coef = pd.concat(
         [true_coef[features_names], model_coef],
-        keys=["Coefficients of true generative model", "Model coefficients"],
+        keys=["معاملات نموذج التوليد الحقيقي", "معاملات النموذج"],
         axis=1,
     )
     ax = coef.plot.barh()
-    ax.set_xlabel("Coefficient values")
-    _ = ax.set_title("Coefficients of the linear regression excluding the ability feature")
+    ax.set_xlabel("قيم المعاملات")
+    _ = ax.set_title("معاملات الانحدار الخطي باستثناء ميزة القدرة")
     plt.tight_layout()
     plt.show()
 
@@ -303,7 +277,7 @@ different from the true generative model.
 
 
 .. image-sg:: /auto_examples/inspection/images/sphx_glr_plot_causal_interpretation_003.png
-   :alt: Coefficients of the linear regression excluding the ability feature
+   :alt: معاملات الانحدار الخطي باستثناء ميزة القدرة
    :srcset: /auto_examples/inspection/images/sphx_glr_plot_causal_interpretation_003.png
    :class: sphx-glr-single-img
 
@@ -311,36 +285,21 @@ different from the true generative model.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 167-190
+.. GENERATED FROM PYTHON SOURCE LINES 141-149
 
-To compensate for the omitted variable, the model inflates the coefficient of
-the college degree feature. Therefore, interpreting this coefficient value
-as a causal effect of the true generative model is incorrect.
+للتعويض عن المتغير المحذوف، يقوم النموذج بتضخيم معامل ميزة الدرجة الجامعية. لذلك، فإن تفسير قيمة هذا المعامل كتأثير سببي لنموذج التوليد الحقيقي غير صحيح.
 
-Lessons learned
+الدروس المستفادة
 ---------------
 
-Machine learning models are not designed for the estimation of causal
-effects. While we showed this with a linear model, OVB can affect any type of
-model.
+لم يتم تصميم نماذج التعلم الآلي لتقدير الآثار السببية. بينما أظهرنا ذلك بنموذج خطي، يمكن أن يؤثر OVB على أي نوع من النماذج.
 
-Whenever interpreting a coefficient or a change in predictions brought about
-by a change in one of the features, it is important to keep in mind
-potentially unobserved variables that could be correlated with both the
-feature in question and the target variable. Such variables are called
-`Confounding Variables <https://en.wikipedia.org/wiki/Confounding>`_. In
-order to still estimate causal effect in the presence of confounding,
-researchers usually conduct experiments in which the treatment variable (e.g.
-college degree) is randomized. When an experiment is prohibitively expensive
-or unethical, researchers can sometimes use other causal inference techniques
-such as `Instrumental Variables
-<https://en.wikipedia.org/wiki/Instrumental_variables_estimation>`_ (IV)
-estimations.
+عند تفسير معامل أو تغيير في التنبؤات ناتج عن تغيير في إحدى الميزات، من المهم أن تضع في اعتبارك المتغيرات التي يحتمل ألا تتم ملاحظتها والتي يمكن أن تكون مرتبطة بكل من الميزة المعنية والمتغير الهدف. تسمى هذه المتغيرات `المتغيرات المربكة <https://en.wikipedia.org/wiki/Confounding>`_. من أجل تقدير التأثير السببي في وجود التشويش، عادةً ما يجري الباحثون تجارب يتم فيها اختيار متغير المعالجة (مثل الدرجة الجامعية) عشوائيًا. عندما تكون التجربة باهظة الثمن أو غير أخلاقية، يمكن للباحثين أحيانًا استخدام تقنيات استدلال سببي أخرى مثل تقديرات `المتغيرات الآلية <https://en.wikipedia.org/wiki/Instrumental_variables_estimation>`_ (IV).
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 3.059 seconds)
+   **Total running time of the script:** (0 minutes 3.267 seconds)
 
 
 .. _sphx_glr_download_auto_examples_inspection_plot_causal_interpretation.py:

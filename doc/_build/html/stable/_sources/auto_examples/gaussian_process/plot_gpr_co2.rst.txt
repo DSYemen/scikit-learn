@@ -19,25 +19,18 @@
 
 
 ====================================================================================
-Forecasting of CO2 level on Mona Loa dataset using Gaussian process regression (GPR)
+التنبؤ بمستوى ثاني أكسيد الكربون في مجموعة بيانات Mona Loa باستخدام انحدار العملية الغاوسية (GPR)
 ====================================================================================
 
-This example is based on Section 5.4.3 of "Gaussian Processes for Machine
-Learning" [1]_. It illustrates an example of complex kernel engineering
-and hyperparameter optimization using gradient ascent on the
-log-marginal-likelihood. The data consists of the monthly average atmospheric
-CO2 concentrations (in parts per million by volume (ppm)) collected at the
-Mauna Loa Observatory in Hawaii, between 1958 and 2001. The objective is to
-model the CO2 concentration as a function of the time :math:`t` and extrapolate
-for years after 2001.
+يستند هذا المثال إلى القسم 5.4.3 من "العمليات الغاوسية للتعلم الآلي" [1]_. يوضح مثالاً على هندسة النواة المعقدة وتحسين المعلمات الفائقة باستخدام صعود التدرج على الاحتمال الهامشي اللوغاريتمي. تتكون البيانات من متوسط ​​التركيزات الشهرية لثاني أكسيد الكربون في الغلاف الجوي (مقاسة بأجزاء لكل مليون من حيث الحجم (ppm)) التي تم جمعها في مرصد مونا لوا في هاواي ، بين عامي 1958 و 2001. الهدف هو نمذجة تركيز ثاني أكسيد الكربون كدالة للوقت :math:`t` واستقراءه للسنوات التي تلي عام 2001.
 
-.. rubric:: References
+.. rubric:: المراجع
 
-.. [1] `Rasmussen, Carl Edward. "Gaussian processes in machine learning."
-    Summer school on machine learning. Springer, Berlin, Heidelberg, 2003
+.. [1] `Rasmussen, Carl Edward. "العمليات الغاوسية في التعلم الآلي."
+    مدرسة صيفية عن التعلم الآلي. Springer, Berlin, Heidelberg, 2003
     <http://www.gaussianprocess.org/gpml/chapters/RW.pdf>`_.
 
-.. GENERATED FROM PYTHON SOURCE LINES 21-27
+.. GENERATED FROM PYTHON SOURCE LINES 14-20
 
 .. code-block:: Python
 
@@ -54,18 +47,14 @@ for years after 2001.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 28-36
+.. GENERATED FROM PYTHON SOURCE LINES 21-25
 
-Build the dataset
+بناء مجموعة البيانات
 -----------------
 
-We will derive a dataset from the Mauna Loa Observatory that collected air
-samples. We are interested in estimating the concentration of CO2 and
-extrapolate it for further year. First, we load the original dataset available
-in OpenML as a pandas dataframe. This will be replaced with Polars
-once `fetch_openml` adds a native support for it.
+سنشتق مجموعة بيانات من مرصد مونا لوا الذي جمع عينات الهواء. نحن مهتمون بتقدير تركيز ثاني أكسيد الكربون واستقرائه للسنة التالية. أولاً ، نقوم بتحميل مجموعة البيانات الأصلية المتوفرة في OpenML كإطار بيانات pandas. سيتم استبدال هذا بـ Polars بمجرد أن يضيف `fetch_openml` دعمًا أصليًا له.
 
-.. GENERATED FROM PYTHON SOURCE LINES 36-41
+.. GENERATED FROM PYTHON SOURCE LINES 25-30
 
 .. code-block:: Python
 
@@ -167,12 +156,11 @@ once `fetch_openml` adds a native support for it.
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 42-44
+.. GENERATED FROM PYTHON SOURCE LINES 31-32
 
-First, we process the original dataframe to create a date column and select
-it along with the CO2 column.
+أولاً ، نقوم بمعالجة إطار البيانات الأصلي لإنشاء عمود تاريخ وتحديده مع عمود ثاني أكسيد الكربون.
 
-.. GENERATED FROM PYTHON SOURCE LINES 44-51
+.. GENERATED FROM PYTHON SOURCE LINES 32-39
 
 .. code-block:: Python
 
@@ -203,7 +191,7 @@ it along with the CO2 column.
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 52-54
+.. GENERATED FROM PYTHON SOURCE LINES 40-42
 
 .. code-block:: Python
 
@@ -222,28 +210,26 @@ it along with the CO2 column.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 55-58
+.. GENERATED FROM PYTHON SOURCE LINES 43-44
 
-We see that we get CO2 concentration for some days from March, 1958 to
-December, 2001. We can plot these raw information to have a better
-understanding.
+نرى أننا نحصل على تركيز ثاني أكسيد الكربون لبعض الأيام من مارس 1958 إلى ديسمبر 2001. يمكننا رسم هذه المعلومات الخام لفهم أفضل.
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-65
+.. GENERATED FROM PYTHON SOURCE LINES 44-51
 
 .. code-block:: Python
 
     import matplotlib.pyplot as plt
 
     plt.plot(co2_data["date"], co2_data["co2"])
-    plt.xlabel("date")
-    plt.ylabel("CO$_2$ concentration (ppm)")
-    _ = plt.title("Raw air samples measurements from the Mauna Loa Observatory")
+    plt.xlabel("التاريخ")
+    plt.ylabel("تركيز CO$_2$ (ppm)")
+    _ = plt.title("قياسات عينات الهواء الخام من مرصد مونا لوا")
 
 
 
 
 .. image-sg:: /auto_examples/gaussian_process/images/sphx_glr_plot_gpr_co2_001.png
-   :alt: Raw air samples measurements from the Mauna Loa Observatory
+   :alt: قياسات عينات الهواء الخام من مرصد مونا لوا
    :srcset: /auto_examples/gaussian_process/images/sphx_glr_plot_gpr_co2_001.png
    :class: sphx-glr-single-img
 
@@ -251,13 +237,11 @@ understanding.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 66-69
+.. GENERATED FROM PYTHON SOURCE LINES 52-53
 
-We will preprocess the dataset by taking a monthly average and drop month
-for which no measurements were collected. Such a processing will have an
-smoothing effect on the data.
+سنقوم بمعالجة مجموعة البيانات عن طريق حساب المتوسط ​​الشهري وإسقاط الأشهر التي لم يتم جمع أي قياسات لها. سيكون لمثل هذه المعالجة تأثير تجانس على البيانات.
 
-.. GENERATED FROM PYTHON SOURCE LINES 69-83
+.. GENERATED FROM PYTHON SOURCE LINES 53-67
 
 .. code-block:: Python
 
@@ -269,17 +253,17 @@ smoothing effect on the data.
         .drop_nulls()
     )
     plt.plot(co2_data["date"], co2_data["co2"])
-    plt.xlabel("date")
-    plt.ylabel("Monthly average of CO$_2$ concentration (ppm)")
+    plt.xlabel("التاريخ")
+    plt.ylabel("متوسط ​​تركيز CO$_2$ الشهري (ppm)")
     _ = plt.title(
-        "Monthly average of air samples measurements\nfrom the Mauna Loa Observatory"
+        "المتوسط ​​الشهري لقياسات عينات الهواء\nمن مرصد مونا لوا"
     )
 
 
 
 
 .. image-sg:: /auto_examples/gaussian_process/images/sphx_glr_plot_gpr_co2_002.png
-   :alt: Monthly average of air samples measurements from the Mauna Loa Observatory
+   :alt: المتوسط ​​الشهري لقياسات عينات الهواء من مرصد مونا لوا
    :srcset: /auto_examples/gaussian_process/images/sphx_glr_plot_gpr_co2_002.png
    :class: sphx-glr-single-img
 
@@ -287,16 +271,13 @@ smoothing effect on the data.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 84-90
+.. GENERATED FROM PYTHON SOURCE LINES 68-71
 
-The idea in this example will be to predict the CO2 concentration in function
-of the date. We are as well interested in extrapolating for upcoming year
-after 2001.
+ستكون الفكرة في هذا المثال هي التنبؤ بتركيز ثاني أكسيد الكربون كدالة للتاريخ. نحن مهتمون أيضًا باستقراء السنوات القادمة بعد عام 2001.
 
-As a first step, we will divide the data and the target to estimate. The data
-being a date, we will convert it into a numeric.
+كخطوة أولى ، سنقسم البيانات والهدف المراد تقديره. بما أن البيانات عبارة عن تاريخ ، فسنحولها إلى رقم.
 
-.. GENERATED FROM PYTHON SOURCE LINES 90-95
+.. GENERATED FROM PYTHON SOURCE LINES 71-76
 
 .. code-block:: Python
 
@@ -312,24 +293,16 @@ being a date, we will convert it into a numeric.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 96-110
+.. GENERATED FROM PYTHON SOURCE LINES 77-83
 
-Design the proper kernel
+تصميم النواة المناسبة
 ------------------------
 
-To design the kernel to use with our Gaussian process, we can make some
-assumption regarding the data at hand. We observe that they have several
-characteristics: we see a long term rising trend, a pronounced seasonal
-variation and some smaller irregularities. We can use different appropriate
-kernel that would capture these features.
+لتصميم النواة لاستخدامها مع عمليتنا الغاوسية ، يمكننا وضع بعض الافتراضات فيما يتعلق بالبيانات المتوفرة. نلاحظ أن لديها العديد من الخصائص: نرى اتجاهًا تصاعديًا طويل المدى ، وتغير موسمي واضح ، وبعض المخالفات الصغيرة. يمكننا استخدام نواة مناسبة مختلفة من شأنها التقاط هذه الميزات.
 
-First, the long term rising trend could be fitted using a radial basis
-function (RBF) kernel with a large length-scale parameter. The RBF kernel
-with a large length-scale enforces this component to be smooth. An trending
-increase is not enforced as to give a degree of freedom to our model. The
-specific length-scale and the amplitude are free hyperparameters.
+أولاً ، يمكن ملاءمة الاتجاه التصاعدي طويل المدى باستخدام نواة دالة أساس شعاعي (RBF) مع معامل مقياس طول كبير. تفرض نواة RBF ذات مقياس الطول الكبير أن يكون هذا المكون سلسًا. لا يتم فرض زيادة في الاتجاه لإعطاء درجة من الحرية لنموذجنا. مقياس الطول المحدد والسعة هما معلمات فائقة حرة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 110-114
+.. GENERATED FROM PYTHON SOURCE LINES 83-87
 
 .. code-block:: Python
 
@@ -344,17 +317,11 @@ specific length-scale and the amplitude are free hyperparameters.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 115-122
+.. GENERATED FROM PYTHON SOURCE LINES 88-89
 
-The seasonal variation is explained by the periodic exponential sine squared
-kernel with a fixed periodicity of 1 year. The length-scale of this periodic
-component, controlling its smoothness, is a free parameter. In order to allow
-decaying away from exact periodicity, the product with an RBF kernel is
-taken. The length-scale of this RBF component controls the decay time and is
-a further free parameter. This type of kernel is also known as locally
-periodic kernel.
+يتم تفسير التباين الموسمي بواسطة نواة الجيب الأسي التربيعي الدوري مع دورية ثابتة لمدة عام واحد. مقياس الطول لهذا المكون الدوري ، الذي يتحكم في نعومته ، هو معامل حر. من أجل السماح بالانحلال بعيدًا عن الدورية الدقيقة ، يتم أخذ حاصل الضرب مع نواة RBF. يتحكم مقياس الطول لمكون RBF هذا في وقت الانحلال وهو معامل حر إضافي. يُعرف هذا النوع من النواة أيضًا باسم النواة الدورية محليًا.
 
-.. GENERATED FROM PYTHON SOURCE LINES 122-130
+.. GENERATED FROM PYTHON SOURCE LINES 89-97
 
 .. code-block:: Python
 
@@ -373,15 +340,11 @@ periodic kernel.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 131-136
+.. GENERATED FROM PYTHON SOURCE LINES 98-99
 
-The small irregularities are to be explained by a rational quadratic kernel
-component, whose length-scale and alpha parameter, which quantifies the
-diffuseness of the length-scales, are to be determined. A rational quadratic
-kernel is equivalent to an RBF kernel with several length-scale and will
-better accommodate the different irregularities.
+يتم تفسير المخالفات الصغيرة بواسطة مكون نواة تربيعي نسبي ، والذي سيتم تحديد مقياس طوله ومعامل ألفا ، اللذان يحددان مدى انتشار مقاييس الطول.  تُعادل النواة التربيعية النسبية نواة RBF ذات عدة مقاييس طول وستستوعب بشكل أفضل المخالفات المختلفة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 136-140
+.. GENERATED FROM PYTHON SOURCE LINES 99-103
 
 .. code-block:: Python
 
@@ -396,15 +359,11 @@ better accommodate the different irregularities.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 141-146
+.. GENERATED FROM PYTHON SOURCE LINES 104-105
 
-Finally, the noise in the dataset can be accounted with a kernel consisting
-of an RBF kernel contribution, which shall explain the correlated noise
-components such as local weather phenomena, and a white kernel contribution
-for the white noise. The relative amplitudes and the RBF's length scale are
-further free parameters.
+أخيرًا ، يمكن حساب الضوضاء في مجموعة البيانات بنواة تتكون من مساهمة نواة RBF ، والتي يجب أن تفسر مكونات الضوضاء المترابطة مثل ظواهر الطقس المحلي ، ومساهمة نواة بيضاء للضوضاء البيضاء. السعات النسبية ومقياس طول RBF هي معلمات حرة إضافية.
 
-.. GENERATED FROM PYTHON SOURCE LINES 146-152
+.. GENERATED FROM PYTHON SOURCE LINES 105-111
 
 .. code-block:: Python
 
@@ -421,11 +380,11 @@ further free parameters.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 153-154
+.. GENERATED FROM PYTHON SOURCE LINES 112-113
 
-Thus, our final kernel is an addition of all previous kernel.
+وبالتالي ، فإن نواتنا النهائية هي إضافة جميع النوى السابقة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 154-159
+.. GENERATED FROM PYTHON SOURCE LINES 113-118
 
 .. code-block:: Python
 
@@ -447,19 +406,14 @@ Thus, our final kernel is an addition of all previous kernel.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 160-169
+.. GENERATED FROM PYTHON SOURCE LINES 119-123
 
-Model fitting and extrapolation
+ملاءمة النموذج والاستقراء
 -------------------------------
 
-Now, we are ready to use a Gaussian process regressor and fit the available
-data. To follow the example from the literature, we will subtract the mean
-from the target. We could have used `normalize_y=True`. However, doing so
-would have also scaled the target (dividing `y` by its standard deviation).
-Thus, the hyperparameters of the different kernel would have had different
-meaning since they would not have been expressed in ppm.
+الآن ، نحن جاهزون لاستخدام مُنحدِر عملية غاوسية وملاءمة البيانات المتاحة. لاتباع المثال من الأدبيات ، سنطرح المتوسط ​​من الهدف. كان بإمكاننا استخدام `normalize_y=True`. ومع ذلك ، فإن القيام بذلك كان سيؤدي أيضًا إلى قياس الهدف (بقسمة `y` على انحرافه المعياري). وبالتالي ، لكانت المعلمات الفائقة للنواة المختلفة لها معنى مختلف لأنه لم يكن من الممكن التعبير عنها بـ ppm.
 
-.. GENERATED FROM PYTHON SOURCE LINES 169-175
+.. GENERATED FROM PYTHON SOURCE LINES 123-129
 
 .. code-block:: Python
 
@@ -477,7 +431,7 @@ meaning since they would not have been expressed in ppm.
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-30 {
+    <style>#sk-container-id-19 {
       /* Definition of color scheme common for light and dark mode */
       --sklearn-color-text: #000;
       --sklearn-color-text-muted: #666;
@@ -508,15 +462,15 @@ meaning since they would not have been expressed in ppm.
       }
     }
 
-    #sk-container-id-30 {
+    #sk-container-id-19 {
       color: var(--sklearn-color-text);
     }
 
-    #sk-container-id-30 pre {
+    #sk-container-id-19 pre {
       padding: 0;
     }
 
-    #sk-container-id-30 input.sk-hidden--visually {
+    #sk-container-id-19 input.sk-hidden--visually {
       border: 0;
       clip: rect(1px 1px 1px 1px);
       clip: rect(1px, 1px, 1px, 1px);
@@ -528,7 +482,7 @@ meaning since they would not have been expressed in ppm.
       width: 1px;
     }
 
-    #sk-container-id-30 div.sk-dashed-wrapped {
+    #sk-container-id-19 div.sk-dashed-wrapped {
       border: 1px dashed var(--sklearn-color-line);
       margin: 0 0.4em 0.5em 0.4em;
       box-sizing: border-box;
@@ -536,7 +490,7 @@ meaning since they would not have been expressed in ppm.
       background-color: var(--sklearn-color-background);
     }
 
-    #sk-container-id-30 div.sk-container {
+    #sk-container-id-19 div.sk-container {
       /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
          but bootstrap.min.css set `[hidden] { display: none !important; }`
          so we also need the `!important` here to be able to override the
@@ -546,7 +500,7 @@ meaning since they would not have been expressed in ppm.
       position: relative;
     }
 
-    #sk-container-id-30 div.sk-text-repr-fallback {
+    #sk-container-id-19 div.sk-text-repr-fallback {
       display: none;
     }
 
@@ -562,14 +516,14 @@ meaning since they would not have been expressed in ppm.
 
     /* Parallel-specific style estimator block */
 
-    #sk-container-id-30 div.sk-parallel-item::after {
+    #sk-container-id-19 div.sk-parallel-item::after {
       content: "";
       width: 100%;
       border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
       flex-grow: 1;
     }
 
-    #sk-container-id-30 div.sk-parallel {
+    #sk-container-id-19 div.sk-parallel {
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -577,28 +531,28 @@ meaning since they would not have been expressed in ppm.
       position: relative;
     }
 
-    #sk-container-id-30 div.sk-parallel-item {
+    #sk-container-id-19 div.sk-parallel-item {
       display: flex;
       flex-direction: column;
     }
 
-    #sk-container-id-30 div.sk-parallel-item:first-child::after {
+    #sk-container-id-19 div.sk-parallel-item:first-child::after {
       align-self: flex-end;
       width: 50%;
     }
 
-    #sk-container-id-30 div.sk-parallel-item:last-child::after {
+    #sk-container-id-19 div.sk-parallel-item:last-child::after {
       align-self: flex-start;
       width: 50%;
     }
 
-    #sk-container-id-30 div.sk-parallel-item:only-child::after {
+    #sk-container-id-19 div.sk-parallel-item:only-child::after {
       width: 0;
     }
 
     /* Serial-specific style estimator block */
 
-    #sk-container-id-30 div.sk-serial {
+    #sk-container-id-19 div.sk-serial {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -616,14 +570,14 @@ meaning since they would not have been expressed in ppm.
 
     /* Pipeline and ColumnTransformer style (default) */
 
-    #sk-container-id-30 div.sk-toggleable {
+    #sk-container-id-19 div.sk-toggleable {
       /* Default theme specific background. It is overwritten whether we have a
       specific estimator or a Pipeline/ColumnTransformer */
       background-color: var(--sklearn-color-background);
     }
 
     /* Toggleable label */
-    #sk-container-id-30 label.sk-toggleable__label {
+    #sk-container-id-19 label.sk-toggleable__label {
       cursor: pointer;
       display: flex;
       width: 100%;
@@ -636,13 +590,13 @@ meaning since they would not have been expressed in ppm.
       gap: 0.5em;
     }
 
-    #sk-container-id-30 label.sk-toggleable__label .caption {
+    #sk-container-id-19 label.sk-toggleable__label .caption {
       font-size: 0.6rem;
       font-weight: lighter;
       color: var(--sklearn-color-text-muted);
     }
 
-    #sk-container-id-30 label.sk-toggleable__label-arrow:before {
+    #sk-container-id-19 label.sk-toggleable__label-arrow:before {
       /* Arrow on the left of the label */
       content: "▸";
       float: left;
@@ -650,13 +604,13 @@ meaning since they would not have been expressed in ppm.
       color: var(--sklearn-color-icon);
     }
 
-    #sk-container-id-30 label.sk-toggleable__label-arrow:hover:before {
+    #sk-container-id-19 label.sk-toggleable__label-arrow:hover:before {
       color: var(--sklearn-color-text);
     }
 
     /* Toggleable content - dropdown */
 
-    #sk-container-id-30 div.sk-toggleable__content {
+    #sk-container-id-19 div.sk-toggleable__content {
       max-height: 0;
       max-width: 0;
       overflow: hidden;
@@ -665,12 +619,12 @@ meaning since they would not have been expressed in ppm.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-30 div.sk-toggleable__content.fitted {
+    #sk-container-id-19 div.sk-toggleable__content.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-30 div.sk-toggleable__content pre {
+    #sk-container-id-19 div.sk-toggleable__content pre {
       margin: 0.2em;
       border-radius: 0.25em;
       color: var(--sklearn-color-text);
@@ -678,79 +632,79 @@ meaning since they would not have been expressed in ppm.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-30 div.sk-toggleable__content.fitted pre {
+    #sk-container-id-19 div.sk-toggleable__content.fitted pre {
       /* unfitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-30 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    #sk-container-id-19 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
       max-height: 200px;
       max-width: 100%;
       overflow: auto;
     }
 
-    #sk-container-id-30 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    #sk-container-id-19 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
       content: "▾";
     }
 
     /* Pipeline/ColumnTransformer-specific style */
 
-    #sk-container-id-30 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-19 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-30 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-19 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator-specific style */
 
     /* Colorize estimator box */
-    #sk-container-id-30 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-19 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-30 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-19 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
-    #sk-container-id-30 div.sk-label label.sk-toggleable__label,
-    #sk-container-id-30 div.sk-label label {
+    #sk-container-id-19 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-19 div.sk-label label {
       /* The background is the default theme color */
       color: var(--sklearn-color-text-on-default-background);
     }
 
     /* On hover, darken the color of the background */
-    #sk-container-id-30 div.sk-label:hover label.sk-toggleable__label {
+    #sk-container-id-19 div.sk-label:hover label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
     /* Label box, darken color on hover, fitted */
-    #sk-container-id-30 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+    #sk-container-id-19 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator label */
 
-    #sk-container-id-30 div.sk-label label {
+    #sk-container-id-19 div.sk-label label {
       font-family: monospace;
       font-weight: bold;
       display: inline-block;
       line-height: 1.2em;
     }
 
-    #sk-container-id-30 div.sk-label-container {
+    #sk-container-id-19 div.sk-label-container {
       text-align: center;
     }
 
     /* Estimator-specific */
-    #sk-container-id-30 div.sk-estimator {
+    #sk-container-id-19 div.sk-estimator {
       font-family: monospace;
       border: 1px dotted var(--sklearn-color-border-box);
       border-radius: 0.25em;
@@ -760,18 +714,18 @@ meaning since they would not have been expressed in ppm.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-30 div.sk-estimator.fitted {
+    #sk-container-id-19 div.sk-estimator.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
     /* on hover */
-    #sk-container-id-30 div.sk-estimator:hover {
+    #sk-container-id-19 div.sk-estimator:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-30 div.sk-estimator.fitted:hover {
+    #sk-container-id-19 div.sk-estimator.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
@@ -859,7 +813,7 @@ meaning since they would not have been expressed in ppm.
 
     /* "?"-specific style due to the `<a>` HTML tag */
 
-    #sk-container-id-30 a.estimator_doc_link {
+    #sk-container-id-19 a.estimator_doc_link {
       float: right;
       font-size: 1rem;
       line-height: 1em;
@@ -874,40 +828,39 @@ meaning since they would not have been expressed in ppm.
       border: var(--sklearn-color-unfitted-level-1) 1pt solid;
     }
 
-    #sk-container-id-30 a.estimator_doc_link.fitted {
+    #sk-container-id-19 a.estimator_doc_link.fitted {
       /* fitted */
       border: var(--sklearn-color-fitted-level-1) 1pt solid;
       color: var(--sklearn-color-fitted-level-1);
     }
 
     /* On hover */
-    #sk-container-id-30 a.estimator_doc_link:hover {
+    #sk-container-id-19 a.estimator_doc_link:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-3);
       color: var(--sklearn-color-background);
       text-decoration: none;
     }
 
-    #sk-container-id-30 a.estimator_doc_link.fitted:hover {
+    #sk-container-id-19 a.estimator_doc_link.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-30" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>GaussianProcessRegressor(kernel=50**2 * RBF(length_scale=50) + 2**2 * RBF(length_scale=100) * ExpSineSquared(length_scale=1, periodicity=1) + 0.5**2 * RationalQuadratic(alpha=1, length_scale=1) + 0.1**2 * RBF(length_scale=0.1) + WhiteKernel(noise_level=0.01))</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-113" type="checkbox" checked><label for="sk-estimator-id-113" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>GaussianProcessRegressor</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.gaussian_process.GaussianProcessRegressor.html">?<span>Documentation for GaussianProcessRegressor</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>GaussianProcessRegressor(kernel=50**2 * RBF(length_scale=50) + 2**2 * RBF(length_scale=100) * ExpSineSquared(length_scale=1, periodicity=1) + 0.5**2 * RationalQuadratic(alpha=1, length_scale=1) + 0.1**2 * RBF(length_scale=0.1) + WhiteKernel(noise_level=0.01))</pre></div> </div></div></div></div>
+    </style><div id="sk-container-id-19" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>GaussianProcessRegressor(kernel=50**2 * RBF(length_scale=50) + 2**2 * RBF(length_scale=100) * ExpSineSquared(length_scale=1, periodicity=1) + 0.5**2 * RationalQuadratic(alpha=1, length_scale=1) + 0.1**2 * RBF(length_scale=0.1) + WhiteKernel(noise_level=0.01))</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-116" type="checkbox" checked><label for="sk-estimator-id-116" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>GaussianProcessRegressor</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.gaussian_process.GaussianProcessRegressor.html">?<span>Documentation for GaussianProcessRegressor</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>GaussianProcessRegressor(kernel=50**2 * RBF(length_scale=50) + 2**2 * RBF(length_scale=100) * ExpSineSquared(length_scale=1, periodicity=1) + 0.5**2 * RationalQuadratic(alpha=1, length_scale=1) + 0.1**2 * RBF(length_scale=0.1) + WhiteKernel(noise_level=0.01))</pre></div> </div></div></div></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 176-183
+.. GENERATED FROM PYTHON SOURCE LINES 130-136
 
-Now, we will use the Gaussian process to predict on:
+الآن ، سنستخدم العملية الغاوسية للتنبؤ على:
 
-- training data to inspect the goodness of fit;
-- future data to see the extrapolation done by the model.
+- بيانات التدريب لفحص مدى الملاءمة ؛
+- البيانات المستقبلية لمعرفة الاستقراء الذي أجراه النموذج.
 
-Thus, we create synthetic data from 1958 to the current month. In addition,
-we need to add the subtracted mean computed during training.
+وبالتالي ، نقوم بإنشاء بيانات تركيبية من عام 1958 إلى الشهر الحالي. بالإضافة إلى ذلك ، نحتاج إلى إضافة المتوسط ​​المطروح المحسوب أثناء التدريب.
 
-.. GENERATED FROM PYTHON SOURCE LINES 183-193
+.. GENERATED FROM PYTHON SOURCE LINES 136-146
 
 .. code-block:: Python
 
@@ -928,12 +881,12 @@ we need to add the subtracted mean computed during training.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 194-210
+.. GENERATED FROM PYTHON SOURCE LINES 147-163
 
 .. code-block:: Python
 
-    plt.plot(X, y, color="black", linestyle="dashed", label="Measurements")
-    plt.plot(X_test, mean_y_pred, color="tab:blue", alpha=0.4, label="Gaussian process")
+    plt.plot(X, y, color="black", linestyle="dashed", label="القياسات")
+    plt.plot(X_test, mean_y_pred, color="tab:blue", alpha=0.4, label="العملية الغاوسية")
     plt.fill_between(
         X_test.ravel(),
         mean_y_pred - std_y_pred,
@@ -942,17 +895,17 @@ we need to add the subtracted mean computed during training.
         alpha=0.2,
     )
     plt.legend()
-    plt.xlabel("Year")
-    plt.ylabel("Monthly average of CO$_2$ concentration (ppm)")
+    plt.xlabel("السنة")
+    plt.ylabel("متوسط ​​تركيز CO$_2$ الشهري (ppm)")
     _ = plt.title(
-        "Monthly average of air samples measurements\nfrom the Mauna Loa Observatory"
+        "المتوسط ​​الشهري لقياسات عينات الهواء\nمن مرصد مونا لوا"
     )
 
 
 
 
 .. image-sg:: /auto_examples/gaussian_process/images/sphx_glr_plot_gpr_co2_003.png
-   :alt: Monthly average of air samples measurements from the Mauna Loa Observatory
+   :alt: المتوسط ​​الشهري لقياسات عينات الهواء من مرصد مونا لوا
    :srcset: /auto_examples/gaussian_process/images/sphx_glr_plot_gpr_co2_003.png
    :class: sphx-glr-single-img
 
@@ -960,17 +913,16 @@ we need to add the subtracted mean computed during training.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 211-218
+.. GENERATED FROM PYTHON SOURCE LINES 164-170
 
-Our fitted model is capable to fit previous data properly and extrapolate to
-future year with confidence.
+نموذجنا المجهز قادر على ملاءمة البيانات السابقة بشكل صحيح والاستقراء للسنوات القادمة بثقة.
 
-Interpretation of kernel hyperparameters
+تفسير المعلمات الفائقة للنواة
 ----------------------------------------
 
-Now, we can have a look at the hyperparameters of the kernel.
+الآن ، يمكننا إلقاء نظرة على المعلمات الفائقة للنواة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 218-220
+.. GENERATED FROM PYTHON SOURCE LINES 170-172
 
 .. code-block:: Python
 
@@ -989,21 +941,14 @@ Now, we can have a look at the hyperparameters of the kernel.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 221-229
+.. GENERATED FROM PYTHON SOURCE LINES 173-174
 
-Thus, most of the target signal, with the mean subtracted, is explained by a
-long-term rising trend for ~45 ppm and a length-scale of ~52 years. The
-periodic component has an amplitude of ~2.6ppm, a decay time of ~90 years and
-a length-scale of ~1.5. The long decay time indicates that we have a
-component very close to a seasonal periodicity. The correlated noise has an
-amplitude of ~0.2 ppm with a length scale of ~0.12 years and a white-noise
-contribution of ~0.04 ppm. Thus, the overall noise level is very small,
-indicating that the data can be very well explained by the model.
+وبالتالي ، يتم تفسير معظم إشارة الهدف ، مع طرح المتوسط ​​، من خلال اتجاه تصاعدي طويل المدى لحوالي 45 جزء في المليون ومقياس طول يبلغ حوالي 52 عامًا. المكون الدوري له سعة حوالي 2.6 جزء في المليون ، ووقت انحلال يبلغ حوالي 90 عامًا ، ومقياس طول يبلغ حوالي 1.5. يشير وقت الانحلال الطويل إلى أن لدينا مكونًا قريبًا جدًا من الدورية الموسمية. الضوضاء المترابطة لها سعة حوالي 0.2 جزء في المليون مع مقياس طول يبلغ حوالي 0.12 سنة ومساهمة ضوضاء بيضاء تبلغ حوالي 0.04 جزء في المليون. وبالتالي ، فإن مستوى الضوضاء الإجمالي صغير جدًا ، مما يشير إلى أنه يمكن تفسير البيانات جيدًا بواسطة النموذج.
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 4.197 seconds)
+   **Total running time of the script:** (0 minutes 9.082 seconds)
 
 
 .. _sphx_glr_download_auto_examples_gaussian_process_plot_gpr_co2.py:

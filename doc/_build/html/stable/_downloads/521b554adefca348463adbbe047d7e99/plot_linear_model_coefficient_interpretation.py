@@ -1,37 +1,19 @@
 """
 ======================================================================
-Common pitfalls in the interpretation of coefficients of linear models
+المزالق الشائعة في تفسير معاملات النماذج الخطية
 ======================================================================
 
-In linear models, the target value is modeled as a linear combination of the
-features (see the :ref:`linear_model` User Guide section for a description of a
-set of linear models available in scikit-learn). Coefficients in multiple linear
-models represent the relationship between the given feature, :math:`X_i` and the
-target, :math:`y`, assuming that all the other features remain constant
-(`conditional dependence
-<https://en.wikipedia.org/wiki/Conditional_dependence>`_). This is different
-from plotting :math:`X_i` versus :math:`y` and fitting a linear relationship: in
-that case all possible values of the other features are taken into account in
-the estimation (marginal dependence).
+في النماذج الخطية، يتم نمذجة القيمة المستهدفة كمجموعة خطية من الميزات (انظر قسم :ref:`linear_model` في دليل المستخدم لوصف مجموعة من النماذج الخطية المتاحة في scikit-learn). تمثل المعاملات في النماذج الخطية المتعددة العلاقة بين الميزة المعينة، :math:`X_i` والهدف، :math:`y`، بافتراض أن جميع الميزات الأخرى تظل ثابتة ( `التبعية الشرطية
+<https://en.wikipedia.org/wiki/Conditional_dependence>`_). هذا يختلف عن رسم :math:`X_i` مقابل :math:`y` وملاءمة علاقة خطية: في هذه الحالة، تؤخذ جميع القيم الممكنة للميزات الأخرى في الاعتبار في التقدير (التبعية الهامشية).
 
-This example will provide some hints in interpreting coefficient in linear
-models, pointing at problems that arise when either the linear model is not
-appropriate to describe the dataset, or when features are correlated.
+سيقدم هذا المثال بعض التلميحات في تفسير المعامل في النماذج الخطية، مشيرًا إلى المشاكل التي تنشأ عندما يكون النموذج الخطي غير مناسب لوصف مجموعة البيانات، أو عندما تكون الميزات مترابطة.
 
 .. note::
 
-    Keep in mind that the features :math:`X` and the outcome :math:`y` are in
-    general the result of a data generating process that is unknown to us.
-    Machine learning models are trained to approximate the unobserved
-    mathematical function that links :math:`X` to :math:`y` from sample data. As
-    a result, any interpretation made about a model may not necessarily
-    generalize to the true data generating process. This is especially true when
-    the model is of bad quality or when the sample data is not representative of
-    the population.
+    ضع في اعتبارك أن الميزات :math:`X` والنتيجة :math:`y` هي بشكل عام نتيجة عملية توليد بيانات غير معروفة لنا. يتم تدريب نماذج التعلم الآلي لتقريب الدالة الرياضية غير المرصودة التي تربط :math:`X` بـ :math:`y` من بيانات العينة. نتيجة لذلك، قد لا يعمم أي تفسير يتم إجراؤه حول نموذج ما بالضرورة على عملية توليد البيانات الحقيقية. هذا صحيح بشكل خاص عندما يكون النموذج ذو جودة سيئة أو عندما لا تكون بيانات العينة ممثلة للسكان.
 
-We will use data from the `"Current Population Survey"
-<https://www.openml.org/d/534>`_ from 1985 to predict wage as a function of
-various features such as experience, age, or education.
+سنستخدم بيانات من `"مسح السكان الحالي"
+<https://www.openml.org/d/534>`_ من عام 1985 للتنبؤ بالأجور كدالة لميزات مختلفة مثل الخبرة والعمر أو التعليم.
 """
 
 # Authors: The scikit-learn developers
@@ -45,53 +27,52 @@ import scipy as sp
 import seaborn as sns
 
 # %%
-# The dataset: wages
+# مجموعة البيانات: الأجور
 # ------------------
 #
-# We fetch the data from `OpenML <http://openml.org/>`_.
-# Note that setting the parameter `as_frame` to True will retrieve the data
-# as a pandas dataframe.
+# نحصل على البيانات من `OpenML <http://openml.org/>`_.
+# لاحظ أن تعيين المعلمة `as_frame` إلى True سيسترجع البيانات
+# كإطار بيانات pandas.
 from sklearn.datasets import fetch_openml
 
 survey = fetch_openml(data_id=534, as_frame=True)
 
 # %%
-# Then, we identify features `X` and targets `y`: the column WAGE is our
-# target variable (i.e., the variable which we want to predict).
+# بعد ذلك، نحدد الميزات `X` والأهداف `y`: العمود WAGE هو متغيرنا
+# المستهدف (أي المتغير الذي نريد التنبؤ به).
 
 X = survey.data[survey.feature_names]
 X.describe(include="all")
 
 # %%
-# Note that the dataset contains categorical and numerical variables.
-# We will need to take this into account when preprocessing the dataset
-# thereafter.
+# لاحظ أن مجموعة البيانات تحتوي على متغيرات فئوية ورقمية.
+# سنحتاج إلى مراعاة ذلك عند معالجة مجموعة البيانات مسبقًا
+# فيما بعد.
 
 X.head()
 
 # %%
-# Our target for prediction: the wage.
-# Wages are described as floating-point number in dollars per hour.
+# هدفنا للتنبؤ: الأجر.
+# يتم وصف الأجور كرقم فاصلة عائمة بالدولار في الساعة.
 
 # %%
 y = survey.target.values.ravel()
 survey.target.head()
 
 # %%
-# We split the sample into a train and a test dataset.
-# Only the train dataset will be used in the following exploratory analysis.
-# This is a way to emulate a real situation where predictions are performed on
-# an unknown target, and we don't want our analysis and decisions to be biased
-# by our knowledge of the test data.
+# نقسم العينة إلى مجموعة بيانات تدريب ومجموعة بيانات اختبار.
+# سيتم استخدام مجموعة بيانات التدريب فقط في التحليل الاستكشافي التالي.
+# هذه طريقة لمحاكاة موقف حقيقي حيث يتم إجراء التنبؤات على
+# هدف غير معروف، ولا نريد أن يكون تحليلنا وقراراتنا متحيزة
+# بمعرفتنا ببيانات الاختبار.
 
 from sklearn.model_selection import train_test_split
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
 
 # %%
-# First, let's get some insights by looking at the variable distributions and
-# at the pairwise relationships between them. Only numerical
-# variables will be used. In the following plot, each dot represents a sample.
+# أولاً، دعنا نحصل على بعض الأفكار من خلال النظر إلى توزيعات المتغيرات و
+# في العلاقات الزوجية بينها. سيتم استخدام المتغيرات الرقمية فقط. في الرسم التخطيطي التالي، تمثل كل نقطة عينة.
 #
 # .. _marginal_dependencies:
 
@@ -100,40 +81,37 @@ train_dataset.insert(0, "WAGE", y_train)
 _ = sns.pairplot(train_dataset, kind="reg", diag_kind="kde")
 
 # %%
-# Looking closely at the WAGE distribution reveals that it has a
-# long tail. For this reason, we should take its logarithm
-# to turn it approximately into a normal distribution (linear models such
-# as ridge or lasso work best for a normal distribution of error).
+# يكشف النظر عن كثب إلى توزيع WAGE أنه يحتوي على
+# ذيل طويل. لهذا السبب، يجب أن نأخذ لوغاريتمه
+# لتحويله تقريبًا إلى توزيع طبيعي (تعمل النماذج الخطية مثل ridge أو lasso بشكل أفضل لتوزيع طبيعي للخطأ).
 #
-# The WAGE is increasing when EDUCATION is increasing.
-# Note that the dependence between WAGE and EDUCATION
-# represented here is a marginal dependence, i.e., it describes the behavior
-# of a specific variable without keeping the others fixed.
+# يزداد WAGE عندما يزداد EDUCATION.
+# لاحظ أن التبعية بين WAGE و EDUCATION
+# الممثلة هنا هي تبعية هامشية، أي أنها تصف سلوك
+# متغير معين دون إبقاء المتغيرات الأخرى ثابتة.
 #
-# Also, the EXPERIENCE and AGE are strongly linearly correlated.
+# أيضًا، يرتبط EXPERIENCE و AGE ارتباطًا خطيًا قويًا.
 #
 # .. _the-pipeline:
 #
-# The machine-learning pipeline
+# خط أنابيب التعلم الآلي
 # -----------------------------
 #
-# To design our machine-learning pipeline, we first manually
-# check the type of data that we are dealing with:
+# لتصميم خط أنابيب التعلم الآلي لدينا، نقوم أولاً يدويًا
+# بالتحقق من نوع البيانات التي نتعامل معها:
 
 survey.data.info()
 
 # %%
-# As seen previously, the dataset contains columns with different data types
-# and we need to apply a specific preprocessing for each data types.
-# In particular categorical variables cannot be included in linear model if not
-# coded as integers first. In addition, to avoid categorical features to be
-# treated as ordered values, we need to one-hot-encode them.
-# Our pre-processor will
+# كما رأينا سابقًا، تحتوي مجموعة البيانات على أعمدة بأنواع بيانات مختلفة
+# ونحتاج إلى تطبيق معالجة مسبقة محددة لكل نوع بيانات.
+# على وجه الخصوص، لا يمكن تضمين المتغيرات الفئوية في النموذج الخطي إذا لم تكن
+# مشفرة كأعداد صحيحة أولاً. بالإضافة إلى ذلك، لتجنب معاملة الميزات الفئوية
+# كقيم مرتبة، نحتاج إلى تشفيرها بنظام واحد ساخن. المعالج المسبق لدينا سوف
 #
-# - one-hot encode (i.e., generate a column by category) the categorical
-#   columns, only for non-binary categorical variables;
-# - as a first approach (we will see after how the normalisation of numerical
-#   values will affect our discussion), keep numerical values as they are.
+# - يقوم بتشفير الأعمدة الفئوية بنظام واحد ساخن (أي، إنشاء عمود لكل فئة)، فقط للمتغيرات الفئوية غير الثنائية؛
+# - كنهج أول (سنرى بعد ذلك كيف سيؤثر تطبيع القيم الرقمية على مناقشتنا)، احتفظ بالقيم الرقمية كما هي.
+
 
 from sklearn.compose import make_column_transformer
 from sklearn.preprocessing import OneHotEncoder
@@ -148,8 +126,8 @@ preprocessor = make_column_transformer(
 )
 
 # %%
-# To describe the dataset as a linear model we use a ridge regressor
-# with a very small regularization and to model the logarithm of the WAGE.
+# لوصف مجموعة البيانات كنموذج خطي، نستخدم انحدار ريدج
+# بتنظيم صغير جدًا ونمذجة لوغاريتم WAGE.
 
 from sklearn.compose import TransformedTargetRegressor
 from sklearn.linear_model import Ridge
@@ -163,17 +141,17 @@ model = make_pipeline(
 )
 
 # %%
-# Processing the dataset
+# معالجة مجموعة البيانات
 # ----------------------
 #
-# First, we fit the model.
+# أولاً، نقوم بملاءمة النموذج.
 
 model.fit(X_train, y_train)
 
 # %%
-# Then we check the performance of the computed model plotting its predictions
-# on the test set and computing,
-# for example, the median absolute error of the model.
+# ثم نتحقق من أداء النموذج المحسوب برسم تنبؤاته
+# على مجموعة الاختبار وحساب،
+# على سبيل المثال، متوسط الخطأ المطلق للنموذج.
 
 from sklearn.metrics import PredictionErrorDisplay, median_absolute_error
 
@@ -197,20 +175,20 @@ ax.legend(loc="upper left")
 plt.tight_layout()
 
 # %%
-# The model learnt is far from being a good model making accurate predictions:
-# this is obvious when looking at the plot above, where good predictions
-# should lie on the black dashed line.
+# النموذج المتعلم بعيد عن كونه نموذجًا جيدًا يقوم بعمل تنبؤات دقيقة:
+# هذا واضح عند النظر إلى الرسم التخطيطي أعلاه، حيث يجب أن تقع التنبؤات الجيدة
+# على الخط المتقطع الأسود.
 #
-# In the following section, we will interpret the coefficients of the model.
-# While we do so, we should keep in mind that any conclusion we draw is
-# about the model that we build, rather than about the true (real-world)
-# generative process of the data.
+# في القسم التالي، سوف نفسر معاملات النموذج.
+# أثناء قيامنا بذلك، يجب أن نضع في اعتبارنا أن أي استنتاج نستخلصه هو
+# حول النموذج الذي نبنيه، وليس حول عملية التوليد الحقيقية (العالم الحقيقي)
+# للبيانات.
 #
-# Interpreting coefficients: scale matters
+# تفسير المعاملات: المقياس مهم
 # ----------------------------------------
 #
-# First of all, we can take a look to the values of the coefficients of the
-# regressor we have fitted.
+# بادئ ذي بدء، يمكننا إلقاء نظرة على قيم معاملات
+# الانحدار الذي قمنا بملاءمته.
 feature_names = model[:-1].get_feature_names_out()
 
 coefs = pd.DataFrame(
@@ -222,18 +200,16 @@ coefs = pd.DataFrame(
 coefs
 
 # %%
-# The AGE coefficient is expressed in "dollars/hour per living years" while the
-# EDUCATION one is expressed in "dollars/hour per years of education". This
-# representation of the coefficients has the benefit of making clear the
-# practical predictions of the model: an increase of :math:`1` year in AGE
-# means a decrease of :math:`0.030867` dollars/hour, while an increase of
-# :math:`1` year in EDUCATION means an increase of :math:`0.054699`
-# dollars/hour. On the other hand, categorical variables (as UNION or SEX) are
-# adimensional numbers taking either the value 0 or 1. Their coefficients
-# are expressed in dollars/hour. Then, we cannot compare the magnitude of
-# different coefficients since the features have different natural scales, and
-# hence value ranges, because of their different unit of measure. This is more
-# visible if we plot the coefficients.
+# يتم التعبير عن معامل AGE بالـ "دولار/ساعة لكل سنة معيشة" بينما
+# يتم التعبير عن معامل EDUCATION بالـ "دولار/ساعة لكل سنة تعليم". هذا
+# التمثيل للمعاملات له فائدة جعل التنبؤات العملية للنموذج واضحة: زيادة بمقدار :math:`1` سنة في AGE
+# تعني انخفاضًا بمقدار :math:`0.030867` دولار/ساعة، بينما زيادة بمقدار
+# :math:`1` سنة في EDUCATION تعني زيادة بمقدار :math:`0.054699`
+# دولار/ساعة. من ناحية أخرى، المتغيرات الفئوية (مثل UNION أو SEX) هي
+# أرقام بلا أبعاد تأخذ إما القيمة 0 أو 1. معاملاتها
+# معبر عنها بالدولار/ساعة. بعد ذلك، لا يمكننا مقارنة حجم
+# المعاملات المختلفة لأن الميزات لها مقاييس طبيعية مختلفة، وبالتالي نطاقات قيم مختلفة، بسبب اختلاف وحدات القياس الخاصة بها. هذا أكثر
+# وضوحًا إذا قمنا برسم المعاملات.
 
 coefs.plot.barh(figsize=(9, 7))
 plt.title("Ridge model, small regularization")
@@ -241,18 +217,18 @@ plt.axvline(x=0, color=".5")
 plt.xlabel("Raw coefficient values")
 plt.subplots_adjust(left=0.3)
 
+
 # %%
-# Indeed, from the plot above the most important factor in determining WAGE
-# appears to be the
-# variable UNION, even if our intuition might tell us that variables
-# like EXPERIENCE should have more impact.
+# في الواقع، من الرسم البياني أعلاه، يبدو أن العامل الأكثر أهمية في تحديد WAGE
+# هو المتغير UNION، حتى لو أخبرتنا حدسنا أن المتغيرات
+# مثل EXPERIENCE يجب أن يكون لها تأثير أكبر.
 #
-# Looking at the coefficient plot to gauge feature importance can be
-# misleading as some of them vary on a small scale, while others, like AGE,
-# varies a lot more, several decades.
+# قد يكون النظر إلى مخطط المعامل لقياس أهمية الميزة
+# مضللًا حيث يختلف بعضها على نطاق صغير، بينما يختلف البعض الآخر، مثل AGE،
+# أكثر من ذلك بكثير، عدة عقود.
 #
-# This is visible if we compare the standard deviations of different
-# features.
+# هذا واضح إذا قارنا الانحرافات المعيارية لمختلف
+# الميزات.
 
 X_train_preprocessed = pd.DataFrame(
     model[:-1].transform(X_train), columns=feature_names
@@ -264,16 +240,15 @@ plt.xlabel("Std. dev. of feature values")
 plt.subplots_adjust(left=0.3)
 
 # %%
-# Multiplying the coefficients by the standard deviation of the related
-# feature would reduce all the coefficients to the same unit of measure.
-# As we will see :ref:`after<scaling_num>` this is equivalent to normalize
-# numerical variables to their standard deviation,
-# as :math:`y = \sum{coef_i \times X_i} =
+# سيؤدي ضرب المعاملات بالانحراف المعياري للميزة ذات الصلة
+# إلى تقليل جميع المعاملات إلى نفس وحدة القياس.
+# كما سنرى :ref:`لاحقًا<scaling_num>` هذا يعادل تطبيع
+# المتغيرات الرقمية إلى انحرافها المعياري،
+# مثل :math:`y = \sum{coef_i \times X_i} =
 # \sum{(coef_i \times std_i) \times (X_i / std_i)}`.
 #
-# In that way, we emphasize that the
-# greater the variance of a feature, the larger the weight of the corresponding
-# coefficient on the output, all else being equal.
+# وبهذه الطريقة، نؤكد على أنه
+# كلما زاد تباين الميزة، زاد وزن المعامل المقابل على المخرجات، مع تساوي كل شيء آخر.
 
 coefs = pd.DataFrame(
     model[-1].regressor_.coef_ * X_train_preprocessed.std(axis=0),
@@ -287,61 +262,60 @@ plt.axvline(x=0, color=".5")
 plt.subplots_adjust(left=0.3)
 
 # %%
-# Now that the coefficients have been scaled, we can safely compare them.
+# الآن بعد أن تم قياس المعاملات، يمكننا مقارنتها بأمان.
 #
 # .. warning::
 #
-#   Why does the plot above suggest that an increase in age leads to a
-#   decrease in wage? Why the :ref:`initial pairplot
-#   <marginal_dependencies>` is telling the opposite?
+#   لماذا يشير الرسم البياني أعلاه إلى أن الزيادة في العمر تؤدي إلى
+#   انخفاض في الأجر؟ لماذا :ref:`الرسم التخطيطي المزدوج الأولي
+#   <marginal_dependencies>` يخبرنا بالعكس؟
 #
-# The plot above tells us about dependencies between a specific feature and
-# the target when all other features remain constant, i.e., **conditional
-# dependencies**. An increase of the AGE will induce a decrease
-# of the WAGE when all other features remain constant. On the contrary, an
-# increase of the EXPERIENCE will induce an increase of the WAGE when all
-# other features remain constant.
-# Also, AGE, EXPERIENCE and EDUCATION are the three variables that most
-# influence the model.
+# يخبرنا الرسم البياني أعلاه عن التبعيات بين ميزة محددة و
+# الهدف عندما تظل جميع الميزات الأخرى ثابتة، أي **التبعيات
+# الشرطية**. ستؤدي زيادة AGE إلى انخفاض
+# WAGE عندما تظل جميع الميزات الأخرى ثابتة. على العكس من ذلك،
+# ستؤدي زيادة EXPERIENCE إلى زيادة WAGE عندما تظل جميع
+# الميزات الأخرى ثابتة.
+# أيضًا، AGE و EXPERIENCE و EDUCATION هي المتغيرات الثلاثة التي
+# تؤثر أكثر على النموذج.
 #
-# Interpreting coefficients: being cautious about causality
+# تفسير المعاملات: توخي الحذر بشأن السببية
 # ---------------------------------------------------------
 #
-# Linear models are a great tool for measuring statistical association, but we
-# should be cautious when making statements about causality, after all
-# correlation doesn't always imply causation. This is particularly difficult in
-# the social sciences because the variables we observe only function as proxies
-# for the underlying causal process.
+# النماذج الخطية هي أداة رائعة لقياس الارتباط الإحصائي، لكن يجب
+# أن نتوخى الحذر عند إصدار بيانات حول السببية، فبعد كل شيء
+# لا يعني الارتباط دائمًا السببية. هذا صعب بشكل خاص في
+# العلوم الاجتماعية لأن المتغيرات التي نلاحظها تعمل فقط كوكلاء
+# لعملية السببية الأساسية.
 #
-# In our particular case we can think of the EDUCATION of an individual as a
-# proxy for their professional aptitude, the real variable we're interested in
-# but can't observe. We'd certainly like to think that staying in school for
-# longer would increase technical competency, but it's also quite possible that
-# causality goes the other way too. That is, those who are technically
-# competent tend to stay in school for longer.
+# في حالتنا الخاصة، يمكننا التفكير في EDUCATION للفرد على أنه
+# وكيل لكفاءته المهنية، وهو المتغير الحقيقي الذي نهتم به
+# ولكن لا يمكننا ملاحظته. نود بالتأكيد أن نعتقد أن البقاء في المدرسة لمدة
+# أطول سيزيد من الكفاءة الفنية، ولكن من الممكن أيضًا تمامًا
+# أن تسير السببية في الاتجاه الآخر أيضًا. أي أن أولئك الذين يتمتعون بكفاءة
+# فنية يميلون إلى البقاء في المدرسة لفترة أطول.
 #
-# An employer is unlikely to care which case it is (or if it's a mix of both),
-# as long as they remain convinced that a person with more EDUCATION is better
-# suited for the job, they will be happy to pay out a higher WAGE.
+# من غير المرجح أن يهتم صاحب العمل بأي حالة هي (أو إذا كانت مزيجًا من الاثنين)،
+# طالما ظل مقتنعًا بأن الشخص الذي لديه المزيد من EDUCATION هو الأنسب
+# للوظيفة، فسيكون سعيدًا بدفع WAGE أعلى.
 #
-# This confounding of effects becomes problematic when thinking about some
-# form of intervention e.g. government subsidies of university degrees or
-# promotional material encouraging individuals to take up higher education.
-# The usefulness of these measures could end up being overstated, especially if
-# the degree of confounding is strong. Our model predicts a :math:`0.054699`
-# increase in hourly wage for each year of education. The actual causal effect
-# might be lower because of this confounding.
+# يصبح هذا الخلط بين الآثار مشكلة عند التفكير في شكل من أشكال التدخل، على سبيل المثال، الإعانات الحكومية للشهادات الجامعية أو
+# المواد الترويجية التي تشجع الأفراد على متابعة التعليم العالي.
+# يمكن أن ينتهي الأمر بالمبالغة في تقدير فائدة هذه التدابير، خاصة إذا
+# كانت درجة الخلط قوية. يتوقع نموذجنا زيادة قدرها :math:`0.054699`
+# في الأجر بالساعة لكل سنة تعليم. قد يكون التأثير السببي الفعلي
+# أقل بسبب هذا الخلط.
 #
-# Checking the variability of the coefficients
+# التحقق من تباين المعاملات
 # --------------------------------------------
 #
-# We can check the coefficient variability through cross-validation:
-# it is a form of data perturbation (related to
-# `resampling <https://en.wikipedia.org/wiki/Resampling_(statistics)>`_).
+# يمكننا التحقق من تباين المعامل من خلال التحقق المتقاطع:
+# إنه شكل من أشكال اضطراب البيانات (يتعلق بـ
+# `إعادة التشكيل <https://en.wikipedia.org/wiki/Resampling_(statistics)>`_).
 #
-# If coefficients vary significantly when changing the input dataset
-# their robustness is not guaranteed, and they should probably be interpreted
-# with caution.
+# إذا تغيرت المعاملات بشكل كبير عند تغيير مجموعة بيانات الإدخال،
+# فإن متانتها غير مضمونة، وربما يجب تفسيرها
+# بحذر.
 
 from sklearn.model_selection import RepeatedKFold, cross_validate
 
@@ -374,16 +348,16 @@ plt.suptitle("Ridge model, small regularization")
 plt.subplots_adjust(left=0.3)
 
 # %%
-# The problem of correlated variables
+# مشكلة المتغيرات المترابطة
 # -----------------------------------
 #
-# The AGE and EXPERIENCE coefficients are affected by strong variability which
-# might be due to the collinearity between the 2 features: as AGE and
-# EXPERIENCE vary together in the data, their effect is difficult to tease
-# apart.
+# تتأثر معاملات AGE و EXPERIENCE بتباين قوي قد يكون
+# بسبب الترابط الخطي بين الميزتين: نظرًا لأن AGE و
+# EXPERIENCE يختلفان معًا في البيانات، فمن الصعب فصل
+# تأثيرهما.
 #
-# To verify this interpretation we plot the variability of the AGE and
-# EXPERIENCE coefficient.
+# للتحقق من هذا التفسير، نرسم تباين معامل AGE و
+# EXPERIENCE.
 #
 # .. _covariation:
 
@@ -396,11 +370,11 @@ plt.scatter(coefs["AGE"], coefs["EXPERIENCE"])
 _ = plt.title("Co-variations of coefficients for AGE and EXPERIENCE across folds")
 
 # %%
-# Two regions are populated: when the EXPERIENCE coefficient is
-# positive the AGE one is negative and vice-versa.
+# يتم ملء منطقتين: عندما يكون معامل EXPERIENCE
+# موجبًا، يكون معامل AGE سالبًا والعكس صحيح.
 #
-# To go further we remove one of the 2 features and check what is the impact
-# on the model stability.
+# للمضي قدمًا، نزيل إحدى الميزتين ونتحقق من تأثير ذلك
+# على استقرار النموذج.
 
 column_to_drop = ["AGE"]
 
@@ -433,21 +407,20 @@ plt.suptitle("Ridge model, small regularization, AGE dropped")
 plt.subplots_adjust(left=0.3)
 
 # %%
-# The estimation of the EXPERIENCE coefficient now shows a much reduced
-# variability. EXPERIENCE remains important for all models trained during
-# cross-validation.
+# يُظهر تقدير معامل EXPERIENCE الآن تباينًا أقل بكثير. يظل EXPERIENCE مهمًا لجميع النماذج المدربة أثناء
+# التحقق المتقاطع.
 #
 # .. _scaling_num:
 #
-# Preprocessing numerical variables
+# المعالجة المسبقة للمتغيرات الرقمية
 # ---------------------------------
 #
-# As said above (see ":ref:`the-pipeline`"), we could also choose to scale
-# numerical values before training the model.
-# This can be useful when we apply a similar amount of regularization to all of them
-# in the ridge.
-# The preprocessor is redefined in order to subtract the mean and scale
-# variables to unit variance.
+# كما ذكر أعلاه (انظر ":ref:`the-pipeline`")، يمكننا أيضًا اختيار قياس
+# القيم الرقمية قبل تدريب النموذج.
+# يمكن أن يكون هذا مفيدًا عندما نطبق قدرًا متشابهًا من التنظيم على كل منهم
+# في ridge.
+# تتم إعادة تعريف المعالج المسبق من أجل طرح المتوسط وقياس
+# المتغيرات إلى تباين الوحدة.
 
 from sklearn.preprocessing import StandardScaler
 
@@ -457,7 +430,7 @@ preprocessor = make_column_transformer(
 )
 
 # %%
-# The model will stay unchanged.
+# سيبقى النموذج دون تغيير.
 
 model = make_pipeline(
     preprocessor,
@@ -468,9 +441,9 @@ model = make_pipeline(
 model.fit(X_train, y_train)
 
 # %%
-# Again, we check the performance of the computed
-# model using, for example, the median absolute error of the model and the R
-# squared coefficient.
+# مرة أخرى، نتحقق من أداء النموذج المحسوب
+# باستخدام، على سبيل المثال، متوسط الخطأ المطلق للنموذج ومعامل R
+# التربيعي.
 
 mae_train = median_absolute_error(y_train, model.predict(X_train))
 y_pred = model.predict(X_test)
@@ -491,8 +464,8 @@ ax.legend(loc="upper left")
 plt.tight_layout()
 
 # %%
-# For the coefficient analysis, scaling is not needed this time because it
-# was performed during the preprocessing step.
+# لتحليل المعامل، لا يلزم القياس هذه المرة لأنه
+# تم إجراؤه أثناء خطوة المعالجة المسبقة.
 
 coefs = pd.DataFrame(
     model[-1].regressor_.coef_,
@@ -506,10 +479,11 @@ plt.axvline(x=0, color=".5")
 plt.subplots_adjust(left=0.3)
 
 # %%
-# We now inspect the coefficients across several cross-validation folds. As in
-# the above example, we do not need to scale the coefficients by the std. dev.
-# of the feature values since this scaling was already
-# done in the preprocessing step of the pipeline.
+# نقوم الآن بفحص المعاملات عبر عدة طيات تحقق متقاطع. كما في
+# المثال أعلاه، لا نحتاج إلى قياس المعاملات بواسطة الانحراف المعياري
+# لقيم الميزة حيث تم بالفعل
+# إجراء هذا القياس في خطوة المعالجة المسبقة لخط الأنابيب.
+
 
 cv_model = cross_validate(
     model,
@@ -531,20 +505,21 @@ plt.axvline(x=0, color=".5")
 plt.title("Coefficient variability")
 plt.subplots_adjust(left=0.3)
 
+
 # %%
-# The result is quite similar to the non-normalized case.
+# النتيجة مشابهة تمامًا للحالة غير الطبيعية.
 #
-# Linear models with regularization
+# النماذج الخطية مع التنظيم
 # ---------------------------------
 #
-# In machine-learning practice, ridge regression is more often used with
-# non-negligible regularization.
+# في ممارسة التعلم الآلي، غالبًا ما يُستخدم انحدار ريدج
+# مع تنظيم غير ضئيل.
 #
-# Above, we limited this regularization to a very little amount. Regularization
-# improves the conditioning of the problem and reduces the variance of the
-# estimates. :class:`~sklearn.linear_model.RidgeCV` applies cross validation
-# in order to determine which value of the regularization parameter (`alpha`)
-# is best suited for prediction.
+# أعلاه، قمنا بتحديد هذا التنظيم إلى حد ضئيل جدًا. التنظيم
+# يُحسِّن حالة المشكلة ويقلل من تباين
+# التقديرات. :class:`~sklearn.linear_model.RidgeCV` تطبق التحقق المتقاطع
+# من أجل تحديد قيمة معامل التنظيم (`alpha`)
+# الأنسب للتنبؤ.
 
 from sklearn.linear_model import RidgeCV
 
@@ -560,12 +535,12 @@ model = make_pipeline(
 model.fit(X_train, y_train)
 
 # %%
-# First we check which value of :math:`\alpha` has been selected.
+# أولاً نتحقق من قيمة :math:`\alpha` التي تم تحديدها.
 
 model[-1].regressor_.alpha_
 
 # %%
-# Then we check the quality of the predictions.
+# ثم نتحقق من جودة التنبؤات.
 mae_train = median_absolute_error(y_train, model.predict(X_train))
 y_pred = model.predict(X_test)
 mae_test = median_absolute_error(y_test, y_pred)
@@ -585,8 +560,8 @@ ax.legend(loc="upper left")
 plt.tight_layout()
 
 # %%
-# The ability to reproduce the data of the regularized model is similar to
-# the one of the non-regularized model.
+# قدرة النموذج المنظم على إعادة إنتاج البيانات مشابهة
+# لقدرة النموذج غير المنظم.
 
 coefs = pd.DataFrame(
     model[-1].regressor_.coef_,
@@ -600,19 +575,18 @@ plt.axvline(x=0, color=".5")
 plt.subplots_adjust(left=0.3)
 
 # %%
-# The coefficients are significantly different.
-# AGE and EXPERIENCE coefficients are both positive but they now have less
-# influence on the prediction.
+# المعاملات مختلفة بشكل كبير.
+# معاملات AGE و EXPERIENCE كلاهما موجبان لكنهما الآن لهما تأثير أقل
+# على التنبؤ.
 #
-# The regularization reduces the influence of correlated
-# variables on the model because the weight is shared between the two
-# predictive variables, so neither alone would have strong weights.
+# يقلل التنظيم من تأثير المتغيرات المترابطة على النموذج لأن الوزن مشترك بين متغيري
+# التنبؤ، لذلك لن يكون لأي منهما أوزان قوية بمفرده.
 #
-# On the other hand, the weights obtained with regularization are more
-# stable (see the :ref:`ridge_regression` User Guide section). This
-# increased stability is visible from the plot, obtained from data
-# perturbations, in a cross-validation. This plot can be compared with
-# the :ref:`previous one<covariation>`.
+# من ناحية أخرى، فإن الأوزان التي تم الحصول عليها مع التنظيم أكثر
+# استقرارًا (انظر قسم :ref:`ridge_regression` في دليل المستخدم). هذا
+# الاستقرار المتزايد واضح من الرسم التخطيطي، الذي تم الحصول عليه من اضطرابات
+# البيانات، في تحقق متقاطع. يمكن مقارنة هذا الرسم التخطيطي بـ
+# :ref:`الرسم التخطيطي السابق<covariation>`.
 
 cv_model = cross_validate(
     model,
@@ -636,17 +610,17 @@ plt.scatter(coefs["AGE"], coefs["EXPERIENCE"])
 _ = plt.title("Co-variations of coefficients for AGE and EXPERIENCE across folds")
 
 # %%
-# Linear models with sparse coefficients
+# النماذج الخطية ذات المعاملات المتفرقة
 # --------------------------------------
 #
-# Another possibility to take into account correlated variables in the dataset,
-# is to estimate sparse coefficients. In some way we already did it manually
-# when we dropped the AGE column in a previous ridge estimation.
+# هناك إمكانية أخرى لمراعاة المتغيرات المترابطة في مجموعة البيانات،
+# وهي تقدير المعاملات المتفرقة. بطريقة ما فعلنا ذلك بالفعل يدويًا
+# عندما أسقطنا عمود AGE في تقدير ريدج سابق.
 #
-# Lasso models (see the :ref:`lasso` User Guide section) estimates sparse
-# coefficients. :class:`~sklearn.linear_model.LassoCV` applies cross
-# validation in order to determine which value of the regularization parameter
-# (`alpha`) is best suited for the model estimation.
+# تُقدِّر نماذج لاسو (انظر قسم :ref:`lasso` في دليل المستخدم) المعاملات
+# المتفرقة. :class:`~sklearn.linear_model.LassoCV` تطبق التحقق المتقاطع
+# من أجل تحديد قيمة معامل التنظيم
+# (`alpha`) الأنسب لتقدير النموذج.
 
 from sklearn.linear_model import LassoCV
 
@@ -663,12 +637,13 @@ model = make_pipeline(
 _ = model.fit(X_train, y_train)
 
 # %%
-# First we verify which value of :math:`\alpha` has been selected.
+# أولاً، نتحقق من قيمة :math:`\alpha` التي تم تحديدها.
 
 model[-1].regressor_.alpha_
 
 # %%
-# Then we check the quality of the predictions.
+# ثم نتحقق من جودة التنبؤات.
+
 
 mae_train = median_absolute_error(y_train, model.predict(X_train))
 y_pred = model.predict(X_test)
@@ -689,7 +664,7 @@ ax.legend(loc="upper left")
 plt.tight_layout()
 
 # %%
-# For our dataset, again the model is not very predictive.
+# بالنسبة لمجموعة البيانات لدينا، مرة أخرى، النموذج ليس تنبئيًا للغاية.
 
 coefs = pd.DataFrame(
     model[-1].regressor_.coef_,
@@ -702,17 +677,17 @@ plt.axvline(x=0, color=".5")
 plt.subplots_adjust(left=0.3)
 
 # %%
-# A Lasso model identifies the correlation between
-# AGE and EXPERIENCE and suppresses one of them for the sake of the prediction.
+# يُحدد نموذج لاسو الارتباط بين
+# AGE و EXPERIENCE ويقمع أحدهما من أجل التنبؤ.
 #
-# It is important to keep in mind that the coefficients that have been
-# dropped may still be related to the outcome by themselves: the model
-# chose to suppress them because they bring little or no additional
-# information on top of the other features. Additionally, this selection
-# is unstable for correlated features, and should be interpreted with
-# caution.
+# من المهم أن تضع في اعتبارك أن المعاملات التي تم
+# إسقاطها قد تظل مرتبطة بالنتيجة بنفسها: اختار
+# النموذج قمعها لأنها لا تجلب سوى القليل من المعلومات الإضافية
+# أو لا تجلب أي معلومات إضافية على رأس الميزات الأخرى. بالإضافة إلى ذلك، يكون هذا الاختيار
+# غير مستقر للميزات المترابطة، ويجب تفسيره بـ
+# حذر.
 #
-# Indeed, we can check the variability of the coefficients across folds.
+# في الواقع، يمكننا التحقق من تباين المعاملات عبر الطيات.
 cv_model = cross_validate(
     model,
     X,
@@ -734,53 +709,20 @@ plt.title("Coefficient variability")
 plt.subplots_adjust(left=0.3)
 
 # %%
-# We observe that the AGE and EXPERIENCE coefficients are varying a lot
-# depending of the fold.
+# نلاحظ أن معاملات AGE و EXPERIENCE تختلف كثيرًا
+# اعتمادًا على الطية.
 #
-# Wrong causal interpretation
+# التفسير السببي الخاطئ
 # ---------------------------
 #
-# Policy makers might want to know the effect of education on wage to assess
-# whether or not a certain policy designed to entice people to pursue more
-# education would make economic sense. While Machine Learning models are great
-# for measuring statistical associations, they are generally unable to infer
-# causal effects.
+# قد يرغب صانعو السياسات في معرفة تأثير التعليم على الأجور لتقييم
+# ما إذا كانت سياسة معينة مصممة لجذب الناس لمتابعة المزيد
+# من التعليم ستكون منطقية من الناحية الاقتصادية أم لا. بينما تُعد نماذج التعلم الآلي رائعة
+# لقياس الارتباطات الإحصائية، إلا أنها غير قادرة بشكل عام على استنتاج
+# التأثيرات السببية.
 #
-# It might be tempting to look at the coefficient of education on wage from our
-# last model (or any model for that matter) and conclude that it captures the
-# true effect of a change in the standardized education variable on wages.
+# قد يكون من المغري النظر إلى معامل التعليم على الأجور من نموذجنا
+# الأخير (أو أي نموذج في هذا الشأن) والاستنتاج بأنه يلتقط
+# التأثير الحقيقي لتغيير في متغير التعليم المعياري على الأجور.
 #
-# Unfortunately there are likely unobserved confounding variables that either
-# inflate or deflate that coefficient. A confounding variable is a variable that
-# causes both EDUCATION and WAGE. One example of such variable is ability.
-# Presumably, more able people are more likely to pursue education while at the
-# same time being more likely to earn a higher hourly wage at any level of
-# education. In this case, ability induces a positive `Omitted Variable Bias
-# <https://en.wikipedia.org/wiki/Omitted-variable_bias>`_ (OVB) on the EDUCATION
-# coefficient, thereby exaggerating the effect of education on wages.
-#
-# See the :ref:`sphx_glr_auto_examples_inspection_plot_causal_interpretation.py`
-# for a simulated case of ability OVB.
-#
-# Lessons learned
-# ---------------
-#
-# * Coefficients must be scaled to the same unit of measure to retrieve
-#   feature importance. Scaling them with the standard-deviation of the
-#   feature is a useful proxy.
-# * Interpreting causality is difficult when there are confounding effects. If
-#   the relationship between two variables is also affected by something
-#   unobserved, we should be careful when making conclusions about causality.
-# * Coefficients in multivariate linear models represent the dependency
-#   between a given feature and the target, **conditional** on the other
-#   features.
-# * Correlated features induce instabilities in the coefficients of linear
-#   models and their effects cannot be well teased apart.
-# * Different linear models respond differently to feature correlation and
-#   coefficients could significantly vary from one another.
-# * Inspecting coefficients across the folds of a cross-validation loop
-#   gives an idea of their stability.
-# * Coefficients are unlikely to have any causal meaning. They tend
-#   to be biased by unobserved confounders.
-# * Inspection tools may not necessarily provide insights on the true
-#   data generating process.
+# لسوء الحظ، من المحتمل أن تكون هناك متغيرات مرب

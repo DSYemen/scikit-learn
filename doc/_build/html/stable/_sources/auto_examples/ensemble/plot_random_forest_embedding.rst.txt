@@ -19,36 +19,34 @@
 
 
 =========================================================
-Hashing feature transformation using Totally Random Trees
+تحويل ميزة التجزئة باستخدام الأشجار العشوائية تمامًا
 =========================================================
 
-RandomTreesEmbedding provides a way to map data to a
-very high-dimensional, sparse representation, which might
-be beneficial for classification.
-The mapping is completely unsupervised and very efficient.
+يوفر RandomTreesEmbedding طريقة لتعيين البيانات إلى تمثيل
+متناثر عالي الأبعاد، والذي قد يكون مفيدًا للتصنيف.
+التعيين غير خاضع للإشراف تمامًا وفعال للغاية.
 
-This example visualizes the partitions given by several
-trees and shows how the transformation can also be used for
-non-linear dimensionality reduction or non-linear classification.
+يوضح هذا المثال الأقسام التي قدمتها العديد من
+الأشجار ويوضح كيف يمكن أيضًا استخدام التحويل لتقليل الأبعاد
+غير الخطي أو التصنيف غير الخطي.
 
-Points that are neighboring often share the same leaf of a tree and therefore
-share large parts of their hashed representation. This allows to
-separate two concentric circles simply based on the principal components
-of the transformed data with truncated SVD.
+غالبًا ما تشترك النقاط المتجاورة في نفس ورقة الشجرة، وبالتالي تشترك في أجزاء
+كبيرة من تمثيلها المجزأ. يسمح هذا بفصل دائرتين متحدة المركز ببساطة
+بناءً على المكونات الأساسية للبيانات المحولة باستخدام SVD المقطوع.
 
-In high-dimensional spaces, linear classifiers often achieve
-excellent accuracy. For sparse binary data, BernoulliNB
-is particularly well-suited. The bottom row compares the
-decision boundary obtained by BernoulliNB in the transformed
-space with an ExtraTreesClassifier forests learned on the
-original data.
+في المساحات عالية الأبعاد، غالبًا ما تحقق المصنفات الخطية
+دقة ممتازة. بالنسبة للبيانات الثنائية المتناثرة، فإن BernoulliNB
+مناسب بشكل خاص. تقارن الصف السفلي حد
+القرار الذي تم الحصول عليه بواسطة BernoulliNB في المساحة المحولة
+مع غابات ExtraTreesClassifier التي تم تعلمها على البيانات
+الأصلية.
 
-.. GENERATED FROM PYTHON SOURCE LINES 28-112
+.. GENERATED FROM PYTHON SOURCE LINES 26-112
 
 
 
 .. image-sg:: /auto_examples/ensemble/images/sphx_glr_plot_random_forest_embedding_001.png
-   :alt: Original Data (2d), Truncated SVD reduction (2d) of transformed data (74d), Naive Bayes on Transformed data, ExtraTrees predictions
+   :alt: البيانات الأصلية (2d), Truncated SVD reduction (2d) للبيانات المحولة (74d), Naive Bayes على البيانات المحولة, تنبؤات ExtraTrees
    :srcset: /auto_examples/ensemble/images/sphx_glr_plot_random_forest_embedding_001.png
    :class: sphx-glr-single-img
 
@@ -70,57 +68,57 @@ original data.
     from sklearn.ensemble import ExtraTreesClassifier, RandomTreesEmbedding
     from sklearn.naive_bayes import BernoulliNB
 
-    # make a synthetic dataset
+    # إنشاء مجموعة بيانات اصطناعية
     X, y = make_circles(factor=0.5, random_state=0, noise=0.05)
 
-    # use RandomTreesEmbedding to transform data
+    # استخدام RandomTreesEmbedding لتحويل البيانات
     hasher = RandomTreesEmbedding(n_estimators=10, random_state=0, max_depth=3)
     X_transformed = hasher.fit_transform(X)
 
-    # Visualize result after dimensionality reduction using truncated SVD
+    # تصور النتيجة بعد تقليل الأبعاد باستخدام SVD المقطوع
     svd = TruncatedSVD(n_components=2)
     X_reduced = svd.fit_transform(X_transformed)
 
-    # Learn a Naive Bayes classifier on the transformed data
+    # تعلم مصنف Naive Bayes على البيانات المحولة
     nb = BernoulliNB()
     nb.fit(X_transformed, y)
 
 
-    # Learn an ExtraTreesClassifier for comparison
+    # تعلم ExtraTreesClassifier للمقارنة
     trees = ExtraTreesClassifier(max_depth=3, n_estimators=10, random_state=0)
     trees.fit(X, y)
 
 
-    # scatter plot of original and reduced data
+    # مخطط مبعثر للبيانات الأصلية والمختزلة
     fig = plt.figure(figsize=(9, 8))
 
     ax = plt.subplot(221)
     ax.scatter(X[:, 0], X[:, 1], c=y, s=50, edgecolor="k")
-    ax.set_title("Original Data (2d)")
+    ax.set_title("البيانات الأصلية (2d)")
     ax.set_xticks(())
     ax.set_yticks(())
 
     ax = plt.subplot(222)
     ax.scatter(X_reduced[:, 0], X_reduced[:, 1], c=y, s=50, edgecolor="k")
     ax.set_title(
-        "Truncated SVD reduction (2d) of transformed data (%dd)" % X_transformed.shape[1]
+        "Truncated SVD reduction (2d) للبيانات المحولة (%dd)" % X_transformed.shape[1]
     )
     ax.set_xticks(())
     ax.set_yticks(())
 
-    # Plot the decision in original space. For that, we will assign a color
-    # to each point in the mesh [x_min, x_max]x[y_min, y_max].
+    # ارسم القرار في المساحة الأصلية. لذلك، سنقوم بتعيين لون
+    # لكل نقطة في الشبكة [x_min, x_max]x[y_min, y_max].
     h = 0.01
     x_min, x_max = X[:, 0].min() - 0.5, X[:, 0].max() + 0.5
     y_min, y_max = X[:, 1].min() - 0.5, X[:, 1].max() + 0.5
     xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
 
-    # transform grid using RandomTreesEmbedding
+    # تحويل الشبكة باستخدام RandomTreesEmbedding
     transformed_grid = hasher.transform(np.c_[xx.ravel(), yy.ravel()])
     y_grid_pred = nb.predict_proba(transformed_grid)[:, 1]
 
     ax = plt.subplot(223)
-    ax.set_title("Naive Bayes on Transformed data")
+    ax.set_title("Naive Bayes على البيانات المحولة")
     ax.pcolormesh(xx, yy, y_grid_pred.reshape(xx.shape))
     ax.scatter(X[:, 0], X[:, 1], c=y, s=50, edgecolor="k")
     ax.set_ylim(-1.4, 1.4)
@@ -128,11 +126,11 @@ original data.
     ax.set_xticks(())
     ax.set_yticks(())
 
-    # transform grid using ExtraTreesClassifier
+    # تحويل الشبكة باستخدام ExtraTreesClassifier
     y_grid_pred = trees.predict_proba(np.c_[xx.ravel(), yy.ravel()])[:, 1]
 
     ax = plt.subplot(224)
-    ax.set_title("ExtraTrees predictions")
+    ax.set_title("تنبؤات ExtraTrees")
     ax.pcolormesh(xx, yy, y_grid_pred.reshape(xx.shape))
     ax.scatter(X[:, 0], X[:, 1], c=y, s=50, edgecolor="k")
     ax.set_ylim(-1.4, 1.4)
@@ -144,9 +142,11 @@ original data.
     plt.show()
 
 
+
+
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.329 seconds)
+   **Total running time of the script:** (0 minutes 0.455 seconds)
 
 
 .. _sphx_glr_download_auto_examples_ensemble_plot_random_forest_embedding.py:

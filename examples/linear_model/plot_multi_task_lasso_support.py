@@ -1,30 +1,28 @@
 """
 =============================================
-Joint feature selection with multi-task Lasso
+الاختيار المشترك للميزات باستخدام Lasso متعدد المهام
 =============================================
 
-The multi-task lasso allows to fit multiple regression problems
-jointly enforcing the selected features to be the same across
-tasks. This example simulates sequential measurements, each task
-is a time instant, and the relevant features vary in amplitude
-over time while being the same. The multi-task lasso imposes that
-features that are selected at one time point are select for all time
-point. This makes feature selection by the Lasso more stable.
+يسمح Lasso متعدد المهام بتناسب مشاكل الانحدار المتعددة
+فرض اختيار الميزات نفسها عبر
+المهام. يحاكي هذا المثال القياسات التسلسلية، حيث تمثل كل مهمة لحظة زمنية، وتختلف الميزات ذات الصلة في السعة
+بمرور الوقت مع بقائها نفسها. يفرض Lasso متعدد المهام أن
+الميزات التي يتم اختيارها في لحظة زمنية واحدة يتم اختيارها لجميع اللحظات الزمنية. وهذا يجعل اختيار الميزات بواسطة Lasso أكثر استقرارًا.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# Generate data
+# توليد البيانات
 # -------------
 
 import numpy as np
 
 rng = np.random.RandomState(42)
 
-# Generate some 2D coefficients with sine waves with random frequency and phase
+# توليد بعض معاملات ثنائية الأبعاد مع موجات الجيب ذات التردد العشوائي والطور
 n_samples, n_features, n_tasks = 100, 30, 40
 n_relevant_features = 5
 coef = np.zeros((n_tasks, n_features))
@@ -36,7 +34,7 @@ X = rng.randn(n_samples, n_features)
 Y = np.dot(X, coef.T) + rng.randn(n_samples, n_tasks)
 
 # %%
-# Fit models
+# ملاءمة النماذج
 # ----------
 
 from sklearn.linear_model import Lasso, MultiTaskLasso
@@ -45,7 +43,7 @@ coef_lasso_ = np.array([Lasso(alpha=0.5).fit(X, y).coef_ for y in Y.T])
 coef_multi_task_lasso_ = MultiTaskLasso(alpha=1.0).fit(X, Y).coef_
 
 # %%
-# Plot support and time series
+# رسم الدعم والسلاسل الزمنية
 # ----------------------------
 
 import matplotlib.pyplot as plt
@@ -53,20 +51,20 @@ import matplotlib.pyplot as plt
 fig = plt.figure(figsize=(8, 5))
 plt.subplot(1, 2, 1)
 plt.spy(coef_lasso_)
-plt.xlabel("Feature")
-plt.ylabel("Time (or Task)")
+plt.xlabel("الميزة")
+plt.ylabel("الوقت (أو المهمة)")
 plt.text(10, 5, "Lasso")
 plt.subplot(1, 2, 2)
 plt.spy(coef_multi_task_lasso_)
-plt.xlabel("Feature")
-plt.ylabel("Time (or Task)")
+plt.xlabel("الميزة")
+plt.ylabel("الوقت (أو المهمة)")
 plt.text(10, 5, "MultiTaskLasso")
-fig.suptitle("Coefficient non-zero location")
+fig.suptitle("موقع المعامل غير الصفري")
 
 feature_to_plot = 0
 plt.figure()
 lw = 2
-plt.plot(coef[:, feature_to_plot], color="seagreen", linewidth=lw, label="Ground truth")
+plt.plot(coef[:, feature_to_plot], color="seagreen", linewidth=lw, label="الحقيقة الأرضية")
 plt.plot(
     coef_lasso_[:, feature_to_plot], color="cornflowerblue", linewidth=lw, label="Lasso"
 )

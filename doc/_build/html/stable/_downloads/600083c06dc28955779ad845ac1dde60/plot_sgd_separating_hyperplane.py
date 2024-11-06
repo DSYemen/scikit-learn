@@ -1,16 +1,15 @@
 """
 =========================================
-SGD: Maximum margin separating hyperplane
+SGD: المستوى الفاصل ذو الهامش الأقصى
 =========================================
 
-Plot the maximum margin separating hyperplane within a two-class
-separable dataset using a linear Support Vector Machines classifier
-trained using SGD.
+ارسم المستوى الفاصل ذو الهامش الأقصى ضمن مجموعة بيانات ثنائية الفصل
+باستخدام مصنف آلات المتجهات الداعمة الخطي الذي تم تدريبه باستخدام SGD.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -18,15 +17,15 @@ import numpy as np
 from sklearn.datasets import make_blobs
 from sklearn.linear_model import SGDClassifier
 
-# we create 50 separable points
+# نقوم بإنشاء 50 نقطة قابلة للفصل
 X, Y = make_blobs(n_samples=50, centers=2, random_state=0, cluster_std=0.60)
 
-# fit the model
+# تدريب النموذج
 clf = SGDClassifier(loss="hinge", alpha=0.01, max_iter=200)
 
 clf.fit(X, Y)
 
-# plot the line, the points, and the nearest vectors to the plane
+# رسم الخط، النقاط، وأقرب المتجهات إلى المستوى
 xx = np.linspace(-1, 5, 10)
 yy = np.linspace(-1, 5, 10)
 

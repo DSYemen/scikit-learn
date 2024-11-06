@@ -1,15 +1,15 @@
 """
 ==============================
-Lasso on dense and sparse data
+Lasso على البيانات الكثيفة والمتفرقة
 ==============================
 
-We show that linear_model.Lasso provides the same results for dense and sparse
-data and that in the case of sparse data the speed is improved.
+نبين أن linear_model.Lasso يوفر نفس النتائج للبيانات الكثيفة والمتفرقة
+وأن السرعة تتحسن في حالة البيانات المتفرقة.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 from time import time
 
@@ -19,19 +19,19 @@ from sklearn.datasets import make_regression
 from sklearn.linear_model import Lasso
 
 # %%
-# Comparing the two Lasso implementations on Dense data
+# مقارنة تنفيذي Lasso على البيانات الكثيفة
 # -----------------------------------------------------
 #
-# We create a linear regression problem that is suitable for the Lasso,
-# that is to say, with more features than samples. We then store the data
-# matrix in both dense (the usual) and sparse format, and train a Lasso on
-# each. We compute the runtime of both and check that they learned the
-# same model by computing the Euclidean norm of the difference between the
-# coefficients they learned. Because the data is dense, we expect better
-# runtime with a dense data format.
+# ننشئ مشكلة انحدار خطي مناسبة لـ Lasso،
+# أي بمعنى، مع وجود ميزات أكثر من العينات. ثم نقوم بتخزين مصفوفة البيانات
+# في كل من التنسيق الكثيف (العادي) والمتفرق، ونقوم بتدريب Lasso على
+# كل منهما. نحسب وقت التشغيل لكل منهما ونتحقق من أنهما تعلما
+# نفس النموذج عن طريق حساب المعيار الإقليدي لفرق
+# المعاملات التي تعلموها. نظرًا لأن البيانات كثيفة، نتوقع وقت تشغيل أفضل
+# مع تنسيق البيانات الكثيفة.
 
 X, y = make_regression(n_samples=200, n_features=5000, random_state=0)
-# create a copy of X in sparse format
+# إنشاء نسخة من X بتنسيق متفرق
 X_sp = sparse.coo_matrix(X)
 
 alpha = 1
@@ -46,28 +46,28 @@ t0 = time()
 dense_lasso.fit(X, y)
 print(f"Dense Lasso done in {(time() - t0):.3f}s")
 
-# compare the regression coefficients
+# مقارنة معاملات الانحدار
 coeff_diff = linalg.norm(sparse_lasso.coef_ - dense_lasso.coef_)
 print(f"Distance between coefficients : {coeff_diff:.2e}")
 
 #
 # %%
-# Comparing the two Lasso implementations on Sparse data
+# مقارنة تنفيذي Lasso على البيانات المتفرقة
 # ------------------------------------------------------
 #
-# We make the previous problem sparse by replacing all small values with 0
-# and run the same comparisons as above. Because the data is now sparse, we
-# expect the implementation that uses the sparse data format to be faster.
+# نجعل المشكلة السابقة متفرقة عن طريق استبدال جميع القيم الصغيرة بـ 0
+# ونقوم بنفس المقارنات كما هو موضح أعلاه. نظرًا لأن البيانات أصبحت متفرقة الآن، فإننا
+# نتوقع أن يكون التنفيذ الذي يستخدم تنسيق البيانات المتفرقة أسرع.
 
-# make a copy of the previous data
+# إنشاء نسخة من البيانات السابقة
 Xs = X.copy()
-# make Xs sparse by replacing the values lower than 2.5 with 0s
+# جعل Xs متفرقة عن طريق استبدال القيم الأقل من 2.5 بـ 0s
 Xs[Xs < 2.5] = 0.0
-# create a copy of Xs in sparse format
+# إنشاء نسخة من Xs بتنسيق متفرق
 Xs_sp = sparse.coo_matrix(Xs)
 Xs_sp = Xs_sp.tocsc()
 
-# compute the proportion of non-zero coefficient in the data matrix
+# حساب نسبة المعاملات غير الصفرية في مصفوفة البيانات
 print(f"Matrix density : {(Xs_sp.nnz / float(X.size) * 100):.3f}%")
 
 alpha = 0.1
@@ -82,7 +82,7 @@ t0 = time()
 dense_lasso.fit(Xs, y)
 print(f"Dense Lasso done in  {(time() - t0):.3f}s")
 
-# compare the regression coefficients
+# مقارنة معاملات الانحدار
 coeff_diff = linalg.norm(sparse_lasso.coef_ - dense_lasso.coef_)
 print(f"Distance between coefficients : {coeff_diff:.2e}")
 

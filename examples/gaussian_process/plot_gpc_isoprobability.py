@@ -1,10 +1,9 @@
 """
 =================================================================
-Iso-probability lines for Gaussian Processes classification (GPC)
+خطوط تساوي الاحتمال لتصنيف العمليات الغاوسية (GPC)
 =================================================================
 
-A two-dimensional classification example showing iso-probability lines for
-the predicted probabilities.
+مثال تصنيف ثنائي الأبعاد يوضح خطوط تساوي الاحتمال للاحتمالات المتوقعة.
 
 """
 
@@ -19,17 +18,17 @@ from sklearn.gaussian_process import GaussianProcessClassifier
 from sklearn.gaussian_process.kernels import ConstantKernel as C
 from sklearn.gaussian_process.kernels import DotProduct
 
-# A few constants
+# بعض الثوابت
 lim = 8
 
 
 def g(x):
-    """The function to predict (classification will then consist in predicting
-    whether g(x) <= 0 or not)"""
+    """الدالة المراد التنبؤ بها (سيتكون التصنيف بعد ذلك من التنبؤ
+    بما إذا كانت g(x) <= 0 أم لا)"""
     return 5.0 - x[:, 1] - 0.5 * x[:, 0] ** 2.0
 
 
-# Design of experiments
+# تصميم التجارب
 X = np.array(
     [
         [-4.61611719, -6.00099547],
@@ -43,16 +42,16 @@ X = np.array(
     ]
 )
 
-# Observations
+# الملاحظات
 y = np.array(g(X) > 0, dtype=int)
 
-# Instantiate and fit Gaussian Process Model
+# تهيئة وملاءمة نموذج العملية الغاوسية
 kernel = C(0.1, (1e-5, np.inf)) * DotProduct(sigma_0=0.1) ** 2
 gp = GaussianProcessClassifier(kernel=kernel)
 gp.fit(X, y)
-print("Learned kernel: %s " % gp.kernel_)
+print("النواة المتعلمة: %s " % gp.kernel_)
 
-# Evaluate real function and the predicted probability
+# تقييم الدالة الحقيقية والاحتمال المتوقع
 res = 50
 x1, x2 = np.meshgrid(np.linspace(-lim, lim, res), np.linspace(-lim, lim, res))
 xx = np.vstack([x1.reshape(x1.size), x2.reshape(x2.size)]).T
@@ -62,7 +61,7 @@ y_prob = gp.predict_proba(xx)[:, 1]
 y_true = y_true.reshape((res, res))
 y_prob = y_prob.reshape((res, res))
 
-# Plot the probabilistic classification iso-values
+# رسم قيم التساوي الاحتمالية للتصنيف الاحتمالي
 fig = plt.figure(1)
 ax = fig.gca()
 ax.axes.set_aspect("equal")
@@ -76,7 +75,7 @@ plt.ylabel("$x_2$")
 cax = plt.imshow(y_prob, cmap=cm.gray_r, alpha=0.8, extent=(-lim, lim, -lim, lim))
 norm = plt.matplotlib.colors.Normalize(vmin=0.0, vmax=0.9)
 cb = plt.colorbar(cax, ticks=[0.0, 0.2, 0.4, 0.6, 0.8, 1.0], norm=norm)
-cb.set_label(r"${\rm \mathbb{P}}\left[\widehat{G}(\mathbf{x}) \leq 0\right]$")
+cb.set_label(r"${\rm \mathbb{P}}\left[\widehat{G}(\mathbf{x}) \leq 0\right]$")  # وصف شريط الألوان
 plt.clim(0, 1)
 
 plt.plot(X[y <= 0, 0], X[y <= 0, 1], "r.", markersize=12)

@@ -1,21 +1,19 @@
 """
 =====================
-Monotonic Constraints
+القيود الرتيبة
 =====================
 
-This example illustrates the effect of monotonic constraints on a gradient
-boosting estimator.
+يوضح هذا المثال تأثير القيود الرتيبة على مقدر التعزيز المتدرج.
 
-We build an artificial dataset where the target value is in general
-positively correlated with the first feature (with some random and
-non-random variations), and in general negatively correlated with the second
-feature.
+نقوم ببناء مجموعة بيانات اصطناعية حيث تكون قيمة الهدف بشكل عام مرتبطة بشكل إيجابي
+بالميزة الأولى (مع بعض الاختلافات العشوائية وغير العشوائية)، ومرتبطة بشكل سلبي
+بالميزة الثانية بشكل عام.
 
-By imposing a monotonic increase or a monotonic decrease constraint, respectively,
-on the features during the learning process, the estimator is able to properly follow
-the general trend instead of being subject to the variations.
+من خلال فرض قيد زيادة رتيبة أو قيد نقصان رتيب، على التوالي،
+على الميزات أثناء عملية التعلم، يكون المقدر قادرًا على اتباع الاتجاه
+العام بشكل صحيح بدلاً من أن يخضع للاختلافات.
 
-This example was inspired by the `XGBoost documentation
+استوحى هذا المثال من `وثائق XGBoost
 <https://xgboost.readthedocs.io/en/latest/tutorials/monotonic.html>`_.
 
 """
@@ -38,41 +36,41 @@ f_1 = rng.rand(n_samples)
 X = np.c_[f_0, f_1]
 noise = rng.normal(loc=0.0, scale=0.01, size=n_samples)
 
-# y is positively correlated with f_0, and negatively correlated with f_1
+# y مرتبط بشكل إيجابي بـ f_0، ومرتبط بشكل سلبي بـ f_1
 y = 5 * f_0 + np.sin(10 * np.pi * f_0) - 5 * f_1 - np.cos(10 * np.pi * f_1) + noise
 
 
 # %%
-# Fit a first model on this dataset without any constraints.
+# ملاءمة نموذج أول على مجموعة البيانات هذه بدون أي قيود.
 gbdt_no_cst = HistGradientBoostingRegressor()
 gbdt_no_cst.fit(X, y)
 
 # %%
-# Fit a second model on this dataset with monotonic increase (1)
-# and a monotonic decrease (-1) constraints, respectively.
+# ملاءمة نموذج ثانٍ على مجموعة البيانات هذه مع قيود زيادة رتيبة (1)
+# وقيد نقصان رتيب (-1)، على التوالي.
 gbdt_with_monotonic_cst = HistGradientBoostingRegressor(monotonic_cst=[1, -1])
 gbdt_with_monotonic_cst.fit(X, y)
 
 
 # %%
-# Let's display the partial dependence of the predictions on the two features.
+# دعونا نعرض الاعتماد الجزئي للتنبؤات على الميزتين.
 fig, ax = plt.subplots()
 disp = PartialDependenceDisplay.from_estimator(
     gbdt_no_cst,
     X,
     features=[0, 1],
     feature_names=(
-        "First feature",
-        "Second feature",
+        "الميزة الأولى",
+        "الميزة الثانية",
     ),
-    line_kw={"linewidth": 4, "label": "unconstrained", "color": "tab:blue"},
+    line_kw={"linewidth": 4, "label": "بدون قيود", "color": "tab:blue"},
     ax=ax,
 )
 PartialDependenceDisplay.from_estimator(
     gbdt_with_monotonic_cst,
     X,
     features=[0, 1],
-    line_kw={"linewidth": 4, "label": "constrained", "color": "tab:orange"},
+    line_kw={"linewidth": 4, "label": "مقيد", "color": "tab:orange"},
     ax=disp.axes_,
 )
 
@@ -83,22 +81,22 @@ for f_idx in (0, 1):
     disp.axes_[0, f_idx].set_ylim(-6, 6)
 
 plt.legend()
-fig.suptitle("Monotonic constraints effect on partial dependences")
+fig.suptitle("تأثير القيود الرتيبة على التبعيات الجزئية")
 plt.show()
 
 # %%
-# We can see that the predictions of the unconstrained model capture the
-# oscillations of the data while the constrained model follows the general
-# trend and ignores the local variations.
+# يمكننا أن نرى أن تنبؤات النموذج غير المقيد تلتقط
+# تذبذبات البيانات بينما يتبع النموذج المقيد الاتجاه
+# العام ويتجاهل الاختلافات المحلية.
 
 # %%
 # .. _monotonic_cst_features_names:
 #
-# Using feature names to specify monotonic constraints
+# استخدام أسماء الميزات لتحديد القيود الرتيبة
 # ----------------------------------------------------
 #
-# Note that if the training data has feature names, it's possible to specify the
-# monotonic constraints by passing a dictionary:
+# لاحظ أنه إذا كانت بيانات التدريب تحتوي على أسماء ميزات، فمن الممكن تحديد
+# القيود الرتيبة عن طريق تمرير قاموس:
 import pandas as pd
 
 X_df = pd.DataFrame(X, columns=["f_0", "f_1"])
@@ -110,3 +108,5 @@ gbdt_with_monotonic_cst_df = HistGradientBoostingRegressor(
 np.allclose(
     gbdt_with_monotonic_cst_df.predict(X_df), gbdt_with_monotonic_cst.predict(X)
 )
+
+

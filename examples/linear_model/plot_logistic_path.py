@@ -1,35 +1,33 @@
 """
 ==============================================
-Regularization path of L1- Logistic Regression
+مسار التنظيم لـ L1 - الانحدار اللوجستي
 ==============================================
 
 
-Train l1-penalized logistic regression models on a binary classification
-problem derived from the Iris dataset.
+قم بتدريب نماذج الانحدار اللوجستي المنتظمة بـ L1 على مشكلة تصنيف ثنائي
+مستمدة من مجموعة بيانات Iris.
 
-The models are ordered from strongest regularized to least regularized. The 4
-coefficients of the models are collected and plotted as a "regularization
-path": on the left-hand side of the figure (strong regularizers), all the
-coefficients are exactly 0. When regularization gets progressively looser,
-coefficients can get non-zero values one after the other.
+تم ترتيب النماذج من الأكثر تنظيماً إلى الأقل تنظيماً. تم جمع المعاملات الأربعة
+للنماذج وتم رسمها كـ "مسار تنظيم": على الجانب الأيسر من الشكل (المنظمون الأقوياء)، جميع
+المعاملات تساوي بالضبط 0. عندما يصبح التنظيم تدريجياً أكثر مرونة،
+يمكن للمعاملات الحصول على قيم غير صفرية واحدة تلو الأخرى.
 
-Here we choose the liblinear solver because it can efficiently optimize for the
-Logistic Regression loss with a non-smooth, sparsity inducing l1 penalty.
+هنا نختار محدد liblinear لأنه يمكنه تحسين خسارة الانحدار اللوجستي بكفاءة مع عقوبة L1 غير الملساء، والتي تحفز على التباعد.
 
-Also note that we set a low value for the tolerance to make sure that the model
-has converged before collecting the coefficients.
+لاحظ أيضاً أننا نحدد قيمة منخفضة للتسامح للتأكد من أن النموذج
+قد تقارب قبل جمع المعاملات.
 
-We also use warm_start=True which means that the coefficients of the models are
-reused to initialize the next model fit to speed-up the computation of the
-full-path.
+نستخدم أيضاً warm_start=True مما يعني أن معاملات النماذج يتم
+إعادة استخدامها لتهيئة النموذج التالي لتسريع حساب
+المسار الكامل.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# Load data
+# تحميل البيانات
 # ---------
 
 from sklearn import datasets
@@ -41,10 +39,10 @@ y = iris.target
 X = X[y != 2]
 y = y[y != 2]
 
-X /= X.max()  # Normalize X to speed-up convergence
+X /= X.max()  # تطبيع X لتسريع التقارب
 
 # %%
-# Compute regularization path
+# حساب مسار التنظيم
 # ---------------------------
 
 import numpy as np
@@ -71,7 +69,7 @@ for c in cs:
 coefs_ = np.array(coefs_)
 
 # %%
-# Plot regularization path
+# رسم مسار التنظيم
 # ------------------------
 
 import matplotlib.pyplot as plt

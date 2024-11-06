@@ -19,43 +19,50 @@
 
 
 ======================================
-Tweedie regression on insurance claims
+انحدار تويدي على مطالبات التأمين
 ======================================
 
-This example illustrates the use of Poisson, Gamma and Tweedie regression on
-the `French Motor Third-Party Liability Claims dataset
-<https://www.openml.org/d/41214>`_, and is inspired by an R tutorial [1]_.
+يوضح هذا المثال استخدام الانحدار الشعاعي، جاما وتويدي على
+`مجموعة بيانات مطالبات المسؤولية المدنية الفرنسية لطرف ثالث <https://www.openml.org/d/41214>`_، مستوحى من درس تعليمي R [1]_.
 
-In this dataset, each sample corresponds to an insurance policy, i.e. a
-contract within an insurance company and an individual (policyholder).
-Available features include driver age, vehicle age, vehicle power, etc.
+في هذه المجموعة من البيانات، يتوافق كل عينة مع بوليصة تأمين، أي عقد داخل شركة تأمين وفرد (حامل بوليصة التأمين).
+تتضمن الميزات المتاحة عمر السائق، وعمر السيارة، وقوة السيارة، وما إلى ذلك.
 
-A few definitions: a *claim* is the request made by a policyholder to the
-insurer to compensate for a loss covered by the insurance. The *claim amount*
-is the amount of money that the insurer must pay. The *exposure* is the
-duration of the insurance coverage of a given policy, in years.
+بعض التعريفات: *المطالبة* هي الطلب الذي يقدمه حامل بوليصة التأمين إلى
+شركة التأمين لتعويض الخسارة التي يغطيها التأمين. *مبلغ المطالبة*
+هو مبلغ المال الذي يجب على شركة التأمين دفعه. *التعرض* هو
+مدة تغطية التأمين لسياسة معينة، بالسنوات.
 
-Here our goal is to predict the expected
-value, i.e. the mean, of the total claim amount per exposure unit also
-referred to as the pure premium.
+هنا هدفنا هو التنبؤ بالقيمة المتوقعة، أي المتوسط، لمبلغ المطالبة الإجمالي لكل وحدة تعرض، والتي يشار إليها أيضًا باسم القسط الصافي.
 
-There are several possibilities to do that, two of which are:
+هناك عدة إمكانيات للقيام بذلك، اثنان منها هما:
 
-1. Model the number of claims with a Poisson distribution, and the average
-   claim amount per claim, also known as severity, as a Gamma distribution
-   and multiply the predictions of both in order to get the total claim
-   amount.
-2. Model the total claim amount per exposure directly, typically with a Tweedie
-   distribution of Tweedie power :math:`p \in (1, 2)`.
+1. نمذجة عدد المطالبات بتوزيع شعاعي، ومتوسط مبلغ المطالبة لكل مطالبة، المعروف أيضًا باسم الشدة، كتوزيع جاما
+   وضرب تنبؤات كل من أجل الحصول على مبلغ المطالبة الإجمالي.
+2. نمذجة مبلغ المطالبة الإجمالي لكل تعرض مباشرةً، عادةً بتوزيع تويدي من تويدي بقوة :math:`p \in (1, 2)`.
 
-In this example we will illustrate both approaches. We start by defining a few
-helper functions for loading the data and visualizing results.
+في هذا المثال، سنقوم بتوضيح كلا النهجين. نبدأ بتعريف بعض
+وظائف المساعدة لتحميل البيانات وتصور النتائج.
 
 .. [1]  A. Noll, R. Salzmann and M.V. Wuthrich, Case Study: French Motor
     Third-Party Liability Claims (November 8, 2018). `doi:10.2139/ssrn.3164764
     <https://doi.org/10.2139/ssrn.3164764>`_
 
-.. GENERATED FROM PYTHON SOURCE LINES 44-204
+.. GENERATED FROM PYTHON SOURCE LINES 33-36
+
+.. code-block:: Python
+
+    # المؤلفون: مطوري scikit-learn
+    # معرف SPDX-License: BSD-3-Clause
+
+
+
+
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 37-197
 
 .. code-block:: Python
 
@@ -75,13 +82,13 @@ helper functions for loading the data and visualizing results.
 
 
     def load_mtpl2(n_samples=None):
-        """Fetch the French Motor Third-Party Liability Claims dataset.
+        """تحميل مجموعة بيانات مطالبات المسؤولية المدنية الفرنسية لطرف ثالث.
 
-        Parameters
+        المعلمات
         ----------
-        n_samples: int, default=None
-          number of samples to select (for faster run time). Full dataset has
-          678013 samples.
+        n_samples: int، default=None
+          عدد العينات المراد تحديدها (لتشغيل وقت أسرع). تحتوي مجموعة البيانات الكاملة على
+          678013 عينة.
         """
         # freMTPL2freq dataset from https://www.openml.org/d/41214
         df_freq = fetch_openml(data_id=41214, as_frame=True).data
@@ -114,24 +121,24 @@ helper functions for loading the data and visualizing results.
         ax=None,
         fill_legend=False,
     ):
-        """Plot observed and predicted - aggregated per feature level.
+        """رسم الملاحظ والمتوقع - مجمعة حسب مستوى الميزة.
 
-        Parameters
+        المعلمات
         ----------
         df : DataFrame
-            input data
-        feature: str
-            a column name of df for the feature to be plotted
-        weight : str
-            column name of df with the values of weights or exposure
-        observed : str
-            a column name of df with the observed target
-        predicted : DataFrame
-            a dataframe, with the same index as df, with the predicted target
-        fill_legend : bool, default=False
-            whether to show fill_between legend
+            بيانات الإدخال
+        الميزة: str
+            اسم عمود df لميزة المراد رسمها
+        الوزن : str
+            اسم عمود df بقيم الأوزان أو التعرض
+        الملاحظ : str
+            اسم عمود df مع الهدف الملاحظ
+        المتوقع : DataFrame
+            جدول بيانات، بنفس فهرس df، مع الهدف المتوقع
+        fill_legend : bool، default=False
+            ما إذا كان سيتم عرض fill_between legend
         """
-        # aggregate observed and predicted variables by feature level
+        # تجميع المتغيرات الملاحظة والمتوقعة حسب مستوى الميزة
         df_ = df.loc[:, [feature, weight]].copy()
         df_["observed"] = df[observed] * df[weight]
         df_["predicted"] = predicted * df[weight]
@@ -169,10 +176,10 @@ helper functions for loading the data and visualizing results.
         weights,
         tweedie_powers=None,
     ):
-        """Evaluate an estimator on train and test sets with different metrics"""
+        """تقييم أداة تقدير على مجموعات التدريب والاختبار بمقاييس مختلفة"""
 
         metrics = [
-            ("D² explained", None),  # Use default scorer if it exists
+            ("D² explained", None),  # استخدم scorer الافتراضي إذا كان موجودًا
             ("mean abs. error", mean_absolute_error),
             ("mean squared error", mean_squared_error),
         ]
@@ -193,8 +200,8 @@ helper functions for loading the data and visualizing results.
             y, _weights = df[target], df[weights]
             for score_label, metric in metrics:
                 if isinstance(estimator, tuple) and len(estimator) == 2:
-                    # Score the model consisting of the product of frequency and
-                    # severity models.
+                    # تسجيل نموذج يتكون من ناتج نموذج التردد
+                    # والشدة.
                     est_freq, est_sev = estimator
                     y_pred = est_freq.predict(X) * est_sev.predict(X)
                 else:
@@ -226,17 +233,17 @@ helper functions for loading the data and visualizing results.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 205-212
+.. GENERATED FROM PYTHON SOURCE LINES 198-205
 
-Loading datasets, basic feature extraction and target definitions
+تحميل مجموعات البيانات، استخراج الميزات الأساسية وتعاريف الهدف
 -----------------------------------------------------------------
 
-We construct the freMTPL2 dataset by joining the freMTPL2freq table,
-containing the number of claims (``ClaimNb``), with the freMTPL2sev table,
-containing the claim amount (``ClaimAmount``) for the same policy ids
+نحن نبني مجموعة بيانات freMTPL2 عن طريق الانضمام إلى جدول freMTPL2freq،
+تحتوي على عدد المطالبات (``ClaimNb``)، مع جدول freMTPL2sev،
+تحتوي على مبلغ المطالبة (``ClaimAmount``) لنفس معرفات السياسة
 (``IDpol``).
 
-.. GENERATED FROM PYTHON SOURCE LINES 212-270
+.. GENERATED FROM PYTHON SOURCE LINES 205-263
 
 .. code-block:: Python
 
@@ -252,14 +259,14 @@ containing the claim amount (``ClaimAmount``) for the same policy ids
     df = load_mtpl2()
 
 
-    # Correct for unreasonable observations (that might be data error)
-    # and a few exceptionally large claim amounts
+    # تصحيح الملاحظات غير المعقولة (التي قد تكون خطأ في البيانات)
+    # وبعض مبالغ المطالبات الكبيرة بشكل استثنائي
     df["ClaimNb"] = df["ClaimNb"].clip(upper=4)
     df["Exposure"] = df["Exposure"].clip(upper=1)
     df["ClaimAmount"] = df["ClaimAmount"].clip(upper=200000)
-    # If the claim amount is 0, then we do not count it as a claim. The loss function
-    # used by the severity model needs strictly positive claim amounts. This way
-    # frequency and severity are more consistent with each other.
+    # إذا كان مبلغ المطالبة 0، فلا نعتبره مطالبة. دالة الخسارة
+    # المستخدمة بواسطة نموذج الشدة تتطلب مبالغ مطالبات إيجابية صارمة. بهذه الطريقة
+    # التردد والشدة أكثر اتساقًا مع بعضهما البعض.
     df.loc[(df["ClaimAmount"] == 0) & (df["ClaimNb"] >= 1), "ClaimNb"] = 0
 
     log_scale_transformer = make_pipeline(
@@ -285,13 +292,13 @@ containing the claim amount (``ClaimAmount``) for the same policy ids
     )
     X = column_trans.fit_transform(df)
 
-    # Insurances companies are interested in modeling the Pure Premium, that is
-    # the expected total claim amount per unit of exposure for each policyholder
-    # in their portfolio:
+    # شركات التأمين مهتمة بنمذجة القسط الصافي، أي
+    # مبلغ المطالبة الإجمالي المتوقع لكل وحدة من التعرض لكل حامل بوليصة في
+    # محفظتهم:
     df["PurePremium"] = df["ClaimAmount"] / df["Exposure"]
 
-    # This can be indirectly approximated by a 2-step modeling: the product of the
-    # Frequency times the average claim amount per claim:
+    # يمكن تقريب هذا بشكل غير مباشر عن طريق النمذجة ذات الخطوتين: ناتج نموذج التردد
+    # والشدة:
     df["Frequency"] = df["ClaimNb"] / df["Exposure"]
     df["AvgClaimAmount"] = df["ClaimAmount"] / np.fmax(df["ClaimNb"], 1)
 
@@ -333,19 +340,19 @@ containing the claim amount (``ClaimAmount``) for the same policy ids
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 271-280
+.. GENERATED FROM PYTHON SOURCE LINES 264-273
 
-Frequency model -- Poisson distribution
+نموذج التردد - التوزيع الشعاعي
 ---------------------------------------
 
-The number of claims (``ClaimNb``) is a positive integer (0 included).
-Thus, this target can be modelled by a Poisson distribution.
-It is then assumed to be the number of discrete events occurring with a
-constant rate in a given time interval (``Exposure``, in units of years).
-Here we model the frequency ``y = ClaimNb / Exposure``, which is still a
-(scaled) Poisson distribution, and use ``Exposure`` as `sample_weight`.
+عدد المطالبات (``ClaimNb``) هو عدد صحيح إيجابي (0 مدرج).
+وبالتالي، يمكن نمذجة هذا الهدف بتوزيع شعاعي.
+يفترض بعد ذلك أن يكون عدد الأحداث المنفصلة التي تحدث بمعدل ثابت
+في فترة زمنية معينة (``Exposure``، بوحدات السنوات).
+هنا نقوم بنمذجة التردد ``y = ClaimNb / Exposure``، والذي لا يزال
+(مقياس) توزيع شعاعي، واستخدام ``Exposure`` كـ `sample_weight`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 281-286
+.. GENERATED FROM PYTHON SOURCE LINES 274-279
 
 .. code-block:: Python
 
@@ -361,13 +368,13 @@ Here we model the frequency ``y = ClaimNb / Exposure``, which is still a
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 287-290
+.. GENERATED FROM PYTHON SOURCE LINES 280-283
 
-Let us keep in mind that despite the seemingly large number of data points in
-this dataset, the number of evaluation points where the claim amount is
-non-zero is quite small:
+دعنا نضع في اعتبارنا أنه على الرغم من العدد الكبير على ما يبدو من نقاط البيانات في
+هذه المجموعة من البيانات، فإن عدد نقاط التقييم التي يكون فيها مبلغ المطالبة
+غير صفري صغير جدًا:
 
-.. GENERATED FROM PYTHON SOURCE LINES 291-293
+.. GENERATED FROM PYTHON SOURCE LINES 284-286
 
 .. code-block:: Python
 
@@ -386,7 +393,7 @@ non-zero is quite small:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 294-296
+.. GENERATED FROM PYTHON SOURCE LINES 287-289
 
 .. code-block:: Python
 
@@ -405,17 +412,17 @@ non-zero is quite small:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 297-304
+.. GENERATED FROM PYTHON SOURCE LINES 290-297
 
-As a consequence, we expect a significant variability in our
-evaluation upon random resampling of the train test split.
+ونتيجة لذلك، نتوقع تقلبًا كبيرًا في تقييمنا عند إعادة أخذ العينات العشوائية للاختبار
+تقسيم.
 
-The parameters of the model are estimated by minimizing the Poisson deviance
-on the training set via a Newton solver. Some of the features are collinear
-(e.g. because we did not drop any categorical level in the `OneHotEncoder`),
-we use a weak L2 penalization to avoid numerical issues.
+يتم تقدير معلمات النموذج عن طريق تقليل الانحراف الشعاعي
+على مجموعة التدريب عبر محدد نيوتن. بعض الميزات متوازية
+(على سبيل المثال لأننا لم نتخلص من أي مستوى فئوي في `OneHotEncoder`)،
+نستخدم ضعف L2 لتجنب المشكلات العددية.
 
-.. GENERATED FROM PYTHON SOURCE LINES 305-320
+.. GENERATED FROM PYTHON SOURCE LINES 298-313
 
 .. code-block:: Python
 
@@ -431,7 +438,7 @@ we use a weak L2 penalization to avoid numerical issues.
         target="Frequency",
         weights="Exposure",
     )
-    print("Evaluation of PoissonRegressor on target Frequency")
+    print("تقييم PoissonRegressor على الهدف Frequency")
     print(scores)
 
 
@@ -442,7 +449,7 @@ we use a weak L2 penalization to avoid numerical issues.
 
  .. code-block:: none
 
-    Evaluation of PoissonRegressor on target Frequency
+    تقييم PoissonRegressor على الهدف Frequency
     subset               train    test
     metric                            
     D² explained        0.0448  0.0427
@@ -452,18 +459,18 @@ we use a weak L2 penalization to avoid numerical issues.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 321-329
+.. GENERATED FROM PYTHON SOURCE LINES 314-322
 
-Note that the score measured on the test set is surprisingly better than on
-the training set. This might be specific to this random train-test split.
-Proper cross-validation could help us to assess the sampling variability of
-these results.
+لاحظ أن النتيجة المقاسة على مجموعة الاختبار أفضل بشكل مدهش من
+على مجموعة التدريب. قد يكون هذا خاصًا بهذا التقسيم العشوائي للاختبار.
+التدريب. يمكن للتحقق الصحيح من الصحة أن يساعدنا في تقييم تقلب العينات لهذه
+النتائج.
 
-We can visually compare observed and predicted values, aggregated by the
-drivers age (``DrivAge``), vehicle age (``VehAge``) and the insurance
-bonus/malus (``BonusMalus``).
+يمكننا مقارنة القيم الملاحظة والمتوقعة بصريًا، مجمعة حسب
+عمر السائق (``DrivAge``)، عمر السيارة (``VehAge``) و
+التأمين مكافأة/عقوبة (``BonusMalus``).
 
-.. GENERATED FROM PYTHON SOURCE LINES 330-382
+.. GENERATED FROM PYTHON SOURCE LINES 323-375
 
 .. code-block:: Python
 
@@ -531,29 +538,30 @@ bonus/malus (``BonusMalus``).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 383-400
+.. GENERATED FROM PYTHON SOURCE LINES 376-393
 
-According to the observed data, the frequency of accidents is higher for
-drivers younger than 30 years old, and is positively correlated with the
-`BonusMalus` variable. Our model is able to mostly correctly model this
-behaviour.
+وفقًا للبيانات المرصودة، يكون معدل الحوادث أعلى بالنسبة
+للسائقين الذين تقل أعمارهم عن 30 عامًا، وهو مرتبط بشكل إيجابي
+بمتغير `BonusMalus`. نموذجنا قادر على نمذجة هذا السلوك
+بشكل صحيح في الغالب.
 
-Severity Model -  Gamma distribution
+نموذج الشدة - توزيع جاما
 ------------------------------------
-The mean claim amount or severity (`AvgClaimAmount`) can be empirically
-shown to follow approximately a Gamma distribution. We fit a GLM model for
-the severity with the same features as the frequency model.
+يمكن إظهار أن متوسط ​​مبلغ المطالبة أو الشدة (`AvgClaimAmount`)
+يتبع تجريبيًا توزيع جاما تقريبًا. نقوم بملاءمة نموذج GLM
+للحدة بنفس ميزات نموذج التردد.
 
-Note:
+ملاحظة:
 
-- We filter out ``ClaimAmount == 0`` as the Gamma distribution has support
-  on :math:`(0, \infty)`, not :math:`[0, \infty)`.
-- We use ``ClaimNb`` as `sample_weight` to account for policies that contain
-  more than one claim.
+- نقوم بتصفية ``ClaimAmount == 0`` حيث أن توزيع جاما مدعوم
+  على :math:`(0, \infty)`، وليس :math:`[0, \infty)`.
+- نستخدم ``ClaimNb`` كـ `sample_weight` لحساب السياسات التي تحتوي
+  على أكثر من مطالبة واحدة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 400-425
+.. GENERATED FROM PYTHON SOURCE LINES 393-419
 
 .. code-block:: Python
+
 
     from sklearn.linear_model import GammaRegressor
 
@@ -577,7 +585,7 @@ Note:
         target="AvgClaimAmount",
         weights="ClaimNb",
     )
-    print("Evaluation of GammaRegressor on target AvgClaimAmount")
+    print("تقييم GammaRegressor على الهدف AvgClaimAmount")
     print(scores)
 
 
@@ -588,7 +596,7 @@ Note:
 
  .. code-block:: none
 
-    Evaluation of GammaRegressor on target AvgClaimAmount
+    تقييم GammaRegressor على الهدف AvgClaimAmount
     subset                     train          test
     metric                                        
     D² explained        3.900000e-03  4.400000e-03
@@ -598,14 +606,14 @@ Note:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 426-430
+.. GENERATED FROM PYTHON SOURCE LINES 420-424
 
-Those values of the metrics are not necessarily easy to interpret. It can be
-insightful to compare them with a model that does not use any input
-features and always predicts a constant value, i.e. the average claim
-amount, in the same setting:
+هذه القيم للمقاييس ليست بالضرورة سهلة التفسير. قد يكون من
+المفيد مقارنتها بنموذج لا يستخدم أي ميزات إدخال
+ويتنبأ دائمًا بقيمة ثابتة، أي متوسط ​​مبلغ المطالبة،
+في نفس الإعداد:
 
-.. GENERATED FROM PYTHON SOURCE LINES 431-453
+.. GENERATED FROM PYTHON SOURCE LINES 425-447
 
 .. code-block:: Python
 
@@ -628,7 +636,7 @@ amount, in the same setting:
         target="AvgClaimAmount",
         weights="ClaimNb",
     )
-    print("Evaluation of a mean predictor on target AvgClaimAmount")
+    print("تقييم متنبئ متوسط ​​على الهدف AvgClaimAmount")
     print(scores)
 
 
@@ -639,7 +647,7 @@ amount, in the same setting:
 
  .. code-block:: none
 
-    Evaluation of a mean predictor on target AvgClaimAmount
+    تقييم متنبئ متوسط ​​على الهدف AvgClaimAmount
     subset                     train          test
     metric                                        
     D² explained        0.000000e+00 -0.000000e+00
@@ -649,39 +657,41 @@ amount, in the same setting:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 454-463
+.. GENERATED FROM PYTHON SOURCE LINES 448-457
 
-We conclude that the claim amount is very challenging to predict. Still, the
-:class:`~sklearn.linear_model.GammaRegressor` is able to leverage some
-information from the input features to slightly improve upon the mean
-baseline in terms of D².
+نستنتج أن مبلغ المطالبة من الصعب جدًا التنبؤ به. ومع ذلك، فإن
+:class:`~sklearn.linear_model.GammaRegressor` قادر على الاستفادة من بعض
+المعلومات من ميزات الإدخال لتحسين خط الأساس المتوسط
+​​قليلاً من حيث D².
 
-Note that the resulting model is the average claim amount per claim. As such,
-it is conditional on having at least one claim, and cannot be used to predict
-the average claim amount per policy. For this, it needs to be combined with
-a claims frequency model.
+لاحظ أن النموذج الناتج هو متوسط ​​مبلغ المطالبة لكل مطالبة. على هذا النحو،
+فهو مشروط بوجود مطالبة واحدة على الأقل، ولا يمكن استخدامه للتنبؤ
+بمتوسط ​​مبلغ المطالبة لكل سياسة. لهذا، يجب دمجه مع
+نموذج لتكرار المطالبات.
 
-.. GENERATED FROM PYTHON SOURCE LINES 464-482
+.. GENERATED FROM PYTHON SOURCE LINES 458-478
 
 .. code-block:: Python
 
 
+
     print(
-        "Mean AvgClaim Amount per policy:              %.2f "
+        "متوسط ​​مبلغ AvgClaim لكل سياسة:              %.2f "
         % df_train["AvgClaimAmount"].mean()
     )
     print(
-        "Mean AvgClaim Amount | NbClaim > 0:           %.2f"
+        "متوسط ​​مبلغ AvgClaim | NbClaim > 0:           %.2f"
         % df_train["AvgClaimAmount"][df_train["AvgClaimAmount"] > 0].mean()
     )
     print(
-        "Predicted Mean AvgClaim Amount | NbClaim > 0: %.2f"
+        "متوسط ​​مبلغ AvgClaim المتوقع | NbClaim > 0: %.2f"
         % glm_sev.predict(X_train).mean()
     )
     print(
-        "Predicted Mean AvgClaim Amount (dummy) | NbClaim > 0: %.2f"
+        "متوسط ​​مبلغ AvgClaim المتوقع (وهمي) | NbClaim > 0: %.2f"
         % dummy_sev.predict(X_train).mean()
     )
+
 
 
 
@@ -691,20 +701,20 @@ a claims frequency model.
 
  .. code-block:: none
 
-    Mean AvgClaim Amount per policy:              71.78 
-    Mean AvgClaim Amount | NbClaim > 0:           1951.21
-    Predicted Mean AvgClaim Amount | NbClaim > 0: 1940.95
-    Predicted Mean AvgClaim Amount (dummy) | NbClaim > 0: 1978.59
+    متوسط ​​مبلغ AvgClaim لكل سياسة:              71.78 
+    متوسط ​​مبلغ AvgClaim | NbClaim > 0:           1951.21
+    متوسط ​​مبلغ AvgClaim المتوقع | NbClaim > 0: 1940.95
+    متوسط ​​مبلغ AvgClaim المتوقع (وهمي) | NbClaim > 0: 1978.59
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 483-485
+.. GENERATED FROM PYTHON SOURCE LINES 479-481
 
-We can visually compare observed and predicted values, aggregated for
-the drivers age (``DrivAge``).
+يمكننا مقارنة القيم المرصودة والمتوقعة بصريًا، مجمعة
+لعمر السائقين (``DrivAge``).
 
-.. GENERATED FROM PYTHON SOURCE LINES 485-512
+.. GENERATED FROM PYTHON SOURCE LINES 481-508
 
 .. code-block:: Python
 
@@ -717,8 +727,8 @@ the drivers age (``DrivAge``).
         weight="Exposure",
         observed="AvgClaimAmount",
         predicted=glm_sev.predict(X_train[mask_train.values]),
-        y_label="Average Claim Severity",
-        title="train data",
+        y_label="متوسط ​​حدة المطالبة",
+        title="بيانات التدريب",
         ax=ax[0],
     )
 
@@ -728,8 +738,8 @@ the drivers age (``DrivAge``).
         weight="Exposure",
         observed="AvgClaimAmount",
         predicted=glm_sev.predict(X_test[mask_test.values]),
-        y_label="Average Claim Severity",
-        title="test data",
+        y_label="متوسط ​​حدة المطالبة",
+        title="بيانات الاختبار",
         ax=ax[1],
         fill_legend=True,
     )
@@ -739,7 +749,7 @@ the drivers age (``DrivAge``).
 
 
 .. image-sg:: /auto_examples/linear_model/images/sphx_glr_plot_tweedie_regression_insurance_claims_002.png
-   :alt: train data, test data
+   :alt: بيانات التدريب, بيانات الاختبار
    :srcset: /auto_examples/linear_model/images/sphx_glr_plot_tweedie_regression_insurance_claims_002.png
    :class: sphx-glr-single-img
 
@@ -747,42 +757,42 @@ the drivers age (``DrivAge``).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 513-543
+.. GENERATED FROM PYTHON SOURCE LINES 509-538
 
-Overall, the drivers age (``DrivAge``) has a weak impact on the claim
-severity, both in observed and predicted data.
+بشكل عام، يكون لعمر السائقين (``DrivAge``) تأثير ضعيف على حدة
+المطالبة، سواء في البيانات المرصودة أو المتوقعة.
 
-Pure Premium Modeling via a Product Model vs single TweedieRegressor
+نمذجة القسط الخالص عبر نموذج المنتج مقابل TweedieRegressor واحد
 --------------------------------------------------------------------
-As mentioned in the introduction, the total claim amount per unit of
-exposure can be modeled as the product of the prediction of the
-frequency model by the prediction of the severity model.
+كما هو مذكور في المقدمة، يمكن نمذجة إجمالي مبلغ المطالبة لكل وحدة
+تعرض على أنه حاصل ضرب تنبؤ نموذج التردد في تنبؤ نموذج
+الشدة.
 
-Alternatively, one can directly model the total loss with a unique
-Compound Poisson Gamma generalized linear model (with a log link function).
-This model is a special case of the Tweedie GLM with a "power" parameter
-:math:`p \in (1, 2)`. Here, we fix apriori the `power` parameter of the
-Tweedie model to some arbitrary value (1.9) in the valid range. Ideally one
-would select this value via grid-search by minimizing the negative
-log-likelihood of the Tweedie model, but unfortunately the current
-implementation does not allow for this (yet).
+بدلاً من ذلك، يمكن للمرء نمذجة الخسارة الإجمالية مباشرة باستخدام نموذج خطي
+معمم مركب Poisson Gamma فريد (مع دالة ربط لوغاريتمي).
+هذا النموذج هو حالة خاصة من Tweedie GLM مع معلمة "قوة"
+:math:`p \in (1, 2)`. هنا، نقوم بتثبيت معلمة `power` لنموذج
+Tweedie مسبقًا على قيمة عشوائية (1.9) في النطاق الصحيح. من الناحية المثالية،
+سيختار المرء هذه القيمة عبر البحث الشبكي عن طريق تقليل
+احتمالية السجل السالب لنموذج Tweedie، لكن لسوء الحظ، لا يسمح
+التطبيق الحالي بذلك (حتى الآن).
 
-We will compare the performance of both approaches.
-To quantify the performance of both models, one can compute
-the mean deviance of the train and test data assuming a Compound
-Poisson-Gamma distribution of the total claim amount. This is equivalent to
-a Tweedie distribution with a `power` parameter between 1 and 2.
+سنقارن أداء كلا النهجين.
+لتحديد أداء كلا النموذجين كميًا، يمكن للمرء حساب
+متوسط ​​انحراف بيانات التدريب والاختبار بافتراض توزيع
+مركب Poisson-Gamma لإجمالي مبلغ المطالبة. هذا يعادل
+توزيع Tweedie مع معلمة `power` بين 1 و 2.
 
-The :func:`sklearn.metrics.mean_tweedie_deviance` depends on a `power`
-parameter. As we do not know the true value of the `power` parameter, we here
-compute the mean deviances for a grid of possible values, and compare the
-models side by side, i.e. we compare them at identical values of `power`.
-Ideally, we hope that one model will be consistently better than the other,
-regardless of `power`.
+تعتمد :func:`sklearn.metrics.mean_tweedie_deviance` على معلمة `power`.
+نظرًا لأننا لا نعرف القيمة الحقيقية لمعلمة `power`، فإننا هنا نحسب
+متوسط ​​الانحرافات لشبكة من القيم الممكنة، ونقارن النماذج جنبًا إلى جنب،
+أي أننا نقارنها بقيم متطابقة لـ `power`. من الناحية المثالية، نأمل أن يكون أحد
+النماذج أفضل باستمرار من الآخر، بغض النظر عن `power`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 543-584
+.. GENERATED FROM PYTHON SOURCE LINES 538-582
 
 .. code-block:: Python
+
 
     from sklearn.linear_model import TweedieRegressor
 
@@ -819,9 +829,11 @@ regardless of `power`.
         [scores_product_model, scores_glm_pure_premium],
         axis=1,
         sort=True,
-        keys=("Product Model", "TweedieRegressor"),
+        keys=("نموذج المنتج", "TweedieRegressor"),
     )
-    print("Evaluation of the Product Model and the Tweedie Regressor on target PurePremium")
+    print(
+        "تقييم نموذج المنتج و Tweedie Regressor على الهدف PurePremium"
+    )
     with pd.option_context("display.expand_frame_repr", False):
         print(scores)
 
@@ -833,8 +845,8 @@ regardless of `power`.
 
  .. code-block:: none
 
-    Evaluation of the Product Model and the Tweedie Regressor on target PurePremium
-                              Product Model               TweedieRegressor              
+    تقييم نموذج المنتج و Tweedie Regressor على الهدف PurePremium
+                               نموذج المنتج               TweedieRegressor              
     subset                            train          test            train          test
     metric                                                                              
     D² explained                        NaN           NaN     1.640000e-02  1.370000e-02
@@ -851,20 +863,21 @@ regardless of `power`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 585-593
+.. GENERATED FROM PYTHON SOURCE LINES 583-591
 
-In this example, both modeling approaches yield comparable performance
-metrics. For implementation reasons, the percentage of explained variance
-:math:`D^2` is not available for the product model.
+في هذا المثال، ينتج عن كلا النهجين للنمذجة مقاييس أداء قابلة
+للمقارنة. لأسباب تتعلق بالتنفيذ، فإن نسبة التباين الموضحة
+:math:`D^2` غير متاحة لنموذج المنتج.
 
-We can additionally validate these models by comparing observed and
-predicted total claim amount over the test and train subsets. We see that,
-on average, both model tend to underestimate the total claim (but this
-behavior depends on the amount of regularization).
+يمكننا بالإضافة إلى ذلك التحقق من صحة هذه النماذج من خلال مقارنة
+إجمالي مبلغ المطالبة المرصود والمتوقع على مجموعات بيانات الاختبار
+والتدريب الفرعية. نرى أنه في المتوسط​​، يميل كلا النموذجين إلى التقليل من
+شأن إجمالي المطالبة (لكن هذا السلوك يعتمد على مقدار التنظيم).
 
-.. GENERATED FROM PYTHON SOURCE LINES 593-614
+.. GENERATED FROM PYTHON SOURCE LINES 591-613
 
 .. code-block:: Python
+
 
 
     res = []
@@ -903,41 +916,41 @@ behavior depends on the amount of regularization).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 615-644
+.. GENERATED FROM PYTHON SOURCE LINES 614-641
 
-Finally, we can compare the two models using a plot of cumulated claims: for
-each model, the policyholders are ranked from safest to riskiest based on the
-model predictions and the fraction of observed total cumulated claims is
-plotted on the y axis. This plot is often called the ordered Lorenz curve of
-the model.
+أخيرًا، يمكننا مقارنة النموذجين باستخدام مخطط المطالبات التراكمية: لكل
+نموذج، يتم تصنيف حاملي وثائق التأمين من الأكثر أمانًا إلى الأكثر خطورة بناءً على
+تنبؤات النموذج ويتم رسم جزء من إجمالي المطالبات التراكمية المرصودة على
+المحور ص. غالبًا ما يُطلق على هذا الرسم البياني منحنى لورنز المرتب
+للنموذج.
 
-The Gini coefficient (based on the area between the curve and the diagonal)
-can be used as a model selection metric to quantify the ability of the model
-to rank policyholders. Note that this metric does not reflect the ability of
-the models to make accurate predictions in terms of absolute value of total
-claim amounts but only in terms of relative amounts as a ranking metric. The
-Gini coefficient is upper bounded by 1.0 but even an oracle model that ranks
-the policyholders by the observed claim amounts cannot reach a score of 1.0.
+يمكن استخدام معامل جيني (بناءً على المساحة بين المنحنى والقطر)
+كمقياس لاختيار النموذج لتحديد قدرة النموذج
+على تصنيف حاملي وثائق التأمين. لاحظ أن هذا المقياس لا يعكس قدرة
+النماذج على إجراء تنبؤات دقيقة من حيث القيمة المطلقة لإجمالي
+مبالغ المطالبات ولكن فقط من حيث الكميات النسبية كمقياس تصنيف. يكون
+معامل جيني محددًا بحد أقصى قدره 1.0 ولكن حتى نموذج أوراكل يصنف
+حاملي وثائق التأمين حسب مبالغ المطالبات المرصودة لا يمكنه الوصول إلى درجة 1.0.
 
-We observe that both models are able to rank policyholders by risky-ness
-significantly better than chance although they are also both far from the
-oracle model due to the natural difficulty of the prediction problem from a
-few features: most accidents are not predictable and can be caused by
-environmental circumstances that are not described at all by the input
-features of the models.
+نلاحظ أن كلا النموذجين قادران على تصنيف حاملي وثائق التأمين حسب الخطورة
+بشكل أفضل بكثير من الصدفة على الرغم من أنهما بعيدان أيضًا عن نموذج
+أوراكل نظرًا لصعوبة مشكلة التنبؤ الطبيعية من عدد قليل من
+الميزات: معظم الحوادث لا يمكن التنبؤ بها ويمكن أن تكون ناجمة عن ظروف
+بيئية غير موصوفة على الإطلاق بواسطة ميزات الإدخال للنماذج.
 
-Note that the Gini index only characterizes the ranking performance of the
-model but not its calibration: any monotonic transformation of the predictions
-leaves the Gini index of the model unchanged.
+لاحظ أن مؤشر جيني يميز فقط أداء تصنيف النموذج ولكن ليس معايرته: أي
+تحويل رتيب للتنبؤات يترك مؤشر جيني للنموذج دون تغيير.
 
-Finally one should highlight that the Compound Poisson Gamma model that is
-directly fit on the pure premium is operationally simpler to develop and
-maintain as it consists of a single scikit-learn estimator instead of a pair
-of models, each with its own set of hyperparameters.
+أخيرًا، ينبغي للمرء أن يؤكد أن نموذج جاما Poisson المركب الذي يتم
+ملاءمته مباشرة على القسط الخالص هو أبسط من الناحية التشغيلية للتطوير
+والصيانة لأنه يتكون من مقدر scikit-learn واحد بدلاً من زوج
+من النماذج، لكل منها مجموعته الخاصة من المعلمات الفائقة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 645-695
+.. GENERATED FROM PYTHON SOURCE LINES 642-693
 
 .. code-block:: Python
+
+
 
     from sklearn.metrics import auc
 
@@ -946,7 +959,7 @@ of models, each with its own set of hyperparameters.
         y_true, y_pred = np.asarray(y_true), np.asarray(y_pred)
         exposure = np.asarray(exposure)
 
-        # order samples by increasing predicted risk:
+        # ترتيب العينات عن طريق زيادة المخاطر المتوقعة:
         ranking = np.argsort(y_pred)
         ranked_exposure = exposure[ranking]
         ranked_pure_premium = y_true[ranking]
@@ -962,38 +975,37 @@ of models, each with its own set of hyperparameters.
     y_pred_total = glm_pure_premium.predict(X_test)
 
     for label, y_pred in [
-        ("Frequency * Severity model", y_pred_product),
-        ("Compound Poisson Gamma", y_pred_total),
+        ("نموذج التردد * الشدة", y_pred_product),
+        ("جاما بواسون المركب", y_pred_total),
     ]:
         ordered_samples, cum_claims = lorenz_curve(
             df_test["PurePremium"], y_pred, df_test["Exposure"]
         )
         gini = 1 - 2 * auc(ordered_samples, cum_claims)
-        label += " (Gini index: {:.3f})".format(gini)
+        label += " (مؤشر جيني: {:.3f})".format(gini)
         ax.plot(ordered_samples, cum_claims, linestyle="-", label=label)
 
-    # Oracle model: y_pred == y_test
+    # نموذج أوراكل: y_pred == y_test
     ordered_samples, cum_claims = lorenz_curve(
         df_test["PurePremium"], df_test["PurePremium"], df_test["Exposure"]
     )
     gini = 1 - 2 * auc(ordered_samples, cum_claims)
-    label = "Oracle (Gini index: {:.3f})".format(gini)
+    label = "أوراكل (مؤشر جيني: {:.3f})".format(gini)
     ax.plot(ordered_samples, cum_claims, linestyle="-.", color="gray", label=label)
 
-    # Random baseline
-    ax.plot([0, 1], [0, 1], linestyle="--", color="black", label="Random baseline")
+    # خط أساس عشوائي
+    ax.plot([0, 1], [0, 1], linestyle="--", color="black", label="خط أساس عشوائي")
     ax.set(
-        title="Lorenz Curves",
-        xlabel="Fraction of policyholders\n(ordered by model from safest to riskiest)",
-        ylabel="Fraction of total claim amount",
+        title="منحنيات لورنز",
+        xlabel="جزء من حاملي وثائق التأمين\n(مرتب حسب النموذج من الأكثر أمانًا إلى الأكثر خطورة)",
+        ylabel="جزء من إجمالي مبلغ المطالبة",
     )
     ax.legend(loc="upper left")
     plt.plot()
 
 
-
 .. image-sg:: /auto_examples/linear_model/images/sphx_glr_plot_tweedie_regression_insurance_claims_003.png
-   :alt: Lorenz Curves
+   :alt: منحنيات لورنز
    :srcset: /auto_examples/linear_model/images/sphx_glr_plot_tweedie_regression_insurance_claims_003.png
    :class: sphx-glr-single-img
 
@@ -1010,7 +1022,7 @@ of models, each with its own set of hyperparameters.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 9.270 seconds)
+   **Total running time of the script:** (0 minutes 9.881 seconds)
 
 
 .. _sphx_glr_download_auto_examples_linear_model_plot_tweedie_regression_insurance_claims.py:

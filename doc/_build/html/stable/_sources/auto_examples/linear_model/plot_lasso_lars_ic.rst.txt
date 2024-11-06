@@ -19,36 +19,32 @@
 
 
 ==============================================
-Lasso model selection via information criteria
+اختيار نموذج لاصو عبر معايير المعلومات
 ==============================================
 
-This example reproduces the example of Fig. 2 of [ZHT2007]_. A
-:class:`~sklearn.linear_model.LassoLarsIC` estimator is fit on a
-diabetes dataset and the AIC and the BIC criteria are used to select
-the best model.
+هذا المثال يعيد إنتاج مثال الشكل 2 من [ZHT2007]_. يقوم مقدر :class:`~sklearn.linear_model.LassoLarsIC` بالتناسب مع مجموعة بيانات مرض السكري ويتم استخدام معياري معلومات أكايكي (AIC) ومعلومات بايز (BIC) لاختيار أفضل نموذج.
 
 .. note::
-    It is important to note that the optimization to find `alpha` with
-    :class:`~sklearn.linear_model.LassoLarsIC` relies on the AIC or BIC
-    criteria that are computed in-sample, thus on the training set directly.
-    This approach differs from the cross-validation procedure. For a comparison
-    of the two approaches, you can refer to the following example:
+    من المهم ملاحظة أن التحسين للعثور على `alpha` مع
+    :class:`~sklearn.linear_model.LassoLarsIC` يعتمد على معياري AIC أو BIC
+    اللذين يتم حسابهما داخل العينة، وبالتالي على مجموعة التدريب مباشرة.
+    يختلف هذا النهج عن إجراء التحقق من الصحة المتقاطع. لمقارنة النهجين، يمكنك الرجوع إلى المثال التالي:
     :ref:`sphx_glr_auto_examples_linear_model_plot_lasso_model_selection.py`.
 
-.. rubric:: References
+.. rubric:: المراجع
 
 .. [ZHT2007] :arxiv:`Zou, Hui, Trevor Hastie, and Robert Tibshirani.
     "On the degrees of freedom of the lasso."
     The Annals of Statistics 35.5 (2007): 2173-2192.
     <0712.0881>`
 
-.. GENERATED FROM PYTHON SOURCE LINES 26-30
+.. GENERATED FROM PYTHON SOURCE LINES 22-26
 
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري سكايلرن
+    # معرف الترخيص: BSD-3-Clause
 
 
 
@@ -57,11 +53,11 @@ the best model.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 31-32
+.. GENERATED FROM PYTHON SOURCE LINES 27-28
 
-We will use the diabetes dataset.
+سنستخدم مجموعة بيانات مرض السكري.
 
-.. GENERATED FROM PYTHON SOURCE LINES 32-38
+.. GENERATED FROM PYTHON SOURCE LINES 28-34
 
 .. code-block:: Python
 
@@ -182,18 +178,17 @@ We will use the diabetes dataset.
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 39-47
+.. GENERATED FROM PYTHON SOURCE LINES 35-42
 
-Scikit-learn provides an estimator called
-:class:`~sklearn.linear_model.LassoLarsIC` that uses either Akaike's
-information criterion (AIC) or the Bayesian information criterion (BIC) to
-select the best model. Before fitting
-this model, we will scale the dataset.
+يوفر سكايلرن مقدرًا يسمى
+:class:`~sklearn.linear_model.LassoLarsIC` الذي يستخدم إما معيار معلومات أكايكي (AIC) أو معيار معلومات بايز (BIC) ل
+اختيار أفضل نموذج. قبل تناسب
+هذا النموذج، سنقوم بتصغير مجموعة البيانات.
 
-In the following, we are going to fit two models to compare the values
-reported by AIC and BIC.
+في ما يلي، سنقوم بتناسب نموذجين لمقارنة القيم
+المبلغ عنها من قبل AIC و BIC.
 
-.. GENERATED FROM PYTHON SOURCE LINES 47-54
+.. GENERATED FROM PYTHON SOURCE LINES 42-49
 
 .. code-block:: Python
 
@@ -211,20 +206,19 @@ reported by AIC and BIC.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 55-60
+.. GENERATED FROM PYTHON SOURCE LINES 50-54
 
-To be in line with the definition in [ZHT2007]_, we need to rescale the
-AIC and the BIC. Indeed, Zou et al. are ignoring some constant terms
-compared to the original definition of AIC derived from the maximum
-log-likelihood of a linear model. You can refer to
-:ref:`mathematical detail section for the User Guide <lasso_lars_ic>`.
+لكي نكون على نفس الخط مع التعريف في [ZHT2007]_، نحتاج إلى إعادة تصغير
+AIC و BIC. في الواقع، يتجاهل Zou et al. بعض المصطلحات الثابتة
+مقارنة بالتعريف الأصلي لـ AIC المشتق من اللوغاريتم الأقصى لنموذج خطي. يمكنك الرجوع إلى
+:ref:`قسم التفاصيل الرياضية لدليل المستخدم <lasso_lars_ic>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 60-65
+.. GENERATED FROM PYTHON SOURCE LINES 54-59
 
 .. code-block:: Python
 
     def zou_et_al_criterion_rescaling(criterion, n_samples, noise_variance):
-        """Rescale the information criterion to follow the definition of Zou et al."""
+        """إعادة تصغير معيار المعلومات لمتابعة تعريف Zou et al."""
         return criterion - n_samples * np.log(2 * np.pi * noise_variance) - n_samples
 
 
@@ -235,7 +229,7 @@ log-likelihood of a linear model. You can refer to
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 66-78
+.. GENERATED FROM PYTHON SOURCE LINES 60-72
 
 .. code-block:: Python
 
@@ -258,7 +252,7 @@ log-likelihood of a linear model. You can refer to
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 79-91
+.. GENERATED FROM PYTHON SOURCE LINES 73-85
 
 .. code-block:: Python
 
@@ -281,13 +275,13 @@ log-likelihood of a linear model. You can refer to
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 92-95
+.. GENERATED FROM PYTHON SOURCE LINES 86-89
 
-Now that we collected the AIC and BIC, we can as well check that the minima
-of both criteria happen at the same alpha. Then, we can simplify the
-following plot.
+الآن بعد أن جمعنا AIC و BIC، يمكننا أيضًا التحقق من أن الحد الأدنى
+لكل من المعايير يحدث عند نفس alpha. بعد ذلك، يمكننا تبسيط
+الرسم البياني التالي.
 
-.. GENERATED FROM PYTHON SOURCE LINES 95-97
+.. GENERATED FROM PYTHON SOURCE LINES 89-91
 
 .. code-block:: Python
 
@@ -306,12 +300,11 @@ following plot.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 98-100
+.. GENERATED FROM PYTHON SOURCE LINES 92-93
 
-Finally, we can plot the AIC and BIC criterion and the subsequent selected
-regularization parameter.
+أخيرًا، يمكننا رسم معيار AIC و BIC والمعلمة المنتظمة اللاحقة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 100-116
+.. GENERATED FROM PYTHON SOURCE LINES 93-108
 
 .. code-block:: Python
 
@@ -333,7 +326,6 @@ regularization parameter.
     _ = plt.title("Lasso model selection via AIC and BIC")
 
 
-
 .. image-sg:: /auto_examples/linear_model/images/sphx_glr_plot_lasso_lars_ic_001.png
    :alt: Lasso model selection via AIC and BIC
    :srcset: /auto_examples/linear_model/images/sphx_glr_plot_lasso_lars_ic_001.png
@@ -346,7 +338,7 @@ regularization parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.102 seconds)
+   **Total running time of the script:** (0 minutes 0.337 seconds)
 
 
 .. _sphx_glr_download_auto_examples_linear_model_plot_lasso_lars_ic.py:

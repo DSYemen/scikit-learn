@@ -1,16 +1,16 @@
 """
-=============================
-Recursive feature elimination
-=============================
+========================
+إزالة الميزة المتكررة
+========================
 
-This example demonstrates how Recursive Feature Elimination
-(:class:`~sklearn.feature_selection.RFE`) can be used to determine the
-importance of individual pixels for classifying handwritten digits.
-:class:`~sklearn.feature_selection.RFE` recursively removes the least
-significant features, assigning ranks based on their importance, where higher
-`ranking_` values denote lower importance. The ranking is visualized using both
-shades of blue and pixel annotations for clarity. As expected, pixels positioned
-at the center of the image tend to be more predictive than those near the edges.
+يوضح هذا المثال كيفية استخدام حذف الميزات التكراري
+(:class:`~sklearn.feature_selection.RFE`) لتحديد
+أهمية وحدات البكسل الفردية لتصنيف الأرقام المكتوبة بخط اليد.
+:class:`~sklearn.feature_selection.RFE` يزيل بشكل تكراري الميزات الأقل
+أهمية، ويخصص الرتب بناءً على أهميتها، حيث تشير قيم `ranking_` الأعلى
+إلى أهمية أقل. يتم تصور الترتيب باستخدام كل من درجات اللون الأزرق
+وشروح البكسل من أجل الوضوح. كما هو متوقع، تميل وحدات البكسل الموجودة
+في وسط الصورة إلى أن تكون أكثر قدرة على التنبؤ من تلك القريبة من الحواف.
 
 .. note::
 
@@ -29,7 +29,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import MinMaxScaler
 
-# Load the digits dataset
+# تحميل مجموعة بيانات الأرقام
 digits = load_digits()
 X = digits.images.reshape((len(digits.images), -1))
 y = digits.target
@@ -44,14 +44,16 @@ pipe = Pipeline(
 pipe.fit(X, y)
 ranking = pipe.named_steps["rfe"].ranking_.reshape(digits.images[0].shape)
 
-# Plot pixel ranking
+# رسم ترتيب البكسل
 plt.matshow(ranking, cmap=plt.cm.Blues)
 
-# Add annotations for pixel numbers
+# إضافة شروح لأرقام البكسل
 for i in range(ranking.shape[0]):
     for j in range(ranking.shape[1]):
         plt.text(j, i, str(ranking[i, j]), ha="center", va="center", color="black")
 
 plt.colorbar()
-plt.title("Ranking of pixels with RFE\n(Logistic Regression)")
+plt.title("ترتيب البكسل باستخدام RFE\n(الانحدار اللوجستي)")
 plt.show()
+
+

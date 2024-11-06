@@ -1,45 +1,45 @@
 """
 ==================================
-L1-based models for Sparse Signals
+نماذج L1 للاشارات المتناثرة
 ==================================
 
-The present example compares three l1-based regression models on a synthetic
-signal obtained from sparse and correlated features that are further corrupted
-with additive gaussian noise:
+يقارن المثال الحالي ثلاثة نماذج ارتجاع L1 على إشارة اصطناعية
+تم الحصول عليها من ميزات متناثرة ومتناسقة يتم إفسادها
+مع ضوضاء غاوسية إضافية:
 
-- a :ref:`lasso`;
-- an :ref:`automatic_relevance_determination`;
-- an :ref:`elastic_net`.
+- :ref:`lasso`؛
+- :ref:`automatic_relevance_determination`؛
+- :ref:`elastic_net`.
 
-It is known that the Lasso estimates turn to be close to the model selection
-estimates when the data dimensions grow, given that the irrelevant variables are
-not too correlated with the relevant ones. In the presence of correlated
-features, Lasso itself cannot select the correct sparsity pattern [1]_.
+من المعروف أن تقديرات Lasso تقترب من تقديرات اختيار النموذج
+عندما تنمو أبعاد البيانات، بشرط ألا تكون المتغيرات غير ذات صلة
+غير مرتبطة بالمتغيرات ذات الصلة. في وجود ميزات مترابطة
+لا يمكن للاسو نفسه اختيار نمط التبعثر [1]_.
 
-Here we compare the performance of the three models in terms of the :math:`R^2`
-score, the fitting time and the sparsity of the estimated coefficients when
-compared with the ground-truth.
+نقارن هنا أداء النماذج الثلاثة من حيث درجة :math:`R^2`
+النتيجة، وقت التجهيز وتباعد المعاملات المقدرة عند
+مقارنة مع الحقيقة.
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف SPDX-License: BSD-3-Clause
 
 # %%
-# Generate synthetic dataset
+# توليد مجموعة بيانات اصطناعية
 # --------------------------
 #
-# We generate a dataset where the number of samples is lower than the total
-# number of features. This leads to an underdetermined system, i.e. the solution
-# is not unique, and thus we cannot apply an :ref:`ordinary_least_squares` by
-# itself. Regularization introduces a penalty term to the objective function,
-# which modifies the optimization problem and can help alleviate the
-# underdetermined nature of the system.
+# نولد مجموعة بيانات حيث يكون عدد العينات أقل من العدد الإجمالي
+# عدد الميزات. يؤدي هذا إلى نظام غير محدد، أي أن الحل
+# غير فريد، وبالتالي لا يمكننا تطبيق :ref:`ordinary_least_squares` بنفسه. يقدم الانتظام مصطلح عقوبة
+# لدالة الهدف،
+# الذي يعدل مشكلة التحسين ويمكن أن يساعد في تخفيف
+# الطبيعة غير المحددة للنظام.
 #
-# The target `y` is a linear combination with alternating signs of sinusoidal
-# signals. Only the 10 lowest out of the 100 frequencies in `X` are used to
-# generate `y`, while the rest of the features are not informative. This results
-# in a high dimensional sparse feature space, where some degree of
-# l1-penalization is necessary.
+# الهدف `y` هو تركيبة ذات علامات متناوبة للإشارات الجيبية.
+# تستخدم فقط 10 أدنى من 100 تردد في `X`
+# لتوليد `y`، في حين أن بقية الميزات غير مفيدة. يؤدي هذا إلى
+# مساحة ميزة متناثرة عالية الأبعاد، حيث تكون بعض درجات
+# العقوبة L1 ضرورية.
 
 import numpy as np
 
@@ -58,15 +58,15 @@ true_coef[n_informative:] = 0  # sparsify coef
 y = np.dot(X, true_coef)
 
 # %%
-# Some of the informative features have close frequencies to induce
-# (anti-)correlations.
+# بعض الميزات المعلوماتية لها ترددات قريبة لإدخال
+# (مضاد) الارتباطات.
 
 freqs[:n_informative]
 
 # %%
-# A random phase is introduced using :func:`numpy.random.random_sample`
-# and some gaussian noise (implemented by :func:`numpy.random.normal`)
-# is added to both the features and the target.
+# يتم إدخال مرحلة عشوائية باستخدام :func:`numpy.random.random_sample`
+# ويتم إضافة بعض الضوضاء الغاوسية (المنفذة بواسطة :func:`numpy.random.normal`)
+# إلى كل من الميزات والهدف.
 
 for i in range(n_features):
     X[:, i] = np.sin(freqs[i] * time_step + 2 * (rng.random_sample() - 0.5))
@@ -75,46 +75,45 @@ for i in range(n_features):
 y += 0.2 * rng.normal(0, 1, n_samples)
 
 # %%
-# Such sparse, noisy and correlated features can be obtained, for instance, from
-# sensor nodes monitoring some environmental variables, as they typically register
-# similar values depending on their positions (spatial correlations).
-# We can visualize the target.
+# يمكن الحصول على مثل هذه الميزات المتناثرة والضوضاء والمرتبطة، على سبيل المثال، من
+# عقد المستشعرات التي تراقب بعض المتغيرات البيئية، حيث أنها تسجل عادة
+# قيم مماثلة اعتمادا على مواقفها (الارتباطات المكانية).
+# يمكننا تصور الهدف.
 
 import matplotlib.pyplot as plt
 
 plt.plot(time_step, y)
-plt.ylabel("target signal")
-plt.xlabel("time")
-_ = plt.title("Superposition of sinusoidal signals")
+plt.ylabel("إشارة الهدف")
+plt.xlabel("الوقت")
+_ = plt.title("تراكب الإشارات الجيبية")
 
 # %%
-# We split the data into train and test sets for simplicity. In practice one
-# should use a :class:`~sklearn.model_selection.TimeSeriesSplit`
-# cross-validation to estimate the variance of the test score. Here we set
-# `shuffle="False"` as we must not use training data that succeed the testing
-# data when dealing with data that have a temporal relationship.
+# نقسم البيانات إلى مجموعات تدريب واختبار للبساطة. في الممارسة العملية يجب
+# استخدام :class:`~sklearn.model_selection.TimeSeriesSplit`
+# التحقق من صحة التقاطع لتقدير تباين نتيجة الاختبار. هنا نحدد
+# `shuffle="False"` حيث يجب ألا نستخدم بيانات تدريب تنجح في اختبار
+# البيانات عند التعامل مع البيانات التي لها علاقة زمنية.
 
 from sklearn.model_selection import train_test_split
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, shuffle=False)
 
 # %%
-# In the following, we compute the performance of three l1-based models in terms
-# of the goodness of fit :math:`R^2` score and the fitting time. Then we make a
-# plot to compare the sparsity of the estimated coefficients with respect to the
-# ground-truth coefficients and finally we analyze the previous results.
+# في ما يلي، نحسب أداء ثلاثة نماذج L1 من حيث
+# جودة الملاءمة :math:`R^2` النتيجة ووقت التجهيز. ثم نقوم برسم تخطيطي لمقارنة
+# تبعثر المعاملات المقدرة فيما يتعلق
+# المعاملات الحقيقية وأخيرا نقوم بتحليل النتائج السابقة.
 #
 # Lasso
 # -----
 #
-# In this example, we demo a :class:`~sklearn.linear_model.Lasso` with a fixed
-# value of the regularization parameter `alpha`. In practice, the optimal
-# parameter `alpha` should be selected by passing a
-# :class:`~sklearn.model_selection.TimeSeriesSplit` cross-validation strategy to a
-# :class:`~sklearn.linear_model.LassoCV`. To keep the example simple and fast to
-# execute, we directly set the optimal value for alpha here.
+# في هذا المثال، نقوم بتجربة :class:`~sklearn.linear_model.Lasso` بقيمة ثابتة
+# قيمة معلمة الانتظام `alpha`. في الممارسة العملية، يجب اختيار المعلمة المثلى
+# `alpha` عن طريق تمرير
+# :class:`~sklearn.model_selection.TimeSeriesSplit` استراتيجية التحقق من الصحة المتقاطعة إلى
+# :class:`~sklearn.linear_model.LassoCV`. للحفاظ على المثال بسيط وسريع
+# للتنفيذ، نقوم بتعيين القيمة المثلى لـ alpha هنا مباشرة.
 from time import time
-
 from sklearn.linear_model import Lasso
 from sklearn.metrics import r2_score
 
@@ -127,15 +126,15 @@ r2_score_lasso = r2_score(y_test, y_pred_lasso)
 print(f"Lasso r^2 on test data : {r2_score_lasso:.3f}")
 
 # %%
-# Automatic Relevance Determination (ARD)
+# تحديد الأهمية التلقائي (ARD)
 # ---------------------------------------
 #
-# An ARD regression is the bayesian version of the Lasso. It can produce
-# interval estimates for all of the parameters, including the error variance, if
-# required. It is a suitable option when the signals have gaussian noise. See
-# the example :ref:`sphx_glr_auto_examples_linear_model_plot_ard.py` for a
-# comparison of :class:`~sklearn.linear_model.ARDRegression` and
-# :class:`~sklearn.linear_model.BayesianRidge` regressors.
+# إن تحديد الأهمية التلقائي هو النسخة البايزية من Lasso. يمكن أن ينتج
+# تقديرات الفاصل الزمني لجميع المعلمات، بما في ذلك تباين الخطأ، إذا
+# المطلوبة. إنه خيار مناسب عندما تحتوي الإشارات على ضوضاء غاوسية. انظر
+# المثال :ref:`sphx_glr_auto_examples_linear_model_plot_ard.py` لمقارنة
+# :class:`~sklearn.linear_model.ARDRegression` و
+# :class:`~sklearn.linear_model.BayesianRidge` المنحنيات.
 
 from sklearn.linear_model import ARDRegression
 
@@ -151,19 +150,19 @@ print(f"ARD r^2 on test data : {r2_score_ard:.3f}")
 # ElasticNet
 # ----------
 #
-# :class:`~sklearn.linear_model.ElasticNet` is a middle ground between
-# :class:`~sklearn.linear_model.Lasso` and :class:`~sklearn.linear_model.Ridge`,
-# as it combines a L1 and a L2-penalty. The amount of regularization is
-# controlled by the two hyperparameters `l1_ratio` and `alpha`. For `l1_ratio =
-# 0` the penalty is pure L2 and the model is equivalent to a
-# :class:`~sklearn.linear_model.Ridge`. Similarly, `l1_ratio = 1` is a pure L1
-# penalty and the model is equivalent to a :class:`~sklearn.linear_model.Lasso`.
-# For `0 < l1_ratio < 1`, the penalty is a combination of L1 and L2.
+# :class:`~sklearn.linear_model.ElasticNet` هو أرضية وسط بين
+# :class:`~sklearn.linear_model.Lasso` و :class:`~sklearn.linear_model.Ridge`،
+# حيث يجمع بين عقوبة L1 و L2. يتم التحكم في كمية الانتظام
+# يتم التحكم في المعاملين `l1_ratio` و `alpha`. لـ `l1_ratio =
+# 0` العقوبة هي L2 نقية والنموذج مكافئ
+# :class:`~sklearn.linear_model.Ridge`. وبالمثل، `l1_ratio = 1` هو عقوبة L1 نقية
+# والنموذج مكافئ لـ :class:`~sklearn.linear_model.Lasso`.
+# لـ `0 < l1_ratio < 1`، العقوبة هي مزيج من L1 و L2.
 #
-# As done before, we train the model with fix values for `alpha` and `l1_ratio`.
-# To select their optimal value we used an
-# :class:`~sklearn.linear_model.ElasticNetCV`, not shown here to keep the
-# example simple.
+# كما فعلنا من قبل، نقوم بتدريب النموذج مع قيم ثابتة لـ `alpha` و `l1_ratio`.
+# لاختيار قيمتهم المثلى، استخدمنا
+# :class:`~sklearn.linear_model.ElasticNetCV`، غير معروض هنا للحفاظ على
+# المثال بسيط.
 
 from sklearn.linear_model import ElasticNet
 
@@ -176,11 +175,11 @@ r2_score_enet = r2_score(y_test, y_pred_enet)
 print(f"ElasticNet r^2 on test data : {r2_score_enet:.3f}")
 
 # %%
-# Plot and analysis of the results
+# رسم وتحليل النتائج
 # --------------------------------
 #
-# In this section, we use a heatmap to visualize the sparsity of the true
-# and estimated coefficients of the respective linear models.
+# في هذا القسم، نستخدم خريطة حرارية لتصور تبعثر المعاملات الحقيقية
+# والمعاملات المقدرة للنماذج الخطية المقابلة.
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -203,8 +202,8 @@ ax = sns.heatmap(
     cbar_kws={"label": "coefficients' values"},
     cmap="seismic_r",
 )
-plt.ylabel("linear model")
-plt.xlabel("coefficients")
+plt.ylabel("النموذج الخطي")
+plt.xlabel("المعاملات")
 plt.title(
     f"Models' coefficients\nLasso $R^2$: {r2_score_lasso:.3f}, "
     f"ARD $R^2$: {r2_score_ard:.3f}, "
@@ -213,35 +212,33 @@ plt.title(
 plt.tight_layout()
 
 # %%
-# In the present example :class:`~sklearn.linear_model.ElasticNet` yields the
-# best score and captures the most of the predictive features, yet still fails
-# at finding all the true components. Notice that both
-# :class:`~sklearn.linear_model.ElasticNet` and
-# :class:`~sklearn.linear_model.ARDRegression` result in a less sparse model
-# than a :class:`~sklearn.linear_model.Lasso`.
+# في المثال الحالي :class:`~sklearn.linear_model.ElasticNet` يعطي
+# أفضل نتيجة ويستخلص معظم الميزات التنبؤية، ولكنه يفشل
+# في العثور على جميع المكونات الحقيقية. لاحظ أن كلا من
+# :class:`~sklearn.linear_model.ElasticNet` و
+# :class:`~sklearn.linear_model.ARDRegression` ينتج عنه نموذج أقل تبعثرا
+# من :class:`~sklearn.linear_model.Lasso`.
 #
-# Conclusions
+# الاستنتاجات
 # -----------
 #
-# :class:`~sklearn.linear_model.Lasso` is known to recover sparse data
-# effectively but does not perform well with highly correlated features. Indeed,
-# if several correlated features contribute to the target,
-# :class:`~sklearn.linear_model.Lasso` would end up selecting a single one of
-# them. In the case of sparse yet non-correlated features, a
-# :class:`~sklearn.linear_model.Lasso` model would be more suitable.
+# :class:`~sklearn.linear_model.Lasso` معروف باستعادة البيانات المتناثرة
+# بشكل فعال ولكنه لا يؤدي أداء جيدا مع الميزات المترابطة بشدة. في الواقع،
+# إذا ساهمت العديد من الميزات المترابطة في الهدف،
+# :class:`~sklearn.linear_model.Lasso` سينتهي الأمر باختيار واحد منها. في حالة الميزات المتناثرة ولكن غير المترابطة،
+# سيكون نموذج :class:`~sklearn.linear_model.Lasso` أكثر ملاءمة.
 #
-# :class:`~sklearn.linear_model.ElasticNet` introduces some sparsity on the
-# coefficients and shrinks their values to zero. Thus, in the presence of
-# correlated features that contribute to the target, the model is still able to
-# reduce their weights without setting them exactly to zero. This results in a
-# less sparse model than a pure :class:`~sklearn.linear_model.Lasso` and may
-# capture non-predictive features as well.
+# :class:`~sklearn.linear_model.ElasticNet` يقدم بعض التبعثر على
+# المعاملات ويقلل قيمها إلى الصفر. وبالتالي، في وجود
+# الميزات المترابطة التي تساهم في الهدف، لا يزال النموذج قادرا على
+# تقليل أوزانها دون تعيينها بالضبط إلى الصفر. يؤدي هذا إلى
+# نموذج أقل تبعثرا من :class:`~sklearn.linear_model.Lasso` نقي وقد
+# يلتقط الميزات غير التنبؤية كذلك.
 #
-# :class:`~sklearn.linear_model.ARDRegression` is better when handling gaussian
-# noise, but is still unable to handle correlated features and requires a larger
-# amount of time due to fitting a prior.
+# :class:`~sklearn.linear_model.ARDRegression` أفضل في التعامل مع الضوضاء الغاوسية، ولكنه لا يزال غير قادر على التعامل مع الميزات المترابطة ويتطلب قدرا أكبر
+# من الوقت بسبب ملاءمة السابقة.
 #
-# References
+# المراجع
 # ----------
 #
 # .. [1] :doi:`"Lasso-type recovery of sparse representations for

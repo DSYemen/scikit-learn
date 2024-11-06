@@ -19,26 +19,26 @@
 
 
 ==============================
-Ordinary Least Squares Example
+مثال على المربعات الصغرى العادية
 ==============================
 
-This example shows how to use the ordinary least squares (OLS) model
-called :class:`~sklearn.linear_model.LinearRegression` in scikit-learn.
+يوضح هذا المثال كيفية استخدام نموذج المربعات الصغرى العادية (OLS)
+المسمى :class:`~sklearn.linear_model.LinearRegression` في مكتبة ساي كيت ليرن (scikit-learn).
 
-For this purpose, we use a single feature from the diabetes dataset and try to
-predict the diabetes progression using this linear model. We therefore load the
-diabetes dataset and split it into training and test sets.
+لهذا الغرض، نستخدم خاصية واحدة من مجموعة بيانات مرض السكري ونحاول
+التنبؤ بتطور مرض السكري باستخدام هذا النموذج الخطي. لذلك، نقوم بتحميل
+مجموعة بيانات مرض السكري وتقسيمها إلى مجموعات تدريب واختبار.
 
-Then, we fit the model on the training set and evaluate its performance on the test
-set and finally visualize the results on the test set.
+بعد ذلك، نقوم بضبط النموذج على مجموعة التدريب وتقييم أدائه على مجموعة الاختبار
+وأخيراً تصور النتائج على مجموعة الاختبار.
 
 .. GENERATED FROM PYTHON SOURCE LINES 16-20
 
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري ساي كيت ليرن (scikit-learn)
+    # معرف الترخيص: BSD-3-Clause
 
 
 
@@ -49,11 +49,11 @@ set and finally visualize the results on the test set.
 
 .. GENERATED FROM PYTHON SOURCE LINES 21-26
 
-Data Loading and Preparation
+تحميل البيانات والإعداد
 ----------------------------
 
-Load the diabetes dataset. For simplicity, we only keep a single feature in the data.
-Then, we split the data and target into training and test sets.
+تحميل مجموعة بيانات مرض السكري. للتبسيط، سنحتفظ بخاصية واحدة فقط في البيانات.
+ثم نقوم بتقسيم البيانات والهدف إلى مجموعات تدريب واختبار.
 
 .. GENERATED FROM PYTHON SOURCE LINES 26-33
 
@@ -63,7 +63,7 @@ Then, we split the data and target into training and test sets.
     from sklearn.model_selection import train_test_split
 
     X, y = load_diabetes(return_X_y=True)
-    X = X[:, [2]]  # Use only one feature
+    X = X[:, [2]]  # استخدام خاصية واحدة فقط
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=20, shuffle=False)
 
 
@@ -75,12 +75,12 @@ Then, we split the data and target into training and test sets.
 
 .. GENERATED FROM PYTHON SOURCE LINES 34-40
 
-Linear regression model
+نموذج الانحدار الخطي
 -----------------------
 
-We create a linear regression model and fit it on the training data. Note that by
-default, an intercept is added to the model. We can control this behavior by setting
-the `fit_intercept` parameter.
+نقوم بإنشاء نموذج انحدار خطي وضبطه على بيانات التدريب. لاحظ أنه بشكل افتراضي،
+يتم إضافة تقاطع إلى النموذج. يمكننا التحكم في هذا السلوك من خلال ضبط
+معامل `fit_intercept`.
 
 .. GENERATED FROM PYTHON SOURCE LINES 40-44
 
@@ -88,7 +88,7 @@ the `fit_intercept` parameter.
 
     from sklearn.linear_model import LinearRegression
 
-    regressor = LinearRegression().fit(X_train, y_train)
+    pred = LinearRegression().fit(X_train, y_train)
 
 
 
@@ -99,11 +99,11 @@ the `fit_intercept` parameter.
 
 .. GENERATED FROM PYTHON SOURCE LINES 45-50
 
-Model evaluation
+تقييم النموذج
 ----------------
 
-We evaluate the model's performance on the test set using the mean squared error
-and the coefficient of determination.
+نقوم بتقييم أداء النموذج على مجموعة الاختبار باستخدام متوسط الخطأ التربيعي
+ومعامل التحديد.
 
 .. GENERATED FROM PYTHON SOURCE LINES 50-57
 
@@ -111,10 +111,10 @@ and the coefficient of determination.
 
     from sklearn.metrics import mean_squared_error, r2_score
 
-    y_pred = regressor.predict(X_test)
+    y_pred = pred.predict(X_test)
 
-    print(f"Mean squared error: {mean_squared_error(y_test, y_pred):.2f}")
-    print(f"Coefficient of determination: {r2_score(y_test, y_pred):.2f}")
+    print(f"متوسط الخطأ التربيعي: {mean_squared_error(y_test, y_pred):.2f}")
+    print(f"معامل التحديد: {r2_score(y_test, y_pred):.2f}")
 
 
 
@@ -124,18 +124,18 @@ and the coefficient of determination.
 
  .. code-block:: none
 
-    Mean squared error: 2548.07
-    Coefficient of determination: 0.47
+    متوسط الخطأ التربيعي: 2548.07
+    معامل التحديد: 0.47
 
 
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 58-62
 
-Plotting the results
+رسم النتائج
 --------------------
 
-Finally, we visualize the results on the train and test data.
+أخيراً، نقوم بتصور النتائج على بيانات التدريب والاختبار.
 
 .. GENERATED FROM PYTHON SOURCE LINES 62-86
 
@@ -145,23 +145,23 @@ Finally, we visualize the results on the train and test data.
 
     fig, ax = plt.subplots(ncols=2, figsize=(10, 5), sharex=True, sharey=True)
 
-    ax[0].scatter(X_train, y_train, label="Train data points")
+    ax[0].scatter(X_train, y_train, label="نقاط بيانات التدريب")
     ax[0].plot(
         X_train,
-        regressor.predict(X_train),
+        pred.predict(X_train),
         linewidth=3,
         color="tab:orange",
-        label="Model predictions",
+        label="تنبؤات النموذج",
     )
-    ax[0].set(xlabel="Feature", ylabel="Target", title="Train set")
+    ax[0].set(xlabel="الخاصية", ylabel="الهدف", title="مجموعة التدريب")
     ax[0].legend()
 
-    ax[1].scatter(X_test, y_test, label="Test data points")
-    ax[1].plot(X_test, y_pred, linewidth=3, color="tab:orange", label="Model predictions")
-    ax[1].set(xlabel="Feature", ylabel="Target", title="Test set")
+    ax[1].scatter(X_test, y_test, label="نقاط بيانات الاختبار")
+    ax[1].plot(X_test, y_pred, linewidth=3, color="tab:orange", label="تنبؤات النموذج")
+    ax[1].set(xlabel="الخاصية", ylabel="الهدف", title="مجموعة الاختبار")
     ax[1].legend()
 
-    fig.suptitle("Linear Regression")
+    fig.suptitle("الانحدار الخطي")
 
     plt.show()
 
@@ -169,7 +169,7 @@ Finally, we visualize the results on the train and test data.
 
 
 .. image-sg:: /auto_examples/linear_model/images/sphx_glr_plot_ols_001.png
-   :alt: Linear Regression, Train set, Test set
+   :alt: الانحدار الخطي, مجموعة التدريب, مجموعة الاختبار
    :srcset: /auto_examples/linear_model/images/sphx_glr_plot_ols_001.png
    :class: sphx-glr-single-img
 
@@ -177,24 +177,24 @@ Finally, we visualize the results on the train and test data.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 87-98
+.. GENERATED FROM PYTHON SOURCE LINES 87-97
 
-Conclusion
+الخلاصة
 ----------
 
-The trained model corresponds to the estimator that minimizes the mean squared error
-between the predicted and the true target values on the training data. We therefore
-obtain an estimator of the conditional mean of the target given the data.
+النموذج المدرب يتوافق مع المقدر الذي يقلل من متوسط الخطأ التربيعي
+بين القيم المتنبأ بها والقيم الحقيقية للهدف في بيانات التدريب. لذلك،
+نحصل على مقدر للمتوسط الشرطي للهدف معطى البيانات.
 
-Note that in higher dimensions, minimizing only the squared error might lead to
-overfitting. Therefore, regularization techniques are commonly used to prevent this
-issue, such as those implemented in :class:`~sklearn.linear_model.Ridge` or
+لاحظ أنه في الأبعاد الأعلى، قد يؤدي تقليل الخطأ التربيعي فقط إلى
+الإفراط في الملاءمة. لذلك، يتم استخدام تقنيات التنظيم بشكل شائع لمنع هذه
+المشكلة، مثل تلك المنفذة في :class:`~sklearn.linear_model.Ridge` أو
 :class:`~sklearn.linear_model.Lasso`.
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.168 seconds)
+   **Total running time of the script:** (0 minutes 0.208 seconds)
 
 
 .. _sphx_glr_download_auto_examples_linear_model_plot_ols.py:

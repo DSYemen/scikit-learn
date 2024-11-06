@@ -1,22 +1,22 @@
 """
 =================================================================
-Permutation Importance with Multicollinear or Correlated Features
+أهمية التبديل مع الميزات متعددة الخطية أو المرتبطة
 =================================================================
 
-In this example, we compute the
-:func:`~sklearn.inspection.permutation_importance` of the features to a trained
-:class:`~sklearn.ensemble.RandomForestClassifier` using the
-:ref:`breast_cancer_dataset`. The model can easily get about 97% accuracy on a
-test dataset. Because this dataset contains multicollinear features, the
-permutation importance shows that none of the features are important, in
-contradiction with the high test accuracy.
+في هذا المثال، نحسب
+:func:`~sklearn.inspection.permutation_importance` للميزات لـ
+:class:`~sklearn.ensemble.RandomForestClassifier` مدربة باستخدام
+:ref:`breast_cancer_dataset`. يمكن للنموذج بسهولة الحصول على دقة تبلغ حوالي 97% على
+مجموعة بيانات الاختبار. نظرًا لأن مجموعة البيانات هذه تحتوي على ميزات متعددة
+الخطية، فإن أهمية التبديل تُظهر أنه لا توجد أي من الميزات مهمة، في
+تناقض مع دقة الاختبار العالية.
 
-We demo a possible approach to handling multicollinearity, which consists of
-hierarchical clustering on the features' Spearman rank-order correlations,
-picking a threshold, and keeping a single feature from each cluster.
+نعرض نهجًا ممكنًا للتعامل مع التعدد الخطي، والذي يتكون من
+التجميع الهرمي على ارتباطات Spearman ذات الترتيب الرتبي للميزات،
+واختيار عتبة، والاحتفاظ بميزة واحدة من كل مجموعة.
 
 .. note::
-    See also
+    انظر أيضًا
     :ref:`sphx_glr_auto_examples_inspection_plot_permutation_importance.py`
 
 """
@@ -25,10 +25,10 @@ picking a threshold, and keeping a single feature from each cluster.
 # SPDX-License-Identifier: BSD-3-Clause
 
 # %%
-# Random Forest Feature Importance on Breast Cancer Data
+# أهمية ميزة الغابة العشوائية على بيانات سرطان الثدي
 # ------------------------------------------------------
 #
-# First, we define a function to ease the plotting:
+# أولاً، نحدد دالة لتسهيل الرسم:
 import matplotlib
 
 from sklearn.inspection import permutation_importance
@@ -39,10 +39,11 @@ def plot_permutation_importance(clf, X, y, ax):
     result = permutation_importance(clf, X, y, n_repeats=10, random_state=42, n_jobs=2)
     perm_sorted_idx = result.importances_mean.argsort()
 
-    # `labels` argument in boxplot is deprecated in matplotlib 3.9 and has been
-    # renamed to `tick_labels`. The following code handles this, but as a
-    # scikit-learn user you probably can write simpler code by using `labels=...`
-    # (matplotlib < 3.9) or `tick_labels=...` (matplotlib >= 3.9).
+    # وسيطة `labels` في boxplot تم إهمالها في matplotlib 3.9 وتمت
+    # إعادة تسميتها إلى `tick_labels`. يتعامل الكود التالي مع هذا، ولكن بصفتك
+    # مستخدمًا لـ scikit-learn، فمن المحتمل أن تتمكن من كتابة كود أبسط باستخدام `labels = ...`
+    # (matplotlib <3.9) أو `tick_labels = ...` (matplotlib> = 3.9).
+
     tick_labels_parameter_name = (
         "tick_labels"
         if parse_version(matplotlib.__version__) >= parse_version("3.9")
@@ -55,8 +56,8 @@ def plot_permutation_importance(clf, X, y, ax):
 
 
 # %%
-# We then train a :class:`~sklearn.ensemble.RandomForestClassifier` on the
-# :ref:`breast_cancer_dataset` and evaluate its accuracy on a test set:
+# ثم نقوم بتدريب :class:`~sklearn.ensemble.RandomForestClassifier` على
+# :ref:`breast_cancer_dataset` وتقييم دقتها على مجموعة اختبار:
 from sklearn.datasets import load_breast_cancer
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
@@ -66,12 +67,12 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
 
 clf = RandomForestClassifier(n_estimators=100, random_state=42)
 clf.fit(X_train, y_train)
-print(f"Baseline accuracy on test data: {clf.score(X_test, y_test):.2}")
+print(f"دقة خط الأساس على بيانات الاختبار: {clf.score(X_test, y_test):.2}")
 
 # %%
-# Next, we plot the tree based feature importance and the permutation
-# importance. The permutation importance is calculated on the training set to
-# show how much the model relies on each feature during training.
+# بعد ذلك، نرسم أهمية الميزة القائمة على الشجرة وأهمية
+# التبديل. يتم حساب أهمية التبديل على مجموعة التدريب
+# لإظهار مدى اعتماد النموذج على كل ميزة أثناء التدريب.
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -81,53 +82,53 @@ tree_importance_sorted_idx = np.argsort(clf.feature_importances_)
 
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 8))
 mdi_importances.sort_values().plot.barh(ax=ax1)
-ax1.set_xlabel("Gini importance")
+ax1.set_xlabel("أهمية جيني")
 plot_permutation_importance(clf, X_train, y_train, ax2)
-ax2.set_xlabel("Decrease in accuracy score")
+ax2.set_xlabel("انخفاض في درجة الدقة")
 fig.suptitle(
-    "Impurity-based vs. permutation importances on multicollinear features (train set)"
+    "أهميات قائمة على النقاء مقابل أهميات التبديل على الميزات متعددة الخطية (مجموعة التدريب)"
 )
 _ = fig.tight_layout()
 
 # %%
-# The plot on the left shows the Gini importance of the model. As the
-# scikit-learn implementation of
-# :class:`~sklearn.ensemble.RandomForestClassifier` uses a random subsets of
-# :math:`\sqrt{n_\text{features}}` features at each split, it is able to dilute
-# the dominance of any single correlated feature. As a result, the individual
-# feature importance may be distributed more evenly among the correlated
-# features. Since the features have large cardinality and the classifier is
-# non-overfitted, we can relatively trust those values.
+# يُظهر الرسم البياني على اليسار أهمية جيني للنموذج. باعتبار تطبيق scikit-learn لـ
+# :class:`~sklearn.ensemble.RandomForestClassifier` يستخدم مجموعات فرعية عشوائية من
+# :math:`\sqrt{n_\text{features}}` ميزات عند كل تقسيم، فإنه قادر على تخفيف
+# هيمنة أي ميزة مرتبطة واحدة. نتيجة لذلك، قد يتم توزيع أهمية الميزة
+# الفردية بشكل متساوٍ بين الميزات المرتبطة. نظرًا لأن الميزات لها عدد كبير
+# والنموذج غير مُفرط التخصيص، يمكننا الوثوق بهذه القيم نسبيًا.
 #
-# The permutation importance on the right plot shows that permuting a feature
-# drops the accuracy by at most `0.012`, which would suggest that none of the
-# features are important. This is in contradiction with the high test accuracy
-# computed as baseline: some feature must be important.
+# تُظهر أهمية التبديل على الرسم البياني الأيمن أن تبديل ميزة
+# يؤدي إلى انخفاض الدقة بمقدار `0.012` على الأكثر، مما يشير إلى أنه لا توجد أي من
+# الميزات مهمة. هذا يتعارض مع دقة الاختبار العالية
+# المحسوبة كخط أساس: يجب أن تكون بعض الميزات مهمة.
 #
-# Similarly, the change in accuracy score computed on the test set appears to be
-# driven by chance:
+# وبالمثل، يبدو أن التغيير في درجة الدقة المحسوبة على مجموعة الاختبار
+# مدفوع بالصدفة:
 
 fig, ax = plt.subplots(figsize=(7, 6))
 plot_permutation_importance(clf, X_test, y_test, ax)
-ax.set_title("Permutation Importances on multicollinear features\n(test set)")
-ax.set_xlabel("Decrease in accuracy score")
+ax.set_title("أهميات التبديل على الميزات متعددة الخطية\n(مجموعة الاختبار)")
+ax.set_xlabel("انخفاض في درجة الدقة")
 _ = ax.figure.tight_layout()
 
 # %%
-# Nevertheless, one can still compute a meaningful permutation importance in the
-# presence of correlated features, as demonstrated in the following section.
+# ومع ذلك، لا يزال بإمكان المرء حساب أهمية تبديل ذات مغزى في وجود
+# ميزات مرتبطة، كما هو موضح في القسم التالي.
 #
-# Handling Multicollinear Features
+# معالجة الميزات متعددة الخطية
 # --------------------------------
-# When features are collinear, permuting one feature has little effect on the
-# models performance because it can get the same information from a correlated
-# feature. Note that this is not the case for all predictive models and depends
-# on their underlying implementation.
+# عندما تكون الميزات متعددة الخطية، فإن تبديل ميزة واحدة له تأثير ضئيل على
+# أداء النماذج لأنه يمكنه الحصول على نفس المعلومات من ميزة
+# مرتبطة. لاحظ أن هذا ليس هو الحال بالنسبة لجميع النماذج التنبؤية ويعتمد
+# على تطبيقها الأساسي.
 #
-# One way to handle multicollinear features is by performing hierarchical
-# clustering on the Spearman rank-order correlations, picking a threshold, and
-# keeping a single feature from each cluster. First, we plot a heatmap of the
-# correlated features:
+# تتمثل إحدى طرق معالجة الميزات متعددة الخطية في إجراء تجميع
+# هرمي على ارتباطات Spearman ذات الترتيب الرتبي، واختيار عتبة،
+# والاحتفاظ بميزة واحدة من كل مجموعة. أولاً، نرسم خريطة حرارية للميزات
+# المرتبطة:
+
+
 from scipy.cluster import hierarchy
 from scipy.spatial.distance import squareform
 from scipy.stats import spearmanr
@@ -135,12 +136,12 @@ from scipy.stats import spearmanr
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 8))
 corr = spearmanr(X).correlation
 
-# Ensure the correlation matrix is symmetric
+# تأكد من أن مصفوفة الارتباط متماثلة
 corr = (corr + corr.T) / 2
 np.fill_diagonal(corr, 1)
 
-# We convert the correlation matrix to a distance matrix before performing
-# hierarchical clustering using Ward's linkage.
+# نقوم بتحويل مصفوفة الارتباط إلى مصفوفة مسافة قبل إجراء
+# التجميع الهرمي باستخدام ارتباط Ward.
 distance_matrix = 1 - np.abs(corr)
 dist_linkage = hierarchy.ward(squareform(distance_matrix))
 dendro = hierarchy.dendrogram(
@@ -156,11 +157,12 @@ ax2.set_yticklabels(dendro["ivl"])
 _ = fig.tight_layout()
 
 # %%
-# Next, we manually pick a threshold by visual inspection of the dendrogram to
-# group our features into clusters and choose a feature from each cluster to
-# keep, select those features from our dataset, and train a new random forest.
-# The test accuracy of the new random forest did not change much compared to the
-# random forest trained on the complete dataset.
+# بعد ذلك، نقوم يدويًا باختيار عتبة عن طريق الفحص البصري للشجرة التجميعية
+# لتجميع ميزاتنا في مجموعات واختيار ميزة من كل مجموعة
+# للاحتفاظ بها، وتحديد هذه الميزات من مجموعة البيانات الخاصة بنا، وتدريب غابة عشوائية جديدة.
+# لم تتغير دقة الاختبار للغابة العشوائية الجديدة كثيرًا مقارنة بالغابة
+# العشوائية المدربة على مجموعة البيانات الكاملة.
+
 from collections import defaultdict
 
 cluster_ids = hierarchy.fcluster(dist_linkage, 1, criterion="distance")
@@ -176,17 +178,19 @@ X_test_sel = X_test[selected_features_names]
 clf_sel = RandomForestClassifier(n_estimators=100, random_state=42)
 clf_sel.fit(X_train_sel, y_train)
 print(
-    "Baseline accuracy on test data with features removed:"
+    "دقة خط الأساس على بيانات الاختبار مع إزالة الميزات:"
     f" {clf_sel.score(X_test_sel, y_test):.2}"
 )
 
+
 # %%
-# We can finally explore the permutation importance of the selected subset of
-# features:
+# يمكننا أخيرًا استكشاف أهمية تبديل المجموعة الفرعية المحددة من
+# الميزات:
+
 
 fig, ax = plt.subplots(figsize=(7, 6))
 plot_permutation_importance(clf_sel, X_test_sel, y_test, ax)
-ax.set_title("Permutation Importances on selected subset of features\n(test set)")
-ax.set_xlabel("Decrease in accuracy score")
+ax.set_title("أهميات التبديل على مجموعة فرعية مختارة من الميزات\n(مجموعة الاختبار)")
+ax.set_xlabel("انخفاض في درجة الدقة")
 ax.figure.tight_layout()
 plt.show()

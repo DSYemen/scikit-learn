@@ -19,21 +19,20 @@
 
 
 =======================
-IsolationForest example
+مثال IsolationForest
 =======================
 
-An example using :class:`~sklearn.ensemble.IsolationForest` for anomaly
-detection.
+مثال يستخدم :class:`~sklearn.ensemble.IsolationForest` للكشف عن
+الشذوذ.
 
-The :ref:`isolation_forest` is an ensemble of "Isolation Trees" that "isolate"
-observations by recursive random partitioning, which can be represented by a
-tree structure. The number of splittings required to isolate a sample is lower
-for outliers and higher for inliers.
+:ref:`isolation_forest` هي مجموعة من "أشجار العزل" التي "تعزل"
+الملاحظات عن طريق التقسيم العشوائي التكراري، والذي يمكن تمثيله
+ببنية شجرة. يكون عدد التقسيمات المطلوبة لعزل عينة أقل
+بالنسبة للقيم المتطرفة وأعلى بالنسبة للقيم الداخلية.
 
-In the present example we demo two ways to visualize the decision boundary of an
-Isolation Forest trained on a toy dataset.
+في هذا المثال، نعرض طريقتين لتصور حدود القرار لـ Isolation Forest المدربة على مجموعة بيانات تجريبية.
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-22
+.. GENERATED FROM PYTHON SOURCE LINES 17-21
 
 .. code-block:: Python
 
@@ -48,22 +47,21 @@ Isolation Forest trained on a toy dataset.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 23-35
+.. GENERATED FROM PYTHON SOURCE LINES 22-33
 
-Data generation
+توليد البيانات
 ---------------
 
-We generate two clusters (each one containing `n_samples`) by randomly
-sampling the standard normal distribution as returned by
-:func:`numpy.random.randn`. One of them is spherical and the other one is
-slightly deformed.
+نقوم بإنشاء مجموعتين (كل منهما تحتوي على `n_samples`) عن طريق أخذ عينات عشوائية
+من التوزيع الطبيعي القياسي كما هو مسترجع بواسطة
+:func:`numpy.random.randn`. إحداهما كروية والأخرى
+مشوهة قليلاً.
 
-For consistency with the :class:`~sklearn.ensemble.IsolationForest` notation,
-the inliers (i.e. the gaussian clusters) are assigned a ground truth label `1`
-whereas the outliers (created with :func:`numpy.random.uniform`) are assigned
-the label `-1`.
+من أجل الاتساق مع تدوين :class:`~sklearn.ensemble.IsolationForest`،
+يتم تعيين تصنيف أرضي `1` للقيم الداخلية (أي المجموعات الغاوسية)
+بينما يتم تعيين التصنيف `-1` للقيم المتطرفة (التي تم إنشاؤها باستخدام :func:`numpy.random.uniform`).
 
-.. GENERATED FROM PYTHON SOURCE LINES 35-54
+.. GENERATED FROM PYTHON SOURCE LINES 33-52
 
 .. code-block:: Python
 
@@ -75,8 +73,8 @@ the label `-1`.
     n_samples, n_outliers = 120, 40
     rng = np.random.RandomState(0)
     covariance = np.array([[0.5, -0.1], [0.7, 0.4]])
-    cluster_1 = 0.4 * rng.randn(n_samples, 2) @ covariance + np.array([2, 2])  # general
-    cluster_2 = 0.3 * rng.randn(n_samples, 2) + np.array([-2, -2])  # spherical
+    cluster_1 = 0.4 * rng.randn(n_samples, 2) @ covariance + np.array([2, 2])  # عام
+    cluster_2 = 0.3 * rng.randn(n_samples, 2) + np.array([-2, -2])  # كروي
     outliers = rng.uniform(low=-4, high=4, size=(n_outliers, 2))
 
     X = np.concatenate([cluster_1, cluster_2, outliers])
@@ -93,11 +91,11 @@ the label `-1`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 55-56
+.. GENERATED FROM PYTHON SOURCE LINES 53-54
 
-We can visualize the resulting clusters:
+يمكننا تصور المجموعات الناتجة:
 
-.. GENERATED FROM PYTHON SOURCE LINES 56-66
+.. GENERATED FROM PYTHON SOURCE LINES 54-64
 
 .. code-block:: Python
 
@@ -107,15 +105,15 @@ We can visualize the resulting clusters:
     scatter = plt.scatter(X[:, 0], X[:, 1], c=y, s=20, edgecolor="k")
     handles, labels = scatter.legend_elements()
     plt.axis("square")
-    plt.legend(handles=handles, labels=["outliers", "inliers"], title="true class")
-    plt.title("Gaussian inliers with \nuniformly distributed outliers")
+    plt.legend(handles=handles, labels=["القيم المتطرفة", "القيم الداخلية"], title="التصنيف الحقيقي")
+    plt.title("القيم الداخلية الغاوسية مع \nالقيم المتطرفة الموزعة بشكل موحد")
     plt.show()
 
 
 
 
 .. image-sg:: /auto_examples/ensemble/images/sphx_glr_plot_isolation_forest_001.png
-   :alt: Gaussian inliers with  uniformly distributed outliers
+   :alt: القيم الداخلية الغاوسية مع  القيم المتطرفة الموزعة بشكل موحد
    :srcset: /auto_examples/ensemble/images/sphx_glr_plot_isolation_forest_001.png
    :class: sphx-glr-single-img
 
@@ -123,12 +121,12 @@ We can visualize the resulting clusters:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 67-69
+.. GENERATED FROM PYTHON SOURCE LINES 65-67
 
-Training of the model
+تدريب النموذج
 ---------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 69-75
+.. GENERATED FROM PYTHON SOURCE LINES 67-73
 
 .. code-block:: Python
 
@@ -146,7 +144,7 @@ Training of the model
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-23 {
+    <style>#sk-container-id-18 {
       /* Definition of color scheme common for light and dark mode */
       --sklearn-color-text: #000;
       --sklearn-color-text-muted: #666;
@@ -177,15 +175,15 @@ Training of the model
       }
     }
 
-    #sk-container-id-23 {
+    #sk-container-id-18 {
       color: var(--sklearn-color-text);
     }
 
-    #sk-container-id-23 pre {
+    #sk-container-id-18 pre {
       padding: 0;
     }
 
-    #sk-container-id-23 input.sk-hidden--visually {
+    #sk-container-id-18 input.sk-hidden--visually {
       border: 0;
       clip: rect(1px 1px 1px 1px);
       clip: rect(1px, 1px, 1px, 1px);
@@ -197,7 +195,7 @@ Training of the model
       width: 1px;
     }
 
-    #sk-container-id-23 div.sk-dashed-wrapped {
+    #sk-container-id-18 div.sk-dashed-wrapped {
       border: 1px dashed var(--sklearn-color-line);
       margin: 0 0.4em 0.5em 0.4em;
       box-sizing: border-box;
@@ -205,7 +203,7 @@ Training of the model
       background-color: var(--sklearn-color-background);
     }
 
-    #sk-container-id-23 div.sk-container {
+    #sk-container-id-18 div.sk-container {
       /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
          but bootstrap.min.css set `[hidden] { display: none !important; }`
          so we also need the `!important` here to be able to override the
@@ -215,7 +213,7 @@ Training of the model
       position: relative;
     }
 
-    #sk-container-id-23 div.sk-text-repr-fallback {
+    #sk-container-id-18 div.sk-text-repr-fallback {
       display: none;
     }
 
@@ -231,14 +229,14 @@ Training of the model
 
     /* Parallel-specific style estimator block */
 
-    #sk-container-id-23 div.sk-parallel-item::after {
+    #sk-container-id-18 div.sk-parallel-item::after {
       content: "";
       width: 100%;
       border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
       flex-grow: 1;
     }
 
-    #sk-container-id-23 div.sk-parallel {
+    #sk-container-id-18 div.sk-parallel {
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -246,28 +244,28 @@ Training of the model
       position: relative;
     }
 
-    #sk-container-id-23 div.sk-parallel-item {
+    #sk-container-id-18 div.sk-parallel-item {
       display: flex;
       flex-direction: column;
     }
 
-    #sk-container-id-23 div.sk-parallel-item:first-child::after {
+    #sk-container-id-18 div.sk-parallel-item:first-child::after {
       align-self: flex-end;
       width: 50%;
     }
 
-    #sk-container-id-23 div.sk-parallel-item:last-child::after {
+    #sk-container-id-18 div.sk-parallel-item:last-child::after {
       align-self: flex-start;
       width: 50%;
     }
 
-    #sk-container-id-23 div.sk-parallel-item:only-child::after {
+    #sk-container-id-18 div.sk-parallel-item:only-child::after {
       width: 0;
     }
 
     /* Serial-specific style estimator block */
 
-    #sk-container-id-23 div.sk-serial {
+    #sk-container-id-18 div.sk-serial {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -285,14 +283,14 @@ Training of the model
 
     /* Pipeline and ColumnTransformer style (default) */
 
-    #sk-container-id-23 div.sk-toggleable {
+    #sk-container-id-18 div.sk-toggleable {
       /* Default theme specific background. It is overwritten whether we have a
       specific estimator or a Pipeline/ColumnTransformer */
       background-color: var(--sklearn-color-background);
     }
 
     /* Toggleable label */
-    #sk-container-id-23 label.sk-toggleable__label {
+    #sk-container-id-18 label.sk-toggleable__label {
       cursor: pointer;
       display: flex;
       width: 100%;
@@ -305,13 +303,13 @@ Training of the model
       gap: 0.5em;
     }
 
-    #sk-container-id-23 label.sk-toggleable__label .caption {
+    #sk-container-id-18 label.sk-toggleable__label .caption {
       font-size: 0.6rem;
       font-weight: lighter;
       color: var(--sklearn-color-text-muted);
     }
 
-    #sk-container-id-23 label.sk-toggleable__label-arrow:before {
+    #sk-container-id-18 label.sk-toggleable__label-arrow:before {
       /* Arrow on the left of the label */
       content: "▸";
       float: left;
@@ -319,13 +317,13 @@ Training of the model
       color: var(--sklearn-color-icon);
     }
 
-    #sk-container-id-23 label.sk-toggleable__label-arrow:hover:before {
+    #sk-container-id-18 label.sk-toggleable__label-arrow:hover:before {
       color: var(--sklearn-color-text);
     }
 
     /* Toggleable content - dropdown */
 
-    #sk-container-id-23 div.sk-toggleable__content {
+    #sk-container-id-18 div.sk-toggleable__content {
       max-height: 0;
       max-width: 0;
       overflow: hidden;
@@ -334,12 +332,12 @@ Training of the model
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-23 div.sk-toggleable__content.fitted {
+    #sk-container-id-18 div.sk-toggleable__content.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-23 div.sk-toggleable__content pre {
+    #sk-container-id-18 div.sk-toggleable__content pre {
       margin: 0.2em;
       border-radius: 0.25em;
       color: var(--sklearn-color-text);
@@ -347,79 +345,79 @@ Training of the model
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-23 div.sk-toggleable__content.fitted pre {
+    #sk-container-id-18 div.sk-toggleable__content.fitted pre {
       /* unfitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-23 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    #sk-container-id-18 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
       max-height: 200px;
       max-width: 100%;
       overflow: auto;
     }
 
-    #sk-container-id-23 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    #sk-container-id-18 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
       content: "▾";
     }
 
     /* Pipeline/ColumnTransformer-specific style */
 
-    #sk-container-id-23 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-18 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-23 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-18 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator-specific style */
 
     /* Colorize estimator box */
-    #sk-container-id-23 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-18 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-23 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-18 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
-    #sk-container-id-23 div.sk-label label.sk-toggleable__label,
-    #sk-container-id-23 div.sk-label label {
+    #sk-container-id-18 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-18 div.sk-label label {
       /* The background is the default theme color */
       color: var(--sklearn-color-text-on-default-background);
     }
 
     /* On hover, darken the color of the background */
-    #sk-container-id-23 div.sk-label:hover label.sk-toggleable__label {
+    #sk-container-id-18 div.sk-label:hover label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
     /* Label box, darken color on hover, fitted */
-    #sk-container-id-23 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+    #sk-container-id-18 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator label */
 
-    #sk-container-id-23 div.sk-label label {
+    #sk-container-id-18 div.sk-label label {
       font-family: monospace;
       font-weight: bold;
       display: inline-block;
       line-height: 1.2em;
     }
 
-    #sk-container-id-23 div.sk-label-container {
+    #sk-container-id-18 div.sk-label-container {
       text-align: center;
     }
 
     /* Estimator-specific */
-    #sk-container-id-23 div.sk-estimator {
+    #sk-container-id-18 div.sk-estimator {
       font-family: monospace;
       border: 1px dotted var(--sklearn-color-border-box);
       border-radius: 0.25em;
@@ -429,18 +427,18 @@ Training of the model
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-23 div.sk-estimator.fitted {
+    #sk-container-id-18 div.sk-estimator.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
     /* on hover */
-    #sk-container-id-23 div.sk-estimator:hover {
+    #sk-container-id-18 div.sk-estimator:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-23 div.sk-estimator.fitted:hover {
+    #sk-container-id-18 div.sk-estimator.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
@@ -528,7 +526,7 @@ Training of the model
 
     /* "?"-specific style due to the `<a>` HTML tag */
 
-    #sk-container-id-23 a.estimator_doc_link {
+    #sk-container-id-18 a.estimator_doc_link {
       float: right;
       font-size: 1rem;
       line-height: 1em;
@@ -543,40 +541,40 @@ Training of the model
       border: var(--sklearn-color-unfitted-level-1) 1pt solid;
     }
 
-    #sk-container-id-23 a.estimator_doc_link.fitted {
+    #sk-container-id-18 a.estimator_doc_link.fitted {
       /* fitted */
       border: var(--sklearn-color-fitted-level-1) 1pt solid;
       color: var(--sklearn-color-fitted-level-1);
     }
 
     /* On hover */
-    #sk-container-id-23 a.estimator_doc_link:hover {
+    #sk-container-id-18 a.estimator_doc_link:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-3);
       color: var(--sklearn-color-background);
       text-decoration: none;
     }
 
-    #sk-container-id-23 a.estimator_doc_link.fitted:hover {
+    #sk-container-id-18 a.estimator_doc_link.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-23" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>IsolationForest(max_samples=100, random_state=0)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-99" type="checkbox" checked><label for="sk-estimator-id-99" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>IsolationForest</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.ensemble.IsolationForest.html">?<span>Documentation for IsolationForest</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>IsolationForest(max_samples=100, random_state=0)</pre></div> </div></div></div></div>
+    </style><div id="sk-container-id-18" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>IsolationForest(max_samples=100, random_state=0)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-115" type="checkbox" checked><label for="sk-estimator-id-115" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>IsolationForest</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.ensemble.IsolationForest.html">?<span>Documentation for IsolationForest</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>IsolationForest(max_samples=100, random_state=0)</pre></div> </div></div></div></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 76-83
+.. GENERATED FROM PYTHON SOURCE LINES 74-81
 
-Plot discrete decision boundary
+رسم حدود القرار المنفصلة
 -------------------------------
 
-We use the class :class:`~sklearn.inspection.DecisionBoundaryDisplay` to
-visualize a discrete decision boundary. The background color represents
-whether a sample in that given area is predicted to be an outlier
-or not. The scatter plot displays the true labels.
+نستخدم الفئة :class:`~sklearn.inspection.DecisionBoundaryDisplay`
+لتصور حدود القرار المنفصلة. يمثل لون الخلفية
+ما إذا كانت عينة في تلك المنطقة معينة متوقع أن تكون قيمة متطرفة
+أم لا. يعرض مخطط التشتت التصنيفات الحقيقية.
 
-.. GENERATED FROM PYTHON SOURCE LINES 83-100
+.. GENERATED FROM PYTHON SOURCE LINES 81-98
 
 .. code-block:: Python
 
@@ -592,16 +590,16 @@ or not. The scatter plot displays the true labels.
         alpha=0.5,
     )
     disp.ax_.scatter(X[:, 0], X[:, 1], c=y, s=20, edgecolor="k")
-    disp.ax_.set_title("Binary decision boundary \nof IsolationForest")
+    disp.ax_.set_title("حدود القرار الثنائية \nلـ IsolationForest")
     plt.axis("square")
-    plt.legend(handles=handles, labels=["outliers", "inliers"], title="true class")
+    plt.legend(handles=handles, labels=["القيم المتطرفة", "القيم الداخلية"], title="التصنيف الحقيقي")
     plt.show()
 
 
 
 
 .. image-sg:: /auto_examples/ensemble/images/sphx_glr_plot_isolation_forest_002.png
-   :alt: Binary decision boundary  of IsolationForest
+   :alt: حدود القرار الثنائية  لـ IsolationForest
    :srcset: /auto_examples/ensemble/images/sphx_glr_plot_isolation_forest_002.png
    :class: sphx-glr-single-img
 
@@ -609,23 +607,23 @@ or not. The scatter plot displays the true labels.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 101-114
+.. GENERATED FROM PYTHON SOURCE LINES 99-112
 
-Plot path length decision boundary
+رسم حدود قرار طول المسار
 ----------------------------------
 
-By setting the `response_method="decision_function"`, the background of the
-:class:`~sklearn.inspection.DecisionBoundaryDisplay` represents the measure of
-normality of an observation. Such score is given by the path length averaged
-over a forest of random trees, which itself is given by the depth of the leaf
-(or equivalently the number of splits) required to isolate a given sample.
+عن طريق تعيين `response_method="decision_function"`، تمثل خلفية
+:class:`~sklearn.inspection.DecisionBoundaryDisplay` مقياس
+طبيعية الملاحظة. يتم إعطاء هذه النتيجة بواسطة متوسط ​​طول المسار
+على غابة من الأشجار العشوائية، والذي يتم إعطاؤه بواسطة عمق الورقة
+(أو بشكل مكافئ عدد التقسيمات) المطلوبة لعزل عينة معينة.
 
-When a forest of random trees collectively produce short path lengths for
-isolating some particular samples, they are highly likely to be anomalies and
-the measure of normality is close to `0`. Similarly, large paths correspond to
-values close to `1` and are more likely to be inliers.
+عندما تنتج غابة من الأشجار العشوائية بشكل جماعي أطوال مسار قصيرة
+لعزل بعض العينات المعينة، فمن المحتمل جدًا أن تكون شذوذًا
+ويكون مقياس الطبيعية قريبًا من `0`. وبشكل مشابه، تتوافق المسارات الكبيرة
+مع القيم القريبة من `1` ومن المرجح أن تكون قيمًا داخلية.
 
-.. GENERATED FROM PYTHON SOURCE LINES 114-127
+.. GENERATED FROM PYTHON SOURCE LINES 112-127
 
 .. code-block:: Python
 
@@ -637,16 +635,18 @@ values close to `1` and are more likely to be inliers.
         alpha=0.5,
     )
     disp.ax_.scatter(X[:, 0], X[:, 1], c=y, s=20, edgecolor="k")
-    disp.ax_.set_title("Path length decision boundary \nof IsolationForest")
+    disp.ax_.set_title("حدود قرار طول المسار \nلـ IsolationForest")
     plt.axis("square")
-    plt.legend(handles=handles, labels=["outliers", "inliers"], title="true class")
+    plt.legend(handles=handles, labels=["القيم المتطرفة", "القيم الداخلية"], title="التصنيف الحقيقي")
     plt.colorbar(disp.ax_.collections[1])
     plt.show()
 
 
 
+
+
 .. image-sg:: /auto_examples/ensemble/images/sphx_glr_plot_isolation_forest_003.png
-   :alt: Path length decision boundary  of IsolationForest
+   :alt: حدود قرار طول المسار  لـ IsolationForest
    :srcset: /auto_examples/ensemble/images/sphx_glr_plot_isolation_forest_003.png
    :class: sphx-glr-single-img
 
@@ -657,7 +657,7 @@ values close to `1` and are more likely to be inliers.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.487 seconds)
+   **Total running time of the script:** (0 minutes 0.534 seconds)
 
 
 .. _sphx_glr_download_auto_examples_ensemble_plot_isolation_forest.py:

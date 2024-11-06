@@ -1,7 +1,7 @@
 .. _gaussian_process_examples:
 
-Gaussian Process for Machine Learning
--------------------------------------
+عملية غاوسية للتعلم الآلي
+----------------------------
 
-Examples concerning the :mod:`sklearn.gaussian_process` module.
+أمثلة تتعلق بوحدة :mod:`sklearn.gaussian_process`.
 

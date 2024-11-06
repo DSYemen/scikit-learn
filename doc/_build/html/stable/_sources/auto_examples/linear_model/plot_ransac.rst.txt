@@ -19,19 +19,19 @@
 
 
 ===========================================
-Robust linear model estimation using RANSAC
+تقدير النموذج الخطي القوي باستخدام RANSAC
 ===========================================
 
-In this example, we see how to robustly fit a linear model to faulty data using
-the :ref:`RANSAC <ransac_regression>` algorithm.
+في هذا المثال، نرى كيفية ملاءمة نموذج خطي بشكل قوي لبيانات معيبة باستخدام
+خوارزمية :ref:`RANSAC <ransac_regression>`.
 
-The ordinary linear regressor is sensitive to outliers, and the fitted line can
-easily be skewed away from the true underlying relationship of data.
+المُرَجِّع الخطي العادي حساس للقيم الشاذة، ويمكن للخط المناسب أن
+يتحيز بسهولة بعيدًا عن العلاقة الأساسية الحقيقية للبيانات.
 
-The RANSAC regressor automatically splits the data into inliers and outliers,
-and the fitted line is determined only by the identified inliers.
+يقوم مُرَجِّع RANSAC تلقائيًا بتقسيم البيانات إلى قيم داخلية وخارجية،
+ويتم تحديد الخط المناسب فقط من خلال القيم الداخلية المحددة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-82
+.. GENERATED FROM PYTHON SOURCE LINES 17-81
 
 
 
@@ -45,7 +45,7 @@ and the fitted line is determined only by the identified inliers.
 
  .. code-block:: none
 
-    Estimated coefficients (true, linear regression, RANSAC):
+    المعاملات المقدرة (الحقيقية، الانحدار الخطي، RANSAC):
     82.1903908407869 [54.17236387] [82.08533159]
 
 
@@ -58,8 +58,8 @@ and the fitted line is determined only by the identified inliers.
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري scikit-learn
+    # معرف الترخيص: BSD-3-Clause
 
     import numpy as np
     from matplotlib import pyplot as plt
@@ -79,28 +79,28 @@ and the fitted line is determined only by the identified inliers.
         random_state=0,
     )
 
-    # Add outlier data
+    # إضافة بيانات شاذة
     np.random.seed(0)
     X[:n_outliers] = 3 + 0.5 * np.random.normal(size=(n_outliers, 1))
     y[:n_outliers] = -3 + 10 * np.random.normal(size=n_outliers)
 
-    # Fit line using all data
+    # ملاءمة الخط باستخدام جميع البيانات
     lr = linear_model.LinearRegression()
     lr.fit(X, y)
 
-    # Robustly fit linear model with RANSAC algorithm
+    # ملاءمة النموذج الخطي بشكل قوي باستخدام خوارزمية RANSAC
     ransac = linear_model.RANSACRegressor()
     ransac.fit(X, y)
     inlier_mask = ransac.inlier_mask_
     outlier_mask = np.logical_not(inlier_mask)
 
-    # Predict data of estimated models
+    # توقع بيانات النماذج المقدرة
     line_X = np.arange(X.min(), X.max())[:, np.newaxis]
     line_y = lr.predict(line_X)
     line_y_ransac = ransac.predict(line_X)
 
-    # Compare estimated coefficients
-    print("Estimated coefficients (true, linear regression, RANSAC):")
+    # مقارنة المعاملات المقدرة
+    print("المعاملات المقدرة (الحقيقية، الانحدار الخطي، RANSAC):")
     print(coef, lr.coef_, ransac.estimator_.coef_)
 
     lw = 2
@@ -123,10 +123,9 @@ and the fitted line is determined only by the identified inliers.
     plt.ylabel("Response")
     plt.show()
 
-
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.101 seconds)
+   **Total running time of the script:** (0 minutes 0.106 seconds)
 
 
 .. _sphx_glr_download_auto_examples_linear_model_plot_ransac.py:

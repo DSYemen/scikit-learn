@@ -7,16 +7,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Lasso on dense and sparse data" />
+<meta property="og:title" content="Lasso على البيانات الكثيفة والمتفرقة" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/auto_examples/linear_model/plot_lasso_dense_vs_sparse_data.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="We show that linear_model.Lasso provides the same results for dense and sparse data and that in the case of sparse data the speed is improved. Comparing the two Lasso implementations on Dense data:..." />
+<meta property="og:description" content="نبين أن linear_model.Lasso يوفر نفس النتائج للبيانات الكثيفة والمتفرقة وأن السرعة تتحسن في حالة البيانات المتفرقة. مقارنة تنفيذي Lasso على البيانات الكثيفة: ننشئ مشكلة انحدار خطي مناسبة لـ Lasso، أ..." />
 <meta property="og:image" content="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" />
 <meta property="og:image:alt" content="scikit-learn" />
-<meta name="description" content="We show that linear_model.Lasso provides the same results for dense and sparse data and that in the case of sparse data the speed is improved. Comparing the two Lasso implementations on Dense data:..." />
+<meta name="description" content="نبين أن linear_model.Lasso يوفر نفس النتائج للبيانات الكثيفة والمتفرقة وأن السرعة تتحسن في حالة البيانات المتفرقة. مقارنة تنفيذي Lasso على البيانات الكثيفة: ننشئ مشكلة انحدار خطي مناسبة لـ Lasso، أ..." />
 
-    <title>Lasso on dense and sparse data &#8212; scikit-learn 1.6.dev0 documentation</title>
+    <title>Lasso على البيانات الكثيفة والمتفرقة &#8212; scikit-learn 1.6.dev0 documentation</title>
   
   
   
@@ -78,8 +78,8 @@
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="search" title="بحث" href="../../search.html" />
-    <link rel="next" title="Lasso, Lasso-LARS, and Elastic Net paths" href="plot_lasso_lasso_lars_elasticnet_path.html" />
-    <link rel="prev" title="Lasso model selection: AIC-BIC / cross-validation" href="plot_lasso_model_selection.html" />
+    <link rel="next" title="One-Class SVM مقابل One-Class SVM باستخدام Stochastic Gradient Descent" href="plot_sgdocsvm_vs_ocsvm.html" />
+    <link rel="prev" title="# مقارنة المنحنيات الخطية للانحدار البايزي" href="plot_ard.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="ar"/>
   <meta name="docsearch:version" content="1.6" />
@@ -568,15 +568,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../tree/plot_unveil_tree_structure.html">Understanding the decision tree structure</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../feature_selection/index.html">Feature Selection</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_f_test_vs_mi.html">Comparison of F-test and mutual information</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_select_from_model_diabetes.html">Model-based and sequential feature selection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_feature_selection_pipeline.html">Pipeline ANOVA SVM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_rfe_digits.html">Recursive feature elimination</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_rfe_with_cross_validation.html">Recursive feature elimination with cross-validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_feature_selection.html">Univariate Feature Selection</a></li>
-</ul>
-</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../mixture/index.html">Gaussian Mixture Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../mixture/plot_concentration_prior.html">Concentration Prior Type Analysis of Variation Bayesian Gaussian Mixture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_pdf.html">Density Estimation for a Gaussian mixture</a></li>
@@ -585,71 +576,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm.html">Gaussian Mixture Model Ellipsoids</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_selection.html">Gaussian Mixture Model Selection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_sin.html">Gaussian Mixture Model Sine Curve</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../gaussian_process/index.html">Gaussian Process for Machine Learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_noisy.html">Ability of Gaussian process regression (GPR) to estimate data noise-level</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_compare_gpr_krr.html">Comparison of kernel ridge and Gaussian process regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_co2.html">Forecasting of CO2 level on Mona Loa dataset using Gaussian process regression (GPR)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_noisy_targets.html">Gaussian Processes regression: basic introductory example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpc_iris.html">Gaussian process classification (GPC) on iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_on_structured_data.html">Gaussian processes on discrete data structures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpc_xor.html">Illustration of Gaussian process classification (GPC) on the XOR dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_prior_posterior.html">Illustration of prior and posterior Gaussian process for different kernels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpc_isoprobability.html">Iso-probability lines for Gaussian Processes classification (GPC)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpc.html">Probabilistic predictions with Gaussian process classification (GPC)</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Generalized Linear Models</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="plot_ard.html">Comparing Linear Bayesian Regressors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_sgd_comparison.html">Comparing various online solvers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_bayesian_ridge_curvefit.html">Curve Fitting with Bayesian Ridge Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_logistic_multinomial.html">Decision Boundaries of Multinomial and One-vs-Rest Logistic Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_sgd_early_stopping.html">Early stopping of Stochastic Gradient Descent</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_elastic_net_precomputed_gram_matrix_with_weighted_samples.html">Fitting an Elastic Net with a precomputed Gram Matrix and Weighted Samples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_huber_vs_ridge.html">HuberRegressor vs Ridge on dataset with strong outliers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_multi_task_lasso_support.html">Joint feature selection with multi-task Lasso</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_logistic_l1_l2_sparsity.html">L1 Penalty and Sparsity in Logistic Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_lasso_and_elasticnet.html">L1-based models for Sparse Signals</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_lasso_lars_ic.html">Lasso model selection via information criteria</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_lasso_model_selection.html">Lasso model selection: AIC-BIC / cross-validation</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Lasso on dense and sparse data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_lasso_lasso_lars_elasticnet_path.html">Lasso, Lasso-LARS, and Elastic Net paths</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_logistic.html">Logistic function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_sparse_logistic_regression_mnist.html">MNIST classification using multinomial logistic + L1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_sparse_logistic_regression_20newsgroups.html">Multiclass sparse logistic regression on 20newgroups</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_nnls.html">Non-negative least squares</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_sgdocsvm_vs_ocsvm.html">One-Class SVM versus One-Class SVM using Stochastic Gradient Descent</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_ols.html">Ordinary Least Squares Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_ols_ridge_variance.html">Ordinary Least Squares and Ridge Regression Variance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_omp.html">Orthogonal Matching Pursuit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_ridge_path.html">Plot Ridge coefficients as a function of the regularization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_sgd_iris.html">Plot multi-class SGD on the iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_poisson_regression_non_normal_loss.html">Poisson regression and non-normal loss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_polynomial_interpolation.html">Polynomial and Spline interpolation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_quantile_regression.html">Quantile regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_logistic_path.html">Regularization path of L1- Logistic Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_ridge_coeffs.html">Ridge coefficients as a function of the L2 Regularization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_robust_fit.html">Robust linear estimator fitting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_ransac.html">Robust linear model estimation using RANSAC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_sgd_separating_hyperplane.html">SGD: Maximum margin separating hyperplane</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_sgd_penalties.html">SGD: Penalties</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_sgd_weighted_samples.html">SGD: Weighted samples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_sgd_loss_functions.html">SGD: convex loss functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_theilsen.html">Theil-Sen Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_tweedie_regression_insurance_claims.html">Tweedie regression on insurance claims</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../inspection/index.html">Inspection</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_linear_model_coefficient_interpretation.html">Common pitfalls in the interpretation of coefficients of linear models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_causal_interpretation.html">Failure of Machine Learning to infer causal effects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_partial_dependence.html">Partial Dependence and Individual Conditional Expectation Plots</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance.html">Permutation Importance vs Random Forest Feature Importance (MDI)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance_multicollinear.html">Permutation Importance with Multicollinear or Correlated Features</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../kernel_approximation/index.html">Kernel Approximation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../kernel_approximation/plot_scalable_poly_kernels.html">Scalable learning with polynomial kernel approximation</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../manifold/index.html">Manifold learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -677,11 +603,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_roc_curve_visualization_api.html">ROC Curve with Visualization API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_johnson_lindenstrauss_bound.html">The Johnson-Lindenstrauss bound for embedding with random projections</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_display_object_visualization.html">Visualizations with Display Objects</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../impute/index.html">Missing Value Imputation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../impute/plot_missing_values.html">Imputing missing values before building an estimator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../impute/plot_iterative_imputer_variants_comparison.html">Imputing missing values with variants of IterativeImputer</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../model_selection/index.html">Model Selection</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -778,12 +699,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_regression.html">Support Vector Regression (SVR) using linear and non-linear kernels</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../exercises/index.html">Tutorial exercises</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_cv_diabetes.html">Cross-validation on diabetes Dataset Exercise</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_digits_classification_exercise.html">Digits Classification Exercise</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_iris_exercise.html">SVM Exercise</a></li>
-</ul>
-</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../text/index.html">Working with text documents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../text/plot_document_classification_20newsgroups.html">Classification of text documents using sparse features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../text/plot_document_clustering.html">Clustering text documents using k-means</a></li>
@@ -806,6 +721,15 @@
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../datasets/index.html">أمثلة مجموعات البيانات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../datasets/plot_random_multilabel_dataset.html">رسم مجموعة بيانات متعددة التصنيفات مُولدة عشوائياً</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../feature_selection/index.html">إختيار الميزة</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_select_from_model_diabetes.html">Model-based and sequential feature selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_feature_selection_pipeline.html">Pipeline ANOVA SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_rfe_with_cross_validation.html">إزالة الميزات المتكررة باستخدام التحقق المتبادل</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_rfe_digits.html">إزالة الميزة المتكررة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_feature_selection.html">اختيار الميزة أحادية المتغير</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_f_test_vs_mi.html">مقارنة بين اختبار F والمعلومات المتبادلة</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../cluster/index.html">التجميع</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -861,6 +785,58 @@
 
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../inspection/index.html">الفحص</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance_multicollinear.html">أهمية التبديل مع الميزات متعددة الخطية أو المرتبطة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance.html">أهمية التبديل مقابل أهمية ميزة الغابة العشوائية (MDI)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_linear_model_coefficient_interpretation.html">المزالق الشائعة في تفسير معاملات النماذج الخطية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_causal_interpretation.html">فشل التعلم الآلي في استنتاج الآثار السببية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../inspection/plot_partial_dependence.html">مخططات التبعية الجزئية والتوقع الشرطي الفردي</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">النماذج الخطية المعممة</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="plot_bayesian_ridge_curvefit.html">توليد بيانات توافقية مع الضوضاء</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="plot_ard.html"># مقارنة المنحنيات الخطية للانحدار البايزي</a></li>
+
+
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Lasso على البيانات الكثيفة والمتفرقة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_sgdocsvm_vs_ocsvm.html">One-Class SVM مقابل One-Class SVM باستخدام Stochastic Gradient Descent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_sgd_penalties.html">SGD: العقوبات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_sgd_weighted_samples.html">SGD: العينات المرجحة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_sgd_separating_hyperplane.html">SGD: المستوى الفاصل ذو الهامش الأقصى</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_sgd_loss_functions.html">SGD: دالات الخسارة المقعرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_sgd_early_stopping.html">إيقاف مبكر لنزول التدرج العشوائي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_lasso_lars_ic.html">اختيار نموذج لاصو عبر معايير المعلومات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_multi_task_lasso_support.html">الاختيار المشترك للميزات باستخدام Lasso متعدد المهام</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_ols_ridge_variance.html">الانحدار الخطي العادي وانحدار ريدج والتباين</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_sparse_logistic_regression_20newsgroups.html">الانحدار اللوجستي المتناثر متعدد الفئات على 20newgroups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_polynomial_interpolation.html">التكامل متعدد الحدود والتقسيم</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_logistic.html">الدالة اللوغستية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_poisson_regression_non_normal_loss.html">انحدار بواسون والخسارة غير الطبيعية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_tweedie_regression_insurance_claims.html">انحدار تويدي على مطالبات التأمين</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_theilsen.html">انحدار ثيل-سين</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_quantile_regression.html">انحدار كمي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_sparse_logistic_regression_mnist.html">تصنيف MNIST باستخدام اللوغاريتم متعدد الحدود + L1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_ransac.html">تقدير النموذج الخطي القوي باستخدام RANSAC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_robust_fit.html">تقدير خطي قوي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_elastic_net_precomputed_gram_matrix_with_weighted_samples.html">تناسب شبكة مرنة مع مصفوفة جرام مسبقة الحساب وعينات مرجحة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_logistic_multinomial.html">حدود القرار للانحدار متعدد الحدود والانحدار اللوجستي من النوع واحد مقابل البقية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_sgd_iris.html">رسم متعدد الفئات SGD على مجموعة بيانات الزهرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_ridge_path.html">رسم معاملات Ridge كدالة للتنظيم</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_logistic_l1_l2_sparsity.html">عقوبة L1 والندرة في الانحدار اللوجستي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_ols.html">مثال على المربعات الصغرى العادية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_nnls.html">مربعات أقل غير سالبة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_logistic_path.html">مسار التنظيم لـ L1 - الانحدار اللوجستي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_lasso_lasso_lars_elasticnet_path.html">مسارات لاصو ولاصو-لارس وشبكة مرنة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_omp.html">مطابقة متعامدة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_ridge_coeffs.html">معاملات Ridge كدالة لتنظيم L2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_huber_vs_ridge.html">مقارنة بين HuberRegressor و Ridge على مجموعة بيانات تحتوي على قيم شاذة قوية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_sgd_comparison.html">مقارنة بين المحللات المختلفة عبر الإنترنت</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_lasso_and_elasticnet.html">نماذج L1 للاشارات المتناثرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_lasso_model_selection.html">نموذج لاصو: اختيار النموذج باستخدام معايير AIC-BIC والتحقق المتقاطع</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../decomposition/index.html">تحليل التركيب</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_ica_vs_pca.html">FastICA على سحب النقاط ثنائية الأبعاد</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../decomposition/plot_kernel_pca.html">Kernel PCA</a></li>
@@ -878,12 +854,27 @@
 <li class="toctree-l2"><a class="reference internal" href="../developing_estimators/sklearn_is_fitted.html"><code class="docutils literal notranslate"><span class="pre">__sklearn_is_fitted__</span></code> كـ API للمطورين</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../impute/index.html">تعويض القيم المفقودة</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../impute/plot_missing_values.html">استنتاج القيم المفقودة قبل بناء أداة تقدير</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../impute/plot_iterative_imputer_variants_comparison.html">استنتاج القيم المفقودة مع متغيرات من IterativeImputer</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../covariance/index.html">تقدير التغاير</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../covariance/plot_covariance_estimation.html">تأثير تحويل الأهداف في نموذج الانحدار</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../covariance/plot_lw_vs_oas.html">تقدير Ledoit-Wolf مقابل OAS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../covariance/plot_robust_vs_empirical_covariance.html">تقدير التغاير القوي مقابل التجريبي</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../covariance/plot_mahalanobis_distances.html">تقدير التغاير القوي وأهمية مسافات Mahalanobis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../covariance/plot_sparse_cov.html">تقدير معكوس التغاير النادر</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../kernel_approximation/index.html">تقريب النواة</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../kernel_approximation/plot_scalable_poly_kernels.html">التعلم القابل للتطوير مع تقريب نواة متعددة الحدود</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../exercises/index.html">تمارين تعليمية</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_cv_diabetes.html">التحقق المتقاطع على تمرين مجموعة بيانات مرض السكري</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_iris_exercise.html">تمرين SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exercises/plot_digits_classification_exercise.html">تمرين تصنيف الأرقام</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../compose/index.html">خطوط الأنابيب والمقدرين المركبين</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -896,30 +887,43 @@
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../ensemble/index.html">طرق المجموعة</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_stack_predictors.html">Combine predictors using stacking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_random_forest_regression_multioutput.html">Comparing random forests and the multi-output meta estimator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_hgbt_regression.html">Features in Histogram Gradient Boosting Trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_regression.html">Gradient Boosting regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_regularization.html">Gradient Boosting regularization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_random_forest_embedding.html">Hashing feature transformation using Totally Random Trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_isolation_forest.html">IsolationForest example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_monotonic_constraints.html">Monotonic Constraints</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_probas.html">Plot class probabilities calculated by the VotingClassifier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_regressor.html">Plot individual and voting regression predictions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_decision_regions.html">Plot the decision boundaries of a VotingClassifier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_quantile.html">Prediction Intervals for Gradient Boosting Regression</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_ensemble_oob.html">أخطاء OOB لخوارزمية Random Forests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_forest_importances.html">أهمية الميزات باستخدام غابة من الأشجار</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_early_stopping.html">إيقاف التدريب المبكر في Gradient Boosting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_monotonic_constraints.html">القيود الرتيبة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_hgbt_regression.html">الميزات في أشجار التعزيز المتدرج للهيستوغرام</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_regression.html">انحدار التعزيز المتدرج</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_adaboost_regression.html">انحدار شجرة القرار مع AdaBoost</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_feature_transformation.html">تحويل الميزات باستخدام مجموعات الأشجار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_random_forest_embedding.html">تحويل ميزة التجزئة باستخدام الأشجار العشوائية تمامًا</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_adaboost_twoclass.html">تصنيف ثنائي باستخدام AdaBoost</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_oob.html">تقديرات Gradient Boosting Out-of-Bag</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_regularization.html">تنظيم التعزيز المتدرج</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_categorical.html">دعم الميزات التصنيفية في التدرج التعزيزي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_stack_predictors.html">دمج المتنبئات باستخدام التكديس</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_forest_iris.html">رسم أسطح القرار لمجموعات الأشجار على مجموعة بيانات إيريس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_probas.html">رسم احتمالات الفئات المحسوبة بواسطة VotingClassifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_regressor.html">رسم تنبؤات الانحدار الفردية والتصويتية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_voting_decision_regions.html">رسم حدود القرار لـ VotingClassifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_adaboost_multiclass.html">شجرة قرارات معززة متعددة الفئات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_gradient_boosting_quantile.html">فترات التنبؤ لانحدار التعزيز المتدرج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_isolation_forest.html">مثال IsolationForest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_random_forest_regression_multioutput.html">مقارنة الغابات العشوائية ومقدر المخرجات المتعددة التلوي</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_bias_variance.html">مقارنة بين المُقدر الفردي والتجميع: تحليل الانحياز والتشتت</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ensemble/plot_forest_hist_grad_boosting_comparison.html">مقارنة بين نماذج الغابات العشوائية ورفع التدرج بالرسم البياني</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../gaussian_process/index.html">عملية غاوسية للتعلم الآلي</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_co2.html">التنبؤ بمستوى ثاني أكسيد الكربون في مجموعة بيانات Mona Loa باستخدام انحدار العملية الغاوسية (GPR)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpc.html">التنبؤات الاحتمالية مع تصنيف العملية الغاوسية (GPC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_on_structured_data.html">العمليات الغاوسية على هياكل البيانات المنقوصة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_noisy_targets.html">انحدار العمليات الغاوسية: مثال تمهيدي أساسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpc_iris.html">تصنيف العملية الغاوسية (GPC) على مجموعة بيانات iris</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_prior_posterior.html">توضيح العملية الغاوسية المسبقة واللاحقة لنوى مختلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpc_xor.html">توضيح تصنيف العملية الغاوسية (GPC) على مجموعة بيانات XOR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpc_isoprobability.html">خطوط تساوي الاحتمال لتصنيف العمليات الغاوسية (GPC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_gpr_noisy.html">قدرة انحدار العمليات الغاوسية (GPR) على تقدير مستوى ضوضاء البيانات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_compare_gpr_krr.html">مقارنة انحدار kernel ridge وانحدار العمليات الغاوسية</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../calibration/index.html">معايرة الإحتمالات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -968,9 +972,9 @@
     <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Examples</a></li>
     
     
-    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Generalized Linear Models</a></li>
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">النماذج الخطية المعممة</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Lasso on dense and sparse data</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Lasso على البيانات الكثيفة والمتفرقة</span></li>
   </ul>
 </nav>
 </div>
@@ -992,99 +996,101 @@
 <p><a class="reference internal" href="#sphx-glr-download-auto-examples-linear-model-plot-lasso-dense-vs-sparse-data-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code. or to run this example in your browser via JupyterLite or Binder</p>
 </div>
-<section class="sphx-glr-example-title" id="lasso-on-dense-and-sparse-data">
-<span id="sphx-glr-auto-examples-linear-model-plot-lasso-dense-vs-sparse-data-py"></span><h1>Lasso on dense and sparse data<a class="headerlink" href="#lasso-on-dense-and-sparse-data" title="Link to this heading">#</a></h1>
-<p>We show that linear_model.Lasso provides the same results for dense and sparse
-data and that in the case of sparse data the speed is improved.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Authors: The scikit-learn developers</span>
-<span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
+<section class="sphx-glr-example-title" id="lasso">
+<span id="sphx-glr-auto-examples-linear-model-plot-lasso-dense-vs-sparse-data-py"></span><h1>Lasso على البيانات الكثيفة والمتفرقة<a class="headerlink" href="#lasso" title="Link to this heading">#</a></h1>
+<p>نبين أن linear_model.Lasso يوفر نفس النتائج للبيانات الكثيفة والمتفرقة
+وأن السرعة تتحسن في حالة البيانات المتفرقة.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># المؤلفون: مطوري scikit-learn</span>
+<span class="c1"># معرف الترخيص: BSD-3-Clause</span>
 
-<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span></a>
 
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">linalg</span><span class="p">,</span> <span class="n">sparse</span>
 
-<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_regression</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">Lasso</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.datasets.make_regression.html#sklearn.datasets.make_regression" title="sklearn.datasets.make_regression" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">make_regression</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.linear_model.Lasso.html#sklearn.linear_model.Lasso" title="sklearn.linear_model.Lasso" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Lasso</span></a>
 </pre></div>
 </div>
-<section id="comparing-the-two-lasso-implementations-on-dense-data">
-<h2>Comparing the two Lasso implementations on Dense data<a class="headerlink" href="#comparing-the-two-lasso-implementations-on-dense-data" title="Link to this heading">#</a></h2>
-<p>We create a linear regression problem that is suitable for the Lasso,
-that is to say, with more features than samples. We then store the data
-matrix in both dense (the usual) and sparse format, and train a Lasso on
-each. We compute the runtime of both and check that they learned the
-same model by computing the Euclidean norm of the difference between the
-coefficients they learned. Because the data is dense, we expect better
-runtime with a dense data format.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_regression</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="c1"># create a copy of X in sparse format</span>
-<span class="n">X_sp</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">coo_matrix</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<section id="id1">
+<h2>مقارنة تنفيذي Lasso على البيانات الكثيفة<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>ننشئ مشكلة انحدار خطي مناسبة لـ Lasso،
+أي بمعنى، مع وجود ميزات أكثر من العينات. ثم نقوم بتخزين مصفوفة البيانات
+في كل من التنسيق الكثيف (العادي) والمتفرق، ونقوم بتدريب Lasso على
+كل منهما. نحسب وقت التشغيل لكل منهما ونتحقق من أنهما تعلما
+نفس النموذج عن طريق حساب المعيار الإقليدي لفرق
+المعاملات التي تعلموها. نظرًا لأن البيانات كثيفة، نتوقع وقت تشغيل أفضل
+مع تنسيق البيانات الكثيفة.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.datasets.make_regression.html#sklearn.datasets.make_regression" title="sklearn.datasets.make_regression" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">make_regression</span></a><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="c1"># إنشاء نسخة من X بتنسيق متفرق</span>
+<span class="n">X_sp</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.coo_matrix.html#scipy.sparse.coo_matrix" title="scipy.sparse.coo_matrix" class="sphx-glr-backref-module-scipy-sparse sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sparse</span><span class="o">.</span><span class="n">coo_matrix</span></a><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 
 <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">sparse_lasso</span> <span class="o">=</span> <span class="n">Lasso</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
-<span class="n">dense_lasso</span> <span class="o">=</span> <span class="n">Lasso</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">sparse_lasso</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.linear_model.Lasso.html#sklearn.linear_model.Lasso" title="sklearn.linear_model.Lasso" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Lasso</span></a><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">dense_lasso</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.linear_model.Lasso.html#sklearn.linear_model.Lasso" title="sklearn.linear_model.Lasso" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Lasso</span></a><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
 
-<span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="n">t0</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span></a><span class="p">()</span>
 <span class="n">sparse_lasso</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_sp</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sparse Lasso done in </span><span class="si">{</span><span class="p">(</span><span class="n">time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">t0</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sparse Lasso done in </span><span class="si">{</span><span class="p">(</span><a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span></a><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">t0</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
 
-<span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="n">t0</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span></a><span class="p">()</span>
 <span class="n">dense_lasso</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dense Lasso done in </span><span class="si">{</span><span class="p">(</span><span class="n">time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">t0</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dense Lasso done in </span><span class="si">{</span><span class="p">(</span><a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span></a><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">t0</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
 
-<span class="c1"># compare the regression coefficients</span>
-<span class="n">coeff_diff</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">sparse_lasso</span><span class="o">.</span><span class="n">coef_</span> <span class="o">-</span> <span class="n">dense_lasso</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
+<span class="c1"># مقارنة معاملات الانحدار</span>
+<span class="n">coeff_diff</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.norm.html#scipy.linalg.norm" title="scipy.linalg.norm" class="sphx-glr-backref-module-scipy-linalg sphx-glr-backref-type-py-function"><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span></a><span class="p">(</span><span class="n">sparse_lasso</span><span class="o">.</span><span class="n">coef_</span> <span class="o">-</span> <span class="n">dense_lasso</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Distance between coefficients : </span><span class="si">{</span><span class="n">coeff_diff</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 <span class="c1">#</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Sparse Lasso done in 0.075s
-Dense Lasso done in 0.021s
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Sparse Lasso done in 0.087s
+Dense Lasso done in 0.027s
 Distance between coefficients : 1.04e-13
 </pre></div>
 </div>
 </section>
-<section id="comparing-the-two-lasso-implementations-on-sparse-data">
-<h2>Comparing the two Lasso implementations on Sparse data<a class="headerlink" href="#comparing-the-two-lasso-implementations-on-sparse-data" title="Link to this heading">#</a></h2>
-<p>We make the previous problem sparse by replacing all small values with 0
-and run the same comparisons as above. Because the data is now sparse, we
-expect the implementation that uses the sparse data format to be faster.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># make a copy of the previous data</span>
+<section id="id2">
+<h2>مقارنة تنفيذي Lasso على البيانات المتفرقة<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>نجعل المشكلة السابقة متفرقة عن طريق استبدال جميع القيم الصغيرة بـ 0
+ونقوم بنفس المقارنات كما هو موضح أعلاه. نظرًا لأن البيانات أصبحت متفرقة الآن، فإننا
+نتوقع أن يكون التنفيذ الذي يستخدم تنسيق البيانات المتفرقة أسرع.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># إنشاء نسخة من البيانات السابقة</span>
 <span class="n">Xs</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="c1"># make Xs sparse by replacing the values lower than 2.5 with 0s</span>
+<span class="c1"># جعل Xs متفرقة عن طريق استبدال القيم الأقل من 2.5 بـ 0s</span>
 <span class="n">Xs</span><span class="p">[</span><span class="n">Xs</span> <span class="o">&lt;</span> <span class="mf">2.5</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
-<span class="c1"># create a copy of Xs in sparse format</span>
-<span class="n">Xs_sp</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">coo_matrix</span><span class="p">(</span><span class="n">Xs</span><span class="p">)</span>
+<span class="c1"># إنشاء نسخة من Xs بتنسيق متفرق</span>
+<span class="n">Xs_sp</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.coo_matrix.html#scipy.sparse.coo_matrix" title="scipy.sparse.coo_matrix" class="sphx-glr-backref-module-scipy-sparse sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sparse</span><span class="o">.</span><span class="n">coo_matrix</span></a><span class="p">(</span><span class="n">Xs</span><span class="p">)</span>
 <span class="n">Xs_sp</span> <span class="o">=</span> <span class="n">Xs_sp</span><span class="o">.</span><span class="n">tocsc</span><span class="p">()</span>
 
-<span class="c1"># compute the proportion of non-zero coefficient in the data matrix</span>
+<span class="c1"># حساب نسبة المعاملات غير الصفرية في مصفوفة البيانات</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Matrix density : </span><span class="si">{</span><span class="p">(</span><span class="n">Xs_sp</span><span class="o">.</span><span class="n">nnz</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">float</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
 
 <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.1</span>
-<span class="n">sparse_lasso</span> <span class="o">=</span> <span class="n">Lasso</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
-<span class="n">dense_lasso</span> <span class="o">=</span> <span class="n">Lasso</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+<span class="n">sparse_lasso</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.linear_model.Lasso.html#sklearn.linear_model.Lasso" title="sklearn.linear_model.Lasso" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Lasso</span></a><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+<span class="n">dense_lasso</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.linear_model.Lasso.html#sklearn.linear_model.Lasso" title="sklearn.linear_model.Lasso" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Lasso</span></a><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
 
-<span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="n">t0</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span></a><span class="p">()</span>
 <span class="n">sparse_lasso</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xs_sp</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sparse Lasso done in </span><span class="si">{</span><span class="p">(</span><span class="n">time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">t0</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sparse Lasso done in </span><span class="si">{</span><span class="p">(</span><a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span></a><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">t0</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
 
-<span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="n">t0</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span></a><span class="p">()</span>
 <span class="n">dense_lasso</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xs</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dense Lasso done in  </span><span class="si">{</span><span class="p">(</span><span class="n">time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">t0</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dense Lasso done in  </span><span class="si">{</span><span class="p">(</span><a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span></a><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">t0</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
 
-<span class="c1"># compare the regression coefficients</span>
-<span class="n">coeff_diff</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">sparse_lasso</span><span class="o">.</span><span class="n">coef_</span> <span class="o">-</span> <span class="n">dense_lasso</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
+<span class="c1"># مقارنة معاملات الانحدار</span>
+<span class="n">coeff_diff</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.norm.html#scipy.linalg.norm" title="scipy.linalg.norm" class="sphx-glr-backref-module-scipy-linalg sphx-glr-backref-type-py-function"><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span></a><span class="p">(</span><span class="n">sparse_lasso</span><span class="o">.</span><span class="n">coef_</span> <span class="o">-</span> <span class="n">dense_lasso</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Distance between coefficients : </span><span class="si">{</span><span class="n">coeff_diff</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># %%</span>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Matrix density : 0.626%
-Sparse Lasso done in 0.118s
-Dense Lasso done in  0.513s
+Sparse Lasso done in 0.123s
+Dense Lasso done in  0.589s
 Distance between coefficients : 8.33e-12
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.785 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.918 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-linear-model-plot-lasso-dense-vs-sparse-data-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/scikit-learn/scikit-learn/main?urlpath=lab/tree/notebooks/auto_examples/linear_model/plot_lasso_dense_vs_sparse_data.ipynb"><img alt="Launch binder" src="../../_images/binder_badge_logo18.svg" style="width: 150px;" />
@@ -1105,18 +1111,18 @@ Distance between coefficients : 8.33e-12
 </div>
 </div>
 <p class="rubric">Related examples</p>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The present example compares three l1-based regression models on a synthetic signal obtained from sparse and correlated features that are further corrupted with additive gaussian noise:"><img alt="" src="../../_images/sphx_glr_plot_lasso_and_elasticnet_thumb.png" />
-<p><a class="reference internal" href="plot_lasso_and_elasticnet.html#sphx-glr-auto-examples-linear-model-plot-lasso-and-elasticnet-py"><span class="std std-ref">L1-based models for Sparse Signals</span></a></p>
-  <div class="sphx-glr-thumbnail-title">L1-based models for Sparse Signals</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The multi-task lasso allows to fit multiple regression problems jointly enforcing the selected features to be the same across tasks. This example simulates sequential measurements, each task is a time instant, and the relevant features vary in amplitude over time while being the same. The multi-task lasso imposes that features that are selected at one time point are select for all time point. This makes feature selection by the Lasso more stable."><img alt="" src="../../_images/sphx_glr_plot_multi_task_lasso_support_thumb.png" />
-<p><a class="reference internal" href="plot_multi_task_lasso_support.html#sphx-glr-auto-examples-linear-model-plot-multi-task-lasso-support-py"><span class="std std-ref">Joint feature selection with multi-task Lasso</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Joint feature selection with multi-task Lasso</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to compute the &quot;paths&quot; of coefficients along the Lasso, Lasso-LARS, and Elastic Net regularization paths. In other words, it shows the relationship between the regularization parameter (alpha) and the coefficients."><img alt="" src="../../_images/sphx_glr_plot_lasso_lasso_lars_elasticnet_path_thumb.png" />
-<p><a class="reference internal" href="plot_lasso_lasso_lars_elasticnet_path.html#sphx-glr-auto-examples-linear-model-plot-lasso-lasso-lars-elasticnet-path-py"><span class="std std-ref">Lasso, Lasso-LARS, and Elastic Net paths</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Lasso, Lasso-LARS, and Elastic Net paths</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example focuses on model selection for Lasso models that are linear models with an L1 penalty for regression problems."><img alt="" src="../../_images/sphx_glr_plot_lasso_model_selection_thumb.png" />
-<p><a class="reference internal" href="plot_lasso_model_selection.html#sphx-glr-auto-examples-linear-model-plot-lasso-model-selection-py"><span class="std std-ref">Lasso model selection: AIC-BIC / cross-validation</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Lasso model selection: AIC-BIC / cross-validation</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="يقارن المثال الحالي ثلاثة نماذج ارتجاع L1 على إشارة اصطناعية تم الحصول عليها من ميزات متناثرة ومتناسقة يتم إفسادها مع ضوضاء غاوسية إضافية:"><img alt="" src="../../_images/sphx_glr_plot_lasso_and_elasticnet_thumb.png" />
+<p><a class="reference internal" href="plot_lasso_and_elasticnet.html#sphx-glr-auto-examples-linear-model-plot-lasso-and-elasticnet-py"><span class="std std-ref">نماذج L1 للاشارات المتناثرة</span></a></p>
+  <div class="sphx-glr-thumbnail-title">نماذج L1 للاشارات المتناثرة</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="يسمح Lasso متعدد المهام بتناسب مشاكل الانحدار المتعددة فرض اختيار الميزات نفسها عبر المهام. يحاكي هذا المثال القياسات التسلسلية، حيث تمثل كل مهمة لحظة زمنية، وتختلف الميزات ذات الصلة في السعة بمرور الوقت مع بقائها نفسها. يفرض Lasso متعدد المهام أن الميزات التي يتم اختيارها في لحظة زمنية واحدة يتم اختيارها لجميع اللحظات الزمنية. وهذا يجعل اختيار الميزات بواسطة Lasso أكثر استقرارًا."><img alt="" src="../../_images/sphx_glr_plot_multi_task_lasso_support_thumb.png" />
+<p><a class="reference internal" href="plot_multi_task_lasso_support.html#sphx-glr-auto-examples-linear-model-plot-multi-task-lasso-support-py"><span class="std std-ref">الاختيار المشترك للميزات باستخدام Lasso متعدد المهام</span></a></p>
+  <div class="sphx-glr-thumbnail-title">الاختيار المشترك للميزات باستخدام Lasso متعدد المهام</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="يركز هذا المثال على اختيار النموذج لنموذج لاصو، وهي نماذج خطية مع عقوبة L1 لمشاكل الانحدار."><img alt="" src="../../_images/sphx_glr_plot_lasso_model_selection_thumb.png" />
+<p><a class="reference internal" href="plot_lasso_model_selection.html#sphx-glr-auto-examples-linear-model-plot-lasso-model-selection-py"><span class="std std-ref">نموذج لاصو: اختيار النموذج باستخدام معايير AIC-BIC والتحقق المتقاطع</span></a></p>
+  <div class="sphx-glr-thumbnail-title">نموذج لاصو: اختيار النموذج باستخدام معايير AIC-BIC والتحقق المتقاطع</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="تمرين تعليمي يستخدم التحقق المتقاطع مع النماذج الخطية."><img alt="" src="../../_images/sphx_glr_plot_cv_diabetes_thumb.png" />
+<p><a class="reference internal" href="../exercises/plot_cv_diabetes.html#sphx-glr-auto-examples-exercises-plot-cv-diabetes-py"><span class="std std-ref">التحقق المتقاطع على تمرين مجموعة بيانات مرض السكري</span></a></p>
+  <div class="sphx-glr-thumbnail-title">التحقق المتقاطع على تمرين مجموعة بيانات مرض السكري</div>
 </div></div><p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
 </section>
 </section>
@@ -1132,20 +1138,20 @@ Distance between coefficients : 8.33e-12
     <div class="footer-article-item">
 <div class="prev-next-area">
     <a class="left-prev"
-       href="plot_lasso_model_selection.html"
+       href="plot_ard.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">السابق</p>
-        <p class="prev-next-title">Lasso model selection: AIC-BIC / cross-validation</p>
+        <p class="prev-next-title"># مقارنة المنحنيات الخطية للانحدار البايزي</p>
       </div>
     </a>
     <a class="right-next"
-       href="plot_lasso_lasso_lars_elasticnet_path.html"
+       href="plot_sgdocsvm_vs_ocsvm.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">التالي</p>
-        <p class="prev-next-title">Lasso, Lasso-LARS, and Elastic Net paths</p>
+        <p class="prev-next-title">One-Class SVM مقابل One-Class SVM باستخدام Stochastic Gradient Descent</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1172,8 +1178,8 @@ Distance between coefficients : 8.33e-12
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-the-two-lasso-implementations-on-dense-data">Comparing the two Lasso implementations on Dense data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-the-two-lasso-implementations-on-sparse-data">Comparing the two Lasso implementations on Sparse data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">مقارنة تنفيذي Lasso على البيانات الكثيفة</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">مقارنة تنفيذي Lasso على البيانات المتفرقة</a></li>
 </ul>
   </nav></div>
 

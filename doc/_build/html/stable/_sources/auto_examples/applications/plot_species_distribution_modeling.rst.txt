@@ -50,19 +50,36 @@
   س. ج. فيليبس، ر. ب. أندرسون، ر. إي. شابير - النمذجة البيئية،
   190:231-259، 2006.
 
-.. GENERATED FROM PYTHON SOURCE LINES 34-245
+.. GENERATED FROM PYTHON SOURCE LINES 34-246
+
+
+
+.. image-sg:: /auto_examples/applications/images/sphx_glr_plot_species_distribution_modeling_001.png
+   :alt: bradypus variegatus, microryzomys minutus
+   :srcset: /auto_examples/applications/images/sphx_glr_plot_species_distribution_modeling_001.png
+   :class: sphx-glr-single-img
 
 
 .. rst-class:: sphx-glr-script-out
 
-.. code-block:: pytb
+ .. code-block:: none
 
-    Traceback (most recent call last):
-      File "/project/workspace/examples/applications/plot_species_distribution_modeling.py", line 244, in <module>
-        plot_species_distribution()
-      File "/project/workspace/examples/applications/plot_species_distribution_modeling.py", line 169, in plot_species_distribution
-        plt.subplot(1, 2, i + 1)
-    TypeError: unsupported operand type(s) for +: 'Bunch' and 'int'
+    _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+    نمذجة توزيع النوع 'bradypus variegatus'
+     - fit OneClassSVM ... تم.
+     - plot coastlines from coverage
+     - predict species distribution
+
+     Area under the ROC curve : 0.868443
+    _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+    نمذجة توزيع النوع 'microryzomys minutus'
+     - fit OneClassSVM ... تم.
+     - plot coastlines from coverage
+     - predict species distribution
+
+     Area under the ROC curve : 0.993919
+
+    time elapsed: 6.10s
 
 
 
@@ -86,7 +103,8 @@
     from sklearn.utils import Bunch
 
     # إذا كان basemap متاحًا، فسنستخدمه.
-    # وإلا، فسنقوم بالارتجال لاحقًا...
+    # وإلا، فسوف نرتجل لاحقًا...
+
     try:
         from mpl_toolkits.basemap import Basemap
 
@@ -188,7 +206,7 @@
         land_reference = data.coverages[6]
 
         # تناسب، توقع، ورسم لكل نوع.
-        for i,species in [[BV_bunch, MM_bunch]]:
+        for i, species in enumerate([BV_bunch, MM_bunch]):
             print("_ " * 80)
             print("نمذجة توزيع النوع '%s'" % species.name)
 
@@ -288,7 +306,7 @@
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.252 seconds)
+   **Total running time of the script:** (0 minutes 6.258 seconds)
 
 
 .. _sphx_glr_download_auto_examples_applications_plot_species_distribution_modeling.py:
