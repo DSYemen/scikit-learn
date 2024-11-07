@@ -7,16 +7,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Frequently Asked Questions" />
+<meta property="og:title" content="الأسئلة المتكررة" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/faq.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="Here we try to give some answers to questions that regularly pop up on the mailing list. Table of Contents: About the project- What is the project name (a lot of people get it wrong)?, How do you p..." />
+<meta property="og:description" content="نحاول هنا تقديم بعض الإجابات على الأسئلة التي تظهر بانتظام في القائمة البريدية. جدول المحتويات: حول المشروع- ما اسم المشروع (يخطئ الكثير من الناس في ذلك)؟, كيف تنطق اسم المشروع؟, لماذا scikit؟, هل ..." />
 <meta property="og:image" content="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" />
 <meta property="og:image:alt" content="scikit-learn" />
-<meta name="description" content="Here we try to give some answers to questions that regularly pop up on the mailing list. Table of Contents: About the project- What is the project name (a lot of people get it wrong)?, How do you p..." />
+<meta name="description" content="نحاول هنا تقديم بعض الإجابات على الأسئلة التي تظهر بانتظام في القائمة البريدية. جدول المحتويات: حول المشروع- ما اسم المشروع (يخطئ الكثير من الناس في ذلك)؟, كيف تنطق اسم المشروع؟, لماذا scikit؟, هل ..." />
 
-    <title>Frequently Asked Questions &#8212; scikit-learn 1.6.dev0 documentation</title>
+    <title>الأسئلة المتكررة &#8212; scikit-learn 1.6.dev0 documentation</title>
   
   
   
@@ -573,7 +573,7 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Frequently Asked Questions</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">الأسئلة المتكررة</span></li>
   </ul>
 </nav>
 </div>
@@ -615,400 +615,262 @@
   h3 > a.toc-backref {
     text-decoration: none;
   }
-</style><section id="frequently-asked-questions">
-<span id="faq"></span><h1>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Link to this heading">#</a></h1>
-<p>Here we try to give some answers to questions that regularly pop up on the mailing list.</p>
-<nav class="contents local" id="table-of-contents">
-<p class="topic-title">Table of Contents</p>
+</style><section id="faq">
+<span id="id1"></span><h1>الأسئلة المتكررة<a class="headerlink" href="#faq" title="Link to this heading">#</a></h1>
+<p>نحاول هنا تقديم بعض الإجابات على الأسئلة التي تظهر بانتظام في القائمة البريدية.</p>
+<nav class="contents local" id="id2">
+<p class="topic-title">جدول المحتويات</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#about-the-project" id="id2">About the project</a></p>
+<li><p><a class="reference internal" href="#id3" id="id32">حول المشروع</a></p>
 <ul>
-<li><p><a class="reference internal" href="#what-is-the-project-name-a-lot-of-people-get-it-wrong" id="id3">What is the project name (a lot of people get it wrong)?</a></p></li>
-<li><p><a class="reference internal" href="#how-do-you-pronounce-the-project-name" id="id4">How do you pronounce the project name?</a></p></li>
-<li><p><a class="reference internal" href="#why-scikit" id="id5">Why scikit?</a></p></li>
-<li><p><a class="reference internal" href="#do-you-support-pypy" id="id6">Do you support PyPy?</a></p></li>
-<li><p><a class="reference internal" href="#how-can-i-obtain-permission-to-use-the-images-in-scikit-learn-for-my-work" id="id7">How can I obtain permission to use the images in scikit-learn for my work?</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id33">ما اسم المشروع (يخطئ الكثير من الناس في ذلك)؟</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id34">كيف تنطق اسم المشروع؟</a></p></li>
+<li><p><a class="reference internal" href="#scikit" id="id35">لماذا scikit؟</a></p></li>
+<li><p><a class="reference internal" href="#pypy" id="id36">هل تدعمون PyPy؟</a></p></li>
+<li><p><a class="reference internal" href="#scikit-learn" id="id37">كيف يمكنني الحصول على إذن لاستخدام الصور في scikit-learn لعملي؟</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#implementation-decisions" id="id8">Implementation decisions</a></p>
+<li><p><a class="reference internal" href="#id9" id="id38">قرارات التنفيذ</a></p>
 <ul>
-<li><p><a class="reference internal" href="#why-is-there-no-support-for-deep-or-reinforcement-learning-will-there-be-such-support-in-the-future" id="id9">Why is there no support for deep or reinforcement learning? Will there be such support in the future?</a></p></li>
-<li><p><a class="reference internal" href="#will-you-add-graphical-models-or-sequence-prediction-to-scikit-learn" id="id10">Will you add graphical models or sequence prediction to scikit-learn?</a></p></li>
-<li><p><a class="reference internal" href="#why-did-you-remove-hmms-from-scikit-learn" id="id11">Why did you remove HMMs from scikit-learn?</a></p></li>
-<li><p><a class="reference internal" href="#will-you-add-gpu-support" id="id12">Will you add GPU support?</a></p></li>
-<li><p><a class="reference internal" href="#why-do-categorical-variables-need-preprocessing-in-scikit-learn-compared-to-other-tools" id="id13">Why do categorical variables need preprocessing in scikit-learn, compared to other tools?</a></p></li>
-<li><p><a class="reference internal" href="#does-scikit-learn-work-natively-with-various-types-of-dataframes" id="id14">Does scikit-learn work natively with various types of dataframes?</a></p></li>
-<li><p><a class="reference internal" href="#do-you-plan-to-implement-transform-for-target-y-in-a-pipeline" id="id15">Do you plan to implement transform for target <code class="docutils literal notranslate"><span class="pre">y</span></code> in a pipeline?</a></p></li>
-<li><p><a class="reference internal" href="#why-are-there-so-many-different-estimators-for-linear-models" id="id16">Why are there so many different estimators for linear models?</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id39">لماذا لا يوجد دعم للتعلم العميق أو التعلم المعزز؟ هل سيكون هناك مثل هذا الدعم في المستقبل؟</a></p></li>
+<li><p><a class="reference internal" href="#adding-graphical-models" id="id40">هل ستضيفون نماذج رسومية أو تنبؤ بالتسلسل إلى scikit-learn؟</a></p></li>
+<li><p><a class="reference internal" href="#hmms-scikit-learn" id="id41">لماذا أزلتم HMMs من scikit-learn؟</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id42">هل ستضيفون دعم وحدة معالجة الرسومات؟</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id43">لماذا تحتاج المتغيرات الفئوية إلى المعالجة المسبقة في scikit-learn، مقارنة بالأدوات الأخرى؟</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id44">هل تعمل scikit-learn محليًا مع أنواع مختلفة من إطارات البيانات؟</a></p></li>
+<li><p><a class="reference internal" href="#y" id="id45">هل تخططون لتنفيذ تحويل للهدف <code class="docutils literal notranslate"><span class="pre">y</span></code> في خط أنابيب؟</a></p></li>
+<li><p><a class="reference internal" href="#id16" id="id46">لماذا يوجد الكثير من المقدرات المختلفة للنماذج الخطية؟</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#contributing" id="id17">Contributing</a></p>
+<li><p><a class="reference internal" href="#id17" id="id47">المساهمة</a></p>
 <ul>
-<li><p><a class="reference internal" href="#how-can-i-contribute-to-scikit-learn" id="id18">How can I contribute to scikit-learn?</a></p></li>
-<li><p><a class="reference internal" href="#why-is-my-pull-request-not-getting-any-attention" id="id19">Why is my pull request not getting any attention?</a></p></li>
-<li><p><a class="reference internal" href="#what-are-the-inclusion-criteria-for-new-algorithms" id="id20">What are the inclusion criteria for new algorithms?</a></p></li>
-<li><p><a class="reference internal" href="#why-are-you-so-selective-on-what-algorithms-you-include-in-scikit-learn" id="id21">Why are you so selective on what algorithms you include in scikit-learn?</a></p></li>
+<li><p><a class="reference internal" href="#id18" id="id48">كيف يمكنني المساهمة في scikit-learn؟</a></p></li>
+<li><p><a class="reference internal" href="#id19" id="id49">لماذا لا يحظى طلب السحب الخاص بي بأي اهتمام؟</a></p></li>
+<li><p><a class="reference internal" href="#new-algorithms-inclusion-criteria" id="id50">ما هي معايير تضمين الخوارزميات الجديدة؟</a></p></li>
+<li><p><a class="reference internal" href="#selectiveness" id="id51">لماذا أنت انتقائي للغاية بشأن الخوارزميات التي تدرجها في scikit-learn؟</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#using-scikit-learn" id="id22">Using scikit-learn</a></p>
+<li><p><a class="reference internal" href="#id23" id="id52">استخدام scikit-learn</a></p>
 <ul>
-<li><p><a class="reference internal" href="#what-s-the-best-way-to-get-help-on-scikit-learn-usage" id="id23">What's the best way to get help on scikit-learn usage?</a></p></li>
-<li><p><a class="reference internal" href="#how-should-i-save-export-or-deploy-estimators-for-production" id="id24">How should I save, export or deploy estimators for production?</a></p></li>
-<li><p><a class="reference internal" href="#how-can-i-create-a-bunch-object" id="id25">How can I create a bunch object?</a></p></li>
-<li><p><a class="reference internal" href="#how-can-i-load-my-own-datasets-into-a-format-usable-by-scikit-learn" id="id26">How can I load my own datasets into a format usable by scikit-learn?</a></p></li>
-<li><p><a class="reference internal" href="#how-do-i-deal-with-string-data-or-trees-graphs" id="id27">How do I deal with string data (or trees, graphs...)?</a></p></li>
-<li><p><a class="reference internal" href="#why-do-i-sometimes-get-a-crash-freeze-with-n-jobs-1-under-osx-or-linux" id="id28">Why do I sometimes get a crash/freeze with <code class="docutils literal notranslate"><span class="pre">n_jobs</span> <span class="pre">&gt;</span> <span class="pre">1</span></code> under OSX or Linux?</a></p></li>
-<li><p><a class="reference internal" href="#why-does-my-job-use-more-cores-than-specified-with-n-jobs" id="id29">Why does my job use more cores than specified with <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code>?</a></p></li>
-<li><p><a class="reference internal" href="#how-do-i-set-a-random-state-for-an-entire-execution" id="id30">How do I set a <code class="docutils literal notranslate"><span class="pre">random_state</span></code> for an entire execution?</a></p></li>
+<li><p><a class="reference internal" href="#id24" id="id53">ما هي أفضل طريقة للحصول على مساعدة بشأن استخدام scikit-learn؟</a></p></li>
+<li><p><a class="reference internal" href="#id26" id="id54">كيف يمكنني حفظ أو تصدير أو نشر المقدرات للإنتاج؟</a></p></li>
+<li><p><a class="reference internal" href="#id27" id="id55">كيف يمكنني إنشاء كائن حزمة؟</a></p></li>
+<li><p><a class="reference internal" href="#id28" id="id56">كيف يمكنني تحميل مجموعات البيانات الخاصة بي بتنسيق قابل للاستخدام بواسطة scikit-learn؟</a></p></li>
+<li><p><a class="reference internal" href="#id29" id="id57">كيف أتعامل مع بيانات السلسلة (أو الأشجار، الرسوم البيانية...)؟</a></p></li>
+<li><p><a class="reference internal" href="#n-jobs-1-osx-linux" id="id58">لماذا أحصل أحيانًا على تعطل/تجميد مع <code class="docutils literal notranslate"><span class="pre">n_jobs</span> <span class="pre">&gt;</span> <span class="pre">1</span></code> تحت OSX أو Linux؟</a></p></li>
+<li><p><a class="reference internal" href="#n-jobs" id="id59">لماذا تستخدم وظيفتي نوى أكثر مما هو محدد بواسطة <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code>؟</a></p></li>
+<li><p><a class="reference internal" href="#random-state" id="id60">كيف يمكنني تعيين <code class="docutils literal notranslate"><span class="pre">random_state</span></code> لتنفيذ كامل؟</a></p></li>
 </ul>
 </li>
 </ul>
 </nav>
-<section id="about-the-project">
-<h2><a class="toc-backref" href="#id2" role="doc-backlink">About the project</a><a class="headerlink" href="#about-the-project" title="Link to this heading">#</a></h2>
-<section id="what-is-the-project-name-a-lot-of-people-get-it-wrong">
-<h3><a class="toc-backref" href="#id3" role="doc-backlink">What is the project name (a lot of people get it wrong)?</a><a class="headerlink" href="#what-is-the-project-name-a-lot-of-people-get-it-wrong" title="Link to this heading">#</a></h3>
-<p>scikit-learn, but not scikit or SciKit nor sci-kit learn.
-Also not scikits.learn or scikits-learn, which were previously used.</p>
+<section id="id3">
+<h2><a class="toc-backref" href="#id32" role="doc-backlink">حول المشروع</a><a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<section id="id4">
+<h3><a class="toc-backref" href="#id33" role="doc-backlink">ما اسم المشروع (يخطئ الكثير من الناس في ذلك)؟</a><a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>scikit-learn، وليس scikit أو SciKit ولا sci-kit learn.
+أيضًا ليس scikits.learn أو scikits-learn، والتي تم استخدامها سابقًا.</p>
 </section>
-<section id="how-do-you-pronounce-the-project-name">
-<h3><a class="toc-backref" href="#id4" role="doc-backlink">How do you pronounce the project name?</a><a class="headerlink" href="#how-do-you-pronounce-the-project-name" title="Link to this heading">#</a></h3>
-<p>sy-kit learn. sci stands for science!</p>
+<section id="id5">
+<h3><a class="toc-backref" href="#id34" role="doc-backlink">كيف تنطق اسم المشروع؟</a><a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>sy-kit learn. sci اختصار لـ science!</p>
 </section>
-<section id="why-scikit">
-<h3><a class="toc-backref" href="#id5" role="doc-backlink">Why scikit?</a><a class="headerlink" href="#why-scikit" title="Link to this heading">#</a></h3>
-<p>There are multiple scikits, which are scientific toolboxes built around SciPy.
-Apart from scikit-learn, another popular one is <a class="reference external" href="https://scikit-image.org/">scikit-image</a>.</p>
+<section id="scikit">
+<h3><a class="toc-backref" href="#id35" role="doc-backlink">لماذا scikit؟</a><a class="headerlink" href="#scikit" title="Link to this heading">#</a></h3>
+<p>هناك العديد من scikits، وهي عبارة عن صناديق أدوات علمية مبنية حول SciPy.
+بصرف النظر عن scikit-learn، هناك صندوق أدوات شهير آخر هو <a class="reference external" href="https://scikit-image.org/">scikit-image</a>.</p>
 </section>
-<section id="do-you-support-pypy">
-<h3><a class="toc-backref" href="#id6" role="doc-backlink">Do you support PyPy?</a><a class="headerlink" href="#do-you-support-pypy" title="Link to this heading">#</a></h3>
-<p>Due to limited maintainer resources and small number of users, using
-scikit-learn with <a class="reference external" href="https://pypy.org/">PyPy</a> (an alternative Python
-implementation with a built-in just-in-time compiler) is not officially
-supported.</p>
+<section id="pypy">
+<h3><a class="toc-backref" href="#id36" role="doc-backlink">هل تدعمون PyPy؟</a><a class="headerlink" href="#pypy" title="Link to this heading">#</a></h3>
+<p>نظرًا لموارد الصيانة المحدودة وقلة عدد المستخدمين، فإن استخدام
+scikit-learn مع <a class="reference external" href="https://pypy.org/">PyPy</a> (تنفيذ بديل لبايثون مع مترجم
+مضمن في الوقت المناسب) غير مدعوم رسميًا.</p>
 </section>
-<section id="how-can-i-obtain-permission-to-use-the-images-in-scikit-learn-for-my-work">
-<h3><a class="toc-backref" href="#id7" role="doc-backlink">How can I obtain permission to use the images in scikit-learn for my work?</a><a class="headerlink" href="#how-can-i-obtain-permission-to-use-the-images-in-scikit-learn-for-my-work" title="Link to this heading">#</a></h3>
-<p>The images contained in the <a class="reference external" href="https://github.com/scikit-learn/scikit-learn">scikit-learn repository</a> and the images generated within
-the <a class="reference external" href="https://scikit-learn.org/stable/index.html">scikit-learn documentation</a>
-can be used via the <a class="reference external" href="https://github.com/scikit-learn/scikit-learn?tab=BSD-3-Clause-1-ov-file">BSD 3-Clause License</a> for
-your work. Citations of scikit-learn are highly encouraged and appreciated. See
-<a class="reference internal" href="about.html#citing-scikit-learn"><span class="std std-ref">citing scikit-learn</span></a>.</p>
+<section id="scikit-learn">
+<h3><a class="toc-backref" href="#id37" role="doc-backlink">كيف يمكنني الحصول على إذن لاستخدام الصور في scikit-learn لعملي؟</a><a class="headerlink" href="#scikit-learn" title="Link to this heading">#</a></h3>
+<p>يمكن استخدام الصور الموجودة في <a class="reference external" href="https://github.com/scikit-learn/scikit-learn">مستودع scikit-learn</a> والصور التي تم إنشاؤها ضمن
+<a class="reference external" href="https://scikit-learn.org/stable/index.html">وثائق scikit-learn</a>
+عبر <a class="reference external" href="https://github.com/scikit-learn/scikit-learn?tab=BSD-3-Clause-1-ov-file">رخصة BSD 3-Clause</a> لعملك.
+نشجع ونقدر بشدة الاستشهادات بـ scikit-learn. انظر
+<a class="reference internal" href="about.html#citing-scikit-learn"><span class="std std-ref">الاستشهاد بـ scikit-learn</span></a>.</p>
 </section>
 </section>
-<section id="implementation-decisions">
-<h2><a class="toc-backref" href="#id8" role="doc-backlink">Implementation decisions</a><a class="headerlink" href="#implementation-decisions" title="Link to this heading">#</a></h2>
-<section id="why-is-there-no-support-for-deep-or-reinforcement-learning-will-there-be-such-support-in-the-future">
-<h3><a class="toc-backref" href="#id9" role="doc-backlink">Why is there no support for deep or reinforcement learning? Will there be such support in the future?</a><a class="headerlink" href="#why-is-there-no-support-for-deep-or-reinforcement-learning-will-there-be-such-support-in-the-future" title="Link to this heading">#</a></h3>
-<p>Deep learning and reinforcement learning both require a rich vocabulary to
-define an architecture, with deep learning additionally requiring
-GPUs for efficient computing. However, neither of these fit within
-the design constraints of scikit-learn. As a result, deep learning
-and reinforcement learning are currently out of scope for what
-scikit-learn seeks to achieve.</p>
-<p>You can find more information about the addition of GPU support at
-<a class="reference internal" href="#will-you-add-gpu-support">Will you add GPU support?</a>.</p>
-<p>Note that scikit-learn currently implements a simple multilayer perceptron
-in <a class="reference internal" href="api/sklearn.neural_network.html#module-sklearn.neural_network" title="sklearn.neural_network"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.neural_network</span></code></a>. We will only accept bug fixes for this module.
-If you want to implement more complex deep learning models, please turn to
-popular deep learning frameworks such as
-<a class="reference external" href="https://www.tensorflow.org/">tensorflow</a>,
-<a class="reference external" href="https://keras.io/">keras</a>,
-and <a class="reference external" href="https://pytorch.org/">pytorch</a>.</p>
+<section id="id9">
+<h2><a class="toc-backref" href="#id38" role="doc-backlink">قرارات التنفيذ</a><a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<section id="id10">
+<h3><a class="toc-backref" href="#id39" role="doc-backlink">لماذا لا يوجد دعم للتعلم العميق أو التعلم المعزز؟ هل سيكون هناك مثل هذا الدعم في المستقبل؟</a><a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>يتطلب كل من التعلم العميق والتعلم المعزز مفردات غنية لتعريف بنية،
+مع حاجة التعلم العميق بالإضافة إلى ذلك إلى وحدات معالجة الرسومات للحوسبة
+الفعالة. ومع ذلك، لا يتناسب أي منهما مع قيود تصميم scikit-learn. نتيجة
+لذلك، يقع التعلم العميق والتعلم المعزز حاليًا خارج نطاق ما تسعى
+scikit-learn إلى تحقيقه.</p>
+<p>يمكنك العثور على مزيد من المعلومات حول إضافة دعم وحدة معالجة الرسومات في
+<a class="reference internal" href="#id12">هل ستضيفون دعم وحدة معالجة الرسومات؟</a>.</p>
+<p>لاحظ أن scikit-learn تنفذ حاليًا شبكة عصبية متعددة الطبقات بسيطة
+في <a class="reference internal" href="api/sklearn.neural_network.html#module-sklearn.neural_network" title="sklearn.neural_network"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.neural_network</span></code></a>. سنقبل فقط إصلاحات الأخطاء لهذه الوحدة.
+إذا كنت ترغب في تنفيذ نماذج تعلم عميق أكثر تعقيدًا، فيرجى الرجوع إلى
+أطر عمل التعلم العميق الشائعة مثل
+<a class="reference external" href="https://www.tensorflow.org/">tensorflow</a>،
+<a class="reference external" href="https://keras.io/">keras</a>،
+و <a class="reference external" href="https://pytorch.org/">pytorch</a>.</p>
 </section>
-<section id="will-you-add-graphical-models-or-sequence-prediction-to-scikit-learn">
-<span id="adding-graphical-models"></span><h3><a class="toc-backref" href="#id10" role="doc-backlink">Will you add graphical models or sequence prediction to scikit-learn?</a><a class="headerlink" href="#will-you-add-graphical-models-or-sequence-prediction-to-scikit-learn" title="Link to this heading">#</a></h3>
-<p>Not in the foreseeable future.
-scikit-learn tries to provide a unified API for the basic tasks in machine
-learning, with pipelines and meta-algorithms like grid search to tie
-everything together. The required concepts, APIs, algorithms and
-expertise required for structured learning are different from what
-scikit-learn has to offer. If we started doing arbitrary structured
-learning, we'd need to redesign the whole package and the project
-would likely collapse under its own weight.</p>
-<p>There are two projects with API similar to scikit-learn that
-do structured prediction:</p>
+<section id="adding-graphical-models">
+<span id="id11"></span><h3><a class="toc-backref" href="#id40" role="doc-backlink">هل ستضيفون نماذج رسومية أو تنبؤ بالتسلسل إلى scikit-learn؟</a><a class="headerlink" href="#adding-graphical-models" title="Link to this heading">#</a></h3>
+<p>ليس في المستقبل المنظور.
+تحاول scikit-learn توفير واجهة برمجة تطبيقات موحدة للمهام الأساسية في التعلم
+الآلي، مع خطوط أنابيب وخوارزميات وصفية مثل بحث الشبكة لربط كل شيء معًا.
+تختلف المفاهيم المطلوبة وواجهات برمجة التطبيقات والخوارزميات والخبرات
+المطلوبة للتعلم المنظم عما تقدمه scikit-learn. إذا بدأنا في
+إجراء تعلم منظم تعسفي، فسنحتاج إلى إعادة تصميم الحزمة بأكملها، ومن المرجح أن
+ينهار المشروع تحت ثقله.</p>
+<p>هناك مشروعان لهما واجهة برمجة تطبيقات مشابهة لـ scikit-learn يقومان بالتنبؤ المنظم:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://pystruct.github.io/">pystruct</a> handles general structured
-learning (focuses on SSVMs on arbitrary graph structures with
-approximate inference; defines the notion of sample as an instance of
-the graph structure).</p></li>
-<li><p><a class="reference external" href="https://larsmans.github.io/seqlearn/">seqlearn</a> handles sequences only
-(focuses on exact inference; has HMMs, but mostly for the sake of
-completeness; treats a feature vector as a sample and uses an offset encoding
-for the dependencies between feature vectors).</p></li>
+<li><p><a class="reference external" href="https://pystruct.github.io/">pystruct</a> يتعامل مع التعلم المنظم العام (يركز على
+SSVMs على هياكل رسوم بيانية عشوائية مع استدلال تقريبي؛ يعرّف فكرة العينة
+كحالة لهيكل الرسم البياني).</p></li>
+<li><p><a class="reference external" href="https://larsmans.github.io/seqlearn/">seqlearn</a> يتعامل مع التسلسلات فقط
+(يركز على الاستدلال الدقيق؛ لديه HMMs، ولكن في الغالب من أجل
+الاكتمال؛ يعامل متجه الميزات كعينة ويستخدم ترميز الإزاحة للتبعيات
+بين متجهات الميزات).</p></li>
 </ul>
 </section>
-<section id="why-did-you-remove-hmms-from-scikit-learn">
-<h3><a class="toc-backref" href="#id11" role="doc-backlink">Why did you remove HMMs from scikit-learn?</a><a class="headerlink" href="#why-did-you-remove-hmms-from-scikit-learn" title="Link to this heading">#</a></h3>
-<p>See <a class="reference internal" href="#adding-graphical-models"><span class="std std-ref">Will you add graphical models or sequence prediction to scikit-learn?</span></a>.</p>
+<section id="hmms-scikit-learn">
+<h3><a class="toc-backref" href="#id41" role="doc-backlink">لماذا أزلتم HMMs من scikit-learn؟</a><a class="headerlink" href="#hmms-scikit-learn" title="Link to this heading">#</a></h3>
+<p>انظر <a class="reference internal" href="#adding-graphical-models"><span class="std std-ref">هل ستضيفون نماذج رسومية أو تنبؤ بالتسلسل إلى scikit-learn؟</span></a>.</p>
 </section>
-<section id="will-you-add-gpu-support">
-<h3><a class="toc-backref" href="#id12" role="doc-backlink">Will you add GPU support?</a><a class="headerlink" href="#will-you-add-gpu-support" title="Link to this heading">#</a></h3>
-<p>Adding GPU support by default would introduce heavy harware-specific software
-dependencies and existing algorithms would need to be reimplemented. This would
-make it both harder for the average user to install scikit-learn and harder for
-the developers to maintain the code.</p>
-<p>However, since 2023, a limited but growing <a class="reference internal" href="modules/array_api.html#array-api-supported"><span class="std std-ref">list of scikit-learn
-estimators</span></a> can already run on GPUs if the input data is
-provided as a PyTorch or CuPy array and if scikit-learn has been configured to
-accept such inputs as explained in <span class="xref std std-ref">array_api</span>. This Array API support
-allows scikit-learn to run on GPUs without introducing heavy and
-hardware-specific software dependencies to the main package.</p>
-<p>Most estimators that rely on NumPy for their computationally intensive operations
-can be considered for Array API support and therefore GPU support.</p>
-<p>However, not all scikit-learn estimators are amenable to efficiently running
-on GPUs via the Array API for fundamental algorithmic reasons. For instance,
-tree-based models currently implemented with Cython in scikit-learn are
-fundamentally not array-based algorithms. Other algorithms such as k-means or
-k-nearest neighbors rely on array-based algorithms but are also implemented in
-Cython. Cython is used to manually interleave consecutive array operations to
-avoid introducing performance killing memory access to large intermediate
-arrays: this low-level algorithmic rewrite is called &quot;kernel fusion&quot; and cannot
-be expressed via the Array API for the foreseeable future.</p>
-<p>Adding efficient GPU support to estimators that cannot be efficiently
-implemented with the Array API would require designing and adopting a more
-flexible extension system for scikit-learn. This possibility is being
-considered in the following GitHub issue (under discussion):</p>
+<section id="id12">
+<h3><a class="toc-backref" href="#id42" role="doc-backlink">هل ستضيفون دعم وحدة معالجة الرسومات؟</a><a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>ستؤدي إضافة دعم وحدة معالجة الرسومات افتراضيًا إلى إدخال تبعيات برمجية
+خاصة بالأجهزة الثقيلة، وستحتاج الخوارزميات الحالية إلى إعادة تنفيذها. سيجعل
+هذا الأمر أكثر صعوبة لكل من المستخدم العادي لتثبيت scikit-learn وللمطورين
+لصيانة الكود.</p>
+<p>ومع ذلك، منذ عام 2023، فإن <a class="reference internal" href="modules/array_api.html#array-api-supported"><span class="std std-ref">قائمة محدودة ولكن متنامية من مقدرات scikit-learn</span></a> يمكنها بالفعل العمل على وحدات معالجة الرسومات إذا تم توفير بيانات
+الإدخال كمصفوفة PyTorch أو CuPy وإذا تم تكوين scikit-learn لقبول
+مثل هذه المدخلات كما هو موضح في <span class="xref std std-ref">array_api</span>. يسمح دعم Array API
+لـ scikit-learn بالعمل على وحدات معالجة الرسومات دون إدخال تبعيات
+برمجية ثقيلة وخاصة بالأجهزة للحزمة الرئيسية.</p>
+<p>يمكن اعتبار معظم المقدرات التي تعتمد على NumPy لعملياتها الحسابية
+المكثفة لدعم Array API وبالتالي دعم وحدة معالجة الرسومات.</p>
+<p>ومع ذلك، لا يمكن لجميع مقدرات scikit-learn العمل بكفاءة على وحدات
+معالجة الرسومات عبر Array API لأسباب خوارزمية أساسية. على سبيل المثال،
+نماذج تعتمد على الشجرة يتم تنفيذها حاليًا مع Cython في scikit-learn
+ليست أساسًا خوارزميات تعتمد على المصفوفات. تعتمد الخوارزميات الأخرى مثل
+k-means أو k-nearest neighbors على خوارزميات تعتمد على المصفوفات ولكنها
+يتم تنفيذها أيضًا في Cython. يتم استخدام Cython لتشبيك عمليات المصفوفة
+المتتالية يدويًا لتجنب إدخال الوصول إلى الذاكرة الذي يقتل الأداء
+لمصفوفات وسيطة كبيرة: تُعرف إعادة الكتابة الخوارزمية منخفضة المستوى
+هذه باسم &quot;دمج النواة&quot; ولا يمكن التعبير عنها عبر Array API في المستقبل
+المنظور.</p>
+<p>ستتطلب إضافة دعم وحدة معالجة الرسومات بكفاءة إلى المقدرات التي لا يمكن
+تنفيذها بكفاءة باستخدام Array API تصميم واعتماد نظام توسيع أكثر مرونة
+لـ scikit-learn. يتم النظر في هذا الاحتمال في مشكلة GitHub التالية (قيد المناقشة):</p>
 <ul class="simple">
 <li><p><a class="github reference external" href="https://github.com/scikit-learn/scikit-learn/issues/22438">scikit-learn/scikit-learn#22438</a></p></li>
 </ul>
 </section>
-<section id="why-do-categorical-variables-need-preprocessing-in-scikit-learn-compared-to-other-tools">
-<h3><a class="toc-backref" href="#id13" role="doc-backlink">Why do categorical variables need preprocessing in scikit-learn, compared to other tools?</a><a class="headerlink" href="#why-do-categorical-variables-need-preprocessing-in-scikit-learn-compared-to-other-tools" title="Link to this heading">#</a></h3>
-<p>Most of scikit-learn assumes data is in NumPy arrays or SciPy sparse matrices
-of a single numeric dtype. These do not explicitly represent categorical
-variables at present. Thus, unlike R's <code class="docutils literal notranslate"><span class="pre">data.frames</span></code> or <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>,
-we require explicit conversion of categorical features to numeric values, as
-discussed in <a class="reference internal" href="modules/preprocessing.html#preprocessing-categorical-features"><span class="std std-ref">تشفير الميزات الفئوية</span></a>.
-See also <a class="reference internal" href="auto_examples/compose/plot_column_transformer_mixed_types.html#sphx-glr-auto-examples-compose-plot-column-transformer-mixed-types-py"><span class="std std-ref">محول الأعمدة مع الأنواع المختلطة</span></a> for an
-example of working with heterogeneous (e.g. categorical and numeric) data.</p>
-<p>Note that recently, <a class="reference internal" href="modules/generated/sklearn.ensemble.HistGradientBoostingClassifier.html#sklearn.ensemble.HistGradientBoostingClassifier" title="sklearn.ensemble.HistGradientBoostingClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">HistGradientBoostingClassifier</span></code></a> and
-<a class="reference internal" href="modules/generated/sklearn.ensemble.HistGradientBoostingRegressor.html#sklearn.ensemble.HistGradientBoostingRegressor" title="sklearn.ensemble.HistGradientBoostingRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">HistGradientBoostingRegressor</span></code></a> gained native support for
-categorical features through the option <code class="docutils literal notranslate"><span class="pre">categorical_features=&quot;from_dtype&quot;</span></code>. This
-option relies on inferring which columns of the data are categorical based on the
-<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.CategoricalDtype.html#pandas.CategoricalDtype" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.CategoricalDtype</span></code></a> and <code class="xref py py-class docutils literal notranslate"><span class="pre">polars.datatypes.Categorical</span></code> dtypes.</p>
+<section id="id13">
+<h3><a class="toc-backref" href="#id43" role="doc-backlink">لماذا تحتاج المتغيرات الفئوية إلى المعالجة المسبقة في scikit-learn، مقارنة بالأدوات الأخرى؟</a><a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>تفترض معظم scikit-learn أن البيانات موجودة في مصفوفات NumPy أو مصفوفات
+SciPy المتفرقة من نوع بيانات رقمي واحد. هذه لا تمثل المتغيرات الفئوية
+صراحة في الوقت الحاضر. وبالتالي، على عكس <code class="docutils literal notranslate"><span class="pre">data.frames</span></code> فيR أو <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>، نطلب تحويلًا صريحًا للميزات الفئوية إلى قيم رقمية، كما هو موضح في <a class="reference internal" href="modules/preprocessing.html#preprocessing-categorical-features"><span class="std std-ref">تشفير الميزات الفئوية</span></a>.
+راجع أيضًا <a class="reference internal" href="auto_examples/compose/plot_column_transformer_mixed_types.html#sphx-glr-auto-examples-compose-plot-column-transformer-mixed-types-py"><span class="std std-ref">محول الأعمدة مع الأنواع المختلطة</span></a> للحصول على مثال للعمل مع بيانات غير متجانسة (مثل الفئوية والرقمية).</p>
+<p>لاحظ أنه في الآونة الأخيرة، اكتسب كل من <a class="reference internal" href="modules/generated/sklearn.ensemble.HistGradientBoostingClassifier.html#sklearn.ensemble.HistGradientBoostingClassifier" title="sklearn.ensemble.HistGradientBoostingClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">HistGradientBoostingClassifier</span></code></a> و <a class="reference internal" href="modules/generated/sklearn.ensemble.HistGradientBoostingRegressor.html#sklearn.ensemble.HistGradientBoostingRegressor" title="sklearn.ensemble.HistGradientBoostingRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">HistGradientBoostingRegressor</span></code></a> دعمًا أصليًا للميزات الفئوية من خلال الخيار <code class="docutils literal notranslate"><span class="pre">categorical_features=&quot;from_dtype&quot;</span></code>. يعتمد هذا الخيار على استنتاج أعمدة البيانات الفئوية بناءً على أنواع البيانات <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.CategoricalDtype.html#pandas.CategoricalDtype" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.CategoricalDtype</span></code></a> و <code class="xref py py-class docutils literal notranslate"><span class="pre">polars.datatypes.Categorical</span></code>.</p>
 </section>
-<section id="does-scikit-learn-work-natively-with-various-types-of-dataframes">
-<h3><a class="toc-backref" href="#id14" role="doc-backlink">Does scikit-learn work natively with various types of dataframes?</a><a class="headerlink" href="#does-scikit-learn-work-natively-with-various-types-of-dataframes" title="Link to this heading">#</a></h3>
-<p>Scikit-learn has limited support for <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> and
-<code class="xref py py-class docutils literal notranslate"><span class="pre">polars.DataFrame</span></code>. Scikit-learn estimators can accept both these dataframe types
-as input, and scikit-learn transformers can output dataframes using the <code class="docutils literal notranslate"><span class="pre">set_output</span></code>
-API. For more details, refer to
-<a class="reference internal" href="auto_examples/miscellaneous/plot_set_output.html#sphx-glr-auto-examples-miscellaneous-plot-set-output-py"><span class="std std-ref">تقديم واجهة برمجة التطبيقات set_output</span></a>.</p>
-<p>However, the internal computations in scikit-learn estimators rely on numerical
-operations that are more efficiently performed on homogeneous data structures such as
-NumPy arrays or SciPy sparse matrices. As a result, most scikit-learn estimators will
-internally convert dataframe inputs into these homogeneous data structures. Similarly,
-dataframe outputs are generated from these homogeneous data structures.</p>
-<p>Also note that <a class="reference internal" href="modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="sklearn.compose.ColumnTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code></a> makes it convenient to handle
-heterogeneous pandas dataframes by mapping homogeneous subsets of dataframe columns
-selected by name or dtype to dedicated scikit-learn transformers. Therefore
-<a class="reference internal" href="modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="sklearn.compose.ColumnTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code></a> are often used in the first step of
-scikit-learn pipelines when dealing with heterogeneous dataframes (see <a class="reference internal" href="modules/compose.html#pipeline"><span class="std std-ref">Pipeline: سلسلة المقدرات</span></a>
-for more details).</p>
-<p>See also <a class="reference internal" href="auto_examples/compose/plot_column_transformer_mixed_types.html#sphx-glr-auto-examples-compose-plot-column-transformer-mixed-types-py"><span class="std std-ref">محول الأعمدة مع الأنواع المختلطة</span></a>
-for an example of working with heterogeneous (e.g. categorical and numeric) data.</p>
+<section id="id14">
+<h3><a class="toc-backref" href="#id44" role="doc-backlink">هل تعمل scikit-learn محليًا مع أنواع مختلفة من إطارات البيانات؟</a><a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>لدى Scikit-learn دعم محدود لـ <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> و <code class="xref py py-class docutils literal notranslate"><span class="pre">polars.DataFrame</span></code>. يمكن لمقدرات Scikit-learn قبول كلا نوعي إطار البيانات كمدخلات، ويمكن لمحولات Scikit-learn إخراج إطارات البيانات باستخدام واجهة برمجة تطبيقات <code class="docutils literal notranslate"><span class="pre">set_output</span></code>. لمزيد من التفاصيل، يرجى الرجوع إلى <a class="reference internal" href="auto_examples/miscellaneous/plot_set_output.html#sphx-glr-auto-examples-miscellaneous-plot-set-output-py"><span class="std std-ref">تقديم واجهة برمجة التطبيقات set_output</span></a>.</p>
+<p>ومع ذلك، تعتمد الحسابات الداخلية في مقدرات Scikit-learn على العمليات العددية التي يتم إجراؤها بشكل أكثر كفاءة على هياكل البيانات المتجانسة مثل مصفوفات NumPy أو مصفوفات SciPy المتفرقة. نتيجة لذلك، ستقوم معظم مقدرات Scikit-learn داخليًا بتحويل مدخلات إطار البيانات إلى هياكل البيانات المتجانسة هذه. وبالمثل، يتم إنشاء مخرجات إطار البيانات من هياكل البيانات المتجانسة هذه.</p>
+<p>لاحظ أيضًا أن <a class="reference internal" href="modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="sklearn.compose.ColumnTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code></a> يجعل من الملائم التعامل مع إطارات بيانات الباندا غير المتجانسة عن طريق تعيين مجموعات فرعية متجانسة من أعمدة إطار البيانات المحددة بالاسم أو نوع البيانات إلى محولات Scikit-learn مخصصة. لذلك، غالبًا ما يتم استخدام <a class="reference internal" href="modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="sklearn.compose.ColumnTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnTransformer</span></code></a> في الخطوة الأولى من خطوط أنابيب Scikit-learn عند التعامل مع إطارات البيانات غير المتجانسة (انظر <a class="reference internal" href="modules/compose.html#pipeline"><span class="std std-ref">Pipeline: سلسلة المقدرات</span></a> لمزيد من التفاصيل).</p>
+<p>راجع أيضًا <a class="reference internal" href="auto_examples/compose/plot_column_transformer_mixed_types.html#sphx-glr-auto-examples-compose-plot-column-transformer-mixed-types-py"><span class="std std-ref">محول الأعمدة مع الأنواع المختلطة</span></a> للحصول على مثال للعمل مع بيانات غير متجانسة (مثل الفئوية والرقمية).</p>
 </section>
-<section id="do-you-plan-to-implement-transform-for-target-y-in-a-pipeline">
-<h3><a class="toc-backref" href="#id15" role="doc-backlink">Do you plan to implement transform for target <code class="docutils literal notranslate"><span class="pre">y</span></code> in a pipeline?</a><a class="headerlink" href="#do-you-plan-to-implement-transform-for-target-y-in-a-pipeline" title="Link to this heading">#</a></h3>
-<p>Currently transform only works for features <code class="docutils literal notranslate"><span class="pre">X</span></code> in a pipeline. There's a
-long-standing discussion about not being able to transform <code class="docutils literal notranslate"><span class="pre">y</span></code> in a pipeline.
-Follow on GitHub issue <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/issues/4143">#4143</a>. Meanwhile, you can check out
-<a class="reference internal" href="modules/generated/sklearn.compose.TransformedTargetRegressor.html#sklearn.compose.TransformedTargetRegressor" title="sklearn.compose.TransformedTargetRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformedTargetRegressor</span></code></a>,
-<a class="reference external" href="https://github.com/mcasl/PipeGraph">pipegraph</a>,
-and <a class="reference external" href="https://github.com/scikit-learn-contrib/imbalanced-learn">imbalanced-learn</a>.
-Note that scikit-learn solved for the case where <code class="docutils literal notranslate"><span class="pre">y</span></code>
-has an invertible transformation applied before training
-and inverted after prediction. scikit-learn intends to solve for
-use cases where <code class="docutils literal notranslate"><span class="pre">y</span></code> should be transformed at training time
-and not at test time, for resampling and similar uses, like at
-<a class="reference external" href="https://github.com/scikit-learn-contrib/imbalanced-learn">imbalanced-learn</a>.
-In general, these use cases can be solved
-with a custom meta estimator rather than a <a class="reference internal" href="modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>.</p>
+<section id="y">
+<h3><a class="toc-backref" href="#id45" role="doc-backlink">هل تخططون لتنفيذ تحويل للهدف <code class="docutils literal notranslate"><span class="pre">y</span></code> في خط أنابيب؟</a><a class="headerlink" href="#y" title="Link to this heading">#</a></h3>
+<p>يعمل التحويل حاليًا فقط للميزات <code class="docutils literal notranslate"><span class="pre">X</span></code> في خط أنابيب. هناك نقاش طويل الأمد حول عدم القدرة على تحويل <code class="docutils literal notranslate"><span class="pre">y</span></code> في خط أنابيب. تابع مشكلة GitHub <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/issues/4143">#4143</a>. في غضون ذلك، يمكنك مراجعة <a class="reference internal" href="modules/generated/sklearn.compose.TransformedTargetRegressor.html#sklearn.compose.TransformedTargetRegressor" title="sklearn.compose.TransformedTargetRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransformedTargetRegressor</span></code></a> و <a class="reference external" href="https://github.com/mcasl/PipeGraph">pipegraph</a> و <a class="reference external" href="https://github.com/scikit-learn-contrib/imbalanced-learn">imbalanced-learn</a>. لاحظ أن scikit-learn قد حلت الحالة التي يتم فيها تطبيق تحويل قابل للعكس على <code class="docutils literal notranslate"><span class="pre">y</span></code> قبل التدريب وعكسه بعد التنبؤ. تنوي scikit-learn حل حالات الاستخدام التي يجب فيها تحويل <code class="docutils literal notranslate"><span class="pre">y</span></code> في وقت التدريب وليس في وقت الاختبار، لإعادة التشكيل واستخدامات مماثلة، كما هو الحال في <a class="reference external" href="https://github.com/scikit-learn-contrib/imbalanced-learn">imbalanced-learn</a>. بشكل عام، يمكن حل حالات الاستخدام هذه باستخدام مقدر وصفية مخصص بدلاً من <a class="reference internal" href="modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>.</p>
 </section>
-<section id="why-are-there-so-many-different-estimators-for-linear-models">
-<h3><a class="toc-backref" href="#id16" role="doc-backlink">Why are there so many different estimators for linear models?</a><a class="headerlink" href="#why-are-there-so-many-different-estimators-for-linear-models" title="Link to this heading">#</a></h3>
-<p>Usually, there is one classifier and one regressor per model type, e.g.
-<a class="reference internal" href="modules/generated/sklearn.ensemble.GradientBoostingClassifier.html#sklearn.ensemble.GradientBoostingClassifier" title="sklearn.ensemble.GradientBoostingClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">GradientBoostingClassifier</span></code></a> and
-<a class="reference internal" href="modules/generated/sklearn.ensemble.GradientBoostingRegressor.html#sklearn.ensemble.GradientBoostingRegressor" title="sklearn.ensemble.GradientBoostingRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">GradientBoostingRegressor</span></code></a>. Both have similar options and
-both have the parameter <code class="docutils literal notranslate"><span class="pre">loss</span></code>, which is especially useful in the regression
-case as it enables the estimation of conditional mean as well as conditional
-quantiles.</p>
-<p>For linear models, there are many estimator classes which are very close to
-each other. Let us have a look at</p>
+<section id="id16">
+<h3><a class="toc-backref" href="#id46" role="doc-backlink">لماذا يوجد الكثير من المقدرات المختلفة للنماذج الخطية؟</a><a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<p>عادةً، يوجد مصنف واحد ومنظم واحد لكل نوع نموذج، على سبيل المثال <a class="reference internal" href="modules/generated/sklearn.ensemble.GradientBoostingClassifier.html#sklearn.ensemble.GradientBoostingClassifier" title="sklearn.ensemble.GradientBoostingClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">GradientBoostingClassifier</span></code></a> و <a class="reference internal" href="modules/generated/sklearn.ensemble.GradientBoostingRegressor.html#sklearn.ensemble.GradientBoostingRegressor" title="sklearn.ensemble.GradientBoostingRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">GradientBoostingRegressor</span></code></a>. كلاهما لهما خيارات متشابهة وكلاهما لديه المعلمة <code class="docutils literal notranslate"><span class="pre">loss</span></code>، وهو أمر مفيد بشكل خاص في حالة الانحدار لأنه يتيح تقدير المتوسط ​​الشرطي بالإضافة إلى الكميات الشرطية.</p>
+<p>بالنسبة للنماذج الخطية، هناك العديد من فئات المقدرات القريبة جدًا من بعضها البعض. دعونا نلقي نظرة على</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="modules/generated/sklearn.linear_model.LinearRegression.html#sklearn.linear_model.LinearRegression" title="sklearn.linear_model.LinearRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearRegression</span></code></a>, no penalty</p></li>
-<li><p><a class="reference internal" href="modules/generated/sklearn.linear_model.Ridge.html#sklearn.linear_model.Ridge" title="sklearn.linear_model.Ridge"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ridge</span></code></a>, L2 penalty</p></li>
-<li><p><a class="reference internal" href="modules/generated/sklearn.linear_model.Lasso.html#sklearn.linear_model.Lasso" title="sklearn.linear_model.Lasso"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lasso</span></code></a>, L1 penalty (sparse models)</p></li>
-<li><p><a class="reference internal" href="modules/generated/sklearn.linear_model.ElasticNet.html#sklearn.linear_model.ElasticNet" title="sklearn.linear_model.ElasticNet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ElasticNet</span></code></a>, L1 + L2 penalty (less sparse models)</p></li>
-<li><p><a class="reference internal" href="modules/generated/sklearn.linear_model.SGDRegressor.html#sklearn.linear_model.SGDRegressor" title="sklearn.linear_model.SGDRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDRegressor</span></code></a> with <code class="docutils literal notranslate"><span class="pre">loss=&quot;squared_loss&quot;</span></code></p></li>
+<li><p><a class="reference internal" href="modules/generated/sklearn.linear_model.LinearRegression.html#sklearn.linear_model.LinearRegression" title="sklearn.linear_model.LinearRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">LinearRegression</span></code></a>، بدون عقوبة</p></li>
+<li><p><a class="reference internal" href="modules/generated/sklearn.linear_model.Ridge.html#sklearn.linear_model.Ridge" title="sklearn.linear_model.Ridge"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ridge</span></code></a>، عقوبة L2</p></li>
+<li><p><a class="reference internal" href="modules/generated/sklearn.linear_model.Lasso.html#sklearn.linear_model.Lasso" title="sklearn.linear_model.Lasso"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lasso</span></code></a>، عقوبة L1 (نماذج متفرقة)</p></li>
+<li><p><a class="reference internal" href="modules/generated/sklearn.linear_model.ElasticNet.html#sklearn.linear_model.ElasticNet" title="sklearn.linear_model.ElasticNet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ElasticNet</span></code></a>، عقوبة L1 + L2 (نماذج أقل تفرقًا)</p></li>
+<li><p><a class="reference internal" href="modules/generated/sklearn.linear_model.SGDRegressor.html#sklearn.linear_model.SGDRegressor" title="sklearn.linear_model.SGDRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDRegressor</span></code></a> مع <code class="docutils literal notranslate"><span class="pre">loss=&quot;squared_loss&quot;</span></code></p></li>
 </ul>
-<p><strong>Maintainer perspective:</strong>
-They all do in principle the same and are different only by the penalty they
-impose. This, however, has a large impact on the way the underlying
-optimization problem is solved. In the end, this amounts to usage of different
-methods and tricks from linear algebra. A special case is
-<a class="reference internal" href="modules/generated/sklearn.linear_model.SGDRegressor.html#sklearn.linear_model.SGDRegressor" title="sklearn.linear_model.SGDRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDRegressor</span></code></a> which
-comprises all 4 previous models and is different by the optimization procedure.
-A further side effect is that the different estimators favor different data
-layouts (<code class="docutils literal notranslate"><span class="pre">X</span></code> C-contiguous or F-contiguous, sparse csr or csc). This complexity
-of the seemingly simple linear models is the reason for having different
-estimator classes for different penalties.</p>
-<p><strong>User perspective:</strong>
-First, the current design is inspired by the scientific literature where linear
-regression models with different regularization/penalty were given different
-names, e.g. <em>ridge regression</em>. Having different model classes with according
-names makes it easier for users to find those regression models.
-Secondly, if all the 5 above mentioned linear models were unified into a single
-class, there would be parameters with a lot of options like the <code class="docutils literal notranslate"><span class="pre">solver</span></code>
-parameter. On top of that, there would be a lot of exclusive interactions
-between different parameters. For example, the possible options of the
-parameters <code class="docutils literal notranslate"><span class="pre">solver</span></code>, <code class="docutils literal notranslate"><span class="pre">precompute</span></code> and <code class="docutils literal notranslate"><span class="pre">selection</span></code> would depend on the
-chosen values of the penalty parameters <code class="docutils literal notranslate"><span class="pre">alpha</span></code> and <code class="docutils literal notranslate"><span class="pre">l1_ratio</span></code>.</p>
+<p><strong>منظور المسؤول عن الصيانة:</strong>
+جميعهم يفعلون من حيث المبدأ نفس الشيء ويختلفون فقط من خلال العقوبة التي يفرضونها. ومع ذلك، فإن هذا له تأثير كبير على الطريقة التي يتم بها حل مشكلة التحسين الأساسية. في النهاية، يرقى هذا إلى استخدام طرق وحيل مختلفة من الجبر الخطي. حالة خاصة هي <a class="reference internal" href="modules/generated/sklearn.linear_model.SGDRegressor.html#sklearn.linear_model.SGDRegressor" title="sklearn.linear_model.SGDRegressor"><code class="xref py py-class docutils literal notranslate"><span class="pre">SGDRegressor</span></code></a> التي تضم جميع النماذج الأربعة السابقة وتختلف من خلال إجراء التحسين. أحد الآثار الجانبية الإضافية هو أن المقدرات المختلفة تفضل تخطيطات بيانات مختلفة (<code class="docutils literal notranslate"><span class="pre">X</span></code> متجاورة C أو متجاورة F، متفرقة csr أو csc). هذا التعقيد للنماذج الخطية التي تبدو بسيطة هو سبب وجود فئات مقدرات مختلفة لعقوبات مختلفة.</p>
+<p><strong>منظور المستخدم:</strong>
+أولاً، التصميم الحالي مستوحى من الأدبيات العلمية حيث تم إعطاء نماذج الانحدار الخطي ذات التنظيم/العقوبة المختلفة أسماء مختلفة، على سبيل المثال <em>انحدار ريدج</em>. إن وجود فئات نماذج مختلفة بأسماء متوافقة يسهل على المستخدمين العثور على نماذج الانحدار تلك.
+ثانيًا، إذا تم توحيد جميع النماذج الخطية الخمسة المذكورة أعلاه في فئة واحدة، فسيكون هناك معلمات تحتوي على الكثير من الخيارات مثل معلمة <code class="docutils literal notranslate"><span class="pre">solver</span></code>. علاوة على ذلك، سيكون هناك الكثير من التفاعلات الحصرية بين المعلمات المختلفة. على سبيل المثال، ستعتمد الخيارات الممكنة لمعلمات <code class="docutils literal notranslate"><span class="pre">solver</span></code> و <code class="docutils literal notranslate"><span class="pre">precompute</span></code> و <code class="docutils literal notranslate"><span class="pre">selection</span></code> على القيم المختارة لمعلمات العقوبة <code class="docutils literal notranslate"><span class="pre">alpha</span></code> و <code class="docutils literal notranslate"><span class="pre">l1_ratio</span></code>.</p>
 </section>
 </section>
-<section id="contributing">
-<h2><a class="toc-backref" href="#id17" role="doc-backlink">Contributing</a><a class="headerlink" href="#contributing" title="Link to this heading">#</a></h2>
-<section id="how-can-i-contribute-to-scikit-learn">
-<h3><a class="toc-backref" href="#id18" role="doc-backlink">How can I contribute to scikit-learn?</a><a class="headerlink" href="#how-can-i-contribute-to-scikit-learn" title="Link to this heading">#</a></h3>
-<p>See <a class="reference internal" href="developers/contributing.html#contributing"><span class="std std-ref">المساهمة</span></a>. Before wanting to add a new algorithm, which is
-usually a major and lengthy undertaking, it is recommended to start with
-<a class="reference internal" href="developers/contributing.html#new-contributors"><span class="std std-ref">known issues</span></a>. Please do not contact the contributors
-of scikit-learn directly regarding contributing to scikit-learn.</p>
+<section id="id17">
+<h2><a class="toc-backref" href="#id47" role="doc-backlink">المساهمة</a><a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
+<section id="id18">
+<h3><a class="toc-backref" href="#id48" role="doc-backlink">كيف يمكنني المساهمة في scikit-learn؟</a><a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
+<p>انظر <a class="reference internal" href="developers/contributing.html#contributing"><span class="std std-ref">المساهمة</span></a>. قبل الرغبة في إضافة خوارزمية جديدة، والتي عادة ما تكون مهمة كبيرة وطويلة، يوصى بالبدء بـ <a class="reference internal" href="developers/contributing.html#new-contributors"><span class="std std-ref">المشكلات المعروفة</span></a>. يرجى عدم الاتصال بالمساهمين في scikit-learn مباشرةً فيما يتعلق بالمساهمة في scikit-learn.</p>
 </section>
-<section id="why-is-my-pull-request-not-getting-any-attention">
-<h3><a class="toc-backref" href="#id19" role="doc-backlink">Why is my pull request not getting any attention?</a><a class="headerlink" href="#why-is-my-pull-request-not-getting-any-attention" title="Link to this heading">#</a></h3>
-<p>The scikit-learn review process takes a significant amount of time, and
-contributors should not be discouraged by a lack of activity or review on
-their pull request. We care a lot about getting things right
-the first time, as maintenance and later change comes at a high cost.
-We rarely release any &quot;experimental&quot; code, so all of our contributions
-will be subject to high use immediately and should be of the highest
-quality possible initially.</p>
-<p>Beyond that, scikit-learn is limited in its reviewing bandwidth; many of the
-reviewers and core developers are working on scikit-learn on their own time.
-If a review of your pull request comes slowly, it is likely because the
-reviewers are busy. We ask for your understanding and request that you
-not close your pull request or discontinue your work solely because of
-this reason.</p>
+<section id="id19">
+<h3><a class="toc-backref" href="#id49" role="doc-backlink">لماذا لا يحظى طلب السحب الخاص بي بأي اهتمام؟</a><a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
+<p>تستغرق عملية مراجعة scikit-learn قدرًا كبيرًا من الوقت، ويجب ألا يثبط عزيمة المساهمين عدم وجود نشاط أو مراجعة لطلب السحب الخاص بهم. نحن نهتم كثيرًا بصحة الأمور في المرة الأولى، حيث أن الصيانة والتغيير اللاحق يأتي بتكلفة عالية. نادرًا ما نصدر أي كود &quot;تجريبي&quot;، لذلك ستخضع جميع مساهماتنا للاستخدام العالي على الفور ويجب أن تكون بأعلى جودة ممكنة في البداية.</p>
+<p>بخلاف ذلك، فإن scikit-learn محدودة في عرض النطاق الترددي للمراجعة؛ يعمل العديد من المراجعين ومطوري النواة على scikit-learn في وقتهم الخاص. إذا كانت مراجعة طلب السحب الخاص بك بطيئة، فمن المحتمل أن يكون ذلك بسبب انشغال المراجعين. نطلب منك تفهمك ونطلب منك عدم إغلاق طلب السحب الخاص بك أو التوقف عن عملك فقط بسبب هذا السبب.</p>
 </section>
-<section id="what-are-the-inclusion-criteria-for-new-algorithms">
-<span id="new-algorithms-inclusion-criteria"></span><h3><a class="toc-backref" href="#id20" role="doc-backlink">What are the inclusion criteria for new algorithms?</a><a class="headerlink" href="#what-are-the-inclusion-criteria-for-new-algorithms" title="Link to this heading">#</a></h3>
-<p>We only consider well-established algorithms for inclusion. A rule of thumb is
-at least 3 years since publication, 200+ citations, and wide use and
-usefulness. A technique that provides a clear-cut improvement (e.g. an
-enhanced data structure or a more efficient approximation technique) on
-a widely-used method will also be considered for inclusion.</p>
-<p>From the algorithms or techniques that meet the above criteria, only those
-which fit well within the current API of scikit-learn, that is a <code class="docutils literal notranslate"><span class="pre">fit</span></code>,
-<code class="docutils literal notranslate"><span class="pre">predict/transform</span></code> interface and ordinarily having input/output that is a
-numpy array or sparse matrix, are accepted.</p>
-<p>The contributor should support the importance of the proposed addition with
-research papers and/or implementations in other similar packages, demonstrate
-its usefulness via common use-cases/applications and corroborate performance
-improvements, if any, with benchmarks and/or plots. It is expected that the
-proposed algorithm should outperform the methods that are already implemented
-in scikit-learn at least in some areas.</p>
-<p>Inclusion of a new algorithm speeding up an existing model is easier if:</p>
+<section id="new-algorithms-inclusion-criteria">
+<span id="id20"></span><h3><a class="toc-backref" href="#id50" role="doc-backlink">ما هي معايير تضمين الخوارزميات الجديدة؟</a><a class="headerlink" href="#new-algorithms-inclusion-criteria" title="Link to this heading">#</a></h3>
+<p>نحن نأخذ في الاعتبار فقط الخوارزميات الراسخة للتضمين. قاعدة عامة هي 3 سنوات على الأقل منذ النشر، و 200+ استشهاد، والاستخدام الواسع والفائدة. سيتم أيضًا النظر في تضمين تقنية توفر تحسينًا واضحًا (على سبيل المثال، بنية بيانات محسنة أو تقنية تقريب أكثر كفاءة) على طريقة مستخدمة على نطاق واسع.</p>
+<p>من الخوارزميات أو التقنيات التي تستوفي المعايير المذكورة أعلاه، يتم قبول فقط تلك التي تتناسب جيدًا مع واجهة برمجة تطبيقات scikit-learn الحالية، أي واجهة <code class="docutils literal notranslate"><span class="pre">fit</span></code> و <code class="docutils literal notranslate"><span class="pre">predict/transform</span></code> وعادةً ما يكون الإدخال/الإخراج عبارة عن مصفوفة numpy أو مصفوفة متفرقة.</p>
+<p>يجب على المساهم دعم أهمية الإضافة المقترحة بأوراق بحثية و/أو تطبيقات في حزم أخرى مماثلة، وإظهار فائدتها من خلال حالات الاستخدام/التطبيقات الشائعة وتأكيد تحسينات الأداء، إن وجدت، من خلال المعايير و/أو الرسوم البيانية. من المتوقع أن تتفوق الخوارزمية المقترحة على الطرق التي تم تنفيذها بالفعل في scikit-learn على الأقل في بعض المجالات.</p>
+<p>يكون تضمين خوارزمية جديدة لتسريع نموذج موجود أسهل إذا:</p>
 <ul class="simple">
-<li><p>it does not introduce new hyper-parameters (as it makes the library
-more future-proof),</p></li>
-<li><p>it is easy to document clearly when the contribution improves the speed
-and when it does not, for instance, &quot;when <code class="docutils literal notranslate"><span class="pre">n_features</span> <span class="pre">&gt;&gt;</span>
-<span class="pre">n_samples</span></code>&quot;,</p></li>
-<li><p>benchmarks clearly show a speed up.</p></li>
+<li><p>لم تقدم معلمات تشعبية جديدة (لأنها تجعل المكتبة أكثر مقاومة للمستقبل)،</p></li>
+<li><p>من السهل توثيق متى يحسن المساهمة السرعة ومتى لا يحسنها بوضوح، على سبيل المثال، &quot;عندما <code class="docutils literal notranslate"><span class="pre">n_features</span> <span class="pre">&gt;&gt;</span> <span class="pre">n_samples</span></code>&quot;،</p></li>
+<li><p>تُظهر المعايير بوضوح تسريعًا.</p></li>
 </ul>
-<p>Also, note that your implementation need not be in scikit-learn to be used
-together with scikit-learn tools. You can implement your favorite algorithm
-in a scikit-learn compatible way, upload it to GitHub and let us know. We
-will be happy to list it under <a class="reference internal" href="related_projects.html#related-projects"><span class="std std-ref">مشاريع ذات علاقة</span></a>. If you already have
-a package on GitHub following the scikit-learn API, you may also be
-interested to look at <a class="reference external" href="https://scikit-learn-contrib.github.io">scikit-learn-contrib</a>.</p>
+<p>لاحظ أيضًا أن تطبيقك لا يحتاج إلى أن يكون في scikit-learn ليتم استخدامه مع أدوات scikit-learn. يمكنك تنفيذ خوارزميتك المفضلة بطريقة متوافقة مع scikit-learn، وتحميلها إلى GitHub وإخبارنا بذلك. سنكون سعداء بإدراجه ضمن <a class="reference internal" href="related_projects.html#related-projects"><span class="std std-ref">مشاريع ذات علاقة</span></a>. إذا كانت لديك بالفعل حزمة على GitHub تتبع واجهة برمجة تطبيقات scikit-learn، فقد تكون مهتمًا أيضًا بالاطلاع على <a class="reference external" href="https://scikit-learn-contrib.github.io">scikit-learn-contrib</a>.</p>
 </section>
-<section id="why-are-you-so-selective-on-what-algorithms-you-include-in-scikit-learn">
-<span id="selectiveness"></span><h3><a class="toc-backref" href="#id21" role="doc-backlink">Why are you so selective on what algorithms you include in scikit-learn?</a><a class="headerlink" href="#why-are-you-so-selective-on-what-algorithms-you-include-in-scikit-learn" title="Link to this heading">#</a></h3>
-<p>Code comes with maintenance cost, and we need to balance the amount of
-code we have with the size of the team (and add to this the fact that
-complexity scales non linearly with the number of features).
-The package relies on core developers using their free time to
-fix bugs, maintain code and review contributions.
-Any algorithm that is added needs future attention by the developers,
-at which point the original author might long have lost interest.
-See also <a class="reference internal" href="#new-algorithms-inclusion-criteria"><span class="std std-ref">What are the inclusion criteria for new algorithms?</span></a>. For a great read about
-long-term maintenance issues in open-source software, look at
-<a class="reference external" href="https://www.fordfoundation.org/media/2976/roads-and-bridges-the-unseen-labor-behind-our-digital-infrastructure.pdf#page=8">the Executive Summary of Roads and Bridges</a>.</p>
+<section id="selectiveness">
+<span id="id21"></span><h3><a class="toc-backref" href="#id51" role="doc-backlink">لماذا أنت انتقائي للغاية بشأن الخوارزميات التي تدرجها في scikit-learn؟</a><a class="headerlink" href="#selectiveness" title="Link to this heading">#</a></h3>
+<p>يأتي الكود بتكلفة صيانة، ونحن بحاجة إلى موازنة كمية الكود التي لدينا مع حجم الفريق (وأضف إلى ذلك حقيقة أن التعقيد يتناسب بشكل غير خطي مع عدد الميزات). تعتمد الحزمة على مطوري النواة الذين يستخدمون وقتهم الخاص لإصلاح الأخطاء وصيانة الكود ومراجعة المساهمات. أي خوارزمية تمت إضافتها تحتاج إلى اهتمام مستقبلي من قبل المطورين، وعند هذه النقطة قد يكون المؤلف الأصلي قد فقد الاهتمام منذ فترة طويلة. انظر أيضًا <a class="reference internal" href="#new-algorithms-inclusion-criteria"><span class="std std-ref">ما هي معايير تضمين الخوارزميات الجديدة؟</span></a>. لقراءة رائعة حول مشكلات الصيانة طويلة المدى في برمجيات المصادر المفتوحة، انظر <a class="reference external" href="https://www.fordfoundation.org/media/2976/roads-and-bridges-the-unseen-labor-behind-our-digital-infrastructure.pdf#page=8">الملخص التنفيذي للطرق والجسور</a>.</p>
 </section>
 </section>
-<section id="using-scikit-learn">
-<h2><a class="toc-backref" href="#id22" role="doc-backlink">Using scikit-learn</a><a class="headerlink" href="#using-scikit-learn" title="Link to this heading">#</a></h2>
-<section id="what-s-the-best-way-to-get-help-on-scikit-learn-usage">
-<h3><a class="toc-backref" href="#id23" role="doc-backlink">What's the best way to get help on scikit-learn usage?</a><a class="headerlink" href="#what-s-the-best-way-to-get-help-on-scikit-learn-usage" title="Link to this heading">#</a></h3>
+<section id="id23">
+<h2><a class="toc-backref" href="#id52" role="doc-backlink">استخدام scikit-learn</a><a class="headerlink" href="#id23" title="Link to this heading">#</a></h2>
+<section id="id24">
+<h3><a class="toc-backref" href="#id53" role="doc-backlink">ما هي أفضل طريقة للحصول على مساعدة بشأن استخدام scikit-learn؟</a><a class="headerlink" href="#id24" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p>General machine learning questions: use <a class="reference external" href="https://stats.stackexchange.com/">Cross Validated</a> with the <code class="docutils literal notranslate"><span class="pre">[machine-learning]</span></code> tag.</p></li>
-<li><p>scikit-learn usage questions: use <a class="reference external" href="https://stackoverflow.com/questions/tagged/scikit-learn">Stack Overflow</a> with the
-<code class="docutils literal notranslate"><span class="pre">[scikit-learn]</span></code> and <code class="docutils literal notranslate"><span class="pre">[python]</span></code> tags. You can alternatively use the <a class="reference external" href="https://mail.python.org/mailman/listinfo/scikit-learn">mailing list</a>.</p></li>
+<li><p>أسئلة التعلم الآلي العامة: استخدم <a class="reference external" href="https://stats.stackexchange.com/">Cross Validated</a> مع علامة <code class="docutils literal notranslate"><span class="pre">[machine-learning]</span></code>.</p></li>
+<li><p>أسئلة استخدام scikit-learn: استخدم <a class="reference external" href="https://stackoverflow.com/questions/tagged/scikit-learn">Stack Overflow</a> مع علامات <code class="docutils literal notranslate"><span class="pre">[scikit-learn]</span></code> و <code class="docutils literal notranslate"><span class="pre">[python]</span></code>. يمكنك بدلاً من ذلك استخدام <a class="reference external" href="https://mail.python.org/mailman/listinfo/scikit-learn">القائمة البريدية</a>.</p></li>
 </ul>
-<p>Please make sure to include a minimal reproduction code snippet (ideally shorter
-than 10 lines) that highlights your problem on a toy dataset (for instance from
-<a class="reference internal" href="api/sklearn.datasets.html#module-sklearn.datasets" title="sklearn.datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.datasets</span></code></a> or randomly generated with functions of <code class="docutils literal notranslate"><span class="pre">numpy.random</span></code> with
-a fixed random seed). Please remove any line of code that is not necessary to
-reproduce your problem.</p>
-<p>The problem should be reproducible by simply copy-pasting your code snippet in a Python
-shell with scikit-learn installed. Do not forget to include the import statements.
-More guidance to write good reproduction code snippets can be found at:
-<a class="reference external" href="https://stackoverflow.com/help/mcve">https://stackoverflow.com/help/mcve</a>.</p>
-<p>If your problem raises an exception that you do not understand (even after googling it),
-please make sure to include the full traceback that you obtain when running the
-reproduction script.</p>
-<p>For bug reports or feature requests, please make use of the
-<a class="reference external" href="https://github.com/scikit-learn/scikit-learn/issues">issue tracker on GitHub</a>.</p>
+<p>يرجى التأكد من تضمين مقتطف شفرة إعادة إنتاج صغير (يفضل أن يكون أقصر من 10 أسطر) يبرز مشكلتك على مجموعة بيانات لعبة (على سبيل المثال من <a class="reference internal" href="api/sklearn.datasets.html#module-sklearn.datasets" title="sklearn.datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sklearn.datasets</span></code></a> أو تم إنشاؤها عشوائيًا باستخدام وظائف <code class="docutils literal notranslate"><span class="pre">numpy.random</span></code> مع بذرة عشوائية ثابتة). يرجى إزالة أي سطر من التعليمات البرمجية غير الضروري لإعادة إنتاج مشكلتك.</p>
+<p>يجب أن تكون المشكلة قابلة للتكرار بمجرد نسخ مقتطف الشفرة ولصقه في غلاف بايثون مع تثبيت scikit-learn. لا تنس تضمين عبارات الاستيراد. يمكن العثور على مزيد من الإرشادات لكتابة مقتطفات تعليمات برمجية جيدة لإعادة الإنتاج على: <a class="reference external" href="https://stackoverflow.com/help/mcve">https://stackoverflow.com/help/mcve</a>.</p>
+<p>إذا أثارت مشكلتك استثناءً لا تفهمه (حتى بعد البحث عنه في جوجل)، فيرجى التأكد من تضمين التتبع الكامل الذي تحصل عليه عند تشغيل البرنامج النصي لإعادة الإنتاج.</p>
+<p>لتقارير الأخطاء أو طلبات الميزات، يرجى استخدام <a class="reference external" href="https://github.com/scikit-learn/scikit-learn/issues">متتبع المشكلات على GitHub</a>.</p>
 <div class="admonition warning">
 <p class="admonition-title">تحذير</p>
-<p>Please do not email any authors directly to ask for assistance, report bugs,
-or for any other issue related to scikit-learn.</p>
+<p>يرجى عدم إرسال بريد إلكتروني إلى أي مؤلفين مباشرة لطلب المساعدة أو الإبلاغ عن الأخطاء أو أي مشكلة أخرى تتعلق بـ scikit-learn.</p>
 </div>
 </section>
-<section id="how-should-i-save-export-or-deploy-estimators-for-production">
-<h3><a class="toc-backref" href="#id24" role="doc-backlink">How should I save, export or deploy estimators for production?</a><a class="headerlink" href="#how-should-i-save-export-or-deploy-estimators-for-production" title="Link to this heading">#</a></h3>
-<p>See <a class="reference internal" href="model_persistence.html#model-persistence"><span class="std std-ref">حفظ النموذج</span></a>.</p>
+<section id="id26">
+<h3><a class="toc-backref" href="#id54" role="doc-backlink">كيف يمكنني حفظ أو تصدير أو نشر المقدرات للإنتاج؟</a><a class="headerlink" href="#id26" title="Link to this heading">#</a></h3>
+<p>انظر <a class="reference internal" href="model_persistence.html#model-persistence"><span class="std std-ref">حفظ النموذج</span></a>.</p>
 </section>
-<section id="how-can-i-create-a-bunch-object">
-<h3><a class="toc-backref" href="#id25" role="doc-backlink">How can I create a bunch object?</a><a class="headerlink" href="#how-can-i-create-a-bunch-object" title="Link to this heading">#</a></h3>
-<p>Bunch objects are sometimes used as an output for functions and methods. They
-extend dictionaries by enabling values to be accessed by key,
-<code class="docutils literal notranslate"><span class="pre">bunch[&quot;value_key&quot;]</span></code>, or by an attribute, <code class="docutils literal notranslate"><span class="pre">bunch.value_key</span></code>.</p>
-<p>They should not be used as an input. Therefore you almost never need to create
-a <a class="reference internal" href="modules/generated/sklearn.utils.Bunch.html#sklearn.utils.Bunch" title="sklearn.utils.Bunch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bunch</span></code></a> object, unless you are extending scikit-learn's API.</p>
+<section id="id27">
+<h3><a class="toc-backref" href="#id55" role="doc-backlink">كيف يمكنني إنشاء كائن حزمة؟</a><a class="headerlink" href="#id27" title="Link to this heading">#</a></h3>
+<p>تُستخدم كائنات الحزمة أحيانًا كمخرج للوظائف والأساليب. وهي توسع القواميس عن طريق تمكين الوصول إلى القيم بواسطة مفتاح، <code class="docutils literal notranslate"><span class="pre">bunch[&quot;value_key&quot;]</span></code>، أو بواسطة سمة، <code class="docutils literal notranslate"><span class="pre">bunch.value_key</span></code>.</p>
+<p>لا ينبغي استخدامها كمدخلات. لذلك لا تحتاج أبدًا إلى إنشاء كائن <a class="reference internal" href="modules/generated/sklearn.utils.Bunch.html#sklearn.utils.Bunch" title="sklearn.utils.Bunch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bunch</span></code></a>، إلا إذا كنت تقوم بتوسيع واجهة برمجة تطبيقات scikit-learn.</p>
 </section>
-<section id="how-can-i-load-my-own-datasets-into-a-format-usable-by-scikit-learn">
-<h3><a class="toc-backref" href="#id26" role="doc-backlink">How can I load my own datasets into a format usable by scikit-learn?</a><a class="headerlink" href="#how-can-i-load-my-own-datasets-into-a-format-usable-by-scikit-learn" title="Link to this heading">#</a></h3>
-<p>Generally, scikit-learn works on any numeric data stored as numpy arrays
-or scipy sparse matrices. Other types that are convertible to numeric
-arrays such as <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> are also acceptable.</p>
-<p>For more information on loading your data files into these usable data
-structures, please refer to <a class="reference internal" href="datasets/loading_other_datasets.html#external-datasets"><span class="std std-ref">loading external datasets</span></a>.</p>
+<section id="id28">
+<h3><a class="toc-backref" href="#id56" role="doc-backlink">كيف يمكنني تحميل مجموعات البيانات الخاصة بي بتنسيق قابل للاستخدام بواسطة scikit-learn؟</a><a class="headerlink" href="#id28" title="Link to this heading">#</a></h3>
+<p>بشكل عام، تعمل scikit-learn على أي بيانات رقمية مخزنة كمصفوفات numpy أو مصفوفات scipy المتفرقة. الأنواع الأخرى القابلة للتحويل إلى مصفوفات رقمية مثل <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> مقبولة أيضًا.</p>
+<p>لمزيد من المعلومات حول تحميل ملفات البيانات الخاصة بك في هياكل البيانات القابلة للاستخدام هذه، يرجى الرجوع إلى <a class="reference internal" href="datasets/loading_other_datasets.html#external-datasets"><span class="std std-ref">تحميل مجموعات البيانات الخارجية</span></a>.</p>
 </section>
-<section id="how-do-i-deal-with-string-data-or-trees-graphs">
-<h3><a class="toc-backref" href="#id27" role="doc-backlink">How do I deal with string data (or trees, graphs...)?</a><a class="headerlink" href="#how-do-i-deal-with-string-data-or-trees-graphs" title="Link to this heading">#</a></h3>
-<p>scikit-learn estimators assume you'll feed them real-valued feature vectors.
-This assumption is hard-coded in pretty much all of the library.
-However, you can feed non-numerical inputs to estimators in several ways.</p>
-<p>If you have text documents, you can use a term frequency features; see
-<a class="reference internal" href="modules/feature_extraction.html#text-feature-extraction"><span class="std std-ref">استخراج ميزات النص</span></a> for the built-in <em>text vectorizers</em>.
-For more general feature extraction from any kind of data, see
-<a class="reference internal" href="modules/feature_extraction.html#dict-feature-extraction"><span class="std std-ref">تحميل الميزات من القواميس</span></a> and <a class="reference internal" href="modules/feature_extraction.html#feature-hashing"><span class="std std-ref">تجزئة الميزات</span></a>.</p>
-<p>Another common case is when you have non-numerical data and a custom distance
-(or similarity) metric on these data. Examples include strings with edit
-distance (aka. Levenshtein distance), for instance, DNA or RNA sequences. These can be
-encoded as numbers, but doing so is painful and error-prone. Working with
-distance metrics on arbitrary data can be done in two ways.</p>
-<p>Firstly, many estimators take precomputed distance/similarity matrices, so if
-the dataset is not too large, you can compute distances for all pairs of inputs.
-If the dataset is large, you can use feature vectors with only one &quot;feature&quot;,
-which is an index into a separate data structure, and supply a custom metric
-function that looks up the actual data in this data structure. For instance, to use
-<a class="reference internal" href="modules/generated/dbscan-function.html#sklearn.cluster.dbscan" title="sklearn.cluster.dbscan"><code class="xref py py-class docutils literal notranslate"><span class="pre">dbscan</span></code></a> with Levenshtein distances:</p>
+<section id="id29">
+<h3><a class="toc-backref" href="#id57" role="doc-backlink">كيف أتعامل مع بيانات السلسلة (أو الأشجار، الرسوم البيانية...)؟</a><a class="headerlink" href="#id29" title="Link to this heading">#</a></h3>
+<p>تفترض مقدرات scikit-learn أنك ستغذيها متجهات ميزات ذات قيمة حقيقية. هذا الافتراض مشفر بشكل ثابت في كل مكتبة تقريبًا. ومع ذلك، يمكنك تغذية المدخلات غير الرقمية إلى المقدرات بعدة طرق.</p>
+<p>إذا كانت لديك مستندات نصية، فيمكنك استخدام ميزات تكرار المصطلحات؛ راجع <a class="reference internal" href="modules/feature_extraction.html#text-feature-extraction"><span class="std std-ref">استخراج ميزات النص</span></a> لـ <em>متجهات النص</em> المضمنة. لمزيد من استخراج الميزات العامة من أي نوع من البيانات، راجع <a class="reference internal" href="modules/feature_extraction.html#dict-feature-extraction"><span class="std std-ref">تحميل الميزات من القواميس</span></a> و <a class="reference internal" href="modules/feature_extraction.html#feature-hashing"><span class="std std-ref">تجزئة الميزات</span></a>.</p>
+<p>حالة شائعة أخرى هي عندما يكون لديك بيانات غير رقمية ومقياس مسافة (أو تشابه) مخصص على هذه البيانات. تتضمن الأمثلة سلاسل ذات مسافة تحرير (المعروفة أيضًا باسم مسافة ليفنشتاين)، على سبيل المثال، تسلسلات الحمض النووي أو الحمض النووي الريبي. يمكن ترميزها كأرقام، لكن القيام بذلك أمر مؤلم وعرضة للخطأ. يمكن العمل مع مقاييس المسافة على البيانات التعسفية بطريقتين.</p>
+<p>أولاً، تأخذ العديد من المقدرات مصفوفات المسافة/التشابه المحسوبة مسبقًا، لذلك إذا لم تكن مجموعة البيانات كبيرة جدًا، فيمكنك حساب المسافات لجميع أزواج المدخلات. إذا كانت مجموعة البيانات كبيرة، فيمكنك استخدام متجهات الميزات بميزة واحدة فقط، وهي فهرس في بنية بيانات منفصلة، وتوفير دالة مقياس مخصصة تبحث عن البيانات الفعلية في بنية البيانات هذه. على سبيل المثال، لاستخدام <a class="reference internal" href="modules/generated/dbscan-function.html#sklearn.cluster.dbscan" title="sklearn.cluster.dbscan"><code class="xref py py-class docutils literal notranslate"><span class="pre">dbscan</span></code></a> مع مسافات ليفنشتاين:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">leven</span> <span class="kn">import</span> <span class="n">levenshtein</span>  
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">dbscan</span>
@@ -1028,72 +890,39 @@ function that looks up the actual data in this data structure. For instance, to 
 <span class="go">(array([0, 1]), array([ 0,  0, -1]))</span>
 </pre></div>
 </div>
-<p>Note that the example above uses the third-party edit distance package
-<a class="reference external" href="https://pypi.org/project/leven/">leven</a>. Similar tricks can be used,
-with some care, for tree kernels, graph kernels, etc.</p>
+<p>لاحظ أن المثال أعلاه يستخدم حزمة مسافة التحرير الخارجية <a class="reference external" href="https://pypi.org/project/leven/">leven</a>. يمكن استخدام حيل مماثلة، مع بعض العناية، لنوى الأشجار، ونوى الرسوم البيانية، وما إلى ذلك.</p>
 </section>
-<section id="why-do-i-sometimes-get-a-crash-freeze-with-n-jobs-1-under-osx-or-linux">
-<h3><a class="toc-backref" href="#id28" role="doc-backlink">Why do I sometimes get a crash/freeze with <code class="docutils literal notranslate"><span class="pre">n_jobs</span> <span class="pre">&gt;</span> <span class="pre">1</span></code> under OSX or Linux?</a><a class="headerlink" href="#why-do-i-sometimes-get-a-crash-freeze-with-n-jobs-1-under-osx-or-linux" title="Link to this heading">#</a></h3>
-<p>Several scikit-learn tools such as <a class="reference internal" href="modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearchCV</span></code></a> and
-<a class="reference internal" href="modules/generated/sklearn.model_selection.cross_val_score.html#sklearn.model_selection.cross_val_score" title="sklearn.model_selection.cross_val_score"><code class="xref py py-class docutils literal notranslate"><span class="pre">cross_val_score</span></code></a> rely internally on Python's
-<a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">multiprocessing</span></code></a> module to parallelize execution
-onto several Python processes by passing <code class="docutils literal notranslate"><span class="pre">n_jobs</span> <span class="pre">&gt;</span> <span class="pre">1</span></code> as an argument.</p>
-<p>The problem is that Python <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">multiprocessing</span></code></a> does a <code class="docutils literal notranslate"><span class="pre">fork</span></code> system call
-without following it with an <code class="docutils literal notranslate"><span class="pre">exec</span></code> system call for performance reasons. Many
-libraries like (some versions of) Accelerate or vecLib under OSX, (some versions
-of) MKL, the OpenMP runtime of GCC, nvidia's Cuda (and probably many others),
-manage their own internal thread pool. Upon a call to <code class="docutils literal notranslate"><span class="pre">fork</span></code>, the thread pool
-state in the child process is corrupted: the thread pool believes it has many
-threads while only the main thread state has been forked. It is possible to
-change the libraries to make them detect when a fork happens and reinitialize
-the thread pool in that case: we did that for OpenBLAS (merged upstream in
-main since 0.2.10) and we contributed a <a class="reference external" href="https://gcc.gnu.org/bugzilla/show_bug.cgi?id=60035">patch</a> to GCC's OpenMP runtime
-(not yet reviewed).</p>
-<p>But in the end the real culprit is Python's <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">multiprocessing</span></code></a> that does
-<code class="docutils literal notranslate"><span class="pre">fork</span></code> without <code class="docutils literal notranslate"><span class="pre">exec</span></code> to reduce the overhead of starting and using new
-Python processes for parallel computing. Unfortunately this is a violation of
-the POSIX standard and therefore some software editors like Apple refuse to
-consider the lack of fork-safety in Accelerate and vecLib as a bug.</p>
-<p>In Python 3.4+ it is now possible to configure <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">multiprocessing</span></code></a> to
-use the <code class="docutils literal notranslate"><span class="pre">&quot;forkserver&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;spawn&quot;</span></code> start methods (instead of the default
-<code class="docutils literal notranslate"><span class="pre">&quot;fork&quot;</span></code>) to manage the process pools. To work around this issue when
-using scikit-learn, you can set the <code class="docutils literal notranslate"><span class="pre">JOBLIB_START_METHOD</span></code> environment
-variable to <code class="docutils literal notranslate"><span class="pre">&quot;forkserver&quot;</span></code>. However the user should be aware that using
-the <code class="docutils literal notranslate"><span class="pre">&quot;forkserver&quot;</span></code> method prevents <a class="reference external" href="https://joblib.readthedocs.io/en/latest/generated/joblib.Parallel.html#joblib.Parallel" title="(in joblib v1.5.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">joblib.Parallel</span></code></a> to call function
-interactively defined in a shell session.</p>
-<p>If you have custom code that uses <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">multiprocessing</span></code></a> directly instead of using
-it via <a class="reference external" href="https://joblib.readthedocs.io/en/latest/index.html#module-joblib" title="(in joblib v1.5.dev0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">joblib</span></code></a> you can enable the <code class="docutils literal notranslate"><span class="pre">&quot;forkserver&quot;</span></code> mode globally for your
-program. Insert the following instructions in your main script:</p>
+<section id="n-jobs-1-osx-linux">
+<h3><a class="toc-backref" href="#id58" role="doc-backlink">لماذا أحصل أحيانًا على تعطل/تجميد مع <code class="docutils literal notranslate"><span class="pre">n_jobs</span> <span class="pre">&gt;</span> <span class="pre">1</span></code> تحت OSX أو Linux؟</a><a class="headerlink" href="#n-jobs-1-osx-linux" title="Link to this heading">#</a></h3>
+<p>تعتمد العديد من أدوات scikit-learn مثل <a class="reference internal" href="modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearchCV</span></code></a> و <a class="reference internal" href="modules/generated/sklearn.model_selection.cross_val_score.html#sklearn.model_selection.cross_val_score" title="sklearn.model_selection.cross_val_score"><code class="xref py py-class docutils literal notranslate"><span class="pre">cross_val_score</span></code></a> داخليًا على وحدة <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">multiprocessing</span></code></a> في بايثون لموازنة التنفيذ على عدة عمليات بايثون عن طريق تمرير <code class="docutils literal notranslate"><span class="pre">n_jobs</span> <span class="pre">&gt;</span> <span class="pre">1</span></code> كوسيطة.</p>
+<p>المشكلة هي أن <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">multiprocessing</span></code></a> في بايثون تقوم باستدعاء نظام <code class="docutils literal notranslate"><span class="pre">fork</span></code> دون متابعته باستدعاء نظام <code class="docutils literal notranslate"><span class="pre">exec</span></code> لأسباب تتعلق بالأداء. تدير العديد من المكتبات مثل (بعض إصدارات) Accelerate أو vecLib تحت OSX، (بعض إصدارات) MKL، وقت تشغيل OpenMP لـ GCC، Cuda من nvidia (وربما العديد من المكتبات الأخرى)، تجمع سلاسل العمليات الداخلي الخاص بها. عند استدعاء <code class="docutils literal notranslate"><span class="pre">fork</span></code>، تتلف حالة تجمع سلاسل العمليات في العملية الفرعية: يعتقد تجمع سلاسل العمليات أن لديه العديد من سلاسل العمليات بينما تم تفرع حالة سلسلة العمليات الرئيسية فقط. من الممكن تغيير المكتبات لجعلها تكتشف متى يحدث التفرع وإعادة تهيئة تجمع سلاسل العمليات في هذه الحالة: لقد فعلنا ذلك لـ OpenBLAS (تم دمجه في المنبع في الرئيسي منذ 0.2.10) وساهمنا بـ <a class="reference external" href="https://gcc.gnu.org/bugzilla/show_bug.cgi?id=60035">تصحيح</a> لوقت تشغيل OpenMP لـ GCC (لم تتم مراجعته بعد).</p>
+<p>لكن في النهاية، الجاني الحقيقي هو <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">multiprocessing</span></code></a> في بايثون التي تقوم بـ <code class="docutils literal notranslate"><span class="pre">fork</span></code> بدون <code class="docutils literal notranslate"><span class="pre">exec</span></code> لتقليل الحمل الزائد لبدء واستخدام عمليات بايثون جديدة للحوسبة المتوازية. لسوء الحظ، هذا يعد انتهاكًا لمعيار POSIX، وبالتالي يرفض بعض محرري البرامج مثل Apple اعتبار عدم أمان التفرع في Accelerate و vecLib كخطأ.</p>
+<p>في بايثون 3.4+، أصبح من الممكن الآن تكوين <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">multiprocessing</span></code></a> لاستخدام أساليب بدء <code class="docutils literal notranslate"><span class="pre">&quot;forkserver&quot;</span></code> أو <code class="docutils literal notranslate"><span class="pre">&quot;spawn&quot;</span></code> (بدلاً من <code class="docutils literal notranslate"><span class="pre">&quot;fork&quot;</span></code> الافتراضية) لإدارة تجمعات العمليات. للتغلب على هذه المشكلة عند استخدام scikit-learn، يمكنك تعيين متغير البيئة <code class="docutils literal notranslate"><span class="pre">JOBLIB_START_METHOD</span></code> إلى <code class="docutils literal notranslate"><span class="pre">&quot;forkserver&quot;</span></code>. ومع ذلك، يجب أن يكون المستخدم على دراية بأن استخدام طريقة <code class="docutils literal notranslate"><span class="pre">&quot;forkserver&quot;</span></code> يمنع <a class="reference external" href="https://joblib.readthedocs.io/en/latest/generated/joblib.Parallel.html#joblib.Parallel" title="(in joblib v1.5.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">joblib.Parallel</span></code></a> من استدعاء دالة محددة بشكل تفاعلي في جلسة غلاف.</p>
+<p>إذا كان لديك كود مخصص يستخدم <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.13)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">multiprocessing</span></code></a> مباشرةً بدلاً من استخدامه عبر <a class="reference external" href="https://joblib.readthedocs.io/en/latest/index.html#module-joblib" title="(in joblib v1.5.dev0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">joblib</span></code></a>، فيمكنك تمكين وضع <code class="docutils literal notranslate"><span class="pre">&quot;forkserver&quot;</span></code> عالميًا لبرنامجك. أدخل التعليمات التالية في البرنامج النصي الرئيسي الخاص بك:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">multiprocessing</span>
 
-<span class="c1"># other imports, custom code, load data, define model...</span>
+<span class="c1"># استيرادات أخرى، كود مخصص، تحميل بيانات، تعريف نموذج...</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">multiprocessing</span><span class="o">.</span><span class="n">set_start_method</span><span class="p">(</span><span class="s2">&quot;forkserver&quot;</span><span class="p">)</span>
 
-    <span class="c1"># call scikit-learn utils with n_jobs &gt; 1 here</span>
+    <span class="c1"># استدعاء أدوات scikit-learn مع n_jobs &gt; 1 هنا</span>
 </pre></div>
 </div>
-<p>You can find more default on the new start methods in the <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#contexts-and-start-methods">multiprocessing
-documentation</a>.</p>
+<p>يمكنك العثور على المزيد من الإعدادات الافتراضية حول أساليب البدء الجديدة في <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#contexts-and-start-methods">وثائق المعالجة المتعددة</a>.</p>
 </section>
-<section id="why-does-my-job-use-more-cores-than-specified-with-n-jobs">
-<span id="faq-mkl-threading"></span><h3><a class="toc-backref" href="#id29" role="doc-backlink">Why does my job use more cores than specified with <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code>?</a><a class="headerlink" href="#why-does-my-job-use-more-cores-than-specified-with-n-jobs" title="Link to this heading">#</a></h3>
-<p>This is because <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code> only controls the number of jobs for
-routines that are parallelized with <a class="reference external" href="https://joblib.readthedocs.io/en/latest/index.html#module-joblib" title="(in joblib v1.5.dev0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">joblib</span></code></a>, but parallel code can come
-from other sources:</p>
+<section id="n-jobs">
+<span id="faq-mkl-threading"></span><h3><a class="toc-backref" href="#id59" role="doc-backlink">لماذا تستخدم وظيفتي نوى أكثر مما هو محدد بواسطة <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code>؟</a><a class="headerlink" href="#n-jobs" title="Link to this heading">#</a></h3>
+<p>هذا لأن <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code> يتحكم فقط في عدد الوظائف للروتينات المتوازنة بواسطة <a class="reference external" href="https://joblib.readthedocs.io/en/latest/index.html#module-joblib" title="(in joblib v1.5.dev0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">joblib</span></code></a>، لكن الكود المتوازي يمكن أن يأتي من مصادر أخرى:</p>
 <ul class="simple">
-<li><p>some routines may be parallelized with OpenMP (for code written in C or
-Cython),</p></li>
-<li><p>scikit-learn relies a lot on numpy, which in turn may rely on numerical
-libraries like MKL, OpenBLAS or BLIS which can provide parallel
-implementations.</p></li>
+<li><p>يمكن موازنة بعض الروتينات مع OpenMP (للكود المكتوب بلغة C أو Cython)،</p></li>
+<li><p>تعتمد scikit-learn كثيرًا على numpy، والتي بدورها قد تعتمد على مكتبات رقمية مثل MKL أو OpenBLAS أو BLIS والتي يمكنها توفير تطبيقات متوازية.</p></li>
 </ul>
-<p>For more details, please refer to our <a class="reference internal" href="computing/parallelism.html#parallelism"><span class="std std-ref">notes on parallelism</span></a>.</p>
+<p>لمزيد من التفاصيل، يرجى الرجوع إلى <a class="reference internal" href="computing/parallelism.html#parallelism"><span class="std std-ref">ملاحظاتنا حول التوازي</span></a>.</p>
 </section>
-<section id="how-do-i-set-a-random-state-for-an-entire-execution">
-<h3><a class="toc-backref" href="#id30" role="doc-backlink">How do I set a <code class="docutils literal notranslate"><span class="pre">random_state</span></code> for an entire execution?</a><a class="headerlink" href="#how-do-i-set-a-random-state-for-an-entire-execution" title="Link to this heading">#</a></h3>
-<p>Please refer to <a class="reference internal" href="common_pitfalls.html#randomness"><span class="std std-ref">التحكم في العشوائية</span></a>.</p>
+<section id="random-state">
+<h3><a class="toc-backref" href="#id60" role="doc-backlink">كيف يمكنني تعيين <code class="docutils literal notranslate"><span class="pre">random_state</span></code> لتنفيذ كامل؟</a><a class="headerlink" href="#random-state" title="Link to this heading">#</a></h3>
+<p>يرجى الرجوع إلى <a class="reference internal" href="common_pitfalls.html#randomness"><span class="std std-ref">التحكم في العشوائية</span></a>.</p>
 </section>
 </section>
 </section>
@@ -1149,41 +978,41 @@ implementations.</p></li>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#about-the-project">About the project</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-the-project-name-a-lot-of-people-get-it-wrong">What is the project name (a lot of people get it wrong)?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-you-pronounce-the-project-name">How do you pronounce the project name?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-scikit">Why scikit?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#do-you-support-pypy">Do you support PyPy?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-can-i-obtain-permission-to-use-the-images-in-scikit-learn-for-my-work">How can I obtain permission to use the images in scikit-learn for my work?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">حول المشروع</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">ما اسم المشروع (يخطئ الكثير من الناس في ذلك)؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">كيف تنطق اسم المشروع؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scikit">لماذا scikit؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pypy">هل تدعمون PyPy؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scikit-learn">كيف يمكنني الحصول على إذن لاستخدام الصور في scikit-learn لعملي؟</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-decisions">Implementation decisions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-is-there-no-support-for-deep-or-reinforcement-learning-will-there-be-such-support-in-the-future">Why is there no support for deep or reinforcement learning? Will there be such support in the future?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#will-you-add-graphical-models-or-sequence-prediction-to-scikit-learn">Will you add graphical models or sequence prediction to scikit-learn?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-did-you-remove-hmms-from-scikit-learn">Why did you remove HMMs from scikit-learn?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#will-you-add-gpu-support">Will you add GPU support?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-categorical-variables-need-preprocessing-in-scikit-learn-compared-to-other-tools">Why do categorical variables need preprocessing in scikit-learn, compared to other tools?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#does-scikit-learn-work-natively-with-various-types-of-dataframes">Does scikit-learn work natively with various types of dataframes?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#do-you-plan-to-implement-transform-for-target-y-in-a-pipeline">Do you plan to implement transform for target <code class="docutils literal notranslate"><span class="pre">y</span></code> in a pipeline?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-are-there-so-many-different-estimators-for-linear-models">Why are there so many different estimators for linear models?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">قرارات التنفيذ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">لماذا لا يوجد دعم للتعلم العميق أو التعلم المعزز؟ هل سيكون هناك مثل هذا الدعم في المستقبل؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-graphical-models">هل ستضيفون نماذج رسومية أو تنبؤ بالتسلسل إلى scikit-learn؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hmms-scikit-learn">لماذا أزلتم HMMs من scikit-learn؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">هل ستضيفون دعم وحدة معالجة الرسومات؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">لماذا تحتاج المتغيرات الفئوية إلى المعالجة المسبقة في scikit-learn، مقارنة بالأدوات الأخرى؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">هل تعمل scikit-learn محليًا مع أنواع مختلفة من إطارات البيانات؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#y">هل تخططون لتنفيذ تحويل للهدف <code class="docutils literal notranslate"><span class="pre">y</span></code> في خط أنابيب؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">لماذا يوجد الكثير من المقدرات المختلفة للنماذج الخطية؟</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributing">Contributing</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-can-i-contribute-to-scikit-learn">How can I contribute to scikit-learn?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-is-my-pull-request-not-getting-any-attention">Why is my pull request not getting any attention?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-the-inclusion-criteria-for-new-algorithms">What are the inclusion criteria for new algorithms?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-are-you-so-selective-on-what-algorithms-you-include-in-scikit-learn">Why are you so selective on what algorithms you include in scikit-learn?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">المساهمة</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">كيف يمكنني المساهمة في scikit-learn؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">لماذا لا يحظى طلب السحب الخاص بي بأي اهتمام؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#new-algorithms-inclusion-criteria">ما هي معايير تضمين الخوارزميات الجديدة؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selectiveness">لماذا أنت انتقائي للغاية بشأن الخوارزميات التي تدرجها في scikit-learn؟</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-scikit-learn">Using scikit-learn</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-the-best-way-to-get-help-on-scikit-learn-usage">What's the best way to get help on scikit-learn usage?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-should-i-save-export-or-deploy-estimators-for-production">How should I save, export or deploy estimators for production?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-can-i-create-a-bunch-object">How can I create a bunch object?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-can-i-load-my-own-datasets-into-a-format-usable-by-scikit-learn">How can I load my own datasets into a format usable by scikit-learn?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-i-deal-with-string-data-or-trees-graphs">How do I deal with string data (or trees, graphs...)?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-i-sometimes-get-a-crash-freeze-with-n-jobs-1-under-osx-or-linux">Why do I sometimes get a crash/freeze with <code class="docutils literal notranslate"><span class="pre">n_jobs</span> <span class="pre">&gt;</span> <span class="pre">1</span></code> under OSX or Linux?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-does-my-job-use-more-cores-than-specified-with-n-jobs">Why does my job use more cores than specified with <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code>?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-i-set-a-random-state-for-an-entire-execution">How do I set a <code class="docutils literal notranslate"><span class="pre">random_state</span></code> for an entire execution?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">استخدام scikit-learn</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">ما هي أفضل طريقة للحصول على مساعدة بشأن استخدام scikit-learn؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">كيف يمكنني حفظ أو تصدير أو نشر المقدرات للإنتاج؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">كيف يمكنني إنشاء كائن حزمة؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">كيف يمكنني تحميل مجموعات البيانات الخاصة بي بتنسيق قابل للاستخدام بواسطة scikit-learn؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">كيف أتعامل مع بيانات السلسلة (أو الأشجار، الرسوم البيانية...)؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#n-jobs-1-osx-linux">لماذا أحصل أحيانًا على تعطل/تجميد مع <code class="docutils literal notranslate"><span class="pre">n_jobs</span> <span class="pre">&gt;</span> <span class="pre">1</span></code> تحت OSX أو Linux؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#n-jobs">لماذا تستخدم وظيفتي نوى أكثر مما هو محدد بواسطة <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code>؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-state">كيف يمكنني تعيين <code class="docutils literal notranslate"><span class="pre">random_state</span></code> لتنفيذ كامل؟</a></li>
 </ul>
 </li>
 </ul>
