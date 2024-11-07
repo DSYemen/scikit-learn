@@ -1,26 +1,24 @@
 """
-=================================================================
-Displaying Pipelines
-=================================================================
+====================
+عرض خطوط الأنابيب
+====================
 
-The default configuration for displaying a pipeline in a Jupyter Notebook is
-`'diagram'` where `set_config(display='diagram')`. To deactivate HTML representation,
-use `set_config(display='text')`.
+تكوين العرض الافتراضي لخط الأنابيب في دفتر Jupyter هو
+`'diagram'` حيث `set_config(display='diagram')`. لإلغاء تنشيط التمثيل HTML،
+استخدم `set_config(display='text')`.
 
-To see more detailed steps in the visualization of the pipeline, click on the
-steps in the pipeline.
+لمشاهدة خطوات أكثر تفصيلاً في تصور خط الأنابيب، انقر على
+الخطوات في خط الأنابيب.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف SPDX-License: BSD-3-Clause
 
 # %%
-# Displaying a Pipeline with a Preprocessing Step and Classifier
+# عرض خط أنابيب مع خطوة ما قبل المعالجة والتصنيف
 # ##############################################################
-# This section constructs a :class:`~sklearn.pipeline.Pipeline` with a preprocessing
-# step, :class:`~sklearn.preprocessing.StandardScaler`, and classifier,
-# :class:`~sklearn.linear_model.LogisticRegression`, and displays its visual
-# representation.
+# يقوم هذا القسم ببناء :class:`~sklearn.pipeline.Pipeline` مع خطوة ما قبل المعالجة
+# ، :class:`~sklearn.preprocessing.StandardScaler`، والتصنيف،
+# :class:`~sklearn.linear_model.LogisticRegression`، ويعرض تمثيله المرئي.
 
 from sklearn import set_config
 from sklearn.linear_model import LogisticRegression
@@ -34,27 +32,26 @@ steps = [
 pipe = Pipeline(steps)
 
 # %%
-# To visualize the diagram, the default is `display='diagram'`.
+# لعرض المخطط، الافتراضي هو `display='diagram'`.
 set_config(display="diagram")
-pipe  # click on the diagram below to see the details of each step
+pipe  # انقر على المخطط أدناه لمشاهدة تفاصيل كل خطوة
 
 # %%
-# To view the text pipeline, change to `display='text'`.
+# لمشاهدة خط الأنابيب النصي، قم بتغييره إلى `display='text'`.
 set_config(display="text")
 pipe
 
 # %%
-# Put back the default display
+# إعادة إعداد العرض الافتراضي
 set_config(display="diagram")
 
 # %%
-# Displaying a Pipeline Chaining Multiple Preprocessing Steps & Classifier
+# عرض خط أنابيب يربط بين خطوات ما قبل المعالجة والتصنيف
 # ########################################################################
-# This section constructs a :class:`~sklearn.pipeline.Pipeline` with multiple
-# preprocessing steps, :class:`~sklearn.preprocessing.PolynomialFeatures` and
-# :class:`~sklearn.preprocessing.StandardScaler`, and a classifier step,
-# :class:`~sklearn.linear_model.LogisticRegression`, and displays its visual
-# representation.
+# يقوم هذا القسم ببناء :class:`~sklearn.pipeline.Pipeline` مع خطوات متعددة
+# ما قبل المعالجة، :class:`~sklearn.preprocessing.PolynomialFeatures` و
+# :class:`~sklearn.preprocessing.StandardScaler`، وخطوة التصنيف،
+# :class:`~sklearn.linear_model.LogisticRegression`، ويعرض تمثيله المرئي.
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
@@ -66,15 +63,14 @@ steps = [
     ("classifier", LogisticRegression(C=2.0)),
 ]
 pipe = Pipeline(steps)
-pipe  # click on the diagram below to see the details of each step
+pipe  # انقر على المخطط أدناه لمشاهدة تفاصيل كل خطوة
 
 # %%
-# Displaying a Pipeline and Dimensionality Reduction and Classifier
+# عرض خط أنابيب وخفض الأبعاد والتصنيف
 # #################################################################
-# This section constructs a :class:`~sklearn.pipeline.Pipeline` with a
-# dimensionality reduction step, :class:`~sklearn.decomposition.PCA`,
-# a classifier, :class:`~sklearn.svm.SVC`, and displays its visual
-# representation.
+# يقوم هذا القسم ببناء :class:`~sklearn.pipeline.Pipeline` مع
+# خطوة خفض الأبعاد، :class:`~sklearn.decomposition.PCA`،
+# ، :class:`~sklearn.svm.SVC`، ويعرض تمثيله المرئي.
 
 from sklearn.decomposition import PCA
 from sklearn.pipeline import Pipeline
@@ -82,15 +78,14 @@ from sklearn.svm import SVC
 
 steps = [("reduce_dim", PCA(n_components=4)), ("classifier", SVC(kernel="linear"))]
 pipe = Pipeline(steps)
-pipe  # click on the diagram below to see the details of each step
+pipe  # انقر على المخطط أدناه لمشاهدة تفاصيل كل خطوة
 
 # %%
-# Displaying a Complex Pipeline Chaining a Column Transformer
+# عرض خط أنابيب معقد يربط بين محول الأعمدة
 # ###########################################################
-# This section constructs a complex :class:`~sklearn.pipeline.Pipeline` with a
-# :class:`~sklearn.compose.ColumnTransformer` and a classifier,
-# :class:`~sklearn.linear_model.LogisticRegression`, and displays its visual
-# representation.
+# يقوم هذا القسم ببناء خط أنابيب معقد :class:`~sklearn.pipeline.Pipeline` مع
+# :class:`~sklearn.compose.ColumnTransformer` والتصنيف،
+# :class:`~sklearn.linear_model.LogisticRegression`، ويعرض تمثيله المرئي.
 
 import numpy as np
 
@@ -125,15 +120,14 @@ preprocessor = ColumnTransformer(
 )
 
 pipe = make_pipeline(preprocessor, LogisticRegression(max_iter=500))
-pipe  # click on the diagram below to see the details of each step
+pipe  # انقر على المخطط أدناه لمشاهدة تفاصيل كل خطوة
 
 # %%
-# Displaying a Grid Search over a Pipeline with a Classifier
+# عرض بحث شبكي عبر خط أنابيب مع تصنيف
 # ##########################################################
-# This section constructs a :class:`~sklearn.model_selection.GridSearchCV`
-# over a :class:`~sklearn.pipeline.Pipeline` with
-# :class:`~sklearn.ensemble.RandomForestClassifier` and displays its visual
-# representation.
+# يقوم هذا القسم ببناء :class:`~sklearn.model_selection.GridSearchCV`
+# عبر :class:`~sklearn.pipeline.Pipeline` مع
+# :class:`~sklearn.ensemble.RandomForestClassifier` ويعرض تمثيله المرئي.
 
 import numpy as np
 
@@ -180,4 +174,4 @@ param_grid = {
 }
 
 grid_search = GridSearchCV(pipe, param_grid=param_grid, n_jobs=1)
-grid_search  # click on the diagram below to see the details of each step
+grid_search  # انقر على المخطط أدناه لمشاهدة تفاصيل كل خطوة

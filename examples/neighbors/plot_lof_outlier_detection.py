@@ -1,32 +1,31 @@
 """
-=================================================
-Outlier detection with Local Outlier Factor (LOF)
-=================================================
+==============================================================
+الكشف عن القيم الشاذة باستخدام عامل الانحراف المحلي (LOF)
+==============================================================
 
-The Local Outlier Factor (LOF) algorithm is an unsupervised anomaly detection
-method which computes the local density deviation of a given data point with
-respect to its neighbors. It considers as outliers the samples that have a
-substantially lower density than their neighbors. This example shows how to use
-LOF for outlier detection which is the default use case of this estimator in
-scikit-learn. Note that when LOF is used for outlier detection it has no
-`predict`, `decision_function` and `score_samples` methods. See the :ref:`User
-Guide <outlier_detection>` for details on the difference between outlier
-detection and novelty detection and how to use LOF for novelty detection.
+خوارزمية عامل الانحراف المحلي (LOF) هي طريقة غير خاضعة للإشراف للكشف عن الانحرافات
+والتي تحسب انحراف الكثافة المحلية لنقطة بيانات معينة فيما يتعلق بجيرانها.
+تعتبر هذه الخوارزمية العينات التي لها كثافة أقل بكثير من جيرانها كقيم شاذة.
+يوضح هذا المثال كيفية استخدام LOF للكشف عن القيم الشاذة، وهو الاستخدام الافتراضي
+لهذا المقدر في مكتبة ساي كيت ليرن (scikit-learn). تجدر الإشارة إلى أنه عند استخدام
+LOF للكشف عن القيم الشاذة، لا تتوفر له طرق 'predict' و 'decision_function' و
+'score_samples'. راجع :ref:`دليل المستخدم <outlier_detection>` للحصول على التفاصيل حول
+الفرق بين الكشف عن القيم الشاذة والكشف عن البيانات الجديدة وكيفية استخدام LOF للكشف
+عن البيانات الجديدة.
 
-The number of neighbors considered (parameter `n_neighbors`) is typically set 1)
-greater than the minimum number of samples a cluster has to contain, so that
-other samples can be local outliers relative to this cluster, and 2) smaller
-than the maximum number of close by samples that can potentially be local
-outliers. In practice, such information is generally not available, and taking
-`n_neighbors=20` appears to work well in general.
+يتم ضبط عدد الجيران المعتبرين (البارامتر 'n_neighbors') عادةً 1) أكبر من الحد الأدنى
+لعدد العينات التي يجب أن يحتويها التجمع، بحيث يمكن أن تكون العينات الأخرى قيمًا
+شاذة محلية بالنسبة لهذا التجمع، و2) أصغر من الحد الأقصى لعدد العينات القريبة التي
+يمكن أن تكون قيمًا شاذة محلية. في الممارسة العملية، هذه المعلومات غير متوفرة
+عادةً، ويبدو أن أخذ 'n_neighbors=20' يعمل بشكل جيد بشكل عام.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري ساي كيت ليرن (scikit-learn)
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# Generate data with outliers
+# توليد البيانات مع القيم الشاذة
 # ---------------------------
 
 # %%
@@ -44,12 +43,12 @@ ground_truth = np.ones(len(X), dtype=int)
 ground_truth[-n_outliers:] = -1
 
 # %%
-# Fit the model for outlier detection (default)
+# ملاءمة النموذج للكشف عن القيم الشاذة (الافتراضي)
 # ---------------------------------------------
 #
-# Use `fit_predict` to compute the predicted labels of the training samples
-# (when LOF is used for outlier detection, the estimator has no `predict`,
-# `decision_function` and `score_samples` methods).
+# استخدم 'fit_predict' لحساب العلامات المتوقعة لعينات التدريب
+# (عندما يتم استخدام LOF للكشف عن القيم الشاذة، لا يمتلك المقدر طرق 'predict'
+# و 'decision_function' و 'score_samples').
 
 from sklearn.neighbors import LocalOutlierFactor
 
@@ -59,10 +58,11 @@ n_errors = (y_pred != ground_truth).sum()
 X_scores = clf.negative_outlier_factor_
 
 # %%
-# Plot results
+# رسم النتائج
 # ------------
 
 # %%
+
 import matplotlib.pyplot as plt
 from matplotlib.legend_handler import HandlerPathCollection
 

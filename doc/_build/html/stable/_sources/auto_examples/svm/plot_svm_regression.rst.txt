@@ -19,18 +19,18 @@
 
 
 ===================================================================
-Support Vector Regression (SVR) using linear and non-linear kernels
+دعم نموذج الانحدار باستخدام نواة خطية وغير خطية
 ===================================================================
 
-Toy example of 1D regression using linear, polynomial and RBF kernels.
+مثال توضيحي للانحدار أحادي البعد باستخدام نواة خطية ومتعددة الحدود وRBF.
 
 .. GENERATED FROM PYTHON SOURCE LINES 9-18
 
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري سكايت-ليرن
+    # معرف الترخيص: BSD-3-Clause
 
     import matplotlib.pyplot as plt
     import numpy as np
@@ -46,7 +46,7 @@ Toy example of 1D regression using linear, polynomial and RBF kernels.
 
 .. GENERATED FROM PYTHON SOURCE LINES 19-21
 
-Generate sample data
+توليد بيانات العينة
 --------------------
 
 .. GENERATED FROM PYTHON SOURCE LINES 21-27
@@ -56,7 +56,7 @@ Generate sample data
     X = np.sort(5 * np.random.rand(40, 1), axis=0)
     y = np.sin(X).ravel()
 
-    # add noise to targets
+    # إضافة ضجيج إلى الأهداف
     y[::5] += 3 * (0.5 - np.random.rand(8))
 
 
@@ -68,7 +68,7 @@ Generate sample data
 
 .. GENERATED FROM PYTHON SOURCE LINES 28-30
 
-Fit regression model
+ملاءمة نموذج الانحدار
 --------------------
 
 .. GENERATED FROM PYTHON SOURCE LINES 30-34
@@ -88,10 +88,10 @@ Fit regression model
 
 .. GENERATED FROM PYTHON SOURCE LINES 35-37
 
-Look at the results
+النظر في النتائج
 -------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 37-80
+.. GENERATED FROM PYTHON SOURCE LINES 37-79
 
 .. code-block:: Python
 
@@ -140,7 +140,6 @@ Look at the results
     plt.show()
 
 
-
 .. image-sg:: /auto_examples/svm/images/sphx_glr_plot_svm_regression_001.png
    :alt: Support Vector Regression
    :srcset: /auto_examples/svm/images/sphx_glr_plot_svm_regression_001.png
@@ -153,7 +152,7 @@ Look at the results
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.398 seconds)
+   **Total running time of the script:** (0 minutes 0.554 seconds)
 
 
 .. _sphx_glr_download_auto_examples_svm_plot_svm_regression.py:

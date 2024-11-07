@@ -19,28 +19,28 @@
 
 
 ============================================
-Comparing Target Encoder with Other Encoders
+مقارنة ترميز الهدف مع الترميزات الأخرى
 ============================================
 
 .. currentmodule:: sklearn.preprocessing
 
-The :class:`TargetEncoder` uses the value of the target to encode each
-categorical feature. In this example, we will compare three different approaches
-for handling categorical features: :class:`TargetEncoder`,
-:class:`OrdinalEncoder`, :class:`OneHotEncoder` and dropping the category.
+يستخدم :class:`TargetEncoder` قيمة الهدف لترميز كل ميزة
+فئة. في هذا المثال، سنقارن بين ثلاثة أساليب مختلفة
+لمعالجة الميزات الفئوية: :class:`TargetEncoder`،
+:class:`OrdinalEncoder`، :class:`OneHotEncoder` وإسقاط الفئة.
 
 .. note::
-    `fit(X, y).transform(X)` does not equal `fit_transform(X, y)` because a
-    cross fitting scheme is used in `fit_transform` for encoding. See the
-    :ref:`User Guide <target_encoder>`. for details.
+    `fit(X, y).transform(X)` لا يساوي `fit_transform(X, y)` لأن
+    مخطط التثبيت المتقاطع مستخدم في `fit_transform` للترميز. راجع
+    :ref:`دليل المستخدم <target_encoder>`. للحصول على التفاصيل.
 
 .. GENERATED FROM PYTHON SOURCE LINES 18-22
 
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري scikit-learn
+    # معرف SPDX-License: BSD-3-Clause
 
 
 
@@ -51,10 +51,10 @@ for handling categorical features: :class:`TargetEncoder`,
 
 .. GENERATED FROM PYTHON SOURCE LINES 23-27
 
-Loading Data from OpenML
+تحميل البيانات من OpenML
 ========================
-First, we load the wine reviews dataset, where the target is the points given
-be a reviewer:
+أولاً، نقوم بتحميل مجموعة بيانات مراجعات النبيذ، حيث الهدف هو النقاط المعطاة
+من قبل المراجع:
 
 .. GENERATED FROM PYTHON SOURCE LINES 27-34
 
@@ -180,12 +180,13 @@ be a reviewer:
 
 .. GENERATED FROM PYTHON SOURCE LINES 35-37
 
-For this example, we use the following subset of numerical and categorical
-features in the data. The target are continuous values from 80 to 100:
+لهذا المثال، نستخدم المجموعة الفرعية التالية من الميزات العددية والفئوية
+الميزات في البيانات. الهدف هي قيم مستمرة من 80 إلى 100:
 
-.. GENERATED FROM PYTHON SOURCE LINES 37-53
+.. GENERATED FROM PYTHON SOURCE LINES 37-54
 
 .. code-block:: Python
+
 
     numerical_features = ["price"]
     categorical_features = [
@@ -215,16 +216,16 @@ features in the data. The target are continuous values from 80 to 100:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 54-60
+.. GENERATED FROM PYTHON SOURCE LINES 55-61
 
-Training and Evaluating Pipelines with Different Encoders
+تدريب وتقييم خطوط الأنابيب مع ترميزات مختلفة
 =========================================================
-In this section, we will evaluate pipelines with
-:class:`~sklearn.ensemble.HistGradientBoostingRegressor` with different encoding
-strategies. First, we list out the encoders we will be using to preprocess
-the categorical features:
+في هذا القسم، سنقيم خطوط الأنابيب مع
+:class:`~sklearn.ensemble.HistGradientBoostingRegressor` مع استراتيجيات ترميز مختلفة.
+أولاً، سنقوم بكتابة قائمة بالترميزات التي سنستخدمها لمعالجة مسبقة
+الميزات الفئوية:
 
-.. GENERATED FROM PYTHON SOURCE LINES 60-73
+.. GENERATED FROM PYTHON SOURCE LINES 61-74
 
 .. code-block:: Python
 
@@ -248,11 +249,11 @@ the categorical features:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 74-75
+.. GENERATED FROM PYTHON SOURCE LINES 75-76
 
-Next, we evaluate the models using cross validation and record the results:
+بعد ذلك، نقيم النماذج باستخدام التحقق المتقاطع ونقوم بتسجيل النتائج:
 
-.. GENERATED FROM PYTHON SOURCE LINES 75-119
+.. GENERATED FROM PYTHON SOURCE LINES 76-120
 
 .. code-block:: Python
 
@@ -307,16 +308,16 @@ Next, we evaluate the models using cross validation and record the results:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 120-126
+.. GENERATED FROM PYTHON SOURCE LINES 121-127
 
-Native Categorical Feature Support
+دعم الميزات الفئوية الأصلي
 ==================================
-In this section, we build and evaluate a pipeline that uses native categorical
-feature support in :class:`~sklearn.ensemble.HistGradientBoostingRegressor`,
-which only supports up to 255 unique categories. In our dataset, the most of
-the categorical features have more than 255 unique categories:
+في هذا القسم، نقوم ببناء وتقييم خط أنابيب يستخدم الدعم الفئوي الأصلي
+في :class:`~sklearn.ensemble.HistGradientBoostingRegressor`،
+الذي يدعم ما يصل إلى 255 فئة فريدة فقط. في مجموعة بياناتنا، معظم
+الميزات الفئوية لديها أكثر من 255 فئة فريدة:
 
-.. GENERATED FROM PYTHON SOURCE LINES 126-129
+.. GENERATED FROM PYTHON SOURCE LINES 127-130
 
 .. code-block:: Python
 
@@ -342,14 +343,14 @@ the categorical features have more than 255 unique categories:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 130-134
+.. GENERATED FROM PYTHON SOURCE LINES 131-135
 
-To workaround the limitation above, we group the categorical features into
-low cardinality and high cardinality features. The high cardinality features
-will be target encoded and the low cardinality features will use the native
-categorical feature in gradient boosting.
+للتحايل على القيد أعلاه، نقوم بتقسيم الميزات الفئوية إلى
+ميزات ذات عدد قليل من الفئات وميزات ذات عدد كبير من الفئات. سيتم ترميز الميزات ذات العدد الكبير من الفئات
+وسيتم استخدام الميزات ذات العدد القليل من الفئات في التدرج
+الدعم الفئوي الأصلي.
 
-.. GENERATED FROM PYTHON SOURCE LINES 134-164
+.. GENERATED FROM PYTHON SOURCE LINES 135-165
 
 .. code-block:: Python
 
@@ -372,8 +373,8 @@ categorical feature in gradient boosting.
         verbose_feature_names_out=False,
     )
 
-    # The output of the of the preprocessor must be set to pandas so the
-    # gradient boosting model can detect the low cardinality features.
+    # يجب تعيين إخراج المعالج المسبق إلى pandas بحيث يمكن
+    # نموذج التدرج الكشف عن الميزات ذات العدد القليل من الفئات.
     mixed_encoded_preprocessor.set_output(transform="pandas")
     mixed_pipe = make_pipeline(
         mixed_encoded_preprocessor,
@@ -391,7 +392,7 @@ categorical feature in gradient boosting.
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-70 {
+    <style>#sk-container-id-23 {
       /* Definition of color scheme common for light and dark mode */
       --sklearn-color-text: #000;
       --sklearn-color-text-muted: #666;
@@ -422,15 +423,15 @@ categorical feature in gradient boosting.
       }
     }
 
-    #sk-container-id-70 {
+    #sk-container-id-23 {
       color: var(--sklearn-color-text);
     }
 
-    #sk-container-id-70 pre {
+    #sk-container-id-23 pre {
       padding: 0;
     }
 
-    #sk-container-id-70 input.sk-hidden--visually {
+    #sk-container-id-23 input.sk-hidden--visually {
       border: 0;
       clip: rect(1px 1px 1px 1px);
       clip: rect(1px, 1px, 1px, 1px);
@@ -442,7 +443,7 @@ categorical feature in gradient boosting.
       width: 1px;
     }
 
-    #sk-container-id-70 div.sk-dashed-wrapped {
+    #sk-container-id-23 div.sk-dashed-wrapped {
       border: 1px dashed var(--sklearn-color-line);
       margin: 0 0.4em 0.5em 0.4em;
       box-sizing: border-box;
@@ -450,7 +451,7 @@ categorical feature in gradient boosting.
       background-color: var(--sklearn-color-background);
     }
 
-    #sk-container-id-70 div.sk-container {
+    #sk-container-id-23 div.sk-container {
       /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
          but bootstrap.min.css set `[hidden] { display: none !important; }`
          so we also need the `!important` here to be able to override the
@@ -460,7 +461,7 @@ categorical feature in gradient boosting.
       position: relative;
     }
 
-    #sk-container-id-70 div.sk-text-repr-fallback {
+    #sk-container-id-23 div.sk-text-repr-fallback {
       display: none;
     }
 
@@ -476,14 +477,14 @@ categorical feature in gradient boosting.
 
     /* Parallel-specific style estimator block */
 
-    #sk-container-id-70 div.sk-parallel-item::after {
+    #sk-container-id-23 div.sk-parallel-item::after {
       content: "";
       width: 100%;
       border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
       flex-grow: 1;
     }
 
-    #sk-container-id-70 div.sk-parallel {
+    #sk-container-id-23 div.sk-parallel {
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -491,28 +492,28 @@ categorical feature in gradient boosting.
       position: relative;
     }
 
-    #sk-container-id-70 div.sk-parallel-item {
+    #sk-container-id-23 div.sk-parallel-item {
       display: flex;
       flex-direction: column;
     }
 
-    #sk-container-id-70 div.sk-parallel-item:first-child::after {
+    #sk-container-id-23 div.sk-parallel-item:first-child::after {
       align-self: flex-end;
       width: 50%;
     }
 
-    #sk-container-id-70 div.sk-parallel-item:last-child::after {
+    #sk-container-id-23 div.sk-parallel-item:last-child::after {
       align-self: flex-start;
       width: 50%;
     }
 
-    #sk-container-id-70 div.sk-parallel-item:only-child::after {
+    #sk-container-id-23 div.sk-parallel-item:only-child::after {
       width: 0;
     }
 
     /* Serial-specific style estimator block */
 
-    #sk-container-id-70 div.sk-serial {
+    #sk-container-id-23 div.sk-serial {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -530,14 +531,14 @@ categorical feature in gradient boosting.
 
     /* Pipeline and ColumnTransformer style (default) */
 
-    #sk-container-id-70 div.sk-toggleable {
+    #sk-container-id-23 div.sk-toggleable {
       /* Default theme specific background. It is overwritten whether we have a
       specific estimator or a Pipeline/ColumnTransformer */
       background-color: var(--sklearn-color-background);
     }
 
     /* Toggleable label */
-    #sk-container-id-70 label.sk-toggleable__label {
+    #sk-container-id-23 label.sk-toggleable__label {
       cursor: pointer;
       display: flex;
       width: 100%;
@@ -550,13 +551,13 @@ categorical feature in gradient boosting.
       gap: 0.5em;
     }
 
-    #sk-container-id-70 label.sk-toggleable__label .caption {
+    #sk-container-id-23 label.sk-toggleable__label .caption {
       font-size: 0.6rem;
       font-weight: lighter;
       color: var(--sklearn-color-text-muted);
     }
 
-    #sk-container-id-70 label.sk-toggleable__label-arrow:before {
+    #sk-container-id-23 label.sk-toggleable__label-arrow:before {
       /* Arrow on the left of the label */
       content: "▸";
       float: left;
@@ -564,13 +565,13 @@ categorical feature in gradient boosting.
       color: var(--sklearn-color-icon);
     }
 
-    #sk-container-id-70 label.sk-toggleable__label-arrow:hover:before {
+    #sk-container-id-23 label.sk-toggleable__label-arrow:hover:before {
       color: var(--sklearn-color-text);
     }
 
     /* Toggleable content - dropdown */
 
-    #sk-container-id-70 div.sk-toggleable__content {
+    #sk-container-id-23 div.sk-toggleable__content {
       max-height: 0;
       max-width: 0;
       overflow: hidden;
@@ -579,12 +580,12 @@ categorical feature in gradient boosting.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-70 div.sk-toggleable__content.fitted {
+    #sk-container-id-23 div.sk-toggleable__content.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-70 div.sk-toggleable__content pre {
+    #sk-container-id-23 div.sk-toggleable__content pre {
       margin: 0.2em;
       border-radius: 0.25em;
       color: var(--sklearn-color-text);
@@ -592,79 +593,79 @@ categorical feature in gradient boosting.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-70 div.sk-toggleable__content.fitted pre {
+    #sk-container-id-23 div.sk-toggleable__content.fitted pre {
       /* unfitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-70 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    #sk-container-id-23 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
       max-height: 200px;
       max-width: 100%;
       overflow: auto;
     }
 
-    #sk-container-id-70 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    #sk-container-id-23 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
       content: "▾";
     }
 
     /* Pipeline/ColumnTransformer-specific style */
 
-    #sk-container-id-70 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-23 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-70 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-23 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator-specific style */
 
     /* Colorize estimator box */
-    #sk-container-id-70 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-23 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-70 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-23 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
-    #sk-container-id-70 div.sk-label label.sk-toggleable__label,
-    #sk-container-id-70 div.sk-label label {
+    #sk-container-id-23 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-23 div.sk-label label {
       /* The background is the default theme color */
       color: var(--sklearn-color-text-on-default-background);
     }
 
     /* On hover, darken the color of the background */
-    #sk-container-id-70 div.sk-label:hover label.sk-toggleable__label {
+    #sk-container-id-23 div.sk-label:hover label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
     /* Label box, darken color on hover, fitted */
-    #sk-container-id-70 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+    #sk-container-id-23 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator label */
 
-    #sk-container-id-70 div.sk-label label {
+    #sk-container-id-23 div.sk-label label {
       font-family: monospace;
       font-weight: bold;
       display: inline-block;
       line-height: 1.2em;
     }
 
-    #sk-container-id-70 div.sk-label-container {
+    #sk-container-id-23 div.sk-label-container {
       text-align: center;
     }
 
     /* Estimator-specific */
-    #sk-container-id-70 div.sk-estimator {
+    #sk-container-id-23 div.sk-estimator {
       font-family: monospace;
       border: 1px dotted var(--sklearn-color-border-box);
       border-radius: 0.25em;
@@ -674,18 +675,18 @@ categorical feature in gradient boosting.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-70 div.sk-estimator.fitted {
+    #sk-container-id-23 div.sk-estimator.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
     /* on hover */
-    #sk-container-id-70 div.sk-estimator:hover {
+    #sk-container-id-23 div.sk-estimator:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-70 div.sk-estimator.fitted:hover {
+    #sk-container-id-23 div.sk-estimator.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
@@ -773,7 +774,7 @@ categorical feature in gradient boosting.
 
     /* "?"-specific style due to the `<a>` HTML tag */
 
-    #sk-container-id-70 a.estimator_doc_link {
+    #sk-container-id-23 a.estimator_doc_link {
       float: right;
       font-size: 1rem;
       line-height: 1em;
@@ -788,25 +789,25 @@ categorical feature in gradient boosting.
       border: var(--sklearn-color-unfitted-level-1) 1pt solid;
     }
 
-    #sk-container-id-70 a.estimator_doc_link.fitted {
+    #sk-container-id-23 a.estimator_doc_link.fitted {
       /* fitted */
       border: var(--sklearn-color-fitted-level-1) 1pt solid;
       color: var(--sklearn-color-fitted-level-1);
     }
 
     /* On hover */
-    #sk-container-id-70 a.estimator_doc_link:hover {
+    #sk-container-id-23 a.estimator_doc_link:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-3);
       color: var(--sklearn-color-background);
       text-decoration: none;
     }
 
-    #sk-container-id-70 a.estimator_doc_link.fitted:hover {
+    #sk-container-id-23 a.estimator_doc_link.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-70" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;columntransformer&#x27;,
+    </style><div id="sk-container-id-23" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;columntransformer&#x27;,
                      ColumnTransformer(transformers=[(&#x27;numerical&#x27;, &#x27;passthrough&#x27;,
                                                       [&#x27;price&#x27;]),
                                                      (&#x27;high_cardinality&#x27;,
@@ -819,7 +820,7 @@ categorical feature in gradient boosting.
                                        verbose_feature_names_out=False)),
                     (&#x27;histgradientboostingregressor&#x27;,
                      HistGradientBoostingRegressor(categorical_features=Index([&#x27;country&#x27;, &#x27;region_2&#x27;], dtype=&#x27;object&#x27;),
-                                                   max_iter=20, random_state=0))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-293" type="checkbox" ><label for="sk-estimator-id-293" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;columntransformer&#x27;,
+                                                   max_iter=20, random_state=0))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-61" type="checkbox" ><label for="sk-estimator-id-61" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;columntransformer&#x27;,
                      ColumnTransformer(transformers=[(&#x27;numerical&#x27;, &#x27;passthrough&#x27;,
                                                       [&#x27;price&#x27;]),
                                                      (&#x27;high_cardinality&#x27;,
@@ -832,7 +833,7 @@ categorical feature in gradient boosting.
                                        verbose_feature_names_out=False)),
                     (&#x27;histgradientboostingregressor&#x27;,
                      HistGradientBoostingRegressor(categorical_features=Index([&#x27;country&#x27;, &#x27;region_2&#x27;], dtype=&#x27;object&#x27;),
-                                                   max_iter=20, random_state=0))])</pre></div> </div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-294" type="checkbox" ><label for="sk-estimator-id-294" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>columntransformer: ColumnTransformer</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.compose.ColumnTransformer.html">?<span>Documentation for columntransformer: ColumnTransformer</span></a></div></label><div class="sk-toggleable__content "><pre>ColumnTransformer(transformers=[(&#x27;numerical&#x27;, &#x27;passthrough&#x27;, [&#x27;price&#x27;]),
+                                                   max_iter=20, random_state=0))])</pre></div> </div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-62" type="checkbox" ><label for="sk-estimator-id-62" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>columntransformer: ColumnTransformer</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.compose.ColumnTransformer.html">?<span>Documentation for columntransformer: ColumnTransformer</span></a></div></label><div class="sk-toggleable__content "><pre>ColumnTransformer(transformers=[(&#x27;numerical&#x27;, &#x27;passthrough&#x27;, [&#x27;price&#x27;]),
                                     (&#x27;high_cardinality&#x27;,
                                      TargetEncoder(target_type=&#x27;continuous&#x27;),
                                      Index([&#x27;winery&#x27;, &#x27;region_1&#x27;, &#x27;variety&#x27;, &#x27;province&#x27;], dtype=&#x27;object&#x27;)),
@@ -840,17 +841,17 @@ categorical feature in gradient boosting.
                                      OrdinalEncoder(handle_unknown=&#x27;use_encoded_value&#x27;,
                                                     unknown_value=-1),
                                      Index([&#x27;country&#x27;, &#x27;region_2&#x27;], dtype=&#x27;object&#x27;))],
-                      verbose_feature_names_out=False)</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-295" type="checkbox" ><label for="sk-estimator-id-295" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>numerical</div></div></label><div class="sk-toggleable__content "><pre>[&#x27;price&#x27;]</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-296" type="checkbox" ><label for="sk-estimator-id-296" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>passthrough</div></div></label><div class="sk-toggleable__content "><pre>passthrough</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-297" type="checkbox" ><label for="sk-estimator-id-297" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>high_cardinality</div></div></label><div class="sk-toggleable__content "><pre>Index([&#x27;winery&#x27;, &#x27;region_1&#x27;, &#x27;variety&#x27;, &#x27;province&#x27;], dtype=&#x27;object&#x27;)</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-298" type="checkbox" ><label for="sk-estimator-id-298" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>TargetEncoder</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.TargetEncoder.html">?<span>Documentation for TargetEncoder</span></a></div></label><div class="sk-toggleable__content "><pre>TargetEncoder(target_type=&#x27;continuous&#x27;)</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-299" type="checkbox" ><label for="sk-estimator-id-299" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>low_cardinality</div></div></label><div class="sk-toggleable__content "><pre>Index([&#x27;country&#x27;, &#x27;region_2&#x27;], dtype=&#x27;object&#x27;)</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-300" type="checkbox" ><label for="sk-estimator-id-300" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>OrdinalEncoder</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.OrdinalEncoder.html">?<span>Documentation for OrdinalEncoder</span></a></div></label><div class="sk-toggleable__content "><pre>OrdinalEncoder(handle_unknown=&#x27;use_encoded_value&#x27;, unknown_value=-1)</pre></div> </div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-301" type="checkbox" ><label for="sk-estimator-id-301" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>HistGradientBoostingRegressor</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.ensemble.HistGradientBoostingRegressor.html">?<span>Documentation for HistGradientBoostingRegressor</span></a></div></label><div class="sk-toggleable__content "><pre>HistGradientBoostingRegressor(categorical_features=Index([&#x27;country&#x27;, &#x27;region_2&#x27;], dtype=&#x27;object&#x27;),
+                      verbose_feature_names_out=False)</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-63" type="checkbox" ><label for="sk-estimator-id-63" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>numerical</div></div></label><div class="sk-toggleable__content "><pre>[&#x27;price&#x27;]</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-64" type="checkbox" ><label for="sk-estimator-id-64" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>passthrough</div></div></label><div class="sk-toggleable__content "><pre>passthrough</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-65" type="checkbox" ><label for="sk-estimator-id-65" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>high_cardinality</div></div></label><div class="sk-toggleable__content "><pre>Index([&#x27;winery&#x27;, &#x27;region_1&#x27;, &#x27;variety&#x27;, &#x27;province&#x27;], dtype=&#x27;object&#x27;)</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-66" type="checkbox" ><label for="sk-estimator-id-66" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>TargetEncoder</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.TargetEncoder.html">?<span>Documentation for TargetEncoder</span></a></div></label><div class="sk-toggleable__content "><pre>TargetEncoder(target_type=&#x27;continuous&#x27;)</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-67" type="checkbox" ><label for="sk-estimator-id-67" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>low_cardinality</div></div></label><div class="sk-toggleable__content "><pre>Index([&#x27;country&#x27;, &#x27;region_2&#x27;], dtype=&#x27;object&#x27;)</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-68" type="checkbox" ><label for="sk-estimator-id-68" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>OrdinalEncoder</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.OrdinalEncoder.html">?<span>Documentation for OrdinalEncoder</span></a></div></label><div class="sk-toggleable__content "><pre>OrdinalEncoder(handle_unknown=&#x27;use_encoded_value&#x27;, unknown_value=-1)</pre></div> </div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-69" type="checkbox" ><label for="sk-estimator-id-69" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>HistGradientBoostingRegressor</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.ensemble.HistGradientBoostingRegressor.html">?<span>Documentation for HistGradientBoostingRegressor</span></a></div></label><div class="sk-toggleable__content "><pre>HistGradientBoostingRegressor(categorical_features=Index([&#x27;country&#x27;, &#x27;region_2&#x27;], dtype=&#x27;object&#x27;),
                                   max_iter=20, random_state=0)</pre></div> </div></div></div></div></div></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 165-166
+.. GENERATED FROM PYTHON SOURCE LINES 166-167
 
-Finally, we evaluate the pipeline using cross validation and record the results:
+أخيرًا، نقوم بتقييم خط الأنابيب باستخدام التحقق المتقاطع وتسجيل النتائج:
 
-.. GENERATED FROM PYTHON SOURCE LINES 166-168
+.. GENERATED FROM PYTHON SOURCE LINES 167-169
 
 .. code-block:: Python
 
@@ -863,13 +864,13 @@ Finally, we evaluate the pipeline using cross validation and record the results:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 169-172
+.. GENERATED FROM PYTHON SOURCE LINES 170-173
 
-Plotting the Results
+رسم النتائج
 ====================
-In this section, we display the results by plotting the test and train scores:
+في هذا القسم، نقوم بعرض النتائج عن طريق رسم درجات الاختبار والتدريب:
 
-.. GENERATED FROM PYTHON SOURCE LINES 172-204
+.. GENERATED FROM PYTHON SOURCE LINES 173-205
 
 .. code-block:: Python
 
@@ -917,37 +918,33 @@ In this section, we display the results by plotting the test and train scores:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 205-229
+.. GENERATED FROM PYTHON SOURCE LINES 206-225
 
-When evaluating the predictive performance on the test set, dropping the
-categories perform the worst and the target encoders performs the best. This
-can be explained as follows:
+عند تقييم الأداء التنبؤي على مجموعة الاختبار، يؤدي إسقاط
+الفئات تؤدي إلى أسوأ أداء، ويؤدي ترميز الهدف إلى أفضل أداء. يمكن تفسير هذا على النحو التالي:
 
-- Dropping the categorical features makes the pipeline less expressive and
-  underfitting as a result;
-- Due to the high cardinality and to reduce the training time, the one-hot
-  encoding scheme uses `max_categories=20` which prevents the features from
-  expanding too much, which can result in underfitting.
-- If we had not set `max_categories=20`, the one-hot encoding scheme would have
-  likely made the pipeline overfitting as the number of features explodes with rare
-  category occurrences that are correlated with the target by chance (on the training
-  set only);
-- The ordinal encoding imposes an arbitrary order to the features which are then
-  treated as numerical values by the
-  :class:`~sklearn.ensemble.HistGradientBoostingRegressor`. Since this
-  model groups numerical features in 256 bins per feature, many unrelated categories
-  can be grouped together and as a result overall pipeline can underfit;
-- When using the target encoder, the same binning happens, but since the encoded
-  values are statistically ordered by marginal association with the target variable,
-  the binning use by the :class:`~sklearn.ensemble.HistGradientBoostingRegressor`
-  makes sense and leads to good results: the combination of smoothed target
-  encoding and binning works as a good regularizing strategy against
-  overfitting while not limiting the expressiveness of the pipeline too much.
+- يؤدي إسقاط الميزات الفئوية إلى جعل خط الأنابيب أقل تعبيرًا وتحت التلائم
+نتيجة لذلك؛
+- نظرًا لارتفاع عدد الفئات ولتقليل وقت التدريب، يستخدم مخطط الترميز أحادي الساخن
+`max_categories=20` الذي يمنع الميزات من التوسع كثيرًا، والذي يمكن أن يؤدي إلى نقص التلائم.
+- إذا لم نقم بتعيين `max_categories=20`، فمن المحتمل أن يؤدي مخطط الترميز أحادي الساخن إلى
+جعل خط الأنابيب مفرط التلائم حيث ينفجر عدد الميزات مع حدوث فئات نادرة
+التي ترتبط بالهدف عن طريق الصدفة (على مجموعة التدريب فقط)؛
+- يفرض الترميز الترتيبي ترتيبًا تعسفيًا على الميزات التي يتم معاملتها بعد ذلك
+كقيم عددية بواسطة
+:class:`~sklearn.ensemble.HistGradientBoostingRegressor`. نظرًا لأن هذا
+النموذج يجمع الميزات العددية في 256 صنفًا لكل ميزة، يمكن تجميع العديد من الفئات غير ذات الصلة معًا ونتيجة لذلك يمكن أن يؤدي خط الأنابيب العام إلى نقص التلائم؛
+- عند استخدام ترميز الهدف، يحدث نفس التجميع، ولكن نظرًا لأن القيم المشفرة
+يتم ترتيبها إحصائيًا بالارتباط الهامشي مع متغير الهدف،
+التجميع الذي يستخدمه :class:`~sklearn.ensemble.HistGradientBoostingRegressor`
+منطقي ويؤدي إلى نتائج جيدة: يعمل مزيج الترميز المستهدف المملس والتجميع
+كاستراتيجية تنظيم جيدة ضد
+الإفراط في التلائم مع عدم الحد من تعبيرية خط الأنابيب كثيرًا.
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 49.385 seconds)
+   **Total running time of the script:** (0 minutes 25.366 seconds)
 
 
 .. _sphx_glr_download_auto_examples_preprocessing_plot_target_encoder.py:

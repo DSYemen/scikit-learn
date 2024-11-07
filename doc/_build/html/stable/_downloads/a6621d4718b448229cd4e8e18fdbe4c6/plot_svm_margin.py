@@ -1,54 +1,52 @@
 """
-=========================================================
-SVM Margins Example
-=========================================================
-The plots below illustrate the effect the parameter `C` has
-on the separation line. A large value of `C` basically tells
-our model that we do not have that much faith in our data's
-distribution, and will only consider points close to line
-of separation.
+============================
+مثال على هوامش SVM
+============================
+توضح المخططات أدناه تأثير المعامل `C`
+على خط الفصل. تشير قيمة كبيرة من `C` بشكل أساسي إلى
+نموذجنا أننا لا نثق كثيراً في توزيع البيانات، ولن نأخذ في الاعتبار سوى النقاط القريبة من خط
+الفصل.
 
-A small value of `C` includes more/all the observations, allowing
-the margins to be calculated using all the data in the area.
+تتضمن قيمة صغيرة من `C` المزيد/جميع الملاحظات، مما يسمح
+بحساب الهوامش باستخدام جميع البيانات في المنطقة.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
 
 from sklearn import svm
 
-# we create 40 separable points
+# نقوم بإنشاء 40 نقطة قابلة للفصل
 np.random.seed(0)
 X = np.r_[np.random.randn(20, 2) - [2, 2], np.random.randn(20, 2) + [2, 2]]
 Y = [0] * 20 + [1] * 20
 
-# figure number
+# رقم الشكل
 fignum = 1
 
-# fit the model
+# ملاءمة النموذج
 for name, penalty in (("unreg", 1), ("reg", 0.05)):
     clf = svm.SVC(kernel="linear", C=penalty)
     clf.fit(X, Y)
-
-    # get the separating hyperplane
+    # الحصول على الفاصل الفائق
     w = clf.coef_[0]
     a = -w[0] / w[1]
     xx = np.linspace(-5, 5)
     yy = a * xx - (clf.intercept_[0]) / w[1]
 
-    # plot the parallels to the separating hyperplane that pass through the
-    # support vectors (margin away from hyperplane in direction
-    # perpendicular to hyperplane). This is sqrt(1+a^2) away vertically in
+    # رسم المتوازيات للفاصل الفائق التي تمر عبر
+    # المتجهات الداعمة (الهامش بعيدًا عن الفاصل الفائق في الاتجاه
+    # عمودي على الفاصل الفائق). هذا بعيدًا عموديًا في
     # 2-d.
     margin = 1 / np.sqrt(np.sum(clf.coef_**2))
     yy_down = yy - np.sqrt(1 + a**2) * margin
     yy_up = yy + np.sqrt(1 + a**2) * margin
 
-    # plot the line, the points, and the nearest vectors to the plane
+    # رسم الخط، والنقاط، وأقرب المتجهات إلى المستوى
     plt.figure(fignum, figsize=(4, 3))
     plt.clf()
     plt.plot(xx, yy, "k-")
@@ -77,7 +75,7 @@ for name, penalty in (("unreg", 1), ("reg", 0.05)):
     xy = np.vstack([XX.ravel(), YY.ravel()]).T
     Z = clf.decision_function(xy).reshape(XX.shape)
 
-    # Put the result into a contour plot
+    # وضع النتيجة في مخطط المُحيط
     plt.contourf(XX, YY, Z, cmap=plt.get_cmap("RdBu"), alpha=0.5, linestyles=["-"])
 
     plt.xlim(x_min, x_max)
@@ -87,4 +85,4 @@ for name, penalty in (("unreg", 1), ("reg", 0.05)):
     plt.yticks(())
     fignum = fignum + 1
 
-plt.show()
+    plt.show()

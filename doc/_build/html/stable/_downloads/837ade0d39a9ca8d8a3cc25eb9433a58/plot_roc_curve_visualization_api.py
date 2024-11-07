@@ -1,22 +1,18 @@
 """
-================================
-ROC Curve with Visualization API
-================================
-Scikit-learn defines a simple API for creating visualizations for machine
-learning. The key features of this API is to allow for quick plotting and
-visual adjustments without recalculation. In this example, we will demonstrate
-how to use the visualization API by comparing ROC curves.
+=============================================
+منحنى ROC مع واجهة برمجة التطبيقات للتصور
+=============================================
+يعرّف Scikit-learn واجهة برمجة تطبيقات بسيطة لإنشاء تصورات للتعلم الآلي. الميزات الرئيسية لهذه الواجهة هي السماح بالرسم السريع والتعديلات المرئية دون إعادة الحساب. في هذا المثال، سوف نوضح كيفية استخدام واجهة برمجة التطبيقات للتصور من خلال مقارنة منحنيات ROC.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف SPDX-License: BSD-3-Clause
 
 # %%
-# Load Data and Train a SVC
+# تحميل البيانات وتدريب SVC
 # -------------------------
-# First, we load the wine dataset and convert it to a binary classification
-# problem. Then, we train a support vector classifier on a training dataset.
+# أولاً، نقوم بتحميل مجموعة بيانات النبيذ وتحويلها إلى مشكلة تصنيف ثنائي. ثم نقوم بتدريب مصنف ناقل الدعم على مجموعة بيانات التدريب.
 import matplotlib.pyplot as plt
 
 from sklearn.datasets import load_wine
@@ -33,24 +29,21 @@ svc = SVC(random_state=42)
 svc.fit(X_train, y_train)
 
 # %%
-# Plotting the ROC Curve
+# رسم منحنى ROC
 # ----------------------
-# Next, we plot the ROC curve with a single call to
-# :func:`sklearn.metrics.RocCurveDisplay.from_estimator`. The returned
-# `svc_disp` object allows us to continue using the already computed ROC curve
-# for the SVC in future plots.
+# بعد ذلك، نرسم منحنى ROC باستخدام مكالمة واحدة لـ
+# :func:`sklearn.metrics.RocCurveDisplay.from_estimator`. الكائن `svc_disp` الذي يتم إرجاعه يسمح لنا بالاستمرار في استخدام منحنى ROC المحسوب بالفعل
+# لـ SVC في الرسوم البيانية المستقبلية.
 svc_disp = RocCurveDisplay.from_estimator(svc, X_test, y_test)
 plt.show()
 
 # %%
-# Training a Random Forest and Plotting the ROC Curve
+# تدريب غابة عشوائية ورسم منحنى ROC
 # ---------------------------------------------------
-# We train a random forest classifier and create a plot comparing it to the SVC
-# ROC curve. Notice how `svc_disp` uses
-# :func:`~sklearn.metrics.RocCurveDisplay.plot` to plot the SVC ROC curve
-# without recomputing the values of the roc curve itself. Furthermore, we
-# pass `alpha=0.8` to the plot functions to adjust the alpha values of the
-# curves.
+# نقوم بتدريب مصنف الغابة العشوائية وإنشاء رسم بياني يقارنه بمنحنى ROC لـ SVC. لاحظ كيف أن `svc_disp` يستخدم
+# :func:`~sklearn.metrics.RocCurveDisplay.plot` لرسم منحنى ROC لـ SVC
+# دون إعادة حساب قيم منحنى ROC نفسه. علاوة على ذلك، نقوم
+# بتمرير `alpha=0.8` إلى دالات الرسم لتعديل قيم ألفا للمنحنيات.
 rfc = RandomForestClassifier(n_estimators=10, random_state=42)
 rfc.fit(X_train, y_train)
 ax = plt.gca()

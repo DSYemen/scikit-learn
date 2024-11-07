@@ -19,26 +19,22 @@
 
 
 ======================================================
-Post-hoc tuning the cut-off point of decision function
+ضبط نقطة القطع لوظيفة القرار بعد التدريب
 ======================================================
 
-Once a binary classifier is trained, the :term:`predict` method outputs class label
-predictions corresponding to a thresholding of either the :term:`decision_function` or
-the :term:`predict_proba` output. The default threshold is defined as a posterior
-probability estimate of 0.5 or a decision score of 0.0. However, this default strategy
-may not be optimal for the task at hand.
+بمجرد تدريب مصنف ثنائي، تقوم طريقة :term:`predict` بإخراج تنبؤات تسمية الفئة المقابلة لعملية عتبية إما لـ :term:`decision_function` أو
+لـ :term:`predict_proba` الإخراج. ويتم تعريف العتبة الافتراضية على أنها تقدير احتمالي لاحق يبلغ 0.5 أو درجة قرار تبلغ 0.0. ومع ذلك، قد لا تكون هذه الاستراتيجية الافتراضية مثالية للمهمة قيد التنفيذ.
 
-This example shows how to use the
-:class:`~sklearn.model_selection.TunedThresholdClassifierCV` to tune the decision
-threshold, depending on a metric of interest.
+يوضح هذا المثال كيفية استخدام
+:class:`~sklearn.model_selection.TunedThresholdClassifierCV` لضبط عتبة القرار، اعتمادًا على مقياس الاهتمام.
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-20
+.. GENERATED FROM PYTHON SOURCE LINES 12-16
 
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري scikit-learn
+    # معرف الترخيص: BSD-3-Clause
 
 
 
@@ -47,18 +43,19 @@ threshold, depending on a metric of interest.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 21-27
+.. GENERATED FROM PYTHON SOURCE LINES 17-23
 
-The diabetes dataset
+مجموعة بيانات مرض السكري
 --------------------
 
-To illustrate the tuning of the decision threshold, we will use the diabetes dataset.
-This dataset is available on OpenML: https://www.openml.org/d/37. We use the
-:func:`~sklearn.datasets.fetch_openml` function to fetch this dataset.
+لتوضيح ضبط عتبة القرار، سنستخدم مجموعة بيانات مرض السكري.
+هذه المجموعة متاحة على OpenML: https://www.openml.org/d/37. نستخدم
+:func:`~sklearn.datasets.fetch_openml` الدالة لاسترجاع هذه المجموعة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 27-32
+.. GENERATED FROM PYTHON SOURCE LINES 23-29
 
 .. code-block:: Python
+
 
     from sklearn.datasets import fetch_openml
 
@@ -72,11 +69,11 @@ This dataset is available on OpenML: https://www.openml.org/d/37. We use the
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 33-34
+.. GENERATED FROM PYTHON SOURCE LINES 30-31
 
-We look at the target to understand the type of problem we are dealing with.
+نلقي نظرة على الهدف لفهم نوع المشكلة التي نتعامل معها.
 
-.. GENERATED FROM PYTHON SOURCE LINES 34-36
+.. GENERATED FROM PYTHON SOURCE LINES 31-33
 
 .. code-block:: Python
 
@@ -98,14 +95,14 @@ We look at the target to understand the type of problem we are dealing with.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 37-41
+.. GENERATED FROM PYTHON SOURCE LINES 34-38
 
-We can see that we are dealing with a binary classification problem. Since the
-labels are not encoded as 0 and 1, we make it explicit that we consider the class
-labeled "tested_negative" as the negative class (which is also the most frequent)
-and the class labeled "tested_positive" the positive as the positive class:
+يمكننا أن نرى أننا نتعامل مع مشكلة تصنيف ثنائي. نظرًا لأن
+التصنيفات غير مشفرة على أنها 0 و 1، فإننا نجعلها صريحة بأننا نعتبر الفئة
+المسماة "tested_negative" كالفئة السلبية (وهي أيضًا الأكثر تكرارًا)
+والفئة المسماة "tested_positive" كالفئة الإيجابية:
 
-.. GENERATED FROM PYTHON SOURCE LINES 41-43
+.. GENERATED FROM PYTHON SOURCE LINES 38-40
 
 .. code-block:: Python
 
@@ -118,19 +115,19 @@ and the class labeled "tested_positive" the positive as the positive class:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 44-53
+.. GENERATED FROM PYTHON SOURCE LINES 41-50
 
-We can also observe that this binary problem is slightly imbalanced where we have
-around twice more samples from the negative class than from the positive class. When
-it comes to evaluation, we should consider this aspect to interpret the results.
+يمكننا أيضًا ملاحظة أن هذه المشكلة الثنائية غير متوازنة إلى حد ما حيث لدينا
+حوالي ضعف عدد العينات من الفئة السلبية مقارنة بالفئة الإيجابية. عندما
+يتعلق الأمر بالتقييم، يجب أن نأخذ هذا الجانب في الاعتبار لتفسير النتائج.
 
-Our vanilla classifier
+مصنفنا الأساسي
 ----------------------
 
-We define a basic predictive model composed of a scaler followed by a logistic
-regression classifier.
+نحدد نموذجًا تنبؤيًا أساسيًا يتكون من مقياس متبوعًا بمصنف
+الانحدار اللوجستي.
 
-.. GENERATED FROM PYTHON SOURCE LINES 53-60
+.. GENERATED FROM PYTHON SOURCE LINES 50-57
 
 .. code-block:: Python
 
@@ -149,7 +146,7 @@ regression classifier.
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-56 {
+    <style>#sk-container-id-19 {
       /* Definition of color scheme common for light and dark mode */
       --sklearn-color-text: #000;
       --sklearn-color-text-muted: #666;
@@ -180,15 +177,15 @@ regression classifier.
       }
     }
 
-    #sk-container-id-56 {
+    #sk-container-id-19 {
       color: var(--sklearn-color-text);
     }
 
-    #sk-container-id-56 pre {
+    #sk-container-id-19 pre {
       padding: 0;
     }
 
-    #sk-container-id-56 input.sk-hidden--visually {
+    #sk-container-id-19 input.sk-hidden--visually {
       border: 0;
       clip: rect(1px 1px 1px 1px);
       clip: rect(1px, 1px, 1px, 1px);
@@ -200,7 +197,7 @@ regression classifier.
       width: 1px;
     }
 
-    #sk-container-id-56 div.sk-dashed-wrapped {
+    #sk-container-id-19 div.sk-dashed-wrapped {
       border: 1px dashed var(--sklearn-color-line);
       margin: 0 0.4em 0.5em 0.4em;
       box-sizing: border-box;
@@ -208,7 +205,7 @@ regression classifier.
       background-color: var(--sklearn-color-background);
     }
 
-    #sk-container-id-56 div.sk-container {
+    #sk-container-id-19 div.sk-container {
       /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
          but bootstrap.min.css set `[hidden] { display: none !important; }`
          so we also need the `!important` here to be able to override the
@@ -218,7 +215,7 @@ regression classifier.
       position: relative;
     }
 
-    #sk-container-id-56 div.sk-text-repr-fallback {
+    #sk-container-id-19 div.sk-text-repr-fallback {
       display: none;
     }
 
@@ -234,14 +231,14 @@ regression classifier.
 
     /* Parallel-specific style estimator block */
 
-    #sk-container-id-56 div.sk-parallel-item::after {
+    #sk-container-id-19 div.sk-parallel-item::after {
       content: "";
       width: 100%;
       border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
       flex-grow: 1;
     }
 
-    #sk-container-id-56 div.sk-parallel {
+    #sk-container-id-19 div.sk-parallel {
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -249,28 +246,28 @@ regression classifier.
       position: relative;
     }
 
-    #sk-container-id-56 div.sk-parallel-item {
+    #sk-container-id-19 div.sk-parallel-item {
       display: flex;
       flex-direction: column;
     }
 
-    #sk-container-id-56 div.sk-parallel-item:first-child::after {
+    #sk-container-id-19 div.sk-parallel-item:first-child::after {
       align-self: flex-end;
       width: 50%;
     }
 
-    #sk-container-id-56 div.sk-parallel-item:last-child::after {
+    #sk-container-id-19 div.sk-parallel-item:last-child::after {
       align-self: flex-start;
       width: 50%;
     }
 
-    #sk-container-id-56 div.sk-parallel-item:only-child::after {
+    #sk-container-id-19 div.sk-parallel-item:only-child::after {
       width: 0;
     }
 
     /* Serial-specific style estimator block */
 
-    #sk-container-id-56 div.sk-serial {
+    #sk-container-id-19 div.sk-serial {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -288,14 +285,14 @@ regression classifier.
 
     /* Pipeline and ColumnTransformer style (default) */
 
-    #sk-container-id-56 div.sk-toggleable {
+    #sk-container-id-19 div.sk-toggleable {
       /* Default theme specific background. It is overwritten whether we have a
       specific estimator or a Pipeline/ColumnTransformer */
       background-color: var(--sklearn-color-background);
     }
 
     /* Toggleable label */
-    #sk-container-id-56 label.sk-toggleable__label {
+    #sk-container-id-19 label.sk-toggleable__label {
       cursor: pointer;
       display: flex;
       width: 100%;
@@ -308,13 +305,13 @@ regression classifier.
       gap: 0.5em;
     }
 
-    #sk-container-id-56 label.sk-toggleable__label .caption {
+    #sk-container-id-19 label.sk-toggleable__label .caption {
       font-size: 0.6rem;
       font-weight: lighter;
       color: var(--sklearn-color-text-muted);
     }
 
-    #sk-container-id-56 label.sk-toggleable__label-arrow:before {
+    #sk-container-id-19 label.sk-toggleable__label-arrow:before {
       /* Arrow on the left of the label */
       content: "▸";
       float: left;
@@ -322,13 +319,13 @@ regression classifier.
       color: var(--sklearn-color-icon);
     }
 
-    #sk-container-id-56 label.sk-toggleable__label-arrow:hover:before {
+    #sk-container-id-19 label.sk-toggleable__label-arrow:hover:before {
       color: var(--sklearn-color-text);
     }
 
     /* Toggleable content - dropdown */
 
-    #sk-container-id-56 div.sk-toggleable__content {
+    #sk-container-id-19 div.sk-toggleable__content {
       max-height: 0;
       max-width: 0;
       overflow: hidden;
@@ -337,12 +334,12 @@ regression classifier.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-56 div.sk-toggleable__content.fitted {
+    #sk-container-id-19 div.sk-toggleable__content.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-56 div.sk-toggleable__content pre {
+    #sk-container-id-19 div.sk-toggleable__content pre {
       margin: 0.2em;
       border-radius: 0.25em;
       color: var(--sklearn-color-text);
@@ -350,79 +347,79 @@ regression classifier.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-56 div.sk-toggleable__content.fitted pre {
+    #sk-container-id-19 div.sk-toggleable__content.fitted pre {
       /* unfitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-56 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    #sk-container-id-19 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
       max-height: 200px;
       max-width: 100%;
       overflow: auto;
     }
 
-    #sk-container-id-56 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    #sk-container-id-19 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
       content: "▾";
     }
 
     /* Pipeline/ColumnTransformer-specific style */
 
-    #sk-container-id-56 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-19 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-56 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-19 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator-specific style */
 
     /* Colorize estimator box */
-    #sk-container-id-56 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-19 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-56 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-19 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
-    #sk-container-id-56 div.sk-label label.sk-toggleable__label,
-    #sk-container-id-56 div.sk-label label {
+    #sk-container-id-19 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-19 div.sk-label label {
       /* The background is the default theme color */
       color: var(--sklearn-color-text-on-default-background);
     }
 
     /* On hover, darken the color of the background */
-    #sk-container-id-56 div.sk-label:hover label.sk-toggleable__label {
+    #sk-container-id-19 div.sk-label:hover label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
     /* Label box, darken color on hover, fitted */
-    #sk-container-id-56 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+    #sk-container-id-19 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator label */
 
-    #sk-container-id-56 div.sk-label label {
+    #sk-container-id-19 div.sk-label label {
       font-family: monospace;
       font-weight: bold;
       display: inline-block;
       line-height: 1.2em;
     }
 
-    #sk-container-id-56 div.sk-label-container {
+    #sk-container-id-19 div.sk-label-container {
       text-align: center;
     }
 
     /* Estimator-specific */
-    #sk-container-id-56 div.sk-estimator {
+    #sk-container-id-19 div.sk-estimator {
       font-family: monospace;
       border: 1px dotted var(--sklearn-color-border-box);
       border-radius: 0.25em;
@@ -432,18 +429,18 @@ regression classifier.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-56 div.sk-estimator.fitted {
+    #sk-container-id-19 div.sk-estimator.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
     /* on hover */
-    #sk-container-id-56 div.sk-estimator:hover {
+    #sk-container-id-19 div.sk-estimator:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-56 div.sk-estimator.fitted:hover {
+    #sk-container-id-19 div.sk-estimator.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
@@ -531,7 +528,7 @@ regression classifier.
 
     /* "?"-specific style due to the `<a>` HTML tag */
 
-    #sk-container-id-56 a.estimator_doc_link {
+    #sk-container-id-19 a.estimator_doc_link {
       float: right;
       font-size: 1rem;
       line-height: 1em;
@@ -546,45 +543,45 @@ regression classifier.
       border: var(--sklearn-color-unfitted-level-1) 1pt solid;
     }
 
-    #sk-container-id-56 a.estimator_doc_link.fitted {
+    #sk-container-id-19 a.estimator_doc_link.fitted {
       /* fitted */
       border: var(--sklearn-color-fitted-level-1) 1pt solid;
       color: var(--sklearn-color-fitted-level-1);
     }
 
     /* On hover */
-    #sk-container-id-56 a.estimator_doc_link:hover {
+    #sk-container-id-19 a.estimator_doc_link:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-3);
       color: var(--sklearn-color-background);
       text-decoration: none;
     }
 
-    #sk-container-id-56 a.estimator_doc_link.fitted:hover {
+    #sk-container-id-19 a.estimator_doc_link.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-56" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler()),
-                    (&#x27;logisticregression&#x27;, LogisticRegression())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-232" type="checkbox" ><label for="sk-estimator-id-232" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler()),
-                    (&#x27;logisticregression&#x27;, LogisticRegression())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-233" type="checkbox" ><label for="sk-estimator-id-233" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content "><pre>StandardScaler()</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-234" type="checkbox" ><label for="sk-estimator-id-234" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>LogisticRegression</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a></div></label><div class="sk-toggleable__content "><pre>LogisticRegression()</pre></div> </div></div></div></div></div></div>
+    </style><div id="sk-container-id-19" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler()),
+                    (&#x27;logisticregression&#x27;, LogisticRegression())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-51" type="checkbox" ><label for="sk-estimator-id-51" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler()),
+                    (&#x27;logisticregression&#x27;, LogisticRegression())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-52" type="checkbox" ><label for="sk-estimator-id-52" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content "><pre>StandardScaler()</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-53" type="checkbox" ><label for="sk-estimator-id-53" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>LogisticRegression</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a></div></label><div class="sk-toggleable__content "><pre>LogisticRegression()</pre></div> </div></div></div></div></div></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-71
+.. GENERATED FROM PYTHON SOURCE LINES 58-68
 
-We evaluate our model using cross-validation. We use the accuracy and the balanced
-accuracy to report the performance of our model. The balanced accuracy is a metric
-that is less sensitive to class imbalance and will allow us to put the accuracy
-score in perspective.
+نقيم نموذجنا باستخدام التحقق المتقاطع. نستخدم الدقة والدقة المتوازنة
+للإبلاغ عن أداء نموذجنا. الدقة المتوازنة هي مقياس
+أقل حساسية لاختلال التوازن في الفئة وسيسمح لنا بوضع درجة الدقة
+في المنظور.
 
-Cross-validation allows us to study the variance of the decision threshold across
-different splits of the data. However, the dataset is rather small and it would be
-detrimental to use more than 5 folds to evaluate the dispersion. Therefore, we use
-a :class:`~sklearn.model_selection.RepeatedStratifiedKFold` where we apply several
-repetitions of 5-fold cross-validation.
+يسمح لنا التحقق المتقاطع بدراسة تباين عتبة القرار عبر
+تقسيمات مختلفة للبيانات. ومع ذلك، فإن مجموعة البيانات صغيرة إلى حد ما وسيكون
+من الضار استخدام أكثر من 5 طيات لتقييم التشتت. لذلك، نستخدم
+:class:`~sklearn.model_selection.RepeatedStratifiedKFold` حيث نطبق عدة
+تكرارات من التحقق المتقاطع 5-fold.
 
-.. GENERATED FROM PYTHON SOURCE LINES 71-96
+.. GENERATED FROM PYTHON SOURCE LINES 68-93
 
 .. code-block:: Python
 
@@ -671,29 +668,28 @@ repetitions of 5-fold cross-validation.
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 97-116
+.. GENERATED FROM PYTHON SOURCE LINES 94-112
 
-Our predictive model succeeds to grasp the relationship between the data and the
-target. The training and testing scores are close to each other, meaning that our
-predictive model is not overfitting. We can also observe that the balanced accuracy is
-lower than the accuracy, due to the class imbalance previously mentioned.
+ينجح نموذجنا التنبؤي في فهم العلاقة بين البيانات والهدف. درجات التدريب والاختبار قريبة من بعضها البعض، مما يعني أن
+نموذجنا التنبؤي لا يعاني من الإفراط في الملاءمة. يمكننا أيضًا ملاحظة أن الدقة المتوازنة هي
+أقل من الدقة، بسبب اختلال التوازن في الفئة المذكور سابقًا.
 
-For this classifier, we let the decision threshold, used convert the probability of
-the positive class into a class prediction, to its default value: 0.5. However, this
-threshold might not be optimal. If our interest is to maximize the balanced accuracy,
-we should select another threshold that would maximize this metric.
+بالنسبة لهذا المصنف، نترك عتبة القرار، المستخدمة لتحويل احتمال
+الفئة الإيجابية إلى تنبؤ الفئة، إلى قيمتها الافتراضية: 0.5. ومع ذلك، قد لا تكون هذه
+العتبة مثالية. إذا كان اهتمامنا هو تعظيم الدقة المتوازنة،
+يجب أن نختار عتبة أخرى من شأنها أن تعظم هذا المقياس.
 
-The :class:`~sklearn.model_selection.TunedThresholdClassifierCV` meta-estimator allows
-to tune the decision threshold of a classifier given a metric of interest.
+يسمح المقيّم :class:`~sklearn.model_selection.TunedThresholdClassifierCV`
+بضبط عتبة القرار لمصنف معين بناءً على مقياس الاهتمام.
 
-Tuning the decision threshold
+ضبط عتبة القرار
 -----------------------------
 
-We create a :class:`~sklearn.model_selection.TunedThresholdClassifierCV` and
-configure it to maximize the balanced accuracy. We evaluate the model using the same
-cross-validation strategy as previously.
+ننشئ :class:`~sklearn.model_selection.TunedThresholdClassifierCV` ونقوم
+بتهيئته لتعظيم الدقة المتوازنة. نقيم النموذج باستخدام نفس
+استراتيجية التحقق المتقاطع كما في السابق.
 
-.. GENERATED FROM PYTHON SOURCE LINES 116-132
+.. GENERATED FROM PYTHON SOURCE LINES 112-128
 
 .. code-block:: Python
 
@@ -771,17 +767,17 @@ cross-validation strategy as previously.
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 133-140
+.. GENERATED FROM PYTHON SOURCE LINES 129-136
 
-In comparison with the vanilla model, we observe that the balanced accuracy score
-increased. Of course, it comes at the cost of a lower accuracy score. It means that
-our model is now more sensitive to the positive class but makes more mistakes on the
-negative class.
+بالمقارنة مع النموذج الأساسي، نلاحظ أن درجة الدقة المتوازنة
+زادت. بالطبع، يأتي ذلك على حساب انخفاض درجة الدقة. هذا يعني أن
+نموذجنا أصبح الآن أكثر حساسية للفئة الإيجابية ولكنه يرتكب أخطاء أكثر على
+الفئة السلبية.
 
-However, it is important to note that this tuned predictive model is internally the
-same model as the vanilla model: they have the same fitted coefficients.
+ومع ذلك، من المهم ملاحظة أن هذا النموذج التنبؤي المضبوط هو داخليًا نفس
+النموذج الأساسي: لديهم نفس المعاملات المناسبة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 140-159
+.. GENERATED FROM PYTHON SOURCE LINES 136-155
 
 .. code-block:: Python
 
@@ -798,17 +794,17 @@ same model as the vanilla model: they have the same fitted coefficients.
 
     fig, ax = plt.subplots(ncols=2, figsize=(12, 4), sharex=True, sharey=True)
     vanilla_model_coef.boxplot(ax=ax[0])
-    ax[0].set_ylabel("Coefficient value")
-    ax[0].set_title("Vanilla model")
+    ax[0].set_ylabel("قيمة المعامل")
+    ax[0].set_title("النموذج الأساسي")
     tuned_model_coef.boxplot(ax=ax[1])
-    ax[1].set_title("Tuned model")
-    _ = fig.suptitle("Coefficients of the predictive models")
+    ax[1].set_title("النموذج المضبوط")
+    _ = fig.suptitle("معاملات النماذج التنبؤية")
 
 
 
 
 .. image-sg:: /auto_examples/model_selection/images/sphx_glr_plot_tuned_decision_threshold_001.png
-   :alt: Coefficients of the predictive models, Vanilla model, Tuned model
+   :alt: معاملات النماذج التنبؤية, النموذج الأساسي, النموذج المضبوط
    :srcset: /auto_examples/model_selection/images/sphx_glr_plot_tuned_decision_threshold_001.png
    :class: sphx-glr-single-img
 
@@ -816,11 +812,11 @@ same model as the vanilla model: they have the same fitted coefficients.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 160-161
+.. GENERATED FROM PYTHON SOURCE LINES 156-157
 
-Only the decision threshold of each model was changed during the cross-validation.
+تم تغيير عتبة القرار لكل نموذج فقط أثناء التحقق المتقاطع.
 
-.. GENERATED FROM PYTHON SOURCE LINES 161-177
+.. GENERATED FROM PYTHON SOURCE LINES 157-173
 
 .. code-block:: Python
 
@@ -832,19 +828,19 @@ Only the decision threshold of each model was changed during the cross-validatio
         decision_threshold.mean(),
         color="k",
         linestyle="--",
-        label=f"Mean decision threshold: {decision_threshold.mean():.2f}",
+        label=f"عتبة القرار المتوسطة: {decision_threshold.mean():.2f}",
     )
-    ax.set_xlabel("Decision threshold")
+    ax.set_xlabel("عتبة القرار")
     ax.legend(loc="upper right")
     _ = ax.set_title(
-        "Distribution of the decision threshold \nacross different cross-validation folds"
+        "توزيع عتبة القرار \nعبر طيات التحقق المتقاطع المختلفة"
     )
 
 
 
 
 .. image-sg:: /auto_examples/model_selection/images/sphx_glr_plot_tuned_decision_threshold_002.png
-   :alt: Distribution of the decision threshold  across different cross-validation folds
+   :alt: توزيع عتبة القرار  عبر طيات التحقق المتقاطع المختلفة
    :srcset: /auto_examples/model_selection/images/sphx_glr_plot_tuned_decision_threshold_002.png
    :class: sphx-glr-single-img
 
@@ -852,23 +848,22 @@ Only the decision threshold of each model was changed during the cross-validatio
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 178-188
+.. GENERATED FROM PYTHON SOURCE LINES 174-182
 
-In average, a decision threshold around 0.32 maximizes the balanced accuracy, which is
-different from the default decision threshold of 0.5. Thus tuning the decision
-threshold is particularly important when the output of the predictive model
-is used to make decisions. Besides, the metric used to tune the decision threshold
-should be chosen carefully. Here, we used the balanced accuracy but it might not be
-the most appropriate metric for the problem at hand. The choice of the "right" metric
-is usually problem-dependent and might require some domain knowledge. Refer to the
-example entitled,
-:ref:`sphx_glr_auto_examples_model_selection_plot_cost_sensitive_learning.py`,
-for more details.
+في المتوسط، تعظم عتبة القرار التي تبلغ حوالي 0.32 الدقة المتوازنة، والتي تختلف
+عن عتبة القرار الافتراضية البالغة 0.5. وبالتالي، فإن ضبط عتبة القرار مهم بشكل خاص عندما
+يتم استخدام ناتج النموذج التنبؤي
+لاتخاذ القرارات. بالإضافة إلى ذلك، يجب اختيار المقياس المستخدم لضبط عتبة القرار
+بعناية. هنا، استخدمنا الدقة المتوازنة ولكن قد لا يكون
+المقياس الأنسب للمشكلة قيد التنفيذ. عادةً ما يعتمد اختيار المقياس "الصحيح"
+على المشكلة وقد يتطلب بعض المعرفة بالمجال. راجع المثال المعنون،
+:ref:`sphx_glr_auto_examples_model_selection_plot_cost_sensitive_learning.py`،
+لمزيد من التفاصيل.
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 35.144 seconds)
+   **Total running time of the script:** (0 minutes 39.766 seconds)
 
 
 .. _sphx_glr_download_auto_examples_model_selection_plot_tuned_decision_threshold.py:

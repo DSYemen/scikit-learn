@@ -1,6 +1,6 @@
 .. _svm_examples:
 
-Support Vector Machines
------------------------
+Support Vector Machines (SVM)
+------------------------------
 
-Examples concerning the :mod:`sklearn.svm` module.
+أمثلة تتعلق بوحدة :mod:`sklearn.svm` .

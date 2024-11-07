@@ -1,36 +1,34 @@
 """
 ======================================================
-Classification of text documents using sparse features
+تصنيف وثائق النصوص باستخدام الميزات المتناثرة
 ======================================================
 
-This is an example showing how scikit-learn can be used to classify documents by
-topics using a `Bag of Words approach
-<https://en.wikipedia.org/wiki/Bag-of-words_model>`_. This example uses a
-Tf-idf-weighted document-term sparse matrix to encode the features and
-demonstrates various classifiers that can efficiently handle sparse matrices.
+هذا مثال يوضح كيفية استخدام scikit-learn لتصنيف الوثائق حسب
+الموضوعات باستخدام نهج "Bag of Words"
+<https://en.wikipedia.org/wiki/Bag-of-words_model>_. يستخدم هذا المثال مصفوفة متقطعة ذات وزن Tf-idf لتشفير الميزات
+ويظهر العديد من التصنيفات التي يمكنها التعامل بكفاءة مع المصفوفات المتقطعة.
 
-For document analysis via an unsupervised learning approach, see the example
-script :ref:`sphx_glr_auto_examples_text_plot_document_clustering.py`.
+لتحليل الوثائق عبر نهج التعلم غير الخاضع للإشراف، راجع مثال النص
+:ref:`sphx_glr_auto_examples_text_plot_document_clustering.py`.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف SPDX-License: BSD-3-Clause
 
 
 # %%
-# Loading and vectorizing the 20 newsgroups text dataset
+# تحميل وتجهيز مجموعة بيانات 20 newsgroups النصية
 # ======================================================
 #
-# We define a function to load data from :ref:`20newsgroups_dataset`, which
-# comprises around 18,000 newsgroups posts on 20 topics split in two subsets:
-# one for training (or development) and the other one for testing (or for
-# performance evaluation). Note that, by default, the text samples contain some
-# message metadata such as `'headers'`, `'footers'` (signatures) and `'quotes'`
-# to other posts. The `fetch_20newsgroups` function therefore accepts a
-# parameter named `remove` to attempt stripping such information that can make
-# the classification problem "too easy". This is achieved using simple
-# heuristics that are neither perfect nor standard, hence disabled by default.
+# نحن نحدد وظيفة لتحميل البيانات من :ref:`20newsgroups_dataset`، والتي
+# تتكون من حوالي 18000 مشاركة في مجموعات الأخبار حول 20 موضوع مقسمة إلى مجموعتين:
+# واحدة للتدريب (أو التطوير) والأخرى للاختبار (أو لتقييم الأداء). لاحظ أنه، بشكل افتراضي، تحتوي عينات النص على بعض
+# بيانات التعريف مثل `'headers'`، `'footers'` (التوقيعات) و `'quotes'`
+# إلى المشاركات الأخرى. لذلك، تقبل وظيفة `fetch_20newsgroups`
+# معلمة تسمى `remove` لمحاولة إزالة مثل هذه المعلومات التي يمكن أن تجعل
+# مشكلة التصنيف "سهلة للغاية". يتم تحقيق ذلك باستخدام خوارزميات بسيطة
+# ليست مثالية ولا معيارية، وبالتالي يتم تعطيلها بشكل افتراضي.
 
 from time import time
 
@@ -50,7 +48,7 @@ def size_mb(docs):
 
 
 def load_dataset(verbose=False, remove=()):
-    """Load and vectorize the 20 newsgroups dataset."""
+    """تحميل وتجهيز مجموعة بيانات 20 newsgroups."""
 
     data_train = fetch_20newsgroups(
         subset="train",
@@ -68,13 +66,13 @@ def load_dataset(verbose=False, remove=()):
         remove=remove,
     )
 
-    # order of labels in `target_names` can be different from `categories`
+    # يمكن أن يختلف ترتيب التصنيفات في `target_names` عن `categories`
     target_names = data_train.target_names
 
-    # split target in a training set and a test set
+    # تقسيم التصنيفات إلى مجموعة تدريب ومجموعة اختبار
     y_train, y_test = data_train.target, data_test.target
 
-    # Extracting features from the training data using a sparse vectorizer
+    # استخراج الميزات من بيانات التدريب باستخدام متجه متقطع
     t0 = time()
     vectorizer = TfidfVectorizer(
         sublinear_tf=True, max_df=0.5, min_df=5, stop_words="english"
@@ -82,7 +80,7 @@ def load_dataset(verbose=False, remove=()):
     X_train = vectorizer.fit_transform(data_train.data)
     duration_train = time() - t0
 
-    # Extracting features from the test data using the same vectorizer
+    # استخراج الميزات من بيانات الاختبار باستخدام نفس المتجه
     t0 = time()
     X_test = vectorizer.transform(data_test.data)
     duration_test = time() - t0
@@ -90,7 +88,7 @@ def load_dataset(verbose=False, remove=()):
     feature_names = vectorizer.get_feature_names_out()
 
     if verbose:
-        # compute size of loaded data
+        # حساب حجم البيانات المحملة
         data_train_size_mb = size_mb(data_train.data)
         data_test_size_mb = size_mb(data_test.data)
 
@@ -115,34 +113,33 @@ def load_dataset(verbose=False, remove=()):
 
 
 # %%
-# Analysis of a bag-of-words document classifier
+# تحليل مصنف وثائق Bag-of-words
 # ==============================================
 #
-# We will now train a classifier twice, once on the text samples including
-# metadata and once after stripping the metadata. For both cases we will analyze
-# the classification errors on a test set using a confusion matrix and inspect
-# the coefficients that define the classification function of the trained
-# models.
+# سنقوم الآن بتدريب مصنف مرتين، مرة على عينات النص بما في ذلك
+# بيانات التعريف ومرة أخرى بعد إزالة بيانات التعريف. بالنسبة لكلتا الحالتين، سنقوم بتحليل
+# أخطاء التصنيف على مجموعة اختبار باستخدام مصفوفة الارتباك وفحص
+# المعاملات التي تحدد وظيفة التصنيف للنماذج المدربة.
 #
-# Model without metadata stripping
+# النموذج بدون إزالة بيانات التعريف
 # --------------------------------
 #
-# We start by using the custom function `load_dataset` to load the data without
-# metadata stripping.
+# نبدأ باستخدام الوظيفة المخصصة `load_dataset` لتحميل البيانات بدون
+# إزالة بيانات التعريف.
 
 X_train, X_test, y_train, y_test, feature_names, target_names = load_dataset(
     verbose=True
 )
 
 # %%
-# Our first model is an instance of the
-# :class:`~sklearn.linear_model.RidgeClassifier` class. This is a linear
-# classification model that uses the mean squared error on {-1, 1} encoded
-# targets, one for each possible class. Contrary to
-# :class:`~sklearn.linear_model.LogisticRegression`,
-# :class:`~sklearn.linear_model.RidgeClassifier` does not
-# provide probabilistic predictions (no `predict_proba` method),
-# but it is often faster to train.
+# نموذجنا الأول هو مثيل لفئة
+# :class:`~sklearn.linear_model.RidgeClassifier`. هذا هو نموذج التصنيف الخطي
+# الذي يستخدم متوسط خطأ المربعات على الأهداف المشفرة {-1, 1}، واحد لكل
+# فئة ممكنة. على عكس
+# :class:`~sklearn.linear_model.LogisticRegression`،
+# :class:`~sklearn.linear_model.RidgeClassifier` لا
+# يوفر تنبؤات احتمالية (لا توجد طريقة `predict_proba`)،
+# ولكنها غالبًا ما تكون أسرع في التدريب.
 
 from sklearn.linear_model import RidgeClassifier
 
@@ -151,8 +148,8 @@ clf.fit(X_train, y_train)
 pred = clf.predict(X_test)
 
 # %%
-# We plot the confusion matrix of this classifier to find if there is a pattern
-# in the classification errors.
+# نرسم مصفوفة الارتباك لهذا المصنف لمعرفة ما إذا كان هناك نمط
+# في أخطاء التصنيف.
 
 import matplotlib.pyplot as plt
 
@@ -167,25 +164,24 @@ _ = ax.set_title(
 )
 
 # %%
-# The confusion matrix highlights that documents of the `alt.atheism` class are
-# often confused with documents with the class `talk.religion.misc` class and
-# vice-versa which is expected since the topics are semantically related.
+# تسلط مصفوفة الارتباك الضوء على أن وثائق فئة `alt.atheism` غالبًا ما يتم الخلط بينها
+# مع وثائق فئة `talk.religion.misc` والعكس صحيح، وهو ما كان متوقعًا لأن الموضوعات ذات صلة دلاليًا.
 #
-# We also observe that some documents of the `sci.space` class can be misclassified as
-# `comp.graphics` while the converse is much rarer. A manual inspection of those
-# badly classified documents would be required to get some insights on this
-# asymmetry. It could be the case that the vocabulary of the space topic could
-# be more specific than the vocabulary for computer graphics.
+# نلاحظ أيضًا أن بعض وثائق فئة `sci.space` يمكن أن يتم تصنيفها بشكل خاطئ على أنها
+# `comp.graphics` في حين أن العكس نادر جدًا. سيتطلب الفحص اليدوي لتلك
+# الوثائق المصنفة بشكل سيء بعض الأفكار حول هذا
+# عدم التناسق. قد يكون من الممكن أن تكون المفردات الخاصة بموضوع الفضاء
+# أكثر تحديدًا من المفردات الخاصة بالرسومات الحاسوبية.
 #
-# We can gain a deeper understanding of how this classifier makes its decisions
-# by looking at the words with the highest average feature effects:
+# يمكننا اكتساب فهم أعمق لكيفية اتخاذ هذا المصنف لقراراته
+# من خلال النظر إلى الكلمات ذات أعلى متوسط تأثيرات الميزات:
 
 import numpy as np
 import pandas as pd
 
 
 def plot_feature_effects():
-    # learned coefficients weighted by frequency of appearance
+    # المعاملات المكتسبة المرجحة بتردد الظهور
     average_feature_effects = clf.coef_ * np.asarray(X_train.mean(axis=0)).ravel()
 
     for i, label in enumerate(target_names):
@@ -199,7 +195,7 @@ def plot_feature_effects():
     top_indices = np.unique(top_indices)
     predictive_words = feature_names[top_indices]
 
-    # plot feature effects
+    # رسم تأثيرات الميزات
     bar_size = 0.25
     padding = 0.75
     y_locs = np.arange(len(top_indices)) * (4 * bar_size + padding)
@@ -231,17 +227,15 @@ def plot_feature_effects():
 _ = plot_feature_effects().set_title("Average feature effect on the original data")
 
 # %%
-# We can observe that the most predictive words are often strongly positively
-# associated with a single class and negatively associated with all the other
-# classes. Most of those positive associations are quite easy to interpret.
-# However, some words such as `"god"` and `"people"` are positively associated to
-# both `"talk.misc.religion"` and `"alt.atheism"` as those two classes expectedly
-# share some common vocabulary. Notice however that there are also words such as
-# `"christian"` and `"morality"` that are only positively associated with
-# `"talk.misc.religion"`. Furthermore, in this version of the dataset, the word
-# `"caltech"` is one of the top predictive features for atheism due to pollution
-# in the dataset coming from some sort of metadata such as the email addresses
-# of the sender of previous emails in the discussion as can be seen below:
+# يمكننا ملاحظة أن الكلمات الأكثر تنبؤًا غالبًا ما تكون مرتبطة إيجابيًا
+# بقوة بفئة واحدة ومرتبطة سلبًا بجميع الفئات الأخرى. معظم هذه الارتباطات الإيجابية
+# سهلة التفسير. ومع ذلك، هناك كلمات مثل `"god"` و `"people"` مرتبطة إيجابيًا بكل من
+# `"talk.misc.religion"` و `"alt.atheism"` حيث من المتوقع أن تشترك هاتان الفئتان في بعض المفردات المشتركة. لاحظ مع ذلك أن هناك أيضًا كلمات مثل
+# `"christian"` و `"morality"` التي ترتبط إيجابيًا فقط بفئة
+# `"talk.misc.religion"`. علاوة على ذلك، في هذه النسخة من مجموعة البيانات، فإن كلمة
+# `"caltech"` هي إحدى الميزات التنبؤية العليا للإلحاد بسبب التلوث
+# في مجموعة البيانات القادم من نوع من بيانات التعريف مثل عناوين البريد الإلكتروني
+# للمرسل من رسائل البريد الإلكتروني السابقة في المناقشة كما هو موضح أدناه:
 
 data_train = fetch_20newsgroups(
     subset="train", categories=categories, shuffle=True, random_state=42
@@ -253,22 +247,22 @@ for doc in data_train.data:
         break
 
 # %%
-# Such headers, signature footers (and quoted metadata from previous messages)
-# can be considered side information that artificially reveals the newsgroup by
-# identifying the registered members and one would rather want our text
-# classifier to only learn from the "main content" of each text document instead
-# of relying on the leaked identity of the writers.
+# يمكن اعتبار مثل هذه العناوين، وتوقيعات الأقدام (واقتباسات بيانات التعريف من الرسائل السابقة)
+# معلومات جانبية تكشف عن مجموعة الأخبار من خلال تحديد
+# الأعضاء المسجلين، ويفضل المرء أن يتعلم مصنف النص الخاص بنا
+# فقط من "المحتوى الرئيسي" لكل وثيقة نصية بدلاً من
+# الاعتماد على هوية الكُتّاب المسربة.
 #
-# Model with metadata stripping
+# النموذج مع إزالة بيانات التعريف
 # -----------------------------
 #
-# The `remove` option of the 20 newsgroups dataset loader in scikit-learn allows
-# to heuristically attempt to filter out some of this unwanted metadata that
-# makes the classification problem artificially easier. Be aware that such
-# filtering of the text contents is far from perfect.
+# تسمح خيار `remove` لمجموعة بيانات 20 newsgroups في scikit-learn
+# بمحاولة تصفية بعض بيانات التعريف هذه التي تجعل
+# مشكلة التصنيف أسهل بشكل مصطنع. كن على دراية بأن مثل هذا
+# تصفية محتويات النص بعيدة عن الكمال.
 #
-# Let us try to leverage this option to train a text classifier that does not
-# rely too much on this kind of metadata to make its decisions:
+# دعنا نحاول الاستفادة من هذا الخيار لتدريب مصنف نص لا يعتمد
+# كثيرًا على هذا النوع من بيانات التعريف لاتخاذ قراراته:
 (
     X_train,
     X_test,
@@ -291,27 +285,27 @@ _ = ax.set_title(
 )
 
 # %%
-# By looking at the confusion matrix, it is more evident that the scores of the
-# model trained with metadata were over-optimistic. The classification problem
-# without access to the metadata is less accurate but more representative of the
-# intended text classification problem.
+# بالنظر إلى مصفوفة الارتباك، يصبح من الواضح أن درجات النموذج المدرب ببيانات التعريف
+# كانت مفرطة في التفاؤل. مشكلة التصنيف
+# بدون الوصول إلى بيانات التعريف أقل دقة ولكنها أكثر تمثيلاً لمشكلة
+# تصنيف النص المقصود.
 
 _ = plot_feature_effects().set_title("Average feature effects on filtered documents")
 
 # %%
-# In the next section we keep the dataset without metadata to compare several
-# classifiers.
+# في القسم التالي، سنحتفظ بمجموعة البيانات بدون بيانات التعريف لمقارنة عدة
+# المصنفات.
 
 # %%
-# Benchmarking classifiers
+# اختبار أداء المصنفات
 # ========================
 #
-# Scikit-learn provides many different kinds of classification algorithms. In
-# this section we will train a selection of those classifiers on the same text
-# classification problem and measure both their generalization performance
-# (accuracy on the test set) and their computation performance (speed), both at
-# training time and testing time. For such purpose we define the following
-# benchmarking utilities:
+# يوفر scikit-learn العديد من أنواع خوارزميات التصنيف المختلفة. في
+# هذا القسم، سنقوم بتدريب مجموعة مختارة من هذه المصنفات على نفس
+# مشكلة تصنيف النص وقياس كل من أداء التعميم
+# (الدقة على مجموعة الاختبار) وأداء الحساب (السرعة)، لكل من
+# وقت التدريب ووقت الاختبار. لهذا الغرض، نحدد المرافق التالية
+# الأدوات:
 
 from sklearn import metrics
 from sklearn.utils.extmath import density
@@ -348,16 +342,16 @@ def benchmark(clf, custom_name=False):
 
 
 # %%
-# We now train and test the datasets with 8 different classification models and
-# get performance results for each model. The goal of this study is to highlight
-# the computation/accuracy tradeoffs of different types of classifiers for
-# such a multi-class text classification problem.
+# الآن نقوم بتدريب واختبار مجموعات البيانات باستخدام 8 نماذج تصنيف مختلفة
+# والحصول على نتائج الأداء لكل نموذج. الهدف من هذه الدراسة هو تسليط الضوء
+# على مقايضات الحساب/الدقة لأنواع مختلفة من المصنفات
+# لمشكلة تصنيف النص متعدد الفئات هذه.
 #
-# Notice that the most important hyperparameters values were tuned using a grid
-# search procedure not shown in this notebook for the sake of simplicity. See
-# the example script
+# لاحظ أن قيم أهم المعلمات تم ضبطها باستخدام إجراء البحث الشبكي
+# غير موضح في هذا الدفتر من أجل البساطة. راجع
+# مثال النص
 # :ref:`sphx_glr_auto_examples_model_selection_plot_grid_search_text_feature_extraction.py`  # noqa: E501
-# for a demo on how such tuning can be done.
+# للحصول على عرض توضيحي حول كيفية إجراء مثل هذا الضبط.
 
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression, SGDClassifier
@@ -367,10 +361,10 @@ from sklearn.svm import LinearSVC
 
 results = []
 for clf, name in (
-    (LogisticRegression(C=5, max_iter=1000), "Logistic Regression"),
-    (RidgeClassifier(alpha=1.0, solver="sparse_cg"), "Ridge Classifier"),
+    (LogisticRegression(C=5, max_iter=1000), "الانحدار اللوجستي"),
+    (RidgeClassifier(alpha=1.0, solver="sparse_cg"), "مصنف ريدج"),
     (KNeighborsClassifier(n_neighbors=100), "kNN"),
-    (RandomForestClassifier(), "Random Forest"),
+    (RandomForestClassifier(), "الغابة العشوائية"),
     # L2 penalty Linear SVC
     (LinearSVC(C=0.1, dual=False, max_iter=1000), "Linear SVC"),
     # L2 penalty Linear SGD
@@ -380,9 +374,9 @@ for clf, name in (
         ),
         "log-loss SGD",
     ),
-    # NearestCentroid (aka Rocchio classifier)
+    # NearestCentroid (المعروف أيضًا باسم مصنف Rocchio)
     (NearestCentroid(), "NearestCentroid"),
-    # Sparse naive Bayes classifier
+    # مصنف Bayes الساذج المتناثر
     (ComplementNB(alpha=0.1), "Complement naive Bayes"),
 ):
     print("=" * 80)
@@ -390,11 +384,12 @@ for clf, name in (
     results.append(benchmark(clf, name))
 
 # %%
-# Plot accuracy, training and test time of each classifier
+# رسم دقة ووقت التدريب والاختبار لكل مصنف
 # ========================================================
 #
-# The scatter plots show the trade-off between the test accuracy and the
-# training and testing time of each classifier.
+# تُظهر مخططات التشتت المقايضة بين دقة الاختبار ووقت
+# التدريب والاختبار لكل مصنف.
+
 
 indices = np.arange(len(results))
 
@@ -407,44 +402,45 @@ test_time = np.array(test_time)
 fig, ax1 = plt.subplots(figsize=(10, 8))
 ax1.scatter(score, training_time, s=60)
 ax1.set(
-    title="Score-training time trade-off",
+    title="المقايضة بين النتيجة ووقت التدريب",
     yscale="log",
-    xlabel="test accuracy",
-    ylabel="training time (s)",
+    xlabel="دقة الاختبار",
+    ylabel="وقت التدريب (s)",
 )
 fig, ax2 = plt.subplots(figsize=(10, 8))
 ax2.scatter(score, test_time, s=60)
 ax2.set(
-    title="Score-test time trade-off",
+    title="المقايضة بين النتيجة ووقت الاختبار",
     yscale="log",
-    xlabel="test accuracy",
-    ylabel="test time (s)",
+    xlabel="دقة الاختبار",
+    ylabel="وقت الاختبار (s)",
 )
+
 
 for i, txt in enumerate(clf_names):
     ax1.annotate(txt, (score[i], training_time[i]))
     ax2.annotate(txt, (score[i], test_time[i]))
 
 # %%
-# The naive Bayes model has the best trade-off between score and
-# training/testing time, while Random Forest is both slow to train, expensive to
-# predict and has a comparatively bad accuracy. This is expected: for
-# high-dimensional prediction problems, linear models are often better suited as
-# most problems become linearly separable when the feature space has 10,000
-# dimensions or more.
+# يتمتع نموذج Bayes الساذج بأفضل مقايضة بين النتيجة ووقت
+# التدريب / الاختبار، بينما الغابة العشوائية بطيئة في التدريب، ومكلفة
+# للتنبؤ، ولديها دقة سيئة نسبيًا. هذا متوقع: لمشاكل
+# التنبؤ عالية الأبعاد، غالبًا ما تكون النماذج الخطية أكثر ملاءمة لأن
+# معظم المشاكل تصبح قابلة للفصل خطيًا عندما تحتوي مساحة الميزة على 10000
+# بُعد أو أكثر.
 #
-# The difference in training speed and accuracy of the linear models can be
-# explained by the choice of the loss function they optimize and the kind of
-# regularization they use. Be aware that some linear models with the same loss
-# but a different solver or regularization configuration may yield different
-# fitting times and test accuracy. We can observe on the second plot that once
-# trained, all linear models have approximately the same prediction speed which
-# is expected because they all implement the same prediction function.
+# يمكن تفسير الاختلاف في سرعة التدريب ودقة النماذج الخطية من خلال
+# اختيار دالة الخسارة التي تقوم بتحسينها ونوع التنظيم
+# الذي تستخدمه. انتبه إلى أن بعض النماذج الخطية التي لها نفس الخسارة
+# ولكن لها مُحلل أو تكوين تنظيم مختلف قد ينتج عنها أوقات ملاءمة ودقة
+# اختبار مختلفة. يمكننا أن نلاحظ في الرسم البياني الثاني أنه بمجرد
+# التدريب، يكون لجميع النماذج الخطية نفس سرعة التنبؤ تقريبًا، وهو
+# أمر متوقع لأنها جميعًا تنفذ نفس دالة التنبؤ.
 #
-# KNeighborsClassifier has a relatively low accuracy and has the highest testing
-# time. The long prediction time is also expected: for each prediction the model
-# has to compute the pairwise distances between the testing sample and each
-# document in the training set, which is computationally expensive. Furthermore,
-# the "curse of dimensionality" harms the ability of this model to yield
-# competitive accuracy in the high dimensional feature space of text
-# classification problems.
+# يتمتع KNeighborsClassifier بدقة منخفضة نسبيًا ولديه أعلى وقت
+# اختبار. من المتوقع أيضًا وقت التنبؤ الطويل: لكل تنبؤ، يجب على النموذج
+# حساب المسافات الزوجية بين عينة الاختبار وكل
+# مستند في مجموعة التدريب، وهو أمر مكلف حسابيًا. علاوة على ذلك،
+# فإن "لعنة الأبعاد" تضر بقدرة هذا النموذج على تحقيق
+# دقة تنافسية في مساحة الميزات عالية الأبعاد لمشاكل تصنيف
+# النصوص.

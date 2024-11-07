@@ -18,36 +18,34 @@
 .. _sphx_glr_auto_examples_neighbors_plot_lof_novelty_detection.py:
 
 
-=================================================
-Novelty detection with Local Outlier Factor (LOF)
-=================================================
+==================================================================
+الكشف عن البيانات الشاذة باستخدام عامل الانحراف المحلي (LOF)
+==================================================================
 
-The Local Outlier Factor (LOF) algorithm is an unsupervised anomaly detection
-method which computes the local density deviation of a given data point with
-respect to its neighbors. It considers as outliers the samples that have a
-substantially lower density than their neighbors. This example shows how to
-use LOF for novelty detection. Note that when LOF is used for novelty
-detection you MUST not use predict, decision_function and score_samples on the
-training set as this would lead to wrong results. You must only use these
-methods on new unseen data (which are not in the training set). See
-:ref:`User Guide <outlier_detection>`: for details on the difference between
-outlier detection and novelty detection and how to use LOF for outlier
-detection.
+خوارزمية عامل الانحراف المحلي (LOF) هي طريقة غير مشرفة للكشف عن الانحرافات
+والتي تقوم بحساب انحراف الكثافة المحلية لنقطة بيانات معينة فيما يتعلق بجيرانها.
+تعتبر الخوارزمية العينات التي لها كثافة أقل بكثير من جيرانها كبيانات شاذة.
+يوضح هذا المثال كيفية استخدام LOF للكشف عن البيانات الشاذة.
+يرجى ملاحظة أنه عند استخدام LOF للكشف عن البيانات الشاذة، يجب عدم استخدام الدوال
+predict و decision_function و score_samples على مجموعة البيانات التدريبية
+حيث قد يؤدي ذلك إلى نتائج خاطئة. يجب استخدام هذه الدوال فقط على البيانات الجديدة
+التي لم يتم استخدامها في مجموعة التدريب، مثل X_test أو X_outliers أو meshgrid.
+راجع: :ref:`User Guide <outlier_detection>`: للحصول على تفاصيل حول الفرق بين
+الكشف عن الانحرافات والبيانات الشاذة، وكيفية استخدام LOF للكشف عن الانحرافات.
 
-The number of neighbors considered, (parameter n_neighbors) is typically
-set 1) greater than the minimum number of samples a cluster has to contain,
-so that other samples can be local outliers relative to this cluster, and 2)
-smaller than the maximum number of close by samples that can potentially be
-local outliers.
-In practice, such information is generally not available, and taking
-n_neighbors=20 appears to work well in general.
+عدد الجيران المأخوذ في الاعتبار، (البارامتر n_neighbors) يتم تحديده عادةً 1)
+بأنه أكبر من الحد الأدنى لعدد العينات التي يجب أن يحتويها التجمع، بحيث يمكن
+اعتبار العينات الأخرى كبيانات شاذة محلية بالنسبة لهذا التجمع، و2) أقل من الحد
+الأقصى لعدد العينات القريبة التي يمكن أن تكون بيانات شاذة محلية.
+في الممارسة العملية، عادةً لا تتوفر مثل هذه المعلومات، ويبدو أن تحديد
+n_neighbors=20 يعمل بشكل جيد بشكل عام.
 
-.. GENERATED FROM PYTHON SOURCE LINES 27-93
+.. GENERATED FROM PYTHON SOURCE LINES 25-90
 
 
 
 .. image-sg:: /auto_examples/neighbors/images/sphx_glr_plot_lof_novelty_detection_001.png
-   :alt: Novelty Detection with LOF
+   :alt: الكشف عن البيانات الشاذة باستخدام LOF
    :srcset: /auto_examples/neighbors/images/sphx_glr_plot_lof_novelty_detection_001.png
    :class: sphx-glr-single-img
 
@@ -58,8 +56,8 @@ n_neighbors=20 appears to work well in general.
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري مكتبة ساي كيت ليرن
+    # معرف الترخيص: BSD-3-Clause
 
     import matplotlib
     import matplotlib.lines as mlines
@@ -71,31 +69,31 @@ n_neighbors=20 appears to work well in general.
     np.random.seed(42)
 
     xx, yy = np.meshgrid(np.linspace(-5, 5, 500), np.linspace(-5, 5, 500))
-    # Generate normal (not abnormal) training observations
+    # توليد ملاحظات تدريبية عادية (غير شاذة)
     X = 0.3 * np.random.randn(100, 2)
     X_train = np.r_[X + 2, X - 2]
-    # Generate new normal (not abnormal) observations
+    # توليد ملاحظات عادية جديدة (غير شاذة)
     X = 0.3 * np.random.randn(20, 2)
     X_test = np.r_[X + 2, X - 2]
-    # Generate some abnormal novel observations
+    # توليد ملاحظات شاذة جديدة
     X_outliers = np.random.uniform(low=-4, high=4, size=(20, 2))
 
-    # fit the model for novelty detection (novelty=True)
+    # تدريب النموذج للكشف عن البيانات الشاذة (novelty=True)
     clf = LocalOutlierFactor(n_neighbors=20, novelty=True, contamination=0.1)
     clf.fit(X_train)
-    # DO NOT use predict, decision_function and score_samples on X_train as this
-    # would give wrong results but only on new unseen data (not used in X_train),
-    # e.g. X_test, X_outliers or the meshgrid
+    # لا تستخدم predict أو decision_function أو score_samples على X_train حيث
+    # قد يؤدي ذلك إلى نتائج خاطئة، ولكن فقط على البيانات الجديدة التي لم تستخدم
+    # في X_train، مثل X_test أو X_outliers أو meshgrid
     y_pred_test = clf.predict(X_test)
     y_pred_outliers = clf.predict(X_outliers)
     n_error_test = y_pred_test[y_pred_test == -1].size
     n_error_outliers = y_pred_outliers[y_pred_outliers == 1].size
 
-    # plot the learned frontier, the points, and the nearest vectors to the plane
+    # رسم الحدود المكتسبة، والنقاط، والمتجهات الأقرب إلى المستوى
     Z = clf.decision_function(np.c_[xx.ravel(), yy.ravel()])
     Z = Z.reshape(xx.shape)
 
-    plt.title("Novelty Detection with LOF")
+    plt.title("الكشف عن البيانات الشاذة باستخدام LOF")
     plt.contourf(xx, yy, Z, levels=np.linspace(Z.min(), 0, 7), cmap=plt.cm.PuBu)
     a = plt.contour(xx, yy, Z, levels=[0], linewidths=2, colors="darkred")
     plt.contourf(xx, yy, Z, levels=[0, Z.max()], colors="palevioletred")
@@ -110,24 +108,23 @@ n_neighbors=20 appears to work well in general.
     plt.legend(
         [mlines.Line2D([], [], color="darkred"), b1, b2, c],
         [
-            "learned frontier",
-            "training observations",
-            "new regular observations",
-            "new abnormal observations",
+            "الحدود المكتسبة",
+            "الملاحظات التدريبية",
+            "الملاحظات العادية الجديدة",
+            "الملاحظات الشاذة الجديدة",
         ],
         loc="upper left",
         prop=matplotlib.font_manager.FontProperties(size=11),
     )
     plt.xlabel(
-        "errors novel regular: %d/40 ; errors novel abnormal: %d/40"
+        "الأخطاء في الملاحظات العادية الجديدة: %d/40 ; الأخطاء في الملاحظات الشاذة الجديدة: %d/40"
         % (n_error_test, n_error_outliers)
     )
     plt.show()
 
-
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.610 seconds)
+   **Total running time of the script:** (0 minutes 0.786 seconds)
 
 
 .. _sphx_glr_download_auto_examples_neighbors_plot_lof_novelty_detection.py:

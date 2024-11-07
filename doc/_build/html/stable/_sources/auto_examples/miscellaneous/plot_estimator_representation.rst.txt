@@ -19,19 +19,18 @@
 
 
 ===========================================
-Displaying estimators and complex pipelines
+عرض المنمذجات وأنابيب التوصيل المعقدة
 ===========================================
 
-This example illustrates different ways estimators and pipelines can be
-displayed.
+يوضح هذا المثال طرقًا مختلفة لعرض المنمذجات وأنابيب التوصيل.
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-19
+.. GENERATED FROM PYTHON SOURCE LINES 8-18
 
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري scikit-learn
+    # معرف الترخيص: BSD-3-Clause
 
     from sklearn.compose import make_column_transformer
     from sklearn.impute import SimpleImputer
@@ -46,16 +45,16 @@ displayed.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 20-26
+.. GENERATED FROM PYTHON SOURCE LINES 19-25
 
-Compact text representation
+تمثيل نصي مضغوط
 ---------------------------
 
-Estimators will only show the parameters that have been set to non-default
-values when displayed as a string. This reduces the visual noise and makes it
-easier to spot what the differences are when comparing instances.
+ستعرض المنمذجات فقط المعاملات التي تم ضبطها على قيم غير افتراضية
+عندما يتم عرضها كسلسلة نصية. هذا يقلل من التشويش البصري ويجعل من السهل
+ملاحظة الاختلافات عند مقارنة الحالات.
 
-.. GENERATED FROM PYTHON SOURCE LINES 26-30
+.. GENERATED FROM PYTHON SOURCE LINES 25-29
 
 .. code-block:: Python
 
@@ -76,18 +75,16 @@ easier to spot what the differences are when comparing instances.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 31-39
+.. GENERATED FROM PYTHON SOURCE LINES 30-36
 
-Rich HTML representation
+تمثيل HTML غني
 ------------------------
-In notebooks estimators and pipelines will use a rich HTML representation.
-This is particularly useful to summarise the
-structure of pipelines and other composite estimators, with interactivity to
-provide detail.  Click on the example image below to expand Pipeline
-elements.  See :ref:`visualizing_composite_estimators` for how you can use
-this feature.
+في دفاتر الملاحظات، ستستخدم المنمذجات وأنابيب التوصيل تمثيل HTML غني.
+وهذا مفيد بشكل خاص لتلخيص
+بنية أنابيب التوصيل والمنمذجات المركبة الأخرى، مع التفاعل لتوفير التفاصيل.  انقر على الصورة التوضيحية أدناه لتوسيع عناصر أنبوب التوصيل.  راجع: ref:`visualizing_composite_estimators` لمعرفة كيفية استخدام
+هذه الميزة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 39-53
+.. GENERATED FROM PYTHON SOURCE LINES 36-49
 
 .. code-block:: Python
 
@@ -109,11 +106,10 @@ this feature.
 
 
 
-
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-45 {
+    <style>#sk-container-id-29 {
       /* Definition of color scheme common for light and dark mode */
       --sklearn-color-text: #000;
       --sklearn-color-text-muted: #666;
@@ -144,15 +140,15 @@ this feature.
       }
     }
 
-    #sk-container-id-45 {
+    #sk-container-id-29 {
       color: var(--sklearn-color-text);
     }
 
-    #sk-container-id-45 pre {
+    #sk-container-id-29 pre {
       padding: 0;
     }
 
-    #sk-container-id-45 input.sk-hidden--visually {
+    #sk-container-id-29 input.sk-hidden--visually {
       border: 0;
       clip: rect(1px 1px 1px 1px);
       clip: rect(1px, 1px, 1px, 1px);
@@ -164,7 +160,7 @@ this feature.
       width: 1px;
     }
 
-    #sk-container-id-45 div.sk-dashed-wrapped {
+    #sk-container-id-29 div.sk-dashed-wrapped {
       border: 1px dashed var(--sklearn-color-line);
       margin: 0 0.4em 0.5em 0.4em;
       box-sizing: border-box;
@@ -172,7 +168,7 @@ this feature.
       background-color: var(--sklearn-color-background);
     }
 
-    #sk-container-id-45 div.sk-container {
+    #sk-container-id-29 div.sk-container {
       /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
          but bootstrap.min.css set `[hidden] { display: none !important; }`
          so we also need the `!important` here to be able to override the
@@ -182,7 +178,7 @@ this feature.
       position: relative;
     }
 
-    #sk-container-id-45 div.sk-text-repr-fallback {
+    #sk-container-id-29 div.sk-text-repr-fallback {
       display: none;
     }
 
@@ -198,14 +194,14 @@ this feature.
 
     /* Parallel-specific style estimator block */
 
-    #sk-container-id-45 div.sk-parallel-item::after {
+    #sk-container-id-29 div.sk-parallel-item::after {
       content: "";
       width: 100%;
       border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
       flex-grow: 1;
     }
 
-    #sk-container-id-45 div.sk-parallel {
+    #sk-container-id-29 div.sk-parallel {
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -213,28 +209,28 @@ this feature.
       position: relative;
     }
 
-    #sk-container-id-45 div.sk-parallel-item {
+    #sk-container-id-29 div.sk-parallel-item {
       display: flex;
       flex-direction: column;
     }
 
-    #sk-container-id-45 div.sk-parallel-item:first-child::after {
+    #sk-container-id-29 div.sk-parallel-item:first-child::after {
       align-self: flex-end;
       width: 50%;
     }
 
-    #sk-container-id-45 div.sk-parallel-item:last-child::after {
+    #sk-container-id-29 div.sk-parallel-item:last-child::after {
       align-self: flex-start;
       width: 50%;
     }
 
-    #sk-container-id-45 div.sk-parallel-item:only-child::after {
+    #sk-container-id-29 div.sk-parallel-item:only-child::after {
       width: 0;
     }
 
     /* Serial-specific style estimator block */
 
-    #sk-container-id-45 div.sk-serial {
+    #sk-container-id-29 div.sk-serial {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -252,14 +248,14 @@ this feature.
 
     /* Pipeline and ColumnTransformer style (default) */
 
-    #sk-container-id-45 div.sk-toggleable {
+    #sk-container-id-29 div.sk-toggleable {
       /* Default theme specific background. It is overwritten whether we have a
       specific estimator or a Pipeline/ColumnTransformer */
       background-color: var(--sklearn-color-background);
     }
 
     /* Toggleable label */
-    #sk-container-id-45 label.sk-toggleable__label {
+    #sk-container-id-29 label.sk-toggleable__label {
       cursor: pointer;
       display: flex;
       width: 100%;
@@ -272,13 +268,13 @@ this feature.
       gap: 0.5em;
     }
 
-    #sk-container-id-45 label.sk-toggleable__label .caption {
+    #sk-container-id-29 label.sk-toggleable__label .caption {
       font-size: 0.6rem;
       font-weight: lighter;
       color: var(--sklearn-color-text-muted);
     }
 
-    #sk-container-id-45 label.sk-toggleable__label-arrow:before {
+    #sk-container-id-29 label.sk-toggleable__label-arrow:before {
       /* Arrow on the left of the label */
       content: "▸";
       float: left;
@@ -286,13 +282,13 @@ this feature.
       color: var(--sklearn-color-icon);
     }
 
-    #sk-container-id-45 label.sk-toggleable__label-arrow:hover:before {
+    #sk-container-id-29 label.sk-toggleable__label-arrow:hover:before {
       color: var(--sklearn-color-text);
     }
 
     /* Toggleable content - dropdown */
 
-    #sk-container-id-45 div.sk-toggleable__content {
+    #sk-container-id-29 div.sk-toggleable__content {
       max-height: 0;
       max-width: 0;
       overflow: hidden;
@@ -301,12 +297,12 @@ this feature.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-45 div.sk-toggleable__content.fitted {
+    #sk-container-id-29 div.sk-toggleable__content.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-45 div.sk-toggleable__content pre {
+    #sk-container-id-29 div.sk-toggleable__content pre {
       margin: 0.2em;
       border-radius: 0.25em;
       color: var(--sklearn-color-text);
@@ -314,79 +310,79 @@ this feature.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-45 div.sk-toggleable__content.fitted pre {
+    #sk-container-id-29 div.sk-toggleable__content.fitted pre {
       /* unfitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-45 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    #sk-container-id-29 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
       max-height: 200px;
       max-width: 100%;
       overflow: auto;
     }
 
-    #sk-container-id-45 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    #sk-container-id-29 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
       content: "▾";
     }
 
     /* Pipeline/ColumnTransformer-specific style */
 
-    #sk-container-id-45 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-29 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-45 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-29 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator-specific style */
 
     /* Colorize estimator box */
-    #sk-container-id-45 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-29 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-45 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-29 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
-    #sk-container-id-45 div.sk-label label.sk-toggleable__label,
-    #sk-container-id-45 div.sk-label label {
+    #sk-container-id-29 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-29 div.sk-label label {
       /* The background is the default theme color */
       color: var(--sklearn-color-text-on-default-background);
     }
 
     /* On hover, darken the color of the background */
-    #sk-container-id-45 div.sk-label:hover label.sk-toggleable__label {
+    #sk-container-id-29 div.sk-label:hover label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
     /* Label box, darken color on hover, fitted */
-    #sk-container-id-45 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+    #sk-container-id-29 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator label */
 
-    #sk-container-id-45 div.sk-label label {
+    #sk-container-id-29 div.sk-label label {
       font-family: monospace;
       font-weight: bold;
       display: inline-block;
       line-height: 1.2em;
     }
 
-    #sk-container-id-45 div.sk-label-container {
+    #sk-container-id-29 div.sk-label-container {
       text-align: center;
     }
 
     /* Estimator-specific */
-    #sk-container-id-45 div.sk-estimator {
+    #sk-container-id-29 div.sk-estimator {
       font-family: monospace;
       border: 1px dotted var(--sklearn-color-border-box);
       border-radius: 0.25em;
@@ -396,18 +392,18 @@ this feature.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-45 div.sk-estimator.fitted {
+    #sk-container-id-29 div.sk-estimator.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
     /* on hover */
-    #sk-container-id-45 div.sk-estimator:hover {
+    #sk-container-id-29 div.sk-estimator:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-45 div.sk-estimator.fitted:hover {
+    #sk-container-id-29 div.sk-estimator.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
@@ -495,7 +491,7 @@ this feature.
 
     /* "?"-specific style due to the `<a>` HTML tag */
 
-    #sk-container-id-45 a.estimator_doc_link {
+    #sk-container-id-29 a.estimator_doc_link {
       float: right;
       font-size: 1rem;
       line-height: 1em;
@@ -510,25 +506,25 @@ this feature.
       border: var(--sklearn-color-unfitted-level-1) 1pt solid;
     }
 
-    #sk-container-id-45 a.estimator_doc_link.fitted {
+    #sk-container-id-29 a.estimator_doc_link.fitted {
       /* fitted */
       border: var(--sklearn-color-fitted-level-1) 1pt solid;
       color: var(--sklearn-color-fitted-level-1);
     }
 
     /* On hover */
-    #sk-container-id-45 a.estimator_doc_link:hover {
+    #sk-container-id-29 a.estimator_doc_link:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-3);
       color: var(--sklearn-color-background);
       text-decoration: none;
     }
 
-    #sk-container-id-45 a.estimator_doc_link.fitted:hover {
+    #sk-container-id-29 a.estimator_doc_link.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-45" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;columntransformer&#x27;,
+    </style><div id="sk-container-id-29" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;columntransformer&#x27;,
                      ColumnTransformer(transformers=[(&#x27;pipeline-1&#x27;,
                                                       Pipeline(steps=[(&#x27;simpleimputer&#x27;,
                                                                        SimpleImputer(strategy=&#x27;median&#x27;)),
@@ -542,7 +538,7 @@ this feature.
                                                                       (&#x27;onehotencoder&#x27;,
                                                                        OneHotEncoder(handle_unknown=&#x27;ignore&#x27;))]),
                                                       (&#x27;feat0&#x27;, &#x27;feat2&#x27;))])),
-                    (&#x27;logisticregression&#x27;, LogisticRegression())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-198" type="checkbox" ><label for="sk-estimator-id-198" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;columntransformer&#x27;,
+                    (&#x27;logisticregression&#x27;, LogisticRegression())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-82" type="checkbox" ><label for="sk-estimator-id-82" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;columntransformer&#x27;,
                      ColumnTransformer(transformers=[(&#x27;pipeline-1&#x27;,
                                                       Pipeline(steps=[(&#x27;simpleimputer&#x27;,
                                                                        SimpleImputer(strategy=&#x27;median&#x27;)),
@@ -556,7 +552,7 @@ this feature.
                                                                       (&#x27;onehotencoder&#x27;,
                                                                        OneHotEncoder(handle_unknown=&#x27;ignore&#x27;))]),
                                                       (&#x27;feat0&#x27;, &#x27;feat2&#x27;))])),
-                    (&#x27;logisticregression&#x27;, LogisticRegression())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-199" type="checkbox" ><label for="sk-estimator-id-199" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>columntransformer: ColumnTransformer</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.compose.ColumnTransformer.html">?<span>Documentation for columntransformer: ColumnTransformer</span></a></div></label><div class="sk-toggleable__content "><pre>ColumnTransformer(transformers=[(&#x27;pipeline-1&#x27;,
+                    (&#x27;logisticregression&#x27;, LogisticRegression())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-83" type="checkbox" ><label for="sk-estimator-id-83" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>columntransformer: ColumnTransformer</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.compose.ColumnTransformer.html">?<span>Documentation for columntransformer: ColumnTransformer</span></a></div></label><div class="sk-toggleable__content "><pre>ColumnTransformer(transformers=[(&#x27;pipeline-1&#x27;,
                                      Pipeline(steps=[(&#x27;simpleimputer&#x27;,
                                                       SimpleImputer(strategy=&#x27;median&#x27;)),
                                                      (&#x27;standardscaler&#x27;,
@@ -568,7 +564,7 @@ this feature.
                                                                     strategy=&#x27;constant&#x27;)),
                                                      (&#x27;onehotencoder&#x27;,
                                                       OneHotEncoder(handle_unknown=&#x27;ignore&#x27;))]),
-                                     (&#x27;feat0&#x27;, &#x27;feat2&#x27;))])</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-200" type="checkbox" ><label for="sk-estimator-id-200" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>pipeline-1</div></div></label><div class="sk-toggleable__content "><pre>(&#x27;feat1&#x27;, &#x27;feat3&#x27;)</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-201" type="checkbox" ><label for="sk-estimator-id-201" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>SimpleImputer</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.impute.SimpleImputer.html">?<span>Documentation for SimpleImputer</span></a></div></label><div class="sk-toggleable__content "><pre>SimpleImputer(strategy=&#x27;median&#x27;)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-202" type="checkbox" ><label for="sk-estimator-id-202" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content "><pre>StandardScaler()</pre></div> </div></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-203" type="checkbox" ><label for="sk-estimator-id-203" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>pipeline-2</div></div></label><div class="sk-toggleable__content "><pre>(&#x27;feat0&#x27;, &#x27;feat2&#x27;)</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-204" type="checkbox" ><label for="sk-estimator-id-204" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>SimpleImputer</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.impute.SimpleImputer.html">?<span>Documentation for SimpleImputer</span></a></div></label><div class="sk-toggleable__content "><pre>SimpleImputer(fill_value=&#x27;missing&#x27;, strategy=&#x27;constant&#x27;)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-205" type="checkbox" ><label for="sk-estimator-id-205" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>OneHotEncoder</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.OneHotEncoder.html">?<span>Documentation for OneHotEncoder</span></a></div></label><div class="sk-toggleable__content "><pre>OneHotEncoder(handle_unknown=&#x27;ignore&#x27;)</pre></div> </div></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-206" type="checkbox" ><label for="sk-estimator-id-206" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>LogisticRegression</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a></div></label><div class="sk-toggleable__content "><pre>LogisticRegression()</pre></div> </div></div></div></div></div></div>
+                                     (&#x27;feat0&#x27;, &#x27;feat2&#x27;))])</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-84" type="checkbox" ><label for="sk-estimator-id-84" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>pipeline-1</div></div></label><div class="sk-toggleable__content "><pre>(&#x27;feat1&#x27;, &#x27;feat3&#x27;)</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-85" type="checkbox" ><label for="sk-estimator-id-85" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>SimpleImputer</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.impute.SimpleImputer.html">?<span>Documentation for SimpleImputer</span></a></div></label><div class="sk-toggleable__content "><pre>SimpleImputer(strategy=&#x27;median&#x27;)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-86" type="checkbox" ><label for="sk-estimator-id-86" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content "><pre>StandardScaler()</pre></div> </div></div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-87" type="checkbox" ><label for="sk-estimator-id-87" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>pipeline-2</div></div></label><div class="sk-toggleable__content "><pre>(&#x27;feat0&#x27;, &#x27;feat2&#x27;)</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-88" type="checkbox" ><label for="sk-estimator-id-88" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>SimpleImputer</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.impute.SimpleImputer.html">?<span>Documentation for SimpleImputer</span></a></div></label><div class="sk-toggleable__content "><pre>SimpleImputer(fill_value=&#x27;missing&#x27;, strategy=&#x27;constant&#x27;)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-89" type="checkbox" ><label for="sk-estimator-id-89" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>OneHotEncoder</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.OneHotEncoder.html">?<span>Documentation for OneHotEncoder</span></a></div></label><div class="sk-toggleable__content "><pre>OneHotEncoder(handle_unknown=&#x27;ignore&#x27;)</pre></div> </div></div></div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-90" type="checkbox" ><label for="sk-estimator-id-90" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>LogisticRegression</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a></div></label><div class="sk-toggleable__content "><pre>LogisticRegression()</pre></div> </div></div></div></div></div></div>
     </div>
     <br />
     <br />
@@ -576,7 +572,7 @@ this feature.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.038 seconds)
+   **Total running time of the script:** (0 minutes 0.040 seconds)
 
 
 .. _sphx_glr_download_auto_examples_miscellaneous_plot_estimator_representation.py:

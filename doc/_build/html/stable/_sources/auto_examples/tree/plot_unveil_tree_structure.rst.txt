@@ -18,28 +18,27 @@
 .. _sphx_glr_auto_examples_tree_plot_unveil_tree_structure.py:
 
 
-=========================================
-Understanding the decision tree structure
-=========================================
+========================
+فهم بنية شجرة القرار
+========================
 
-The decision tree structure can be analysed to gain further insight on the
-relation between the features and the target to predict. In this example, we
-show how to retrieve:
+يمكن تحليل بنية شجرة القرار للحصول على نظرة ثاقبة حول
+العلاقة بين الميزات والهدف المراد التنبؤ به. في هذا المثال، نُظهر كيفية استرجاع:
 
-- the binary tree structure;
-- the depth of each node and whether or not it's a leaf;
-- the nodes that were reached by a sample using the ``decision_path`` method;
-- the leaf that was reached by a sample using the apply method;
-- the rules that were used to predict a sample;
-- the decision path shared by a group of samples.
+- بنية الشجرة الثنائية؛
+- عمق كل عقدة وما إذا كانت ورقة أم لا؛
+- العقد التي تم الوصول إليها بواسطة عينة باستخدام طريقة ``decision_path``؛
+- الورقة التي تم الوصول إليها بواسطة عينة باستخدام طريقة التطبيق؛
+- القواعد التي تم استخدامها للتنبؤ بعينة؛
+- مسار القرار المشترك بين مجموعة من العينات.
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-30
+.. GENERATED FROM PYTHON SOURCE LINES 17-29
 
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري سكايلرن
+    # معرف الترخيص: BSD-3-Clause
 
     import numpy as np
     from matplotlib import pyplot as plt
@@ -56,14 +55,14 @@ show how to retrieve:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 31-35
+.. GENERATED FROM PYTHON SOURCE LINES 30-34
 
-Train tree classifier
+تدريب مصنف الشجرة
 ---------------------
-First, we fit a :class:`~sklearn.tree.DecisionTreeClassifier` using the
-:func:`~sklearn.datasets.load_iris` dataset.
+أولاً، نقوم بضبط مصنف :class:`~sklearn.tree.DecisionTreeClassifier` باستخدام
+مجموعة بيانات :func:`~sklearn.datasets.load_iris`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 35-44
+.. GENERATED FROM PYTHON SOURCE LINES 34-43
 
 .. code-block:: Python
 
@@ -84,7 +83,7 @@ First, we fit a :class:`~sklearn.tree.DecisionTreeClassifier` using the
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-12 {
+    <style>#sk-container-id-3 {
       /* Definition of color scheme common for light and dark mode */
       --sklearn-color-text: #000;
       --sklearn-color-text-muted: #666;
@@ -115,15 +114,15 @@ First, we fit a :class:`~sklearn.tree.DecisionTreeClassifier` using the
       }
     }
 
-    #sk-container-id-12 {
+    #sk-container-id-3 {
       color: var(--sklearn-color-text);
     }
 
-    #sk-container-id-12 pre {
+    #sk-container-id-3 pre {
       padding: 0;
     }
 
-    #sk-container-id-12 input.sk-hidden--visually {
+    #sk-container-id-3 input.sk-hidden--visually {
       border: 0;
       clip: rect(1px 1px 1px 1px);
       clip: rect(1px, 1px, 1px, 1px);
@@ -135,7 +134,7 @@ First, we fit a :class:`~sklearn.tree.DecisionTreeClassifier` using the
       width: 1px;
     }
 
-    #sk-container-id-12 div.sk-dashed-wrapped {
+    #sk-container-id-3 div.sk-dashed-wrapped {
       border: 1px dashed var(--sklearn-color-line);
       margin: 0 0.4em 0.5em 0.4em;
       box-sizing: border-box;
@@ -143,7 +142,7 @@ First, we fit a :class:`~sklearn.tree.DecisionTreeClassifier` using the
       background-color: var(--sklearn-color-background);
     }
 
-    #sk-container-id-12 div.sk-container {
+    #sk-container-id-3 div.sk-container {
       /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
          but bootstrap.min.css set `[hidden] { display: none !important; }`
          so we also need the `!important` here to be able to override the
@@ -153,7 +152,7 @@ First, we fit a :class:`~sklearn.tree.DecisionTreeClassifier` using the
       position: relative;
     }
 
-    #sk-container-id-12 div.sk-text-repr-fallback {
+    #sk-container-id-3 div.sk-text-repr-fallback {
       display: none;
     }
 
@@ -169,14 +168,14 @@ First, we fit a :class:`~sklearn.tree.DecisionTreeClassifier` using the
 
     /* Parallel-specific style estimator block */
 
-    #sk-container-id-12 div.sk-parallel-item::after {
+    #sk-container-id-3 div.sk-parallel-item::after {
       content: "";
       width: 100%;
       border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
       flex-grow: 1;
     }
 
-    #sk-container-id-12 div.sk-parallel {
+    #sk-container-id-3 div.sk-parallel {
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -184,28 +183,28 @@ First, we fit a :class:`~sklearn.tree.DecisionTreeClassifier` using the
       position: relative;
     }
 
-    #sk-container-id-12 div.sk-parallel-item {
+    #sk-container-id-3 div.sk-parallel-item {
       display: flex;
       flex-direction: column;
     }
 
-    #sk-container-id-12 div.sk-parallel-item:first-child::after {
+    #sk-container-id-3 div.sk-parallel-item:first-child::after {
       align-self: flex-end;
       width: 50%;
     }
 
-    #sk-container-id-12 div.sk-parallel-item:last-child::after {
+    #sk-container-id-3 div.sk-parallel-item:last-child::after {
       align-self: flex-start;
       width: 50%;
     }
 
-    #sk-container-id-12 div.sk-parallel-item:only-child::after {
+    #sk-container-id-3 div.sk-parallel-item:only-child::after {
       width: 0;
     }
 
     /* Serial-specific style estimator block */
 
-    #sk-container-id-12 div.sk-serial {
+    #sk-container-id-3 div.sk-serial {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -223,14 +222,14 @@ First, we fit a :class:`~sklearn.tree.DecisionTreeClassifier` using the
 
     /* Pipeline and ColumnTransformer style (default) */
 
-    #sk-container-id-12 div.sk-toggleable {
+    #sk-container-id-3 div.sk-toggleable {
       /* Default theme specific background. It is overwritten whether we have a
       specific estimator or a Pipeline/ColumnTransformer */
       background-color: var(--sklearn-color-background);
     }
 
     /* Toggleable label */
-    #sk-container-id-12 label.sk-toggleable__label {
+    #sk-container-id-3 label.sk-toggleable__label {
       cursor: pointer;
       display: flex;
       width: 100%;
@@ -243,13 +242,13 @@ First, we fit a :class:`~sklearn.tree.DecisionTreeClassifier` using the
       gap: 0.5em;
     }
 
-    #sk-container-id-12 label.sk-toggleable__label .caption {
+    #sk-container-id-3 label.sk-toggleable__label .caption {
       font-size: 0.6rem;
       font-weight: lighter;
       color: var(--sklearn-color-text-muted);
     }
 
-    #sk-container-id-12 label.sk-toggleable__label-arrow:before {
+    #sk-container-id-3 label.sk-toggleable__label-arrow:before {
       /* Arrow on the left of the label */
       content: "▸";
       float: left;
@@ -257,13 +256,13 @@ First, we fit a :class:`~sklearn.tree.DecisionTreeClassifier` using the
       color: var(--sklearn-color-icon);
     }
 
-    #sk-container-id-12 label.sk-toggleable__label-arrow:hover:before {
+    #sk-container-id-3 label.sk-toggleable__label-arrow:hover:before {
       color: var(--sklearn-color-text);
     }
 
     /* Toggleable content - dropdown */
 
-    #sk-container-id-12 div.sk-toggleable__content {
+    #sk-container-id-3 div.sk-toggleable__content {
       max-height: 0;
       max-width: 0;
       overflow: hidden;
@@ -272,12 +271,12 @@ First, we fit a :class:`~sklearn.tree.DecisionTreeClassifier` using the
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-12 div.sk-toggleable__content.fitted {
+    #sk-container-id-3 div.sk-toggleable__content.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-12 div.sk-toggleable__content pre {
+    #sk-container-id-3 div.sk-toggleable__content pre {
       margin: 0.2em;
       border-radius: 0.25em;
       color: var(--sklearn-color-text);
@@ -285,79 +284,79 @@ First, we fit a :class:`~sklearn.tree.DecisionTreeClassifier` using the
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-12 div.sk-toggleable__content.fitted pre {
+    #sk-container-id-3 div.sk-toggleable__content.fitted pre {
       /* unfitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-12 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    #sk-container-id-3 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
       max-height: 200px;
       max-width: 100%;
       overflow: auto;
     }
 
-    #sk-container-id-12 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    #sk-container-id-3 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
       content: "▾";
     }
 
     /* Pipeline/ColumnTransformer-specific style */
 
-    #sk-container-id-12 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-3 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-12 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-3 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator-specific style */
 
     /* Colorize estimator box */
-    #sk-container-id-12 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-3 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-12 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-3 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
-    #sk-container-id-12 div.sk-label label.sk-toggleable__label,
-    #sk-container-id-12 div.sk-label label {
+    #sk-container-id-3 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-3 div.sk-label label {
       /* The background is the default theme color */
       color: var(--sklearn-color-text-on-default-background);
     }
 
     /* On hover, darken the color of the background */
-    #sk-container-id-12 div.sk-label:hover label.sk-toggleable__label {
+    #sk-container-id-3 div.sk-label:hover label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
     /* Label box, darken color on hover, fitted */
-    #sk-container-id-12 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+    #sk-container-id-3 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator label */
 
-    #sk-container-id-12 div.sk-label label {
+    #sk-container-id-3 div.sk-label label {
       font-family: monospace;
       font-weight: bold;
       display: inline-block;
       line-height: 1.2em;
     }
 
-    #sk-container-id-12 div.sk-label-container {
+    #sk-container-id-3 div.sk-label-container {
       text-align: center;
     }
 
     /* Estimator-specific */
-    #sk-container-id-12 div.sk-estimator {
+    #sk-container-id-3 div.sk-estimator {
       font-family: monospace;
       border: 1px dotted var(--sklearn-color-border-box);
       border-radius: 0.25em;
@@ -367,18 +366,18 @@ First, we fit a :class:`~sklearn.tree.DecisionTreeClassifier` using the
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-12 div.sk-estimator.fitted {
+    #sk-container-id-3 div.sk-estimator.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
     /* on hover */
-    #sk-container-id-12 div.sk-estimator:hover {
+    #sk-container-id-3 div.sk-estimator:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-12 div.sk-estimator.fitted:hover {
+    #sk-container-id-3 div.sk-estimator.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
@@ -466,7 +465,7 @@ First, we fit a :class:`~sklearn.tree.DecisionTreeClassifier` using the
 
     /* "?"-specific style due to the `<a>` HTML tag */
 
-    #sk-container-id-12 a.estimator_doc_link {
+    #sk-container-id-3 a.estimator_doc_link {
       float: right;
       font-size: 1rem;
       line-height: 1em;
@@ -481,65 +480,64 @@ First, we fit a :class:`~sklearn.tree.DecisionTreeClassifier` using the
       border: var(--sklearn-color-unfitted-level-1) 1pt solid;
     }
 
-    #sk-container-id-12 a.estimator_doc_link.fitted {
+    #sk-container-id-3 a.estimator_doc_link.fitted {
       /* fitted */
       border: var(--sklearn-color-fitted-level-1) 1pt solid;
       color: var(--sklearn-color-fitted-level-1);
     }
 
     /* On hover */
-    #sk-container-id-12 a.estimator_doc_link:hover {
+    #sk-container-id-3 a.estimator_doc_link:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-3);
       color: var(--sklearn-color-background);
       text-decoration: none;
     }
 
-    #sk-container-id-12 a.estimator_doc_link.fitted:hover {
+    #sk-container-id-3 a.estimator_doc_link.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-12" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>DecisionTreeClassifier(max_leaf_nodes=3, random_state=0)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-32" type="checkbox" checked><label for="sk-estimator-id-32" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>DecisionTreeClassifier</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.tree.DecisionTreeClassifier.html">?<span>Documentation for DecisionTreeClassifier</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>DecisionTreeClassifier(max_leaf_nodes=3, random_state=0)</pre></div> </div></div></div></div>
+    </style><div id="sk-container-id-3" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>DecisionTreeClassifier(max_leaf_nodes=3, random_state=0)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" checked><label for="sk-estimator-id-3" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>DecisionTreeClassifier</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.tree.DecisionTreeClassifier.html">?<span>Documentation for DecisionTreeClassifier</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>DecisionTreeClassifier(max_leaf_nodes=3, random_state=0)</pre></div> </div></div></div></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 45-77
+.. GENERATED FROM PYTHON SOURCE LINES 44-75
 
-Tree structure
+بنية الشجرة
 --------------
 
-The decision classifier has an attribute called ``tree_`` which allows access
-to low level attributes such as ``node_count``, the total number of nodes,
-and ``max_depth``, the maximal depth of the tree. The
-``tree_.compute_node_depths()`` method computes the depth of each node in the
-tree. `tree_` also stores the entire binary tree structure, represented as a
-number of parallel arrays. The i-th element of each array holds information
-about the node ``i``. Node 0 is the tree's root. Some of the arrays only
-apply to either leaves or split nodes. In this case the values of the nodes
-of the other type is arbitrary. For example, the arrays ``feature`` and
-``threshold`` only apply to split nodes. The values for leaf nodes in these
-arrays are therefore arbitrary.
+لمصنف القرار خاصية تسمى ``tree_`` والتي تسمح بالوصول
+إلى الخصائص منخفضة المستوى مثل ``node_count``، العدد الإجمالي للعقد،
+و ``max_depth``، العمق الأقصى للشجرة. طريقة ``tree_.compute_node_depths()`` تحسب عمق كل عقدة في
+الشجرة. `tree_` تخزن أيضًا بنية الشجرة الثنائية الكاملة، ممثلة كعدد من المصفوفات المتوازية. العنصر i-th من كل مصفوفة
+يحتوي على معلومات
+حول العقدة ``i``. العقدة 0 هي جذر الشجرة. بعض المصفوفات
+تنطبق فقط إما على الأوراق أو عقد الانقسام. في هذه الحالة، تكون قيم عقد
+النوع الآخر عشوائية. على سبيل المثال، المصفوفات ``feature`` و
+``threshold`` تنطبق فقط على عقد الانقسام. لذلك، تكون قيم عقد الأوراق في هذه
+المصفوفات عشوائية.
 
-Among these arrays, we have:
+من بين هذه المصفوفات، لدينا:
 
-- ``children_left[i]``: id of the left child of node ``i`` or -1 if leaf node
-- ``children_right[i]``: id of the right child of node ``i`` or -1 if leaf node
-- ``feature[i]``: feature used for splitting node ``i``
-- ``threshold[i]``: threshold value at node ``i``
-- ``n_node_samples[i]``: the number of training samples reaching node ``i``
-- ``impurity[i]``: the impurity at node ``i``
-- ``weighted_n_node_samples[i]``: the weighted number of training samples
-  reaching node ``i``
-- ``value[i, j, k]``: the summary of the training samples that reached node i for
-  output j and class k (for regression tree, class is set to 1). See below
-  for more information about ``value``.
+- ``children_left[i]``: معرف العقدة اليسرى للعقدة ``i`` أو -1 إذا كانت عقدة ورقة
+- ``children_right[i]``: معرف العقدة اليمنى للعقدة ``i`` أو -1 إذا كانت عقدة ورقة
+- ``feature[i]``: الميزة المستخدمة لتقسيم العقدة ``i``
+- ``threshold[i]``: قيمة العتبة في العقدة ``i``
+- ``n_node_samples[i]``: عدد العينات التدريبية التي تصل إلى العقدة ``i``
+- ``impurity[i]``: عدم النقاء في العقدة ``i``
+- ``weighted_n_node_samples[i]``: العدد المرجح لعينات التدريب
+  التي تصل إلى العقدة ``i``
+- ``value[i, j, k]``: ملخص عينات التدريب التي وصلت إلى العقدة i لل
+  الإخراج j والصنف k (لشجرة الانحدار، يتم تعيين الصنف إلى 1). انظر أدناه
+  لمزيد من المعلومات حول ``value``.
 
-Using the arrays, we can traverse the tree structure to compute various
-properties. Below, we will compute the depth of each node and whether or not
-it is a leaf.
+باستخدام المصفوفات، يمكننا عبور بنية الشجرة لحساب
+خصائص مختلفة. أدناه، سنحسب عمق كل عقدة وما إذا كانت
+ورقة أم لا.
 
-.. GENERATED FROM PYTHON SOURCE LINES 77-130
+.. GENERATED FROM PYTHON SOURCE LINES 75-128
 
 .. code-block:: Python
 
@@ -553,17 +551,17 @@ it is a leaf.
 
     node_depth = np.zeros(shape=n_nodes, dtype=np.int64)
     is_leaves = np.zeros(shape=n_nodes, dtype=bool)
-    stack = [(0, 0)]  # start with the root node id (0) and its depth (0)
+    stack = [(0, 0)]  # ابدأ بمعرف العقدة الجذر (0) وعمقه (0)
     while len(stack) > 0:
-        # `pop` ensures each node is only visited once
+        # `pop` يضمن زيارة كل عقدة مرة واحدة فقط
         node_id, depth = stack.pop()
         node_depth[node_id] = depth
 
-        # If the left and right child of a node is not the same we have a split
-        # node
+        # إذا كان الطفل الأيسر والطفل الأيمن للعقدة ليسا متساويين، فإن لدينا عقدة انقسام
+        #
         is_split_node = children_left[node_id] != children_right[node_id]
-        # If a split node, append left and right children and depth to `stack`
-        # so we can loop through them
+        # إذا كانت عقدة انقسام، أضف الطفل الأيسر والطفل الأيمن والعمق إلى `stack`
+        # حتى نتمكن من المرور خلالهم
         if is_split_node:
             stack.append((children_left[node_id], depth + 1))
             stack.append((children_right[node_id], depth + 1))
@@ -615,46 +613,46 @@ it is a leaf.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 131-161
+.. GENERATED FROM PYTHON SOURCE LINES 129-159
 
-What is the values array used here?
+ما هو مصفوفة القيم المستخدمة هنا؟
 -----------------------------------
-The `tree_.value` array is a 3D array of shape
-[``n_nodes``, ``n_classes``, ``n_outputs``] which provides the proportion of samples
-reaching a node for each class and for each output.
-Each node has a ``value`` array which is the proportion of weighted samples reaching
-this node for each output and class with respect to the parent node.
+مصفوفة `tree_.value` هي مصفوفة ثلاثية الأبعاد من الشكل
+[``n_nodes``، ``n_classes``، ``n_outputs``] والتي توفر نسبة العينات
+التي تصل إلى عقدة لكل صنف ولكل إخراج.
+لكل عقدة مصفوفة ``value`` والتي هي نسبة العينات المرجحة التي تصل
+إلى هذه العقدة لكل إخراج وصنف فيما يتعلق بالعقدة الأصل.
 
-One could convert this to the absolute weighted number of samples reaching a node,
-by multiplying this number by `tree_.weighted_n_node_samples[node_idx]` for the
-given node. Note sample weights are not used in this example, so the weighted
-number of samples is the number of samples reaching the node because each sample
-has a weight of 1 by default.
+يمكن للمرء تحويل هذا إلى العدد المطلق للعينات المرجحة التي تصل إلى عقدة،
+من خلال ضرب هذا العدد بـ `tree_.weighted_n_node_samples[node_idx]` للعقدة
+المعطاة. لاحظ أن أوزان العينات لا تستخدم في هذا المثال، لذلك العدد المرجح
+للعينات هو عدد العينات التي تصل إلى العقدة لأن كل عينة
+لها وزن 1 بشكل افتراضي.
 
-For example, in the above tree built on the iris dataset, the root node has
-``value = [0.33, 0.304, 0.366]`` indicating there are 33% of class 0 samples,
-30.4% of class 1 samples, and 36.6% of class 2 samples at the root node. One can
-convert this to the absolute number of samples by multiplying by the number of
-samples reaching the root node, which is `tree_.weighted_n_node_samples[0]`.
-Then the root node has ``value = [37, 34, 41]``, indicating there are 37 samples
-of class 0, 34 samples of class 1, and 41 samples of class 2 at the root node.
+على سبيل المثال، في الشجرة أعلاه المبنية على مجموعة بيانات الزهرة، تحتوي العقدة الجذر على
+``value = [0.33, 0.304, 0.366]`` مما يشير إلى وجود 33% من العينات من الصنف 0،
+30.4% من العينات من الصنف 1، و 36.6% من العينات من الصنف 2 في العقدة الجذر. يمكن للمرء
+تحويل هذا إلى العدد المطلق للعينات من خلال الضرب في عدد
+العينات التي تصل إلى العقدة الجذر، والتي هي `tree_.weighted_n_node_samples[0]`.
+ثم تحتوي العقدة الجذر على ``value = [37, 34, 41]``، مما يشير إلى وجود 37 عينة
+من الصنف 0، و 34 عينة من الصنف 1، و 41 عينة من الصنف 2 في العقدة الجذر.
 
-Traversing the tree, the samples are split and as a result, the ``value`` array
-reaching each node changes. The left child of the root node has ``value = [1., 0, 0]``
-(or ``value = [37, 0, 0]`` when converted to the absolute number of samples)
-because all 37 samples in the left child node are from class 0.
+عند عبور الشجرة، تنقسم العينات ونتيجة لذلك، تتغير مصفوفة ``value``
+التي تصل إلى كل عقدة. الطفل الأيسر للعقدة الجذر لديه ``value = [1., 0, 0]``
+(أو ``value = [37, 0, 0]`` عند تحويلها إلى العدد المطلق للعينات)
+لأن جميع العينات الـ 37 في العقدة الطفل اليسرى هي من الصنف 0.
 
-Note: In this example, `n_outputs=1`, but the tree classifier can also handle
-multi-output problems. The `value` array at each node would just be a 2D
-array instead.
+ملاحظة: في هذا المثال، `n_outputs=1`، ولكن يمكن لمصنف الشجرة أيضًا التعامل
+مع المشاكل متعددة الإخراج. ستكون مصفوفة `value` في كل عقدة مجرد مصفوفة ثنائية الأبعاد
+بدلاً من ذلك.
 
-.. GENERATED FROM PYTHON SOURCE LINES 163-166
+.. GENERATED FROM PYTHON SOURCE LINES 161-164
 
-We can compare the above output to the plot of the decision tree.
-Here, we show the proportions of samples of each class that reach each
-node corresponding to the actual elements of `tree_.value` array.
+يمكننا مقارنة الإخراج أعلاه برسم شجرة القرار.
+هنا، نُظهر نسب عينات كل صنف التي تصل إلى كل
+عقدة مطابقة للعناصر الفعلية لمصفوفة `tree_.value`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 166-170
+.. GENERATED FROM PYTHON SOURCE LINES 164-168
 
 .. code-block:: Python
 
@@ -674,27 +672,27 @@ node corresponding to the actual elements of `tree_.value` array.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 171-188
+.. GENERATED FROM PYTHON SOURCE LINES 169-186
 
-Decision path
+مسار القرار
 -------------
 
-We can also retrieve the decision path of samples of interest. The
-``decision_path`` method outputs an indicator matrix that allows us to
-retrieve the nodes the samples of interest traverse through. A non zero
-element in the indicator matrix at position ``(i, j)`` indicates that
-the sample ``i`` goes through the node ``j``. Or, for one sample ``i``, the
-positions of the non zero elements in row ``i`` of the indicator matrix
-designate the ids of the nodes that sample goes through.
+يمكننا أيضًا استرجاع مسار القرار لعينات الاهتمام.
+طريقة ``decision_path`` تُخرج مصفوفة مؤشر تسمح لنا
+باسترجاع العقد التي تمر عبرها عينات الاهتمام. عنصر غير صفري
+في مصفوفة المؤشر في الموضع ``(i, j)`` يشير إلى أن
+العينة ``i`` تمر عبر العقدة ``j``. أو، لعينة واحدة ``i``،
+تحدد مواضع العناصر غير الصفرية في الصف ``i`` من مصفوفة المؤشر
+معرّفات العقد التي تمر عبرها العينة.
 
-The leaf ids reached by samples of interest can be obtained with the
-``apply`` method. This returns an array of the node ids of the leaves
-reached by each sample of interest. Using the leaf ids and the
-``decision_path`` we can obtain the splitting conditions that were used to
-predict a sample or a group of samples. First, let's do it for one sample.
-Note that ``node_index`` is a sparse matrix.
+يمكن الحصول على معرّفات الأوراق التي وصلت إليها عينات الاهتمام باستخدام
+طريقة ``apply``. هذا يعيد مصفوفة من معرّفات عقد الأوراق
+التي وصلت إليها كل عينة من عينات الاهتمام. باستخدام معرّفات الأوراق و
+``decision_path`` يمكننا الحصول على شروط التقسيم التي تم استخدامها
+للتنبؤ بعينة أو مجموعة من العينات. أولاً، دعنا نفعل ذلك لعينة واحدة.
+لاحظ أن ``node_index`` هي مصفوفة نادرة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 188-222
+.. GENERATED FROM PYTHON SOURCE LINES 186-220
 
 .. code-block:: Python
 
@@ -703,18 +701,18 @@ Note that ``node_index`` is a sparse matrix.
     leaf_id = clf.apply(X_test)
 
     sample_id = 0
-    # obtain ids of the nodes `sample_id` goes through, i.e., row `sample_id`
+    # الحصول على معرّفات العقد التي تمر عبرها العينة `sample_id`، أي الصف `sample_id`
     node_index = node_indicator.indices[
         node_indicator.indptr[sample_id] : node_indicator.indptr[sample_id + 1]
     ]
 
     print("Rules used to predict sample {id}:\n".format(id=sample_id))
     for node_id in node_index:
-        # continue to the next node if it is a leaf node
+        # استمر إلى العقدة التالية إذا كانت عقدة ورقة
         if leaf_id[sample_id] == node_id:
             continue
 
-        # check if value of the split feature for sample 0 is below threshold
+        # تحقق إذا كانت قيمة ميزة التقسيم للعينة 0 أقل من العتبة
         if X_test[sample_id, feature[node_id]] <= threshold[node_id]:
             threshold_sign = "<="
         else:
@@ -748,20 +746,19 @@ Note that ``node_index`` is a sparse matrix.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 223-225
+.. GENERATED FROM PYTHON SOURCE LINES 221-222
 
-For a group of samples, we can determine the common nodes the samples go
-through.
+لمجموعة من العينات، يمكننا تحديد العقد المشتركة التي تمر عبرها العينات.
 
-.. GENERATED FROM PYTHON SOURCE LINES 225-238
+.. GENERATED FROM PYTHON SOURCE LINES 222-234
 
 .. code-block:: Python
 
 
     sample_ids = [0, 1]
-    # boolean array indicating the nodes both samples go through
+    # مصفوفة منطقية تشير إلى العقد التي تمر عبرها كلتا العينتين
     common_nodes = node_indicator.toarray()[sample_ids].sum(axis=0) == len(sample_ids)
-    # obtain node ids using position in array
+    # الحصول على معرّفات العقد باستخدام الموضع في المصفوفة
     common_node_id = np.arange(n_nodes)[common_nodes]
 
     print(
@@ -770,7 +767,6 @@ through.
         )
     )
     print("This is {prop}% of all nodes.".format(prop=100 * len(common_node_id) / n_nodes))
-
 
 
 
@@ -788,7 +784,7 @@ through.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.081 seconds)
+   **Total running time of the script:** (0 minutes 0.093 seconds)
 
 
 .. _sphx_glr_download_auto_examples_tree_plot_unveil_tree_structure.py:

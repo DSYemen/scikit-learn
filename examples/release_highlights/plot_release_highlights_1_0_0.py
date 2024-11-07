@@ -1,49 +1,35 @@
 # ruff: noqa
 """
 =======================================
-Release Highlights for scikit-learn 1.0
+أبرز ميزات الإصدار 1.0 من scikit-learn
 =======================================
 
 .. currentmodule:: sklearn
 
-We are very pleased to announce the release of scikit-learn 1.0! The library
-has been stable for quite some time, releasing version 1.0 is recognizing that
-and signalling it to our users. This release does not include any breaking
-changes apart from the usual two-release deprecation cycle. For the future, we
-do our best to keep this pattern.
+يسعدنا الإعلان عن إصدار scikit-learn 1.0! لقد كانت المكتبة مستقرة لفترة طويلة، وإصدار الإصدار 1.0 هو اعتراف بذلك وإشارة إلى مستخدمينا. لا يتضمن هذا الإصدار أي تغييرات جذرية باستثناء دورة الاستبعاد المعتادة على مدى إصدارين. بالنسبة للمستقبل، سنبذل قصارى جهدنا للحفاظ على هذا النمط.
 
-This release includes some new key features as well as many improvements and
-bug fixes. We detail below a few of the major features of this release. **For
-an exhaustive list of all the changes**, please refer to the :ref:`release
-notes <release_notes_1_0>`.
+يتضمن هذا الإصدار بعض الميزات الرئيسية الجديدة بالإضافة إلى العديد من التحسينات وإصلاح الأخطاء. نقدم أدناه بعض الميزات الرئيسية لهذا الإصدار. **للاطلاع على قائمة شاملة بجميع التغييرات**، يرجى الرجوع إلى :ref:`ملاحظات الإصدار <release_notes_1_0>`.
 
-To install the latest version (with pip)::
+لتثبيت أحدث إصدار (باستخدام pip)::
 
     pip install --upgrade scikit-learn
 
-or with conda::
+أو باستخدام conda::
 
     conda install -c conda-forge scikit-learn
 
 """
 
 ##############################################################################
-# Keyword and positional arguments
+# الحجج الكلمة المفتاحية والحجج الموضعية
 # ---------------------------------------------------------
-# The scikit-learn API exposes many functions and methods which have many input
-# parameters. For example, before this release, one could instantiate a
-# :class:`~ensemble.HistGradientBoostingRegressor` as::
+# تعرض واجهة برمجة التطبيقات (API) الخاصة بـ scikit-learn العديد من الوظائف والطرق التي لها العديد من معلمات الإدخال. على سبيل المثال، قبل هذا الإصدار، كان من الممكن إنشاء مثيل لـ :class:`~ensemble.HistGradientBoostingRegressor` كما يلي::
 #
 #         HistGradientBoostingRegressor("squared_error", 0.1, 100, 31, None,
 #             20, 0.0, 255, None, None, False, "auto", "loss", 0.1, 10, 1e-7,
 #             0, None)
 #
-# Understanding the above code requires the reader to go to the API
-# documentation and to check each and every parameter for its position and
-# its meaning. To improve the readability of code written based on scikit-learn,
-# now users have to provide most parameters with their names, as keyword
-# arguments, instead of positional arguments. For example, the above code would
-# be::
+# يتطلب فهم الكود أعلاه من القارئ الذهاب إلى وثائق واجهة برمجة التطبيقات والتحقق من كل معلمة لموضعها ومعناها. لتحسين قابلية قراءة الكود المكتوب بناءً على scikit-learn، يجب على المستخدمين الآن توفير معظم المعلمات بأسمائها، كحجج الكلمة المفتاحية، بدلاً من الحجج الموضعية. على سبيل المثال، سيكون الكود أعلاه::
 #
 #     HistGradientBoostingRegressor(
 #         loss="squared_error",
@@ -66,27 +52,22 @@ or with conda::
 #         random_state=None,
 #     )
 #
-# which is much more readable. Positional arguments have been deprecated since
-# version 0.23 and will now raise a ``TypeError``. A limited number of
-# positional arguments are still allowed in some cases, for example in
-# :class:`~decomposition.PCA`, where ``PCA(10)`` is still allowed, but ``PCA(10,
-# False)`` is not allowed.
+# وهو أكثر قابلية للقراءة. تم إيقاف الحجج الموضعية منذ الإصدار 0.23، وسيؤدي الآن إلى إثارة خطأ من النوع ``TypeError``. لا يزال عدد محدود من الحجج الموضعية مسموحًا به في بعض الحالات، على سبيل المثال في :class:`~decomposition.PCA`، حيث ``PCA(10)`` لا يزال مسموحًا به، ولكن ``PCA(10,
+# False)`` غير مسموح به.
 
 ##############################################################################
-# Spline Transformers
+# محولات المنحنيات
 # ---------------------------------------------------------
-# One way to add nonlinear terms to a dataset's feature set is to generate
-# spline basis functions for continuous/numerical features with the new
-# :class:`~preprocessing.SplineTransformer`. Splines are piecewise polynomials,
-# parametrized by their polynomial degree and the positions of the knots. The
-# :class:`~preprocessing.SplineTransformer` implements a B-spline basis.
+# إحدى الطرق لإضافة مصطلحات غير خطية إلى مجموعة ميزات مجموعة بيانات هي توليد
+# دوال أساس المنحنيات للسمات المستمرة/العددية باستخدام :class:`~preprocessing.SplineTransformer` الجديد. المنحنيات هي متعددات حدود قطعية،
+# يتم معلمتها بدرجة متعددة الحدود ومواضع العقد. ينفذ :class:`~preprocessing.SplineTransformer` أساس المنحنيات من النوع B.
 #
 # .. figure:: ../linear_model/images/sphx_glr_plot_polynomial_interpolation_001.png
 #   :target: ../linear_model/plot_polynomial_interpolation.html
 #   :align: center
 #
-# The following code shows splines in action, for more information, please
-# refer to the :ref:`User Guide <spline_transformer>`.
+# يوضح الكود التالي المنحنيات في العمل، للحصول على مزيد من المعلومات، يرجى
+# الرجوع إلى :ref:`دليل المستخدم <spline_transformer>`.
 
 import numpy as np
 from sklearn.preprocessing import SplineTransformer
@@ -97,23 +78,22 @@ spline.fit_transform(X)
 
 
 ##############################################################################
-# Quantile Regressor
+# منظم الكمية
 # --------------------------------------------------------------------------
-# Quantile regression estimates the median or other quantiles of :math:`y`
-# conditional on :math:`X`, while ordinary least squares (OLS) estimates the
-# conditional mean.
+# تقدر عملية الانحدار الكمي الوسيط أو الكميات الأخرى لـ :math:`y`
+# المشروطة على :math:`X`، بينما تقدر طريقة المربعات الصغرى العادية (OLS) المتوسط الشرطي.
 #
-# As a linear model, the new :class:`~linear_model.QuantileRegressor` gives
-# linear predictions :math:`\hat{y}(w, X) = Xw` for the :math:`q`-th quantile,
-# :math:`q \in (0, 1)`. The weights or coefficients :math:`w` are then found by
-# the following minimization problem:
+# كنموذج خطي، يعطي :class:`~linear_model.QuantileRegressor` الجديد
+# تنبؤات خطية :math:`\hat{y}(w, X) = Xw` للكمية :math:`q`-th،
+# :math:`q \in (0, 1)`. يتم بعد ذلك العثور على الأوزان أو المعاملات :math:`w` عن طريق
+# مشكلة التقليص التالية:
 #
 # .. math::
 #     \min_{w} {\frac{1}{n_{\text{samples}}}
 #     \sum_i PB_q(y_i - X_i w) + \alpha ||w||_1}.
 #
-# This consists of the pinball loss (also known as linear loss),
-# see also :class:`~sklearn.metrics.mean_pinball_loss`,
+# يتكون هذا من خسارة pinball (المعروفة أيضًا باسم الخسارة الخطية)،
+# راجع أيضًا :class:`~sklearn.metrics.mean_pinball_loss`،
 #
 # .. math::
 #     PB_q(t) = q \max(t, 0) + (1 - q) \max(-t, 0) =
@@ -123,11 +103,10 @@ spline.fit_transform(X)
 #         (1-q) t, & t < 0
 #     \end{cases}
 #
-# and the L1 penalty controlled by parameter ``alpha``, similar to
+# وعقوبة L1 التي يتحكم فيها المعامل "alpha"، مشابهة لـ
 # :class:`linear_model.Lasso`.
 #
-# Please check the following example to see how it works, and the :ref:`User
-# Guide <quantile_regression>` for more details.
+# يرجى التحقق من المثال التالي لمعرفة كيفية عمله، و :ref:`دليل المستخدم <quantile_regression>` للحصول على مزيد من التفاصيل.
 #
 # .. figure:: ../linear_model/images/sphx_glr_plot_quantile_regression_002.png
 #    :target: ../linear_model/plot_quantile_regression.html
@@ -135,15 +114,15 @@ spline.fit_transform(X)
 #    :scale: 50%
 
 ##############################################################################
-# Feature Names Support
+# دعم أسماء الميزات
 # --------------------------------------------------------------------------
-# When an estimator is passed a `pandas' dataframe
-# <https://pandas.pydata.org/docs/user_guide/dsintro.html#dataframe>`_ during
-# :term:`fit`, the estimator will set a `feature_names_in_` attribute
-# containing the feature names. Note that feature names support is only enabled
-# when the column names in the dataframe are all strings. `feature_names_in_`
-# is used to check that the column names of the dataframe passed in
-# non-:term:`fit`, such as :term:`predict`, are consistent with features in
+# عندما يتم تمرير مصنف إلى إطار بيانات `pandas'
+# <https://pandas.pydata.org/docs/user_guide/dsintro.html#dataframe>`_ أثناء
+# :term:`fit`، سيقوم المصنف بتعيين سمة `feature_names_in_`
+# تحتوي على أسماء الميزات. يرجى ملاحظة أن دعم أسماء الميزات ممكن فقط
+# عندما تكون أسماء الأعمدة في إطار البيانات جميعها من النوع سلسلة. يتم استخدام `feature_names_in_`
+# للتحقق من أن أسماء أعمدة إطار البيانات الممررة في
+# non-:term:`fit`، مثل :term:`predict`، متسقة مع الميزات في
 # :term:`fit`:
 from sklearn.preprocessing import StandardScaler
 import pandas as pd
@@ -153,13 +132,13 @@ scalar = StandardScaler().fit(X)
 scalar.feature_names_in_
 
 # %%
-# The support of :term:`get_feature_names_out` is available for transformers
-# that already had `get_feature_names` and transformers with a one-to-one
-# correspondence between input and output such as
-# :class:`~preprocessing.StandardScaler`. :term:`get_feature_names_out` support
-# will be added to all other transformers in future releases. Additionally,
-# :meth:`compose.ColumnTransformer.get_feature_names_out` is available to
-# combine feature names of its transformers:
+# يتوفر دعم :term:`get_feature_names_out` للمحولات
+# التي كان لديها بالفعل `get_feature_names` والمحولات ذات المراسلات من واحد إلى واحد
+# بين الإدخال والإخراج مثل
+# :class:`~preprocessing.StandardScaler`. سيتم إضافة دعم :term:`get_feature_names_out`
+# إلى جميع المحولات الأخرى في الإصدارات المستقبلية. بالإضافة إلى ذلك،
+# :meth:`compose.ColumnTransformer.get_feature_names_out` متاح
+# لدمج أسماء الميزات لمحولاته:
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder
 import pandas as pd
@@ -176,8 +155,8 @@ preprocessor = ColumnTransformer(
 preprocessor.get_feature_names_out()
 
 # %%
-# When this ``preprocessor`` is used with a pipeline, the feature names used
-# by the classifier are obtained by slicing and calling
+# عند استخدام هذا المحول ``preprocessor`` مع خط أنابيب، يتم الحصول على أسماء الميزات
+# التي يستخدمها المصنف عن طريق تقطيع واستدعاء
 # :term:`get_feature_names_out`:
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import make_pipeline
@@ -189,53 +168,45 @@ pipe[:-1].get_feature_names_out()
 
 
 ##############################################################################
-# A more flexible plotting API
+# واجهة برمجة تطبيقات رسم أكثر مرونة
 # --------------------------------------------------------------------------
-# :class:`metrics.ConfusionMatrixDisplay`,
-# :class:`metrics.PrecisionRecallDisplay`, :class:`metrics.DetCurveDisplay`,
-# and :class:`inspection.PartialDependenceDisplay` now expose two class
-# methods: `from_estimator` and `from_predictions` which allow users to create
-# a plot given the predictions or an estimator. This means the corresponding
-# `plot_*` functions are deprecated. Please check :ref:`example one
-# <sphx_glr_auto_examples_model_selection_plot_confusion_matrix.py>` and
-# :ref:`example two
-# <sphx_glr_auto_examples_classification_plot_digits_classification.py>` for
-# how to use the new plotting functionalities.
+# :class:`metrics.ConfusionMatrixDisplay`،
+# :class:`metrics.PrecisionRecallDisplay`، :class:`metrics.DetCurveDisplay`،
+# و :class:`inspection.PartialDependenceDisplay` تعرض الآن طريقتين للصف: `from_estimator` و `from_predictions` والتي تسمح للمستخدمين بإنشاء
+# رسم بياني معطى التنبؤات أو المصنف. وهذا يعني أن وظائف `plot_*` المقابلة تم إيقافها. يرجى التحقق من المثال الأول
+# <sphx_glr_auto_examples_model_selection_plot_confusion_matrix.py>` والمثال الثاني
+# <sphx_glr_auto_examples_classification_plot_digits_classification.py>` لمعرفة كيفية استخدام وظائف الرسم الجديدة.
 
 ##############################################################################
-# Online One-Class SVM
+# SVM من الفئة الواحدة عبر الإنترنت
 # --------------------------------------------------------------------------
-# The new class :class:`~linear_model.SGDOneClassSVM` implements an online
-# linear version of the One-Class SVM using a stochastic gradient descent.
-# Combined with kernel approximation techniques,
-# :class:`~linear_model.SGDOneClassSVM` can be used to approximate the solution
-# of a kernelized One-Class SVM, implemented in :class:`~svm.OneClassSVM`, with
-# a fit time complexity linear in the number of samples. Note that the
-# complexity of a kernelized One-Class SVM is at best quadratic in the number
-# of samples. :class:`~linear_model.SGDOneClassSVM` is thus well suited for
-# datasets with a large number of training samples (> 10,000) for which the SGD
-# variant can be several orders of magnitude faster. Please check this
-# :ref:`example
-# <sphx_glr_auto_examples_miscellaneous_plot_anomaly_comparison.py>` to see how
-# it's used, and the :ref:`User Guide <sgd_online_one_class_svm>` for more
-# details.
+# تنفذ الفئة الجديدة :class:`~linear_model.SGDOneClassSVM` إصدارًا خطيًا عبر الإنترنت
+# من SVM من الفئة الواحدة باستخدام الانحدار التدريجي العشوائي.
+# عند دمجها مع تقنيات تقريب النواة،
+# يمكن استخدام :class:`~linear_model.SGDOneClassSVM` لتقريب حل
+# SVM من الفئة الواحدة المطبق على النواة، المنفذ في :class:`~svm.OneClassSVM`، مع
+# تعقيد وقت التجهيز الخطي في عدد العينات. يرجى ملاحظة أن
+# تعقيد SVM من الفئة الواحدة المطبق على النواة هو على الأكثر تربيعي في عدد
+# العينات. :class:`~linear_model.SGDOneClassSVM` مناسب جيدًا
+# لمجموعات البيانات ذات عدد كبير من عينات التدريب (> 10,000) والتي يمكن أن يكون فيها متغير SGD أسرع بعدة رتب من حيث الحجم. يرجى التحقق من هذا
+# المثال
+# <sphx_glr_auto_examples_miscellaneous_plot_anomaly_comparison.py>` لمعرفة كيفية استخدامه، و :ref:`دليل المستخدم <sgd_online_one_class_svm>` للحصول على مزيد من التفاصيل.
 #
 # .. figure:: ../miscellaneous/images/sphx_glr_plot_anomaly_comparison_001.png
 #    :target: ../miscellaneous/plot_anomaly_comparison.html
 #    :align: center
 
 ##############################################################################
-# Histogram-based Gradient Boosting Models are now stable
+# نماذج التعزيز التدريجي القائمة على المنحنيات أصبحت مستقرة الآن
 # --------------------------------------------------------------------------
-# :class:`~sklearn.ensemble.HistGradientBoostingRegressor` and
-# :class:`~ensemble.HistGradientBoostingClassifier` are no longer experimental
-# and can simply be imported and used as::
+# :class:`~sklearn.ensemble.HistGradientBoostingRegressor` و
+# :class:`~ensemble.HistGradientBoostingClassifier` لم تعد تجريبية
+# ويمكن استيرادها واستخدامها ببساطة كما يلي::
 #
 #     from sklearn.ensemble import HistGradientBoostingClassifier
 
 ##############################################################################
-# New documentation improvements
+# تحسينات التوثيق الجديدة
 # ------------------------------
-# This release includes many documentation improvements. Out of over 2100
-# merged pull requests, about 800 of them are improvements to our
-# documentation.
+# يتضمن هذا الإصدار العديد من التحسينات على التوثيق. من بين أكثر من 2100
+# طلبات السحب المدمجة، حوالي 800 منها هي تحسينات على توثيقنا.

@@ -1,14 +1,14 @@
 """
 ===================================================================
-Support Vector Regression (SVR) using linear and non-linear kernels
+دعم نموذج الانحدار باستخدام نواة خطية وغير خطية
 ===================================================================
 
-Toy example of 1D regression using linear, polynomial and RBF kernels.
+مثال توضيحي للانحدار أحادي البعد باستخدام نواة خطية ومتعددة الحدود وRBF.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايت-ليرن
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -16,23 +16,23 @@ import numpy as np
 from sklearn.svm import SVR
 
 # %%
-# Generate sample data
+# توليد بيانات العينة
 # --------------------
 X = np.sort(5 * np.random.rand(40, 1), axis=0)
 y = np.sin(X).ravel()
 
-# add noise to targets
+# إضافة ضجيج إلى الأهداف
 y[::5] += 3 * (0.5 - np.random.rand(8))
 
 # %%
-# Fit regression model
+# ملاءمة نموذج الانحدار
 # --------------------
 svr_rbf = SVR(kernel="rbf", C=100, gamma=0.1, epsilon=0.1)
 svr_lin = SVR(kernel="linear", C=100, gamma="auto")
 svr_poly = SVR(kernel="poly", C=100, gamma="auto", degree=3, epsilon=0.1, coef0=1)
 
 # %%
-# Look at the results
+# النظر في النتائج
 # -------------------
 lw = 2
 

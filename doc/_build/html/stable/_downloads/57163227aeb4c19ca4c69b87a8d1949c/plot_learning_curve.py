@@ -1,31 +1,26 @@
 """
 =========================================================
-Plotting Learning Curves and Checking Models' Scalability
+رسم منحنيات التعلم وفحص قابلية التوسع للنماذج
 =========================================================
 
-In this example, we show how to use the class
-:class:`~sklearn.model_selection.LearningCurveDisplay` to easily plot learning
-curves. In addition, we give an interpretation to the learning curves obtained
-for a naive Bayes and SVM classifiers.
+في هذا المثال، نُظهر كيفية استخدام الفئة
+:class:`~sklearn.model_selection.LearningCurveDisplay` لرسم منحنيات التعلم بسهولة. بالإضافة إلى ذلك، نقدم تفسيرًا لمنحنيات التعلم التي تم الحصول عليها
+لمصنفي خوارزمية بايز الساذجة والآلة الداعمة للمتجهات (SVM).
 
-Then, we explore and draw some conclusions about the scalability of these predictive
-models by looking at their computational cost and not only at their statistical
-accuracy.
+بعد ذلك، نستكشف بعض الاستنتاجات حول قابلية التوسع لهذه النماذج التنبؤية من خلال النظر في تكلفتها الحسابية وليس فقط في دقتها الإحصائية.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري مكتبة ساي كيت ليرن
+# معرف رخصة إس بي دي إكس: BSD-3-Clause
 
 # %%
-# Learning Curve
+# منحنى التعلم
 # ==============
 #
-# Learning curves show the effect of adding more samples during the training
-# process. The effect is depicted by checking the statistical performance of
-# the model in terms of training score and testing score.
+# توضح منحنيات التعلم تأثير إضافة المزيد من العينات أثناء عملية التدريب. يتم تصوير هذا التأثير من خلال فحص الأداء الإحصائي
+# للنموذج من حيث درجة التدريب ودرجة الاختبار.
 #
-# Here, we compute the learning curve of a naive Bayes classifier and a SVM
-# classifier with a RBF kernel using the digits dataset.
+# هنا، نحسب منحنى التعلم لمصنف خوارزمية بايز الساذجة ومصنف الآلة الداعمة للمتجهات (SVM)
+# باستخدام نواة RBF ومجموعة بيانات الأرقام.
 from sklearn.datasets import load_digits
 from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
@@ -35,10 +30,9 @@ naive_bayes = GaussianNB()
 svc = SVC(kernel="rbf", gamma=0.001)
 
 # %%
-# The :meth:`~sklearn.model_selection.LearningCurveDisplay.from_estimator`
-# displays the learning curve given the dataset and the predictive model to
-# analyze. To get an estimate of the scores uncertainty, this method uses
-# a cross-validation procedure.
+# الطريقة :meth:`~sklearn.model_selection.LearningCurveDisplay.from_estimator`
+# تعرض منحنى التعلم بالنظر إلى مجموعة البيانات والنموذج التنبؤي المراد تحليله. للحصول على تقدير لعدم اليقين في الدرجات، تستخدم هذه الطريقة
+# إجراء التقسيم المتقاطع.
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -65,31 +59,27 @@ for ax_idx, estimator in enumerate([naive_bayes, svc]):
     ax[ax_idx].set_title(f"Learning Curve for {estimator.__class__.__name__}")
 
 # %%
-# We first analyze the learning curve of the naive Bayes classifier. Its shape
-# can be found in more complex datasets very often: the training score is very
-# high when using few samples for training and decreases when increasing the
-# number of samples, whereas the test score is very low at the beginning and
-# then increases when adding samples. The training and test scores become more
-# realistic when all the samples are used for training.
+# نحلل أولاً منحنى التعلم لمصنف خوارزمية بايز الساذجة. يمكن العثور على شكله
+# في مجموعات البيانات الأكثر تعقيدًا في كثير من الأحيان: تكون درجة التدريب عالية جدًا عند استخدام عدد قليل من العينات للتدريب وتنخفض عند زيادة
+# عدد العينات، في حين تكون درجة الاختبار منخفضة جدًا في البداية ثم تزيد عند إضافة العينات. تصبح درجات التدريب والاختبار أكثر واقعية عند استخدام جميع العينات للتدريب.
 #
-# We see another typical learning curve for the SVM classifier with RBF kernel.
-# The training score remains high regardless of the size of the training set.
-# On the other hand, the test score increases with the size of the training
-# dataset. Indeed, it increases up to a point where it reaches a plateau.
-# Observing such a plateau is an indication that it might not be useful to
-# acquire new data to train the model since the generalization performance of
-# the model will not increase anymore.
+# نرى منحنى تعلم آخر نموذجي لمصنف الآلة الداعمة للمتجهات (SVM) مع نواة RBF.
+# تظل درجة التدريب مرتفعة بغض النظر عن حجم مجموعة التدريب.
+# من ناحية أخرى، تزيد درجة الاختبار مع حجم مجموعة التدريب. في الواقع، تزيد حتى تصل إلى نقطة تصل فيها إلى مستوى ثابت.
+# ملاحظة مثل هذا المستوى الثابت هي إشارة إلى أنه قد لا يكون من المفيد
+# الحصول على بيانات جديدة لتدريب النموذج حيث أن أداء تعميم النموذج
+# لن يزيد بعد الآن.
 #
-# Complexity analysis
+# تحليل التعقيد
 # ===================
 #
-# In addition to these learning curves, it is also possible to look at the
-# scalability of the predictive models in terms of training and scoring times.
+# بالإضافة إلى منحنيات التعلم هذه، من الممكن أيضًا النظر إلى
+# قابلية التوسع للنماذج التنبؤية من حيث أوقات التدريب والتصنيف.
 #
-# The :class:`~sklearn.model_selection.LearningCurveDisplay` class does not
-# provide such information. We need to resort to the
-# :func:`~sklearn.model_selection.learning_curve` function instead and make
-# the plot manually.
+# الفئة :class:`~sklearn.model_selection.LearningCurveDisplay` لا
+# توفر مثل هذه المعلومات. نحتاج إلى اللجوء إلى
+# الدالة :func:`~sklearn.model_selection.learning_curve` بدلاً من ذلك وإنشاء
+# الرسم يدويًا.
 
 # %%
 from sklearn.model_selection import learning_curve
@@ -120,7 +110,7 @@ for ax_idx, (fit_times, score_times, estimator) in enumerate(
         [naive_bayes, svc],
     )
 ):
-    # scalability regarding the fit time
+    # قابلية التوسع فيما يتعلق بوقت التلاؤم
     ax[0, ax_idx].plot(train_sizes, fit_times.mean(axis=1), "o-")
     ax[0, ax_idx].fill_between(
         train_sizes,
@@ -133,7 +123,7 @@ for ax_idx, (fit_times, score_times, estimator) in enumerate(
         f"Scalability of the {estimator.__class__.__name__} classifier"
     )
 
-    # scalability regarding the score time
+    # قابلية التوسع فيما يتعلق بوقت التصنيف
     ax[1, ax_idx].plot(train_sizes, score_times.mean(axis=1), "o-")
     ax[1, ax_idx].fill_between(
         train_sizes,
@@ -145,16 +135,15 @@ for ax_idx, (fit_times, score_times, estimator) in enumerate(
     ax[1, ax_idx].set_xlabel("Number of training samples")
 
 # %%
-# We see that the scalability of the SVM and naive Bayes classifiers is very
-# different. The SVM classifier complexity at fit and score time increases
-# rapidly with the number of samples. Indeed, it is known that the fit time
-# complexity of this classifier is more than quadratic with the number of
-# samples which makes it hard to scale to dataset with more than a few
-# 10,000 samples. In contrast, the naive Bayes classifier scales much better
-# with a lower complexity at fit and score time.
-#
-# Subsequently, we can check the trade-off between increased training time and
-# the cross-validation score.
+# نرى أن قابلية التوسع لمصنفي الآلة الداعمة للمتجهات (SVM) وخوارزمية بايز الساذجة مختلفة جدًا. تزداد تعقيد مصنف الآلة الداعمة للمتجهات (SVM) بسرعة كبيرة
+# مع عدد العينات. في الواقع، من المعروف أن تعقيد وقت التلاؤم
+# لهذا المصنف أكثر من تربيعي مع عدد العينات مما يجعله من الصعب
+# توسيع نطاقه ليشمل مجموعة بيانات تحتوي على أكثر من بضعة
+# 10,000 عينة. على النقيض من ذلك، يتوسع مصنف خوارزمية بايز الساذجة بشكل أفضل بكثير
+# مع تعقيد أقل في وقت التلاؤم والتصنيف.
+# 
+# بعد ذلك، يمكننا التحقق من التوازن بين زيادة وقت التدريب
+# ودرجة التقسيم المتقاطع.
 
 # %%
 fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(16, 6))
@@ -182,6 +171,5 @@ for ax_idx, (fit_times, test_scores, estimator) in enumerate(
 plt.show()
 
 # %%
-# In these plots, we can look for the inflection point for which the
-# cross-validation score does not increase anymore and only the training time
-# increases.
+# في هذه الرسوم البيانية، يمكننا البحث عن نقطة الانعطاف التي لا تزيد فيها
+# درجة التقسيم المتقاطع بعد الآن ويزيد فقط وقت التدريب.

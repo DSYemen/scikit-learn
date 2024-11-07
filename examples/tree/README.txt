@@ -1,6 +1,6 @@
 .. _tree_examples:
 
-Decision Trees
---------------
+أشجار القرار-
+-------------
 
-Examples concerning the :mod:`sklearn.tree` module.
+أمثلة تتعلق بوحدة :mod:`sklearn.tree`.

@@ -1,60 +1,56 @@
 """
 =============================================================
-Class Likelihood Ratios to measure classification performance
+نسب الاحتمال الطبقي لقياس أداء التصنيف
 =============================================================
 
-This example demonstrates the :func:`~sklearn.metrics.class_likelihood_ratios`
-function, which computes the positive and negative likelihood ratios (`LR+`,
-`LR-`) to assess the predictive power of a binary classifier. As we will see,
-these metrics are independent of the proportion between classes in the test set,
-which makes them very useful when the available data for a study has a different
-class proportion than the target application.
+هذا المثال يوضح الدالة :func:`~sklearn.metrics.class_likelihood_ratios`
+والتي تقوم بحساب نسب الاحتمال الطبقي الإيجابية والسلبية (`LR+`,
+`LR-`) لتقييم القوة التنبؤية لمصنف ثنائي. كما سنرى،
+هذه المقاييس مستقلة عن نسبة التوازن بين الفئات في مجموعة الاختبار،
+مما يجعلها مفيدة للغاية عندما تختلف نسبة التوازن بين الفئات في البيانات المتاحة للدراسة عن نسبة التوازن في التطبيق المستهدف.
 
-A typical use is a case-control study in medicine, which has nearly balanced
-classes while the general population has large class imbalance. In such
-application, the pre-test probability of an individual having the target
-condition can be chosen to be the prevalence, i.e. the proportion of a
-particular population found to be affected by a medical condition. The post-test
-probabilities represent then the probability that the condition is truly present
-given a positive test result.
+الاستخدام النموذجي هو دراسة الحالة-المراقبة في الطب، والتي لديها توازن تقريبًا
+بين الفئات بينما يوجد اختلال كبير في التوازن بين الفئات في السكان بشكل عام. في مثل
+هذه التطبيقات، يمكن اختيار احتمالية ما قبل الاختبار لوجود حالة معينة لدى فرد ما
+لتكون هي نسبة الانتشار، أي نسبة السكان الذين يعانون من حالة طبية معينة.
+تمثل احتمالية ما بعد الاختبار عندئذٍ احتمالية وجود الحالة بالفعل
+نظرًا لنتيجة الاختبار الإيجابية.
 
-In this example we first discuss the link between pre-test and post-test odds
-given by the :ref:`class_likelihood_ratios`. Then we evaluate their behavior in
-some controlled scenarios. In the last section we plot them as a function of the
-prevalence of the positive class.
+في هذا المثال، نناقش أولاً العلاقة بين احتمالية ما قبل الاختبار واحتمالية ما بعد الاختبار
+والتي تعطى بواسطة :ref:`class_likelihood_ratios`. ثم نقيم سلوكها في
+بعض السيناريوهات الخاضعة للتحكم. في القسم الأخير، نرسمها كدالة لنسبة انتشار الفئة الإيجابية.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# Pre-test vs. post-test analysis
+# تحليل ما قبل الاختبار مقابل ما بعد الاختبار
 # ===============================
 #
-# Suppose we have a population of subjects with physiological measurements `X`
-# that can hopefully serve as indirect bio-markers of the disease and actual
-# disease indicators `y` (ground truth). Most of the people in the population do
-# not carry the disease but a minority (in this case around 10%) does:
+# لنفترض أن لدينا مجموعة من السكان مع قياسات فيزيولوجية `X`
+# والتي يمكن أن تكون مؤشرات حيوية غير مباشرة للمرض ومؤشرات حقيقية
+# للمرض `y` (الحقيقة الأرضية). معظم الناس في السكان لا
+# يحملون المرض ولكن أقلية (في هذه الحالة حوالي 10٪) تفعل ذلك:
 
 from sklearn.datasets import make_classification
 
 X, y = make_classification(n_samples=10_000, weights=[0.9, 0.1], random_state=0)
-print(f"Percentage of people carrying the disease: {100*y.mean():.2f}%")
+print(f"نسبة الأشخاص الذين يحملون المرض: {100*y.mean():.2f}%")
 
 # %%
-# A machine learning model is built to diagnose if a person with some given
-# physiological measurements is likely to carry the disease of interest. To
-# evaluate the model, we need to assess its performance on a held-out test set:
+# يتم بناء نموذج تعلم آلي لتشخيص ما إذا كان الشخص مع بعض القياسات
+# الفيزيولوجية من المرجح أن يحمل المرض محل الاهتمام. لتقييم
+# النموذج، نحتاج إلى تقييم أدائه على مجموعة اختبار محجوزة:
 
 from sklearn.model_selection import train_test_split
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
 
 # %%
-# Then we can fit our diagnosis model and compute the positive likelihood
-# ratio to evaluate the usefulness of this classifier as a disease diagnosis
-# tool:
+# بعد ذلك يمكننا ملاءمة نموذج التشخيص لدينا وحساب نسبة الاحتمال الطبقي
+# الإيجابية لتقييم فائدة هذا المصنف كأداة لتشخيص المرض:
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import class_likelihood_ratios
@@ -65,16 +61,15 @@ pos_LR, neg_LR = class_likelihood_ratios(y_test, y_pred)
 print(f"LR+: {pos_LR:.3f}")
 
 # %%
-# Since the positive class likelihood ratio is much larger than 1.0, it means
-# that the machine learning-based diagnosis tool is useful: the post-test odds
-# that the condition is truly present given a positive test result are more than
-# 12 times larger than the pre-test odds.
+# بما أن نسبة الاحتمال الطبقي الإيجابية أكبر بكثير من 1.0، فهذا يعني
+# أن أداة التشخيص القائمة على التعلم الآلي مفيدة: احتمالية ما بعد الاختبار
+# أن الحالة موجودة بالفعل نظرًا لنتيجة الاختبار الإيجابية أكبر من
+# 12 مرة من احتمالية ما قبل الاختبار.
 #
-# Cross-validation of likelihood ratios
+# التحقق المتقاطع لنسب الاحتمال الطبقي
 # =====================================
 #
-# We assess the variability of the measurements for the class likelihood ratios
-# in some particular cases.
+# نقيم تباين القياسات لنسب الاحتمال الطبقي في بعض الحالات الخاصة.
 
 import pandas as pd
 
@@ -96,8 +91,8 @@ def extract_score(cv_results):
 
 
 # %%
-# We first validate the :class:`~sklearn.linear_model.LogisticRegression` model
-# with default hyperparameters as used in the previous section.
+# نقوم أولاً بالتحقق من نموذج :class:`~sklearn.linear_model.LogisticRegression`
+# مع معاملات افتراضية كما هو مستخدم في القسم السابق.
 
 from sklearn.model_selection import cross_validate
 
@@ -105,12 +100,12 @@ estimator = LogisticRegression()
 extract_score(cross_validate(estimator, X, y, scoring=scoring, cv=10))
 
 # %%
-# We confirm that the model is useful: the post-test odds are between 12 and 20
-# times larger than the pre-test odds.
+# نؤكد أن النموذج مفيد: احتمالية ما بعد الاختبار أكبر من 12 إلى 20
+# مرة من احتمالية ما قبل الاختبار.
 #
-# On the contrary, let's consider a dummy model that will output random
-# predictions with similar odds as the average disease prevalence in the
-# training set:
+# على العكس، لنفترض نموذجًا وهميًا سيخرج تنبؤات عشوائية
+# مع احتمالات مماثلة لمتوسط انتشار المرض في
+# مجموعة التدريب:
 
 from sklearn.dummy import DummyClassifier
 
@@ -118,54 +113,54 @@ estimator = DummyClassifier(strategy="stratified", random_state=1234)
 extract_score(cross_validate(estimator, X, y, scoring=scoring, cv=10))
 
 # %%
-# Here both class likelihood ratios are compatible with 1.0 which makes this
-# classifier useless as a diagnostic tool to improve disease detection.
+# هنا كلتا نسبتي الاحتمال الطبقي متوافقتان مع 1.0 مما يجعل هذا
+# المصنف عديم الفائدة كأداة تشخيصية لتحسين اكتشاف المرض.
 #
-# Another option for the dummy model is to always predict the most frequent
-# class, which in this case is "no-disease".
+# خيار آخر للنموذج الوهمي هو التنبؤ دائمًا بالفئة الأكثر تكرارًا،
+# والتي في هذه الحالة هي "عدم وجود مرض".
 
 estimator = DummyClassifier(strategy="most_frequent")
 extract_score(cross_validate(estimator, X, y, scoring=scoring, cv=10))
 
 # %%
-# The absence of positive predictions means there will be no true positives nor
-# false positives, leading to an undefined `LR+` that by no means should be
-# interpreted as an infinite `LR+` (the classifier perfectly identifying
-# positive cases). In such situation the
-# :func:`~sklearn.metrics.class_likelihood_ratios` function returns `nan` and
-# raises a warning by default. Indeed, the value of `LR-` helps us discard this
-# model.
+# عدم وجود تنبؤات إيجابية يعني أنه لن يكون هناك تنبؤات صحيحة ولا
+# تنبؤات خاطئة، مما يؤدي إلى نسبة احتمالية طبقية إيجابية غير محددة `LR+`
+# والتي لا ينبغي بأي حال تفسيرها كنسبة احتمالية طبقية إيجابية لا نهائية
+# (المصنف يحدد الحالات الإيجابية بشكل مثالي). في مثل هذه الحالة،
+# تقوم الدالة :func:`~sklearn.metrics.class_likelihood_ratios` بإرجاع `nan`
+# وإظهار تحذير بشكل افتراضي. في الواقع، تساعدنا قيمة `LR-` على استبعاد هذا
+# النموذج.
 #
-# A similar scenario may arise when cross-validating highly imbalanced data with
-# few samples: some folds will have no samples with the disease and therefore
-# they will output no true positives nor false negatives when used for testing.
-# Mathematically this leads to an infinite `LR+`, which should also not be
-# interpreted as the model perfectly identifying positive cases. Such event
-# leads to a higher variance of the estimated likelihood ratios, but can still
-# be interpreted as an increment of the post-test odds of having the condition.
+# قد ينشأ سيناريو مشابه عند التحقق المتقاطع لبيانات غير متوازنة للغاية
+# مع عدد قليل من العينات: بعض الطيات لن يكون لديها عينات مع المرض
+# وبالتالي لن تخرج تنبؤات صحيحة ولا تنبؤات خاطئة عند استخدامها للاختبار.
+# رياضيًا، هذا يؤدي إلى نسبة احتمالية طبقية إيجابية لا نهائية،
+# والتي لا ينبغي أيضًا تفسيرها على أنها النموذج الذي يحدد الحالات الإيجابية بشكل مثالي.
+# مثل هذا الحدث يؤدي إلى تباين أعلى لنسب الاحتمال الطبقي المقدرة،
+# ولكن يمكن تفسيرها على أنها زيادة في احتمالية ما بعد الاختبار لوجود الحالة.
 
 estimator = LogisticRegression()
 X, y = make_classification(n_samples=300, weights=[0.9, 0.1], random_state=0)
 extract_score(cross_validate(estimator, X, y, scoring=scoring, cv=10))
 
 # %%
-# Invariance with respect to prevalence
+# الثبات فيما يتعلق بالانتشار
 # =====================================
 #
-# The likelihood ratios are independent of the disease prevalence and can be
-# extrapolated between populations regardless of any possible class imbalance,
-# **as long as the same model is applied to all of them**. Notice that in the
-# plots below **the decision boundary is constant** (see
-# :ref:`sphx_glr_auto_examples_svm_plot_separating_hyperplane_unbalanced.py` for
-# a study of the boundary decision for unbalanced classes).
+# نسب الاحتمال الطبقي مستقلة عن انتشار المرض ويمكن
+# استقراؤها بين السكان بغض النظر عن أي اختلال في التوازن بين الفئات،
+# **طالما يتم تطبيق نفس النموذج على جميع السكان**. لاحظ أنه في
+# الرسوم البيانية أدناه **حدود القرار ثابتة** (انظر
+# :ref:`sphx_glr_auto_examples_svm_plot_separating_hyperplane_unbalanced.py` لدراسة
+# حدود القرار للتوازن غير المتوازن بين الفئات).
 #
-# Here we train a :class:`~sklearn.linear_model.LogisticRegression` base model
-# on a case-control study with a prevalence of 50%. It is then evaluated over
-# populations with varying prevalence. We use the
-# :func:`~sklearn.datasets.make_classification` function to ensure the
-# data-generating process is always the same as shown in the plots below. The
-# label `1` corresponds to the positive class "disease", whereas the label `0`
-# stands for "no-disease".
+# هنا نقوم بتدريب نموذج :class:`~sklearn.linear_model.LogisticRegression`
+# أساسي على دراسة حالة-مراقبة مع انتشار 50٪. ثم يتم تقييمه على
+# السكان مع انتشار متغير. نستخدم الدالة
+# :func:`~sklearn.datasets.make_classification` لضمان أن
+# عملية توليد البيانات هي نفسها كما هو موضح في الرسوم البيانية أدناه.
+# التسمية `1` تقابل الفئة الإيجابية "المرض"، في حين أن التسمية `0`
+# تقف على "عدم وجود مرض".
 
 from collections import defaultdict
 
@@ -185,7 +180,7 @@ common_params = {
 weights = np.linspace(0.1, 0.8, 6)
 weights = weights[::-1]
 
-# fit and evaluate base model on balanced classes
+# ملاءمة وتقييم النموذج الأساسي على فئات متوازنة
 X, y = make_classification(**common_params, weights=[0.5, 0.5])
 estimator = LogisticRegression().fit(X, y)
 lr_base = extract_score(cross_validate(estimator, X, y, scoring=scoring, cv=10))
@@ -193,9 +188,9 @@ pos_lr_base, pos_lr_base_std = lr_base["positive"].values
 neg_lr_base, neg_lr_base_std = lr_base["negative"].values
 
 # %%
-# We will now show the decision boundary for each level of prevalence. Note that
-# we only plot a subset of the original data to better assess the linear model
-# decision boundary.
+# سنعرض الآن حدود القرار لكل مستوى من مستويات الانتشار. لاحظ
+# أننا نرسم فقط جزءًا من البيانات الأصلية لتقييم حدود القرار
+# للنموذج الخطي بشكل أفضل.
 
 fig, axs = plt.subplots(nrows=3, ncols=2, figsize=(15, 12))
 
@@ -209,12 +204,12 @@ for ax, (n, weight) in zip(axs.ravel(), enumerate(weights)):
     populations["X"].append(X)
     populations["y"].append(y)
 
-    # down-sample for plotting
+    # تقليل العينات للرسم
     rng = np.random.RandomState(1)
     plot_indices = rng.choice(np.arange(X.shape[0]), size=500, replace=True)
     X_plot, y_plot = X[plot_indices], y[plot_indices]
 
-    # plot fixed decision boundary of base model with varying prevalence
+    # رسم حدود القرار الثابتة للنموذج الأساسي مع انتشار متغير
     disp = DecisionBoundaryDisplay.from_estimator(
         estimator,
         X_plot,
@@ -227,7 +222,7 @@ for ax, (n, weight) in zip(axs.ravel(), enumerate(weights)):
     disp.ax_.legend(*scatter.legend_elements())
 
 # %%
-# We define a function for bootstrapping.
+# نحدد دالة للتمهيد.
 
 
 def scoring_on_bootstrap(estimator, X, y, rng, n_bootstrap=100):
@@ -244,7 +239,7 @@ def scoring_on_bootstrap(estimator, X, y, rng, n_bootstrap=100):
 
 
 # %%
-# We score the base model for each prevalence using bootstrapping.
+# نقوم بتسجيل نقاط النموذج الأساسي لكل انتشار باستخدام التمهيد.
 
 results = defaultdict(list)
 n_bootstrap = 100
@@ -266,9 +261,8 @@ results.index.name = "prevalence"
 results
 
 # %%
-# In the plots below we observe that the class likelihood ratios re-computed
-# with different prevalences are indeed constant within one standard deviation
-# of those computed with on balanced classes.
+# في الرسوم البيانية أدناه، نلاحظ أن نسب الاحتمال الطبقي المعاد حسابها
+# مع انتشار مختلف ثابتة ضمن انحراف معياري واحد من تلك المحسوبة على فئات متوازنة.
 
 fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(15, 6))
 results["positive_likelihood_ratio"]["mean"].plot(

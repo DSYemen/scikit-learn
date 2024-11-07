@@ -18,34 +18,31 @@
 .. _sphx_glr_auto_examples_neighbors_plot_kde_1d.py:
 
 
-===================================
-Simple 1D Kernel Density Estimation
-===================================
-This example uses the :class:`~sklearn.neighbors.KernelDensity` class to
-demonstrate the principles of Kernel Density Estimation in one dimension.
+===========================================
+تقدير كثافة النواة البسيطة أحادية البعد
+===========================================
+يستخدم هذا المثال فئة :class:`~sklearn.neighbors.KernelDensity`
+لتوضيح مبادئ تقدير كثافة النواة في البعد أحادي.
 
-The first plot shows one of the problems with using histograms to visualize
-the density of points in 1D. Intuitively, a histogram can be thought of as a
-scheme in which a unit "block" is stacked above each point on a regular grid.
-As the top two panels show, however, the choice of gridding for these blocks
-can lead to wildly divergent ideas about the underlying shape of the density
-distribution.  If we instead center each block on the point it represents, we
-get the estimate shown in the bottom left panel.  This is a kernel density
-estimation with a "top hat" kernel.  This idea can be generalized to other
-kernel shapes: the bottom-right panel of the first figure shows a Gaussian
-kernel density estimate over the same distribution.
+يوضح المخطط الأول أحد المشاكل المتعلقة باستخدام التوزيعات التكرارية لتصور
+كثافة النقاط في البعد أحادي. بديهياً، يمكن اعتبار التوزيع التكراري على أنه
+مخطط يتم فيه وضع "كتلة" وحدة فوق كل نقطة على شبكة منتظمة. ومع ذلك، كما توضح
+لوحتان العلويتان، يمكن أن يؤدي اختيار الشبكة لهذه الكتل إلى أفكار متباينة
+بشكل كبير حول الشكل الأساسي لتوزيع الكثافة. إذا قمنا بدلاً من ذلك بتركيز كل
+كتلة على النقطة التي تمثلها، فإننا نحصل على التقدير الموضح في اللوحة السفلية
+اليسرى. هذا هو تقدير كثافة النواة مع نواة "قبعة علوية". يمكن تعميم هذه الفكرة
+على أشكال نواة أخرى: توضح اللوحة السفلية اليمنى من الشكل الأول تقدير كثافة
+النواة الغاوسية على نفس التوزيع.
 
-Scikit-learn implements efficient kernel density estimation using either
-a Ball Tree or KD Tree structure, through the
-:class:`~sklearn.neighbors.KernelDensity` estimator.  The available kernels
-are shown in the second figure of this example.
+ينفذ Scikit-learn تقدير كثافة النواة بكفاءة باستخدام إما بنية شجرة الكرة أو
+شجرة KD، من خلال :class:`~sklearn.neighbors.KernelDensity` estimator. يتم
+عرض النواة المتاحة في الشكل الثاني من هذا المثال.
 
-The third figure compares kernel density estimates for a distribution of 100
-samples in 1 dimension.  Though this example uses 1D distributions, kernel
-density estimation is easily and efficiently extensible to higher dimensions
-as well.
+يقارن الشكل الثالث تقديرات كثافة النواة لتوزيع 100 عينة في البعد أحادي. على
+الرغم من أن هذا المثال يستخدم توزيعات أحادية البعد، إلا أن تقدير كثافة النواة
+يمكن تمديده بسهولة وكفاءة إلى أبعاد أعلى أيضًا.
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-159
+.. GENERATED FROM PYTHON SOURCE LINES 26-153
 
 
 
@@ -79,9 +76,8 @@ as well.
 
 .. code-block:: Python
 
-
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري scikit-learn
+    # معرف الترخيص: BSD-3-Clause
 
     import matplotlib.pyplot as plt
     import numpy as np
@@ -90,7 +86,7 @@ as well.
     from sklearn.neighbors import KernelDensity
 
     # ----------------------------------------------------------------------
-    # Plot the progression of histograms to kernels
+    # رسم تطور التوزيعات التكرارية إلى نواة
     np.random.seed(1)
     N = 20
     X = np.concatenate(
@@ -102,21 +98,21 @@ as well.
     fig, ax = plt.subplots(2, 2, sharex=True, sharey=True)
     fig.subplots_adjust(hspace=0.05, wspace=0.05)
 
-    # histogram 1
+    # التوزيع التكراري 1
     ax[0, 0].hist(X[:, 0], bins=bins, fc="#AAAAFF", density=True)
     ax[0, 0].text(-3.5, 0.31, "Histogram")
 
-    # histogram 2
+    # التوزيع التكراري 2
     ax[0, 1].hist(X[:, 0], bins=bins + 0.75, fc="#AAAAFF", density=True)
     ax[0, 1].text(-3.5, 0.31, "Histogram, bins shifted")
 
-    # tophat KDE
+    # تقدير كثافة النواة "قبعة علوية"
     kde = KernelDensity(kernel="tophat", bandwidth=0.75).fit(X)
     log_dens = kde.score_samples(X_plot)
     ax[1, 0].fill(X_plot[:, 0], np.exp(log_dens), fc="#AAAAFF")
     ax[1, 0].text(-3.5, 0.31, "Tophat Kernel Density")
 
-    # Gaussian KDE
+    # تقدير كثافة النواة الغاوسية
     kde = KernelDensity(kernel="gaussian", bandwidth=0.75).fit(X)
     log_dens = kde.score_samples(X_plot)
     ax[1, 1].fill(X_plot[:, 0], np.exp(log_dens), fc="#AAAAFF")
@@ -134,7 +130,7 @@ as well.
         axi.set_xlabel("x")
 
     # ----------------------------------------------------------------------
-    # Plot all available kernels
+    # رسم جميع النواة المتاحة
     X_plot = np.linspace(-6, 6, 1000)[:, None]
     X_src = np.zeros((1, 1))
 
@@ -171,7 +167,7 @@ as well.
     ax[0, 1].set_title("Available Kernels")
 
     # ----------------------------------------------------------------------
-    # Plot a 1D density example
+    # رسم مثال على كثافة أحادية البعد
     N = 100
     np.random.seed(1)
     X = np.concatenate(
@@ -209,10 +205,9 @@ as well.
     ax.set_ylim(-0.02, 0.4)
     plt.show()
 
-
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.713 seconds)
+   **Total running time of the script:** (0 minutes 0.821 seconds)
 
 
 .. _sphx_glr_download_auto_examples_neighbors_plot_kde_1d.py:

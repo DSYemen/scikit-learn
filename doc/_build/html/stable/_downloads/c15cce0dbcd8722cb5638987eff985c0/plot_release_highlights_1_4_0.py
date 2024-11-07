@@ -1,45 +1,41 @@
 # ruff: noqa
 """
 =======================================
-Release Highlights for scikit-learn 1.4
+أبرز ميزات الإصدار 1.4 من scikit-learn
 =======================================
 
 .. currentmodule:: sklearn
 
-We are pleased to announce the release of scikit-learn 1.4! Many bug fixes
-and improvements were added, as well as some new key features. We detail
-below a few of the major features of this release. **For an exhaustive list of
-all the changes**, please refer to the :ref:`release notes <release_notes_1_4>`.
+يسعدنا الإعلان عن إصدار scikit-learn 1.4! تم إجراء العديد من الإصلاحات والتحسينات، بالإضافة إلى بعض الميزات الرئيسية الجديدة. نستعرض أدناه بعض الميزات الرئيسية لهذا الإصدار. **للاطلاع على قائمة شاملة بجميع التغييرات**، يرجى الرجوع إلى :ref:`ملاحظات الإصدار <release_notes_1_4>`.
 
-To install the latest version (with pip)::
+لتثبيت أحدث إصدار (باستخدام pip)::
 
     pip install --upgrade scikit-learn
 
-or with conda::
+أو باستخدام conda::
 
     conda install -c conda-forge scikit-learn
 
 """
 
 # %%
-# HistGradientBoosting Natively Supports Categorical DTypes in DataFrames
+# دعم الأنواع الفئوية في HistGradientBoosting بشكل أصلي في DataFrames
 # -----------------------------------------------------------------------
-# :class:`ensemble.HistGradientBoostingClassifier` and
-# :class:`ensemble.HistGradientBoostingRegressor` now directly supports dataframes with
-# categorical features.  Here we have a dataset with a mixture of
-# categorical and numerical features:
+# :class:`ensemble.HistGradientBoostingClassifier` و
+# :class:`ensemble.HistGradientBoostingRegressor` يدعمان الآن الأنواع الفئوية بشكل أصلي في أطر البيانات. هنا لدينا مجموعة بيانات تحتوي على مزيج من
+# الميزات الفئوية والرقمية:
 from sklearn.datasets import fetch_openml
 
 X_adult, y_adult = fetch_openml("adult", version=2, return_X_y=True)
 
-# Remove redundant and non-feature columns
+# إزالة الأعمدة المكررة وغير المطلوبة
 X_adult = X_adult.drop(["education-num", "fnlwgt"], axis="columns")
 X_adult.dtypes
 
 # %%
-# By setting `categorical_features="from_dtype"`, the gradient boosting classifier
-# treats the columns with categorical dtypes as categorical features in the
-# algorithm:
+# من خلال تعيين `categorical_features="from_dtype"`، يقوم مصنف التدرج التدريجي
+# بمعاملة الأعمدة ذات الأنواع الفئوية على أنها ميزات فئوية في
+# الخوارزمية:
 from sklearn.ensemble import HistGradientBoostingClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_auc_score
@@ -52,9 +48,9 @@ y_decision = hist.decision_function(X_test)
 print(f"ROC AUC score is {roc_auc_score(y_test, y_decision)}")
 
 # %%
-# Polars output in `set_output`
+# دعم إخراج Polars في `set_output`
 # -----------------------------
-# scikit-learn's transformers now support polars output with the `set_output` API.
+# تدعم محولات scikit-learn الآن إخراج Polars باستخدام واجهة برمجة التطبيقات `set_output`.
 import polars as pl
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import OneHotEncoder
@@ -79,13 +75,13 @@ df_out
 print(f"Output type: {type(df_out)}")
 
 # %%
-# Missing value support for Random Forest
+# دعم القيم المفقودة في Random Forest
 # ---------------------------------------
-# The classes :class:`ensemble.RandomForestClassifier` and
-# :class:`ensemble.RandomForestRegressor` now support missing values. When training
-# every individual tree, the splitter evaluates each potential threshold with the
-# missing values going to the left and right nodes. More details in the
-# :ref:`User Guide <tree_missing_value_support>`.
+# تدعم الفئات :class:`ensemble.RandomForestClassifier` و
+# :class:`ensemble.RandomForestRegressor` القيم المفقودة الآن. عند تدريب
+# كل شجرة فردية، يقوم المقسم بتقييم كل عتبة محتملة مع
+# القيم المفقودة التي تذهب إلى العقد اليسرى واليمنى. لمزيد من التفاصيل في
+# :ref:`دليل المستخدم <tree_missing_value_support>`.
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 
@@ -96,12 +92,12 @@ forest = RandomForestClassifier(random_state=0).fit(X, y)
 forest.predict(X)
 
 # %%
-# Add support for monotonic constraints in tree-based models
+# إضافة دعم القيود الأحادية الاتجاه في النماذج القائمة على الشجرة
 # ----------------------------------------------------------
-# While we added support for monotonic constraints in histogram-based gradient boosting
-# in scikit-learn 0.23, we now support this feature for all other tree-based models as
-# trees, random forests, extra-trees, and exact gradient boosting. Here, we show this
-# feature for random forest on a regression problem.
+# على الرغم من أننا أضفنا دعم القيود الأحادية الاتجاه في التدرج التدريجي القائم على الرسم البياني
+# في scikit-learn 0.23، إلا أننا ندعم هذه الميزة الآن لجميع النماذج الأخرى القائمة على الشجرة مثل
+# الأشجار، والغابات العشوائية، والأشجار الإضافية، والتدرج التدريجي الدقيق. هنا، نعرض هذه
+# الميزة للغابة العشوائية في مشكلة الانحدار.
 import matplotlib.pyplot as plt
 from sklearn.inspection import PartialDependenceDisplay
 from sklearn.ensemble import RandomForestRegressor
@@ -138,36 +134,33 @@ disp.axes_[0, 0].legend()
 plt.show()
 
 # %%
-# Enriched estimator displays
+# تحسين عرض المحلل
 # ---------------------------
-# Estimators displays have been enriched: if we look at `forest`, defined above:
+# تم تحسين عرض المحلل: إذا نظرنا إلى `forest`، المحدد أعلاه:
 forest
 
 # %%
-# One can access the documentation of the estimator by clicking on the icon "?" on
-# the top right corner of the diagram.
+# يمكن الوصول إلى وثائق المحلل بالنقر على أيقونة "؟" في
+# الزاوية اليمنى العليا من المخطط.
 #
-# In addition, the display changes color, from orange to blue, when the estimator is
-# fitted. You can also get this information by hovering on the icon "i".
+# بالإضافة إلى ذلك، يتغير لون العرض من البرتقالي إلى الأزرق، عندما يتم تدريب المحلل. يمكنك أيضًا الحصول على هذه المعلومات من خلال التمرير فوق أيقونة "i".
 from sklearn.base import clone
 
-clone(forest)  # the clone is not fitted
+clone(forest)  # النسخة ليست مدربة
 
 # %%
-# Metadata Routing Support
+# دعم توجيه البيانات الوصفية
 # ------------------------
-# Many meta-estimators and cross-validation routines now support metadata
-# routing, which are listed in the :ref:`user guide
-# <metadata_routing_models>`. For instance, this is how you can do a nested
-# cross-validation with sample weights and :class:`~model_selection.GroupKFold`:
+# يدعم العديد من المحللين الفائقين وروتينات التحقق المتقاطع الآن توجيه البيانات الوصفية، والتي يتم سردها في :ref:`دليل المستخدم
+# <metadata_routing_models>`. على سبيل المثال، هذه هي الطريقة التي يمكنك بها إجراء التحقق المتقاطع المتداخل
+# مع أوزان العينات و :class:`~model_selection.GroupKFold`:
 import sklearn
 from sklearn.metrics import get_scorer
 from sklearn.datasets import make_regression
 from sklearn.linear_model import Lasso
 from sklearn.model_selection import GridSearchCV, cross_validate, GroupKFold
 
-# For now by default metadata routing is disabled, and need to be explicitly
-# enabled.
+# حاليًا، يتم تعطيل توجيه البيانات الوصفية بشكل افتراضي، ويجب تمكينه بشكل صريح.
 sklearn.set_config(enable_metadata_routing=True)
 
 n_samples = 100
@@ -204,17 +197,15 @@ results = cross_validate(
 )
 print("cv error on test sets:", results["test_mse"])
 
-# Setting the flag to the default `False` to avoid interference with other
-# scripts.
+# تعيين العلم إلى القيمة الافتراضية `False` لتجنب التداخل مع النصوص الأخرى.
 sklearn.set_config(enable_metadata_routing=False)
 
 # %%
-# Improved memory and runtime efficiency for PCA on sparse data
+# تحسين كفاءة الذاكرة والوقت لـ PCA على البيانات المتناثرة
 # -------------------------------------------------------------
-# PCA is now able to handle sparse matrices natively for the `arpack`
-# solver by levaraging `scipy.sparse.linalg.LinearOperator` to avoid
-# materializing large sparse matrices when performing the
-# eigenvalue decomposition of the data set covariance matrix.
+# يمكن لـ PCA الآن التعامل مع المصفوفات المتناثرة بشكل أصلي لمحلل `arpack` من خلال الاستفادة من `scipy.sparse.linalg.LinearOperator` لتجنب
+# تجسيد المصفوفات المتناثرة الكبيرة عند إجراء
+# تحليل القيمة الذاتية لمصفوفة مجموعة البيانات.
 #
 from sklearn.decomposition import PCA
 import scipy.sparse as sp

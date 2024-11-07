@@ -11,10 +11,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/metadata_routing.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="يوضح هذا الدليل كيف يمكن توجيه metadata وتمريرها بين الكائنات في scikit-learn. إذا كنت تقوم بتطوير مقدر أو مقدر وصفية متوافق مع scikit-learn، فيمكنك مراجعة دليل المطور ذي الصلة: Metadata Routing. ا..." />
+<meta property="og:description" content="يوضح هذا الدليل كيف يمكن توجيه metadata وتمريرها بين الكائنات في scikit-learn. إذا كنت تقوم بتطوير مقدر أو مقدر وصفية متوافق مع scikit-learn، فيمكنك مراجعة دليل المطور ذي الصلة: توجيه البيانات الوص..." />
 <meta property="og:image" content="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" />
 <meta property="og:image:alt" content="scikit-learn" />
-<meta name="description" content="يوضح هذا الدليل كيف يمكن توجيه metadata وتمريرها بين الكائنات في scikit-learn. إذا كنت تقوم بتطوير مقدر أو مقدر وصفية متوافق مع scikit-learn، فيمكنك مراجعة دليل المطور ذي الصلة: Metadata Routing. ا..." />
+<meta name="description" content="يوضح هذا الدليل كيف يمكن توجيه metadata وتمريرها بين الكائنات في scikit-learn. إذا كنت تقوم بتطوير مقدر أو مقدر وصفية متوافق مع scikit-learn، فيمكنك مراجعة دليل المطور ذي الصلة: توجيه البيانات الوص..." />
 
     <title>1. توجيه (إدارة) البيانات الوصفية &#8212; scikit-learn 1.6.dev0 documentation</title>
   
@@ -698,7 +698,7 @@
 </div>
 <p>يوضح هذا الدليل كيف يمكن توجيه <span class="xref std std-term">metadata</span> وتمريرها بين الكائنات في scikit-learn.
 إذا كنت تقوم بتطوير مقدر أو مقدر وصفية متوافق مع scikit-learn، فيمكنك مراجعة دليل المطور ذي الصلة:
-<a class="reference internal" href="auto_examples/miscellaneous/plot_metadata_routing.html#sphx-glr-auto-examples-miscellaneous-plot-metadata-routing-py"><span class="std std-ref">Metadata Routing</span></a>.</p>
+<a class="reference internal" href="auto_examples/miscellaneous/plot_metadata_routing.html#sphx-glr-auto-examples-miscellaneous-plot-metadata-routing-py"><span class="std std-ref">توجيه البيانات الوصفية</span></a>.</p>
 <p>البيانات الوصفية هي بيانات يأخذها المقدر أو المسجل أو مقسم CV في الاعتبار إذا قام المستخدم بتمريرها صراحةً كمعلمة.
 على سبيل المثال، يقبل <a class="reference internal" href="modules/generated/sklearn.cluster.KMeans.html#sklearn.cluster.KMeans" title="sklearn.cluster.KMeans"><code class="xref py py-class docutils literal notranslate"><span class="pre">KMeans</span></code></a> <code class="docutils literal notranslate"><span class="pre">sample_weight</span></code> في طريقة <code class="docutils literal notranslate"><span class="pre">fit()</span></code> ويعتبرها لحساب مراكزها.
 يتم استهلاك <code class="docutils literal notranslate"><span class="pre">classes</span></code> بواسطة بعض المصنفات ويتم استخدام <code class="docutils literal notranslate"><span class="pre">groups</span></code> في بعض الموصلات، ولكن يمكن اعتبار أي بيانات يتم تمريرها إلى طرق كائن بصرف النظر عن X و y كبيانات وصفية.

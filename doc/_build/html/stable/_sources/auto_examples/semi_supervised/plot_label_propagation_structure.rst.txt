@@ -19,22 +19,22 @@
 
 
 ==============================================
-Label Propagation learning a complex structure
+تعلم انتشار العلامات لهيكل معقد
 ==============================================
 
-Example of LabelPropagation learning a complex internal structure
-to demonstrate "manifold learning". The outer circle should be
-labeled "red" and the inner circle "blue". Because both label groups
-lie inside their own distinct shape, we can see that the labels
-propagate correctly around the circle.
+مثال على تعلم انتشار العلامات لهيكل داخلي معقد
+لتوضيح "تعلم المنحنى". يجب أن تكون الدائرة الخارجية
+مُعَلَّمة باللون "الأحمر" والدائرة الداخلية "باللون الأزرق". لأن كل مجموعة من العلامات
+تقع داخل شكلها المميز، يمكننا أن نرى أن العلامات
+تنتشر بشكل صحيح حول الدائرة.
 
 .. GENERATED FROM PYTHON SOURCE LINES 13-17
 
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري سكايلرن
+    # معرف الترخيص: BSD-3-Clause
 
 
 
@@ -45,10 +45,10 @@ propagate correctly around the circle.
 
 .. GENERATED FROM PYTHON SOURCE LINES 18-22
 
-We generate a dataset with two concentric circles. In addition, a label
-is associated with each sample of the dataset that is: 0 (belonging to
-the outer circle), 1 (belonging to the inner circle), and -1 (unknown).
-Here, all labels but two are tagged as unknown.
+نقوم بتوليد مجموعة بيانات بدائرتين متحدتي المركز. بالإضافة إلى ذلك، يتم ربط علامة
+بكل عينة من مجموعة البيانات وهي: 0 (تابعة
+للدائرة الخارجية)، 1 (تابعة للدائرة الداخلية)، و -1 (غير معروفة).
+هنا، جميع العلامات ما عدا اثنتين تم وسمها على أنها غير معروفة.
 
 .. GENERATED FROM PYTHON SOURCE LINES 22-34
 
@@ -75,7 +75,7 @@ Here, all labels but two are tagged as unknown.
 
 .. GENERATED FROM PYTHON SOURCE LINES 35-36
 
-Plot raw data
+رسم البيانات الخام
 
 .. GENERATED FROM PYTHON SOURCE LINES 36-67
 
@@ -126,8 +126,8 @@ Plot raw data
 
 .. GENERATED FROM PYTHON SOURCE LINES 68-70
 
-The aim of :class:`~sklearn.semi_supervised.LabelSpreading` is to associate
-a label to sample where the label is initially unknown.
+الهدف من :class:`~sklearn.semi_supervised.LabelSpreading` هو ربط
+علامة بعينة حيث تكون العلامة غير معروفة في البداية.
 
 .. GENERATED FROM PYTHON SOURCE LINES 71-76
 
@@ -146,7 +146,7 @@ a label to sample where the label is initially unknown.
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-71 {
+    <style>#sk-container-id-11 {
       /* Definition of color scheme common for light and dark mode */
       --sklearn-color-text: #000;
       --sklearn-color-text-muted: #666;
@@ -177,15 +177,15 @@ a label to sample where the label is initially unknown.
       }
     }
 
-    #sk-container-id-71 {
+    #sk-container-id-11 {
       color: var(--sklearn-color-text);
     }
 
-    #sk-container-id-71 pre {
+    #sk-container-id-11 pre {
       padding: 0;
     }
 
-    #sk-container-id-71 input.sk-hidden--visually {
+    #sk-container-id-11 input.sk-hidden--visually {
       border: 0;
       clip: rect(1px 1px 1px 1px);
       clip: rect(1px, 1px, 1px, 1px);
@@ -197,7 +197,7 @@ a label to sample where the label is initially unknown.
       width: 1px;
     }
 
-    #sk-container-id-71 div.sk-dashed-wrapped {
+    #sk-container-id-11 div.sk-dashed-wrapped {
       border: 1px dashed var(--sklearn-color-line);
       margin: 0 0.4em 0.5em 0.4em;
       box-sizing: border-box;
@@ -205,7 +205,7 @@ a label to sample where the label is initially unknown.
       background-color: var(--sklearn-color-background);
     }
 
-    #sk-container-id-71 div.sk-container {
+    #sk-container-id-11 div.sk-container {
       /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
          but bootstrap.min.css set `[hidden] { display: none !important; }`
          so we also need the `!important` here to be able to override the
@@ -215,7 +215,7 @@ a label to sample where the label is initially unknown.
       position: relative;
     }
 
-    #sk-container-id-71 div.sk-text-repr-fallback {
+    #sk-container-id-11 div.sk-text-repr-fallback {
       display: none;
     }
 
@@ -231,14 +231,14 @@ a label to sample where the label is initially unknown.
 
     /* Parallel-specific style estimator block */
 
-    #sk-container-id-71 div.sk-parallel-item::after {
+    #sk-container-id-11 div.sk-parallel-item::after {
       content: "";
       width: 100%;
       border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
       flex-grow: 1;
     }
 
-    #sk-container-id-71 div.sk-parallel {
+    #sk-container-id-11 div.sk-parallel {
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -246,28 +246,28 @@ a label to sample where the label is initially unknown.
       position: relative;
     }
 
-    #sk-container-id-71 div.sk-parallel-item {
+    #sk-container-id-11 div.sk-parallel-item {
       display: flex;
       flex-direction: column;
     }
 
-    #sk-container-id-71 div.sk-parallel-item:first-child::after {
+    #sk-container-id-11 div.sk-parallel-item:first-child::after {
       align-self: flex-end;
       width: 50%;
     }
 
-    #sk-container-id-71 div.sk-parallel-item:last-child::after {
+    #sk-container-id-11 div.sk-parallel-item:last-child::after {
       align-self: flex-start;
       width: 50%;
     }
 
-    #sk-container-id-71 div.sk-parallel-item:only-child::after {
+    #sk-container-id-11 div.sk-parallel-item:only-child::after {
       width: 0;
     }
 
     /* Serial-specific style estimator block */
 
-    #sk-container-id-71 div.sk-serial {
+    #sk-container-id-11 div.sk-serial {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -285,14 +285,14 @@ a label to sample where the label is initially unknown.
 
     /* Pipeline and ColumnTransformer style (default) */
 
-    #sk-container-id-71 div.sk-toggleable {
+    #sk-container-id-11 div.sk-toggleable {
       /* Default theme specific background. It is overwritten whether we have a
       specific estimator or a Pipeline/ColumnTransformer */
       background-color: var(--sklearn-color-background);
     }
 
     /* Toggleable label */
-    #sk-container-id-71 label.sk-toggleable__label {
+    #sk-container-id-11 label.sk-toggleable__label {
       cursor: pointer;
       display: flex;
       width: 100%;
@@ -305,13 +305,13 @@ a label to sample where the label is initially unknown.
       gap: 0.5em;
     }
 
-    #sk-container-id-71 label.sk-toggleable__label .caption {
+    #sk-container-id-11 label.sk-toggleable__label .caption {
       font-size: 0.6rem;
       font-weight: lighter;
       color: var(--sklearn-color-text-muted);
     }
 
-    #sk-container-id-71 label.sk-toggleable__label-arrow:before {
+    #sk-container-id-11 label.sk-toggleable__label-arrow:before {
       /* Arrow on the left of the label */
       content: "▸";
       float: left;
@@ -319,13 +319,13 @@ a label to sample where the label is initially unknown.
       color: var(--sklearn-color-icon);
     }
 
-    #sk-container-id-71 label.sk-toggleable__label-arrow:hover:before {
+    #sk-container-id-11 label.sk-toggleable__label-arrow:hover:before {
       color: var(--sklearn-color-text);
     }
 
     /* Toggleable content - dropdown */
 
-    #sk-container-id-71 div.sk-toggleable__content {
+    #sk-container-id-11 div.sk-toggleable__content {
       max-height: 0;
       max-width: 0;
       overflow: hidden;
@@ -334,12 +334,12 @@ a label to sample where the label is initially unknown.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-71 div.sk-toggleable__content.fitted {
+    #sk-container-id-11 div.sk-toggleable__content.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-71 div.sk-toggleable__content pre {
+    #sk-container-id-11 div.sk-toggleable__content pre {
       margin: 0.2em;
       border-radius: 0.25em;
       color: var(--sklearn-color-text);
@@ -347,79 +347,79 @@ a label to sample where the label is initially unknown.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-71 div.sk-toggleable__content.fitted pre {
+    #sk-container-id-11 div.sk-toggleable__content.fitted pre {
       /* unfitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-71 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    #sk-container-id-11 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
       max-height: 200px;
       max-width: 100%;
       overflow: auto;
     }
 
-    #sk-container-id-71 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    #sk-container-id-11 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
       content: "▾";
     }
 
     /* Pipeline/ColumnTransformer-specific style */
 
-    #sk-container-id-71 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-11 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-71 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-11 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator-specific style */
 
     /* Colorize estimator box */
-    #sk-container-id-71 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-11 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-71 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-11 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
-    #sk-container-id-71 div.sk-label label.sk-toggleable__label,
-    #sk-container-id-71 div.sk-label label {
+    #sk-container-id-11 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-11 div.sk-label label {
       /* The background is the default theme color */
       color: var(--sklearn-color-text-on-default-background);
     }
 
     /* On hover, darken the color of the background */
-    #sk-container-id-71 div.sk-label:hover label.sk-toggleable__label {
+    #sk-container-id-11 div.sk-label:hover label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
     /* Label box, darken color on hover, fitted */
-    #sk-container-id-71 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+    #sk-container-id-11 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator label */
 
-    #sk-container-id-71 div.sk-label label {
+    #sk-container-id-11 div.sk-label label {
       font-family: monospace;
       font-weight: bold;
       display: inline-block;
       line-height: 1.2em;
     }
 
-    #sk-container-id-71 div.sk-label-container {
+    #sk-container-id-11 div.sk-label-container {
       text-align: center;
     }
 
     /* Estimator-specific */
-    #sk-container-id-71 div.sk-estimator {
+    #sk-container-id-11 div.sk-estimator {
       font-family: monospace;
       border: 1px dotted var(--sklearn-color-border-box);
       border-radius: 0.25em;
@@ -429,18 +429,18 @@ a label to sample where the label is initially unknown.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-71 div.sk-estimator.fitted {
+    #sk-container-id-11 div.sk-estimator.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
     /* on hover */
-    #sk-container-id-71 div.sk-estimator:hover {
+    #sk-container-id-11 div.sk-estimator:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-71 div.sk-estimator.fitted:hover {
+    #sk-container-id-11 div.sk-estimator.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
@@ -528,7 +528,7 @@ a label to sample where the label is initially unknown.
 
     /* "?"-specific style due to the `<a>` HTML tag */
 
-    #sk-container-id-71 a.estimator_doc_link {
+    #sk-container-id-11 a.estimator_doc_link {
       float: right;
       font-size: 1rem;
       line-height: 1em;
@@ -543,35 +543,35 @@ a label to sample where the label is initially unknown.
       border: var(--sklearn-color-unfitted-level-1) 1pt solid;
     }
 
-    #sk-container-id-71 a.estimator_doc_link.fitted {
+    #sk-container-id-11 a.estimator_doc_link.fitted {
       /* fitted */
       border: var(--sklearn-color-fitted-level-1) 1pt solid;
       color: var(--sklearn-color-fitted-level-1);
     }
 
     /* On hover */
-    #sk-container-id-71 a.estimator_doc_link:hover {
+    #sk-container-id-11 a.estimator_doc_link:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-3);
       color: var(--sklearn-color-background);
       text-decoration: none;
     }
 
-    #sk-container-id-71 a.estimator_doc_link.fitted:hover {
+    #sk-container-id-11 a.estimator_doc_link.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-71" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LabelSpreading(alpha=0.8, kernel=&#x27;knn&#x27;)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-302" type="checkbox" checked><label for="sk-estimator-id-302" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LabelSpreading</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.semi_supervised.LabelSpreading.html">?<span>Documentation for LabelSpreading</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>LabelSpreading(alpha=0.8, kernel=&#x27;knn&#x27;)</pre></div> </div></div></div></div>
+    </style><div id="sk-container-id-11" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LabelSpreading(alpha=0.8, kernel=&#x27;knn&#x27;)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-29" type="checkbox" checked><label for="sk-estimator-id-29" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LabelSpreading</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.semi_supervised.LabelSpreading.html">?<span>Documentation for LabelSpreading</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>LabelSpreading(alpha=0.8, kernel=&#x27;knn&#x27;)</pre></div> </div></div></div></div>
     </div>
     <br />
     <br />
 
 .. GENERATED FROM PYTHON SOURCE LINES 77-79
 
-Now, we can check which labels have been associated with each sample
-when the label was unknown.
+الآن، يمكننا التحقق من العلامات التي تم ربطها بكل عينة
+عندما كانت العلامة غير معروفة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 79-106
+.. GENERATED FROM PYTHON SOURCE LINES 79-105
 
 .. code-block:: Python
 
@@ -604,7 +604,6 @@ when the label was unknown.
     plt.show()
 
 
-
 .. image-sg:: /auto_examples/semi_supervised/images/sphx_glr_plot_label_propagation_structure_002.png
    :alt: Labels learned with Label Spreading (KNN)
    :srcset: /auto_examples/semi_supervised/images/sphx_glr_plot_label_propagation_structure_002.png
@@ -617,7 +616,7 @@ when the label was unknown.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.169 seconds)
+   **Total running time of the script:** (0 minutes 0.214 seconds)
 
 
 .. _sphx_glr_download_auto_examples_semi_supervised_plot_label_propagation_structure.py:

@@ -7,16 +7,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Sample pipeline for text feature extraction and evaluation" />
+<meta property="og:title" content="مثال على خط أنابيب لاستخراج ميزات النص وتقييمها" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/auto_examples/model_selection/plot_grid_search_text_feature_extraction.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="The dataset used in this example is The 20 newsgroups text dataset which will be automatically downloaded, cached and reused for the document classification example. In this example, we tune the hy..." />
+<meta property="og:description" content="مجموعة البيانات المستخدمة في هذا المثال هي The 20 newsgroups text dataset والتي سيتم تنزيلها تلقائيًا وتخزينها مؤقتًا وإعادة استخدامها لمثال تصنيف المستند. في هذا المثال، نقوم بضبط معلمات نموذج معي..." />
 <meta property="og:image" content="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" />
 <meta property="og:image:alt" content="scikit-learn" />
-<meta name="description" content="The dataset used in this example is The 20 newsgroups text dataset which will be automatically downloaded, cached and reused for the document classification example. In this example, we tune the hy..." />
+<meta name="description" content="مجموعة البيانات المستخدمة في هذا المثال هي The 20 newsgroups text dataset والتي سيتم تنزيلها تلقائيًا وتخزينها مؤقتًا وإعادة استخدامها لمثال تصنيف المستند. في هذا المثال، نقوم بضبط معلمات نموذج معي..." />
 
-    <title>Sample pipeline for text feature extraction and evaluation &#8212; scikit-learn 1.6.dev0 documentation</title>
+    <title>مثال على خط أنابيب لاستخراج ميزات النص وتقييمها &#8212; scikit-learn 1.6.dev0 documentation</title>
   
   
   
@@ -79,8 +79,8 @@
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="search" title="بحث" href="../../search.html" />
-    <link rel="next" title="Statistical comparison of models using grid search" href="plot_grid_search_stats.html" />
-    <link rel="prev" title="Receiver Operating Characteristic (ROC) with cross validation" href="plot_roc_crossval.html" />
+    <link rel="next" title="مصفوفة الارتباك" href="plot_confusion_matrix.html" />
+    <link rel="prev" title="عمليات التقسيم المتتالية" href="plot_successive_halving_iterations.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="ar"/>
   <meta name="docsearch:version" content="1.6" />
@@ -550,160 +550,74 @@
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../release_highlights/index.html">Release Highlights</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_5_0.html">Release Highlights for scikit-learn 1.5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_4_0.html">Release Highlights for scikit-learn 1.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_3_0.html">Release Highlights for scikit-learn 1.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_2_0.html">Release Highlights for scikit-learn 1.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_1_0.html">Release Highlights for scikit-learn 1.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_0_0.html">Release Highlights for scikit-learn 1.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_24_0.html">Release Highlights for scikit-learn 0.24</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_23_0.html">Release Highlights for scikit-learn 0.23</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_22_0.html">Release Highlights for scikit-learn 0.22</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../manifold/index.html">(المتشعب)التعلم المتعدد</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_t_sne_perplexity.html">t-SNE: تأثير قيم الحيرة المختلفة على الشكل</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_mds.html">القياس متعدد الأبعاد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_lle_digits.html">تعلم متعدد الشعب على الأرقام المكتوبة بخط اليد: التضمين الخطي المحلي، Isomap...</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_swissroll.html">خفض اللفافة السويسرية واللفافة السويسرية ذات الثقب</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_manifold_sphere.html">طرق تعلم متعدد الشعب على كرة مقطوعة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_compare_methods.html">مقارنة طرق تعلم متعدد الشعب</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../tree/index.html">Decision Trees</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../tree/plot_tree_regression.html">Decision Tree Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tree/plot_iris_dtc.html">Plot the decision surface of decision trees trained on the iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tree/plot_cost_complexity_pruning.html">Post pruning decision trees with cost complexity pruning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tree/plot_unveil_tree_structure.html">Understanding the decision tree structure</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../svm/index.html">Support Vector Machines (SVM)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_oneclass.html">One-class SVM with non-linear kernel (RBF)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_custom_kernel.html">SVM مع نواة مخصصة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_anova.html">SVM-Anova: SVM مع اختيار الميزات أحادية المتغير</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_weighted_samples.html">SVM: العينات ذات الأوزان</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_separating_hyperplane.html">SVM: المستوى الفاصل ذو الهامش الأقصى</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_separating_hyperplane_unbalanced.html">SVM: المستوي الفاصل للطبقات غير المتوازنة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_regression.html">دعم نموذج الانحدار باستخدام نواة خطية وغير خطية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_linearsvc_support_vectors.html">رسم المتجهات الداعمة في LinearSVC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_kernels.html">رسم حدود التصنيف مع نوى SVM مختلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_iris_svc.html">رسم مخططات لمصنفات SVM المختلفة في مجموعة بيانات الزهرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_scale_c.html">ضبط معامل الانتظام لخوارزمية SVC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_tie_breaking.html">مثال على كسر التعادل في SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_margin.html">مثال على هوامش SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_rbf_parameters.html">معاملات SVM ذات الدالة الشعاعية الأساسية</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../mixture/index.html">Gaussian Mixture Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_concentration_prior.html">Concentration Prior Type Analysis of Variation Bayesian Gaussian Mixture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_pdf.html">Density Estimation for a Gaussian mixture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_init.html">GMM Initialization Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_covariances.html">GMM covariances</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm.html">Gaussian Mixture Model Ellipsoids</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_selection.html">Gaussian Mixture Model Selection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_sin.html">Gaussian Mixture Model Sine Curve</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tree/index.html">أشجار القرار-</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tree/plot_tree_regression.html">انحدار شجرة القرار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tree/plot_cost_complexity_pruning.html">تشذيب أشجار القرار بعد التدريب باستخدام تقنية تشذيب تعقيد التكلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tree/plot_iris_dtc.html">رسم سطح القرار لأشجار القرار المدربة على مجموعة بيانات الزهرة الآرغوانية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tree/plot_unveil_tree_structure.html">فهم بنية شجرة القرار</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../manifold/index.html">Manifold learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_compare_methods.html">Comparison of Manifold Learning methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_manifold_sphere.html">Manifold Learning methods on a severed sphere</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_lle_digits.html">Manifold learning on handwritten digits: Locally Linear Embedding, Isomap...</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_mds.html">Multi-dimensional scaling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_swissroll.html">Swiss Roll And Swiss-Hole Reduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_t_sne_perplexity.html">t-SNE: The effect of various perplexity values on the shape</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../miscellaneous/index.html">Miscellaneous</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_partial_dependence_visualization_api.html">Advanced Plotting With Partial Dependence</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_anomaly_comparison.html">Comparing anomaly detection algorithms for outlier detection on toy datasets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_kernel_ridge_regression.html">Comparison of kernel ridge regression and SVR</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_pipeline_display.html">Displaying Pipelines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_estimator_representation.html">Displaying estimators and complex pipelines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_outlier_detection_bench.html">Evaluation of outlier detection estimators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_kernel_approximation.html">Explicit feature map approximation for RBF kernels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_multioutput_face_completion.html">Face completion with a multi-output estimators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_set_output.html">Introducing the <code class="docutils literal notranslate"><span class="pre">set_output</span></code> API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_isotonic_regression.html">Isotonic Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_metadata_routing.html">Metadata Routing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_multilabel.html">Multilabel classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_roc_curve_visualization_api.html">ROC Curve with Visualization API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_johnson_lindenstrauss_bound.html">The Johnson-Lindenstrauss bound for embedding with random projections</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_display_object_visualization.html">Visualizations with Display Objects</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Model Selection</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="plot_grid_search_refit_callable.html">Balance model complexity and cross-validated score</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_likelihood_ratios.html">Class Likelihood Ratios to measure classification performance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_randomized_search.html">Comparing randomized search and grid search for hyperparameter estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_successive_halving_heatmap.html">Comparison between grid search and successive halving</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_confusion_matrix.html">Confusion matrix</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_grid_search_digits.html">Custom refit strategy of a grid search with cross-validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_multi_metric_evaluation.html">Demonstration of multi-metric evaluation on cross_val_score and GridSearchCV</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_det.html">Detection error tradeoff (DET) curve</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_train_error_vs_test_error.html">Effect of model regularization on training and test error</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_roc.html">Multiclass Receiver Operating Characteristic (ROC)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_nested_cross_validation_iris.html">Nested versus non-nested cross-validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_cv_predict.html">Plotting Cross-Validated Predictions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_learning_curve.html">Plotting Learning Curves and Checking Models' Scalability</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_tuned_decision_threshold.html">Post-hoc tuning the cut-off point of decision function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_cost_sensitive_learning.html">Post-tuning the decision threshold for cost-sensitive learning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_precision_recall.html">Precision-Recall</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_roc_crossval.html">Receiver Operating Characteristic (ROC) with cross validation</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Sample pipeline for text feature extraction and evaluation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_grid_search_stats.html">Statistical comparison of models using grid search</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_successive_halving_iterations.html">Successive Halving Iterations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_permutation_tests_for_classification.html">Test with permutations the significance of a classification score</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_underfitting_overfitting.html">Underfitting vs. Overfitting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_cv_indices.html">Visualizing cross-validation behavior in scikit-learn</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../multiclass/index.html">Multiclass methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../multiclass/plot_multiclass_overview.html">Overview of multiclass training meta-estimators</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../multioutput/index.html">Multioutput methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../multioutput/plot_classifier_chain_yeast.html">Multilabel classification using a classifier chain</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../neighbors/index.html">Nearest Neighbors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/approximate_nearest_neighbors.html">Approximate nearest neighbors in TSNE</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_caching_nearest_neighbors.html">Caching nearest neighbors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_classification.html">Comparing Nearest Neighbors with and without Neighborhood Components Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_dim_reduction.html">Dimensionality Reduction with Neighborhood Components Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_species_kde.html">Kernel Density Estimate of Species Distributions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_digits_kde_sampling.html">Kernel Density Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nearest_centroid.html">Nearest Centroid Classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_classification.html">Nearest Neighbors Classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_regression.html">Nearest Neighbors regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_illustration.html">Neighborhood Components Analysis Illustration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_lof_novelty_detection.html">Novelty detection with Local Outlier Factor (LOF)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_lof_outlier_detection.html">Outlier detection with Local Outlier Factor (LOF)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_kde_1d.html">Simple 1D Kernel Density Estimation</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../neural_networks/index.html">Neural Networks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mlp_training_curves.html">Compare Stochastic learning strategies for MLPClassifier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_rbm_logistic_classification.html">Restricted Boltzmann Machine features for digit classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mlp_alpha.html">Varying regularization in Multi-layer Perceptron</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mnist_filters.html">Visualization of MLP weights on MNIST</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../preprocessing/index.html">Preprocessing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_all_scaling.html">Compare the effect of different scalers on data with outliers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder.html">Comparing Target Encoder with Other Encoders</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization_strategies.html">Demonstrating the different strategies of KBinsDiscretizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization_classification.html">Feature discretization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_scaling_importance.html">Importance of Feature Scaling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_map_data_to_normal.html">Map data to a normal distribution</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder_cross_val.html">Target Encoder's Internal Cross fitting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization.html">Using KBinsDiscretizer to discretize continuous features</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../release_highlights/index.html">أبرز ما جاء في الإصدار</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_5_0.html">أبرز الميزات الجديدة في الإصدار 1.5 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_4_0.html">أبرز ميزات الإصدار 1.4 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_3_0.html">أبرز ميزات الإصدار 1.3 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_2_0.html">أبرز ميزات الإصدار 1.2 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_1_0.html">أبرز الميزات الجديدة في إصدار scikit-learn 1.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_0_0.html">أبرز ميزات الإصدار 1.0 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_24_0.html">أبرز ميزات الإصدار 0.24 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_23_0.html">أبرز الميزات الجديدة في إصدار scikit-learn 0.23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_22_0.html">أبرز ميزات الإصدار 0.22 من scikit-learn</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../semi_supervised/index.html">Semi Supervised Classification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_semi_supervised_versus_svm_iris.html">Decision boundary of semi-supervised classifiers versus SVM on the Iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_self_training_varying_threshold.html">Effect of varying threshold for self-training</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_digits_active_learning.html">Label Propagation digits active learning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_digits.html">Label Propagation digits: Demonstrating performance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_structure.html">Label Propagation learning a complex structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_semi_supervised_newsgroups.html">Semi-supervised Classification on a Text Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_semi_supervised_newsgroups.html">التصنيف شبه المُشرف على مجموعة بيانات نصية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_self_training_varying_threshold.html">تأثير تغيير العتبة في التدريب الذاتي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_structure.html">تعلم انتشار العلامات لهيكل معقد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_semi_supervised_versus_svm_iris.html">حدود القرار للمصنفات شبه المُشرفة مقابل SVM على مجموعة بيانات Iris</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_digits_active_learning.html">نشر التسمية للأرقام باستخدام التعلم النشط</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_digits.html">نشر العلامات على الأرقام: توضيح الأداء</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../svm/index.html">Support Vector Machines</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_oneclass.html">One-class SVM with non-linear kernel (RBF)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_kernels.html">Plot classification boundaries with different SVM Kernels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_iris_svc.html">Plot different SVM classifiers in the iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_linearsvc_support_vectors.html">Plot the support vectors in LinearSVC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_rbf_parameters.html">RBF SVM parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_margin.html">SVM Margins Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_tie_breaking.html">SVM Tie Breaking Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_custom_kernel.html">SVM with custom kernel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_anova.html">SVM-Anova: SVM with univariate feature selection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_separating_hyperplane.html">SVM: Maximum margin separating hyperplane</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_separating_hyperplane_unbalanced.html">SVM: Separating hyperplane for unbalanced classes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_weighted_samples.html">SVM: Weighted samples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_scale_c.html">Scaling the regularization parameter for SVCs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_regression.html">Support Vector Regression (SVR) using linear and non-linear kernels</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../text/index.html">Working with text documents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../text/plot_document_classification_20newsgroups.html">Classification of text documents using sparse features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../text/plot_document_clustering.html">Clustering text documents using k-means</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../text/plot_hashing_vs_dict_vectorizer.html">FeatureHasher and DictVectorizer Comparison</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../neighbors/index.html">أقرب الجيران</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/approximate_nearest_neighbors.html">أقرب النقاط المجاورة التقريبية في TSNE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_regression.html">أقرب جيران الانحدار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_caching_nearest_neighbors.html">الاحتفاظ بأقرب الجيران في الذاكرة المؤقتة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_dim_reduction.html">الحد من الأبعاد باستخدام تحليل مكونات الجوار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_lof_novelty_detection.html">الكشف عن البيانات الشاذة باستخدام عامل الانحراف المحلي (LOF)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_lof_outlier_detection.html">الكشف عن القيم الشاذة باستخدام عامل الانحراف المحلي (LOF)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_classification.html">تصنيف أقرب الجيران</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nearest_centroid.html">تصنيف أقرب مركز</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_digits_kde_sampling.html">تقدير كثافة النواة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_kde_1d.html">تقدير كثافة النواة البسيطة أحادية البعد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_species_kde.html">تقدير كثافة النواة لتوزيع الأنواع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_illustration.html">توضيح تحليل مكونات الأحياء المجاورة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_classification.html">مقارنة أقرب الجيران مع وبدون تحليل مكونات الحي</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../applications/index.html">أمثلة مبنية على مجموعات بيانات من العالم الحقيقي</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -731,6 +645,33 @@
 <li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_rfe_digits.html">إزالة الميزة المتكررة</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_feature_selection.html">اختيار الميزة أحادية المتغير</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_f_test_vs_mi.html">مقارنة بين اختبار F والمعلومات المتبادلة</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">إختيار النموذج</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="plot_permutation_tests_for_classification.html">"</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="plot_grid_search_digits.html">استراتيجية إعادة الضبط المخصصة للبحث الشبكي مع التحقق المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_nested_cross_validation_iris.html">التصنيف المتداخل مقابل غير المتداخل</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_grid_search_stats.html">المقارنة الإحصائية للنماذج باستخدام البحث الشبكي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_grid_search_refit_callable.html">الموازنة بين تعقيد النموذج ودرجة الدقة عبر التحقق المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_train_error_vs_test_error.html">تأثير تنظيم النموذج على خطأ التدريب والاختبار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_cv_indices.html">تصور سلوك التحقق المتقاطع في سكايلرن</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_multi_metric_evaluation.html">توضيح التقييم متعدد المقاييس على cross_val_score و GridSearchCV</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_precision_recall.html">دقة-استدعاء</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_cv_predict.html">رسم تنبؤات الصندوق الأسود</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_learning_curve.html">رسم منحنيات التعلم وفحص قابلية التوسع للنماذج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_cost_sensitive_learning.html">ضبط عتبة القرار للتعلم الحساس للتكلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_tuned_decision_threshold.html">ضبط نقطة القطع لوظيفة القرار بعد التدريب</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_underfitting_overfitting.html">عدم الملاءمة مقابل الإفراط في الملاءمة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_successive_halving_iterations.html">عمليات التقسيم المتتالية</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">مثال على خط أنابيب لاستخراج ميزات النص وتقييمها</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_confusion_matrix.html">مصفوفة الارتباك</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_randomized_search.html">مقارنة البحث العشوائي والبحث الشبكي لتقدير فرط المعلمات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_successive_halving_heatmap.html">مقارنة بين البحث الشبكي وتقليص الخيارات المتتابع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_roc.html">منحنى استقبال التشغيل متعدد الفئات (ROC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_det.html">منحنى الخطأ الكشف (DET)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_roc_crossval.html">منحنى المستقبل التشغيلي (ROC) مع التحقق المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_likelihood_ratios.html">نسب الاحتمال الطبقي لقياس أداء التصنيف</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../cluster/index.html">التجميع</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -786,12 +727,44 @@
 
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../neural_networks/index.html">الشبكات العصبية</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mnist_filters.html">تصور أوزان الشبكة العصبية متعددة الطبقات على مجموعة بيانات MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mlp_alpha.html">تغيير معامل التنظيم في الشبكة العصبية متعددة الطبقات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mlp_training_curves.html">مقارنة استراتيجيات التعلم العشوائي لتصنيف الشبكة العصبية متعددة الطبقات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_rbm_logistic_classification.html">ميزات شبكة بولتزمان المقيدة لتصنيف الأرقام</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../multiclass/index.html">الطرق المتعددة الفئات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../multiclass/plot_multiclass_overview.html">نظرة عامة على الميتا-مقدّرات التدريب متعدد التصنيفات</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../multioutput/index.html">الطرق المتعددة المخرجات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../multioutput/plot_classifier_chain_yeast.html">التصنيف متعدد التصنيفات باستخدام سلسلة المصنفات</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../text/index.html">العمل مع المستندات النصية</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../text/plot_document_clustering.html">تجميع مستندات النص باستخدام k-means</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../text/plot_document_classification_20newsgroups.html">تصنيف وثائق النصوص باستخدام الميزات المتناثرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../text/plot_hashing_vs_dict_vectorizer.html">مقارنة بين FeatureHasher و DictVectorizer</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../inspection/index.html">الفحص</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance_multicollinear.html">أهمية التبديل مع الميزات متعددة الخطية أو المرتبطة</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance.html">أهمية التبديل مقابل أهمية ميزة الغابة العشوائية (MDI)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_linear_model_coefficient_interpretation.html">المزالق الشائعة في تفسير معاملات النماذج الخطية</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_causal_interpretation.html">فشل التعلم الآلي في استنتاج الآثار السببية</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_partial_dependence.html">مخططات التبعية الجزئية والتوقع الشرطي الفردي</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../preprocessing/index.html">المعالجة المسبقة للبيانات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_scaling_importance.html">أهمية معايرة الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization.html">استخدام KBinsDiscretizer لتقسيم الخصائص المستمرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder_cross_val.html">الترميز الداخلي للهدف عبر الملاءمة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization_classification.html">تجريد الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_map_data_to_normal.html">تحويل البيانات إلى التوزيع الطبيعي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization_strategies.html">عرض استراتيجيات KBinsDiscretizer المختلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_all_scaling.html">مقارنة تأثير المقياس المختلف على البيانات مع القيم الشاذة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder.html">مقارنة ترميز الهدف مع الترميزات الأخرى</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../linear_model/index.html">النماذج الخطية المعممة</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -927,11 +900,39 @@
 <li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_compare_gpr_krr.html">مقارنة انحدار kernel ridge وانحدار العمليات الغاوسية</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../miscellaneous/index.html">متنوع</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_multioutput_face_completion.html">اكتمال الوجه باستخدام المُقدرات متعددة المخرجات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_isotonic_regression.html">الانحدار الأيزوتوني</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_multilabel.html">التصنيف متعدد التصنيفات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_display_object_visualization.html">التصورات باستخدام كائنات العرض</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_partial_dependence_visualization_api.html">الرسم المتقدم باستخدام الاعتمادية الجزئية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_set_output.html">تقديم واجهة برمجة التطبيقات <code class="docutils literal notranslate"><span class="pre">set_output</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_kernel_approximation.html">تقريب خريطة الميزات الصريحة لنواة RBF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_outlier_detection_bench.html">تقييم خوارزميات كشف الشواذ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_metadata_routing.html">توجيه البيانات الوصفية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_johnson_lindenstrauss_bound.html">حدود جونسون-ليندستراوس للانغماس مع الإسقاطات العشوائية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_estimator_representation.html">عرض المنمذجات وأنابيب التوصيل المعقدة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_pipeline_display.html">عرض خطوط الأنابيب</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_kernel_ridge_regression.html">مقارنة بين الانحدار النووي المنتظم والانحدار الداعم للمتجهات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_anomaly_comparison.html">مقارنة خوارزميات الكشف عن الشذوذ لكشف القيم المتطرفة في مجموعات بيانات تجريبية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_roc_curve_visualization_api.html">منحنى ROC مع واجهة برمجة التطبيقات للتصور</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../calibration/index.html">معايرة الإحتمالات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration.html">معايرة احتمالات المصنفات</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration_multiclass.html">معايرة الاحتمالات لتصنيف ثلاثي الفئات</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../calibration/plot_compare_calibration.html">مقارنة معايرة المصنفات</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration_curve.html">منحنيات معايرة الاحتمالية</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mixture/index.html">نماذج الخليط الجاوسي</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_selection.html">اختيار نموذج المزيج الغاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_concentration_prior.html">تحليل نوع أولوية التركيز لخوارزمية التباين بايزي غاوسي ميكسشر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_covariances.html">تشتتات GMM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_pdf.html">تقدير الكثافة لمزيج غاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_init.html">طرق تهيئة نماذج الخلط الغاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm.html">نموذج الإهليجيات لمزيج غاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_sin.html">نموذج مزيج غاوسي لمنحنى الجيب</a></li>
 </ul>
 </details></li>
 </ul>
@@ -973,9 +974,9 @@
     <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Examples</a></li>
     
     
-    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Model Selection</a></li>
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">إختيار النموذج</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Sample pipeline for text feature extraction and evaluation</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">مثال على خط أنابيب لاستخراج ميزات النص وتقييمها</span></li>
   </ul>
 </nav>
 </div>
@@ -997,26 +998,23 @@
 <p><a class="reference internal" href="#sphx-glr-download-auto-examples-model-selection-plot-grid-search-text-feature-extraction-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code. or to run this example in your browser via JupyterLite or Binder</p>
 </div>
-<section class="sphx-glr-example-title" id="sample-pipeline-for-text-feature-extraction-and-evaluation">
-<span id="sphx-glr-auto-examples-model-selection-plot-grid-search-text-feature-extraction-py"></span><h1>Sample pipeline for text feature extraction and evaluation<a class="headerlink" href="#sample-pipeline-for-text-feature-extraction-and-evaluation" title="Link to this heading">#</a></h1>
-<p>The dataset used in this example is <a class="reference internal" href="../../datasets/real_world.html#newsgroups-dataset"><span class="std std-ref">The 20 newsgroups text dataset</span></a> which will be
-automatically downloaded, cached and reused for the document classification
-example.</p>
-<p>In this example, we tune the hyperparameters of a particular classifier using a
-<a class="reference internal" href="../../modules/generated/sklearn.model_selection.RandomizedSearchCV.html#sklearn.model_selection.RandomizedSearchCV" title="sklearn.model_selection.RandomizedSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomizedSearchCV</span></code></a>. For a demo on the
-performance of some other classifiers, see the
-<a class="reference internal" href="../text/plot_document_classification_20newsgroups.html#sphx-glr-auto-examples-text-plot-document-classification-20newsgroups-py"><span class="std std-ref">Classification of text documents using sparse features</span></a>
-notebook.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Authors: The scikit-learn developers</span>
-<span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
+<section class="sphx-glr-example-title" id="sphx-glr-auto-examples-model-selection-plot-grid-search-text-feature-extraction-py">
+<span id="id1"></span><h1>مثال على خط أنابيب لاستخراج ميزات النص وتقييمها<a class="headerlink" href="#sphx-glr-auto-examples-model-selection-plot-grid-search-text-feature-extraction-py" title="Link to this heading">#</a></h1>
+<p>مجموعة البيانات المستخدمة في هذا المثال هي <a class="reference internal" href="../../datasets/real_world.html#newsgroups-dataset"><span class="std std-ref">The 20 newsgroups text dataset</span></a> والتي سيتم
+تنزيلها تلقائيًا وتخزينها مؤقتًا وإعادة استخدامها لمثال تصنيف المستند.</p>
+<p>في هذا المثال، نقوم بضبط معلمات نموذج معين باستخدام
+<a class="reference internal" href="../../modules/generated/sklearn.model_selection.RandomizedSearchCV.html#sklearn.model_selection.RandomizedSearchCV" title="sklearn.model_selection.RandomizedSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomizedSearchCV</span></code></a>. لمشاهدة أداء بعض المصنفات الأخرى، راجع
+<a class="reference internal" href="../text/plot_document_classification_20newsgroups.html#sphx-glr-auto-examples-text-plot-document-classification-20newsgroups-py"><span class="std std-ref">تصنيف وثائق النصوص باستخدام الميزات المتناثرة</span></a>
+دفتر الملاحظات.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># المؤلفون: مطوري scikit-learn</span>
+<span class="c1"># معرف الترخيص: BSD-3-Clause</span>
 </pre></div>
 </div>
-<section id="data-loading">
-<h2>Data loading<a class="headerlink" href="#data-loading" title="Link to this heading">#</a></h2>
-<p>We load two categories from the training set. You can adjust the number of
-categories by adding their names to the list or setting <code class="docutils literal notranslate"><span class="pre">categories=None</span></code> when
-calling the dataset loader <a class="reference internal" href="../../modules/generated/sklearn.datasets.fetch_20newsgroups.html#sklearn.datasets.fetch_20newsgroups" title="sklearn.datasets.fetch_20newsgroups"><code class="xref py py-func docutils literal notranslate"><span class="pre">fetch_20newsgroups</span></code></a> to get
-the 20 of them.</p>
+<section id="id2">
+<h2>تحميل البيانات<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>نقوم بتحميل فئتين من مجموعة التدريب. يمكنك ضبط عدد الفئات عن طريق إضافة أسمائها إلى القائمة أو تعيين <code class="docutils literal notranslate"><span class="pre">categories=None</span></code> عند
+استدعاء محمل مجموعة البيانات <a class="reference internal" href="../../modules/generated/sklearn.datasets.fetch_20newsgroups.html#sklearn.datasets.fetch_20newsgroups" title="sklearn.datasets.fetch_20newsgroups"><code class="xref py py-func docutils literal notranslate"><span class="pre">fetch_20newsgroups</span></code></a> للحصول
+على 20 منها.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.datasets.fetch_20newsgroups.html#sklearn.datasets.fetch_20newsgroups" title="sklearn.datasets.fetch_20newsgroups" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_20newsgroups</span></a>
 
 <span class="n">categories</span> <span class="o">=</span> <span class="p">[</span>
@@ -1040,21 +1038,21 @@ the 20 of them.</p>
     <span class="n">remove</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;headers&quot;</span><span class="p">,</span> <span class="s2">&quot;footers&quot;</span><span class="p">,</span> <span class="s2">&quot;quotes&quot;</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loading 20 newsgroups dataset for </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data_train</span><span class="o">.</span><span class="n">target_names</span><span class="p">)</span><span class="si">}</span><span class="s2"> categories:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;تحميل مجموعة بيانات 20 newsgroups لـ </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data_train</span><span class="o">.</span><span class="n">target_names</span><span class="p">)</span><span class="si">}</span><span class="s2"> فئات:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">data_train</span><span class="o">.</span><span class="n">target_names</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data_train</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2"> documents&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data_train</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2"> وثائق&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Loading 20 newsgroups dataset for 2 categories:
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>تحميل مجموعة بيانات 20 newsgroups لـ 2 فئات:
 [&#39;alt.atheism&#39;, &#39;talk.religion.misc&#39;]
-857 documents
+857 وثائق
 </pre></div>
 </div>
 </section>
-<section id="pipeline-with-hyperparameter-tuning">
-<h2>Pipeline with hyperparameter tuning<a class="headerlink" href="#pipeline-with-hyperparameter-tuning" title="Link to this heading">#</a></h2>
-<p>We define a pipeline combining a text feature vectorizer with a simple
-classifier yet effective for text classification.</p>
+<section id="id3">
+<h2>خط أنابيب مع ضبط المعلمات<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>نحن نحدد خط أنابيب يجمع بين مستخرج ميزات النص مع مصنف بسيط
+ولكن فعال لتصنيف النص.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html#sklearn.feature_extraction.text.TfidfVectorizer" title="sklearn.feature_extraction.text.TfidfVectorizer" class="sphx-glr-backref-module-sklearn-feature_extraction-text sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">TfidfVectorizer</span></a>
 <span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.naive_bayes.ComplementNB.html#sklearn.naive_bayes.ComplementNB" title="sklearn.naive_bayes.ComplementNB" class="sphx-glr-backref-module-sklearn-naive_bayes sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ComplementNB</span></a>
 <span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Pipeline</span></a>
@@ -1069,7 +1067,7 @@ classifier yet effective for text classification.</p>
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
-<style>#sk-container-id-62 {
+<style>#sk-container-id-21 {
   /* Definition of color scheme common for light and dark mode */
   --sklearn-color-text: #000;
   --sklearn-color-text-muted: #666;
@@ -1100,15 +1098,15 @@ classifier yet effective for text classification.</p>
   }
 }
 
-#sk-container-id-62 {
+#sk-container-id-21 {
   color: var(--sklearn-color-text);
 }
 
-#sk-container-id-62 pre {
+#sk-container-id-21 pre {
   padding: 0;
 }
 
-#sk-container-id-62 input.sk-hidden--visually {
+#sk-container-id-21 input.sk-hidden--visually {
   border: 0;
   clip: rect(1px 1px 1px 1px);
   clip: rect(1px, 1px, 1px, 1px);
@@ -1120,7 +1118,7 @@ classifier yet effective for text classification.</p>
   width: 1px;
 }
 
-#sk-container-id-62 div.sk-dashed-wrapped {
+#sk-container-id-21 div.sk-dashed-wrapped {
   border: 1px dashed var(--sklearn-color-line);
   margin: 0 0.4em 0.5em 0.4em;
   box-sizing: border-box;
@@ -1128,7 +1126,7 @@ classifier yet effective for text classification.</p>
   background-color: var(--sklearn-color-background);
 }
 
-#sk-container-id-62 div.sk-container {
+#sk-container-id-21 div.sk-container {
   /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
      but bootstrap.min.css set `[hidden] { display: none !important; }`
      so we also need the `!important` here to be able to override the
@@ -1138,7 +1136,7 @@ classifier yet effective for text classification.</p>
   position: relative;
 }
 
-#sk-container-id-62 div.sk-text-repr-fallback {
+#sk-container-id-21 div.sk-text-repr-fallback {
   display: none;
 }
 
@@ -1154,14 +1152,14 @@ div.sk-item {
 
 /* Parallel-specific style estimator block */
 
-#sk-container-id-62 div.sk-parallel-item::after {
+#sk-container-id-21 div.sk-parallel-item::after {
   content: "";
   width: 100%;
   border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
   flex-grow: 1;
 }
 
-#sk-container-id-62 div.sk-parallel {
+#sk-container-id-21 div.sk-parallel {
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -1169,28 +1167,28 @@ div.sk-item {
   position: relative;
 }
 
-#sk-container-id-62 div.sk-parallel-item {
+#sk-container-id-21 div.sk-parallel-item {
   display: flex;
   flex-direction: column;
 }
 
-#sk-container-id-62 div.sk-parallel-item:first-child::after {
+#sk-container-id-21 div.sk-parallel-item:first-child::after {
   align-self: flex-end;
   width: 50%;
 }
 
-#sk-container-id-62 div.sk-parallel-item:last-child::after {
+#sk-container-id-21 div.sk-parallel-item:last-child::after {
   align-self: flex-start;
   width: 50%;
 }
 
-#sk-container-id-62 div.sk-parallel-item:only-child::after {
+#sk-container-id-21 div.sk-parallel-item:only-child::after {
   width: 0;
 }
 
 /* Serial-specific style estimator block */
 
-#sk-container-id-62 div.sk-serial {
+#sk-container-id-21 div.sk-serial {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1208,14 +1206,14 @@ clickable and can be expanded/collapsed.
 
 /* Pipeline and ColumnTransformer style (default) */
 
-#sk-container-id-62 div.sk-toggleable {
+#sk-container-id-21 div.sk-toggleable {
   /* Default theme specific background. It is overwritten whether we have a
   specific estimator or a Pipeline/ColumnTransformer */
   background-color: var(--sklearn-color-background);
 }
 
 /* Toggleable label */
-#sk-container-id-62 label.sk-toggleable__label {
+#sk-container-id-21 label.sk-toggleable__label {
   cursor: pointer;
   display: flex;
   width: 100%;
@@ -1228,13 +1226,13 @@ clickable and can be expanded/collapsed.
   gap: 0.5em;
 }
 
-#sk-container-id-62 label.sk-toggleable__label .caption {
+#sk-container-id-21 label.sk-toggleable__label .caption {
   font-size: 0.6rem;
   font-weight: lighter;
   color: var(--sklearn-color-text-muted);
 }
 
-#sk-container-id-62 label.sk-toggleable__label-arrow:before {
+#sk-container-id-21 label.sk-toggleable__label-arrow:before {
   /* Arrow on the left of the label */
   content: "▸";
   float: left;
@@ -1242,13 +1240,13 @@ clickable and can be expanded/collapsed.
   color: var(--sklearn-color-icon);
 }
 
-#sk-container-id-62 label.sk-toggleable__label-arrow:hover:before {
+#sk-container-id-21 label.sk-toggleable__label-arrow:hover:before {
   color: var(--sklearn-color-text);
 }
 
 /* Toggleable content - dropdown */
 
-#sk-container-id-62 div.sk-toggleable__content {
+#sk-container-id-21 div.sk-toggleable__content {
   max-height: 0;
   max-width: 0;
   overflow: hidden;
@@ -1257,12 +1255,12 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-62 div.sk-toggleable__content.fitted {
+#sk-container-id-21 div.sk-toggleable__content.fitted {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
-#sk-container-id-62 div.sk-toggleable__content pre {
+#sk-container-id-21 div.sk-toggleable__content pre {
   margin: 0.2em;
   border-radius: 0.25em;
   color: var(--sklearn-color-text);
@@ -1270,79 +1268,79 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-62 div.sk-toggleable__content.fitted pre {
+#sk-container-id-21 div.sk-toggleable__content.fitted pre {
   /* unfitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
-#sk-container-id-62 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+#sk-container-id-21 input.sk-toggleable__control:checked~div.sk-toggleable__content {
   /* Expand drop-down */
   max-height: 200px;
   max-width: 100%;
   overflow: auto;
 }
 
-#sk-container-id-62 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+#sk-container-id-21 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
   content: "▾";
 }
 
 /* Pipeline/ColumnTransformer-specific style */
 
-#sk-container-id-62 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-21 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-62 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-21 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
 /* Estimator-specific style */
 
 /* Colorize estimator box */
-#sk-container-id-62 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-21 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-62 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-21 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
-#sk-container-id-62 div.sk-label label.sk-toggleable__label,
-#sk-container-id-62 div.sk-label label {
+#sk-container-id-21 div.sk-label label.sk-toggleable__label,
+#sk-container-id-21 div.sk-label label {
   /* The background is the default theme color */
   color: var(--sklearn-color-text-on-default-background);
 }
 
 /* On hover, darken the color of the background */
-#sk-container-id-62 div.sk-label:hover label.sk-toggleable__label {
+#sk-container-id-21 div.sk-label:hover label.sk-toggleable__label {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
 /* Label box, darken color on hover, fitted */
-#sk-container-id-62 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+#sk-container-id-21 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
 /* Estimator label */
 
-#sk-container-id-62 div.sk-label label {
+#sk-container-id-21 div.sk-label label {
   font-family: monospace;
   font-weight: bold;
   display: inline-block;
   line-height: 1.2em;
 }
 
-#sk-container-id-62 div.sk-label-container {
+#sk-container-id-21 div.sk-label-container {
   text-align: center;
 }
 
 /* Estimator-specific */
-#sk-container-id-62 div.sk-estimator {
+#sk-container-id-21 div.sk-estimator {
   font-family: monospace;
   border: 1px dotted var(--sklearn-color-border-box);
   border-radius: 0.25em;
@@ -1352,18 +1350,18 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-62 div.sk-estimator.fitted {
+#sk-container-id-21 div.sk-estimator.fitted {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
 /* on hover */
-#sk-container-id-62 div.sk-estimator:hover {
+#sk-container-id-21 div.sk-estimator:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-62 div.sk-estimator.fitted:hover {
+#sk-container-id-21 div.sk-estimator.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-2);
 }
@@ -1451,7 +1449,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 
 /* "?"-specific style due to the `<a>` HTML tag */
 
-#sk-container-id-62 a.estimator_doc_link {
+#sk-container-id-21 a.estimator_doc_link {
   float: right;
   font-size: 1rem;
   line-height: 1em;
@@ -1466,54 +1464,51 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   border: var(--sklearn-color-unfitted-level-1) 1pt solid;
 }
 
-#sk-container-id-62 a.estimator_doc_link.fitted {
+#sk-container-id-21 a.estimator_doc_link.fitted {
   /* fitted */
   border: var(--sklearn-color-fitted-level-1) 1pt solid;
   color: var(--sklearn-color-fitted-level-1);
 }
 
 /* On hover */
-#sk-container-id-62 a.estimator_doc_link:hover {
+#sk-container-id-21 a.estimator_doc_link:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-3);
   color: var(--sklearn-color-background);
   text-decoration: none;
 }
 
-#sk-container-id-62 a.estimator_doc_link.fitted:hover {
+#sk-container-id-21 a.estimator_doc_link.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-3);
 }
-</style><div id="sk-container-id-62" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;vect&#x27;, TfidfVectorizer()), (&#x27;clf&#x27;, ComplementNB())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-250" type="checkbox" ><label for="sk-estimator-id-250" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;vect&#x27;, TfidfVectorizer()), (&#x27;clf&#x27;, ComplementNB())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-251" type="checkbox" ><label for="sk-estimator-id-251" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>TfidfVectorizer</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html">?<span>Documentation for TfidfVectorizer</span></a></div></label><div class="sk-toggleable__content "><pre>TfidfVectorizer()</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-252" type="checkbox" ><label for="sk-estimator-id-252" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>ComplementNB</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.naive_bayes.ComplementNB.html">?<span>Documentation for ComplementNB</span></a></div></label><div class="sk-toggleable__content "><pre>ComplementNB()</pre></div> </div></div></div></div></div></div>
+</style><div id="sk-container-id-21" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;vect&#x27;, TfidfVectorizer()), (&#x27;clf&#x27;, ComplementNB())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-57" type="checkbox" ><label for="sk-estimator-id-57" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;vect&#x27;, TfidfVectorizer()), (&#x27;clf&#x27;, ComplementNB())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-58" type="checkbox" ><label for="sk-estimator-id-58" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>TfidfVectorizer</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html">?<span>Documentation for TfidfVectorizer</span></a></div></label><div class="sk-toggleable__content "><pre>TfidfVectorizer()</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-59" type="checkbox" ><label for="sk-estimator-id-59" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>ComplementNB</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.naive_bayes.ComplementNB.html">?<span>Documentation for ComplementNB</span></a></div></label><div class="sk-toggleable__content "><pre>ComplementNB()</pre></div> </div></div></div></div></div></div>
 </div>
 <br />
-<br /><p>We define a grid of hyperparameters to be explored by the
-<a class="reference internal" href="../../modules/generated/sklearn.model_selection.RandomizedSearchCV.html#sklearn.model_selection.RandomizedSearchCV" title="sklearn.model_selection.RandomizedSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomizedSearchCV</span></code></a>. Using a
-<a class="reference internal" href="../../modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearchCV</span></code></a> instead would explore all the
-possible combinations on the grid, which can be costly to compute, whereas the
-parameter <code class="docutils literal notranslate"><span class="pre">n_iter</span></code> of the <a class="reference internal" href="../../modules/generated/sklearn.model_selection.RandomizedSearchCV.html#sklearn.model_selection.RandomizedSearchCV" title="sklearn.model_selection.RandomizedSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomizedSearchCV</span></code></a>
-controls the number of different random combination that are evaluated. Notice
-that setting <code class="docutils literal notranslate"><span class="pre">n_iter</span></code> larger than the number of possible combinations in a
-grid would lead to repeating already-explored combinations. We search for the
-best parameter combination for both the feature extraction (<code class="docutils literal notranslate"><span class="pre">vect__</span></code>) and the
-classifier (<code class="docutils literal notranslate"><span class="pre">clf__</span></code>).</p>
+<br /><p>نحن نحدد شبكة من المعلمات ليتم استكشافها بواسطة
+<a class="reference internal" href="../../modules/generated/sklearn.model_selection.RandomizedSearchCV.html#sklearn.model_selection.RandomizedSearchCV" title="sklearn.model_selection.RandomizedSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomizedSearchCV</span></code></a>. استخدام
+<a class="reference internal" href="../../modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearchCV</span></code></a> بدلاً من ذلك سيستكشف جميع
+المجموعات الممكنة على الشبكة، والتي يمكن أن تكون مكلفة في الحساب، في حين أن
+المعلمة <code class="docutils literal notranslate"><span class="pre">n_iter</span></code> من <a class="reference internal" href="../../modules/generated/sklearn.model_selection.RandomizedSearchCV.html#sklearn.model_selection.RandomizedSearchCV" title="sklearn.model_selection.RandomizedSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomizedSearchCV</span></code></a>
+تتحكم في عدد المجموعات العشوائية المختلفة التي يتم تقييمها. لاحظ
+أن تعيين <code class="docutils literal notranslate"><span class="pre">n_iter</span></code> أكبر من عدد المجموعات الممكنة في
+الشبكة سيؤدي إلى تكرار المجموعات التي تم استكشافها بالفعل. نبحث عن
+أفضل مجموعة من المعلمات لكل من استخراج الميزات (<code class="docutils literal notranslate"><span class="pre">vect__</span></code>) والمصنف (<code class="docutils literal notranslate"><span class="pre">clf__</span></code>).</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="n">parameter_grid</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;vect__max_df&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
     <span class="s2">&quot;vect__min_df&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
-    <span class="s2">&quot;vect__ngram_range&quot;</span><span class="p">:</span> <span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>  <span class="c1"># unigrams or bigrams</span>
+    <span class="s2">&quot;vect__ngram_range&quot;</span><span class="p">:</span> <span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>  <span class="c1"># كلمات مفردة أو ثنائية</span>
     <span class="s2">&quot;vect__norm&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;l1&quot;</span><span class="p">,</span> <span class="s2">&quot;l2&quot;</span><span class="p">),</span>
     <span class="s2">&quot;clf__alpha&quot;</span><span class="p">:</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.logspace.html#numpy.logspace" title="numpy.logspace" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">logspace</span></a><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">13</span><span class="p">),</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>In this case <code class="docutils literal notranslate"><span class="pre">n_iter=40</span></code> is not an exhaustive search of the hyperparameters'
-grid. In practice it would be interesting to increase the parameter <code class="docutils literal notranslate"><span class="pre">n_iter</span></code>
-to get a more informative analysis. As a consequence, the computional time
-increases. We can reduce it by taking advantage of the parallelisation over
-the parameter combinations evaluation by increasing the number of CPUs used
-via the parameter <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code>.</p>
+<p>في هذه الحالة، <code class="docutils literal notranslate"><span class="pre">n_iter=40</span></code> ليس بحثًا شاملًا لشبكة المعلمات. في الواقع، سيكون من المثير للاهتمام زيادة المعلمة <code class="docutils literal notranslate"><span class="pre">n_iter</span></code>
+للحصول على تحليل أكثر إفادة. ونتيجة لذلك، يزيد وقت الحساب. يمكننا تقليله عن طريق الاستفادة من التوازي على
+تقييم مجموعات المعلمات عن طريق زيادة عدد وحدات المعالجة المركزية المستخدمة
+عبر المعلمة <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code>.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/pprint.html#pprint.pprint" title="pprint.pprint" class="sphx-glr-backref-module-pprint sphx-glr-backref-type-py-function"><span class="n">pprint</span></a>
 
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.model_selection.RandomizedSearchCV.html#sklearn.model_selection.RandomizedSearchCV" title="sklearn.model_selection.RandomizedSearchCV" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RandomizedSearchCV</span></a>
@@ -1527,13 +1522,13 @@ via the parameter <code class="docutils literal notranslate"><span class="pre">n
     <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Performing grid search...&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hyperparameters to be evaluated:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;أداء البحث الشبكي...&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;معلمات ليتم تقييمها:&quot;</span><span class="p">)</span>
 <a href="https://docs.python.org/3/library/pprint.html#pprint.pprint" title="pprint.pprint" class="sphx-glr-backref-module-pprint sphx-glr-backref-type-py-function"><span class="n">pprint</span></a><span class="p">(</span><span class="n">parameter_grid</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Performing grid search...
-Hyperparameters to be evaluated:
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>أداء البحث الشبكي...
+معلمات ليتم تقييمها:
 {&#39;clf__alpha&#39;: array([1.e-06, 1.e-05, 1.e-04, 1.e-03, 1.e-02, 1.e-01, 1.e+00, 1.e+01,
        1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06]),
  &#39;vect__max_df&#39;: (0.2, 0.4, 0.6, 0.8, 1.0),
@@ -1546,20 +1541,20 @@ Hyperparameters to be evaluated:
 
 <span class="n">t0</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span></a><span class="p">()</span>
 <span class="n">random_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data_train</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">data_train</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Done in </span><span class="si">{</span><a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span></a><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">t0</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;تم الانتهاء في </span><span class="si">{</span><a href="https://docs.python.org/3/library/time.html#time.time" title="time.time" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">time</span></a><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">t0</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Fitting 5 folds for each of 40 candidates, totalling 200 fits
-Done in 30.381s
+تم الانتهاء في 35.163s
 </pre></div>
 </div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best parameters combination found:&quot;</span><span class="p">)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;أفضل مجموعة من المعلمات التي تم العثور عليها:&quot;</span><span class="p">)</span>
 <span class="n">best_parameters</span> <span class="o">=</span> <span class="n">random_search</span><span class="o">.</span><span class="n">best_estimator_</span><span class="o">.</span><span class="n">get_params</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">param_name</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">parameter_grid</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">param_name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">best_parameters</span><span class="p">[</span><span class="n">param_name</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Best parameters combination found:
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>أفضل مجموعة من المعلمات التي تم العثور عليها:
 clf__alpha: 0.01
 vect__max_df: 0.2
 vect__min_df: 1
@@ -1569,25 +1564,24 @@ vect__norm: l1
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">test_accuracy</span> <span class="o">=</span> <span class="n">random_search</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">data_test</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">data_test</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span>
-    <span class="s2">&quot;Accuracy of the best parameters using the inner CV of &quot;</span>
-    <span class="sa">f</span><span class="s2">&quot;the random search: </span><span class="si">{</span><span class="n">random_search</span><span class="o">.</span><span class="n">best_score_</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;دقة أفضل المعلمات باستخدام CV الداخلي لـ &quot;</span>
+    <span class="sa">f</span><span class="s2">&quot;البحث العشوائي: </span><span class="si">{</span><span class="n">random_search</span><span class="o">.</span><span class="n">best_score_</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span>
 <span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accuracy on test set: </span><span class="si">{</span><span class="n">test_accuracy</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;الدقة على مجموعة الاختبار: </span><span class="si">{</span><span class="n">test_accuracy</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Accuracy of the best parameters using the inner CV of the random search: 0.816
-Accuracy on test set: 0.709
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>دقة أفضل المعلمات باستخدام CV الداخلي لـ البحث العشوائي: 0.816
+الدقة على مجموعة الاختبار: 0.709
 </pre></div>
 </div>
-<p>The prefixes <code class="docutils literal notranslate"><span class="pre">vect</span></code> and <code class="docutils literal notranslate"><span class="pre">clf</span></code> are required to avoid possible ambiguities in
-the pipeline, but are not necessary for visualizing the results. Because of
-this, we define a function that will rename the tuned hyperparameters and
-improve the readability.</p>
+<p>البادئات <code class="docutils literal notranslate"><span class="pre">vect</span></code> و <code class="docutils literal notranslate"><span class="pre">clf</span></code> مطلوبة لتجنب الغموض المحتمل في
+خط الأنابيب، ولكنها غير ضرورية لعرض النتائج. بسبب
+هذا، نحن نحدد دالة ستعيد تسمية المعلمات التي تم ضبطها وتحسين قابلية القراءة.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 
 <span class="k">def</span> <span class="nf">shorten_param</span><span class="p">(</span><span class="n">param_name</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Remove components&#39; prefixes in param_name.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;إزالة بادئات المكونات في param_name.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="s2">&quot;__&quot;</span> <span class="ow">in</span> <span class="n">param_name</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">param_name</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">param_name</span>
@@ -1597,17 +1591,16 @@ improve the readability.</p>
 <span class="n">cv_results</span> <span class="o">=</span> <span class="n">cv_results</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">shorten_param</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>We can use a <a class="reference external" href="https://plotly.com/python-api-reference/generated/plotly.express.scatter.html">plotly.express.scatter</a>
-to visualize the trade-off between scoring time and mean test score (i.e. &quot;CV
-score&quot;). Passing the cursor over a given point displays the corresponding
-parameters. Error bars correspond to one standard deviation as computed in the
-different folds of the cross-validation.</p>
+<p>يمكننا استخدام <a class="reference external" href="https://plotly.com/python-api-reference/generated/plotly.express.scatter.html">plotly.express.scatter</a>
+لعرض المقايضة بين وقت التسجيل ومتوسط درجة الاختبار (أي &quot;درجة CV&quot;). تمرير المؤشر فوق نقطة معينة يعرض المعلمات
+المقابلة. أشرطة الخطأ تقابل انحرافًا معياريًا واحدًا كما تم حسابه في
+الطيات المختلفة للتحقق المتقاطع.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
 
 <span class="n">param_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">shorten_param</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">parameter_grid</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
 <span class="n">labels</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;mean_score_time&quot;</span><span class="p">:</span> <span class="s2">&quot;CV Score time (s)&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;mean_test_score&quot;</span><span class="p">:</span> <span class="s2">&quot;CV score (accuracy)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mean_score_time&quot;</span><span class="p">:</span> <span class="s2">&quot;وقت درجة CV (ثانية)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mean_test_score&quot;</span><span class="p">:</span> <span class="s2">&quot;درجة CV (الدقة)&quot;</span><span class="p">,</span>
 <span class="p">}</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
     <span class="n">cv_results</span><span class="p">,</span>
@@ -1620,7 +1613,7 @@ different folds of the cross-validation.</p>
 <span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
     <span class="n">title</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;trade-off between scoring time and mean test score&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;المقايضة بين وقت التسجيل ومتوسط درجة الاختبار&quot;</span><span class="p">,</span>
         <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="mf">0.95</span><span class="p">,</span>
         <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
         <span class="s2">&quot;xanchor&quot;</span><span class="p">:</span> <span class="s2">&quot;center&quot;</span><span class="p">,</span>
@@ -1632,37 +1625,33 @@ different folds of the cross-validation.</p>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
 <div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
-        <script charset="utf-8" src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>                <div id="cd3c28ea-94bb-41c9-ae49-ee8afe9c2881" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("cd3c28ea-94bb-41c9-ae49-ee8afe9c2881")) {                    Plotly.newPlot(                        "cd3c28ea-94bb-41c9-ae49-ee8afe9c2881",                        [{"customdata":[[1.0,3,[1,2],"l2",10.0],[0.6,3,[1,2],"l2",100.0],[0.6,10,[1,1],"l1",0.01],[1.0,10,[1,2],"l2",0.001],[0.2,3,[1,2],"l2",1.0],[0.2,1,[1,2],"l2",1000.0],[0.2,1,[1,2],"l2",1.0],[1.0,5,[1,2],"l1",100000.0],[0.2,5,[1,2],"l2",0.001],[0.4,10,[1,2],"l1",0.001],[1.0,5,[1,2],"l2",1e-06],[0.4,10,[1,2],"l2",100.0],[0.6,3,[1,2],"l1",100.0],[0.2,1,[1,1],"l1",0.01],[0.6,10,[1,2],"l2",0.01],[0.8,3,[1,2],"l1",0.001],[0.8,5,[1,1],"l1",10000.0],[0.8,1,[1,1],"l2",100.0],[0.4,5,[1,2],"l1",1.0],[0.8,1,[1,2],"l1",1.0],[0.2,1,[1,1],"l2",1e-06],[0.4,5,[1,2],"l2",1e-06],[0.8,1,[1,2],"l2",1.0],[0.4,10,[1,2],"l2",1e-06],[0.6,1,[1,1],"l2",1.0],[1.0,1,[1,2],"l1",1.0],[0.2,1,[1,2],"l1",1000000.0],[0.8,1,[1,2],"l2",10000.0],[0.8,10,[1,1],"l1",0.01],[1.0,5,[1,1],"l1",0.001],[0.2,5,[1,2],"l2",0.01],[0.8,10,[1,2],"l2",100000.0],[0.4,1,[1,2],"l1",1e-06],[0.6,3,[1,2],"l1",100000.0],[0.2,5,[1,1],"l2",10000.0],[1.0,1,[1,1],"l2",10000.0],[0.6,3,[1,2],"l1",1.0],[0.8,3,[1,2],"l2",1000000.0],[0.8,3,[1,2],"l2",0.001],[0.2,1,[1,2],"l2",0.1]],"error_x":{"array":[0.009600557777567582,0.0078166180676753,0.004410015187798034,0.007425575140088329,0.00700784545738719,0.009739602861406066,0.012336916536927036,0.010055011161505104,0.0112548724570367,0.006185463984878707,0.025683830904975516,0.012480624595497225,0.008642905552346555,0.005053809080849647,0.008718890219772336,0.004615877032321394,0.005282782042771348,0.006562539588130369,0.006754029817353726,0.007852175009711335,0.004137106257801124,0.0053000029645033425,0.009026266560511155,0.00950469277460377,0.003389626624811909,0.00787764551500347,0.011285408361010732,0.019072502570054883,0.005104442927772217,0.0053082278953230895,0.013037366882799935,0.00712244047467823,0.00996321932682657,0.008752295512118764,0.004757611088705968,0.0032920948993376596,0.008374539360737203,0.006544023227643529,0.01455649439339008,0.010021929413749226]},"error_y":{"array":[0.021709462916372543,0.019660424372293657,0.02280701551644583,0.04141503839481188,0.025197247740550304,0.02185207140572817,0.03919239713819249,0.0064363918745756095,0.04904124161348298,0.05189316457318038,0.048501681550639386,0.03741855291831512,0.017469874157429344,0.02173863377120521,0.03542621298833128,0.025243761085853186,0.006667969931544837,0.006180189207600158,0.03507679946932842,0.011860875164389911,0.03629456169941096,0.04938433795727698,0.03192696045040785,0.039585633198194775,0.03748169491939798,0.008394295296711565,0.024477745202560856,0.009089774981294351,0.017562478457491922,0.023480916167601486,0.0422343170600075,0.0070716818832471,0.02787646303524185,0.017469874157429344,0.02866436715108689,0.0030358844335549935,0.024286892696920713,0.006307564442123955,0.03887461994008526,0.028260891331683496]},"hovertemplate":"CV Score time (s)=%{x}\u003cbr\u003eCV score (accuracy)=%{y}\u003cbr\u003emax_df=%{customdata[0]}\u003cbr\u003emin_df=%{customdata[1]}\u003cbr\u003engram_range=%{customdata[2]}\u003cbr\u003enorm=%{customdata[3]}\u003cbr\u003ealpha=%{customdata[4]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"","marker":{"color":"#636efa","symbol":"circle"},"mode":"markers","name":"","orientation":"v","showlegend":false,"x":[0.04830036163330078,0.04827790260314942,0.024559974670410156,0.05042233467102051,0.04829392433166504,0.056260204315185545,0.0617161750793457,0.046843338012695315,0.05392060279846191,0.04958653450012207,0.05928654670715332,0.0536557674407959,0.04839630126953125,0.02506985664367676,0.047777318954467775,0.04955039024353027,0.023177576065063477,0.029156589508056642,0.04859271049499512,0.049886465072631836,0.024286985397338867,0.05305337905883789,0.05089659690856933,0.0474952220916748,0.02335829734802246,0.05174713134765625,0.05933899879455566,0.0602447509765625,0.027872133255004882,0.024499893188476562,0.05784869194030762,0.04590420722961426,0.05548100471496582,0.050384807586669925,0.025026988983154298,0.024747085571289063,0.04858431816101074,0.048443269729614255,0.0520082950592041,0.05369696617126465],"xaxis":"x","y":[0.6067319461444309,0.6114035087719298,0.7444308445532435,0.7385624915000679,0.7735890112879098,0.6988916088671291,0.7350537195702435,0.5775873793009656,0.7723922208622331,0.7327281381748946,0.76890384876921,0.6603835169318646,0.599734802121583,0.8156262749898001,0.73625050999592,0.7958044335645316,0.5729294165646674,0.5705902352781178,0.6661906704746362,0.5857405140758873,0.7841425268597851,0.7665714674282607,0.670875832993336,0.7304229566163472,0.7000271997824018,0.5810825513395892,0.6673806609547123,0.5775873793009656,0.7479464164286685,0.7770909832721339,0.7747314021487828,0.5845913232694139,0.8109547123623011,0.599734802121583,0.7280769753841969,0.5624303005575955,0.6195498436012512,0.5752685978512172,0.7829389364885082,0.8132666938664489],"yaxis":"y","type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"CV Score time (s)"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"CV score (accuracy)"}},"legend":{"tracegroupgap":0},"margin":{"t":60},"title":{"text":"trade-off between scoring time and mean test score","y":0.95,"x":0.5,"xanchor":"center","yanchor":"top"}},                        {"responsive": true}                    )                };                            </script>        </div>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>                <div id="4e9fd55d-65b0-4aa4-a0cd-34e77d3576f1" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("4e9fd55d-65b0-4aa4-a0cd-34e77d3576f1")) {                    Plotly.newPlot(                        "4e9fd55d-65b0-4aa4-a0cd-34e77d3576f1",                        [{"customdata":[[1.0,3,[1,2],"l2",10.0],[0.6,3,[1,2],"l2",100.0],[0.6,10,[1,1],"l1",0.01],[1.0,10,[1,2],"l2",0.001],[0.2,3,[1,2],"l2",1.0],[0.2,1,[1,2],"l2",1000.0],[0.2,1,[1,2],"l2",1.0],[1.0,5,[1,2],"l1",100000.0],[0.2,5,[1,2],"l2",0.001],[0.4,10,[1,2],"l1",0.001],[1.0,5,[1,2],"l2",1e-06],[0.4,10,[1,2],"l2",100.0],[0.6,3,[1,2],"l1",100.0],[0.2,1,[1,1],"l1",0.01],[0.6,10,[1,2],"l2",0.01],[0.8,3,[1,2],"l1",0.001],[0.8,5,[1,1],"l1",10000.0],[0.8,1,[1,1],"l2",100.0],[0.4,5,[1,2],"l1",1.0],[0.8,1,[1,2],"l1",1.0],[0.2,1,[1,1],"l2",1e-06],[0.4,5,[1,2],"l2",1e-06],[0.8,1,[1,2],"l2",1.0],[0.4,10,[1,2],"l2",1e-06],[0.6,1,[1,1],"l2",1.0],[1.0,1,[1,2],"l1",1.0],[0.2,1,[1,2],"l1",1000000.0],[0.8,1,[1,2],"l2",10000.0],[0.8,10,[1,1],"l1",0.01],[1.0,5,[1,1],"l1",0.001],[0.2,5,[1,2],"l2",0.01],[0.8,10,[1,2],"l2",100000.0],[0.4,1,[1,2],"l1",1e-06],[0.6,3,[1,2],"l1",100000.0],[0.2,5,[1,1],"l2",10000.0],[1.0,1,[1,1],"l2",10000.0],[0.6,3,[1,2],"l1",1.0],[0.8,3,[1,2],"l2",1000000.0],[0.8,3,[1,2],"l2",0.001],[0.2,1,[1,2],"l2",0.1]],"error_x":{"array":[0.0075730485876572586,0.01408678654739881,0.006009249581702589,0.0052953576013489755,0.015480468361281979,0.027055194009082364,0.01618555380993029,0.008571222749842355,0.010162323671419194,0.010872438543753835,0.008908262694621367,0.015010657578316815,0.010281340433271901,0.006015473051094477,0.008391244680249564,0.015122916062375641,0.010935565932477055,0.005643558836193575,0.009514070900982581,0.015639030684252223,0.006712662392314476,0.009583269402135027,0.008823270721095344,0.012961768570906449,0.004629913079239891,0.014284717691560277,0.00857207436256733,0.0140000836791386,0.0074337850227247084,0.022062944842982622,0.006717027392190577,0.007440878896220146,0.009427470646379828,0.008173684944894928,0.005247438029438685,0.00452586978040652,0.011553415574419591,0.024955866842302398,0.00848070534531441,0.009524299431777105]},"error_y":{"array":[0.021709462916372543,0.019660424372293657,0.02280701551644583,0.04141503839481188,0.025197247740550304,0.02185207140572817,0.03919239713819249,0.0064363918745756095,0.04904124161348298,0.05189316457318038,0.048501681550639386,0.03741855291831512,0.017469874157429344,0.02173863377120521,0.03542621298833128,0.025243761085853186,0.006667969931544837,0.006180189207600158,0.03507679946932842,0.011860875164389911,0.03629456169941096,0.04938433795727698,0.03192696045040785,0.039585633198194775,0.03748169491939798,0.008394295296711565,0.024477745202560856,0.009089774981294351,0.017562478457491922,0.023480916167601486,0.0422343170600075,0.0070716818832471,0.02787646303524185,0.017469874157429344,0.02866436715108689,0.0030358844335549935,0.024286892696920713,0.006307564442123955,0.03887461994008526,0.028260891331683496]},"hovertemplate":"\u0648\u0642\u062a \u062f\u0631\u062c\u0629 CV (\u062b\u0627\u0646\u064a\u0629)=%{x}\u003cbr\u003e\u062f\u0631\u062c\u0629 CV (\u0627\u0644\u062f\u0642\u0629)=%{y}\u003cbr\u003emax_df=%{customdata[0]}\u003cbr\u003emin_df=%{customdata[1]}\u003cbr\u003engram_range=%{customdata[2]}\u003cbr\u003enorm=%{customdata[3]}\u003cbr\u003ealpha=%{customdata[4]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"","marker":{"color":"#636efa","symbol":"circle"},"mode":"markers","name":"","orientation":"v","showlegend":false,"x":[0.049802970886230466,0.05775508880615234,0.026769542694091798,0.05328555107116699,0.06785764694213867,0.06785993576049805,0.07484245300292969,0.05466561317443848,0.05639228820800781,0.05134363174438476,0.056037378311157224,0.06313252449035645,0.05298714637756348,0.027535009384155273,0.04838905334472656,0.055112171173095706,0.029671287536621092,0.02597813606262207,0.05261859893798828,0.06648907661437989,0.03102712631225586,0.0496248722076416,0.05515499114990234,0.053194856643676756,0.0264376163482666,0.05533437728881836,0.06214499473571777,0.06770682334899902,0.027333974838256836,0.035304021835327146,0.05307836532592773,0.05023646354675293,0.06775932312011719,0.05649080276489258,0.028168869018554688,0.024794578552246094,0.05276999473571777,0.060771846771240236,0.05565400123596191,0.05832695960998535],"xaxis":"x","y":[0.6067319461444309,0.6114035087719298,0.7444308445532435,0.7385624915000679,0.7735890112879098,0.6988916088671291,0.7350537195702435,0.5775873793009656,0.7723922208622331,0.7327281381748946,0.76890384876921,0.6603835169318646,0.599734802121583,0.8156262749898001,0.73625050999592,0.7958044335645316,0.5729294165646674,0.5705902352781178,0.6661906704746362,0.5857405140758873,0.7841425268597851,0.7665714674282607,0.670875832993336,0.7304229566163472,0.7000271997824018,0.5810825513395892,0.6673806609547123,0.5775873793009656,0.7479464164286685,0.7770909832721339,0.7747314021487828,0.5845913232694139,0.8109547123623011,0.599734802121583,0.7280769753841969,0.5624303005575955,0.6195498436012512,0.5752685978512172,0.7829389364885082,0.8132666938664489],"yaxis":"y","type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"\u0648\u0642\u062a \u062f\u0631\u062c\u0629 CV (\u062b\u0627\u0646\u064a\u0629)"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"\u062f\u0631\u062c\u0629 CV (\u0627\u0644\u062f\u0642\u0629)"}},"legend":{"tracegroupgap":0},"margin":{"t":60},"title":{"text":"\u0627\u0644\u0645\u0642\u0627\u064a\u0636\u0629 \u0628\u064a\u0646 \u0648\u0642\u062a \u0627\u0644\u062a\u0633\u062c\u064a\u0644 \u0648\u0645\u062a\u0648\u0633\u0637 \u062f\u0631\u062c\u0629 \u0627\u0644\u0627\u062e\u062a\u0628\u0627\u0631","y":0.95,"x":0.5,"xanchor":"center","yanchor":"top"}},                        {"responsive": true}                    )                };                            </script>        </div>
 </div>
 <br />
-<br /><p>Notice that the cluster of models in the upper-left corner of the plot have
-the best trade-off between accuracy and scoring time. In this case, using
-bigrams increases the required scoring time without improving considerably the
-accuracy of the pipeline.</p>
+<br /><p>لاحظ أن مجموعة النماذج في الركن العلوي الأيسر من الرسم البياني لها
+أفضل مقايضة بين الدقة ووقت التسجيل. في هذه الحالة، يؤدي استخدام
+الكلمات الثنائية إلى زيادة وقت التسجيل المطلوب دون تحسين دقة خط الأنابيب بشكل كبير.</p>
 <div class="admonition note">
 <p class="admonition-title">ملاحظة</p>
-<p>For more information on how to customize an automated tuning to
-maximize score and minimize scoring time, see the example notebook
-<a class="reference internal" href="plot_grid_search_digits.html#sphx-glr-auto-examples-model-selection-plot-grid-search-digits-py"><span class="std std-ref">Custom refit strategy of a grid search with cross-validation</span></a>.</p>
+<p>للحصول على مزيد من المعلومات حول كيفية تخصيص ضبط تلقائي لتحقيق أقصى قدر من الدقة وتقليل وقت التسجيل، راجع دفتر الملاحظات
+المثال: <a class="reference internal" href="plot_grid_search_digits.html#sphx-glr-auto-examples-model-selection-plot-grid-search-digits-py"><span class="std std-ref">استراتيجية إعادة الضبط المخصصة للبحث الشبكي مع التحقق المتقاطع</span></a>.</p>
 </div>
-<p>We can also use a <a class="reference external" href="https://plotly.com/python-api-reference/generated/plotly.express.parallel_coordinates.html">plotly.express.parallel_coordinates</a>
-to further visualize the mean test score as a function of the tuned
-hyperparameters. This helps finding interactions between more than two
-hyperparameters and provide intuition on their relevance for improving the
-performance of a pipeline.</p>
-<p>We apply a <code class="docutils literal notranslate"><span class="pre">math.log10</span></code> transformation on the <code class="docutils literal notranslate"><span class="pre">alpha</span></code> axis to spread the
-active range and improve the readability of the plot. A value <span class="math notranslate nohighlight">\(x\)</span> on
-said axis is to be understood as <span class="math notranslate nohighlight">\(10^x\)</span>.</p>
+<p>يمكننا أيضًا استخدام <a class="reference external" href="https://plotly.com/python-api-reference/generated/plotly.express.parallel_coordinates.html">plotly.express.parallel_coordinates</a>
+لعرض متوسط درجة الاختبار كدالة للمعلمات التي تم ضبطها. يساعد هذا في العثور على التفاعلات بين أكثر من
+معلمتين وتوفير الحدس حول أهميتها لتحسين أداء خط الأنابيب.</p>
+<p>نطبق تحويل <code class="docutils literal notranslate"><span class="pre">math.log10</span></code> على محور &quot;alpha&quot; لنشر النطاق النشط وتحسين
+قابلية قراءة الرسم البياني. يتم فهم القيمة <span class="math notranslate nohighlight">\(x\)</span> على
+المحور المذكور على أنها <span class="math notranslate nohighlight">\(10^x\)</span>.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
 
 <span class="n">column_results</span> <span class="o">=</span> <span class="n">param_names</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;mean_test_score&quot;</span><span class="p">,</span> <span class="s2">&quot;mean_score_time&quot;</span><span class="p">]</span>
 
 <span class="n">transform_funcs</span> <span class="o">=</span> <span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">column_results</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">)</span>
-<span class="c1"># Using a logarithmic scale for alpha</span>
+<span class="c1"># استخدام مقياس لوغاريتمي لـ alpha</span>
 <span class="n">transform_funcs</span><span class="p">[</span><span class="s2">&quot;alpha&quot;</span><span class="p">]</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/math.html#math.log10" title="math.log10" class="sphx-glr-backref-module-math sphx-glr-backref-type-py-function"><span class="n">math</span><span class="o">.</span><span class="n">log10</span></a>
-<span class="c1"># L1 norms are mapped to index 1, and L2 norms to index 2</span>
+<span class="c1"># يتم تعيين المعايير L1 إلى الفهرس 1، والمعايير L2 إلى الفهرس 2</span>
 <span class="n">transform_funcs</span><span class="p">[</span><span class="s2">&quot;norm&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="s2">&quot;l2&quot;</span> <span class="k">else</span> <span class="mi">1</span>
-<span class="c1"># Unigrams are mapped to index 1 and bigrams to index 2</span>
+<span class="c1"># يتم تعيين الكلمات المفردة إلى الفهرس 1 والكلمات الثنائية إلى الفهرس 2</span>
 <span class="n">transform_funcs</span><span class="p">[</span><span class="s2">&quot;ngram_range&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
 <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">parallel_coordinates</span><span class="p">(</span>
@@ -1673,7 +1662,7 @@ said axis is to be understood as <span class="math notranslate nohighlight">\(10
 <span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
     <span class="n">title</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;Parallel coordinates plot of text classifier pipeline&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;رسم تنسيق متوازي لخط أنابيب مصنف النص&quot;</span><span class="p">,</span>
         <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="mf">0.99</span><span class="p">,</span>
         <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
         <span class="s2">&quot;xanchor&quot;</span><span class="p">:</span> <span class="s2">&quot;center&quot;</span><span class="p">,</span>
@@ -1685,25 +1674,24 @@ said axis is to be understood as <span class="math notranslate nohighlight">\(10
 </div>
 <div class="output_subarea output_html rendered_html output_result">
 <div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
-        <script charset="utf-8" src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>                <div id="92e1f055-528f-4bfb-b761-5d15324d7ce2" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("92e1f055-528f-4bfb-b761-5d15324d7ce2")) {                    Plotly.newPlot(                        "92e1f055-528f-4bfb-b761-5d15324d7ce2",                        [{"dimensions":[{"label":"max_df","values":[1.0,0.6,0.6,1.0,0.2,0.2,0.2,1.0,0.2,0.4,1.0,0.4,0.6,0.2,0.6,0.8,0.8,0.8,0.4,0.8,0.2,0.4,0.8,0.4,0.6,1.0,0.2,0.8,0.8,1.0,0.2,0.8,0.4,0.6,0.2,1.0,0.6,0.8,0.8,0.2]},{"label":"min_df","values":[3,3,10,10,3,1,1,5,5,10,5,10,3,1,10,3,5,1,5,1,1,5,1,10,1,1,1,1,10,5,5,10,1,3,5,1,3,3,3,1]},{"label":"ngram_range","values":[2,2,1,2,2,2,2,2,2,2,2,2,2,1,2,2,1,1,2,2,1,2,2,2,1,2,2,2,1,1,2,2,2,2,1,1,2,2,2,2]},{"label":"norm","values":[2,2,1,2,2,2,2,1,2,1,2,2,1,1,2,1,1,2,1,1,2,2,2,2,2,1,1,2,1,1,2,2,1,1,2,2,1,2,2,2]},{"label":"alpha","values":[1.0,2.0,-2.0,-3.0,0.0,3.0,0.0,5.0,-3.0,-3.0,-6.0,2.0,2.0,-2.0,-2.0,-3.0,4.0,2.0,0.0,0.0,-6.0,-6.0,0.0,-6.0,0.0,0.0,6.0,4.0,-2.0,-3.0,-2.0,5.0,-6.0,5.0,4.0,4.0,0.0,6.0,-3.0,-1.0]},{"label":"CV score (accuracy)","values":[0.6067319461444309,0.6114035087719298,0.7444308445532435,0.7385624915000679,0.7735890112879098,0.6988916088671291,0.7350537195702435,0.5775873793009656,0.7723922208622331,0.7327281381748946,0.76890384876921,0.6603835169318646,0.599734802121583,0.8156262749898001,0.73625050999592,0.7958044335645316,0.5729294165646674,0.5705902352781178,0.6661906704746362,0.5857405140758873,0.7841425268597851,0.7665714674282607,0.670875832993336,0.7304229566163472,0.7000271997824018,0.5810825513395892,0.6673806609547123,0.5775873793009656,0.7479464164286685,0.7770909832721339,0.7747314021487828,0.5845913232694139,0.8109547123623011,0.599734802121583,0.7280769753841969,0.5624303005575955,0.6195498436012512,0.5752685978512172,0.7829389364885082,0.8132666938664489]},{"label":"CV Score time (s)","values":[0.04830036163330078,0.04827790260314942,0.024559974670410156,0.05042233467102051,0.04829392433166504,0.056260204315185545,0.0617161750793457,0.046843338012695315,0.05392060279846191,0.04958653450012207,0.05928654670715332,0.0536557674407959,0.04839630126953125,0.02506985664367676,0.047777318954467775,0.04955039024353027,0.023177576065063477,0.029156589508056642,0.04859271049499512,0.049886465072631836,0.024286985397338867,0.05305337905883789,0.05089659690856933,0.0474952220916748,0.02335829734802246,0.05174713134765625,0.05933899879455566,0.0602447509765625,0.027872133255004882,0.024499893188476562,0.05784869194030762,0.04590420722961426,0.05548100471496582,0.050384807586669925,0.025026988983154298,0.024747085571289063,0.04858431816101074,0.048443269729614255,0.0520082950592041,0.05369696617126465]}],"domain":{"x":[0.0,1.0],"y":[0.0,1.0]},"line":{"color":[0.6067319461444309,0.6114035087719298,0.7444308445532435,0.7385624915000679,0.7735890112879098,0.6988916088671291,0.7350537195702435,0.5775873793009656,0.7723922208622331,0.7327281381748946,0.76890384876921,0.6603835169318646,0.599734802121583,0.8156262749898001,0.73625050999592,0.7958044335645316,0.5729294165646674,0.5705902352781178,0.6661906704746362,0.5857405140758873,0.7841425268597851,0.7665714674282607,0.670875832993336,0.7304229566163472,0.7000271997824018,0.5810825513395892,0.6673806609547123,0.5775873793009656,0.7479464164286685,0.7770909832721339,0.7747314021487828,0.5845913232694139,0.8109547123623011,0.599734802121583,0.7280769753841969,0.5624303005575955,0.6195498436012512,0.5752685978512172,0.7829389364885082,0.8132666938664489],"coloraxis":"coloraxis"},"name":"","type":"parcoords"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"coloraxis":{"colorbar":{"title":{"text":"CV score (accuracy)"}},"colorscale":[[0.0,"#fde725"],[0.1111111111111111,"#b5de2b"],[0.2222222222222222,"#6ece58"],[0.3333333333333333,"#35b779"],[0.4444444444444444,"#1f9e89"],[0.5555555555555556,"#26828e"],[0.6666666666666666,"#31688e"],[0.7777777777777778,"#3e4989"],[0.8888888888888888,"#482878"],[1.0,"#440154"]]},"legend":{"tracegroupgap":0},"margin":{"t":60},"title":{"text":"Parallel coordinates plot of text classifier pipeline","y":0.99,"x":0.5,"xanchor":"center","yanchor":"top"}},                        {"responsive": true}                    )                };                            </script>        </div>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>                <div id="6e018200-66eb-496b-886a-ab281034716f" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("6e018200-66eb-496b-886a-ab281034716f")) {                    Plotly.newPlot(                        "6e018200-66eb-496b-886a-ab281034716f",                        [{"dimensions":[{"label":"max_df","values":[1.0,0.6,0.6,1.0,0.2,0.2,0.2,1.0,0.2,0.4,1.0,0.4,0.6,0.2,0.6,0.8,0.8,0.8,0.4,0.8,0.2,0.4,0.8,0.4,0.6,1.0,0.2,0.8,0.8,1.0,0.2,0.8,0.4,0.6,0.2,1.0,0.6,0.8,0.8,0.2]},{"label":"min_df","values":[3,3,10,10,3,1,1,5,5,10,5,10,3,1,10,3,5,1,5,1,1,5,1,10,1,1,1,1,10,5,5,10,1,3,5,1,3,3,3,1]},{"label":"ngram_range","values":[2,2,1,2,2,2,2,2,2,2,2,2,2,1,2,2,1,1,2,2,1,2,2,2,1,2,2,2,1,1,2,2,2,2,1,1,2,2,2,2]},{"label":"norm","values":[2,2,1,2,2,2,2,1,2,1,2,2,1,1,2,1,1,2,1,1,2,2,2,2,2,1,1,2,1,1,2,2,1,1,2,2,1,2,2,2]},{"label":"alpha","values":[1.0,2.0,-2.0,-3.0,0.0,3.0,0.0,5.0,-3.0,-3.0,-6.0,2.0,2.0,-2.0,-2.0,-3.0,4.0,2.0,0.0,0.0,-6.0,-6.0,0.0,-6.0,0.0,0.0,6.0,4.0,-2.0,-3.0,-2.0,5.0,-6.0,5.0,4.0,4.0,0.0,6.0,-3.0,-1.0]},{"label":"\u062f\u0631\u062c\u0629 CV (\u0627\u0644\u062f\u0642\u0629)","values":[0.6067319461444309,0.6114035087719298,0.7444308445532435,0.7385624915000679,0.7735890112879098,0.6988916088671291,0.7350537195702435,0.5775873793009656,0.7723922208622331,0.7327281381748946,0.76890384876921,0.6603835169318646,0.599734802121583,0.8156262749898001,0.73625050999592,0.7958044335645316,0.5729294165646674,0.5705902352781178,0.6661906704746362,0.5857405140758873,0.7841425268597851,0.7665714674282607,0.670875832993336,0.7304229566163472,0.7000271997824018,0.5810825513395892,0.6673806609547123,0.5775873793009656,0.7479464164286685,0.7770909832721339,0.7747314021487828,0.5845913232694139,0.8109547123623011,0.599734802121583,0.7280769753841969,0.5624303005575955,0.6195498436012512,0.5752685978512172,0.7829389364885082,0.8132666938664489]},{"label":"\u0648\u0642\u062a \u062f\u0631\u062c\u0629 CV (\u062b\u0627\u0646\u064a\u0629)","values":[0.049802970886230466,0.05775508880615234,0.026769542694091798,0.05328555107116699,0.06785764694213867,0.06785993576049805,0.07484245300292969,0.05466561317443848,0.05639228820800781,0.05134363174438476,0.056037378311157224,0.06313252449035645,0.05298714637756348,0.027535009384155273,0.04838905334472656,0.055112171173095706,0.029671287536621092,0.02597813606262207,0.05261859893798828,0.06648907661437989,0.03102712631225586,0.0496248722076416,0.05515499114990234,0.053194856643676756,0.0264376163482666,0.05533437728881836,0.06214499473571777,0.06770682334899902,0.027333974838256836,0.035304021835327146,0.05307836532592773,0.05023646354675293,0.06775932312011719,0.05649080276489258,0.028168869018554688,0.024794578552246094,0.05276999473571777,0.060771846771240236,0.05565400123596191,0.05832695960998535]}],"domain":{"x":[0.0,1.0],"y":[0.0,1.0]},"line":{"color":[0.6067319461444309,0.6114035087719298,0.7444308445532435,0.7385624915000679,0.7735890112879098,0.6988916088671291,0.7350537195702435,0.5775873793009656,0.7723922208622331,0.7327281381748946,0.76890384876921,0.6603835169318646,0.599734802121583,0.8156262749898001,0.73625050999592,0.7958044335645316,0.5729294165646674,0.5705902352781178,0.6661906704746362,0.5857405140758873,0.7841425268597851,0.7665714674282607,0.670875832993336,0.7304229566163472,0.7000271997824018,0.5810825513395892,0.6673806609547123,0.5775873793009656,0.7479464164286685,0.7770909832721339,0.7747314021487828,0.5845913232694139,0.8109547123623011,0.599734802121583,0.7280769753841969,0.5624303005575955,0.6195498436012512,0.5752685978512172,0.7829389364885082,0.8132666938664489],"coloraxis":"coloraxis"},"name":"","type":"parcoords"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"coloraxis":{"colorbar":{"title":{"text":"\u062f\u0631\u062c\u0629 CV (\u0627\u0644\u062f\u0642\u0629)"}},"colorscale":[[0.0,"#fde725"],[0.1111111111111111,"#b5de2b"],[0.2222222222222222,"#6ece58"],[0.3333333333333333,"#35b779"],[0.4444444444444444,"#1f9e89"],[0.5555555555555556,"#26828e"],[0.6666666666666666,"#31688e"],[0.7777777777777778,"#3e4989"],[0.8888888888888888,"#482878"],[1.0,"#440154"]]},"legend":{"tracegroupgap":0},"margin":{"t":60},"title":{"text":"\u0631\u0633\u0645 \u062a\u0646\u0633\u064a\u0642 \u0645\u062a\u0648\u0627\u0632\u064a \u0644\u062e\u0637 \u0623\u0646\u0627\u0628\u064a\u0628 \u0645\u0635\u0646\u0641 \u0627\u0644\u0646\u0635","y":0.99,"x":0.5,"xanchor":"center","yanchor":"top"}},                        {"responsive": true}                    )                };                            </script>        </div>
 </div>
 <br />
-<br /><p>The parallel coordinates plot displays the values of the hyperparameters on
-different columns while the performance metric is color coded. It is possible
-to select a range of results by clicking and holding on any axis of the
-parallel coordinate plot. You can then slide (move) the range selection and
-cross two selections to see the intersections. You can undo a selection by
-clicking once again on the same axis.</p>
-<p>In particular for this hyperparameter search, it is interesting to notice that
-the top performing models do not seem to depend on the regularization <code class="docutils literal notranslate"><span class="pre">norm</span></code>,
-but they do depend on a trade-off between <code class="docutils literal notranslate"><span class="pre">max_df</span></code>, <code class="docutils literal notranslate"><span class="pre">min_df</span></code> and the
-regularization strength <code class="docutils literal notranslate"><span class="pre">alpha</span></code>. The reason is that including noisy features
-(i.e. <code class="docutils literal notranslate"><span class="pre">max_df</span></code> close to <span class="math notranslate nohighlight">\(1.0\)</span> or <code class="docutils literal notranslate"><span class="pre">min_df</span></code> close to <span class="math notranslate nohighlight">\(0\)</span>) tend to
-overfit and therefore require a stronger regularization to compensate. Having
-less features require less regularization and less scoring time.</p>
-<p>The best accuracy scores are obtained when <code class="docutils literal notranslate"><span class="pre">alpha</span></code> is between <span class="math notranslate nohighlight">\(10^{-6}\)</span>
-and <span class="math notranslate nohighlight">\(10^0\)</span>, regardless of the hyperparameter <code class="docutils literal notranslate"><span class="pre">norm</span></code>.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 32.573 seconds)</p>
+<br /><p>يعرض رسم التنسيق المتوازي قيم المعلمات على
+أعمدة مختلفة في حين يتم ترميز مقياس الأداء بالألوان. من الممكن
+تحديد نطاق من النتائج عن طريق النقر والضغط على أي محور من
+رسم التنسيق المتوازي. يمكنك بعد ذلك تحريك (نقل) نطاق التحديد والتقاطع
+بين نطاقين لمشاهدة التقاطعات. يمكنك إلغاء تحديد عن طريق
+النقر مرة أخرى على نفس المحور.</p>
+<p>على وجه الخصوص لهذا البحث عن المعلمات، من المثير للاهتمام ملاحظة أن
+النماذج ذات الأداء الأعلى لا تعتمد على المعيار <code class="docutils literal notranslate"><span class="pre">norm</span></code>، ولكنها تعتمد على
+المقايضة بين <code class="docutils literal notranslate"><span class="pre">max_df</span></code>، و`min_df`، وقوة المعايرة <code class="docutils literal notranslate"><span class="pre">alpha</span></code>. والسبب هو أن تضمين الميزات الضجيجية (أي
+<code class="docutils literal notranslate"><span class="pre">max_df</span></code> قريب من <span class="math notranslate nohighlight">\(1.0\)</span> أو <code class="docutils literal notranslate"><span class="pre">min_df</span></code> قريب من <span class="math notranslate nohighlight">\(0\)</span>) يميل إلى
+الإفراط في التكيف وبالتالي يتطلب معايرة أقوى للتعويض. وجود
+ميزات أقل تتطلب معايرة أقل ووقت تسجيل أقل.</p>
+<p>يتم الحصول على أفضل درجات الدقة عندما تكون <code class="docutils literal notranslate"><span class="pre">alpha</span></code> بين <span class="math notranslate nohighlight">\(10^{-6}\)</span>
+و <span class="math notranslate nohighlight">\(10^0\)</span>، بغض النظر عن المعلمة <code class="docutils literal notranslate"><span class="pre">norm</span></code>.</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 38.440 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-model-selection-plot-grid-search-text-feature-extraction-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/scikit-learn/scikit-learn/main?urlpath=lab/tree/notebooks/auto_examples/model_selection/plot_grid_search_text_feature_extraction.ipynb"><img alt="Launch binder" src="../../_images/binder_badge_logo22.svg" style="width: 150px;" />
@@ -1724,18 +1712,18 @@ and <span class="math notranslate nohighlight">\(10^0\)</span>, regardless of th
 </div>
 </div>
 <p class="rubric">Related examples</p>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This is an example showing how scikit-learn can be used to classify documents by topics using a Bag of Words approach. This example uses a Tf-idf-weighted document-term sparse matrix to encode the features and demonstrates various classifiers that can efficiently handle sparse matrices."><img alt="" src="../../_images/sphx_glr_plot_document_classification_20newsgroups_thumb.png" />
-<p><a class="reference internal" href="../text/plot_document_classification_20newsgroups.html#sphx-glr-auto-examples-text-plot-document-classification-20newsgroups-py"><span class="std std-ref">Classification of text documents using sparse features</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Classification of text documents using sparse features</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example balances model complexity and cross-validated score by finding a decent accuracy within 1 standard deviation of the best accuracy score while minimising the number of PCA components [1]."><img alt="" src="../../_images/sphx_glr_plot_grid_search_refit_callable_thumb.png" />
-<p><a class="reference internal" href="plot_grid_search_refit_callable.html#sphx-glr-auto-examples-model-selection-plot-grid-search-refit-callable-py"><span class="std std-ref">Balance model complexity and cross-validated score</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Balance model complexity and cross-validated score</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the effect of the parameters gamma and C of the Radial Basis Function (RBF) kernel SVM."><img alt="" src="../../_images/sphx_glr_plot_rbf_parameters_thumb.png" />
-<p><a class="reference internal" href="../svm/plot_rbf_parameters.html#sphx-glr-auto-examples-svm-plot-rbf-parameters-py"><span class="std std-ref">RBF SVM parameters</span></a></p>
-  <div class="sphx-glr-thumbnail-title">RBF SVM parameters</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="في هذا المثال، نقارن بين أداء نموذج الغابة العشوائية (RF) ونموذج رفع التدرج بالرسم البياني (HGBT) من حيث النتيجة ووقت الحساب لمجموعة بيانات الانحدار، على الرغم من أن جميع المفاهيم المقدمة هنا تنطبق على التصنيف أيضًا."><img alt="" src="../../_images/sphx_glr_plot_forest_hist_grad_boosting_comparison_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="في هذا المثال، نقارن بين أداء نموذج الغابة العشوائية (RF) ونموذج رفع التدرج بالرسم البياني (HGBT) من حيث النتيجة ووقت الحساب لمجموعة بيانات الانحدار، على الرغم من أن جميع المفاهيم المقدمة هنا تنطبق على التصنيف أيضًا."><img alt="" src="../../_images/sphx_glr_plot_forest_hist_grad_boosting_comparison_thumb.png" />
 <p><a class="reference internal" href="../ensemble/plot_forest_hist_grad_boosting_comparison.html#sphx-glr-auto-examples-ensemble-plot-forest-hist-grad-boosting-comparison-py"><span class="std std-ref">مقارنة بين نماذج الغابات العشوائية ورفع التدرج بالرسم البياني</span></a></p>
   <div class="sphx-glr-thumbnail-title">مقارنة بين نماذج الغابات العشوائية ورفع التدرج بالرسم البياني</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="هذا مثال يوضح كيفية استخدام scikit-learn لتصنيف الوثائق حسب الموضوعات باستخدام نهج &quot;Bag of Words&quot; &lt;https://en.wikipedia.org/wiki/Bag-of-words_model&gt;_. يستخدم هذا المثال مصفوفة متقطعة ذات وزن Tf-idf لتشفير الميزات ويظهر العديد من التصنيفات التي يمكنها التعامل بكفاءة مع المصفوفات المتقطعة."><img alt="" src="../../_images/sphx_glr_plot_document_classification_20newsgroups_thumb.png" />
+<p><a class="reference internal" href="../text/plot_document_classification_20newsgroups.html#sphx-glr-auto-examples-text-plot-document-classification-20newsgroups-py"><span class="std std-ref">تصنيف وثائق النصوص باستخدام الميزات المتناثرة</span></a></p>
+  <div class="sphx-glr-thumbnail-title">تصنيف وثائق النصوص باستخدام الميزات المتناثرة</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="يمكن أن تحتوي مجموعات البيانات غالبًا على مكونات تتطلب معالجة واستخراج مميزات مختلفة. قد يحدث هذا السيناريو عندما:"><img alt="" src="../../_images/sphx_glr_plot_column_transformer_thumb.png" />
+<p><a class="reference internal" href="../compose/plot_column_transformer.html#sphx-glr-auto-examples-compose-plot-column-transformer-py"><span class="std std-ref">محول الأعمدة مع مصادر بيانات غير متجانسة</span></a></p>
+  <div class="sphx-glr-thumbnail-title">محول الأعمدة مع مصادر بيانات غير متجانسة</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="قارن بين البحث العشوائي والبحث الشبكي لتحسين فرط معلمات SVM الخطي مع التدريب SGD. يتم البحث عن جميع المعلمات التي تؤثر على التعلم في نفس الوقت (باستثناء عدد المعلمات، والذي يمثل مفاضلة بين الوقت والجودة)."><img alt="" src="../../_images/sphx_glr_plot_randomized_search_thumb.png" />
+<p><a class="reference internal" href="plot_randomized_search.html#sphx-glr-auto-examples-model-selection-plot-randomized-search-py"><span class="std std-ref">مقارنة البحث العشوائي والبحث الشبكي لتقدير فرط المعلمات</span></a></p>
+  <div class="sphx-glr-thumbnail-title">مقارنة البحث العشوائي والبحث الشبكي لتقدير فرط المعلمات</div>
 </div></div><p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
 </section>
 </section>
@@ -1751,20 +1739,20 @@ and <span class="math notranslate nohighlight">\(10^0\)</span>, regardless of th
     <div class="footer-article-item">
 <div class="prev-next-area">
     <a class="left-prev"
-       href="plot_roc_crossval.html"
+       href="plot_successive_halving_iterations.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">السابق</p>
-        <p class="prev-next-title">Receiver Operating Characteristic (ROC) with cross validation</p>
+        <p class="prev-next-title">عمليات التقسيم المتتالية</p>
       </div>
     </a>
     <a class="right-next"
-       href="plot_grid_search_stats.html"
+       href="plot_confusion_matrix.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">التالي</p>
-        <p class="prev-next-title">Statistical comparison of models using grid search</p>
+        <p class="prev-next-title">مصفوفة الارتباك</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1791,8 +1779,8 @@ and <span class="math notranslate nohighlight">\(10^0\)</span>, regardless of th
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-loading">Data loading</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipeline-with-hyperparameter-tuning">Pipeline with hyperparameter tuning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">تحميل البيانات</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">خط أنابيب مع ضبط المعلمات</a></li>
 </ul>
   </nav></div>
 

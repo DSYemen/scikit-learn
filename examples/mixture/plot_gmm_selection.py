@@ -1,30 +1,24 @@
 """
 ================================
-Gaussian Mixture Model Selection
+اختيار نموذج المزيج الغاوسي
 ================================
 
-This example shows that model selection can be performed with Gaussian Mixture
-Models (GMM) using :ref:`information-theory criteria <aic_bic>`. Model selection
-concerns both the covariance type and the number of components in the model.
+هذا المثال يوضح أنه يمكن إجراء اختيار النموذج باستخدام نماذج المزيج الغاوسي (GMM) باستخدام :ref:`معايير نظرية المعلومات <aic_bic>`. يهتم اختيار النموذج بكل من نوع التغاير وعدد المكونات في النموذج.
 
-In this case, both the Akaike Information Criterion (AIC) and the Bayes
-Information Criterion (BIC) provide the right result, but we only demo the
-latter as BIC is better suited to identify the true model among a set of
-candidates. Unlike Bayesian procedures, such inferences are prior-free.
+في هذه الحالة، يوفر كل من معيار معلومات أكايكي (AIC) ومعيار معلومات بايز (BIC) النتيجة الصحيحة، ولكننا نقوم بعرض الأخير فقط لأن BIC أكثر ملاءمة لتحديد النموذج الحقيقي من بين مجموعة من المرشحين. على عكس الإجراءات البايزية، فإن هذه الاستدلالات خالية من المعايير المسبقة.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# Data generation
+# توليد البيانات
 # ---------------
 #
-# We generate two components (each one containing `n_samples`) by randomly
-# sampling the standard normal distribution as returned by `numpy.random.randn`.
-# One component is kept spherical yet shifted and re-scaled. The other one is
-# deformed to have a more general covariance matrix.
+# نقوم بتوليد مكونين (كل منهما يحتوي على `n_samples`) عن طريق أخذ عينات عشوائية
+# من التوزيع الطبيعي القياسي كما هو مُرجع من `numpy.random.randn`.
+# يتم الحفاظ على أحد المكونات كرويًا ولكن يتم تحويله وتغيير مقياسه. يتم تشويه المكون الآخر ليحصل على مصفوفة تغاير أكثر عمومية.
 
 import numpy as np
 
@@ -37,44 +31,45 @@ component_2 = 0.7 * np.random.randn(n_samples, 2) + np.array([-4, 1])  # spheric
 X = np.concatenate([component_1, component_2])
 
 # %%
-# We can visualize the different components:
+# يمكننا تصور المكونات المختلفة:
 
 import matplotlib.pyplot as plt
 
 plt.scatter(component_1[:, 0], component_1[:, 1], s=0.8)
 plt.scatter(component_2[:, 0], component_2[:, 1], s=0.8)
-plt.title("Gaussian Mixture components")
+plt.title("مكونات مزيج غاوسي")
 plt.axis("equal")
 plt.show()
 
 # %%
-# Model training and selection
+# تدريب النموذج واختياره
 # ----------------------------
 #
-# We vary the number of components from 1 to 6 and the type of covariance
-# parameters to use:
+# نقوم بتغيير عدد المكونات من 1 إلى 6 ونوع معاملات التغاير
+# لاستخدامها:
 #
-# - `"full"`: each component has its own general covariance matrix.
-# - `"tied"`: all components share the same general covariance matrix.
-# - `"diag"`: each component has its own diagonal covariance matrix.
-# - `"spherical"`: each component has its own single variance.
+# - `"full"`: لكل مكون مصفوفة تغاير عامة خاصة به.
+# - `"tied"`: جميع المكونات تشترك في نفس مصفوفة التغاير العامة.
+# - `"diag"`: لكل مكون مصفوفة تغاير قطرية خاصة به.
+# - `"spherical"`: لكل مكون تغاير خاص به.
 #
-# We score the different models and keep the best model (the lowest BIC). This
-# is done by using :class:`~sklearn.model_selection.GridSearchCV` and a
-# user-defined score function which returns the negative BIC score, as
-# :class:`~sklearn.model_selection.GridSearchCV` is designed to **maximize** a
-# score (maximizing the negative BIC is equivalent to minimizing the BIC).
+# نقوم بتقييم النماذج المختلفة والاحتفاظ بأفضل نموذج (أقل BIC). يتم ذلك
+# باستخدام :class:`~sklearn.model_selection.GridSearchCV` ووظيفة تقييم
+# مُعرّفة من قبل المستخدم والتي تعيد نتيجة BIC السلبية، حيث أن
+# :class:`~sklearn.model_selection.GridSearchCV` مصممة ل**تحقيق الحد الأقصى**
+# لنتيجة التقييم (تحقيق الحد الأقصى للنتيجة السلبية لـ BIC يعادل تحقيق الحد
+# الأدنى لـ BIC).
 #
-# The best set of parameters and estimator are stored in `best_parameters_` and
-# `best_estimator_`, respectively.
+# يتم تخزين أفضل مجموعة من المعاملات والمقدر في `best_parameters_` و
+# `best_estimator_`، على التوالي.
 
 from sklearn.mixture import GaussianMixture
 from sklearn.model_selection import GridSearchCV
 
 
 def gmm_bic_score(estimator, X):
-    """Callable to pass to GridSearchCV that will use the BIC score."""
-    # Make it negative since GridSearchCV expects a score to maximize
+    """قابل للاستدعاء لتمريره إلى GridSearchCV والذي سيستخدم نتيجة BIC."""
+    # اجعلها سلبية لأن GridSearchCV يتوقع نتيجة تقييم لتحقيق الحد الأقصى لها
     return -estimator.bic(X)
 
 
@@ -88,12 +83,12 @@ grid_search = GridSearchCV(
 grid_search.fit(X)
 
 # %%
-# Plot the BIC scores
+# رسم نتائج BIC
 # -------------------
 #
-# To ease the plotting we can create a `pandas.DataFrame` from the results of
-# the cross-validation done by the grid search. We re-inverse the sign of the
-# BIC score to show the effect of minimizing it.
+# لتسهيل الرسم، يمكننا إنشاء `pandas.DataFrame` من نتائج
+# الاختبار المتقاطع الذي قام به البحث الشبكي. نقوم بإعادة عكس إشارة
+# نتيجة BIC لإظهار تأثير تحقيق الحد الأدنى منها.
 
 import pandas as pd
 
@@ -123,17 +118,17 @@ sns.catplot(
 plt.show()
 
 # %%
-# In the present case, the model with 2 components and full covariance (which
-# corresponds to the true generative model) has the lowest BIC score and is
-# therefore selected by the grid search.
+# في الحالة الحالية، النموذج ذو المكونين وتغاير كامل (الذي
+# يتوافق مع النموذج التوليدي الحقيقي) لديه أقل نتيجة BIC وبالتالي يتم
+# اختياره من قبل البحث الشبكي.
 #
-# Plot the best model
+# رسم أفضل نموذج
 # -------------------
 #
-# We plot an ellipse to show each Gaussian component of the selected model. For
-# such purpose, one needs to find the eigenvalues of the covariance matrices as
-# returned by the `covariances_` attribute. The shape of such matrices depends
-# on the `covariance_type`:
+# نرsection
+# نرسم قطع ناقص لإظهار كل مكون غاوسي للنموذج المختار. لهذا الغرض،
+# نحتاج إلى إيجاد القيم الذاتية لمصفوفات التغاير كما هو مُرجع من الخاصية
+# `covariances_`. يعتمد شكل هذه المصفوفات على `covariance_type`:
 #
 # - `"full"`: (`n_components`, `n_features`, `n_features`)
 # - `"tied"`: (`n_features`, `n_features`)
@@ -161,7 +156,7 @@ for i, (mean, cov, color) in enumerate(
     plt.scatter(X[Y_ == i, 0], X[Y_ == i, 1], 0.8, color=color)
 
     angle = np.arctan2(w[0][1], w[0][0])
-    angle = 180.0 * angle / np.pi  # convert to degrees
+    angle = 180.0 * angle / np.pi  # تحويل إلى درجات
     v = 2.0 * np.sqrt(2.0) * np.sqrt(v)
     ellipse = Ellipse(mean, v[0], v[1], angle=180.0 + angle, color=color)
     ellipse.set_clip_box(fig.bbox)

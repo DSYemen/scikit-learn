@@ -1,31 +1,30 @@
 """
 ===================================
-Visualizations with Display Objects
+التصورات باستخدام كائنات العرض
 ===================================
 
 .. currentmodule:: sklearn.metrics
 
-In this example, we will construct display objects,
-:class:`ConfusionMatrixDisplay`, :class:`RocCurveDisplay`, and
-:class:`PrecisionRecallDisplay` directly from their respective metrics. This
-is an alternative to using their corresponding plot functions when
-a model's predictions are already computed or expensive to compute. Note that
-this is advanced usage, and in general we recommend using their respective
-plot functions.
+في هذا المثال، سنقوم بإنشاء كائنات عرض،
+:class:`ConfusionMatrixDisplay`، :class:`RocCurveDisplay`، و
+:class:`PrecisionRecallDisplay` مباشرة من مقاييسها الخاصة. هذا
+بديل لاستخدام وظائف الرسم الخاصة بها عندما
+تكون تنبؤات النموذج محسوبة بالفعل أو مكلفة في الحساب. لاحظ أن
+هذا استخدام متقدم، ونحن نوصي عمومًا باستخدام وظائف الرسم الخاصة بها.
 
 """
 
-# Authors: The scikit-learn developers
+# المؤلفون: مطوري scikit-learn
 # SPDX-License-Identifier: BSD-3-Clause
 
 # %%
-# Load Data and train model
+# تحميل البيانات وتدريب النموذج
 # -------------------------
-# For this example, we load a blood transfusion service center data set from
-# `OpenML <https://www.openml.org/d/1464>`_. This is a binary classification
-# problem where the target is whether an individual donated blood. Then the
-# data is split into a train and test dataset and a logistic regression is
-# fitted with the train dataset.
+# في هذا المثال، نقوم بتحميل مجموعة بيانات مركز خدمة نقل الدم من
+# `OpenML <https://www.openml.org/d/1464>`_. هذه مشكلة تصنيف ثنائي
+# حيث الهدف هو ما إذا كان الفرد قد تبرع بالدم. ثم يتم تقسيم
+# البيانات إلى مجموعة بيانات تدريب واختبار ويتم تثبيت الانحدار اللوجستي
+# باستخدام مجموعة بيانات التدريب.
 from sklearn.datasets import fetch_openml
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
@@ -39,11 +38,11 @@ clf = make_pipeline(StandardScaler(), LogisticRegression(random_state=0))
 clf.fit(X_train, y_train)
 
 # %%
-# Create :class:`ConfusionMatrixDisplay`
+# إنشاء :class:`ConfusionMatrixDisplay`
 # ######################################
-# With the fitted model, we compute the predictions of the model on the test
-# dataset. These predictions are used to compute the confusion matrix which
-# is plotted with the :class:`ConfusionMatrixDisplay`
+# باستخدام النموذج المدرب، نقوم بحساب تنبؤات النموذج على مجموعة الاختبار.
+# يتم استخدام هذه التنبؤات لحساب مصفوفة الارتباك التي
+# يتم رسمها باستخدام :class:`ConfusionMatrixDisplay`
 from sklearn.metrics import ConfusionMatrixDisplay, confusion_matrix
 
 y_pred = clf.predict(X_test)
@@ -53,11 +52,11 @@ cm_display = ConfusionMatrixDisplay(cm).plot()
 
 
 # %%
-# Create :class:`RocCurveDisplay`
+# إنشاء :class:`RocCurveDisplay`
 # ###############################
-# The roc curve requires either the probabilities or the non-thresholded
-# decision values from the estimator. Since the logistic regression provides
-# a decision function, we will use it to plot the roc curve:
+# يتطلب منحنى ROC إما الاحتمالات أو قيم القرار غير المحددة
+# من المقدر. نظرًا لأن الانحدار اللوجستي يوفر
+# دالة قرار، فسنستخدمها لرسم منحنى ROC:
 from sklearn.metrics import RocCurveDisplay, roc_curve
 
 y_score = clf.decision_function(X_test)
@@ -66,22 +65,22 @@ fpr, tpr, _ = roc_curve(y_test, y_score, pos_label=clf.classes_[1])
 roc_display = RocCurveDisplay(fpr=fpr, tpr=tpr).plot()
 
 # %%
-# Create :class:`PrecisionRecallDisplay`
+# إنشاء :class:`PrecisionRecallDisplay`
 # ######################################
-# Similarly, the precision recall curve can be plotted using `y_score` from
-# the prevision sections.
+# وبالمثل، يمكن رسم منحنى الدقة والاستدعاء باستخدام `y_score` من
+# أقسام التقدير السابقة.
 from sklearn.metrics import PrecisionRecallDisplay, precision_recall_curve
 
 prec, recall, _ = precision_recall_curve(y_test, y_score, pos_label=clf.classes_[1])
 pr_display = PrecisionRecallDisplay(precision=prec, recall=recall).plot()
 
 # %%
-# Combining the display objects into a single plot
+# دمج كائنات العرض في رسم واحد
 # ################################################
-# The display objects store the computed values that were passed as arguments.
-# This allows for the visualizations to be easliy combined using matplotlib's
-# API. In the following example, we place the displays next to each other in a
-# row.
+# تقوم كائنات العرض بتخزين القيم المحسوبة التي تم تمريرها كحجج.
+# يسمح هذا بدمج التصورات بسهولة باستخدام واجهة برمجة التطبيقات الخاصة بـ Matplotlib.
+# في المثال التالي، نقوم بوضع العروض بجانب بعضها البعض في
+# صف.
 
 # sphinx_gallery_thumbnail_number = 4
 import matplotlib.pyplot as plt

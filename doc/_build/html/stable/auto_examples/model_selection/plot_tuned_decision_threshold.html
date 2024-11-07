@@ -7,16 +7,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Post-hoc tuning the cut-off point of decision function" />
+<meta property="og:title" content="ضبط نقطة القطع لوظيفة القرار بعد التدريب" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/auto_examples/model_selection/plot_tuned_decision_threshold.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="Once a binary classifier is trained, the predict method outputs class label predictions corresponding to a thresholding of either the decision_function or the predict_proba output. The default thre..." />
+<meta property="og:description" content="بمجرد تدريب مصنف ثنائي، تقوم طريقة predict بإخراج تنبؤات تسمية الفئة المقابلة لعملية عتبية إما لـ decision_function أو لـ predict_proba الإخراج. ويتم تعريف العتبة الافتراضية على أنها تقدير احتمالي ..." />
 <meta property="og:image" content="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" />
 <meta property="og:image:alt" content="scikit-learn" />
-<meta name="description" content="Once a binary classifier is trained, the predict method outputs class label predictions corresponding to a thresholding of either the decision_function or the predict_proba output. The default thre..." />
+<meta name="description" content="بمجرد تدريب مصنف ثنائي، تقوم طريقة predict بإخراج تنبؤات تسمية الفئة المقابلة لعملية عتبية إما لـ decision_function أو لـ predict_proba الإخراج. ويتم تعريف العتبة الافتراضية على أنها تقدير احتمالي ..." />
 
-    <title>Post-hoc tuning the cut-off point of decision function &#8212; scikit-learn 1.6.dev0 documentation</title>
+    <title>ضبط نقطة القطع لوظيفة القرار بعد التدريب &#8212; scikit-learn 1.6.dev0 documentation</title>
   
   
   
@@ -78,8 +78,8 @@
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="search" title="بحث" href="../../search.html" />
-    <link rel="next" title="Post-tuning the decision threshold for cost-sensitive learning" href="plot_cost_sensitive_learning.html" />
-    <link rel="prev" title="Plotting Learning Curves and Checking Models&#39; Scalability" href="plot_learning_curve.html" />
+    <link rel="next" title="عدم الملاءمة مقابل الإفراط في الملاءمة" href="plot_underfitting_overfitting.html" />
+    <link rel="prev" title="ضبط عتبة القرار للتعلم الحساس للتكلفة" href="plot_cost_sensitive_learning.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="ar"/>
   <meta name="docsearch:version" content="1.6" />
@@ -549,160 +549,74 @@
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../release_highlights/index.html">Release Highlights</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_5_0.html">Release Highlights for scikit-learn 1.5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_4_0.html">Release Highlights for scikit-learn 1.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_3_0.html">Release Highlights for scikit-learn 1.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_2_0.html">Release Highlights for scikit-learn 1.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_1_0.html">Release Highlights for scikit-learn 1.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_0_0.html">Release Highlights for scikit-learn 1.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_24_0.html">Release Highlights for scikit-learn 0.24</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_23_0.html">Release Highlights for scikit-learn 0.23</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_22_0.html">Release Highlights for scikit-learn 0.22</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../manifold/index.html">(المتشعب)التعلم المتعدد</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_t_sne_perplexity.html">t-SNE: تأثير قيم الحيرة المختلفة على الشكل</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_mds.html">القياس متعدد الأبعاد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_lle_digits.html">تعلم متعدد الشعب على الأرقام المكتوبة بخط اليد: التضمين الخطي المحلي، Isomap...</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_swissroll.html">خفض اللفافة السويسرية واللفافة السويسرية ذات الثقب</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_manifold_sphere.html">طرق تعلم متعدد الشعب على كرة مقطوعة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_compare_methods.html">مقارنة طرق تعلم متعدد الشعب</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../tree/index.html">Decision Trees</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../tree/plot_tree_regression.html">Decision Tree Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tree/plot_iris_dtc.html">Plot the decision surface of decision trees trained on the iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tree/plot_cost_complexity_pruning.html">Post pruning decision trees with cost complexity pruning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tree/plot_unveil_tree_structure.html">Understanding the decision tree structure</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../svm/index.html">Support Vector Machines (SVM)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_oneclass.html">One-class SVM with non-linear kernel (RBF)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_custom_kernel.html">SVM مع نواة مخصصة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_anova.html">SVM-Anova: SVM مع اختيار الميزات أحادية المتغير</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_weighted_samples.html">SVM: العينات ذات الأوزان</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_separating_hyperplane.html">SVM: المستوى الفاصل ذو الهامش الأقصى</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_separating_hyperplane_unbalanced.html">SVM: المستوي الفاصل للطبقات غير المتوازنة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_regression.html">دعم نموذج الانحدار باستخدام نواة خطية وغير خطية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_linearsvc_support_vectors.html">رسم المتجهات الداعمة في LinearSVC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_kernels.html">رسم حدود التصنيف مع نوى SVM مختلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_iris_svc.html">رسم مخططات لمصنفات SVM المختلفة في مجموعة بيانات الزهرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_scale_c.html">ضبط معامل الانتظام لخوارزمية SVC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_tie_breaking.html">مثال على كسر التعادل في SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_margin.html">مثال على هوامش SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_rbf_parameters.html">معاملات SVM ذات الدالة الشعاعية الأساسية</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../mixture/index.html">Gaussian Mixture Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_concentration_prior.html">Concentration Prior Type Analysis of Variation Bayesian Gaussian Mixture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_pdf.html">Density Estimation for a Gaussian mixture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_init.html">GMM Initialization Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_covariances.html">GMM covariances</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm.html">Gaussian Mixture Model Ellipsoids</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_selection.html">Gaussian Mixture Model Selection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_sin.html">Gaussian Mixture Model Sine Curve</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tree/index.html">أشجار القرار-</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tree/plot_tree_regression.html">انحدار شجرة القرار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tree/plot_cost_complexity_pruning.html">تشذيب أشجار القرار بعد التدريب باستخدام تقنية تشذيب تعقيد التكلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tree/plot_iris_dtc.html">رسم سطح القرار لأشجار القرار المدربة على مجموعة بيانات الزهرة الآرغوانية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tree/plot_unveil_tree_structure.html">فهم بنية شجرة القرار</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../manifold/index.html">Manifold learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_compare_methods.html">Comparison of Manifold Learning methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_manifold_sphere.html">Manifold Learning methods on a severed sphere</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_lle_digits.html">Manifold learning on handwritten digits: Locally Linear Embedding, Isomap...</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_mds.html">Multi-dimensional scaling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_swissroll.html">Swiss Roll And Swiss-Hole Reduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_t_sne_perplexity.html">t-SNE: The effect of various perplexity values on the shape</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../miscellaneous/index.html">Miscellaneous</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_partial_dependence_visualization_api.html">Advanced Plotting With Partial Dependence</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_anomaly_comparison.html">Comparing anomaly detection algorithms for outlier detection on toy datasets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_kernel_ridge_regression.html">Comparison of kernel ridge regression and SVR</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_pipeline_display.html">Displaying Pipelines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_estimator_representation.html">Displaying estimators and complex pipelines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_outlier_detection_bench.html">Evaluation of outlier detection estimators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_kernel_approximation.html">Explicit feature map approximation for RBF kernels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_multioutput_face_completion.html">Face completion with a multi-output estimators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_set_output.html">Introducing the <code class="docutils literal notranslate"><span class="pre">set_output</span></code> API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_isotonic_regression.html">Isotonic Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_metadata_routing.html">Metadata Routing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_multilabel.html">Multilabel classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_roc_curve_visualization_api.html">ROC Curve with Visualization API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_johnson_lindenstrauss_bound.html">The Johnson-Lindenstrauss bound for embedding with random projections</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_display_object_visualization.html">Visualizations with Display Objects</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Model Selection</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="plot_grid_search_refit_callable.html">Balance model complexity and cross-validated score</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_likelihood_ratios.html">Class Likelihood Ratios to measure classification performance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_randomized_search.html">Comparing randomized search and grid search for hyperparameter estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_successive_halving_heatmap.html">Comparison between grid search and successive halving</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_confusion_matrix.html">Confusion matrix</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_grid_search_digits.html">Custom refit strategy of a grid search with cross-validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_multi_metric_evaluation.html">Demonstration of multi-metric evaluation on cross_val_score and GridSearchCV</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_det.html">Detection error tradeoff (DET) curve</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_train_error_vs_test_error.html">Effect of model regularization on training and test error</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_roc.html">Multiclass Receiver Operating Characteristic (ROC)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_nested_cross_validation_iris.html">Nested versus non-nested cross-validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_cv_predict.html">Plotting Cross-Validated Predictions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_learning_curve.html">Plotting Learning Curves and Checking Models' Scalability</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Post-hoc tuning the cut-off point of decision function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_cost_sensitive_learning.html">Post-tuning the decision threshold for cost-sensitive learning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_precision_recall.html">Precision-Recall</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_roc_crossval.html">Receiver Operating Characteristic (ROC) with cross validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_grid_search_text_feature_extraction.html">Sample pipeline for text feature extraction and evaluation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_grid_search_stats.html">Statistical comparison of models using grid search</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_successive_halving_iterations.html">Successive Halving Iterations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_permutation_tests_for_classification.html">Test with permutations the significance of a classification score</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_underfitting_overfitting.html">Underfitting vs. Overfitting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_cv_indices.html">Visualizing cross-validation behavior in scikit-learn</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../multiclass/index.html">Multiclass methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../multiclass/plot_multiclass_overview.html">Overview of multiclass training meta-estimators</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../multioutput/index.html">Multioutput methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../multioutput/plot_classifier_chain_yeast.html">Multilabel classification using a classifier chain</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../neighbors/index.html">Nearest Neighbors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/approximate_nearest_neighbors.html">Approximate nearest neighbors in TSNE</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_caching_nearest_neighbors.html">Caching nearest neighbors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_classification.html">Comparing Nearest Neighbors with and without Neighborhood Components Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_dim_reduction.html">Dimensionality Reduction with Neighborhood Components Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_species_kde.html">Kernel Density Estimate of Species Distributions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_digits_kde_sampling.html">Kernel Density Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nearest_centroid.html">Nearest Centroid Classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_classification.html">Nearest Neighbors Classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_regression.html">Nearest Neighbors regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_illustration.html">Neighborhood Components Analysis Illustration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_lof_novelty_detection.html">Novelty detection with Local Outlier Factor (LOF)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_lof_outlier_detection.html">Outlier detection with Local Outlier Factor (LOF)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_kde_1d.html">Simple 1D Kernel Density Estimation</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../neural_networks/index.html">Neural Networks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mlp_training_curves.html">Compare Stochastic learning strategies for MLPClassifier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_rbm_logistic_classification.html">Restricted Boltzmann Machine features for digit classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mlp_alpha.html">Varying regularization in Multi-layer Perceptron</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mnist_filters.html">Visualization of MLP weights on MNIST</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../preprocessing/index.html">Preprocessing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_all_scaling.html">Compare the effect of different scalers on data with outliers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder.html">Comparing Target Encoder with Other Encoders</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization_strategies.html">Demonstrating the different strategies of KBinsDiscretizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization_classification.html">Feature discretization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_scaling_importance.html">Importance of Feature Scaling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_map_data_to_normal.html">Map data to a normal distribution</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder_cross_val.html">Target Encoder's Internal Cross fitting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization.html">Using KBinsDiscretizer to discretize continuous features</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../release_highlights/index.html">أبرز ما جاء في الإصدار</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_5_0.html">أبرز الميزات الجديدة في الإصدار 1.5 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_4_0.html">أبرز ميزات الإصدار 1.4 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_3_0.html">أبرز ميزات الإصدار 1.3 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_2_0.html">أبرز ميزات الإصدار 1.2 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_1_0.html">أبرز الميزات الجديدة في إصدار scikit-learn 1.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_0_0.html">أبرز ميزات الإصدار 1.0 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_24_0.html">أبرز ميزات الإصدار 0.24 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_23_0.html">أبرز الميزات الجديدة في إصدار scikit-learn 0.23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_22_0.html">أبرز ميزات الإصدار 0.22 من scikit-learn</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../semi_supervised/index.html">Semi Supervised Classification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_semi_supervised_versus_svm_iris.html">Decision boundary of semi-supervised classifiers versus SVM on the Iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_self_training_varying_threshold.html">Effect of varying threshold for self-training</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_digits_active_learning.html">Label Propagation digits active learning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_digits.html">Label Propagation digits: Demonstrating performance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_structure.html">Label Propagation learning a complex structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_semi_supervised_newsgroups.html">Semi-supervised Classification on a Text Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_semi_supervised_newsgroups.html">التصنيف شبه المُشرف على مجموعة بيانات نصية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_self_training_varying_threshold.html">تأثير تغيير العتبة في التدريب الذاتي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_structure.html">تعلم انتشار العلامات لهيكل معقد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_semi_supervised_versus_svm_iris.html">حدود القرار للمصنفات شبه المُشرفة مقابل SVM على مجموعة بيانات Iris</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_digits_active_learning.html">نشر التسمية للأرقام باستخدام التعلم النشط</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_digits.html">نشر العلامات على الأرقام: توضيح الأداء</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../svm/index.html">Support Vector Machines</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_oneclass.html">One-class SVM with non-linear kernel (RBF)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_kernels.html">Plot classification boundaries with different SVM Kernels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_iris_svc.html">Plot different SVM classifiers in the iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_linearsvc_support_vectors.html">Plot the support vectors in LinearSVC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_rbf_parameters.html">RBF SVM parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_margin.html">SVM Margins Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_tie_breaking.html">SVM Tie Breaking Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_custom_kernel.html">SVM with custom kernel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_anova.html">SVM-Anova: SVM with univariate feature selection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_separating_hyperplane.html">SVM: Maximum margin separating hyperplane</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_separating_hyperplane_unbalanced.html">SVM: Separating hyperplane for unbalanced classes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_weighted_samples.html">SVM: Weighted samples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_scale_c.html">Scaling the regularization parameter for SVCs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_regression.html">Support Vector Regression (SVR) using linear and non-linear kernels</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../text/index.html">Working with text documents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../text/plot_document_classification_20newsgroups.html">Classification of text documents using sparse features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../text/plot_document_clustering.html">Clustering text documents using k-means</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../text/plot_hashing_vs_dict_vectorizer.html">FeatureHasher and DictVectorizer Comparison</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../neighbors/index.html">أقرب الجيران</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/approximate_nearest_neighbors.html">أقرب النقاط المجاورة التقريبية في TSNE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_regression.html">أقرب جيران الانحدار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_caching_nearest_neighbors.html">الاحتفاظ بأقرب الجيران في الذاكرة المؤقتة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_dim_reduction.html">الحد من الأبعاد باستخدام تحليل مكونات الجوار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_lof_novelty_detection.html">الكشف عن البيانات الشاذة باستخدام عامل الانحراف المحلي (LOF)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_lof_outlier_detection.html">الكشف عن القيم الشاذة باستخدام عامل الانحراف المحلي (LOF)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_classification.html">تصنيف أقرب الجيران</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nearest_centroid.html">تصنيف أقرب مركز</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_digits_kde_sampling.html">تقدير كثافة النواة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_kde_1d.html">تقدير كثافة النواة البسيطة أحادية البعد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_species_kde.html">تقدير كثافة النواة لتوزيع الأنواع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_illustration.html">توضيح تحليل مكونات الأحياء المجاورة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_classification.html">مقارنة أقرب الجيران مع وبدون تحليل مكونات الحي</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../applications/index.html">أمثلة مبنية على مجموعات بيانات من العالم الحقيقي</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -730,6 +644,33 @@
 <li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_rfe_digits.html">إزالة الميزة المتكررة</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_feature_selection.html">اختيار الميزة أحادية المتغير</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_f_test_vs_mi.html">مقارنة بين اختبار F والمعلومات المتبادلة</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">إختيار النموذج</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="plot_permutation_tests_for_classification.html">"</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="plot_grid_search_digits.html">استراتيجية إعادة الضبط المخصصة للبحث الشبكي مع التحقق المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_nested_cross_validation_iris.html">التصنيف المتداخل مقابل غير المتداخل</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_grid_search_stats.html">المقارنة الإحصائية للنماذج باستخدام البحث الشبكي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_grid_search_refit_callable.html">الموازنة بين تعقيد النموذج ودرجة الدقة عبر التحقق المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_train_error_vs_test_error.html">تأثير تنظيم النموذج على خطأ التدريب والاختبار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_cv_indices.html">تصور سلوك التحقق المتقاطع في سكايلرن</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_multi_metric_evaluation.html">توضيح التقييم متعدد المقاييس على cross_val_score و GridSearchCV</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_precision_recall.html">دقة-استدعاء</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_cv_predict.html">رسم تنبؤات الصندوق الأسود</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_learning_curve.html">رسم منحنيات التعلم وفحص قابلية التوسع للنماذج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_cost_sensitive_learning.html">ضبط عتبة القرار للتعلم الحساس للتكلفة</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">ضبط نقطة القطع لوظيفة القرار بعد التدريب</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_underfitting_overfitting.html">عدم الملاءمة مقابل الإفراط في الملاءمة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_successive_halving_iterations.html">عمليات التقسيم المتتالية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_grid_search_text_feature_extraction.html">مثال على خط أنابيب لاستخراج ميزات النص وتقييمها</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_confusion_matrix.html">مصفوفة الارتباك</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_randomized_search.html">مقارنة البحث العشوائي والبحث الشبكي لتقدير فرط المعلمات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_successive_halving_heatmap.html">مقارنة بين البحث الشبكي وتقليص الخيارات المتتابع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_roc.html">منحنى استقبال التشغيل متعدد الفئات (ROC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_det.html">منحنى الخطأ الكشف (DET)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_roc_crossval.html">منحنى المستقبل التشغيلي (ROC) مع التحقق المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_likelihood_ratios.html">نسب الاحتمال الطبقي لقياس أداء التصنيف</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../cluster/index.html">التجميع</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -785,12 +726,44 @@
 
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../neural_networks/index.html">الشبكات العصبية</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mnist_filters.html">تصور أوزان الشبكة العصبية متعددة الطبقات على مجموعة بيانات MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mlp_alpha.html">تغيير معامل التنظيم في الشبكة العصبية متعددة الطبقات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mlp_training_curves.html">مقارنة استراتيجيات التعلم العشوائي لتصنيف الشبكة العصبية متعددة الطبقات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_rbm_logistic_classification.html">ميزات شبكة بولتزمان المقيدة لتصنيف الأرقام</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../multiclass/index.html">الطرق المتعددة الفئات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../multiclass/plot_multiclass_overview.html">نظرة عامة على الميتا-مقدّرات التدريب متعدد التصنيفات</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../multioutput/index.html">الطرق المتعددة المخرجات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../multioutput/plot_classifier_chain_yeast.html">التصنيف متعدد التصنيفات باستخدام سلسلة المصنفات</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../text/index.html">العمل مع المستندات النصية</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../text/plot_document_clustering.html">تجميع مستندات النص باستخدام k-means</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../text/plot_document_classification_20newsgroups.html">تصنيف وثائق النصوص باستخدام الميزات المتناثرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../text/plot_hashing_vs_dict_vectorizer.html">مقارنة بين FeatureHasher و DictVectorizer</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../inspection/index.html">الفحص</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance_multicollinear.html">أهمية التبديل مع الميزات متعددة الخطية أو المرتبطة</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance.html">أهمية التبديل مقابل أهمية ميزة الغابة العشوائية (MDI)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_linear_model_coefficient_interpretation.html">المزالق الشائعة في تفسير معاملات النماذج الخطية</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_causal_interpretation.html">فشل التعلم الآلي في استنتاج الآثار السببية</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_partial_dependence.html">مخططات التبعية الجزئية والتوقع الشرطي الفردي</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../preprocessing/index.html">المعالجة المسبقة للبيانات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_scaling_importance.html">أهمية معايرة الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization.html">استخدام KBinsDiscretizer لتقسيم الخصائص المستمرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder_cross_val.html">الترميز الداخلي للهدف عبر الملاءمة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization_classification.html">تجريد الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_map_data_to_normal.html">تحويل البيانات إلى التوزيع الطبيعي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization_strategies.html">عرض استراتيجيات KBinsDiscretizer المختلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_all_scaling.html">مقارنة تأثير المقياس المختلف على البيانات مع القيم الشاذة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder.html">مقارنة ترميز الهدف مع الترميزات الأخرى</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../linear_model/index.html">النماذج الخطية المعممة</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -926,11 +899,39 @@
 <li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_compare_gpr_krr.html">مقارنة انحدار kernel ridge وانحدار العمليات الغاوسية</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../miscellaneous/index.html">متنوع</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_multioutput_face_completion.html">اكتمال الوجه باستخدام المُقدرات متعددة المخرجات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_isotonic_regression.html">الانحدار الأيزوتوني</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_multilabel.html">التصنيف متعدد التصنيفات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_display_object_visualization.html">التصورات باستخدام كائنات العرض</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_partial_dependence_visualization_api.html">الرسم المتقدم باستخدام الاعتمادية الجزئية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_set_output.html">تقديم واجهة برمجة التطبيقات <code class="docutils literal notranslate"><span class="pre">set_output</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_kernel_approximation.html">تقريب خريطة الميزات الصريحة لنواة RBF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_outlier_detection_bench.html">تقييم خوارزميات كشف الشواذ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_metadata_routing.html">توجيه البيانات الوصفية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_johnson_lindenstrauss_bound.html">حدود جونسون-ليندستراوس للانغماس مع الإسقاطات العشوائية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_estimator_representation.html">عرض المنمذجات وأنابيب التوصيل المعقدة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_pipeline_display.html">عرض خطوط الأنابيب</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_kernel_ridge_regression.html">مقارنة بين الانحدار النووي المنتظم والانحدار الداعم للمتجهات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_anomaly_comparison.html">مقارنة خوارزميات الكشف عن الشذوذ لكشف القيم المتطرفة في مجموعات بيانات تجريبية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_roc_curve_visualization_api.html">منحنى ROC مع واجهة برمجة التطبيقات للتصور</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../calibration/index.html">معايرة الإحتمالات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration.html">معايرة احتمالات المصنفات</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration_multiclass.html">معايرة الاحتمالات لتصنيف ثلاثي الفئات</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../calibration/plot_compare_calibration.html">مقارنة معايرة المصنفات</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration_curve.html">منحنيات معايرة الاحتمالية</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mixture/index.html">نماذج الخليط الجاوسي</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_selection.html">اختيار نموذج المزيج الغاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_concentration_prior.html">تحليل نوع أولوية التركيز لخوارزمية التباين بايزي غاوسي ميكسشر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_covariances.html">تشتتات GMM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_pdf.html">تقدير الكثافة لمزيج غاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_init.html">طرق تهيئة نماذج الخلط الغاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm.html">نموذج الإهليجيات لمزيج غاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_sin.html">نموذج مزيج غاوسي لمنحنى الجيب</a></li>
 </ul>
 </details></li>
 </ul>
@@ -972,9 +973,9 @@
     <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Examples</a></li>
     
     
-    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Model Selection</a></li>
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">إختيار النموذج</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Post-hoc tuning the cut-off point of decision function</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">ضبط نقطة القطع لوظيفة القرار بعد التدريب</span></li>
   </ul>
 </nav>
 </div>
@@ -996,32 +997,28 @@
 <p><a class="reference internal" href="#sphx-glr-download-auto-examples-model-selection-plot-tuned-decision-threshold-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code. or to run this example in your browser via JupyterLite or Binder</p>
 </div>
-<section class="sphx-glr-example-title" id="post-hoc-tuning-the-cut-off-point-of-decision-function">
-<span id="sphx-glr-auto-examples-model-selection-plot-tuned-decision-threshold-py"></span><h1>Post-hoc tuning the cut-off point of decision function<a class="headerlink" href="#post-hoc-tuning-the-cut-off-point-of-decision-function" title="Link to this heading">#</a></h1>
-<p>Once a binary classifier is trained, the <a class="reference internal" href="../../glossary.html#term-predict"><span class="xref std std-term">predict</span></a> method outputs class label
-predictions corresponding to a thresholding of either the <a class="reference internal" href="../../glossary.html#term-decision_function"><span class="xref std std-term">decision_function</span></a> or
-the <a class="reference internal" href="../../glossary.html#term-predict_proba"><span class="xref std std-term">predict_proba</span></a> output. The default threshold is defined as a posterior
-probability estimate of 0.5 or a decision score of 0.0. However, this default strategy
-may not be optimal for the task at hand.</p>
-<p>This example shows how to use the
-<a class="reference internal" href="../../modules/generated/sklearn.model_selection.TunedThresholdClassifierCV.html#sklearn.model_selection.TunedThresholdClassifierCV" title="sklearn.model_selection.TunedThresholdClassifierCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">TunedThresholdClassifierCV</span></code></a> to tune the decision
-threshold, depending on a metric of interest.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Authors: The scikit-learn developers</span>
-<span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
+<section class="sphx-glr-example-title" id="sphx-glr-auto-examples-model-selection-plot-tuned-decision-threshold-py">
+<span id="id1"></span><h1>ضبط نقطة القطع لوظيفة القرار بعد التدريب<a class="headerlink" href="#sphx-glr-auto-examples-model-selection-plot-tuned-decision-threshold-py" title="Link to this heading">#</a></h1>
+<p>بمجرد تدريب مصنف ثنائي، تقوم طريقة <a class="reference internal" href="../../glossary.html#term-predict"><span class="xref std std-term">predict</span></a> بإخراج تنبؤات تسمية الفئة المقابلة لعملية عتبية إما لـ <a class="reference internal" href="../../glossary.html#term-decision_function"><span class="xref std std-term">decision_function</span></a> أو
+لـ <a class="reference internal" href="../../glossary.html#term-predict_proba"><span class="xref std std-term">predict_proba</span></a> الإخراج. ويتم تعريف العتبة الافتراضية على أنها تقدير احتمالي لاحق يبلغ 0.5 أو درجة قرار تبلغ 0.0. ومع ذلك، قد لا تكون هذه الاستراتيجية الافتراضية مثالية للمهمة قيد التنفيذ.</p>
+<p>يوضح هذا المثال كيفية استخدام
+<a class="reference internal" href="../../modules/generated/sklearn.model_selection.TunedThresholdClassifierCV.html#sklearn.model_selection.TunedThresholdClassifierCV" title="sklearn.model_selection.TunedThresholdClassifierCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">TunedThresholdClassifierCV</span></code></a> لضبط عتبة القرار، اعتمادًا على مقياس الاهتمام.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># المؤلفون: مطوري scikit-learn</span>
+<span class="c1"># معرف الترخيص: BSD-3-Clause</span>
 </pre></div>
 </div>
-<section id="the-diabetes-dataset">
-<h2>The diabetes dataset<a class="headerlink" href="#the-diabetes-dataset" title="Link to this heading">#</a></h2>
-<p>To illustrate the tuning of the decision threshold, we will use the diabetes dataset.
-This dataset is available on OpenML: <a class="reference external" href="https://www.openml.org/d/37">https://www.openml.org/d/37</a>. We use the
-<a class="reference internal" href="../../modules/generated/sklearn.datasets.fetch_openml.html#sklearn.datasets.fetch_openml" title="sklearn.datasets.fetch_openml"><code class="xref py py-func docutils literal notranslate"><span class="pre">fetch_openml</span></code></a> function to fetch this dataset.</p>
+<section id="id2">
+<h2>مجموعة بيانات مرض السكري<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>لتوضيح ضبط عتبة القرار، سنستخدم مجموعة بيانات مرض السكري.
+هذه المجموعة متاحة على OpenML: <a class="reference external" href="https://www.openml.org/d/37">https://www.openml.org/d/37</a>. نستخدم
+<a class="reference internal" href="../../modules/generated/sklearn.datasets.fetch_openml.html#sklearn.datasets.fetch_openml" title="sklearn.datasets.fetch_openml"><code class="xref py py-func docutils literal notranslate"><span class="pre">fetch_openml</span></code></a> الدالة لاسترجاع هذه المجموعة.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.datasets.fetch_openml.html#sklearn.datasets.fetch_openml" title="sklearn.datasets.fetch_openml" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_openml</span></a>
 
 <span class="n">diabetes</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.datasets.fetch_openml.html#sklearn.datasets.fetch_openml" title="sklearn.datasets.fetch_openml" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_openml</span></a><span class="p">(</span><span class="n">data_id</span><span class="o">=</span><span class="mi">37</span><span class="p">,</span> <span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">)</span>
 <span class="n">data</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">diabetes</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">diabetes</span><span class="o">.</span><span class="n">target</span>
 </pre></div>
 </div>
-<p>We look at the target to understand the type of problem we are dealing with.</p>
+<p>نلقي نظرة على الهدف لفهم نوع المشكلة التي نتعامل معها.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">target</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1031,21 +1028,21 @@ tested_positive    268
 Name: count, dtype: int64
 </pre></div>
 </div>
-<p>We can see that we are dealing with a binary classification problem. Since the
-labels are not encoded as 0 and 1, we make it explicit that we consider the class
-labeled &quot;tested_negative&quot; as the negative class (which is also the most frequent)
-and the class labeled &quot;tested_positive&quot; the positive as the positive class:</p>
+<p>يمكننا أن نرى أننا نتعامل مع مشكلة تصنيف ثنائي. نظرًا لأن
+التصنيفات غير مشفرة على أنها 0 و 1، فإننا نجعلها صريحة بأننا نعتبر الفئة
+المسماة &quot;tested_negative&quot; كالفئة السلبية (وهي أيضًا الأكثر تكرارًا)
+والفئة المسماة &quot;tested_positive&quot; كالفئة الإيجابية:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">neg_label</span><span class="p">,</span> <span class="n">pos_label</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">index</span>
 </pre></div>
 </div>
-<p>We can also observe that this binary problem is slightly imbalanced where we have
-around twice more samples from the negative class than from the positive class. When
-it comes to evaluation, we should consider this aspect to interpret the results.</p>
+<p>يمكننا أيضًا ملاحظة أن هذه المشكلة الثنائية غير متوازنة إلى حد ما حيث لدينا
+حوالي ضعف عدد العينات من الفئة السلبية مقارنة بالفئة الإيجابية. عندما
+يتعلق الأمر بالتقييم، يجب أن نأخذ هذا الجانب في الاعتبار لتفسير النتائج.</p>
 </section>
-<section id="our-vanilla-classifier">
-<h2>Our vanilla classifier<a class="headerlink" href="#our-vanilla-classifier" title="Link to this heading">#</a></h2>
-<p>We define a basic predictive model composed of a scaler followed by a logistic
-regression classifier.</p>
+<section id="id3">
+<h2>مصنفنا الأساسي<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>نحدد نموذجًا تنبؤيًا أساسيًا يتكون من مقياس متبوعًا بمصنف
+الانحدار اللوجستي.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">LogisticRegression</span></a>
 <span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.pipeline.make_pipeline.html#sklearn.pipeline.make_pipeline" title="sklearn.pipeline.make_pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-function"><span class="n">make_pipeline</span></a>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">StandardScaler</span></a>
@@ -1055,7 +1052,7 @@ regression classifier.</p>
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
-<style>#sk-container-id-56 {
+<style>#sk-container-id-19 {
   /* Definition of color scheme common for light and dark mode */
   --sklearn-color-text: #000;
   --sklearn-color-text-muted: #666;
@@ -1086,15 +1083,15 @@ regression classifier.</p>
   }
 }
 
-#sk-container-id-56 {
+#sk-container-id-19 {
   color: var(--sklearn-color-text);
 }
 
-#sk-container-id-56 pre {
+#sk-container-id-19 pre {
   padding: 0;
 }
 
-#sk-container-id-56 input.sk-hidden--visually {
+#sk-container-id-19 input.sk-hidden--visually {
   border: 0;
   clip: rect(1px 1px 1px 1px);
   clip: rect(1px, 1px, 1px, 1px);
@@ -1106,7 +1103,7 @@ regression classifier.</p>
   width: 1px;
 }
 
-#sk-container-id-56 div.sk-dashed-wrapped {
+#sk-container-id-19 div.sk-dashed-wrapped {
   border: 1px dashed var(--sklearn-color-line);
   margin: 0 0.4em 0.5em 0.4em;
   box-sizing: border-box;
@@ -1114,7 +1111,7 @@ regression classifier.</p>
   background-color: var(--sklearn-color-background);
 }
 
-#sk-container-id-56 div.sk-container {
+#sk-container-id-19 div.sk-container {
   /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
      but bootstrap.min.css set `[hidden] { display: none !important; }`
      so we also need the `!important` here to be able to override the
@@ -1124,7 +1121,7 @@ regression classifier.</p>
   position: relative;
 }
 
-#sk-container-id-56 div.sk-text-repr-fallback {
+#sk-container-id-19 div.sk-text-repr-fallback {
   display: none;
 }
 
@@ -1140,14 +1137,14 @@ div.sk-item {
 
 /* Parallel-specific style estimator block */
 
-#sk-container-id-56 div.sk-parallel-item::after {
+#sk-container-id-19 div.sk-parallel-item::after {
   content: "";
   width: 100%;
   border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
   flex-grow: 1;
 }
 
-#sk-container-id-56 div.sk-parallel {
+#sk-container-id-19 div.sk-parallel {
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -1155,28 +1152,28 @@ div.sk-item {
   position: relative;
 }
 
-#sk-container-id-56 div.sk-parallel-item {
+#sk-container-id-19 div.sk-parallel-item {
   display: flex;
   flex-direction: column;
 }
 
-#sk-container-id-56 div.sk-parallel-item:first-child::after {
+#sk-container-id-19 div.sk-parallel-item:first-child::after {
   align-self: flex-end;
   width: 50%;
 }
 
-#sk-container-id-56 div.sk-parallel-item:last-child::after {
+#sk-container-id-19 div.sk-parallel-item:last-child::after {
   align-self: flex-start;
   width: 50%;
 }
 
-#sk-container-id-56 div.sk-parallel-item:only-child::after {
+#sk-container-id-19 div.sk-parallel-item:only-child::after {
   width: 0;
 }
 
 /* Serial-specific style estimator block */
 
-#sk-container-id-56 div.sk-serial {
+#sk-container-id-19 div.sk-serial {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1194,14 +1191,14 @@ clickable and can be expanded/collapsed.
 
 /* Pipeline and ColumnTransformer style (default) */
 
-#sk-container-id-56 div.sk-toggleable {
+#sk-container-id-19 div.sk-toggleable {
   /* Default theme specific background. It is overwritten whether we have a
   specific estimator or a Pipeline/ColumnTransformer */
   background-color: var(--sklearn-color-background);
 }
 
 /* Toggleable label */
-#sk-container-id-56 label.sk-toggleable__label {
+#sk-container-id-19 label.sk-toggleable__label {
   cursor: pointer;
   display: flex;
   width: 100%;
@@ -1214,13 +1211,13 @@ clickable and can be expanded/collapsed.
   gap: 0.5em;
 }
 
-#sk-container-id-56 label.sk-toggleable__label .caption {
+#sk-container-id-19 label.sk-toggleable__label .caption {
   font-size: 0.6rem;
   font-weight: lighter;
   color: var(--sklearn-color-text-muted);
 }
 
-#sk-container-id-56 label.sk-toggleable__label-arrow:before {
+#sk-container-id-19 label.sk-toggleable__label-arrow:before {
   /* Arrow on the left of the label */
   content: "▸";
   float: left;
@@ -1228,13 +1225,13 @@ clickable and can be expanded/collapsed.
   color: var(--sklearn-color-icon);
 }
 
-#sk-container-id-56 label.sk-toggleable__label-arrow:hover:before {
+#sk-container-id-19 label.sk-toggleable__label-arrow:hover:before {
   color: var(--sklearn-color-text);
 }
 
 /* Toggleable content - dropdown */
 
-#sk-container-id-56 div.sk-toggleable__content {
+#sk-container-id-19 div.sk-toggleable__content {
   max-height: 0;
   max-width: 0;
   overflow: hidden;
@@ -1243,12 +1240,12 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-56 div.sk-toggleable__content.fitted {
+#sk-container-id-19 div.sk-toggleable__content.fitted {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
-#sk-container-id-56 div.sk-toggleable__content pre {
+#sk-container-id-19 div.sk-toggleable__content pre {
   margin: 0.2em;
   border-radius: 0.25em;
   color: var(--sklearn-color-text);
@@ -1256,79 +1253,79 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-56 div.sk-toggleable__content.fitted pre {
+#sk-container-id-19 div.sk-toggleable__content.fitted pre {
   /* unfitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
-#sk-container-id-56 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+#sk-container-id-19 input.sk-toggleable__control:checked~div.sk-toggleable__content {
   /* Expand drop-down */
   max-height: 200px;
   max-width: 100%;
   overflow: auto;
 }
 
-#sk-container-id-56 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+#sk-container-id-19 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
   content: "▾";
 }
 
 /* Pipeline/ColumnTransformer-specific style */
 
-#sk-container-id-56 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-19 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-56 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-19 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
 /* Estimator-specific style */
 
 /* Colorize estimator box */
-#sk-container-id-56 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-19 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-56 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-19 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
-#sk-container-id-56 div.sk-label label.sk-toggleable__label,
-#sk-container-id-56 div.sk-label label {
+#sk-container-id-19 div.sk-label label.sk-toggleable__label,
+#sk-container-id-19 div.sk-label label {
   /* The background is the default theme color */
   color: var(--sklearn-color-text-on-default-background);
 }
 
 /* On hover, darken the color of the background */
-#sk-container-id-56 div.sk-label:hover label.sk-toggleable__label {
+#sk-container-id-19 div.sk-label:hover label.sk-toggleable__label {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
 /* Label box, darken color on hover, fitted */
-#sk-container-id-56 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+#sk-container-id-19 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
 /* Estimator label */
 
-#sk-container-id-56 div.sk-label label {
+#sk-container-id-19 div.sk-label label {
   font-family: monospace;
   font-weight: bold;
   display: inline-block;
   line-height: 1.2em;
 }
 
-#sk-container-id-56 div.sk-label-container {
+#sk-container-id-19 div.sk-label-container {
   text-align: center;
 }
 
 /* Estimator-specific */
-#sk-container-id-56 div.sk-estimator {
+#sk-container-id-19 div.sk-estimator {
   font-family: monospace;
   border: 1px dotted var(--sklearn-color-border-box);
   border-radius: 0.25em;
@@ -1338,18 +1335,18 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-56 div.sk-estimator.fitted {
+#sk-container-id-19 div.sk-estimator.fitted {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
 /* on hover */
-#sk-container-id-56 div.sk-estimator:hover {
+#sk-container-id-19 div.sk-estimator:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-56 div.sk-estimator.fitted:hover {
+#sk-container-id-19 div.sk-estimator.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-2);
 }
@@ -1437,7 +1434,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 
 /* "?"-specific style due to the `<a>` HTML tag */
 
-#sk-container-id-56 a.estimator_doc_link {
+#sk-container-id-19 a.estimator_doc_link {
   float: right;
   font-size: 1rem;
   line-height: 1em;
@@ -1452,38 +1449,38 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   border: var(--sklearn-color-unfitted-level-1) 1pt solid;
 }
 
-#sk-container-id-56 a.estimator_doc_link.fitted {
+#sk-container-id-19 a.estimator_doc_link.fitted {
   /* fitted */
   border: var(--sklearn-color-fitted-level-1) 1pt solid;
   color: var(--sklearn-color-fitted-level-1);
 }
 
 /* On hover */
-#sk-container-id-56 a.estimator_doc_link:hover {
+#sk-container-id-19 a.estimator_doc_link:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-3);
   color: var(--sklearn-color-background);
   text-decoration: none;
 }
 
-#sk-container-id-56 a.estimator_doc_link.fitted:hover {
+#sk-container-id-19 a.estimator_doc_link.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-3);
 }
-</style><div id="sk-container-id-56" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler()),
-                (&#x27;logisticregression&#x27;, LogisticRegression())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-232" type="checkbox" ><label for="sk-estimator-id-232" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler()),
-                (&#x27;logisticregression&#x27;, LogisticRegression())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-233" type="checkbox" ><label for="sk-estimator-id-233" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content "><pre>StandardScaler()</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-234" type="checkbox" ><label for="sk-estimator-id-234" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>LogisticRegression</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a></div></label><div class="sk-toggleable__content "><pre>LogisticRegression()</pre></div> </div></div></div></div></div></div>
+</style><div id="sk-container-id-19" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler()),
+                (&#x27;logisticregression&#x27;, LogisticRegression())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-51" type="checkbox" ><label for="sk-estimator-id-51" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler()),
+                (&#x27;logisticregression&#x27;, LogisticRegression())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-52" type="checkbox" ><label for="sk-estimator-id-52" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content "><pre>StandardScaler()</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-53" type="checkbox" ><label for="sk-estimator-id-53" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>LogisticRegression</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a></div></label><div class="sk-toggleable__content "><pre>LogisticRegression()</pre></div> </div></div></div></div></div></div>
 </div>
 <br />
-<br /><p>We evaluate our model using cross-validation. We use the accuracy and the balanced
-accuracy to report the performance of our model. The balanced accuracy is a metric
-that is less sensitive to class imbalance and will allow us to put the accuracy
-score in perspective.</p>
-<p>Cross-validation allows us to study the variance of the decision threshold across
-different splits of the data. However, the dataset is rather small and it would be
-detrimental to use more than 5 folds to evaluate the dispersion. Therefore, we use
-a <a class="reference internal" href="../../modules/generated/sklearn.model_selection.RepeatedStratifiedKFold.html#sklearn.model_selection.RepeatedStratifiedKFold" title="sklearn.model_selection.RepeatedStratifiedKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">RepeatedStratifiedKFold</span></code></a> where we apply several
-repetitions of 5-fold cross-validation.</p>
+<br /><p>نقيم نموذجنا باستخدام التحقق المتقاطع. نستخدم الدقة والدقة المتوازنة
+للإبلاغ عن أداء نموذجنا. الدقة المتوازنة هي مقياس
+أقل حساسية لاختلال التوازن في الفئة وسيسمح لنا بوضع درجة الدقة
+في المنظور.</p>
+<p>يسمح لنا التحقق المتقاطع بدراسة تباين عتبة القرار عبر
+تقسيمات مختلفة للبيانات. ومع ذلك، فإن مجموعة البيانات صغيرة إلى حد ما وسيكون
+من الضار استخدام أكثر من 5 طيات لتقييم التشتت. لذلك، نستخدم
+<a class="reference internal" href="../../modules/generated/sklearn.model_selection.RepeatedStratifiedKFold.html#sklearn.model_selection.RepeatedStratifiedKFold" title="sklearn.model_selection.RepeatedStratifiedKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">RepeatedStratifiedKFold</span></code></a> حيث نطبق عدة
+تكرارات من التحقق المتقاطع 5-fold.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.model_selection.RepeatedStratifiedKFold.html#sklearn.model_selection.RepeatedStratifiedKFold" title="sklearn.model_selection.RepeatedStratifiedKFold" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RepeatedStratifiedKFold</span></a><span class="p">,</span> <a href="../../modules/generated/sklearn.model_selection.cross_validate.html#sklearn.model_selection.cross_validate" title="sklearn.model_selection.cross_validate" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-function"><span class="n">cross_validate</span></a>
@@ -1559,22 +1556,21 @@ repetitions of 5-fold cross-validation.</p>
 </div>
 </div>
 <br />
-<br /><p>Our predictive model succeeds to grasp the relationship between the data and the
-target. The training and testing scores are close to each other, meaning that our
-predictive model is not overfitting. We can also observe that the balanced accuracy is
-lower than the accuracy, due to the class imbalance previously mentioned.</p>
-<p>For this classifier, we let the decision threshold, used convert the probability of
-the positive class into a class prediction, to its default value: 0.5. However, this
-threshold might not be optimal. If our interest is to maximize the balanced accuracy,
-we should select another threshold that would maximize this metric.</p>
-<p>The <a class="reference internal" href="../../modules/generated/sklearn.model_selection.TunedThresholdClassifierCV.html#sklearn.model_selection.TunedThresholdClassifierCV" title="sklearn.model_selection.TunedThresholdClassifierCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">TunedThresholdClassifierCV</span></code></a> meta-estimator allows
-to tune the decision threshold of a classifier given a metric of interest.</p>
+<br /><p>ينجح نموذجنا التنبؤي في فهم العلاقة بين البيانات والهدف. درجات التدريب والاختبار قريبة من بعضها البعض، مما يعني أن
+نموذجنا التنبؤي لا يعاني من الإفراط في الملاءمة. يمكننا أيضًا ملاحظة أن الدقة المتوازنة هي
+أقل من الدقة، بسبب اختلال التوازن في الفئة المذكور سابقًا.</p>
+<p>بالنسبة لهذا المصنف، نترك عتبة القرار، المستخدمة لتحويل احتمال
+الفئة الإيجابية إلى تنبؤ الفئة، إلى قيمتها الافتراضية: 0.5. ومع ذلك، قد لا تكون هذه
+العتبة مثالية. إذا كان اهتمامنا هو تعظيم الدقة المتوازنة،
+يجب أن نختار عتبة أخرى من شأنها أن تعظم هذا المقياس.</p>
+<p>يسمح المقيّم <a class="reference internal" href="../../modules/generated/sklearn.model_selection.TunedThresholdClassifierCV.html#sklearn.model_selection.TunedThresholdClassifierCV" title="sklearn.model_selection.TunedThresholdClassifierCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">TunedThresholdClassifierCV</span></code></a>
+بضبط عتبة القرار لمصنف معين بناءً على مقياس الاهتمام.</p>
 </section>
-<section id="tuning-the-decision-threshold">
-<h2>Tuning the decision threshold<a class="headerlink" href="#tuning-the-decision-threshold" title="Link to this heading">#</a></h2>
-<p>We create a <a class="reference internal" href="../../modules/generated/sklearn.model_selection.TunedThresholdClassifierCV.html#sklearn.model_selection.TunedThresholdClassifierCV" title="sklearn.model_selection.TunedThresholdClassifierCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">TunedThresholdClassifierCV</span></code></a> and
-configure it to maximize the balanced accuracy. We evaluate the model using the same
-cross-validation strategy as previously.</p>
+<section id="id4">
+<h2>ضبط عتبة القرار<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>ننشئ <a class="reference internal" href="../../modules/generated/sklearn.model_selection.TunedThresholdClassifierCV.html#sklearn.model_selection.TunedThresholdClassifierCV" title="sklearn.model_selection.TunedThresholdClassifierCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">TunedThresholdClassifierCV</span></code></a> ونقوم
+بتهيئته لتعظيم الدقة المتوازنة. نقيم النموذج باستخدام نفس
+استراتيجية التحقق المتقاطع كما في السابق.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.model_selection.TunedThresholdClassifierCV.html#sklearn.model_selection.TunedThresholdClassifierCV" title="sklearn.model_selection.TunedThresholdClassifierCV" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">TunedThresholdClassifierCV</span></a>
 
 <span class="n">tuned_model</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.model_selection.TunedThresholdClassifierCV.html#sklearn.model_selection.TunedThresholdClassifierCV" title="sklearn.model_selection.TunedThresholdClassifierCV" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">TunedThresholdClassifierCV</span></a><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s2">&quot;balanced_accuracy&quot;</span><span class="p">)</span>
@@ -1641,12 +1637,12 @@ cross-validation strategy as previously.</p>
 </div>
 </div>
 <br />
-<br /><p>In comparison with the vanilla model, we observe that the balanced accuracy score
-increased. Of course, it comes at the cost of a lower accuracy score. It means that
-our model is now more sensitive to the positive class but makes more mistakes on the
-negative class.</p>
-<p>However, it is important to note that this tuned predictive model is internally the
-same model as the vanilla model: they have the same fitted coefficients.</p>
+<br /><p>بالمقارنة مع النموذج الأساسي، نلاحظ أن درجة الدقة المتوازنة
+زادت. بالطبع، يأتي ذلك على حساب انخفاض درجة الدقة. هذا يعني أن
+نموذجنا أصبح الآن أكثر حساسية للفئة الإيجابية ولكنه يرتكب أخطاء أكثر على
+الفئة السلبية.</p>
+<p>ومع ذلك، من المهم ملاحظة أن هذا النموذج التنبؤي المضبوط هو داخليًا نفس
+النموذج الأساسي: لديهم نفس المعاملات المناسبة.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="n">vanilla_model_coef</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">(</span>
@@ -1660,14 +1656,14 @@ same model as the vanilla model: they have the same fitted coefficients.</p>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="matplotlib.pyplot.subplots" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">vanilla_model_coef</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Coefficient value&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Vanilla model&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;قيمة المعامل&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;النموذج الأساسي&quot;</span><span class="p">)</span>
 <span class="n">tuned_model_coef</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Tuned model&quot;</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Coefficients of the predictive models&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;النموذج المضبوط&quot;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;معاملات النماذج التنبؤية&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_tuned_decision_threshold_001.png" srcset="../../_images/sphx_glr_plot_tuned_decision_threshold_001.png" alt="Coefficients of the predictive models, Vanilla model, Tuned model" class = "sphx-glr-single-img"/><p>Only the decision threshold of each model was changed during the cross-validation.</p>
+<img src="../../_images/sphx_glr_plot_tuned_decision_threshold_001.png" srcset="../../_images/sphx_glr_plot_tuned_decision_threshold_001.png" alt="معاملات النماذج التنبؤية, النموذج الأساسي, النموذج المضبوط" class = "sphx-glr-single-img"/><p>تم تغيير عتبة القرار لكل نموذج فقط أثناء التحقق المتقاطع.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">decision_threshold</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.Series" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pd</span><span class="o">.</span><span class="n">Series</span></a><span class="p">(</span>
     <span class="p">[</span><span class="n">est</span><span class="o">.</span><span class="n">best_threshold_</span> <span class="k">for</span> <span class="n">est</span> <span class="ow">in</span> <span class="n">cv_results_tuned_model</span><span class="p">[</span><span class="s2">&quot;estimator&quot;</span><span class="p">]],</span>
 <span class="p">)</span>
@@ -1676,26 +1672,25 @@ same model as the vanilla model: they have the same fitted coefficients.</p>
     <span class="n">decision_threshold</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
     <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span>
     <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span>
-    <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Mean decision threshold: </span><span class="si">{</span><span class="n">decision_threshold</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;عتبة القرار المتوسطة: </span><span class="si">{</span><span class="n">decision_threshold</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Decision threshold&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;عتبة القرار&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper right&quot;</span><span class="p">)</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span>
-    <span class="s2">&quot;Distribution of the decision threshold </span><span class="se">\n</span><span class="s2">across different cross-validation folds&quot;</span>
+    <span class="s2">&quot;توزيع عتبة القرار </span><span class="se">\n</span><span class="s2">عبر طيات التحقق المتقاطع المختلفة&quot;</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_tuned_decision_threshold_002.png" srcset="../../_images/sphx_glr_plot_tuned_decision_threshold_002.png" alt="Distribution of the decision threshold  across different cross-validation folds" class = "sphx-glr-single-img"/><p>In average, a decision threshold around 0.32 maximizes the balanced accuracy, which is
-different from the default decision threshold of 0.5. Thus tuning the decision
-threshold is particularly important when the output of the predictive model
-is used to make decisions. Besides, the metric used to tune the decision threshold
-should be chosen carefully. Here, we used the balanced accuracy but it might not be
-the most appropriate metric for the problem at hand. The choice of the &quot;right&quot; metric
-is usually problem-dependent and might require some domain knowledge. Refer to the
-example entitled,
-<a class="reference internal" href="plot_cost_sensitive_learning.html#sphx-glr-auto-examples-model-selection-plot-cost-sensitive-learning-py"><span class="std std-ref">Post-tuning the decision threshold for cost-sensitive learning</span></a>,
-for more details.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 35.144 seconds)</p>
+<img src="../../_images/sphx_glr_plot_tuned_decision_threshold_002.png" srcset="../../_images/sphx_glr_plot_tuned_decision_threshold_002.png" alt="توزيع عتبة القرار  عبر طيات التحقق المتقاطع المختلفة" class = "sphx-glr-single-img"/><p>في المتوسط، تعظم عتبة القرار التي تبلغ حوالي 0.32 الدقة المتوازنة، والتي تختلف
+عن عتبة القرار الافتراضية البالغة 0.5. وبالتالي، فإن ضبط عتبة القرار مهم بشكل خاص عندما
+يتم استخدام ناتج النموذج التنبؤي
+لاتخاذ القرارات. بالإضافة إلى ذلك، يجب اختيار المقياس المستخدم لضبط عتبة القرار
+بعناية. هنا، استخدمنا الدقة المتوازنة ولكن قد لا يكون
+المقياس الأنسب للمشكلة قيد التنفيذ. عادةً ما يعتمد اختيار المقياس &quot;الصحيح&quot;
+على المشكلة وقد يتطلب بعض المعرفة بالمجال. راجع المثال المعنون،
+<a class="reference internal" href="plot_cost_sensitive_learning.html#sphx-glr-auto-examples-model-selection-plot-cost-sensitive-learning-py"><span class="std std-ref">ضبط عتبة القرار للتعلم الحساس للتكلفة</span></a>،
+لمزيد من التفاصيل.</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 39.766 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-model-selection-plot-tuned-decision-threshold-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/scikit-learn/scikit-learn/main?urlpath=lab/tree/notebooks/auto_examples/model_selection/plot_tuned_decision_threshold.ipynb"><img alt="Launch binder" src="../../_images/binder_badge_logo22.svg" style="width: 150px;" />
@@ -1716,18 +1711,18 @@ for more details.</p>
 </div>
 </div>
 <p class="rubric">Related examples</p>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="We are pleased to announce the release of scikit-learn 1.5! Many bug fixes and improvements were added, as well as some key new features. Below we detail the highlights of this release. For an exhaustive list of all the changes, please refer to the release notes &lt;release_notes_1_5&gt;."><img alt="" src="../../_images/sphx_glr_plot_release_highlights_1_5_0_thumb.png" />
-<p><a class="reference internal" href="../release_highlights/plot_release_highlights_1_5_0.html#sphx-glr-auto-examples-release-highlights-plot-release-highlights-1-5-0-py"><span class="std std-ref">Release Highlights for scikit-learn 1.5</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Release Highlights for scikit-learn 1.5</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Once a classifier is trained, the output of the predict method outputs class label predictions corresponding to a thresholding of either the decision_function or the predict_proba output. For a binary classifier, the default threshold is defined as a posterior probability estimate of 0.5 or a decision score of 0.0."><img alt="" src="../../_images/sphx_glr_plot_cost_sensitive_learning_thumb.png" />
-<p><a class="reference internal" href="plot_cost_sensitive_learning.html#sphx-glr-auto-examples-model-selection-plot-cost-sensitive-learning-py"><span class="std std-ref">Post-tuning the decision threshold for cost-sensitive learning</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Post-tuning the decision threshold for cost-sensitive learning</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the effect of a varying threshold on self-training. The breast_cancer dataset is loaded, and labels are deleted such that only 50 out of 569 samples have labels. A SelfTrainingClassifier is fitted on this dataset, with varying thresholds."><img alt="" src="../../_images/sphx_glr_plot_self_training_varying_threshold_thumb.png" />
-<p><a class="reference internal" href="../semi_supervised/plot_self_training_varying_threshold.html#sphx-glr-auto-examples-semi-supervised-plot-self-training-varying-threshold-py"><span class="std std-ref">Effect of varying threshold for self-training</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Effect of varying threshold for self-training</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the class_likelihood_ratios function, which computes the positive and negative likelihood ratios (`LR+`, LR-) to assess the predictive power of a binary classifier. As we will see, these metrics are independent of the proportion between classes in the test set, which makes them very useful when the available data for a study has a different class proportion than the target application."><img alt="" src="../../_images/sphx_glr_plot_likelihood_ratios_thumb.png" />
-<p><a class="reference internal" href="plot_likelihood_ratios.html#sphx-glr-auto-examples-model-selection-plot-likelihood-ratios-py"><span class="std std-ref">Class Likelihood Ratios to measure classification performance</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Class Likelihood Ratios to measure classification performance</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="بمجرد تدريب المصنف، فإن ناتج طريقة predict ينتج تنبؤات تسمية الفئة المقابلة لعتبة إما decision_function أو ناتج predict_proba. بالنسبة للمصنف الثنائي، فإن العتبة الافتراضية محددة كتقدير احتمالية لاحقة تبلغ 0.5 أو درجة قرار تبلغ 0.0."><img alt="" src="../../_images/sphx_glr_plot_cost_sensitive_learning_thumb.png" />
+<p><a class="reference internal" href="plot_cost_sensitive_learning.html#sphx-glr-auto-examples-model-selection-plot-cost-sensitive-learning-py"><span class="std std-ref">ضبط عتبة القرار للتعلم الحساس للتكلفة</span></a></p>
+  <div class="sphx-glr-thumbnail-title">ضبط عتبة القرار للتعلم الحساس للتكلفة</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="يسعدنا الإعلان عن إصدار scikit-learn 1.5! تم إصلاح العديد من الأخطاء وإضافة العديد من التحسينات، بالإضافة إلى بعض الميزات الجديدة الرئيسية. فيما يلي نقدم أبرز ميزات هذا الإصدار. للحصول على قائمة شاملة بجميع التغييرات، يرجى الرجوع إلى ملاحظات الإصدار &lt;release_notes_1_5&gt;."><img alt="" src="../../_images/sphx_glr_plot_release_highlights_1_5_0_thumb.png" />
+<p><a class="reference internal" href="../release_highlights/plot_release_highlights_1_5_0.html#sphx-glr-auto-examples-release-highlights-plot-release-highlights-1-5-0-py"><span class="std std-ref">أبرز الميزات الجديدة في الإصدار 1.5 من scikit-learn</span></a></p>
+  <div class="sphx-glr-thumbnail-title">أبرز الميزات الجديدة في الإصدار 1.5 من scikit-learn</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="هذا المثال يوضح الدالة class_likelihood_ratios والتي تقوم بحساب نسب الاحتمال الطبقي الإيجابية والسلبية (`LR+`, LR-) لتقييم القوة التنبؤية لمصنف ثنائي. كما سنرى، هذه المقاييس مستقلة عن نسبة التوازن بين الفئات في مجموعة الاختبار، مما يجعلها مفيدة للغاية عندما تختلف نسبة التوازن بين الفئات في البيانات المتاحة للدراسة عن نسبة التوازن في التطبيق المستهدف."><img alt="" src="../../_images/sphx_glr_plot_likelihood_ratios_thumb.png" />
+<p><a class="reference internal" href="plot_likelihood_ratios.html#sphx-glr-auto-examples-model-selection-plot-likelihood-ratios-py"><span class="std std-ref">نسب الاحتمال الطبقي لقياس أداء التصنيف</span></a></p>
+  <div class="sphx-glr-thumbnail-title">نسب الاحتمال الطبقي لقياس أداء التصنيف</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="في هذا المثال، نناقش مشكلة التصنيف عندما تكون المتغيرات المستهدفة مكونة من أكثر من فئتين. يُطلق على ذلك التصنيف متعدد الفئات."><img alt="" src="../../_images/sphx_glr_plot_multiclass_overview_thumb.png" />
+<p><a class="reference internal" href="../multiclass/plot_multiclass_overview.html#sphx-glr-auto-examples-multiclass-plot-multiclass-overview-py"><span class="std std-ref">نظرة عامة على الميتا-مقدّرات التدريب متعدد التصنيفات</span></a></p>
+  <div class="sphx-glr-thumbnail-title">نظرة عامة على الميتا-مقدّرات التدريب متعدد التصنيفات</div>
 </div></div><p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
 </section>
 </section>
@@ -1743,20 +1738,20 @@ for more details.</p>
     <div class="footer-article-item">
 <div class="prev-next-area">
     <a class="left-prev"
-       href="plot_learning_curve.html"
+       href="plot_cost_sensitive_learning.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">السابق</p>
-        <p class="prev-next-title">Plotting Learning Curves and Checking Models' Scalability</p>
+        <p class="prev-next-title">ضبط عتبة القرار للتعلم الحساس للتكلفة</p>
       </div>
     </a>
     <a class="right-next"
-       href="plot_cost_sensitive_learning.html"
+       href="plot_underfitting_overfitting.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">التالي</p>
-        <p class="prev-next-title">Post-tuning the decision threshold for cost-sensitive learning</p>
+        <p class="prev-next-title">عدم الملاءمة مقابل الإفراط في الملاءمة</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1783,9 +1778,9 @@ for more details.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-diabetes-dataset">The diabetes dataset</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#our-vanilla-classifier">Our vanilla classifier</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tuning-the-decision-threshold">Tuning the decision threshold</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">مجموعة بيانات مرض السكري</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">مصنفنا الأساسي</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">ضبط عتبة القرار</a></li>
 </ul>
   </nav></div>
 

@@ -18,47 +18,35 @@
 .. _sphx_glr_auto_examples_svm_plot_svm_scale_c.py:
 
 
-==============================================
-Scaling the regularization parameter for SVCs
-==============================================
+===================================
+ضبط معامل الانتظام لخوارزمية SVC
+===================================
 
-The following example illustrates the effect of scaling the regularization
-parameter when using :ref:`svm` for :ref:`classification <svm_classification>`.
-For SVC classification, we are interested in a risk minimization for the
-equation:
-
+يوضح المثال التالي تأثير ضبط معامل الانتظام عند استخدام :ref:`svm` لتصنيف :ref:`classification <svm_classification>`.
+بالنسبة لتصنيف SVC، نهتم بتصغير الخطر للمعادلة التالية:
 
 .. math::
 
     C \sum_{i=1, n} \mathcal{L} (f(x_i), y_i) + \Omega (w)
 
-where
+حيث:
 
-- :math:`C` is used to set the amount of regularization
-- :math:`\mathcal{L}` is a `loss` function of our samples and our model parameters.
-- :math:`\Omega` is a `penalty` function of our model parameters
+- :math:`C` يستخدم لتحديد كمية الانتظام.
+- :math:`\mathcal{L}` هي دالة 'الخسارة' لعيناتنا ومعاملات نموذجنا.
+- :math:`\Omega` هي دالة 'العقوبة' لمعاملات نموذجنا.
 
-If we consider the loss function to be the individual error per sample, then the
-data-fit term, or the sum of the error for each sample, increases as we add more
-samples. The penalization term, however, does not increase.
+إذا اعتبرنا دالة الخسارة هي الخطأ الفردي لكل عينة، فإن مصطلح ملاءمة البيانات، أو مجموع الخطأ لكل عينة، يزيد مع إضافة المزيد من العينات. ومع ذلك، فإن مصطلح العقوبة لا يزيد.
 
-When using, for example, :ref:`cross validation <cross_validation>`, to set the
-amount of regularization with `C`, there would be a different amount of samples
-between the main problem and the smaller problems within the folds of the cross
-validation.
+عند استخدام، على سبيل المثال، :ref:`cross validation <cross_validation>`، لتحديد كمية الانتظام مع 'C'، سيكون هناك عدد مختلف من العينات بين المشكلة الرئيسية والمشاكل الأصغر داخل طيات التحقق المتقاطع.
 
-Since the loss function dependens on the amount of samples, the latter
-influences the selected value of `C`. The question that arises is "How do we
-optimally adjust C to account for the different amount of training samples?"
+بما أن دالة الخسارة تعتمد على عدد العينات، فإن ذلك يؤثر على القيمة المختارة لـ 'C'. والسؤال الذي يطرح نفسه هو "كيف يمكننا ضبط 'C' بشكل أمثل لمراعاة العدد المختلف من عينات التدريب؟"
 
-.. GENERATED FROM PYTHON SOURCE LINES 35-39
+.. GENERATED FROM PYTHON SOURCE LINES 25-28
 
 .. code-block:: Python
 
-
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
-
+    # المؤلفون: مطوري scikit-learn
+    # معرف الترخيص: BSD-3-Clause
 
 
 
@@ -66,19 +54,15 @@ optimally adjust C to account for the different amount of training samples?"
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 40-49
 
-Data generation
+.. GENERATED FROM PYTHON SOURCE LINES 29-33
+
+توليد البيانات
 ---------------
 
-In this example we investigate the effect of reparametrizing the regularization
-parameter `C` to account for the number of samples when using either L1 or L2
-penalty. For such purpose we create a synthetic dataset with a large number of
-features, out of which only a few are informative. We therefore expect the
-regularization to shrink the coefficients towards zero (L2 penalty) or exactly
-zero (L1 penalty).
+في هذا المثال، نستكشف تأثير إعادة معلمة معامل الانتظام 'C' لمراعاة عدد العينات عند استخدام عقوبة L1 أو L2. لهذا الغرض، نقوم بإنشاء مجموعة بيانات اصطناعية ذات عدد كبير من الميزات، منها القليل فقط ذو دلالة. لذلك، نتوقع أن يؤدي الانتظام إلى تصغير المعاملات نحو الصفر (عقوبة L2) أو بالضبط إلى الصفر (عقوبة L1).
 
-.. GENERATED FROM PYTHON SOURCE LINES 49-57
+.. GENERATED FROM PYTHON SOURCE LINES 33-41
 
 .. code-block:: Python
 
@@ -97,20 +81,15 @@ zero (L1 penalty).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-68
+.. GENERATED FROM PYTHON SOURCE LINES 42-47
 
-L1-penalty case
+حالة عقوبة L1
 ---------------
-In the L1 case, theory says that provided a strong regularization, the
-estimator cannot predict as well as a model knowing the true distribution
-(even in the limit where the sample size grows to infinity) as it may set some
-weights of otherwise predictive features to zero, which induces a bias. It does
-say, however, that it is possible to find the right set of non-zero parameters
-as well as their signs by tuning `C`.
+في حالة L1، تقول النظرية إنه في حالة الانتظام القوي، لا يمكن للمقدر أن يتنبأ بنفس جودة نموذج يعرف التوزيع الحقيقي (حتى في حالة نمو حجم العينة إلى ما لا نهاية) حيث قد يحدد بعض أوزان الميزات التنبؤية إلى الصفر، مما يسبب انحياز. ومع ذلك، تقول النظرية إنه من الممكن إيجاد المجموعة الصحيحة من المعاملات غير الصفرية وكذلك إشاراتها عن طريق ضبط 'C'.
 
-We define a linear SVC with the L1 penalty.
+نحدد SVC الخطي بعقوبة L1.
 
-.. GENERATED FROM PYTHON SOURCE LINES 68-73
+.. GENERATED FROM PYTHON SOURCE LINES 47-52
 
 .. code-block:: Python
 
@@ -126,12 +105,11 @@ We define a linear SVC with the L1 penalty.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 74-76
+.. GENERATED FROM PYTHON SOURCE LINES 53-54
 
-We compute the mean test score for different values of `C` via
-cross-validation.
+نحسب متوسط درجة الاختبار لقيم مختلفة من 'C' عبر التحقق المتقاطع.
 
-.. GENERATED FROM PYTHON SOURCE LINES 76-106
+.. GENERATED FROM PYTHON SOURCE LINES 54-84
 
 .. code-block:: Python
 
@@ -172,7 +150,7 @@ cross-validation.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 107-134
+.. GENERATED FROM PYTHON SOURCE LINES 85-112
 
 .. code-block:: Python
 
@@ -180,16 +158,16 @@ cross-validation.
 
     fig, axes = plt.subplots(nrows=1, ncols=2, sharey=True, figsize=(12, 6))
 
-    # plot results without scaling C
+    # رسم النتائج بدون ضبط 'C'
     results.plot(x="C", ax=axes[0], logx=True)
-    axes[0].set_ylabel("CV score")
-    axes[0].set_title("No scaling")
+    axes[0].set_ylabel("درجة التحقق المتقاطع")
+    axes[0].set_title("بدون ضبط")
 
     for label in labels:
         best_C = results.loc[results[label].idxmax(), "C"]
         axes[0].axvline(x=best_C, linestyle="--", color="grey", alpha=0.7)
 
-    # plot results by scaling C
+    # رسم النتائج بضبط 'C'
     for train_size_idx, label in enumerate(labels):
         train_size = train_sizes[train_size_idx]
         results_scaled = results[[label]].assign(
@@ -199,15 +177,15 @@ cross-validation.
         best_C_scaled = results_scaled["C_scaled"].loc[results[label].idxmax()]
         axes[1].axvline(x=best_C_scaled, linestyle="--", color="grey", alpha=0.7)
 
-    axes[1].set_title("Scaling C by sqrt(1 / n_samples)")
+    axes[1].set_title("ضبط 'C' بواسطة sqrt(1 / n_samples)")
 
-    _ = fig.suptitle("Effect of scaling C with L1 penalty")
+    _ = fig.suptitle("تأثير ضبط 'C' بعقوبة L1")
 
 
 
 
 .. image-sg:: /auto_examples/svm/images/sphx_glr_plot_svm_scale_c_001.png
-   :alt: Effect of scaling C with L1 penalty, No scaling, Scaling C by sqrt(1 / n_samples)
+   :alt: تأثير ضبط 'C' بعقوبة L1, بدون ضبط, ضبط 'C' بواسطة sqrt(1 / n_samples)
    :srcset: /auto_examples/svm/images/sphx_glr_plot_svm_scale_c_001.png
    :class: sphx-glr-single-img
 
@@ -215,28 +193,21 @@ cross-validation.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 135-153
+.. GENERATED FROM PYTHON SOURCE LINES 113-124
 
-In the region of small `C` (strong regularization) all the coefficients
-learned by the models are zero, leading to severe underfitting. Indeed, the
-accuracy in this region is at the chance level.
+في منطقة 'C' الصغيرة (الانتظام القوي)، جميع المعاملات التي يتعلمها النموذج تساوي الصفر، مما يؤدي إلى نقص كبير في الملاءمة. بالفعل، الدقة في هذه المنطقة هي على مستوى الصدفة.
 
-Using the default scale results in a somewhat stable optimal value of `C`,
-whereas the transition out of the underfitting region depends on the number of
-training samples. The reparametrization leads to even more stable results.
+باستخدام المقياس الافتراضي يؤدي إلى قيمة مثلى مستقرة نوعا ما لـ 'C'، في حين أن الانتقال خارج منطقة نقص الملاءمة يعتمد على عدد عينات التدريب. تؤدي إعادة المعلمة إلى نتائج أكثر استقرارا.
 
-See e.g. theorem 3 of :arxiv:`On the prediction performance of the Lasso
-<1402.1700>` or :arxiv:`Simultaneous analysis of Lasso and Dantzig selector
-<0801.1095>` where the regularization parameter is always assumed to be
-proportional to 1 / sqrt(n_samples).
+انظر على سبيل المثال النظرية 3 من :arxiv:`On the prediction performance of the Lasso
+<1402.1700>` أو :arxiv:`Simultaneous analysis of Lasso and Dantzig selector
+<0801.1095>` حيث يفترض أن معامل الانتظام متناسب دائما مع 1 / sqrt(n_samples).
 
-L2-penalty case
+حالة عقوبة L2
 ---------------
-We can do a similar experiment with the L2 penalty. In this case, the
-theory says that in order to achieve prediction consistency, the penalty
-parameter should be kept constant as the number of samples grow.
+يمكننا إجراء تجربة مماثلة مع عقوبة L2. في هذه الحالة، تقول النظرية إنه لتحقيق اتساق التنبؤ، يجب الحفاظ على معامل العقوبة ثابتا مع نمو عدد العينات.
 
-.. GENERATED FROM PYTHON SOURCE LINES 153-173
+.. GENERATED FROM PYTHON SOURCE LINES 124-144
 
 .. code-block:: Python
 
@@ -267,7 +238,7 @@ parameter should be kept constant as the number of samples grow.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 174-200
+.. GENERATED FROM PYTHON SOURCE LINES 145-171
 
 .. code-block:: Python
 
@@ -275,16 +246,16 @@ parameter should be kept constant as the number of samples grow.
 
     fig, axes = plt.subplots(nrows=1, ncols=2, sharey=True, figsize=(12, 6))
 
-    # plot results without scaling C
+    # رسم النتائج بدون ضبط 'C'
     results.plot(x="C", ax=axes[0], logx=True)
-    axes[0].set_ylabel("CV score")
-    axes[0].set_title("No scaling")
+    axes[0].set_ylabel("درجة التحقق المتقاطع")
+    axes[0].set_title("بدون ضبط")
 
     for label in labels:
         best_C = results.loc[results[label].idxmax(), "C"]
         axes[0].axvline(x=best_C, linestyle="--", color="grey", alpha=0.8)
 
-    # plot results by scaling C
+    # رسم النتائج بضبط 'C'
     for train_size_idx, label in enumerate(labels):
         results_scaled = results[[label]].assign(
             C_scaled=Cs * float(n_samples * np.sqrt(train_sizes[train_size_idx]))
@@ -292,16 +263,16 @@ parameter should be kept constant as the number of samples grow.
         results_scaled.plot(x="C_scaled", ax=axes[1], logx=True, label=label)
         best_C_scaled = results_scaled["C_scaled"].loc[results[label].idxmax()]
         axes[1].axvline(x=best_C_scaled, linestyle="--", color="grey", alpha=0.8)
-    axes[1].set_title("Scaling C by sqrt(1 / n_samples)")
+    axes[1].set_title("ضبط 'C' بواسطة sqrt(1 / n_samples)")
 
-    fig.suptitle("Effect of scaling C with L2 penalty")
+    fig.suptitle("تأثير ضبط 'C' بعقوبة L2")
     plt.show()
 
 
 
 
 .. image-sg:: /auto_examples/svm/images/sphx_glr_plot_svm_scale_c_002.png
-   :alt: Effect of scaling C with L2 penalty, No scaling, Scaling C by sqrt(1 / n_samples)
+   :alt: تأثير ضبط 'C' بعقوبة L2, بدون ضبط, ضبط 'C' بواسطة sqrt(1 / n_samples)
    :srcset: /auto_examples/svm/images/sphx_glr_plot_svm_scale_c_002.png
    :class: sphx-glr-single-img
 
@@ -309,21 +280,16 @@ parameter should be kept constant as the number of samples grow.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 201-209
+.. GENERATED FROM PYTHON SOURCE LINES 172-174
 
-For the L2 penalty case, the reparametrization seems to have a smaller impact
-on the stability of the optimal value for the regularization. The transition
-out of the overfitting region occurs in a more spread range and the accuracy
-does not seem to be degraded up to chance level.
+بالنسبة لحالة عقوبة L2، يبدو أن إعادة المعلمة لها تأثير أقل على استقرار القيمة المثلى للانتظام. يحدث الانتقال خارج منطقة الإفراط في الملاءمة في نطاق أكثر انتشارا، ولا يبدو أن الدقة تتدهور إلى مستوى الصدفة.
 
-Try increasing the value to `n_splits=1_000` for better results in the L2
-case, which is not shown here due to the limitations on the documentation
-builder.
+جرب زيادة القيمة إلى 'n_splits=1_000' للحصول على نتائج أفضل في حالة L2، والتي لا تظهر هنا بسبب القيود على منشئ التوثيق.
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 21.536 seconds)
+   **Total running time of the script:** (0 minutes 23.047 seconds)
 
 
 .. _sphx_glr_download_auto_examples_svm_plot_svm_scale_c.py:

@@ -4,10 +4,10 @@
 
 .. _preprocessing_examples:
 
-Preprocessing
--------------
+المعالجة المسبقة للبيانات
+------------------------------
 
-Examples concerning the :mod:`sklearn.preprocessing` module.
+أمثلة تتعلق بوحدة :mod:`sklearn.preprocessing` .
 
 
 
@@ -19,75 +19,7 @@ Examples concerning the :mod:`sklearn.preprocessing` module.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Feature 0 (median income in a block) and feature 5 (average house occupancy) of the california_housing_dataset have very different scales and contain some very large outliers. These two characteristics lead to difficulties to visualize the data and, more importantly, they can degrade the predictive performance of many machine learning algorithms. Unscaled data can also slow down or even prevent the convergence of many gradient-based estimators.">
-
-.. only:: html
-
-  .. image:: /auto_examples/preprocessing/images/thumb/sphx_glr_plot_all_scaling_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_preprocessing_plot_all_scaling.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Compare the effect of different scalers on data with outliers</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="The TargetEncoder uses the value of the target to encode each categorical feature. In this example, we will compare three different approaches for handling categorical features: TargetEncoder, OrdinalEncoder, OneHotEncoder and dropping the category.">
-
-.. only:: html
-
-  .. image:: /auto_examples/preprocessing/images/thumb/sphx_glr_plot_target_encoder_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_preprocessing_plot_target_encoder.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Comparing Target Encoder with Other Encoders</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example presents the different strategies implemented in KBinsDiscretizer:">
-
-.. only:: html
-
-  .. image:: /auto_examples/preprocessing/images/thumb/sphx_glr_plot_discretization_strategies_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_preprocessing_plot_discretization_strategies.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Demonstrating the different strategies of KBinsDiscretizer</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="A demonstration of feature discretization on synthetic classification datasets. Feature discretization decomposes each feature into a set of bins, here equally distributed in width. The discrete values are then one-hot encoded, and given to a linear classifier. This preprocessing enables a non-linear behavior even though the classifier is linear.">
-
-.. only:: html
-
-  .. image:: /auto_examples/preprocessing/images/thumb/sphx_glr_plot_discretization_classification_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_preprocessing_plot_discretization_classification.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Feature discretization</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Feature scaling through standardization, also called Z-score normalization, is an important preprocessing step for many machine learning algorithms. It involves rescaling each feature such that it has a standard deviation of 1 and a mean of 0.">
+    <div class="sphx-glr-thumbcontainer" tooltip="تعد معايرة الميزات من خلال التوحيد القياسي، والتي تسمى أيضًا التوحيد القياسي Z-score، خطوة معالجة مسبقة مهمة للعديد من خوارزميات التعلم الآلي. تتضمن إعادة معايرة كل ميزة بحيث يكون لها انحراف معياري يساوي 1 ومتوسط يساوي 0.">
 
 .. only:: html
 
@@ -98,47 +30,13 @@ Examples concerning the :mod:`sklearn.preprocessing` module.
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Importance of Feature Scaling</div>
+      <div class="sphx-glr-thumbnail-title">أهمية معايرة الميزات</div>
     </div>
 
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the use of the Box-Cox and Yeo-Johnson transforms through PowerTransformer to map data from various distributions to a normal distribution.">
-
-.. only:: html
-
-  .. image:: /auto_examples/preprocessing/images/thumb/sphx_glr_plot_map_data_to_normal_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_preprocessing_plot_map_data_to_normal.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Map data to a normal distribution</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="The TargetEncoder replaces each category of a categorical feature with the shrunk mean of the target variable for that category. This method is useful in cases where there is a strong relationship between the categorical feature and the target. To prevent overfitting, TargetEncoder.fit_transform uses an internal cross fitting scheme to encode the training data to be used by a downstream model. This scheme involves splitting the data into k folds and encoding each fold using the encodings learnt using the other k-1 folds. In this example, we demonstrate the importance of the cross fitting procedure to prevent overfitting.">
-
-.. only:: html
-
-  .. image:: /auto_examples/preprocessing/images/thumb/sphx_glr_plot_target_encoder_cross_val_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_preprocessing_plot_target_encoder_cross_val.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Target Encoder's Internal Cross fitting</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="The example compares prediction result of linear regression (linear model) and decision tree (tree based model) with and without discretization of real-valued features.">
+    <div class="sphx-glr-thumbcontainer" tooltip="يقارن المثال نتيجة التنبؤ بالانحدار الخطي (النموذج الخطي) وشجرة القرار (النموذج القائم على الشجرة) مع وبدون تقسيم الخصائص ذات القيم الحقيقية.">
 
 .. only:: html
 
@@ -149,7 +47,109 @@ Examples concerning the :mod:`sklearn.preprocessing` module.
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Using KBinsDiscretizer to discretize continuous features</div>
+      <div class="sphx-glr-thumbnail-title">استخدام KBinsDiscretizer لتقسيم الخصائص المستمرة</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="يستبدل TargetEncoder كل فئة من الميزات الفئوية بالمتوسط المقلص للمتغير الهدف لتلك الفئة. هذه الطريقة مفيدة في الحالات التي توجد فيها علاقة قوية بين الميزة الفئوية والهدف. لمنع الإفراط في الملاءمة، يستخدم TargetEncoder.fit_transform مخطط cross fitting داخلي لترميز بيانات التدريب لاستخدامها بواسطة نموذج أسفل البئر. يتضمن هذا المخطط تقسيم البيانات إلى k folds وترميز كل fold باستخدام الترميزات التي تم تعلمها باستخدام الـ k-1 folds الأخرى. في هذا المثال، نوضح أهمية إجراء الملاءمة عبر الوقاية من الإفراط في الملاءمة.">
+
+.. only:: html
+
+  .. image:: /auto_examples/preprocessing/images/thumb/sphx_glr_plot_target_encoder_cross_val_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_preprocessing_plot_target_encoder_cross_val.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">الترميز الداخلي للهدف عبر الملاءمة</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="توضيح لتجريد الميزات على مجموعات بيانات التصنيف الاصطناعية. يقوم تجريد الميزات بتفكيك كل ميزة إلى مجموعة من الصناديق, هنا موزعة بالتساوي في العرض. ثم يتم ترميز القيم المنفصلة بطريقة الترميز أحادي الساخن, وتعطى لمصنف خطي. تمكن هذه المعالجة المسبقة من سلوك غير خطي حتى على الرغم من أن المصنف خطي.">
+
+.. only:: html
+
+  .. image:: /auto_examples/preprocessing/images/thumb/sphx_glr_plot_discretization_classification_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_preprocessing_plot_discretization_classification.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">تجريد الميزات</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="هذا المثال يوضح استخدام تحويلات Box-Cox وYeo-Johnson من خلال PowerTransformer لتحويل البيانات من توزيعات مختلفة إلى التوزيع الطبيعي.">
+
+.. only:: html
+
+  .. image:: /auto_examples/preprocessing/images/thumb/sphx_glr_plot_map_data_to_normal_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_preprocessing_plot_map_data_to_normal.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">تحويل البيانات إلى التوزيع الطبيعي</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="يقدم هذا المثال الاستراتيجيات المختلفة المنفذة في KBinsDiscretizer:">
+
+.. only:: html
+
+  .. image:: /auto_examples/preprocessing/images/thumb/sphx_glr_plot_discretization_strategies_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_preprocessing_plot_discretization_strategies.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">عرض استراتيجيات KBinsDiscretizer المختلفة</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="تتميز الخاصية 0 (متوسط الدخل في الكتلة) والخاصية 5 (متوسط شغل المنزل) في california_housing_dataset بمقاييس مختلفة جداً وتحتوي على بعض القيم الشاذة الكبيرة جدًا. تؤدي هاتان الخاصيتان إلى صعوبات في تصور البيانات, والأهم من ذلك, يمكن أن تتدهور الأداء التنبؤي للعديد من خوارزميات التعلم الآلي. يمكن أن تؤدي البيانات غير المقاسة أيضًا إلى إبطاء أو حتى منع تقارب العديد من المقدرات القائمة على التدرج.">
+
+.. only:: html
+
+  .. image:: /auto_examples/preprocessing/images/thumb/sphx_glr_plot_all_scaling_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_preprocessing_plot_all_scaling.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">مقارنة تأثير المقياس المختلف على البيانات مع القيم الشاذة</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="يستخدم TargetEncoder قيمة الهدف لترميز كل ميزة فئة. في هذا المثال، سنقارن بين ثلاثة أساليب مختلفة لمعالجة الميزات الفئوية: TargetEncoder، OrdinalEncoder، OneHotEncoder وإسقاط الفئة.">
+
+.. only:: html
+
+  .. image:: /auto_examples/preprocessing/images/thumb/sphx_glr_plot_target_encoder_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_preprocessing_plot_target_encoder.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">مقارنة ترميز الهدف مع الترميزات الأخرى</div>
     </div>
 
 
@@ -163,12 +163,12 @@ Examples concerning the :mod:`sklearn.preprocessing` module.
 .. toctree::
    :hidden:
 
+   /auto_examples/preprocessing/plot_scaling_importance
+   /auto_examples/preprocessing/plot_discretization
+   /auto_examples/preprocessing/plot_target_encoder_cross_val
+   /auto_examples/preprocessing/plot_discretization_classification
+   /auto_examples/preprocessing/plot_map_data_to_normal
+   /auto_examples/preprocessing/plot_discretization_strategies
    /auto_examples/preprocessing/plot_all_scaling
    /auto_examples/preprocessing/plot_target_encoder
-   /auto_examples/preprocessing/plot_discretization_strategies
-   /auto_examples/preprocessing/plot_discretization_classification
-   /auto_examples/preprocessing/plot_scaling_importance
-   /auto_examples/preprocessing/plot_map_data_to_normal
-   /auto_examples/preprocessing/plot_target_encoder_cross_val
-   /auto_examples/preprocessing/plot_discretization
 

@@ -1,21 +1,21 @@
 """
 ==================================================
-Statistical comparison of models using grid search
+المقارنة الإحصائية للنماذج باستخدام البحث الشبكي
 ==================================================
 
-This example illustrates how to statistically compare the performance of models
-trained and evaluated using :class:`~sklearn.model_selection.GridSearchCV`.
+يوضح هذا المثال كيفية المقارنة الإحصائية لأداء النماذج
+المدربة والمقيمة باستخدام :class:`~sklearn.model_selection.GridSearchCV`.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف SPDX-License: BSD-3-Clause
 
 # %%
-# We will start by simulating moon shaped data (where the ideal separation
-# between classes is non-linear), adding to it a moderate degree of noise.
-# Datapoints will belong to one of two possible classes to be predicted by two
-# features. We will simulate 50 samples for each class:
+# سنبدأ بمحاكاة بيانات على شكل قمر (حيث يكون الفصل المثالي
+# بين الفئات غير خطي)، مع إضافة درجة معتدلة من الضوضاء.
+# ستنتمي نقاط البيانات إلى واحدة من فئتين محتملتين للتنبؤ بهما باستخدام ميزتين.
+# سنحاكي 50 عينة لكل فئة:
 
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -30,13 +30,12 @@ sns.scatterplot(
 plt.show()
 
 # %%
-# We will compare the performance of :class:`~sklearn.svm.SVC` estimators that
-# vary on their `kernel` parameter, to decide which choice of this
-# hyper-parameter predicts our simulated data best.
-# We will evaluate the performance of the models using
-# :class:`~sklearn.model_selection.RepeatedStratifiedKFold`, repeating 10 times
-# a 10-fold stratified cross validation using a different randomization of the
-# data in each repetition. The performance will be evaluated using
+# سنقارن أداء :class:`~sklearn.svm.SVC` estimators التي
+# تختلف في معاملها 'kernel'، لتحديد أي خيار لهذا
+# المعامل الفرعي يتنبأ ببياناتنا المحاكاة بشكل أفضل.
+# سنقيم أداء النماذج باستخدام
+# :class:`~sklearn.model_selection.RepeatedStratifiedKFold`، مع تكرار 10 مرات
+# تقسيم البيانات إلى 10 مجموعات مع تقسيم استراتيجي، مع استخدام تقسيم عشوائي مختلف للبيانات في كل تكرار. سيتم تقييم الأداء باستخدام
 # :class:`~sklearn.metrics.roc_auc_score`.
 
 from sklearn.model_selection import GridSearchCV, RepeatedStratifiedKFold
@@ -56,7 +55,7 @@ search = GridSearchCV(estimator=svc, param_grid=param_grid, scoring="roc_auc", c
 search.fit(X, y)
 
 # %%
-# We can now inspect the results of our search, sorted by their
+# يمكننا الآن فحص نتائج بحثنا، مرتبة حسب
 # `mean_test_score`:
 
 import pandas as pd
@@ -69,34 +68,32 @@ results_df = results_df.set_index(
 results_df[["params", "rank_test_score", "mean_test_score", "std_test_score"]]
 
 # %%
-# We can see that the estimator using the `'rbf'` kernel performed best,
-# closely followed by `'linear'`. Both estimators with a `'poly'` kernel
-# performed worse, with the one using a two-degree polynomial achieving a much
-# lower performance than all other models.
+# يمكننا أن نرى أن المحلل باستخدام معامل 'rbf' حقق أفضل أداء،
+# يليه 'linear' عن قرب. كل من المحللين اللذين استخدما معامل 'poly'
+# حققا أداءً أسوأ، مع تحقيق المحلل الذي يستخدم دالة متعددة الحدود من الدرجة الثانية أداءً أقل بكثير من جميع النماذج الأخرى.
 #
-# Usually, the analysis just ends here, but half the story is missing. The
-# output of :class:`~sklearn.model_selection.GridSearchCV` does not provide
-# information on the certainty of the differences between the models.
-# We don't know if these are **statistically** significant.
-# To evaluate this, we need to conduct a statistical test.
-# Specifically, to contrast the performance of two models we should
-# statistically compare their AUC scores. There are 100 samples (AUC
-# scores) for each model as we repreated 10 times a 10-fold cross-validation.
+# عادة، ينتهي التحليل هنا، ولكن نصف القصة مفقود.
+# لا يوفر ناتج :class:`~sklearn.model_selection.GridSearchCV`
+# معلومات حول اليقين من الاختلافات بين النماذج.
+# لا نعرف إذا كانت هذه الاختلافات **إحصائية** مهمة.
+# لتقييم ذلك، نحتاج إلى إجراء اختبار إحصائي.
+# على وجه التحديد، لمقارنة أداء نموذجين يجب
+# المقارنة الإحصائية لدرجات AUC الخاصة بهما. هناك 100 عينة (درجات AUC)
+# لكل نموذج حيث قمنا بتكرار 10 مرات تقسيم البيانات إلى 10 مجموعات.
 #
-# However, the scores of the models are not independent: all models are
-# evaluated on the **same** 100 partitions, increasing the correlation
-# between the performance of the models.
-# Since some partitions of the data can make the distinction of the classes
-# particularly easy or hard to find for all models, the models scores will
-# co-vary.
+# ومع ذلك، فإن درجات النماذج ليست مستقلة: يتم تقييم جميع النماذج على
+# **نفس** 100 تقسيم، مما يزيد من الارتباط
+# بين أداء النماذج.
+# نظرًا لأن بعض تقسيمات البيانات يمكن أن تجعل التمييز بين الفئات
+# سهلًا أو صعبًا بشكل خاص بالنسبة لجميع النماذج، فإن درجات النماذج ستتغير.
 #
-# Let's inspect this partition effect by plotting the performance of all models
-# in each fold, and calculating the correlation between models across folds:
+# دعنا نتفقد تأثير التقسيم هذا من خلال رسم أداء جميع النماذج
+# في كل تقسيم، وحساب الارتباط بين النماذج عبر التقسيمات:
 
-# create df of model scores ordered by performance
+# إنشاء إطار بيانات لدرجات النماذج مرتبة حسب الأداء
 model_scores = results_df.filter(regex=r"split\d*_test_score")
 
-# plot 30 examples of dependency between cv fold and AUC scores
+# رسم 30 مثال على الاعتماد بين تقسيمات الاختبار ودرجات AUC
 fig, ax = plt.subplots()
 sns.lineplot(
     data=model_scores.transpose().iloc[:30],
@@ -111,80 +108,76 @@ ax.set_ylabel("Model AUC", size=12)
 ax.tick_params(bottom=True, labelbottom=False)
 plt.show()
 
-# print correlation of AUC scores across folds
+# طباعة ارتباط درجات AUC عبر التقسيمات
 print(f"Correlation of models:\n {model_scores.transpose().corr()}")
 
 # %%
-# We can observe that the performance of the models highly depends on the fold.
+# يمكننا ملاحظة أن أداء النماذج يعتمد بشكل كبير على التقسيم.
 #
-# As a consequence, if we assume independence between samples we will be
-# underestimating the variance computed in our statistical tests, increasing
-# the number of false positive errors (i.e. detecting a significant difference
-# between models when such does not exist) [1]_.
+# وكنتيجة لذلك، إذا افترضنا الاستقلالية بين العينات، فسنقوم
+# بتقليل التباين المحسوب في اختباراتنا الإحصائية، مما يزيد
+# من عدد الأخطاء الإيجابية الخاطئة (أي اكتشاف فرق مهم
+# بين النماذج عندما لا يوجد مثل هذا الفرق) [1]_.
 #
-# Several variance-corrected statistical tests have been developed for these
-# cases. In this example we will show how to implement one of them (the so
-# called Nadeau and Bengio's corrected t-test) under two different statistical
-# frameworks: frequentist and Bayesian.
+# تم تطوير العديد من الاختبارات الإحصائية المصححة للتباين لهذه
+# الحالات. في هذا المثال، سنعرض كيفية تنفيذ أحد هذه الاختبارات (ما يسمى اختبار t المصحح لناديو وبنجيو) تحت إطارين إحصائيين مختلفين: الترددي والبايزي.
 
 # %%
-# Comparing two models: frequentist approach
+# مقارنة نموذجين: النهج الترددي
 # ------------------------------------------
 #
-# We can start by asking: "Is the first model significantly better than the
-# second model (when ranked by `mean_test_score`)?"
+# يمكننا أن نبدأ بسؤال: "هل النموذج الأول أفضل بشكل كبير من
+# النموذج الثاني (عند ترتيبه حسب `mean_test_score`)؟"
 #
-# To answer this question using a frequentist approach we could
-# run a paired t-test and compute the p-value. This is also known as
-# Diebold-Mariano test in the forecast literature [5]_.
-# Many variants of such a t-test have been developed to account for the
-# 'non-independence of samples problem'
-# described in the previous section. We will use the one proven to obtain the
-# highest replicability scores (which rate how similar the performance of a
-# model is when evaluating it on different random partitions of the same
-# dataset) while maintaining a low rate of false positives and false negatives:
-# the Nadeau and Bengio's corrected t-test [2]_ that uses a 10 times repeated
-# 10-fold cross validation [3]_.
+# للإجابة على هذا السؤال باستخدام نهج ترددي، يمكننا
+# إجراء اختبار t المزدوج وحساب قيمة p. وهذا ما يسمى أيضًا
+# باختبار دييولد-ماريانو في أدبيات التنبؤ [5]_.
+# تم تطوير العديد من المتغيرات لمثل هذا اختبار t لحساب
+# 'مشكلة عدم استقلالية العينات'
+# الموصوفة في القسم السابق. سنستخدم الاختبار الذي أثبت أنه يحقق أعلى درجات التكرار (التي تقيس مدى تشابه أداء
+# نموذج عند تقييمه على تقسيمات عشوائية مختلفة لنفس
+# مجموعة البيانات) مع الحفاظ على معدل منخفض من الأخطاء الإيجابية الخاطئة والسلبية:
+# اختبار t المصحح لناديو وبنجيو [2]_ الذي يستخدم 10 مرات تكرار
+# تقسيم البيانات إلى 10 مجموعات [3]_.
 #
-# This corrected paired t-test is computed as:
+# يتم حساب هذا الاختبار المزدوج المصحح على النحو التالي:
 #
 # .. math::
 #    t=\frac{\frac{1}{k \cdot r}\sum_{i=1}^{k}\sum_{j=1}^{r}x_{ij}}
 #    {\sqrt{(\frac{1}{k \cdot r}+\frac{n_{test}}{n_{train}})\hat{\sigma}^2}}
 #
-# where :math:`k` is the number of folds,
-# :math:`r` the number of repetitions in the cross-validation,
-# :math:`x` is the difference in performance of the models,
-# :math:`n_{test}` is the number of samples used for testing,
-# :math:`n_{train}` is the number of samples used for training,
-# and :math:`\hat{\sigma}^2` represents the variance of the observed
-# differences.
+# حيث :math:`k` هو عدد التقسيمات،
+# :math:`r` عدد التكرارات في التقسيم،
+# :math:`x` هو الفرق في أداء النماذج،
+# :math:`n_{test}` هو عدد العينات المستخدمة للاختبار،
+# :math:`n_{train}` هو عدد العينات المستخدمة للتدريب،
+# و :math:`\hat{\sigma}^2` يمثل تباين الاختلافات الملاحظة.
 #
-# Let's implement a corrected right-tailed paired t-test to evaluate if the
-# performance of the first model is significantly better than that of the
-# second model. Our null hypothesis is that the second model performs at least
-# as good as the first model.
+# دعنا ننفذ اختبار t المزدوج المصحح لتقييم ما إذا كان
+# أداء النموذج الأول أفضل بشكل كبير من أداء النموذج
+# الثاني. فرضية العدم لدينا هي أن النموذج الثاني يؤدي على الأقل
+# بنفس جودة النموذج الأول.
 
 import numpy as np
 from scipy.stats import t
 
 
 def corrected_std(differences, n_train, n_test):
-    """Corrects standard deviation using Nadeau and Bengio's approach.
+    """تصحيح الانحراف المعياري باستخدام نهج ناديو وبنجيو.
 
-    Parameters
+    المعلمات
     ----------
-    differences : ndarray of shape (n_samples,)
-        Vector containing the differences in the score metrics of two models.
+    differences : مصفوفة من الشكل (n_samples,)
+        متجه يحتوي على الاختلافات في مقاييس درجات النموذجين.
     n_train : int
-        Number of samples in the training set.
+        عدد العينات في مجموعة التدريب.
     n_test : int
-        Number of samples in the testing set.
+        عدد العينات في مجموعة الاختبار.
 
-    Returns
+    العائدات
     -------
     corrected_std : float
-        Variance-corrected standard deviation of the set of differences.
+        الانحراف المعياري المصحح للتباين لمجموعة الاختلافات.
     """
     # kr = k times r, r times repeated k-fold crossvalidation,
     # kr equals the number of times the model was evaluated
@@ -195,40 +188,40 @@ def corrected_std(differences, n_train, n_test):
 
 
 def compute_corrected_ttest(differences, df, n_train, n_test):
-    """Computes right-tailed paired t-test with corrected variance.
+    """يحسب اختبار t المزدوج المصحح.
 
-    Parameters
+    المعلمات
     ----------
-    differences : array-like of shape (n_samples,)
-        Vector containing the differences in the score metrics of two models.
+    differences : مصفوفة على شكل (n_samples,)
+        متجه يحتوي على الاختلافات في مقاييس درجات النموذجين.
     df : int
-        Degrees of freedom.
+        درجات الحرية.
     n_train : int
-        Number of samples in the training set.
+        عدد العينات في مجموعة التدريب.
     n_test : int
-        Number of samples in the testing set.
+        عدد العينات في مجموعة الاختبار.
 
-    Returns
+    العائدات
     -------
     t_stat : float
-        Variance-corrected t-statistic.
+        t-statistic المصحح للتباين.
     p_val : float
-        Variance-corrected p-value.
+        p-value المصحح للتباين.
     """
     mean = np.mean(differences)
     std = corrected_std(differences, n_train, n_test)
     t_stat = mean / std
-    p_val = t.sf(np.abs(t_stat), df)  # right-tailed t-test
+    p_val = t.sf(np.abs(t_stat), df)  # اختبار t المزدوج المصحح
     return t_stat, p_val
 
 
 # %%
-model_1_scores = model_scores.iloc[0].values  # scores of the best model
-model_2_scores = model_scores.iloc[1].values  # scores of the second-best model
+model_1_scores = model_scores.iloc[0].values  # درجات النموذج الأفضل
+model_2_scores = model_scores.iloc[1].values  # درجات النموذج الثاني الأفضل
 
 differences = model_1_scores - model_2_scores
 
-n = differences.shape[0]  # number of test sets
+n = differences.shape[0]  # عدد مجموعات الاختبار
 df = n - 1
 n_train = len(list(cv.split(X, y))[0][0])
 n_test = len(list(cv.split(X, y))[0][1])
@@ -237,7 +230,7 @@ t_stat, p_val = compute_corrected_ttest(differences, df, n_train, n_test)
 print(f"Corrected t-value: {t_stat:.3f}\nCorrected p-value: {p_val:.3f}")
 
 # %%
-# We can compare the corrected t- and p-values with the uncorrected ones:
+# يمكننا مقارنة قيم t و p المصححة مع القيم غير المصححة:
 
 t_stat_uncorrected = np.mean(differences) / np.sqrt(np.var(differences, ddof=1) / n)
 p_val_uncorrected = t.sf(np.abs(t_stat_uncorrected), df)
@@ -248,66 +241,63 @@ print(
 )
 
 # %%
-# Using the conventional significance alpha level at `p=0.05`, we observe that
-# the uncorrected t-test concludes that the first model is significantly better
-# than the second.
+# باستخدام مستوى الأهمية التقليدي عند `p=0.05`، نلاحظ أن
+# اختبار t غير المصحح يخلص إلى أن النموذج الأول أفضل بشكل كبير
+# من النموذج الثاني.
 #
-# With the corrected approach, in contrast, we fail to detect this difference.
+# مع النهج المصحح، على العكس، نفشل في اكتشاف هذا الاختلاف.
 #
-# In the latter case, however, the frequentist approach does not let us
-# conclude that the first and second model have an equivalent performance. If
-# we wanted to make this assertion we need to use a Bayesian approach.
+# في الحالة الأخيرة، ومع ذلك، لا يسمح لنا النهج الترددي
+# باستنتاج أن النموذج الأول والثاني لهما أداء مكافئ. إذا
+# أردنا تأكيد ذلك، نحتاج إلى استخدام نهج بايزي.
 
 # %%
-# Comparing two models: Bayesian approach
+# مقارنة نموذجين: النهج البايزي
 # ---------------------------------------
-# We can use Bayesian estimation to calculate the probability that the first
-# model is better than the second. Bayesian estimation will output a
-# distribution followed by the mean :math:`\mu` of the differences in the
-# performance of two models.
+# يمكننا استخدام التقدير البايزي لحساب احتمال أن النموذج الأول
+# أفضل من النموذج الثاني. سيقوم التقدير البايزي بإخراج
+# توزيع متبوعًا بمتوسط :math:`\mu` للاختلافات في
+# أداء النموذجين.
 #
-# To obtain the posterior distribution we need to define a prior that models
-# our beliefs of how the mean is distributed before looking at the data,
-# and multiply it by a likelihood function that computes how likely our
-# observed differences are, given the values that the mean of differences
-# could take.
+# للحصول على التوزيع اللاحق، نحتاج إلى تحديد توزيع مسبق يمثل
+# معتقداتنا حول كيفية توزيع المتوسط قبل النظر إلى البيانات،
+# وضربه في دالة احتمالية تحسب مدى احتمال
+# الاختلافات الملاحظة، مع الأخذ في الاعتبار القيم التي يمكن أن يأخذها
+# متوسط الاختلافات.
 #
-# Bayesian estimation can be carried out in many forms to answer our question,
-# but in this example we will implement the approach suggested by Benavoli and
-# colleagues [4]_.
+# يمكن إجراء التقدير البايزي بأشكال كثيرة للإجابة على سؤالنا،
+# ولكن في هذا المثال سننفذ النهج المقترح من قبل بينافولي وزملائه [4]_.
 #
-# One way of defining our posterior using a closed-form expression is to select
-# a prior conjugate to the likelihood function. Benavoli and colleagues [4]_
-# show that when comparing the performance of two classifiers we can model the
-# prior as a Normal-Gamma distribution (with both mean and variance unknown)
-# conjugate to a normal likelihood, to thus express the posterior as a normal
-# distribution.
-# Marginalizing out the variance from this normal posterior, we can define the
-# posterior of the mean parameter as a Student's t-distribution. Specifically:
+# إحدى طرق تحديد اللاحق باستخدام تعبير مغلق هي اختيار
+# توزيع مسبق مؤامرة للتوزيع الاحتمالي. يظهر بينافولي وزملاؤه [4]_
+# أنه عند مقارنة أداء مصنفين، يمكننا نمذجة التوزيع المسبق كـ
+# توزيع طبيعي-غاما (مع كل من المتوسط والتباين غير معروفين)
+# مؤامرة لتوزيع احتمالي طبيعي، وبالتالي التعبير عن اللاحق كتوزيع طبيعي.
+# عن طريق تهميش التباين من هذا اللاحق الطبيعي، يمكننا تحديد
+# اللاحق لمعامل المتوسط كتوزيع t لطالب. على وجه التحديد:
 #
 # .. math::
 #    St(\mu;n-1,\overline{x},(\frac{1}{n}+\frac{n_{test}}{n_{train}})
 #    \hat{\sigma}^2)
 #
-# where :math:`n` is the total number of samples,
-# :math:`\overline{x}` represents the mean difference in the scores,
-# :math:`n_{test}` is the number of samples used for testing,
-# :math:`n_{train}` is the number of samples used for training,
-# and :math:`\hat{\sigma}^2` represents the variance of the observed
-# differences.
+# حيث :math:`n` هو العدد الإجمالي للعينات،
+# :math:`\overline{x}` يمثل متوسط الاختلاف في الدرجات،
+# :math:`n_{test}` هو عدد العينات المستخدمة للاختبار،
+# :math:`n_{train}` هو عدد العينات المستخدمة للتدريب،
+# و :math:`\hat{\sigma}^2` يمثل تباين الاختلافات الملاحظة.
 #
-# Notice that we are using Nadeau and Bengio's corrected variance in our
-# Bayesian approach as well.
+# لاحظ أننا نستخدم تباين ناديو وبنجيو المصحح في نهجنا
+# البايزي أيضًا.
 #
-# Let's compute and plot the posterior:
+# دعنا نحسب ونرسم التوزيع اللاحق:
 
-# initialize random variable
+# تهيئة المتغير العشوائي
 t_post = t(
     df, loc=np.mean(differences), scale=corrected_std(differences, n_train, n_test)
 )
 
 # %%
-# Let's plot the posterior distribution:
+# دعنا نرسم التوزيع اللاحق:
 
 x = np.linspace(t_post.ppf(0.001), t_post.ppf(0.999), 100)
 
@@ -320,11 +310,11 @@ plt.title("Posterior distribution")
 plt.show()
 
 # %%
-# We can calculate the probability that the first model is better than the
-# second by computing the area under the curve of the posterior distribution
-# from zero to infinity. And also the reverse: we can calculate the probability
-# that the second model is better than the first by computing the area under
-# the curve from minus infinity to zero.
+# يمكننا حساب احتمال أن النموذج الأول أفضل من
+# النموذج الثاني عن طريق حساب المساحة تحت المنحنى للتوزيع اللاحق
+# من الصفر إلى ما لا نهاية. وبالعكس: يمكننا حساب احتمال
+# أن النموذج الثاني أفضل من النموذج الأول عن طريق حساب المساحة
+# تحت المنحنى من ما لا نهاية إلى الصفر.
 
 better_prob = 1 - t_post.cdf(0)
 
@@ -338,232 +328,5 @@ print(
 )
 
 # %%
-# In contrast with the frequentist approach, we can compute the probability
-# that one model is better than the other.
-#
-# Note that we obtained similar results as those in the frequentist approach.
-# Given our choice of priors, we are essentially performing the same
-# computations, but we are allowed to make different assertions.
-
-# %%
-# Region of Practical Equivalence
-# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-# Sometimes we are interested in determining the probabilities that our models
-# have an equivalent performance, where "equivalent" is defined in a practical
-# way. A naive approach [4]_ would be to define estimators as practically
-# equivalent when they differ by less than 1% in their accuracy. But we could
-# also define this practical equivalence taking into account the problem we are
-# trying to solve. For example, a difference of 5% in accuracy would mean an
-# increase of $1000 in sales, and we consider any quantity above that as
-# relevant for our business.
-#
-# In this example we are going to define the
-# Region of Practical Equivalence (ROPE) to be :math:`[-0.01, 0.01]`. That is,
-# we will consider two models as practically equivalent if they differ by less
-# than 1% in their performance.
-#
-# To compute the probabilities of the classifiers being practically equivalent,
-# we calculate the area under the curve of the posterior over the ROPE
-# interval:
-
-rope_interval = [-0.01, 0.01]
-rope_prob = t_post.cdf(rope_interval[1]) - t_post.cdf(rope_interval[0])
-
-print(
-    f"Probability of {model_scores.index[0]} and {model_scores.index[1]} "
-    f"being practically equivalent: {rope_prob:.3f}"
-)
-
-# %%
-# We can plot how the posterior is distributed over the ROPE interval:
-
-x_rope = np.linspace(rope_interval[0], rope_interval[1], 100)
-
-plt.plot(x, t_post.pdf(x))
-plt.xticks(np.arange(-0.04, 0.06, 0.01))
-plt.vlines([-0.01, 0.01], ymin=0, ymax=(np.max(t_post.pdf(x)) + 1))
-plt.fill_between(x_rope, t_post.pdf(x_rope), 0, facecolor="blue", alpha=0.2)
-plt.ylabel("Probability density")
-plt.xlabel(r"Mean difference ($\mu$)")
-plt.title("Posterior distribution under the ROPE")
-plt.show()
-
-# %%
-# As suggested in [4]_, we can further interpret these probabilities using the
-# same criteria as the frequentist approach: is the probability of falling
-# inside the ROPE bigger than 95% (alpha value of 5%)?  In that case we can
-# conclude that both models are practically equivalent.
-
-# %%
-# The Bayesian estimation approach also allows us to compute how uncertain we
-# are about our estimation of the difference. This can be calculated using
-# credible intervals. For a given probability, they show the range of values
-# that the estimated quantity, in our case the mean difference in
-# performance, can take.
-# For example, a 50% credible interval [x, y] tells us that there is a 50%
-# probability that the true (mean) difference of performance between models is
-# between x and y.
-#
-# Let's determine the credible intervals of our data using 50%, 75% and 95%:
-
-cred_intervals = []
-intervals = [0.5, 0.75, 0.95]
-
-for interval in intervals:
-    cred_interval = list(t_post.interval(interval))
-    cred_intervals.append([interval, cred_interval[0], cred_interval[1]])
-
-cred_int_df = pd.DataFrame(
-    cred_intervals, columns=["interval", "lower value", "upper value"]
-).set_index("interval")
-cred_int_df
-
-# %%
-# As shown in the table, there is a 50% probability that the true mean
-# difference between models will be between 0.000977 and 0.019023, 70%
-# probability that it will be between -0.005422 and 0.025422, and 95%
-# probability that it will be between -0.016445	and 0.036445.
-
-# %%
-# Pairwise comparison of all models: frequentist approach
-# -------------------------------------------------------
-#
-# We could also be interested in comparing the performance of all our models
-# evaluated with :class:`~sklearn.model_selection.GridSearchCV`. In this case
-# we would be running our statistical test multiple times, which leads us to
-# the `multiple comparisons problem
-# <https://en.wikipedia.org/wiki/Multiple_comparisons_problem>`_.
-#
-# There are many possible ways to tackle this problem, but a standard approach
-# is to apply a `Bonferroni correction
-# <https://en.wikipedia.org/wiki/Bonferroni_correction>`_. Bonferroni can be
-# computed by multiplying the p-value by the number of comparisons we are
-# testing.
-#
-# Let's compare the performance of the models using the corrected t-test:
-
-from itertools import combinations
-from math import factorial
-
-n_comparisons = factorial(len(model_scores)) / (
-    factorial(2) * factorial(len(model_scores) - 2)
-)
-pairwise_t_test = []
-
-for model_i, model_k in combinations(range(len(model_scores)), 2):
-    model_i_scores = model_scores.iloc[model_i].values
-    model_k_scores = model_scores.iloc[model_k].values
-    differences = model_i_scores - model_k_scores
-    t_stat, p_val = compute_corrected_ttest(differences, df, n_train, n_test)
-    p_val *= n_comparisons  # implement Bonferroni correction
-    # Bonferroni can output p-values higher than 1
-    p_val = 1 if p_val > 1 else p_val
-    pairwise_t_test.append(
-        [model_scores.index[model_i], model_scores.index[model_k], t_stat, p_val]
-    )
-
-pairwise_comp_df = pd.DataFrame(
-    pairwise_t_test, columns=["model_1", "model_2", "t_stat", "p_val"]
-).round(3)
-pairwise_comp_df
-
-# %%
-# We observe that after correcting for multiple comparisons, the only model
-# that significantly differs from the others is `'2_poly'`.
-# `'rbf'`, the model ranked first by
-# :class:`~sklearn.model_selection.GridSearchCV`, does not significantly
-# differ from `'linear'` or `'3_poly'`.
-
-# %%
-# Pairwise comparison of all models: Bayesian approach
-# ----------------------------------------------------
-#
-# When using Bayesian estimation to compare multiple models, we don't need to
-# correct for multiple comparisons (for reasons why see [4]_).
-#
-# We can carry out our pairwise comparisons the same way as in the first
-# section:
-
-pairwise_bayesian = []
-
-for model_i, model_k in combinations(range(len(model_scores)), 2):
-    model_i_scores = model_scores.iloc[model_i].values
-    model_k_scores = model_scores.iloc[model_k].values
-    differences = model_i_scores - model_k_scores
-    t_post = t(
-        df, loc=np.mean(differences), scale=corrected_std(differences, n_train, n_test)
-    )
-    worse_prob = t_post.cdf(rope_interval[0])
-    better_prob = 1 - t_post.cdf(rope_interval[1])
-    rope_prob = t_post.cdf(rope_interval[1]) - t_post.cdf(rope_interval[0])
-
-    pairwise_bayesian.append([worse_prob, better_prob, rope_prob])
-
-pairwise_bayesian_df = pd.DataFrame(
-    pairwise_bayesian, columns=["worse_prob", "better_prob", "rope_prob"]
-).round(3)
-
-pairwise_comp_df = pairwise_comp_df.join(pairwise_bayesian_df)
-pairwise_comp_df
-
-# %%
-# Using the Bayesian approach we can compute the probability that a model
-# performs better, worse or practically equivalent to another.
-#
-# Results show that the model ranked first by
-# :class:`~sklearn.model_selection.GridSearchCV` `'rbf'`, has approximately a
-# 6.8% chance of being worse than `'linear'`, and a 1.8% chance of being worse
-# than `'3_poly'`.
-# `'rbf'` and `'linear'` have a 43% probability of being practically
-# equivalent, while `'rbf'` and `'3_poly'` have a 10% chance of being so.
-#
-# Similarly to the conclusions obtained using the frequentist approach, all
-# models have a 100% probability of being better than `'2_poly'`, and none have
-# a practically equivalent performance with the latter.
-
-# %%
-# Take-home messages
-# ------------------
-# - Small differences in performance measures might easily turn out to be
-#   merely by chance, but not because one model predicts systematically better
-#   than the other. As shown in this example, statistics can tell you how
-#   likely that is.
-# - When statistically comparing the performance of two models evaluated in
-#   GridSearchCV, it is necessary to correct the calculated variance which
-#   could be underestimated since the scores of the models are not independent
-#   from each other.
-# - A frequentist approach that uses a (variance-corrected) paired t-test can
-#   tell us if the performance of one model is better than another with a
-#   degree of certainty above chance.
-# - A Bayesian approach can provide the probabilities of one model being
-#   better, worse or practically equivalent than another. It can also tell us
-#   how confident we are of knowing that the true differences of our models
-#   fall under a certain range of values.
-# - If multiple models are statistically compared, a multiple comparisons
-#   correction is needed when using the frequentist approach.
-
-# %%
-# .. rubric:: References
-#
-# .. [1] Dietterich, T. G. (1998). `Approximate statistical tests for
-#        comparing supervised classification learning algorithms
-#        <http://web.cs.iastate.edu/~jtian/cs573/Papers/Dietterich-98.pdf>`_.
-#        Neural computation, 10(7).
-# .. [2] Nadeau, C., & Bengio, Y. (2000). `Inference for the generalization
-#        error
-#        <https://papers.nips.cc/paper/1661-inference-for-the-generalization-error.pdf>`_.
-#        In Advances in neural information processing systems.
-# .. [3] Bouckaert, R. R., & Frank, E. (2004). `Evaluating the replicability
-#        of significance tests for comparing learning algorithms
-#        <https://www.cms.waikato.ac.nz/~ml/publications/2004/bouckaert-frank.pdf>`_.
-#        In Pacific-Asia Conference on Knowledge Discovery and Data Mining.
-# .. [4] Benavoli, A., Corani, G., Demšar, J., & Zaffalon, M. (2017). `Time
-#        for a change: a tutorial for comparing multiple classifiers through
-#        Bayesian analysis
-#        <http://www.jmlr.org/papers/volume18/16-305/16-305.pdf>`_.
-#        The Journal of Machine Learning Research, 18(1). See the Python
-#        library that accompanies this paper `here
-#        <https://github.com/janezd/baycomp>`_.
-# .. [5] Diebold, F.X. & Mariano R.S. (1995). `Comparing predictive accuracy
-#        <http://www.est.uc3m.es/esp/nueva_docencia/comp_col_get/lade/tecnicas_prediccion/Practicas0708/Comparing%20Predictive%20Accuracy%20(Dielbold).pdf>`_
-#        Journal of Business & economic statistics, 20(1), 134-144.
+# على عكس النهج الترددي، يمكننا حساب احتمال
+# أن يكون أحد النموذجين أفضل من الآخر.

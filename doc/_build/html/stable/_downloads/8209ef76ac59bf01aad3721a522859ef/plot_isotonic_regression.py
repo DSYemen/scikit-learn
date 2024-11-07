@@ -1,26 +1,16 @@
 """
-===================
-Isotonic Regression
-===================
+====================
+الانحدار الأيزوتوني
+====================
 
-An illustration of the isotonic regression on generated data (non-linear
-monotonic trend with homoscedastic uniform noise).
+توضيح للانحدار الأيزوتوني على بيانات مُولدة (اتجاه أحادي غير خطي مع ضوضاء متجانسة التباين).
 
-The isotonic regression algorithm finds a non-decreasing approximation of a
-function while minimizing the mean squared error on the training data. The
-benefit of such a non-parametric model is that it does not assume any shape for
-the target function besides monotonicity. For comparison a linear regression is
-also presented.
+خوارزمية الانحدار الأيزوتوني تجد تقريبًا غير متناقص لدالة مع تقليل متوسط مربع الخطأ على بيانات التدريب. ميزة هذا النموذج غير البارامتري هي أنه لا يفترض أي شكل للدالة المستهدفة بخلاف الأحادية. وللمقارنة، يتم تقديم الانحدار الخطي أيضًا.
 
-The plot on the right-hand side shows the model prediction function that
-results from the linear interpolation of thresholds points. The thresholds
-points are a subset of the training input observations and their matching
-target values are computed by the isotonic non-parametric fit.
-
+يوضح الرسم البياني على الجانب الأيمن دالة التنبؤ بالنموذج التي تنتج عن الاستيفاء الخطي لنقاط العتبة. ونقاط العتبة هي مجموعة فرعية من ملاحظات مدخلات التدريب، ويتم حساب قيمها المستهدفة المطابقة بواسطة التلاؤم الأيزوتوني غير البارامتري.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -36,16 +26,16 @@ rs = check_random_state(0)
 y = rs.randint(-50, 50, size=(n,)) + 50.0 * np.log1p(np.arange(n))
 
 # %%
-# Fit IsotonicRegression and LinearRegression models:
+# تناسب نماذج IsotonicRegression وLinearRegression:
 
 ir = IsotonicRegression(out_of_bounds="clip")
 y_ = ir.fit_transform(x, y)
 
 lr = LinearRegression()
-lr.fit(x[:, np.newaxis], y)  # x needs to be 2d for LinearRegression
+lr.fit(x[:, np.newaxis], y)  # x يجب أن تكون ثنائية الأبعاد للانحدار الخطي
 
 # %%
-# Plot results:
+# رسم النتائج:
 
 segments = [[[i, y[i]], [i, y_[i]]] for i in range(n)]
 lc = LineCollection(segments, zorder=0)
@@ -69,7 +59,4 @@ ax1.set_title("Prediction function (%d thresholds)" % len(ir.X_thresholds_))
 plt.show()
 
 # %%
-# Note that we explicitly passed `out_of_bounds="clip"` to the constructor of
-# `IsotonicRegression` to control the way the model extrapolates outside of the
-# range of data observed in the training set. This "clipping" extrapolation can
-# be seen on the plot of the decision function on the right-hand.
+# لاحظ أننا مررنا صراحةً `out_of_bounds="clip"` إلى منشئ `IsotonicRegression` للتحكم في طريقة استقراء النموذج خارج نطاق البيانات الملاحظة في مجموعة التدريب. يمكن رؤية هذا الاستقراء "القص" على رسم دالة القرار على الجانب الأيمن.

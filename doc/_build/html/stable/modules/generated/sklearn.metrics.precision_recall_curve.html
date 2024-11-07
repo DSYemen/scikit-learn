@@ -11,10 +11,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/modules/generated/sklearn.metrics.precision_recall_curve.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="Gallery examples: Visualizations with Display Objects Precision-Recall" />
-<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_display_object_visualization_thumb.png" />
+<meta property="og:description" content="Gallery examples: دقة-استدعاء" />
+<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_precision_recall_thumb.png" />
 <meta property="og:image:alt" content="" />
-<meta name="description" content="Gallery examples: Visualizations with Display Objects Precision-Recall" />
+<meta name="description" content="Gallery examples: دقة-استدعاء" />
 
     <title>precision_recall_curve &#8212; scikit-learn 1.6.dev0 documentation</title>
   
@@ -1304,7 +1304,7 @@
 <h1>precision_recall_curve<a class="headerlink" href="#precision-recall-curve" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="sklearn.metrics.precision_recall_curve">
-<span class="sig-prename descclassname"><span class="pre">sklearn.metrics.</span></span><span class="sig-name descname"><span class="pre">precision_recall_curve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_intermediate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probas_pred</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'deprecated'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d6d4571215/sklearn/metrics/_ranking.py#L863"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.metrics.precision_recall_curve" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">sklearn.metrics.</span></span><span class="sig-name descname"><span class="pre">precision_recall_curve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_intermediate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probas_pred</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'deprecated'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/ea2d8086cc/sklearn/metrics/_ranking.py#L863"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.metrics.precision_recall_curve" title="Link to this definition">#</a></dt>
 <dd><p>Compute precision-recall pairs for different probability thresholds.</p>
 <p>Note: this implementation is restricted to the binary classification task.</p>
 <p>The precision is the ratio <code class="docutils literal notranslate"><span class="pre">tp</span> <span class="pre">/</span> <span class="pre">(tp</span> <span class="pre">+</span> <span class="pre">fp)</span></code> where <code class="docutils literal notranslate"><span class="pre">tp</span></code> is the number of
@@ -1401,12 +1401,9 @@ precision and recall where <code class="docutils literal notranslate"><span clas
 
 <section id="gallery-examples">
 <h2>Gallery examples<a class="headerlink" href="#gallery-examples" title="Link to this heading">#</a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="In this example, we will construct display objects, ConfusionMatrixDisplay, RocCurveDisplay, and PrecisionRecallDisplay directly from their respective metrics. This is an alternative to using their corresponding plot functions when a model&#x27;s predictions are already computed or expensive to compute. Note that this is advanced usage, and in general we recommend using their respective plot functions."><img alt="" src="../../_images/sphx_glr_plot_display_object_visualization_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/miscellaneous/plot_display_object_visualization.html#sphx-glr-auto-examples-miscellaneous-plot-display-object-visualization-py"><span class="std std-ref">Visualizations with Display Objects</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Visualizations with Display Objects</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Example of Precision-Recall metric to evaluate classifier output quality."><img alt="" src="../../_images/sphx_glr_plot_precision_recall_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/model_selection/plot_precision_recall.html#sphx-glr-auto-examples-model-selection-plot-precision-recall-py"><span class="std std-ref">Precision-Recall</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Precision-Recall</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="مثال على مقياس دقة-استدعاء لتقييم جودة ناتج التصنيف."><img alt="" src="../../_images/sphx_glr_plot_precision_recall_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/model_selection/plot_precision_recall.html#sphx-glr-auto-examples-model-selection-plot-precision-recall-py"><span class="std std-ref">دقة-استدعاء</span></a></p>
+  <div class="sphx-glr-thumbnail-title">دقة-استدعاء</div>
 </div></div></section>
 </section>
 

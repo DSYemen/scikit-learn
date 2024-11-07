@@ -1,29 +1,30 @@
 """
-===================================================
-Label Propagation digits: Demonstrating performance
-===================================================
+=========================================
+نشر العلامات على الأرقام: توضيح الأداء
+=========================================
 
-This example demonstrates the power of semisupervised learning by
-training a Label Spreading model to classify handwritten digits
-with sets of very few labels.
+يوضح هذا المثال قوة التعلم شبه المُشرف من خلال
+تدريب نموذج نشر العلامات لتصنيف الأرقام المكتوبة بخط اليد
+باستخدام مجموعات ذات عدد قليل جدًا من العلامات.
 
-The handwritten digit dataset has 1797 total points. The model will
-be trained using all points, but only 30 will be labeled. Results
-in the form of a confusion matrix and a series of metrics over each
-class will be very good.
+يحتوي مجموعة البيانات للأرقام المكتوبة بخط اليد على 1797 نقطة إجمالية. سيتم
+تدريب النموذج
+باستخدام جميع النقاط، ولكن سيتم وضع علامات على 30 نقطة فقط. ستكون النتائج
+على شكل مصفوفة ارتباك وسلسلة من المقاييس عبر كل
+فئة ستكون جيدة جدًا.
 
-At the end, the top 10 most uncertain predictions will be shown.
+في النهاية، سيتم عرض أفضل 10 تنبؤات غير مؤكدة.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# Data generation
+# توليد البيانات
 # ---------------
 #
-# We use the digits dataset. We only use a subset of randomly selected samples.
+# نستخدم مجموعة بيانات الأرقام. نستخدم فقط مجموعة فرعية من العينات المحددة عشوائيًا.
 import numpy as np
 
 from sklearn import datasets
@@ -35,9 +36,9 @@ rng.shuffle(indices)
 
 # %%
 #
-# We selected 340 samples of which only 40 will be associated with a known label.
-# Therefore, we store the indices of the 300 other samples for which we are not
-# supposed to know their labels.
+# قمنا باختيار 340 عينة، منها 40 فقط سترتبط بعلامة معروفة.
+# لذلك، نقوم بتخزين مؤشرات 300 عينة أخرى والتي من المفترض
+# ألا نعرف علاماتها.
 X = digits.data[indices[:340]]
 y = digits.target[indices[:340]]
 images = digits.images[indices[:340]]
@@ -50,16 +51,16 @@ indices = np.arange(n_total_samples)
 unlabeled_set = indices[n_labeled_points:]
 
 # %%
-# Shuffle everything around
+# خلط كل شيء
 y_train = np.copy(y)
 y_train[unlabeled_set] = -1
 
 # %%
-# Semi-supervised learning
+# التعلم شبه المُشرف
 # ------------------------
 #
-# We fit a :class:`~sklearn.semi_supervised.LabelSpreading` and use it to predict
-# the unknown labels.
+# نقوم بضبط :class:`~sklearn.semi_supervised.LabelSpreading` واستخدامه للتنبؤ
+# بالعلامات غير المعروفة.
 from sklearn.metrics import classification_report
 from sklearn.semi_supervised import LabelSpreading
 
@@ -69,16 +70,16 @@ predicted_labels = lp_model.transduction_[unlabeled_set]
 true_labels = y[unlabeled_set]
 
 print(
-    "Label Spreading model: %d labeled & %d unlabeled points (%d total)"
-    % (n_labeled_points, n_total_samples - n_labeled_points, n_total_samples)
+"نموذج نشر العلامات: %d مع علامات و %d بدون علامات (%d إجمالي)"
+% (n_labeled_points, n_total_samples - n_labeled_points, n_total_samples)
 )
 
 # %%
-# Classification report
+# تقرير التصنيف
 print(classification_report(true_labels, predicted_labels))
 
 # %%
-# Confusion matrix
+# مصفوفة الارتباك
 from sklearn.metrics import ConfusionMatrixDisplay
 
 ConfusionMatrixDisplay.from_predictions(
@@ -86,20 +87,20 @@ ConfusionMatrixDisplay.from_predictions(
 )
 
 # %%
-# Plot the most uncertain predictions
+# رسم التنبؤات الأكثر غموضًا
 # -----------------------------------
 #
-# Here, we will pick and show the 10 most uncertain predictions.
+# هنا، سنختار ونعرض أفضل 10 تنبؤات غير مؤكدة.
 from scipy import stats
 
 pred_entropies = stats.distributions.entropy(lp_model.label_distributions_.T)
 
 # %%
-# Pick the top 10 most uncertain labels
+# اختيار أفضل 10 علامات غير مؤكدة
 uncertainty_index = np.argsort(pred_entropies)[-10:]
 
 # %%
-# Plot
+# رسم
 import matplotlib.pyplot as plt
 
 f = plt.figure(figsize=(7, 5))
@@ -111,8 +112,8 @@ for index, image_index in enumerate(uncertainty_index):
     plt.xticks([])
     plt.yticks([])
     sub.set_title(
-        "predict: %i\ntrue: %i" % (lp_model.transduction_[image_index], y[image_index])
+        "التنبؤ: %i\nالحقيقي: %i" % (lp_model.transduction_[image_index], y[image_index])
     )
 
-f.suptitle("Learning with small amount of labeled data")
+f.suptitle("التعلم بكمية صغيرة من البيانات المعلمة")
 plt.show()

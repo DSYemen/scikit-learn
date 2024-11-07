@@ -18,28 +18,29 @@
 .. _sphx_glr_auto_examples_semi_supervised_plot_label_propagation_digits.py:
 
 
-===================================================
-Label Propagation digits: Demonstrating performance
-===================================================
+=========================================
+نشر العلامات على الأرقام: توضيح الأداء
+=========================================
 
-This example demonstrates the power of semisupervised learning by
-training a Label Spreading model to classify handwritten digits
-with sets of very few labels.
+يوضح هذا المثال قوة التعلم شبه المُشرف من خلال
+تدريب نموذج نشر العلامات لتصنيف الأرقام المكتوبة بخط اليد
+باستخدام مجموعات ذات عدد قليل جدًا من العلامات.
 
-The handwritten digit dataset has 1797 total points. The model will
-be trained using all points, but only 30 will be labeled. Results
-in the form of a confusion matrix and a series of metrics over each
-class will be very good.
+يحتوي مجموعة البيانات للأرقام المكتوبة بخط اليد على 1797 نقطة إجمالية. سيتم
+تدريب النموذج
+باستخدام جميع النقاط، ولكن سيتم وضع علامات على 30 نقطة فقط. ستكون النتائج
+على شكل مصفوفة ارتباك وسلسلة من المقاييس عبر كل
+فئة ستكون جيدة جدًا.
 
-At the end, the top 10 most uncertain predictions will be shown.
+في النهاية، سيتم عرض أفضل 10 تنبؤات غير مؤكدة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-22
+.. GENERATED FROM PYTHON SOURCE LINES 19-23
 
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري سكايلرن
+    # معرف الترخيص: BSD-3-Clause
 
 
 
@@ -48,14 +49,14 @@ At the end, the top 10 most uncertain predictions will be shown.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 23-27
+.. GENERATED FROM PYTHON SOURCE LINES 24-28
 
-Data generation
+توليد البيانات
 ---------------
 
-We use the digits dataset. We only use a subset of randomly selected samples.
+نستخدم مجموعة بيانات الأرقام. نستخدم فقط مجموعة فرعية من العينات المحددة عشوائيًا.
 
-.. GENERATED FROM PYTHON SOURCE LINES 27-36
+.. GENERATED FROM PYTHON SOURCE LINES 28-37
 
 .. code-block:: Python
 
@@ -75,13 +76,13 @@ We use the digits dataset. We only use a subset of randomly selected samples.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 37-40
+.. GENERATED FROM PYTHON SOURCE LINES 38-41
 
-We selected 340 samples of which only 40 will be associated with a known label.
-Therefore, we store the indices of the 300 other samples for which we are not
-supposed to know their labels.
+قمنا باختيار 340 عينة، منها 40 فقط سترتبط بعلامة معروفة.
+لذلك، نقوم بتخزين مؤشرات 300 عينة أخرى والتي من المفترض
+ألا نعرف علاماتها.
 
-.. GENERATED FROM PYTHON SOURCE LINES 41-52
+.. GENERATED FROM PYTHON SOURCE LINES 42-53
 
 .. code-block:: Python
 
@@ -103,11 +104,11 @@ supposed to know their labels.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 53-54
+.. GENERATED FROM PYTHON SOURCE LINES 54-55
 
-Shuffle everything around
+خلط كل شيء
 
-.. GENERATED FROM PYTHON SOURCE LINES 54-57
+.. GENERATED FROM PYTHON SOURCE LINES 55-58
 
 .. code-block:: Python
 
@@ -121,15 +122,15 @@ Shuffle everything around
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-63
+.. GENERATED FROM PYTHON SOURCE LINES 59-64
 
-Semi-supervised learning
+التعلم شبه المُشرف
 ------------------------
 
-We fit a :class:`~sklearn.semi_supervised.LabelSpreading` and use it to predict
-the unknown labels.
+نقوم بضبط :class:`~sklearn.semi_supervised.LabelSpreading` واستخدامه للتنبؤ
+بالعلامات غير المعروفة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 63-76
+.. GENERATED FROM PYTHON SOURCE LINES 64-77
 
 .. code-block:: Python
 
@@ -142,8 +143,8 @@ the unknown labels.
     true_labels = y[unlabeled_set]
 
     print(
-        "Label Spreading model: %d labeled & %d unlabeled points (%d total)"
-        % (n_labeled_points, n_total_samples - n_labeled_points, n_total_samples)
+    "نموذج نشر العلامات: %d مع علامات و %d بدون علامات (%d إجمالي)"
+    % (n_labeled_points, n_total_samples - n_labeled_points, n_total_samples)
     )
 
 
@@ -154,16 +155,16 @@ the unknown labels.
 
  .. code-block:: none
 
-    Label Spreading model: 40 labeled & 300 unlabeled points (340 total)
+    نموذج نشر العلامات: 40 مع علامات و 300 بدون علامات (340 إجمالي)
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 77-78
+.. GENERATED FROM PYTHON SOURCE LINES 78-79
 
-Classification report
+تقرير التصنيف
 
-.. GENERATED FROM PYTHON SOURCE LINES 78-80
+.. GENERATED FROM PYTHON SOURCE LINES 79-81
 
 .. code-block:: Python
 
@@ -198,11 +199,11 @@ Classification report
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 81-82
+.. GENERATED FROM PYTHON SOURCE LINES 82-83
 
-Confusion matrix
+مصفوفة الارتباك
 
-.. GENERATED FROM PYTHON SOURCE LINES 82-88
+.. GENERATED FROM PYTHON SOURCE LINES 83-89
 
 .. code-block:: Python
 
@@ -226,18 +227,18 @@ Confusion matrix
  .. code-block:: none
 
 
-    <sklearn.metrics._plot.confusion_matrix.ConfusionMatrixDisplay object at 0x7fb15a2f44c0>
+    <sklearn.metrics._plot.confusion_matrix.ConfusionMatrixDisplay object at 0x7fe49f903a90>
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 89-93
+.. GENERATED FROM PYTHON SOURCE LINES 90-94
 
-Plot the most uncertain predictions
+رسم التنبؤات الأكثر غموضًا
 -----------------------------------
 
-Here, we will pick and show the 10 most uncertain predictions.
+هنا، سنختار ونعرض أفضل 10 تنبؤات غير مؤكدة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 93-97
+.. GENERATED FROM PYTHON SOURCE LINES 94-98
 
 .. code-block:: Python
 
@@ -252,11 +253,11 @@ Here, we will pick and show the 10 most uncertain predictions.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 98-99
+.. GENERATED FROM PYTHON SOURCE LINES 99-100
 
-Pick the top 10 most uncertain labels
+اختيار أفضل 10 علامات غير مؤكدة
 
-.. GENERATED FROM PYTHON SOURCE LINES 99-101
+.. GENERATED FROM PYTHON SOURCE LINES 100-102
 
 .. code-block:: Python
 
@@ -269,11 +270,11 @@ Pick the top 10 most uncertain labels
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 102-103
+.. GENERATED FROM PYTHON SOURCE LINES 103-104
 
-Plot
+رسم
 
-.. GENERATED FROM PYTHON SOURCE LINES 103-119
+.. GENERATED FROM PYTHON SOURCE LINES 104-119
 
 .. code-block:: Python
 
@@ -288,16 +289,15 @@ Plot
         plt.xticks([])
         plt.yticks([])
         sub.set_title(
-            "predict: %i\ntrue: %i" % (lp_model.transduction_[image_index], y[image_index])
+            "التنبؤ: %i\nالحقيقي: %i" % (lp_model.transduction_[image_index], y[image_index])
         )
 
-    f.suptitle("Learning with small amount of labeled data")
+    f.suptitle("التعلم بكمية صغيرة من البيانات المعلمة")
     plt.show()
 
 
-
 .. image-sg:: /auto_examples/semi_supervised/images/sphx_glr_plot_label_propagation_digits_002.png
-   :alt: Learning with small amount of labeled data, predict: 1 true: 2, predict: 2 true: 2, predict: 8 true: 8, predict: 1 true: 8, predict: 1 true: 8, predict: 1 true: 8, predict: 3 true: 3, predict: 8 true: 8, predict: 2 true: 2, predict: 7 true: 2
+   :alt: التعلم بكمية صغيرة من البيانات المعلمة, التنبؤ: 1 الحقيقي: 2, التنبؤ: 2 الحقيقي: 2, التنبؤ: 8 الحقيقي: 8, التنبؤ: 1 الحقيقي: 8, التنبؤ: 1 الحقيقي: 8, التنبؤ: 1 الحقيقي: 8, التنبؤ: 3 الحقيقي: 3, التنبؤ: 8 الحقيقي: 8, التنبؤ: 2 الحقيقي: 2, التنبؤ: 7 الحقيقي: 2
    :srcset: /auto_examples/semi_supervised/images/sphx_glr_plot_label_propagation_digits_002.png
    :class: sphx-glr-single-img
 
@@ -308,7 +308,7 @@ Plot
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.384 seconds)
+   **Total running time of the script:** (0 minutes 0.455 seconds)
 
 
 .. _sphx_glr_download_auto_examples_semi_supervised_plot_label_propagation_digits.py:

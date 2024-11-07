@@ -1,29 +1,29 @@
 """
 ============================================
-Comparing Target Encoder with Other Encoders
+مقارنة ترميز الهدف مع الترميزات الأخرى
 ============================================
 
 .. currentmodule:: sklearn.preprocessing
 
-The :class:`TargetEncoder` uses the value of the target to encode each
-categorical feature. In this example, we will compare three different approaches
-for handling categorical features: :class:`TargetEncoder`,
-:class:`OrdinalEncoder`, :class:`OneHotEncoder` and dropping the category.
+يستخدم :class:`TargetEncoder` قيمة الهدف لترميز كل ميزة
+فئة. في هذا المثال، سنقارن بين ثلاثة أساليب مختلفة
+لمعالجة الميزات الفئوية: :class:`TargetEncoder`،
+:class:`OrdinalEncoder`، :class:`OneHotEncoder` وإسقاط الفئة.
 
 .. note::
-    `fit(X, y).transform(X)` does not equal `fit_transform(X, y)` because a
-    cross fitting scheme is used in `fit_transform` for encoding. See the
-    :ref:`User Guide <target_encoder>`. for details.
+    `fit(X, y).transform(X)` لا يساوي `fit_transform(X, y)` لأن
+    مخطط التثبيت المتقاطع مستخدم في `fit_transform` للترميز. راجع
+    :ref:`دليل المستخدم <target_encoder>`. للحصول على التفاصيل.
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف SPDX-License: BSD-3-Clause
 
 # %%
-# Loading Data from OpenML
+# تحميل البيانات من OpenML
 # ========================
-# First, we load the wine reviews dataset, where the target is the points given
-# be a reviewer:
+# أولاً، نقوم بتحميل مجموعة بيانات مراجعات النبيذ، حيث الهدف هو النقاط المعطاة
+# من قبل المراجع:
 from sklearn.datasets import fetch_openml
 
 wine_reviews = fetch_openml(data_id=42074, as_frame=True)
@@ -32,8 +32,9 @@ df = wine_reviews.frame
 df.head()
 
 # %%
-# For this example, we use the following subset of numerical and categorical
-# features in the data. The target are continuous values from 80 to 100:
+# لهذا المثال، نستخدم المجموعة الفرعية التالية من الميزات العددية والفئوية
+# الميزات في البيانات. الهدف هي قيم مستمرة من 80 إلى 100:
+
 numerical_features = ["price"]
 categorical_features = [
     "country",
@@ -51,12 +52,12 @@ y = df[target_name]
 _ = y.hist()
 
 # %%
-# Training and Evaluating Pipelines with Different Encoders
+# تدريب وتقييم خطوط الأنابيب مع ترميزات مختلفة
 # =========================================================
-# In this section, we will evaluate pipelines with
-# :class:`~sklearn.ensemble.HistGradientBoostingRegressor` with different encoding
-# strategies. First, we list out the encoders we will be using to preprocess
-# the categorical features:
+# في هذا القسم، سنقيم خطوط الأنابيب مع
+# :class:`~sklearn.ensemble.HistGradientBoostingRegressor` مع استراتيجيات ترميز مختلفة.
+# أولاً، سنقوم بكتابة قائمة بالترميزات التي سنستخدمها لمعالجة مسبقة
+# الميزات الفئوية:
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, TargetEncoder
 
@@ -71,7 +72,7 @@ categorical_preprocessors = [
 ]
 
 # %%
-# Next, we evaluate the models using cross validation and record the results:
+# بعد ذلك، نقيم النماذج باستخدام التحقق المتقاطع ونقوم بتسجيل النتائج:
 from sklearn.ensemble import HistGradientBoostingRegressor
 from sklearn.model_selection import cross_validate
 from sklearn.pipeline import make_pipeline
@@ -117,20 +118,20 @@ for name, categorical_preprocessor in categorical_preprocessors:
 
 
 # %%
-# Native Categorical Feature Support
+# دعم الميزات الفئوية الأصلي
 # ==================================
-# In this section, we build and evaluate a pipeline that uses native categorical
-# feature support in :class:`~sklearn.ensemble.HistGradientBoostingRegressor`,
-# which only supports up to 255 unique categories. In our dataset, the most of
-# the categorical features have more than 255 unique categories:
+# في هذا القسم، نقوم ببناء وتقييم خط أنابيب يستخدم الدعم الفئوي الأصلي
+# في :class:`~sklearn.ensemble.HistGradientBoostingRegressor`،
+# الذي يدعم ما يصل إلى 255 فئة فريدة فقط. في مجموعة بياناتنا، معظم
+# الميزات الفئوية لديها أكثر من 255 فئة فريدة:
 n_unique_categories = df[categorical_features].nunique().sort_values(ascending=False)
 n_unique_categories
 
 # %%
-# To workaround the limitation above, we group the categorical features into
-# low cardinality and high cardinality features. The high cardinality features
-# will be target encoded and the low cardinality features will use the native
-# categorical feature in gradient boosting.
+# للتحايل على القيد أعلاه، نقوم بتقسيم الميزات الفئوية إلى
+# ميزات ذات عدد قليل من الفئات وميزات ذات عدد كبير من الفئات. سيتم ترميز الميزات ذات العدد الكبير من الفئات
+# وسيتم استخدام الميزات ذات العدد القليل من الفئات في التدرج
+# الدعم الفئوي الأصلي.
 high_cardinality_features = n_unique_categories[n_unique_categories > 255].index
 low_cardinality_features = n_unique_categories[n_unique_categories <= 255].index
 mixed_encoded_preprocessor = ColumnTransformer(
@@ -150,8 +151,8 @@ mixed_encoded_preprocessor = ColumnTransformer(
     verbose_feature_names_out=False,
 )
 
-# The output of the of the preprocessor must be set to pandas so the
-# gradient boosting model can detect the low cardinality features.
+# يجب تعيين إخراج المعالج المسبق إلى pandas بحيث يمكن
+# نموذج التدرج الكشف عن الميزات ذات العدد القليل من الفئات.
 mixed_encoded_preprocessor.set_output(transform="pandas")
 mixed_pipe = make_pipeline(
     mixed_encoded_preprocessor,
@@ -162,13 +163,13 @@ mixed_pipe = make_pipeline(
 mixed_pipe
 
 # %%
-# Finally, we evaluate the pipeline using cross validation and record the results:
+# أخيرًا، نقوم بتقييم خط الأنابيب باستخدام التحقق المتقاطع وتسجيل النتائج:
 evaluate_model_and_store("mixed_target", mixed_pipe)
 
 # %%
-# Plotting the Results
+# رسم النتائج
 # ====================
-# In this section, we display the results by plotting the test and train scores:
+# في هذا القسم، نقوم بعرض النتائج عن طريق رسم درجات الاختبار والتدريب:
 import matplotlib.pyplot as plt
 import pandas as pd
 
@@ -202,27 +203,23 @@ for subset, ax in zip(["test", "train"], [ax1, ax2]):
     )
 
 # %%
-# When evaluating the predictive performance on the test set, dropping the
-# categories perform the worst and the target encoders performs the best. This
-# can be explained as follows:
+# عند تقييم الأداء التنبؤي على مجموعة الاختبار، يؤدي إسقاط
+# الفئات تؤدي إلى أسوأ أداء، ويؤدي ترميز الهدف إلى أفضل أداء. يمكن تفسير هذا على النحو التالي:
 #
-# - Dropping the categorical features makes the pipeline less expressive and
-#   underfitting as a result;
-# - Due to the high cardinality and to reduce the training time, the one-hot
-#   encoding scheme uses `max_categories=20` which prevents the features from
-#   expanding too much, which can result in underfitting.
-# - If we had not set `max_categories=20`, the one-hot encoding scheme would have
-#   likely made the pipeline overfitting as the number of features explodes with rare
-#   category occurrences that are correlated with the target by chance (on the training
-#   set only);
-# - The ordinal encoding imposes an arbitrary order to the features which are then
-#   treated as numerical values by the
-#   :class:`~sklearn.ensemble.HistGradientBoostingRegressor`. Since this
-#   model groups numerical features in 256 bins per feature, many unrelated categories
-#   can be grouped together and as a result overall pipeline can underfit;
-# - When using the target encoder, the same binning happens, but since the encoded
-#   values are statistically ordered by marginal association with the target variable,
-#   the binning use by the :class:`~sklearn.ensemble.HistGradientBoostingRegressor`
-#   makes sense and leads to good results: the combination of smoothed target
-#   encoding and binning works as a good regularizing strategy against
-#   overfitting while not limiting the expressiveness of the pipeline too much.
+# - يؤدي إسقاط الميزات الفئوية إلى جعل خط الأنابيب أقل تعبيرًا وتحت التلائم
+# نتيجة لذلك؛
+# - نظرًا لارتفاع عدد الفئات ولتقليل وقت التدريب، يستخدم مخطط الترميز أحادي الساخن
+# `max_categories=20` الذي يمنع الميزات من التوسع كثيرًا، والذي يمكن أن يؤدي إلى نقص التلائم.
+# - إذا لم نقم بتعيين `max_categories=20`، فمن المحتمل أن يؤدي مخطط الترميز أحادي الساخن إلى
+# جعل خط الأنابيب مفرط التلائم حيث ينفجر عدد الميزات مع حدوث فئات نادرة
+# التي ترتبط بالهدف عن طريق الصدفة (على مجموعة التدريب فقط)؛
+# - يفرض الترميز الترتيبي ترتيبًا تعسفيًا على الميزات التي يتم معاملتها بعد ذلك
+# كقيم عددية بواسطة
+# :class:`~sklearn.ensemble.HistGradientBoostingRegressor`. نظرًا لأن هذا
+# النموذج يجمع الميزات العددية في 256 صنفًا لكل ميزة، يمكن تجميع العديد من الفئات غير ذات الصلة معًا ونتيجة لذلك يمكن أن يؤدي خط الأنابيب العام إلى نقص التلائم؛
+# - عند استخدام ترميز الهدف، يحدث نفس التجميع، ولكن نظرًا لأن القيم المشفرة
+# يتم ترتيبها إحصائيًا بالارتباط الهامشي مع متغير الهدف،
+# التجميع الذي يستخدمه :class:`~sklearn.ensemble.HistGradientBoostingRegressor`
+# منطقي ويؤدي إلى نتائج جيدة: يعمل مزيج الترميز المستهدف المملس والتجميع
+# كاستراتيجية تنظيم جيدة ضد
+# الإفراط في التلائم مع عدم الحد من تعبيرية خط الأنابيب كثيرًا.

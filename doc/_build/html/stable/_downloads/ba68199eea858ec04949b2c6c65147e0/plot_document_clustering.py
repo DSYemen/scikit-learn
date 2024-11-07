@@ -1,46 +1,36 @@
 """
 =======================================
-Clustering text documents using k-means
+تجميع مستندات النص باستخدام k-means
 =======================================
 
-This is an example showing how the scikit-learn API can be used to cluster
-documents by topics using a `Bag of Words approach
-<https://en.wikipedia.org/wiki/Bag-of-words_model>`_.
+هذا مثال يوضح كيفية استخدام واجهة برمجة التطبيقات scikit-learn لتجميع المستندات حسب الموضوعات باستخدام نهج "Bag of Words".
 
-Two algorithms are demonstrated, namely :class:`~sklearn.cluster.KMeans` and its more
-scalable variant, :class:`~sklearn.cluster.MiniBatchKMeans`. Additionally,
-latent semantic analysis is used to reduce dimensionality and discover latent
-patterns in the data.
+يتم توضيح خوارزميتين، وهما: :class:`~sklearn.cluster.KMeans` ومتغيرها الأكثر قابلية للتطوير :class:`~sklearn.cluster.MiniBatchKMeans`. بالإضافة إلى ذلك، يتم استخدام التحليل الدلالي الكامن لخفض الأبعاد واكتشاف الأنماط الكامنة في البيانات.
 
-This example uses two different text vectorizers: a
-:class:`~sklearn.feature_extraction.text.TfidfVectorizer` and a
-:class:`~sklearn.feature_extraction.text.HashingVectorizer`. See the example
-notebook :ref:`sphx_glr_auto_examples_text_plot_hashing_vs_dict_vectorizer.py`
-for more information on vectorizers and a comparison of their processing times.
+يستخدم هذا المثال طريقتين مختلفتين لاستخراج الميزات النصية: :class:`~sklearn.feature_extraction.text.TfidfVectorizer` و:class:`~sklearn.feature_extraction.text.HashingVectorizer`. راجع دفتر الملاحظات :ref:`sphx_glr_auto_examples_text_plot_hashing_vs_dict_vectorizer.py` للحصول على مزيد من المعلومات حول طرق استخراج الميزات ومقارنة أوقات معالجتها.
 
-For document analysis via a supervised learning approach, see the example script
-:ref:`sphx_glr_auto_examples_text_plot_document_classification_20newsgroups.py`.
+لتحليل المستندات عبر نهج التعلم الخاضع للإشراف، راجع مثال النص البرمجي :ref:`sphx_glr_auto_examples_text_plot_document_classification_20newsgroups.py`.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# Loading text data
+# تحميل بيانات النص
 # =================
 #
-# We load data from :ref:`20newsgroups_dataset`, which comprises around 18,000
-# newsgroups posts on 20 topics. For illustrative purposes and to reduce the
-# computational cost, we select a subset of 4 topics only accounting for around
-# 3,400 documents. See the example
+# نقوم بتحميل البيانات من :ref:`20newsgroups_dataset`، والتي تتكون من حوالي 18,000
+# منشورات مجموعات الأخبار حول 20 موضوعًا. لأغراض توضيحية ولتقليل التكلفة
+# الحسابية، نختار مجموعة فرعية من 4 مواضيع فقط، والتي تمثل حوالي 3,400
+# مستند. راجع المثال
 # :ref:`sphx_glr_auto_examples_text_plot_document_classification_20newsgroups.py`
-# to gain intuition on the overlap of such topics.
+# للحصول على الحدس حول تداخل مثل هذه الموضوعات.
 #
-# Notice that, by default, the text samples contain some message metadata such
-# as `"headers"`, `"footers"` (signatures) and `"quotes"` to other posts. We use
-# the `remove` parameter from :func:`~sklearn.datasets.fetch_20newsgroups` to
-# strip those features and have a more sensible clustering problem.
+# لاحظ أنه، بشكل افتراضي، تحتوي عينات النص على بعض بيانات التعريف مثل
+# `"headers"`، و`"footers"` (التوقيعات) و`"quotes"` إلى منشورات أخرى. نستخدم
+# المعلمة `remove` من :func:`~sklearn.datasets.fetch_20newsgroups` لإزالة تلك
+# الميزات والحصول على مشكلة تجميع أكثر منطقية.
 
 import numpy as np
 
@@ -68,39 +58,38 @@ true_k = unique_labels.shape[0]
 print(f"{len(dataset.data)} documents - {true_k} categories")
 
 # %%
-# Quantifying the quality of clustering results
+# تحديد جودة نتائج التجميع
 # =============================================
 #
-# In this section we define a function to score different clustering pipelines
-# using several metrics.
+# في هذا القسم، نقوم بتعريف دالة لتقييم أنابيب التجميع المختلفة
+# باستخدام عدة مقاييس.
 #
-# Clustering algorithms are fundamentally unsupervised learning methods.
-# However, since we happen to have class labels for this specific dataset, it is
-# possible to use evaluation metrics that leverage this "supervised" ground
-# truth information to quantify the quality of the resulting clusters. Examples
-# of such metrics are the following:
+# خوارزميات التجميع هي أساليب تعلم غير خاضعة للإشراف بشكل أساسي.
+# ومع ذلك، نظرًا لأننا نملك تسميات الفئات لهذا المستند المحدد، فمن
+# الممكن استخدام مقاييس التقييم التي تستفيد من معلومات "الإشراف" هذه
+# لتقدير جودة التجميع الناتج. أمثلة
+# على هذه المقاييس هي التالية:
 #
-# - homogeneity, which quantifies how much clusters contain only members of a
-#   single class;
+# - التجانس، الذي يحدد مدى احتواء التجميعات على أعضاء من فئة واحدة فقط؛
 #
-# - completeness, which quantifies how much members of a given class are
-#   assigned to the same clusters;
+# - الاكتمال، الذي يحدد مدى تعيين أعضاء فئة معينة
+#   إلى نفس التجميعات؛
 #
-# - V-measure, the harmonic mean of completeness and homogeneity;
+# - V-measure، المتوسط التوافقي للتجانس والاكتمال؛
 #
-# - Rand-Index, which measures how frequently pairs of data points are grouped
-#   consistently according to the result of the clustering algorithm and the
-#   ground truth class assignment;
+# - Rand-Index، الذي يقيس مدى تكرار أزواج نقاط البيانات
+#   بشكل متسق وفقًا لنتيجة خوارزمية التجميع وتعيين الفئة الحقيقية؛
 #
-# - Adjusted Rand-Index, a chance-adjusted Rand-Index such that random cluster
-#   assignment have an ARI of 0.0 in expectation.
+# - Adjusted Rand-Index، وهو Rand-Index المعدل بحيث يكون
+#   تعيين التجميعات العشوائية له قيمة ARI تساوي 0.0 في المتوسط.
 #
-# If the ground truth labels are not known, evaluation can only be performed
-# using the model results itself. In that case, the Silhouette Coefficient comes in
-# handy. See :ref:`sphx_glr_auto_examples_cluster_plot_kmeans_silhouette_analysis.py`
-# for an example on how to do it.
+# إذا لم تكن تسميات الحقيقة الأرضية معروفة، فيمكن إجراء التقييم
+# فقط باستخدام نتائج النموذج نفسه. في هذه الحالة، يأتي معامل
+# Silhouette Coefficient في متناول اليد. راجع
+# :ref:`sphx_glr_auto_examples_cluster_plot_kmeans_silhouette_analysis.py`
+# لمثال حول كيفية القيام بذلك.
 #
-# For more reference, see :ref:`clustering_evaluation`.
+# للحصول على مزيد من المراجع، راجع :ref:`clustering_evaluation`.
 
 from collections import defaultdict
 from time import time
@@ -151,32 +140,32 @@ def fit_and_evaluate(km, X, name=None, n_runs=5):
 
 
 # %%
-# K-means clustering on text features
+# التجميع باستخدام k-means على ميزات النص
 # ===================================
 #
-# Two feature extraction methods are used in this example:
+# يتم استخدام طريقتين لاستخراج الميزات في هذا المثال:
 #
-# - :class:`~sklearn.feature_extraction.text.TfidfVectorizer` uses an in-memory
-#   vocabulary (a Python dict) to map the most frequent words to features
-#   indices and hence compute a word occurrence frequency (sparse) matrix. The
-#   word frequencies are then reweighted using the Inverse Document Frequency
-#   (IDF) vector collected feature-wise over the corpus.
+# - :class:`~sklearn.feature_extraction.text.TfidfVectorizer` يستخدم قاموسًا في الذاكرة
+#   (قاموس Python) لتعيين الكلمات الأكثر تكرارًا إلى فهرس الميزات
+#   وبالتالي حساب مصفوفة تكرار الكلمات (مصفوفة نادرة). يتم بعد ذلك
+#   إعادة وزن تكرارات الكلمات باستخدام متجه IDF (Inverse Document Frequency)
+#   الذي تم جمعه للميزة عبر المجموعة.
 #
-# - :class:`~sklearn.feature_extraction.text.HashingVectorizer` hashes word
-#   occurrences to a fixed dimensional space, possibly with collisions. The word
-#   count vectors are then normalized to each have l2-norm equal to one
-#   (projected to the euclidean unit-sphere) which seems to be important for
-#   k-means to work in high dimensional space.
+# - :class:`~sklearn.feature_extraction.text.HashingVectorizer` يقوم بتشفير تكرارات الكلمات
+#   إلى مساحة ذات أبعاد ثابتة، مع احتمالية حدوث تصادمات. يتم بعد ذلك تطبيع
+#   متجهات تكرار الكلمات بحيث يكون لها معيار l2 يساوي واحدًا
+#   (تم إسقاطها على الكرة الوحيدة الأبعاد) والتي تبدو مهمة ل
+#   k-means للعمل في مساحة ذات أبعاد عالية.
 #
-# Furthermore it is possible to post-process those extracted features using
-# dimensionality reduction. We will explore the impact of those choices on the
-# clustering quality in the following.
+# علاوة على ذلك، من الممكن معالجة الميزات المستخرجة باستخدام
+# خفض الأبعاد. سنستكشف تأثير هذه الخيارات على
+# جودة التجميع في ما يلي.
 #
-# Feature Extraction using TfidfVectorizer
+# استخراج الميزات باستخدام TfidfVectorizer
 # ----------------------------------------
 #
-# We first benchmark the estimators using a dictionary vectorizer along with an
-# IDF normalization as provided by
+# نقوم أولاً باختبار المقدرات باستخدام قاموس vectorizer إلى جانب
+# التطبيع IDF كما هو موفر بواسطة
 # :class:`~sklearn.feature_extraction.text.TfidfVectorizer`.
 
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -193,32 +182,31 @@ print(f"vectorization done in {time() - t0:.3f} s")
 print(f"n_samples: {X_tfidf.shape[0]}, n_features: {X_tfidf.shape[1]}")
 
 # %%
-# After ignoring terms that appear in more than 50% of the documents (as set by
-# `max_df=0.5`) and terms that are not present in at least 5 documents (set by
-# `min_df=5`), the resulting number of unique terms `n_features` is around
-# 8,000. We can additionally quantify the sparsity of the `X_tfidf` matrix as
-# the fraction of non-zero entries divided by the total number of elements.
+# بعد تجاهل المصطلحات التي تظهر في أكثر من 50% من المستندات (كما هو محدد بواسطة
+# `max_df=0.5`) والمصطلحات التي لا تظهر في 5 مستندات على الأقل (كما هو محدد بواسطة
+# `min_df=5`)، فإن عدد المصطلحات الفريدة `n_features` هو حوالي
+# 8,000. يمكننا أيضًا تحديد مدى ندرة مصفوفة `X_tfidf` كنسبة
+# من الإدخالات غير الصفرية مقسومة على العدد الإجمالي للعناصر.
 
 print(f"{X_tfidf.nnz / np.prod(X_tfidf.shape):.3f}")
 
 # %%
-# We find that around 0.7% of the entries of the `X_tfidf` matrix are non-zero.
+# نجد أن حوالي 0.7% من إدخالات مصفوفة `X_tfidf` غير صفرية.
 #
 # .. _kmeans_sparse_high_dim:
 #
-# Clustering sparse data with k-means
+# تجميع البيانات النادرة باستخدام k-means
 # -----------------------------------
 #
-# As both :class:`~sklearn.cluster.KMeans` and
-# :class:`~sklearn.cluster.MiniBatchKMeans` optimize a non-convex objective
-# function, their clustering is not guaranteed to be optimal for a given random
-# init. Even further, on sparse high-dimensional data such as text vectorized
-# using the Bag of Words approach, k-means can initialize centroids on extremely
-# isolated data points. Those data points can stay their own centroids all
-# along.
+# نظرًا لأن كل من :class:`~sklearn.cluster.KMeans` و
+# :class:`~sklearn.cluster.MiniBatchKMeans` يقومان بتحسين دالة الهدف غير المقعرة،
+# فإن التجميع الناتج عنهما ليس مضمونًا أن يكون الأمثل بالنسبة لبداية عشوائية معينة.
+# علاوة على ذلك، بالنسبة للبيانات النادرة ذات الأبعاد العالية مثل النص الذي تم تمثيله باستخدام
+# نهج Bag of Words، يمكن أن يقوم k-means بتهيئة المراكز على نقاط بيانات معزولة للغاية.
+# يمكن أن تظل هذه النقاط بياناتها الخاصة طوال الوقت.
 #
-# The following code illustrates how the previous phenomenon can sometimes lead
-# to highly imbalanced clusters, depending on the random initialization:
+# يوضح الكود التالي كيف يمكن أن يؤدي الظاهرة السابقة في بعض الأحيان إلى
+# تجميعات غير متوازنة للغاية، اعتمادًا على التهيئة العشوائية:
 
 from sklearn.cluster import KMeans
 
@@ -238,9 +226,9 @@ print(
 )
 
 # %%
-# To avoid this problem, one possibility is to increase the number of runs with
-# independent random initiations `n_init`. In such case the clustering with the
-# best inertia (objective function of k-means) is chosen.
+# لتجنب هذه المشكلة، يمكن زيادة عدد مرات التشغيل مع
+# تهيئات عشوائية مستقلة `n_init`. في هذه الحالة، يتم اختيار التجميع مع
+# أفضل القصور الذاتي (دالة الهدف لـ k-means).
 
 kmeans = KMeans(
     n_clusters=true_k,
@@ -251,27 +239,24 @@ kmeans = KMeans(
 fit_and_evaluate(kmeans, X_tfidf, name="KMeans\non tf-idf vectors")
 
 # %%
-# All those clustering evaluation metrics have a maximum value of 1.0 (for a
-# perfect clustering result). Higher values are better. Values of the Adjusted
-# Rand-Index close to 0.0 correspond to a random labeling. Notice from the
-# scores above that the cluster assignment is indeed well above chance level,
-# but the overall quality can certainly improve.
+# جميع مقاييس تقييم التجميع لها قيمة قصوى تبلغ 1.0 (لتجميع مثالي). القيم الأعلى أفضل. القيم القريبة من 0.0 لـ Adjusted
+# Rand-Index تشير إلى تسمية عشوائية. لاحظ من الدرجات أعلاه أن تعيين التجميع
+# هو بالفعل أعلى من مستوى الصدفة، ولكن الجودة الإجمالية يمكن أن تتحسن بالتأكيد.
 #
-# Keep in mind that the class labels may not reflect accurately the document
-# topics and therefore metrics that use labels are not necessarily the best to
-# evaluate the quality of our clustering pipeline.
+# ضع في اعتبارك أن تسميات الفئات قد لا تعكس بدقة مواضيع المستندات
+# لذلك فإن المقاييس التي تستخدم التسميات ليست بالضرورة الأفضل
+# لتقييم جودة أنبوب التجميع لدينا.
 #
-# Performing dimensionality reduction using LSA
+# إجراء خفض الأبعاد باستخدام LSA
 # ---------------------------------------------
 #
-# A `n_init=1` can still be used as long as the dimension of the vectorized
-# space is reduced first to make k-means more stable. For such purpose we use
-# :class:`~sklearn.decomposition.TruncatedSVD`, which works on term count/tf-idf
-# matrices. Since SVD results are not normalized, we redo the normalization to
-# improve the :class:`~sklearn.cluster.KMeans` result. Using SVD to reduce the
-# dimensionality of TF-IDF document vectors is often known as `latent semantic
-# analysis <https://en.wikipedia.org/wiki/Latent_semantic_analysis>`_ (LSA) in
-# the information retrieval and text mining literature.
+# يمكن استخدام `n_init=1` طالما يتم تقليل بُعد المساحة المتجهة أولاً لجعل k-means أكثر استقرارًا. لهذا الغرض، نستخدم
+# :class:`~sklearn.decomposition.TruncatedSVD`، والذي يعمل على مصفوفات العد/tf-idf.
+# نظرًا لأن نتائج SVD غير معيارية، فإننا نعيد التطبيع لتحسين
+# نتيجة :class:`~sklearn.cluster.KMeans`. استخدام SVD لخفض الأبعاد
+# متجهات TF-IDF غالبًا ما يُعرف باسم `latent semantic
+# analysis <https://en.wikipedia.org/wiki/Latent_semantic_analysis>`_ (LSA) في
+# أدب استرجاع المعلومات وتعدين النصوص.
 
 from sklearn.decomposition import TruncatedSVD
 from sklearn.pipeline import make_pipeline
@@ -286,8 +271,8 @@ print(f"LSA done in {time() - t0:.3f} s")
 print(f"Explained variance of the SVD step: {explained_variance * 100:.1f}%")
 
 # %%
-# Using a single initialization means the processing time will be reduced for
-# both :class:`~sklearn.cluster.KMeans` and
+# استخدام تهيئة واحدة يعني أن وقت المعالجة سيتم تقليله لكل من
+# :class:`~sklearn.cluster.KMeans` و
 # :class:`~sklearn.cluster.MiniBatchKMeans`.
 
 kmeans = KMeans(
@@ -299,10 +284,9 @@ kmeans = KMeans(
 fit_and_evaluate(kmeans, X_lsa, name="KMeans\nwith LSA on tf-idf vectors")
 
 # %%
-# We can observe that clustering on the LSA representation of the document is
-# significantly faster (both because of `n_init=1` and because the
-# dimensionality of the LSA feature space is much smaller). Furthermore, all the
-# clustering evaluation metrics have improved. We repeat the experiment with
+# يمكننا ملاحظة أن التجميع على تمثيل LSA للمستند أسرع بشكل ملحوظ (بسبب `n_init=1` وبسبب
+# أن بُعد مساحة ميزة LSA أصغر بكثير). علاوة على ذلك، فقد تحسنت جميع
+# مقاييس تقييم التجميع. نكرر التجربة مع
 # :class:`~sklearn.cluster.MiniBatchKMeans`.
 
 from sklearn.cluster import MiniBatchKMeans
@@ -321,21 +305,22 @@ fit_and_evaluate(
 )
 
 # %%
-# Top terms per cluster
+# أهم المصطلحات لكل مجموعة
 # ---------------------
 #
-# Since :class:`~sklearn.feature_extraction.text.TfidfVectorizer` can be
-# inverted we can identify the cluster centers, which provide an intuition of
-# the most influential words **for each cluster**. See the example script
+# نظرًا لأنه يمكن عكس :class:`~sklearn.feature_extraction.text.TfidfVectorizer`،
+# يمكننا تحديد مراكز المجموعات، والتي توفر حدسًا
+# للكلمات الأكثر تأثيرًا **لكل مجموعة**. انظر البرنامج النصي للنموذج
 # :ref:`sphx_glr_auto_examples_text_plot_document_classification_20newsgroups.py`
-# for a comparison with the most predictive words **for each target class**.
+# لمقارنة مع الكلمات الأكثر تنبؤًا **لكل فئة مستهدفة**.
+
 
 original_space_centroids = lsa[0].inverse_transform(kmeans.cluster_centers_)
 order_centroids = original_space_centroids.argsort()[:, ::-1]
 terms = vectorizer.get_feature_names_out()
 
 for i in range(true_k):
-    print(f"Cluster {i}: ", end="")
+    print(f"المجموعة {i}: ", end="")
     for ind in order_centroids[i, :10]:
         print(f"{terms[ind]} ", end="")
     print()
@@ -343,14 +328,14 @@ for i in range(true_k):
 # %%
 # HashingVectorizer
 # -----------------
-# An alternative vectorization can be done using a
-# :class:`~sklearn.feature_extraction.text.HashingVectorizer` instance, which
-# does not provide IDF weighting as this is a stateless model (the fit method
-# does nothing). When IDF weighting is needed it can be added by pipelining the
-# :class:`~sklearn.feature_extraction.text.HashingVectorizer` output to a
-# :class:`~sklearn.feature_extraction.text.TfidfTransformer` instance. In this
-# case we also add LSA to the pipeline to reduce the dimension and sparcity of
-# the hashed vector space.
+# يمكن إجراء ناقل بديل باستخدام مثيل
+# :class:`~sklearn.feature_extraction.text.HashingVectorizer`، والذي
+# لا يوفر ترجيح IDF لأن هذا نموذج بدون حالة (لا يفعل أسلوب الملاءمة
+# شيئًا). عند الحاجة إلى ترجيح IDF، يمكن إضافته عن طريق توصيل
+# ناتج :class:`~sklearn.feature_extraction.text.HashingVectorizer` إلى
+# مثيل :class:`~sklearn.feature_extraction.text.TfidfTransformer`. في هذه
+# الحالة، نضيف أيضًا LSA إلى خط الأنابيب لتقليل بُعد وتناثر
+# مساحة المتجه المجزأة.
 
 from sklearn.feature_extraction.text import HashingVectorizer, TfidfTransformer
 
@@ -363,33 +348,35 @@ lsa_vectorizer = make_pipeline(
 
 t0 = time()
 X_hashed_lsa = lsa_vectorizer.fit_transform(dataset.data)
-print(f"vectorization done in {time() - t0:.3f} s")
+print(f"تمت عملية النواقل في {time() - t0:.3f} s")
+
 
 # %%
-# One can observe that the LSA step takes a relatively long time to fit,
-# especially with hashed vectors. The reason is that a hashed space is typically
-# large (set to `n_features=50_000` in this example). One can try lowering the
-# number of features at the expense of having a larger fraction of features with
-# hash collisions as shown in the example notebook
+# يمكن للمرء أن يلاحظ أن خطوة LSA تستغرق وقتًا طويلاً نسبيًا للملاءمة،
+# خاصةً مع المتجهات المجزأة. والسبب هو أن المساحة المجزأة عادةً ما تكون
+# كبيرة (مُعينة على `n_features=50_000` في هذا المثال). يمكن للمرء محاولة
+# تقليل عدد الميزات على حساب وجود جزء أكبر من الميزات مع
+# تصادمات التجزئة كما هو موضح في دفتر ملاحظات المثال
 # :ref:`sphx_glr_auto_examples_text_plot_hashing_vs_dict_vectorizer.py`.
 #
-# We now fit and evaluate the `kmeans` and `minibatch_kmeans` instances on this
-# hashed-lsa-reduced data:
+# نقوم الآن بملاءمة وتقييم مثيلي `kmeans` و `minibatch_kmeans` على هذه
+# البيانات المخفضة من lsa-hashed:
 
-fit_and_evaluate(kmeans, X_hashed_lsa, name="KMeans\nwith LSA on hashed vectors")
+fit_and_evaluate(kmeans, X_hashed_lsa, name="KMeans\nمع LSA على المتجهات المجزأة")
 
 # %%
 fit_and_evaluate(
     minibatch_kmeans,
     X_hashed_lsa,
-    name="MiniBatchKMeans\nwith LSA on hashed vectors",
+    name="MiniBatchKMeans\nمع LSA على المتجهات المجزأة",
 )
 
+
 # %%
-# Both methods lead to good results that are similar to running the same models
-# on the traditional LSA vectors (without hashing).
+# تؤدي كلتا الطريقتين إلى نتائج جيدة تشبه تشغيل نفس النماذج
+# على نواقل LSA التقليدية (بدون تجزئة).
 #
-# Clustering evaluation summary
+# ملخص تقييم التجميع
 # ==============================
 
 import matplotlib.pyplot as plt
@@ -404,45 +391,45 @@ df.drop(
     ["train_time"],
     axis="columns",
 ).plot.barh(ax=ax0, xerr=df_std)
-ax0.set_xlabel("Clustering scores")
+ax0.set_xlabel("نتائج التجميع")
 ax0.set_ylabel("")
 
 df["train_time"].plot.barh(ax=ax1, xerr=df_std["train_time"])
-ax1.set_xlabel("Clustering time (s)")
+ax1.set_xlabel("وقت التجميع (s)")
 plt.tight_layout()
 
+
 # %%
-# :class:`~sklearn.cluster.KMeans` and :class:`~sklearn.cluster.MiniBatchKMeans`
-# suffer from the phenomenon called the `Curse of Dimensionality
-# <https://en.wikipedia.org/wiki/Curse_of_dimensionality>`_ for high dimensional
-# datasets such as text data. That is the reason why the overall scores improve
-# when using LSA. Using LSA reduced data also improves the stability and
-# requires lower clustering time, though keep in mind that the LSA step itself
-# takes a long time, especially with hashed vectors.
+# يعاني :class:`~sklearn.cluster.KMeans` و :class:`~sklearn.cluster.MiniBatchKMeans`
+# من ظاهرة تسمى `لعنة الأبعاد
+# <https://en.wikipedia.org/wiki/Curse_of_dimensionality>`_ لمجموعات البيانات
+# عالية الأبعاد مثل بيانات النص. هذا هو السبب في أن النتائج الإجمالية تتحسن
+# عند استخدام LSA. يؤدي استخدام بيانات LSA المخفضة أيضًا إلى تحسين الاستقرار
+# ويتطلب وقت تجميع أقل، مع مراعاة أن خطوة LSA نفسها تستغرق
+# وقتًا طويلاً، خاصةً مع المتجهات المجزأة.
 #
-# The Silhouette Coefficient is defined between 0 and 1. In all cases we obtain
-# values close to 0 (even if they improve a bit after using LSA) because its
-# definition requires measuring distances, in contrast with other evaluation
-# metrics such as the V-measure and the Adjusted Rand Index which are only based
-# on cluster assignments rather than distances. Notice that strictly speaking,
-# one should not compare the Silhouette Coefficient between spaces of different
-# dimension, due to the different notions of distance they imply.
+# يتم تعريف معامل Silhouette بين 0 و 1. في جميع الحالات، نحصل على
+# قيم قريبة من 0 (حتى لو تحسنت قليلاً بعد استخدام LSA) لأن تعريفها
+# يتطلب قياس المسافات، على عكس مقاييس التقييم الأخرى مثل مقياس V
+# وفهرس Rand المعدل اللذين يعتمدان فقط على تعيينات المجموعات بدلاً
+# من المسافات. لاحظ أنه، بالمعنى الدقيق للكلمة، لا ينبغي للمرء مقارنة
+# معامل Silhouette بين مسافات ذات أبعاد مختلفة، نظرًا لمفاهيم
+# المسافة المختلفة التي تنطوي عليها.
 #
-# The homogeneity, completeness and hence v-measure metrics do not yield a
-# baseline with regards to random labeling: this means that depending on the
-# number of samples, clusters and ground truth classes, a completely random
-# labeling will not always yield the same values. In particular random labeling
-# won't yield zero scores, especially when the number of clusters is large. This
-# problem can safely be ignored when the number of samples is more than a
-# thousand and the number of clusters is less than 10, which is the case of the
-# present example. For smaller sample sizes or larger number of clusters it is
-# safer to use an adjusted index such as the Adjusted Rand Index (ARI). See the
-# example
-# :ref:`sphx_glr_auto_examples_cluster_plot_adjusted_for_chance_measures.py` for
-# a demo on the effect of random labeling.
+# لا تسفر مقاييس التجانس والاكتمال، وبالتالي مقياس v، عن خط
+# أساس فيما يتعلق بالتصنيف العشوائي: هذا يعني أنه اعتمادًا على عدد
+# العينات والمجموعات وفئات الحقيقة الأرضية، لن ينتج عن التصنيف
+# العشوائي تمامًا نفس القيم دائمًا. على وجه الخصوص، لن ينتج عن
+# التصنيف العشوائي درجات صفرية، خاصةً عندما يكون عدد المجموعات كبيرًا.
+# يمكن تجاهل هذه المشكلة بأمان عندما يكون عدد العينات أكثر من
+# ألف ويكون عدد المجموعات أقل من 10، وهي حالة المثال
+# الحالي. بالنسبة لأحجام العينات الأصغر أو عدد أكبر من المجموعات، من
+# الآمن استخدام فهرس معدل مثل فهرس Rand المعدل (ARI). انظر المثال
+# :ref:`sphx_glr_auto_examples_cluster_plot_adjusted_for_chance_measures.py`
+# لعرض توضيحي لتأثير التصنيف العشوائي.
 #
-# The size of the error bars show that :class:`~sklearn.cluster.MiniBatchKMeans`
-# is less stable than :class:`~sklearn.cluster.KMeans` for this relatively small
-# dataset. It is more interesting to use when the number of samples is much
-# bigger, but it can come at the expense of a small degradation in clustering
-# quality compared to the traditional k-means algorithm.
+# يُظهر حجم أشرطة الخطأ أن :class:`~sklearn.cluster.MiniBatchKMeans`
+# أقل استقرارًا من :class:`~sklearn.cluster.KMeans` بالنسبة لمجموعة
+# البيانات الصغيرة نسبيًا هذه. من المثير للاهتمام استخدامه عندما يكون عدد
+# العينات أكبر بكثير، ولكن يمكن أن يأتي ذلك على حساب انخفاض طفيف في
+# جودة التجميع مقارنة بخوارزمية k-means التقليدية.

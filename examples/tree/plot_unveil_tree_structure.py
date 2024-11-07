@@ -1,23 +1,22 @@
 """
-=========================================
-Understanding the decision tree structure
-=========================================
+========================
+فهم بنية شجرة القرار
+========================
 
-The decision tree structure can be analysed to gain further insight on the
-relation between the features and the target to predict. In this example, we
-show how to retrieve:
+يمكن تحليل بنية شجرة القرار للحصول على نظرة ثاقبة حول
+العلاقة بين الميزات والهدف المراد التنبؤ به. في هذا المثال، نُظهر كيفية استرجاع:
 
-- the binary tree structure;
-- the depth of each node and whether or not it's a leaf;
-- the nodes that were reached by a sample using the ``decision_path`` method;
-- the leaf that was reached by a sample using the apply method;
-- the rules that were used to predict a sample;
-- the decision path shared by a group of samples.
+- بنية الشجرة الثنائية؛
+- عمق كل عقدة وما إذا كانت ورقة أم لا؛
+- العقد التي تم الوصول إليها بواسطة عينة باستخدام طريقة ``decision_path``؛
+- الورقة التي تم الوصول إليها بواسطة عينة باستخدام طريقة التطبيق؛
+- القواعد التي تم استخدامها للتنبؤ بعينة؛
+- مسار القرار المشترك بين مجموعة من العينات.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 import numpy as np
 from matplotlib import pyplot as plt
@@ -28,10 +27,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 
 ##############################################################################
-# Train tree classifier
+# تدريب مصنف الشجرة
 # ---------------------
-# First, we fit a :class:`~sklearn.tree.DecisionTreeClassifier` using the
-# :func:`~sklearn.datasets.load_iris` dataset.
+# أولاً، نقوم بضبط مصنف :class:`~sklearn.tree.DecisionTreeClassifier` باستخدام
+# مجموعة بيانات :func:`~sklearn.datasets.load_iris`.
 
 iris = load_iris()
 X = iris.data
@@ -42,38 +41,37 @@ clf = DecisionTreeClassifier(max_leaf_nodes=3, random_state=0)
 clf.fit(X_train, y_train)
 
 ##############################################################################
-# Tree structure
+# بنية الشجرة
 # --------------
 #
-# The decision classifier has an attribute called ``tree_`` which allows access
-# to low level attributes such as ``node_count``, the total number of nodes,
-# and ``max_depth``, the maximal depth of the tree. The
-# ``tree_.compute_node_depths()`` method computes the depth of each node in the
-# tree. `tree_` also stores the entire binary tree structure, represented as a
-# number of parallel arrays. The i-th element of each array holds information
-# about the node ``i``. Node 0 is the tree's root. Some of the arrays only
-# apply to either leaves or split nodes. In this case the values of the nodes
-# of the other type is arbitrary. For example, the arrays ``feature`` and
-# ``threshold`` only apply to split nodes. The values for leaf nodes in these
-# arrays are therefore arbitrary.
+# لمصنف القرار خاصية تسمى ``tree_`` والتي تسمح بالوصول
+# إلى الخصائص منخفضة المستوى مثل ``node_count``، العدد الإجمالي للعقد،
+# و ``max_depth``، العمق الأقصى للشجرة. طريقة ``tree_.compute_node_depths()`` تحسب عمق كل عقدة في
+# الشجرة. `tree_` تخزن أيضًا بنية الشجرة الثنائية الكاملة، ممثلة كعدد من المصفوفات المتوازية. العنصر i-th من كل مصفوفة
+# يحتوي على معلومات
+# حول العقدة ``i``. العقدة 0 هي جذر الشجرة. بعض المصفوفات
+# تنطبق فقط إما على الأوراق أو عقد الانقسام. في هذه الحالة، تكون قيم عقد
+# النوع الآخر عشوائية. على سبيل المثال، المصفوفات ``feature`` و
+# ``threshold`` تنطبق فقط على عقد الانقسام. لذلك، تكون قيم عقد الأوراق في هذه
+# المصفوفات عشوائية.
 #
-# Among these arrays, we have:
+# من بين هذه المصفوفات، لدينا:
 #
-# - ``children_left[i]``: id of the left child of node ``i`` or -1 if leaf node
-# - ``children_right[i]``: id of the right child of node ``i`` or -1 if leaf node
-# - ``feature[i]``: feature used for splitting node ``i``
-# - ``threshold[i]``: threshold value at node ``i``
-# - ``n_node_samples[i]``: the number of training samples reaching node ``i``
-# - ``impurity[i]``: the impurity at node ``i``
-# - ``weighted_n_node_samples[i]``: the weighted number of training samples
-#   reaching node ``i``
-# - ``value[i, j, k]``: the summary of the training samples that reached node i for
-#   output j and class k (for regression tree, class is set to 1). See below
-#   for more information about ``value``.
+# - ``children_left[i]``: معرف العقدة اليسرى للعقدة ``i`` أو -1 إذا كانت عقدة ورقة
+# - ``children_right[i]``: معرف العقدة اليمنى للعقدة ``i`` أو -1 إذا كانت عقدة ورقة
+# - ``feature[i]``: الميزة المستخدمة لتقسيم العقدة ``i``
+# - ``threshold[i]``: قيمة العتبة في العقدة ``i``
+# - ``n_node_samples[i]``: عدد العينات التدريبية التي تصل إلى العقدة ``i``
+# - ``impurity[i]``: عدم النقاء في العقدة ``i``
+# - ``weighted_n_node_samples[i]``: العدد المرجح لعينات التدريب
+#   التي تصل إلى العقدة ``i``
+# - ``value[i, j, k]``: ملخص عينات التدريب التي وصلت إلى العقدة i لل
+#   الإخراج j والصنف k (لشجرة الانحدار، يتم تعيين الصنف إلى 1). انظر أدناه
+#   لمزيد من المعلومات حول ``value``.
 #
-# Using the arrays, we can traverse the tree structure to compute various
-# properties. Below, we will compute the depth of each node and whether or not
-# it is a leaf.
+# باستخدام المصفوفات، يمكننا عبور بنية الشجرة لحساب
+# خصائص مختلفة. أدناه، سنحسب عمق كل عقدة وما إذا كانت
+# ورقة أم لا.
 
 n_nodes = clf.tree_.node_count
 children_left = clf.tree_.children_left
@@ -84,17 +82,17 @@ values = clf.tree_.value
 
 node_depth = np.zeros(shape=n_nodes, dtype=np.int64)
 is_leaves = np.zeros(shape=n_nodes, dtype=bool)
-stack = [(0, 0)]  # start with the root node id (0) and its depth (0)
+stack = [(0, 0)]  # ابدأ بمعرف العقدة الجذر (0) وعمقه (0)
 while len(stack) > 0:
-    # `pop` ensures each node is only visited once
+    # `pop` يضمن زيارة كل عقدة مرة واحدة فقط
     node_id, depth = stack.pop()
     node_depth[node_id] = depth
 
-    # If the left and right child of a node is not the same we have a split
-    # node
+    # إذا كان الطفل الأيسر والطفل الأيمن للعقدة ليسا متساويين، فإن لدينا عقدة انقسام
+    #
     is_split_node = children_left[node_id] != children_right[node_id]
-    # If a split node, append left and right children and depth to `stack`
-    # so we can loop through them
+    # إذا كانت عقدة انقسام، أضف الطفل الأيسر والطفل الأيمن والعمق إلى `stack`
+    # حتى نتمكن من المرور خلالهم
     if is_split_node:
         stack.append((children_left[node_id], depth + 1))
         stack.append((children_right[node_id], depth + 1))
@@ -128,80 +126,80 @@ for i in range(n_nodes):
         )
 
 # %%
-# What is the values array used here?
+# ما هو مصفوفة القيم المستخدمة هنا؟
 # -----------------------------------
-# The `tree_.value` array is a 3D array of shape
-# [``n_nodes``, ``n_classes``, ``n_outputs``] which provides the proportion of samples
-# reaching a node for each class and for each output.
-# Each node has a ``value`` array which is the proportion of weighted samples reaching
-# this node for each output and class with respect to the parent node.
+# مصفوفة `tree_.value` هي مصفوفة ثلاثية الأبعاد من الشكل
+# [``n_nodes``، ``n_classes``، ``n_outputs``] والتي توفر نسبة العينات
+# التي تصل إلى عقدة لكل صنف ولكل إخراج.
+# لكل عقدة مصفوفة ``value`` والتي هي نسبة العينات المرجحة التي تصل
+# إلى هذه العقدة لكل إخراج وصنف فيما يتعلق بالعقدة الأصل.
 #
-# One could convert this to the absolute weighted number of samples reaching a node,
-# by multiplying this number by `tree_.weighted_n_node_samples[node_idx]` for the
-# given node. Note sample weights are not used in this example, so the weighted
-# number of samples is the number of samples reaching the node because each sample
-# has a weight of 1 by default.
+# يمكن للمرء تحويل هذا إلى العدد المطلق للعينات المرجحة التي تصل إلى عقدة،
+# من خلال ضرب هذا العدد بـ `tree_.weighted_n_node_samples[node_idx]` للعقدة
+# المعطاة. لاحظ أن أوزان العينات لا تستخدم في هذا المثال، لذلك العدد المرجح
+# للعينات هو عدد العينات التي تصل إلى العقدة لأن كل عينة
+# لها وزن 1 بشكل افتراضي.
 #
-# For example, in the above tree built on the iris dataset, the root node has
-# ``value = [0.33, 0.304, 0.366]`` indicating there are 33% of class 0 samples,
-# 30.4% of class 1 samples, and 36.6% of class 2 samples at the root node. One can
-# convert this to the absolute number of samples by multiplying by the number of
-# samples reaching the root node, which is `tree_.weighted_n_node_samples[0]`.
-# Then the root node has ``value = [37, 34, 41]``, indicating there are 37 samples
-# of class 0, 34 samples of class 1, and 41 samples of class 2 at the root node.
+# على سبيل المثال، في الشجرة أعلاه المبنية على مجموعة بيانات الزهرة، تحتوي العقدة الجذر على
+# ``value = [0.33, 0.304, 0.366]`` مما يشير إلى وجود 33% من العينات من الصنف 0،
+# 30.4% من العينات من الصنف 1، و 36.6% من العينات من الصنف 2 في العقدة الجذر. يمكن للمرء
+# تحويل هذا إلى العدد المطلق للعينات من خلال الضرب في عدد
+# العينات التي تصل إلى العقدة الجذر، والتي هي `tree_.weighted_n_node_samples[0]`.
+# ثم تحتوي العقدة الجذر على ``value = [37, 34, 41]``، مما يشير إلى وجود 37 عينة
+# من الصنف 0، و 34 عينة من الصنف 1، و 41 عينة من الصنف 2 في العقدة الجذر.
 #
-# Traversing the tree, the samples are split and as a result, the ``value`` array
-# reaching each node changes. The left child of the root node has ``value = [1., 0, 0]``
-# (or ``value = [37, 0, 0]`` when converted to the absolute number of samples)
-# because all 37 samples in the left child node are from class 0.
+# عند عبور الشجرة، تنقسم العينات ونتيجة لذلك، تتغير مصفوفة ``value``
+# التي تصل إلى كل عقدة. الطفل الأيسر للعقدة الجذر لديه ``value = [1., 0, 0]``
+# (أو ``value = [37, 0, 0]`` عند تحويلها إلى العدد المطلق للعينات)
+# لأن جميع العينات الـ 37 في العقدة الطفل اليسرى هي من الصنف 0.
 #
-# Note: In this example, `n_outputs=1`, but the tree classifier can also handle
-# multi-output problems. The `value` array at each node would just be a 2D
-# array instead.
+# ملاحظة: في هذا المثال، `n_outputs=1`، ولكن يمكن لمصنف الشجرة أيضًا التعامل
+# مع المشاكل متعددة الإخراج. ستكون مصفوفة `value` في كل عقدة مجرد مصفوفة ثنائية الأبعاد
+# بدلاً من ذلك.
 
 ##############################################################################
-# We can compare the above output to the plot of the decision tree.
-# Here, we show the proportions of samples of each class that reach each
-# node corresponding to the actual elements of `tree_.value` array.
+# يمكننا مقارنة الإخراج أعلاه برسم شجرة القرار.
+# هنا، نُظهر نسب عينات كل صنف التي تصل إلى كل
+# عقدة مطابقة للعناصر الفعلية لمصفوفة `tree_.value`.
 
 tree.plot_tree(clf, proportion=True)
 plt.show()
 
 ##############################################################################
-# Decision path
+# مسار القرار
 # -------------
 #
-# We can also retrieve the decision path of samples of interest. The
-# ``decision_path`` method outputs an indicator matrix that allows us to
-# retrieve the nodes the samples of interest traverse through. A non zero
-# element in the indicator matrix at position ``(i, j)`` indicates that
-# the sample ``i`` goes through the node ``j``. Or, for one sample ``i``, the
-# positions of the non zero elements in row ``i`` of the indicator matrix
-# designate the ids of the nodes that sample goes through.
+# يمكننا أيضًا استرجاع مسار القرار لعينات الاهتمام.
+# طريقة ``decision_path`` تُخرج مصفوفة مؤشر تسمح لنا
+# باسترجاع العقد التي تمر عبرها عينات الاهتمام. عنصر غير صفري
+# في مصفوفة المؤشر في الموضع ``(i, j)`` يشير إلى أن
+# العينة ``i`` تمر عبر العقدة ``j``. أو، لعينة واحدة ``i``،
+# تحدد مواضع العناصر غير الصفرية في الصف ``i`` من مصفوفة المؤشر
+# معرّفات العقد التي تمر عبرها العينة.
 #
-# The leaf ids reached by samples of interest can be obtained with the
-# ``apply`` method. This returns an array of the node ids of the leaves
-# reached by each sample of interest. Using the leaf ids and the
-# ``decision_path`` we can obtain the splitting conditions that were used to
-# predict a sample or a group of samples. First, let's do it for one sample.
-# Note that ``node_index`` is a sparse matrix.
+# يمكن الحصول على معرّفات الأوراق التي وصلت إليها عينات الاهتمام باستخدام
+# طريقة ``apply``. هذا يعيد مصفوفة من معرّفات عقد الأوراق
+# التي وصلت إليها كل عينة من عينات الاهتمام. باستخدام معرّفات الأوراق و
+# ``decision_path`` يمكننا الحصول على شروط التقسيم التي تم استخدامها
+# للتنبؤ بعينة أو مجموعة من العينات. أولاً، دعنا نفعل ذلك لعينة واحدة.
+# لاحظ أن ``node_index`` هي مصفوفة نادرة.
 
 node_indicator = clf.decision_path(X_test)
 leaf_id = clf.apply(X_test)
 
 sample_id = 0
-# obtain ids of the nodes `sample_id` goes through, i.e., row `sample_id`
+# الحصول على معرّفات العقد التي تمر عبرها العينة `sample_id`، أي الصف `sample_id`
 node_index = node_indicator.indices[
     node_indicator.indptr[sample_id] : node_indicator.indptr[sample_id + 1]
 ]
 
 print("Rules used to predict sample {id}:\n".format(id=sample_id))
 for node_id in node_index:
-    # continue to the next node if it is a leaf node
+    # استمر إلى العقدة التالية إذا كانت عقدة ورقة
     if leaf_id[sample_id] == node_id:
         continue
 
-    # check if value of the split feature for sample 0 is below threshold
+    # تحقق إذا كانت قيمة ميزة التقسيم للعينة 0 أقل من العتبة
     if X_test[sample_id, feature[node_id]] <= threshold[node_id]:
         threshold_sign = "<="
     else:
@@ -220,13 +218,12 @@ for node_id in node_index:
     )
 
 ##############################################################################
-# For a group of samples, we can determine the common nodes the samples go
-# through.
+# لمجموعة من العينات، يمكننا تحديد العقد المشتركة التي تمر عبرها العينات.
 
 sample_ids = [0, 1]
-# boolean array indicating the nodes both samples go through
+# مصفوفة منطقية تشير إلى العقد التي تمر عبرها كلتا العينتين
 common_nodes = node_indicator.toarray()[sample_ids].sum(axis=0) == len(sample_ids)
-# obtain node ids using position in array
+# الحصول على معرّفات العقد باستخدام الموضع في المصفوفة
 common_node_id = np.arange(n_nodes)[common_nodes]
 
 print(

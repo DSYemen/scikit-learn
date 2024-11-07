@@ -1,30 +1,27 @@
 """
 ========================
-Decision Tree Regression
+انحدار شجرة القرار
 ========================
-In this example, we demonstrate the effect of changing the maximum depth of a
-decision tree on how it fits to the data. We perform this once on a 1D regression
-task and once on a multi-output regression task.
+في هذا المثال، نوضح تأثير تغيير العمق الأقصى لشجرة القرار على كيفية ملاءمتها للبيانات. نقوم بذلك مرة على مهمة انحدار 1D ومرة على مهمة انحدار متعددة المخرجات.
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# Decision Tree on a 1D Regression Task
+# شجرة القرار على مهمة انحدار 1D
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
-# Here we fit a tree on a 1D regression task.
+# هنا نقوم بضبط شجرة على مهمة انحدار 1D.
 #
-# The :ref:`decision trees <tree>` is
-# used to fit a sine curve with addition noisy observation. As a result, it
-# learns local linear regressions approximating the sine curve.
+# تستخدم :ref:`شجرة القرار <tree>`
+# لضبط منحنى جيب التمام مع إضافة ملاحظة عشوائية. ونتيجة لذلك، تتعلم انحدارات خطية محلية تقريب منحنى جيب التمام.
 #
-# We can see that if the maximum depth of the tree (controlled by the
-# `max_depth` parameter) is set too high, the decision trees learn too fine
-# details of the training data and learn from the noise, i.e. they overfit.
+# يمكننا أن نرى أنه إذا تم تعيين العمق الأقصى للشجرة (الذي يتحكم فيه
+# بمعلمة `max_depth`) مرتفعًا جدًا، فإن شجرة القرار تتعلم تفاصيل دقيقة
+# لبيانات التدريب وتتعلم من الضوضاء، أي أنها تبالغ في التعميم.
 #
-# Create a random 1D dataset
+# إنشاء مجموعة بيانات عشوائية 1D
 # --------------------------
 import numpy as np
 
@@ -34,9 +31,9 @@ y = np.sin(X).ravel()
 y[::5] += 3 * (0.5 - rng.rand(16))
 
 # %%
-# Fit regression model
+# ضبط نموذج الانحدار
 # --------------------
-# Here we fit two models with different maximum depths
+# هنا نقوم بضبط نموذجين بعمقين أقصى مختلفين
 from sklearn.tree import DecisionTreeRegressor
 
 regr_1 = DecisionTreeRegressor(max_depth=2)
@@ -45,15 +42,15 @@ regr_1.fit(X, y)
 regr_2.fit(X, y)
 
 # %%
-# Predict
+# التنبؤ
 # -------
-# Get predictions on the test set
+# الحصول على تنبؤات على مجموعة الاختبار
 X_test = np.arange(0.0, 5.0, 0.01)[:, np.newaxis]
 y_1 = regr_1.predict(X_test)
 y_2 = regr_2.predict(X_test)
 
 # %%
-# Plot the results
+# رسم النتائج
 # ----------------
 import matplotlib.pyplot as plt
 
@@ -68,27 +65,26 @@ plt.legend()
 plt.show()
 
 # %%
-# As you can see, the model with a depth of 5 (yellow) learns the details of the
-# training data to the point that it overfits to the noise. On the other hand,
-# the model with a depth of 2 (blue) learns the major tendencies in the data well
-# and does not overfit. In real use cases, you need to make sure that the tree
-# is not overfitting the training data, which can be done using cross-validation.
+# كما ترى، فإن النموذج بعمق 5 (أصفر) يتعلم تفاصيل بيانات التدريب
+# إلى الحد الذي يبالغ فيه في التعميم على الضوضاء. من ناحية أخرى،
+# النموذج بعمق 2 (أزرق) يتعلم الاتجاهات الرئيسية في البيانات جيدًا
+# ولا يبالغ في التعميم. في حالات الاستخدام الفعلية، تحتاج إلى التأكد من أن الشجرة
+# لا تبالغ في التعميم على بيانات التدريب، والتي يمكن القيام بها باستخدام تقسيم البيانات.
 
 # %%
-# Decision Tree Regression with Multi-Output Targets
+# انحدار شجرة القرار مع أهداف متعددة المخرجات
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
-# Here the :ref:`decision trees <tree>`
-# is used to predict simultaneously the noisy `x` and `y` observations of a circle
-# given a single underlying feature. As a result, it learns local linear
-# regressions approximating the circle.
+# هنا تستخدم :ref:`شجرة القرار <tree>`
+# للتنبؤ في نفس الوقت بالملاحظات العشوائية 'x' و 'y' لدائرة
+# مع ميزة أساسية واحدة. ونتيجة لذلك، تتعلم انحدارات خطية محلية تقريب الدائرة.
 #
-# We can see that if the maximum depth of the tree (controlled by the
-# `max_depth` parameter) is set too high, the decision trees learn too fine
-# details of the training data and learn from the noise, i.e. they overfit.
+# يمكننا أن نرى أنه إذا تم تعيين العمق الأقصى للشجرة (الذي يتحكم فيه
+# بمعلمة `max_depth`) مرتفعًا جدًا، فإن شجرة القرار تتعلم تفاصيل دقيقة
+# لبيانات التدريب وتتعلم من الضوضاء، أي أنها تبالغ في التعميم.
 
 # %%
-# Create a random dataset
+# إنشاء مجموعة بيانات عشوائية
 # -----------------------
 rng = np.random.RandomState(1)
 X = np.sort(200 * rng.rand(100, 1) - 100, axis=0)
@@ -96,7 +92,7 @@ y = np.array([np.pi * np.sin(X).ravel(), np.pi * np.cos(X).ravel()]).T
 y[::5, :] += 0.5 - rng.rand(20, 2)
 
 # %%
-# Fit regression model
+# ضبط نموذج الانحدار
 # --------------------
 regr_1 = DecisionTreeRegressor(max_depth=2)
 regr_2 = DecisionTreeRegressor(max_depth=5)
@@ -106,16 +102,16 @@ regr_2.fit(X, y)
 regr_3.fit(X, y)
 
 # %%
-# Predict
+# التنبؤ
 # -------
-# Get predictions on the test set
+# الحصول على تنبؤات على مجموعة الاختبار
 X_test = np.arange(-100.0, 100.0, 0.01)[:, np.newaxis]
 y_1 = regr_1.predict(X_test)
 y_2 = regr_2.predict(X_test)
 y_3 = regr_3.predict(X_test)
 
 # %%
-# Plot the results
+# رسم النتائج
 # ----------------
 plt.figure()
 s = 25
@@ -139,6 +135,6 @@ plt.legend(loc="best")
 plt.show()
 
 # %%
-# As you can see, the higher the value of `max_depth`, the more details of the data
-# are caught by the model. However, the model also overfits to the data and is
-# influenced by the noise.
+# كما ترى، كلما زادت قيمة `max_depth`، كلما زادت تفاصيل البيانات
+# التي يلتقطها النموذج. ومع ذلك، فإن النموذج يبالغ أيضًا في التعميم على البيانات ويتأثر
+# بالضوضاء.

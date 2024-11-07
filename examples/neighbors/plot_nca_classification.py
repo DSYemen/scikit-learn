@@ -1,22 +1,21 @@
 """
 =============================================================================
-Comparing Nearest Neighbors with and without Neighborhood Components Analysis
+مقارنة أقرب الجيران مع وبدون تحليل مكونات الحي
 =============================================================================
 
-An example comparing nearest neighbors classification with and without
-Neighborhood Components Analysis.
+مثال يقارن تصنيف أقرب الجيران مع وبدون
+تحليل مكونات الحي.
 
-It will plot the class decision boundaries given by a Nearest Neighbors
-classifier when using the Euclidean distance on the original features, versus
-using the Euclidean distance after the transformation learned by Neighborhood
-Components Analysis. The latter aims to find a linear transformation that
-maximises the (stochastic) nearest neighbor classification accuracy on the
-training set.
+سيقوم برسم حدود قرارات الفئة التي يحددها أقرب جيران
+المصنف عند استخدام المسافة الإقليدية على الميزات الأصلية، مقابل
+استخدام المسافة الإقليدية بعد التحول الذي تعلمه تحليل مكونات الحي. تهدف الأخيرة إلى إيجاد تحويل خطي
+يُضاعف دقة تصنيف أقرب الجيران (الاحتمالي) على
+مجموعة التدريب.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
@@ -33,17 +32,17 @@ n_neighbors = 1
 dataset = datasets.load_iris()
 X, y = dataset.data, dataset.target
 
-# we only take two features. We could avoid this ugly
-# slicing by using a two-dim dataset
+# نأخذ فقط ميزتين. يمكننا تجنب هذا القطع القبيح
+# عن طريق استخدام مجموعة بيانات ثنائية الأبعاد
 X = X[:, [0, 2]]
 
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, stratify=y, test_size=0.7, random_state=42
 )
 
-h = 0.05  # step size in the mesh
+h = 0.05  # حجم الخطوة في الشبكة
 
-# Create color maps
+# إنشاء خرائط الألوان
 cmap_light = ListedColormap(["#FFAAAA", "#AAFFAA", "#AAAAFF"])
 cmap_bold = ListedColormap(["#FF0000", "#00FF00", "#0000FF"])
 
@@ -81,7 +80,7 @@ for name, clf in zip(names, classifiers):
         shading="auto",
     )
 
-    # Plot also the training and testing points
+    # قم برسم نقاط التدريب والاختبار أيضًا
     plt.scatter(X[:, 0], X[:, 1], c=y, cmap=cmap_bold, edgecolor="k", s=20)
     plt.title("{} (k = {})".format(name, n_neighbors))
     plt.text(

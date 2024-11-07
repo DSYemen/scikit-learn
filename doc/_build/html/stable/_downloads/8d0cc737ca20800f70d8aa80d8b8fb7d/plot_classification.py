@@ -1,22 +1,20 @@
 """
 ================================
-Nearest Neighbors Classification
+تصنيف أقرب الجيران
 ================================
 
-This example shows how to use :class:`~sklearn.neighbors.KNeighborsClassifier`.
-We train such a classifier on the iris dataset and observe the difference of the
-decision boundary obtained with regards to the parameter `weights`.
+هذا المثال يوضح كيفية استخدام :class:`~sklearn.neighbors.KNeighborsClassifier`.
+نقوم بتدريب مصنف مثل هذا على مجموعة بيانات الزهرة النرجسية ونلاحظ الفرق في حدود القرار التي تم الحصول عليها فيما يتعلق بمعلمة `weights`.
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# Load the data
+# تحميل البيانات
 # -------------
 #
-# In this example, we use the iris dataset. We split the data into a train and test
-# dataset.
+# في هذا المثال، نستخدم مجموعة بيانات الزهرة النرجسية. نقوم بتقسيم البيانات إلى مجموعة تدريب واختبار.
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 
@@ -26,18 +24,16 @@ y = iris.target
 X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y, random_state=0)
 
 # %%
-# K-nearest neighbors classifier
+# مصنف أقرب الجيران
 # ------------------------------
 #
-# We want to use a k-nearest neighbors classifier considering a neighborhood of 11 data
-# points. Since our k-nearest neighbors model uses euclidean distance to find the
-# nearest neighbors, it is therefore important to scale the data beforehand. Refer to
-# the example entitled
-# :ref:`sphx_glr_auto_examples_preprocessing_plot_scaling_importance.py` for more
-# detailed information.
+# نريد استخدام مصنف أقرب الجيران مع مراعاة حي من 11 نقطة بيانات. نظرًا لأن نموذج أقرب الجيران لدينا يستخدم المسافة الإقليدية للعثور على الجيران الأقرب، فمن المهم بالتالي قياس البيانات مسبقًا. يرجى الرجوع إلى
+# المثال المعنون
+# :ref:`sphx_glr_auto_examples_preprocessing_plot_scaling_importance.py` للحصول على معلومات أكثر
+# تفصيلاً.
 #
-# Thus, we use a :class:`~sklearn.pipeline.Pipeline` to chain a scaler before to use
-# our classifier.
+# لذلك، نستخدم :class:`~sklearn.pipeline.Pipeline` لربط مقياس قبل استخدام
+# المصنف الخاص بنا.
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
@@ -47,12 +43,11 @@ clf = Pipeline(
 )
 
 # %%
-# Decision boundary
+# حدود القرار
 # -----------------
 #
-# Now, we fit two classifiers with different values of the parameter
-# `weights`. We plot the decision boundary of each classifier as well as the original
-# dataset to observe the difference.
+# الآن، نقوم بتدريب مصنفين مع قيم مختلفة لمعلمة
+# `weights`. نقوم برسم حدود القرار لكل مصنف بالإضافة إلى مجموعة البيانات الأصلية لملاحظة الفرق.
 import matplotlib.pyplot as plt
 
 from sklearn.inspection import DecisionBoundaryDisplay
@@ -86,12 +81,12 @@ for ax, weights in zip(axs, ("uniform", "distance")):
 plt.show()
 
 # %%
-# Conclusion
+# الخلاصة
 # ----------
 #
-# We observe that the parameter `weights` has an impact on the decision boundary. When
-# `weights="unifom"` all nearest neighbors will have the same impact on the decision.
-# Whereas when `weights="distance"` the weight given to each neighbor is proportional
-# to the inverse of the distance from that neighbor to the query point.
+# نلاحظ أن لمعلمة `weights` تأثير على حدود القرار. عندما
+# `weights="unifom"` سيكون لجميع الجيران الأقرب نفس التأثير على القرار.
+# في حين عندما `weights="distance"` يكون الوزن المعطى لكل جار يتناسب
+# مع العكس لمسافة ذلك الجار من نقطة الاستعلام.
 #
-# In some cases, taking the distance into account might improve the model.
+# في بعض الحالات، قد يؤدي أخذ المسافة في الاعتبار إلى تحسين النموذج.

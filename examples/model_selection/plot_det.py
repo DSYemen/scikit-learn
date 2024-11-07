@@ -1,43 +1,39 @@
 """
 ====================================
-Detection error tradeoff (DET) curve
+منحنى الخطأ الكشف (DET)
 ====================================
 
-In this example, we compare two binary classification multi-threshold metrics:
-the Receiver Operating Characteristic (ROC) and the Detection Error Tradeoff
-(DET). For such purpose, we evaluate two different classifiers for the same
-classification task.
+في هذا المثال، نقارن بين مقياسين متعددين للعتبات للتصنيف الثنائي:
+منحنى الخاصية التشغيلية للمستقبل (ROC) ومنحنى الخطأ الكشف (DET). ولتحقيق هذا الغرض، نقوم بتقييم مصنفين مختلفين لنفس
+مهمة التصنيف.
 
-ROC curves feature true positive rate (TPR) on the Y axis, and false positive
-rate (FPR) on the X axis. This means that the top left corner of the plot is the
-"ideal" point - a FPR of zero, and a TPR of one.
+تتميز منحنيات ROC بمعدل الإيجابيات الحقيقية (TPR) على محور Y، ومعدل الإيجابيات الخاطئة (FPR) على محور X. وهذا يعني أن الركن العلوي الأيسر من الرسم البياني هو
+النقطة "المثالية" - FPR صفر، و TPR واحد.
 
-DET curves are a variation of ROC curves where False Negative Rate (FNR) is
-plotted on the y-axis instead of the TPR. In this case the origin (bottom left
-corner) is the "ideal" point.
+منحنيات DET هي تباين من منحنيات ROC حيث يتم رسم معدل السلبيات الخاطئة (FNR)
+على محور Y بدلاً من TPR. في هذه الحالة، الأصل (الركن السفلي الأيسر) هو النقطة "المثالية".
 
 .. note::
 
-    - See :func:`sklearn.metrics.roc_curve` for further information about ROC
-      curves.
+    - راجع :func:`sklearn.metrics.roc_curve` لمزيد من المعلومات حول منحنيات ROC.
 
-    - See :func:`sklearn.metrics.det_curve` for further information about
-      DET curves.
+    - راجع :func:`sklearn.metrics.det_curve` لمزيد من المعلومات حول
+      منحنيات DET.
 
-    - This example is loosely based on
+    - هذا المثال يعتمد بشكل فضفاض على
       :ref:`sphx_glr_auto_examples_classification_plot_classifier_comparison.py`
-      example.
+      المثال.
 
-    - See :ref:`sphx_glr_auto_examples_model_selection_plot_roc_crossval.py` for
-      an example estimating the variance of the ROC curves and ROC-AUC.
+    - راجع :ref:`sphx_glr_auto_examples_model_selection_plot_roc_crossval.py` لمثال
+      لتقدير تباين منحنيات ROC وROC-AUC.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# Generate synthetic data
+# توليد بيانات صناعية
 # -----------------------
 
 from sklearn.datasets import make_classification
@@ -56,13 +52,11 @@ X, y = make_classification(
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, random_state=0)
 
 # %%
-# Define the classifiers
+# تحديد المصنفات
 # ----------------------
 #
-# Here we define two different classifiers. The goal is to visually compare their
-# statistical performance across thresholds using the ROC and DET curves. There
-# is no particular reason why these classifiers are chosen other classifiers
-# available in scikit-learn.
+# هنا نحدد مصنفين مختلفين. الهدف هو المقارنة البصرية لأدائهم الإحصائي عبر العتبات باستخدام منحنيات ROC وDET. لا يوجد سبب محدد لاختيار هذه المصنفات على مصنفات أخرى
+# متوفرة في سكايلرن.
 
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import make_pipeline
@@ -76,12 +70,12 @@ classifiers = {
 }
 
 # %%
-# Plot ROC and DET curves
+# رسم منحنيات ROC وDET
 # -----------------------
 #
-# DET curves are commonly plotted in normal deviate scale. To achieve this the
-# DET display transforms the error rates as returned by the
-# :func:`~sklearn.metrics.det_curve` and the axis scale using
+# يتم رسم منحنيات DET عادةً في مقياس الانحراف الطبيعي. لتحقيق ذلك، تحول
+# عرض DET معدلات الخطأ كما هو مُعاد من قبل
+# :func:`~sklearn.metrics.det_curve` ومقياس المحور باستخدام
 # `scipy.stats.norm`.
 
 import matplotlib.pyplot as plt
@@ -106,14 +100,13 @@ plt.legend()
 plt.show()
 
 # %%
-# Notice that it is easier to visually assess the overall performance of
-# different classification algorithms using DET curves than using ROC curves. As
-# ROC curves are plot in a linear scale, different classifiers usually appear
-# similar for a large part of the plot and differ the most in the top left
-# corner of the graph. On the other hand, because DET curves represent straight
-# lines in normal deviate scale, they tend to be distinguishable as a whole and
-# the area of interest spans a large part of the plot.
+# لاحظ أنه من الأسهل تقييم الأداء العام
+# لخوارزميات التصنيف المختلفة باستخدام منحنيات DET أكثر من استخدام منحنيات ROC. نظرًا لأن منحنيات ROC يتم رسمها في مقياس خطي، عادةً ما تبدو المصنفات المختلفة
+# متشابهة لجزء كبير من الرسم البياني وتختلف أكثر في الركن العلوي الأيسر
+# من الرسم البياني. من ناحية أخرى، لأن منحنيات DET تمثل خطوطًا مستقيمة
+# في مقياس الانحراف الطبيعي، فإنها تميل إلى أن تكون مميزة ككل
+# ومنطقة الاهتمام تمتد على جزء كبير من الرسم البياني.
 #
-# DET curves give direct feedback of the detection error tradeoff to aid in
-# operating point analysis. The user can then decide the FNR they are willing to
-# accept at the expense of the FPR (or vice-versa).
+# توفر منحنيات DET تعليقات مباشرة حول خطأ الكشف التجاري لمساعدة
+# في تحليل نقطة التشغيل. بعد ذلك، يمكن للمستخدم تحديد FNR الذي يرغب في
+# قبوله على حساب FPR (أو العكس).

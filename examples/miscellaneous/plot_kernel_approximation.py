@@ -1,80 +1,77 @@
 """
 ==================================================
-Explicit feature map approximation for RBF kernels
+تقريب خريطة الميزات الصريحة لنواة RBF
 ==================================================
 
-An example illustrating the approximation of the feature map
-of an RBF kernel.
+مثال يوضح تقريب خريطة الميزات
+لنواة RBF.
 
 .. currentmodule:: sklearn.kernel_approximation
 
-It shows how to use :class:`RBFSampler` and :class:`Nystroem` to
-approximate the feature map of an RBF kernel for classification with an SVM on
-the digits dataset. Results using a linear SVM in the original space, a linear
-SVM using the approximate mappings and using a kernelized SVM are compared.
-Timings and accuracy for varying amounts of Monte Carlo samplings (in the case
-of :class:`RBFSampler`, which uses random Fourier features) and different sized
-subsets of the training set (for :class:`Nystroem`) for the approximate mapping
-are shown.
+يوضح كيفية استخدام :class:`RBFSampler` و :class:`Nystroem` لتقريب
+خريطة الميزات لنواة RBF للتصنيف باستخدام SVM على
+مجموعة بيانات الأرقام. يتم مقارنة النتائج باستخدام SVM الخطي في المساحة الأصلية، وSVM الخطي
+باستخدام الخرائط التقريبية واستخدام SVM المؤكد.
+يتم عرض أوقات ودقة لكميات مختلفة من العينات العشوائية (في حالة
+:class:`RBFSampler`، الذي يستخدم ميزات عشوائية فورييه) ومجموعات فرعية مختلفة الحجم
+من مجموعة التدريب (لـ :class:`Nystroem`) لخريطة التقريب.
 
-Please note that the dataset here is not large enough to show the benefits
-of kernel approximation, as the exact SVM is still reasonably fast.
+يرجى ملاحظة أن مجموعة البيانات هنا ليست كبيرة بما يكفي لإظهار فوائد
+تقريب النواة، حيث أن SVM الدقيق لا يزال سريعًا بشكل معقول.
 
-Sampling more dimensions clearly leads to better classification results, but
-comes at a greater cost. This means there is a tradeoff between runtime and
-accuracy, given by the parameter n_components. Note that solving the Linear
-SVM and also the approximate kernel SVM could be greatly accelerated by using
-stochastic gradient descent via :class:`~sklearn.linear_model.SGDClassifier`.
-This is not easily possible for the case of the kernelized SVM.
-
-"""
+من الواضح أن أخذ العينات من أبعاد أكثر يؤدي إلى نتائج تصنيف أفضل، ولكن
+يأتي بتكلفة أكبر. وهذا يعني أن هناك مفاضلة بين وقت التشغيل
+والدقة، والتي يحددها المعامل n_components. لاحظ أن حل SVM الخطي
+وأيضًا SVM النواة التقريبية يمكن تسريعه بشكل كبير باستخدام
+التدرج العشوائي عبر :class:`~sklearn.linear_model.SGDClassifier`.
+هذا ليس ممكنًا بسهولة في حالة SVM المؤكد.
 
 # %%
-# Python package and dataset imports, load dataset
+# استيرادات حزم وبيانات بايثون، تحميل مجموعة البيانات
 # ---------------------------------------------------
 
+"""
+# المؤلفون: مطوري scikit-learn
+# معرف SPDX-License: BSD-3-Clause
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
-
-# Standard scientific Python imports
+# استيرادات بايثون العلمية القياسية
 from time import time
 
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Import datasets, classifiers and performance metrics
+# import مجموعات البيانات، والتصنيفات، ومقاييس الأداء
 from sklearn import datasets, pipeline, svm
 from sklearn.decomposition import PCA
 from sklearn.kernel_approximation import Nystroem, RBFSampler
 
-# The digits dataset
+# مجموعة بيانات الأرقام
 digits = datasets.load_digits(n_class=9)
 
 
 # %%
-# Timing and accuracy plots
+# مخططات الوقت والدقة
 # --------------------------------------------------
-# To apply an classifier on this data, we need to flatten the image, to
-# turn the data in a (samples, feature) matrix:
+# لتطبيق مصنف على هذه البيانات، نحتاج إلى تسطيح الصورة،
+# لتحويل البيانات إلى مصفوفة (samples, feature):
 n_samples = len(digits.data)
 data = digits.data / 16.0
 data -= data.mean(axis=0)
 
-# We learn the digits on the first half of the digits
+# نتعلم الأرقام على النصف الأول من الأرقام
 data_train, targets_train = (data[: n_samples // 2], digits.target[: n_samples // 2])
 
 
-# Now predict the value of the digit on the second half:
+# الآن نتوقع قيمة الرقم على النصف الثاني:
 data_test, targets_test = (data[n_samples // 2 :], digits.target[n_samples // 2 :])
 # data_test = scaler.transform(data_test)
 
-# Create a classifier: a support vector classifier
+# إنشاء مصنف: مصنف ناقل الدعم
 kernel_svm = svm.SVC(gamma=0.2)
 linear_svm = svm.LinearSVC(random_state=42)
 
-# create pipeline from kernel approximation
-# and linear svm
+# إنشاء خط أنابيب من تقريب النواة
+# وSVM الخطي
 feature_map_fourier = RBFSampler(gamma=0.2, random_state=1)
 feature_map_nystroem = Nystroem(gamma=0.2, random_state=1)
 fourier_approx_svm = pipeline.Pipeline(
@@ -91,7 +88,7 @@ nystroem_approx_svm = pipeline.Pipeline(
     ]
 )
 
-# fit and predict using linear and kernel svm:
+# تناسب والتنبؤ باستخدام SVM الخطي والنواة:
 
 kernel_svm_time = time()
 kernel_svm.fit(data_train, targets_train)
@@ -125,10 +122,10 @@ for D in sample_sizes:
     nystroem_scores.append(nystroem_score)
     fourier_scores.append(fourier_score)
 
-# plot the results:
+# رسم النتائج:
 plt.figure(figsize=(16, 4))
 accuracy = plt.subplot(121)
-# second y axis for timings
+# محور y الثاني للأوقات
 timescale = plt.subplot(122)
 
 accuracy.plot(sample_sizes, nystroem_scores, label="Nystroem approx. kernel")
@@ -137,7 +134,7 @@ timescale.plot(sample_sizes, nystroem_times, "--", label="Nystroem approx. kerne
 accuracy.plot(sample_sizes, fourier_scores, label="Fourier approx. kernel")
 timescale.plot(sample_sizes, fourier_times, "--", label="Fourier approx. kernel")
 
-# horizontal lines for exact rbf and linear kernels:
+# خطوط أفقية للنواة rbf والنواة الخطية:
 accuracy.plot(
     [sample_sizes[0], sample_sizes[-1]],
     [linear_svm_score, linear_svm_score],
@@ -162,10 +159,10 @@ timescale.plot(
     label="rbf svm",
 )
 
-# vertical line for dataset dimensionality = 64
+# خط عمودي لأبعاد مجموعة البيانات = 64
 accuracy.plot([64, 64], [0.7, 1], label="n_features")
 
-# legends and labels
+# الأساطير والعلامات
 accuracy.set_title("Classification accuracy")
 timescale.set_title("Training times")
 accuracy.set_xlim(sample_sizes[0], sample_sizes[-1])
@@ -181,37 +178,36 @@ plt.show()
 
 
 # %%
-# Decision Surfaces of RBF Kernel SVM and Linear SVM
+# أسطح القرار لSVM النواة RBF وSVM الخطي
 # --------------------------------------------------------
-# The second plot visualized the decision surfaces of the RBF kernel SVM and
-# the linear SVM with approximate kernel maps.
-# The plot shows decision surfaces of the classifiers projected onto
-# the first two principal components of the data. This visualization should
-# be taken with a grain of salt since it is just an interesting slice through
-# the decision surface in 64 dimensions. In particular note that
-# a datapoint (represented as a dot) does not necessarily be classified
-# into the region it is lying in, since it will not lie on the plane
-# that the first two principal components span.
-# The usage of :class:`RBFSampler` and :class:`Nystroem` is described in detail
-# in :ref:`kernel_approximation`.
+# المخطط الثاني يصور أسطح القرار لSVM النواة RBF و
+# SVM الخطي مع خرائط النواة التقريبية.
+# يظهر المخطط أسطح القرار للمصنفين المسقطة على
+# أول مكونين رئيسيين للبيانات. يجب أخذ هذا التصور مع حبة من الملح حيث أنه مجرد شريحة مثيرة للاهتمام
+# عبر سطح القرار في 64 بُعدًا. لاحظ بشكل خاص أن
+# نقطة البيانات (الممثلة كنقطة) لا يتم تصنيفها بالضرورة
+# في المنطقة التي تقع فيها، حيث لن تقع على المستوى
+# الذي يمتد عبر أول مكونين رئيسيين.
+# يتم وصف استخدام :class:`RBFSampler` و :class:`Nystroem` بالتفصيل
+# في :ref:`kernel_approximation`.
 
-# visualize the decision surface, projected down to the first
-# two principal components of the dataset
+# تصور سطح القرار، المسقط إلى أول
+# مكونين رئيسيين لمجموعة البيانات
 pca = PCA(n_components=8, random_state=42).fit(data_train)
 
 X = pca.transform(data_train)
 
-# Generate grid along first two principal components
+# إنشاء شبكة على طول أول مكونين رئيسيين
 multiples = np.arange(-2, 2, 0.1)
-# steps along first component
+# خطوات على طول المكون الأول
 first = multiples[:, np.newaxis] * pca.components_[0, :]
-# steps along second component
+# خطوات على طول المكون الثاني
 second = multiples[:, np.newaxis] * pca.components_[1, :]
-# combine
+# الجمع
 grid = first[np.newaxis, :, :] + second[:, np.newaxis, :]
 flat_grid = grid.reshape(-1, data.shape[1])
 
-# title for the plots
+# عنوان للمخططات
 titles = [
     "SVC with rbf kernel",
     "SVC (linear kernel)\n with Fourier rbf feature map\nn_components=100",
@@ -220,17 +216,17 @@ titles = [
 
 plt.figure(figsize=(18, 7.5))
 plt.rcParams.update({"font.size": 14})
-# predict and plot
+# التنبؤ والرسم
 for i, clf in enumerate((kernel_svm, nystroem_approx_svm, fourier_approx_svm)):
-    # Plot the decision boundary. For that, we will assign a color to each
-    # point in the mesh [x_min, x_max]x[y_min, y_max].
+    # رسم حدود القرار. لهذا، سنقوم بتعيين لون لكل نقطة
+    # في الشبكة [x_min, x_max]x[y_min, y_max].
     plt.subplot(1, 3, i + 1)
     Z = clf.predict(flat_grid)
 
-    # Put the result into a color plot
+    # وضع النتيجة في رسم ملون
     Z = Z.reshape(grid.shape[:-1])
     levels = np.arange(10)
-    lv_eps = 0.01  # Adjust a mapping from calculated contour levels to color.
+    lv_eps = 0.01  # ضبط خريطة من مستويات التضاريس المحسوبة إلى لون.
     plt.contourf(
         multiples,
         multiples,
@@ -243,7 +239,7 @@ for i, clf in enumerate((kernel_svm, nystroem_approx_svm, fourier_approx_svm)):
     )
     plt.axis("off")
 
-    # Plot also the training points
+    # رسم نقاط التدريب أيضًا
     plt.scatter(
         X[:, 0],
         X[:, 1],

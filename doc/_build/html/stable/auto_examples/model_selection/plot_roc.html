@@ -7,16 +7,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Multiclass Receiver Operating Characteristic (ROC)" />
+<meta property="og:title" content="منحنى استقبال التشغيل متعدد الفئات (ROC)" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/auto_examples/model_selection/plot_roc.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="This example describes the use of the Receiver Operating Characteristic (ROC) metric to evaluate the quality of multiclass classifiers. ROC curves typically feature true positive rate (TPR) on the ..." />
+<meta property="og:description" content="يصف هذا المثال استخدام مقياس استقبال التشغيل (ROC) لتقييم جودة المصنفات متعددة الفئات. عادةً ما تتميز منحنيات ROC بمعدل الإيجابيات الحقيقية (TPR) على محور Y، ومعدل الإيجابيات الخاطئة (FPR) على محور..." />
 <meta property="og:image" content="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" />
 <meta property="og:image:alt" content="scikit-learn" />
-<meta name="description" content="This example describes the use of the Receiver Operating Characteristic (ROC) metric to evaluate the quality of multiclass classifiers. ROC curves typically feature true positive rate (TPR) on the ..." />
+<meta name="description" content="يصف هذا المثال استخدام مقياس استقبال التشغيل (ROC) لتقييم جودة المصنفات متعددة الفئات. عادةً ما تتميز منحنيات ROC بمعدل الإيجابيات الحقيقية (TPR) على محور Y، ومعدل الإيجابيات الخاطئة (FPR) على محور..." />
 
-    <title>Multiclass Receiver Operating Characteristic (ROC) &#8212; scikit-learn 1.6.dev0 documentation</title>
+    <title>منحنى استقبال التشغيل متعدد الفئات (ROC) &#8212; scikit-learn 1.6.dev0 documentation</title>
   
   
   
@@ -79,8 +79,8 @@
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="search" title="بحث" href="../../search.html" />
-    <link rel="next" title="Nested versus non-nested cross-validation" href="plot_nested_cross_validation_iris.html" />
-    <link rel="prev" title="Effect of model regularization on training and test error" href="plot_train_error_vs_test_error.html" />
+    <link rel="next" title="منحنى الخطأ الكشف (DET)" href="plot_det.html" />
+    <link rel="prev" title="مقارنة بين البحث الشبكي وتقليص الخيارات المتتابع" href="plot_successive_halving_heatmap.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="ar"/>
   <meta name="docsearch:version" content="1.6" />
@@ -550,160 +550,74 @@
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../release_highlights/index.html">Release Highlights</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_5_0.html">Release Highlights for scikit-learn 1.5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_4_0.html">Release Highlights for scikit-learn 1.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_3_0.html">Release Highlights for scikit-learn 1.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_2_0.html">Release Highlights for scikit-learn 1.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_1_0.html">Release Highlights for scikit-learn 1.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_0_0.html">Release Highlights for scikit-learn 1.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_24_0.html">Release Highlights for scikit-learn 0.24</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_23_0.html">Release Highlights for scikit-learn 0.23</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_22_0.html">Release Highlights for scikit-learn 0.22</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../manifold/index.html">(المتشعب)التعلم المتعدد</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_t_sne_perplexity.html">t-SNE: تأثير قيم الحيرة المختلفة على الشكل</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_mds.html">القياس متعدد الأبعاد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_lle_digits.html">تعلم متعدد الشعب على الأرقام المكتوبة بخط اليد: التضمين الخطي المحلي، Isomap...</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_swissroll.html">خفض اللفافة السويسرية واللفافة السويسرية ذات الثقب</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_manifold_sphere.html">طرق تعلم متعدد الشعب على كرة مقطوعة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_compare_methods.html">مقارنة طرق تعلم متعدد الشعب</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../tree/index.html">Decision Trees</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../tree/plot_tree_regression.html">Decision Tree Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tree/plot_iris_dtc.html">Plot the decision surface of decision trees trained on the iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tree/plot_cost_complexity_pruning.html">Post pruning decision trees with cost complexity pruning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tree/plot_unveil_tree_structure.html">Understanding the decision tree structure</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../svm/index.html">Support Vector Machines (SVM)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_oneclass.html">One-class SVM with non-linear kernel (RBF)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_custom_kernel.html">SVM مع نواة مخصصة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_anova.html">SVM-Anova: SVM مع اختيار الميزات أحادية المتغير</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_weighted_samples.html">SVM: العينات ذات الأوزان</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_separating_hyperplane.html">SVM: المستوى الفاصل ذو الهامش الأقصى</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_separating_hyperplane_unbalanced.html">SVM: المستوي الفاصل للطبقات غير المتوازنة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_regression.html">دعم نموذج الانحدار باستخدام نواة خطية وغير خطية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_linearsvc_support_vectors.html">رسم المتجهات الداعمة في LinearSVC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_kernels.html">رسم حدود التصنيف مع نوى SVM مختلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_iris_svc.html">رسم مخططات لمصنفات SVM المختلفة في مجموعة بيانات الزهرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_scale_c.html">ضبط معامل الانتظام لخوارزمية SVC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_tie_breaking.html">مثال على كسر التعادل في SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_margin.html">مثال على هوامش SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_rbf_parameters.html">معاملات SVM ذات الدالة الشعاعية الأساسية</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../mixture/index.html">Gaussian Mixture Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_concentration_prior.html">Concentration Prior Type Analysis of Variation Bayesian Gaussian Mixture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_pdf.html">Density Estimation for a Gaussian mixture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_init.html">GMM Initialization Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_covariances.html">GMM covariances</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm.html">Gaussian Mixture Model Ellipsoids</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_selection.html">Gaussian Mixture Model Selection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_sin.html">Gaussian Mixture Model Sine Curve</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tree/index.html">أشجار القرار-</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tree/plot_tree_regression.html">انحدار شجرة القرار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tree/plot_cost_complexity_pruning.html">تشذيب أشجار القرار بعد التدريب باستخدام تقنية تشذيب تعقيد التكلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tree/plot_iris_dtc.html">رسم سطح القرار لأشجار القرار المدربة على مجموعة بيانات الزهرة الآرغوانية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tree/plot_unveil_tree_structure.html">فهم بنية شجرة القرار</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../manifold/index.html">Manifold learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_compare_methods.html">Comparison of Manifold Learning methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_manifold_sphere.html">Manifold Learning methods on a severed sphere</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_lle_digits.html">Manifold learning on handwritten digits: Locally Linear Embedding, Isomap...</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_mds.html">Multi-dimensional scaling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_swissroll.html">Swiss Roll And Swiss-Hole Reduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_t_sne_perplexity.html">t-SNE: The effect of various perplexity values on the shape</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../miscellaneous/index.html">Miscellaneous</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_partial_dependence_visualization_api.html">Advanced Plotting With Partial Dependence</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_anomaly_comparison.html">Comparing anomaly detection algorithms for outlier detection on toy datasets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_kernel_ridge_regression.html">Comparison of kernel ridge regression and SVR</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_pipeline_display.html">Displaying Pipelines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_estimator_representation.html">Displaying estimators and complex pipelines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_outlier_detection_bench.html">Evaluation of outlier detection estimators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_kernel_approximation.html">Explicit feature map approximation for RBF kernels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_multioutput_face_completion.html">Face completion with a multi-output estimators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_set_output.html">Introducing the <code class="docutils literal notranslate"><span class="pre">set_output</span></code> API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_isotonic_regression.html">Isotonic Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_metadata_routing.html">Metadata Routing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_multilabel.html">Multilabel classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_roc_curve_visualization_api.html">ROC Curve with Visualization API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_johnson_lindenstrauss_bound.html">The Johnson-Lindenstrauss bound for embedding with random projections</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_display_object_visualization.html">Visualizations with Display Objects</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Model Selection</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="plot_grid_search_refit_callable.html">Balance model complexity and cross-validated score</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_likelihood_ratios.html">Class Likelihood Ratios to measure classification performance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_randomized_search.html">Comparing randomized search and grid search for hyperparameter estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_successive_halving_heatmap.html">Comparison between grid search and successive halving</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_confusion_matrix.html">Confusion matrix</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_grid_search_digits.html">Custom refit strategy of a grid search with cross-validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_multi_metric_evaluation.html">Demonstration of multi-metric evaluation on cross_val_score and GridSearchCV</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_det.html">Detection error tradeoff (DET) curve</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_train_error_vs_test_error.html">Effect of model regularization on training and test error</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Multiclass Receiver Operating Characteristic (ROC)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_nested_cross_validation_iris.html">Nested versus non-nested cross-validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_cv_predict.html">Plotting Cross-Validated Predictions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_learning_curve.html">Plotting Learning Curves and Checking Models' Scalability</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_tuned_decision_threshold.html">Post-hoc tuning the cut-off point of decision function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_cost_sensitive_learning.html">Post-tuning the decision threshold for cost-sensitive learning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_precision_recall.html">Precision-Recall</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_roc_crossval.html">Receiver Operating Characteristic (ROC) with cross validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_grid_search_text_feature_extraction.html">Sample pipeline for text feature extraction and evaluation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_grid_search_stats.html">Statistical comparison of models using grid search</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_successive_halving_iterations.html">Successive Halving Iterations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_permutation_tests_for_classification.html">Test with permutations the significance of a classification score</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_underfitting_overfitting.html">Underfitting vs. Overfitting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_cv_indices.html">Visualizing cross-validation behavior in scikit-learn</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../multiclass/index.html">Multiclass methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../multiclass/plot_multiclass_overview.html">Overview of multiclass training meta-estimators</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../multioutput/index.html">Multioutput methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../multioutput/plot_classifier_chain_yeast.html">Multilabel classification using a classifier chain</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../neighbors/index.html">Nearest Neighbors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/approximate_nearest_neighbors.html">Approximate nearest neighbors in TSNE</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_caching_nearest_neighbors.html">Caching nearest neighbors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_classification.html">Comparing Nearest Neighbors with and without Neighborhood Components Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_dim_reduction.html">Dimensionality Reduction with Neighborhood Components Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_species_kde.html">Kernel Density Estimate of Species Distributions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_digits_kde_sampling.html">Kernel Density Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nearest_centroid.html">Nearest Centroid Classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_classification.html">Nearest Neighbors Classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_regression.html">Nearest Neighbors regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_illustration.html">Neighborhood Components Analysis Illustration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_lof_novelty_detection.html">Novelty detection with Local Outlier Factor (LOF)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_lof_outlier_detection.html">Outlier detection with Local Outlier Factor (LOF)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_kde_1d.html">Simple 1D Kernel Density Estimation</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../neural_networks/index.html">Neural Networks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mlp_training_curves.html">Compare Stochastic learning strategies for MLPClassifier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_rbm_logistic_classification.html">Restricted Boltzmann Machine features for digit classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mlp_alpha.html">Varying regularization in Multi-layer Perceptron</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mnist_filters.html">Visualization of MLP weights on MNIST</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../preprocessing/index.html">Preprocessing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_all_scaling.html">Compare the effect of different scalers on data with outliers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder.html">Comparing Target Encoder with Other Encoders</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization_strategies.html">Demonstrating the different strategies of KBinsDiscretizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization_classification.html">Feature discretization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_scaling_importance.html">Importance of Feature Scaling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_map_data_to_normal.html">Map data to a normal distribution</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder_cross_val.html">Target Encoder's Internal Cross fitting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization.html">Using KBinsDiscretizer to discretize continuous features</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../release_highlights/index.html">أبرز ما جاء في الإصدار</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_5_0.html">أبرز الميزات الجديدة في الإصدار 1.5 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_4_0.html">أبرز ميزات الإصدار 1.4 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_3_0.html">أبرز ميزات الإصدار 1.3 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_2_0.html">أبرز ميزات الإصدار 1.2 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_1_0.html">أبرز الميزات الجديدة في إصدار scikit-learn 1.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_0_0.html">أبرز ميزات الإصدار 1.0 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_24_0.html">أبرز ميزات الإصدار 0.24 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_23_0.html">أبرز الميزات الجديدة في إصدار scikit-learn 0.23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_22_0.html">أبرز ميزات الإصدار 0.22 من scikit-learn</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../semi_supervised/index.html">Semi Supervised Classification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_semi_supervised_versus_svm_iris.html">Decision boundary of semi-supervised classifiers versus SVM on the Iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_self_training_varying_threshold.html">Effect of varying threshold for self-training</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_digits_active_learning.html">Label Propagation digits active learning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_digits.html">Label Propagation digits: Demonstrating performance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_structure.html">Label Propagation learning a complex structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_semi_supervised_newsgroups.html">Semi-supervised Classification on a Text Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_semi_supervised_newsgroups.html">التصنيف شبه المُشرف على مجموعة بيانات نصية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_self_training_varying_threshold.html">تأثير تغيير العتبة في التدريب الذاتي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_structure.html">تعلم انتشار العلامات لهيكل معقد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_semi_supervised_versus_svm_iris.html">حدود القرار للمصنفات شبه المُشرفة مقابل SVM على مجموعة بيانات Iris</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_digits_active_learning.html">نشر التسمية للأرقام باستخدام التعلم النشط</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_digits.html">نشر العلامات على الأرقام: توضيح الأداء</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../svm/index.html">Support Vector Machines</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_oneclass.html">One-class SVM with non-linear kernel (RBF)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_kernels.html">Plot classification boundaries with different SVM Kernels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_iris_svc.html">Plot different SVM classifiers in the iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_linearsvc_support_vectors.html">Plot the support vectors in LinearSVC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_rbf_parameters.html">RBF SVM parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_margin.html">SVM Margins Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_tie_breaking.html">SVM Tie Breaking Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_custom_kernel.html">SVM with custom kernel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_anova.html">SVM-Anova: SVM with univariate feature selection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_separating_hyperplane.html">SVM: Maximum margin separating hyperplane</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_separating_hyperplane_unbalanced.html">SVM: Separating hyperplane for unbalanced classes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_weighted_samples.html">SVM: Weighted samples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_scale_c.html">Scaling the regularization parameter for SVCs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_regression.html">Support Vector Regression (SVR) using linear and non-linear kernels</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../text/index.html">Working with text documents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../text/plot_document_classification_20newsgroups.html">Classification of text documents using sparse features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../text/plot_document_clustering.html">Clustering text documents using k-means</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../text/plot_hashing_vs_dict_vectorizer.html">FeatureHasher and DictVectorizer Comparison</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../neighbors/index.html">أقرب الجيران</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/approximate_nearest_neighbors.html">أقرب النقاط المجاورة التقريبية في TSNE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_regression.html">أقرب جيران الانحدار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_caching_nearest_neighbors.html">الاحتفاظ بأقرب الجيران في الذاكرة المؤقتة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_dim_reduction.html">الحد من الأبعاد باستخدام تحليل مكونات الجوار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_lof_novelty_detection.html">الكشف عن البيانات الشاذة باستخدام عامل الانحراف المحلي (LOF)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_lof_outlier_detection.html">الكشف عن القيم الشاذة باستخدام عامل الانحراف المحلي (LOF)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_classification.html">تصنيف أقرب الجيران</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nearest_centroid.html">تصنيف أقرب مركز</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_digits_kde_sampling.html">تقدير كثافة النواة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_kde_1d.html">تقدير كثافة النواة البسيطة أحادية البعد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_species_kde.html">تقدير كثافة النواة لتوزيع الأنواع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_illustration.html">توضيح تحليل مكونات الأحياء المجاورة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_classification.html">مقارنة أقرب الجيران مع وبدون تحليل مكونات الحي</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../applications/index.html">أمثلة مبنية على مجموعات بيانات من العالم الحقيقي</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -731,6 +645,33 @@
 <li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_rfe_digits.html">إزالة الميزة المتكررة</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_feature_selection.html">اختيار الميزة أحادية المتغير</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_f_test_vs_mi.html">مقارنة بين اختبار F والمعلومات المتبادلة</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">إختيار النموذج</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="plot_permutation_tests_for_classification.html">"</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="plot_grid_search_digits.html">استراتيجية إعادة الضبط المخصصة للبحث الشبكي مع التحقق المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_nested_cross_validation_iris.html">التصنيف المتداخل مقابل غير المتداخل</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_grid_search_stats.html">المقارنة الإحصائية للنماذج باستخدام البحث الشبكي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_grid_search_refit_callable.html">الموازنة بين تعقيد النموذج ودرجة الدقة عبر التحقق المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_train_error_vs_test_error.html">تأثير تنظيم النموذج على خطأ التدريب والاختبار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_cv_indices.html">تصور سلوك التحقق المتقاطع في سكايلرن</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_multi_metric_evaluation.html">توضيح التقييم متعدد المقاييس على cross_val_score و GridSearchCV</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_precision_recall.html">دقة-استدعاء</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_cv_predict.html">رسم تنبؤات الصندوق الأسود</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_learning_curve.html">رسم منحنيات التعلم وفحص قابلية التوسع للنماذج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_cost_sensitive_learning.html">ضبط عتبة القرار للتعلم الحساس للتكلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_tuned_decision_threshold.html">ضبط نقطة القطع لوظيفة القرار بعد التدريب</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_underfitting_overfitting.html">عدم الملاءمة مقابل الإفراط في الملاءمة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_successive_halving_iterations.html">عمليات التقسيم المتتالية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_grid_search_text_feature_extraction.html">مثال على خط أنابيب لاستخراج ميزات النص وتقييمها</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_confusion_matrix.html">مصفوفة الارتباك</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_randomized_search.html">مقارنة البحث العشوائي والبحث الشبكي لتقدير فرط المعلمات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_successive_halving_heatmap.html">مقارنة بين البحث الشبكي وتقليص الخيارات المتتابع</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">منحنى استقبال التشغيل متعدد الفئات (ROC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_det.html">منحنى الخطأ الكشف (DET)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_roc_crossval.html">منحنى المستقبل التشغيلي (ROC) مع التحقق المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_likelihood_ratios.html">نسب الاحتمال الطبقي لقياس أداء التصنيف</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../cluster/index.html">التجميع</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -786,12 +727,44 @@
 
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../neural_networks/index.html">الشبكات العصبية</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mnist_filters.html">تصور أوزان الشبكة العصبية متعددة الطبقات على مجموعة بيانات MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mlp_alpha.html">تغيير معامل التنظيم في الشبكة العصبية متعددة الطبقات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mlp_training_curves.html">مقارنة استراتيجيات التعلم العشوائي لتصنيف الشبكة العصبية متعددة الطبقات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_rbm_logistic_classification.html">ميزات شبكة بولتزمان المقيدة لتصنيف الأرقام</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../multiclass/index.html">الطرق المتعددة الفئات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../multiclass/plot_multiclass_overview.html">نظرة عامة على الميتا-مقدّرات التدريب متعدد التصنيفات</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../multioutput/index.html">الطرق المتعددة المخرجات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../multioutput/plot_classifier_chain_yeast.html">التصنيف متعدد التصنيفات باستخدام سلسلة المصنفات</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../text/index.html">العمل مع المستندات النصية</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../text/plot_document_clustering.html">تجميع مستندات النص باستخدام k-means</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../text/plot_document_classification_20newsgroups.html">تصنيف وثائق النصوص باستخدام الميزات المتناثرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../text/plot_hashing_vs_dict_vectorizer.html">مقارنة بين FeatureHasher و DictVectorizer</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../inspection/index.html">الفحص</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance_multicollinear.html">أهمية التبديل مع الميزات متعددة الخطية أو المرتبطة</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance.html">أهمية التبديل مقابل أهمية ميزة الغابة العشوائية (MDI)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_linear_model_coefficient_interpretation.html">المزالق الشائعة في تفسير معاملات النماذج الخطية</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_causal_interpretation.html">فشل التعلم الآلي في استنتاج الآثار السببية</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_partial_dependence.html">مخططات التبعية الجزئية والتوقع الشرطي الفردي</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../preprocessing/index.html">المعالجة المسبقة للبيانات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_scaling_importance.html">أهمية معايرة الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization.html">استخدام KBinsDiscretizer لتقسيم الخصائص المستمرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder_cross_val.html">الترميز الداخلي للهدف عبر الملاءمة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization_classification.html">تجريد الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_map_data_to_normal.html">تحويل البيانات إلى التوزيع الطبيعي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization_strategies.html">عرض استراتيجيات KBinsDiscretizer المختلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_all_scaling.html">مقارنة تأثير المقياس المختلف على البيانات مع القيم الشاذة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder.html">مقارنة ترميز الهدف مع الترميزات الأخرى</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../linear_model/index.html">النماذج الخطية المعممة</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -927,11 +900,39 @@
 <li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_compare_gpr_krr.html">مقارنة انحدار kernel ridge وانحدار العمليات الغاوسية</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../miscellaneous/index.html">متنوع</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_multioutput_face_completion.html">اكتمال الوجه باستخدام المُقدرات متعددة المخرجات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_isotonic_regression.html">الانحدار الأيزوتوني</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_multilabel.html">التصنيف متعدد التصنيفات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_display_object_visualization.html">التصورات باستخدام كائنات العرض</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_partial_dependence_visualization_api.html">الرسم المتقدم باستخدام الاعتمادية الجزئية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_set_output.html">تقديم واجهة برمجة التطبيقات <code class="docutils literal notranslate"><span class="pre">set_output</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_kernel_approximation.html">تقريب خريطة الميزات الصريحة لنواة RBF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_outlier_detection_bench.html">تقييم خوارزميات كشف الشواذ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_metadata_routing.html">توجيه البيانات الوصفية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_johnson_lindenstrauss_bound.html">حدود جونسون-ليندستراوس للانغماس مع الإسقاطات العشوائية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_estimator_representation.html">عرض المنمذجات وأنابيب التوصيل المعقدة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_pipeline_display.html">عرض خطوط الأنابيب</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_kernel_ridge_regression.html">مقارنة بين الانحدار النووي المنتظم والانحدار الداعم للمتجهات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_anomaly_comparison.html">مقارنة خوارزميات الكشف عن الشذوذ لكشف القيم المتطرفة في مجموعات بيانات تجريبية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_roc_curve_visualization_api.html">منحنى ROC مع واجهة برمجة التطبيقات للتصور</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../calibration/index.html">معايرة الإحتمالات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration.html">معايرة احتمالات المصنفات</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration_multiclass.html">معايرة الاحتمالات لتصنيف ثلاثي الفئات</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../calibration/plot_compare_calibration.html">مقارنة معايرة المصنفات</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration_curve.html">منحنيات معايرة الاحتمالية</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mixture/index.html">نماذج الخليط الجاوسي</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_selection.html">اختيار نموذج المزيج الغاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_concentration_prior.html">تحليل نوع أولوية التركيز لخوارزمية التباين بايزي غاوسي ميكسشر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_covariances.html">تشتتات GMM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_pdf.html">تقدير الكثافة لمزيج غاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_init.html">طرق تهيئة نماذج الخلط الغاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm.html">نموذج الإهليجيات لمزيج غاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_sin.html">نموذج مزيج غاوسي لمنحنى الجيب</a></li>
 </ul>
 </details></li>
 </ul>
@@ -973,9 +974,9 @@
     <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Examples</a></li>
     
     
-    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Model Selection</a></li>
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">إختيار النموذج</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Multiclass Receiver Operating Characteristic (ROC)</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">منحنى استقبال التشغيل متعدد الفئات (ROC)</span></li>
   </ul>
 </nav>
 </div>
@@ -997,44 +998,33 @@
 <p><a class="reference internal" href="#sphx-glr-download-auto-examples-model-selection-plot-roc-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code. or to run this example in your browser via JupyterLite or Binder</p>
 </div>
-<section class="sphx-glr-example-title" id="multiclass-receiver-operating-characteristic-roc">
-<span id="sphx-glr-auto-examples-model-selection-plot-roc-py"></span><h1>Multiclass Receiver Operating Characteristic (ROC)<a class="headerlink" href="#multiclass-receiver-operating-characteristic-roc" title="Link to this heading">#</a></h1>
-<p>This example describes the use of the Receiver Operating Characteristic (ROC)
-metric to evaluate the quality of multiclass classifiers.</p>
-<p>ROC curves typically feature true positive rate (TPR) on the Y axis, and false
-positive rate (FPR) on the X axis. This means that the top left corner of the
-plot is the &quot;ideal&quot; point - a FPR of zero, and a TPR of one. This is not very
-realistic, but it does mean that a larger area under the curve (AUC) is usually
-better. The &quot;steepness&quot; of ROC curves is also important, since it is ideal to
-maximize the TPR while minimizing the FPR.</p>
-<p>ROC curves are typically used in binary classification, where the TPR and FPR
-can be defined unambiguously. In the case of multiclass classification, a notion
-of TPR or FPR is obtained only after binarizing the output. This can be done in
-2 different ways:</p>
+<section class="sphx-glr-example-title" id="roc">
+<span id="sphx-glr-auto-examples-model-selection-plot-roc-py"></span><h1>منحنى استقبال التشغيل متعدد الفئات (ROC)<a class="headerlink" href="#roc" title="Link to this heading">#</a></h1>
+<p>يصف هذا المثال استخدام مقياس استقبال التشغيل (ROC)
+لتقييم جودة المصنفات متعددة الفئات.</p>
+<p>عادةً ما تتميز منحنيات ROC بمعدل الإيجابيات الحقيقية (TPR) على محور Y، ومعدل الإيجابيات الخاطئة (FPR) على محور X. وهذا يعني أن الركن العلوي الأيسر من
+المخطط هو النقطة &quot;المثالية&quot; - FPR صفر، وTPR واحد. هذا ليس واقعيًا جدًا، ولكنه يعني أن مساحة أكبر تحت المنحنى (AUC) تكون عادةً أفضل. &quot;انحدار&quot; منحنيات ROC مهم أيضًا، حيث أنه من المثالي
+تحقيق أقصى استفادة من TPR مع تقليل FPR.</p>
+<p>تُستخدم منحنيات ROC عادةً في التصنيف الثنائي، حيث يمكن تعريف TPR وFPR بشكل لا لبس فيه. في حالة التصنيف متعدد الفئات، يتم الحصول على مفهوم TPR أو FPR فقط بعد تحويل الإخراج إلى ثنائي. يمكن القيام بذلك بطريقتين مختلفتين:</p>
 <ul class="simple">
-<li><p>the One-vs-Rest scheme compares each class against all the others (assumed as
-one);</p></li>
-<li><p>the One-vs-One scheme compares every unique pairwise combination of classes.</p></li>
+<li><p>مخطط One-vs-Rest يقارن كل فئة ضد جميع الفئات الأخرى (يُفترض أنها واحدة)؛</p></li>
+<li><p>مخطط One-vs-One يقارن كل مجموعة فريدة من المجموعات المزدوجة من الفئات.</p></li>
 </ul>
-<p>In this example we explore both schemes and demo the concepts of micro and macro
-averaging as different ways of summarizing the information of the multiclass ROC
-curves.</p>
+<p>في هذا المثال، نستكشف كلا المخططين ونعرض مفاهيم المتوسطات الدقيقة والكلية كطرق مختلفة لتلخيص معلومات منحنيات ROC متعددة الفئات.</p>
 <div class="admonition note">
 <p class="admonition-title">ملاحظة</p>
-<p>See <a class="reference internal" href="plot_roc_crossval.html#sphx-glr-auto-examples-model-selection-plot-roc-crossval-py"><span class="std std-ref">Receiver Operating Characteristic (ROC) with cross validation</span></a> for
-an extension of the present example estimating the variance of the ROC
-curves and their respective AUC.</p>
+<p>راجع <a class="reference internal" href="plot_roc_crossval.html#sphx-glr-auto-examples-model-selection-plot-roc-crossval-py"><span class="std std-ref">منحنى المستقبل التشغيلي (ROC) مع التحقق المتقاطع</span></a> للتوسع في هذا المثال وتقدير تباين منحنيات ROC وقيم AUC الخاصة بها.</p>
 </div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Authors: The scikit-learn developers</span>
-<span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># المؤلفون: مطوري scikit-learn</span>
+<span class="c1"># معرف الترخيص: BSD-3-Clause</span>
 </pre></div>
 </div>
-<section id="load-and-prepare-data">
-<h2>Load and prepare data<a class="headerlink" href="#load-and-prepare-data" title="Link to this heading">#</a></h2>
-<p>We import the <a class="reference internal" href="../../datasets/toy_dataset.html#iris-dataset"><span class="std std-ref">Iris plants dataset</span></a> which contains 3 classes, each one
-corresponding to a type of iris plant. One class is linearly separable from
-the other 2; the latter are <strong>not</strong> linearly separable from each other.</p>
-<p>Here we binarize the output and add noisy features to make the problem harder.</p>
+<section id="id1">
+<h2>تحميل البيانات وإعدادها<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>نستورد <a class="reference internal" href="../../datasets/toy_dataset.html#iris-dataset"><span class="std std-ref">Iris plants dataset</span></a> الذي يحتوي على 3 فئات، كل منها
+يتوافق مع نوع من نبات الزنبق. يمكن فصل فئة واحدة خطيًا عن
+الباقيتين؛ أما الفئتان الأخريان فلا يمكن فصلهما خطيًا عن بعضهما البعض.</p>
+<p>هنا نقوم بتحويل الإخراج إلى ثنائي وإضافة ميزات عشوائية لجعل المشكلة أكثر صعوبة.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.datasets.load_iris.html#sklearn.datasets.load_iris" title="sklearn.datasets.load_iris" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">load_iris</span></a>
@@ -1057,9 +1047,8 @@ the other 2; the latter are <strong>not</strong> linearly separable from each ot
 <span class="p">)</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.model_selection.train_test_split.html#sklearn.model_selection.train_test_split" title="sklearn.model_selection.train_test_split" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-function"><span class="n">train_test_split</span></a><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>We train a <a class="reference internal" href="../../modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogisticRegression</span></code></a> model which can
-naturally handle multiclass problems, thanks to the use of the multinomial
-formulation.</p>
+<p>نقوم بتدريب نموذج <a class="reference internal" href="../../modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogisticRegression</span></code></a> الذي يمكنه
+التعامل مع المشاكل متعددة الفئات بشكل طبيعي، وذلك بفضل استخدام الصيغة متعددة الحدود.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">LogisticRegression</span></a>
 
 <span class="n">classifier</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">LogisticRegression</span></a><span class="p">()</span>
@@ -1067,24 +1056,21 @@ formulation.</p>
 </pre></div>
 </div>
 </section>
-<section id="one-vs-rest-multiclass-roc">
-<h2>One-vs-Rest multiclass ROC<a class="headerlink" href="#one-vs-rest-multiclass-roc" title="Link to this heading">#</a></h2>
-<p>The One-vs-the-Rest (OvR) multiclass strategy, also known as one-vs-all,
-consists in computing a ROC curve per each of the <code class="docutils literal notranslate"><span class="pre">n_classes</span></code>. In each step, a
-given class is regarded as the positive class and the remaining classes are
-regarded as the negative class as a bulk.</p>
+<section id="one-vs-rest">
+<h2>منحنى استقبال التشغيل متعدد الفئات One-vs-Rest<a class="headerlink" href="#one-vs-rest" title="Link to this heading">#</a></h2>
+<p>تتكون استراتيجية One-vs-the-Rest (OvR) متعددة الفئات، والمعروفة أيضًا as one-vs-all،
+من حساب منحنى ROC لكل من <code class="docutils literal notranslate"><span class="pre">n_classes</span></code>. في كل خطوة، يتم اعتبار فئة معينة
+على أنها الفئة الإيجابية، ويتم اعتبار الفئات المتبقية على أنها الفئة السلبية ككتلة واحدة.</p>
 <div class="admonition note">
 <p class="admonition-title">ملاحظة</p>
-<p>One should not confuse the OvR strategy used for the <strong>evaluation</strong>
-of multiclass classifiers with the OvR strategy used to <strong>train</strong> a
-multiclass classifier by fitting a set of binary classifiers (for instance
-via the <a class="reference internal" href="../../modules/generated/sklearn.multiclass.OneVsRestClassifier.html#sklearn.multiclass.OneVsRestClassifier" title="sklearn.multiclass.OneVsRestClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneVsRestClassifier</span></code></a> meta-estimator).
-The OvR ROC evaluation can be used to scrutinize any kind of classification
-models irrespectively of how they were trained (see <a class="reference internal" href="../../modules/multiclass.html#multiclass"><span class="std std-ref">خوارزميات متعددة التصنيف ومتعددة الإخراج</span></a>).</p>
+<p>لا يجب الخلط بين استراتيجية OvR المستخدمة لتقييم
+المصنفات متعددة الفئات مع استراتيجية OvR المستخدمة لتدريب
+مصنف متعدد الفئات عن طريق ملاءمة مجموعة من المصنفات الثنائية (على سبيل المثال
+عبر <a class="reference internal" href="../../modules/generated/sklearn.multiclass.OneVsRestClassifier.html#sklearn.multiclass.OneVsRestClassifier" title="sklearn.multiclass.OneVsRestClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneVsRestClassifier</span></code></a> meta-estimator).
+يمكن استخدام تقييم OvR ROC لفحص أي نوع من نماذج التصنيف بغض النظر عن كيفية تدريبها (راجع <a class="reference internal" href="../../modules/multiclass.html#multiclass"><span class="std std-ref">خوارزميات متعددة التصنيف ومتعددة الإخراج</span></a>).</p>
 </div>
-<p>In this section we use a <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.LabelBinarizer.html#sklearn.preprocessing.LabelBinarizer" title="sklearn.preprocessing.LabelBinarizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">LabelBinarizer</span></code></a> to
-binarize the target by one-hot-encoding in a OvR fashion. This means that the
-target of shape (<code class="docutils literal notranslate"><span class="pre">n_samples</span></code>,) is mapped to a target of shape (<code class="docutils literal notranslate"><span class="pre">n_samples</span></code>,
+<p>في هذا القسم، نستخدم <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.LabelBinarizer.html#sklearn.preprocessing.LabelBinarizer" title="sklearn.preprocessing.LabelBinarizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">LabelBinarizer</span></code></a>
+لتحويل الهدف إلى ثنائي باستخدام الترميز one-hot-encoding بطريقة OvR. وهذا يعني أن الهدف ذو الشكل (<code class="docutils literal notranslate"><span class="pre">n_samples</span></code>,) يتم تعيينه إلى هدف ذو الشكل (<code class="docutils literal notranslate"><span class="pre">n_samples</span></code>,
 <code class="docutils literal notranslate"><span class="pre">n_classes</span></code>).</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.preprocessing.LabelBinarizer.html#sklearn.preprocessing.LabelBinarizer" title="sklearn.preprocessing.LabelBinarizer" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">LabelBinarizer</span></a>
 
@@ -1096,17 +1082,17 @@ target of shape (<code class="docutils literal notranslate"><span class="pre">n_
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(75, 3)
 </pre></div>
 </div>
-<p>We can as well easily check the encoding of a specific class:</p>
+<p>يمكننا أيضًا التحقق بسهولة من ترميز فئة معينة:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">label_binarizer</span><span class="o">.</span><span class="n">transform</span><span class="p">([</span><span class="s2">&quot;virginica&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([[0, 0, 1]])
 </pre></div>
 </div>
-<section id="roc-curve-showing-a-specific-class">
-<h3>ROC curve showing a specific class<a class="headerlink" href="#roc-curve-showing-a-specific-class" title="Link to this heading">#</a></h3>
-<p>In the following plot we show the resulting ROC curve when regarding the iris
-flowers as either &quot;virginica&quot; (<code class="docutils literal notranslate"><span class="pre">class_id=2</span></code>) or &quot;non-virginica&quot; (the rest).</p>
+<section id="id2">
+<h3>منحنى ROC يظهر فئة معينة<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>في المخطط التالي، نعرض منحنى ROC الناتج عند اعتبار أزهار الزنبق
+إما &quot;virginica&quot; (<code class="docutils literal notranslate"><span class="pre">class_id=2</span></code>) أو &quot;non-virginica&quot; (الباقي).</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">class_of_interest</span> <span class="o">=</span> <span class="s2">&quot;virginica&quot;</span>
 <span class="n">class_id</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.flatnonzero.html#numpy.flatnonzero" title="numpy.flatnonzero" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">flatnonzero</span></a><span class="p">(</span><span class="n">label_binarizer</span><span class="o">.</span><span class="n">classes_</span> <span class="o">==</span> <span class="n">class_of_interest</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">class_id</span>
@@ -1125,6 +1111,7 @@ flowers as either &quot;virginica&quot; (<code class="docutils literal notransla
     <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">class_of_interest</span><span class="si">}</span><span class="s2"> vs the rest&quot;</span><span class="p">,</span>
     <span class="n">color</span><span class="o">=</span><span class="s2">&quot;darkorange&quot;</span><span class="p">,</span>
     <span class="n">plot_chance_level</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="c1"># despine=True,</span>
 <span class="p">)</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">ax_</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
     <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;False Positive Rate&quot;</span><span class="p">,</span>
@@ -1134,35 +1121,36 @@ flowers as either &quot;virginica&quot; (<code class="docutils literal notransla
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_plot_roc_001.png" srcset="../../_images/sphx_glr_plot_roc_001.png" alt="One-vs-Rest ROC curves: Virginica vs (Setosa & Versicolor)" class = "sphx-glr-single-img"/></section>
-<section id="roc-curve-using-micro-averaged-ovr">
-<h3>ROC curve using micro-averaged OvR<a class="headerlink" href="#roc-curve-using-micro-averaged-ovr" title="Link to this heading">#</a></h3>
-<p>Micro-averaging aggregates the contributions from all the classes (using
-<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ravel.html#numpy.ravel" title="(in NumPy v2.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.ravel</span></code></a>) to compute the average metrics as follows:</p>
+<section id="roc-ovr">
+<h3>منحنى ROC باستخدام المتوسط الدقيق لـ OvR<a class="headerlink" href="#roc-ovr" title="Link to this heading">#</a></h3>
+<p>يقوم المتوسط الدقيق بتجميع المساهمات من جميع الفئات (باستخدام
+<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ravel.html#numpy.ravel" title="(in NumPy v2.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.ravel</span></code></a>) لحساب متوسط المقاييس كما يلي:</p>
 <p><span class="math notranslate nohighlight">\(TPR=\frac{\sum_{c}TP_c}{\sum_{c}(TP_c + FN_c)}\)</span> ;</p>
 <p><span class="math notranslate nohighlight">\(FPR=\frac{\sum_{c}FP_c}{\sum_{c}(FP_c + TN_c)}\)</span> .</p>
-<p>We can briefly demo the effect of <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ravel.html#numpy.ravel" title="(in NumPy v2.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.ravel</span></code></a>:</p>
+<p>يمكننا باختصار عرض تأثير <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ravel.html#numpy.ravel" title="(in NumPy v2.1)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.ravel</span></code></a>:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;y_score:</span><span class="se">\n</span><span class="si">{</span><span class="n">y_score</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">,:]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;y_score.ravel():</span><span class="se">\n</span><span class="si">{</span><span class="n">y_score</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">,:]</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>y_score:
-[[0.38 0.05 0.57]
- [0.07 0.28 0.65]]
+[[0.38095776 0.05072909 0.56831315]
+ [0.07031555 0.27915668 0.65052777]]
 
 y_score.ravel():
-[0.38 0.05 0.57 0.07 0.28 0.65]
+[0.38095776 0.05072909 0.56831315 0.07031555 0.27915668 0.65052777]
 </pre></div>
 </div>
-<p>In a multi-class classification setup with highly imbalanced classes,
-micro-averaging is preferable over macro-averaging. In such cases, one can
-alternatively use a weighted macro-averaging, not demoed here.</p>
+<p>في إعداد التصنيف متعدد الفئات مع الفئات غير المتوازنة للغاية،
+يفضل المتوسط الدقيق على المتوسط الكلي. في مثل هذه الحالات، يمكن للمرء
+أن يستخدم المتوسط الكلي المرجح، والذي لم يتم عرضه هنا.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">display</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.metrics.RocCurveDisplay.html#sklearn.metrics.RocCurveDisplay.from_predictions" title="sklearn.metrics.RocCurveDisplay.from_predictions" class="sphx-glr-backref-module-sklearn-metrics-RocCurveDisplay sphx-glr-backref-type-py-method"><span class="n">RocCurveDisplay</span><span class="o">.</span><span class="n">from_predictions</span></a><span class="p">(</span>
     <span class="n">y_onehot_test</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
     <span class="n">y_score</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;micro-average OvR&quot;</span><span class="p">,</span>
     <span class="n">color</span><span class="o">=</span><span class="s2">&quot;darkorange&quot;</span><span class="p">,</span>
     <span class="n">plot_chance_level</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="c1"># despine=True,</span>
 <span class="p">)</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">ax_</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
     <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;False Positive Rate&quot;</span><span class="p">,</span>
@@ -1171,8 +1159,8 @@ alternatively use a weighted macro-averaging, not demoed here.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_roc_002.png" srcset="../../_images/sphx_glr_plot_roc_002.png" alt="Micro-averaged One-vs-Rest Receiver Operating Characteristic" class = "sphx-glr-single-img"/><p>In the case where the main interest is not the plot but the ROC-AUC score
-itself, we can reproduce the value shown in the plot using
+<img src="../../_images/sphx_glr_plot_roc_002.png" srcset="../../_images/sphx_glr_plot_roc_002.png" alt="Micro-averaged One-vs-Rest Receiver Operating Characteristic" class = "sphx-glr-single-img"/><p>في الحالة التي يكون فيها الاهتمام الرئيسي ليس بالمخطط ولكن بقيمة ROC-AUC
+نفسها، يمكننا إعادة إنتاج القيمة المعروضة في المخطط باستخدام
 <a class="reference internal" href="../../modules/generated/sklearn.metrics.roc_auc_score.html#sklearn.metrics.roc_auc_score" title="sklearn.metrics.roc_auc_score"><code class="xref py py-class docutils literal notranslate"><span class="pre">roc_auc_score</span></code></a>.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.metrics.roc_auc_score.html#sklearn.metrics.roc_auc_score" title="sklearn.metrics.roc_auc_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">roc_auc_score</span></a>
 
@@ -1190,14 +1178,14 @@ itself, we can reproduce the value shown in the plot using
 0.77
 </pre></div>
 </div>
-<p>This is equivalent to computing the ROC curve with
-<a class="reference internal" href="../../modules/generated/sklearn.metrics.roc_curve.html#sklearn.metrics.roc_curve" title="sklearn.metrics.roc_curve"><code class="xref py py-class docutils literal notranslate"><span class="pre">roc_curve</span></code></a> and then the area under the curve with
-<a class="reference internal" href="../../modules/generated/sklearn.metrics.auc.html#sklearn.metrics.auc" title="sklearn.metrics.auc"><code class="xref py py-class docutils literal notranslate"><span class="pre">auc</span></code></a> for the raveled true and predicted classes.</p>
+<p>هذا يعادل حساب منحنى ROC باستخدام
+<a class="reference internal" href="../../modules/generated/sklearn.metrics.roc_curve.html#sklearn.metrics.roc_curve" title="sklearn.metrics.roc_curve"><code class="xref py py-class docutils literal notranslate"><span class="pre">roc_curve</span></code></a> ثم حساب المساحة تحت المنحنى باستخدام
+<a class="reference internal" href="../../modules/generated/sklearn.metrics.auc.html#sklearn.metrics.auc" title="sklearn.metrics.auc"><code class="xref py py-class docutils literal notranslate"><span class="pre">auc</span></code></a> للفئات الحقيقية والمتوقعة المبسطة.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.metrics.auc.html#sklearn.metrics.auc" title="sklearn.metrics.auc" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">auc</span></a><span class="p">,</span> <a href="../../modules/generated/sklearn.metrics.roc_curve.html#sklearn.metrics.roc_curve" title="sklearn.metrics.roc_curve" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">roc_curve</span></a>
 
-<span class="c1"># store the fpr, tpr, and roc_auc for all averaging strategies</span>
+<span class="c1"># تخزين fpr, tpr, و roc_auc لجميع استراتيجيات المتوسط</span>
 <span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">roc_auc</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(),</span> <span class="nb">dict</span><span class="p">(),</span> <span class="nb">dict</span><span class="p">()</span>
-<span class="c1"># Compute micro-average ROC curve and ROC area</span>
+<span class="c1"># حساب منحنى ROC المتوسط الدقيق والمساحة تحت المنحنى</span>
 <span class="n">fpr</span><span class="p">[</span><span class="s2">&quot;micro&quot;</span><span class="p">],</span> <span class="n">tpr</span><span class="p">[</span><span class="s2">&quot;micro&quot;</span><span class="p">],</span> <span class="n">_</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.metrics.roc_curve.html#sklearn.metrics.roc_curve" title="sklearn.metrics.roc_curve" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">roc_curve</span></a><span class="p">(</span><span class="n">y_onehot_test</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">y_score</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
 <span class="n">roc_auc</span><span class="p">[</span><span class="s2">&quot;micro&quot;</span><span class="p">]</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.metrics.auc.html#sklearn.metrics.auc" title="sklearn.metrics.auc" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">auc</span></a><span class="p">(</span><span class="n">fpr</span><span class="p">[</span><span class="s2">&quot;micro&quot;</span><span class="p">],</span> <span class="n">tpr</span><span class="p">[</span><span class="s2">&quot;micro&quot;</span><span class="p">])</span>
 
@@ -1210,30 +1198,28 @@ itself, we can reproduce the value shown in the plot using
 </div>
 <div class="admonition note">
 <p class="admonition-title">ملاحظة</p>
-<p>By default, the computation of the ROC curve adds a single point at
-the maximal false positive rate by using linear interpolation and the
-McClish correction [<a class="reference external" href="https://doi.org/10.1177/0272989x8900900307">Analyzing a portion of the ROC curve Med Decis
+<p>بشكل افتراضي، يقوم حساب منحنى ROC بإضافة نقطة واحدة عند
+أقصى معدل إيجابيات خاطئة باستخدام الاستيفاء الخطي وتصحيح McClish [<a class="reference external" href="https://doi.org/10.1177/0272989x8900900307">Analyzing a portion of the ROC curve Med Decis
 Making. 1989 Jul-Sep; 9(3):190-5.</a>].</p>
 </div>
 </section>
-<section id="roc-curve-using-the-ovr-macro-average">
-<h3>ROC curve using the OvR macro-average<a class="headerlink" href="#roc-curve-using-the-ovr-macro-average" title="Link to this heading">#</a></h3>
-<p>Obtaining the macro-average requires computing the metric independently for
-each class and then taking the average over them, hence treating all classes
-equally a priori. We first aggregate the true/false positive rates per class:</p>
+<section id="id3">
+<h3>منحنى ROC باستخدام المتوسط الكلي لـ OvR<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>يتطلب الحصول على المتوسط الكلي حساب المقياس بشكل مستقل لكل
+فئة ثم أخذ المتوسط عبرها، وبالتالي معاملة جميع الفئات بشكل متساوٍ مسبقًا. نقوم أولاً بتجميع معدلات الإيجابيات الحقيقية/الخاطئة لكل فئة:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_classes</span><span class="p">):</span>
     <span class="n">fpr</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">tpr</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">_</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.metrics.roc_curve.html#sklearn.metrics.roc_curve" title="sklearn.metrics.roc_curve" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">roc_curve</span></a><span class="p">(</span><span class="n">y_onehot_test</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">y_score</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span>
     <span class="n">roc_auc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.metrics.auc.html#sklearn.metrics.auc" title="sklearn.metrics.auc" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">auc</span></a><span class="p">(</span><span class="n">fpr</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">tpr</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 
 <span class="n">fpr_grid</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
 
-<span class="c1"># Interpolate all ROC curves at these points</span>
+<span class="c1"># استيفاء جميع منحنيات ROC عند هذه النقاط</span>
 <span class="n">mean_tpr</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.zeros_like.html#numpy.zeros_like" title="numpy.zeros_like" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span></a><span class="p">(</span><span class="n">fpr_grid</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_classes</span><span class="p">):</span>
-    <span class="n">mean_tpr</span> <span class="o">+=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.interp.html#numpy.interp" title="numpy.interp" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">interp</span></a><span class="p">(</span><span class="n">fpr_grid</span><span class="p">,</span> <span class="n">fpr</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">tpr</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>  <span class="c1"># linear interpolation</span>
+    <span class="n">mean_tpr</span> <span class="o">+=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.interp.html#numpy.interp" title="numpy.interp" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">interp</span></a><span class="p">(</span><span class="n">fpr_grid</span><span class="p">,</span> <span class="n">fpr</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">tpr</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>  <span class="c1"># الاستيفاء الخطي</span>
 
-<span class="c1"># Average it and compute AUC</span>
+<span class="c1"># حساب المتوسط وحساب AUC</span>
 <span class="n">mean_tpr</span> <span class="o">/=</span> <span class="n">n_classes</span>
 
 <span class="n">fpr</span><span class="p">[</span><span class="s2">&quot;macro&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fpr_grid</span>
@@ -1247,7 +1233,7 @@ equally a priori. We first aggregate the true/false positive rates per class:</p
 0.78
 </pre></div>
 </div>
-<p>This computation is equivalent to simply calling</p>
+<p>هذا الحساب يعادل ببساطة استدعاء</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">macro_roc_auc_ovr</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.metrics.roc_auc_score.html#sklearn.metrics.roc_auc_score" title="sklearn.metrics.roc_auc_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">roc_auc_score</span></a><span class="p">(</span>
     <span class="n">y_test</span><span class="p">,</span>
     <span class="n">y_score</span><span class="p">,</span>
@@ -1263,8 +1249,8 @@ equally a priori. We first aggregate the true/false positive rates per class:</p
 </pre></div>
 </div>
 </section>
-<section id="plot-all-ovr-roc-curves-together">
-<h3>Plot all OvR ROC curves together<a class="headerlink" href="#plot-all-ovr-roc-curves-together" title="Link to this heading">#</a></h3>
+<section id="ovr-roc">
+<h3>رسم جميع منحنيات OvR ROC معًا<a class="headerlink" href="#ovr-roc" title="Link to this heading">#</a></h3>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/itertools.html#itertools.cycle" title="itertools.cycle" class="sphx-glr-backref-module-itertools sphx-glr-backref-type-py-function"><span class="n">cycle</span></a>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="matplotlib.pyplot.subplots" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
@@ -1296,6 +1282,7 @@ equally a priori. We first aggregate the true/false positive rates per class:</p
         <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
         <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
         <span class="n">plot_chance_level</span><span class="o">=</span><span class="p">(</span><span class="n">class_id</span> <span class="o">==</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="c1"># despine=True,</span>
     <span class="p">)</span>
 
 <span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
@@ -1307,23 +1294,18 @@ equally a priori. We first aggregate the true/false positive rates per class:</p
 </div>
 <img src="../../_images/sphx_glr_plot_roc_003.png" srcset="../../_images/sphx_glr_plot_roc_003.png" alt="Extension of Receiver Operating Characteristic to One-vs-Rest multiclass" class = "sphx-glr-single-img"/></section>
 </section>
-<section id="one-vs-one-multiclass-roc">
-<h2>One-vs-One multiclass ROC<a class="headerlink" href="#one-vs-one-multiclass-roc" title="Link to this heading">#</a></h2>
-<p>The One-vs-One (OvO) multiclass strategy consists in fitting one classifier
-per class pair. Since it requires to train <code class="docutils literal notranslate"><span class="pre">n_classes</span></code> * (<code class="docutils literal notranslate"><span class="pre">n_classes</span></code> - 1) / 2
-classifiers, this method is usually slower than One-vs-Rest due to its
-O(<code class="docutils literal notranslate"><span class="pre">n_classes</span></code> ^2) complexity.</p>
-<p>In this section, we demonstrate the macro-averaged AUC using the OvO scheme
-for the 3 possible combinations in the <a class="reference internal" href="../../datasets/toy_dataset.html#iris-dataset"><span class="std std-ref">Iris plants dataset</span></a>: &quot;setosa&quot; vs
-&quot;versicolor&quot;, &quot;versicolor&quot; vs &quot;virginica&quot; and  &quot;virginica&quot; vs &quot;setosa&quot;. Notice
-that micro-averaging is not defined for the OvO scheme.</p>
-<section id="roc-curve-using-the-ovo-macro-average">
-<h3>ROC curve using the OvO macro-average<a class="headerlink" href="#roc-curve-using-the-ovo-macro-average" title="Link to this heading">#</a></h3>
-<p>In the OvO scheme, the first step is to identify all possible unique
-combinations of pairs. The computation of scores is done by treating one of
-the elements in a given pair as the positive class and the other element as
-the negative class, then re-computing the score by inversing the roles and
-taking the mean of both scores.</p>
+<section id="one-vs-one">
+<h2>منحنى استقبال التشغيل متعدد الفئات One-vs-One<a class="headerlink" href="#one-vs-one" title="Link to this heading">#</a></h2>
+<p>تتكون استراتيجية One-vs-One (OvO) متعددة الفئات من ملاءمة مصنف واحد
+لكل زوج من الفئات. نظرًا لأنه يتطلب تدريب <code class="docutils literal notranslate"><span class="pre">n_classes</span></code> * (<code class="docutils literal notranslate"><span class="pre">n_classes</span></code> - 1) / 2
+من المصنفات، فإن هذه الطريقة تكون عادةً أبطأ من One-vs-Rest بسبب تعقيدها
+O(<code class="docutils literal notranslate"><span class="pre">n_classes</span></code> ^2).</p>
+<p>في هذا القسم، نعرض المتوسط الكلي لـ AUC باستخدام مخطط OvO للمجموعات الثلاث الممكنة في <a class="reference internal" href="../../datasets/toy_dataset.html#iris-dataset"><span class="std std-ref">Iris plants dataset</span></a>: &quot;setosa&quot; vs
+&quot;versicolor&quot;، و&quot;versicolor&quot; vs &quot;virginica&quot;، و&quot;virginica&quot; vs &quot;setosa&quot;. لاحظ
+أن المتوسط الدقيق غير محدد لمخطط OvO.</p>
+<section id="roc-ovo">
+<h3>منحنى ROC باستخدام المتوسط الكلي لـ OvO<a class="headerlink" href="#roc-ovo" title="Link to this heading">#</a></h3>
+<p>في مخطط OvO، تتمثل الخطوة الأولى في تحديد جميع المجموعات الفريدة الممكنة من الأزواج. يتم حساب الدرجات عن طريق معاملة أحد العناصر في زوج معين على أنه الفئة الإيجابية والعنصر الآخر على أنه الفئة السلبية، ثم إعادة حساب الدرجة عن طريق عكس الأدوار وأخذ متوسط الدرجتين.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/itertools.html#itertools.combinations" title="itertools.combinations" class="sphx-glr-backref-module-itertools sphx-glr-backref-type-py-function"><span class="n">combinations</span></a>
 
 <span class="n">pair_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><a href="https://docs.python.org/3/library/itertools.html#itertools.combinations" title="itertools.combinations" class="sphx-glr-backref-module-itertools sphx-glr-backref-type-py-function"><span class="n">combinations</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.unique.html#numpy.unique" title="numpy.unique" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">unique</span></a><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
@@ -1377,6 +1359,7 @@ taking the mean of both scores.</p>
         <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
         <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">label_b</span><span class="si">}</span><span class="s2"> as positive class&quot;</span><span class="p">,</span>
         <span class="n">plot_chance_level</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="c1"># despine=True,</span>
     <span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
         <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;False Positive Rate&quot;</span><span class="p">,</span>
@@ -1396,9 +1379,9 @@ taking the mean of both scores.</p>
 0.78
 </pre></div>
 </div>
-<p>One can also assert that the macro-average we computed &quot;by hand&quot; is equivalent
-to the implemented <code class="docutils literal notranslate"><span class="pre">average=&quot;macro&quot;</span></code> option of the
-<a class="reference internal" href="../../modules/generated/sklearn.metrics.roc_auc_score.html#sklearn.metrics.roc_auc_score" title="sklearn.metrics.roc_auc_score"><code class="xref py py-class docutils literal notranslate"><span class="pre">roc_auc_score</span></code></a> function.</p>
+<p>يمكن للمرء أيضًا التأكيد على أن المتوسط ​​الكلي الذي حسبناه &quot;يدويًا&quot; مكافئ
+لخيار <code class="docutils literal notranslate"><span class="pre">average=&quot;macro&quot;</span></code> المطبق في دالة
+<a class="reference internal" href="../../modules/generated/sklearn.metrics.roc_auc_score.html#sklearn.metrics.roc_auc_score" title="sklearn.metrics.roc_auc_score"><code class="xref py py-class docutils literal notranslate"><span class="pre">roc_auc_score</span></code></a>.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">macro_roc_auc_ovo</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.metrics.roc_auc_score.html#sklearn.metrics.roc_auc_score" title="sklearn.metrics.roc_auc_score" class="sphx-glr-backref-module-sklearn-metrics sphx-glr-backref-type-py-function"><span class="n">roc_auc_score</span></a><span class="p">(</span>
     <span class="n">y_test</span><span class="p">,</span>
     <span class="n">y_score</span><span class="p">,</span>
@@ -1406,16 +1389,16 @@ to the implemented <code class="docutils literal notranslate"><span class="pre">
     <span class="n">average</span><span class="o">=</span><span class="s2">&quot;macro&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Macro-averaged One-vs-One ROC AUC score:</span><span class="se">\n</span><span class="si">{</span><span class="n">macro_roc_auc_ovo</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;درجة متوسط One-vs-One ROC AUC الكلي:</span><span class="se">\n</span><span class="si">{</span><span class="n">macro_roc_auc_ovo</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Macro-averaged One-vs-One ROC AUC score:
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>درجة متوسط One-vs-One ROC AUC الكلي:
 0.78
 </pre></div>
 </div>
 </section>
-<section id="plot-all-ovo-roc-curves-together">
-<h3>Plot all OvO ROC curves together<a class="headerlink" href="#plot-all-ovo-roc-curves-together" title="Link to this heading">#</a></h3>
+<section id="ovo-roc">
+<h3>رسم جميع منحنيات OvO ROC معًا<a class="headerlink" href="#ovo-roc" title="Link to this heading">#</a></h3>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">ovo_tpr</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.zeros_like.html#numpy.zeros_like" title="numpy.zeros_like" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span></a><span class="p">(</span><span class="n">fpr_grid</span><span class="p">)</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="matplotlib.pyplot.subplots" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
@@ -1424,7 +1407,7 @@ to the implemented <code class="docutils literal notranslate"><span class="pre">
     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
         <span class="n">fpr_grid</span><span class="p">,</span>
         <span class="n">mean_tpr</span><span class="p">[</span><span class="n">ix</span><span class="p">],</span>
-        <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Mean </span><span class="si">{</span><span class="n">label_a</span><span class="si">}</span><span class="s2"> vs </span><span class="si">{</span><span class="n">label_b</span><span class="si">}</span><span class="s2"> (AUC = </span><span class="si">{</span><span class="n">pair_scores</span><span class="p">[</span><span class="n">ix</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;متوسط </span><span class="si">{</span><span class="n">label_a</span><span class="si">}</span><span class="s2"> مقابل </span><span class="si">{</span><span class="n">label_b</span><span class="si">}</span><span class="s2"> (AUC = </span><span class="si">{</span><span class="n">pair_scores</span><span class="p">[</span><span class="n">ix</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
     <span class="p">)</span>
 
 <span class="n">ovo_tpr</span> <span class="o">/=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pair_list</span><span class="p">))</span>
@@ -1432,36 +1415,36 @@ to the implemented <code class="docutils literal notranslate"><span class="pre">
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
     <span class="n">fpr_grid</span><span class="p">,</span>
     <span class="n">ovo_tpr</span><span class="p">,</span>
-    <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;One-vs-One macro-average (AUC = </span><span class="si">{</span><span class="n">macro_roc_auc_ovo</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;One-vs-One متوسط كلي (AUC = </span><span class="si">{</span><span class="n">macro_roc_auc_ovo</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
     <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span>
     <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;k--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Chance level (AUC = 0.5)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;k--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;مستوى الصدفة (AUC = 0.5)&quot;</span><span class="p">)</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
-    <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;False Positive Rate&quot;</span><span class="p">,</span>
-    <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;True Positive Rate&quot;</span><span class="p">,</span>
-    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Extension of Receiver Operating Characteristic</span><span class="se">\n</span><span class="s2">to One-vs-One multiclass&quot;</span><span class="p">,</span>
+    <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;معدل الإيجابيات الخاطئة&quot;</span><span class="p">,</span>
+    <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;معدل الإيجابيات الحقيقية&quot;</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;تمديد خاصية تشغيل المستقبل</span><span class="se">\n</span><span class="s2">إلى One-vs-One متعدد الفئات&quot;</span><span class="p">,</span>
     <span class="n">aspect</span><span class="o">=</span><span class="s2">&quot;equal&quot;</span><span class="p">,</span>
     <span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">1.01</span><span class="p">),</span>
     <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">1.01</span><span class="p">),</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_roc_007.png" srcset="../../_images/sphx_glr_plot_roc_007.png" alt="Extension of Receiver Operating Characteristic to One-vs-One multiclass" class = "sphx-glr-single-img"/><p>We confirm that the classes &quot;versicolor&quot; and &quot;virginica&quot; are not well
-identified by a linear classifier. Notice that the &quot;virginica&quot;-vs-the-rest
-ROC-AUC score (0.77) is between the OvO ROC-AUC scores for &quot;versicolor&quot; vs
-&quot;virginica&quot; (0.64) and &quot;setosa&quot; vs &quot;virginica&quot; (0.90). Indeed, the OvO
-strategy gives additional information on the confusion between a pair of
-classes, at the expense of computational cost when the number of classes
-is large.</p>
-<p>The OvO strategy is recommended if the user is mainly interested in correctly
-identifying a particular class or subset of classes, whereas evaluating the
-global performance of a classifier can still be summarized via a given
-averaging strategy.</p>
-<p>Micro-averaged OvR ROC is dominated by the more frequent class, since the
-counts are pooled. The macro-averaged alternative better reflects the
-statistics of the less frequent classes, and then is more appropriate when
-performance on all the classes is deemed equally important.</p>
+<img src="../../_images/sphx_glr_plot_roc_007.png" srcset="../../_images/sphx_glr_plot_roc_007.png" alt="تمديد خاصية تشغيل المستقبل إلى One-vs-One متعدد الفئات" class = "sphx-glr-single-img"/><p>نؤكد أن الفئتين &quot;versicolor&quot; و &quot;virginica&quot; غير محددتين جيدًا
+بواسطة مصنف خطي. لاحظ أن درجة &quot;virginica&quot;-مقابل-البقية
+ROC-AUC (0.77) تقع بين درجات OvO ROC-AUC لـ &quot;versicolor&quot; مقابل
+&quot;virginica&quot; (0.64) و &quot;setosa&quot; مقابل &quot;virginica&quot; (0.90). في الواقع،
+تعطي استراتيجية OvO معلومات إضافية حول الالتباس بين زوج
+من الفئات، على حساب التكلفة الحسابية عندما يكون عدد الفئات
+كبيرًا.</p>
+<p>يوصى باستخدام استراتيجية OvO إذا كان المستخدم مهتمًا بشكل أساسي
+بتحديد فئة معينة أو مجموعة فرعية من الفئات بشكل صحيح، بينما يمكن
+تلخيص التقييم الشامل لأداء المصنف من خلال استراتيجية
+متوسط ​​محددة.</p>
+<p>متوسط OvR ROC الجزئي يهيمن عليه الفئة الأكثر تكرارًا، حيث
+يتم تجميع التهم. يعكس البديل المتوسط ​​الكلي إحصائيات
+الفئات الأقل تكرارًا بشكل أفضل، ومن ثم يكون أكثر ملاءمة عندما
+يعتبر الأداء في جميع الفئات ذا أهمية متساوية.</p>
 <p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.701 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-model-selection-plot-roc-py">
 <div class="binder-badge docutils container">
@@ -1483,18 +1466,18 @@ performance on all the classes is deemed equally important.</p>
 </div>
 </div>
 <p class="rubric">Related examples</p>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This example presents how to estimate and visualize the variance of the Receiver Operating Characteristic (ROC) metric using cross-validation."><img alt="" src="../../_images/sphx_glr_plot_roc_crossval_thumb.png" />
-<p><a class="reference internal" href="plot_roc_crossval.html#sphx-glr-auto-examples-model-selection-plot-roc-crossval-py"><span class="std std-ref">Receiver Operating Characteristic (ROC) with cross validation</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Receiver Operating Characteristic (ROC) with cross validation</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="In this example, we compare two binary classification multi-threshold metrics: the Receiver Operating Characteristic (ROC) and the Detection Error Tradeoff (DET). For such purpose, we evaluate two different classifiers for the same classification task."><img alt="" src="../../_images/sphx_glr_plot_det_thumb.png" />
-<p><a class="reference internal" href="plot_det.html#sphx-glr-auto-examples-model-selection-plot-det-py"><span class="std std-ref">Detection error tradeoff (DET) curve</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Detection error tradeoff (DET) curve</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="ROC Curve with Visualization API"><img alt="" src="../../_images/sphx_glr_plot_roc_curve_visualization_api_thumb.png" />
-<p><a class="reference internal" href="../miscellaneous/plot_roc_curve_visualization_api.html#sphx-glr-auto-examples-miscellaneous-plot-roc-curve-visualization-api-py"><span class="std std-ref">ROC Curve with Visualization API</span></a></p>
-  <div class="sphx-glr-thumbnail-title">ROC Curve with Visualization API</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="In this example, we will construct display objects, ConfusionMatrixDisplay, RocCurveDisplay, and PrecisionRecallDisplay directly from their respective metrics. This is an alternative to using their corresponding plot functions when a model&#x27;s predictions are already computed or expensive to compute. Note that this is advanced usage, and in general we recommend using their respective plot functions."><img alt="" src="../../_images/sphx_glr_plot_display_object_visualization_thumb.png" />
-<p><a class="reference internal" href="../miscellaneous/plot_display_object_visualization.html#sphx-glr-auto-examples-miscellaneous-plot-display-object-visualization-py"><span class="std std-ref">Visualizations with Display Objects</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Visualizations with Display Objects</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="يقدم هذا المثال كيفية تقدير وتصوير تباين مقياس منحنى المستقبل التشغيلي (ROC) باستخدام التحقق المتقاطع."><img alt="" src="../../_images/sphx_glr_plot_roc_crossval_thumb.png" />
+<p><a class="reference internal" href="plot_roc_crossval.html#sphx-glr-auto-examples-model-selection-plot-roc-crossval-py"><span class="std std-ref">منحنى المستقبل التشغيلي (ROC) مع التحقق المتقاطع</span></a></p>
+  <div class="sphx-glr-thumbnail-title">منحنى المستقبل التشغيلي (ROC) مع التحقق المتقاطع</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="في هذا المثال، نقارن بين مقياسين متعددين للعتبات للتصنيف الثنائي: منحنى الخاصية التشغيلية للمستقبل (ROC) ومنحنى الخطأ الكشف (DET). ولتحقيق هذا الغرض، نقوم بتقييم مصنفين مختلفين لنفس مهمة التصنيف."><img alt="" src="../../_images/sphx_glr_plot_det_thumb.png" />
+<p><a class="reference internal" href="plot_det.html#sphx-glr-auto-examples-model-selection-plot-det-py"><span class="std std-ref">منحنى الخطأ الكشف (DET)</span></a></p>
+  <div class="sphx-glr-thumbnail-title">منحنى الخطأ الكشف (DET)</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="منحنى ROC مع واجهة برمجة التطبيقات للتصور"><img alt="" src="../../_images/sphx_glr_plot_roc_curve_visualization_api_thumb.png" />
+<p><a class="reference internal" href="../miscellaneous/plot_roc_curve_visualization_api.html#sphx-glr-auto-examples-miscellaneous-plot-roc-curve-visualization-api-py"><span class="std std-ref">منحنى ROC مع واجهة برمجة التطبيقات للتصور</span></a></p>
+  <div class="sphx-glr-thumbnail-title">منحنى ROC مع واجهة برمجة التطبيقات للتصور</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="في هذا المثال، سنقوم بإنشاء كائنات عرض، ConfusionMatrixDisplay، RocCurveDisplay، و PrecisionRecallDisplay مباشرة من مقاييسها الخاصة. هذا بديل لاستخدام وظائف الرسم الخاصة بها عندما تكون تنبؤات النموذج محسوبة بالفعل أو مكلفة في الحساب. لاحظ أن هذا استخدام متقدم، ونحن نوصي عمومًا باستخدام وظائف الرسم الخاصة بها."><img alt="" src="../../_images/sphx_glr_plot_display_object_visualization_thumb.png" />
+<p><a class="reference internal" href="../miscellaneous/plot_display_object_visualization.html#sphx-glr-auto-examples-miscellaneous-plot-display-object-visualization-py"><span class="std std-ref">التصورات باستخدام كائنات العرض</span></a></p>
+  <div class="sphx-glr-thumbnail-title">التصورات باستخدام كائنات العرض</div>
 </div></div><p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
 </section>
 </section>
@@ -1511,20 +1494,20 @@ performance on all the classes is deemed equally important.</p>
     <div class="footer-article-item">
 <div class="prev-next-area">
     <a class="left-prev"
-       href="plot_train_error_vs_test_error.html"
+       href="plot_successive_halving_heatmap.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">السابق</p>
-        <p class="prev-next-title">Effect of model regularization on training and test error</p>
+        <p class="prev-next-title">مقارنة بين البحث الشبكي وتقليص الخيارات المتتابع</p>
       </div>
     </a>
     <a class="right-next"
-       href="plot_nested_cross_validation_iris.html"
+       href="plot_det.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">التالي</p>
-        <p class="prev-next-title">Nested versus non-nested cross-validation</p>
+        <p class="prev-next-title">منحنى الخطأ الكشف (DET)</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1551,17 +1534,17 @@ performance on all the classes is deemed equally important.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-and-prepare-data">Load and prepare data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-vs-rest-multiclass-roc">One-vs-Rest multiclass ROC</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#roc-curve-showing-a-specific-class">ROC curve showing a specific class</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#roc-curve-using-micro-averaged-ovr">ROC curve using micro-averaged OvR</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#roc-curve-using-the-ovr-macro-average">ROC curve using the OvR macro-average</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-all-ovr-roc-curves-together">Plot all OvR ROC curves together</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">تحميل البيانات وإعدادها</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-vs-rest">منحنى استقبال التشغيل متعدد الفئات One-vs-Rest</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">منحنى ROC يظهر فئة معينة</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#roc-ovr">منحنى ROC باستخدام المتوسط الدقيق لـ OvR</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">منحنى ROC باستخدام المتوسط الكلي لـ OvR</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ovr-roc">رسم جميع منحنيات OvR ROC معًا</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-vs-one-multiclass-roc">One-vs-One multiclass ROC</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#roc-curve-using-the-ovo-macro-average">ROC curve using the OvO macro-average</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-all-ovo-roc-curves-together">Plot all OvO ROC curves together</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-vs-one">منحنى استقبال التشغيل متعدد الفئات One-vs-One</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#roc-ovo">منحنى ROC باستخدام المتوسط الكلي لـ OvO</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ovo-roc">رسم جميع منحنيات OvO ROC معًا</a></li>
 </ul>
 </li>
 </ul>

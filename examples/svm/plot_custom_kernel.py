@@ -1,15 +1,15 @@
 """
 ======================
-SVM with custom kernel
+SVM مع نواة مخصصة
 ======================
 
-Simple usage of Support Vector Machines to classify a sample. It will
-plot the decision surface and the support vectors.
+استخدام بسيط لآلة المتجهات الداعمة لتصنيف عينة. سيقوم
+برسم سطح القرار وناقلات الدعم.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -17,16 +17,16 @@ import numpy as np
 from sklearn import datasets, svm
 from sklearn.inspection import DecisionBoundaryDisplay
 
-# import some data to play with
+# استيراد بعض البيانات للتجربة
 iris = datasets.load_iris()
-X = iris.data[:, :2]  # we only take the first two features. We could
-# avoid this ugly slicing by using a two-dim dataset
+X = iris.data[:, :2]  # نأخذ فقط الخاصيتين الأوليين. يمكننا
+# تجنب هذا التقطيع غير الجذاب باستخدام مجموعة بيانات ثنائية الأبعاد
 Y = iris.target
 
 
 def my_kernel(X, Y):
     """
-    We create a custom kernel:
+    ننشئ نواة مخصصة:
 
                  (2  0)
     k(X, Y) = X  (    ) Y.T
@@ -36,9 +36,9 @@ def my_kernel(X, Y):
     return np.dot(np.dot(X, M), Y.T)
 
 
-h = 0.02  # step size in the mesh
+h = 0.02  # حجم الخطوة في الشبكة
 
-# we create an instance of SVM and fit out data.
+# ننشئ مثالاً لآلة المتجهات الداعمة ونقوم بضبط البيانات.
 clf = svm.SVC(kernel=my_kernel)
 clf.fit(X, Y)
 
@@ -53,8 +53,8 @@ DecisionBoundaryDisplay.from_estimator(
     shading="auto",
 )
 
-# Plot also the training points
+# رسم نقاط التدريب أيضاً
 plt.scatter(X[:, 0], X[:, 1], c=Y, cmap=plt.cm.Paired, edgecolors="k")
-plt.title("3-Class classification using Support Vector Machine with custom kernel")
+plt.title("تصنيف من 3 فئات باستخدام آلة المتجهات الداعمة مع نواة مخصصة")
 plt.axis("tight")
 plt.show()

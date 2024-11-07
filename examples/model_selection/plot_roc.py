@@ -1,50 +1,39 @@
 """
 ==================================================
-Multiclass Receiver Operating Characteristic (ROC)
+منحنى استقبال التشغيل متعدد الفئات (ROC)
 ==================================================
 
-This example describes the use of the Receiver Operating Characteristic (ROC)
-metric to evaluate the quality of multiclass classifiers.
+يصف هذا المثال استخدام مقياس استقبال التشغيل (ROC)
+لتقييم جودة المصنفات متعددة الفئات.
 
-ROC curves typically feature true positive rate (TPR) on the Y axis, and false
-positive rate (FPR) on the X axis. This means that the top left corner of the
-plot is the "ideal" point - a FPR of zero, and a TPR of one. This is not very
-realistic, but it does mean that a larger area under the curve (AUC) is usually
-better. The "steepness" of ROC curves is also important, since it is ideal to
-maximize the TPR while minimizing the FPR.
+عادةً ما تتميز منحنيات ROC بمعدل الإيجابيات الحقيقية (TPR) على محور Y، ومعدل الإيجابيات الخاطئة (FPR) على محور X. وهذا يعني أن الركن العلوي الأيسر من
+المخطط هو النقطة "المثالية" - FPR صفر، وTPR واحد. هذا ليس واقعيًا جدًا، ولكنه يعني أن مساحة أكبر تحت المنحنى (AUC) تكون عادةً أفضل. "انحدار" منحنيات ROC مهم أيضًا، حيث أنه من المثالي
+تحقيق أقصى استفادة من TPR مع تقليل FPR.
 
-ROC curves are typically used in binary classification, where the TPR and FPR
-can be defined unambiguously. In the case of multiclass classification, a notion
-of TPR or FPR is obtained only after binarizing the output. This can be done in
-2 different ways:
+تُستخدم منحنيات ROC عادةً في التصنيف الثنائي، حيث يمكن تعريف TPR وFPR بشكل لا لبس فيه. في حالة التصنيف متعدد الفئات، يتم الحصول على مفهوم TPR أو FPR فقط بعد تحويل الإخراج إلى ثنائي. يمكن القيام بذلك بطريقتين مختلفتين:
 
-- the One-vs-Rest scheme compares each class against all the others (assumed as
-  one);
-- the One-vs-One scheme compares every unique pairwise combination of classes.
+- مخطط One-vs-Rest يقارن كل فئة ضد جميع الفئات الأخرى (يُفترض أنها واحدة)؛
+- مخطط One-vs-One يقارن كل مجموعة فريدة من المجموعات المزدوجة من الفئات.
 
-In this example we explore both schemes and demo the concepts of micro and macro
-averaging as different ways of summarizing the information of the multiclass ROC
-curves.
+في هذا المثال، نستكشف كلا المخططين ونعرض مفاهيم المتوسطات الدقيقة والكلية كطرق مختلفة لتلخيص معلومات منحنيات ROC متعددة الفئات.
 
 .. note::
 
-    See :ref:`sphx_glr_auto_examples_model_selection_plot_roc_crossval.py` for
-    an extension of the present example estimating the variance of the ROC
-    curves and their respective AUC.
+    راجع :ref:`sphx_glr_auto_examples_model_selection_plot_roc_crossval.py` للتوسع في هذا المثال وتقدير تباين منحنيات ROC وقيم AUC الخاصة بها.
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# Load and prepare data
+# تحميل البيانات وإعدادها
 # =====================
 #
-# We import the :ref:`iris_dataset` which contains 3 classes, each one
-# corresponding to a type of iris plant. One class is linearly separable from
-# the other 2; the latter are **not** linearly separable from each other.
+# نستورد :ref:`iris_dataset` الذي يحتوي على 3 فئات، كل منها
+# يتوافق مع نوع من نبات الزنبق. يمكن فصل فئة واحدة خطيًا عن
+# الباقيتين؛ أما الفئتان الأخريان فلا يمكن فصلهما خطيًا عن بعضهما البعض.
 #
-# Here we binarize the output and add noisy features to make the problem harder.
+# هنا نقوم بتحويل الإخراج إلى ثنائي وإضافة ميزات عشوائية لجعل المشكلة أكثر صعوبة.
 
 import numpy as np
 
@@ -68,9 +57,8 @@ X = np.concatenate([X, random_state.randn(n_samples, 200 * n_features)], axis=1)
 ) = train_test_split(X, y, test_size=0.5, stratify=y, random_state=0)
 
 # %%
-# We train a :class:`~sklearn.linear_model.LogisticRegression` model which can
-# naturally handle multiclass problems, thanks to the use of the multinomial
-# formulation.
+# نقوم بتدريب نموذج :class:`~sklearn.linear_model.LogisticRegression` الذي يمكنه
+# التعامل مع المشاكل متعددة الفئات بشكل طبيعي، وذلك بفضل استخدام الصيغة متعددة الحدود.
 
 from sklearn.linear_model import LogisticRegression
 
@@ -78,24 +66,21 @@ classifier = LogisticRegression()
 y_score = classifier.fit(X_train, y_train).predict_proba(X_test)
 
 # %%
-# One-vs-Rest multiclass ROC
+# منحنى استقبال التشغيل متعدد الفئات One-vs-Rest
 # ==========================
 #
-# The One-vs-the-Rest (OvR) multiclass strategy, also known as one-vs-all,
-# consists in computing a ROC curve per each of the `n_classes`. In each step, a
-# given class is regarded as the positive class and the remaining classes are
-# regarded as the negative class as a bulk.
+# تتكون استراتيجية One-vs-the-Rest (OvR) متعددة الفئات، والمعروفة أيضًا as one-vs-all،
+# من حساب منحنى ROC لكل من `n_classes`. في كل خطوة، يتم اعتبار فئة معينة
+# على أنها الفئة الإيجابية، ويتم اعتبار الفئات المتبقية على أنها الفئة السلبية ككتلة واحدة.
 #
-# .. note:: One should not confuse the OvR strategy used for the **evaluation**
-#     of multiclass classifiers with the OvR strategy used to **train** a
-#     multiclass classifier by fitting a set of binary classifiers (for instance
-#     via the :class:`~sklearn.multiclass.OneVsRestClassifier` meta-estimator).
-#     The OvR ROC evaluation can be used to scrutinize any kind of classification
-#     models irrespectively of how they were trained (see :ref:`multiclass`).
+# .. note:: لا يجب الخلط بين استراتيجية OvR المستخدمة لتقييم
+#     المصنفات متعددة الفئات مع استراتيجية OvR المستخدمة لتدريب
+#     مصنف متعدد الفئات عن طريق ملاءمة مجموعة من المصنفات الثنائية (على سبيل المثال
+#     عبر :class:`~sklearn.multiclass.OneVsRestClassifier` meta-estimator).
+#     يمكن استخدام تقييم OvR ROC لفحص أي نوع من نماذج التصنيف بغض النظر عن كيفية تدريبها (راجع :ref:`multiclass`).
 #
-# In this section we use a :class:`~sklearn.preprocessing.LabelBinarizer` to
-# binarize the target by one-hot-encoding in a OvR fashion. This means that the
-# target of shape (`n_samples`,) is mapped to a target of shape (`n_samples`,
+# في هذا القسم، نستخدم :class:`~sklearn.preprocessing.LabelBinarizer`
+# لتحويل الهدف إلى ثنائي باستخدام الترميز one-hot-encoding بطريقة OvR. وهذا يعني أن الهدف ذو الشكل (`n_samples`,) يتم تعيينه إلى هدف ذو الشكل (`n_samples`,
 # `n_classes`).
 
 from sklearn.preprocessing import LabelBinarizer
@@ -105,16 +90,16 @@ y_onehot_test = label_binarizer.transform(y_test)
 y_onehot_test.shape  # (n_samples, n_classes)
 
 # %%
-# We can as well easily check the encoding of a specific class:
+# يمكننا أيضًا التحقق بسهولة من ترميز فئة معينة:
 
 label_binarizer.transform(["virginica"])
 
 # %%
-# ROC curve showing a specific class
+# منحنى ROC يظهر فئة معينة
 # ----------------------------------
 #
-# In the following plot we show the resulting ROC curve when regarding the iris
-# flowers as either "virginica" (`class_id=2`) or "non-virginica" (the rest).
+# في المخطط التالي، نعرض منحنى ROC الناتج عند اعتبار أزهار الزنبق
+# إما "virginica" (`class_id=2`) أو "non-virginica" (الباقي).
 
 class_of_interest = "virginica"
 class_id = np.flatnonzero(label_binarizer.classes_ == class_of_interest)[0]
@@ -131,6 +116,7 @@ display = RocCurveDisplay.from_predictions(
     name=f"{class_of_interest} vs the rest",
     color="darkorange",
     plot_chance_level=True,
+    # despine=True,
 )
 _ = display.ax_.set(
     xlabel="False Positive Rate",
@@ -139,26 +125,26 @@ _ = display.ax_.set(
 )
 
 # %%
-# ROC curve using micro-averaged OvR
+# منحنى ROC باستخدام المتوسط الدقيق لـ OvR
 # ----------------------------------
 #
-# Micro-averaging aggregates the contributions from all the classes (using
-# :func:`numpy.ravel`) to compute the average metrics as follows:
+# يقوم المتوسط الدقيق بتجميع المساهمات من جميع الفئات (باستخدام
+# :func:`numpy.ravel`) لحساب متوسط المقاييس كما يلي:
 #
 # :math:`TPR=\frac{\sum_{c}TP_c}{\sum_{c}(TP_c + FN_c)}` ;
 #
 # :math:`FPR=\frac{\sum_{c}FP_c}{\sum_{c}(FP_c + TN_c)}` .
 #
-# We can briefly demo the effect of :func:`numpy.ravel`:
+# يمكننا باختصار عرض تأثير :func:`numpy.ravel`:
 
 print(f"y_score:\n{y_score[0:2,:]}")
 print()
 print(f"y_score.ravel():\n{y_score[0:2,:].ravel()}")
 
 # %%
-# In a multi-class classification setup with highly imbalanced classes,
-# micro-averaging is preferable over macro-averaging. In such cases, one can
-# alternatively use a weighted macro-averaging, not demoed here.
+# في إعداد التصنيف متعدد الفئات مع الفئات غير المتوازنة للغاية،
+# يفضل المتوسط الدقيق على المتوسط الكلي. في مثل هذه الحالات، يمكن للمرء
+# أن يستخدم المتوسط الكلي المرجح، والذي لم يتم عرضه هنا.
 
 display = RocCurveDisplay.from_predictions(
     y_onehot_test.ravel(),
@@ -166,6 +152,7 @@ display = RocCurveDisplay.from_predictions(
     name="micro-average OvR",
     color="darkorange",
     plot_chance_level=True,
+    # despine=True,
 )
 _ = display.ax_.set(
     xlabel="False Positive Rate",
@@ -174,8 +161,8 @@ _ = display.ax_.set(
 )
 
 # %%
-# In the case where the main interest is not the plot but the ROC-AUC score
-# itself, we can reproduce the value shown in the plot using
+# في الحالة التي يكون فيها الاهتمام الرئيسي ليس بالمخطط ولكن بقيمة ROC-AUC
+# نفسها، يمكننا إعادة إنتاج القيمة المعروضة في المخطط باستخدام
 # :class:`~sklearn.metrics.roc_auc_score`.
 
 from sklearn.metrics import roc_auc_score
@@ -190,32 +177,30 @@ micro_roc_auc_ovr = roc_auc_score(
 print(f"Micro-averaged One-vs-Rest ROC AUC score:\n{micro_roc_auc_ovr:.2f}")
 
 # %%
-# This is equivalent to computing the ROC curve with
-# :class:`~sklearn.metrics.roc_curve` and then the area under the curve with
-# :class:`~sklearn.metrics.auc` for the raveled true and predicted classes.
+# هذا يعادل حساب منحنى ROC باستخدام
+# :class:`~sklearn.metrics.roc_curve` ثم حساب المساحة تحت المنحنى باستخدام
+# :class:`~sklearn.metrics.auc` للفئات الحقيقية والمتوقعة المبسطة.
 
 from sklearn.metrics import auc, roc_curve
 
-# store the fpr, tpr, and roc_auc for all averaging strategies
+# تخزين fpr, tpr, و roc_auc لجميع استراتيجيات المتوسط
 fpr, tpr, roc_auc = dict(), dict(), dict()
-# Compute micro-average ROC curve and ROC area
+# حساب منحنى ROC المتوسط الدقيق والمساحة تحت المنحنى
 fpr["micro"], tpr["micro"], _ = roc_curve(y_onehot_test.ravel(), y_score.ravel())
 roc_auc["micro"] = auc(fpr["micro"], tpr["micro"])
 
 print(f"Micro-averaged One-vs-Rest ROC AUC score:\n{roc_auc['micro']:.2f}")
 
 # %%
-# .. note:: By default, the computation of the ROC curve adds a single point at
-#     the maximal false positive rate by using linear interpolation and the
-#     McClish correction [:doi:`Analyzing a portion of the ROC curve Med Decis
+# .. note:: بشكل افتراضي، يقوم حساب منحنى ROC بإضافة نقطة واحدة عند
+#     أقصى معدل إيجابيات خاطئة باستخدام الاستيفاء الخطي وتصحيح McClish [:doi:`Analyzing a portion of the ROC curve Med Decis
 #     Making. 1989 Jul-Sep; 9(3):190-5.<10.1177/0272989x8900900307>`].
 #
-# ROC curve using the OvR macro-average
+# منحنى ROC باستخدام المتوسط الكلي لـ OvR
 # -------------------------------------
 #
-# Obtaining the macro-average requires computing the metric independently for
-# each class and then taking the average over them, hence treating all classes
-# equally a priori. We first aggregate the true/false positive rates per class:
+# يتطلب الحصول على المتوسط الكلي حساب المقياس بشكل مستقل لكل
+# فئة ثم أخذ المتوسط عبرها، وبالتالي معاملة جميع الفئات بشكل متساوٍ مسبقًا. نقوم أولاً بتجميع معدلات الإيجابيات الحقيقية/الخاطئة لكل فئة:
 
 for i in range(n_classes):
     fpr[i], tpr[i], _ = roc_curve(y_onehot_test[:, i], y_score[:, i])
@@ -223,13 +208,13 @@ for i in range(n_classes):
 
 fpr_grid = np.linspace(0.0, 1.0, 1000)
 
-# Interpolate all ROC curves at these points
+# استيفاء جميع منحنيات ROC عند هذه النقاط
 mean_tpr = np.zeros_like(fpr_grid)
 
 for i in range(n_classes):
-    mean_tpr += np.interp(fpr_grid, fpr[i], tpr[i])  # linear interpolation
+    mean_tpr += np.interp(fpr_grid, fpr[i], tpr[i])  # الاستيفاء الخطي
 
-# Average it and compute AUC
+# حساب المتوسط وحساب AUC
 mean_tpr /= n_classes
 
 fpr["macro"] = fpr_grid
@@ -239,7 +224,7 @@ roc_auc["macro"] = auc(fpr["macro"], tpr["macro"])
 print(f"Macro-averaged One-vs-Rest ROC AUC score:\n{roc_auc['macro']:.2f}")
 
 # %%
-# This computation is equivalent to simply calling
+# هذا الحساب يعادل ببساطة استدعاء
 
 macro_roc_auc_ovr = roc_auc_score(
     y_test,
@@ -251,7 +236,7 @@ macro_roc_auc_ovr = roc_auc_score(
 print(f"Macro-averaged One-vs-Rest ROC AUC score:\n{macro_roc_auc_ovr:.2f}")
 
 # %%
-# Plot all OvR ROC curves together
+# رسم جميع منحنيات OvR ROC معًا
 # --------------------------------
 
 from itertools import cycle
@@ -285,6 +270,7 @@ for class_id, color in zip(range(n_classes), colors):
         color=color,
         ax=ax,
         plot_chance_level=(class_id == 2),
+        # despine=True,
     )
 
 _ = ax.set(
@@ -294,27 +280,22 @@ _ = ax.set(
 )
 
 # %%
-# One-vs-One multiclass ROC
+# منحنى استقبال التشغيل متعدد الفئات One-vs-One
 # =========================
 #
-# The One-vs-One (OvO) multiclass strategy consists in fitting one classifier
-# per class pair. Since it requires to train `n_classes` * (`n_classes` - 1) / 2
-# classifiers, this method is usually slower than One-vs-Rest due to its
-# O(`n_classes` ^2) complexity.
+# تتكون استراتيجية One-vs-One (OvO) متعددة الفئات من ملاءمة مصنف واحد
+# لكل زوج من الفئات. نظرًا لأنه يتطلب تدريب `n_classes` * (`n_classes` - 1) / 2
+# من المصنفات، فإن هذه الطريقة تكون عادةً أبطأ من One-vs-Rest بسبب تعقيدها
+# O(`n_classes` ^2).
 #
-# In this section, we demonstrate the macro-averaged AUC using the OvO scheme
-# for the 3 possible combinations in the :ref:`iris_dataset`: "setosa" vs
-# "versicolor", "versicolor" vs "virginica" and  "virginica" vs "setosa". Notice
-# that micro-averaging is not defined for the OvO scheme.
+# في هذا القسم، نعرض المتوسط الكلي لـ AUC باستخدام مخطط OvO للمجموعات الثلاث الممكنة في :ref:`iris_dataset`: "setosa" vs
+# "versicolor"، و"versicolor" vs "virginica"، و"virginica" vs "setosa". لاحظ
+# أن المتوسط الدقيق غير محدد لمخطط OvO.
 #
-# ROC curve using the OvO macro-average
+# منحنى ROC باستخدام المتوسط الكلي لـ OvO
 # -------------------------------------
 #
-# In the OvO scheme, the first step is to identify all possible unique
-# combinations of pairs. The computation of scores is done by treating one of
-# the elements in a given pair as the positive class and the other element as
-# the negative class, then re-computing the score by inversing the roles and
-# taking the mean of both scores.
+# في مخطط OvO، تتمثل الخطوة الأولى في تحديد جميع المجموعات الفريدة الممكنة من الأزواج. يتم حساب الدرجات عن طريق معاملة أحد العناصر في زوج معين على أنه الفئة الإيجابية والعنصر الآخر على أنه الفئة السلبية، ثم إعادة حساب الدرجة عن طريق عكس الأدوار وأخذ متوسط الدرجتين.
 
 from itertools import combinations
 
@@ -366,6 +347,7 @@ for ix, (label_a, label_b) in enumerate(pair_list):
         ax=ax,
         name=f"{label_b} as positive class",
         plot_chance_level=True,
+        # despine=True,
     )
     ax.set(
         xlabel="False Positive Rate",
@@ -376,9 +358,9 @@ for ix, (label_a, label_b) in enumerate(pair_list):
 print(f"Macro-averaged One-vs-One ROC AUC score:\n{np.average(pair_scores):.2f}")
 
 # %%
-# One can also assert that the macro-average we computed "by hand" is equivalent
-# to the implemented `average="macro"` option of the
-# :class:`~sklearn.metrics.roc_auc_score` function.
+# يمكن للمرء أيضًا التأكيد على أن المتوسط ​​الكلي الذي حسبناه "يدويًا" مكافئ
+# لخيار `average="macro"` المطبق في دالة
+# :class:`~sklearn.metrics.roc_auc_score`.
 
 macro_roc_auc_ovo = roc_auc_score(
     y_test,
@@ -387,10 +369,10 @@ macro_roc_auc_ovo = roc_auc_score(
     average="macro",
 )
 
-print(f"Macro-averaged One-vs-One ROC AUC score:\n{macro_roc_auc_ovo:.2f}")
+print(f"درجة متوسط One-vs-One ROC AUC الكلي:\n{macro_roc_auc_ovo:.2f}")
 
 # %%
-# Plot all OvO ROC curves together
+# رسم جميع منحنيات OvO ROC معًا
 # --------------------------------
 
 ovo_tpr = np.zeros_like(fpr_grid)
@@ -401,7 +383,7 @@ for ix, (label_a, label_b) in enumerate(pair_list):
     ax.plot(
         fpr_grid,
         mean_tpr[ix],
-        label=f"Mean {label_a} vs {label_b} (AUC = {pair_scores[ix]:.2f})",
+        label=f"متوسط {label_a} مقابل {label_b} (AUC = {pair_scores[ix]:.2f})",
     )
 
 ovo_tpr /= sum(1 for pair in enumerate(pair_list))
@@ -409,35 +391,36 @@ ovo_tpr /= sum(1 for pair in enumerate(pair_list))
 ax.plot(
     fpr_grid,
     ovo_tpr,
-    label=f"One-vs-One macro-average (AUC = {macro_roc_auc_ovo:.2f})",
+    label=f"One-vs-One متوسط كلي (AUC = {macro_roc_auc_ovo:.2f})",
     linestyle=":",
     linewidth=4,
 )
-ax.plot([0, 1], [0, 1], "k--", label="Chance level (AUC = 0.5)")
+ax.plot([0, 1], [0, 1], "k--", label="مستوى الصدفة (AUC = 0.5)")
 _ = ax.set(
-    xlabel="False Positive Rate",
-    ylabel="True Positive Rate",
-    title="Extension of Receiver Operating Characteristic\nto One-vs-One multiclass",
+    xlabel="معدل الإيجابيات الخاطئة",
+    ylabel="معدل الإيجابيات الحقيقية",
+    title="تمديد خاصية تشغيل المستقبل\nإلى One-vs-One متعدد الفئات",
     aspect="equal",
     xlim=(-0.01, 1.01),
     ylim=(-0.01, 1.01),
 )
 
 # %%
-# We confirm that the classes "versicolor" and "virginica" are not well
-# identified by a linear classifier. Notice that the "virginica"-vs-the-rest
-# ROC-AUC score (0.77) is between the OvO ROC-AUC scores for "versicolor" vs
-# "virginica" (0.64) and "setosa" vs "virginica" (0.90). Indeed, the OvO
-# strategy gives additional information on the confusion between a pair of
-# classes, at the expense of computational cost when the number of classes
-# is large.
+# نؤكد أن الفئتين "versicolor" و "virginica" غير محددتين جيدًا
+# بواسطة مصنف خطي. لاحظ أن درجة "virginica"-مقابل-البقية
+# ROC-AUC (0.77) تقع بين درجات OvO ROC-AUC لـ "versicolor" مقابل
+# "virginica" (0.64) و "setosa" مقابل "virginica" (0.90). في الواقع،
+# تعطي استراتيجية OvO معلومات إضافية حول الالتباس بين زوج
+# من الفئات، على حساب التكلفة الحسابية عندما يكون عدد الفئات
+# كبيرًا.
 #
-# The OvO strategy is recommended if the user is mainly interested in correctly
-# identifying a particular class or subset of classes, whereas evaluating the
-# global performance of a classifier can still be summarized via a given
-# averaging strategy.
+# يوصى باستخدام استراتيجية OvO إذا كان المستخدم مهتمًا بشكل أساسي
+# بتحديد فئة معينة أو مجموعة فرعية من الفئات بشكل صحيح، بينما يمكن
+# تلخيص التقييم الشامل لأداء المصنف من خلال استراتيجية
+# متوسط ​​محددة.
 #
-# Micro-averaged OvR ROC is dominated by the more frequent class, since the
-# counts are pooled. The macro-averaged alternative better reflects the
-# statistics of the less frequent classes, and then is more appropriate when
-# performance on all the classes is deemed equally important.
+# متوسط OvR ROC الجزئي يهيمن عليه الفئة الأكثر تكرارًا، حيث
+# يتم تجميع التهم. يعكس البديل المتوسط ​​الكلي إحصائيات
+# الفئات الأقل تكرارًا بشكل أفضل، ومن ثم يكون أكثر ملاءمة عندما
+# يعتبر الأداء في جميع الفئات ذا أهمية متساوية.
+

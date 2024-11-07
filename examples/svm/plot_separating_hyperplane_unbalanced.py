@@ -1,32 +1,29 @@
 """
 =================================================
-SVM: Separating hyperplane for unbalanced classes
+SVM: المستوي الفاصل للطبقات غير المتوازنة
 =================================================
 
-Find the optimal separating hyperplane using an SVC for classes that
-are unbalanced.
+ابحث عن المستوي الفاصل الأمثل باستخدام SVC للطبقات غير المتوازنة.
 
-We first find the separating plane with a plain SVC and then plot
-(dashed) the separating hyperplane with automatically correction for
-unbalanced classes.
+نحن نجد أولاً المستوي الفاصل باستخدام SVC العادي، ثم نرسم (بخط متقطع) المستوي الفاصل مع تصحيح تلقائي للطبقات غير المتوازنة.
 
 .. currentmodule:: sklearn.linear_model
 
 .. note::
 
-    This example will also work by replacing ``SVC(kernel="linear")``
-    with ``SGDClassifier(loss="hinge")``. Setting the ``loss`` parameter
-    of the :class:`SGDClassifier` equal to ``hinge`` will yield behaviour
-    such as that of a SVC with a linear kernel.
+    يمكن أيضاً تنفيذ هذا المثال عن طريق استبدال ``SVC(kernel="linear")``
+    بـ ``SGDClassifier(loss="hinge")``. حيث أن تعيين معلمة "loss"
+    في :class:`SGDClassifier` إلى "hinge" سيؤدي إلى سلوك مشابه
+    لتصنيف SVC مع نواة خطية.
 
-    For example try instead of the ``SVC``::
+    على سبيل المثال، جرب بدلاً من SVC::
 
         clf = SGDClassifier(n_iter=100, alpha=0.01)
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.lines as mlines
 import matplotlib.pyplot as plt
@@ -35,7 +32,7 @@ from sklearn import svm
 from sklearn.datasets import make_blobs
 from sklearn.inspection import DecisionBoundaryDisplay
 
-# we create two clusters of random points
+# نقوم بإنشاء مجموعتين من النقاط العشوائية
 n_samples_1 = 1000
 n_samples_2 = 100
 centers = [[0.0, 0.0], [2.0, 2.0]]
@@ -48,18 +45,18 @@ X, y = make_blobs(
     shuffle=False,
 )
 
-# fit the model and get the separating hyperplane
+# نقوم بضبط النموذج والحصول على المستوي الفاصل
 clf = svm.SVC(kernel="linear", C=1.0)
 clf.fit(X, y)
 
-# fit the model and get the separating hyperplane using weighted classes
+# نقوم بضبط النموذج والحصول على المستوي الفاصل باستخدام الطبقات المرجحة
 wclf = svm.SVC(kernel="linear", class_weight={1: 10})
 wclf.fit(X, y)
 
-# plot the samples
+# رسم العينات
 plt.scatter(X[:, 0], X[:, 1], c=y, cmap=plt.cm.Paired, edgecolors="k")
 
-# plot the decision functions for both classifiers
+# رسم دالات القرار لكل من المصنفين
 ax = plt.gca()
 disp = DecisionBoundaryDisplay.from_estimator(
     clf,
@@ -72,7 +69,7 @@ disp = DecisionBoundaryDisplay.from_estimator(
     ax=ax,
 )
 
-# plot decision boundary and margins for weighted classes
+# رسم حدود القرار والهوامش للطبقات المرجحة
 wdisp = DecisionBoundaryDisplay.from_estimator(
     wclf,
     X,
@@ -89,7 +86,7 @@ plt.legend(
         mlines.Line2D([], [], color="k", label="non weighted"),
         mlines.Line2D([], [], color="r", label="weighted"),
     ],
-    ["non weighted", "weighted"],
+    ["غير مرجح", "مرجح"],
     loc="upper right",
 )
 plt.show()

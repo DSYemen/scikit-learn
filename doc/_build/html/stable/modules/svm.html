@@ -738,8 +738,8 @@
 </div>
 <p class="rubric">أمثلة</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../auto_examples/svm/plot_separating_hyperplane.html#sphx-glr-auto-examples-svm-plot-separating-hyperplane-py"><span class="std std-ref">SVM: Maximum margin separating hyperplane</span></a></p></li>
-<li><p><a class="reference internal" href="../auto_examples/svm/plot_svm_anova.html#sphx-glr-auto-examples-svm-plot-svm-anova-py"><span class="std std-ref">SVM-Anova: SVM with univariate feature selection</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/svm/plot_separating_hyperplane.html#sphx-glr-auto-examples-svm-plot-separating-hyperplane-py"><span class="std std-ref">SVM: المستوى الفاصل ذو الهامش الأقصى</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/svm/plot_svm_anova.html#sphx-glr-auto-examples-svm-plot-svm-anova-py"><span class="std std-ref">SVM-Anova: SVM مع اختيار الميزات أحادية المتغير</span></a></p></li>
 <li><p><a class="reference internal" href="../auto_examples/classification/plot_classification_probability.html#sphx-glr-auto-examples-classification-plot-classification-probability-py"><span class="std std-ref">رسم احتمالية التصنيف</span></a></p></li>
 </ul>
 <section id="svm-multi-class">
@@ -780,7 +780,7 @@
 </div>
 </details><p class="rubric">أمثلة</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../auto_examples/svm/plot_iris_svc.html#sphx-glr-auto-examples-svm-plot-iris-svc-py"><span class="std std-ref">Plot different SVM classifiers in the iris dataset</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/svm/plot_iris_svc.html#sphx-glr-auto-examples-svm-plot-iris-svc-py"><span class="std std-ref">رسم مخططات لمصنفات SVM المختلفة في مجموعة بيانات الزهرة</span></a></p></li>
 </ul>
 </section>
 <section id="scores-probabilities">
@@ -796,7 +796,7 @@
 <li><p>في التصنيف الثنائي، قد يتم تسمية عينة بواسطة <code class="docutils literal notranslate"><span class="pre">predict</span></code> على أنها تنتمي إلى الفئة الإيجابية حتى إذا كان ناتج <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code> أقل من 0.5؛ وبالمثل، يمكن تسميتها سلبية حتى لو كان ناتج <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code> أكبر من 0.5.</p></li>
 </ul>
 <p>من المعروف أيضًا أن طريقة بلات بها مشاكل نظرية. إذا كانت درجات الثقة مطلوبة، لكن لا يجب أن تكون احتمالات، فمن المستحسن تعيين <code class="docutils literal notranslate"><span class="pre">probability=False</span></code> واستخدام <code class="docutils literal notranslate"><span class="pre">decision_function</span></code> بدلاً من <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code>.</p>
-<p>يرجى ملاحظة أنه عندما <code class="docutils literal notranslate"><span class="pre">decision_function_shape='ovr'</span></code> و <code class="docutils literal notranslate"><span class="pre">n_classes</span> <span class="pre">&gt;</span> <span class="pre">2</span></code>، على عكس <code class="docutils literal notranslate"><span class="pre">decision_function</span></code>، لا تحاول طريقة <code class="docutils literal notranslate"><span class="pre">predict</span></code> كسر الروابط افتراضيًا. يمكنك تعيين <code class="docutils literal notranslate"><span class="pre">break_ties=True</span></code> ليكون ناتج <code class="docutils literal notranslate"><span class="pre">predict</span></code> هو نفسه <code class="docutils literal notranslate"><span class="pre">np.argmax(clf.decision_function(...),</span> <span class="pre">axis=1)</span></code>، وإلا فسيتم دائمًا إرجاع الفئة الأولى بين الفئات المُتعادلة؛ لكن ضع في اعتبارك أن ذلك يأتي بتكلفة حسابية. انظر <a class="reference internal" href="../auto_examples/svm/plot_svm_tie_breaking.html#sphx-glr-auto-examples-svm-plot-svm-tie-breaking-py"><span class="std std-ref">SVM Tie Breaking Example</span></a> للحصول على مثال لكسر الروابط.</p>
+<p>يرجى ملاحظة أنه عندما <code class="docutils literal notranslate"><span class="pre">decision_function_shape='ovr'</span></code> و <code class="docutils literal notranslate"><span class="pre">n_classes</span> <span class="pre">&gt;</span> <span class="pre">2</span></code>، على عكس <code class="docutils literal notranslate"><span class="pre">decision_function</span></code>، لا تحاول طريقة <code class="docutils literal notranslate"><span class="pre">predict</span></code> كسر الروابط افتراضيًا. يمكنك تعيين <code class="docutils literal notranslate"><span class="pre">break_ties=True</span></code> ليكون ناتج <code class="docutils literal notranslate"><span class="pre">predict</span></code> هو نفسه <code class="docutils literal notranslate"><span class="pre">np.argmax(clf.decision_function(...),</span> <span class="pre">axis=1)</span></code>، وإلا فسيتم دائمًا إرجاع الفئة الأولى بين الفئات المُتعادلة؛ لكن ضع في اعتبارك أن ذلك يأتي بتكلفة حسابية. انظر <a class="reference internal" href="../auto_examples/svm/plot_svm_tie_breaking.html#sphx-glr-auto-examples-svm-plot-svm-tie-breaking-py"><span class="std std-ref">مثال على كسر التعادل في SVM</span></a> للحصول على مثال لكسر الروابط.</p>
 </section>
 <section id="id8">
 <h3><span class="section-number">1.4.1.3. </span>المشاكل غير المتوازنة<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
@@ -813,8 +813,8 @@
 </figure>
 <p class="rubric">أمثلة</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../auto_examples/svm/plot_separating_hyperplane_unbalanced.html#sphx-glr-auto-examples-svm-plot-separating-hyperplane-unbalanced-py"><span class="std std-ref">SVM: Separating hyperplane for unbalanced classes</span></a></p></li>
-<li><p><a class="reference internal" href="../auto_examples/svm/plot_weighted_samples.html#sphx-glr-auto-examples-svm-plot-weighted-samples-py"><span class="std std-ref">SVM: Weighted samples</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/svm/plot_separating_hyperplane_unbalanced.html#sphx-glr-auto-examples-svm-plot-separating-hyperplane-unbalanced-py"><span class="std std-ref">SVM: المستوي الفاصل للطبقات غير المتوازنة</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/svm/plot_weighted_samples.html#sphx-glr-auto-examples-svm-plot-weighted-samples-py"><span class="std std-ref">SVM: العينات ذات الأوزان</span></a></p></li>
 </ul>
 </section>
 </section>
@@ -836,7 +836,7 @@
 </div>
 <p class="rubric">أمثلة</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../auto_examples/svm/plot_svm_regression.html#sphx-glr-auto-examples-svm-plot-svm-regression-py"><span class="std std-ref">Support Vector Regression (SVR) using linear and non-linear kernels</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/svm/plot_svm_regression.html#sphx-glr-auto-examples-svm-plot-svm-regression-py"><span class="std std-ref">دعم نموذج الانحدار باستخدام نواة خطية وغير خطية</span></a></p></li>
 </ul>
 </section>
 <section id="svm-outlier-detection">
@@ -905,8 +905,8 @@
 <p>الاختيار المناسب لـ <code class="docutils literal notranslate"><span class="pre">C</span></code> و <code class="docutils literal notranslate"><span class="pre">gamma</span></code> أمر بالغ الأهمية لأداء SVM. يُنصح باستخدام <a class="reference internal" href="generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearchCV</span></code></a> مع <code class="docutils literal notranslate"><span class="pre">C</span></code> و <code class="docutils literal notranslate"><span class="pre">gamma</span></code> متباعدتين أسيًا لاختيار قيم جيدة.</p>
 <p class="rubric">أمثلة</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../auto_examples/svm/plot_rbf_parameters.html#sphx-glr-auto-examples-svm-plot-rbf-parameters-py"><span class="std std-ref">RBF SVM parameters</span></a></p></li>
-<li><p><a class="reference internal" href="../auto_examples/svm/plot_svm_scale_c.html#sphx-glr-auto-examples-svm-plot-svm-scale-c-py"><span class="std std-ref">Scaling the regularization parameter for SVCs</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/svm/plot_rbf_parameters.html#sphx-glr-auto-examples-svm-plot-rbf-parameters-py"><span class="std std-ref">معاملات SVM ذات الدالة الشعاعية الأساسية</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/svm/plot_svm_scale_c.html#sphx-glr-auto-examples-svm-plot-svm-scale-c-py"><span class="std std-ref">ضبط معامل الانتظام لخوارزمية SVC</span></a></p></li>
 </ul>
 </section>
 <section id="id16">
@@ -956,7 +956,7 @@
 </div>
 </details><p class="rubric">أمثلة</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../auto_examples/svm/plot_custom_kernel.html#sphx-glr-auto-examples-svm-plot-custom-kernel-py"><span class="std std-ref">SVM with custom kernel</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/svm/plot_custom_kernel.html#sphx-glr-auto-examples-svm-plot-custom-kernel-py"><span class="std std-ref">SVM مع نواة مخصصة</span></a></p></li>
 </ul>
 </section>
 </section>

@@ -1,19 +1,16 @@
 """
-Visualizing cross-validation behavior in scikit-learn
-=====================================================
+===========================================
+تصور سلوك التحقق المتقاطع في سكايلرن
+===========================================
 
-Choosing the right cross-validation object is a crucial part of fitting a
-model properly. There are many ways to split data into training and test
-sets in order to avoid model overfitting, to standardize the number of
-groups in test sets, etc.
+يعد اختيار كائن التحقق المتقاطع المناسب جزءًا حاسمًا من ملاءمة النموذج بشكل صحيح. هناك العديد من الطرق لتقسيم البيانات إلى مجموعات تدريب واختبار لتجنب الإفراط في تناسب النموذج، وتوحيد عدد المجموعات في مجموعات الاختبار، وما إلى ذلك.
 
-This example visualizes the behavior of several common scikit-learn objects
-for comparison.
+يوضح هذا المثال سلوك العديد من كائنات سكايلرن الشائعة للمقارنة.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف SPDX-License: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -36,33 +33,32 @@ cmap_cv = plt.cm.coolwarm
 n_splits = 4
 
 # %%
-# Visualize our data
+# تصور بياناتنا
 # ------------------
 #
-# First, we must understand the structure of our data. It has 100 randomly
-# generated input datapoints, 3 classes split unevenly across datapoints,
-# and 10 "groups" split evenly across datapoints.
+# أولاً، يجب أن نفهم بنية بياناتنا. يحتوي على 100 نقطة بيانات إدخال تم إنشاؤها عشوائيًا، و3 فئات مقسمة بشكل غير متساوٍ عبر نقاط البيانات،
+# و10 "مجموعات" مقسمة بالتساوي عبر نقاط البيانات.
 #
-# As we'll see, some cross-validation objects do specific things with
-# labeled data, others behave differently with grouped data, and others
-# do not use this information.
+# كما سنرى، فإن بعض كائنات التحقق المتقاطع تقوم بأشياء محددة مع
+# البيانات المسمى، والبعض الآخر يتصرف بشكل مختلف مع البيانات المجمعة، والبعض الآخر
+# لا تستخدم هذه المعلومات.
 #
-# To begin, we'll visualize our data.
+# للبدء، سنقوم بتصور بياناتنا.
 
-# Generate the class/group data
+# توليد بيانات الفئة/المجموعة
 n_points = 100
 X = rng.randn(100, 10)
 
 percentiles_classes = [0.1, 0.3, 0.6]
 y = np.hstack([[ii] * int(100 * perc) for ii, perc in enumerate(percentiles_classes)])
 
-# Generate uneven groups
+# توليد مجموعات غير متساوية
 group_prior = rng.dirichlet([2] * 10)
 groups = np.repeat(np.arange(10), rng.multinomial(100, group_prior))
 
 
 def visualize_groups(classes, groups, name):
-    # Visualize dataset groups
+    # تصور مجموعات مجموعة البيانات
     fig, ax = plt.subplots()
     ax.scatter(
         range(len(groups)),
@@ -91,27 +87,26 @@ def visualize_groups(classes, groups, name):
 visualize_groups(y, groups, "no groups")
 
 # %%
-# Define a function to visualize cross-validation behavior
+# تحديد وظيفة لتصور سلوك التحقق المتقاطع
 # --------------------------------------------------------
 #
-# We'll define a function that lets us visualize the behavior of each
-# cross-validation object. We'll perform 4 splits of the data. On each
-# split, we'll visualize the indices chosen for the training set
-# (in blue) and the test set (in red).
+# سنقوم بتعريف وظيفة تسمح لنا بتصور سلوك كل كائن تحقق متقاطع. سنقوم بأداء 4 انقسامات للبيانات. في كل
+# تقسيم، سنقوم بتصور المؤشرات المختارة لمجموعة التدريب
+# (باللون الأزرق) ومجموعة الاختبار (باللون الأحمر).
 
 
 def plot_cv_indices(cv, X, y, group, ax, n_splits, lw=10):
-    """Create a sample plot for indices of a cross-validation object."""
+    """إنشاء رسم بياني عينة لمؤشرات كائن التحقق المتقاطع."""
     use_groups = "Group" in type(cv).__name__
     groups = group if use_groups else None
-    # Generate the training/testing visualizations for each CV split
+    # توليد التصورات التدريب/الاختبار لكل تقسيم CV
     for ii, (tr, tt) in enumerate(cv.split(X=X, y=y, groups=groups)):
-        # Fill in indices with the training/test groups
+        # ملء المؤشرات بمجموعات التدريب/الاختبار
         indices = np.array([np.nan] * len(X))
         indices[tt] = 1
         indices[tr] = 0
 
-        # Visualize the results
+        # تصور النتائج
         ax.scatter(
             range(len(indices)),
             [ii + 0.5] * len(indices),
@@ -123,7 +118,7 @@ def plot_cv_indices(cv, X, y, group, ax, n_splits, lw=10):
             vmax=1.2,
         )
 
-    # Plot the data classes and groups at the end
+    # رسم فئات البيانات والمجموعات في النهاية
     ax.scatter(
         range(len(X)), [ii + 1.5] * len(X), c=y, marker="_", lw=lw, cmap=cmap_data
     )
@@ -132,7 +127,7 @@ def plot_cv_indices(cv, X, y, group, ax, n_splits, lw=10):
         range(len(X)), [ii + 2.5] * len(X), c=group, marker="_", lw=lw, cmap=cmap_data
     )
 
-    # Formatting
+    # التنسيق
     yticklabels = list(range(n_splits)) + ["class", "group"]
     ax.set(
         yticks=np.arange(n_splits + 2) + 0.5,
@@ -147,23 +142,22 @@ def plot_cv_indices(cv, X, y, group, ax, n_splits, lw=10):
 
 
 # %%
-# Let's see how it looks for the :class:`~sklearn.model_selection.KFold`
-# cross-validation object:
+# دعونا نرى كيف يبدو الأمر بالنسبة لكائن :class:`~sklearn.model_selection.KFold`
+# كائن التحقق المتقاطع:
 
 fig, ax = plt.subplots()
 cv = KFold(n_splits)
 plot_cv_indices(cv, X, y, groups, ax, n_splits)
 
 # %%
-# As you can see, by default the KFold cross-validation iterator does not
-# take either datapoint class or group into consideration. We can change this
-# by using either:
+# كما ترى، بشكل افتراضي، لا يأخذ منشئ التقسيم المتقاطع KFold
+# في الاعتبار فئة نقطة البيانات أو المجموعة. يمكننا تغيير هذا
+# باستخدام أي مما يلي:
 #
-# - ``StratifiedKFold`` to preserve the percentage of samples for each class.
-# - ``GroupKFold`` to ensure that the same group will not appear in two
-#   different folds.
-# - ``StratifiedGroupKFold`` to keep the constraint of ``GroupKFold`` while
-#   attempting to return stratified folds.
+# - ``StratifiedKFold`` للحفاظ على نسبة العينات لكل فئة.
+# - ``GroupKFold`` لضمان عدم ظهور نفس المجموعة في طيتين مختلفتين.
+# - ``StratifiedGroupKFold`` للحفاظ على قيد ``GroupKFold`` مع
+#   محاولة إرجاع الطيات المفهرسة.
 cvs = [StratifiedKFold, GroupKFold, StratifiedGroupKFold]
 
 for cv in cvs:
@@ -174,21 +168,21 @@ for cv in cvs:
         ["Testing set", "Training set"],
         loc=(1.02, 0.8),
     )
-    # Make the legend fit
+    # ضبط الأسطورة
     plt.tight_layout()
     fig.subplots_adjust(right=0.7)
 
 # %%
-# Next we'll visualize this behavior for a number of CV iterators.
+# بعد ذلك، سنقوم بتصور هذا السلوك لعدد من مؤشرات CV.
 #
-# Visualize cross-validation indices for many CV objects
+# تصور مؤشرات التحقق المتقاطع للعديد من كائنات CV
 # ------------------------------------------------------
 #
-# Let's visually compare the cross validation behavior for many
-# scikit-learn cross-validation objects. Below we will loop through several
-# common cross-validation objects, visualizing the behavior of each.
+# دعونا نقارن بصريًا سلوك التحقق المتقاطع للعديد من
+# كائنات التحقق المتقاطع في سكايلرن. أدناه، سنقوم بالحلقة عبر العديد من
+# كائنات التحقق المتقاطع الشائعة، وتصوير سلوك كل منها.
 #
-# Note how some use the group/class information while others do not.
+# لاحظ كيف يستخدم البعض معلومات المجموعة/الفئة بينما لا يستخدمها الآخرون.
 
 cvs = [
     KFold,
@@ -212,7 +206,7 @@ for cv in cvs:
         ["Testing set", "Training set"],
         loc=(1.02, 0.8),
     )
-    # Make the legend fit
+    # ضبط الأسطورة
     plt.tight_layout()
     fig.subplots_adjust(right=0.7)
 plt.show()

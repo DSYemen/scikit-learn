@@ -1,25 +1,23 @@
 """
 =====================================
-Approximate nearest neighbors in TSNE
+أقرب النقاط المجاورة التقريبية في TSNE
 =====================================
 
-This example presents how to chain KNeighborsTransformer and TSNE in a pipeline.
-It also shows how to wrap the packages `nmslib` and `pynndescent` to replace
-KNeighborsTransformer and perform approximate nearest neighbors. These packages
-can be installed with `pip install nmslib pynndescent`.
+يقدم هذا المثال كيفية ربط KNeighborsTransformer و TSNE في خط أنابيب.
+كما يُظهر كيفية تغليف الحزم `nmslib` و `pynndescent` لاستبدال
+KNeighborsTransformer وأداء أقرب النقاط المجاورة التقريبية. يمكن تثبيت هذه الحزم
+باستخدام `pip install nmslib pynndescent`.
 
-Note: In KNeighborsTransformer we use the definition which includes each
-training point as its own neighbor in the count of `n_neighbors`, and for
-compatibility reasons, one extra neighbor is computed when `mode == 'distance'`.
-Please note that we do the same in the proposed `nmslib` wrapper.
+ملاحظة: في KNeighborsTransformer نستخدم التعريف الذي يتضمن كل
+نقطة تدريب كجارتها الخاصة في حساب `n_neighbors`, ولأسباب التوافق, يتم حساب جار إضافي واحد
+عندما `mode == 'distance'`. يرجى ملاحظة أننا نفعل الشيء نفسه في
+غلاف `nmslib` المقترح.
 """
-
-# Authors: The scikit-learn developers
+# المؤلفون: مطوري scikit-learn
 # SPDX-License-Identifier: BSD-3-Clause
 
 # %%
-# First we try to import the packages and warn the user in case they are
-# missing.
+# أولاً, نحاول استيراد الحزم وتحذير المستخدم في حالة عدم توفرها.
 import sys
 
 try:
@@ -35,8 +33,8 @@ except ImportError:
     sys.exit()
 
 # %%
-# We define a wrapper class for implementing the scikit-learn API to the
-# `nmslib`, as well as a loading function.
+# نحن نحدد فئة غلاف لتنفيذ واجهة برمجة التطبيقات scikit-learn إلى
+# `nmslib`, بالإضافة إلى دالة تحميل.
 import joblib
 import numpy as np
 from scipy.sparse import csr_matrix
@@ -46,8 +44,8 @@ from sklearn.datasets import fetch_openml
 from sklearn.utils import shuffle
 
 
-class NMSlibTransformer(TransformerMixin, BaseEstimator):
-    """Wrapper for using nmslib as sklearn's KNeighborsTransformer"""
+class NMSlibTransformer (TransformerMixin, BaseEstimator):
+    """غلاف لاستخدام nmslib كـ KNeighborsTransformer لـ sklearn"""
 
     def __init__(self, n_neighbors=5, metric="euclidean", method="sw-graph", n_jobs=-1):
         self.n_neighbors = n_neighbors
@@ -58,7 +56,7 @@ class NMSlibTransformer(TransformerMixin, BaseEstimator):
     def fit(self, X):
         self.n_samples_fit_ = X.shape[0]
 
-        # see more metric in the manual
+        # راجع المزيد من المقاييس في الدليل
         # https://github.com/nmslib/nmslib/tree/master/manual
         space = {
             "euclidean": "l2",
@@ -75,13 +73,13 @@ class NMSlibTransformer(TransformerMixin, BaseEstimator):
     def transform(self, X):
         n_samples_transform = X.shape[0]
 
-        # For compatibility reasons, as each sample is considered as its own
-        # neighbor, one extra neighbor will be computed.
+        # لأسباب التوافق, حيث يتم اعتبار كل عينة كجارتها الخاصة,
+        # سيتم حساب جار إضافي واحد.
         n_neighbors = self.n_neighbors + 1
 
         if self.n_jobs < 0:
-            # Same handling as done in joblib for negative values of n_jobs:
-            # in particular, `n_jobs == -1` means "as many threads as CPUs".
+            # نفس المعالجة كما هو مكتوب في joblib للقيم السلبية من n_jobs:
+            # على وجه الخصوص, `n_jobs == -1` يعني "بقدر ما هو متاح من المعالجات".
             num_threads = joblib.cpu_count() + self.n_jobs + 1
         else:
             num_threads = self.n_jobs
@@ -95,21 +93,21 @@ class NMSlibTransformer(TransformerMixin, BaseEstimator):
         indptr = np.arange(0, n_samples_transform * n_neighbors + 1, n_neighbors)
         kneighbors_graph = csr_matrix(
             (distances.ravel(), indices.ravel(), indptr),
-            shape=(n_samples_transform, self.n_samples_fit_),
+            الشكل=(n_samples_transform, self.n_samples_fit_),
         )
 
         return kneighbors_graph
 
 
 def load_mnist(n_samples):
-    """Load MNIST, shuffle the data, and return only n_samples."""
+    """تحميل MNIST, وخلط البيانات, وإرجاع n_samples فقط."""
     mnist = fetch_openml("mnist_784", as_frame=False)
     X, y = shuffle(mnist.data, mnist.target, random_state=2)
     return X[:n_samples] / 255, y[:n_samples]
 
 
 # %%
-# We benchmark the different exact/approximate nearest neighbors transformers.
+# نحن نقيس أداء المحولات المختلفة لأقرب النقاط المجاورة الدقيقة/التقريبية.
 import time
 
 from sklearn.manifold import TSNE
@@ -124,13 +122,13 @@ datasets = [
 n_iter = 500
 perplexity = 30
 metric = "euclidean"
-# TSNE requires a certain number of neighbors which depends on the
-# perplexity parameter.
-# Add one since we include each sample as its own neighbor.
+# تتطلب TSNE عددًا معينًا من الجيران يعتمد على
+# معلمة perplexity.
+# أضف واحدًا حيث يتم تضمين كل عينة كجارتها الخاصة.
 n_neighbors = int(3.0 * perplexity + 1) + 1
 
 tsne_params = dict(
-    init="random",  # pca not supported for sparse matrices
+    init="random",  # pca غير مدعوم للمصفوفات المتناثرة
     perplexity=perplexity,
     method="barnes_hut",
     random_state=42,
@@ -156,32 +154,32 @@ transformers = [
 ]
 
 for dataset_name, (X, y) in datasets:
-    msg = f"Benchmarking on {dataset_name}:"
-    print(f"\n{msg}\n" + str("-" * len(msg)))
+    msg = f"قياس الأداء على {dataset_name}:"
+    print (f"\n{msg}\n" + str("-" * len(msg)))
 
-    for transformer_name, transformer in transformers:
-        longest = np.max([len(name) for name, model in transformers])
+    for transformer_name, transformer in المحولات:
+        longest = np.max([len(name) for name, model in transformer])
         start = time.time()
         transformer.fit(X)
         fit_duration = time.time() - start
-        print(f"{transformer_name:<{longest}} {fit_duration:.3f} sec (fit)")
+        print (f"{transformer_name:<{longest}} {fit_duration:.3f} sec (fit)")
         start = time.time()
         Xt = transformer.transform(X)
         transform_duration = time.time() - start
-        print(f"{transformer_name:<{longest}} {transform_duration:.3f} sec (transform)")
+        print (f"{transformer_name:<{longest}} {transform_duration:.3f} sec (transform)")
         if transformer_name == "PyNNDescentTransformer":
             start = time.time()
             Xt = transformer.transform(X)
             transform_duration = time.time() - start
-            print(
+            print (
                 f"{transformer_name:<{longest}} {transform_duration:.3f} sec"
                 " (transform)"
             )
 
 # %%
-# Sample output::
+# إخراج العينة::
 #
-#     Benchmarking on MNIST_10000:
+#     قياس الأداء على MNIST_10000:
 #     ----------------------------
 #     KNeighborsTransformer  0.007 sec (fit)
 #     KNeighborsTransformer  1.139 sec (transform)
@@ -191,7 +189,7 @@ for dataset_name, (X, y) in datasets:
 #     PyNNDescentTransformer 4.884 sec (transform)
 #     PyNNDescentTransformer 0.744 sec (transform)
 #
-#     Benchmarking on MNIST_20000:
+#     قياس الأداء على MNIST_20000:
 #     ----------------------------
 #     KNeighborsTransformer  0.011 sec (fit)
 #     KNeighborsTransformer  5.769 sec (transform)
@@ -201,22 +199,21 @@ for dataset_name, (X, y) in datasets:
 #     PyNNDescentTransformer 7.103 sec (transform)
 #     PyNNDescentTransformer 1.759 sec (transform)
 #
-# Notice that the `PyNNDescentTransformer` takes more time during the first
-# `fit` and the first `transform` due to the overhead of the numba just in time
-# compiler. But after the first call, the compiled Python code is kept in a
-# cache by numba and subsequent calls do not suffer from this initial overhead.
-# Both :class:`~sklearn.neighbors.KNeighborsTransformer` and `NMSlibTransformer`
-# are only run once here as they would show more stable `fit` and `transform`
-# times (they don't have the cold start problem of PyNNDescentTransformer).
+# لاحظ أن `PyNNDescentTransformer` يستغرق وقتًا أطول خلال أول
+# `fit` و `transform` الأول بسبب النفقات العامة لمترجم numba just in time
+# لكن بعد المكالمة الأولى, يتم الاحتفاظ بالرمز المترجم بلغة بايثون في
+# ذاكرة التخزين المؤقت بواسطة numba والمكالمات اللاحقة لا تعاني من هذه النفقات العامة الأولية.
+# يتم تشغيل كل من :class:`~sklearn.neighbors.KNeighborsTransformer` و `NMSlibTransformer`
+# مرة واحدة فقط هنا حيث سيظهرون أوقات `fit` و `transform` أكثر استقرارًا (لا يعانون من مشكلة بدء التشغيل البارد لـ PyNNDescentTransformer).
 
 # %%
 import matplotlib.pyplot as plt
 from matplotlib.ticker import NullFormatter
 
-transformers = [
-    ("TSNE with internal NearestNeighbors", TSNE(metric=metric, **tsne_params)),
+transforms = [
+    ("TSNE مع NearestNeighbors الداخلي", TSNE(metric=metric, **tsne_params)),
     (
-        "TSNE with KNeighborsTransformer",
+        "TSNE مع KNeighborsTransformer",
         make_pipeline(
             KNeighborsTransformer(
                 n_neighbors=n_neighbors, mode="distance", metric=metric
@@ -225,7 +222,7 @@ transformers = [
         ),
     ),
     (
-        "TSNE with NMSlibTransformer",
+        "TSNE مع NMSlibTransformer",
         make_pipeline(
             NMSlibTransformer(n_neighbors=n_neighbors, metric=metric),
             TSNE(metric="precomputed", **tsne_params),
@@ -233,7 +230,7 @@ transformers = [
     ),
 ]
 
-# init the plot
+# بدء الرسم
 nrows = len(datasets)
 ncols = np.sum([1 for name, model in transformers if "TSNE" in name])
 fig, axes = plt.subplots(
@@ -274,41 +271,37 @@ fig.tight_layout()
 plt.show()
 
 # %%
-# Sample output::
+# إخراج العينة::
 #
-#     Benchmarking on MNIST_10000:
+#     قياس الأداء على MNIST_10000:
 #     ----------------------------
-#     TSNE with internal NearestNeighbors 24.828 sec (fit_transform)
-#     TSNE with KNeighborsTransformer     20.111 sec (fit_transform)
-#     TSNE with NMSlibTransformer         21.757 sec (fit_transform)
+#     TSNE مع NearestNeighbors الداخلي 24.828 sec (fit_transform)
+#     TSNE مع KNeighborsTransformer     20.111 sec (fit_transform)
+#     TSNE مع NMSlibTransformer         21.757 sec (fit_transform)
 #
-#     Benchmarking on MNIST_20000:
+#     قياس الأداء على MNIST_20000:
 #     ----------------------------
-#     TSNE with internal NearestNeighbors 51.955 sec (fit_transform)
-#     TSNE with KNeighborsTransformer     50.994 sec (fit_transform)
-#     TSNE with NMSlibTransformer         43.536 sec (fit_transform)
+#     TSNE مع NearestNeighbors الداخلي 51.955 sec (fit_transform)
+#     TSNE مع KNeighborsTransformer     50.994 sec (fit_transform)
+#     TSNE مع NMSlibTransformer         43.536 sec (fit_transform)
 #
-# We can observe that the default :class:`~sklearn.manifold.TSNE` estimator with
-# its internal :class:`~sklearn.neighbors.NearestNeighbors` implementation is
-# roughly equivalent to the pipeline with :class:`~sklearn.manifold.TSNE` and
-# :class:`~sklearn.neighbors.KNeighborsTransformer` in terms of performance.
-# This is expected because both pipelines rely internally on the same
-# :class:`~sklearn.neighbors.NearestNeighbors` implementation that performs
-# exacts neighbors search. The approximate `NMSlibTransformer` is already
-# slightly faster than the exact search on the smallest dataset but this speed
-# difference is expected to become more significant on datasets with a larger
-# number of samples.
+# يمكننا ملاحظة أن المحول الافتراضي :class:`~sklearn.manifold.TSNE` مع
+# التنفيذ الداخلي لـ :class:`~sklearn.neighbors.NearestNeighbors` هو
+# مكافئ تقريبًا لخط الأنابيب مع :class:`~sklearn.manifold.TSNE` و
+# :class:`~sklearn.neighbors.KNeighborsTransformer` من حيث الأداء.
+# هذا متوقع لأن كلا خطي الأنابيب يعتمدان داخليًا على نفس
+# التنفيذ :class:`~sklearn.neighbors.NearestNeighbors` الذي يقوم
+# بالبحث الدقيق عن الجيران. البحث التقريبي `NMSlibTransformer` هو بالفعل
+# أسرع قليلاً من البحث الدقيق على أصغر مجموعة بيانات ولكن من المتوقع أن يصبح هذا الاختلاف في السرعة
+# أكثر أهمية في مجموعات البيانات ذات العدد الأكبر من العينات.
 #
-# Notice however that not all approximate search methods are guaranteed to
-# improve the speed of the default exact search method: indeed the exact search
-# implementation significantly improved since scikit-learn 1.1. Furthermore, the
-# brute-force exact search method does not require building an index at `fit`
-# time. So, to get an overall performance improvement in the context of the
-# :class:`~sklearn.manifold.TSNE` pipeline, the gains of the approximate search
-# at `transform` need to be larger than the extra time spent to build the
-# approximate search index at `fit` time.
+# لاحظ مع ذلك أن ليس كل طرق البحث التقريبية مضمونة
+# لتحسين سرعة طريقة البحث الدقيقة الافتراضية: في الواقع, تحسنت طريقة البحث الدقيقة بشكل كبير
+# منذ scikit-learn 1.1. علاوة على ذلك, لا تتطلب طريقة البحث الدقيقة "brute-force" بناء فهرس في وقت `fit`.
+# لذلك, للحصول على تحسن عام في الأداء في سياق خط أنابيب
+# :class:`~sklearn.manifold.TSNE`, يجب أن تكون المكاسب في البحث التقريبي في `transform`
+# أكبر من الوقت الإضافي الذي يتم إنفاقه لبناء فهرس البحث التقريبي في وقت `fit`.
 #
-# Finally, the TSNE algorithm itself is also computationally intensive,
-# irrespective of the nearest neighbors search. So speeding-up the nearest
-# neighbors search step by a factor of 5 would not result in a speed up by a
-# factor of 5 for the overall pipeline.
+# أخيرًا, خوارزمية TSNE نفسها كثيفة الحسابات,
+# بغض النظر عن البحث عن أقرب الجيران. لذلك, لن يؤدي تسريع خطوة البحث عن أقرب الجيران
+# إلى تسريع خط الأنابيب بمقدار 5 مرات.

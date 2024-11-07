@@ -19,19 +19,14 @@
 
 
 ========================================================
-Compare Stochastic learning strategies for MLPClassifier
+مقارنة استراتيجيات التعلم العشوائي لتصنيف الشبكة العصبية متعددة الطبقات
 ========================================================
 
-This example visualizes some training loss curves for different stochastic
-learning strategies, including SGD and Adam. Because of time-constraints, we
-use several small datasets, for which L-BFGS might be more suitable. The
-general trend shown in these examples seems to carry over to larger datasets,
-however.
+هذا المثال يوضح بعض منحنيات الخسارة التدريبية لاستراتيجيات التعلم العشوائي المختلفة، بما في ذلك SGD و Adam. بسبب قيود الوقت، نستخدم عدة مجموعات بيانات صغيرة، والتي قد تكون مناسبة أكثر لخوارزمية L-BFGS. ومع ذلك، يبدو أن الاتجاه العام الموضح في هذه الأمثلة ينطبق أيضًا على مجموعات البيانات الأكبر.
 
-Note that those results can be highly dependent on the value of
-``learning_rate_init``.
+ملاحظة: يمكن أن تعتمد هذه النتائج بشكل كبير على قيمة "learning_rate_init".
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-145
+.. GENERATED FROM PYTHON SOURCE LINES 11-138
 
 
 
@@ -46,97 +41,97 @@ Note that those results can be highly dependent on the value of
  .. code-block:: none
 
 
-    learning on dataset iris
-    training: constant learning-rate
-    Training set score: 0.980000
-    Training set loss: 0.096950
-    training: constant with momentum
-    Training set score: 0.980000
-    Training set loss: 0.049530
-    training: constant with Nesterov's momentum
-    Training set score: 0.980000
-    Training set loss: 0.049540
-    training: inv-scaling learning-rate
-    Training set score: 0.360000
-    Training set loss: 0.978444
-    training: inv-scaling with momentum
-    Training set score: 0.860000
-    Training set loss: 0.504185
-    training: inv-scaling with Nesterov's momentum
-    Training set score: 0.860000
-    Training set loss: 0.503452
-    training: adam
-    Training set score: 0.980000
-    Training set loss: 0.045311
+    التعلم على مجموعة البيانات iris
+    التدريب: معدل التعلم الثابت
+    درجة مجموعة التدريب: 0.980000
+    خسارة مجموعة التدريب: 0.096950
+    التدريب: الثابت مع الزخم
+    درجة مجموعة التدريب: 0.980000
+    خسارة مجموعة التدريب: 0.049530
+    التدريب: الثابت مع زخم نيستروف
+    درجة مجموعة التدريب: 0.980000
+    خسارة مجموعة التدريب: 0.049540
+    التدريب: معدل التعلم مع التوسيع العكسي
+    درجة مجموعة التدريب: 0.360000
+    خسارة مجموعة التدريب: 0.978444
+    التدريب: التوسيع العكسي مع الزخم
+    درجة مجموعة التدريب: 0.860000
+    خسارة مجموعة التدريب: 0.504185
+    التدريب: التوسيع العكسي مع زخم نيستروف
+    درجة مجموعة التدريب: 0.860000
+    خسارة مجموعة التدريب: 0.503452
+    التدريب: آدم
+    درجة مجموعة التدريب: 0.980000
+    خسارة مجموعة التدريب: 0.045311
 
-    learning on dataset digits
-    training: constant learning-rate
-    Training set score: 0.956038
-    Training set loss: 0.243802
-    training: constant with momentum
-    Training set score: 0.992766
-    Training set loss: 0.041297
-    training: constant with Nesterov's momentum
-    Training set score: 0.993879
-    Training set loss: 0.042898
-    training: inv-scaling learning-rate
-    Training set score: 0.638843
-    Training set loss: 1.855465
-    training: inv-scaling with momentum
-    Training set score: 0.909293
-    Training set loss: 0.318387
-    training: inv-scaling with Nesterov's momentum
-    Training set score: 0.912632
-    Training set loss: 0.290584
-    training: adam
-    Training set score: 0.991653
-    Training set loss: 0.045934
+    التعلم على مجموعة البيانات digits
+    التدريب: معدل التعلم الثابت
+    درجة مجموعة التدريب: 0.956038
+    خسارة مجموعة التدريب: 0.243802
+    التدريب: الثابت مع الزخم
+    درجة مجموعة التدريب: 0.992766
+    خسارة مجموعة التدريب: 0.041297
+    التدريب: الثابت مع زخم نيستروف
+    درجة مجموعة التدريب: 0.993879
+    خسارة مجموعة التدريب: 0.042898
+    التدريب: معدل التعلم مع التوسيع العكسي
+    درجة مجموعة التدريب: 0.638843
+    خسارة مجموعة التدريب: 1.855465
+    التدريب: التوسيع العكسي مع الزخم
+    درجة مجموعة التدريب: 0.909293
+    خسارة مجموعة التدريب: 0.318387
+    التدريب: التوسيع العكسي مع زخم نيستروف
+    درجة مجموعة التدريب: 0.912632
+    خسارة مجموعة التدريب: 0.290584
+    التدريب: آدم
+    درجة مجموعة التدريب: 0.991653
+    خسارة مجموعة التدريب: 0.045934
 
-    learning on dataset circles
-    training: constant learning-rate
-    Training set score: 0.840000
-    Training set loss: 0.601052
-    training: constant with momentum
-    Training set score: 0.940000
-    Training set loss: 0.157334
-    training: constant with Nesterov's momentum
-    Training set score: 0.940000
-    Training set loss: 0.154453
-    training: inv-scaling learning-rate
-    Training set score: 0.500000
-    Training set loss: 0.692470
-    training: inv-scaling with momentum
-    Training set score: 0.500000
-    Training set loss: 0.689751
-    training: inv-scaling with Nesterov's momentum
-    Training set score: 0.500000
-    Training set loss: 0.689143
-    training: adam
-    Training set score: 0.940000
-    Training set loss: 0.150527
+    التعلم على مجموعة البيانات circles
+    التدريب: معدل التعلم الثابت
+    درجة مجموعة التدريب: 0.840000
+    خسارة مجموعة التدريب: 0.601052
+    التدريب: الثابت مع الزخم
+    درجة مجموعة التدريب: 0.940000
+    خسارة مجموعة التدريب: 0.157334
+    التدريب: الثابت مع زخم نيستروف
+    درجة مجموعة التدريب: 0.940000
+    خسارة مجموعة التدريب: 0.154453
+    التدريب: معدل التعلم مع التوسيع العكسي
+    درجة مجموعة التدريب: 0.500000
+    خسارة مجموعة التدريب: 0.692470
+    التدريب: التوسيع العكسي مع الزخم
+    درجة مجموعة التدريب: 0.500000
+    خسارة مجموعة التدريب: 0.689751
+    التدريب: التوسيع العكسي مع زخم نيستروف
+    درجة مجموعة التدريب: 0.500000
+    خسارة مجموعة التدريب: 0.689143
+    التدريب: آدم
+    درجة مجموعة التدريب: 0.940000
+    خسارة مجموعة التدريب: 0.150527
 
-    learning on dataset moons
-    training: constant learning-rate
-    Training set score: 0.850000
-    Training set loss: 0.341523
-    training: constant with momentum
-    Training set score: 0.850000
-    Training set loss: 0.336188
-    training: constant with Nesterov's momentum
-    Training set score: 0.850000
-    Training set loss: 0.335919
-    training: inv-scaling learning-rate
-    Training set score: 0.500000
-    Training set loss: 0.689015
-    training: inv-scaling with momentum
-    Training set score: 0.830000
-    Training set loss: 0.513034
-    training: inv-scaling with Nesterov's momentum
-    Training set score: 0.830000
-    Training set loss: 0.512595
-    training: adam
-    Training set score: 0.930000
-    Training set loss: 0.170087
+    التعلم على مجموعة البيانات moons
+    التدريب: معدل التعلم الثابت
+    درجة مجموعة التدريب: 0.850000
+    خسارة مجموعة التدريب: 0.341523
+    التدريب: الثابت مع الزخم
+    درجة مجموعة التدريب: 0.850000
+    خسارة مجموعة التدريب: 0.336188
+    التدريب: الثابت مع زخم نيستروف
+    درجة مجموعة التدريب: 0.850000
+    خسارة مجموعة التدريب: 0.335919
+    التدريب: معدل التعلم مع التوسيع العكسي
+    درجة مجموعة التدريب: 0.500000
+    خسارة مجموعة التدريب: 0.689015
+    التدريب: التوسيع العكسي مع الزخم
+    درجة مجموعة التدريب: 0.830000
+    خسارة مجموعة التدريب: 0.513034
+    التدريب: التوسيع العكسي مع زخم نيستروف
+    درجة مجموعة التدريب: 0.830000
+    خسارة مجموعة التدريب: 0.512595
+    التدريب: آدم
+    درجة مجموعة التدريب: 0.930000
+    خسارة مجموعة التدريب: 0.170087
 
 
 
@@ -148,8 +143,8 @@ Note that those results can be highly dependent on the value of
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري مكتبة ساي كيت ليرن
+    # معرف الترخيص: BSD-3-Clause
 
     import warnings
 
@@ -160,7 +155,7 @@ Note that those results can be highly dependent on the value of
     from sklearn.neural_network import MLPClassifier
     from sklearn.preprocessing import MinMaxScaler
 
-    # different learning rate schedules and momentum parameters
+    # معدلات تعلم مختلفة وجداول زمنية ومعاملات الزخم
     params = [
         {
             "solver": "sgd",
@@ -206,13 +201,13 @@ Note that those results can be highly dependent on the value of
     ]
 
     labels = [
-        "constant learning-rate",
-        "constant with momentum",
-        "constant with Nesterov's momentum",
-        "inv-scaling learning-rate",
-        "inv-scaling with momentum",
-        "inv-scaling with Nesterov's momentum",
-        "adam",
+        "معدل التعلم الثابت",
+        "الثابت مع الزخم",
+        "الثابت مع زخم نيستروف",
+        "معدل التعلم مع التوسيع العكسي",
+        "التوسيع العكسي مع الزخم",
+        "التوسيع العكسي مع زخم نيستروف",
+        "آدم",
     ]
 
     plot_args = [
@@ -227,24 +222,23 @@ Note that those results can be highly dependent on the value of
 
 
     def plot_on_dataset(X, y, ax, name):
-        # for each dataset, plot learning for each learning strategy
-        print("\nlearning on dataset %s" % name)
+        # لكل مجموعة بيانات، قم برسم منحنى التعلم لكل استراتيجية تعلم
+        print("\nالتعلم على مجموعة البيانات %s" % name)
         ax.set_title(name)
 
         X = MinMaxScaler().fit_transform(X)
         mlps = []
         if name == "digits":
-            # digits is larger but converges fairly quickly
+            # مجموعة digits أكبر ولكن تتقارب بشكل سريع نسبيًا
             max_iter = 15
         else:
             max_iter = 400
 
         for label, param in zip(labels, params):
-            print("training: %s" % label)
+            print("التدريب: %s" % label)
             mlp = MLPClassifier(random_state=0, max_iter=max_iter, **param)
 
-            # some parameter combinations will not converge as can be seen on the
-            # plots so they are ignored here
+            # بعض تركيبات المعاملات لن تتقارب كما هو موضح في الرسوم البيانية، لذلك يتم تجاهلها هنا
             with warnings.catch_warnings():
                 warnings.filterwarnings(
                     "ignore", category=ConvergenceWarning, module="sklearn"
@@ -252,14 +246,14 @@ Note that those results can be highly dependent on the value of
                 mlp.fit(X, y)
 
             mlps.append(mlp)
-            print("Training set score: %f" % mlp.score(X, y))
-            print("Training set loss: %f" % mlp.loss_)
+            print("درجة مجموعة التدريب: %f" % mlp.score(X, y))
+            print("خسارة مجموعة التدريب: %f" % mlp.loss_)
         for mlp, label, args in zip(mlps, labels, plot_args):
             ax.plot(mlp.loss_curve_, label=label, **args)
 
 
     fig, axes = plt.subplots(2, 2, figsize=(15, 10))
-    # load / generate some toy datasets
+    # تحميل / توليد بعض مجموعات البيانات التجريبية
     iris = datasets.load_iris()
     X_digits, y_digits = datasets.load_digits(return_X_y=True)
     data_sets = [
@@ -277,10 +271,9 @@ Note that those results can be highly dependent on the value of
     fig.legend(ax.get_lines(), labels, ncol=3, loc="upper center")
     plt.show()
 
-
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 3.537 seconds)
+   **Total running time of the script:** (0 minutes 3.636 seconds)
 
 
 .. _sphx_glr_download_auto_examples_neural_networks_plot_mlp_training_curves.py:

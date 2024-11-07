@@ -1,16 +1,15 @@
 """
 =====================================
-Plot the support vectors in LinearSVC
+رسم المتجهات الداعمة في LinearSVC
 =====================================
 
-Unlike SVC (based on LIBSVM), LinearSVC (based on LIBLINEAR) does not provide
-the support vectors. This example demonstrates how to obtain the support
-vectors in LinearSVC.
+على عكس SVC (الذي يعتمد على LIBSVM)، فإن LinearSVC (الذي يعتمد على LIBLINEAR) لا يوفر
+المتجهات الداعمة. يوضح هذا المثال كيفية الحصول على المتجهات الداعمة في LinearSVC.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -23,14 +22,14 @@ X, y = make_blobs(n_samples=40, centers=2, random_state=0)
 
 plt.figure(figsize=(10, 5))
 for i, C in enumerate([1, 100]):
-    # "hinge" is the standard SVM loss
+    # "hinge" هي خسارة SVM القياسية
     clf = LinearSVC(C=C, loss="hinge", random_state=42).fit(X, y)
-    # obtain the support vectors through the decision function
+    # الحصول على المتجهات الداعمة من خلال دالة القرار
     decision_function = clf.decision_function(X)
-    # we can also calculate the decision function manually
+    # يمكننا أيضًا حساب دالة القرار يدويًا
     # decision_function = np.dot(X, clf.coef_[0]) + clf.intercept_[0]
-    # The support vectors are the samples that lie within the margin
-    # boundaries, whose size is conventionally constrained to 1
+    # المتجهات الداعمة هي العينات التي تقع داخل حدود الهامش
+    # والتي يُحافظ على حجمها تقليديًا عند 1
     support_vector_indices = np.where(np.abs(decision_function) <= 1 + 1e-15)[0]
     support_vectors = X[support_vector_indices]
 

@@ -19,34 +19,18 @@
 
 
 ========================================================================
-Concentration Prior Type Analysis of Variation Bayesian Gaussian Mixture
+تحليل نوع أولوية التركيز لخوارزمية التباين بايزي غاوسي ميكسشر
 ========================================================================
 
-This example plots the ellipsoids obtained from a toy dataset (mixture of three
-Gaussians) fitted by the ``BayesianGaussianMixture`` class models with a
-Dirichlet distribution prior
-(``weight_concentration_prior_type='dirichlet_distribution'``) and a Dirichlet
-process prior (``weight_concentration_prior_type='dirichlet_process'``). On
-each figure, we plot the results for three different values of the weight
-concentration prior.
+هذا المثال يقوم برسم الإهليبسيد (ellipsoids) المستخلصة من مجموعة بيانات تجريبية (خليط من ثلاثة توزيعات غاوسية) باستخدام نماذج فئة "بايزي غاوسي ميكسشر" مع توزيع ديريشليت كأولوية (weight_concentration_prior_type='dirichlet_distribution') وأولوية عملية ديريشليت (weight_concentration_prior_type='dirichlet_process'). في كل شكل، نقوم برسم النتائج لثلاث قيم مختلفة لأولوية وزن التركيز.
 
-The ``BayesianGaussianMixture`` class can adapt its number of mixture
-components automatically. The parameter ``weight_concentration_prior`` has a
-direct link with the resulting number of components with non-zero weights.
-Specifying a low value for the concentration prior will make the model put most
-of the weight on few components set the remaining components weights very close
-to zero. High values of the concentration prior will allow a larger number of
-components to be active in the mixture.
+يمكن لفئة "بايزي غاوسي ميكسشر" أن تكيف عدد مكونات المزيج تلقائياً. للبارامتر "weight_concentration_prior" ارتباط مباشر مع العدد الناتج للمكونات ذات الأوزان غير الصفرية. تحديد قيمة منخفضة للأولوية المركزية سيجعل النموذج يضع معظم الوزن على مكونات قليلة، ويحدد أوزان المكونات المتبقية قريبة جداً من الصفر. القيم العالية للأولوية المركزية ستسمح لعدد أكبر من المكونات أن تكون نشطة في المزيج.
 
-The Dirichlet process prior allows to define an infinite number of components
-and automatically selects the correct number of components: it activates a
-component only if it is necessary.
+تسمح أولوية عملية ديريشليت بتعريف عدد لانهائي من المكونات وتختار تلقائياً العدد الصحيح من المكونات: تنشط مكوناً فقط إذا كان ذلك ضرورياً.
 
-On the contrary the classical finite mixture model with a Dirichlet
-distribution prior will favor more uniformly weighted components and therefore
-tends to divide natural clusters into unnecessary sub-components.
+على العكس، فإن نموذج المزيج المحدود الكلاسيكي مع أولوية توزيع ديريشليت سيفضل مكونات موزونة بشكل أكثر توازناً وبالتالي يميل إلى تقسيم التجمعات الطبيعية إلى مكونات فرعية غير ضرورية.
 
-.. GENERATED FROM PYTHON SOURCE LINES 31-165
+.. GENERATED FROM PYTHON SOURCE LINES 15-151
 
 
 
@@ -74,8 +58,8 @@ tends to divide natural clusters into unnecessary sub-components.
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري سكايلرن
+    # تعريف الترخيص: BSD-3-Clause
 
     import matplotlib as mpl
     import matplotlib.gridspec as gridspec
@@ -135,7 +119,7 @@ tends to divide natural clusters into unnecessary sub-components.
             ax2.set_ylabel("Weight of each component")
 
 
-    # Parameters of the dataset
+    # بارامترات مجموعة البيانات
     random_state, n_components, n_features = 2, 3, 2
     colors = np.array(["#0072B2", "#F0E442", "#D55E00"])
 
@@ -145,7 +129,7 @@ tends to divide natural clusters into unnecessary sub-components.
     samples = np.array([200, 500, 200])
     means = np.array([[0.0, -0.70], [0.0, 0.0], [0.0, 0.70]])
 
-    # mean_precision_prior= 0.8 to minimize the influence of the prior
+    # mean_precision_prior= 0.8 لتقليل تأثير الأولوية
     estimators = [
         (
             "Finite mixture with a Dirichlet distribution\nprior and " r"$\gamma_0=$",
@@ -175,7 +159,7 @@ tends to divide natural clusters into unnecessary sub-components.
         ),
     ]
 
-    # Generate data
+    # توليد البيانات
     rng = np.random.RandomState(random_state)
     X = np.vstack(
         [
@@ -183,9 +167,11 @@ tends to divide natural clusters into unnecessary sub-components.
             for j in range(n_components)
         ]
     )
+
     y = np.concatenate([np.full(samples[j], j, dtype=int) for j in range(n_components)])
 
-    # Plot results in two different figures
+
+    # رسم النتائج في شكلين مختلفين
     for title, estimator, concentrations_prior in estimators:
         plt.figure(figsize=(4.7 * 3, 8))
         plt.subplots_adjust(
@@ -211,7 +197,7 @@ tends to divide natural clusters into unnecessary sub-components.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 6.594 seconds)
+   **Total running time of the script:** (0 minutes 9.018 seconds)
 
 
 .. _sphx_glr_download_auto_examples_mixture_plot_concentration_prior.py:

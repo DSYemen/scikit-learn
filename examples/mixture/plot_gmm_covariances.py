@@ -1,34 +1,32 @@
 """
 ===============
-GMM covariances
+تشتتات GMM
 ===============
 
-Demonstration of several covariances types for Gaussian mixture models.
+توضيح لعدة أنواع من التشتتات لمزيج النماذج الغاوسية.
 
-See :ref:`gmm` for more information on the estimator.
+راجع :ref:`gmm` للمزيد من المعلومات حول المحلل.
 
-Although GMM are often used for clustering, we can compare the obtained
-clusters with the actual classes from the dataset. We initialize the means
-of the Gaussians with the means of the classes from the training set to make
-this comparison valid.
+على الرغم من أن GMM تستخدم غالبًا للتجمع، يمكننا مقارنة التجمعات التي تم الحصول عليها
+مع الفئات الفعلية من مجموعة البيانات. نقوم بتهيئة المتوسطات
+لغاوسيات مع متوسطات الفئات من مجموعة التدريب لجعل
+هذه المقارنة صالحة.
 
-We plot predicted labels on both training and held out test data using a
-variety of GMM covariance types on the iris dataset.
-We compare GMMs with spherical, diagonal, full, and tied covariance
-matrices in increasing order of performance. Although one would
-expect full covariance to perform best in general, it is prone to
-overfitting on small datasets and does not generalize well to held out
-test data.
+نحن نرسم العلامات المتوقعة على كل من بيانات التدريب والاختبار المحجوزة باستخدام
+مجموعة متنوعة من أنواع تشتت GMM على مجموعة بيانات الزهرة.
+نقارن بين GMMs مع كروية، قطري، كامل، ومتصل
+مصفوفات التشتت بترتيب تصاعدي للأداء. على الرغم من أن المرء
+يتوقع أن يعمل التشتت الكامل بشكل أفضل بشكل عام، إلا أنه عرضة
+للإفراط في التكيف على مجموعات البيانات الصغيرة ولا يعمم جيدًا على بيانات الاختبار المحجوزة.
 
-On the plots, train data is shown as dots, while test data is shown as
-crosses. The iris dataset is four-dimensional. Only the first two
-dimensions are shown here, and thus some points are separated in other
-dimensions.
+في الرسوم البيانية، يتم عرض بيانات التدريب على شكل نقاط، بينما يتم عرض بيانات الاختبار على شكل
+صلبان. مجموعة بيانات الزهرة ذات أربعة أبعاد. يتم عرض البعدين الأولين فقط
+هنا، وبالتالي يتم فصل بعض النقاط في أبعاد أخرى.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -54,7 +52,7 @@ def make_ellipses(gmm, ax):
         v, w = np.linalg.eigh(covariances)
         u = w[0] / np.linalg.norm(w[0])
         angle = np.arctan2(u[1], u[0])
-        angle = 180 * angle / np.pi  # convert to degrees
+        angle = 180 * angle / np.pi  # تحويل إلى درجات
         v = 2.0 * np.sqrt(2.0) * np.sqrt(v)
         ell = mpl.patches.Ellipse(
             gmm.means_[n, :2], v[0], v[1], angle=180 + angle, color=color
@@ -67,10 +65,10 @@ def make_ellipses(gmm, ax):
 
 iris = datasets.load_iris()
 
-# Break up the dataset into non-overlapping training (75%) and testing
-# (25%) sets.
+# قم بتقسيم مجموعة البيانات إلى مجموعات تدريب (75%) واختبار (25%)
+# مجموعات غير متداخلة.
 skf = StratifiedKFold(n_splits=4)
-# Only take the first fold.
+# خذ فقط الطية الأولى.
 train_index, test_index = next(iter(skf.split(iris.data, iris.target)))
 
 
@@ -81,7 +79,7 @@ y_test = iris.target[test_index]
 
 n_classes = len(np.unique(y_train))
 
-# Try GMMs using different types of covariances.
+# جرب GMMs باستخدام أنواع مختلفة من التشتتات.
 estimators = {
     cov_type: GaussianMixture(
         n_components=n_classes, covariance_type=cov_type, max_iter=20, random_state=0
@@ -98,13 +96,13 @@ plt.subplots_adjust(
 
 
 for index, (name, estimator) in enumerate(estimators.items()):
-    # Since we have class labels for the training data, we can
-    # initialize the GMM parameters in a supervised manner.
+    # نظرًا لأن لدينا تسميات الفئات لبيانات التدريب، يمكننا
+    # تهيئة معلمات GMM بطريقة خاضعة للإشراف.
     estimator.means_init = np.array(
         [X_train[y_train == i].mean(axis=0) for i in range(n_classes)]
     )
 
-    # Train the other parameters using the EM algorithm.
+    # تدريب المعلمات الأخرى باستخدام خوارزمية EM.
     estimator.fit(X_train)
 
     h = plt.subplot(2, n_estimators // 2, index + 1)
@@ -115,7 +113,7 @@ for index, (name, estimator) in enumerate(estimators.items()):
         plt.scatter(
             data[:, 0], data[:, 1], s=0.8, color=color, label=iris.target_names[n]
         )
-    # Plot the test data with crosses
+    # رسم بيانات الاختبار بعلامات الصليب
     for n, color in enumerate(colors):
         data = X_test[y_test == n]
         plt.scatter(data[:, 0], data[:, 1], marker="x", color=color)

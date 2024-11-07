@@ -1,27 +1,25 @@
 """
 ========================================
-Label Propagation digits active learning
+نشر التسمية للأرقام باستخدام التعلم النشط
 ========================================
 
-Demonstrates an active learning technique to learn handwritten digits
-using label propagation.
+يوضح هذا المثال تقنية التعلم النشط لتعلم التعرف على الأرقام المكتوبة بخط اليد
+باستخدام نشر التسمية.
 
-We start by training a label propagation model with only 10 labeled points,
-then we select the top five most uncertain points to label. Next, we train
-with 15 labeled points (original 10 + 5 new ones). We repeat this process
-four times to have a model trained with 30 labeled examples. Note you can
-increase this to label more than 30 by changing `max_iterations`. Labeling
-more than 30 can be useful to get a sense for the speed of convergence of
-this active learning technique.
+نبدأ بتدريب نموذج نشر التسمية باستخدام 10 نقاط فقط ذات تسميات،
+ثم نقوم باختيار أكثر 5 نقاط غير مؤكدة لنقوم بتسميتها. بعد ذلك، نقوم بتدريب
+النموذج باستخدام 15 نقطة ذات تسميات (10 نقاط أصلية + 5 نقاط جديدة). ونكرر هذه العملية
+خمس مرات لنحصل على نموذج مدرب على 30 مثالًا ذا تسميات. يمكنك زيادة عدد التكرارات لتسمية أكثر من 30 مثالًا من خلال تغيير `max_iterations`. يمكن أن يكون تسمية أكثر من 30 مثالًا مفيدًا للحصول على فكرة عن سرعة تقارب
+هذه التقنية للتعلم النشط.
 
-A plot will appear showing the top 5 most uncertain digits for each iteration
-of training. These may or may not contain mistakes, but we will train the next
-model with their true labels.
+سيظهر رسم بياني يوضح أكثر 5 أرقام غير مؤكدة في كل تكرار
+للتدريب. قد تحتوي هذه الأمثلة على أخطاء أو لا، ولكننا سنقوم بتدريب النموذج التالي
+باستخدام التسميات الصحيحة لها.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -73,19 +71,19 @@ for i in range(max_iterations):
     print("Confusion matrix")
     print(cm)
 
-    # compute the entropies of transduced label distributions
+    # حساب أنتروبيا التوزيعات المسماة المتوقعة
     pred_entropies = stats.distributions.entropy(lp_model.label_distributions_.T)
 
-    # select up to 5 digit examples that the classifier is most uncertain about
+    # اختيار 5 أمثلة للأرقام التي يكون النموذج أكثر عدم تأكد بشأنها
     uncertainty_index = np.argsort(pred_entropies)[::-1]
     uncertainty_index = uncertainty_index[
         np.isin(uncertainty_index, unlabeled_indices)
     ][:5]
 
-    # keep track of indices that we get labels for
+    # تتبع المؤشرات التي نحصل على التسميات لها
     delete_indices = np.array([], dtype=int)
 
-    # for more than 5 iterations, visualize the gain only on the first 5
+    # للعدد الأكبر من 5 تكرارات، يتم تصور المكسب فقط على أول 5
     if i < 5:
         f.text(
             0.05,
@@ -96,7 +94,7 @@ for i in range(max_iterations):
     for index, image_index in enumerate(uncertainty_index):
         image = images[image_index]
 
-        # for more than 5 iterations, visualize the gain only on the first 5
+        # للعدد الأكبر من 5 تكرارات، يتم تصور المكسب فقط على أول 5
         if i < 5:
             sub = f.add_subplot(5, 5, index + 1 + (5 * i))
             sub.imshow(image, cmap=plt.cm.gray_r, interpolation="none")
@@ -107,7 +105,7 @@ for i in range(max_iterations):
             )
             sub.axis("off")
 
-        # labeling 5 points, remote from labeled set
+        # تسمية 5 نقاط، وإزالتها من مجموعة البيانات المسماة
         (delete_index,) = np.where(unlabeled_indices == image_index)
         delete_indices = np.concatenate((delete_indices, delete_index))
 

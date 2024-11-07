@@ -1,108 +1,57 @@
 """
-================
-Precision-Recall
-================
+=============
+دقة-استدعاء
+=============
 
-Example of Precision-Recall metric to evaluate classifier output quality.
+مثال على مقياس دقة-استدعاء لتقييم جودة ناتج التصنيف.
 
-Precision-Recall is a useful measure of success of prediction when the
-classes are very imbalanced. In information retrieval, precision is a
-measure of the fraction of relevant items among actually returned items while recall
-is a measure of the fraction of items that were returned among all items that should
-have been returned. 'Relevancy' here refers to items that are
-postively labeled, i.e., true positives and false negatives.
+دقة-استدعاء هي مقياس مفيد لنجاح التنبؤ عندما تكون الفئات غير متوازنة للغاية. في استرجاع المعلومات، الدقة هي مقياس لجزء العناصر ذات الصلة من العناصر التي تم إرجاعها بالفعل، في حين أن الاستدعاء هو مقياس لجزء العناصر التي تم إرجاعها من بين جميع العناصر التي كان ينبغي إرجاعها. تشير "الصلة" هنا إلى العناصر التي تم تصنيفها بشكل إيجابي، أي الإيجابيات الحقيقية والسلبيات الخاطئة.
 
-Precision (:math:`P`) is defined as the number of true positives (:math:`T_p`)
-over the number of true positives plus the number of false positives
-(:math:`F_p`).
+الدقة (P) معرفة على أنها عدد الإيجابيات الحقيقية (T_p) على عدد الإيجابيات الحقيقية بالإضافة إلى عدد الإيجابيات الخاطئة (F_p).
 
 .. math::
     P = \\frac{T_p}{T_p+F_p}
 
-Recall (:math:`R`) is defined as the number of true positives (:math:`T_p`)
-over the number of true positives plus the number of false negatives
-(:math:`F_n`).
+الاستدعاء (R) معرف على أنه عدد الإيجابيات الحقيقية (T_p) على عدد الإيجابيات الحقيقية بالإضافة إلى عدد السلبيات الخاطئة (F_n).
 
 .. math::
     R = \\frac{T_p}{T_p + F_n}
 
-The precision-recall curve shows the tradeoff between precision and
-recall for different thresholds. A high area under the curve represents
-both high recall and high precision. High precision is achieved by having
-few false positives in the returned results, and high recall is achieved by
-having few false negatives in the relevant results.
-High scores for both show that the classifier is returning
-accurate results (high precision), as well as returning a majority of all relevant
-results (high recall).
+يظهر منحنى الدقة-الاستدعاء المقايضة بين الدقة والاستدعاء لعتبات مختلفة. يمثل المساحة العالية تحت المنحنى كلاً من الاستدعاء العالي والدقة العالية. يتم تحقيق الدقة العالية عن طريق وجود عدد قليل من الإيجابيات الخاطئة في النتائج التي تم إرجاعها، ويتم تحقيق الاستدعاء العالي عن طريق وجود عدد قليل من السلبيات الخاطئة في النتائج ذات الصلة. تشير الدرجات العالية لكل من الدقة والاستدعاء إلى أن المصنف يعيد النتائج الدقيقة (دقة عالية)، بالإضافة إلى إعادة غالبية جميع النتائج ذات الصلة (استدعاء عالي).
 
-A system with high recall but low precision returns most of the relevant items, but
-the proportion of returned results that are incorrectly labeled is high. A
-system with high precision but low recall is just the opposite, returning very
-few of the relevant items, but most of its predicted labels are correct when compared
-to the actual labels. An ideal system with high precision and high recall will
-return most of the relevant items, with most results labeled correctly.
+النظام ذو الاستدعاء العالي ولكن الدقة المنخفضة يعيد معظم العناصر ذات الصلة، ولكن نسبة النتائج التي تم إرجاعها والتي تم تصنيفها بشكل خاطئ مرتفعة. النظام ذو الدقة العالية ولكن الاستدعاء المنخفض هو العكس تماماً، حيث يعيد عددًا قليلًا جدًا من العناصر ذات الصلة، ولكن معظم التصنيفات المتوقعة صحيحة عند مقارنتها بالتصنيفات الفعلية. النظام المثالي ذو الدقة العالية والاستدعاء العالي سيعيد معظم العناصر ذات الصلة، مع تصنيف معظم النتائج بشكل صحيح.
 
-The definition of precision (:math:`\\frac{T_p}{T_p + F_p}`) shows that lowering
-the threshold of a classifier may increase the denominator, by increasing the
-number of results returned. If the threshold was previously set too high, the
-new results may all be true positives, which will increase precision. If the
-previous threshold was about right or too low, further lowering the threshold
-will introduce false positives, decreasing precision.
+يظهر تعريف الدقة (\\frac{T_p}{T_p + F_p}) أن خفض عتبة المصنف قد يزيد من البسط، عن طريق زيادة عدد النتائج التي تم إرجاعها. إذا تم تعيين العتبة مسبقًا بشكل مرتفع للغاية، فقد تكون النتائج الجديدة جميعها إيجابيات حقيقية، مما يزيد من الدقة. إذا كانت العتبة السابقة مناسبة أو منخفضة للغاية، فإن خفض العتبة أكثر من ذلك سيعرض الإيجابيات الخاطئة، مما يقلل من الدقة.
 
-Recall is defined as :math:`\\frac{T_p}{T_p+F_n}`, where :math:`T_p+F_n` does
-not depend on the classifier threshold. Changing the classifier threshold can only
-change the numerator, :math:`T_p`. Lowering the classifier
-threshold may increase recall, by increasing the number of true positive
-results. It is also possible that lowering the threshold may leave recall
-unchanged, while the precision fluctuates. Thus, precision does not necessarily
-decrease with recall.
+الاستدعاء معرف على أنه \\frac{T_p}{T_p+F_n}، حيث لا يعتمد T_p+F_n على عتبة المصنف. لا يمكن لتغيير عتبة المصنف إلا تغيير البسط، T_p. قد يزيد خفض عتبة المصنف من الاستدعاء، عن طريق زيادة عدد نتائج الإيجابيات الحقيقية. من الممكن أيضًا أن يترك خفض العتبة الاستدعاء دون تغيير، بينما تتقلب الدقة. وبالتالي، فإن الدقة لا تنخفض بالضرورة مع الاستدعاء.
 
-The relationship between recall and precision can be observed in the
-stairstep area of the plot - at the edges of these steps a small change
-in the threshold considerably reduces precision, with only a minor gain in
-recall.
+يمكن ملاحظة العلاقة بين الاستدعاء والدقة في منطقة الدرج في الرسم البياني - عند حواف هذه الخطوات، يؤدي التغيير الصغير في العتبة إلى تقليل الدقة بشكل كبير، مع مكسب بسيط في الاستدعاء.
 
-**Average precision** (AP) summarizes such a plot as the weighted mean of
-precisions achieved at each threshold, with the increase in recall from the
-previous threshold used as the weight:
+**الدقة المتوسطة** (AP) تلخص مثل هذا الرسم البياني على أنه المتوسط المرجح للدقة التي تم تحقيقها عند كل عتبة، مع استخدام الزيادة في الاستدعاء من العتبة السابقة كوزن:
 
 :math:`\\text{AP} = \\sum_n (R_n - R_{n-1}) P_n`
 
-where :math:`P_n` and :math:`R_n` are the precision and recall at the
-nth threshold. A pair :math:`(R_k, P_k)` is referred to as an
-*operating point*.
+حيث P_n وR_n هي الدقة والاستدعاء عند العتبة nth. يشار إلى زوج (R_k, P_k) على أنه *نقطة تشغيل*.
 
-AP and the trapezoidal area under the operating points
-(:func:`sklearn.metrics.auc`) are common ways to summarize a precision-recall
-curve that lead to different results. Read more in the
-:ref:`User Guide <precision_recall_f_measure_metrics>`.
+AP والمساحة المثلثية تحت نقاط التشغيل (:func:`sklearn.metrics.auc`) هي طرق شائعة لتلخيص منحنى دقة-استدعاء تؤدي إلى نتائج مختلفة. اقرأ المزيد في: :ref:`دليل المستخدم <precision_recall_f_measure_metrics>`.
 
-Precision-recall curves are typically used in binary classification to study
-the output of a classifier. In order to extend the precision-recall curve and
-average precision to multi-class or multi-label classification, it is necessary
-to binarize the output. One curve can be drawn per label, but one can also draw
-a precision-recall curve by considering each element of the label indicator
-matrix as a binary prediction (:ref:`micro-averaging <average>`).
+تستخدم منحنيات دقة-استدعاء عادةً في التصنيف الثنائي لدراسة ناتج المصنف. من أجل تمديد منحنى دقة-استدعاء والدقة المتوسطة إلى التصنيف متعدد الفئات أو متعدد التصنيفات، من الضروري جعل الناتج ثنائي القيمة. يمكن رسم منحنى واحد لكل تصنيف، ولكن يمكن أيضًا رسم منحنى دقة-استدعاء عن طريق اعتبار كل عنصر من مصفوفة مؤشر التصنيف على أنه تنبؤ ثنائي القيمة (:ref:`المتوسط الدقيق <average>`).
 
 .. note::
 
-    See also :func:`sklearn.metrics.average_precision_score`,
-             :func:`sklearn.metrics.recall_score`,
-             :func:`sklearn.metrics.precision_score`,
-             :func:`sklearn.metrics.f1_score`
+    راجع أيضًا: :func:`sklearn.metrics.average_precision_score`، :func:`sklearn.metrics.recall_score`، :func:`sklearn.metrics.precision_score`، :func:`sklearn.metrics.f1_score`
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف SPDX-License: BSD-3-Clause
 
 # %%
-# In binary classification settings
+# في إعدادات التصنيف الثنائي
 # ---------------------------------
 #
-# Dataset and model
+# مجموعة البيانات والنموذج
 # .................
 #
-# We will use a Linear SVC classifier to differentiate two types of irises.
+# سنستخدم مصنف Linear SVC للتمييز بين نوعين من زهرة السوسن.
 import numpy as np
 
 from sklearn.datasets import load_iris
@@ -110,19 +59,18 @@ from sklearn.model_selection import train_test_split
 
 X, y = load_iris(return_X_y=True)
 
-# Add noisy features
+# إضافة ميزات عشوائية
 random_state = np.random.RandomState(0)
 n_samples, n_features = X.shape
 X = np.concatenate([X, random_state.randn(n_samples, 200 * n_features)], axis=1)
 
-# Limit to the two first classes, and split into training and test
+# تقييد الفئتين الأوليين، وتقسيمهما إلى تدريب واختبار
 X_train, X_test, y_train, y_test = train_test_split(
     X[y < 2], y[y < 2], test_size=0.5, random_state=random_state
 )
 
 # %%
-# Linear SVC will expect each feature to have a similar range of values. Thus,
-# we will first scale the data using a
+# يتوقع Linear SVC أن يكون لكل ميزة نطاقًا مماثلاً من القيم. لذلك، سنقوم أولاً بضبط البيانات باستخدام
 # :class:`~sklearn.preprocessing.StandardScaler`.
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
@@ -132,63 +80,59 @@ classifier = make_pipeline(StandardScaler(), LinearSVC(random_state=random_state
 classifier.fit(X_train, y_train)
 
 # %%
-# Plot the Precision-Recall curve
+# رسم منحنى دقة-استدعاء
 # ...............................
 #
-# To plot the precision-recall curve, you should use
-# :class:`~sklearn.metrics.PrecisionRecallDisplay`. Indeed, there is two
-# methods available depending if you already computed the predictions of the
-# classifier or not.
+# لرسم منحنى دقة-استدعاء، يجب استخدام
+# :class:`~sklearn.metrics.PrecisionRecallDisplay`. في الواقع، هناك طريقتان متاحتان اعتمادًا على ما إذا كنت قد حسبت تنبؤات المصنف أم لا.
 #
-# Let's first plot the precision-recall curve without the classifier
-# predictions. We use
-# :func:`~sklearn.metrics.PrecisionRecallDisplay.from_estimator` that
-# computes the predictions for us before plotting the curve.
+# دعنا نرسم أولاً منحنى دقة-استدعاء بدون تنبؤات المصنف. نستخدم
+# :func:`~sklearn.metrics.PrecisionRecallDisplay.from_estimator` الذي
+# يحسب التنبؤات لنا قبل رسم المنحنى.
 from sklearn.metrics import PrecisionRecallDisplay
 
 display = PrecisionRecallDisplay.from_estimator(
     classifier, X_test, y_test, name="LinearSVC", plot_chance_level=True
 )
-_ = display.ax_.set_title("2-class Precision-Recall curve")
+_ = display.ax_.set_title("منحنى دقة-استدعاء من فئتين")
 
 # %%
-# If we already got the estimated probabilities or scores for
-# our model, then we can use
+# إذا حصلنا بالفعل على الاحتمالات أو الدرجات المقدرة
+# لنموذجنا، فيمكننا استخدام
 # :func:`~sklearn.metrics.PrecisionRecallDisplay.from_predictions`.
 y_score = classifier.decision_function(X_test)
 
 display = PrecisionRecallDisplay.from_predictions(
     y_test, y_score, name="LinearSVC", plot_chance_level=True
 )
-_ = display.ax_.set_title("2-class Precision-Recall curve")
+_ = display.ax_.set_title("منحنى دقة-استدعاء من فئتين")
 
 # %%
-# In multi-label settings
+# في إعدادات متعددة التصنيفات
 # -----------------------
 #
-# The precision-recall curve does not support the multilabel setting. However,
-# one can decide how to handle this case. We show such an example below.
+# لا يدعم منحنى دقة-استدعاء إعداد التصنيف متعدد التصنيفات. ومع ذلك،
+# يمكن للمرء أن يقرر كيفية التعامل مع هذه الحالة. نعرض مثل هذا المثال أدناه.
 #
-# Create multi-label data, fit, and predict
+# إنشاء بيانات متعددة التصنيفات، والتدريب، والتنبؤ
 # .........................................
 #
-# We create a multi-label dataset, to illustrate the precision-recall in
-# multi-label settings.
+# ننشئ مجموعة بيانات متعددة التصنيفات، لتوضيح دقة-استدعاء في
+# إعدادات متعددة التصنيفات.
 
 from sklearn.preprocessing import label_binarize
 
-# Use label_binarize to be multi-label like settings
+# استخدام label_binarize ليكون مثل إعدادات متعددة التصنيفات
 Y = label_binarize(y, classes=[0, 1, 2])
 n_classes = Y.shape[1]
 
-# Split into training and test
+# تقسيمها إلى تدريب واختبار
 X_train, X_test, Y_train, Y_test = train_test_split(
     X, Y, test_size=0.5, random_state=random_state
 )
 
 # %%
-# We use :class:`~sklearn.multiclass.OneVsRestClassifier` for multi-label
-# prediction.
+# نستخدم :class:`~sklearn.multiclass.OneVsRestClassifier` للتنبؤ متعدد التصنيفات.
 from sklearn.multiclass import OneVsRestClassifier
 
 classifier = OneVsRestClassifier(
@@ -199,11 +143,11 @@ y_score = classifier.decision_function(X_test)
 
 
 # %%
-# The average precision score in multi-label settings
+# متوسط درجة الدقة في إعدادات متعددة التصنيفات
 # ...................................................
 from sklearn.metrics import average_precision_score, precision_recall_curve
 
-# For each class
+# لكل فئة
 precision = dict()
 recall = dict()
 average_precision = dict()
@@ -211,14 +155,14 @@ for i in range(n_classes):
     precision[i], recall[i], _ = precision_recall_curve(Y_test[:, i], y_score[:, i])
     average_precision[i] = average_precision_score(Y_test[:, i], y_score[:, i])
 
-# A "micro-average": quantifying score on all classes jointly
+# "متوسط دقيق": تحديد درجة على جميع الفئات بشكل مشترك
 precision["micro"], recall["micro"], _ = precision_recall_curve(
     Y_test.ravel(), y_score.ravel()
 )
 average_precision["micro"] = average_precision_score(Y_test, y_score, average="micro")
 
 # %%
-# Plot the micro-averaged Precision-Recall curve
+# رسم منحنى دقة-استدعاء متوسط دقيق
 # ..............................................
 from collections import Counter
 
@@ -229,16 +173,16 @@ display = PrecisionRecallDisplay(
     prevalence_pos_label=Counter(Y_test.ravel())[1] / Y_test.size,
 )
 display.plot(plot_chance_level=True)
-_ = display.ax_.set_title("Micro-averaged over all classes")
+_ = display.ax_.set_title("متوسط دقيق على جميع الفئات")
 
 # %%
-# Plot Precision-Recall curve for each class and iso-f1 curves
+# رسم منحنى دقة-استدعاء لكل فئة ومنحنيات f1-iso
 # ............................................................
 from itertools import cycle
 
 import matplotlib.pyplot as plt
 
-# setup plot details
+# إعداد تفاصيل الرسم
 colors = cycle(["navy", "turquoise", "darkorange", "cornflowerblue", "teal"])
 
 _, ax = plt.subplots(figsize=(7, 8))
@@ -256,7 +200,7 @@ display = PrecisionRecallDisplay(
     precision=precision["micro"],
     average_precision=average_precision["micro"],
 )
-display.plot(ax=ax, name="Micro-average precision-recall", color="gold")
+display.plot(ax=ax, name="متوسط دقيق دقة-استدعاء", color="gold")
 
 for i, color in zip(range(n_classes), colors):
     display = PrecisionRecallDisplay(
@@ -264,14 +208,16 @@ for i, color in zip(range(n_classes), colors):
         precision=precision[i],
         average_precision=average_precision[i],
     )
-    display.plot(ax=ax, name=f"Precision-recall for class {i}", color=color)
+    display.plot(
+        ax=ax, name=f"دقة-استدعاء للفئة {i}", color=color
+    )
 
-# add the legend for the iso-f1 curves
+# إضافة الأسطورة لمنحنيات f1-iso
 handles, labels = display.ax_.get_legend_handles_labels()
 handles.extend([l])
-labels.extend(["iso-f1 curves"])
-# set the legend and the axes
+labels.extend(["منحنيات f1-iso"])
+# تعيين الأسطورة والمحاور
 ax.legend(handles=handles, labels=labels, loc="best")
-ax.set_title("Extension of Precision-Recall curve to multi-class")
+ax.set_title("توسيع منحنى دقة-استدعاء إلى التصنيف متعدد الفئات")
 
 plt.show()

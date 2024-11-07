@@ -18,30 +18,29 @@
 .. _sphx_glr_auto_examples_model_selection_plot_confusion_matrix.py:
 
 
-================
-Confusion matrix
-================
+==================
+مصفوفة الارتباك
+==================
 
-Example of confusion matrix usage to evaluate the quality
-of the output of a classifier on the iris data set. The
-diagonal elements represent the number of points for which
-the predicted label is equal to the true label, while
-off-diagonal elements are those that are mislabeled by the
-classifier. The higher the diagonal values of the confusion
-matrix the better, indicating many correct predictions.
+مثال على استخدام مصفوفة الارتباك لتقييم جودة
+مخرجات مصنف على مجموعة بيانات الزهرة Iris. تمثل العناصر القطرية
+عدد النقاط التي يكون فيها التصنيف المتوقع مساويًا للتصنيف الحقيقي،
+بينما العناصر خارج القطرية هي تلك التي يخطئ المصنف في تصنيفها.
+كلما كانت قيم القطرية لمصفوفة الارتباك أعلى، كان ذلك أفضل، مما يشير إلى
+الكثير من التوقعات الصحيحة.
 
-The figures show the confusion matrix with and without
-normalization by class support size (number of elements
-in each class). This kind of normalization can be
-interesting in case of class imbalance to have a more
-visual interpretation of which class is being misclassified.
+توضح الأشكال مصفوفة الارتباك مع وبدون
+التطبيع حسب حجم دعم الفئة (عدد العناصر
+في كل فئة). يمكن أن يكون هذا النوع من التطبيع
+مثيرًا للاهتمام في حالة عدم توازن الفئات للحصول على تفسير مرئي أكثر
+للفئة التي يتم تصنيفها بشكل خاطئ.
 
-Here the results are not as good as they could be as our
-choice for the regularization parameter C was not the best.
-In real life applications this parameter is usually chosen
-using :ref:`grid_search`.
+هنا النتائج ليست جيدة كما يمكن أن تكون لأن
+اختيارنا لمعامل الانتظام C لم يكن الأفضل.
+في التطبيقات الواقعية، عادة ما يتم اختيار هذا المعامل
+باستخدام البحث الشبكي.
 
-.. GENERATED FROM PYTHON SOURCE LINES 26-72
+.. GENERATED FROM PYTHON SOURCE LINES 24-68
 
 
 
@@ -51,14 +50,14 @@ using :ref:`grid_search`.
     *
 
       .. image-sg:: /auto_examples/model_selection/images/sphx_glr_plot_confusion_matrix_001.png
-         :alt: Confusion matrix, without normalization
+         :alt: مصفوفة الارتباك، بدون تطبيع
          :srcset: /auto_examples/model_selection/images/sphx_glr_plot_confusion_matrix_001.png
          :class: sphx-glr-multi-img
 
     *
 
       .. image-sg:: /auto_examples/model_selection/images/sphx_glr_plot_confusion_matrix_002.png
-         :alt: Normalized confusion matrix
+         :alt: مصفوفة الارتباك المطبعنة
          :srcset: /auto_examples/model_selection/images/sphx_glr_plot_confusion_matrix_002.png
          :class: sphx-glr-multi-img
 
@@ -67,11 +66,11 @@ using :ref:`grid_search`.
 
  .. code-block:: none
 
-    Confusion matrix, without normalization
+    مصفوفة الارتباك، بدون تطبيع
     [[13  0  0]
      [ 0 10  6]
      [ 0  0  9]]
-    Normalized confusion matrix
+    مصفوفة الارتباك المطبعنة
     [[1.   0.   0.  ]
      [0.   0.62 0.38]
      [0.   0.   1.  ]]
@@ -85,9 +84,8 @@ using :ref:`grid_search`.
 
 .. code-block:: Python
 
-
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري سكايلرن
+    # معرف الترخيص: BSD-3-Clause
 
     import matplotlib.pyplot as plt
     import numpy as np
@@ -96,25 +94,25 @@ using :ref:`grid_search`.
     from sklearn.metrics import ConfusionMatrixDisplay
     from sklearn.model_selection import train_test_split
 
-    # import some data to play with
+    # استيراد بعض البيانات للتجربة
     iris = datasets.load_iris()
     X = iris.data
     y = iris.target
     class_names = iris.target_names
 
-    # Split the data into a training set and a test set
+    # تقسيم البيانات إلى مجموعة تدريب ومجموعة اختبار
     X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
 
-    # Run classifier, using a model that is too regularized (C too low) to see
-    # the impact on the results
+    # تشغيل المصنف، باستخدام نموذج مفرط في الانتظام (C منخفض جدًا) لمشاهدة
+    # التأثير على النتائج
     classifier = svm.SVC(kernel="linear", C=0.01).fit(X_train, y_train)
 
     np.set_printoptions(precision=2)
 
-    # Plot non-normalized confusion matrix
+    # رسم مصفوفة الارتباك غير المطبعنة
     titles_options = [
-        ("Confusion matrix, without normalization", None),
-        ("Normalized confusion matrix", "true"),
+        ("مصفوفة الارتباك، بدون تطبيع", None),
+        ("مصفوفة الارتباك المطبعنة", "true"),
     ]
     for title, normalize in titles_options:
         disp = ConfusionMatrixDisplay.from_estimator(
@@ -132,10 +130,9 @@ using :ref:`grid_search`.
 
     plt.show()
 
-
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.191 seconds)
+   **Total running time of the script:** (0 minutes 0.205 seconds)
 
 
 .. _sphx_glr_download_auto_examples_model_selection_plot_confusion_matrix.py:

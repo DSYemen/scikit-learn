@@ -11,10 +11,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/modules/generated/sklearn.datasets.make_moons.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="Gallery examples: مقارنة خوارزميات التجميع المختلفة على مجموعات البيانات التجريبية" />
-<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_cluster_comparison_thumb.png" />
+<meta property="og:description" content="Gallery examples: المقارنة الإحصائية للنماذج باستخدام البحث الشبكي تغيير معامل التنظيم في الشبكة العصبية متعددة الطبقات مقارنة استراتيجيات التعلم العشوائي لتصنيف الشبكة العصبية متعددة الطبقات تجريد..." />
+<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_grid_search_stats_thumb.png" />
 <meta property="og:image:alt" content="" />
-<meta name="description" content="Gallery examples: مقارنة خوارزميات التجميع المختلفة على مجموعات البيانات التجريبية" />
+<meta name="description" content="Gallery examples: المقارنة الإحصائية للنماذج باستخدام البحث الشبكي تغيير معامل التنظيم في الشبكة العصبية متعددة الطبقات مقارنة استراتيجيات التعلم العشوائي لتصنيف الشبكة العصبية متعددة الطبقات تجريد..." />
 
     <title>make_moons &#8212; scikit-learn 1.6.dev0 documentation</title>
   
@@ -1304,7 +1304,7 @@
 <h1>make_moons<a class="headerlink" href="#make-moons" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="sklearn.datasets.make_moons">
-<span class="sig-prename descclassname"><span class="pre">sklearn.datasets.</span></span><span class="sig-name descname"><span class="pre">make_moons</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d6d4571215/sklearn/datasets/_samples_generator.py#L831"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.datasets.make_moons" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">sklearn.datasets.</span></span><span class="sig-name descname"><span class="pre">make_moons</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/ea2d8086cc/sklearn/datasets/_samples_generator.py#L831"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.datasets.make_moons" title="Link to this definition">#</a></dt>
 <dd><p>Make two interleaving half circles.</p>
 <p>A simple toy dataset to visualize clustering and classification
 algorithms. Read more in the <a class="reference internal" href="../../datasets/sample_generators.html#sample-generators"><span class="std std-ref">User Guide</span></a>.</p>
@@ -1349,9 +1349,21 @@ See <a class="reference internal" href="../../glossary.html#term-random_state"><
 
 <section id="gallery-examples">
 <h2>Gallery examples<a class="headerlink" href="#gallery-examples" title="Link to this heading">#</a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="هذا المثال يوضح خصائص خوارزميات التجميع المختلفة على مجموعات البيانات التي تعتبر &quot;مثيرة للاهتمام&quot; ولكنها لا تزال ثنائية الأبعاد. باستثناء مجموعة البيانات الأخيرة، تم ضبط معلمات كل من هذه الأزواج من مجموعة البيانات والخوارزمية لإنتاج نتائج تجميع جيدة. بعض الخوارزميات أكثر حساسية لقيم المعلمات من غيرها."><img alt="" src="../../_images/sphx_glr_plot_cluster_comparison_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/cluster/plot_cluster_comparison.html#sphx-glr-auto-examples-cluster-plot-cluster-comparison-py"><span class="std std-ref">مقارنة خوارزميات التجميع المختلفة على مجموعات البيانات التجريبية</span></a></p>
-  <div class="sphx-glr-thumbnail-title">مقارنة خوارزميات التجميع المختلفة على مجموعات البيانات التجريبية</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال كيفية المقارنة الإحصائية لأداء النماذج المدربة والمقيمة باستخدام GridSearchCV."><img alt="" src="../../_images/sphx_glr_plot_grid_search_stats_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/model_selection/plot_grid_search_stats.html#sphx-glr-auto-examples-model-selection-plot-grid-search-stats-py"><span class="std std-ref">المقارنة الإحصائية للنماذج باستخدام البحث الشبكي</span></a></p>
+  <div class="sphx-glr-thumbnail-title">المقارنة الإحصائية للنماذج باستخدام البحث الشبكي</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="مقارنة بين قيم مختلفة لمعامل التنظيم &#x27;alpha&#x27; على مجموعات بيانات اصطناعية. يوضح الرسم البياني أن قيم alpha المختلفة تعطي وظائف قرار مختلفة."><img alt="" src="../../_images/sphx_glr_plot_mlp_alpha_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/neural_networks/plot_mlp_alpha.html#sphx-glr-auto-examples-neural-networks-plot-mlp-alpha-py"><span class="std std-ref">تغيير معامل التنظيم في الشبكة العصبية متعددة الطبقات</span></a></p>
+  <div class="sphx-glr-thumbnail-title">تغيير معامل التنظيم في الشبكة العصبية متعددة الطبقات</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="هذا المثال يوضح بعض منحنيات الخسارة التدريبية لاستراتيجيات التعلم العشوائي المختلفة، بما في ذلك SGD و Adam. بسبب قيود الوقت، نستخدم عدة مجموعات بيانات صغيرة، والتي قد تكون مناسبة أكثر لخوارزمية L-BFGS. ومع ذلك، يبدو أن الاتجاه العام الموضح في هذه الأمثلة ينطبق أيضًا على مجموعات البيانات الأكبر."><img alt="" src="../../_images/sphx_glr_plot_mlp_training_curves_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/neural_networks/plot_mlp_training_curves.html#sphx-glr-auto-examples-neural-networks-plot-mlp-training-curves-py"><span class="std std-ref">مقارنة استراتيجيات التعلم العشوائي لتصنيف الشبكة العصبية متعددة الطبقات</span></a></p>
+  <div class="sphx-glr-thumbnail-title">مقارنة استراتيجيات التعلم العشوائي لتصنيف الشبكة العصبية متعددة الطبقات</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="توضيح لتجريد الميزات على مجموعات بيانات التصنيف الاصطناعية. يقوم تجريد الميزات بتفكيك كل ميزة إلى مجموعة من الصناديق, هنا موزعة بالتساوي في العرض. ثم يتم ترميز القيم المنفصلة بطريقة الترميز أحادي الساخن, وتعطى لمصنف خطي. تمكن هذه المعالجة المسبقة من سلوك غير خطي حتى على الرغم من أن المصنف خطي."><img alt="" src="../../_images/sphx_glr_plot_discretization_classification_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/preprocessing/plot_discretization_classification.html#sphx-glr-auto-examples-preprocessing-plot-discretization-classification-py"><span class="std std-ref">تجريد الميزات</span></a></p>
+  <div class="sphx-glr-thumbnail-title">تجريد الميزات</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال خصائص خوارزميات مختلفة للكشف عن الشذوذ على مجموعات بيانات ثنائية الأبعاد. تحتوي مجموعات البيانات على نمط واحد أو نمطين (مناطق ذات كثافة عالية) لتوضيح قدرة الخوارزميات على التعامل مع البيانات متعددة الأنماط."><img alt="" src="../../_images/sphx_glr_plot_anomaly_comparison_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/miscellaneous/plot_anomaly_comparison.html#sphx-glr-auto-examples-miscellaneous-plot-anomaly-comparison-py"><span class="std std-ref">مقارنة خوارزميات الكشف عن الشذوذ لكشف القيم المتطرفة في مجموعات بيانات تجريبية</span></a></p>
+  <div class="sphx-glr-thumbnail-title">مقارنة خوارزميات الكشف عن الشذوذ لكشف القيم المتطرفة في مجموعات بيانات تجريبية</div>
 </div></div></section>
 </section>
 

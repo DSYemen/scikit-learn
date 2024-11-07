@@ -18,40 +18,25 @@
 .. _sphx_glr_auto_examples_neighbors_plot_regression.py:
 
 
-============================
-Nearest Neighbors regression
-============================
+=======================
+أقرب جيران الانحدار
+=======================
 
-Demonstrate the resolution of a regression problem
-using a k-Nearest Neighbor and the interpolation of the
-target using both barycenter and constant weights.
+توضيح حل مشكلة الانحدار
+باستخدام أقرب جيران k- ونظام الاستيفاء للهدف باستخدام كل من الأوزان الثابتة والمركز الثقل.
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-14
+.. GENERATED FROM PYTHON SOURCE LINES 10-15
 
-.. code-block:: Python
-
-
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
-
-
-
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 15-20
-
-Generate sample data
+توليد بيانات العينة
 --------------------
-Here we generate a few data points to use to train the model. We also generate
-data in the whole range of the training data to visualize how the model would
-react in that whole region.
+هنا نقوم بتوليد بعض نقاط البيانات لاستخدامها في تدريب النموذج. كما نقوم بتوليد
+بيانات في النطاق الكامل لبيانات التدريب لتوضيح كيفية تفاعل النموذج
+في تلك المنطقة بالكامل.
 
-.. GENERATED FROM PYTHON SOURCE LINES 20-33
+.. GENERATED FROM PYTHON SOURCE LINES 15-29
 
 .. code-block:: Python
+
 
     import matplotlib.pyplot as plt
     import numpy as np
@@ -63,7 +48,7 @@ react in that whole region.
     X_test = np.linspace(0, 5, 500)[:, np.newaxis]
     y = np.sin(X_train).ravel()
 
-    # Add noise to targets
+    # إضافة ضوضاء إلى الأهداف
     y[::5] += 1 * (0.5 - np.random.rand(8))
 
 
@@ -73,16 +58,17 @@ react in that whole region.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 34-38
+.. GENERATED FROM PYTHON SOURCE LINES 30-34
 
-Fit regression model
+نموذج الانحدار المناسب
 --------------------
-Here we train a model and visualize how `uniform` and `distance`
-weights in prediction effect predicted values.
+هنا نقوم بتدريب نموذج وتوضيح كيفية تأثير الأوزان 'الموحدة' و 'المسافة'
+في التنبؤ بالقيم المتوقعة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-53
+.. GENERATED FROM PYTHON SOURCE LINES 34-49
 
 .. code-block:: Python
+
 
     n_neighbors = 5
 
@@ -101,7 +87,6 @@ weights in prediction effect predicted values.
     plt.show()
 
 
-
 .. image-sg:: /auto_examples/neighbors/images/sphx_glr_plot_regression_001.png
    :alt: KNeighborsRegressor (k = 5, weights = 'uniform'), KNeighborsRegressor (k = 5, weights = 'distance')
    :srcset: /auto_examples/neighbors/images/sphx_glr_plot_regression_001.png
@@ -114,7 +99,7 @@ weights in prediction effect predicted values.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.246 seconds)
+   **Total running time of the script:** (0 minutes 0.282 seconds)
 
 
 .. _sphx_glr_download_auto_examples_neighbors_plot_regression.py:

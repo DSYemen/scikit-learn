@@ -1,6 +1,6 @@
 .. _mixture_examples:
 
-Gaussian Mixture Models
+نماذج الخليط الجاوسي
 -----------------------
 
-Examples concerning the :mod:`sklearn.mixture` module.
+أمثلة تتعلق بوحدة :mod:`sklearn.mixture` .

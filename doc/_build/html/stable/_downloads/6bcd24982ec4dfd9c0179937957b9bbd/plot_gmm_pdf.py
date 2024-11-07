@@ -1,16 +1,15 @@
 """
-=========================================
-Density Estimation for a Gaussian mixture
-=========================================
+=============================
+تقدير الكثافة لمزيج غاوسي
+=============================
 
-Plot the density estimation of a mixture of two Gaussians. Data is
-generated from two Gaussians with different centers and covariance
-matrices.
+ارسم تقدير الكثافة لمزيج من غاوسيين. يتم توليد البيانات
+من غاوسيين لهما مراكز ومصفوفات تباين مختلفة.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -20,24 +19,24 @@ from sklearn import mixture
 
 n_samples = 300
 
-# generate random sample, two components
+# توليد عينة عشوائية، مكونان
 np.random.seed(0)
 
-# generate spherical data centered on (20, 20)
+# توليد بيانات كروية مركزها (20, 20)
 shifted_gaussian = np.random.randn(n_samples, 2) + np.array([20, 20])
 
-# generate zero centered stretched Gaussian data
+# توليد بيانات غاوسية ممدودة مركزها صفر
 C = np.array([[0.0, -0.7], [3.5, 0.7]])
 stretched_gaussian = np.dot(np.random.randn(n_samples, 2), C)
 
-# concatenate the two datasets into the final training set
+# دمج المجموعتين في مجموعة التدريب النهائية
 X_train = np.vstack([shifted_gaussian, stretched_gaussian])
 
-# fit a Gaussian Mixture Model with two components
+# ملاءمة نموذج مزيج غاوسي بمكونين
 clf = mixture.GaussianMixture(n_components=2, covariance_type="full")
 clf.fit(X_train)
 
-# display predicted scores by the model as a contour plot
+# عرض الدرجات المتوقعة بواسطة النموذج كخريطة خطوط
 x = np.linspace(-20.0, 30.0)
 y = np.linspace(-20.0, 40.0)
 X, Y = np.meshgrid(x, y)

@@ -19,33 +19,32 @@
 
 
 ======================
-Feature discretization
+تجريد الميزات
 ======================
 
-A demonstration of feature discretization on synthetic classification datasets.
-Feature discretization decomposes each feature into a set of bins, here equally
-distributed in width. The discrete values are then one-hot encoded, and given
-to a linear classifier. This preprocessing enables a non-linear behavior even
-though the classifier is linear.
+توضيح لتجريد الميزات على مجموعات بيانات التصنيف الاصطناعية.
+يقوم تجريد الميزات بتفكيك كل ميزة إلى مجموعة من الصناديق, هنا موزعة بالتساوي
+في العرض. ثم يتم ترميز القيم المنفصلة بطريقة الترميز أحادي الساخن, وتعطى
+لمصنف خطي. تمكن هذه المعالجة المسبقة من سلوك غير خطي حتى
+على الرغم من أن المصنف خطي.
 
-On this example, the first two rows represent linearly non-separable datasets
-(moons and concentric circles) while the third is approximately linearly
-separable. On the two linearly non-separable datasets, feature discretization
-largely increases the performance of linear classifiers. On the linearly
-separable dataset, feature discretization decreases the performance of linear
-classifiers. Two non-linear classifiers are also shown for comparison.
+في هذا المثال, يمثل الصفان الأولان مجموعات بيانات غير قابلة للفصل خطيًا
+(أقمار صناعية ودوائر متحدة المركز) بينما الثالثة قابلة للفصل تقريبًا.
+خطي. على مجموعات البيانات غير القابلة للفصل خطيًا, يزيد تجريد الميزات
+بشكل كبير من أداء المصنفات الخطية. على مجموعة البيانات القابلة للفصل خطيًا,
+يقلل تجريد الميزات من أداء المصنفات الخطية. يتم أيضًا عرض مصنفين غير خطيين
+للمقارنة.
 
-This example should be taken with a grain of salt, as the intuition conveyed
-does not necessarily carry over to real datasets. Particularly in
-high-dimensional spaces, data can more easily be separated linearly. Moreover,
-using feature discretization and one-hot encoding increases the number of
-features, which easily lead to overfitting when the number of samples is small.
+يجب أخذ هذا المثال مع حبة من الملح, حيث أن الحدس المنقول
+لا ينتقل بالضرورة إلى مجموعات البيانات الحقيقية. خاصة في
+الأبعاد العالية, يمكن فصل البيانات بسهولة أكبر بشكل خطي. علاوة على ذلك,
+يؤدي استخدام تجريد الميزات والترميز أحادي الساخن إلى زيادة عدد
+الميزات, والتي تؤدي بسهولة إلى الإفراط في التكيف عندما يكون عدد العينات صغيرًا.
 
-The plots show training points in solid colors and testing points
-semi-transparent. The lower right shows the classification accuracy on the test
-set.
+تظهر المخططات نقاط التدريب بألوان صلبة ونقاط الاختبار
+شبه شفافة. يظهر اليمين السفلي دقة التصنيف على مجموعة الاختبار.
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-230
+.. GENERATED FROM PYTHON SOURCE LINES 29-230
 
 
 
@@ -97,8 +96,8 @@ set.
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري سكايت-ليرن
+    # معرف SPDX-License: BSD-3-Clause
 
     import matplotlib.pyplot as plt
     import numpy as np
@@ -114,7 +113,7 @@ set.
     from sklearn.svm import SVC, LinearSVC
     from sklearn.utils._testing import ignore_warnings
 
-    h = 0.02  # step size in the mesh
+    h = 0.02  # حجم الخطوة في الشبكة
 
 
     def get_name(estimator):
@@ -125,50 +124,51 @@ set.
         return name
 
 
-    # list of (estimator, param_grid), where param_grid is used in GridSearchCV
-    # The parameter spaces in this example are limited to a narrow band to reduce
-    # its runtime. In a real use case, a broader search space for the algorithms
-    # should be used.
+
+    # قائمة (المقدر, param_grid), حيث يتم استخدام param_grid في GridSearchCV
+    # تم تحديد مساحات المعلمات في هذا المثال لتكون محدودة النطاق لتقليل
+    # وقت تشغيله. في حالة الاستخدام الفعلي, يجب استخدام مساحة بحث أوسع للخوارزميات
+    # يجب استخدام.
     classifiers = [
         (
-            make_pipeline(StandardScaler(), LogisticRegression(random_state=0)),
-            {"logisticregression__C": np.logspace(-1, 1, 3)},
+            make_pipeline (StandardScaler (), LogisticRegression (random_state = 0)),
+            {"logisticregression__C": np.logspace (-1, 1, 3)},
         ),
         (
-            make_pipeline(StandardScaler(), LinearSVC(random_state=0)),
-            {"linearsvc__C": np.logspace(-1, 1, 3)},
+            make_pipeline (StandardScaler (), LinearSVC (random_state = 0)),
+            {"linearsvc__C": np.logspace (-1, 1, 3)},
         ),
         (
-            make_pipeline(
-                StandardScaler(),
-                KBinsDiscretizer(encode="onehot", random_state=0),
-                LogisticRegression(random_state=0),
+            make_pipeline (
+                StandardScaler (),
+                KBinsDiscretizer (encode = "onehot", random_state = 0),
+                LogisticRegression (random_state = 0),
             ),
             {
-                "kbinsdiscretizer__n_bins": np.arange(5, 8),
-                "logisticregression__C": np.logspace(-1, 1, 3),
+                "kbinsdiscretizer__n_bins": np.arange (5, 8),
+                "logisticregression__C": np.logspace (-1, 1, 3),
             },
         ),
         (
-            make_pipeline(
-                StandardScaler(),
-                KBinsDiscretizer(encode="onehot", random_state=0),
-                LinearSVC(random_state=0),
+            make_pipeline (
+                StandardScaler (),
+                KBinsDiscretizer (encode = "onehot", random_state = 0),
+                LinearSVC (random_state = 0),
             ),
             {
-                "kbinsdiscretizer__n_bins": np.arange(5, 8),
-                "linearsvc__C": np.logspace(-1, 1, 3),
+                "kbinsdiscretizer__n_bins": np.arange (5, 8),
+                "linearsvc__C": np.logspace (-1, 1, 3),
             },
         ),
         (
-            make_pipeline(
-                StandardScaler(), GradientBoostingClassifier(n_estimators=5, random_state=0)
+            make_pipeline (
+                StandardScaler (), GradientBoostingClassifier (n_estimators = 5, random_state = 0)
             ),
-            {"gradientboostingclassifier__learning_rate": np.logspace(-2, 0, 5)},
+            {"gradientboostingclassifier__learning_rate": np.logspace (-2, 0, 5)},
         ),
         (
-            make_pipeline(StandardScaler(), SVC(random_state=0)),
-            {"svc__C": np.logspace(-1, 1, 3)},
+            make_pipeline (StandardScaler (), SVC (random_state = 0)),
+            {"svc__C": np.logspace (-1, 1, 3)},
         ),
     ]
 
@@ -176,15 +176,15 @@ set.
 
     n_samples = 100
     datasets = [
-        make_moons(n_samples=n_samples, noise=0.2, random_state=0),
-        make_circles(n_samples=n_samples, noise=0.2, factor=0.5, random_state=1),
-        make_classification(
-            n_samples=n_samples,
-            n_features=2,
-            n_redundant=0,
-            n_informative=2,
-            random_state=2,
-            n_clusters_per_class=1,
+        make_moons (n_samples = n_samples, noise = 0.2, random_state = 0),
+        make_circles (n_samples = n_samples, noise = 0.2, factor = 0.5, random_state = 1),
+        make_classification (
+            n_samples = n_samples,
+            n_features = 2,
+            n_redundant = 0,
+            n_informative = 2,
+            random_state = 2,
+            n_clusters_per_class = 1,
         ),
     ]
 
@@ -195,36 +195,36 @@ set.
     cm_piyg = plt.cm.PiYG
     cm_bright = ListedColormap(["#b30065", "#178000"])
 
-    # iterate over datasets
+    # التكرار عبر مجموعات البيانات
     for ds_cnt, (X, y) in enumerate(datasets):
         print(f"\ndataset {ds_cnt}\n---------")
 
-        # split into training and test part
-        X_train, X_test, y_train, y_test = train_test_split(
-            X, y, test_size=0.5, random_state=42
+        # تقسيم إلى جزء التدريب والاختبار
+        X_train, X_test, y_train, y_test = train_test_split (
+            X, y, test_size = 0.5, random_state = 42
         )
 
-        # create the grid for background colors
-        x_min, x_max = X[:, 0].min() - 0.5, X[:, 0].max() + 0.5
-        y_min, y_max = X[:, 1].min() - 0.5, X[:, 1].max() + 0.5
-        xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
+        # إنشاء الشبكة لألوان الخلفية
+        x_min, x_max = X [:, 0].min () - 0.5, X [:, 0].max () + 0.5
+        y_min, y_max = X [:, 1].min () - 0.5, X [:, 1].max () + 0.5
+        xx, yy = np.meshgrid (np.arange (x_min, x_max, h), np.arange (y_min, y_max, h))
 
-        # plot the dataset first
-        ax = axes[ds_cnt, 0]
+        # قم برسم مجموعة البيانات أولاً
+        ax = axes [ds_cnt, 0]
         if ds_cnt == 0:
-            ax.set_title("Input data")
-        # plot the training points
-        ax.scatter(X_train[:, 0], X_train[:, 1], c=y_train, cmap=cm_bright, edgecolors="k")
-        # and testing points
-        ax.scatter(
-            X_test[:, 0], X_test[:, 1], c=y_test, cmap=cm_bright, alpha=0.6, edgecolors="k"
+            ax.set_title ("Input data")
+        # قم برسم نقاط التدريب
+        ax.scatter (X_train [:, 0], X_train [:, 1], c = y_train, cmap = cm_bright, edgecolors = "k")
+        # ونقاط الاختبار
+        ax.scatter (
+            X_test [:, 0], X_test [:, 1], c = y_test, cmap = cm_bright, alpha = 0.6, edgecolors = "k"
         )
-        ax.set_xlim(xx.min(), xx.max())
-        ax.set_ylim(yy.min(), yy.max())
-        ax.set_xticks(())
-        ax.set_yticks(())
+        ax.set_xlim (xx.min (), xx.max ())
+        ax.set_ylim (yy.min (), yy.max ())
+        ax.set_xticks (())
+        ax.set_yticks (())
 
-        # iterate over classifiers
+        # التكرار عبر المصنفات
         for est_idx, (name, (estimator, param_grid)) in enumerate(zip(names, classifiers)):
             ax = axes[ds_cnt, est_idx + 1]
 
@@ -234,34 +234,34 @@ set.
             score = clf.score(X_test, y_test)
             print(f"{name}: {score:.2f}")
 
-            # plot the decision boundary. For that, we will assign a color to each
-            # point in the mesh [x_min, x_max]*[y_min, y_max].
+            # قم برسم حدود القرار. لهذا, سنقوم بتعيين لون لكل
+            # نقطة في الشبكة [x_min, x_max] * [y_min, y_max].
             if hasattr(clf, "decision_function"):
                 Z = clf.decision_function(np.column_stack([xx.ravel(), yy.ravel()]))
             else:
                 Z = clf.predict_proba(np.column_stack([xx.ravel(), yy.ravel()]))[:, 1]
 
-            # put the result into a color plot
-            Z = Z.reshape(xx.shape)
-            ax.contourf(xx, yy, Z, cmap=cm_piyg, alpha=0.8)
+            # ضع النتيجة في رسم تخطيطي ملون
+            Z = Z.reshape (xx.shape)
+            ax.contourf (xx, yy, Z, cmap = cm_piyg, alpha = 0.8)
 
-            # plot the training points
-            ax.scatter(
-                X_train[:, 0], X_train[:, 1], c=y_train, cmap=cm_bright, edgecolors="k"
+            # قم برسم نقاط التدريب
+            ax.scatter (
+                X_train [:, 0], X_train [:, 1], c = y_train, cmap = cm_bright, edgecolors = "k"
             )
-            # and testing points
-            ax.scatter(
-                X_test[:, 0],
-                X_test[:, 1],
-                c=y_test,
-                cmap=cm_bright,
-                edgecolors="k",
-                alpha=0.6,
+            # ونقاط الاختبار
+            ax.scatter (
+                X_test [:, 0],
+                X_test [:, 1],
+                c = y_test,
+                cmap = cm_bright,
+                edgecolors = "k",
+                alpha = 0.6,
             )
-            ax.set_xlim(xx.min(), xx.max())
-            ax.set_ylim(yy.min(), yy.max())
-            ax.set_xticks(())
-            ax.set_yticks(())
+            ax.set_xlim (xx.min (), xx.max ())
+            ax.set_ylim (yy.min (), yy.max ())
+            ax.set_xticks (())
+            ax.set_yticks (())
 
             if ds_cnt == 0:
                 ax.set_title(name.replace(" + ", "\n"))
@@ -278,12 +278,12 @@ set.
 
     plt.tight_layout()
 
-    # Add suptitles above the figure
-    plt.subplots_adjust(top=0.90)
+    # إضافة suptitles فوق الشكل
+    plt.subplots_adjust (top = 0.90)
     suptitles = [
-        "Linear classifiers",
-        "Feature discretization and linear classifiers",
-        "Non-linear classifiers",
+        "المصنفات الخطية",
+        "تجريد الميزات والمصنفات الخطية",
+        "المصنفات غير الخطية",
     ]
     for i, suptitle in zip([1, 3, 5], suptitles):
         ax = axes[0, i]
@@ -300,7 +300,7 @@ set.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 4.099 seconds)
+   **Total running time of the script:** (0 minutes 4.848 seconds)
 
 
 .. _sphx_glr_download_auto_examples_preprocessing_plot_discretization_classification.py:

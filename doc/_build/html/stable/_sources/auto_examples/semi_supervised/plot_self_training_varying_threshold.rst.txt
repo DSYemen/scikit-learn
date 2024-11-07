@@ -19,34 +19,32 @@
 
 
 =============================================
-Effect of varying threshold for self-training
+تأثير تغيير العتبة في التدريب الذاتي
 =============================================
 
-This example illustrates the effect of a varying threshold on self-training.
-The `breast_cancer` dataset is loaded, and labels are deleted such that only 50
-out of 569 samples have labels. A `SelfTrainingClassifier` is fitted on this
-dataset, with varying thresholds.
+يوضح هذا المثال تأثير تغيير العتبة على التدريب الذاتي.
+يتم تحميل مجموعة بيانات `breast_cancer`، ويتم حذف التصنيفات بحيث يكون 50
+عينة فقط من أصل 569 عينة لديها تصنيفات. يتم تثبيت `SelfTrainingClassifier` على هذه
+مجموعة البيانات، مع عتبات مختلفة.
 
-The upper graph shows the amount of labeled samples that the classifier has
-available by the end of fit, and the accuracy of the classifier. The lower
-graph shows the last iteration in which a sample was labeled. All values are
-cross validated with 3 folds.
+يوضح الرسم البياني العلوي كمية العينات المصنفة التي يمتلكها المصنف
+في نهاية التثبيت، ودقة المصنف. يوضح الرسم البياني السفلي آخر تكرار تم فيه تصنيف عينة. جميع القيم
+تم التحقق من صحتها عبر 3 طيات.
 
-At low thresholds (in [0.4, 0.5]), the classifier learns from samples that were
-labeled with a low confidence. These low-confidence samples are likely have
-incorrect predicted labels, and as a result, fitting on these incorrect labels
-produces a poor accuracy. Note that the classifier labels almost all of the
-samples, and only takes one iteration.
+عند العتبات المنخفضة (في [0.4, 0.5])، يتعلم المصنف من العينات التي تم تصنيفها
+بثقة منخفضة. من المحتمل أن تكون هذه العينات منخفضة الثقة لديها
+تصنيفات متوقعة غير صحيحة، ونتيجة لذلك، فإن التثبيت على هذه التصنيفات غير الصحيحة
+ينتج عنه دقة ضعيفة. لاحظ أن المصنف يصنف جميع العينات تقريبًا،
+ويأخذ تكرارًا واحدًا فقط.
 
-For very high thresholds (in [0.9, 1)) we observe that the classifier does not
-augment its dataset (the amount of self-labeled samples is 0). As a result, the
-accuracy achieved with a threshold of 0.9999 is the same as a normal supervised
-classifier would achieve.
+بالنسبة للعتبات العالية جدًا (في [0.9, 1)) نلاحظ أن المصنف لا
+يزيد من مجموعة بياناته (كمية العينات ذاتية التصنيف هي 0). ونتيجة لذلك، فإن
+الدقة التي تم تحقيقها بعتبة 0.9999 هي نفسها التي سيحققها المصنف المشرف العادي.
 
-The optimal accuracy lies in between both of these extremes at a threshold of
-around 0.7.
+تقع الدقة المثلى بين هذين الحدين عند عتبة تبلغ
+حوالي 0.7.
 
-.. GENERATED FROM PYTHON SOURCE LINES 31-120
+.. GENERATED FROM PYTHON SOURCE LINES 29-117
 
 
 
@@ -62,8 +60,8 @@ around 0.7.
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري scikit-learn
+    # معرف الترخيص: BSD-3-Clause
 
     import matplotlib.pyplot as plt
     import numpy as np
@@ -94,8 +92,8 @@ around 0.7.
     for i, threshold in enumerate(x_values):
         self_training_clf = SelfTrainingClassifier(base_classifier, threshold=threshold)
 
-        # We need manual cross validation so that we don't treat -1 as a separate
-        # class when computing accuracy
+        # نحتاج إلى التحقق اليدوي من الصحة بحيث لا نعامل -1 كفئة منفصلة
+        # عند حساب الدقة
         skfolds = StratifiedKFold(n_splits=n_splits)
         for fold, (train_index, test_index) in enumerate(skfolds.split(X, y)):
             X_train = X[train_index]
@@ -106,12 +104,12 @@ around 0.7.
 
             self_training_clf.fit(X_train, y_train)
 
-            # The amount of labeled samples that at the end of fitting
+            # كمية العينات المصنفة في نهاية التثبيت
             amount_labeled[i, fold] = (
                 total_samples
                 - np.unique(self_training_clf.labeled_iter_, return_counts=True)[1][0]
             )
-            # The last iteration the classifier labeled a sample in
+            # آخر تكرار قام فيه المصنف بتصنيف عينة
             amount_iterations[i, fold] = np.max(self_training_clf.labeled_iter_)
 
             y_pred = self_training_clf.predict(X_test)
@@ -151,10 +149,9 @@ around 0.7.
 
     plt.show()
 
-
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 5.051 seconds)
+   **Total running time of the script:** (0 minutes 5.426 seconds)
 
 
 .. _sphx_glr_download_auto_examples_semi_supervised_plot_self_training_varying_threshold.py:

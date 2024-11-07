@@ -19,21 +19,21 @@
 
 
 ========================================
-Release Highlights for scikit-learn 0.22
+أبرز ميزات الإصدار 0.22 من scikit-learn
 ========================================
 
 .. currentmodule:: sklearn
 
-We are pleased to announce the release of scikit-learn 0.22, which comes
-with many bug fixes and new features! We detail below a few of the major
-features of this release. For an exhaustive list of all the changes, please
-refer to the :ref:`release notes <release_notes_0_22>`.
+يسعدنا أن نعلن عن إصدار scikit-learn 0.22، والذي يأتي
+مع العديد من الإصلاحات للمشاكل والميزات الجديدة! نستعرض أدناه بعض الميزات الرئيسية
+لهذا الإصدار. للحصول على قائمة شاملة بجميع التغييرات، يرجى
+الرجوع إلى :ref:`ملاحظات الإصدار <release_notes_0_22>`.
 
-To install the latest version (with pip)::
+لتثبيت أحدث إصدار (مع pip)::
 
     pip install --upgrade scikit-learn
 
-or with conda::
+أو مع conda::
 
     conda install -c conda-forge scikit-learn
 
@@ -42,8 +42,8 @@ or with conda::
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري scikit-learn
+    # معرف الترخيص: BSD-3-Clause
 
 
 
@@ -54,18 +54,18 @@ or with conda::
 
 .. GENERATED FROM PYTHON SOURCE LINES 27-39
 
-New plotting API
+واجهة برمجة التطبيقات الجديدة للرسم
 ----------------
 
-A new plotting API is available for creating visualizations. This new API
-allows for quickly adjusting the visuals of a plot without involving any
-recomputation. It is also possible to add different plots to the same
-figure. The following example illustrates `plot_roc_curve`,
-but other plots utilities are supported like
-`plot_partial_dependence`,
-`plot_precision_recall_curve`, and
-`plot_confusion_matrix`. Read more about this new API in the
-:ref:`User Guide <visualizations>`.
+تتوفر واجهة برمجة تطبيقات جديدة لإنشاء الرسوم البيانية. تسمح هذه الواجهة الجديدة
+بالتعديل السريع للمظهر المرئي للرسم البياني دون الحاجة إلى إعادة الحساب. كما أنه من الممكن
+إضافة مخططات مختلفة إلى نفس
+الشكل. يوضح المثال التالي `plot_roc_curve`،
+ولكن يتم دعم المرافق الأخرى للمخططات مثل
+`plot_partial_dependence`،
+`plot_precision_recall_curve`، و
+`plot_confusion_matrix`. اقرأ المزيد حول هذه الواجهة الجديدة في
+:ref:`دليل المستخدم <visualizations>`.
 
 .. GENERATED FROM PYTHON SOURCE LINES 39-69
 
@@ -92,12 +92,12 @@ but other plots utilities are supported like
     rfc = RandomForestClassifier(random_state=42)
     rfc.fit(X_train, y_train)
 
-    # plot_roc_curve has been removed in version 1.2. From 1.2, use RocCurveDisplay instead.
+    # plot_roc_curve تم إزالته في الإصدار 1.2. بدءًا من الإصدار 1.2، استخدم RocCurveDisplay بدلاً من ذلك.
     # svc_disp = plot_roc_curve(svc, X_test, y_test)
     # rfc_disp = plot_roc_curve(rfc, X_test, y_test, ax=svc_disp.ax_)
     svc_disp = RocCurveDisplay.from_estimator(svc, X_test, y_test)
     rfc_disp = RocCurveDisplay.from_estimator(rfc, X_test, y_test, ax=svc_disp.ax_)
-    rfc_disp.figure_.suptitle("ROC curve comparison")
+    rfc_disp.figure_.suptitle("مقارنة منحنى ROC")
 
     plt.show()
 
@@ -105,7 +105,7 @@ but other plots utilities are supported like
 
 
 .. image-sg:: /auto_examples/release_highlights/images/sphx_glr_plot_release_highlights_0_22_0_001.png
-   :alt: ROC curve comparison
+   :alt: مقارنة منحنى ROC
    :srcset: /auto_examples/release_highlights/images/sphx_glr_plot_release_highlights_0_22_0_001.png
    :class: sphx-glr-single-img
 
@@ -113,25 +113,23 @@ but other plots utilities are supported like
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 70-85
+.. GENERATED FROM PYTHON SOURCE LINES 70-83
 
-Stacking Classifier and Regressor
+مصنف التكديس والمُرجع
 ---------------------------------
-:class:`~ensemble.StackingClassifier` and
+:class:`~ensemble.StackingClassifier` و
 :class:`~ensemble.StackingRegressor`
-allow you to have a stack of estimators with a final classifier or
-a regressor.
-Stacked generalization consists in stacking the output of individual
-estimators and use a classifier to compute the final prediction. Stacking
-allows to use the strength of each individual estimator by using their output
-as input of a final estimator.
-Base estimators are fitted on the full ``X`` while
-the final estimator is trained using cross-validated predictions of the
-base estimators using ``cross_val_predict``.
+تسمح لك بوجود مجموعة من المُقدرات مع مُقدر نهائي أو
+مُرجع.
+يتكون التكديس العام من تكديس ناتج المُقدرات الفردية واستخدام مُصنف لحساب التوقع النهائي. يسمح التكديس
+باستخدام قوة كل مُقدر فردي من خلال استخدام ناتجهم
+كمدخل لمُقدر نهائي.
+يتم تكييف المُقدرات الأساسية على "X" الكاملة بينما
+يتم تدريب المُقدر النهائي باستخدام تنبؤات مُصادقة عبر القيمة باستخدام "cross_val_predict".
 
-Read more in the :ref:`User Guide <stacking>`.
+اقرأ المزيد في :ref:`دليل المستخدم <stacking>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 85-103
+.. GENERATED FROM PYTHON SOURCE LINES 83-101
 
 .. code-block:: Python
 
@@ -166,15 +164,15 @@ Read more in the :ref:`User Guide <stacking>`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 104-109
+.. GENERATED FROM PYTHON SOURCE LINES 102-107
 
-Permutation-based feature importance
+أهمية الميزات القائمة على التبديل
 ------------------------------------
 
-The :func:`inspection.permutation_importance` can be used to get an
-estimate of the importance of each feature, for any fitted estimator:
+يمكن استخدام :func:`inspection.permutation_importance` للحصول على
+تقدير لأهمية كل ميزة، لأي مُقدر مُدرب:
 
-.. GENERATED FROM PYTHON SOURCE LINES 109-142
+.. GENERATED FROM PYTHON SOURCE LINES 107-138
 
 .. code-block:: Python
 
@@ -195,10 +193,8 @@ estimate of the importance of each feature, for any fitted estimator:
     fig, ax = plt.subplots()
     sorted_idx = result.importances_mean.argsort()
 
-    # `labels` argument in boxplot is deprecated in matplotlib 3.9 and has been
-    # renamed to `tick_labels`. The following code handles this, but as a
-    # scikit-learn user you probably can write simpler code by using `labels=...`
-    # (matplotlib < 3.9) or `tick_labels=...` (matplotlib >= 3.9).
+    # تم إيقاف `labels` argument في boxplot في matplotlib 3.9 وتمت إعادة تسميته إلى `tick_labels`. يتعامل الكود التالي مع هذا، ولكن كمستخدم لـ scikit-learn، يمكنك على الأرجح كتابة كود أبسط من خلال استخدام `labels=...`
+    # (matplotlib < 3.9) أو `tick_labels=...` (matplotlib >= 3.9).
     tick_labels_parameter_name = (
         "tick_labels"
         if parse_version(matplotlib.__version__) >= parse_version("3.9")
@@ -206,8 +202,8 @@ estimate of the importance of each feature, for any fitted estimator:
     )
     tick_labels_dict = {tick_labels_parameter_name: feature_names[sorted_idx]}
     ax.boxplot(result.importances[sorted_idx].T, vert=False, **tick_labels_dict)
-    ax.set_title("Permutation Importance of each feature")
-    ax.set_ylabel("Features")
+    ax.set_title("أهمية التبديل لكل ميزة")
+    ax.set_ylabel("الميزات")
     fig.tight_layout()
     plt.show()
 
@@ -215,7 +211,7 @@ estimate of the importance of each feature, for any fitted estimator:
 
 
 .. image-sg:: /auto_examples/release_highlights/images/sphx_glr_plot_release_highlights_0_22_0_002.png
-   :alt: Permutation Importance of each feature
+   :alt: أهمية التبديل لكل ميزة
    :srcset: /auto_examples/release_highlights/images/sphx_glr_plot_release_highlights_0_22_0_002.png
    :class: sphx-glr-single-img
 
@@ -223,17 +219,17 @@ estimate of the importance of each feature, for any fitted estimator:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 143-150
+.. GENERATED FROM PYTHON SOURCE LINES 139-146
 
-Native support for missing values for gradient boosting
+الدعم الأصلي للقيم المفقودة للتعزيز التدريجي
 -------------------------------------------------------
 
-The :class:`ensemble.HistGradientBoostingClassifier`
-and :class:`ensemble.HistGradientBoostingRegressor` now have native
-support for missing values (NaNs). This means that there is no need for
-imputing data when training or predicting.
+:class:`ensemble.HistGradientBoostingClassifier`
+و :class:`ensemble.HistGradientBoostingRegressor` لديهم الآن دعم أصلي
+للقيم المفقودة (NaNs). وهذا يعني أنه لا توجد حاجة
+لملء البيانات عند التدريب أو التنبؤ.
 
-.. GENERATED FROM PYTHON SOURCE LINES 150-159
+.. GENERATED FROM PYTHON SOURCE LINES 146-155
 
 .. code-block:: Python
 
@@ -259,21 +255,21 @@ imputing data when training or predicting.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 160-171
+.. GENERATED FROM PYTHON SOURCE LINES 156-167
 
-Precomputed sparse nearest neighbors graph
+رسم الجيران الأقرب القريب المُسبق
 ------------------------------------------
-Most estimators based on nearest neighbors graphs now accept precomputed
-sparse graphs as input, to reuse the same graph for multiple estimator fits.
-To use this feature in a pipeline, one can use the `memory` parameter, along
-with one of the two new transformers,
-:class:`neighbors.KNeighborsTransformer` and
-:class:`neighbors.RadiusNeighborsTransformer`. The precomputation
-can also be performed by custom estimators to use alternative
-implementations, such as approximate nearest neighbors methods.
-See more details in the :ref:`User Guide <neighbors_transformer>`.
+معظم المُقدرات القائمة على رسوم الجيران الأقرب تقبل الآن الرسوم البيانية المُسبقة
+المتناثرة كمدخل، لإعادة استخدام نفس الرسم البياني لعدة مُقدرات.
+لاستخدام هذه الميزة في خط أنابيب، يمكنك استخدام معلمة "memory"، إلى جانب
+أحد المحولين الجديدين،
+:class:`neighbors.KNeighborsTransformer` و
+:class:`neighbors.RadiusNeighborsTransformer`. يمكن أيضًا إجراء عملية ما قبل الحساب
+بواسطة مُقدرات مخصصة لاستخدام التنفيذ البديل، مثل
+أساليب الجيران الأقرب التقريبية.
+راجع المزيد من التفاصيل في :ref:`دليل المستخدم <neighbors_transformer>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 171-193
+.. GENERATED FROM PYTHON SOURCE LINES 167-188
 
 .. code-block:: Python
 
@@ -294,8 +290,7 @@ See more details in the :ref:`User Guide <neighbors_transformer>`.
         )
         estimator.fit(X)
 
-        # We can decrease the number of neighbors and the graph will not be
-        # recomputed.
+        # يمكننا تقليل عدد الجيران ولن يتم إعادة حساب الرسم البياني.
         estimator.set_params(isomap__n_neighbors=5)
         estimator.fit(X)
 
@@ -306,24 +301,22 @@ See more details in the :ref:`User Guide <neighbors_transformer>`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 194-208
+.. GENERATED FROM PYTHON SOURCE LINES 189-201
 
 KNN Based Imputation
 ------------------------------------
-We now support imputation for completing missing values using k-Nearest
+نحن ندعم الآن إكمال القيم المفقودة باستخدام k-Nearest
 Neighbors.
 
-Each sample's missing values are imputed using the mean value from
-``n_neighbors`` nearest neighbors found in the training set. Two samples are
-close if the features that neither is missing are close.
-By default, a euclidean distance metric
-that supports missing values,
-:func:`~sklearn.metrics.pairwise.nan_euclidean_distances`, is used to find the nearest
-neighbors.
+يتم إكمال القيم المفقودة لكل عينة باستخدام متوسط القيمة من
+"n_neighbors" الأقرب للجيران الذين تم العثور عليهم في مجموعة التدريب. العينتان قريبتان إذا كانت الميزات التي لا يفتقدها أي منهما قريبة.
+بشكل افتراضي، يتم استخدام مقياس المسافة
+الذي يدعم القيم المفقودة،
+:func:`~sklearn.metrics.pairwise.nan_euclidean_distances`، للعثور على الجيران الأقرب.
 
-Read more in the :ref:`User Guide <knnimpute>`.
+اقرأ المزيد في :ref:`دليل المستخدم <knnimpute>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 208-215
+.. GENERATED FROM PYTHON SOURCE LINES 201-208
 
 .. code-block:: Python
 
@@ -350,16 +343,16 @@ Read more in the :ref:`User Guide <knnimpute>`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 216-222
+.. GENERATED FROM PYTHON SOURCE LINES 209-215
 
-Tree pruning
+تقليم الشجرة
 ------------
 
-It is now possible to prune most tree-based estimators once the trees are
-built. The pruning is based on minimal cost-complexity. Read more in the
-:ref:`User Guide <minimal_cost_complexity_pruning>` for details.
+أصبح من الممكن الآن تقليم معظم المُقدرات القائمة على الشجرة بمجرد بناء الأشجار.
+يعتمد التقليم على الحد الأدنى من التكلفة والتعقيد. اقرأ المزيد في
+:ref:`دليل المستخدم <minimal_cost_complexity_pruning>` للحصول على التفاصيل.
 
-.. GENERATED FROM PYTHON SOURCE LINES 222-239
+.. GENERATED FROM PYTHON SOURCE LINES 215-232
 
 .. code-block:: Python
 
@@ -368,14 +361,14 @@ built. The pruning is based on minimal cost-complexity. Read more in the
 
     rf = RandomForestClassifier(random_state=0, ccp_alpha=0).fit(X, y)
     print(
-        "Average number of nodes without pruning {:.1f}".format(
+        "متوسط عدد العقد بدون تقليم {:.1f}".format(
             np.mean([e.tree_.node_count for e in rf.estimators_])
         )
     )
 
     rf = RandomForestClassifier(random_state=0, ccp_alpha=0.05).fit(X, y)
     print(
-        "Average number of nodes with pruning {:.1f}".format(
+        "متوسط عدد العقد مع التقليم {:.1f}".format(
             np.mean([e.tree_.node_count for e in rf.estimators_])
         )
     )
@@ -388,20 +381,20 @@ built. The pruning is based on minimal cost-complexity. Read more in the
 
  .. code-block:: none
 
-    Average number of nodes without pruning 22.3
-    Average number of nodes with pruning 6.4
+    متوسط عدد العقد بدون تقليم 22.3
+    متوسط عدد العقد مع التقليم 6.4
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 240-244
+.. GENERATED FROM PYTHON SOURCE LINES 233-237
 
-Retrieve dataframes from OpenML
+استرجاع جداول البيانات من OpenML
 -------------------------------
-:func:`datasets.fetch_openml` can now return pandas dataframe and thus
-properly handle datasets with heterogeneous data:
+:func:`datasets.fetch_openml` يمكنه الآن إرجاع جداول بيانات Pandas وبالتالي
+التعامل بشكل صحيح مع مجموعات البيانات ذات البيانات غير المتجانسة:
 
-.. GENERATED FROM PYTHON SOURCE LINES 244-250
+.. GENERATED FROM PYTHON SOURCE LINES 237-243
 
 .. code-block:: Python
 
@@ -429,22 +422,21 @@ properly handle datasets with heterogeneous data:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 251-263
+.. GENERATED FROM PYTHON SOURCE LINES 244-255
 
-Checking scikit-learn compatibility of an estimator
+التحقق من توافق scikit-learn لمُقدر
 ---------------------------------------------------
-Developers can check the compatibility of their scikit-learn compatible
-estimators using :func:`~utils.estimator_checks.check_estimator`. For
-instance, the ``check_estimator(LinearSVC())`` passes.
+يمكن للمطورين التحقق من توافق مُقدراتهم المتوافقة مع scikit-learn باستخدام :func:`~utils.estimator_checks.check_estimator`. على
+سبيل المثال، تمرير "check_estimator(LinearSVC())".
 
-We now provide a ``pytest`` specific decorator which allows ``pytest``
-to run all checks independently and report the checks that are failing.
+نحن نوفر الآن مُزخرف "pytest" محدد يسمح لـ "pytest"
+بتشغيل جميع الفحوصات بشكل مستقل والإبلاغ عن الفحوصات التي تفشل.
 
 ..note::
-  This entry was slightly updated in version 0.24, where passing classes
-  isn't supported anymore: pass instances instead.
+  تم تحديث هذا الإدخال بشكل طفيف في الإصدار 0.24، حيث لم يعد دعم تمرير الفئات
+  : قم بتمرير الحالات بدلاً من ذلك.
 
-.. GENERATED FROM PYTHON SOURCE LINES 263-274
+.. GENERATED FROM PYTHON SOURCE LINES 255-266
 
 .. code-block:: Python
 
@@ -466,23 +458,21 @@ to run all checks independently and report the checks that are failing.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 275-288
+.. GENERATED FROM PYTHON SOURCE LINES 267-278
 
-ROC AUC now supports multiclass classification
+ROC AUC الآن يدعم التصنيف متعدد الفئات
 ----------------------------------------------
-The :func:`~sklearn.metrics.roc_auc_score` function can also be used in multi-class
-classification. Two averaging strategies are currently supported: the
-one-vs-one algorithm computes the average of the pairwise ROC AUC scores, and
-the one-vs-rest algorithm computes the average of the ROC AUC scores for each
-class against all other classes. In both cases, the multiclass ROC AUC scores
-are computed from the probability estimates that a sample belongs to a
-particular class according to the model. The OvO and OvR algorithms support
-weighting uniformly (``average='macro'``) and weighting by the prevalence
+يمكن أيضًا استخدام دالة :func:`~sklearn.metrics.roc_auc_score` في التصنيف متعدد الفئات.
+يتم دعم استراتيجيتي المتوسط حاليًا: خوارزمية "one-vs-one" تحسب متوسط درجات ROC AUC الزوجية، و
+تحسب خوارزمية "one-vs-rest" متوسط درجات ROC AUC لكل
+فئة مقابل جميع الفئات الأخرى. في كلتا الحالتين، يتم حساب درجات ROC AUC متعددة الفئات
+من تقديرات الاحتمالية التي تنتمي عينة إلى فئة معينة وفقًا للنموذج. تدعم خوارزميتا OvO و OvR
+الوزن بشكل موحد (``average='macro'``) والوزن حسب الانتشار
 (``average='weighted'``).
 
-Read more in the :ref:`User Guide <roc_metrics>`.
+اقرأ المزيد في :ref:`دليل المستخدم <roc_metrics>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 288-297
+.. GENERATED FROM PYTHON SOURCE LINES 278-286
 
 .. code-block:: Python
 
@@ -498,12 +488,11 @@ Read more in the :ref:`User Guide <roc_metrics>`.
 
 
 
-
 .. rst-class:: sphx-glr-script-out
 
  .. code-block:: none
 
-    0.9936319914117014
+    0.9992000000000001
 
 
 
@@ -511,7 +500,7 @@ Read more in the :ref:`User Guide <roc_metrics>`.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 3.101 seconds)
+   **Total running time of the script:** (0 minutes 1.687 seconds)
 
 
 .. _sphx_glr_download_auto_examples_release_highlights_plot_release_highlights_0_22_0.py:

@@ -1,6 +1,6 @@
 .. _preprocessing_examples:
 
-Preprocessing
--------------
+المعالجة المسبقة للبيانات
+------------------------------
 
-Examples concerning the :mod:`sklearn.preprocessing` module.
+أمثلة تتعلق بوحدة :mod:`sklearn.preprocessing` .

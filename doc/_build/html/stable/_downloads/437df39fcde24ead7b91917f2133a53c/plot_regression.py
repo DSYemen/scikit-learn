@@ -1,22 +1,18 @@
 """
-============================
-Nearest Neighbors regression
-============================
+=======================
+أقرب جيران الانحدار
+=======================
 
-Demonstrate the resolution of a regression problem
-using a k-Nearest Neighbor and the interpolation of the
-target using both barycenter and constant weights.
+توضيح حل مشكلة الانحدار
+باستخدام أقرب جيران k- ونظام الاستيفاء للهدف باستخدام كل من الأوزان الثابتة والمركز الثقل.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
-
 # %%
-# Generate sample data
+# توليد بيانات العينة
 # --------------------
-# Here we generate a few data points to use to train the model. We also generate
-# data in the whole range of the training data to visualize how the model would
-# react in that whole region.
+# هنا نقوم بتوليد بعض نقاط البيانات لاستخدامها في تدريب النموذج. كما نقوم بتوليد
+# بيانات في النطاق الكامل لبيانات التدريب لتوضيح كيفية تفاعل النموذج
+# في تلك المنطقة بالكامل.
+
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -27,14 +23,15 @@ X_train = np.sort(5 * rng.rand(40, 1), axis=0)
 X_test = np.linspace(0, 5, 500)[:, np.newaxis]
 y = np.sin(X_train).ravel()
 
-# Add noise to targets
+# إضافة ضوضاء إلى الأهداف
 y[::5] += 1 * (0.5 - np.random.rand(8))
 
 # %%
-# Fit regression model
+# نموذج الانحدار المناسب
 # --------------------
-# Here we train a model and visualize how `uniform` and `distance`
-# weights in prediction effect predicted values.
+# هنا نقوم بتدريب نموذج وتوضيح كيفية تأثير الأوزان 'الموحدة' و 'المسافة'
+# في التنبؤ بالقيم المتوقعة.
+
 n_neighbors = 5
 
 for i, weights in enumerate(["uniform", "distance"]):

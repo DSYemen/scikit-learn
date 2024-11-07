@@ -1,6 +1,6 @@
 .. _multiclass_examples:
 
-Multiclass methods
-------------------
+الطرق المتعددة الفئات
+------------------------
 
-Examples concerning the :mod:`sklearn.multiclass` module.
+أمثلة تتعلق بوحدة :mod:`sklearn.multiclass` .

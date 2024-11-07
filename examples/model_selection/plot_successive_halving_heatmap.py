@@ -1,13 +1,12 @@
 """
-Comparison between grid search and successive halving
+=====================================================
+مقارنة بين البحث الشبكي وتقليص الخيارات المتتابع
 =====================================================
 
-This example compares the parameter search performed by
-:class:`~sklearn.model_selection.HalvingGridSearchCV` and
+يقارن هذا المثال عملية البحث عن المعاملات التي يقوم بها كل من
+:class:`~sklearn.model_selection.HalvingGridSearchCV` و
 :class:`~sklearn.model_selection.GridSearchCV`.
-
 """
-
 # Authors: The scikit-learn developers
 # SPDX-License-Identifier: BSD-3-Clause
 
@@ -21,12 +20,11 @@ from sklearn import datasets
 from sklearn.experimental import enable_halving_search_cv  # noqa
 from sklearn.model_selection import GridSearchCV, HalvingGridSearchCV
 from sklearn.svm import SVC
-
 # %%
-# We first define the parameter space for an :class:`~sklearn.svm.SVC`
-# estimator, and compute the time required to train a
-# :class:`~sklearn.model_selection.HalvingGridSearchCV` instance, as well as a
-# :class:`~sklearn.model_selection.GridSearchCV` instance.
+# نحدد أولاً مساحة المعاملات لمصنف :class:`~sklearn.svm.SVC`،
+# ونحسب الوقت اللازم لتدريب مثيل :class:`~sklearn.model_selection.HalvingGridSearchCV`،
+# وكذلك مثيل :class:`~sklearn.model_selection.GridSearchCV`.
+
 
 rng = np.random.RandomState(0)
 X, y = datasets.make_classification(n_samples=1000, random_state=rng)
@@ -50,17 +48,17 @@ gs.fit(X, y)
 gs_time = time() - tic
 
 # %%
-# We now plot heatmaps for both search estimators.
+# نعرض الآن مخططات حرارية لكلا المصنفين.
 
 
 def make_heatmap(ax, gs, is_sh=False, make_cbar=False):
-    """Helper to make a heatmap."""
+    """مساعد لإنشاء مخطط حراري."""
     results = pd.DataFrame(gs.cv_results_)
     results[["param_C", "param_gamma"]] = results[["param_C", "param_gamma"]].astype(
         np.float64
     )
     if is_sh:
-        # SH dataframe: get mean_test_score values for the highest iter
+        # مصفوفة SH: الحصول على قيم mean_test_score للـ iter الأعلى
         scores_matrix = results.sort_values("iter").pivot_table(
             index="param_gamma",
             columns="param_C",
@@ -82,7 +80,7 @@ def make_heatmap(ax, gs, is_sh=False, make_cbar=False):
     ax.set_yticklabels(["{:.0E}".format(x) for x in gammas])
     ax.set_ylabel("gamma", fontsize=15)
 
-    # Rotate the tick labels and set their alignment.
+    # تدوير تسميات التكتيكات وضبط محاذاتها.
     plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
 
     if is_sh:
@@ -120,13 +118,13 @@ ax2.set_title("GridSearch\ntime = {:.3f}s".format(gs_time), fontsize=15)
 plt.show()
 
 # %%
-# The heatmaps show the mean test score of the parameter combinations for an
-# :class:`~sklearn.svm.SVC` instance. The
-# :class:`~sklearn.model_selection.HalvingGridSearchCV` also shows the
-# iteration at which the combinations where last used. The combinations marked
-# as ``0`` were only evaluated at the first iteration, while the ones with
-# ``5`` are the parameter combinations that are considered the best ones.
+# توضح المخططات الحرارية متوسط درجة الاختبار لتركيبات المعاملات لمصنف
+# :class:`~sklearn.svm.SVC`. كما يظهر
+# :class:`~sklearn.model_selection.HalvingGridSearchCV`
+# أيضاً الـ iter الذي تم فيه استخدام التركيبات للمرة الأخيرة. التركيبات التي تم
+# تمييزها بـ "0" تم تقييمها فقط في الـ iter الأول، بينما تلك التي تحمل "5" هي
+# تركيبات المعاملات التي تعتبر الأفضل.
 #
-# We can see that the :class:`~sklearn.model_selection.HalvingGridSearchCV`
-# class is able to find parameter combinations that are just as accurate as
-# :class:`~sklearn.model_selection.GridSearchCV`, in much less time.
+# يمكننا أن نرى أن فئة :class:`~sklearn.model_selection.HalvingGridSearchCV`
+# قادرة على إيجاد تركيبات معاملات دقيقة مثل
+# :class:`~sklearn.model_selection.GridSearchCV`، في وقت أقل بكثير.

@@ -1,34 +1,34 @@
 """
-================
-Metadata Routing
-================
+==========================
+توجيه البيانات الوصفية
+==========================
 
 .. currentmodule:: sklearn
 
-This document shows how you can use the :ref:`metadata routing mechanism
-<metadata_routing>` in scikit-learn to route metadata to the estimators,
-scorers, and CV splitters consuming them.
+توضح هذه الوثيقة كيفية استخدام آلية توجيه البيانات الوصفية
+<metadata_routing> في scikit-learn لتوجيه البيانات الوصفية إلى
+المقدرات، والمقيمين، ومقسمات CV التي تستهلكها.
 
-To better understand the following document, we need to introduce two concepts:
-routers and consumers. A router is an object which forwards some given data and
-metadata to other objects. In most cases, a router is a :term:`meta-estimator`,
-i.e. an estimator which takes another estimator as a parameter. A function such
-as :func:`sklearn.model_selection.cross_validate` which takes an estimator as a
-parameter and forwards data and metadata, is also a router.
+لفهم الوثيقة التالية بشكل أفضل، نحتاج إلى تقديم مفهومين:
+الموجهات والمستهلكين. الموجه هو كائن يقوم بتوجيه بعض البيانات والبيانات
+الوصفية المعطاة إلى كائنات أخرى. في معظم الحالات، يكون الموجه عبارة عن
+:term:`meta-estimator`، أي مقدر يأخذ مقدرًا آخر كمعلمة. وظيفة مثل
+:func:`sklearn.model_selection.cross_validate` التي تأخذ مقدرًا كمعلمة
+وتقوم بتوجيه البيانات والبيانات الوصفية، هي أيضًا موجه.
 
-A consumer, on the other hand, is an object which accepts and uses some given
-metadata. For instance, an estimator taking into account ``sample_weight`` in
-its :term:`fit` method is a consumer of ``sample_weight``.
+من ناحية أخرى، المستهلك هو كائن يقبل ويستخدم بعض البيانات الوصفية
+المعطاة. على سبيل المثال، مقدر يأخذ في الاعتبار "sample_weight" في
+طريقته :term:`fit` هو مستهلك "sample_weight".
 
-It is possible for an object to be both a router and a consumer. For instance,
-a meta-estimator may take into account ``sample_weight`` in certain
-calculations, but it may also route it to the underlying estimator.
+من الممكن أن يكون الكائن موجهًا ومستهلكًا في نفس الوقت. على سبيل المثال،
+قد يأخذ الميتا-مقدر في الاعتبار "sample_weight" في حسابات معينة، ولكنه
+قد يقوم أيضًا بتوجيهه إلى المقدر الأساسي.
 
-First a few imports and some random data for the rest of the script.
+أولاً بعض الاستيرادات وبعض البيانات العشوائية لبقية البرنامج النصي.
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف SPDX-License: BSD-3-Clause
 
 # %%
 
@@ -65,12 +65,12 @@ my_weights = rng.rand(n_samples)
 my_other_weights = rng.rand(n_samples)
 
 # %%
-# Metadata routing is only available if explicitly enabled:
+# توجيه البيانات الوصفية متاح فقط إذا تم تمكينه بشكل صريح:
 set_config(enable_metadata_routing=True)
 
 
 # %%
-# This utility function is a dummy to check if a metadata is passed:
+# هذه الدالة المساعدة هي دمية للتحقق مما إذا تم تمرير البيانات الوصفية:
 def check_metadata(obj, **kwargs):
     for key, value in kwargs.items():
         if value is not None:
@@ -82,54 +82,54 @@ def check_metadata(obj, **kwargs):
 
 
 # %%
-# A utility function to nicely print the routing information of an object:
+# دالة مساعدة لطباعة معلومات التوجيه بشكل جميل:
 def print_routing(obj):
     pprint(obj.get_metadata_routing()._serialize())
 
 
 # %%
-# Consuming Estimator
+# المُقدر المستهلك
 # -------------------
-# Here we demonstrate how an estimator can expose the required API to support
-# metadata routing as a consumer. Imagine a simple classifier accepting
-# ``sample_weight`` as a metadata on its ``fit`` and ``groups`` in its
-# ``predict`` method:
+# هنا نُظهر كيف يمكن لمقدر أن يعرض واجهة برمجة التطبيقات المطلوبة لدعم
+# توجيه البيانات الوصفية كمستهلك. تخيل مصنفًا بسيطًا يقبل
+# "sample_weight" كبيانات وصفية على "fit" و "groups" في
+# طريقة "predict":
 
 
 class ExampleClassifier(ClassifierMixin, BaseEstimator):
     def fit(self, X, y, sample_weight=None):
         check_metadata(self, sample_weight=sample_weight)
-        # all classifiers need to expose a classes_ attribute once they're fit.
+        # جميع المصنفات تحتاج إلى عرض سمة classes_ بمجرد ملائمتها.
         self.classes_ = np.array([0, 1])
         return self
 
     def predict(self, X, groups=None):
         check_metadata(self, groups=groups)
-        # return a constant value of 1, not a very smart classifier!
+        # إرجاع قيمة ثابتة 1، ليس مصنفًا ذكيًا جدًا!
         return np.ones(len(X))
 
 
 # %%
-# The above estimator now has all it needs to consume metadata. This is
-# accomplished by some magic done in :class:`~base.BaseEstimator`. There are
-# now three methods exposed by the above class: ``set_fit_request``,
-# ``set_predict_request``, and ``get_metadata_routing``. There is also a
-# ``set_score_request`` for ``sample_weight`` which is present since
-# :class:`~base.ClassifierMixin` implements a ``score`` method accepting
-# ``sample_weight``. The same applies to regressors which inherit from
+# الآن يمتلك المُقدر أعلاه كل ما يحتاجه لاستهلاك البيانات الوصفية. هذا
+# يتم إنجازه ببعض السحر الذي يتم في :class:`~base.BaseEstimator`. هناك
+# الآن ثلاث طرق معروضة بواسطة الفئة أعلاه: "set_fit_request"،
+# "set_predict_request"، و "get_metadata_routing". هناك أيضًا
+# "set_score_request" لـ "sample_weight" الموجودة منذ
+# :class:`~base.ClassifierMixin` تنفذ طريقة "score" التي تقبل
+# "sample_weight". وينطبق الشيء نفسه على المقدرات التي ترث من
 # :class:`~base.RegressorMixin`.
 #
-# By default, no metadata is requested, which we can see as:
+# بشكل افتراضي، لا يتم طلب أي بيانات وصفية، والتي يمكننا رؤيتها على النحو التالي:
 
 print_routing(ExampleClassifier())
 
 # %%
-# The above output means that ``sample_weight`` and ``groups`` are not
-# requested by `ExampleClassifier`, and if a router is given those metadata, it
-# should raise an error, since the user has not explicitly set whether they are
-# required or not. The same is true for ``sample_weight`` in the ``score``
-# method, which is inherited from :class:`~base.ClassifierMixin`. In order to
-# explicitly set request values for those metadata, we can use these methods:
+# يعني الإخراج أعلاه أن "sample_weight" و "groups" غير مطلوبة
+# بواسطة `ExampleClassifier`، وإذا تم إعطاء موجه هذه البيانات الوصفية، فإنه
+# يجب أن يرفع خطأ، حيث لم يحدد المستخدم صراحة ما إذا كانوا مطلوبين أم لا.
+# وينطبق الشيء نفسه على "sample_weight" في طريقة "score"، والتي يتم
+# وراثتها من :class:`~base.ClassifierMixin`. من أجل تحديد قيم الطلب
+# صراحة لهذه البيانات الوصفية، يمكننا استخدام هذه الطرق:
 
 est = (
     ExampleClassifier()
@@ -141,22 +141,21 @@ print_routing(est)
 
 # %%
 # .. note ::
-#     Please note that as long as the above estimator is not used in a
-#     meta-estimator, the user does not need to set any requests for the
-#     metadata and the set values are ignored, since a consumer does not
-#     validate or route given metadata. A simple usage of the above estimator
-#     would work as expected.
+#     يرجى ملاحظة أنه طالما أن المُقدر أعلاه لا يتم استخدامه في
+#     ميتا-مقدر، لا يحتاج المستخدم إلى تحديد أي طلبات للبيانات
+#     الوصفية والقيم المحددة يتم تجاهلها، حيث أن المستهلك لا
+#     يتحقق من صحة البيانات الوصفية المعطاة أو يقوم بتوجيهها. سيؤدي
+#     الاستخدام البسيط للمُقدر أعلاه إلى العمل كما هو متوقع.
 
 est = ExampleClassifier()
 est.fit(X, y, sample_weight=my_weights)
 est.predict(X[:3, :], groups=my_groups)
 
 # %%
-# Routing Meta-Estimator
+# المُقدر الموجه
 # ----------------------
-# Now, we show how to design a meta-estimator to be a router. As a simplified
-# example, here is a meta-estimator, which doesn't do much other than routing
-# the metadata.
+# الآن، نُظهر كيفية تصميم ميتا-مقدر ليكون موجهًا. كمثال مبسط،
+# هنا ميتا-مقدر، لا يفعل الكثير غير توجيه البيانات الوصفية.
 
 
 class MetaClassifier(MetaEstimatorMixin, ClassifierMixin, BaseEstimator):
@@ -164,9 +163,9 @@ class MetaClassifier(MetaEstimatorMixin, ClassifierMixin, BaseEstimator):
         self.estimator = estimator
 
     def get_metadata_routing(self):
-        # This method defines the routing for this meta-estimator.
-        # In order to do so, a `MetadataRouter` instance is created, and the
-        # routing is added to it. More explanations follow below.
+        # هذه الطريقة تحدد التوجيه لهذا الميتا-مقدر.
+        # من أجل القيام بذلك، يتم إنشاء مثيل `MetadataRouter`، ويتم إضافة
+        # التوجيه إليه. تليها المزيد من التوضيحات أدناه.
         router = MetadataRouter(owner=self.__class__.__name__).add(
             estimator=self.estimator,
             method_mapping=MethodMapping()
@@ -177,34 +176,33 @@ class MetaClassifier(MetaEstimatorMixin, ClassifierMixin, BaseEstimator):
         return router
 
     def fit(self, X, y, **fit_params):
-        # `get_routing_for_object` returns a copy of the `MetadataRouter`
-        # constructed by the above `get_metadata_routing` method, that is
-        # internally called.
+        # `get_routing_for_object` يعيد نسخة من `MetadataRouter`
+        # التي تم إنشاؤها بواسطة طريقة `get_metadata_routing` أعلاه، والتي يتم
+        # استدعاؤها داخليًا.
         request_router = get_routing_for_object(self)
-        # Meta-estimators are responsible for validating the given metadata.
-        # `method` refers to the parent's method, i.e. `fit` in this example.
+        # الميتا-مقدرات مسؤولة عن التحقق من صحة البيانات الوصفية المعطاة.
+        # `method` تشير إلى طريقة الوالد، أي `fit` في هذا المثال.
         request_router.validate_metadata(params=fit_params, method="fit")
-        # `MetadataRouter.route_params` maps the given metadata to the metadata
-        # required by the underlying estimator based on the routing information
-        # defined by the MetadataRouter. The output of type `Bunch` has a key
-        # for each consuming object and those hold keys for their consuming
-        # methods, which then contain key for the metadata which should be
-        # routed to them.
+        # `MetadataRouter.route_params` يقوم برسم خريطة للبيانات الوصفية المعطاة
+        # إلى البيانات الوصفية المطلوبة بواسطة المُقدر الأساسي بناءً على
+        # معلومات التوجيه المحددة بواسطة MetadataRouter. الإخراج من النوع
+        # `Bunch` يحتوي على مفتاح لكل كائن مستهلك وتلك التي تحتوي على مفاتيح
+        # لطرقهم المستهلكة، والتي تحتوي بعد ذلك على مفاتيح للبيانات الوصفية
+        # التي يجب توجيهها إليهم.
         routed_params = request_router.route_params(params=fit_params, caller="fit")
 
-        # A sub-estimator is fitted and its classes are attributed to the
-        # meta-estimator.
+        # يتم ملاءمة مُقدر فرعي وتعيين فئاته إلى الميتا-مقدر.
         self.estimator_ = clone(self.estimator).fit(X, y, **routed_params.estimator.fit)
         self.classes_ = self.estimator_.classes_
         return self
 
     def predict(self, X, **predict_params):
         check_is_fitted(self)
-        # As in `fit`, we get a copy of the object's MetadataRouter,
+        # كما في `fit`، نحصل على نسخة من MetadataRouter للكائن،
         request_router = get_routing_for_object(self)
-        # then we validate the given metadata,
+        # ثم نقوم بالتحقق من صحة البيانات الوصفية المعطاة،
         request_router.validate_metadata(params=predict_params, method="predict")
-        # and then prepare the input to the underlying `predict` method.
+        # ثم نعد الإدخال إلى طريقة "predict" الأساسية.
         routed_params = request_router.route_params(
             params=predict_params, caller="predict"
         )
@@ -212,23 +210,23 @@ class MetaClassifier(MetaEstimatorMixin, ClassifierMixin, BaseEstimator):
 
 
 # %%
-# Let's break down different parts of the above code.
+# دعنا نحلل الأجزاء المختلفة من الكود أعلاه.
 #
-# First, the :meth:`~utils.metadata_routing.get_routing_for_object` takes our
-# meta-estimator (``self``) and returns a
-# :class:`~utils.metadata_routing.MetadataRouter` or, a
-# :class:`~utils.metadata_routing.MetadataRequest` if the object is a consumer,
-# based on the output of the estimator's ``get_metadata_routing`` method.
+# أولاً، :meth:`~utils.metadata_routing.get_routing_for_object` يأخذ
+# الميتا-مقدر (``self``) ويعيد
+# :class:`~utils.metadata_routing.MetadataRouter` أو،
+# :class:`~utils.metadata_routing.MetadataRequest` إذا كان الكائن مستهلكًا،
+# بناءً على إخراج طريقة "get_metadata_routing" للمُقدر.
 #
-# Then in each method, we use the ``route_params`` method to construct a
-# dictionary of the form ``{"object_name": {"method_name": {"metadata":
-# value}}}`` to pass to the underlying estimator's method. The ``object_name``
-# (``estimator`` in the above ``routed_params.estimator.fit`` example) is the
-# same as the one added in the ``get_metadata_routing``. ``validate_metadata``
-# makes sure all given metadata are requested to avoid silent bugs.
+# ثم في كل طريقة، نستخدم طريقة "route_params" لإنشاء قاموس على شكل
+# ``{"object_name": {"method_name": {"metadata": value}}}`` لتمريره إلى
+# طريقة المُقدر الأساسي. "object_name" (``estimator`` في مثال
+# "routed_params.estimator.fit" أعلاه) هو نفسه الذي تمت إضافته في
+# "get_metadata_routing". "validate_metadata" تتأكد من أن جميع البيانات
+# الوصفية المعطاة مطلوبة لتجنب الأخطاء الصامتة.
 #
-# Next, we illustrate the different behaviors and notably the type of errors
-# raised.
+# بعد ذلك، نوضح السلوكيات المختلفة، وخاصة نوع الأخطاء التي تم
+# إثارتها.
 
 meta_est = MetaClassifier(
     estimator=ExampleClassifier().set_fit_request(sample_weight=True)
@@ -236,29 +234,29 @@ meta_est = MetaClassifier(
 meta_est.fit(X, y, sample_weight=my_weights)
 
 # %%
-# Note that the above example is calling our utility function
-# `check_metadata()` via the `ExampleClassifier`. It checks that
-# ``sample_weight`` is correctly passed to it. If it is not, like in the
-# following example, it would print that ``sample_weight`` is ``None``:
+# لاحظ أن المثال أعلاه يستدعي دالة المساعدة الخاصة بنا
+# `check_metadata()` عبر `ExampleClassifier`. يتحقق من أن
+# "sample_weight" يتم تمريره بشكل صحيح إليه. إذا لم يكن كذلك، مثل
+# في المثال التالي، فإنه سيطبع أن "sample_weight" هو "None":
 
 meta_est.fit(X, y)
 
 # %%
-# If we pass an unknown metadata, an error is raised:
+# إذا قمنا بتمرير بيانات وصفية غير معروفة، يتم إثارة خطأ:
 try:
     meta_est.fit(X, y, test=my_weights)
 except TypeError as e:
     print(e)
 
 # %%
-# And if we pass a metadata which is not explicitly requested:
+# وإذا قمنا بتمرير بيانات وصفية غير مطلوبة صراحة:
 try:
     meta_est.fit(X, y, sample_weight=my_weights).predict(X, groups=my_groups)
 except ValueError as e:
     print(e)
 
 # %%
-# Also, if we explicitly set it as not requested, but it is provided:
+# أيضًا، إذا قمنا بتحديد صراحة أنه غير مطلوب، ولكنه يتم توفيره:
 meta_est = MetaClassifier(
     estimator=ExampleClassifier()
     .set_fit_request(sample_weight=True)
@@ -270,80 +268,78 @@ except TypeError as e:
     print(e)
 
 # %%
-# Another concept to introduce is **aliased metadata**. This is when an
-# estimator requests a metadata with a different variable name than the default
-# variable name. For instance, in a setting where there are two estimators in a
-# pipeline, one could request ``sample_weight1`` and the other
-# ``sample_weight2``. Note that this doesn't change what the estimator expects,
-# it only tells the meta-estimator how to map the provided metadata to what is
-# required. Here's an example, where we pass ``aliased_sample_weight`` to the
-# meta-estimator, but the meta-estimator understands that
-# ``aliased_sample_weight`` is an alias for ``sample_weight``, and passes it as
-# ``sample_weight`` to the underlying estimator:
+# مفهوم آخر يجب تقديمه هو **البيانات الوصفية المُستعارة**. هذا عندما
+# يطلب مُقدر بيانات وصفية باسم متغير مختلف عن اسم المتغير الافتراضي.
+# على سبيل المثال، في إعداد حيث يوجد مُقدران في خط أنابيب، يمكن لأحدهما
+# أن يطلب "sample_weight1" والآخر "sample_weight2". لاحظ أن هذا لا
+# يغير ما يتوقعه المُقدر، فهو يخبر الميتا-مقدر فقط كيفية رسم خريطة
+# للبيانات الوصفية المقدمة إلى ما هو مطلوب. إليك مثال، حيث نقوم بتمرير
+# "aliased_sample_weight" إلى الميتا-مقدر، ولكن الميتا-مقدر يفهم أن
+# "aliased_sample_weight" هو مستعار لـ "sample_weight"، ويقوم بتمريره
+# كـ "sample_weight" إلى المُقدر الأساسي:
 meta_est = MetaClassifier(
     estimator=ExampleClassifier().set_fit_request(sample_weight="aliased_sample_weight")
 )
 meta_est.fit(X, y, aliased_sample_weight=my_weights)
 
 # %%
-# Passing ``sample_weight`` here will fail since it is requested with an
-# alias and ``sample_weight`` with that name is not requested:
+# تمرير "sample_weight" هنا سيفشل لأنه يتم طلبها بمستعار و"sample_weight"
+# بهذا الاسم غير مطلوب:
 try:
     meta_est.fit(X, y, sample_weight=my_weights)
 except TypeError as e:
     print(e)
 
 # %%
-# This leads us to the ``get_metadata_routing``. The way routing works in
-# scikit-learn is that consumers request what they need, and routers pass that
-# along. Additionally, a router exposes what it requires itself so that it can
-# be used inside another router, e.g. a pipeline inside a grid search object.
-# The output of the ``get_metadata_routing`` which is a dictionary
-# representation of a :class:`~utils.metadata_routing.MetadataRouter`, includes
-# the complete tree of requested metadata by all nested objects and their
-# corresponding method routings, i.e. which method of a sub-estimator is used
-# in which method of a meta-estimator:
+# هذا يقودنا إلى "get_metadata_routing". الطريقة التي يعمل بها التوجيه في
+# scikit-learn هي أن المستهلكين يطلبون ما يحتاجون إليه، والموجهات
+# تمرر ذلك. بالإضافة إلى ذلك، يكشف الموجه عما يحتاجه بنفسه حتى
+# يمكن استخدامه داخل موجه آخر، على سبيل المثال خط أنابيب داخل كائن بحث
+# الشبكة. إخراج "get_metadata_routing" الذي هو تمثيل قاموس
+# لـ :class:`~utils.metadata_routing.MetadataRouter`، يتضمن شجرة كاملة
+# من البيانات الوصفية المطلوبة من جميع الكائنات المضمنة وتوجيهات
+# الطرق الخاصة بهم، أي أي طريقة لمُقدر فرعي يتم استخدامها في أي
+# طريقة لميتا-مقدر:
 
 print_routing(meta_est)
 
 # %%
-# As you can see, the only metadata requested for method ``fit`` is
-# ``"sample_weight"`` with ``"aliased_sample_weight"`` as the alias. The
-# ``~utils.metadata_routing.MetadataRouter`` class enables us to easily create
-# the routing object which would create the output we need for our
-# ``get_metadata_routing``.
+# كما ترى، البيانات الوصفية الوحيدة المطلوبة لطريقة "fit" هي
+# "sample_weight" مع "aliased_sample_weight" كمستعار. فئة
+# "MetadataRouter" تسمح لنا بسهولة إنشاء كائن التوجيه الذي من شأنه
+# أن يخلق الإخراج الذي نحتاجه لـ "get_metadata_routing".
 #
-# In order to understand how aliases work in meta-estimators, imagine our
-# meta-estimator inside another one:
+# لفهم كيفية عمل المستعارات في الميتا-مقدرات، تخيل الميتا-مقدر
+# داخل آخر:
 
 meta_meta_est = MetaClassifier(estimator=meta_est).fit(
     X, y, aliased_sample_weight=my_weights
 )
 
 # %%
-# In the above example, this is how the ``fit`` method of `meta_meta_est`
-# will call their sub-estimator's ``fit`` methods::
+# في المثال أعلاه، هذه هي الطريقة التي ستستدعي بها طريقة "fit"
+# للمُقدرات الفرعية الخاصة بـ `meta_meta_est` طرق "fit" الخاصة بهم::
 #
-#     # user feeds `my_weights` as `aliased_sample_weight` into `meta_meta_est`:
+#     # يقوم المستخدم بتغذية `my_weights` كـ `aliased_sample_weight` إلى `meta_meta_est`:
 #     meta_meta_est.fit(X, y, aliased_sample_weight=my_weights):
 #         ...
 #
-#         # the first sub-estimator (`meta_est`) expects `aliased_sample_weight`
+#         # يتوقع المُقدر الفرعي الأول (`meta_est`) `aliased_sample_weight`
 #         self.estimator_.fit(X, y, aliased_sample_weight=aliased_sample_weight):
 #             ...
 #
-#             # the second sub-estimator (`est`) expects `sample_weight`
+#             # يتوقع المُقدر الفرعي الثاني (`est`) `sample_weight`
 #             self.estimator_.fit(X, y, sample_weight=aliased_sample_weight):
 #                 ...
 
 # %%
-# Consuming and routing Meta-Estimator
+# المُقدر المستهلك والموجه
 # ------------------------------------
-# For a slightly more complex example, consider a meta-estimator that routes
-# metadata to an underlying estimator as before, but it also uses some metadata
-# in its own methods. This meta-estimator is a consumer and a router at the
-# same time. Implementing one is very similar to what we had before, but with a
-# few tweaks.
+# لمثال أكثر تعقيدًا قليلاً، ضع في اعتبارك ميتا-مقدر يقوم بتوجيه
+# البيانات الوصفية إلى مُقدر أساسي كما كان من قبل، ولكنه يستخدم أيضًا
+# بعض البيانات الوصفية في طرقه الخاصة. هذا الميتا-مقدر هو مستهلك
+# وموجه في نفس الوقت. تنفيذ واحد هو مشابه جدًا لما كان لدينا من قبل،
+# ولكن مع بعض التعديلات.
 
 
 class RouterConsumerClassifier(MetaEstimatorMixin, ClassifierMixin, BaseEstimator):
@@ -353,9 +349,9 @@ class RouterConsumerClassifier(MetaEstimatorMixin, ClassifierMixin, BaseEstimato
     def get_metadata_routing(self):
         router = (
             MetadataRouter(owner=self.__class__.__name__)
-            # defining metadata routing request values for usage in the meta-estimator
+            # تعريف قيم طلب توجيه البيانات الوصفية للاستخدام في المقدر التلوي
             .add_self_request(self)
-            # defining metadata routing request values for usage in the sub-estimator
+            # تعريف قيم طلب توجيه البيانات الوصفية للاستخدام في المقدر الفرعي
             .add(
                 estimator=self.estimator,
                 method_mapping=MethodMapping()
@@ -366,16 +362,16 @@ class RouterConsumerClassifier(MetaEstimatorMixin, ClassifierMixin, BaseEstimato
         )
         return router
 
-    # Since `sample_weight` is used and consumed here, it should be defined as
-    # an explicit argument in the method's signature. All other metadata which
-    # are only routed, will be passed as `**fit_params`:
+    # نظرًا لأنه يتم استخدام `sample_weight` واستهلاكه هنا، فيجب تعريفه كـ
+    # وسيطة صريحة في توقيع الأسلوب. سيتم تمرير جميع البيانات الوصفية الأخرى التي
+    # يتم توجيهها فقط كـ `**fit_params`:
     def fit(self, X, y, sample_weight, **fit_params):
         if self.estimator is None:
-            raise ValueError("estimator cannot be None!")
+            raise ValueError("لا يمكن أن يكون المقدر فارغًا!")
 
         check_metadata(self, sample_weight=sample_weight)
 
-        # We add `sample_weight` to the `fit_params` dictionary.
+        # نضيف `sample_weight` إلى قاموس `fit_params`.
         if sample_weight is not None:
             fit_params["sample_weight"] = sample_weight
 
@@ -388,11 +384,11 @@ class RouterConsumerClassifier(MetaEstimatorMixin, ClassifierMixin, BaseEstimato
 
     def predict(self, X, **predict_params):
         check_is_fitted(self)
-        # As in `fit`, we get a copy of the object's MetadataRouter,
+        # كما في `fit`، نحصل على نسخة من MetadataRouter للكائن،
         request_router = get_routing_for_object(self)
-        # we validate the given metadata,
+        # نقوم بالتحقق من صحة البيانات الوصفية المحددة،
         request_router.validate_metadata(params=predict_params, method="predict")
-        # and then prepare the input to the underlying ``predict`` method.
+        # ثم نقوم بإعداد المدخلات لأسلوب ``predict`` الأساسي.
         routed_params = request_router.route_params(
             params=predict_params, caller="predict"
         )
@@ -400,44 +396,44 @@ class RouterConsumerClassifier(MetaEstimatorMixin, ClassifierMixin, BaseEstimato
 
 
 # %%
-# The key parts where the above meta-estimator differs from our previous
-# meta-estimator is accepting ``sample_weight`` explicitly in ``fit`` and
-# including it in ``fit_params``. Since ``sample_weight`` is an explicit
-# argument, we can be sure that ``set_fit_request(sample_weight=...)`` is
-# present for this method. The meta-estimator is both a consumer, as well as a
-# router of ``sample_weight``.
+# الأجزاء الرئيسية التي يختلف فيها المقدر التلوي أعلاه عن المقدر التلوي السابق
+# لدينا هو قبول ``sample_weight`` بشكل صريح في ``fit`` و
+# تضمينه في ``fit_params``. نظرًا لأن ``sample_weight`` وسيطة
+# صريحة، يمكننا التأكد من وجود ``set_fit_request(sample_weight=...)``
+# لهذا الأسلوب. المقدر التلوي هو مستهلك، بالإضافة إلى كونه
+# موجهًا لـ ``sample_weight``.
 #
-# In ``get_metadata_routing``, we add ``self`` to the routing using
-# ``add_self_request`` to indicate this estimator is consuming
-# ``sample_weight`` as well as being a router; which also adds a
-# ``$self_request`` key to the routing info as illustrated below. Now let's
-# look at some examples:
+# في ``get_metadata_routing``، نضيف ``self`` إلى التوجيه باستخدام
+# ``add_self_request`` للإشارة إلى أن هذا المقدر يستهلك
+# ``sample_weight`` بالإضافة إلى كونه موجهًا؛ والذي يضيف أيضًا
+# مفتاح ``$self_request`` إلى معلومات التوجيه كما هو موضح أدناه. الآن دعونا
+# نلقي نظرة على بعض الأمثلة:
 
 # %%
-# - No metadata requested
+# - لم يتم طلب بيانات وصفية
 meta_est = RouterConsumerClassifier(estimator=ExampleClassifier())
 print_routing(meta_est)
 
 
 # %%
-# - ``sample_weight`` requested by sub-estimator
+# - ``sample_weight`` مطلوب بواسطة المقدر الفرعي
 meta_est = RouterConsumerClassifier(
     estimator=ExampleClassifier().set_fit_request(sample_weight=True)
 )
 print_routing(meta_est)
 
 # %%
-# - ``sample_weight`` requested by meta-estimator
+# - ``sample_weight`` مطلوب بواسطة المقدر التلوي
 meta_est = RouterConsumerClassifier(estimator=ExampleClassifier()).set_fit_request(
     sample_weight=True
 )
 print_routing(meta_est)
 
 # %%
-# Note the difference in the requested metadata representations above.
+# لاحظ الفرق في تمثيلات البيانات الوصفية المطلوبة أعلاه.
 #
-# - We can also alias the metadata to pass different values to the fit methods
-#   of the meta- and the sub-estimator:
+# - يمكننا أيضًا تسمية البيانات الوصفية لتمرير قيم مختلفة إلى أساليب الملاءمة
+#   للمقدر التلوي والمقدر الفرعي:
 
 meta_est = RouterConsumerClassifier(
     estimator=ExampleClassifier().set_fit_request(sample_weight="clf_sample_weight"),
@@ -445,36 +441,36 @@ meta_est = RouterConsumerClassifier(
 print_routing(meta_est)
 
 # %%
-# However, ``fit`` of the meta-estimator only needs the alias for the
-# sub-estimator and addresses their own sample weight as `sample_weight`, since
-# it doesn't validate and route its own required metadata:
+# ومع ذلك، فإن ``fit`` للمقدر التلوي يحتاج فقط إلى الاسم المستعار للمقدر
+# الفرعي ويعالج وزن عينته كـ `sample_weight`، لأنه
+# لا يتحقق من صحة بياناته الوصفية المطلوبة ولا يقوم بتوجيهها:
 meta_est.fit(X, y, sample_weight=my_weights, clf_sample_weight=my_other_weights)
 
 # %%
-# - Alias only on the sub-estimator:
+# - الاسم المستعار فقط على المقدر الفرعي:
 #
-# This is useful when we don't want the meta-estimator to use the metadata, but
-# the sub-estimator should.
+# هذا مفيد عندما لا نريد أن يستخدم المقدر التلوي البيانات الوصفية، ولكن
+# يجب على المقدر الفرعي استخدامها.
 meta_est = RouterConsumerClassifier(
     estimator=ExampleClassifier().set_fit_request(sample_weight="aliased_sample_weight")
 )
 print_routing(meta_est)
 # %%
-# The meta-estimator cannot use `aliased_sample_weight`, because it expects
-# it passed as `sample_weight`. This would apply even if
-# `set_fit_request(sample_weight=True)` was set on it.
+# لا يمكن للمقدر التلوي استخدام `aliased_sample_weight`، لأنه يتوقع
+# تمريره كـ `sample_weight`. سينطبق هذا حتى لو
+# تم تعيين `set_fit_request(sample_weight=True)` عليه.
+
 
 # %%
-# Simple Pipeline
+# خط أنابيب بسيط
 # ---------------
-# A slightly more complicated use-case is a meta-estimator resembling a
-# :class:`~pipeline.Pipeline`. Here is a meta-estimator, which accepts a
-# transformer and a classifier. When calling its `fit` method, it applies the
-# transformer's `fit` and `transform` before running the classifier on the
-# transformed data. Upon `predict`, it applies the transformer's `transform`
-# before predicting with the classifier's `predict` method on the transformed
-# new data.
-
+# حالة استخدام أكثر تعقيدًا قليلاً هي مقدر تلوي يشبه
+# :class:`~pipeline.Pipeline`. هنا مقدر تلوي، يقبل
+# محولًا ومصنفًا. عند استدعاء أسلوب `fit` الخاص به، فإنه يطبق
+# `fit` و `transform` للمحول قبل تشغيل المصنف على
+# البيانات المحولة. عند `predict`، فإنه يطبق `transform` للمحول
+# قبل التنبؤ باستخدام أسلوب `predict` للمصنف على البيانات
+# الجديدة المحولة.
 
 class SimplePipeline(ClassifierMixin, BaseEstimator):
     def __init__(self, transformer, classifier):
@@ -484,18 +480,18 @@ class SimplePipeline(ClassifierMixin, BaseEstimator):
     def get_metadata_routing(self):
         router = (
             MetadataRouter(owner=self.__class__.__name__)
-            # We add the routing for the transformer.
+            # نضيف التوجيه للمحول.
             .add(
                 transformer=self.transformer,
                 method_mapping=MethodMapping()
-                # The metadata is routed such that it retraces how
-                # `SimplePipeline` internally calls the transformer's `fit` and
-                # `transform` methods in its own methods (`fit` and `predict`).
+                # يتم توجيه البيانات الوصفية بحيث تتبع كيفية
+                # استدعاء `SimplePipeline` داخليًا لأساليب `fit` و
+                # `transform` للمحول في أساليبه الخاصة (`fit` و `predict`).
                 .add(caller="fit", callee="fit")
                 .add(caller="fit", callee="transform")
                 .add(caller="predict", callee="transform"),
             )
-            # We add the routing for the classifier.
+            # نضيف التوجيه للمصنف.
             .add(
                 classifier=self.classifier,
                 method_mapping=MethodMapping()
@@ -532,22 +528,22 @@ class SimplePipeline(ClassifierMixin, BaseEstimator):
 
 
 # %%
-# Note the usage of :class:`~utils.metadata_routing.MethodMapping` to
-# declare which methods of the child estimator (callee) are used in which
-# methods of the meta estimator (caller). As you can see, `SimplePipeline` uses
-# the transformer's ``transform`` and ``fit`` methods in ``fit``, and its
-# ``transform`` method in ``predict``, and that's what you see implemented in
-# the routing structure of the pipeline class.
+# لاحظ استخدام :class:`~utils.metadata_routing.MethodMapping` لـ
+# إعلان الأساليب التي يستخدمها المقدر التابع (المستدعى) في أي
+# أساليب للمقدر التلوي (المستدعي). كما ترى، يستخدم `SimplePipeline`
+# أساليب ``transform`` و ``fit`` للمحول في ``fit``، وأسلوب
+# ``transform`` الخاص به في ``predict``، وهذا ما تراه مطبقًا في
+# بنية توجيه فئة خط الأنابيب.
 #
-# Another difference in the above example with the previous ones is the usage
-# of :func:`~utils.metadata_routing.process_routing`, which processes the input
-# parameters, does the required validation, and returns the `routed_params`
-# which we had created in previous examples. This reduces the boilerplate code
-# a developer needs to write in each meta-estimator's method. Developers are
-# strongly recommended to use this function unless there is a good reason
-# against it.
+# هناك اختلاف آخر في المثال أعلاه مع الأمثلة السابقة وهو استخدام
+# :func:`~utils.metadata_routing.process_routing`، والذي يعالج معلمات
+# الإدخال، ويقوم بالتحقق المطلوب، ويعيد `routed_params`
+# الذي أنشأناه في الأمثلة السابقة. هذا يقلل من التعليمات البرمجية المعيارية
+# التي يحتاج المطور لكتابتها في كل أسلوب مقدر تلوي. يوصى بشدة
+# للمطورين باستخدام هذه الوظيفة ما لم يكن هناك سبب وجيه
+# ضدها.
 #
-# In order to test the above pipeline, let's add an example transformer.
+# لاختبار خط الأنابيب أعلاه، دعنا نضيف محولًا نموذجيًا.
 
 
 class ExampleTransformer(TransformerMixin, BaseEstimator):
@@ -564,30 +560,31 @@ class ExampleTransformer(TransformerMixin, BaseEstimator):
 
 
 # %%
-# Note that in the above example, we have implemented ``fit_transform`` which
-# calls ``fit`` and ``transform`` with the appropriate metadata. This is only
-# required if ``transform`` accepts metadata, since the default ``fit_transform``
-# implementation in :class:`~base.TransformerMixin` doesn't pass metadata to
+# لاحظ أنه في المثال أعلاه، قمنا بتطبيق ``fit_transform`` الذي
+# يستدعي ``fit`` و ``transform`` مع البيانات الوصفية المناسبة. هذا مطلوب فقط
+# إذا كان ``transform`` يقبل البيانات الوصفية، لأن تطبيق ``fit_transform`` الافتراضي
+# في :class:`~base.TransformerMixin` لا يمرر البيانات الوصفية إلى
 # ``transform``.
 #
-# Now we can test our pipeline, and see if metadata is correctly passed around.
-# This example uses our `SimplePipeline`, our `ExampleTransformer`, and our
-# `RouterConsumerClassifier` which uses our `ExampleClassifier`.
+# الآن يمكننا اختبار خط الأنابيب الخاص بنا، ومعرفة ما إذا كانت البيانات الوصفية
+# يتم تمريرها بشكل صحيح. يستخدم هذا المثال `SimplePipeline` الخاص بنا، و
+# `ExampleTransformer` الخاص بنا، و `RouterConsumerClassifier` الخاص بنا
+# الذي يستخدم `ExampleClassifier` الخاص بنا.
 
 pipe = SimplePipeline(
     transformer=ExampleTransformer()
-    # we set transformer's fit to receive sample_weight
+    # قمنا بتعيين ملاءمة المحول لتلقي sample_weight
     .set_fit_request(sample_weight=True)
-    # we set transformer's transform to receive groups
+    # قمنا بتعيين تحويل المحول لتلقي المجموعات
     .set_transform_request(groups=True),
     classifier=RouterConsumerClassifier(
         estimator=ExampleClassifier()
-        # we want this sub-estimator to receive sample_weight in fit
+        # نريد أن يتلقى هذا المقدر الفرعي sample_weight في الملاءمة
         .set_fit_request(sample_weight=True)
-        # but not groups in predict
+        # ولكن ليس المجموعات في التنبؤ
         .set_predict_request(groups=False),
     )
-    # and we want the meta-estimator to receive sample_weight as well
+    # ونريد أن يتلقى المقدر التلوي sample_weight أيضًا
     .set_fit_request(sample_weight=True),
 )
 pipe.fit(X, y, sample_weight=my_weights, groups=my_groups).predict(
@@ -595,13 +592,13 @@ pipe.fit(X, y, sample_weight=my_weights, groups=my_groups).predict(
 )
 
 # %%
-# Deprecation / Default Value Change
+# إهمال / تغيير القيمة الافتراضية
 # ----------------------------------
-# In this section we show how one should handle the case where a router becomes
-# also a consumer, especially when it consumes the same metadata as its
-# sub-estimator, or a consumer starts consuming a metadata which it wasn't in
-# an older release. In this case, a warning should be raised for a while, to
-# let users know the behavior is changed from previous versions.
+# في هذا القسم، نظهر كيفية تعامل المرء مع الحالة التي يصبح فيها الموجه
+# أيضًا مستهلكًا، خاصةً عندما يستهلك نفس البيانات الوصفية مثل المقدر
+# الفرعي الخاص به، أو يبدأ المستهلك في استهلاك بيانات وصفية لم تكن موجودة
+# في إصدار أقدم. في هذه الحالة، يجب إصدار تحذير لفترة من الوقت،
+# لإعلام المستخدمين بأن السلوك قد تغير عن الإصدارات السابقة.
 
 
 class MetaRegressor(MetaEstimatorMixin, RegressorMixin, BaseEstimator):
@@ -621,20 +618,20 @@ class MetaRegressor(MetaEstimatorMixin, RegressorMixin, BaseEstimator):
 
 
 # %%
-# As explained above, this is a valid usage if `my_weights` aren't supposed
-# to be passed as `sample_weight` to `MetaRegressor`:
+# كما هو موضح أعلاه، هذا استخدام صالح إذا لم يكن من المفترض تمرير `my_weights`
+# كـ `sample_weight` إلى `MetaRegressor`:
 
 reg = MetaRegressor(estimator=LinearRegression().set_fit_request(sample_weight=True))
 reg.fit(X, y, sample_weight=my_weights)
 
 
 # %%
-# Now imagine we further develop ``MetaRegressor`` and it now also *consumes*
-# ``sample_weight``:
+# الآن تخيل أننا نطور ``MetaRegressor`` بشكل أكبر وأنه *يستهلك* الآن
+# أيضًا ``sample_weight``:
 
 
 class WeightedMetaRegressor(MetaEstimatorMixin, RegressorMixin, BaseEstimator):
-    # show warning to remind user to explicitly set the value with
+    # إظهار تحذير لتذكير المستخدم بتعيين القيمة صراحةً باستخدام
     # `.set_{method}_request(sample_weight={boolean})`
     __metadata_request__fit = {"sample_weight": metadata_routing.WARN}
 
@@ -661,9 +658,10 @@ class WeightedMetaRegressor(MetaEstimatorMixin, RegressorMixin, BaseEstimator):
 
 
 # %%
-# The above implementation is almost the same as ``MetaRegressor``, and
-# because of the default request value defined in ``__metadata_request__fit``
-# there is a warning raised when fitted.
+# التطبيق أعلاه هو نفسه تقريبًا ``MetaRegressor``، و
+# بسبب قيمة الطلب الافتراضية المحددة في ``__metadata_request__fit``
+# يتم إصدار تحذير عند الملاءمة.
+
 
 with warnings.catch_warnings(record=True) as record:
     WeightedMetaRegressor(
@@ -674,8 +672,9 @@ for w in record:
 
 
 # %%
-# When an estimator consumes a metadata which it didn't consume before, the
-# following pattern can be used to warn the users about it.
+# عندما يستهلك مقدر بيانات وصفية لم يستهلكها من قبل،
+# يمكن استخدام النمط التالي لتحذير المستخدمين بشأنها.
+
 
 
 class ExampleRegressor(RegressorMixin, BaseEstimator):
@@ -695,25 +694,25 @@ for w in record:
     print(w.message)
 
 # %%
-# At the end we disable the configuration flag for metadata routing:
+# في النهاية نقوم بتعطيل علامة التكوين لتوجيه البيانات الوصفية:
 
 set_config(enable_metadata_routing=False)
 
 # %%
-# Third Party Development and scikit-learn Dependency
+# تطوير الطرف الثالث وتبعية scikit-learn
 # ---------------------------------------------------
 #
-# As seen above, information is communicated between classes using
-# :class:`~utils.metadata_routing.MetadataRequest` and
-# :class:`~utils.metadata_routing.MetadataRouter`. It is strongly not advised,
-# but possible to vendor the tools related to metadata-routing if you strictly
-# want to have a scikit-learn compatible estimator, without depending on the
-# scikit-learn package. If all of the following conditions are met, you do NOT
-# need to modify your code at all:
+# كما هو موضح أعلاه، يتم توصيل المعلومات بين الفئات باستخدام
+# :class:`~utils.metadata_routing.MetadataRequest` و
+# :class:`~utils.metadata_routing.MetadataRouter`. لا يُنصح بشدة،
+# ولكن من الممكن بيع الأدوات المتعلقة بتوجيه البيانات الوصفية إذا كنت تريد
+# بشكل صارم الحصول على مقدر متوافق مع scikit-learn، دون الاعتماد على
+# حزمة scikit-learn. إذا تم استيفاء جميع الشروط التالية، فلن تحتاج
+# إلى تعديل التعليمات البرمجية الخاصة بك على الإطلاق:
 #
-# - your estimator inherits from :class:`~base.BaseEstimator`
-# - the parameters consumed by your estimator's methods, e.g. ``fit``, are
-#   explicitly defined in the method's signature, as opposed to being
-#   ``*args`` or ``*kwargs``.
-# - your estimator does not route any metadata to the underlying objects, i.e.
-#   it's not a *router*.
+# - يرث المقدر الخاص بك من :class:`~base.BaseEstimator`
+# - المعلمات التي تستهلكها أساليب المقدر الخاص بك، على سبيل المثال ``fit``،
+#   مُعرّفة صراحةً في توقيع الأسلوب، على عكس كونها
+#   ``*args`` أو ``*kwargs``.
+# - لا يقوم المقدر الخاص بك بتوجيه أي بيانات وصفية إلى الكائنات الأساسية، أي
+#   أنه ليس *موجهًا*.

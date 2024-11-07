@@ -1,48 +1,40 @@
 # ruff: noqa
 """
 ========================================
-Release Highlights for scikit-learn 0.24
+أبرز ميزات الإصدار 0.24 من scikit-learn
 ========================================
 
 .. currentmodule:: sklearn
 
-We are pleased to announce the release of scikit-learn 0.24! Many bug fixes
-and improvements were added, as well as some new key features. We detail
-below a few of the major features of this release. **For an exhaustive list of
-all the changes**, please refer to the :ref:`release notes <release_notes_0_24>`.
+يسعدنا الإعلان عن إصدار scikit-learn 0.24! تم إجراء العديد من الإصلاحات والتحسينات، بالإضافة إلى بعض الميزات الرئيسية الجديدة. نستعرض أدناه بعض الميزات الرئيسية لهذا الإصدار. **للاطلاع على قائمة شاملة بجميع التغييرات**، يرجى الرجوع إلى :ref:`ملاحظات الإصدار <release_notes_0_24>`.
 
-To install the latest version (with pip)::
+لتثبيت أحدث إصدار (باستخدام pip)::
 
     pip install --upgrade scikit-learn
 
-or with conda::
+أو باستخدام conda::
 
     conda install -c conda-forge scikit-learn
 
 """
 
 ##############################################################################
-# Successive Halving estimators for tuning hyper-parameters
+# خوارزميات Successive Halving لضبط المعاملات
 # ---------------------------------------------------------
-# Successive Halving, a state of the art method, is now available to
-# explore the space of the parameters and identify their best combination.
-# :class:`~sklearn.model_selection.HalvingGridSearchCV` and
-# :class:`~sklearn.model_selection.HalvingRandomSearchCV` can be
-# used as drop-in replacement for
-# :class:`~sklearn.model_selection.GridSearchCV` and
+# أصبحت خوارزمية Successive Halving، وهي طريقة متطورة، متاحة الآن لاستكشاف مساحة المعاملات وتحديد أفضل تركيبة لها.
+# :class:`~sklearn.model_selection.HalvingGridSearchCV` و
+# :class:`~sklearn.model_selection.HalvingRandomSearchCV` يمكن استخدامهما
+# كبديل مباشر لـ
+# :class:`~sklearn.model_selection.GridSearchCV` و
 # :class:`~sklearn.model_selection.RandomizedSearchCV`.
-# Successive Halving is an iterative selection process illustrated in the
-# figure below. The first iteration is run with a small amount of resources,
-# where the resource typically corresponds to the number of training samples,
-# but can also be an arbitrary integer parameter such as `n_estimators` in a
-# random forest. Only a subset of the parameter candidates are selected for the
-# next iteration, which will be run with an increasing amount of allocated
-# resources. Only a subset of candidates will last until the end of the
-# iteration process, and the best parameter candidate is the one that has the
-# highest score on the last iteration.
+# خوارزمية Successive Halving هي عملية اختيار تكرارية موضحة في الشكل أدناه. يتم تشغيل التكرار الأول باستخدام كمية صغيرة من الموارد،
+# حيث عادةً ما تتوافق الموارد مع عدد العينات التدريبية،
+# ولكن يمكن أن تكون أيضًا معلمة عدد صحيح تعسفية مثل `n_estimators` في
+# غابة عشوائية. يتم اختيار مجموعة فرعية فقط من مرشحي المعاملات للتكرار التالي، والذي سيتم تشغيله بكمية متزايدة من الموارد المخصصة.
+# ستستمر مجموعة فرعية فقط من المرشحين حتى نهاية عملية التكرار، وأفضل مرشح للمعاملات هو الذي يحقق أعلى نتيجة في التكرار الأخير.
 #
-# Read more in the :ref:`User Guide <successive_halving_user_guide>` (note:
-# the Successive Halving estimators are still :term:`experimental
+# اقرأ المزيد في :ref:`دليل المستخدم <successive_halving_user_guide>` (ملاحظة:
+# خوارزميات Successive Halving ما زالت :term:`تجريبية
 # <experimental>`).
 #
 # .. figure:: ../model_selection/images/sphx_glr_plot_successive_halving_iterations_001.png
@@ -77,45 +69,43 @@ rsh.fit(X, y)
 rsh.best_params_
 
 ##############################################################################
-# Native support for categorical features in HistGradientBoosting estimators
+# الدعم الأصلي للخصائص التصنيفية في خوارزميات HistGradientBoosting
 # --------------------------------------------------------------------------
-# :class:`~sklearn.ensemble.HistGradientBoostingClassifier` and
-# :class:`~sklearn.ensemble.HistGradientBoostingRegressor` now have native
-# support for categorical features: they can consider splits on non-ordered,
-# categorical data. Read more in the :ref:`User Guide
+# :class:`~sklearn.ensemble.HistGradientBoostingClassifier` و
+# :class:`~sklearn.ensemble.HistGradientBoostingRegressor` أصبح لديهما دعم أصلي
+# للخصائص التصنيفية: يمكنهما الآن التعامل مع الانقسامات على البيانات غير المرتبة،
+# والبيانات التصنيفية. اقرأ المزيد في :ref:`دليل المستخدم
 # <categorical_support_gbdt>`.
 #
 # .. figure:: ../ensemble/images/sphx_glr_plot_gradient_boosting_categorical_001.png
 #   :target: ../ensemble/plot_gradient_boosting_categorical.html
 #   :align: center
 #
-# The plot shows that the new native support for categorical features leads to
-# fitting times that are comparable to models where the categories are treated
-# as ordered quantities, i.e. simply ordinal-encoded. Native support is also
-# more expressive than both one-hot encoding and ordinal encoding. However, to
-# use the new `categorical_features` parameter, it is still required to
-# preprocess the data within a pipeline as demonstrated in this :ref:`example
+# يوضح الرسم البياني أن الدعم الأصلي الجديد للخصائص التصنيفية يؤدي إلى
+# أوقات ملائمة قابلة للمقارنة مع النماذج التي يتم فيها التعامل مع الفئات
+# ككميات مرتبة، أي ببساطة الترميز الترتيبي. الدعم الأصلي هو أيضًا
+# أكثر تعبيرًا من الترميز الثنائي والترميز الترتيبي. ومع ذلك، لاستخدام
+# المعلمة الجديدة `categorical_features`، لا يزال من الضروري
+# معالجة البيانات ضمن خط أنابيب كما هو موضح في هذا المثال:
 # <sphx_glr_auto_examples_ensemble_plot_gradient_boosting_categorical.py>`.
 
 ##############################################################################
-# Improved performances of HistGradientBoosting estimators
+# تحسين أداء خوارزميات HistGradientBoosting
 # --------------------------------------------------------
-# The memory footprint of :class:`ensemble.HistGradientBoostingRegressor` and
-# :class:`ensemble.HistGradientBoostingClassifier` has been significantly
-# improved during calls to `fit`. In addition, histogram initialization is now
-# done in parallel which results in slight speed improvements.
-# See more in the `Benchmark page
+# تم تحسين بصمة الذاكرة بشكل كبير لـ :class:`ensemble.HistGradientBoostingRegressor` و
+# :class:`ensemble.HistGradientBoostingClassifier` أثناء المكالمات إلى `fit`. بالإضافة إلى ذلك، يتم الآن
+# تهيئة المخطط البياني بشكل متوازي مما يؤدي إلى تحسينات طفيفة في السرعة.
+# اقرأ المزيد في صفحة المعايير
 # <https://scikit-learn.org/scikit-learn-benchmarks/>`_.
 
 ##############################################################################
-# New self-training meta-estimator
+# خوارزمية جديدة للتعلم الذاتي
 # --------------------------------
-# A new self-training implementation, based on `Yarowski's algorithm
-# <https://doi.org/10.3115/981658.981684>`_ can now be used with any
-# classifier that implements :term:`predict_proba`. The sub-classifier
-# will behave as a
-# semi-supervised classifier, allowing it to learn from unlabeled data.
-# Read more in the :ref:`User guide <self_training>`.
+# يمكن الآن استخدام خوارزمية جديدة للتعلم الذاتي، تعتمد على خوارزمية ياروسكي
+# <https://doi.org/10.3115/981658.981684>`_ مع أي
+# مصنف ينفذ :term:`predict_proba`. سيتصرف المصنف الفرعي
+# كمصنف شبه مشرف، مما يسمح له بالتعلم من البيانات غير المصنفة.
+# اقرأ المزيد في :ref:`دليل المستخدم <self_training>`.
 
 import numpy as np
 from sklearn import datasets
@@ -131,14 +121,14 @@ self_training_model = SelfTrainingClassifier(svc)
 self_training_model.fit(iris.data, iris.target)
 
 ##############################################################################
-# New SequentialFeatureSelector transformer
+# محول SequentialFeatureSelector جديد
 # -----------------------------------------
-# A new iterative transformer to select features is available:
+# متاح محول تكراري جديد لاختيار الخصائص:
 # :class:`~sklearn.feature_selection.SequentialFeatureSelector`.
-# Sequential Feature Selection can add features one at a time (forward
-# selection) or remove features from the list of the available features
-# (backward selection), based on a cross-validated score maximization.
-# See the :ref:`User Guide <sequential_feature_selection>`.
+# يمكن لاختيار الخصائص التتابعي إضافة خصائص واحدة تلو الأخرى (الاختيار الأمامي) أو
+# إزالة الخصائص من قائمة الخصائص المتاحة
+# (الاختيار العكسي)، بناءً على تعظيم النتيجة عبر التحقق.
+# اقرأ المزيد في :ref:`دليل المستخدم <sequential_feature_selection>`.
 
 from sklearn.feature_selection import SequentialFeatureSelector
 from sklearn.neighbors import KNeighborsClassifier
@@ -155,11 +145,10 @@ print(
 )
 
 ##############################################################################
-# New PolynomialCountSketch kernel approximation function
+# دالة تقريب Kernel جديدة PolynomialCountSketch
 # -------------------------------------------------------
-# The new :class:`~sklearn.kernel_approximation.PolynomialCountSketch`
-# approximates a polynomial expansion of a feature space when used with linear
-# models, but uses much less memory than
+# تقوم دالة التقريب الجديدة :class:`~sklearn.kernel_approximation.PolynomialCountSketch`
+# بتقريب توسيع متعدد الحدود لمساحة الخصائص عند استخدامها مع النماذج الخطية، ولكنها تستخدم ذاكرة أقل بكثير من
 # :class:`~sklearn.preprocessing.PolynomialFeatures`.
 
 from sklearn.datasets import fetch_covtype
@@ -181,18 +170,18 @@ X_train, X_test, y_train, y_test = train_test_split(
 pipe.fit(X_train, y_train).score(X_test, y_test)
 
 ##############################################################################
-# For comparison, here is the score of a linear baseline for the same data:
+# للمقارنة، إليك نتيجة خط الأساس الخطي لنفس البيانات:
 
 linear_baseline = make_pipeline(MinMaxScaler(), LogisticRegression(max_iter=1000))
 linear_baseline.fit(X_train, y_train).score(X_test, y_test)
 
 ##############################################################################
-# Individual Conditional Expectation plots
+# مخططات Individual Conditional Expectation
 # ----------------------------------------
-# A new kind of partial dependence plot is available: the Individual
-# Conditional Expectation (ICE) plot. ICE plots visualize the dependence of the
-# prediction on a feature for each sample separately, with one line per sample.
-# See the :ref:`User Guide <individual_conditional>`
+# متاح نوع جديد من مخططات الاعتماد الجزئي: مخطط Individual
+# Conditional Expectation (ICE). توضح مخططات ICE اعتماد التنبؤ على خاصية
+# لكل عينة بشكل منفصل، مع خط واحد لكل عينة.
+# اقرأ المزيد في :ref:`دليل المستخدم <individual_conditional>`
 
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.datasets import fetch_california_housing
@@ -225,12 +214,12 @@ display.figure_.suptitle(
 display.figure_.subplots_adjust(hspace=0.3)
 
 ##############################################################################
-# New Poisson splitting criterion for DecisionTreeRegressor
+# معيار تقسيم Poisson جديد لخوارزمية DecisionTreeRegressor
 # ---------------------------------------------------------
-# The integration of Poisson regression estimation continues from version 0.23.
-# :class:`~sklearn.tree.DecisionTreeRegressor` now supports a new `'poisson'`
-# splitting criterion. Setting `criterion="poisson"` might be a good choice
-# if your target is a count or a frequency.
+# يستمر دمج تقدير الانحدار الشعاعي من الإصدار 0.23.
+# :class:`~sklearn.tree.DecisionTreeRegressor` يدعم الآن معيار تقسيم جديد `'poisson'`.
+# قد يكون تعيين `criterion="poisson"` خيارًا جيدًا
+# إذا كان الهدف هو عدد أو تكرار.
 
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.model_selection import train_test_split
@@ -239,26 +228,26 @@ import numpy as np
 n_samples, n_features = 1000, 20
 rng = np.random.RandomState(0)
 X = rng.randn(n_samples, n_features)
-# positive integer target correlated with X[:, 5] with many zeros:
+# هدف عدد صحيح إيجابي مرتبط بـ X[:, 5] مع العديد من الأصفار:
 y = rng.poisson(lam=np.exp(X[:, 5]) / 2)
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=rng)
 regressor = DecisionTreeRegressor(criterion="poisson", random_state=0)
 regressor.fit(X_train, y_train)
 
 ##############################################################################
-# New documentation improvements
+# تحسينات توثيق جديدة
 # ------------------------------
 #
-# New examples and documentation pages have been added, in a continuous effort
-# to improve the understanding of machine learning practices:
+# تم إضافة أمثلة وصفحات توثيق جديدة، في جهد مستمر
+# لتحسين فهم ممارسات التعلم الآلي:
 #
-# - a new section about :ref:`common pitfalls and recommended
-#   practices <common_pitfalls>`,
-# - an example illustrating how to :ref:`statistically compare the performance of
-#   models <sphx_glr_auto_examples_model_selection_plot_grid_search_stats.py>`
-#   evaluated using :class:`~sklearn.model_selection.GridSearchCV`,
-# - an example on how to :ref:`interpret coefficients of linear models
-#   <sphx_glr_auto_examples_inspection_plot_linear_model_coefficient_interpretation.py>`,
-# - an :ref:`example
+# - قسم جديد حول :ref:`المشاكل الشائعة والممارسات الموصى بها
+#   <common_pitfalls>`،
+# - مثال يوضح كيفية :ref:`المقارنة الإحصائية لأداء
+#   النماذج <sphx_glr_auto_examples_model_selection_plot_grid_search_stats.py>`
+#   التي تم تقييمها باستخدام :class:`~sklearn.model_selection.GridSearchCV`،
+# - مثال حول كيفية :ref:`تفسير معاملات النماذج الخطية
+#   <sphx_glr_auto_examples_inspection_plot_linear_model_coefficient_interpretation.py>`،
+# - :ref:`مثال
 #   <sphx_glr_auto_examples_cross_decomposition_plot_pcr_vs_pls.py>`
-#   comparing Principal Component Regression and Partial Least Squares.
+#   يقارن بين Principal Component Regression و Partial Least Squares.

@@ -7,16 +7,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Introducing the set_output API" />
+<meta property="og:title" content="تقديم واجهة برمجة التطبيقات set_output" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/auto_examples/miscellaneous/plot_set_output.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="This example will demonstrate the set_output API to configure transformers to output pandas DataFrames. set_output can be configured per estimator by calling the set_output method or globally by se..." />
+<meta property="og:description" content="هذا المثال سيوضح واجهة برمجة التطبيقات set_output لتكوين المحولات لإخراج إطارات بيانات باندا. يمكن تكوين set_output لكل مقدر عن طريق استدعاء طريقة set_output أو بشكل عام عن طريق تعيين set_config(tr..." />
 <meta property="og:image" content="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" />
 <meta property="og:image:alt" content="scikit-learn" />
-<meta name="description" content="This example will demonstrate the set_output API to configure transformers to output pandas DataFrames. set_output can be configured per estimator by calling the set_output method or globally by se..." />
+<meta name="description" content="هذا المثال سيوضح واجهة برمجة التطبيقات set_output لتكوين المحولات لإخراج إطارات بيانات باندا. يمكن تكوين set_output لكل مقدر عن طريق استدعاء طريقة set_output أو بشكل عام عن طريق تعيين set_config(tr..." />
 
-    <title>Introducing the set_output API &#8212; scikit-learn 1.6.dev0 documentation</title>
+    <title>تقديم واجهة برمجة التطبيقات set_output &#8212; scikit-learn 1.6.dev0 documentation</title>
   
   
   
@@ -78,8 +78,8 @@
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="search" title="بحث" href="../../search.html" />
-    <link rel="next" title="Isotonic Regression" href="plot_isotonic_regression.html" />
-    <link rel="prev" title="Face completion with a multi-output estimators" href="plot_multioutput_face_completion.html" />
+    <link rel="next" title="تقريب خريطة الميزات الصريحة لنواة RBF" href="plot_kernel_approximation.html" />
+    <link rel="prev" title="الرسم المتقدم باستخدام الاعتمادية الجزئية" href="plot_partial_dependence_visualization_api.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="ar"/>
   <meta name="docsearch:version" content="1.6" />
@@ -549,160 +549,74 @@
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../release_highlights/index.html">Release Highlights</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_5_0.html">Release Highlights for scikit-learn 1.5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_4_0.html">Release Highlights for scikit-learn 1.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_3_0.html">Release Highlights for scikit-learn 1.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_2_0.html">Release Highlights for scikit-learn 1.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_1_0.html">Release Highlights for scikit-learn 1.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_0_0.html">Release Highlights for scikit-learn 1.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_24_0.html">Release Highlights for scikit-learn 0.24</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_23_0.html">Release Highlights for scikit-learn 0.23</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_22_0.html">Release Highlights for scikit-learn 0.22</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../manifold/index.html">(المتشعب)التعلم المتعدد</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_t_sne_perplexity.html">t-SNE: تأثير قيم الحيرة المختلفة على الشكل</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_mds.html">القياس متعدد الأبعاد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_lle_digits.html">تعلم متعدد الشعب على الأرقام المكتوبة بخط اليد: التضمين الخطي المحلي، Isomap...</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_swissroll.html">خفض اللفافة السويسرية واللفافة السويسرية ذات الثقب</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_manifold_sphere.html">طرق تعلم متعدد الشعب على كرة مقطوعة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_compare_methods.html">مقارنة طرق تعلم متعدد الشعب</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../tree/index.html">Decision Trees</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../tree/plot_tree_regression.html">Decision Tree Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tree/plot_iris_dtc.html">Plot the decision surface of decision trees trained on the iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tree/plot_cost_complexity_pruning.html">Post pruning decision trees with cost complexity pruning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tree/plot_unveil_tree_structure.html">Understanding the decision tree structure</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../svm/index.html">Support Vector Machines (SVM)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_oneclass.html">One-class SVM with non-linear kernel (RBF)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_custom_kernel.html">SVM مع نواة مخصصة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_anova.html">SVM-Anova: SVM مع اختيار الميزات أحادية المتغير</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_weighted_samples.html">SVM: العينات ذات الأوزان</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_separating_hyperplane.html">SVM: المستوى الفاصل ذو الهامش الأقصى</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_separating_hyperplane_unbalanced.html">SVM: المستوي الفاصل للطبقات غير المتوازنة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_regression.html">دعم نموذج الانحدار باستخدام نواة خطية وغير خطية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_linearsvc_support_vectors.html">رسم المتجهات الداعمة في LinearSVC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_kernels.html">رسم حدود التصنيف مع نوى SVM مختلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_iris_svc.html">رسم مخططات لمصنفات SVM المختلفة في مجموعة بيانات الزهرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_scale_c.html">ضبط معامل الانتظام لخوارزمية SVC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_tie_breaking.html">مثال على كسر التعادل في SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_margin.html">مثال على هوامش SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_rbf_parameters.html">معاملات SVM ذات الدالة الشعاعية الأساسية</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../mixture/index.html">Gaussian Mixture Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_concentration_prior.html">Concentration Prior Type Analysis of Variation Bayesian Gaussian Mixture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_pdf.html">Density Estimation for a Gaussian mixture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_init.html">GMM Initialization Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_covariances.html">GMM covariances</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm.html">Gaussian Mixture Model Ellipsoids</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_selection.html">Gaussian Mixture Model Selection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_sin.html">Gaussian Mixture Model Sine Curve</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tree/index.html">أشجار القرار-</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tree/plot_tree_regression.html">انحدار شجرة القرار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tree/plot_cost_complexity_pruning.html">تشذيب أشجار القرار بعد التدريب باستخدام تقنية تشذيب تعقيد التكلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tree/plot_iris_dtc.html">رسم سطح القرار لأشجار القرار المدربة على مجموعة بيانات الزهرة الآرغوانية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tree/plot_unveil_tree_structure.html">فهم بنية شجرة القرار</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../manifold/index.html">Manifold learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_compare_methods.html">Comparison of Manifold Learning methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_manifold_sphere.html">Manifold Learning methods on a severed sphere</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_lle_digits.html">Manifold learning on handwritten digits: Locally Linear Embedding, Isomap...</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_mds.html">Multi-dimensional scaling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_swissroll.html">Swiss Roll And Swiss-Hole Reduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_t_sne_perplexity.html">t-SNE: The effect of various perplexity values on the shape</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Miscellaneous</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="plot_partial_dependence_visualization_api.html">Advanced Plotting With Partial Dependence</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_anomaly_comparison.html">Comparing anomaly detection algorithms for outlier detection on toy datasets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_kernel_ridge_regression.html">Comparison of kernel ridge regression and SVR</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_pipeline_display.html">Displaying Pipelines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_estimator_representation.html">Displaying estimators and complex pipelines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_outlier_detection_bench.html">Evaluation of outlier detection estimators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_kernel_approximation.html">Explicit feature map approximation for RBF kernels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_multioutput_face_completion.html">Face completion with a multi-output estimators</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Introducing the <code class="docutils literal notranslate"><span class="pre">set_output</span></code> API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_isotonic_regression.html">Isotonic Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_metadata_routing.html">Metadata Routing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_multilabel.html">Multilabel classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_roc_curve_visualization_api.html">ROC Curve with Visualization API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_johnson_lindenstrauss_bound.html">The Johnson-Lindenstrauss bound for embedding with random projections</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_display_object_visualization.html">Visualizations with Display Objects</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../model_selection/index.html">Model Selection</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_grid_search_refit_callable.html">Balance model complexity and cross-validated score</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_likelihood_ratios.html">Class Likelihood Ratios to measure classification performance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_randomized_search.html">Comparing randomized search and grid search for hyperparameter estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_successive_halving_heatmap.html">Comparison between grid search and successive halving</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_confusion_matrix.html">Confusion matrix</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_grid_search_digits.html">Custom refit strategy of a grid search with cross-validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_multi_metric_evaluation.html">Demonstration of multi-metric evaluation on cross_val_score and GridSearchCV</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_det.html">Detection error tradeoff (DET) curve</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_train_error_vs_test_error.html">Effect of model regularization on training and test error</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_roc.html">Multiclass Receiver Operating Characteristic (ROC)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_nested_cross_validation_iris.html">Nested versus non-nested cross-validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_cv_predict.html">Plotting Cross-Validated Predictions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_learning_curve.html">Plotting Learning Curves and Checking Models' Scalability</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_tuned_decision_threshold.html">Post-hoc tuning the cut-off point of decision function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_cost_sensitive_learning.html">Post-tuning the decision threshold for cost-sensitive learning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_precision_recall.html">Precision-Recall</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_roc_crossval.html">Receiver Operating Characteristic (ROC) with cross validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_grid_search_text_feature_extraction.html">Sample pipeline for text feature extraction and evaluation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_grid_search_stats.html">Statistical comparison of models using grid search</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_successive_halving_iterations.html">Successive Halving Iterations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_permutation_tests_for_classification.html">Test with permutations the significance of a classification score</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_underfitting_overfitting.html">Underfitting vs. Overfitting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_cv_indices.html">Visualizing cross-validation behavior in scikit-learn</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../multiclass/index.html">Multiclass methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../multiclass/plot_multiclass_overview.html">Overview of multiclass training meta-estimators</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../multioutput/index.html">Multioutput methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../multioutput/plot_classifier_chain_yeast.html">Multilabel classification using a classifier chain</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../neighbors/index.html">Nearest Neighbors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/approximate_nearest_neighbors.html">Approximate nearest neighbors in TSNE</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_caching_nearest_neighbors.html">Caching nearest neighbors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_classification.html">Comparing Nearest Neighbors with and without Neighborhood Components Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_dim_reduction.html">Dimensionality Reduction with Neighborhood Components Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_species_kde.html">Kernel Density Estimate of Species Distributions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_digits_kde_sampling.html">Kernel Density Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nearest_centroid.html">Nearest Centroid Classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_classification.html">Nearest Neighbors Classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_regression.html">Nearest Neighbors regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_illustration.html">Neighborhood Components Analysis Illustration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_lof_novelty_detection.html">Novelty detection with Local Outlier Factor (LOF)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_lof_outlier_detection.html">Outlier detection with Local Outlier Factor (LOF)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_kde_1d.html">Simple 1D Kernel Density Estimation</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../neural_networks/index.html">Neural Networks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mlp_training_curves.html">Compare Stochastic learning strategies for MLPClassifier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_rbm_logistic_classification.html">Restricted Boltzmann Machine features for digit classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mlp_alpha.html">Varying regularization in Multi-layer Perceptron</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mnist_filters.html">Visualization of MLP weights on MNIST</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../preprocessing/index.html">Preprocessing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_all_scaling.html">Compare the effect of different scalers on data with outliers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder.html">Comparing Target Encoder with Other Encoders</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization_strategies.html">Demonstrating the different strategies of KBinsDiscretizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization_classification.html">Feature discretization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_scaling_importance.html">Importance of Feature Scaling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_map_data_to_normal.html">Map data to a normal distribution</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder_cross_val.html">Target Encoder's Internal Cross fitting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization.html">Using KBinsDiscretizer to discretize continuous features</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../release_highlights/index.html">أبرز ما جاء في الإصدار</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_5_0.html">أبرز الميزات الجديدة في الإصدار 1.5 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_4_0.html">أبرز ميزات الإصدار 1.4 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_3_0.html">أبرز ميزات الإصدار 1.3 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_2_0.html">أبرز ميزات الإصدار 1.2 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_1_0.html">أبرز الميزات الجديدة في إصدار scikit-learn 1.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_0_0.html">أبرز ميزات الإصدار 1.0 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_24_0.html">أبرز ميزات الإصدار 0.24 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_23_0.html">أبرز الميزات الجديدة في إصدار scikit-learn 0.23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_22_0.html">أبرز ميزات الإصدار 0.22 من scikit-learn</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../semi_supervised/index.html">Semi Supervised Classification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_semi_supervised_versus_svm_iris.html">Decision boundary of semi-supervised classifiers versus SVM on the Iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_self_training_varying_threshold.html">Effect of varying threshold for self-training</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_digits_active_learning.html">Label Propagation digits active learning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_digits.html">Label Propagation digits: Demonstrating performance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_structure.html">Label Propagation learning a complex structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_semi_supervised_newsgroups.html">Semi-supervised Classification on a Text Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_semi_supervised_newsgroups.html">التصنيف شبه المُشرف على مجموعة بيانات نصية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_self_training_varying_threshold.html">تأثير تغيير العتبة في التدريب الذاتي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_structure.html">تعلم انتشار العلامات لهيكل معقد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_semi_supervised_versus_svm_iris.html">حدود القرار للمصنفات شبه المُشرفة مقابل SVM على مجموعة بيانات Iris</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_digits_active_learning.html">نشر التسمية للأرقام باستخدام التعلم النشط</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_digits.html">نشر العلامات على الأرقام: توضيح الأداء</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../svm/index.html">Support Vector Machines</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_oneclass.html">One-class SVM with non-linear kernel (RBF)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_kernels.html">Plot classification boundaries with different SVM Kernels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_iris_svc.html">Plot different SVM classifiers in the iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_linearsvc_support_vectors.html">Plot the support vectors in LinearSVC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_rbf_parameters.html">RBF SVM parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_margin.html">SVM Margins Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_tie_breaking.html">SVM Tie Breaking Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_custom_kernel.html">SVM with custom kernel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_anova.html">SVM-Anova: SVM with univariate feature selection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_separating_hyperplane.html">SVM: Maximum margin separating hyperplane</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_separating_hyperplane_unbalanced.html">SVM: Separating hyperplane for unbalanced classes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_weighted_samples.html">SVM: Weighted samples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_scale_c.html">Scaling the regularization parameter for SVCs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_regression.html">Support Vector Regression (SVR) using linear and non-linear kernels</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../text/index.html">Working with text documents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../text/plot_document_classification_20newsgroups.html">Classification of text documents using sparse features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../text/plot_document_clustering.html">Clustering text documents using k-means</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../text/plot_hashing_vs_dict_vectorizer.html">FeatureHasher and DictVectorizer Comparison</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../neighbors/index.html">أقرب الجيران</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/approximate_nearest_neighbors.html">أقرب النقاط المجاورة التقريبية في TSNE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_regression.html">أقرب جيران الانحدار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_caching_nearest_neighbors.html">الاحتفاظ بأقرب الجيران في الذاكرة المؤقتة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_dim_reduction.html">الحد من الأبعاد باستخدام تحليل مكونات الجوار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_lof_novelty_detection.html">الكشف عن البيانات الشاذة باستخدام عامل الانحراف المحلي (LOF)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_lof_outlier_detection.html">الكشف عن القيم الشاذة باستخدام عامل الانحراف المحلي (LOF)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_classification.html">تصنيف أقرب الجيران</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nearest_centroid.html">تصنيف أقرب مركز</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_digits_kde_sampling.html">تقدير كثافة النواة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_kde_1d.html">تقدير كثافة النواة البسيطة أحادية البعد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_species_kde.html">تقدير كثافة النواة لتوزيع الأنواع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_illustration.html">توضيح تحليل مكونات الأحياء المجاورة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_classification.html">مقارنة أقرب الجيران مع وبدون تحليل مكونات الحي</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../applications/index.html">أمثلة مبنية على مجموعات بيانات من العالم الحقيقي</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -730,6 +644,33 @@
 <li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_rfe_digits.html">إزالة الميزة المتكررة</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_feature_selection.html">اختيار الميزة أحادية المتغير</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_f_test_vs_mi.html">مقارنة بين اختبار F والمعلومات المتبادلة</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../model_selection/index.html">إختيار النموذج</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_permutation_tests_for_classification.html">"</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_grid_search_digits.html">استراتيجية إعادة الضبط المخصصة للبحث الشبكي مع التحقق المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_nested_cross_validation_iris.html">التصنيف المتداخل مقابل غير المتداخل</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_grid_search_stats.html">المقارنة الإحصائية للنماذج باستخدام البحث الشبكي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_grid_search_refit_callable.html">الموازنة بين تعقيد النموذج ودرجة الدقة عبر التحقق المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_train_error_vs_test_error.html">تأثير تنظيم النموذج على خطأ التدريب والاختبار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_cv_indices.html">تصور سلوك التحقق المتقاطع في سكايلرن</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_multi_metric_evaluation.html">توضيح التقييم متعدد المقاييس على cross_val_score و GridSearchCV</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_precision_recall.html">دقة-استدعاء</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_cv_predict.html">رسم تنبؤات الصندوق الأسود</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_learning_curve.html">رسم منحنيات التعلم وفحص قابلية التوسع للنماذج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_cost_sensitive_learning.html">ضبط عتبة القرار للتعلم الحساس للتكلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_tuned_decision_threshold.html">ضبط نقطة القطع لوظيفة القرار بعد التدريب</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_underfitting_overfitting.html">عدم الملاءمة مقابل الإفراط في الملاءمة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_successive_halving_iterations.html">عمليات التقسيم المتتالية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_grid_search_text_feature_extraction.html">مثال على خط أنابيب لاستخراج ميزات النص وتقييمها</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_confusion_matrix.html">مصفوفة الارتباك</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_randomized_search.html">مقارنة البحث العشوائي والبحث الشبكي لتقدير فرط المعلمات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_successive_halving_heatmap.html">مقارنة بين البحث الشبكي وتقليص الخيارات المتتابع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_roc.html">منحنى استقبال التشغيل متعدد الفئات (ROC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_det.html">منحنى الخطأ الكشف (DET)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_roc_crossval.html">منحنى المستقبل التشغيلي (ROC) مع التحقق المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_likelihood_ratios.html">نسب الاحتمال الطبقي لقياس أداء التصنيف</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../cluster/index.html">التجميع</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -785,12 +726,44 @@
 
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../neural_networks/index.html">الشبكات العصبية</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mnist_filters.html">تصور أوزان الشبكة العصبية متعددة الطبقات على مجموعة بيانات MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mlp_alpha.html">تغيير معامل التنظيم في الشبكة العصبية متعددة الطبقات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mlp_training_curves.html">مقارنة استراتيجيات التعلم العشوائي لتصنيف الشبكة العصبية متعددة الطبقات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_rbm_logistic_classification.html">ميزات شبكة بولتزمان المقيدة لتصنيف الأرقام</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../multiclass/index.html">الطرق المتعددة الفئات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../multiclass/plot_multiclass_overview.html">نظرة عامة على الميتا-مقدّرات التدريب متعدد التصنيفات</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../multioutput/index.html">الطرق المتعددة المخرجات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../multioutput/plot_classifier_chain_yeast.html">التصنيف متعدد التصنيفات باستخدام سلسلة المصنفات</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../text/index.html">العمل مع المستندات النصية</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../text/plot_document_clustering.html">تجميع مستندات النص باستخدام k-means</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../text/plot_document_classification_20newsgroups.html">تصنيف وثائق النصوص باستخدام الميزات المتناثرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../text/plot_hashing_vs_dict_vectorizer.html">مقارنة بين FeatureHasher و DictVectorizer</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../inspection/index.html">الفحص</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance_multicollinear.html">أهمية التبديل مع الميزات متعددة الخطية أو المرتبطة</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance.html">أهمية التبديل مقابل أهمية ميزة الغابة العشوائية (MDI)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_linear_model_coefficient_interpretation.html">المزالق الشائعة في تفسير معاملات النماذج الخطية</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_causal_interpretation.html">فشل التعلم الآلي في استنتاج الآثار السببية</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_partial_dependence.html">مخططات التبعية الجزئية والتوقع الشرطي الفردي</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../preprocessing/index.html">المعالجة المسبقة للبيانات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_scaling_importance.html">أهمية معايرة الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization.html">استخدام KBinsDiscretizer لتقسيم الخصائص المستمرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder_cross_val.html">الترميز الداخلي للهدف عبر الملاءمة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization_classification.html">تجريد الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_map_data_to_normal.html">تحويل البيانات إلى التوزيع الطبيعي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization_strategies.html">عرض استراتيجيات KBinsDiscretizer المختلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_all_scaling.html">مقارنة تأثير المقياس المختلف على البيانات مع القيم الشاذة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder.html">مقارنة ترميز الهدف مع الترميزات الأخرى</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../linear_model/index.html">النماذج الخطية المعممة</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -926,11 +899,39 @@
 <li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_compare_gpr_krr.html">مقارنة انحدار kernel ridge وانحدار العمليات الغاوسية</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">متنوع</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="plot_multioutput_face_completion.html">اكتمال الوجه باستخدام المُقدرات متعددة المخرجات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_isotonic_regression.html">الانحدار الأيزوتوني</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_multilabel.html">التصنيف متعدد التصنيفات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_display_object_visualization.html">التصورات باستخدام كائنات العرض</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_partial_dependence_visualization_api.html">الرسم المتقدم باستخدام الاعتمادية الجزئية</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">تقديم واجهة برمجة التطبيقات <code class="docutils literal notranslate"><span class="pre">set_output</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_kernel_approximation.html">تقريب خريطة الميزات الصريحة لنواة RBF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_outlier_detection_bench.html">تقييم خوارزميات كشف الشواذ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_metadata_routing.html">توجيه البيانات الوصفية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_johnson_lindenstrauss_bound.html">حدود جونسون-ليندستراوس للانغماس مع الإسقاطات العشوائية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_estimator_representation.html">عرض المنمذجات وأنابيب التوصيل المعقدة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_pipeline_display.html">عرض خطوط الأنابيب</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_kernel_ridge_regression.html">مقارنة بين الانحدار النووي المنتظم والانحدار الداعم للمتجهات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_anomaly_comparison.html">مقارنة خوارزميات الكشف عن الشذوذ لكشف القيم المتطرفة في مجموعات بيانات تجريبية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_roc_curve_visualization_api.html">منحنى ROC مع واجهة برمجة التطبيقات للتصور</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../calibration/index.html">معايرة الإحتمالات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration.html">معايرة احتمالات المصنفات</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration_multiclass.html">معايرة الاحتمالات لتصنيف ثلاثي الفئات</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../calibration/plot_compare_calibration.html">مقارنة معايرة المصنفات</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration_curve.html">منحنيات معايرة الاحتمالية</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mixture/index.html">نماذج الخليط الجاوسي</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_selection.html">اختيار نموذج المزيج الغاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_concentration_prior.html">تحليل نوع أولوية التركيز لخوارزمية التباين بايزي غاوسي ميكسشر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_covariances.html">تشتتات GMM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_pdf.html">تقدير الكثافة لمزيج غاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_init.html">طرق تهيئة نماذج الخلط الغاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm.html">نموذج الإهليجيات لمزيج غاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_sin.html">نموذج مزيج غاوسي لمنحنى الجيب</a></li>
 </ul>
 </details></li>
 </ul>
@@ -972,9 +973,9 @@
     <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Examples</a></li>
     
     
-    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Miscellaneous</a></li>
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">متنوع</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Introducing the <code class="docutils literal notranslate"><span class="pre">set_output</span></code> API</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">تقديم واجهة برمجة التطبيقات <code class="docutils literal notranslate"><span class="pre">set_output</span></code></span></li>
   </ul>
 </nav>
 </div>
@@ -996,14 +997,10 @@
 <p><a class="reference internal" href="#sphx-glr-download-auto-examples-miscellaneous-plot-set-output-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code. or to run this example in your browser via JupyterLite or Binder</p>
 </div>
-<section class="sphx-glr-example-title" id="introducing-the-set-output-api">
-<span id="sphx-glr-auto-examples-miscellaneous-plot-set-output-py"></span><h1>Introducing the <code class="docutils literal notranslate"><span class="pre">set_output</span></code> API<a class="headerlink" href="#introducing-the-set-output-api" title="Link to this heading">#</a></h1>
-<p>This example will demonstrate the <code class="docutils literal notranslate"><span class="pre">set_output</span></code> API to configure transformers to
-output pandas DataFrames. <code class="docutils literal notranslate"><span class="pre">set_output</span></code> can be configured per estimator by calling
-the <code class="docutils literal notranslate"><span class="pre">set_output</span></code> method or globally by setting <code class="docutils literal notranslate"><span class="pre">set_config(transform_output=&quot;pandas&quot;)</span></code>.
-For details, see
-<a class="reference external" href="https://scikit-learn-enhancement-proposals.readthedocs.io/en/latest/slep018/proposal.html">SLEP018</a>.</p>
-<p>First, we load the iris dataset as a DataFrame to demonstrate the <code class="docutils literal notranslate"><span class="pre">set_output</span></code> API.</p>
+<section class="sphx-glr-example-title" id="set-output">
+<span id="sphx-glr-auto-examples-miscellaneous-plot-set-output-py"></span><h1>تقديم واجهة برمجة التطبيقات <code class="docutils literal notranslate"><span class="pre">set_output</span></code><a class="headerlink" href="#set-output" title="Link to this heading">#</a></h1>
+<p>هذا المثال سيوضح واجهة برمجة التطبيقات <code class="docutils literal notranslate"><span class="pre">set_output</span></code> لتكوين المحولات لإخراج إطارات بيانات باندا. يمكن تكوين <code class="docutils literal notranslate"><span class="pre">set_output</span></code> لكل مقدر عن طريق استدعاء طريقة <code class="docutils literal notranslate"><span class="pre">set_output</span></code> أو بشكل عام عن طريق تعيين <code class="docutils literal notranslate"><span class="pre">set_config(transform_output=&quot;pandas&quot;)</span></code>. للحصول على التفاصيل، راجع <a class="reference external" href="https://scikit-learn-enhancement-proposals.readthedocs.io/en/latest/slep018/proposal.html">SLEP018</a>.</p>
+<p>أولاً، نقوم بتحميل مجموعة بيانات إيريس كإطار بيانات لإظهار واجهة برمجة التطبيقات <code class="docutils literal notranslate"><span class="pre">set_output</span></code>.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.datasets.load_iris.html#sklearn.datasets.load_iris" title="sklearn.datasets.load_iris" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">load_iris</span></a>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.model_selection.train_test_split.html#sklearn.model_selection.train_test_split" title="sklearn.model_selection.train_test_split" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-function"><span class="n">train_test_split</span></a>
 
@@ -1078,8 +1075,8 @@ For details, see
 </div>
 </div>
 <br />
-<br /><p>To configure an estimator such as <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">preprocessing.StandardScaler</span></code></a> to return
-DataFrames, call <code class="docutils literal notranslate"><span class="pre">set_output</span></code>. This feature requires pandas to be installed.</p>
+<br /><p>لتكوين مقدر مثل <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">preprocessing.StandardScaler</span></code></a> لإرجاع
+إطارات البيانات، استدع <code class="docutils literal notranslate"><span class="pre">set_output</span></code>. تتطلب هذه الميزة تثبيت باندا.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">StandardScaler</span></a>
 
 <span class="n">scaler</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">StandardScaler</span></a><span class="p">()</span><span class="o">.</span><span class="n">set_output</span><span class="p">(</span><span class="n">transform</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">)</span>
@@ -1155,24 +1152,24 @@ DataFrames, call <code class="docutils literal notranslate"><span class="pre">se
 </div>
 </div>
 <br />
-<br /><p><code class="docutils literal notranslate"><span class="pre">set_output</span></code> can be called after <code class="docutils literal notranslate"><span class="pre">fit</span></code> to configure <code class="docutils literal notranslate"><span class="pre">transform</span></code> after the fact.</p>
+<br /><p>يمكن استدعاء <code class="docutils literal notranslate"><span class="pre">set_output</span></code> بعد <code class="docutils literal notranslate"><span class="pre">fit</span></code> لتكوين <code class="docutils literal notranslate"><span class="pre">transform</span></code> بعد ذلك.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">scaler2</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">StandardScaler</span></a><span class="p">()</span>
 
 <span class="n">scaler2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
 <span class="n">X_test_np</span> <span class="o">=</span> <span class="n">scaler2</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Default output type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">X_test_np</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;نوع الإخراج الافتراضي: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">X_test_np</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 <span class="n">scaler2</span><span class="o">.</span><span class="n">set_output</span><span class="p">(</span><span class="n">transform</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">)</span>
 <span class="n">X_test_df</span> <span class="o">=</span> <span class="n">scaler2</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Configured pandas output type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">X_test_df</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;نوع الإخراج المُهيأ من باندا: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">X_test_df</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Default output type: ndarray
-Configured pandas output type: DataFrame
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>نوع الإخراج الافتراضي: ndarray
+نوع الإخراج المُهيأ من باندا: DataFrame
 </pre></div>
 </div>
-<p>In a <a class="reference internal" href="../../modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">pipeline.Pipeline</span></code></a>, <code class="docutils literal notranslate"><span class="pre">set_output</span></code> configures all steps to output
-DataFrames.</p>
+<p>في <a class="reference internal" href="../../modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">pipeline.Pipeline</span></code></a>، يقوم <code class="docutils literal notranslate"><span class="pre">set_output</span></code> بتكوين جميع الخطوات لإخراج
+إطارات البيانات.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.feature_selection.SelectPercentile.html#sklearn.feature_selection.SelectPercentile" title="sklearn.feature_selection.SelectPercentile" class="sphx-glr-backref-module-sklearn-feature_selection sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">SelectPercentile</span></a>
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">LogisticRegression</span></a>
 <span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.pipeline.make_pipeline.html#sklearn.pipeline.make_pipeline" title="sklearn.pipeline.make_pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-function"><span class="n">make_pipeline</span></a>
@@ -1185,7 +1182,7 @@ DataFrames.</p>
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
-<style>#sk-container-id-46 {
+<style>#sk-container-id-27 {
   /* Definition of color scheme common for light and dark mode */
   --sklearn-color-text: #000;
   --sklearn-color-text-muted: #666;
@@ -1216,15 +1213,15 @@ DataFrames.</p>
   }
 }
 
-#sk-container-id-46 {
+#sk-container-id-27 {
   color: var(--sklearn-color-text);
 }
 
-#sk-container-id-46 pre {
+#sk-container-id-27 pre {
   padding: 0;
 }
 
-#sk-container-id-46 input.sk-hidden--visually {
+#sk-container-id-27 input.sk-hidden--visually {
   border: 0;
   clip: rect(1px 1px 1px 1px);
   clip: rect(1px, 1px, 1px, 1px);
@@ -1236,7 +1233,7 @@ DataFrames.</p>
   width: 1px;
 }
 
-#sk-container-id-46 div.sk-dashed-wrapped {
+#sk-container-id-27 div.sk-dashed-wrapped {
   border: 1px dashed var(--sklearn-color-line);
   margin: 0 0.4em 0.5em 0.4em;
   box-sizing: border-box;
@@ -1244,7 +1241,7 @@ DataFrames.</p>
   background-color: var(--sklearn-color-background);
 }
 
-#sk-container-id-46 div.sk-container {
+#sk-container-id-27 div.sk-container {
   /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
      but bootstrap.min.css set `[hidden] { display: none !important; }`
      so we also need the `!important` here to be able to override the
@@ -1254,7 +1251,7 @@ DataFrames.</p>
   position: relative;
 }
 
-#sk-container-id-46 div.sk-text-repr-fallback {
+#sk-container-id-27 div.sk-text-repr-fallback {
   display: none;
 }
 
@@ -1270,14 +1267,14 @@ div.sk-item {
 
 /* Parallel-specific style estimator block */
 
-#sk-container-id-46 div.sk-parallel-item::after {
+#sk-container-id-27 div.sk-parallel-item::after {
   content: "";
   width: 100%;
   border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
   flex-grow: 1;
 }
 
-#sk-container-id-46 div.sk-parallel {
+#sk-container-id-27 div.sk-parallel {
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -1285,28 +1282,28 @@ div.sk-item {
   position: relative;
 }
 
-#sk-container-id-46 div.sk-parallel-item {
+#sk-container-id-27 div.sk-parallel-item {
   display: flex;
   flex-direction: column;
 }
 
-#sk-container-id-46 div.sk-parallel-item:first-child::after {
+#sk-container-id-27 div.sk-parallel-item:first-child::after {
   align-self: flex-end;
   width: 50%;
 }
 
-#sk-container-id-46 div.sk-parallel-item:last-child::after {
+#sk-container-id-27 div.sk-parallel-item:last-child::after {
   align-self: flex-start;
   width: 50%;
 }
 
-#sk-container-id-46 div.sk-parallel-item:only-child::after {
+#sk-container-id-27 div.sk-parallel-item:only-child::after {
   width: 0;
 }
 
 /* Serial-specific style estimator block */
 
-#sk-container-id-46 div.sk-serial {
+#sk-container-id-27 div.sk-serial {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1324,14 +1321,14 @@ clickable and can be expanded/collapsed.
 
 /* Pipeline and ColumnTransformer style (default) */
 
-#sk-container-id-46 div.sk-toggleable {
+#sk-container-id-27 div.sk-toggleable {
   /* Default theme specific background. It is overwritten whether we have a
   specific estimator or a Pipeline/ColumnTransformer */
   background-color: var(--sklearn-color-background);
 }
 
 /* Toggleable label */
-#sk-container-id-46 label.sk-toggleable__label {
+#sk-container-id-27 label.sk-toggleable__label {
   cursor: pointer;
   display: flex;
   width: 100%;
@@ -1344,13 +1341,13 @@ clickable and can be expanded/collapsed.
   gap: 0.5em;
 }
 
-#sk-container-id-46 label.sk-toggleable__label .caption {
+#sk-container-id-27 label.sk-toggleable__label .caption {
   font-size: 0.6rem;
   font-weight: lighter;
   color: var(--sklearn-color-text-muted);
 }
 
-#sk-container-id-46 label.sk-toggleable__label-arrow:before {
+#sk-container-id-27 label.sk-toggleable__label-arrow:before {
   /* Arrow on the left of the label */
   content: "▸";
   float: left;
@@ -1358,13 +1355,13 @@ clickable and can be expanded/collapsed.
   color: var(--sklearn-color-icon);
 }
 
-#sk-container-id-46 label.sk-toggleable__label-arrow:hover:before {
+#sk-container-id-27 label.sk-toggleable__label-arrow:hover:before {
   color: var(--sklearn-color-text);
 }
 
 /* Toggleable content - dropdown */
 
-#sk-container-id-46 div.sk-toggleable__content {
+#sk-container-id-27 div.sk-toggleable__content {
   max-height: 0;
   max-width: 0;
   overflow: hidden;
@@ -1373,12 +1370,12 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-46 div.sk-toggleable__content.fitted {
+#sk-container-id-27 div.sk-toggleable__content.fitted {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
-#sk-container-id-46 div.sk-toggleable__content pre {
+#sk-container-id-27 div.sk-toggleable__content pre {
   margin: 0.2em;
   border-radius: 0.25em;
   color: var(--sklearn-color-text);
@@ -1386,79 +1383,79 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-46 div.sk-toggleable__content.fitted pre {
+#sk-container-id-27 div.sk-toggleable__content.fitted pre {
   /* unfitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
-#sk-container-id-46 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+#sk-container-id-27 input.sk-toggleable__control:checked~div.sk-toggleable__content {
   /* Expand drop-down */
   max-height: 200px;
   max-width: 100%;
   overflow: auto;
 }
 
-#sk-container-id-46 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+#sk-container-id-27 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
   content: "▾";
 }
 
 /* Pipeline/ColumnTransformer-specific style */
 
-#sk-container-id-46 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-27 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-46 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-27 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
 /* Estimator-specific style */
 
 /* Colorize estimator box */
-#sk-container-id-46 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-27 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-46 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-27 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
-#sk-container-id-46 div.sk-label label.sk-toggleable__label,
-#sk-container-id-46 div.sk-label label {
+#sk-container-id-27 div.sk-label label.sk-toggleable__label,
+#sk-container-id-27 div.sk-label label {
   /* The background is the default theme color */
   color: var(--sklearn-color-text-on-default-background);
 }
 
 /* On hover, darken the color of the background */
-#sk-container-id-46 div.sk-label:hover label.sk-toggleable__label {
+#sk-container-id-27 div.sk-label:hover label.sk-toggleable__label {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
 /* Label box, darken color on hover, fitted */
-#sk-container-id-46 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+#sk-container-id-27 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
 /* Estimator label */
 
-#sk-container-id-46 div.sk-label label {
+#sk-container-id-27 div.sk-label label {
   font-family: monospace;
   font-weight: bold;
   display: inline-block;
   line-height: 1.2em;
 }
 
-#sk-container-id-46 div.sk-label-container {
+#sk-container-id-27 div.sk-label-container {
   text-align: center;
 }
 
 /* Estimator-specific */
-#sk-container-id-46 div.sk-estimator {
+#sk-container-id-27 div.sk-estimator {
   font-family: monospace;
   border: 1px dotted var(--sklearn-color-border-box);
   border-radius: 0.25em;
@@ -1468,18 +1465,18 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-46 div.sk-estimator.fitted {
+#sk-container-id-27 div.sk-estimator.fitted {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
 /* on hover */
-#sk-container-id-46 div.sk-estimator:hover {
+#sk-container-id-27 div.sk-estimator:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-46 div.sk-estimator.fitted:hover {
+#sk-container-id-27 div.sk-estimator.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-2);
 }
@@ -1567,7 +1564,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 
 /* "?"-specific style due to the `<a>` HTML tag */
 
-#sk-container-id-46 a.estimator_doc_link {
+#sk-container-id-27 a.estimator_doc_link {
   float: right;
   font-size: 1rem;
   line-height: 1em;
@@ -1582,33 +1579,33 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   border: var(--sklearn-color-unfitted-level-1) 1pt solid;
 }
 
-#sk-container-id-46 a.estimator_doc_link.fitted {
+#sk-container-id-27 a.estimator_doc_link.fitted {
   /* fitted */
   border: var(--sklearn-color-fitted-level-1) 1pt solid;
   color: var(--sklearn-color-fitted-level-1);
 }
 
 /* On hover */
-#sk-container-id-46 a.estimator_doc_link:hover {
+#sk-container-id-27 a.estimator_doc_link:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-3);
   color: var(--sklearn-color-background);
   text-decoration: none;
 }
 
-#sk-container-id-46 a.estimator_doc_link.fitted:hover {
+#sk-container-id-27 a.estimator_doc_link.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-3);
 }
-</style><div id="sk-container-id-46" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler()),
+</style><div id="sk-container-id-27" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler()),
                 (&#x27;selectpercentile&#x27;, SelectPercentile(percentile=75)),
-                (&#x27;logisticregression&#x27;, LogisticRegression())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-207" type="checkbox" ><label for="sk-estimator-id-207" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler()),
+                (&#x27;logisticregression&#x27;, LogisticRegression())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-77" type="checkbox" ><label for="sk-estimator-id-77" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler()),
                 (&#x27;selectpercentile&#x27;, SelectPercentile(percentile=75)),
-                (&#x27;logisticregression&#x27;, LogisticRegression())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-208" type="checkbox" ><label for="sk-estimator-id-208" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content fitted"><pre>StandardScaler()</pre></div> </div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-209" type="checkbox" ><label for="sk-estimator-id-209" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SelectPercentile</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.feature_selection.SelectPercentile.html">?<span>Documentation for SelectPercentile</span></a></div></label><div class="sk-toggleable__content fitted"><pre>SelectPercentile(percentile=75)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-210" type="checkbox" ><label for="sk-estimator-id-210" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LogisticRegression</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a></div></label><div class="sk-toggleable__content fitted"><pre>LogisticRegression()</pre></div> </div></div></div></div></div></div>
+                (&#x27;logisticregression&#x27;, LogisticRegression())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-78" type="checkbox" ><label for="sk-estimator-id-78" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content fitted"><pre>StandardScaler()</pre></div> </div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-79" type="checkbox" ><label for="sk-estimator-id-79" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SelectPercentile</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.feature_selection.SelectPercentile.html">?<span>Documentation for SelectPercentile</span></a></div></label><div class="sk-toggleable__content fitted"><pre>SelectPercentile(percentile=75)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-80" type="checkbox" ><label for="sk-estimator-id-80" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LogisticRegression</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a></div></label><div class="sk-toggleable__content fitted"><pre>LogisticRegression()</pre></div> </div></div></div></div></div></div>
 </div>
 <br />
-<br /><p>Each transformer in the pipeline is configured to return DataFrames. This
-means that the final logistic regression step contains the feature names of the input.</p>
+<br /><p>يتم تكوين كل محول في خط الأنابيب لإرجاع إطارات البيانات. هذا
+يعني أن خطوة الانحدار اللوجستي النهائي تحتوي على أسماء ميزات الإدخال.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">clf</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">feature_names_in_</span>
 </pre></div>
 </div>
@@ -1618,8 +1615,8 @@ means that the final logistic regression step contains the feature names of the 
 </div>
 <div class="admonition note">
 <p class="admonition-title">ملاحظة</p>
-<p>If one uses the method <code class="docutils literal notranslate"><span class="pre">set_params</span></code>, the transformer will be
-replaced by a new one with the default output format.</p>
+<p>إذا استخدم المرء طريقة <code class="docutils literal notranslate"><span class="pre">set_params</span></code>، فسيتم استبدال المحول
+بآخر بتنسيق الإخراج الافتراضي.</p>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">clf</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="n">standardscaler</span><span class="o">=</span><a href="../../modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">StandardScaler</span></a><span class="p">())</span>
 <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
@@ -1629,8 +1626,8 @@ replaced by a new one with the default output format.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([&#39;x0&#39;, &#39;x2&#39;, &#39;x3&#39;], dtype=object)
 </pre></div>
 </div>
-<p>To keep the intended behavior, use <code class="docutils literal notranslate"><span class="pre">set_output</span></code> on the new transformer
-beforehand</p>
+<p>للحفاظ على السلوك المقصود، استخدم <code class="docutils literal notranslate"><span class="pre">set_output</span></code> على المحول الجديد
+مسبقاً</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">scaler</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">StandardScaler</span></a><span class="p">()</span><span class="o">.</span><span class="n">set_output</span><span class="p">(</span><span class="n">transform</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">)</span>
 <span class="n">clf</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="n">standardscaler</span><span class="o">=</span><span class="n">scaler</span><span class="p">)</span>
 <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
@@ -1641,16 +1638,16 @@ beforehand</p>
       dtype=object)
 </pre></div>
 </div>
-<p>Next we load the titanic dataset to demonstrate <code class="docutils literal notranslate"><span class="pre">set_output</span></code> with
-<a class="reference internal" href="../../modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="sklearn.compose.ColumnTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">compose.ColumnTransformer</span></code></a> and heterogeneous data.</p>
+<p>بعد ذلك، نقوم بتحميل مجموعة بيانات تيتانيك لإظهار <code class="docutils literal notranslate"><span class="pre">set_output</span></code> مع
+<a class="reference internal" href="../../modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="sklearn.compose.ColumnTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">compose.ColumnTransformer</span></code></a> والبيانات غير المتجانسة.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.datasets.fetch_openml.html#sklearn.datasets.fetch_openml" title="sklearn.datasets.fetch_openml" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_openml</span></a>
 
 <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.datasets.fetch_openml.html#sklearn.datasets.fetch_openml" title="sklearn.datasets.fetch_openml" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_openml</span></a><span class="p">(</span><span class="s2">&quot;titanic&quot;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.model_selection.train_test_split.html#sklearn.model_selection.train_test_split" title="sklearn.model_selection.train_test_split" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-function"><span class="n">train_test_split</span></a><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">set_output</span></code> API can be configured globally by using <a class="reference internal" href="../../modules/generated/sklearn.set_config.html#sklearn.set_config" title="sklearn.set_config"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_config</span></code></a> and
-setting <code class="docutils literal notranslate"><span class="pre">transform_output</span></code> to <code class="docutils literal notranslate"><span class="pre">&quot;pandas&quot;</span></code>.</p>
+<p>يمكن تكوين واجهة برمجة التطبيقات <code class="docutils literal notranslate"><span class="pre">set_output</span></code> بشكل عام باستخدام <a class="reference internal" href="../../modules/generated/sklearn.set_config.html#sklearn.set_config" title="sklearn.set_config"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_config</span></code></a> و
+تعيين <code class="docutils literal notranslate"><span class="pre">transform_output</span></code> إلى <code class="docutils literal notranslate"><span class="pre">&quot;pandas&quot;</span></code>.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.set_config.html#sklearn.set_config" title="sklearn.set_config" class="sphx-glr-backref-module-sklearn sphx-glr-backref-type-py-function"><span class="n">set_config</span></a>
 <span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="sklearn.compose.ColumnTransformer" class="sphx-glr-backref-module-sklearn-compose sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ColumnTransformer</span></a>
 <span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.impute.SimpleImputer.html#sklearn.impute.SimpleImputer" title="sklearn.impute.SimpleImputer" class="sphx-glr-backref-module-sklearn-impute sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">SimpleImputer</span></a>
@@ -1678,11 +1675,11 @@ setting <code class="docutils literal notranslate"><span class="pre">transform_o
 <span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>0.7621951219512195
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>0.7804878048780488
 </pre></div>
 </div>
-<p>With the global configuration, all transformers output DataFrames. This allows us to
-easily plot the logistic regression coefficients with the corresponding feature names.</p>
+<p>مع التهيئة العامة، تخرج جميع المحولات إطارات بيانات. هذا يسمح لنا
+بسهولة رسم معاملات الانحدار اللوجستي مع أسماء الميزات المقابلة.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="n">log_reg</span> <span class="o">=</span> <span class="n">clf</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
@@ -1690,15 +1687,14 @@ easily plot the logistic regression coefficients with the corresponding feature 
 <span class="n">_</span> <span class="o">=</span> <span class="n">coef</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">barh</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_set_output_001.png" srcset="../../_images/sphx_glr_plot_set_output_001.png" alt="plot set output" class = "sphx-glr-single-img"/><p>In order to demonstrate the <a class="reference internal" href="../../modules/generated/sklearn.config_context.html#sklearn.config_context" title="sklearn.config_context"><code class="xref py py-func docutils literal notranslate"><span class="pre">config_context</span></code></a> functionality below, let
-us first reset <code class="docutils literal notranslate"><span class="pre">transform_output</span></code> to its default value.</p>
+<img src="../../_images/sphx_glr_plot_set_output_001.png" srcset="../../_images/sphx_glr_plot_set_output_001.png" alt="plot set output" class = "sphx-glr-single-img"/><p>من أجل توضيح وظيفة <a class="reference internal" href="../../modules/generated/sklearn.config_context.html#sklearn.config_context" title="sklearn.config_context"><code class="xref py py-func docutils literal notranslate"><span class="pre">config_context</span></code></a> أدناه، دعنا
+أولاً إعادة تعيين <code class="docutils literal notranslate"><span class="pre">transform_output</span></code> إلى قيمته الافتراضية.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../../modules/generated/sklearn.set_config.html#sklearn.set_config" title="sklearn.set_config" class="sphx-glr-backref-module-sklearn sphx-glr-backref-type-py-function"><span class="n">set_config</span></a><span class="p">(</span><span class="n">transform_output</span><span class="o">=</span><span class="s2">&quot;default&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>When configuring the output type with <a class="reference internal" href="../../modules/generated/sklearn.config_context.html#sklearn.config_context" title="sklearn.config_context"><code class="xref py py-func docutils literal notranslate"><span class="pre">config_context</span></code></a> the
-configuration at the time when <code class="docutils literal notranslate"><span class="pre">transform</span></code> or <code class="docutils literal notranslate"><span class="pre">fit_transform</span></code> are
-called is what counts. Setting these only when you construct or fit
-the transformer has no effect.</p>
+<p>عند تكوين نوع الإخراج باستخدام <a class="reference internal" href="../../modules/generated/sklearn.config_context.html#sklearn.config_context" title="sklearn.config_context"><code class="xref py py-func docutils literal notranslate"><span class="pre">config_context</span></code></a> فإن
+التهيئة في الوقت الذي يتم فيه استدعاء <code class="docutils literal notranslate"><span class="pre">transform</span></code> أو <code class="docutils literal notranslate"><span class="pre">fit_transform</span></code> هي ما يهم. تعيين هذه فقط عند إنشاء أو تكييف
+المحول ليس له أي تأثير.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.config_context.html#sklearn.config_context" title="sklearn.config_context" class="sphx-glr-backref-module-sklearn sphx-glr-backref-type-py-function"><span class="n">config_context</span></a>
 
 <span class="n">scaler</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">StandardScaler</span></a><span class="p">()</span>
@@ -1706,7 +1702,7 @@ the transformer has no effect.</p>
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
-<style>#sk-container-id-47 {
+<style>#sk-container-id-28 {
   /* Definition of color scheme common for light and dark mode */
   --sklearn-color-text: #000;
   --sklearn-color-text-muted: #666;
@@ -1737,15 +1733,15 @@ the transformer has no effect.</p>
   }
 }
 
-#sk-container-id-47 {
+#sk-container-id-28 {
   color: var(--sklearn-color-text);
 }
 
-#sk-container-id-47 pre {
+#sk-container-id-28 pre {
   padding: 0;
 }
 
-#sk-container-id-47 input.sk-hidden--visually {
+#sk-container-id-28 input.sk-hidden--visually {
   border: 0;
   clip: rect(1px 1px 1px 1px);
   clip: rect(1px, 1px, 1px, 1px);
@@ -1757,7 +1753,7 @@ the transformer has no effect.</p>
   width: 1px;
 }
 
-#sk-container-id-47 div.sk-dashed-wrapped {
+#sk-container-id-28 div.sk-dashed-wrapped {
   border: 1px dashed var(--sklearn-color-line);
   margin: 0 0.4em 0.5em 0.4em;
   box-sizing: border-box;
@@ -1765,7 +1761,7 @@ the transformer has no effect.</p>
   background-color: var(--sklearn-color-background);
 }
 
-#sk-container-id-47 div.sk-container {
+#sk-container-id-28 div.sk-container {
   /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
      but bootstrap.min.css set `[hidden] { display: none !important; }`
      so we also need the `!important` here to be able to override the
@@ -1775,7 +1771,7 @@ the transformer has no effect.</p>
   position: relative;
 }
 
-#sk-container-id-47 div.sk-text-repr-fallback {
+#sk-container-id-28 div.sk-text-repr-fallback {
   display: none;
 }
 
@@ -1791,14 +1787,14 @@ div.sk-item {
 
 /* Parallel-specific style estimator block */
 
-#sk-container-id-47 div.sk-parallel-item::after {
+#sk-container-id-28 div.sk-parallel-item::after {
   content: "";
   width: 100%;
   border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
   flex-grow: 1;
 }
 
-#sk-container-id-47 div.sk-parallel {
+#sk-container-id-28 div.sk-parallel {
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -1806,28 +1802,28 @@ div.sk-item {
   position: relative;
 }
 
-#sk-container-id-47 div.sk-parallel-item {
+#sk-container-id-28 div.sk-parallel-item {
   display: flex;
   flex-direction: column;
 }
 
-#sk-container-id-47 div.sk-parallel-item:first-child::after {
+#sk-container-id-28 div.sk-parallel-item:first-child::after {
   align-self: flex-end;
   width: 50%;
 }
 
-#sk-container-id-47 div.sk-parallel-item:last-child::after {
+#sk-container-id-28 div.sk-parallel-item:last-child::after {
   align-self: flex-start;
   width: 50%;
 }
 
-#sk-container-id-47 div.sk-parallel-item:only-child::after {
+#sk-container-id-28 div.sk-parallel-item:only-child::after {
   width: 0;
 }
 
 /* Serial-specific style estimator block */
 
-#sk-container-id-47 div.sk-serial {
+#sk-container-id-28 div.sk-serial {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1845,14 +1841,14 @@ clickable and can be expanded/collapsed.
 
 /* Pipeline and ColumnTransformer style (default) */
 
-#sk-container-id-47 div.sk-toggleable {
+#sk-container-id-28 div.sk-toggleable {
   /* Default theme specific background. It is overwritten whether we have a
   specific estimator or a Pipeline/ColumnTransformer */
   background-color: var(--sklearn-color-background);
 }
 
 /* Toggleable label */
-#sk-container-id-47 label.sk-toggleable__label {
+#sk-container-id-28 label.sk-toggleable__label {
   cursor: pointer;
   display: flex;
   width: 100%;
@@ -1865,13 +1861,13 @@ clickable and can be expanded/collapsed.
   gap: 0.5em;
 }
 
-#sk-container-id-47 label.sk-toggleable__label .caption {
+#sk-container-id-28 label.sk-toggleable__label .caption {
   font-size: 0.6rem;
   font-weight: lighter;
   color: var(--sklearn-color-text-muted);
 }
 
-#sk-container-id-47 label.sk-toggleable__label-arrow:before {
+#sk-container-id-28 label.sk-toggleable__label-arrow:before {
   /* Arrow on the left of the label */
   content: "▸";
   float: left;
@@ -1879,13 +1875,13 @@ clickable and can be expanded/collapsed.
   color: var(--sklearn-color-icon);
 }
 
-#sk-container-id-47 label.sk-toggleable__label-arrow:hover:before {
+#sk-container-id-28 label.sk-toggleable__label-arrow:hover:before {
   color: var(--sklearn-color-text);
 }
 
 /* Toggleable content - dropdown */
 
-#sk-container-id-47 div.sk-toggleable__content {
+#sk-container-id-28 div.sk-toggleable__content {
   max-height: 0;
   max-width: 0;
   overflow: hidden;
@@ -1894,12 +1890,12 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-47 div.sk-toggleable__content.fitted {
+#sk-container-id-28 div.sk-toggleable__content.fitted {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
-#sk-container-id-47 div.sk-toggleable__content pre {
+#sk-container-id-28 div.sk-toggleable__content pre {
   margin: 0.2em;
   border-radius: 0.25em;
   color: var(--sklearn-color-text);
@@ -1907,79 +1903,79 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-47 div.sk-toggleable__content.fitted pre {
+#sk-container-id-28 div.sk-toggleable__content.fitted pre {
   /* unfitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
-#sk-container-id-47 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+#sk-container-id-28 input.sk-toggleable__control:checked~div.sk-toggleable__content {
   /* Expand drop-down */
   max-height: 200px;
   max-width: 100%;
   overflow: auto;
 }
 
-#sk-container-id-47 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+#sk-container-id-28 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
   content: "▾";
 }
 
 /* Pipeline/ColumnTransformer-specific style */
 
-#sk-container-id-47 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-28 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-47 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-28 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
 /* Estimator-specific style */
 
 /* Colorize estimator box */
-#sk-container-id-47 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-28 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-47 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-28 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
-#sk-container-id-47 div.sk-label label.sk-toggleable__label,
-#sk-container-id-47 div.sk-label label {
+#sk-container-id-28 div.sk-label label.sk-toggleable__label,
+#sk-container-id-28 div.sk-label label {
   /* The background is the default theme color */
   color: var(--sklearn-color-text-on-default-background);
 }
 
 /* On hover, darken the color of the background */
-#sk-container-id-47 div.sk-label:hover label.sk-toggleable__label {
+#sk-container-id-28 div.sk-label:hover label.sk-toggleable__label {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
 /* Label box, darken color on hover, fitted */
-#sk-container-id-47 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+#sk-container-id-28 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
 /* Estimator label */
 
-#sk-container-id-47 div.sk-label label {
+#sk-container-id-28 div.sk-label label {
   font-family: monospace;
   font-weight: bold;
   display: inline-block;
   line-height: 1.2em;
 }
 
-#sk-container-id-47 div.sk-label-container {
+#sk-container-id-28 div.sk-label-container {
   text-align: center;
 }
 
 /* Estimator-specific */
-#sk-container-id-47 div.sk-estimator {
+#sk-container-id-28 div.sk-estimator {
   font-family: monospace;
   border: 1px dotted var(--sklearn-color-border-box);
   border-radius: 0.25em;
@@ -1989,18 +1985,18 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-47 div.sk-estimator.fitted {
+#sk-container-id-28 div.sk-estimator.fitted {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
 /* on hover */
-#sk-container-id-47 div.sk-estimator:hover {
+#sk-container-id-28 div.sk-estimator:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-47 div.sk-estimator.fitted:hover {
+#sk-container-id-28 div.sk-estimator.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-2);
 }
@@ -2088,7 +2084,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 
 /* "?"-specific style due to the `<a>` HTML tag */
 
-#sk-container-id-47 a.estimator_doc_link {
+#sk-container-id-28 a.estimator_doc_link {
   float: right;
   font-size: 1rem;
   line-height: 1em;
@@ -2103,29 +2099,29 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   border: var(--sklearn-color-unfitted-level-1) 1pt solid;
 }
 
-#sk-container-id-47 a.estimator_doc_link.fitted {
+#sk-container-id-28 a.estimator_doc_link.fitted {
   /* fitted */
   border: var(--sklearn-color-fitted-level-1) 1pt solid;
   color: var(--sklearn-color-fitted-level-1);
 }
 
 /* On hover */
-#sk-container-id-47 a.estimator_doc_link:hover {
+#sk-container-id-28 a.estimator_doc_link:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-3);
   color: var(--sklearn-color-background);
   text-decoration: none;
 }
 
-#sk-container-id-47 a.estimator_doc_link.fitted:hover {
+#sk-container-id-28 a.estimator_doc_link.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-3);
 }
-</style><div id="sk-container-id-47" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>StandardScaler()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-211" type="checkbox" checked><label for="sk-estimator-id-211" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>StandardScaler()</pre></div> </div></div></div></div>
+</style><div id="sk-container-id-28" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>StandardScaler()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-81" type="checkbox" checked><label for="sk-estimator-id-81" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>StandardScaler()</pre></div> </div></div></div></div>
 </div>
 <br />
 <br /><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <a href="../../modules/generated/sklearn.config_context.html#sklearn.config_context" title="sklearn.config_context" class="sphx-glr-backref-module-sklearn sphx-glr-backref-type-py-function"><span class="n">config_context</span></a><span class="p">(</span><span class="n">transform_output</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">):</span>
-    <span class="c1"># the output of transform will be a Pandas DataFrame</span>
+    <span class="c1"># سيكون إخراج التحويل إطار بيانات باندا</span>
     <span class="n">X_test_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="n">num_cols</span><span class="p">])</span>
 <span class="n">X_test_scaled</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
@@ -2155,48 +2151,48 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   </thead>
   <tbody>
     <tr>
-      <th>1088</th>
-      <td>0.151101</td>
-      <td>-0.479229</td>
+      <th>714</th>
+      <td>0.139067</td>
+      <td>0.446265</td>
     </tr>
     <tr>
-      <th>1001</th>
+      <th>101</th>
+      <td>0.627743</td>
+      <td>-0.081671</td>
+    </tr>
+    <tr>
+      <th>721</th>
+      <td>0.418311</td>
+      <td>-0.519142</td>
+    </tr>
+    <tr>
+      <th>147</th>
       <td>NaN</td>
-      <td>-0.188153</td>
+      <td>0.168547</td>
     </tr>
     <tr>
-      <th>660</th>
-      <td>-0.393297</td>
-      <td>-0.263234</td>
-    </tr>
-    <tr>
-      <th>657</th>
-      <td>-1.975455</td>
-      <td>-0.263234</td>
-    </tr>
-    <tr>
-      <th>285</th>
-      <td>2.532843</td>
-      <td>3.546068</td>
+      <th>661</th>
+      <td>-0.838285</td>
+      <td>-0.508223</td>
     </tr>
   </tbody>
 </table>
 </div>
 </div>
 <br />
-<br /><p>outside of the context manager, the output will be a NumPy array</p>
+<br /><p>خارج مدير السياق، سيكون الإخراج مصفوفة نومبي</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">X_test_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="n">num_cols</span><span class="p">])</span>
 <span class="n">X_test_scaled</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([[ 0.1511007 , -0.47922861],
-       [        nan, -0.18815268],
-       [-0.39329747, -0.26323428],
-       [-1.97545464, -0.26323428],
-       [ 2.53284267,  3.54606834]])
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([[ 0.14,  0.45],
+       [ 0.63, -0.08],
+       [ 0.42, -0.52],
+       [  nan,  0.17],
+       [-0.84, -0.51]])
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.165 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.191 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-miscellaneous-plot-set-output-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/scikit-learn/scikit-learn/main?urlpath=lab/tree/notebooks/auto_examples/miscellaneous/plot_set_output.ipynb"><img alt="Launch binder" src="../../_images/binder_badge_logo20.svg" style="width: 150px;" />
@@ -2217,18 +2213,18 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 </div>
 <p class="rubric">Related examples</p>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="We are pleased to announce the release of scikit-learn 1.2! Many bug fixes and improvements were added, as well as some new key features. We detail below a few of the major features of this release. For an exhaustive list of all the changes, please refer to the release notes &lt;release_notes_1_2&gt;."><img alt="" src="../../_images/sphx_glr_plot_release_highlights_1_2_0_thumb.png" />
-<p><a class="reference internal" href="../release_highlights/plot_release_highlights_1_2_0.html#sphx-glr-auto-examples-release-highlights-plot-release-highlights-1-2-0-py"><span class="std std-ref">Release Highlights for scikit-learn 1.2</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Release Highlights for scikit-learn 1.2</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The default configuration for displaying a pipeline in a Jupyter Notebook is &#x27;diagram&#x27; where set_config(display=&#x27;diagram&#x27;). To deactivate HTML representation, use set_config(display=&#x27;text&#x27;)."><img alt="" src="../../_images/sphx_glr_plot_pipeline_display_thumb.png" />
-<p><a class="reference internal" href="plot_pipeline_display.html#sphx-glr-auto-examples-miscellaneous-plot-pipeline-display-py"><span class="std std-ref">Displaying Pipelines</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Displaying Pipelines</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="We are pleased to announce the release of scikit-learn 1.4! Many bug fixes and improvements were added, as well as some new key features. We detail below a few of the major features of this release. For an exhaustive list of all the changes, please refer to the release notes &lt;release_notes_1_4&gt;."><img alt="" src="../../_images/sphx_glr_plot_release_highlights_1_4_0_thumb.png" />
-<p><a class="reference internal" href="../release_highlights/plot_release_highlights_1_4_0.html#sphx-glr-auto-examples-release-highlights-plot-release-highlights-1-4-0-py"><span class="std std-ref">Release Highlights for scikit-learn 1.4</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Release Highlights for scikit-learn 1.4</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="We are very pleased to announce the release of scikit-learn 1.0! The library has been stable for quite some time, releasing version 1.0 is recognizing that and signalling it to our users. This release does not include any breaking changes apart from the usual two-release deprecation cycle. For the future, we do our best to keep this pattern."><img alt="" src="../../_images/sphx_glr_plot_release_highlights_1_0_0_thumb.png" />
-<p><a class="reference internal" href="../release_highlights/plot_release_highlights_1_0_0.html#sphx-glr-auto-examples-release-highlights-plot-release-highlights-1-0-0-py"><span class="std std-ref">Release Highlights for scikit-learn 1.0</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Release Highlights for scikit-learn 1.0</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="يسعدنا الإعلان عن إصدار scikit-learn 1.2! تم إجراء العديد من الإصلاحات والتحسينات، بالإضافة إلى بعض الميزات الرئيسية الجديدة. نستعرض أدناه بعض الميزات الرئيسية لهذا الإصدار. للاطلاع على قائمة شاملة بجميع التغييرات، يرجى الرجوع إلى ملاحظات الإصدار &lt;release_notes_1_2&gt;."><img alt="" src="../../_images/sphx_glr_plot_release_highlights_1_2_0_thumb.png" />
+<p><a class="reference internal" href="../release_highlights/plot_release_highlights_1_2_0.html#sphx-glr-auto-examples-release-highlights-plot-release-highlights-1-2-0-py"><span class="std std-ref">أبرز ميزات الإصدار 1.2 من scikit-learn</span></a></p>
+  <div class="sphx-glr-thumbnail-title">أبرز ميزات الإصدار 1.2 من scikit-learn</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="تكوين العرض الافتراضي لخط الأنابيب في دفتر Jupyter هو &#x27;diagram&#x27; حيث set_config(display=&#x27;diagram&#x27;). لإلغاء تنشيط التمثيل HTML، استخدم set_config(display=&#x27;text&#x27;)."><img alt="" src="../../_images/sphx_glr_plot_pipeline_display_thumb.png" />
+<p><a class="reference internal" href="plot_pipeline_display.html#sphx-glr-auto-examples-miscellaneous-plot-pipeline-display-py"><span class="std std-ref">عرض خطوط الأنابيب</span></a></p>
+  <div class="sphx-glr-thumbnail-title">عرض خطوط الأنابيب</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال كيفية تطبيق خطوط أنابيب مختلفة للمعالجة المسبقة واستخراج الميزات على مجموعات فرعية مختلفة من الميزات، باستخدام ColumnTransformer. هذا مفيد بشكل خاص في حالة مجموعات البيانات التي تحتوي على أنواع بيانات غير متجانسة، حيث قد نرغب في قياس الميزات الرقمية وترميز الميزات الفئوية بنظام الترميز الثنائي."><img alt="" src="../../_images/sphx_glr_plot_column_transformer_mixed_types_thumb.png" />
+<p><a class="reference internal" href="../compose/plot_column_transformer_mixed_types.html#sphx-glr-auto-examples-compose-plot-column-transformer-mixed-types-py"><span class="std std-ref">محول الأعمدة مع الأنواع المختلطة</span></a></p>
+  <div class="sphx-glr-thumbnail-title">محول الأعمدة مع الأنواع المختلطة</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="يسعدنا الإعلان عن إصدار scikit-learn 1.4! تم إجراء العديد من الإصلاحات والتحسينات، بالإضافة إلى بعض الميزات الرئيسية الجديدة. نستعرض أدناه بعض الميزات الرئيسية لهذا الإصدار. للاطلاع على قائمة شاملة بجميع التغييرات، يرجى الرجوع إلى ملاحظات الإصدار &lt;release_notes_1_4&gt;."><img alt="" src="../../_images/sphx_glr_plot_release_highlights_1_4_0_thumb.png" />
+<p><a class="reference internal" href="../release_highlights/plot_release_highlights_1_4_0.html#sphx-glr-auto-examples-release-highlights-plot-release-highlights-1-4-0-py"><span class="std std-ref">أبرز ميزات الإصدار 1.4 من scikit-learn</span></a></p>
+  <div class="sphx-glr-thumbnail-title">أبرز ميزات الإصدار 1.4 من scikit-learn</div>
 </div></div><p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
 </section>
 
@@ -2243,20 +2239,20 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
     <div class="footer-article-item">
 <div class="prev-next-area">
     <a class="left-prev"
-       href="plot_multioutput_face_completion.html"
+       href="plot_partial_dependence_visualization_api.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">السابق</p>
-        <p class="prev-next-title">Face completion with a multi-output estimators</p>
+        <p class="prev-next-title">الرسم المتقدم باستخدام الاعتمادية الجزئية</p>
       </div>
     </a>
     <a class="right-next"
-       href="plot_isotonic_regression.html"
+       href="plot_kernel_approximation.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">التالي</p>
-        <p class="prev-next-title">Isotonic Regression</p>
+        <p class="prev-next-title">تقريب خريطة الميزات الصريحة لنواة RBF</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

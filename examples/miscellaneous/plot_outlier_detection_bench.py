@@ -1,42 +1,44 @@
 """
 ==========================================
-Evaluation of outlier detection estimators
+تقييم خوارزميات كشف الشواذ
 ==========================================
 
-This example compares two outlier detection algorithms, namely
-:ref:`local_outlier_factor` (LOF) and :ref:`isolation_forest` (IForest), on
-real-world datasets available in :class:`sklearn.datasets`. The goal is to show
-that different algorithms perform well on different datasets and contrast their
-training speed and sensitivity to hyperparameters.
+يقارن هذا المثال بين خوارزميتين لكشف الشواذ، وهما
+:ref:`local_outlier_factor` (LOF) و :ref:`isolation_forest` (IForest)، على
+مجموعات بيانات واقعية متوفرة في :class:`sklearn.datasets`. الهدف هو إظهار
+أن خوارزميات مختلفة تؤدي أداءً جيدًا على مجموعات بيانات مختلفة وتوضيح سرعة
+تدريبها وحساسيتها لضبط المعلمات.
 
-The algorithms are trained (without labels) on the whole dataset assumed to
-contain outliers.
+تتم تدريب الخوارزميات (بدون تسميات) على مجموعة البيانات الكاملة المفترضة
+أنها تحتوي على شواذ.
 
-1. The ROC curves are computed using knowledge of the ground-truth labels
-and displayed using :class:`~sklearn.metrics.RocCurveDisplay`.
+1. يتم حساب منحنيات ROC باستخدام معرفة التسميات الحقيقية
+وعرضها باستخدام :class:`~sklearn.metrics.RocCurveDisplay`.
 
-2. The performance is assessed in terms of the ROC-AUC.
+2. يتم تقييم الأداء من حيث ROC-AUC.
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف SPDX-License: BSD-3-Clause
 
 # %%
-# Dataset preprocessing and model training
+# معالجة البيانات وتدريب النموذج
 # ========================================
 #
-# Different outlier detection models require different preprocessing. In the
-# presence of categorical variables,
-# :class:`~sklearn.preprocessing.OrdinalEncoder` is often a good strategy for
-# tree-based models such as :class:`~sklearn.ensemble.IsolationForest`, whereas
-# neighbors-based models such as :class:`~sklearn.neighbors.LocalOutlierFactor`
-# would be impacted by the ordering induced by ordinal encoding. To avoid
-# inducing an ordering, on should rather use
+# تتطلب نماذج كشف الشواذ المختلفة معالجة مسبقة مختلفة. في
+# وجود متغيرات فئوية،
+# :class:`~sklearn.preprocessing.OrdinalEncoder` هي استراتيجية جيدة غالبًا
+# للنماذج القائمة على الأشجار مثل :class:`~sklearn.ensemble.IsolationForest`،
+# في حين أن النماذج القائمة على الجيران مثل
+# :class:`~sklearn.neighbors.LocalOutlierFactor`
+# ستتأثر بالترتيب الناتج عن الترميز الترتيبي. لتجنب
+# فرض ترتيب، يجب استخدام
 # :class:`~sklearn.preprocessing.OneHotEncoder`.
 #
-# Neighbors-based models may also require scaling of the numerical features (see
-# for instance :ref:`neighbors_scaling`). In the presence of outliers, a good
-# option is to use a :class:`~sklearn.preprocessing.RobustScaler`.
+# قد تتطلب النماذج القائمة على الجيران أيضًا معايرة الميزات الرقمية (انظر
+# على سبيل المثال :ref:`neighbors_scaling`). في وجود شواذ، يعد
+# :class:`~sklearn.preprocessing.RobustScaler`
+# خيارًا جيدًا.
 
 from sklearn.compose import ColumnTransformer
 from sklearn.ensemble import IsolationForest
@@ -50,7 +52,7 @@ from sklearn.preprocessing import (
 
 
 def make_estimator(name, categorical_columns=None, iforest_kw=None, lof_kw=None):
-    """Create an outlier detection estimator based on its name."""
+    """إنشاء نموذج كشف شواذ بناءً على اسمه."""
     if name == "LOF":
         outlier_detector = LocalOutlierFactor(**(lof_kw or {}))
         if categorical_columns is None:
@@ -79,7 +81,7 @@ def make_estimator(name, categorical_columns=None, iforest_kw=None, lof_kw=None)
 
 
 # %%
-# The following `fit_predict` function returns the average outlier score of X.
+# تقوم دالة `fit_predict` التالية بإرجاع متوسط درجة الشذوذ لـ X.
 
 from time import perf_counter
 
@@ -97,25 +99,25 @@ def fit_predict(estimator, X):
 
 
 # %%
-# On the rest of the example we process one dataset per section. After loading
-# the data, the targets are modified to consist of two classes: 0 representing
-# inliers and 1 representing outliers. Due to computational constraints of the
-# scikit-learn documentation, the sample size of some datasets is reduced using
-# a stratified :class:`~sklearn.model_selection.train_test_split`.
+# في بقية المثال، نقوم بمعالجة مجموعة بيانات واحدة لكل قسم. بعد تحميل
+# البيانات، يتم تعديل الأهداف لتشمل فئتين: 0 تمثل
+# القيم العادية و 1 تمثل الشواذ. بسبب القيود الحسابية لوثائق scikit-learn،
+# يتم تقليل حجم العينة لبعض مجموعات البيانات باستخدام
+# :class:`~sklearn.model_selection.train_test_split`.
 #
-# Furthermore, we set `n_neighbors` to match the expected number of anomalies
-# `expected_n_anomalies = n_samples * expected_anomaly_fraction`. This is a good
-# heuristic as long as the proportion of outliers is not very low, the reason
-# being that `n_neighbors` should be at least greater than the number of samples
-# in the less populated cluster (see
+# علاوة على ذلك، نقوم بضبط `n_neighbors` ليتناسب مع العدد المتوقع للشواذ
+# `expected_n_anomalies = n_samples * expected_anomaly_fraction`. هذه هي
+# استراتيجية جيدة طالما أن نسبة الشواذ ليست منخفضة جدًا، والسبب
+# هو أن `n_neighbors` يجب أن يكون أكبر من عدد العينات
+# في المجموعة الأقل كثافة (انظر
 # :ref:`sphx_glr_auto_examples_neighbors_plot_lof_outlier_detection.py`).
 #
-# KDDCup99 - SA dataset
+# KDDCup99 - مجموعة بيانات SA
 # ---------------------
 #
-# The :ref:`kddcup99_dataset` was generated using a closed network and
-# hand-injected attacks. The SA dataset is a subset of it obtained by simply
-# selecting all the normal data and an anomaly proportion of around 3%.
+# تم إنشاء مجموعة بيانات :ref:`kddcup99_dataset` باستخدام شبكة مغلقة
+# وهجمات محقونة يدويًا. مجموعة بيانات SA هي جزء فرعي منها تم الحصول عليه
+# ببساطة عن طريق اختيار جميع البيانات العادية ونسبة شواذ تبلغ حوالي 3%.
 
 # %%
 import numpy as np
@@ -133,8 +135,8 @@ n_samples, anomaly_frac = X.shape[0], y.mean()
 print(f"{n_samples} datapoints with {y.sum()} anomalies ({anomaly_frac:.02%})")
 
 # %%
-# The SA dataset contains 41 features out of which 3 are categorical:
-# "protocol_type", "service" and "flag".
+# تحتوي مجموعة بيانات SA على 41 ميزة، منها 3 فئوية:
+# "protocol_type"، "service" و "flag".
 
 # %%
 y_true = {}
@@ -153,14 +155,14 @@ for model_name in model_names:
     y_pred[model_name]["KDDCup99 - SA"] = fit_predict(model, X)
 
 # %%
-# Forest covertypes dataset
+# مجموعة بيانات غطاء الغابات
 # -------------------------
 #
-# The :ref:`covtype_dataset` is a multiclass dataset where the target is the
-# dominant species of tree in a given patch of forest. It contains 54 features,
-# some of which ("Wilderness_Area" and "Soil_Type") are already binary encoded.
-# Though originally meant as a classification task, one can regard inliers as
-# samples encoded with label 2 and outliers as those with label 4.
+# مجموعة بيانات :ref:`covtype_dataset` هي مجموعة بيانات متعددة الفئات حيث
+# الهدف هو النوع السائد من الأشجار في رقعة معينة من الغابة. تحتوي على 54
+# ميزة، بعضها ("Wilderness_Area" و "Soil_Type") مشفرة بالفعل بشكل ثنائي.
+# على الرغم من أنها كانت في الأصل مهمة تصنيف، يمكن اعتبار القيم العادية
+# كعينات مشفرة بالعلامة 2 والشواذ كعينات مشفرة بالعلامة 4.
 
 # %%
 from sklearn.datasets import fetch_covtype
@@ -188,14 +190,14 @@ for model_name in model_names:
     y_pred[model_name]["forestcover"] = fit_predict(model, X)
 
 # %%
-# Ames Housing dataset
+# مجموعة بيانات Ames Housing
 # --------------------
 #
-# The `Ames housing dataset <http://www.openml.org/d/43926>`_ is originally a
-# regression dataset where the target are sales prices of houses in Ames, Iowa.
-# Here we convert it into an outlier detection problem by regarding houses with
-# price over 70 USD/sqft. To make the problem easier, we drop intermediate
-# prices between 40 and 70 USD/sqft.
+# مجموعة بيانات Ames housing dataset <http://www.openml.org/d/43926>`_ هي
+# في الأصل مجموعة بيانات للتنبؤ حيث الهدف هو أسعار بيع المنازل في Ames،
+# أيوا. هنا نحولها إلى مشكلة كشف شواذ من خلال اعتبار المنازل التي يزيد سعرها
+# عن 70 دولار/قدم مربع كشواذ. لجعل المشكلة أسهل، نقوم بإسقاط الأسعار
+# المتوسطة بين 40 و 70 دولار/قدم مربع.
 
 # %%
 import matplotlib.pyplot as plt
@@ -224,9 +226,9 @@ n_samples, anomaly_frac = X.shape[0], y.mean()
 print(f"{n_samples} datapoints with {y.sum()} anomalies ({anomaly_frac:.02%})")
 
 # %%
-# The dataset contains 46 categorical features. In this case it is easier use a
-# :class:`~sklearn.compose.make_column_selector` to find them instead of passing
-# a list made by hand.
+# تحتوي مجموعة البيانات على 46 ميزة فئوية. في هذه الحالة، من الأسهل استخدام
+# :class:`~sklearn.compose.make_column_selector` للعثور عليها بدلاً من تمرير
+# قائمة تم إنشاؤها يدويًا.
 
 # %%
 from sklearn.compose import make_column_selector as selector
@@ -245,14 +247,14 @@ for model_name in model_names:
     y_pred[model_name]["ames_housing"] = fit_predict(model, X)
 
 # %%
-# Cardiotocography dataset
+# مجموعة بيانات Cardiotocography
 # ------------------------
 #
-# The `Cardiotocography dataset <http://www.openml.org/d/1466>`_ is a multiclass
-# dataset of fetal cardiotocograms, the classes being the fetal heart rate (FHR)
-# pattern encoded with labels from 1 to 10. Here we set class 3 (the minority
-# class) to represent the outliers. It contains 30 numerical features, some of
-# which are binary encoded and some are continuous.
+# مجموعة بيانات Cardiotocography dataset <http://www.openml.org/d/1466>`_ هي
+# مجموعة بيانات متعددة الفئات من تخطيط القلب للجنين، حيث الفئات هي نمط معدل
+# ضربات القلب الجنيني (FHR) مشفرة بعلامات من 1 إلى 10. هنا نحدد الفئة 3
+# (الفئة الأقلية) لتمثل الشواذ. تحتوي على 30 ميزة رقمية، بعضها مشفر بشكل
+# ثنائي وبعضها مستمر.
 
 # %%
 X, y = fetch_openml(name="cardiotocography", version=1, return_X_y=True, as_frame=False)
@@ -274,14 +276,13 @@ for model_name in model_names:
     y_pred[model_name]["cardiotocography"] = fit_predict(model, X)
 
 # %%
-# Plot and interpret results
+# رسم وتفسير النتائج
 # ==========================
 #
-# The algorithm performance relates to how good the true positive rate (TPR) is
-# at low value of the false positive rate (FPR). The best algorithms have the
-# curve on the top-left of the plot and the area under curve (AUC) close to 1.
-# The diagonal dashed line represents a random classification of outliers and
-# inliers.
+# يرتبط أداء الخوارزمية بمدى جودة معدل الإيجابيات الحقيقية (TPR)
+# عند قيم منخفضة لمعدل الإيجابيات الخاطئة (FPR). أفضل الخوارزميات لديها
+# المنحنى في أعلى يسار الرسم البياني ومساحة تحت المنحنى (AUC) قريبة من 1.
+# الخط المتقطع المائل يمثل تصنيفًا عشوائيًا للشواذ والقيم العادية.
 
 # %%
 import math
@@ -310,27 +311,26 @@ for ax, dataset_name in zip(axs.ravel(), datasets_names):
 _ = plt.tight_layout(pad=2.0)  # spacing between subplots
 
 # %%
-# We observe that once the number of neighbors is tuned, LOF and IForest perform
-# similarly in terms of ROC AUC for the forestcover and cardiotocography
-# datasets. The score for IForest is slightly better for the SA dataset and LOF
-# performs considerably better on the Ames housing dataset than IForest.
+# نلاحظ أنه بمجرد ضبط عدد الجيران، يؤدي LOF و IForest
+# أداءً مشابهًا من حيث ROC AUC لمجموعات بيانات forestcover و cardiotocography.
+# النتيجة أفضل قليلاً لـ IForest في مجموعة بيانات SA، بينما يؤدي LOF
+# أداءً أفضل بكثير في مجموعة بيانات Ames housing مقارنة بـ IForest.
 #
-# Recall however that Isolation Forest tends to train much faster than LOF on
-# datasets with a large number of samples. LOF needs to compute pairwise
-# distances to find nearest neighbors, which has a quadratic complexity with respect
-# to the number of observations. This can make this method prohibitive on large
-# datasets.
+# تذكر مع ذلك أن Isolation Forest تميل إلى التدريب بشكل أسرع من LOF
+# على مجموعات البيانات ذات العدد الكبير من العينات. يحتاج LOF إلى حساب
+# المسافات الزوجية لإيجاد الجيران الأقرب، مما له تعقيد تربيعي فيما يتعلق
+# بعدد الملاحظات. يمكن أن يجعل هذا الأسلوب محظورًا على مجموعات البيانات
+# الكبيرة.
 #
-# Ablation study
+# دراسة التخفيف
 # ==============
 #
-# In this section we explore the impact of the hyperparameter `n_neighbors` and
-# the choice of scaling the numerical variables on the LOF model. Here we use
-# the :ref:`covtype_dataset` dataset as the binary encoded categories introduce
-# a natural scale of euclidean distances between 0 and 1. We then want a scaling
-# method to avoid granting a privilege to non-binary features and that is robust
-# enough to outliers so that the task of finding them does not become too
-# difficult.
+# في هذا القسم، نستكشف تأثير المعلمة `n_neighbors`
+# واختيار معايرة الميزات الرقمية على نموذج LOF. هنا نستخدم
+# :ref:`covtype_dataset` حيث يتم إدخال الفئات المشفرة بشكل ثنائي
+# مقياسًا طبيعيًا للمسافات الإقليدية بين 0 و 1. بعد ذلك، نريد طريقة
+# للمعايرة لتجنب منح امتياز للميزات غير الثنائية وأن تكون قوية بما يكفي
+# للشواذ بحيث لا تصبح مهمة العثور عليها صعبة للغاية.
 
 # %%
 X = X_forestcover
@@ -361,11 +361,11 @@ for model_idx, (linestyle, n_neighbors) in enumerate(zip(linestyles, n_neighbors
 _ = ax.set_title("RobustScaler with varying n_neighbors\non forestcover dataset")
 
 # %%
-# We observe that the number of neighbors has a big impact on the performance of
-# the model. If one has access to (at least some) ground truth labels, it is
-# then important to tune `n_neighbors` accordingly. A convenient way to do so is
-# to explore values for `n_neighbors` of the order of magnitud of the expected
-# contamination.
+# نلاحظ أن عدد الجيران له تأثير كبير على أداء
+# النموذج. إذا كان لدى المرء إمكانية الوصول إلى (بعض على الأقل) تصنيفات أرضية حقيقية،
+# فمن المهم عندئذٍ ضبط `n_neighbors` وفقًا لذلك. تتمثل إحدى الطرق الملائمة للقيام بذلك
+# في استكشاف قيم `n_neighbors` من حيث الحجم المتوقع
+# للتلوث.
 
 # %%
 from sklearn.preprocessing import MinMaxScaler, SplineTransformer, StandardScaler
@@ -398,32 +398,33 @@ for model_idx, (linestyle, preprocessor) in enumerate(
         linestyle=linestyle,
         linewidth=2,
     )
-_ = ax.set_title("Fixed n_neighbors with varying preprocessing\non forestcover dataset")
+_ = ax.set_title("n_neighbors ثابت مع معالجة مسبقة متغيرة\nعلى مجموعة بيانات forestcover")
 
 # %%
-# On the one hand, :class:`~sklearn.preprocessing.RobustScaler` scales each
-# feature independently by using the interquartile range (IQR) by default, which
-# is the range between the 25th and 75th percentiles of the data. It centers the
-# data by subtracting the median and then scale it by dividing by the IQR. The
-# IQR is robust to outliers: the median and interquartile range are less
-# affected by extreme values than the range, the mean and the standard
-# deviation. Furthermore, :class:`~sklearn.preprocessing.RobustScaler` does not
-# squash marginal outlier values, contrary to
+# من ناحية، يقوم :class:`~sklearn.preprocessing.RobustScaler` بقياس
+# كل ميزة بشكل مستقل باستخدام النطاق الربيعي (IQR) افتراضيًا، وهو
+# النطاق بين النسبتين المئويتين 25 و 75 من البيانات. يقوم بتركيز
+# البيانات عن طريق طرح الوسيط ثم قياسها بالقسمة على IQR. IQR
+# مقاوم للقيم المتطرفة: يتأثر الوسيط والنطاق الربيعي بالقيم
+# المتطرفة بدرجة أقل من النطاق والمتوسط ​​والانحراف
+# المعياري. علاوة على ذلك، لا يقوم :class:`~sklearn.preprocessing.RobustScaler`
+# بسحق القيم المتطرفة الهامشية، على عكس
 # :class:`~sklearn.preprocessing.StandardScaler`.
 #
-# On the other hand, :class:`~sklearn.preprocessing.MinMaxScaler` scales each
-# feature individually such that its range maps into the range between zero and
-# one. If there are outliers in the data, they can skew it towards either the
-# minimum or maximum values, leading to a completely different distribution of
-# data with large marginal outliers: all non-outlier values can be collapsed
-# almost together as a result.
+# من ناحية أخرى، يقوم :class:`~sklearn.preprocessing.MinMaxScaler` بقياس
+# كل ميزة بشكل فردي بحيث يتم تعيين نطاقها في النطاق بين الصفر
+# والواحد. إذا كانت هناك قيم متطرفة في البيانات، فيمكنها تحريفها نحو
+# الحد الأدنى أو الحد الأقصى للقيم، مما يؤدي إلى توزيع مختلف تمامًا
+# للبيانات مع قيم متطرفة هامشية كبيرة: يمكن طي جميع القيم غير المتطرفة
+# تقريبًا معًا نتيجة لذلك.
 #
-# We also evaluated no preprocessing at all (by passing `None` to the pipeline),
-# :class:`~sklearn.preprocessing.StandardScaler` and
-# :class:`~sklearn.preprocessing.SplineTransformer`. Please refer to their
-# respective documentation for more details.
+# قمنا أيضًا بتقييم عدم وجود معالجة مسبقة على الإطلاق (عن طريق تمرير `None`
+# إلى خط الأنابيب)، و :class:`~sklearn.preprocessing.StandardScaler` و
+# :class:`~sklearn.preprocessing.SplineTransformer`. يرجى الرجوع إلى
+# وثائق كل منها لمزيد من التفاصيل.
 #
-# Note that the optimal preprocessing depends on the dataset, as shown below:
+# لاحظ أن المعالجة المسبقة المثلى تعتمد على مجموعة البيانات، كما هو موضح أدناه:
+
 
 # %%
 X = X_cardiotocography
@@ -451,6 +452,6 @@ for model_idx, (linestyle, preprocessor) in enumerate(
         linewidth=2,
     )
 ax.set_title(
-    "Fixed n_neighbors with varying preprocessing\non cardiotocography dataset"
+    "n_neighbors ثابت مع معالجة مسبقة متغيرة\nعلى مجموعة بيانات cardiotocography"
 )
 plt.show()

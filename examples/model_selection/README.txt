@@ -1,6 +1,6 @@
 .. _model_selection_examples:
 
-Model Selection
------------------------
+إختيار النموذج
+-----------------
 
-Examples related to the :mod:`sklearn.model_selection` module.
+أمثلة تتعلق بوحدة :mod:`sklearn.model_selection` .

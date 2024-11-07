@@ -19,32 +19,32 @@
 
 
 ==================================================
-Multilabel classification using a classifier chain
+التصنيف متعدد التصنيفات باستخدام سلسلة المصنفات
 ==================================================
-This example shows how to use :class:`~sklearn.multioutput.ClassifierChain` to solve
-a multilabel classification problem.
+يوضح هذا المثال كيفية استخدام :class:`~sklearn.multioutput.ClassifierChain` لحل
+مشكلة التصنيف متعدد التصنيفات.
 
-The most naive strategy to solve such a task is to independently train a binary
-classifier on each label (i.e. each column of the target variable). At prediction
-time, the ensemble of binary classifiers is used to assemble multitask prediction.
+تتمثل الاستراتيجية الأكثر بساطة لحل مثل هذه المهمة في تدريب مصنف ثنائي
+بشكل مستقل على كل تسمية (أي كل عمود من المتغير الهدف). في وقت التنبؤ،
+يتم استخدام مجموعة المصنفات الثنائية لتجميع تنبؤ متعدد المهام.
 
-This strategy does not allow to model relationship between different tasks. The
-:class:`~sklearn.multioutput.ClassifierChain` is the meta-estimator (i.e. an estimator
-taking an inner estimator) that implements a more advanced strategy. The ensemble
-of binary classifiers are used as a chain where the prediction of a classifier in the
-chain is used as a feature for training the next classifier on a new label. Therefore,
-these additional features allow each chain to exploit correlations among labels.
+لا تسمح هذه الاستراتيجية بنمذجة العلاقة بين المهام المختلفة.
+:class:`~sklearn.multioutput.ClassifierChain` هو المُقدر الميتا (أي مُقدر
+يأخذ مُقدرًا داخليًا) الذي ينفذ استراتيجية أكثر تقدمًا. يتم استخدام مجموعة
+المصنفات الثنائية كسلسلة حيث يتم استخدام تنبؤ مصنف في السلسلة كميزة لتدريب
+المصنف التالي على تسمية جديدة. لذلك، تسمح هذه الميزات الإضافية لكل سلسلة
+باستغلال الارتباطات بين التسميات.
 
-The :ref:`Jaccard similarity <jaccard_similarity_score>` score for chain tends to be
-greater than that of the set independent base models.
+يميل :ref:`Jaccard similarity <jaccard_similarity_score>` score للسلسلة إلى
+أن يكون أكبر من ذلك لمجموعة النماذج الأساسية المستقلة.
 
 .. GENERATED FROM PYTHON SOURCE LINES 22-26
 
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري سكايلرن
+    # معرف الترخيص: BSD-3-Clause
 
 
 
@@ -55,15 +55,15 @@ greater than that of the set independent base models.
 
 .. GENERATED FROM PYTHON SOURCE LINES 27-36
 
-Loading a dataset
+تحميل مجموعة بيانات
 -----------------
-For this example, we use the `yeast
-<https://www.openml.org/d/40597>`_ dataset which contains
-2,417 datapoints each with 103 features and 14 possible labels. Each
-data point has at least one label. As a baseline we first train a logistic
-regression classifier for each of the 14 labels. To evaluate the performance of
-these classifiers we predict on a held-out test set and calculate the
-Jaccard similarity for each sample.
+لهذا المثال، نستخدم مجموعة بيانات الخميرة
+<https://www.openml.org/d/40597>`_ التي تحتوي
+على 2,417 نقطة بيانات، كل منها يحتوي على 103 ميزات و14 تسمية محتملة.
+تحتوي كل نقطة بيانات على تسمية واحدة على الأقل. كخط أساس، نقوم أولاً بتدريب
+مصنف الانحدار اللوجستي لكل من التسميات الـ 14. لتقييم أداء
+هذه المصنفات، نقوم بالتنبؤ بمجموعة اختبار محجوزة ونحسب
+تشابه جاكبارد لكل عينة.
 
 .. GENERATED FROM PYTHON SOURCE LINES 36-48
 
@@ -76,7 +76,7 @@ Jaccard similarity for each sample.
     from sklearn.datasets import fetch_openml
     from sklearn.model_selection import train_test_split
 
-    # Load a multi-label dataset from https://www.openml.org/d/40597
+    # تحميل مجموعة بيانات متعددة التسميات من https://www.openml.org/d/40597
     X, Y = fetch_openml("yeast", version=4, return_X_y=True)
     Y = Y == "TRUE"
     X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=0)
@@ -90,18 +90,18 @@ Jaccard similarity for each sample.
 
 .. GENERATED FROM PYTHON SOURCE LINES 49-61
 
-Fit models
+ملاءمة النماذج
 ----------
-We fit :class:`~sklearn.linear_model.LogisticRegression` wrapped by
-:class:`~sklearn.multiclass.OneVsRestClassifier` and ensemble of multiple
+نلائم :class:`~sklearn.linear_model.LogisticRegression` ملفوفة بواسطة
+:class:`~sklearn.multiclass.OneVsRestClassifier` ومجموعة من
 :class:`~sklearn.multioutput.ClassifierChain`.
 
-LogisticRegression wrapped by OneVsRestClassifier
+LogisticRegression ملفوفة بواسطة OneVsRestClassifier
 **************************************************
-Since by default :class:`~sklearn.linear_model.LogisticRegression` can't
-handle data with multiple targets, we need to use
+نظرًا لأن :class:`~sklearn.linear_model.LogisticRegression` لا يمكنه
+التعامل مع البيانات ذات الأهداف المتعددة بشكل افتراضي، نحتاج إلى استخدام
 :class:`~sklearn.multiclass.OneVsRestClassifier`.
-After fitting the model we calculate Jaccard similarity.
+بعد ملاءمة النموذج، نحسب تشابه جاكبارد.
 
 .. GENERATED FROM PYTHON SOURCE LINES 61-72
 
@@ -127,17 +127,17 @@ After fitting the model we calculate Jaccard similarity.
 
 .. GENERATED FROM PYTHON SOURCE LINES 73-84
 
-Chain of binary classifiers
+سلسلة من المصنفات الثنائية
 ***************************
-Because the models in each chain are arranged randomly there is significant
-variation in performance among the chains. Presumably there is an optimal
-ordering of the classes in a chain that will yield the best performance.
-However, we do not know that ordering a priori. Instead, we can build a
-voting ensemble of classifier chains by averaging the binary predictions of
-the chains and apply a threshold of 0.5. The Jaccard similarity score of the
-ensemble is greater than that of the independent models and tends to exceed
-the score of each chain in the ensemble (although this is not guaranteed
-with randomly ordered chains).
+نظرًا لأن النماذج في كل سلسلة مرتبة عشوائيًا، هناك تباين كبير
+في الأداء بين السلاسل. يفترض أن هناك ترتيبًا أمثل
+لفئات السلسلة التي ستعطي أفضل أداء.
+ومع ذلك، لا نعرف هذا الترتيب مسبقًا. بدلاً من ذلك، يمكننا بناء
+مجموعة تصويت من سلاسل المصنفات عن طريق حساب متوسط التنبؤات الثنائية
+للسلاسل وتطبيق عتبة 0.5. تكون درجة تشابه جاكبارد للمجموعة
+أكبر من النماذج المستقلة وتميل إلى تجاوز
+درجة كل سلسلة في المجموعة (على الرغم من أن هذا غير مضمون
+مع السلاسل ذات الترتيب العشوائي).
 
 .. GENERATED FROM PYTHON SOURCE LINES 84-102
 
@@ -170,11 +170,11 @@ with randomly ordered chains).
 
 .. GENERATED FROM PYTHON SOURCE LINES 103-108
 
-Plot results
+رسم النتائج
 ------------
-Plot the Jaccard similarity scores for the independent model, each of the
-chains, and the ensemble (note that the vertical axis on this plot does
-not begin at 0).
+رسم درجات تشابه جاكبارد للنموذج المستقل، وكل من
+السلاسل، والمجموعة (ملاحظة أن المحور الرأسي في هذا الرسم لا
+يبدأ من 0).
 
 .. GENERATED FROM PYTHON SOURCE LINES 108-140
 
@@ -224,26 +224,26 @@ not begin at 0).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 141-154
+.. GENERATED FROM PYTHON SOURCE LINES 141-153
 
-Results interpretation
+تفسير النتائج
 ----------------------
-There are three main takeaways from this plot:
+هناك ثلاث نتائج رئيسية من هذا الرسم:
 
-- Independent model wrapped by :class:`~sklearn.multiclass.OneVsRestClassifier`
-  performs worse than the ensemble of classifier chains and some of individual chains.
-  This is caused by the fact that the logistic regression doesn't model relationship
-  between the labels.
-- :class:`~sklearn.multioutput.ClassifierChain` takes advantage of correlation
-  among labels but due to random nature of labels ordering, it could yield worse
-  result than an independent model.
-- An ensemble of chains performs better because it not only captures relationship
-  between labels but also does not make strong assumptions about their correct order.
+- النموذج المستقل الملفوف بواسطة :class:`~sklearn.multiclass.OneVsRestClassifier`
+  يؤدي بشكل أسوأ من مجموعة سلاسل المصنفات وبعض السلاسل الفردية.
+  وهذا ناتج عن حقيقة أن الانحدار اللوجستي لا ينمذج العلاقة
+  بين التسميات.
+- :class:`~sklearn.multioutput.ClassifierChain` يستفيد من الارتباط
+  بين التسميات ولكن بسبب الطبيعة العشوائية لترتيب التسميات، يمكن أن يؤدي إلى نتيجة أسوأ
+  من النموذج المستقل.
+- تؤدي مجموعة السلاسل أداءً أفضل لأنها لا تقوم فقط بالتقاط العلاقة
+  بين التسميات ولكنها أيضًا لا تفترض افتراضات قوية حول ترتيبها الصحيح.
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 20.285 seconds)
+   **Total running time of the script:** (0 minutes 2.618 seconds)
 
 
 .. _sphx_glr_download_auto_examples_multioutput_plot_classifier_chain_yeast.py:

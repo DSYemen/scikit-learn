@@ -1,26 +1,26 @@
 """
 =============================================================================
-t-SNE: The effect of various perplexity values on the shape
+t-SNE: تأثير قيم الحيرة المختلفة على الشكل
 =============================================================================
 
-An illustration of t-SNE on the two concentric circles and the S-curve
-datasets for different perplexity values.
+توضيح لـ t-SNE على دائرتين متحدة المركز ومجموعة بيانات المنحنى S
+لقيم حيرة مختلفة.
 
-We observe a tendency towards clearer shapes as the perplexity value increases.
+نلاحظ ميلًا نحو أشكال أوضح مع زيادة قيمة الحيرة.
 
-The size, the distance and the shape of clusters may vary upon initialization,
-perplexity values and does not always convey a meaning.
+قد يختلف حجم ومسافة وشكل المجموعات بناءً على التهيئة
+وقيم الحيرة ولا ينقل دائمًا معنى.
 
-As shown below, t-SNE for higher perplexities finds meaningful topology of
-two concentric circles, however the size and the distance of the circles varies
-slightly from the original. Contrary to the two circles dataset, the shapes
-visually diverge from S-curve topology on the S-curve dataset even for
-larger perplexity values.
+كما هو موضح أدناه، يجد t-SNE بالنسبة للحيرة الأعلى شكلًا ذا معنى
+لدائرتين متحدة المركز، ومع ذلك يختلف حجم ومسافة الدوائر
+قليلاً عن الأصل. على عكس مجموعة بيانات الدائرتين، فإن الأشكال
+تنحرف بصريًا عن شكل المنحنى S على مجموعة بيانات المنحنى S حتى
+بالنسبة لقيم الحيرة الأكبر.
 
-For further details, "How to Use t-SNE Effectively"
-https://distill.pub/2016/misread-tsne/ provides a good discussion of the
-effects of various parameters, as well as interactive plots to explore
-those effects.
+لمزيد من التفاصيل، يوفر "كيفية استخدام t-SNE بفعالية"
+https://distill.pub/2016/misread-tsne/ نقاشًا جيدًا حول
+تأثيرات المعلمات المختلفة، بالإضافة إلى مخططات تفاعلية لاستكشاف
+هذه التأثيرات.
 
 """
 
@@ -67,15 +67,15 @@ for i, perplexity in enumerate(perplexities):
     )
     Y = tsne.fit_transform(X)
     t1 = time()
-    print("circles, perplexity=%d in %.2g sec" % (perplexity, t1 - t0))
-    ax.set_title("Perplexity=%d" % perplexity)
+    print("الدوائر، الحيرة=%d في %.2g ثانية" % (perplexity, t1 - t0))
+    ax.set_title("الحيرة=%d" % perplexity)
     ax.scatter(Y[red, 0], Y[red, 1], c="r")
     ax.scatter(Y[green, 0], Y[green, 1], c="g")
     ax.xaxis.set_major_formatter(NullFormatter())
     ax.yaxis.set_major_formatter(NullFormatter())
     ax.axis("tight")
 
-# Another example using s-curve
+# مثال آخر باستخدام المنحنى S
 X, color = datasets.make_s_curve(n_samples, random_state=0)
 
 ax = subplots[1][0]
@@ -97,16 +97,16 @@ for i, perplexity in enumerate(perplexities):
     )
     Y = tsne.fit_transform(X)
     t1 = time()
-    print("S-curve, perplexity=%d in %.2g sec" % (perplexity, t1 - t0))
+    print("المنحنى S، الحيرة=%d في %.2g ثانية" % (perplexity, t1 - t0))
 
-    ax.set_title("Perplexity=%d" % perplexity)
+    ax.set_title("الحيرة=%d" % perplexity)
     ax.scatter(Y[:, 0], Y[:, 1], c=color)
     ax.xaxis.set_major_formatter(NullFormatter())
     ax.yaxis.set_major_formatter(NullFormatter())
     ax.axis("tight")
 
 
-# Another example using a 2D uniform grid
+# مثال آخر باستخدام شبكة موحدة ثنائية الأبعاد
 x = np.linspace(0, 1, int(np.sqrt(n_samples)))
 xx, yy = np.meshgrid(x, x)
 X = np.hstack(
@@ -134,9 +134,9 @@ for i, perplexity in enumerate(perplexities):
     )
     Y = tsne.fit_transform(X)
     t1 = time()
-    print("uniform grid, perplexity=%d in %.2g sec" % (perplexity, t1 - t0))
+    print("الشبكة الموحدة، الحيرة=%d في %.2g ثانية" % (perplexity, t1 - t0))
 
-    ax.set_title("Perplexity=%d" % perplexity)
+    ax.set_title("الحيرة=%d" % perplexity)
     ax.scatter(Y[:, 0], Y[:, 1], c=color)
     ax.xaxis.set_major_formatter(NullFormatter())
     ax.yaxis.set_major_formatter(NullFormatter())
@@ -144,3 +144,5 @@ for i, perplexity in enumerate(perplexities):
 
 
 plt.show()
+
+

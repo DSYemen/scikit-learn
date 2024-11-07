@@ -18,21 +18,18 @@
 .. _sphx_glr_auto_examples_miscellaneous_plot_roc_curve_visualization_api.py:
 
 
-================================
-ROC Curve with Visualization API
-================================
-Scikit-learn defines a simple API for creating visualizations for machine
-learning. The key features of this API is to allow for quick plotting and
-visual adjustments without recalculation. In this example, we will demonstrate
-how to use the visualization API by comparing ROC curves.
+=============================================
+منحنى ROC مع واجهة برمجة التطبيقات للتصور
+=============================================
+يعرّف Scikit-learn واجهة برمجة تطبيقات بسيطة لإنشاء تصورات للتعلم الآلي. الميزات الرئيسية لهذه الواجهة هي السماح بالرسم السريع والتعديلات المرئية دون إعادة الحساب. في هذا المثال، سوف نوضح كيفية استخدام واجهة برمجة التطبيقات للتصور من خلال مقارنة منحنيات ROC.
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-15
+.. GENERATED FROM PYTHON SOURCE LINES 8-12
 
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري scikit-learn
+    # معرف SPDX-License: BSD-3-Clause
 
 
 
@@ -41,14 +38,13 @@ how to use the visualization API by comparing ROC curves.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-20
+.. GENERATED FROM PYTHON SOURCE LINES 13-16
 
-Load Data and Train a SVC
+تحميل البيانات وتدريب SVC
 -------------------------
-First, we load the wine dataset and convert it to a binary classification
-problem. Then, we train a support vector classifier on a training dataset.
+أولاً، نقوم بتحميل مجموعة بيانات النبيذ وتحويلها إلى مشكلة تصنيف ثنائي. ثم نقوم بتدريب مصنف ناقل الدعم على مجموعة بيانات التدريب.
 
-.. GENERATED FROM PYTHON SOURCE LINES 20-35
+.. GENERATED FROM PYTHON SOURCE LINES 16-31
 
 .. code-block:: Python
 
@@ -75,7 +71,7 @@ problem. Then, we train a support vector classifier on a training dataset.
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-53 {
+    <style>#sk-container-id-35 {
       /* Definition of color scheme common for light and dark mode */
       --sklearn-color-text: #000;
       --sklearn-color-text-muted: #666;
@@ -106,15 +102,15 @@ problem. Then, we train a support vector classifier on a training dataset.
       }
     }
 
-    #sk-container-id-53 {
+    #sk-container-id-35 {
       color: var(--sklearn-color-text);
     }
 
-    #sk-container-id-53 pre {
+    #sk-container-id-35 pre {
       padding: 0;
     }
 
-    #sk-container-id-53 input.sk-hidden--visually {
+    #sk-container-id-35 input.sk-hidden--visually {
       border: 0;
       clip: rect(1px 1px 1px 1px);
       clip: rect(1px, 1px, 1px, 1px);
@@ -126,7 +122,7 @@ problem. Then, we train a support vector classifier on a training dataset.
       width: 1px;
     }
 
-    #sk-container-id-53 div.sk-dashed-wrapped {
+    #sk-container-id-35 div.sk-dashed-wrapped {
       border: 1px dashed var(--sklearn-color-line);
       margin: 0 0.4em 0.5em 0.4em;
       box-sizing: border-box;
@@ -134,7 +130,7 @@ problem. Then, we train a support vector classifier on a training dataset.
       background-color: var(--sklearn-color-background);
     }
 
-    #sk-container-id-53 div.sk-container {
+    #sk-container-id-35 div.sk-container {
       /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
          but bootstrap.min.css set `[hidden] { display: none !important; }`
          so we also need the `!important` here to be able to override the
@@ -144,7 +140,7 @@ problem. Then, we train a support vector classifier on a training dataset.
       position: relative;
     }
 
-    #sk-container-id-53 div.sk-text-repr-fallback {
+    #sk-container-id-35 div.sk-text-repr-fallback {
       display: none;
     }
 
@@ -160,14 +156,14 @@ problem. Then, we train a support vector classifier on a training dataset.
 
     /* Parallel-specific style estimator block */
 
-    #sk-container-id-53 div.sk-parallel-item::after {
+    #sk-container-id-35 div.sk-parallel-item::after {
       content: "";
       width: 100%;
       border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
       flex-grow: 1;
     }
 
-    #sk-container-id-53 div.sk-parallel {
+    #sk-container-id-35 div.sk-parallel {
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -175,28 +171,28 @@ problem. Then, we train a support vector classifier on a training dataset.
       position: relative;
     }
 
-    #sk-container-id-53 div.sk-parallel-item {
+    #sk-container-id-35 div.sk-parallel-item {
       display: flex;
       flex-direction: column;
     }
 
-    #sk-container-id-53 div.sk-parallel-item:first-child::after {
+    #sk-container-id-35 div.sk-parallel-item:first-child::after {
       align-self: flex-end;
       width: 50%;
     }
 
-    #sk-container-id-53 div.sk-parallel-item:last-child::after {
+    #sk-container-id-35 div.sk-parallel-item:last-child::after {
       align-self: flex-start;
       width: 50%;
     }
 
-    #sk-container-id-53 div.sk-parallel-item:only-child::after {
+    #sk-container-id-35 div.sk-parallel-item:only-child::after {
       width: 0;
     }
 
     /* Serial-specific style estimator block */
 
-    #sk-container-id-53 div.sk-serial {
+    #sk-container-id-35 div.sk-serial {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -214,14 +210,14 @@ problem. Then, we train a support vector classifier on a training dataset.
 
     /* Pipeline and ColumnTransformer style (default) */
 
-    #sk-container-id-53 div.sk-toggleable {
+    #sk-container-id-35 div.sk-toggleable {
       /* Default theme specific background. It is overwritten whether we have a
       specific estimator or a Pipeline/ColumnTransformer */
       background-color: var(--sklearn-color-background);
     }
 
     /* Toggleable label */
-    #sk-container-id-53 label.sk-toggleable__label {
+    #sk-container-id-35 label.sk-toggleable__label {
       cursor: pointer;
       display: flex;
       width: 100%;
@@ -234,13 +230,13 @@ problem. Then, we train a support vector classifier on a training dataset.
       gap: 0.5em;
     }
 
-    #sk-container-id-53 label.sk-toggleable__label .caption {
+    #sk-container-id-35 label.sk-toggleable__label .caption {
       font-size: 0.6rem;
       font-weight: lighter;
       color: var(--sklearn-color-text-muted);
     }
 
-    #sk-container-id-53 label.sk-toggleable__label-arrow:before {
+    #sk-container-id-35 label.sk-toggleable__label-arrow:before {
       /* Arrow on the left of the label */
       content: "▸";
       float: left;
@@ -248,13 +244,13 @@ problem. Then, we train a support vector classifier on a training dataset.
       color: var(--sklearn-color-icon);
     }
 
-    #sk-container-id-53 label.sk-toggleable__label-arrow:hover:before {
+    #sk-container-id-35 label.sk-toggleable__label-arrow:hover:before {
       color: var(--sklearn-color-text);
     }
 
     /* Toggleable content - dropdown */
 
-    #sk-container-id-53 div.sk-toggleable__content {
+    #sk-container-id-35 div.sk-toggleable__content {
       max-height: 0;
       max-width: 0;
       overflow: hidden;
@@ -263,12 +259,12 @@ problem. Then, we train a support vector classifier on a training dataset.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-53 div.sk-toggleable__content.fitted {
+    #sk-container-id-35 div.sk-toggleable__content.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-53 div.sk-toggleable__content pre {
+    #sk-container-id-35 div.sk-toggleable__content pre {
       margin: 0.2em;
       border-radius: 0.25em;
       color: var(--sklearn-color-text);
@@ -276,79 +272,79 @@ problem. Then, we train a support vector classifier on a training dataset.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-53 div.sk-toggleable__content.fitted pre {
+    #sk-container-id-35 div.sk-toggleable__content.fitted pre {
       /* unfitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-53 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    #sk-container-id-35 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
       max-height: 200px;
       max-width: 100%;
       overflow: auto;
     }
 
-    #sk-container-id-53 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    #sk-container-id-35 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
       content: "▾";
     }
 
     /* Pipeline/ColumnTransformer-specific style */
 
-    #sk-container-id-53 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-35 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-53 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-35 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator-specific style */
 
     /* Colorize estimator box */
-    #sk-container-id-53 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-35 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-53 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-35 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
-    #sk-container-id-53 div.sk-label label.sk-toggleable__label,
-    #sk-container-id-53 div.sk-label label {
+    #sk-container-id-35 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-35 div.sk-label label {
       /* The background is the default theme color */
       color: var(--sklearn-color-text-on-default-background);
     }
 
     /* On hover, darken the color of the background */
-    #sk-container-id-53 div.sk-label:hover label.sk-toggleable__label {
+    #sk-container-id-35 div.sk-label:hover label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
     /* Label box, darken color on hover, fitted */
-    #sk-container-id-53 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+    #sk-container-id-35 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator label */
 
-    #sk-container-id-53 div.sk-label label {
+    #sk-container-id-35 div.sk-label label {
       font-family: monospace;
       font-weight: bold;
       display: inline-block;
       line-height: 1.2em;
     }
 
-    #sk-container-id-53 div.sk-label-container {
+    #sk-container-id-35 div.sk-label-container {
       text-align: center;
     }
 
     /* Estimator-specific */
-    #sk-container-id-53 div.sk-estimator {
+    #sk-container-id-35 div.sk-estimator {
       font-family: monospace;
       border: 1px dotted var(--sklearn-color-border-box);
       border-radius: 0.25em;
@@ -358,18 +354,18 @@ problem. Then, we train a support vector classifier on a training dataset.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-53 div.sk-estimator.fitted {
+    #sk-container-id-35 div.sk-estimator.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
     /* on hover */
-    #sk-container-id-53 div.sk-estimator:hover {
+    #sk-container-id-35 div.sk-estimator:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-53 div.sk-estimator.fitted:hover {
+    #sk-container-id-35 div.sk-estimator.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
@@ -457,7 +453,7 @@ problem. Then, we train a support vector classifier on a training dataset.
 
     /* "?"-specific style due to the `<a>` HTML tag */
 
-    #sk-container-id-53 a.estimator_doc_link {
+    #sk-container-id-35 a.estimator_doc_link {
       float: right;
       font-size: 1rem;
       line-height: 1em;
@@ -472,39 +468,38 @@ problem. Then, we train a support vector classifier on a training dataset.
       border: var(--sklearn-color-unfitted-level-1) 1pt solid;
     }
 
-    #sk-container-id-53 a.estimator_doc_link.fitted {
+    #sk-container-id-35 a.estimator_doc_link.fitted {
       /* fitted */
       border: var(--sklearn-color-fitted-level-1) 1pt solid;
       color: var(--sklearn-color-fitted-level-1);
     }
 
     /* On hover */
-    #sk-container-id-53 a.estimator_doc_link:hover {
+    #sk-container-id-35 a.estimator_doc_link:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-3);
       color: var(--sklearn-color-background);
       text-decoration: none;
     }
 
-    #sk-container-id-53 a.estimator_doc_link.fitted:hover {
+    #sk-container-id-35 a.estimator_doc_link.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-53" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>SVC(random_state=42)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-225" type="checkbox" checked><label for="sk-estimator-id-225" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SVC</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.svm.SVC.html">?<span>Documentation for SVC</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>SVC(random_state=42)</pre></div> </div></div></div></div>
+    </style><div id="sk-container-id-35" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>SVC(random_state=42)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-120" type="checkbox" checked><label for="sk-estimator-id-120" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SVC</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.svm.SVC.html">?<span>Documentation for SVC</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>SVC(random_state=42)</pre></div> </div></div></div></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 36-42
+.. GENERATED FROM PYTHON SOURCE LINES 32-37
 
-Plotting the ROC Curve
+رسم منحنى ROC
 ----------------------
-Next, we plot the ROC curve with a single call to
-:func:`sklearn.metrics.RocCurveDisplay.from_estimator`. The returned
-`svc_disp` object allows us to continue using the already computed ROC curve
-for the SVC in future plots.
+بعد ذلك، نرسم منحنى ROC باستخدام مكالمة واحدة لـ
+:func:`sklearn.metrics.RocCurveDisplay.from_estimator`. الكائن `svc_disp` الذي يتم إرجاعه يسمح لنا بالاستمرار في استخدام منحنى ROC المحسوب بالفعل
+لـ SVC في الرسوم البيانية المستقبلية.
 
-.. GENERATED FROM PYTHON SOURCE LINES 42-45
+.. GENERATED FROM PYTHON SOURCE LINES 37-40
 
 .. code-block:: Python
 
@@ -523,18 +518,16 @@ for the SVC in future plots.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-54
+.. GENERATED FROM PYTHON SOURCE LINES 41-47
 
-Training a Random Forest and Plotting the ROC Curve
+تدريب غابة عشوائية ورسم منحنى ROC
 ---------------------------------------------------
-We train a random forest classifier and create a plot comparing it to the SVC
-ROC curve. Notice how `svc_disp` uses
-:func:`~sklearn.metrics.RocCurveDisplay.plot` to plot the SVC ROC curve
-without recomputing the values of the roc curve itself. Furthermore, we
-pass `alpha=0.8` to the plot functions to adjust the alpha values of the
-curves.
+نقوم بتدريب مصنف الغابة العشوائية وإنشاء رسم بياني يقارنه بمنحنى ROC لـ SVC. لاحظ كيف أن `svc_disp` يستخدم
+:func:`~sklearn.metrics.RocCurveDisplay.plot` لرسم منحنى ROC لـ SVC
+دون إعادة حساب قيم منحنى ROC نفسه. علاوة على ذلك، نقوم
+بتمرير `alpha=0.8` إلى دالات الرسم لتعديل قيم ألفا للمنحنيات.
 
-.. GENERATED FROM PYTHON SOURCE LINES 54-60
+.. GENERATED FROM PYTHON SOURCE LINES 47-52
 
 .. code-block:: Python
 
@@ -544,7 +537,6 @@ curves.
     rfc_disp = RocCurveDisplay.from_estimator(rfc, X_test, y_test, ax=ax, alpha=0.8)
     svc_disp.plot(ax=ax, alpha=0.8)
     plt.show()
-
 
 
 .. image-sg:: /auto_examples/miscellaneous/images/sphx_glr_plot_roc_curve_visualization_api_002.png
@@ -559,7 +551,7 @@ curves.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.167 seconds)
+   **Total running time of the script:** (0 minutes 0.168 seconds)
 
 
 .. _sphx_glr_download_auto_examples_miscellaneous_plot_roc_curve_visualization_api.py:

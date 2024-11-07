@@ -1,14 +1,13 @@
 """
 ===========================================
-Displaying estimators and complex pipelines
+عرض المنمذجات وأنابيب التوصيل المعقدة
 ===========================================
 
-This example illustrates different ways estimators and pipelines can be
-displayed.
+يوضح هذا المثال طرقًا مختلفة لعرض المنمذجات وأنابيب التوصيل.
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 from sklearn.compose import make_column_transformer
 from sklearn.impute import SimpleImputer
@@ -17,25 +16,23 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 # %%
-# Compact text representation
+# تمثيل نصي مضغوط
 # ---------------------------
 #
-# Estimators will only show the parameters that have been set to non-default
-# values when displayed as a string. This reduces the visual noise and makes it
-# easier to spot what the differences are when comparing instances.
+# ستعرض المنمذجات فقط المعاملات التي تم ضبطها على قيم غير افتراضية
+# عندما يتم عرضها كسلسلة نصية. هذا يقلل من التشويش البصري ويجعل من السهل
+# ملاحظة الاختلافات عند مقارنة الحالات.
 
 lr = LogisticRegression(penalty="l1")
 print(lr)
 
 # %%
-# Rich HTML representation
+# تمثيل HTML غني
 # ------------------------
-# In notebooks estimators and pipelines will use a rich HTML representation.
-# This is particularly useful to summarise the
-# structure of pipelines and other composite estimators, with interactivity to
-# provide detail.  Click on the example image below to expand Pipeline
-# elements.  See :ref:`visualizing_composite_estimators` for how you can use
-# this feature.
+# في دفاتر الملاحظات، ستستخدم المنمذجات وأنابيب التوصيل تمثيل HTML غني.
+# وهذا مفيد بشكل خاص لتلخيص
+# بنية أنابيب التوصيل والمنمذجات المركبة الأخرى، مع التفاعل لتوفير التفاصيل.  انقر على الصورة التوضيحية أدناه لتوسيع عناصر أنبوب التوصيل.  راجع: ref:`visualizing_composite_estimators` لمعرفة كيفية استخدام
+# هذه الميزة.
 
 num_proc = make_pipeline(SimpleImputer(strategy="median"), StandardScaler())
 

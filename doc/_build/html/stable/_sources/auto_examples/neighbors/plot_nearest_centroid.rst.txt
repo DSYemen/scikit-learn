@@ -19,13 +19,13 @@
 
 
 ===============================
-Nearest Centroid Classification
+تصنيف أقرب مركز
 ===============================
 
-Sample usage of Nearest Centroid classification.
-It will plot the decision boundaries for each class.
+استخدام عينة لتصنيف أقرب مركز.
+سيقوم برسم حدود القرار لكل فئة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-51
+.. GENERATED FROM PYTHON SOURCE LINES 10-50
 
 
 
@@ -35,14 +35,14 @@ It will plot the decision boundaries for each class.
     *
 
       .. image-sg:: /auto_examples/neighbors/images/sphx_glr_plot_nearest_centroid_001.png
-         :alt: 3-Class classification (shrink_threshold=None)
+         :alt: تصنيف من 3 فئات (shrink_threshold=None)
          :srcset: /auto_examples/neighbors/images/sphx_glr_plot_nearest_centroid_001.png
          :class: sphx-glr-multi-img
 
     *
 
       .. image-sg:: /auto_examples/neighbors/images/sphx_glr_plot_nearest_centroid_002.png
-         :alt: 3-Class classification (shrink_threshold=0.2)
+         :alt: تصنيف من 3 فئات (shrink_threshold=0.2)
          :srcset: /auto_examples/neighbors/images/sphx_glr_plot_nearest_centroid_002.png
          :class: sphx-glr-multi-img
 
@@ -64,8 +64,8 @@ It will plot the decision boundaries for each class.
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري سكايلرن
+    # معرف الترخيص: BSD-3-Clause
 
     import matplotlib.pyplot as plt
     import numpy as np
@@ -75,19 +75,19 @@ It will plot the decision boundaries for each class.
     from sklearn.inspection import DecisionBoundaryDisplay
     from sklearn.neighbors import NearestCentroid
 
-    # import some data to play with
+    # استيراد بعض البيانات للتجربة
     iris = datasets.load_iris()
-    # we only take the first two features. We could avoid this ugly
-    # slicing by using a two-dim dataset
+    # نأخذ فقط أول ميزتين. يمكننا تجنب هذا التقطيع غير المناسب
+    # باستخدام مجموعة بيانات ثنائية الأبعاد
     X = iris.data[:, :2]
     y = iris.target
 
-    # Create color maps
+    # إنشاء خرائط الألوان
     cmap_light = ListedColormap(["orange", "cyan", "cornflowerblue"])
     cmap_bold = ListedColormap(["darkorange", "c", "darkblue"])
 
     for shrinkage in [None, 0.2]:
-        # we create an instance of Nearest Centroid Classifier and fit the data.
+        # ننشئ مثالاً لتصنيف أقرب مركز ونقوم بضبط البيانات.
         clf = NearestCentroid(shrink_threshold=shrinkage)
         clf.fit(X, y)
         y_pred = clf.predict(X)
@@ -98,17 +98,16 @@ It will plot the decision boundaries for each class.
             clf, X, cmap=cmap_light, ax=ax, response_method="predict"
         )
 
-        # Plot also the training points
+        # رسم نقاط التدريب أيضًا
         plt.scatter(X[:, 0], X[:, 1], c=y, cmap=cmap_bold, edgecolor="k", s=20)
-        plt.title("3-Class classification (shrink_threshold=%r)" % shrinkage)
+        plt.title("تصنيف من 3 فئات (shrink_threshold=%r)" % shrinkage)
         plt.axis("tight")
 
     plt.show()
 
-
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.180 seconds)
+   **Total running time of the script:** (0 minutes 0.205 seconds)
 
 
 .. _sphx_glr_download_auto_examples_neighbors_plot_nearest_centroid.py:

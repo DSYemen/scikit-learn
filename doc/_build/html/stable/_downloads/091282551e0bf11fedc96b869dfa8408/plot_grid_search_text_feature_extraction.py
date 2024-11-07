@@ -1,29 +1,26 @@
 """
 ==========================================================
-Sample pipeline for text feature extraction and evaluation
+مثال على خط أنابيب لاستخراج ميزات النص وتقييمها
 ==========================================================
 
-The dataset used in this example is :ref:`20newsgroups_dataset` which will be
-automatically downloaded, cached and reused for the document classification
-example.
+مجموعة البيانات المستخدمة في هذا المثال هي :ref:`20newsgroups_dataset` والتي سيتم
+تنزيلها تلقائيًا وتخزينها مؤقتًا وإعادة استخدامها لمثال تصنيف المستند.
 
-In this example, we tune the hyperparameters of a particular classifier using a
-:class:`~sklearn.model_selection.RandomizedSearchCV`. For a demo on the
-performance of some other classifiers, see the
+في هذا المثال، نقوم بضبط معلمات نموذج معين باستخدام
+:class:`~sklearn.model_selection.RandomizedSearchCV`. لمشاهدة أداء بعض المصنفات الأخرى، راجع
 :ref:`sphx_glr_auto_examples_text_plot_document_classification_20newsgroups.py`
-notebook.
+دفتر الملاحظات.
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# Data loading
+# تحميل البيانات
 # ------------
-# We load two categories from the training set. You can adjust the number of
-# categories by adding their names to the list or setting `categories=None` when
-# calling the dataset loader :func:`~sklearn.datasets.fetch_20newsgroups` to get
-# the 20 of them.
+# نقوم بتحميل فئتين من مجموعة التدريب. يمكنك ضبط عدد الفئات عن طريق إضافة أسمائها إلى القائمة أو تعيين `categories=None` عند
+# استدعاء محمل مجموعة البيانات :func:`~sklearn.datasets.fetch_20newsgroups` للحصول
+# على 20 منها.
 
 from sklearn.datasets import fetch_20newsgroups
 
@@ -48,16 +45,16 @@ data_test = fetch_20newsgroups(
     remove=("headers", "footers", "quotes"),
 )
 
-print(f"Loading 20 newsgroups dataset for {len(data_train.target_names)} categories:")
+print(f"تحميل مجموعة بيانات 20 newsgroups لـ {len(data_train.target_names)} فئات:")
 print(data_train.target_names)
-print(f"{len(data_train.data)} documents")
+print(f"{len(data_train.data)} وثائق")
 
 # %%
-# Pipeline with hyperparameter tuning
+# خط أنابيب مع ضبط المعلمات
 # -----------------------------------
 #
-# We define a pipeline combining a text feature vectorizer with a simple
-# classifier yet effective for text classification.
+# نحن نحدد خط أنابيب يجمع بين مستخرج ميزات النص مع مصنف بسيط
+# ولكن فعال لتصنيف النص.
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import ComplementNB
@@ -72,34 +69,31 @@ pipeline = Pipeline(
 pipeline
 
 # %%
-# We define a grid of hyperparameters to be explored by the
-# :class:`~sklearn.model_selection.RandomizedSearchCV`. Using a
-# :class:`~sklearn.model_selection.GridSearchCV` instead would explore all the
-# possible combinations on the grid, which can be costly to compute, whereas the
-# parameter `n_iter` of the :class:`~sklearn.model_selection.RandomizedSearchCV`
-# controls the number of different random combination that are evaluated. Notice
-# that setting `n_iter` larger than the number of possible combinations in a
-# grid would lead to repeating already-explored combinations. We search for the
-# best parameter combination for both the feature extraction (`vect__`) and the
-# classifier (`clf__`).
+# نحن نحدد شبكة من المعلمات ليتم استكشافها بواسطة
+# :class:`~sklearn.model_selection.RandomizedSearchCV`. استخدام
+# :class:`~sklearn.model_selection.GridSearchCV` بدلاً من ذلك سيستكشف جميع
+# المجموعات الممكنة على الشبكة، والتي يمكن أن تكون مكلفة في الحساب، في حين أن
+# المعلمة `n_iter` من :class:`~sklearn.model_selection.RandomizedSearchCV`
+# تتحكم في عدد المجموعات العشوائية المختلفة التي يتم تقييمها. لاحظ
+# أن تعيين `n_iter` أكبر من عدد المجموعات الممكنة في
+# الشبكة سيؤدي إلى تكرار المجموعات التي تم استكشافها بالفعل. نبحث عن
+# أفضل مجموعة من المعلمات لكل من استخراج الميزات (`vect__`) والمصنف (`clf__`).
 
 import numpy as np
 
 parameter_grid = {
     "vect__max_df": (0.2, 0.4, 0.6, 0.8, 1.0),
     "vect__min_df": (1, 3, 5, 10),
-    "vect__ngram_range": ((1, 1), (1, 2)),  # unigrams or bigrams
+    "vect__ngram_range": ((1, 1), (1, 2)),  # كلمات مفردة أو ثنائية
     "vect__norm": ("l1", "l2"),
     "clf__alpha": np.logspace(-6, 6, 13),
 }
 
 # %%
-# In this case `n_iter=40` is not an exhaustive search of the hyperparameters'
-# grid. In practice it would be interesting to increase the parameter `n_iter`
-# to get a more informative analysis. As a consequence, the computional time
-# increases. We can reduce it by taking advantage of the parallelisation over
-# the parameter combinations evaluation by increasing the number of CPUs used
-# via the parameter `n_jobs`.
+# في هذه الحالة، `n_iter=40` ليس بحثًا شاملًا لشبكة المعلمات. في الواقع، سيكون من المثير للاهتمام زيادة المعلمة `n_iter`
+# للحصول على تحليل أكثر إفادة. ونتيجة لذلك، يزيد وقت الحساب. يمكننا تقليله عن طريق الاستفادة من التوازي على
+# تقييم مجموعات المعلمات عن طريق زيادة عدد وحدات المعالجة المركزية المستخدمة
+# عبر المعلمة `n_jobs`.
 
 from pprint import pprint
 
@@ -114,8 +108,8 @@ random_search = RandomizedSearchCV(
     verbose=1,
 )
 
-print("Performing grid search...")
-print("Hyperparameters to be evaluated:")
+print("أداء البحث الشبكي...")
+print("معلمات ليتم تقييمها:")
 pprint(parameter_grid)
 
 # %%
@@ -123,10 +117,10 @@ from time import time
 
 t0 = time()
 random_search.fit(data_train.data, data_train.target)
-print(f"Done in {time() - t0:.3f}s")
+print(f"تم الانتهاء في {time() - t0:.3f}s")
 
 # %%
-print("Best parameters combination found:")
+print("أفضل مجموعة من المعلمات التي تم العثور عليها:")
 best_parameters = random_search.best_estimator_.get_params()
 for param_name in sorted(parameter_grid.keys()):
     print(f"{param_name}: {best_parameters[param_name]}")
@@ -134,22 +128,21 @@ for param_name in sorted(parameter_grid.keys()):
 # %%
 test_accuracy = random_search.score(data_test.data, data_test.target)
 print(
-    "Accuracy of the best parameters using the inner CV of "
-    f"the random search: {random_search.best_score_:.3f}"
+    "دقة أفضل المعلمات باستخدام CV الداخلي لـ "
+    f"البحث العشوائي: {random_search.best_score_:.3f}"
 )
-print(f"Accuracy on test set: {test_accuracy:.3f}")
+print(f"الدقة على مجموعة الاختبار: {test_accuracy:.3f}")
 
 # %%
-# The prefixes `vect` and `clf` are required to avoid possible ambiguities in
-# the pipeline, but are not necessary for visualizing the results. Because of
-# this, we define a function that will rename the tuned hyperparameters and
-# improve the readability.
+# البادئات `vect` و `clf` مطلوبة لتجنب الغموض المحتمل في
+# خط الأنابيب، ولكنها غير ضرورية لعرض النتائج. بسبب
+# هذا، نحن نحدد دالة ستعيد تسمية المعلمات التي تم ضبطها وتحسين قابلية القراءة.
 
 import pandas as pd
 
 
 def shorten_param(param_name):
-    """Remove components' prefixes in param_name."""
+    """إزالة بادئات المكونات في param_name."""
     if "__" in param_name:
         return param_name.rsplit("__", 1)[1]
     return param_name
@@ -159,19 +152,18 @@ cv_results = pd.DataFrame(random_search.cv_results_)
 cv_results = cv_results.rename(shorten_param, axis=1)
 
 # %%
-# We can use a `plotly.express.scatter
+# يمكننا استخدام `plotly.express.scatter
 # <https://plotly.com/python-api-reference/generated/plotly.express.scatter.html>`_
-# to visualize the trade-off between scoring time and mean test score (i.e. "CV
-# score"). Passing the cursor over a given point displays the corresponding
-# parameters. Error bars correspond to one standard deviation as computed in the
-# different folds of the cross-validation.
+# لعرض المقايضة بين وقت التسجيل ومتوسط درجة الاختبار (أي "درجة CV"). تمرير المؤشر فوق نقطة معينة يعرض المعلمات
+# المقابلة. أشرطة الخطأ تقابل انحرافًا معياريًا واحدًا كما تم حسابه في
+# الطيات المختلفة للتحقق المتقاطع.
 
 import plotly.express as px
 
 param_names = [shorten_param(name) for name in parameter_grid.keys()]
 labels = {
-    "mean_score_time": "CV Score time (s)",
-    "mean_test_score": "CV score (accuracy)",
+    "mean_score_time": "وقت درجة CV (ثانية)",
+    "mean_test_score": "درجة CV (الدقة)",
 }
 fig = px.scatter(
     cv_results,
@@ -184,7 +176,7 @@ fig = px.scatter(
 )
 fig.update_layout(
     title={
-        "text": "trade-off between scoring time and mean test score",
+        "text": "المقايضة بين وقت التسجيل ومتوسط درجة الاختبار",
         "y": 0.95,
         "x": 0.5,
         "xanchor": "center",
@@ -194,36 +186,32 @@ fig.update_layout(
 fig
 
 # %%
-# Notice that the cluster of models in the upper-left corner of the plot have
-# the best trade-off between accuracy and scoring time. In this case, using
-# bigrams increases the required scoring time without improving considerably the
-# accuracy of the pipeline.
+# لاحظ أن مجموعة النماذج في الركن العلوي الأيسر من الرسم البياني لها
+# أفضل مقايضة بين الدقة ووقت التسجيل. في هذه الحالة، يؤدي استخدام
+# الكلمات الثنائية إلى زيادة وقت التسجيل المطلوب دون تحسين دقة خط الأنابيب بشكل كبير.
 #
-# .. note:: For more information on how to customize an automated tuning to
-#    maximize score and minimize scoring time, see the example notebook
-#    :ref:`sphx_glr_auto_examples_model_selection_plot_grid_search_digits.py`.
+# .. note:: للحصول على مزيد من المعلومات حول كيفية تخصيص ضبط تلقائي لتحقيق أقصى قدر من الدقة وتقليل وقت التسجيل، راجع دفتر الملاحظات
+#    المثال: :ref:`sphx_glr_auto_examples_model_selection_plot_grid_search_digits.py`.
 #
-# We can also use a `plotly.express.parallel_coordinates
+# يمكننا أيضًا استخدام `plotly.express.parallel_coordinates
 # <https://plotly.com/python-api-reference/generated/plotly.express.parallel_coordinates.html>`_
-# to further visualize the mean test score as a function of the tuned
-# hyperparameters. This helps finding interactions between more than two
-# hyperparameters and provide intuition on their relevance for improving the
-# performance of a pipeline.
+# لعرض متوسط درجة الاختبار كدالة للمعلمات التي تم ضبطها. يساعد هذا في العثور على التفاعلات بين أكثر من
+# معلمتين وتوفير الحدس حول أهميتها لتحسين أداء خط الأنابيب.
 #
-# We apply a `math.log10` transformation on the `alpha` axis to spread the
-# active range and improve the readability of the plot. A value :math:`x` on
-# said axis is to be understood as :math:`10^x`.
+# نطبق تحويل `math.log10` على محور "alpha" لنشر النطاق النشط وتحسين
+# قابلية قراءة الرسم البياني. يتم فهم القيمة :math:`x` على
+# المحور المذكور على أنها :math:`10^x`.
 
 import math
 
 column_results = param_names + ["mean_test_score", "mean_score_time"]
 
 transform_funcs = dict.fromkeys(column_results, lambda x: x)
-# Using a logarithmic scale for alpha
+# استخدام مقياس لوغاريتمي لـ alpha
 transform_funcs["alpha"] = math.log10
-# L1 norms are mapped to index 1, and L2 norms to index 2
+# يتم تعيين المعايير L1 إلى الفهرس 1، والمعايير L2 إلى الفهرس 2
 transform_funcs["norm"] = lambda x: 2 if x == "l2" else 1
-# Unigrams are mapped to index 1 and bigrams to index 2
+# يتم تعيين الكلمات المفردة إلى الفهرس 1 والكلمات الثنائية إلى الفهرس 2
 transform_funcs["ngram_range"] = lambda x: x[1]
 
 fig = px.parallel_coordinates(
@@ -234,7 +222,7 @@ fig = px.parallel_coordinates(
 )
 fig.update_layout(
     title={
-        "text": "Parallel coordinates plot of text classifier pipeline",
+        "text": "رسم تنسيق متوازي لخط أنابيب مصنف النص",
         "y": 0.99,
         "x": 0.5,
         "xanchor": "center",
@@ -244,20 +232,19 @@ fig.update_layout(
 fig
 
 # %%
-# The parallel coordinates plot displays the values of the hyperparameters on
-# different columns while the performance metric is color coded. It is possible
-# to select a range of results by clicking and holding on any axis of the
-# parallel coordinate plot. You can then slide (move) the range selection and
-# cross two selections to see the intersections. You can undo a selection by
-# clicking once again on the same axis.
+# يعرض رسم التنسيق المتوازي قيم المعلمات على
+# أعمدة مختلفة في حين يتم ترميز مقياس الأداء بالألوان. من الممكن
+# تحديد نطاق من النتائج عن طريق النقر والضغط على أي محور من
+# رسم التنسيق المتوازي. يمكنك بعد ذلك تحريك (نقل) نطاق التحديد والتقاطع
+# بين نطاقين لمشاهدة التقاطعات. يمكنك إلغاء تحديد عن طريق
+# النقر مرة أخرى على نفس المحور.
 #
-# In particular for this hyperparameter search, it is interesting to notice that
-# the top performing models do not seem to depend on the regularization `norm`,
-# but they do depend on a trade-off between `max_df`, `min_df` and the
-# regularization strength `alpha`. The reason is that including noisy features
-# (i.e. `max_df` close to :math:`1.0` or `min_df` close to :math:`0`) tend to
-# overfit and therefore require a stronger regularization to compensate. Having
-# less features require less regularization and less scoring time.
+# على وجه الخصوص لهذا البحث عن المعلمات، من المثير للاهتمام ملاحظة أن
+# النماذج ذات الأداء الأعلى لا تعتمد على المعيار `norm`، ولكنها تعتمد على
+# المقايضة بين `max_df`، و`min_df`، وقوة المعايرة `alpha`. والسبب هو أن تضمين الميزات الضجيجية (أي
+# `max_df` قريب من :math:`1.0` أو `min_df` قريب من :math:`0`) يميل إلى
+# الإفراط في التكيف وبالتالي يتطلب معايرة أقوى للتعويض. وجود
+# ميزات أقل تتطلب معايرة أقل ووقت تسجيل أقل.
 #
-# The best accuracy scores are obtained when `alpha` is between :math:`10^{-6}`
-# and :math:`10^0`, regardless of the hyperparameter `norm`.
+# يتم الحصول على أفضل درجات الدقة عندما تكون `alpha` بين :math:`10^{-6}`
+# و :math:`10^0`، بغض النظر عن المعلمة `norm`.
