@@ -1,16 +1,14 @@
 """
 =========================================
-SVM: Maximum margin separating hyperplane
+SVM: المستوى الفاصل ذو الهامش الأقصى
 =========================================
 
-Plot the maximum margin separating hyperplane within a two-class
-separable dataset using a Support Vector Machine classifier with
-linear kernel.
+ارسم المستوى الفاصل ذو الهامش الأقصى ضمن مجموعة بيانات قابلة للفصل من فئتين باستخدام مصنف آلة المتجهات الداعمة مع نواة خطية.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 
@@ -18,16 +16,16 @@ from sklearn import svm
 from sklearn.datasets import make_blobs
 from sklearn.inspection import DecisionBoundaryDisplay
 
-# we create 40 separable points
+# نقوم بإنشاء 40 نقطة قابلة للفصل
 X, y = make_blobs(n_samples=40, centers=2, random_state=6)
 
-# fit the model, don't regularize for illustration purposes
+# تدريب النموذج، عدم استخدام التنظيم لأغراض التوضيح
 clf = svm.SVC(kernel="linear", C=1000)
 clf.fit(X, y)
 
 plt.scatter(X[:, 0], X[:, 1], c=y, s=30, cmap=plt.cm.Paired)
 
-# plot the decision function
+# رسم دالة القرار
 ax = plt.gca()
 DecisionBoundaryDisplay.from_estimator(
     clf,
@@ -39,7 +37,7 @@ DecisionBoundaryDisplay.from_estimator(
     linestyles=["--", "-", "--"],
     ax=ax,
 )
-# plot support vectors
+# رسم المتجهات الداعمة
 ax.scatter(
     clf.support_vectors_[:, 0],
     clf.support_vectors_[:, 1],

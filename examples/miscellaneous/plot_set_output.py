@@ -1,19 +1,14 @@
 """
-================================
-Introducing the `set_output` API
-================================
+============================================
+تقديم واجهة برمجة التطبيقات `set_output`
+============================================
 
 .. currentmodule:: sklearn
 
-This example will demonstrate the `set_output` API to configure transformers to
-output pandas DataFrames. `set_output` can be configured per estimator by calling
-the `set_output` method or globally by setting `set_config(transform_output="pandas")`.
-For details, see
-`SLEP018 <https://scikit-learn-enhancement-proposals.readthedocs.io/en/latest/slep018/proposal.html>`__.
-"""  # noqa
-
+هذا المثال سيوضح واجهة برمجة التطبيقات `set_output` لتكوين المحولات لإخراج إطارات بيانات باندا. يمكن تكوين `set_output` لكل مقدر عن طريق استدعاء طريقة `set_output` أو بشكل عام عن طريق تعيين `set_config(transform_output="pandas")`. للحصول على التفاصيل، راجع `SLEP018 <https://scikit-learn-enhancement-proposals.readthedocs.io/en/latest/slep018/proposal.html>`__.
+"""
 # %%
-# First, we load the iris dataset as a DataFrame to demonstrate the `set_output` API.
+# أولاً، نقوم بتحميل مجموعة بيانات إيريس كإطار بيانات لإظهار واجهة برمجة التطبيقات `set_output`.
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 
@@ -22,8 +17,8 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y, random_sta
 X_train.head()
 
 # %%
-# To configure an estimator such as :class:`preprocessing.StandardScaler` to return
-# DataFrames, call `set_output`. This feature requires pandas to be installed.
+# لتكوين مقدر مثل :class:`preprocessing.StandardScaler` لإرجاع
+# إطارات البيانات، استدع `set_output`. تتطلب هذه الميزة تثبيت باندا.
 
 from sklearn.preprocessing import StandardScaler
 
@@ -34,20 +29,20 @@ X_test_scaled = scaler.transform(X_test)
 X_test_scaled.head()
 
 # %%
-# `set_output` can be called after `fit` to configure `transform` after the fact.
+# يمكن استدعاء `set_output` بعد `fit` لتكوين `transform` بعد ذلك.
 scaler2 = StandardScaler()
 
 scaler2.fit(X_train)
 X_test_np = scaler2.transform(X_test)
-print(f"Default output type: {type(X_test_np).__name__}")
+print(f"نوع الإخراج الافتراضي: {type(X_test_np).__name__}")
 
 scaler2.set_output(transform="pandas")
 X_test_df = scaler2.transform(X_test)
-print(f"Configured pandas output type: {type(X_test_df).__name__}")
+print(f"نوع الإخراج المُهيأ من باندا: {type(X_test_df).__name__}")
 
 # %%
-# In a :class:`pipeline.Pipeline`, `set_output` configures all steps to output
-# DataFrames.
+# في :class:`pipeline.Pipeline`، يقوم `set_output` بتكوين جميع الخطوات لإخراج
+# إطارات البيانات.
 from sklearn.feature_selection import SelectPercentile
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import make_pipeline
@@ -59,36 +54,36 @@ clf.set_output(transform="pandas")
 clf.fit(X_train, y_train)
 
 # %%
-# Each transformer in the pipeline is configured to return DataFrames. This
-# means that the final logistic regression step contains the feature names of the input.
+# يتم تكوين كل محول في خط الأنابيب لإرجاع إطارات البيانات. هذا
+# يعني أن خطوة الانحدار اللوجستي النهائي تحتوي على أسماء ميزات الإدخال.
 clf[-1].feature_names_in_
 
 # %%
-# .. note:: If one uses the method `set_params`, the transformer will be
-#    replaced by a new one with the default output format.
+# .. note:: إذا استخدم المرء طريقة `set_params`، فسيتم استبدال المحول
+#    بآخر بتنسيق الإخراج الافتراضي.
 clf.set_params(standardscaler=StandardScaler())
 clf.fit(X_train, y_train)
 clf[-1].feature_names_in_
 
 # %%
-# To keep the intended behavior, use `set_output` on the new transformer
-# beforehand
+# للحفاظ على السلوك المقصود، استخدم `set_output` على المحول الجديد
+# مسبقاً
 scaler = StandardScaler().set_output(transform="pandas")
 clf.set_params(standardscaler=scaler)
 clf.fit(X_train, y_train)
 clf[-1].feature_names_in_
 
 # %%
-# Next we load the titanic dataset to demonstrate `set_output` with
-# :class:`compose.ColumnTransformer` and heterogeneous data.
+# بعد ذلك، نقوم بتحميل مجموعة بيانات تيتانيك لإظهار `set_output` مع
+# :class:`compose.ColumnTransformer` والبيانات غير المتجانسة.
 from sklearn.datasets import fetch_openml
 
 X, y = fetch_openml("titanic", version=1, as_frame=True, return_X_y=True)
 X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y)
 
 # %%
-# The `set_output` API can be configured globally by using :func:`set_config` and
-# setting `transform_output` to `"pandas"`.
+# يمكن تكوين واجهة برمجة التطبيقات `set_output` بشكل عام باستخدام :func:`set_config` و
+# تعيين `transform_output` إلى `"pandas"`.
 from sklearn import set_config
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
@@ -116,8 +111,8 @@ clf.fit(X_train, y_train)
 clf.score(X_test, y_test)
 
 # %%
-# With the global configuration, all transformers output DataFrames. This allows us to
-# easily plot the logistic regression coefficients with the corresponding feature names.
+# مع التهيئة العامة، تخرج جميع المحولات إطارات بيانات. هذا يسمح لنا
+# بسهولة رسم معاملات الانحدار اللوجستي مع أسماء الميزات المقابلة.
 import pandas as pd
 
 log_reg = clf[-1]
@@ -125,15 +120,14 @@ coef = pd.Series(log_reg.coef_.ravel(), index=log_reg.feature_names_in_)
 _ = coef.sort_values().plot.barh()
 
 # %%
-# In order to demonstrate the :func:`config_context` functionality below, let
-# us first reset `transform_output` to its default value.
+# من أجل توضيح وظيفة :func:`config_context` أدناه، دعنا
+# أولاً إعادة تعيين `transform_output` إلى قيمته الافتراضية.
 set_config(transform_output="default")
 
 # %%
-# When configuring the output type with :func:`config_context` the
-# configuration at the time when `transform` or `fit_transform` are
-# called is what counts. Setting these only when you construct or fit
-# the transformer has no effect.
+# عند تكوين نوع الإخراج باستخدام :func:`config_context` فإن
+# التهيئة في الوقت الذي يتم فيه استدعاء `transform` أو `fit_transform` هي ما يهم. تعيين هذه فقط عند إنشاء أو تكييف
+# المحول ليس له أي تأثير.
 from sklearn import config_context
 
 scaler = StandardScaler()
@@ -141,11 +135,11 @@ scaler.fit(X_train[num_cols])
 
 # %%
 with config_context(transform_output="pandas"):
-    # the output of transform will be a Pandas DataFrame
+    # سيكون إخراج التحويل إطار بيانات باندا
     X_test_scaled = scaler.transform(X_test[num_cols])
 X_test_scaled.head()
 
 # %%
-# outside of the context manager, the output will be a NumPy array
+# خارج مدير السياق، سيكون الإخراج مصفوفة نومبي
 X_test_scaled = scaler.transform(X_test[num_cols])
 X_test_scaled[:5]

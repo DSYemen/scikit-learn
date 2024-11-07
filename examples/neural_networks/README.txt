@@ -1,6 +1,6 @@
 .. _neural_network_examples:
 
-Neural Networks
+الشبكات العصبية
 -----------------------
 
-Examples concerning the :mod:`sklearn.neural_network` module.
+أمثلة تتعلق بوحدة :mod:`sklearn.neural_network`.

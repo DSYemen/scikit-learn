@@ -11,10 +11,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="Gallery examples: إزالة الميزات المتكررة باستخدام التحقق المتبادل" />
-<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_rfe_with_cross_validation_thumb.png" />
+<meta property="og:description" content="Gallery examples: تأثير تغيير العتبة في التدريب الذاتي&quot; تصور سلوك التحقق المتقاطع في سكايلرن منحنى المستقبل التشغيلي (ROC) مع التحقق المتقاطع تشتتات GMM" />
+<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_self_training_varying_threshold_thumb.png" />
 <meta property="og:image:alt" content="" />
-<meta name="description" content="Gallery examples: إزالة الميزات المتكررة باستخدام التحقق المتبادل" />
+<meta name="description" content="Gallery examples: تأثير تغيير العتبة في التدريب الذاتي&quot; تصور سلوك التحقق المتقاطع في سكايلرن منحنى المستقبل التشغيلي (ROC) مع التحقق المتقاطع تشتتات GMM" />
 
     <title>StratifiedKFold &#8212; scikit-learn 1.6.dev0 documentation</title>
   
@@ -1304,7 +1304,7 @@
 <h1>StratifiedKFold<a class="headerlink" href="#stratifiedkfold" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="sklearn.model_selection.StratifiedKFold">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sklearn.model_selection.</span></span><span class="sig-name descname"><span class="pre">StratifiedKFold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_splits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d6d4571215/sklearn/model_selection/_split.py#L660"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.model_selection.StratifiedKFold" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sklearn.model_selection.</span></span><span class="sig-name descname"><span class="pre">StratifiedKFold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_splits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/ea2d8086cc/sklearn/model_selection/_split.py#L660"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.model_selection.StratifiedKFold" title="Link to this definition">#</a></dt>
 <dd><p>Stratified K-Fold cross-validator.</p>
 <p>Provides train/test indices to split data in train/test sets.</p>
 <p>This cross-validation object is a variation of KFold that returns
@@ -1313,7 +1313,7 @@ samples for each class.</p>
 <p>Read more in the <a class="reference internal" href="../cross_validation.html#stratified-k-fold"><span class="std std-ref">User Guide</span></a>.</p>
 <p>For visualisation of cross-validation behaviour and
 comparison between common scikit-learn split methods
-refer to <a class="reference internal" href="../../auto_examples/model_selection/plot_cv_indices.html#sphx-glr-auto-examples-model-selection-plot-cv-indices-py"><span class="std std-ref">Visualizing cross-validation behavior in scikit-learn</span></a></p>
+refer to <a class="reference internal" href="../../auto_examples/model_selection/plot_cv_indices.html#sphx-glr-auto-examples-model-selection-plot-cv-indices-py"><span class="std std-ref">تصور سلوك التحقق المتقاطع في سكايلرن</span></a></p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
@@ -1381,7 +1381,7 @@ sample.</p></li>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="sklearn.model_selection.StratifiedKFold.get_metadata_routing">
-<span class="sig-name descname"><span class="pre">get_metadata_routing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d6d4571215/sklearn/utils/_metadata_requests.py#L1497"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.model_selection.StratifiedKFold.get_metadata_routing" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_metadata_routing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/ea2d8086cc/sklearn/utils/_metadata_requests.py#L1497"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.model_selection.StratifiedKFold.get_metadata_routing" title="Link to this definition">#</a></dt>
 <dd><p>Get metadata routing of this object.</p>
 <p>Please check <a class="reference internal" href="../../metadata_routing.html#metadata-routing"><span class="std std-ref">User Guide</span></a> on how the routing
 mechanism works.</p>
@@ -1398,7 +1398,7 @@ routing information.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sklearn.model_selection.StratifiedKFold.get_n_splits">
-<span class="sig-name descname"><span class="pre">get_n_splits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d6d4571215/sklearn/model_selection/_split.py#L414"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.model_selection.StratifiedKFold.get_n_splits" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_n_splits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/ea2d8086cc/sklearn/model_selection/_split.py#L414"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.model_selection.StratifiedKFold.get_n_splits" title="Link to this definition">#</a></dt>
 <dd><p>Returns the number of splitting iterations in the cross-validator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1422,7 +1422,7 @@ routing information.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sklearn.model_selection.StratifiedKFold.split">
-<span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d6d4571215/sklearn/model_selection/_split.py#L816"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.model_selection.StratifiedKFold.split" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/ea2d8086cc/sklearn/model_selection/_split.py#L816"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.model_selection.StratifiedKFold.split" title="Link to this definition">#</a></dt>
 <dd><p>Generate indices to split data into training and test set.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1459,9 +1459,21 @@ to an integer.</p>
 
 <section id="gallery-examples">
 <h2>Gallery examples<a class="headerlink" href="#gallery-examples" title="Link to this heading">#</a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="مثال على حذف الميزات التكراري (RFE) مع الضبط التلقائي لعدد الميزات المحددة مع التحقق المتبادل."><img alt="" src="../../_images/sphx_glr_plot_rfe_with_cross_validation_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/feature_selection/plot_rfe_with_cross_validation.html#sphx-glr-auto-examples-feature-selection-plot-rfe-with-cross-validation-py"><span class="std std-ref">إزالة الميزات المتكررة باستخدام التحقق المتبادل</span></a></p>
-  <div class="sphx-glr-thumbnail-title">إزالة الميزات المتكررة باستخدام التحقق المتبادل</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال تأثير تغيير العتبة على التدريب الذاتي. يتم تحميل مجموعة بيانات breast_cancer، ويتم حذف التصنيفات بحيث يكون 50 عينة فقط من أصل 569 عينة لديها تصنيفات. يتم تثبيت SelfTrainingClassifier على هذه مجموعة البيانات، مع عتبات مختلفة."><img alt="" src="../../_images/sphx_glr_plot_self_training_varying_threshold_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/semi_supervised/plot_self_training_varying_threshold.html#sphx-glr-auto-examples-semi-supervised-plot-self-training-varying-threshold-py"><span class="std std-ref">تأثير تغيير العتبة في التدريب الذاتي</span></a></p>
+  <div class="sphx-glr-thumbnail-title">تأثير تغيير العتبة في التدريب الذاتي</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="هذا المثال يوضح استخدام permutation_test_score لتقييم أهمية درجة التصنيف المتقاطعة باستخدام التبديلات."><img alt="" src="../../_images/sphx_glr_plot_permutation_tests_for_classification_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/model_selection/plot_permutation_tests_for_classification.html#sphx-glr-auto-examples-model-selection-plot-permutation-tests-for-classification-py"><span class="std std-ref">&quot;</span></a></p>
+  <div class="sphx-glr-thumbnail-title">"</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="يعد اختيار كائن التحقق المتقاطع المناسب جزءًا حاسمًا من ملاءمة النموذج بشكل صحيح. هناك العديد من الطرق لتقسيم البيانات إلى مجموعات تدريب واختبار لتجنب الإفراط في تناسب النموذج، وتوحيد عدد المجموعات في مجموعات الاختبار، وما إلى ذلك."><img alt="" src="../../_images/sphx_glr_plot_cv_indices_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/model_selection/plot_cv_indices.html#sphx-glr-auto-examples-model-selection-plot-cv-indices-py"><span class="std std-ref">تصور سلوك التحقق المتقاطع في سكايلرن</span></a></p>
+  <div class="sphx-glr-thumbnail-title">تصور سلوك التحقق المتقاطع في سكايلرن</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="يقدم هذا المثال كيفية تقدير وتصوير تباين مقياس منحنى المستقبل التشغيلي (ROC) باستخدام التحقق المتقاطع."><img alt="" src="../../_images/sphx_glr_plot_roc_crossval_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/model_selection/plot_roc_crossval.html#sphx-glr-auto-examples-model-selection-plot-roc-crossval-py"><span class="std std-ref">منحنى المستقبل التشغيلي (ROC) مع التحقق المتقاطع</span></a></p>
+  <div class="sphx-glr-thumbnail-title">منحنى المستقبل التشغيلي (ROC) مع التحقق المتقاطع</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="توضيح لعدة أنواع من التشتتات لمزيج النماذج الغاوسية."><img alt="" src="../../_images/sphx_glr_plot_gmm_covariances_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/mixture/plot_gmm_covariances.html#sphx-glr-auto-examples-mixture-plot-gmm-covariances-py"><span class="std std-ref">تشتتات GMM</span></a></p>
+  <div class="sphx-glr-thumbnail-title">تشتتات GMM</div>
 </div></div></section>
 </section>
 

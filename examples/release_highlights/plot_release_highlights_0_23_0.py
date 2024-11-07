@@ -1,38 +1,38 @@
 # ruff: noqa
 """
 ========================================
-Release Highlights for scikit-learn 0.23
+أبرز الميزات الجديدة في إصدار scikit-learn 0.23
 ========================================
 
 .. currentmodule:: sklearn
 
-We are pleased to announce the release of scikit-learn 0.23! Many bug fixes
-and improvements were added, as well as some new key features. We detail
-below a few of the major features of this release. **For an exhaustive list of
-all the changes**, please refer to the :ref:`release notes <release_notes_0_23>`.
+يسعدنا الإعلان عن إصدار scikit-learn 0.23! تم إصلاح العديد من الأخطاء
+وإضافة العديد من التحسينات، بالإضافة إلى بعض الميزات الرئيسية الجديدة. نستعرض
+أدناه بعض الميزات الرئيسية لهذا الإصدار. **للاطلاع على قائمة شاملة بجميع
+التغييرات**، يرجى الرجوع إلى :ref:`ملاحظات الإصدار <release_notes_0_23>`.
 
-To install the latest version (with pip)::
+لتثبيت أحدث إصدار (باستخدام pip)::
 
     pip install --upgrade scikit-learn
 
-or with conda::
+أو باستخدام conda::
 
     conda install -c conda-forge scikit-learn
 
 """
 
 ##############################################################################
-# Generalized Linear Models, and Poisson loss for gradient boosting
+# النماذج الخطية العامة، وخسارة بواسون للتعزيز التدريجي
 # -----------------------------------------------------------------
-# Long-awaited Generalized Linear Models with non-normal loss functions are now
-# available. In particular, three new regressors were implemented:
-# :class:`~sklearn.linear_model.PoissonRegressor`,
-# :class:`~sklearn.linear_model.GammaRegressor`, and
-# :class:`~sklearn.linear_model.TweedieRegressor`. The Poisson regressor can be
-# used to model positive integer counts, or relative frequencies. Read more in
-# the :ref:`User Guide <Generalized_linear_regression>`. Additionally,
-# :class:`~sklearn.ensemble.HistGradientBoostingRegressor` supports a new
-# 'poisson' loss as well.
+# النماذج الخطية العامة المنتظرة منذ فترة طويلة مع دالات خسارة غير طبيعية أصبحت
+# متوفرة الآن. على وجه الخصوص، تم تنفيذ ثلاثة منظمين جدد:
+# :class:`~sklearn.linear_model.PoissonRegressor`،
+# :class:`~sklearn.linear_model.GammaRegressor`، و
+# :class:`~sklearn.linear_model.TweedieRegressor`. يمكن استخدام منظم بواسون
+# لنمذجة العد الإيجابي للمتغيرات الصحيحة، أو الترددات النسبية. اقرأ المزيد في
+# :ref:`دليل المستخدم <Generalized_linear_regression>`. بالإضافة إلى ذلك،
+# :class:`~sklearn.ensemble.HistGradientBoostingRegressor` يدعم الآن
+# 'poisson' كخسارة أيضًا.
 
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -42,7 +42,7 @@ from sklearn.ensemble import HistGradientBoostingRegressor
 n_samples, n_features = 1000, 20
 rng = np.random.RandomState(0)
 X = rng.randn(n_samples, n_features)
-# positive integer target correlated with X[:, 5] with many zeros:
+# الهدف الإيجابي للمتغيرات الصحيحة مرتبط بـ X[:, 5] مع العديد من الأصفار:
 y = rng.poisson(lam=np.exp(X[:, 5]) / 2)
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=rng)
 glm = PoissonRegressor()
@@ -53,14 +53,13 @@ print(glm.score(X_test, y_test))
 print(gbdt.score(X_test, y_test))
 
 ##############################################################################
-# Rich visual representation of estimators
+# تمثيل مرئي غني للمقدرات
 # -----------------------------------------
-# Estimators can now be visualized in notebooks by enabling the
-# `display='diagram'` option. This is particularly useful to summarise the
-# structure of pipelines and other composite estimators, with interactivity to
-# provide detail.  Click on the example image below to expand Pipeline
-# elements.  See :ref:`visualizing_composite_estimators` for how you can use
-# this feature.
+# يمكن الآن تصور المقدرات في الدفاتر من خلال تمكين خيار
+# `display='diagram'` . هذا مفيد بشكل خاص لتلخيص بنية الأنابيب والمقدرات
+# المركبة الأخرى، مع التفاعل لتوفير التفاصيل. انقر على الصورة التوضيحية
+# أدناه لتوسيع عناصر الأنابيب. راجع :ref:`visualizing_composite_estimators`
+# لمعرفة كيفية استخدام هذه الميزة.
 
 from sklearn import set_config
 from sklearn.pipeline import make_pipeline
@@ -86,14 +85,14 @@ clf = make_pipeline(preprocessor, LogisticRegression())
 clf
 
 ##############################################################################
-# Scalability and stability improvements to KMeans
+# تحسينات في قابلية التوسع والاستقرار لخوارزمية KMeans
 # ------------------------------------------------
-# The :class:`~sklearn.cluster.KMeans` estimator was entirely re-worked, and it
-# is now significantly faster and more stable. In addition, the Elkan algorithm
-# is now compatible with sparse matrices. The estimator uses OpenMP based
-# parallelism instead of relying on joblib, so the `n_jobs` parameter has no
-# effect anymore. For more details on how to control the number of threads,
-# please refer to our :ref:`parallelism` notes.
+# تم إعادة تصميم خوارزمية :class:`~sklearn.cluster.KMeans` بالكامل، وهي الآن
+# أسرع وأكثر استقرارًا بشكل ملحوظ. بالإضافة إلى ذلك، أصبحت خوارزمية Elkan
+# متوافقة مع المصفوفات المتناثرة. يستخدم المقدر موازاة قائمة على OpenMP
+# بدلاً من الاعتماد على joblib، لذلك لم يعد لخيار `n_jobs` أي تأثير. للحصول
+# على مزيد من التفاصيل حول كيفية التحكم في عدد الخيوط، يرجى الرجوع إلى
+# ملاحظاتنا حول :ref:`الموازاة <parallelism>`.
 import scipy
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -109,21 +108,19 @@ kmeans = KMeans(n_init="auto").fit(X_train)
 print(completeness_score(kmeans.predict(X_test), y_test))
 
 ##############################################################################
-# Improvements to the histogram-based Gradient Boosting estimators
+# تحسينات على المقدرات القائمة على التدرج التدريجي للتعزيز التدريجي
 # ----------------------------------------------------------------
-# Various improvements were made to
-# :class:`~sklearn.ensemble.HistGradientBoostingClassifier` and
-# :class:`~sklearn.ensemble.HistGradientBoostingRegressor`. On top of the
-# Poisson loss mentioned above, these estimators now support :ref:`sample
-# weights <sw_hgbdt>`. Also, an automatic early-stopping criterion was added:
-# early-stopping is enabled by default when the number of samples exceeds 10k.
-# Finally, users can now define :ref:`monotonic constraints
-# <monotonic_cst_gbdt>` to constrain the predictions based on the variations of
-# specific features. In the following example, we construct a target that is
-# generally positively correlated with the first feature, with some noise.
-# Applying monotoinc constraints allows the prediction to capture the global
-# effect of the first feature, instead of fitting the noise. For a usecase
-# example, see :ref:`sphx_glr_auto_examples_ensemble_plot_hgbt_regression.py`.
+# تم إجراء العديد من التحسينات على
+# :class:`~sklearn.ensemble.HistGradientBoostingClassifier` و
+# :class:`~sklearn.ensemble.HistGradientBoostingRegressor`. بالإضافة إلى
+# خسارة بواسون المذكورة أعلاه، تدعم هذه المقدرات الآن :ref:`أوزان العينات
+# <sw_hgbdt>`. أيضًا، تم إضافة معيار إيقاف مبكر تلقائي: يتم تمكين الإيقاف المبكر
+# بشكل افتراضي عندما يتجاوز عدد العينات 10 آلاف. أخيرًا، يمكن للمستخدمين الآن
+# تحديد :ref:`قيود أحادية الاتجاه <monotonic_cst_gbdt>` لتقييد التوقعات بناءً
+# على تغيرات ميزات محددة. في المثال التالي، نقوم ببناء هدف مرتبط بشكل عام
+# بالمتغير الأول، مع بعض الضجيج. يسمح تطبيق القيود الأحادية الاتجاه
+# بالتوقعات بالتقاط التأثير العام للمتغير الأول، بدلاً من ملاءمة الضجيج.
+# لمثال على الاستخدام، راجع :ref:`sphx_glr_auto_examples_ensemble_plot_hgbt_regression.py`.
 import numpy as np
 from matplotlib import pyplot as plt
 from sklearn.model_selection import train_test_split
@@ -168,10 +165,10 @@ plt.legend()
 plt.show()
 
 ##############################################################################
-# Sample-weight support for Lasso and ElasticNet
+# دعم أوزان العينات لخوارزميتي Lasso و ElasticNet
 # ----------------------------------------------
-# The two linear regressors :class:`~sklearn.linear_model.Lasso` and
-# :class:`~sklearn.linear_model.ElasticNet` now support sample weights.
+# خوارزميتا الانحدار الخطي :class:`~sklearn.linear_model.Lasso` و
+# :class:`~sklearn.linear_model.ElasticNet` تدعمان الآن أوزان العينات.
 
 from sklearn.model_selection import train_test_split
 from sklearn.datasets import make_regression

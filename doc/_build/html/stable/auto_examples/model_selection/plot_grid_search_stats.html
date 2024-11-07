@@ -7,16 +7,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Statistical comparison of models using grid search" />
+<meta property="og:title" content="المقارنة الإحصائية للنماذج باستخدام البحث الشبكي" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/auto_examples/model_selection/plot_grid_search_stats.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="This example illustrates how to statistically compare the performance of models trained and evaluated using GridSearchCV. We will start by simulating moon shaped data (where the ideal separation be..." />
+<meta property="og:description" content="يوضح هذا المثال كيفية المقارنة الإحصائية لأداء النماذج المدربة والمقيمة باستخدام GridSearchCV. سنبدأ بمحاكاة بيانات على شكل قمر (حيث يكون الفصل المثالي بين الفئات غير خطي)، مع إضافة درجة معتدلة من ..." />
 <meta property="og:image" content="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" />
 <meta property="og:image:alt" content="scikit-learn" />
-<meta name="description" content="This example illustrates how to statistically compare the performance of models trained and evaluated using GridSearchCV. We will start by simulating moon shaped data (where the ideal separation be..." />
+<meta name="description" content="يوضح هذا المثال كيفية المقارنة الإحصائية لأداء النماذج المدربة والمقيمة باستخدام GridSearchCV. سنبدأ بمحاكاة بيانات على شكل قمر (حيث يكون الفصل المثالي بين الفئات غير خطي)، مع إضافة درجة معتدلة من ..." />
 
-    <title>Statistical comparison of models using grid search &#8212; scikit-learn 1.6.dev0 documentation</title>
+    <title>المقارنة الإحصائية للنماذج باستخدام البحث الشبكي &#8212; scikit-learn 1.6.dev0 documentation</title>
   
   
   
@@ -79,8 +79,8 @@
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="search" title="بحث" href="../../search.html" />
-    <link rel="next" title="Successive Halving Iterations" href="plot_successive_halving_iterations.html" />
-    <link rel="prev" title="Sample pipeline for text feature extraction and evaluation" href="plot_grid_search_text_feature_extraction.html" />
+    <link rel="next" title="الموازنة بين تعقيد النموذج ودرجة الدقة عبر التحقق المتقاطع" href="plot_grid_search_refit_callable.html" />
+    <link rel="prev" title="التصنيف المتداخل مقابل غير المتداخل" href="plot_nested_cross_validation_iris.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="ar"/>
   <meta name="docsearch:version" content="1.6" />
@@ -550,160 +550,74 @@
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../release_highlights/index.html">Release Highlights</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_5_0.html">Release Highlights for scikit-learn 1.5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_4_0.html">Release Highlights for scikit-learn 1.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_3_0.html">Release Highlights for scikit-learn 1.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_2_0.html">Release Highlights for scikit-learn 1.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_1_0.html">Release Highlights for scikit-learn 1.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_0_0.html">Release Highlights for scikit-learn 1.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_24_0.html">Release Highlights for scikit-learn 0.24</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_23_0.html">Release Highlights for scikit-learn 0.23</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_22_0.html">Release Highlights for scikit-learn 0.22</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../manifold/index.html">(المتشعب)التعلم المتعدد</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_t_sne_perplexity.html">t-SNE: تأثير قيم الحيرة المختلفة على الشكل</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_mds.html">القياس متعدد الأبعاد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_lle_digits.html">تعلم متعدد الشعب على الأرقام المكتوبة بخط اليد: التضمين الخطي المحلي، Isomap...</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_swissroll.html">خفض اللفافة السويسرية واللفافة السويسرية ذات الثقب</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_manifold_sphere.html">طرق تعلم متعدد الشعب على كرة مقطوعة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_compare_methods.html">مقارنة طرق تعلم متعدد الشعب</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../tree/index.html">Decision Trees</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../tree/plot_tree_regression.html">Decision Tree Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tree/plot_iris_dtc.html">Plot the decision surface of decision trees trained on the iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tree/plot_cost_complexity_pruning.html">Post pruning decision trees with cost complexity pruning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tree/plot_unveil_tree_structure.html">Understanding the decision tree structure</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../svm/index.html">Support Vector Machines (SVM)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_oneclass.html">One-class SVM with non-linear kernel (RBF)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_custom_kernel.html">SVM مع نواة مخصصة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_anova.html">SVM-Anova: SVM مع اختيار الميزات أحادية المتغير</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_weighted_samples.html">SVM: العينات ذات الأوزان</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_separating_hyperplane.html">SVM: المستوى الفاصل ذو الهامش الأقصى</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_separating_hyperplane_unbalanced.html">SVM: المستوي الفاصل للطبقات غير المتوازنة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_regression.html">دعم نموذج الانحدار باستخدام نواة خطية وغير خطية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_linearsvc_support_vectors.html">رسم المتجهات الداعمة في LinearSVC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_kernels.html">رسم حدود التصنيف مع نوى SVM مختلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_iris_svc.html">رسم مخططات لمصنفات SVM المختلفة في مجموعة بيانات الزهرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_scale_c.html">ضبط معامل الانتظام لخوارزمية SVC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_tie_breaking.html">مثال على كسر التعادل في SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_margin.html">مثال على هوامش SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_rbf_parameters.html">معاملات SVM ذات الدالة الشعاعية الأساسية</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../mixture/index.html">Gaussian Mixture Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_concentration_prior.html">Concentration Prior Type Analysis of Variation Bayesian Gaussian Mixture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_pdf.html">Density Estimation for a Gaussian mixture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_init.html">GMM Initialization Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_covariances.html">GMM covariances</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm.html">Gaussian Mixture Model Ellipsoids</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_selection.html">Gaussian Mixture Model Selection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_sin.html">Gaussian Mixture Model Sine Curve</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tree/index.html">أشجار القرار-</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tree/plot_tree_regression.html">انحدار شجرة القرار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tree/plot_cost_complexity_pruning.html">تشذيب أشجار القرار بعد التدريب باستخدام تقنية تشذيب تعقيد التكلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tree/plot_iris_dtc.html">رسم سطح القرار لأشجار القرار المدربة على مجموعة بيانات الزهرة الآرغوانية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tree/plot_unveil_tree_structure.html">فهم بنية شجرة القرار</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../manifold/index.html">Manifold learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_compare_methods.html">Comparison of Manifold Learning methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_manifold_sphere.html">Manifold Learning methods on a severed sphere</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_lle_digits.html">Manifold learning on handwritten digits: Locally Linear Embedding, Isomap...</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_mds.html">Multi-dimensional scaling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_swissroll.html">Swiss Roll And Swiss-Hole Reduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_t_sne_perplexity.html">t-SNE: The effect of various perplexity values on the shape</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../miscellaneous/index.html">Miscellaneous</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_partial_dependence_visualization_api.html">Advanced Plotting With Partial Dependence</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_anomaly_comparison.html">Comparing anomaly detection algorithms for outlier detection on toy datasets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_kernel_ridge_regression.html">Comparison of kernel ridge regression and SVR</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_pipeline_display.html">Displaying Pipelines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_estimator_representation.html">Displaying estimators and complex pipelines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_outlier_detection_bench.html">Evaluation of outlier detection estimators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_kernel_approximation.html">Explicit feature map approximation for RBF kernels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_multioutput_face_completion.html">Face completion with a multi-output estimators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_set_output.html">Introducing the <code class="docutils literal notranslate"><span class="pre">set_output</span></code> API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_isotonic_regression.html">Isotonic Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_metadata_routing.html">Metadata Routing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_multilabel.html">Multilabel classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_roc_curve_visualization_api.html">ROC Curve with Visualization API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_johnson_lindenstrauss_bound.html">The Johnson-Lindenstrauss bound for embedding with random projections</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_display_object_visualization.html">Visualizations with Display Objects</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Model Selection</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="plot_grid_search_refit_callable.html">Balance model complexity and cross-validated score</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_likelihood_ratios.html">Class Likelihood Ratios to measure classification performance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_randomized_search.html">Comparing randomized search and grid search for hyperparameter estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_successive_halving_heatmap.html">Comparison between grid search and successive halving</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_confusion_matrix.html">Confusion matrix</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_grid_search_digits.html">Custom refit strategy of a grid search with cross-validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_multi_metric_evaluation.html">Demonstration of multi-metric evaluation on cross_val_score and GridSearchCV</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_det.html">Detection error tradeoff (DET) curve</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_train_error_vs_test_error.html">Effect of model regularization on training and test error</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_roc.html">Multiclass Receiver Operating Characteristic (ROC)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_nested_cross_validation_iris.html">Nested versus non-nested cross-validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_cv_predict.html">Plotting Cross-Validated Predictions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_learning_curve.html">Plotting Learning Curves and Checking Models' Scalability</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_tuned_decision_threshold.html">Post-hoc tuning the cut-off point of decision function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_cost_sensitive_learning.html">Post-tuning the decision threshold for cost-sensitive learning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_precision_recall.html">Precision-Recall</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_roc_crossval.html">Receiver Operating Characteristic (ROC) with cross validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_grid_search_text_feature_extraction.html">Sample pipeline for text feature extraction and evaluation</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Statistical comparison of models using grid search</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_successive_halving_iterations.html">Successive Halving Iterations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_permutation_tests_for_classification.html">Test with permutations the significance of a classification score</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_underfitting_overfitting.html">Underfitting vs. Overfitting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_cv_indices.html">Visualizing cross-validation behavior in scikit-learn</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../multiclass/index.html">Multiclass methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../multiclass/plot_multiclass_overview.html">Overview of multiclass training meta-estimators</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../multioutput/index.html">Multioutput methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../multioutput/plot_classifier_chain_yeast.html">Multilabel classification using a classifier chain</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../neighbors/index.html">Nearest Neighbors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/approximate_nearest_neighbors.html">Approximate nearest neighbors in TSNE</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_caching_nearest_neighbors.html">Caching nearest neighbors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_classification.html">Comparing Nearest Neighbors with and without Neighborhood Components Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_dim_reduction.html">Dimensionality Reduction with Neighborhood Components Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_species_kde.html">Kernel Density Estimate of Species Distributions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_digits_kde_sampling.html">Kernel Density Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nearest_centroid.html">Nearest Centroid Classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_classification.html">Nearest Neighbors Classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_regression.html">Nearest Neighbors regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_illustration.html">Neighborhood Components Analysis Illustration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_lof_novelty_detection.html">Novelty detection with Local Outlier Factor (LOF)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_lof_outlier_detection.html">Outlier detection with Local Outlier Factor (LOF)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_kde_1d.html">Simple 1D Kernel Density Estimation</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../neural_networks/index.html">Neural Networks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mlp_training_curves.html">Compare Stochastic learning strategies for MLPClassifier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_rbm_logistic_classification.html">Restricted Boltzmann Machine features for digit classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mlp_alpha.html">Varying regularization in Multi-layer Perceptron</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mnist_filters.html">Visualization of MLP weights on MNIST</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../preprocessing/index.html">Preprocessing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_all_scaling.html">Compare the effect of different scalers on data with outliers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder.html">Comparing Target Encoder with Other Encoders</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization_strategies.html">Demonstrating the different strategies of KBinsDiscretizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization_classification.html">Feature discretization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_scaling_importance.html">Importance of Feature Scaling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_map_data_to_normal.html">Map data to a normal distribution</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder_cross_val.html">Target Encoder's Internal Cross fitting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization.html">Using KBinsDiscretizer to discretize continuous features</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../release_highlights/index.html">أبرز ما جاء في الإصدار</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_5_0.html">أبرز الميزات الجديدة في الإصدار 1.5 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_4_0.html">أبرز ميزات الإصدار 1.4 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_3_0.html">أبرز ميزات الإصدار 1.3 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_2_0.html">أبرز ميزات الإصدار 1.2 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_1_0.html">أبرز الميزات الجديدة في إصدار scikit-learn 1.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_0_0.html">أبرز ميزات الإصدار 1.0 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_24_0.html">أبرز ميزات الإصدار 0.24 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_23_0.html">أبرز الميزات الجديدة في إصدار scikit-learn 0.23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_22_0.html">أبرز ميزات الإصدار 0.22 من scikit-learn</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../semi_supervised/index.html">Semi Supervised Classification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_semi_supervised_versus_svm_iris.html">Decision boundary of semi-supervised classifiers versus SVM on the Iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_self_training_varying_threshold.html">Effect of varying threshold for self-training</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_digits_active_learning.html">Label Propagation digits active learning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_digits.html">Label Propagation digits: Demonstrating performance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_structure.html">Label Propagation learning a complex structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_semi_supervised_newsgroups.html">Semi-supervised Classification on a Text Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_semi_supervised_newsgroups.html">التصنيف شبه المُشرف على مجموعة بيانات نصية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_self_training_varying_threshold.html">تأثير تغيير العتبة في التدريب الذاتي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_structure.html">تعلم انتشار العلامات لهيكل معقد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_semi_supervised_versus_svm_iris.html">حدود القرار للمصنفات شبه المُشرفة مقابل SVM على مجموعة بيانات Iris</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_digits_active_learning.html">نشر التسمية للأرقام باستخدام التعلم النشط</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_digits.html">نشر العلامات على الأرقام: توضيح الأداء</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../svm/index.html">Support Vector Machines</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_oneclass.html">One-class SVM with non-linear kernel (RBF)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_kernels.html">Plot classification boundaries with different SVM Kernels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_iris_svc.html">Plot different SVM classifiers in the iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_linearsvc_support_vectors.html">Plot the support vectors in LinearSVC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_rbf_parameters.html">RBF SVM parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_margin.html">SVM Margins Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_tie_breaking.html">SVM Tie Breaking Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_custom_kernel.html">SVM with custom kernel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_anova.html">SVM-Anova: SVM with univariate feature selection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_separating_hyperplane.html">SVM: Maximum margin separating hyperplane</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_separating_hyperplane_unbalanced.html">SVM: Separating hyperplane for unbalanced classes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_weighted_samples.html">SVM: Weighted samples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_scale_c.html">Scaling the regularization parameter for SVCs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_regression.html">Support Vector Regression (SVR) using linear and non-linear kernels</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../text/index.html">Working with text documents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../text/plot_document_classification_20newsgroups.html">Classification of text documents using sparse features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../text/plot_document_clustering.html">Clustering text documents using k-means</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../text/plot_hashing_vs_dict_vectorizer.html">FeatureHasher and DictVectorizer Comparison</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../neighbors/index.html">أقرب الجيران</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/approximate_nearest_neighbors.html">أقرب النقاط المجاورة التقريبية في TSNE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_regression.html">أقرب جيران الانحدار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_caching_nearest_neighbors.html">الاحتفاظ بأقرب الجيران في الذاكرة المؤقتة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_dim_reduction.html">الحد من الأبعاد باستخدام تحليل مكونات الجوار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_lof_novelty_detection.html">الكشف عن البيانات الشاذة باستخدام عامل الانحراف المحلي (LOF)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_lof_outlier_detection.html">الكشف عن القيم الشاذة باستخدام عامل الانحراف المحلي (LOF)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_classification.html">تصنيف أقرب الجيران</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nearest_centroid.html">تصنيف أقرب مركز</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_digits_kde_sampling.html">تقدير كثافة النواة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_kde_1d.html">تقدير كثافة النواة البسيطة أحادية البعد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_species_kde.html">تقدير كثافة النواة لتوزيع الأنواع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_illustration.html">توضيح تحليل مكونات الأحياء المجاورة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_classification.html">مقارنة أقرب الجيران مع وبدون تحليل مكونات الحي</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../applications/index.html">أمثلة مبنية على مجموعات بيانات من العالم الحقيقي</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -731,6 +645,33 @@
 <li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_rfe_digits.html">إزالة الميزة المتكررة</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_feature_selection.html">اختيار الميزة أحادية المتغير</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_f_test_vs_mi.html">مقارنة بين اختبار F والمعلومات المتبادلة</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">إختيار النموذج</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="plot_permutation_tests_for_classification.html">"</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="plot_grid_search_digits.html">استراتيجية إعادة الضبط المخصصة للبحث الشبكي مع التحقق المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_nested_cross_validation_iris.html">التصنيف المتداخل مقابل غير المتداخل</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">المقارنة الإحصائية للنماذج باستخدام البحث الشبكي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_grid_search_refit_callable.html">الموازنة بين تعقيد النموذج ودرجة الدقة عبر التحقق المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_train_error_vs_test_error.html">تأثير تنظيم النموذج على خطأ التدريب والاختبار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_cv_indices.html">تصور سلوك التحقق المتقاطع في سكايلرن</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_multi_metric_evaluation.html">توضيح التقييم متعدد المقاييس على cross_val_score و GridSearchCV</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_precision_recall.html">دقة-استدعاء</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_cv_predict.html">رسم تنبؤات الصندوق الأسود</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_learning_curve.html">رسم منحنيات التعلم وفحص قابلية التوسع للنماذج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_cost_sensitive_learning.html">ضبط عتبة القرار للتعلم الحساس للتكلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_tuned_decision_threshold.html">ضبط نقطة القطع لوظيفة القرار بعد التدريب</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_underfitting_overfitting.html">عدم الملاءمة مقابل الإفراط في الملاءمة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_successive_halving_iterations.html">عمليات التقسيم المتتالية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_grid_search_text_feature_extraction.html">مثال على خط أنابيب لاستخراج ميزات النص وتقييمها</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_confusion_matrix.html">مصفوفة الارتباك</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_randomized_search.html">مقارنة البحث العشوائي والبحث الشبكي لتقدير فرط المعلمات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_successive_halving_heatmap.html">مقارنة بين البحث الشبكي وتقليص الخيارات المتتابع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_roc.html">منحنى استقبال التشغيل متعدد الفئات (ROC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_det.html">منحنى الخطأ الكشف (DET)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_roc_crossval.html">منحنى المستقبل التشغيلي (ROC) مع التحقق المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_likelihood_ratios.html">نسب الاحتمال الطبقي لقياس أداء التصنيف</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../cluster/index.html">التجميع</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -786,12 +727,44 @@
 
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../neural_networks/index.html">الشبكات العصبية</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mnist_filters.html">تصور أوزان الشبكة العصبية متعددة الطبقات على مجموعة بيانات MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mlp_alpha.html">تغيير معامل التنظيم في الشبكة العصبية متعددة الطبقات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mlp_training_curves.html">مقارنة استراتيجيات التعلم العشوائي لتصنيف الشبكة العصبية متعددة الطبقات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_rbm_logistic_classification.html">ميزات شبكة بولتزمان المقيدة لتصنيف الأرقام</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../multiclass/index.html">الطرق المتعددة الفئات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../multiclass/plot_multiclass_overview.html">نظرة عامة على الميتا-مقدّرات التدريب متعدد التصنيفات</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../multioutput/index.html">الطرق المتعددة المخرجات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../multioutput/plot_classifier_chain_yeast.html">التصنيف متعدد التصنيفات باستخدام سلسلة المصنفات</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../text/index.html">العمل مع المستندات النصية</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../text/plot_document_clustering.html">تجميع مستندات النص باستخدام k-means</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../text/plot_document_classification_20newsgroups.html">تصنيف وثائق النصوص باستخدام الميزات المتناثرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../text/plot_hashing_vs_dict_vectorizer.html">مقارنة بين FeatureHasher و DictVectorizer</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../inspection/index.html">الفحص</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance_multicollinear.html">أهمية التبديل مع الميزات متعددة الخطية أو المرتبطة</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance.html">أهمية التبديل مقابل أهمية ميزة الغابة العشوائية (MDI)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_linear_model_coefficient_interpretation.html">المزالق الشائعة في تفسير معاملات النماذج الخطية</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_causal_interpretation.html">فشل التعلم الآلي في استنتاج الآثار السببية</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_partial_dependence.html">مخططات التبعية الجزئية والتوقع الشرطي الفردي</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../preprocessing/index.html">المعالجة المسبقة للبيانات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_scaling_importance.html">أهمية معايرة الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization.html">استخدام KBinsDiscretizer لتقسيم الخصائص المستمرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder_cross_val.html">الترميز الداخلي للهدف عبر الملاءمة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization_classification.html">تجريد الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_map_data_to_normal.html">تحويل البيانات إلى التوزيع الطبيعي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization_strategies.html">عرض استراتيجيات KBinsDiscretizer المختلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_all_scaling.html">مقارنة تأثير المقياس المختلف على البيانات مع القيم الشاذة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder.html">مقارنة ترميز الهدف مع الترميزات الأخرى</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../linear_model/index.html">النماذج الخطية المعممة</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -927,11 +900,39 @@
 <li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_compare_gpr_krr.html">مقارنة انحدار kernel ridge وانحدار العمليات الغاوسية</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../miscellaneous/index.html">متنوع</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_multioutput_face_completion.html">اكتمال الوجه باستخدام المُقدرات متعددة المخرجات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_isotonic_regression.html">الانحدار الأيزوتوني</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_multilabel.html">التصنيف متعدد التصنيفات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_display_object_visualization.html">التصورات باستخدام كائنات العرض</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_partial_dependence_visualization_api.html">الرسم المتقدم باستخدام الاعتمادية الجزئية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_set_output.html">تقديم واجهة برمجة التطبيقات <code class="docutils literal notranslate"><span class="pre">set_output</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_kernel_approximation.html">تقريب خريطة الميزات الصريحة لنواة RBF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_outlier_detection_bench.html">تقييم خوارزميات كشف الشواذ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_metadata_routing.html">توجيه البيانات الوصفية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_johnson_lindenstrauss_bound.html">حدود جونسون-ليندستراوس للانغماس مع الإسقاطات العشوائية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_estimator_representation.html">عرض المنمذجات وأنابيب التوصيل المعقدة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_pipeline_display.html">عرض خطوط الأنابيب</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_kernel_ridge_regression.html">مقارنة بين الانحدار النووي المنتظم والانحدار الداعم للمتجهات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_anomaly_comparison.html">مقارنة خوارزميات الكشف عن الشذوذ لكشف القيم المتطرفة في مجموعات بيانات تجريبية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../miscellaneous/plot_roc_curve_visualization_api.html">منحنى ROC مع واجهة برمجة التطبيقات للتصور</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../calibration/index.html">معايرة الإحتمالات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration.html">معايرة احتمالات المصنفات</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration_multiclass.html">معايرة الاحتمالات لتصنيف ثلاثي الفئات</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../calibration/plot_compare_calibration.html">مقارنة معايرة المصنفات</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration_curve.html">منحنيات معايرة الاحتمالية</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mixture/index.html">نماذج الخليط الجاوسي</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_selection.html">اختيار نموذج المزيج الغاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_concentration_prior.html">تحليل نوع أولوية التركيز لخوارزمية التباين بايزي غاوسي ميكسشر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_covariances.html">تشتتات GMM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_pdf.html">تقدير الكثافة لمزيج غاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_init.html">طرق تهيئة نماذج الخلط الغاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm.html">نموذج الإهليجيات لمزيج غاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_sin.html">نموذج مزيج غاوسي لمنحنى الجيب</a></li>
 </ul>
 </details></li>
 </ul>
@@ -973,9 +974,9 @@
     <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Examples</a></li>
     
     
-    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Model Selection</a></li>
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">إختيار النموذج</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Statistical comparison of models using grid search</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">المقارنة الإحصائية للنماذج باستخدام البحث الشبكي</span></li>
   </ul>
 </nav>
 </div>
@@ -997,18 +998,18 @@
 <p><a class="reference internal" href="#sphx-glr-download-auto-examples-model-selection-plot-grid-search-stats-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code. or to run this example in your browser via JupyterLite or Binder</p>
 </div>
-<section class="sphx-glr-example-title" id="statistical-comparison-of-models-using-grid-search">
-<span id="sphx-glr-auto-examples-model-selection-plot-grid-search-stats-py"></span><h1>Statistical comparison of models using grid search<a class="headerlink" href="#statistical-comparison-of-models-using-grid-search" title="Link to this heading">#</a></h1>
-<p>This example illustrates how to statistically compare the performance of models
-trained and evaluated using <a class="reference internal" href="../../modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearchCV</span></code></a>.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Authors: The scikit-learn developers</span>
-<span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
+<section class="sphx-glr-example-title" id="sphx-glr-auto-examples-model-selection-plot-grid-search-stats-py">
+<span id="id1"></span><h1>المقارنة الإحصائية للنماذج باستخدام البحث الشبكي<a class="headerlink" href="#sphx-glr-auto-examples-model-selection-plot-grid-search-stats-py" title="Link to this heading">#</a></h1>
+<p>يوضح هذا المثال كيفية المقارنة الإحصائية لأداء النماذج
+المدربة والمقيمة باستخدام <a class="reference internal" href="../../modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearchCV</span></code></a>.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># المؤلفون: مطوري scikit-learn</span>
+<span class="c1"># معرف SPDX-License: BSD-3-Clause</span>
 </pre></div>
 </div>
-<p>We will start by simulating moon shaped data (where the ideal separation
-between classes is non-linear), adding to it a moderate degree of noise.
-Datapoints will belong to one of two possible classes to be predicted by two
-features. We will simulate 50 samples for each class:</p>
+<p>سنبدأ بمحاكاة بيانات على شكل قمر (حيث يكون الفصل المثالي
+بين الفئات غير خطي)، مع إضافة درجة معتدلة من الضوضاء.
+ستنتمي نقاط البيانات إلى واحدة من فئتين محتملتين للتنبؤ بهما باستخدام ميزتين.
+سنحاكي 50 عينة لكل فئة:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 
@@ -1022,13 +1023,12 @@ features. We will simulate 50 samples for each class:</p>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_grid_search_stats_001.png" srcset="../../_images/sphx_glr_plot_grid_search_stats_001.png" alt="Data" class = "sphx-glr-single-img"/><p>We will compare the performance of <a class="reference internal" href="../../modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC"><code class="xref py py-class docutils literal notranslate"><span class="pre">SVC</span></code></a> estimators that
-vary on their <code class="docutils literal notranslate"><span class="pre">kernel</span></code> parameter, to decide which choice of this
-hyper-parameter predicts our simulated data best.
-We will evaluate the performance of the models using
-<a class="reference internal" href="../../modules/generated/sklearn.model_selection.RepeatedStratifiedKFold.html#sklearn.model_selection.RepeatedStratifiedKFold" title="sklearn.model_selection.RepeatedStratifiedKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">RepeatedStratifiedKFold</span></code></a>, repeating 10 times
-a 10-fold stratified cross validation using a different randomization of the
-data in each repetition. The performance will be evaluated using
+<img src="../../_images/sphx_glr_plot_grid_search_stats_001.png" srcset="../../_images/sphx_glr_plot_grid_search_stats_001.png" alt="Data" class = "sphx-glr-single-img"/><p>سنقارن أداء <a class="reference internal" href="../../modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC"><code class="xref py py-class docutils literal notranslate"><span class="pre">SVC</span></code></a> estimators التي
+تختلف في معاملها 'kernel'، لتحديد أي خيار لهذا
+المعامل الفرعي يتنبأ ببياناتنا المحاكاة بشكل أفضل.
+سنقيم أداء النماذج باستخدام
+<a class="reference internal" href="../../modules/generated/sklearn.model_selection.RepeatedStratifiedKFold.html#sklearn.model_selection.RepeatedStratifiedKFold" title="sklearn.model_selection.RepeatedStratifiedKFold"><code class="xref py py-class docutils literal notranslate"><span class="pre">RepeatedStratifiedKFold</span></code></a>، مع تكرار 10 مرات
+تقسيم البيانات إلى 10 مجموعات مع تقسيم استراتيجي، مع استخدام تقسيم عشوائي مختلف للبيانات في كل تكرار. سيتم تقييم الأداء باستخدام
 <a class="reference internal" href="../../modules/generated/sklearn.metrics.roc_auc_score.html#sklearn.metrics.roc_auc_score" title="sklearn.metrics.roc_auc_score"><code class="xref py py-class docutils literal notranslate"><span class="pre">roc_auc_score</span></code></a>.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">GridSearchCV</span></a><span class="p">,</span> <a href="../../modules/generated/sklearn.model_selection.RepeatedStratifiedKFold.html#sklearn.model_selection.RepeatedStratifiedKFold" title="sklearn.model_selection.RepeatedStratifiedKFold" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RepeatedStratifiedKFold</span></a>
 <span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">SVC</span></a>
@@ -1048,7 +1048,7 @@ data in each repetition. The performance will be evaluated using
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
-<style>#sk-container-id-63 {
+<style>#sk-container-id-13 {
   /* Definition of color scheme common for light and dark mode */
   --sklearn-color-text: #000;
   --sklearn-color-text-muted: #666;
@@ -1079,15 +1079,15 @@ data in each repetition. The performance will be evaluated using
   }
 }
 
-#sk-container-id-63 {
+#sk-container-id-13 {
   color: var(--sklearn-color-text);
 }
 
-#sk-container-id-63 pre {
+#sk-container-id-13 pre {
   padding: 0;
 }
 
-#sk-container-id-63 input.sk-hidden--visually {
+#sk-container-id-13 input.sk-hidden--visually {
   border: 0;
   clip: rect(1px 1px 1px 1px);
   clip: rect(1px, 1px, 1px, 1px);
@@ -1099,7 +1099,7 @@ data in each repetition. The performance will be evaluated using
   width: 1px;
 }
 
-#sk-container-id-63 div.sk-dashed-wrapped {
+#sk-container-id-13 div.sk-dashed-wrapped {
   border: 1px dashed var(--sklearn-color-line);
   margin: 0 0.4em 0.5em 0.4em;
   box-sizing: border-box;
@@ -1107,7 +1107,7 @@ data in each repetition. The performance will be evaluated using
   background-color: var(--sklearn-color-background);
 }
 
-#sk-container-id-63 div.sk-container {
+#sk-container-id-13 div.sk-container {
   /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
      but bootstrap.min.css set `[hidden] { display: none !important; }`
      so we also need the `!important` here to be able to override the
@@ -1117,7 +1117,7 @@ data in each repetition. The performance will be evaluated using
   position: relative;
 }
 
-#sk-container-id-63 div.sk-text-repr-fallback {
+#sk-container-id-13 div.sk-text-repr-fallback {
   display: none;
 }
 
@@ -1133,14 +1133,14 @@ div.sk-item {
 
 /* Parallel-specific style estimator block */
 
-#sk-container-id-63 div.sk-parallel-item::after {
+#sk-container-id-13 div.sk-parallel-item::after {
   content: "";
   width: 100%;
   border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
   flex-grow: 1;
 }
 
-#sk-container-id-63 div.sk-parallel {
+#sk-container-id-13 div.sk-parallel {
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -1148,28 +1148,28 @@ div.sk-item {
   position: relative;
 }
 
-#sk-container-id-63 div.sk-parallel-item {
+#sk-container-id-13 div.sk-parallel-item {
   display: flex;
   flex-direction: column;
 }
 
-#sk-container-id-63 div.sk-parallel-item:first-child::after {
+#sk-container-id-13 div.sk-parallel-item:first-child::after {
   align-self: flex-end;
   width: 50%;
 }
 
-#sk-container-id-63 div.sk-parallel-item:last-child::after {
+#sk-container-id-13 div.sk-parallel-item:last-child::after {
   align-self: flex-start;
   width: 50%;
 }
 
-#sk-container-id-63 div.sk-parallel-item:only-child::after {
+#sk-container-id-13 div.sk-parallel-item:only-child::after {
   width: 0;
 }
 
 /* Serial-specific style estimator block */
 
-#sk-container-id-63 div.sk-serial {
+#sk-container-id-13 div.sk-serial {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1187,14 +1187,14 @@ clickable and can be expanded/collapsed.
 
 /* Pipeline and ColumnTransformer style (default) */
 
-#sk-container-id-63 div.sk-toggleable {
+#sk-container-id-13 div.sk-toggleable {
   /* Default theme specific background. It is overwritten whether we have a
   specific estimator or a Pipeline/ColumnTransformer */
   background-color: var(--sklearn-color-background);
 }
 
 /* Toggleable label */
-#sk-container-id-63 label.sk-toggleable__label {
+#sk-container-id-13 label.sk-toggleable__label {
   cursor: pointer;
   display: flex;
   width: 100%;
@@ -1207,13 +1207,13 @@ clickable and can be expanded/collapsed.
   gap: 0.5em;
 }
 
-#sk-container-id-63 label.sk-toggleable__label .caption {
+#sk-container-id-13 label.sk-toggleable__label .caption {
   font-size: 0.6rem;
   font-weight: lighter;
   color: var(--sklearn-color-text-muted);
 }
 
-#sk-container-id-63 label.sk-toggleable__label-arrow:before {
+#sk-container-id-13 label.sk-toggleable__label-arrow:before {
   /* Arrow on the left of the label */
   content: "▸";
   float: left;
@@ -1221,13 +1221,13 @@ clickable and can be expanded/collapsed.
   color: var(--sklearn-color-icon);
 }
 
-#sk-container-id-63 label.sk-toggleable__label-arrow:hover:before {
+#sk-container-id-13 label.sk-toggleable__label-arrow:hover:before {
   color: var(--sklearn-color-text);
 }
 
 /* Toggleable content - dropdown */
 
-#sk-container-id-63 div.sk-toggleable__content {
+#sk-container-id-13 div.sk-toggleable__content {
   max-height: 0;
   max-width: 0;
   overflow: hidden;
@@ -1236,12 +1236,12 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-63 div.sk-toggleable__content.fitted {
+#sk-container-id-13 div.sk-toggleable__content.fitted {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
-#sk-container-id-63 div.sk-toggleable__content pre {
+#sk-container-id-13 div.sk-toggleable__content pre {
   margin: 0.2em;
   border-radius: 0.25em;
   color: var(--sklearn-color-text);
@@ -1249,79 +1249,79 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-63 div.sk-toggleable__content.fitted pre {
+#sk-container-id-13 div.sk-toggleable__content.fitted pre {
   /* unfitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
-#sk-container-id-63 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+#sk-container-id-13 input.sk-toggleable__control:checked~div.sk-toggleable__content {
   /* Expand drop-down */
   max-height: 200px;
   max-width: 100%;
   overflow: auto;
 }
 
-#sk-container-id-63 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+#sk-container-id-13 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
   content: "▾";
 }
 
 /* Pipeline/ColumnTransformer-specific style */
 
-#sk-container-id-63 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-13 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-63 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-13 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
 /* Estimator-specific style */
 
 /* Colorize estimator box */
-#sk-container-id-63 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-13 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-63 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-13 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
-#sk-container-id-63 div.sk-label label.sk-toggleable__label,
-#sk-container-id-63 div.sk-label label {
+#sk-container-id-13 div.sk-label label.sk-toggleable__label,
+#sk-container-id-13 div.sk-label label {
   /* The background is the default theme color */
   color: var(--sklearn-color-text-on-default-background);
 }
 
 /* On hover, darken the color of the background */
-#sk-container-id-63 div.sk-label:hover label.sk-toggleable__label {
+#sk-container-id-13 div.sk-label:hover label.sk-toggleable__label {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
 /* Label box, darken color on hover, fitted */
-#sk-container-id-63 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+#sk-container-id-13 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
 /* Estimator label */
 
-#sk-container-id-63 div.sk-label label {
+#sk-container-id-13 div.sk-label label {
   font-family: monospace;
   font-weight: bold;
   display: inline-block;
   line-height: 1.2em;
 }
 
-#sk-container-id-63 div.sk-label-container {
+#sk-container-id-13 div.sk-label-container {
   text-align: center;
 }
 
 /* Estimator-specific */
-#sk-container-id-63 div.sk-estimator {
+#sk-container-id-13 div.sk-estimator {
   font-family: monospace;
   border: 1px dotted var(--sklearn-color-border-box);
   border-radius: 0.25em;
@@ -1331,18 +1331,18 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-63 div.sk-estimator.fitted {
+#sk-container-id-13 div.sk-estimator.fitted {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
 /* on hover */
-#sk-container-id-63 div.sk-estimator:hover {
+#sk-container-id-13 div.sk-estimator:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-63 div.sk-estimator.fitted:hover {
+#sk-container-id-13 div.sk-estimator.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-2);
 }
@@ -1430,7 +1430,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 
 /* "?"-specific style due to the `<a>` HTML tag */
 
-#sk-container-id-63 a.estimator_doc_link {
+#sk-container-id-13 a.estimator_doc_link {
   float: right;
   font-size: 1rem;
   line-height: 1em;
@@ -1445,38 +1445,38 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   border: var(--sklearn-color-unfitted-level-1) 1pt solid;
 }
 
-#sk-container-id-63 a.estimator_doc_link.fitted {
+#sk-container-id-13 a.estimator_doc_link.fitted {
   /* fitted */
   border: var(--sklearn-color-fitted-level-1) 1pt solid;
   color: var(--sklearn-color-fitted-level-1);
 }
 
 /* On hover */
-#sk-container-id-63 a.estimator_doc_link:hover {
+#sk-container-id-13 a.estimator_doc_link:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-3);
   color: var(--sklearn-color-background);
   text-decoration: none;
 }
 
-#sk-container-id-63 a.estimator_doc_link.fitted:hover {
+#sk-container-id-13 a.estimator_doc_link.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-3);
 }
-</style><div id="sk-container-id-63" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>GridSearchCV(cv=RepeatedStratifiedKFold(n_repeats=10, n_splits=10, random_state=0),
+</style><div id="sk-container-id-13" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>GridSearchCV(cv=RepeatedStratifiedKFold(n_repeats=10, n_splits=10, random_state=0),
              estimator=SVC(random_state=0),
              param_grid=[{&#x27;kernel&#x27;: [&#x27;linear&#x27;]},
                          {&#x27;degree&#x27;: [2, 3], &#x27;kernel&#x27;: [&#x27;poly&#x27;]},
                          {&#x27;kernel&#x27;: [&#x27;rbf&#x27;]}],
-             scoring=&#x27;roc_auc&#x27;)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-253" type="checkbox" ><label for="sk-estimator-id-253" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>GridSearchCV</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.model_selection.GridSearchCV.html">?<span>Documentation for GridSearchCV</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>GridSearchCV(cv=RepeatedStratifiedKFold(n_repeats=10, n_splits=10, random_state=0),
+             scoring=&#x27;roc_auc&#x27;)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-33" type="checkbox" ><label for="sk-estimator-id-33" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>GridSearchCV</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.model_selection.GridSearchCV.html">?<span>Documentation for GridSearchCV</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>GridSearchCV(cv=RepeatedStratifiedKFold(n_repeats=10, n_splits=10, random_state=0),
              estimator=SVC(random_state=0),
              param_grid=[{&#x27;kernel&#x27;: [&#x27;linear&#x27;]},
                          {&#x27;degree&#x27;: [2, 3], &#x27;kernel&#x27;: [&#x27;poly&#x27;]},
                          {&#x27;kernel&#x27;: [&#x27;rbf&#x27;]}],
-             scoring=&#x27;roc_auc&#x27;)</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-254" type="checkbox" ><label for="sk-estimator-id-254" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>best_estimator_: SVC</div></div></label><div class="sk-toggleable__content fitted"><pre>SVC(random_state=0)</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-255" type="checkbox" ><label for="sk-estimator-id-255" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SVC</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.svm.SVC.html">?<span>Documentation for SVC</span></a></div></label><div class="sk-toggleable__content fitted"><pre>SVC(random_state=0)</pre></div> </div></div></div></div></div></div></div></div></div>
+             scoring=&#x27;roc_auc&#x27;)</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-34" type="checkbox" ><label for="sk-estimator-id-34" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>best_estimator_: SVC</div></div></label><div class="sk-toggleable__content fitted"><pre>SVC(random_state=0)</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-35" type="checkbox" ><label for="sk-estimator-id-35" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SVC</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.svm.SVC.html">?<span>Documentation for SVC</span></a></div></label><div class="sk-toggleable__content fitted"><pre>SVC(random_state=0)</pre></div> </div></div></div></div></div></div></div></div></div>
 </div>
 <br />
-<br /><p>We can now inspect the results of our search, sorted by their
+<br /><p>يمكننا الآن فحص نتائج بحثنا، مرتبة حسب
 <code class="docutils literal notranslate"><span class="pre">mean_test_score</span></code>:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
@@ -1554,30 +1554,28 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 </div>
 <br />
-<br /><p>We can see that the estimator using the <code class="docutils literal notranslate"><span class="pre">'rbf'</span></code> kernel performed best,
-closely followed by <code class="docutils literal notranslate"><span class="pre">'linear'</span></code>. Both estimators with a <code class="docutils literal notranslate"><span class="pre">'poly'</span></code> kernel
-performed worse, with the one using a two-degree polynomial achieving a much
-lower performance than all other models.</p>
-<p>Usually, the analysis just ends here, but half the story is missing. The
-output of <a class="reference internal" href="../../modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearchCV</span></code></a> does not provide
-information on the certainty of the differences between the models.
-We don't know if these are <strong>statistically</strong> significant.
-To evaluate this, we need to conduct a statistical test.
-Specifically, to contrast the performance of two models we should
-statistically compare their AUC scores. There are 100 samples (AUC
-scores) for each model as we repreated 10 times a 10-fold cross-validation.</p>
-<p>However, the scores of the models are not independent: all models are
-evaluated on the <strong>same</strong> 100 partitions, increasing the correlation
-between the performance of the models.
-Since some partitions of the data can make the distinction of the classes
-particularly easy or hard to find for all models, the models scores will
-co-vary.</p>
-<p>Let's inspect this partition effect by plotting the performance of all models
-in each fold, and calculating the correlation between models across folds:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create df of model scores ordered by performance</span>
+<br /><p>يمكننا أن نرى أن المحلل باستخدام معامل 'rbf' حقق أفضل أداء،
+يليه 'linear' عن قرب. كل من المحللين اللذين استخدما معامل 'poly'
+حققا أداءً أسوأ، مع تحقيق المحلل الذي يستخدم دالة متعددة الحدود من الدرجة الثانية أداءً أقل بكثير من جميع النماذج الأخرى.</p>
+<p>عادة، ينتهي التحليل هنا، ولكن نصف القصة مفقود.
+لا يوفر ناتج <a class="reference internal" href="../../modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearchCV</span></code></a>
+معلومات حول اليقين من الاختلافات بين النماذج.
+لا نعرف إذا كانت هذه الاختلافات <strong>إحصائية</strong> مهمة.
+لتقييم ذلك، نحتاج إلى إجراء اختبار إحصائي.
+على وجه التحديد، لمقارنة أداء نموذجين يجب
+المقارنة الإحصائية لدرجات AUC الخاصة بهما. هناك 100 عينة (درجات AUC)
+لكل نموذج حيث قمنا بتكرار 10 مرات تقسيم البيانات إلى 10 مجموعات.</p>
+<p>ومع ذلك، فإن درجات النماذج ليست مستقلة: يتم تقييم جميع النماذج على
+<strong>نفس</strong> 100 تقسيم، مما يزيد من الارتباط
+بين أداء النماذج.
+نظرًا لأن بعض تقسيمات البيانات يمكن أن تجعل التمييز بين الفئات
+سهلًا أو صعبًا بشكل خاص بالنسبة لجميع النماذج، فإن درجات النماذج ستتغير.</p>
+<p>دعنا نتفقد تأثير التقسيم هذا من خلال رسم أداء جميع النماذج
+في كل تقسيم، وحساب الارتباط بين النماذج عبر التقسيمات:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># إنشاء إطار بيانات لدرجات النماذج مرتبة حسب الأداء</span>
 <span class="n">model_scores</span> <span class="o">=</span> <span class="n">results_df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;split\d*_test_score&quot;</span><span class="p">)</span>
 
-<span class="c1"># plot 30 examples of dependency between cv fold and AUC scores</span>
+<span class="c1"># رسم 30 مثال على الاعتماد بين تقسيمات الاختبار ودرجات AUC</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="matplotlib.pyplot.subplots" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">()</span>
 <a href="https://seaborn.pydata.org/generated/seaborn.lineplot.html#seaborn.lineplot" title="seaborn.lineplot" class="sphx-glr-backref-module-seaborn sphx-glr-backref-type-py-function"><span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span></a><span class="p">(</span>
     <span class="n">data</span><span class="o">=</span><span class="n">model_scores</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">30</span><span class="p">],</span>
@@ -1592,7 +1590,7 @@ in each fold, and calculating the correlation between models across folds:</p>
 <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">labelbottom</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 
-<span class="c1"># print correlation of AUC scores across folds</span>
+<span class="c1"># طباعة ارتباط درجات AUC عبر التقسيمات</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Correlation of models:</span><span class="se">\n</span><span class="s2"> </span><span class="si">{</span><span class="n">model_scores</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1605,65 +1603,61 @@ linear  0.882561  1.000000  0.746492  0.298688
 2_poly  0.351390  0.298688  0.355440  1.000000
 </pre></div>
 </div>
-<p>We can observe that the performance of the models highly depends on the fold.</p>
-<p>As a consequence, if we assume independence between samples we will be
-underestimating the variance computed in our statistical tests, increasing
-the number of false positive errors (i.e. detecting a significant difference
-between models when such does not exist) <a class="footnote-reference brackets" href="#id10" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
-<p>Several variance-corrected statistical tests have been developed for these
-cases. In this example we will show how to implement one of them (the so
-called Nadeau and Bengio's corrected t-test) under two different statistical
-frameworks: frequentist and Bayesian.</p>
-<section id="comparing-two-models-frequentist-approach">
-<h2>Comparing two models: frequentist approach<a class="headerlink" href="#comparing-two-models-frequentist-approach" title="Link to this heading">#</a></h2>
-<p>We can start by asking: &quot;Is the first model significantly better than the
-second model (when ranked by <code class="docutils literal notranslate"><span class="pre">mean_test_score</span></code>)?&quot;</p>
-<p>To answer this question using a frequentist approach we could
-run a paired t-test and compute the p-value. This is also known as
-Diebold-Mariano test in the forecast literature <a class="footnote-reference brackets" href="#id14" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a>.
-Many variants of such a t-test have been developed to account for the
-'non-independence of samples problem'
-described in the previous section. We will use the one proven to obtain the
-highest replicability scores (which rate how similar the performance of a
-model is when evaluating it on different random partitions of the same
-dataset) while maintaining a low rate of false positives and false negatives:
-the Nadeau and Bengio's corrected t-test <a class="footnote-reference brackets" href="#id11" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> that uses a 10 times repeated
-10-fold cross validation <a class="footnote-reference brackets" href="#id12" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.</p>
-<p>This corrected paired t-test is computed as:</p>
+<p>يمكننا ملاحظة أن أداء النماذج يعتمد بشكل كبير على التقسيم.</p>
+<p>وكنتيجة لذلك، إذا افترضنا الاستقلالية بين العينات، فسنقوم
+بتقليل التباين المحسوب في اختباراتنا الإحصائية، مما يزيد
+من عدد الأخطاء الإيجابية الخاطئة (أي اكتشاف فرق مهم
+بين النماذج عندما لا يوجد مثل هذا الفرق) <a href="#id10"><span class="problematic" id="id2">[1]_</span></a>.</p>
+<p>تم تطوير العديد من الاختبارات الإحصائية المصححة للتباين لهذه
+الحالات. في هذا المثال، سنعرض كيفية تنفيذ أحد هذه الاختبارات (ما يسمى اختبار t المصحح لناديو وبنجيو) تحت إطارين إحصائيين مختلفين: الترددي والبايزي.</p>
+<section id="id3">
+<h2>مقارنة نموذجين: النهج الترددي<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>يمكننا أن نبدأ بسؤال: &quot;هل النموذج الأول أفضل بشكل كبير من
+النموذج الثاني (عند ترتيبه حسب <code class="docutils literal notranslate"><span class="pre">mean_test_score</span></code>)؟&quot;</p>
+<p>للإجابة على هذا السؤال باستخدام نهج ترددي، يمكننا
+إجراء اختبار t المزدوج وحساب قيمة p. وهذا ما يسمى أيضًا
+باختبار دييولد-ماريانو في أدبيات التنبؤ <a href="#id11"><span class="problematic" id="id4">[5]_</span></a>.
+تم تطوير العديد من المتغيرات لمثل هذا اختبار t لحساب
+'مشكلة عدم استقلالية العينات'
+الموصوفة في القسم السابق. سنستخدم الاختبار الذي أثبت أنه يحقق أعلى درجات التكرار (التي تقيس مدى تشابه أداء
+نموذج عند تقييمه على تقسيمات عشوائية مختلفة لنفس
+مجموعة البيانات) مع الحفاظ على معدل منخفض من الأخطاء الإيجابية الخاطئة والسلبية:
+اختبار t المصحح لناديو وبنجيو <a href="#id12"><span class="problematic" id="id5">[2]_</span></a> الذي يستخدم 10 مرات تكرار
+تقسيم البيانات إلى 10 مجموعات <a href="#id13"><span class="problematic" id="id6">[3]_</span></a>.</p>
+<p>يتم حساب هذا الاختبار المزدوج المصحح على النحو التالي:</p>
 <div class="math notranslate nohighlight">
 \[t=\frac{\frac{1}{k \cdot r}\sum_{i=1}^{k}\sum_{j=1}^{r}x_{ij}}
 {\sqrt{(\frac{1}{k \cdot r}+\frac{n_{test}}{n_{train}})\hat{\sigma}^2}}\]</div>
-<p>where <span class="math notranslate nohighlight">\(k\)</span> is the number of folds,
-<span class="math notranslate nohighlight">\(r\)</span> the number of repetitions in the cross-validation,
-<span class="math notranslate nohighlight">\(x\)</span> is the difference in performance of the models,
-<span class="math notranslate nohighlight">\(n_{test}\)</span> is the number of samples used for testing,
-<span class="math notranslate nohighlight">\(n_{train}\)</span> is the number of samples used for training,
-and <span class="math notranslate nohighlight">\(\hat{\sigma}^2\)</span> represents the variance of the observed
-differences.</p>
-<p>Let's implement a corrected right-tailed paired t-test to evaluate if the
-performance of the first model is significantly better than that of the
-second model. Our null hypothesis is that the second model performs at least
-as good as the first model.</p>
+<p>حيث <span class="math notranslate nohighlight">\(k\)</span> هو عدد التقسيمات،
+<span class="math notranslate nohighlight">\(r\)</span> عدد التكرارات في التقسيم،
+<span class="math notranslate nohighlight">\(x\)</span> هو الفرق في أداء النماذج،
+<span class="math notranslate nohighlight">\(n_{test}\)</span> هو عدد العينات المستخدمة للاختبار،
+<span class="math notranslate nohighlight">\(n_{train}\)</span> هو عدد العينات المستخدمة للتدريب،
+و <span class="math notranslate nohighlight">\(\hat{\sigma}^2\)</span> يمثل تباين الاختلافات الملاحظة.</p>
+<p>دعنا ننفذ اختبار t المزدوج المصحح لتقييم ما إذا كان
+أداء النموذج الأول أفضل بشكل كبير من أداء النموذج
+الثاني. فرضية العدم لدينا هي أن النموذج الثاني يؤدي على الأقل
+بنفس جودة النموذج الأول.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.t.html#scipy.stats.t" title="scipy.stats.t" class="sphx-glr-backref-module-scipy-stats sphx-glr-backref-type-py-data"><span class="n">t</span></a>
 
 
 <span class="k">def</span> <span class="nf">corrected_std</span><span class="p">(</span><span class="n">differences</span><span class="p">,</span> <span class="n">n_train</span><span class="p">,</span> <span class="n">n_test</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Corrects standard deviation using Nadeau and Bengio&#39;s approach.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;تصحيح الانحراف المعياري باستخدام نهج ناديو وبنجيو.</span>
 
-<span class="sd">    Parameters</span>
+<span class="sd">    المعلمات</span>
 <span class="sd">    ----------</span>
-<span class="sd">    differences : ndarray of shape (n_samples,)</span>
-<span class="sd">        Vector containing the differences in the score metrics of two models.</span>
+<span class="sd">    differences : مصفوفة من الشكل (n_samples,)</span>
+<span class="sd">        متجه يحتوي على الاختلافات في مقاييس درجات النموذجين.</span>
 <span class="sd">    n_train : int</span>
-<span class="sd">        Number of samples in the training set.</span>
+<span class="sd">        عدد العينات في مجموعة التدريب.</span>
 <span class="sd">    n_test : int</span>
-<span class="sd">        Number of samples in the testing set.</span>
+<span class="sd">        عدد العينات في مجموعة الاختبار.</span>
 
-<span class="sd">    Returns</span>
+<span class="sd">    العائدات</span>
 <span class="sd">    -------</span>
 <span class="sd">    corrected_std : float</span>
-<span class="sd">        Variance-corrected standard deviation of the set of differences.</span>
+<span class="sd">        الانحراف المعياري المصحح للتباين لمجموعة الاختلافات.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># kr = k times r, r times repeated k-fold crossvalidation,</span>
     <span class="c1"># kr equals the number of times the model was evaluated</span>
@@ -1674,39 +1668,39 @@ as good as the first model.</p>
 
 
 <span class="k">def</span> <span class="nf">compute_corrected_ttest</span><span class="p">(</span><span class="n">differences</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">n_train</span><span class="p">,</span> <span class="n">n_test</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Computes right-tailed paired t-test with corrected variance.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;يحسب اختبار t المزدوج المصحح.</span>
 
-<span class="sd">    Parameters</span>
+<span class="sd">    المعلمات</span>
 <span class="sd">    ----------</span>
-<span class="sd">    differences : array-like of shape (n_samples,)</span>
-<span class="sd">        Vector containing the differences in the score metrics of two models.</span>
+<span class="sd">    differences : مصفوفة على شكل (n_samples,)</span>
+<span class="sd">        متجه يحتوي على الاختلافات في مقاييس درجات النموذجين.</span>
 <span class="sd">    df : int</span>
-<span class="sd">        Degrees of freedom.</span>
+<span class="sd">        درجات الحرية.</span>
 <span class="sd">    n_train : int</span>
-<span class="sd">        Number of samples in the training set.</span>
+<span class="sd">        عدد العينات في مجموعة التدريب.</span>
 <span class="sd">    n_test : int</span>
-<span class="sd">        Number of samples in the testing set.</span>
+<span class="sd">        عدد العينات في مجموعة الاختبار.</span>
 
-<span class="sd">    Returns</span>
+<span class="sd">    العائدات</span>
 <span class="sd">    -------</span>
 <span class="sd">    t_stat : float</span>
-<span class="sd">        Variance-corrected t-statistic.</span>
+<span class="sd">        t-statistic المصحح للتباين.</span>
 <span class="sd">    p_val : float</span>
-<span class="sd">        Variance-corrected p-value.</span>
+<span class="sd">        p-value المصحح للتباين.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">mean</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.mean.html#numpy.mean" title="numpy.mean" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">mean</span></a><span class="p">(</span><span class="n">differences</span><span class="p">)</span>
     <span class="n">std</span> <span class="o">=</span> <span class="n">corrected_std</span><span class="p">(</span><span class="n">differences</span><span class="p">,</span> <span class="n">n_train</span><span class="p">,</span> <span class="n">n_test</span><span class="p">)</span>
     <span class="n">t_stat</span> <span class="o">=</span> <span class="n">mean</span> <span class="o">/</span> <span class="n">std</span>
-    <span class="n">p_val</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.t.html#scipy.stats.t" title="scipy.stats.t" class="sphx-glr-backref-module-scipy-stats sphx-glr-backref-type-py-data"><span class="n">t</span></a><span class="o">.</span><span class="n">sf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">t_stat</span><span class="p">),</span> <span class="n">df</span><span class="p">)</span>  <span class="c1"># right-tailed t-test</span>
+    <span class="n">p_val</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.t.html#scipy.stats.t" title="scipy.stats.t" class="sphx-glr-backref-module-scipy-stats sphx-glr-backref-type-py-data"><span class="n">t</span></a><span class="o">.</span><span class="n">sf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">t_stat</span><span class="p">),</span> <span class="n">df</span><span class="p">)</span>  <span class="c1"># اختبار t المزدوج المصحح</span>
     <span class="k">return</span> <span class="n">t_stat</span><span class="p">,</span> <span class="n">p_val</span>
 </pre></div>
 </div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">model_1_scores</span> <span class="o">=</span> <span class="n">model_scores</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>  <span class="c1"># scores of the best model</span>
-<span class="n">model_2_scores</span> <span class="o">=</span> <span class="n">model_scores</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>  <span class="c1"># scores of the second-best model</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">model_1_scores</span> <span class="o">=</span> <span class="n">model_scores</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>  <span class="c1"># درجات النموذج الأفضل</span>
+<span class="n">model_2_scores</span> <span class="o">=</span> <span class="n">model_scores</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>  <span class="c1"># درجات النموذج الثاني الأفضل</span>
 
 <span class="n">differences</span> <span class="o">=</span> <span class="n">model_1_scores</span> <span class="o">-</span> <span class="n">model_2_scores</span>
 
-<span class="n">n</span> <span class="o">=</span> <span class="n">differences</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># number of test sets</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">differences</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># عدد مجموعات الاختبار</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span>
 <span class="n">n_train</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">cv</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">))[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">n_test</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">cv</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">))[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
@@ -1719,7 +1713,7 @@ as good as the first model.</p>
 Corrected p-value: 0.227
 </pre></div>
 </div>
-<p>We can compare the corrected t- and p-values with the uncorrected ones:</p>
+<p>يمكننا مقارنة قيم t و p المصححة مع القيم غير المصححة:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">t_stat_uncorrected</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.mean.html#numpy.mean" title="numpy.mean" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">mean</span></a><span class="p">(</span><span class="n">differences</span><span class="p">)</span> <span class="o">/</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.sqrt.html#numpy.sqrt" title="numpy.sqrt" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-data"><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.var.html#numpy.var" title="numpy.var" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">var</span></a><span class="p">(</span><span class="n">differences</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
 <span class="n">p_val_uncorrected</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.t.html#scipy.stats.t" title="scipy.stats.t" class="sphx-glr-backref-module-scipy-stats sphx-glr-backref-type-py-data"><span class="n">t</span></a><span class="o">.</span><span class="n">sf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">t_stat_uncorrected</span><span class="p">),</span> <span class="n">df</span><span class="p">)</span>
 
@@ -1733,55 +1727,52 @@ Corrected p-value: 0.227
 Uncorrected p-value: 0.005
 </pre></div>
 </div>
-<p>Using the conventional significance alpha level at <code class="docutils literal notranslate"><span class="pre">p=0.05</span></code>, we observe that
-the uncorrected t-test concludes that the first model is significantly better
-than the second.</p>
-<p>With the corrected approach, in contrast, we fail to detect this difference.</p>
-<p>In the latter case, however, the frequentist approach does not let us
-conclude that the first and second model have an equivalent performance. If
-we wanted to make this assertion we need to use a Bayesian approach.</p>
+<p>باستخدام مستوى الأهمية التقليدي عند <code class="docutils literal notranslate"><span class="pre">p=0.05</span></code>، نلاحظ أن
+اختبار t غير المصحح يخلص إلى أن النموذج الأول أفضل بشكل كبير
+من النموذج الثاني.</p>
+<p>مع النهج المصحح، على العكس، نفشل في اكتشاف هذا الاختلاف.</p>
+<p>في الحالة الأخيرة، ومع ذلك، لا يسمح لنا النهج الترددي
+باستنتاج أن النموذج الأول والثاني لهما أداء مكافئ. إذا
+أردنا تأكيد ذلك، نحتاج إلى استخدام نهج بايزي.</p>
 </section>
-<section id="comparing-two-models-bayesian-approach">
-<h2>Comparing two models: Bayesian approach<a class="headerlink" href="#comparing-two-models-bayesian-approach" title="Link to this heading">#</a></h2>
-<p>We can use Bayesian estimation to calculate the probability that the first
-model is better than the second. Bayesian estimation will output a
-distribution followed by the mean <span class="math notranslate nohighlight">\(\mu\)</span> of the differences in the
-performance of two models.</p>
-<p>To obtain the posterior distribution we need to define a prior that models
-our beliefs of how the mean is distributed before looking at the data,
-and multiply it by a likelihood function that computes how likely our
-observed differences are, given the values that the mean of differences
-could take.</p>
-<p>Bayesian estimation can be carried out in many forms to answer our question,
-but in this example we will implement the approach suggested by Benavoli and
-colleagues <a class="footnote-reference brackets" href="#id13" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>.</p>
-<p>One way of defining our posterior using a closed-form expression is to select
-a prior conjugate to the likelihood function. Benavoli and colleagues <a class="footnote-reference brackets" href="#id13" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>
-show that when comparing the performance of two classifiers we can model the
-prior as a Normal-Gamma distribution (with both mean and variance unknown)
-conjugate to a normal likelihood, to thus express the posterior as a normal
-distribution.
-Marginalizing out the variance from this normal posterior, we can define the
-posterior of the mean parameter as a Student's t-distribution. Specifically:</p>
+<section id="id7">
+<h2>مقارنة نموذجين: النهج البايزي<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<p>يمكننا استخدام التقدير البايزي لحساب احتمال أن النموذج الأول
+أفضل من النموذج الثاني. سيقوم التقدير البايزي بإخراج
+توزيع متبوعًا بمتوسط <span class="math notranslate nohighlight">\(\mu\)</span> للاختلافات في
+أداء النموذجين.</p>
+<p>للحصول على التوزيع اللاحق، نحتاج إلى تحديد توزيع مسبق يمثل
+معتقداتنا حول كيفية توزيع المتوسط قبل النظر إلى البيانات،
+وضربه في دالة احتمالية تحسب مدى احتمال
+الاختلافات الملاحظة، مع الأخذ في الاعتبار القيم التي يمكن أن يأخذها
+متوسط الاختلافات.</p>
+<p>يمكن إجراء التقدير البايزي بأشكال كثيرة للإجابة على سؤالنا،
+ولكن في هذا المثال سننفذ النهج المقترح من قبل بينافولي وزملائه <a href="#id14"><span class="problematic" id="id8">[4]_</span></a>.</p>
+<p>إحدى طرق تحديد اللاحق باستخدام تعبير مغلق هي اختيار
+توزيع مسبق مؤامرة للتوزيع الاحتمالي. يظهر بينافولي وزملاؤه <a href="#id15"><span class="problematic" id="id9">[4]_</span></a>
+أنه عند مقارنة أداء مصنفين، يمكننا نمذجة التوزيع المسبق كـ
+توزيع طبيعي-غاما (مع كل من المتوسط والتباين غير معروفين)
+مؤامرة لتوزيع احتمالي طبيعي، وبالتالي التعبير عن اللاحق كتوزيع طبيعي.
+عن طريق تهميش التباين من هذا اللاحق الطبيعي، يمكننا تحديد
+اللاحق لمعامل المتوسط كتوزيع t لطالب. على وجه التحديد:</p>
 <div class="math notranslate nohighlight">
 \[St(\mu;n-1,\overline{x},(\frac{1}{n}+\frac{n_{test}}{n_{train}})
 \hat{\sigma}^2)\]</div>
-<p>where <span class="math notranslate nohighlight">\(n\)</span> is the total number of samples,
-<span class="math notranslate nohighlight">\(\overline{x}\)</span> represents the mean difference in the scores,
-<span class="math notranslate nohighlight">\(n_{test}\)</span> is the number of samples used for testing,
-<span class="math notranslate nohighlight">\(n_{train}\)</span> is the number of samples used for training,
-and <span class="math notranslate nohighlight">\(\hat{\sigma}^2\)</span> represents the variance of the observed
-differences.</p>
-<p>Notice that we are using Nadeau and Bengio's corrected variance in our
-Bayesian approach as well.</p>
-<p>Let's compute and plot the posterior:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># initialize random variable</span>
+<p>حيث <span class="math notranslate nohighlight">\(n\)</span> هو العدد الإجمالي للعينات،
+<span class="math notranslate nohighlight">\(\overline{x}\)</span> يمثل متوسط الاختلاف في الدرجات،
+<span class="math notranslate nohighlight">\(n_{test}\)</span> هو عدد العينات المستخدمة للاختبار،
+<span class="math notranslate nohighlight">\(n_{train}\)</span> هو عدد العينات المستخدمة للتدريب،
+و <span class="math notranslate nohighlight">\(\hat{\sigma}^2\)</span> يمثل تباين الاختلافات الملاحظة.</p>
+<p>لاحظ أننا نستخدم تباين ناديو وبنجيو المصحح في نهجنا
+البايزي أيضًا.</p>
+<p>دعنا نحسب ونرسم التوزيع اللاحق:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># تهيئة المتغير العشوائي</span>
 <span class="n">t_post</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.t.html#scipy.stats.t" title="scipy.stats.t" class="sphx-glr-backref-module-scipy-stats sphx-glr-backref-type-py-data"><span class="n">t</span></a><span class="p">(</span>
     <span class="n">df</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.mean.html#numpy.mean" title="numpy.mean" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">mean</span></a><span class="p">(</span><span class="n">differences</span><span class="p">),</span> <span class="n">scale</span><span class="o">=</span><span class="n">corrected_std</span><span class="p">(</span><span class="n">differences</span><span class="p">,</span> <span class="n">n_train</span><span class="p">,</span> <span class="n">n_test</span><span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Let's plot the posterior distribution:</p>
+<p>دعنا نرسم التوزيع اللاحق:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="n">t_post</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.001</span><span class="p">),</span> <span class="n">t_post</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.999</span><span class="p">),</span> <span class="mi">100</span><span class="p">)</span>
 
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t_post</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
@@ -1793,11 +1784,11 @@ Bayesian approach as well.</p>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_grid_search_stats_003.png" srcset="../../_images/sphx_glr_plot_grid_search_stats_003.png" alt="Posterior distribution" class = "sphx-glr-single-img"/><p>We can calculate the probability that the first model is better than the
-second by computing the area under the curve of the posterior distribution
-from zero to infinity. And also the reverse: we can calculate the probability
-that the second model is better than the first by computing the area under
-the curve from minus infinity to zero.</p>
+<img src="../../_images/sphx_glr_plot_grid_search_stats_003.png" srcset="../../_images/sphx_glr_plot_grid_search_stats_003.png" alt="Posterior distribution" class = "sphx-glr-single-img"/><p>يمكننا حساب احتمال أن النموذج الأول أفضل من
+النموذج الثاني عن طريق حساب المساحة تحت المنحنى للتوزيع اللاحق
+من الصفر إلى ما لا نهاية. وبالعكس: يمكننا حساب احتمال
+أن النموذج الثاني أفضل من النموذج الأول عن طريق حساب المساحة
+تحت المنحنى من ما لا نهاية إلى الصفر.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">better_prob</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">t_post</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span>
@@ -1814,442 +1805,9 @@ the curve from minus infinity to zero.</p>
 Probability of linear being more accurate than rbf: 0.227
 </pre></div>
 </div>
-<p>In contrast with the frequentist approach, we can compute the probability
-that one model is better than the other.</p>
-<p>Note that we obtained similar results as those in the frequentist approach.
-Given our choice of priors, we are essentially performing the same
-computations, but we are allowed to make different assertions.</p>
-<section id="region-of-practical-equivalence">
-<h3>Region of Practical Equivalence<a class="headerlink" href="#region-of-practical-equivalence" title="Link to this heading">#</a></h3>
-<p>Sometimes we are interested in determining the probabilities that our models
-have an equivalent performance, where &quot;equivalent&quot; is defined in a practical
-way. A naive approach <a class="footnote-reference brackets" href="#id13" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a> would be to define estimators as practically
-equivalent when they differ by less than 1% in their accuracy. But we could
-also define this practical equivalence taking into account the problem we are
-trying to solve. For example, a difference of 5% in accuracy would mean an
-increase of $1000 in sales, and we consider any quantity above that as
-relevant for our business.</p>
-<p>In this example we are going to define the
-Region of Practical Equivalence (ROPE) to be <span class="math notranslate nohighlight">\([-0.01, 0.01]\)</span>. That is,
-we will consider two models as practically equivalent if they differ by less
-than 1% in their performance.</p>
-<p>To compute the probabilities of the classifiers being practically equivalent,
-we calculate the area under the curve of the posterior over the ROPE
-interval:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">rope_interval</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">]</span>
-<span class="n">rope_prob</span> <span class="o">=</span> <span class="n">t_post</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">rope_interval</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="n">t_post</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">rope_interval</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-
-<span class="nb">print</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s2">&quot;Probability of </span><span class="si">{</span><span class="n">model_scores</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">model_scores</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> &quot;</span>
-    <span class="sa">f</span><span class="s2">&quot;being practically equivalent: </span><span class="si">{</span><span class="n">rope_prob</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Probability of rbf and linear being practically equivalent: 0.432
-</pre></div>
-</div>
-<p>We can plot how the posterior is distributed over the ROPE interval:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">x_rope</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="n">rope_interval</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rope_interval</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">100</span><span class="p">)</span>
-
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot" title="matplotlib.pyplot.plot" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t_post</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xticks.html#matplotlib.pyplot.xticks" title="matplotlib.pyplot.xticks" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">xticks</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.arange.html#numpy.arange" title="numpy.arange" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">arange</span></a><span class="p">(</span><span class="o">-</span><span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">))</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.vlines.html#matplotlib.pyplot.vlines" title="matplotlib.pyplot.vlines" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">vlines</span></a><span class="p">([</span><span class="o">-</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">],</span> <span class="n">ymin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.max.html#numpy.max" title="numpy.max" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">max</span></a><span class="p">(</span><span class="n">t_post</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.fill_between.html#matplotlib.pyplot.fill_between" title="matplotlib.pyplot.fill_between" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span></a><span class="p">(</span><span class="n">x_rope</span><span class="p">,</span> <span class="n">t_post</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x_rope</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.ylabel.html#matplotlib.pyplot.ylabel" title="matplotlib.pyplot.ylabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span></a><span class="p">(</span><span class="s2">&quot;Probability density&quot;</span><span class="p">)</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xlabel.html#matplotlib.pyplot.xlabel" title="matplotlib.pyplot.xlabel" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span></a><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Mean difference ($\mu$)&quot;</span><span class="p">)</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.title.html#matplotlib.pyplot.title" title="matplotlib.pyplot.title" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">title</span></a><span class="p">(</span><span class="s2">&quot;Posterior distribution under the ROPE&quot;</span><span class="p">)</span>
-<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
-</pre></div>
-</div>
-<img src="../../_images/sphx_glr_plot_grid_search_stats_004.png" srcset="../../_images/sphx_glr_plot_grid_search_stats_004.png" alt="Posterior distribution under the ROPE" class = "sphx-glr-single-img"/><p>As suggested in <a class="footnote-reference brackets" href="#id13" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>, we can further interpret these probabilities using the
-same criteria as the frequentist approach: is the probability of falling
-inside the ROPE bigger than 95% (alpha value of 5%)?  In that case we can
-conclude that both models are practically equivalent.</p>
-<p>The Bayesian estimation approach also allows us to compute how uncertain we
-are about our estimation of the difference. This can be calculated using
-credible intervals. For a given probability, they show the range of values
-that the estimated quantity, in our case the mean difference in
-performance, can take.
-For example, a 50% credible interval [x, y] tells us that there is a 50%
-probability that the true (mean) difference of performance between models is
-between x and y.</p>
-<p>Let's determine the credible intervals of our data using 50%, 75% and 95%:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">cred_intervals</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">intervals</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">]</span>
-
-<span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">intervals</span><span class="p">:</span>
-    <span class="n">cred_interval</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">t_post</span><span class="o">.</span><span class="n">interval</span><span class="p">(</span><span class="n">interval</span><span class="p">))</span>
-    <span class="n">cred_intervals</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">interval</span><span class="p">,</span> <span class="n">cred_interval</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cred_interval</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
-
-<span class="n">cred_int_df</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">(</span>
-    <span class="n">cred_intervals</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;interval&quot;</span><span class="p">,</span> <span class="s2">&quot;lower value&quot;</span><span class="p">,</span> <span class="s2">&quot;upper value&quot;</span><span class="p">]</span>
-<span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;interval&quot;</span><span class="p">)</span>
-<span class="n">cred_int_df</span>
-</pre></div>
-</div>
-<div class="output_subarea output_html rendered_html output_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>lower value</th>
-      <th>upper value</th>
-    </tr>
-    <tr>
-      <th>interval</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0.50</th>
-      <td>0.000977</td>
-      <td>0.019023</td>
-    </tr>
-    <tr>
-      <th>0.75</th>
-      <td>-0.005422</td>
-      <td>0.025422</td>
-    </tr>
-    <tr>
-      <th>0.95</th>
-      <td>-0.016445</td>
-      <td>0.036445</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-<br />
-<br /><p>As shown in the table, there is a 50% probability that the true mean
-difference between models will be between 0.000977 and 0.019023, 70%
-probability that it will be between -0.005422 and 0.025422, and 95%
-probability that it will be between -0.016445   and 0.036445.</p>
-</section>
-</section>
-<section id="pairwise-comparison-of-all-models-frequentist-approach">
-<h2>Pairwise comparison of all models: frequentist approach<a class="headerlink" href="#pairwise-comparison-of-all-models-frequentist-approach" title="Link to this heading">#</a></h2>
-<p>We could also be interested in comparing the performance of all our models
-evaluated with <a class="reference internal" href="../../modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearchCV</span></code></a>. In this case
-we would be running our statistical test multiple times, which leads us to
-the <a class="reference external" href="https://en.wikipedia.org/wiki/Multiple_comparisons_problem">multiple comparisons problem</a>.</p>
-<p>There are many possible ways to tackle this problem, but a standard approach
-is to apply a <a class="reference external" href="https://en.wikipedia.org/wiki/Bonferroni_correction">Bonferroni correction</a>. Bonferroni can be
-computed by multiplying the p-value by the number of comparisons we are
-testing.</p>
-<p>Let's compare the performance of the models using the corrected t-test:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/itertools.html#itertools.combinations" title="itertools.combinations" class="sphx-glr-backref-module-itertools sphx-glr-backref-type-py-function"><span class="n">combinations</span></a>
-<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/math.html#math.factorial" title="math.factorial" class="sphx-glr-backref-module-math sphx-glr-backref-type-py-function"><span class="n">factorial</span></a>
-
-<span class="n">n_comparisons</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/math.html#math.factorial" title="math.factorial" class="sphx-glr-backref-module-math sphx-glr-backref-type-py-function"><span class="n">factorial</span></a><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">model_scores</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span>
-    <a href="https://docs.python.org/3/library/math.html#math.factorial" title="math.factorial" class="sphx-glr-backref-module-math sphx-glr-backref-type-py-function"><span class="n">factorial</span></a><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <a href="https://docs.python.org/3/library/math.html#math.factorial" title="math.factorial" class="sphx-glr-backref-module-math sphx-glr-backref-type-py-function"><span class="n">factorial</span></a><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">model_scores</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
-<span class="p">)</span>
-<span class="n">pairwise_t_test</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="k">for</span> <span class="n">model_i</span><span class="p">,</span> <span class="n">model_k</span> <span class="ow">in</span> <a href="https://docs.python.org/3/library/itertools.html#itertools.combinations" title="itertools.combinations" class="sphx-glr-backref-module-itertools sphx-glr-backref-type-py-function"><span class="n">combinations</span></a><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">model_scores</span><span class="p">)),</span> <span class="mi">2</span><span class="p">):</span>
-    <span class="n">model_i_scores</span> <span class="o">=</span> <span class="n">model_scores</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">model_i</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-    <span class="n">model_k_scores</span> <span class="o">=</span> <span class="n">model_scores</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">model_k</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-    <span class="n">differences</span> <span class="o">=</span> <span class="n">model_i_scores</span> <span class="o">-</span> <span class="n">model_k_scores</span>
-    <span class="n">t_stat</span><span class="p">,</span> <span class="n">p_val</span> <span class="o">=</span> <span class="n">compute_corrected_ttest</span><span class="p">(</span><span class="n">differences</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">n_train</span><span class="p">,</span> <span class="n">n_test</span><span class="p">)</span>
-    <span class="n">p_val</span> <span class="o">*=</span> <span class="n">n_comparisons</span>  <span class="c1"># implement Bonferroni correction</span>
-    <span class="c1"># Bonferroni can output p-values higher than 1</span>
-    <span class="n">p_val</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">p_val</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">p_val</span>
-    <span class="n">pairwise_t_test</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-        <span class="p">[</span><span class="n">model_scores</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">model_i</span><span class="p">],</span> <span class="n">model_scores</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">model_k</span><span class="p">],</span> <span class="n">t_stat</span><span class="p">,</span> <span class="n">p_val</span><span class="p">]</span>
-    <span class="p">)</span>
-
-<span class="n">pairwise_comp_df</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">(</span>
-    <span class="n">pairwise_t_test</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;model_1&quot;</span><span class="p">,</span> <span class="s2">&quot;model_2&quot;</span><span class="p">,</span> <span class="s2">&quot;t_stat&quot;</span><span class="p">,</span> <span class="s2">&quot;p_val&quot;</span><span class="p">]</span>
-<span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">pairwise_comp_df</span>
-</pre></div>
-</div>
-<div class="output_subarea output_html rendered_html output_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>model_1</th>
-      <th>model_2</th>
-      <th>t_stat</th>
-      <th>p_val</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>rbf</td>
-      <td>linear</td>
-      <td>0.750</td>
-      <td>1.000</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>rbf</td>
-      <td>3_poly</td>
-      <td>1.657</td>
-      <td>0.302</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>rbf</td>
-      <td>2_poly</td>
-      <td>4.565</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>linear</td>
-      <td>3_poly</td>
-      <td>1.111</td>
-      <td>0.807</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>linear</td>
-      <td>2_poly</td>
-      <td>4.276</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>3_poly</td>
-      <td>2_poly</td>
-      <td>3.851</td>
-      <td>0.001</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-<br />
-<br /><p>We observe that after correcting for multiple comparisons, the only model
-that significantly differs from the others is <code class="docutils literal notranslate"><span class="pre">'2_poly'</span></code>.
-<code class="docutils literal notranslate"><span class="pre">'rbf'</span></code>, the model ranked first by
-<a class="reference internal" href="../../modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearchCV</span></code></a>, does not significantly
-differ from <code class="docutils literal notranslate"><span class="pre">'linear'</span></code> or <code class="docutils literal notranslate"><span class="pre">'3_poly'</span></code>.</p>
-</section>
-<section id="pairwise-comparison-of-all-models-bayesian-approach">
-<h2>Pairwise comparison of all models: Bayesian approach<a class="headerlink" href="#pairwise-comparison-of-all-models-bayesian-approach" title="Link to this heading">#</a></h2>
-<p>When using Bayesian estimation to compare multiple models, we don't need to
-correct for multiple comparisons (for reasons why see <a class="footnote-reference brackets" href="#id13" id="id9" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>).</p>
-<p>We can carry out our pairwise comparisons the same way as in the first
-section:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">pairwise_bayesian</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="k">for</span> <span class="n">model_i</span><span class="p">,</span> <span class="n">model_k</span> <span class="ow">in</span> <a href="https://docs.python.org/3/library/itertools.html#itertools.combinations" title="itertools.combinations" class="sphx-glr-backref-module-itertools sphx-glr-backref-type-py-function"><span class="n">combinations</span></a><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">model_scores</span><span class="p">)),</span> <span class="mi">2</span><span class="p">):</span>
-    <span class="n">model_i_scores</span> <span class="o">=</span> <span class="n">model_scores</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">model_i</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-    <span class="n">model_k_scores</span> <span class="o">=</span> <span class="n">model_scores</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">model_k</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-    <span class="n">differences</span> <span class="o">=</span> <span class="n">model_i_scores</span> <span class="o">-</span> <span class="n">model_k_scores</span>
-    <span class="n">t_post</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.t.html#scipy.stats.t" title="scipy.stats.t" class="sphx-glr-backref-module-scipy-stats sphx-glr-backref-type-py-data"><span class="n">t</span></a><span class="p">(</span>
-        <span class="n">df</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.mean.html#numpy.mean" title="numpy.mean" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">mean</span></a><span class="p">(</span><span class="n">differences</span><span class="p">),</span> <span class="n">scale</span><span class="o">=</span><span class="n">corrected_std</span><span class="p">(</span><span class="n">differences</span><span class="p">,</span> <span class="n">n_train</span><span class="p">,</span> <span class="n">n_test</span><span class="p">)</span>
-    <span class="p">)</span>
-    <span class="n">worse_prob</span> <span class="o">=</span> <span class="n">t_post</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">rope_interval</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">better_prob</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">t_post</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">rope_interval</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-    <span class="n">rope_prob</span> <span class="o">=</span> <span class="n">t_post</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">rope_interval</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="n">t_post</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">rope_interval</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-
-    <span class="n">pairwise_bayesian</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">worse_prob</span><span class="p">,</span> <span class="n">better_prob</span><span class="p">,</span> <span class="n">rope_prob</span><span class="p">])</span>
-
-<span class="n">pairwise_bayesian_df</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.DataFrame" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span></a><span class="p">(</span>
-    <span class="n">pairwise_bayesian</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;worse_prob&quot;</span><span class="p">,</span> <span class="s2">&quot;better_prob&quot;</span><span class="p">,</span> <span class="s2">&quot;rope_prob&quot;</span><span class="p">]</span>
-<span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-
-<span class="n">pairwise_comp_df</span> <span class="o">=</span> <span class="n">pairwise_comp_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pairwise_bayesian_df</span><span class="p">)</span>
-<span class="n">pairwise_comp_df</span>
-</pre></div>
-</div>
-<div class="output_subarea output_html rendered_html output_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>model_1</th>
-      <th>model_2</th>
-      <th>t_stat</th>
-      <th>p_val</th>
-      <th>worse_prob</th>
-      <th>better_prob</th>
-      <th>rope_prob</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>rbf</td>
-      <td>linear</td>
-      <td>0.750</td>
-      <td>1.000</td>
-      <td>0.068</td>
-      <td>0.500</td>
-      <td>0.432</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>rbf</td>
-      <td>3_poly</td>
-      <td>1.657</td>
-      <td>0.302</td>
-      <td>0.018</td>
-      <td>0.882</td>
-      <td>0.100</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>rbf</td>
-      <td>2_poly</td>
-      <td>4.565</td>
-      <td>0.000</td>
-      <td>0.000</td>
-      <td>1.000</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>linear</td>
-      <td>3_poly</td>
-      <td>1.111</td>
-      <td>0.807</td>
-      <td>0.063</td>
-      <td>0.750</td>
-      <td>0.187</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>linear</td>
-      <td>2_poly</td>
-      <td>4.276</td>
-      <td>0.000</td>
-      <td>0.000</td>
-      <td>1.000</td>
-      <td>0.000</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>3_poly</td>
-      <td>2_poly</td>
-      <td>3.851</td>
-      <td>0.001</td>
-      <td>0.000</td>
-      <td>1.000</td>
-      <td>0.000</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-<br />
-<br /><p>Using the Bayesian approach we can compute the probability that a model
-performs better, worse or practically equivalent to another.</p>
-<p>Results show that the model ranked first by
-<a class="reference internal" href="../../modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridSearchCV</span></code></a> <code class="docutils literal notranslate"><span class="pre">'rbf'</span></code>, has approximately a
-6.8% chance of being worse than <code class="docutils literal notranslate"><span class="pre">'linear'</span></code>, and a 1.8% chance of being worse
-than <code class="docutils literal notranslate"><span class="pre">'3_poly'</span></code>.
-<code class="docutils literal notranslate"><span class="pre">'rbf'</span></code> and <code class="docutils literal notranslate"><span class="pre">'linear'</span></code> have a 43% probability of being practically
-equivalent, while <code class="docutils literal notranslate"><span class="pre">'rbf'</span></code> and <code class="docutils literal notranslate"><span class="pre">'3_poly'</span></code> have a 10% chance of being so.</p>
-<p>Similarly to the conclusions obtained using the frequentist approach, all
-models have a 100% probability of being better than <code class="docutils literal notranslate"><span class="pre">'2_poly'</span></code>, and none have
-a practically equivalent performance with the latter.</p>
-</section>
-<section id="take-home-messages">
-<h2>Take-home messages<a class="headerlink" href="#take-home-messages" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Small differences in performance measures might easily turn out to be
-merely by chance, but not because one model predicts systematically better
-than the other. As shown in this example, statistics can tell you how
-likely that is.</p></li>
-<li><p>When statistically comparing the performance of two models evaluated in
-GridSearchCV, it is necessary to correct the calculated variance which
-could be underestimated since the scores of the models are not independent
-from each other.</p></li>
-<li><p>A frequentist approach that uses a (variance-corrected) paired t-test can
-tell us if the performance of one model is better than another with a
-degree of certainty above chance.</p></li>
-<li><p>A Bayesian approach can provide the probabilities of one model being
-better, worse or practically equivalent than another. It can also tell us
-how confident we are of knowing that the true differences of our models
-fall under a certain range of values.</p></li>
-<li><p>If multiple models are statistically compared, a multiple comparisons
-correction is needed when using the frequentist approach.</p></li>
-</ul>
-<p class="rubric">References</p>
-<aside class="footnote-list brackets">
-<aside class="footnote brackets" id="id10" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
-<p>Dietterich, T. G. (1998). <a class="reference external" href="http://web.cs.iastate.edu/~jtian/cs573/Papers/Dietterich-98.pdf">Approximate statistical tests for
-comparing supervised classification learning algorithms</a>.
-Neural computation, 10(7).</p>
-</aside>
-<aside class="footnote brackets" id="id11" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">2</a><span class="fn-bracket">]</span></span>
-<p>Nadeau, C., &amp; Bengio, Y. (2000). <a class="reference external" href="https://papers.nips.cc/paper/1661-inference-for-the-generalization-error.pdf">Inference for the generalization
-error</a>.
-In Advances in neural information processing systems.</p>
-</aside>
-<aside class="footnote brackets" id="id12" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">3</a><span class="fn-bracket">]</span></span>
-<p>Bouckaert, R. R., &amp; Frank, E. (2004). <a class="reference external" href="https://www.cms.waikato.ac.nz/~ml/publications/2004/bouckaert-frank.pdf">Evaluating the replicability
-of significance tests for comparing learning algorithms</a>.
-In Pacific-Asia Conference on Knowledge Discovery and Data Mining.</p>
-</aside>
-<aside class="footnote brackets" id="id13" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id5">1</a>,<a role="doc-backlink" href="#id6">2</a>,<a role="doc-backlink" href="#id7">3</a>,<a role="doc-backlink" href="#id8">4</a>,<a role="doc-backlink" href="#id9">5</a>)</span>
-<p>Benavoli, A., Corani, G., Demšar, J., &amp; Zaffalon, M. (2017). <a class="reference external" href="http://www.jmlr.org/papers/volume18/16-305/16-305.pdf">Time
-for a change: a tutorial for comparing multiple classifiers through
-Bayesian analysis</a>.
-The Journal of Machine Learning Research, 18(1). See the Python
-library that accompanies this paper <a class="reference external" href="https://github.com/janezd/baycomp">here</a>.</p>
-</aside>
-<aside class="footnote brackets" id="id14" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">5</a><span class="fn-bracket">]</span></span>
-<p>Diebold, F.X. &amp; Mariano R.S. (1995). <a class="reference external" href="http://www.est.uc3m.es/esp/nueva_docencia/comp_col_get/lade/tecnicas_prediccion/Practicas0708/Comparing%20Predictive%20Accuracy%20(Dielbold).pdf">Comparing predictive accuracy</a>
-Journal of Business &amp; economic statistics, 20(1), 134-144.</p>
-</aside>
-</aside>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.807 seconds)</p>
+<p>على عكس النهج الترددي، يمكننا حساب احتمال
+أن يكون أحد النموذجين أفضل من الآخر.</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 2.419 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-model-selection-plot-grid-search-stats-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/scikit-learn/scikit-learn/main?urlpath=lab/tree/notebooks/auto_examples/model_selection/plot_grid_search_stats.ipynb"><img alt="Launch binder" src="../../_images/binder_badge_logo22.svg" style="width: 150px;" />
@@ -2270,18 +1828,18 @@ Journal of Business &amp; economic statistics, 20(1), 134-144.</p>
 </div>
 </div>
 <p class="rubric">Related examples</p>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the effect of the parameters gamma and C of the Radial Basis Function (RBF) kernel SVM."><img alt="" src="../../_images/sphx_glr_plot_rbf_parameters_thumb.png" />
-<p><a class="reference internal" href="../svm/plot_rbf_parameters.html#sphx-glr-auto-examples-svm-plot-rbf-parameters-py"><span class="std std-ref">RBF SVM parameters</span></a></p>
-  <div class="sphx-glr-thumbnail-title">RBF SVM parameters</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the use of permutation_test_score to evaluate the significance of a cross-validated score using permutations."><img alt="" src="../../_images/sphx_glr_plot_permutation_tests_for_classification_thumb.png" />
-<p><a class="reference internal" href="plot_permutation_tests_for_classification.html#sphx-glr-auto-examples-model-selection-plot-permutation-tests-for-classification-py"><span class="std std-ref">Test with permutations the significance of a classification score</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Test with permutations the significance of a classification score</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The dataset used in this example is 20newsgroups_dataset which will be automatically downloaded, cached and reused for the document classification example."><img alt="" src="../../_images/sphx_glr_plot_grid_search_text_feature_extraction_thumb.png" />
-<p><a class="reference internal" href="plot_grid_search_text_feature_extraction.html#sphx-glr-auto-examples-model-selection-plot-grid-search-text-feature-extraction-py"><span class="std std-ref">Sample pipeline for text feature extraction and evaluation</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Sample pipeline for text feature extraction and evaluation</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This is an example showing how scikit-learn can be used to classify documents by topics using a Bag of Words approach. This example uses a Tf-idf-weighted document-term sparse matrix to encode the features and demonstrates various classifiers that can efficiently handle sparse matrices."><img alt="" src="../../_images/sphx_glr_plot_document_classification_20newsgroups_thumb.png" />
-<p><a class="reference internal" href="../text/plot_document_classification_20newsgroups.html#sphx-glr-auto-examples-text-plot-document-classification-20newsgroups-py"><span class="std std-ref">Classification of text documents using sparse features</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Classification of text documents using sparse features</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="هذا المثال يوضح استخدام permutation_test_score لتقييم أهمية درجة التصنيف المتقاطعة باستخدام التبديلات."><img alt="" src="../../_images/sphx_glr_plot_permutation_tests_for_classification_thumb.png" />
+<p><a class="reference internal" href="plot_permutation_tests_for_classification.html#sphx-glr-auto-examples-model-selection-plot-permutation-tests-for-classification-py"><span class="std std-ref">&quot;</span></a></p>
+  <div class="sphx-glr-thumbnail-title">"</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="يُظهر هذا المثال كيفية تحسين التصنيف من خلال التحقق المتقاطع، والذي يتم باستخدام كائن GridSearchCV على مجموعة تطوير تتكون من نصف بيانات التصنيف المتاحة فقط."><img alt="" src="../../_images/sphx_glr_plot_grid_search_digits_thumb.png" />
+<p><a class="reference internal" href="plot_grid_search_digits.html#sphx-glr-auto-examples-model-selection-plot-grid-search-digits-py"><span class="std std-ref">استراتيجية إعادة الضبط المخصصة للبحث الشبكي مع التحقق المتقاطع</span></a></p>
+  <div class="sphx-glr-thumbnail-title">استراتيجية إعادة الضبط المخصصة للبحث الشبكي مع التحقق المتقاطع</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="يقارن هذا المثال بين طريقتين مختلفتين للانحدار البايزي:"><img alt="" src="../../_images/sphx_glr_plot_ard_thumb.png" />
+<p><a class="reference internal" href="../linear_model/plot_ard.html#sphx-glr-auto-examples-linear-model-plot-ard-py"><span class="std std-ref"># مقارنة المنحنيات الخطية للانحدار البايزي</span></a></p>
+  <div class="sphx-glr-thumbnail-title"># مقارنة المنحنيات الخطية للانحدار البايزي</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="مجموعة البيانات المستخدمة في هذا المثال هي 20newsgroups_dataset والتي سيتم تنزيلها تلقائيًا وتخزينها مؤقتًا وإعادة استخدامها لمثال تصنيف المستند."><img alt="" src="../../_images/sphx_glr_plot_grid_search_text_feature_extraction_thumb.png" />
+<p><a class="reference internal" href="plot_grid_search_text_feature_extraction.html#sphx-glr-auto-examples-model-selection-plot-grid-search-text-feature-extraction-py"><span class="std std-ref">مثال على خط أنابيب لاستخراج ميزات النص وتقييمها</span></a></p>
+  <div class="sphx-glr-thumbnail-title">مثال على خط أنابيب لاستخراج ميزات النص وتقييمها</div>
 </div></div><p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
 </section>
 </section>
@@ -2297,20 +1855,20 @@ Journal of Business &amp; economic statistics, 20(1), 134-144.</p>
     <div class="footer-article-item">
 <div class="prev-next-area">
     <a class="left-prev"
-       href="plot_grid_search_text_feature_extraction.html"
+       href="plot_nested_cross_validation_iris.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">السابق</p>
-        <p class="prev-next-title">Sample pipeline for text feature extraction and evaluation</p>
+        <p class="prev-next-title">التصنيف المتداخل مقابل غير المتداخل</p>
       </div>
     </a>
     <a class="right-next"
-       href="plot_successive_halving_iterations.html"
+       href="plot_grid_search_refit_callable.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">التالي</p>
-        <p class="prev-next-title">Successive Halving Iterations</p>
+        <p class="prev-next-title">الموازنة بين تعقيد النموذج ودرجة الدقة عبر التحقق المتقاطع</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -2337,14 +1895,8 @@ Journal of Business &amp; economic statistics, 20(1), 134-144.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-two-models-frequentist-approach">Comparing two models: frequentist approach</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-two-models-bayesian-approach">Comparing two models: Bayesian approach</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#region-of-practical-equivalence">Region of Practical Equivalence</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pairwise-comparison-of-all-models-frequentist-approach">Pairwise comparison of all models: frequentist approach</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pairwise-comparison-of-all-models-bayesian-approach">Pairwise comparison of all models: Bayesian approach</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#take-home-messages">Take-home messages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">مقارنة نموذجين: النهج الترددي</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">مقارنة نموذجين: النهج البايزي</a></li>
 </ul>
   </nav></div>
 

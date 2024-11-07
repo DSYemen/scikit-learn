@@ -1,6 +1,6 @@
 .. _neighbors_examples:
 
-Nearest Neighbors
------------------------
+أقرب الجيران
+-----------------
 
-Examples concerning the :mod:`sklearn.neighbors` module.
+أمثلة تتعلق بوحدة :mod:`sklearn.neighbors` .

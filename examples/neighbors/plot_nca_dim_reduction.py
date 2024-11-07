@@ -1,35 +1,35 @@
 """
 ==============================================================
-Dimensionality Reduction with Neighborhood Components Analysis
+الحد من الأبعاد باستخدام تحليل مكونات الجوار
 ==============================================================
 
-Sample usage of Neighborhood Components Analysis for dimensionality reduction.
+مثال على استخدام تحليل مكونات الجوار للحد من الأبعاد.
 
-This example compares different (linear) dimensionality reduction methods
-applied on the Digits data set. The data set contains images of digits from
-0 to 9 with approximately 180 samples of each class. Each image is of
-dimension 8x8 = 64, and is reduced to a two-dimensional data point.
+يقارن هذا المثال بين طرق مختلفة للحد من الأبعاد (الخطية)
+تطبق على مجموعة بيانات الأرقام. تحتوي مجموعة البيانات هذه على صور للأرقام من
+0 إلى 9 مع حوالي 180 عينة من كل فئة. كل صورة لها
+أبعاد 8x8 = 64، ويتم تقليلها إلى نقطة بيانات ثنائية الأبعاد.
 
-Principal Component Analysis (PCA) applied to this data identifies the
-combination of attributes (principal components, or directions in the
-feature space) that account for the most variance in the data. Here we
-plot the different samples on the 2 first principal components.
+يحدد تحليل المكونات الرئيسية (PCA) المطبق على هذه البيانات مجموعة
+من السمات (المكونات الرئيسية، أو الاتجاهات في
+فضاء الميزات) التي تحسب معظم التباين في البيانات. هنا
+نرسم العينات المختلفة على أول مكونين رئيسيين.
 
-Linear Discriminant Analysis (LDA) tries to identify attributes that
-account for the most variance *between classes*. In particular,
-LDA, in contrast to PCA, is a supervised method, using known class labels.
+يحاول تحليل التمييز الخطي (LDA) تحديد السمات التي
+تحسب معظم التباين *بين الفئات*. على وجه الخصوص،
+LDA، على عكس PCA، هي طريقة مشرفة، تستخدم تسميات الفئات المعروفة.
 
-Neighborhood Components Analysis (NCA) tries to find a feature space such
-that a stochastic nearest neighbor algorithm will give the best accuracy.
-Like LDA, it is a supervised method.
+يحاول تحليل مكونات الجوار (NCA) إيجاد فضاء ميزات بحيث
+يعطي خوارزمية أقرب جار احتمالية أفضل دقة.
+مثل LDA، إنها طريقة مشرفة.
 
-One can see that NCA enforces a clustering of the data that is visually
-meaningful despite the large reduction in dimension.
+يمكن للمرء أن يرى أن NCA يفرض تجميعًا للبيانات له معنى بصريًا
+على الرغم من التخفيض الكبير في البعد.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايت-ليرن
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -45,10 +45,10 @@ from sklearn.preprocessing import StandardScaler
 n_neighbors = 3
 random_state = 0
 
-# Load Digits dataset
+# تحميل مجموعة بيانات الأرقام
 X, y = datasets.load_digits(return_X_y=True)
 
-# Split into train/test
+# تقسيم البيانات إلى مجموعتين تدريب واختبار
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.5, stratify=y, random_state=random_state
 )
@@ -56,22 +56,22 @@ X_train, X_test, y_train, y_test = train_test_split(
 dim = len(X[0])
 n_classes = len(np.unique(y))
 
-# Reduce dimension to 2 with PCA
+# تقليل البعد إلى 2 باستخدام PCA
 pca = make_pipeline(StandardScaler(), PCA(n_components=2, random_state=random_state))
 
-# Reduce dimension to 2 with LinearDiscriminantAnalysis
+# تقليل البعد إلى 2 باستخدام LinearDiscriminantAnalysis
 lda = make_pipeline(StandardScaler(), LinearDiscriminantAnalysis(n_components=2))
 
-# Reduce dimension to 2 with NeighborhoodComponentAnalysis
+# تقليل البعد إلى 2 باستخدام NeighborhoodComponentAnalysis
 nca = make_pipeline(
     StandardScaler(),
     NeighborhoodComponentsAnalysis(n_components=2, random_state=random_state),
 )
 
-# Use a nearest neighbor classifier to evaluate the methods
+# استخدام مصنف أقرب جار لتقييم الطرق
 knn = KNeighborsClassifier(n_neighbors=n_neighbors)
 
-# Make a list of the methods to be compared
+# إنشاء قائمة بالطرق التي سيتم مقارنتها
 dim_reduction_methods = [("PCA", pca), ("LDA", lda), ("NCA", nca)]
 
 # plt.figure()
@@ -79,19 +79,19 @@ for i, (name, model) in enumerate(dim_reduction_methods):
     plt.figure()
     # plt.subplot(1, 3, i + 1, aspect=1)
 
-    # Fit the method's model
+    # ملاءمة نموذج الطريقة
     model.fit(X_train, y_train)
 
-    # Fit a nearest neighbor classifier on the embedded training set
+    # ملاءمة مصنف أقرب جار على مجموعة التدريب المضمنة
     knn.fit(model.transform(X_train), y_train)
 
-    # Compute the nearest neighbor accuracy on the embedded test set
+    # حساب دقة أقرب جار على مجموعة الاختبار المضمنة
     acc_knn = knn.score(model.transform(X_test), y_test)
 
-    # Embed the data set in 2 dimensions using the fitted model
+    # تضمين مجموعة البيانات في بعدين باستخدام النموذج الملائم
     X_embedded = model.transform(X)
 
-    # Plot the projected points and show the evaluation score
+    # رسم النقاط المضمنة وإظهار درجة التقييم
     plt.scatter(X_embedded[:, 0], X_embedded[:, 1], c=y, s=30, cmap="Set1")
     plt.title(
         "{}, KNN (k={})\nTest accuracy = {:.2f}".format(name, n_neighbors, acc_knn)

@@ -1,56 +1,46 @@
 """
 ==================================================
-Plot different SVM classifiers in the iris dataset
+رسم مخططات لمصنفات SVM المختلفة في مجموعة بيانات الزهرة
 ==================================================
 
-Comparison of different linear SVM classifiers on a 2D projection of the iris
-dataset. We only consider the first 2 features of this dataset:
+مقارنة بين مصنفات SVM الخطية المختلفة على إسقاط ثنائي الأبعاد لمجموعة بيانات الزهرة. نأخذ في الاعتبار فقط أول ميزتين لهذه المجموعة:
 
-- Sepal length
-- Sepal width
+- طول السبلة
+- عرض السبلة
 
-This example shows how to plot the decision surface for four SVM classifiers
-with different kernels.
+يوضح هذا المثال كيفية رسم سطح القرار لأربعة مصنفات SVM
+باستخدام نوى مختلفة.
 
-The linear models ``LinearSVC()`` and ``SVC(kernel='linear')`` yield slightly
-different decision boundaries. This can be a consequence of the following
-differences:
+تنتج النماذج الخطية "LinearSVC()" و "SVC(kernel='linear')" حدود قرار مختلفة قليلاً. قد يكون ذلك نتيجة للاختلافات التالية:
 
-- ``LinearSVC`` minimizes the squared hinge loss while ``SVC`` minimizes the
-  regular hinge loss.
+- يقلل "LinearSVC" من خسارة المفصلة المربعة بينما يقلل "SVC" من خسارة المفصلة العادية.
 
-- ``LinearSVC`` uses the One-vs-All (also known as One-vs-Rest) multiclass
-  reduction while ``SVC`` uses the One-vs-One multiclass reduction.
+- يستخدم "LinearSVC" التخفيض متعدد الفئات One-vs-All (المعروف أيضًا باسم One-vs-Rest) بينما يستخدم "SVC" التخفيض متعدد الفئات One-vs-One.
 
-Both linear models have linear decision boundaries (intersecting hyperplanes)
-while the non-linear kernel models (polynomial or Gaussian RBF) have more
-flexible non-linear decision boundaries with shapes that depend on the kind of
-kernel and its parameters.
+لدى كلا النموذجين الخطيين حدود قرار خطية (مستويّات متقاطعة)
+في حين أن النماذج غير الخطية (البولينومية أو Gaussian RBF) لها حدود قرار غير خطية أكثر مرونة بأشكال تعتمد على نوع النواة ومعاملاتها.
 
-.. NOTE:: while plotting the decision function of classifiers for toy 2D
-   datasets can help get an intuitive understanding of their respective
-   expressive power, be aware that those intuitions don't always generalize to
-   more realistic high-dimensional problems.
+.. NOTE:: أثناء رسم دالة القرار للمصنفات لمجموعات البيانات ثنائية الأبعاد، يمكن أن يساعد ذلك في الحصول على فهم حدسي لقوتها التعبيرية، ولكن كن على دراية بأن هذه الحدوس لا تعمم دائمًا على المشكلات الواقعية عالية الأبعاد.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 
 from sklearn import datasets, svm
 from sklearn.inspection import DecisionBoundaryDisplay
 
-# import some data to play with
+# استيراد بعض البيانات للتجربة
 iris = datasets.load_iris()
-# Take the first two features. We could avoid this by using a two-dim dataset
+# أخذ أول ميزتين. يمكننا تجنب ذلك باستخدام مجموعة بيانات ثنائية الأبعاد
 X = iris.data[:, :2]
 y = iris.target
 
-# we create an instance of SVM and fit out data. We do not scale our
-# data since we want to plot the support vectors
-C = 1.0  # SVM regularization parameter
+# ننشئ مثالاً من SVM ونناسب البيانات. لا نقوم بضبط بياناتنا
+# لأننا نريد رسم المتجهات الداعمة
+C = 1.0  # معامل ضبط SVM
 models = (
     svm.SVC(kernel="linear", C=C),
     svm.LinearSVC(C=C, max_iter=10000),
@@ -59,15 +49,15 @@ models = (
 )
 models = (clf.fit(X, y) for clf in models)
 
-# title for the plots
+# عنوان للمخططات
 titles = (
-    "SVC with linear kernel",
-    "LinearSVC (linear kernel)",
-    "SVC with RBF kernel",
-    "SVC with polynomial (degree 3) kernel",
+    "SVC مع نواة خطية",
+    "LinearSVC (نواة خطية)",
+    "SVC مع نواة RBF",
+    "SVC مع نواة بولينومية (درجة 3)",
 )
 
-# Set-up 2x2 grid for plotting.
+# إعداد شبكة 2x2 للرسم
 fig, sub = plt.subplots(2, 2)
 plt.subplots_adjust(wspace=0.4, hspace=0.4)
 

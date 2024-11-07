@@ -1,21 +1,15 @@
 """
 =========================================================
-SVM Tie Breaking Example
+مثال على كسر التعادل في SVM
 =========================================================
-Tie breaking is costly if ``decision_function_shape='ovr'``, and therefore it
-is not enabled by default. This example illustrates the effect of the
-``break_ties`` parameter for a multiclass classification problem and
-``decision_function_shape='ovr'``.
+كسر التعادل مكلف إذا كان ``decision_function_shape='ovr'``، ولذلك فهو غير مفعل بشكل افتراضي. يوضح هذا المثال تأثير معلمة ``break_ties`` لمشكلة تصنيف متعددة الفئات و ``decision_function_shape='ovr'``.
 
-The two plots differ only in the area in the middle where the classes are
-tied. If ``break_ties=False``, all input in that area would be classified as
-one class, whereas if ``break_ties=True``, the tie-breaking mechanism will
-create a non-convex decision boundary in that area.
+يختلف المخططان فقط في المنطقة الوسطى حيث تكون الفئات متعادلة. إذا كان ``break_ties=False``، فسيتم تصنيف جميع المدخلات في تلك المنطقة على أنها فئة واحدة، في حين أنه إذا كان ``break_ties=True``، فإن آلية كسر التعادل ستخلق حدود قرار غير محدبة في تلك المنطقة.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np

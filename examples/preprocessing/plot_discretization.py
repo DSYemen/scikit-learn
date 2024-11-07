@@ -1,34 +1,31 @@
 """
 ================================================================
-Using KBinsDiscretizer to discretize continuous features
+استخدام KBinsDiscretizer لتقسيم الخصائص المستمرة
 ================================================================
 
-The example compares prediction result of linear regression (linear model)
-and decision tree (tree based model) with and without discretization of
-real-valued features.
+يقارن المثال نتيجة التنبؤ بالانحدار الخطي (النموذج الخطي)
+وشجرة القرار (النموذج القائم على الشجرة) مع وبدون تقسيم الخصائص
+ذات القيم الحقيقية.
 
-As is shown in the result before discretization, linear model is fast to
-build and relatively straightforward to interpret, but can only model
-linear relationships, while decision tree can build a much more complex model
-of the data. One way to make linear model more powerful on continuous data
-is to use discretization (also known as binning). In the example, we
-discretize the feature and one-hot encode the transformed data. Note that if
-the bins are not reasonably wide, there would appear to be a substantially
-increased risk of overfitting, so the discretizer parameters should usually
-be tuned under cross validation.
+كما هو موضح في النتيجة قبل التقسيم، فإن النموذج الخطي سريع البناء وسهل التفسير نسبيًا، ولكنه لا يمكنه سوى نمذجة
+العلاقات الخطية، في حين يمكن لشجرة القرار بناء نموذج أكثر تعقيدًا بكثير
+للبيانات. إحدى طرق جعل النموذج الخطي أكثر قوة على البيانات المستمرة
+هي استخدام التقسيم (المعروف أيضًا باسم التصنيف). في المثال، نقوم بتقسيم الخاصية
+ونقوم بترميز البيانات المحولة بطريقة "one-hot". لاحظ أنه إذا لم تكن الفئات واسعة بشكل معقول،
+فسيبدو أن هناك زيادة كبيرة في خطر الإفراط في التخصيص، لذلك يجب عادةً ضبط معلمات التقسيم
+تحت التحقق المتقاطع.
 
-After discretization, linear regression and decision tree make exactly the
-same prediction. As features are constant within each bin, any model must
-predict the same value for all points within a bin. Compared with the result
-before discretization, linear model become much more flexible while decision
-tree gets much less flexible. Note that binning features generally has no
-beneficial effect for tree-based models, as these models can learn to split
-up the data anywhere.
+بعد التقسيم، يقوم الانحدار الخطي وشجرة القرار بالتنبؤ بنفس
+الطريقة تمامًا. حيث أن الخصائص ثابتة داخل كل فئة، يجب على أي نموذج
+أن يتنبأ بنفس القيمة لجميع النقاط داخل الفئة. مقارنة بالنتيجة
+قبل التقسيم، يصبح الانحدار الخطي أكثر مرونة بكثير بينما تصبح شجرة القرار أقل مرونة بكثير.
+لاحظ أن تقسيم الخصائص بشكل عام ليس له تأثير مفيد على النماذج القائمة على الشجرة،
+حيث يمكن لهذه النماذج أن تتعلم تقسيم البيانات في أي مكان.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -37,17 +34,17 @@ from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import KBinsDiscretizer
 from sklearn.tree import DecisionTreeRegressor
 
-# construct the dataset
+# إنشاء مجموعة البيانات
 rnd = np.random.RandomState(42)
 X = rnd.uniform(-3, 3, size=100)
 y = np.sin(X) + rnd.normal(size=len(X)) / 3
 X = X.reshape(-1, 1)
 
-# transform the dataset with KBinsDiscretizer
+# تحويل مجموعة البيانات باستخدام KBinsDiscretizer
 enc = KBinsDiscretizer(n_bins=10, encode="onehot")
 X_binned = enc.fit_transform(X)
 
-# predict with original dataset
+# التنبؤ بمجموعة البيانات الأصلية
 fig, (ax1, ax2) = plt.subplots(ncols=2, sharey=True, figsize=(10, 4))
 line = np.linspace(-3, 3, 1000, endpoint=False).reshape(-1, 1)
 reg = LinearRegression().fit(X, y)
@@ -60,7 +57,7 @@ ax1.set_ylabel("Regression output")
 ax1.set_xlabel("Input feature")
 ax1.set_title("Result before discretization")
 
-# predict with transformed dataset
+# التنبؤ بمجموعة البيانات المحولة
 line_binned = enc.transform(line)
 reg = LinearRegression().fit(X_binned, y)
 ax2.plot(

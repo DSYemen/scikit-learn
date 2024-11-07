@@ -1,25 +1,20 @@
 """
 ==================================================
-Balance model complexity and cross-validated score
+الموازنة بين تعقيد النموذج ودرجة الدقة عبر التحقق المتقاطع
 ==================================================
 
-This example balances model complexity and cross-validated score by
-finding a decent accuracy within 1 standard deviation of the best accuracy
-score while minimising the number of PCA components [1].
+هذا المثال يوازن بين تعقيد النموذج ودرجة الدقة عبر التحقق المتقاطع من خلال
+تحقيق دقة جيدة ضمن انحراف معياري واحد لأفضل درجة دقة
+مع تقليل عدد مكونات PCA [1].
 
-The figure shows the trade-off between cross-validated score and the number
-of PCA components. The balanced case is when n_components=10 and accuracy=0.88,
-which falls into the range within 1 standard deviation of the best accuracy
-score.
+يوضح الشكل التوازن بين درجة الدقة عبر التحقق المتقاطع وعدد مكونات PCA. وتكون الحالة المتوازنة عندما يكون n_components=10 وaccuracy=0.88،
+والتي تقع ضمن نطاق انحراف معياري واحد لأفضل درجة دقة.
 
-[1] Hastie, T., Tibshirani, R.,, Friedman, J. (2001). Model Assessment and
-Selection. The Elements of Statistical Learning (pp. 219-260). New York,
-NY, USA: Springer New York Inc..
-
+[1] هاستي، ت.، تيبشيران، ر.، فريدمان، ج. (2001). تقييم واختيار النماذج. عناصر التعلم الإحصائي (الصفحات 219-260). نيويورك،
+نيويورك، الولايات المتحدة الأمريكية: سبرينجر نيويورك.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايت-ليرن
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -33,19 +28,19 @@ from sklearn.svm import LinearSVC
 
 def lower_bound(cv_results):
     """
-    Calculate the lower bound within 1 standard deviation
-    of the best `mean_test_scores`.
+    حساب الحد الأدنى ضمن انحراف معياري واحد
+    لأفضل `mean_test_scores`.
 
-    Parameters
+    المعاملات
     ----------
     cv_results : dict of numpy(masked) ndarrays
-        See attribute cv_results_ of `GridSearchCV`
+        راجع cv_results_ الخاص بـ `GridSearchCV`
 
-    Returns
+    العائدات
     -------
     float
-        Lower bound within 1 standard deviation of the
-        best `mean_test_score`.
+        الحد الأدنى ضمن انحراف معياري واحد لأفضل
+        `mean_test_score`.
     """
     best_score_idx = np.argmax(cv_results["mean_test_score"])
 
@@ -57,18 +52,18 @@ def lower_bound(cv_results):
 
 def best_low_complexity(cv_results):
     """
-    Balance model complexity with cross-validated score.
+    الموازنة بين تعقيد النموذج ودرجة الدقة عبر التحقق المتقاطع.
 
-    Parameters
+    المعاملات
     ----------
     cv_results : dict of numpy(masked) ndarrays
-        See attribute cv_results_ of `GridSearchCV`.
+        راجع cv_results_ الخاص بـ `GridSearchCV`.
 
-    Return
+    العائدات
     ------
     int
-        Index of a model that has the fewest PCA components
-        while has its test score within 1 standard deviation of the best
+        مؤشر نموذج يحتوي على أقل عدد من مكونات PCA
+        بينما تكون درجة دقته ضمن انحراف معياري واحد لأفضل
         `mean_test_score`.
     """
     threshold = lower_bound(cv_results)
@@ -109,9 +104,9 @@ lower = lower_bound(grid.cv_results_)
 plt.axhline(np.max(test_scores), linestyle="--", color="y", label="Best score")
 plt.axhline(lower, linestyle="--", color=".5", label="Best score - 1 std")
 
-plt.title("Balance model complexity and cross-validated score")
-plt.xlabel("Number of PCA components used")
-plt.ylabel("Digit classification accuracy")
+plt.title("الموازنة بين تعقيد النموذج ودرجة الدقة عبر التحقق المتقاطع")
+plt.xlabel("عدد مكونات PCA المستخدمة")
+plt.ylabel("دقة تصنيف الأرقام")
 plt.xticks(n_components.tolist())
 plt.ylim((0, 1.0))
 plt.legend(loc="upper left")

@@ -1,6 +1,6 @@
 .. _release_highlights_examples:
 
-Release Highlights
+أبرز ما جاء في الإصدار
 ------------------
 
-These examples illustrate the main features of the releases of scikit-learn.
+توضح هذه الأمثلة الميزات الرئيسية لإصدارات scikit-learn.

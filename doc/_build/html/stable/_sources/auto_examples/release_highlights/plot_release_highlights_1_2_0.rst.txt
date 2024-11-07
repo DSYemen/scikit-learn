@@ -19,35 +19,32 @@
 
 
 =======================================
-Release Highlights for scikit-learn 1.2
+أبرز ميزات الإصدار 1.2 من scikit-learn
 =======================================
 
 .. currentmodule:: sklearn
 
-We are pleased to announce the release of scikit-learn 1.2! Many bug fixes
-and improvements were added, as well as some new key features. We detail
-below a few of the major features of this release. **For an exhaustive list of
-all the changes**, please refer to the :ref:`release notes <release_notes_1_2>`.
+يسعدنا الإعلان عن إصدار scikit-learn 1.2! تم إجراء العديد من الإصلاحات والتحسينات، بالإضافة إلى بعض الميزات الرئيسية الجديدة. نستعرض أدناه بعض الميزات الرئيسية لهذا الإصدار. **للاطلاع على قائمة شاملة بجميع التغييرات**، يرجى الرجوع إلى :ref:`ملاحظات الإصدار <release_notes_1_2>`.
 
-To install the latest version (with pip)::
+لتثبيت أحدث إصدار (باستخدام pip)::
 
     pip install --upgrade scikit-learn
 
-or with conda::
+أو باستخدام conda::
 
     conda install -c conda-forge scikit-learn
 
-.. GENERATED FROM PYTHON SOURCE LINES 25-32
+.. GENERATED FROM PYTHON SOURCE LINES 22-29
 
-Pandas output with `set_output` API
+إخراج Pandas مع واجهة برمجة التطبيقات set_output
 -----------------------------------
-scikit-learn's transformers now support pandas output with the `set_output` API.
-To learn more about the `set_output` API see the example:
-:ref:`sphx_glr_auto_examples_miscellaneous_plot_set_output.py` and
-# this `video, pandas DataFrame output for scikit-learn transformers
-(some examples) <https://youtu.be/5bCg8VfX2x8>`__.
+تدعم محولات scikit-learn الآن إخراج Pandas مع واجهة برمجة التطبيقات set_output.
+لمزيد من المعلومات حول واجهة برمجة التطبيقات set_output، راجع المثال:
+:ref:`sphx_glr_auto_examples_miscellaneous_plot_set_output.py` و
+# هذا الفيديو، إخراج DataFrame لـ Pandas لمحولات scikit-learn
+(بعض الأمثلة) <https://youtu.be/5bCg8VfX2x8>`__.
 
-.. GENERATED FROM PYTHON SOURCE LINES 32-53
+.. GENERATED FROM PYTHON SOURCE LINES 29-50
 
 .. code-block:: Python
 
@@ -147,17 +144,16 @@ To learn more about the `set_output` API see the example:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 54-61
+.. GENERATED FROM PYTHON SOURCE LINES 51-57
 
-Interaction constraints in Histogram-based Gradient Boosting Trees
+قيود التفاعل في أشجار التدرج التدريجي القائمة على التوزيع التكراري
 ------------------------------------------------------------------
-:class:`~ensemble.HistGradientBoostingRegressor` and
-:class:`~ensemble.HistGradientBoostingClassifier` now supports interaction constraints
-with the `interaction_cst` parameter. For details, see the
-:ref:`User Guide <interaction_cst_hgbt>`. In the following example, features are not
-allowed to interact.
+:class:`~ensemble.HistGradientBoostingRegressor` و
+:class:`~ensemble.HistGradientBoostingClassifier` يدعمان الآن قيود التفاعل
+مع معلمة `interaction_cst`. لمزيد من التفاصيل، راجع
+:ref:`دليل المستخدم <interaction_cst_hgbt>`. في المثال التالي، لا يُسمح للميزات بالتفاعل.
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-71
+.. GENERATED FROM PYTHON SOURCE LINES 57-67
 
 .. code-block:: Python
 
@@ -179,7 +175,7 @@ allowed to interact.
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-3 {
+    <style>#sk-container-id-6 {
       /* Definition of color scheme common for light and dark mode */
       --sklearn-color-text: #000;
       --sklearn-color-text-muted: #666;
@@ -210,15 +206,15 @@ allowed to interact.
       }
     }
 
-    #sk-container-id-3 {
+    #sk-container-id-6 {
       color: var(--sklearn-color-text);
     }
 
-    #sk-container-id-3 pre {
+    #sk-container-id-6 pre {
       padding: 0;
     }
 
-    #sk-container-id-3 input.sk-hidden--visually {
+    #sk-container-id-6 input.sk-hidden--visually {
       border: 0;
       clip: rect(1px 1px 1px 1px);
       clip: rect(1px, 1px, 1px, 1px);
@@ -230,7 +226,7 @@ allowed to interact.
       width: 1px;
     }
 
-    #sk-container-id-3 div.sk-dashed-wrapped {
+    #sk-container-id-6 div.sk-dashed-wrapped {
       border: 1px dashed var(--sklearn-color-line);
       margin: 0 0.4em 0.5em 0.4em;
       box-sizing: border-box;
@@ -238,7 +234,7 @@ allowed to interact.
       background-color: var(--sklearn-color-background);
     }
 
-    #sk-container-id-3 div.sk-container {
+    #sk-container-id-6 div.sk-container {
       /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
          but bootstrap.min.css set `[hidden] { display: none !important; }`
          so we also need the `!important` here to be able to override the
@@ -248,7 +244,7 @@ allowed to interact.
       position: relative;
     }
 
-    #sk-container-id-3 div.sk-text-repr-fallback {
+    #sk-container-id-6 div.sk-text-repr-fallback {
       display: none;
     }
 
@@ -264,14 +260,14 @@ allowed to interact.
 
     /* Parallel-specific style estimator block */
 
-    #sk-container-id-3 div.sk-parallel-item::after {
+    #sk-container-id-6 div.sk-parallel-item::after {
       content: "";
       width: 100%;
       border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
       flex-grow: 1;
     }
 
-    #sk-container-id-3 div.sk-parallel {
+    #sk-container-id-6 div.sk-parallel {
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -279,28 +275,28 @@ allowed to interact.
       position: relative;
     }
 
-    #sk-container-id-3 div.sk-parallel-item {
+    #sk-container-id-6 div.sk-parallel-item {
       display: flex;
       flex-direction: column;
     }
 
-    #sk-container-id-3 div.sk-parallel-item:first-child::after {
+    #sk-container-id-6 div.sk-parallel-item:first-child::after {
       align-self: flex-end;
       width: 50%;
     }
 
-    #sk-container-id-3 div.sk-parallel-item:last-child::after {
+    #sk-container-id-6 div.sk-parallel-item:last-child::after {
       align-self: flex-start;
       width: 50%;
     }
 
-    #sk-container-id-3 div.sk-parallel-item:only-child::after {
+    #sk-container-id-6 div.sk-parallel-item:only-child::after {
       width: 0;
     }
 
     /* Serial-specific style estimator block */
 
-    #sk-container-id-3 div.sk-serial {
+    #sk-container-id-6 div.sk-serial {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -318,14 +314,14 @@ allowed to interact.
 
     /* Pipeline and ColumnTransformer style (default) */
 
-    #sk-container-id-3 div.sk-toggleable {
+    #sk-container-id-6 div.sk-toggleable {
       /* Default theme specific background. It is overwritten whether we have a
       specific estimator or a Pipeline/ColumnTransformer */
       background-color: var(--sklearn-color-background);
     }
 
     /* Toggleable label */
-    #sk-container-id-3 label.sk-toggleable__label {
+    #sk-container-id-6 label.sk-toggleable__label {
       cursor: pointer;
       display: flex;
       width: 100%;
@@ -338,13 +334,13 @@ allowed to interact.
       gap: 0.5em;
     }
 
-    #sk-container-id-3 label.sk-toggleable__label .caption {
+    #sk-container-id-6 label.sk-toggleable__label .caption {
       font-size: 0.6rem;
       font-weight: lighter;
       color: var(--sklearn-color-text-muted);
     }
 
-    #sk-container-id-3 label.sk-toggleable__label-arrow:before {
+    #sk-container-id-6 label.sk-toggleable__label-arrow:before {
       /* Arrow on the left of the label */
       content: "▸";
       float: left;
@@ -352,13 +348,13 @@ allowed to interact.
       color: var(--sklearn-color-icon);
     }
 
-    #sk-container-id-3 label.sk-toggleable__label-arrow:hover:before {
+    #sk-container-id-6 label.sk-toggleable__label-arrow:hover:before {
       color: var(--sklearn-color-text);
     }
 
     /* Toggleable content - dropdown */
 
-    #sk-container-id-3 div.sk-toggleable__content {
+    #sk-container-id-6 div.sk-toggleable__content {
       max-height: 0;
       max-width: 0;
       overflow: hidden;
@@ -367,12 +363,12 @@ allowed to interact.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-3 div.sk-toggleable__content.fitted {
+    #sk-container-id-6 div.sk-toggleable__content.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-3 div.sk-toggleable__content pre {
+    #sk-container-id-6 div.sk-toggleable__content pre {
       margin: 0.2em;
       border-radius: 0.25em;
       color: var(--sklearn-color-text);
@@ -380,79 +376,79 @@ allowed to interact.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-3 div.sk-toggleable__content.fitted pre {
+    #sk-container-id-6 div.sk-toggleable__content.fitted pre {
       /* unfitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-3 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    #sk-container-id-6 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
       max-height: 200px;
       max-width: 100%;
       overflow: auto;
     }
 
-    #sk-container-id-3 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    #sk-container-id-6 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
       content: "▾";
     }
 
     /* Pipeline/ColumnTransformer-specific style */
 
-    #sk-container-id-3 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-6 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-3 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-6 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator-specific style */
 
     /* Colorize estimator box */
-    #sk-container-id-3 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-6 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-3 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-6 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
-    #sk-container-id-3 div.sk-label label.sk-toggleable__label,
-    #sk-container-id-3 div.sk-label label {
+    #sk-container-id-6 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-6 div.sk-label label {
       /* The background is the default theme color */
       color: var(--sklearn-color-text-on-default-background);
     }
 
     /* On hover, darken the color of the background */
-    #sk-container-id-3 div.sk-label:hover label.sk-toggleable__label {
+    #sk-container-id-6 div.sk-label:hover label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
     /* Label box, darken color on hover, fitted */
-    #sk-container-id-3 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+    #sk-container-id-6 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator label */
 
-    #sk-container-id-3 div.sk-label label {
+    #sk-container-id-6 div.sk-label label {
       font-family: monospace;
       font-weight: bold;
       display: inline-block;
       line-height: 1.2em;
     }
 
-    #sk-container-id-3 div.sk-label-container {
+    #sk-container-id-6 div.sk-label-container {
       text-align: center;
     }
 
     /* Estimator-specific */
-    #sk-container-id-3 div.sk-estimator {
+    #sk-container-id-6 div.sk-estimator {
       font-family: monospace;
       border: 1px dotted var(--sklearn-color-border-box);
       border-radius: 0.25em;
@@ -462,18 +458,18 @@ allowed to interact.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-3 div.sk-estimator.fitted {
+    #sk-container-id-6 div.sk-estimator.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
     /* on hover */
-    #sk-container-id-3 div.sk-estimator:hover {
+    #sk-container-id-6 div.sk-estimator:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-3 div.sk-estimator.fitted:hover {
+    #sk-container-id-6 div.sk-estimator.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
@@ -561,7 +557,7 @@ allowed to interact.
 
     /* "?"-specific style due to the `<a>` HTML tag */
 
-    #sk-container-id-3 a.estimator_doc_link {
+    #sk-container-id-6 a.estimator_doc_link {
       float: right;
       font-size: 1rem;
       line-height: 1em;
@@ -576,41 +572,41 @@ allowed to interact.
       border: var(--sklearn-color-unfitted-level-1) 1pt solid;
     }
 
-    #sk-container-id-3 a.estimator_doc_link.fitted {
+    #sk-container-id-6 a.estimator_doc_link.fitted {
       /* fitted */
       border: var(--sklearn-color-fitted-level-1) 1pt solid;
       color: var(--sklearn-color-fitted-level-1);
     }
 
     /* On hover */
-    #sk-container-id-3 a.estimator_doc_link:hover {
+    #sk-container-id-6 a.estimator_doc_link:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-3);
       color: var(--sklearn-color-background);
       text-decoration: none;
     }
 
-    #sk-container-id-3 a.estimator_doc_link.fitted:hover {
+    #sk-container-id-6 a.estimator_doc_link.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-3" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>HistGradientBoostingRegressor(interaction_cst=[[0], [1], [2], [3], [4], [5],
+    </style><div id="sk-container-id-6" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>HistGradientBoostingRegressor(interaction_cst=[[0], [1], [2], [3], [4], [5],
                                                    [6], [7], [8], [9]],
-                                  random_state=0)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" checked><label for="sk-estimator-id-3" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>HistGradientBoostingRegressor</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.ensemble.HistGradientBoostingRegressor.html">?<span>Documentation for HistGradientBoostingRegressor</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>HistGradientBoostingRegressor(interaction_cst=[[0], [1], [2], [3], [4], [5],
+                                  random_state=0)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox" checked><label for="sk-estimator-id-6" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>HistGradientBoostingRegressor</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.ensemble.HistGradientBoostingRegressor.html">?<span>Documentation for HistGradientBoostingRegressor</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>HistGradientBoostingRegressor(interaction_cst=[[0], [1], [2], [3], [4], [5],
                                                    [6], [7], [8], [9]],
                                   random_state=0)</pre></div> </div></div></div></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 72-76
+.. GENERATED FROM PYTHON SOURCE LINES 68-72
 
-New and enhanced displays
+شاشات العرض الجديدة والمحسنة
 -------------------------
-:class:`~metrics.PredictionErrorDisplay` provides a way to analyze regression
-models in a qualitative manner.
+:class:`~metrics.PredictionErrorDisplay` توفر طريقة لتحليل نماذج الانحدار
+بطريقة نوعية.
 
-.. GENERATED FROM PYTHON SOURCE LINES 76-87
+.. GENERATED FROM PYTHON SOURCE LINES 72-83
 
 .. code-block:: Python
 
@@ -637,12 +633,12 @@ models in a qualitative manner.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 88-90
+.. GENERATED FROM PYTHON SOURCE LINES 84-86
 
-:class:`~model_selection.LearningCurveDisplay` is now available to plot
-results from :func:`~model_selection.learning_curve`.
+:class:`~model_selection.LearningCurveDisplay` متاح الآن لعرض
+النتائج من :func:`~model_selection.learning_curve`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 90-96
+.. GENERATED FROM PYTHON SOURCE LINES 86-92
 
 .. code-block:: Python
 
@@ -664,13 +660,13 @@ results from :func:`~model_selection.learning_curve`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 97-100
+.. GENERATED FROM PYTHON SOURCE LINES 93-96
 
-:class:`~inspection.PartialDependenceDisplay` exposes a new parameter
-`categorical_features` to display partial dependence for categorical features
-using bar plots and heatmaps.
+:class:`~inspection.PartialDependenceDisplay` تعرض معلمة جديدة
+`categorical_features` لعرض الاعتماد الجزئي للميزات التصنيفية
+باستخدام مخططات الأعمدة والخرائط الحرارية.
 
-.. GENERATED FROM PYTHON SOURCE LINES 100-107
+.. GENERATED FROM PYTHON SOURCE LINES 96-103
 
 .. code-block:: Python
 
@@ -688,7 +684,7 @@ using bar plots and heatmaps.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 108-120
+.. GENERATED FROM PYTHON SOURCE LINES 104-116
 
 .. code-block:: Python
 
@@ -711,7 +707,7 @@ using bar plots and heatmaps.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 121-132
+.. GENERATED FROM PYTHON SOURCE LINES 117-128
 
 .. code-block:: Python
 
@@ -738,16 +734,16 @@ using bar plots and heatmaps.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 133-139
+.. GENERATED FROM PYTHON SOURCE LINES 129-135
 
-Faster parser in :func:`~datasets.fetch_openml`
+معالج أسرع في :func:`~datasets.fetch_openml`
 -----------------------------------------------
-:func:`~datasets.fetch_openml` now supports a new `"pandas"` parser that is
-more memory and CPU efficient. In v1.4, the default will change to
-`parser="auto"` which will automatically use the `"pandas"` parser for dense
-data and `"liac-arff"` for sparse data.
+:func:`~datasets.fetch_openml` يدعم الآن معالج جديد "pandas" وهو أكثر
+كفاءة في الذاكرة والمعالجة. في الإصدار 1.4، سيتم تغيير المعالج الافتراضي إلى
+`parser="auto"` والذي سيستخدم تلقائيًا معالج "pandas" للبيانات الكثيفة
+و"liac-arff" للبيانات المتناثرة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 139-144
+.. GENERATED FROM PYTHON SOURCE LINES 135-140
 
 .. code-block:: Python
 
@@ -885,36 +881,35 @@ data and `"liac-arff"` for sparse data.
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 145-152
+.. GENERATED FROM PYTHON SOURCE LINES 141-147
 
-Experimental Array API support in :class:`~discriminant_analysis.LinearDiscriminantAnalysis`
+دعم تجريبي لواجهة برمجة التطبيقات Array في :class:`~discriminant_analysis.LinearDiscriminantAnalysis`
 --------------------------------------------------------------------------------------------
-Experimental support for the `Array API <https://data-apis.org/array-api/latest/>`_
-specification was added to :class:`~discriminant_analysis.LinearDiscriminantAnalysis`.
-The estimator can now run on any Array API compliant libraries such as
-`CuPy <https://docs.cupy.dev/en/stable/overview.html>`__, a GPU-accelerated array
-library. For details, see the :ref:`User Guide <array_api>`.
+تمت إضافة دعم تجريبي لمواصفات `Array API <https://data-apis.org/array-api/latest/>`_
+إلى :class:`~discriminant_analysis.LinearDiscriminantAnalysis`.
+يمكن للمقدر الآن العمل على أي مكتبات متوافقة مع واجهة برمجة التطبيقات Array مثل
+`CuPy <https://docs.cupy.dev/en/stable/overview.html>`__، وهي مكتبة صفائف معجلة بواسطة GPU. لمزيد من التفاصيل، راجع :ref:`دليل المستخدم <array_api>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 154-167
+.. GENERATED FROM PYTHON SOURCE LINES 149-161
 
-Improved efficiency of many estimators
+تحسين كفاءة العديد من المقدرات
 --------------------------------------
-In version 1.1 the efficiency of many estimators relying on the computation of
-pairwise distances (essentially estimators related to clustering, manifold
-learning and neighbors search algorithms) was greatly improved for float64
-dense input. Efficiency improvement especially were a reduced memory footprint
-and a much better scalability on multi-core machines.
-In version 1.2, the efficiency of these estimators was further improved for all
-combinations of dense and sparse inputs on float32 and float64 datasets, except
-the sparse-dense and dense-sparse combinations for the Euclidean and Squared
-Euclidean Distance metrics.
-A detailed list of the impacted estimators can be found in the
-:ref:`changelog <release_notes_1_2>`.
+في الإصدار 1.1، تم تحسين كفاءة العديد من المقدرات التي تعتمد على حساب
+المسافات الزوجية (بشكل أساسي المقدرات المتعلقة بالتجمع، وتعلم المانيفولد،
+وخوارزميات البحث عن الجيران) بشكل كبير للمدخلات float64 الكثيفة.
+شملت تحسينات الكفاءة بشكل خاص تقليل استهلاك الذاكرة وتحسين قابلية التوسع
+على أجهزة متعددة النواة.
+في الإصدار 1.2، تم تحسين كفاءة هذه المقدرات بشكل أكبر لجميع
+مجموعات المدخلات الكثيفة والمبعثرة على مجموعات البيانات float32 وfloat64،
+باستثناء مجموعات البيانات المبعثرة-الكثيفة والكثيفة-المبعثرة لمقاييس المسافة
+Euclidean وSquared Euclidean.
+يمكن العثور على قائمة مفصلة بالمقدرات المتأثرة في
+:ref:`سجل التغييرات <release_notes_1_2>`.
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 5.772 seconds)
+   **Total running time of the script:** (0 minutes 4.811 seconds)
 
 
 .. _sphx_glr_download_auto_examples_release_highlights_plot_release_highlights_1_2_0.py:

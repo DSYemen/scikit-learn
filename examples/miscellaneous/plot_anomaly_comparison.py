@@ -1,64 +1,63 @@
 """
 ============================================================================
-Comparing anomaly detection algorithms for outlier detection on toy datasets
+مقارنة خوارزميات الكشف عن الشذوذ لكشف القيم المتطرفة في مجموعات بيانات تجريبية
 ============================================================================
 
-This example shows characteristics of different anomaly detection algorithms
-on 2D datasets. Datasets contain one or two modes (regions of high density)
-to illustrate the ability of algorithms to cope with multimodal data.
+يوضح هذا المثال خصائص خوارزميات مختلفة للكشف عن الشذوذ
+على مجموعات بيانات ثنائية الأبعاد. تحتوي مجموعات البيانات على نمط واحد أو نمطين
+(مناطق ذات كثافة عالية) لتوضيح قدرة الخوارزميات على التعامل مع البيانات متعددة الأنماط.
 
-For each dataset, 15% of samples are generated as random uniform noise. This
-proportion is the value given to the nu parameter of the OneClassSVM and the
-contamination parameter of the other outlier detection algorithms.
-Decision boundaries between inliers and outliers are displayed in black
-except for Local Outlier Factor (LOF) as it has no predict method to be applied
-on new data when it is used for outlier detection.
+لكل مجموعة بيانات، يتم إنشاء 15٪ من العينات كضوضاء موحدة عشوائية.
+هذه النسبة هي القيمة المعطاة لمعامل nu لـ OneClassSVM ومعامل
+التلوث لخوارزميات الكشف عن القيم المتطرفة الأخرى.
+يتم عرض حدود القرار بين القيم الداخلية والخارجية باللون الأسود
+باستثناء عامل القيم المتطرفة المحلي (LOF) لأنه لا يحتوي على طريقة تنبؤ
+لتطبيقها على بيانات جديدة عند استخدامه للكشف عن القيم المتطرفة.
 
-The :class:`~sklearn.svm.OneClassSVM` is known to be sensitive to outliers and
-thus does not perform very well for outlier detection. This estimator is best
-suited for novelty detection when the training set is not contaminated by
-outliers. That said, outlier detection in high-dimension, or without any
-assumptions on the distribution of the inlying data is very challenging, and a
-One-class SVM might give useful results in these situations depending on the
-value of its hyperparameters.
+من المعروف أن :class:`~sklearn.svm.OneClassSVM` حساس للقيم المتطرفة
+وبالتالي لا يؤدي أداءً جيدًا جدًا للكشف عن القيم المتطرفة. هذا المقدّر
+هو الأنسب للكشف عن الجدة عندما لا تكون مجموعة التدريب ملوثة
+بالقيم المتطرفة. ومع ذلك، فإن الكشف عن القيم المتطرفة في الأبعاد العالية، أو
+بدون أي افتراضات حول توزيع البيانات الداخلية، يمثل تحديًا كبيرًا، وقد
+يعطي One-class SVM نتائج مفيدة في هذه المواقف اعتمادًا على
+قيمة المعلمات الفائقة الخاصة به.
 
-The :class:`sklearn.linear_model.SGDOneClassSVM` is an implementation of the
-One-Class SVM based on stochastic gradient descent (SGD). Combined with kernel
-approximation, this estimator can be used to approximate the solution
-of a kernelized :class:`sklearn.svm.OneClassSVM`. We note that, although not
-identical, the decision boundaries of the
-:class:`sklearn.linear_model.SGDOneClassSVM` and the ones of
-:class:`sklearn.svm.OneClassSVM` are very similar. The main advantage of using
-:class:`sklearn.linear_model.SGDOneClassSVM` is that it scales linearly with
-the number of samples.
+:class:`sklearn.linear_model.SGDOneClassSVM` هو تطبيق لـ One-Class SVM
+يعتمد على هبوط التدرج العشوائي (SGD). بالاقتران مع تقريب النواة، يمكن
+استخدام هذا المقدّر لتقريب الحل
+لـ :class:`sklearn.svm.OneClassSVM` مع نواة. نلاحظ أنه على الرغم من
+عدم تطابقها، فإن حدود القرار لـ
+:class:`sklearn.linear_model.SGDOneClassSVM` وحدود
+:class:`sklearn.svm.OneClassSVM` متشابهة جدًا. الميزة الرئيسية لاستخدام
+:class:`sklearn.linear_model.SGDOneClassSVM` هي أنه يتناسب خطيًا مع
+عدد العينات.
 
-:class:`sklearn.covariance.EllipticEnvelope` assumes the data is Gaussian and
-learns an ellipse. It thus degrades when the data is not unimodal. Notice
-however that this estimator is robust to outliers.
+يفترض :class:`sklearn.covariance.EllipticEnvelope` أن البيانات غاوسية
+ويتعلم قطعًا ناقصًا. وبالتالي يتدهور عندما لا تكون البيانات أحادية النمط.
+لاحظ مع ذلك أن هذا المقدّر قوي ضد القيم المتطرفة.
 
-:class:`~sklearn.ensemble.IsolationForest` and
-:class:`~sklearn.neighbors.LocalOutlierFactor` seem to perform reasonably well
-for multi-modal data sets. The advantage of
-:class:`~sklearn.neighbors.LocalOutlierFactor` over the other estimators is
-shown for the third data set, where the two modes have different densities.
-This advantage is explained by the local aspect of LOF, meaning that it only
-compares the score of abnormality of one sample with the scores of its
-neighbors.
+يبدو أن :class:`~sklearn.ensemble.IsolationForest` و
+:class:`~sklearn.neighbors.LocalOutlierFactor` يؤديان أداءً جيدًا بشكل معقول
+لمجموعات البيانات متعددة الأنماط. يتم عرض ميزة
+:class:`~sklearn.neighbors.LocalOutlierFactor` على المقدّرات الأخرى
+لمجموعة البيانات الثالثة، حيث يكون للنمطين كثافات مختلفة.
+يفسر هذا الميزة الجانب المحلي لـ LOF، مما يعني أنه يقارن فقط
+درجة شذوذ عينة واحدة بدرجات جيرانها.
 
-Finally, for the last data set, it is hard to say that one sample is more
-abnormal than another sample as they are uniformly distributed in a
-hypercube. Except for the :class:`~sklearn.svm.OneClassSVM` which overfits a
-little, all estimators present decent solutions for this situation. In such a
-case, it would be wise to look more closely at the scores of abnormality of
-the samples as a good estimator should assign similar scores to all the
-samples.
+أخيرًا، بالنسبة لمجموعة البيانات الأخيرة، من الصعب القول أن عينة واحدة
+أكثر شذوذًا من عينة أخرى لأنها موزعة بشكل موحد في
+مكعب فائق الأبعاد. باستثناء :class:`~sklearn.svm.OneClassSVM` الذي يلائم
+قليلاً، فإن جميع المقدّرات تقدم حلولاً لائقة لهذا الموقف. في مثل هذه
+الحالة، سيكون من الحكمة إلقاء نظرة فاحصة على درجات شذوذ
+العينات حيث يجب أن يقوم مقدّر جيد بتعيين درجات مماثلة لجميع
+العينات.
 
-While these examples give some intuition about the algorithms, this
-intuition might not apply to very high dimensional data.
+على الرغم من أن هذه الأمثلة تعطي بعض الحدس حول الخوارزميات، إلا أن هذا
+الحدس قد لا ينطبق على البيانات عالية الأبعاد.
 
-Finally, note that parameters of the models have been here handpicked but
-that in practice they need to be adjusted. In the absence of labelled data,
-the problem is completely unsupervised so model selection can be a challenge.
+أخيرًا، لاحظ أنه تم هنا اختيار معلمات النماذج يدويًا ولكن
+في الممارسة العملية، يجب ضبطها. في حالة عدم وجود بيانات معنونة،
+تكون المشكلة غير خاضعة للإشراف تمامًا، لذلك قد يكون اختيار النموذج تحديًا.
 
 """
 
@@ -82,18 +81,18 @@ from sklearn.pipeline import make_pipeline
 
 matplotlib.rcParams["contour.negative_linestyle"] = "solid"
 
-# Example settings
+# إعدادات المثال
 n_samples = 300
 outliers_fraction = 0.15
 n_outliers = int(outliers_fraction * n_samples)
 n_inliers = n_samples - n_outliers
 
-# define outlier/anomaly detection methods to be compared.
-# the SGDOneClassSVM must be used in a pipeline with a kernel approximation
-# to give similar results to the OneClassSVM
+# تعريف طرق الكشف عن القيم المتطرفة / الشذوذ التي سيتم مقارنتها.
+# يجب استخدام SGDOneClassSVM في خط أنابيب مع تقريب النواة
+# لإعطاء نتائج مماثلة لـ OneClassSVM
 anomaly_algorithms = [
     (
-        "Robust covariance",
+        "التغاير القوي",
         EllipticEnvelope(contamination=outliers_fraction, random_state=42),
     ),
     ("One-Class SVM", svm.OneClassSVM(nu=outliers_fraction, kernel="rbf", gamma=0.1)),
@@ -111,16 +110,16 @@ anomaly_algorithms = [
         ),
     ),
     (
-        "Isolation Forest",
+        "غابة العزل",
         IsolationForest(contamination=outliers_fraction, random_state=42),
     ),
     (
-        "Local Outlier Factor",
+        "عامل القيم المتطرفة المحلي",
         LocalOutlierFactor(n_neighbors=35, contamination=outliers_fraction),
     ),
 ]
 
-# Define datasets
+# تعريف مجموعات البيانات
 blobs_params = dict(random_state=0, n_samples=n_inliers, n_features=2)
 datasets = [
     make_blobs(centers=[[0, 0], [0, 0]], cluster_std=0.5, **blobs_params)[0],
@@ -134,7 +133,7 @@ datasets = [
     14.0 * (np.random.RandomState(42).rand(n_samples, 2) - 0.5),
 ]
 
-# Compare given classifiers under given settings
+# مقارنة المصنفات المعطاة في ظل الإعدادات المعطاة
 xx, yy = np.meshgrid(np.linspace(-7, 7, 150), np.linspace(-7, 7, 150))
 
 plt.figure(figsize=(len(anomaly_algorithms) * 2 + 4, 12.5))
@@ -146,7 +145,7 @@ plot_num = 1
 rng = np.random.RandomState(42)
 
 for i_dataset, X in enumerate(datasets):
-    # Add outliers
+    # إضافة القيم المتطرفة
     X = np.concatenate([X, rng.uniform(low=-6, high=6, size=(n_outliers, 2))], axis=0)
 
     for name, algorithm in anomaly_algorithms:
@@ -157,14 +156,14 @@ for i_dataset, X in enumerate(datasets):
         if i_dataset == 0:
             plt.title(name, size=18)
 
-        # fit the data and tag outliers
-        if name == "Local Outlier Factor":
+        # ملاءمة البيانات ووضع علامات على القيم المتطرفة
+        if name == "عامل القيم المتطرفة المحلي":
             y_pred = algorithm.fit_predict(X)
         else:
             y_pred = algorithm.fit(X).predict(X)
 
-        # plot the levels lines and the points
-        if name != "Local Outlier Factor":  # LOF does not implement predict
+        # رسم خطوط المستويات والنقاط
+        if name != "عامل القيم المتطرفة المحلي":  # LOF لا ينفذ التنبؤ
             Z = algorithm.predict(np.c_[xx.ravel(), yy.ravel()])
             Z = Z.reshape(xx.shape)
             plt.contour(xx, yy, Z, levels=[0], linewidths=2, colors="black")
@@ -187,3 +186,5 @@ for i_dataset, X in enumerate(datasets):
         plot_num += 1
 
 plt.show()
+
+

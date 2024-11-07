@@ -1,28 +1,14 @@
 """
-============================
-Underfitting vs. Overfitting
-============================
+======================================
+عدم الملاءمة مقابل الإفراط في الملاءمة
+======================================
 
-This example demonstrates the problems of underfitting and overfitting and
-how we can use linear regression with polynomial features to approximate
-nonlinear functions. The plot shows the function that we want to approximate,
-which is a part of the cosine function. In addition, the samples from the
-real function and the approximations of different models are displayed. The
-models have polynomial features of different degrees. We can see that a
-linear function (polynomial with degree 1) is not sufficient to fit the
-training samples. This is called **underfitting**. A polynomial of degree 4
-approximates the true function almost perfectly. However, for higher degrees
-the model will **overfit** the training data, i.e. it learns the noise of the
-training data.
-We evaluate quantitatively **overfitting** / **underfitting** by using
-cross-validation. We calculate the mean squared error (MSE) on the validation
-set, the higher, the less likely the model generalizes correctly from the
-training data.
+هذا المثال يوضح مشكلتي عدم الملاءمة والإفراط في الملاءمة وكيف يمكننا استخدام الانحدار الخطي مع الميزات متعددة الحدود لتقريب الدوال غير الخطية. يوضح الرسم البياني الدالة التي نريد تقريبها، والتي هي جزء من دالة جيب التمام. بالإضافة إلى ذلك، يتم عرض العينات من الدالة الحقيقية وتقديرات النماذج المختلفة. تمتلك النماذج ميزات متعددة الحدود بدرجات مختلفة. يمكننا أن نرى أن الدالة الخطية (متعددة الحدود من الدرجة 1) غير كافية لملاءمة العينات التدريبية. يُطلق على هذا **عدم الملاءمة**. تقترب متعددة الحدود من الدرجة 4 من الدالة الحقيقية بشكل مثالي تقريبًا. ومع ذلك، بالنسبة للدرجات الأعلى، فإن النموذج سوف **يبالغ في الملاءمة** لبيانات التدريب، أي أنه يتعلم ضوضاء بيانات التدريب.
 
+نقيّم **الإفراط في الملاءمة** و **عدم الملاءمة** بشكل كمي باستخدام التحقق المتقاطع. نحسب متوسط مربع الخطأ (MSE) على مجموعة التحقق، كلما كان أعلى، كلما قلت احتمالية تعميم النموذج بشكل صحيح من بيانات التدريب.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -60,7 +46,7 @@ for i in range(len(degrees)):
     )
     pipeline.fit(X[:, np.newaxis], y)
 
-    # Evaluate the models using crossvalidation
+    # تقييم النماذج باستخدام التحقق المتقاطع
     scores = cross_val_score(
         pipeline, X[:, np.newaxis], y, scoring="neg_mean_squared_error", cv=10
     )

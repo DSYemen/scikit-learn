@@ -1,19 +1,15 @@
 """
-==============================================
-Face completion with a multi-output estimators
-==============================================
+===================================================
+اكتمال الوجه باستخدام المُقدرات متعددة المخرجات
+===================================================
 
-This example shows the use of multi-output estimator to complete images.
-The goal is to predict the lower half of a face given its upper half.
+يُظهر هذا المثال استخدام المُقدر متعدد المخرجات لإكمال الصور.
+الهدف هو التنبؤ بالنصف السفلي للوجه بناءً على النصف العلوي.
 
-The first column of images shows true faces. The next columns illustrate
-how extremely randomized trees, k nearest neighbors, linear
-regression and ridge regression complete the lower half of those faces.
-
+يُظهر العمود الأول من الصور الوجوه الحقيقية. توضح الأعمدة التالية كيف تقوم الأشجار العشوائية للغاية، وأقرب جيران، والانحدار الخطي، والانحدار الالتفافي بإكمال النصف السفلي من هذه الوجوه.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -24,27 +20,27 @@ from sklearn.linear_model import LinearRegression, RidgeCV
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.utils.validation import check_random_state
 
-# Load the faces datasets
+# تحميل مجموعات بيانات الوجوه
 data, targets = fetch_olivetti_faces(return_X_y=True)
 
 train = data[targets < 30]
-test = data[targets >= 30]  # Test on independent people
+test = data[targets >= 30] # الاختبار على أشخاص مستقلين
 
-# Test on a subset of people
+# الاختبار على مجموعة فرعية من الأشخاص
 n_faces = 5
 rng = check_random_state(4)
 face_ids = rng.randint(test.shape[0], size=(n_faces,))
 test = test[face_ids, :]
 
 n_pixels = data.shape[1]
-# Upper half of the faces
+# النصف العلوي من الوجوه
 X_train = train[:, : (n_pixels + 1) // 2]
-# Lower half of the faces
+# النصف السفلي من الوجوه
 y_train = train[:, n_pixels // 2 :]
 X_test = test[:, : (n_pixels + 1) // 2]
 y_test = test[:, n_pixels // 2 :]
 
-# Fit estimators
+# ملاءمة المُقدرات
 ESTIMATORS = {
     "Extra trees": ExtraTreesRegressor(
         n_estimators=10, max_features=32, random_state=0
@@ -59,7 +55,7 @@ for name, estimator in ESTIMATORS.items():
     estimator.fit(X_train, y_train)
     y_test_predict[name] = estimator.predict(X_test)
 
-# Plot the completed faces
+# رسم الوجوه المكتملة
 image_shape = (64, 64)
 
 n_cols = 1 + len(ESTIMATORS)

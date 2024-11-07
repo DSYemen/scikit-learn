@@ -11,10 +11,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/modules/generated/sklearn.datasets.make_circles.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="Gallery examples: تحويل ميزة التجزئة باستخدام الأشجار العشوائية تمامًا" />
-<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_random_forest_embedding_thumb.png" />
+<meta property="og:description" content="Gallery examples: t-SNE: تأثير قيم الحيرة المختلفة على الشكل تعلم انتشار العلامات لهيكل معقد تغيير معامل التنظيم في الشبكة العصبية متعددة الطبقات مقارنة استراتيجيات التعلم العشوائي لتصنيف الشبكة ال..." />
+<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_t_sne_perplexity_thumb.png" />
 <meta property="og:image:alt" content="" />
-<meta name="description" content="Gallery examples: تحويل ميزة التجزئة باستخدام الأشجار العشوائية تمامًا" />
+<meta name="description" content="Gallery examples: t-SNE: تأثير قيم الحيرة المختلفة على الشكل تعلم انتشار العلامات لهيكل معقد تغيير معامل التنظيم في الشبكة العصبية متعددة الطبقات مقارنة استراتيجيات التعلم العشوائي لتصنيف الشبكة ال..." />
 
     <title>make_circles &#8212; scikit-learn 1.6.dev0 documentation</title>
   
@@ -1304,7 +1304,7 @@
 <h1>make_circles<a class="headerlink" href="#make-circles" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="sklearn.datasets.make_circles">
-<span class="sig-prename descclassname"><span class="pre">sklearn.datasets.</span></span><span class="sig-name descname"><span class="pre">make_circles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d6d4571215/sklearn/datasets/_samples_generator.py#L734"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.datasets.make_circles" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">sklearn.datasets.</span></span><span class="sig-name descname"><span class="pre">make_circles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/ea2d8086cc/sklearn/datasets/_samples_generator.py#L734"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.datasets.make_circles" title="Link to this definition">#</a></dt>
 <dd><p>Make a large circle containing a smaller circle in 2d.</p>
 <p>A simple toy dataset to visualize clustering and classification
 algorithms.</p>
@@ -1357,9 +1357,21 @@ See <a class="reference internal" href="../../glossary.html#term-random_state"><
 
 <section id="gallery-examples">
 <h2>Gallery examples<a class="headerlink" href="#gallery-examples" title="Link to this heading">#</a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="يوفر RandomTreesEmbedding طريقة لتعيين البيانات إلى تمثيل متناثر عالي الأبعاد، والذي قد يكون مفيدًا للتصنيف. التعيين غير خاضع للإشراف تمامًا وفعال للغاية."><img alt="" src="../../_images/sphx_glr_plot_random_forest_embedding_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/ensemble/plot_random_forest_embedding.html#sphx-glr-auto-examples-ensemble-plot-random-forest-embedding-py"><span class="std std-ref">تحويل ميزة التجزئة باستخدام الأشجار العشوائية تمامًا</span></a></p>
-  <div class="sphx-glr-thumbnail-title">تحويل ميزة التجزئة باستخدام الأشجار العشوائية تمامًا</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="توضيح لـ t-SNE على دائرتين متحدة المركز ومجموعة بيانات المنحنى S لقيم حيرة مختلفة."><img alt="" src="../../_images/sphx_glr_plot_t_sne_perplexity_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/manifold/plot_t_sne_perplexity.html#sphx-glr-auto-examples-manifold-plot-t-sne-perplexity-py"><span class="std std-ref">t-SNE: تأثير قيم الحيرة المختلفة على الشكل</span></a></p>
+  <div class="sphx-glr-thumbnail-title">t-SNE: تأثير قيم الحيرة المختلفة على الشكل</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="مثال على تعلم انتشار العلامات لهيكل داخلي معقد لتوضيح &quot;تعلم المنحنى&quot;. يجب أن تكون الدائرة الخارجية مُعَلَّمة باللون &quot;الأحمر&quot; والدائرة الداخلية &quot;باللون الأزرق&quot;. لأن كل مجموعة من العلامات تقع داخل شكلها المميز، يمكننا أن نرى أن العلامات تنتشر بشكل صحيح حول الدائرة."><img alt="" src="../../_images/sphx_glr_plot_label_propagation_structure_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/semi_supervised/plot_label_propagation_structure.html#sphx-glr-auto-examples-semi-supervised-plot-label-propagation-structure-py"><span class="std std-ref">تعلم انتشار العلامات لهيكل معقد</span></a></p>
+  <div class="sphx-glr-thumbnail-title">تعلم انتشار العلامات لهيكل معقد</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="مقارنة بين قيم مختلفة لمعامل التنظيم &#x27;alpha&#x27; على مجموعات بيانات اصطناعية. يوضح الرسم البياني أن قيم alpha المختلفة تعطي وظائف قرار مختلفة."><img alt="" src="../../_images/sphx_glr_plot_mlp_alpha_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/neural_networks/plot_mlp_alpha.html#sphx-glr-auto-examples-neural-networks-plot-mlp-alpha-py"><span class="std std-ref">تغيير معامل التنظيم في الشبكة العصبية متعددة الطبقات</span></a></p>
+  <div class="sphx-glr-thumbnail-title">تغيير معامل التنظيم في الشبكة العصبية متعددة الطبقات</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="هذا المثال يوضح بعض منحنيات الخسارة التدريبية لاستراتيجيات التعلم العشوائي المختلفة، بما في ذلك SGD و Adam. بسبب قيود الوقت، نستخدم عدة مجموعات بيانات صغيرة، والتي قد تكون مناسبة أكثر لخوارزمية L-BFGS. ومع ذلك، يبدو أن الاتجاه العام الموضح في هذه الأمثلة ينطبق أيضًا على مجموعات البيانات الأكبر."><img alt="" src="../../_images/sphx_glr_plot_mlp_training_curves_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/neural_networks/plot_mlp_training_curves.html#sphx-glr-auto-examples-neural-networks-plot-mlp-training-curves-py"><span class="std std-ref">مقارنة استراتيجيات التعلم العشوائي لتصنيف الشبكة العصبية متعددة الطبقات</span></a></p>
+  <div class="sphx-glr-thumbnail-title">مقارنة استراتيجيات التعلم العشوائي لتصنيف الشبكة العصبية متعددة الطبقات</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="توضيح لتجريد الميزات على مجموعات بيانات التصنيف الاصطناعية. يقوم تجريد الميزات بتفكيك كل ميزة إلى مجموعة من الصناديق, هنا موزعة بالتساوي في العرض. ثم يتم ترميز القيم المنفصلة بطريقة الترميز أحادي الساخن, وتعطى لمصنف خطي. تمكن هذه المعالجة المسبقة من سلوك غير خطي حتى على الرغم من أن المصنف خطي."><img alt="" src="../../_images/sphx_glr_plot_discretization_classification_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/preprocessing/plot_discretization_classification.html#sphx-glr-auto-examples-preprocessing-plot-discretization-classification-py"><span class="std std-ref">تجريد الميزات</span></a></p>
+  <div class="sphx-glr-thumbnail-title">تجريد الميزات</div>
 </div></div></section>
 </section>
 

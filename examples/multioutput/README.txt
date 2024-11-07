@@ -1,6 +1,6 @@
 .. _multioutput_examples:
 
-Multioutput methods
--------------------
+الطرق المتعددة المخرجات
+---------------------------
 
-Examples concerning the :mod:`sklearn.multioutput` module.
+أمثلة تتعلق بوحدة :mod:`sklearn.multioutput` .

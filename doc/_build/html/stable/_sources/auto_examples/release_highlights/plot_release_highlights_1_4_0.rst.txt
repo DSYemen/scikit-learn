@@ -19,34 +19,30 @@
 
 
 =======================================
-Release Highlights for scikit-learn 1.4
+أبرز ميزات الإصدار 1.4 من scikit-learn
 =======================================
 
 .. currentmodule:: sklearn
 
-We are pleased to announce the release of scikit-learn 1.4! Many bug fixes
-and improvements were added, as well as some new key features. We detail
-below a few of the major features of this release. **For an exhaustive list of
-all the changes**, please refer to the :ref:`release notes <release_notes_1_4>`.
+يسعدنا الإعلان عن إصدار scikit-learn 1.4! تم إجراء العديد من الإصلاحات والتحسينات، بالإضافة إلى بعض الميزات الرئيسية الجديدة. نستعرض أدناه بعض الميزات الرئيسية لهذا الإصدار. **للاطلاع على قائمة شاملة بجميع التغييرات**، يرجى الرجوع إلى :ref:`ملاحظات الإصدار <release_notes_1_4>`.
 
-To install the latest version (with pip)::
+لتثبيت أحدث إصدار (باستخدام pip)::
 
     pip install --upgrade scikit-learn
 
-or with conda::
+أو باستخدام conda::
 
     conda install -c conda-forge scikit-learn
 
-.. GENERATED FROM PYTHON SOURCE LINES 25-31
+.. GENERATED FROM PYTHON SOURCE LINES 22-27
 
-HistGradientBoosting Natively Supports Categorical DTypes in DataFrames
+دعم الأنواع الفئوية في HistGradientBoosting بشكل أصلي في DataFrames
 -----------------------------------------------------------------------
-:class:`ensemble.HistGradientBoostingClassifier` and
-:class:`ensemble.HistGradientBoostingRegressor` now directly supports dataframes with
-categorical features.  Here we have a dataset with a mixture of
-categorical and numerical features:
+:class:`ensemble.HistGradientBoostingClassifier` و
+:class:`ensemble.HistGradientBoostingRegressor` يدعمان الآن الأنواع الفئوية بشكل أصلي في أطر البيانات. هنا لدينا مجموعة بيانات تحتوي على مزيج من
+الميزات الفئوية والرقمية:
 
-.. GENERATED FROM PYTHON SOURCE LINES 31-39
+.. GENERATED FROM PYTHON SOURCE LINES 27-35
 
 .. code-block:: Python
 
@@ -54,7 +50,7 @@ categorical and numerical features:
 
     X_adult, y_adult = fetch_openml("adult", version=2, return_X_y=True)
 
-    # Remove redundant and non-feature columns
+    # إزالة الأعمدة المكررة وغير المطلوبة
     X_adult = X_adult.drop(["education-num", "fnlwgt"], axis="columns")
     X_adult.dtypes
 
@@ -83,13 +79,13 @@ categorical and numerical features:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 40-43
+.. GENERATED FROM PYTHON SOURCE LINES 36-39
 
-By setting `categorical_features="from_dtype"`, the gradient boosting classifier
-treats the columns with categorical dtypes as categorical features in the
-algorithm:
+من خلال تعيين `categorical_features="from_dtype"`، يقوم مصنف التدرج التدريجي
+بمعاملة الأعمدة ذات الأنواع الفئوية على أنها ميزات فئوية في
+الخوارزمية:
 
-.. GENERATED FROM PYTHON SOURCE LINES 43-54
+.. GENERATED FROM PYTHON SOURCE LINES 39-50
 
 .. code-block:: Python
 
@@ -112,18 +108,18 @@ algorithm:
 
  .. code-block:: none
 
-    ROC AUC score is 0.9284311700225157
+    ROC AUC score is 0.9285339263136636
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 55-58
+.. GENERATED FROM PYTHON SOURCE LINES 51-54
 
-Polars output in `set_output`
+دعم إخراج Polars في `set_output`
 -----------------------------
-scikit-learn's transformers now support polars output with the `set_output` API.
+تدعم محولات scikit-learn الآن إخراج Polars باستخدام واجهة برمجة التطبيقات `set_output`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-78
+.. GENERATED FROM PYTHON SOURCE LINES 54-74
 
 .. code-block:: Python
 
@@ -167,7 +163,7 @@ scikit-learn's transformers now support polars output with the `set_output` API.
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 79-81
+.. GENERATED FROM PYTHON SOURCE LINES 75-77
 
 .. code-block:: Python
 
@@ -186,17 +182,17 @@ scikit-learn's transformers now support polars output with the `set_output` API.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 82-89
+.. GENERATED FROM PYTHON SOURCE LINES 78-85
 
-Missing value support for Random Forest
+دعم القيم المفقودة في Random Forest
 ---------------------------------------
-The classes :class:`ensemble.RandomForestClassifier` and
-:class:`ensemble.RandomForestRegressor` now support missing values. When training
-every individual tree, the splitter evaluates each potential threshold with the
-missing values going to the left and right nodes. More details in the
-:ref:`User Guide <tree_missing_value_support>`.
+تدعم الفئات :class:`ensemble.RandomForestClassifier` و
+:class:`ensemble.RandomForestRegressor` القيم المفقودة الآن. عند تدريب
+كل شجرة فردية، يقوم المقسم بتقييم كل عتبة محتملة مع
+القيم المفقودة التي تذهب إلى العقد اليسرى واليمنى. لمزيد من التفاصيل في
+:ref:`دليل المستخدم <tree_missing_value_support>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 89-98
+.. GENERATED FROM PYTHON SOURCE LINES 85-94
 
 .. code-block:: Python
 
@@ -222,16 +218,16 @@ missing values going to the left and right nodes. More details in the
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 99-105
+.. GENERATED FROM PYTHON SOURCE LINES 95-101
 
-Add support for monotonic constraints in tree-based models
+إضافة دعم القيود الأحادية الاتجاه في النماذج القائمة على الشجرة
 ----------------------------------------------------------
-While we added support for monotonic constraints in histogram-based gradient boosting
-in scikit-learn 0.23, we now support this feature for all other tree-based models as
-trees, random forests, extra-trees, and exact gradient boosting. Here, we show this
-feature for random forest on a regression problem.
+على الرغم من أننا أضفنا دعم القيود الأحادية الاتجاه في التدرج التدريجي القائم على الرسم البياني
+في scikit-learn 0.23، إلا أننا ندعم هذه الميزة الآن لجميع النماذج الأخرى القائمة على الشجرة مثل
+الأشجار، والغابات العشوائية، والأشجار الإضافية، والتدرج التدريجي الدقيق. هنا، نعرض هذه
+الميزة للغابة العشوائية في مشكلة الانحدار.
 
-.. GENERATED FROM PYTHON SOURCE LINES 105-140
+.. GENERATED FROM PYTHON SOURCE LINES 101-136
 
 .. code-block:: Python
 
@@ -282,13 +278,13 @@ feature for random forest on a regression problem.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 141-144
+.. GENERATED FROM PYTHON SOURCE LINES 137-140
 
-Enriched estimator displays
+تحسين عرض المحلل
 ---------------------------
-Estimators displays have been enriched: if we look at `forest`, defined above:
+تم تحسين عرض المحلل: إذا نظرنا إلى `forest`، المحدد أعلاه:
 
-.. GENERATED FROM PYTHON SOURCE LINES 144-146
+.. GENERATED FROM PYTHON SOURCE LINES 140-142
 
 .. code-block:: Python
 
@@ -302,7 +298,7 @@ Estimators displays have been enriched: if we look at `forest`, defined above:
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-1 {
+    <style>#sk-container-id-4 {
       /* Definition of color scheme common for light and dark mode */
       --sklearn-color-text: #000;
       --sklearn-color-text-muted: #666;
@@ -333,15 +329,15 @@ Estimators displays have been enriched: if we look at `forest`, defined above:
       }
     }
 
-    #sk-container-id-1 {
+    #sk-container-id-4 {
       color: var(--sklearn-color-text);
     }
 
-    #sk-container-id-1 pre {
+    #sk-container-id-4 pre {
       padding: 0;
     }
 
-    #sk-container-id-1 input.sk-hidden--visually {
+    #sk-container-id-4 input.sk-hidden--visually {
       border: 0;
       clip: rect(1px 1px 1px 1px);
       clip: rect(1px, 1px, 1px, 1px);
@@ -353,7 +349,7 @@ Estimators displays have been enriched: if we look at `forest`, defined above:
       width: 1px;
     }
 
-    #sk-container-id-1 div.sk-dashed-wrapped {
+    #sk-container-id-4 div.sk-dashed-wrapped {
       border: 1px dashed var(--sklearn-color-line);
       margin: 0 0.4em 0.5em 0.4em;
       box-sizing: border-box;
@@ -361,7 +357,7 @@ Estimators displays have been enriched: if we look at `forest`, defined above:
       background-color: var(--sklearn-color-background);
     }
 
-    #sk-container-id-1 div.sk-container {
+    #sk-container-id-4 div.sk-container {
       /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
          but bootstrap.min.css set `[hidden] { display: none !important; }`
          so we also need the `!important` here to be able to override the
@@ -371,7 +367,7 @@ Estimators displays have been enriched: if we look at `forest`, defined above:
       position: relative;
     }
 
-    #sk-container-id-1 div.sk-text-repr-fallback {
+    #sk-container-id-4 div.sk-text-repr-fallback {
       display: none;
     }
 
@@ -387,14 +383,14 @@ Estimators displays have been enriched: if we look at `forest`, defined above:
 
     /* Parallel-specific style estimator block */
 
-    #sk-container-id-1 div.sk-parallel-item::after {
+    #sk-container-id-4 div.sk-parallel-item::after {
       content: "";
       width: 100%;
       border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
       flex-grow: 1;
     }
 
-    #sk-container-id-1 div.sk-parallel {
+    #sk-container-id-4 div.sk-parallel {
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -402,28 +398,28 @@ Estimators displays have been enriched: if we look at `forest`, defined above:
       position: relative;
     }
 
-    #sk-container-id-1 div.sk-parallel-item {
+    #sk-container-id-4 div.sk-parallel-item {
       display: flex;
       flex-direction: column;
     }
 
-    #sk-container-id-1 div.sk-parallel-item:first-child::after {
+    #sk-container-id-4 div.sk-parallel-item:first-child::after {
       align-self: flex-end;
       width: 50%;
     }
 
-    #sk-container-id-1 div.sk-parallel-item:last-child::after {
+    #sk-container-id-4 div.sk-parallel-item:last-child::after {
       align-self: flex-start;
       width: 50%;
     }
 
-    #sk-container-id-1 div.sk-parallel-item:only-child::after {
+    #sk-container-id-4 div.sk-parallel-item:only-child::after {
       width: 0;
     }
 
     /* Serial-specific style estimator block */
 
-    #sk-container-id-1 div.sk-serial {
+    #sk-container-id-4 div.sk-serial {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -441,14 +437,14 @@ Estimators displays have been enriched: if we look at `forest`, defined above:
 
     /* Pipeline and ColumnTransformer style (default) */
 
-    #sk-container-id-1 div.sk-toggleable {
+    #sk-container-id-4 div.sk-toggleable {
       /* Default theme specific background. It is overwritten whether we have a
       specific estimator or a Pipeline/ColumnTransformer */
       background-color: var(--sklearn-color-background);
     }
 
     /* Toggleable label */
-    #sk-container-id-1 label.sk-toggleable__label {
+    #sk-container-id-4 label.sk-toggleable__label {
       cursor: pointer;
       display: flex;
       width: 100%;
@@ -461,13 +457,13 @@ Estimators displays have been enriched: if we look at `forest`, defined above:
       gap: 0.5em;
     }
 
-    #sk-container-id-1 label.sk-toggleable__label .caption {
+    #sk-container-id-4 label.sk-toggleable__label .caption {
       font-size: 0.6rem;
       font-weight: lighter;
       color: var(--sklearn-color-text-muted);
     }
 
-    #sk-container-id-1 label.sk-toggleable__label-arrow:before {
+    #sk-container-id-4 label.sk-toggleable__label-arrow:before {
       /* Arrow on the left of the label */
       content: "▸";
       float: left;
@@ -475,13 +471,13 @@ Estimators displays have been enriched: if we look at `forest`, defined above:
       color: var(--sklearn-color-icon);
     }
 
-    #sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {
+    #sk-container-id-4 label.sk-toggleable__label-arrow:hover:before {
       color: var(--sklearn-color-text);
     }
 
     /* Toggleable content - dropdown */
 
-    #sk-container-id-1 div.sk-toggleable__content {
+    #sk-container-id-4 div.sk-toggleable__content {
       max-height: 0;
       max-width: 0;
       overflow: hidden;
@@ -490,12 +486,12 @@ Estimators displays have been enriched: if we look at `forest`, defined above:
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-1 div.sk-toggleable__content.fitted {
+    #sk-container-id-4 div.sk-toggleable__content.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-1 div.sk-toggleable__content pre {
+    #sk-container-id-4 div.sk-toggleable__content pre {
       margin: 0.2em;
       border-radius: 0.25em;
       color: var(--sklearn-color-text);
@@ -503,79 +499,79 @@ Estimators displays have been enriched: if we look at `forest`, defined above:
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-1 div.sk-toggleable__content.fitted pre {
+    #sk-container-id-4 div.sk-toggleable__content.fitted pre {
       /* unfitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    #sk-container-id-4 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
       max-height: 200px;
       max-width: 100%;
       overflow: auto;
     }
 
-    #sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    #sk-container-id-4 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
       content: "▾";
     }
 
     /* Pipeline/ColumnTransformer-specific style */
 
-    #sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-4 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-1 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-4 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator-specific style */
 
     /* Colorize estimator box */
-    #sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-4 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-1 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-4 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
-    #sk-container-id-1 div.sk-label label.sk-toggleable__label,
-    #sk-container-id-1 div.sk-label label {
+    #sk-container-id-4 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-4 div.sk-label label {
       /* The background is the default theme color */
       color: var(--sklearn-color-text-on-default-background);
     }
 
     /* On hover, darken the color of the background */
-    #sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {
+    #sk-container-id-4 div.sk-label:hover label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
     /* Label box, darken color on hover, fitted */
-    #sk-container-id-1 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+    #sk-container-id-4 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator label */
 
-    #sk-container-id-1 div.sk-label label {
+    #sk-container-id-4 div.sk-label label {
       font-family: monospace;
       font-weight: bold;
       display: inline-block;
       line-height: 1.2em;
     }
 
-    #sk-container-id-1 div.sk-label-container {
+    #sk-container-id-4 div.sk-label-container {
       text-align: center;
     }
 
     /* Estimator-specific */
-    #sk-container-id-1 div.sk-estimator {
+    #sk-container-id-4 div.sk-estimator {
       font-family: monospace;
       border: 1px dotted var(--sklearn-color-border-box);
       border-radius: 0.25em;
@@ -585,18 +581,18 @@ Estimators displays have been enriched: if we look at `forest`, defined above:
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-1 div.sk-estimator.fitted {
+    #sk-container-id-4 div.sk-estimator.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
     /* on hover */
-    #sk-container-id-1 div.sk-estimator:hover {
+    #sk-container-id-4 div.sk-estimator:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-1 div.sk-estimator.fitted:hover {
+    #sk-container-id-4 div.sk-estimator.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
@@ -684,7 +680,7 @@ Estimators displays have been enriched: if we look at `forest`, defined above:
 
     /* "?"-specific style due to the `<a>` HTML tag */
 
-    #sk-container-id-1 a.estimator_doc_link {
+    #sk-container-id-4 a.estimator_doc_link {
       float: right;
       font-size: 1rem;
       line-height: 1em;
@@ -699,44 +695,43 @@ Estimators displays have been enriched: if we look at `forest`, defined above:
       border: var(--sklearn-color-unfitted-level-1) 1pt solid;
     }
 
-    #sk-container-id-1 a.estimator_doc_link.fitted {
+    #sk-container-id-4 a.estimator_doc_link.fitted {
       /* fitted */
       border: var(--sklearn-color-fitted-level-1) 1pt solid;
       color: var(--sklearn-color-fitted-level-1);
     }
 
     /* On hover */
-    #sk-container-id-1 a.estimator_doc_link:hover {
+    #sk-container-id-4 a.estimator_doc_link:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-3);
       color: var(--sklearn-color-background);
       text-decoration: none;
     }
 
-    #sk-container-id-1 a.estimator_doc_link.fitted:hover {
+    #sk-container-id-4 a.estimator_doc_link.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>RandomForestClassifier(random_state=0)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>RandomForestClassifier</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.ensemble.RandomForestClassifier.html">?<span>Documentation for RandomForestClassifier</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>RandomForestClassifier(random_state=0)</pre></div> </div></div></div></div>
+    </style><div id="sk-container-id-4" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>RandomForestClassifier(random_state=0)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" checked><label for="sk-estimator-id-4" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>RandomForestClassifier</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.ensemble.RandomForestClassifier.html">?<span>Documentation for RandomForestClassifier</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>RandomForestClassifier(random_state=0)</pre></div> </div></div></div></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 147-152
+.. GENERATED FROM PYTHON SOURCE LINES 143-147
 
-One can access the documentation of the estimator by clicking on the icon "?" on
-the top right corner of the diagram.
+يمكن الوصول إلى وثائق المحلل بالنقر على أيقونة "؟" في
+الزاوية اليمنى العليا من المخطط.
 
-In addition, the display changes color, from orange to blue, when the estimator is
-fitted. You can also get this information by hovering on the icon "i".
+بالإضافة إلى ذلك، يتغير لون العرض من البرتقالي إلى الأزرق، عندما يتم تدريب المحلل. يمكنك أيضًا الحصول على هذه المعلومات من خلال التمرير فوق أيقونة "i".
 
-.. GENERATED FROM PYTHON SOURCE LINES 152-156
+.. GENERATED FROM PYTHON SOURCE LINES 147-151
 
 .. code-block:: Python
 
     from sklearn.base import clone
 
-    clone(forest)  # the clone is not fitted
+    clone(forest)  # النسخة ليست مدربة
 
 
 
@@ -746,7 +741,7 @@ fitted. You can also get this information by hovering on the icon "i".
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-2 {
+    <style>#sk-container-id-5 {
       /* Definition of color scheme common for light and dark mode */
       --sklearn-color-text: #000;
       --sklearn-color-text-muted: #666;
@@ -777,15 +772,15 @@ fitted. You can also get this information by hovering on the icon "i".
       }
     }
 
-    #sk-container-id-2 {
+    #sk-container-id-5 {
       color: var(--sklearn-color-text);
     }
 
-    #sk-container-id-2 pre {
+    #sk-container-id-5 pre {
       padding: 0;
     }
 
-    #sk-container-id-2 input.sk-hidden--visually {
+    #sk-container-id-5 input.sk-hidden--visually {
       border: 0;
       clip: rect(1px 1px 1px 1px);
       clip: rect(1px, 1px, 1px, 1px);
@@ -797,7 +792,7 @@ fitted. You can also get this information by hovering on the icon "i".
       width: 1px;
     }
 
-    #sk-container-id-2 div.sk-dashed-wrapped {
+    #sk-container-id-5 div.sk-dashed-wrapped {
       border: 1px dashed var(--sklearn-color-line);
       margin: 0 0.4em 0.5em 0.4em;
       box-sizing: border-box;
@@ -805,7 +800,7 @@ fitted. You can also get this information by hovering on the icon "i".
       background-color: var(--sklearn-color-background);
     }
 
-    #sk-container-id-2 div.sk-container {
+    #sk-container-id-5 div.sk-container {
       /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
          but bootstrap.min.css set `[hidden] { display: none !important; }`
          so we also need the `!important` here to be able to override the
@@ -815,7 +810,7 @@ fitted. You can also get this information by hovering on the icon "i".
       position: relative;
     }
 
-    #sk-container-id-2 div.sk-text-repr-fallback {
+    #sk-container-id-5 div.sk-text-repr-fallback {
       display: none;
     }
 
@@ -831,14 +826,14 @@ fitted. You can also get this information by hovering on the icon "i".
 
     /* Parallel-specific style estimator block */
 
-    #sk-container-id-2 div.sk-parallel-item::after {
+    #sk-container-id-5 div.sk-parallel-item::after {
       content: "";
       width: 100%;
       border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
       flex-grow: 1;
     }
 
-    #sk-container-id-2 div.sk-parallel {
+    #sk-container-id-5 div.sk-parallel {
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -846,28 +841,28 @@ fitted. You can also get this information by hovering on the icon "i".
       position: relative;
     }
 
-    #sk-container-id-2 div.sk-parallel-item {
+    #sk-container-id-5 div.sk-parallel-item {
       display: flex;
       flex-direction: column;
     }
 
-    #sk-container-id-2 div.sk-parallel-item:first-child::after {
+    #sk-container-id-5 div.sk-parallel-item:first-child::after {
       align-self: flex-end;
       width: 50%;
     }
 
-    #sk-container-id-2 div.sk-parallel-item:last-child::after {
+    #sk-container-id-5 div.sk-parallel-item:last-child::after {
       align-self: flex-start;
       width: 50%;
     }
 
-    #sk-container-id-2 div.sk-parallel-item:only-child::after {
+    #sk-container-id-5 div.sk-parallel-item:only-child::after {
       width: 0;
     }
 
     /* Serial-specific style estimator block */
 
-    #sk-container-id-2 div.sk-serial {
+    #sk-container-id-5 div.sk-serial {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -885,14 +880,14 @@ fitted. You can also get this information by hovering on the icon "i".
 
     /* Pipeline and ColumnTransformer style (default) */
 
-    #sk-container-id-2 div.sk-toggleable {
+    #sk-container-id-5 div.sk-toggleable {
       /* Default theme specific background. It is overwritten whether we have a
       specific estimator or a Pipeline/ColumnTransformer */
       background-color: var(--sklearn-color-background);
     }
 
     /* Toggleable label */
-    #sk-container-id-2 label.sk-toggleable__label {
+    #sk-container-id-5 label.sk-toggleable__label {
       cursor: pointer;
       display: flex;
       width: 100%;
@@ -905,13 +900,13 @@ fitted. You can also get this information by hovering on the icon "i".
       gap: 0.5em;
     }
 
-    #sk-container-id-2 label.sk-toggleable__label .caption {
+    #sk-container-id-5 label.sk-toggleable__label .caption {
       font-size: 0.6rem;
       font-weight: lighter;
       color: var(--sklearn-color-text-muted);
     }
 
-    #sk-container-id-2 label.sk-toggleable__label-arrow:before {
+    #sk-container-id-5 label.sk-toggleable__label-arrow:before {
       /* Arrow on the left of the label */
       content: "▸";
       float: left;
@@ -919,13 +914,13 @@ fitted. You can also get this information by hovering on the icon "i".
       color: var(--sklearn-color-icon);
     }
 
-    #sk-container-id-2 label.sk-toggleable__label-arrow:hover:before {
+    #sk-container-id-5 label.sk-toggleable__label-arrow:hover:before {
       color: var(--sklearn-color-text);
     }
 
     /* Toggleable content - dropdown */
 
-    #sk-container-id-2 div.sk-toggleable__content {
+    #sk-container-id-5 div.sk-toggleable__content {
       max-height: 0;
       max-width: 0;
       overflow: hidden;
@@ -934,12 +929,12 @@ fitted. You can also get this information by hovering on the icon "i".
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-2 div.sk-toggleable__content.fitted {
+    #sk-container-id-5 div.sk-toggleable__content.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-2 div.sk-toggleable__content pre {
+    #sk-container-id-5 div.sk-toggleable__content pre {
       margin: 0.2em;
       border-radius: 0.25em;
       color: var(--sklearn-color-text);
@@ -947,79 +942,79 @@ fitted. You can also get this information by hovering on the icon "i".
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-2 div.sk-toggleable__content.fitted pre {
+    #sk-container-id-5 div.sk-toggleable__content.fitted pre {
       /* unfitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-2 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    #sk-container-id-5 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
       max-height: 200px;
       max-width: 100%;
       overflow: auto;
     }
 
-    #sk-container-id-2 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    #sk-container-id-5 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
       content: "▾";
     }
 
     /* Pipeline/ColumnTransformer-specific style */
 
-    #sk-container-id-2 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-5 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-2 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-5 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator-specific style */
 
     /* Colorize estimator box */
-    #sk-container-id-2 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-5 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-2 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-5 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
-    #sk-container-id-2 div.sk-label label.sk-toggleable__label,
-    #sk-container-id-2 div.sk-label label {
+    #sk-container-id-5 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-5 div.sk-label label {
       /* The background is the default theme color */
       color: var(--sklearn-color-text-on-default-background);
     }
 
     /* On hover, darken the color of the background */
-    #sk-container-id-2 div.sk-label:hover label.sk-toggleable__label {
+    #sk-container-id-5 div.sk-label:hover label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
     /* Label box, darken color on hover, fitted */
-    #sk-container-id-2 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+    #sk-container-id-5 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator label */
 
-    #sk-container-id-2 div.sk-label label {
+    #sk-container-id-5 div.sk-label label {
       font-family: monospace;
       font-weight: bold;
       display: inline-block;
       line-height: 1.2em;
     }
 
-    #sk-container-id-2 div.sk-label-container {
+    #sk-container-id-5 div.sk-label-container {
       text-align: center;
     }
 
     /* Estimator-specific */
-    #sk-container-id-2 div.sk-estimator {
+    #sk-container-id-5 div.sk-estimator {
       font-family: monospace;
       border: 1px dotted var(--sklearn-color-border-box);
       border-radius: 0.25em;
@@ -1029,18 +1024,18 @@ fitted. You can also get this information by hovering on the icon "i".
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-2 div.sk-estimator.fitted {
+    #sk-container-id-5 div.sk-estimator.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
     /* on hover */
-    #sk-container-id-2 div.sk-estimator:hover {
+    #sk-container-id-5 div.sk-estimator:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-2 div.sk-estimator.fitted:hover {
+    #sk-container-id-5 div.sk-estimator.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
@@ -1128,7 +1123,7 @@ fitted. You can also get this information by hovering on the icon "i".
 
     /* "?"-specific style due to the `<a>` HTML tag */
 
-    #sk-container-id-2 a.estimator_doc_link {
+    #sk-container-id-5 a.estimator_doc_link {
       float: right;
       font-size: 1rem;
       line-height: 1em;
@@ -1143,39 +1138,38 @@ fitted. You can also get this information by hovering on the icon "i".
       border: var(--sklearn-color-unfitted-level-1) 1pt solid;
     }
 
-    #sk-container-id-2 a.estimator_doc_link.fitted {
+    #sk-container-id-5 a.estimator_doc_link.fitted {
       /* fitted */
       border: var(--sklearn-color-fitted-level-1) 1pt solid;
       color: var(--sklearn-color-fitted-level-1);
     }
 
     /* On hover */
-    #sk-container-id-2 a.estimator_doc_link:hover {
+    #sk-container-id-5 a.estimator_doc_link:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-3);
       color: var(--sklearn-color-background);
       text-decoration: none;
     }
 
-    #sk-container-id-2 a.estimator_doc_link.fitted:hover {
+    #sk-container-id-5 a.estimator_doc_link.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>RandomForestClassifier(random_state=0)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked><label for="sk-estimator-id-2" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>RandomForestClassifier</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.ensemble.RandomForestClassifier.html">?<span>Documentation for RandomForestClassifier</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>RandomForestClassifier(random_state=0)</pre></div> </div></div></div></div>
+    </style><div id="sk-container-id-5" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>RandomForestClassifier(random_state=0)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox" checked><label for="sk-estimator-id-5" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>RandomForestClassifier</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.ensemble.RandomForestClassifier.html">?<span>Documentation for RandomForestClassifier</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>RandomForestClassifier(random_state=0)</pre></div> </div></div></div></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 157-163
+.. GENERATED FROM PYTHON SOURCE LINES 152-157
 
-Metadata Routing Support
+دعم توجيه البيانات الوصفية
 ------------------------
-Many meta-estimators and cross-validation routines now support metadata
-routing, which are listed in the :ref:`user guide
-<metadata_routing_models>`. For instance, this is how you can do a nested
-cross-validation with sample weights and :class:`~model_selection.GroupKFold`:
+يدعم العديد من المحللين الفائقين وروتينات التحقق المتقاطع الآن توجيه البيانات الوصفية، والتي يتم سردها في :ref:`دليل المستخدم
+<metadata_routing_models>`. على سبيل المثال، هذه هي الطريقة التي يمكنك بها إجراء التحقق المتقاطع المتداخل
+مع أوزان العينات و :class:`~model_selection.GroupKFold`:
 
-.. GENERATED FROM PYTHON SOURCE LINES 163-211
+.. GENERATED FROM PYTHON SOURCE LINES 157-203
 
 .. code-block:: Python
 
@@ -1185,8 +1179,7 @@ cross-validation with sample weights and :class:`~model_selection.GroupKFold`:
     from sklearn.linear_model import Lasso
     from sklearn.model_selection import GridSearchCV, cross_validate, GroupKFold
 
-    # For now by default metadata routing is disabled, and need to be explicitly
-    # enabled.
+    # حاليًا، يتم تعطيل توجيه البيانات الوصفية بشكل افتراضي، ويجب تمكينه بشكل صريح.
     sklearn.set_config(enable_metadata_routing=True)
 
     n_samples = 100
@@ -1223,8 +1216,7 @@ cross-validation with sample weights and :class:`~model_selection.GroupKFold`:
     )
     print("cv error on test sets:", results["test_mse"])
 
-    # Setting the flag to the default `False` to avoid interference with other
-    # scripts.
+    # تعيين العلم إلى القيمة الافتراضية `False` لتجنب التداخل مع النصوص الأخرى.
     sklearn.set_config(enable_metadata_routing=False)
 
 
@@ -1235,22 +1227,21 @@ cross-validation with sample weights and :class:`~model_selection.GroupKFold`:
 
  .. code-block:: none
 
-    cv error on test sets: [-0.51641936 -0.20439865 -0.41338472 -0.1591131  -0.16983909]
+    cv error on test sets: [-0.23753287 -0.33144764 -0.24428617 -0.44702015 -0.53005986]
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 212-219
+.. GENERATED FROM PYTHON SOURCE LINES 204-210
 
-Improved memory and runtime efficiency for PCA on sparse data
+تحسين كفاءة الذاكرة والوقت لـ PCA على البيانات المتناثرة
 -------------------------------------------------------------
-PCA is now able to handle sparse matrices natively for the `arpack`
-solver by levaraging `scipy.sparse.linalg.LinearOperator` to avoid
-materializing large sparse matrices when performing the
-eigenvalue decomposition of the data set covariance matrix.
+يمكن لـ PCA الآن التعامل مع المصفوفات المتناثرة بشكل أصلي لمحلل `arpack` من خلال الاستفادة من `scipy.sparse.linalg.LinearOperator` لتجنب
+تجسيد المصفوفات المتناثرة الكبيرة عند إجراء
+تحليل القيمة الذاتية لمصفوفة مجموعة البيانات.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 219-235
+.. GENERATED FROM PYTHON SOURCE LINES 210-225
 
 .. code-block:: Python
 
@@ -1273,12 +1264,11 @@ eigenvalue decomposition of the data set covariance matrix.
 
 
 
-
 .. rst-class:: sphx-glr-script-out
 
  .. code-block:: none
 
-    Speedup: 1.4x
+    Speedup: 7.0x
 
 
 
@@ -1286,7 +1276,7 @@ eigenvalue decomposition of the data set covariance matrix.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 4.960 seconds)
+   **Total running time of the script:** (0 minutes 4.779 seconds)
 
 
 .. _sphx_glr_download_auto_examples_release_highlights_plot_release_highlights_1_4_0.py:

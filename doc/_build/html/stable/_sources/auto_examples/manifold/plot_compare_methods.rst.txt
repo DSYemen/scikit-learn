@@ -19,23 +19,23 @@
 
 
 =========================================
-Comparison of Manifold Learning methods
+مقارنة طرق تعلم متعدد الشعب
 =========================================
 
-An illustration of dimensionality reduction on the S-curve dataset
-with various manifold learning methods.
+توضيح لخفض الأبعاد على مجموعة بيانات المنحنى S
+مع طرق تعلم متعدد الشعب المختلفة.
 
-For a discussion and comparison of these algorithms, see the
-:ref:`manifold module page <manifold>`
+لنقاش ومقارنة هذه الخوارزميات، انظر
+:ref:`صفحة وحدة متعدد الشعب <manifold>`
 
-For a similar example, where the methods are applied to a
-sphere dataset, see :ref:`sphx_glr_auto_examples_manifold_plot_manifold_sphere.py`
+لمثال مماثل، حيث يتم تطبيق الطرق على
+مجموعة بيانات كروية، انظر :ref:`sphx_glr_auto_examples_manifold_plot_manifold_sphere.py`
 
-Note that the purpose of the MDS is to find a low-dimensional
-representation of the data (here 2D) in which the distances respect well
-the distances in the original high-dimensional space, unlike other
-manifold-learning algorithms, it does not seeks an isotropic
-representation of the data in the low-dimensional space.
+لاحظ أن الغرض من MDS هو إيجاد تمثيل منخفض الأبعاد
+للبيانات (هنا 2D) حيث تحترم المسافات جيدًا
+المسافات في الفضاء الأصلي عالي الأبعاد، على عكس أخرى
+خوارزميات تعلم متعدد الشعب، فهي لا تسعى إلى تمثيل متماثل
+للبيانات في الفضاء منخفض الأبعاد.
 
 .. GENERATED FROM PYTHON SOURCE LINES 22-26
 
@@ -54,10 +54,10 @@ representation of the data in the low-dimensional space.
 
 .. GENERATED FROM PYTHON SOURCE LINES 27-31
 
-Dataset preparation
+إعداد مجموعة البيانات
 -------------------
 
-We start by generating the S-curve dataset.
+نبدأ بتوليد مجموعة بيانات المنحنى S.
 
 .. GENERATED FROM PYTHON SOURCE LINES 31-43
 
@@ -84,8 +84,8 @@ We start by generating the S-curve dataset.
 
 .. GENERATED FROM PYTHON SOURCE LINES 44-46
 
-Let's look at the original data. Also define some helping
-functions, which we will use further on.
+لنلقِ نظرة على البيانات الأصلية. ونعرّف أيضًا بعض الدوال المساعدة،
+والتي سنستخدمها لاحقًا.
 
 .. GENERATED FROM PYTHON SOURCE LINES 46-85
 
@@ -128,13 +128,13 @@ functions, which we will use further on.
         ax.yaxis.set_major_formatter(ticker.NullFormatter())
 
 
-    plot_3d(S_points, S_color, "Original S-curve samples")
+    plot_3d(S_points, S_color, "عينات المنحنى S الأصلية")
 
 
 
 
 .. image-sg:: /auto_examples/manifold/images/sphx_glr_plot_compare_methods_001.png
-   :alt: Original S-curve samples
+   :alt: عينات المنحنى S الأصلية
    :srcset: /auto_examples/manifold/images/sphx_glr_plot_compare_methods_001.png
    :class: sphx-glr-single-img
 
@@ -144,22 +144,22 @@ functions, which we will use further on.
 
 .. GENERATED FROM PYTHON SOURCE LINES 86-94
 
-Define algorithms for the manifold learning
+تعريف خوارزميات لتعلم متعدد الشعب
 -------------------------------------------
 
-Manifold learning is an approach to non-linear dimensionality reduction.
-Algorithms for this task are based on the idea that the dimensionality of
-many data sets is only artificially high.
+تعلم متعدد الشعب هو نهج لخفض الأبعاد غير الخطي.
+تعتمد خوارزميات هذه المهمة على فكرة أن أبعاد
+العديد من مجموعات البيانات مرتفعة بشكل مصطنع فقط.
 
-Read more in the :ref:`User Guide <manifold>`.
+اقرأ المزيد في :ref:`دليل المستخدم <manifold>`.
 
 .. GENERATED FROM PYTHON SOURCE LINES 94-98
 
 .. code-block:: Python
 
 
-    n_neighbors = 12  # neighborhood which is used to recover the locally linear structure
-    n_components = 2  # number of coordinates for the manifold
+    n_neighbors = 12  # الجوار الذي يتم استخدامه لاستعادة الهيكل الخطي المحلي
+    n_components = 2  # عدد الإحداثيات لمتعدد الشعب
 
 
 
@@ -168,17 +168,16 @@ Read more in the :ref:`User Guide <manifold>`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 99-106
+.. GENERATED FROM PYTHON SOURCE LINES 99-105
 
-Locally Linear Embeddings
+تضمينات خطية محليًا
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Locally linear embedding (LLE) can be thought of as a series of local
-Principal Component Analyses which are globally compared to find the
-best non-linear embedding.
-Read more in the :ref:`User Guide <locally_linear_embedding>`.
+يمكن اعتبار التضمين الخطي المحلي (LLE) سلسلة من تحليلات المكونات
+الرئيسية المحلية التي تتم مقارنتها عالميًا لإيجاد أفضل تضمين غير خطي.
+اقرأ المزيد في :ref:`دليل المستخدم <locally_linear_embedding>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 106-126
+.. GENERATED FROM PYTHON SOURCE LINES 105-125
 
 .. code-block:: Python
 
@@ -209,20 +208,20 @@ Read more in the :ref:`User Guide <locally_linear_embedding>`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 127-144
+.. GENERATED FROM PYTHON SOURCE LINES 126-143
 
 .. code-block:: Python
 
     fig, axs = plt.subplots(
         nrows=2, ncols=2, figsize=(7, 7), facecolor="white", constrained_layout=True
     )
-    fig.suptitle("Locally Linear Embeddings", size=16)
+    fig.suptitle("التضمينات الخطية المحلية", size=16)
 
     lle_methods = [
-        ("Standard locally linear embedding", S_standard),
-        ("Local tangent space alignment", S_ltsa),
-        ("Hessian eigenmap", S_hessian),
-        ("Modified locally linear embedding", S_mod),
+        ("التضمين الخطي المحلي القياسي", S_standard),
+        ("محاذاة مساحة الظماس المحلي", S_ltsa),
+        ("خريطة Hessian الذاتية", S_hessian),
+        ("التضمين الخطي المحلي المعدل", S_mod),
     ]
     for ax, method in zip(axs.flat, lle_methods):
         name, points = method
@@ -234,7 +233,7 @@ Read more in the :ref:`User Guide <locally_linear_embedding>`.
 
 
 .. image-sg:: /auto_examples/manifold/images/sphx_glr_plot_compare_methods_002.png
-   :alt: Locally Linear Embeddings, Standard locally linear embedding, Local tangent space alignment, Hessian eigenmap, Modified locally linear embedding
+   :alt: التضمينات الخطية المحلية, التضمين الخطي المحلي القياسي, محاذاة مساحة الظماس المحلي, خريطة Hessian الذاتية, التضمين الخطي المحلي المعدل
    :srcset: /auto_examples/manifold/images/sphx_glr_plot_compare_methods_002.png
    :class: sphx-glr-single-img
 
@@ -242,16 +241,16 @@ Read more in the :ref:`User Guide <locally_linear_embedding>`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 145-151
+.. GENERATED FROM PYTHON SOURCE LINES 144-150
 
-Isomap Embedding
+تضمين Isomap
 ^^^^^^^^^^^^^^^^
 
-Non-linear dimensionality reduction through Isometric Mapping.
-Isomap seeks a lower-dimensional embedding which maintains geodesic
-distances between all points. Read more in the :ref:`User Guide <isomap>`.
+خفض الأبعاد غير الخطي من خلال التعيين المتساوي القياس.
+يبحث Isomap عن تضمين منخفض الأبعاد يحافظ على المسافات الجيوديسية
+بين جميع النقاط. اقرأ المزيد في :ref:`دليل المستخدم <isomap>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 151-157
+.. GENERATED FROM PYTHON SOURCE LINES 150-156
 
 .. code-block:: Python
 
@@ -259,13 +258,13 @@ distances between all points. Read more in the :ref:`User Guide <isomap>`.
     isomap = manifold.Isomap(n_neighbors=n_neighbors, n_components=n_components, p=1)
     S_isomap = isomap.fit_transform(S_points)
 
-    plot_2d(S_isomap, S_color, "Isomap Embedding")
+    plot_2d(S_isomap, S_color, "تضمين Isomap")
 
 
 
 
 .. image-sg:: /auto_examples/manifold/images/sphx_glr_plot_compare_methods_003.png
-   :alt: Isomap Embedding
+   :alt: تضمين Isomap
    :srcset: /auto_examples/manifold/images/sphx_glr_plot_compare_methods_003.png
    :class: sphx-glr-single-img
 
@@ -273,17 +272,17 @@ distances between all points. Read more in the :ref:`User Guide <isomap>`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 158-165
+.. GENERATED FROM PYTHON SOURCE LINES 157-164
 
-Multidimensional scaling
+القياس متعدد الأبعاد
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-Multidimensional scaling (MDS) seeks a low-dimensional representation
-of the data in which the distances respect well the distances in the
-original high-dimensional space.
-Read more in the :ref:`User Guide <multidimensional_scaling>`.
+يبحث القياس متعدد الأبعاد (MDS) عن تمثيل منخفض الأبعاد
+للبيانات حيث تحترم المسافات جيدًا المسافات في
+الفضاء الأصلي عالي الأبعاد.
+اقرأ المزيد في :ref:`دليل المستخدم <multidimensional_scaling>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 165-177
+.. GENERATED FROM PYTHON SOURCE LINES 164-176
 
 .. code-block:: Python
 
@@ -297,13 +296,13 @@ Read more in the :ref:`User Guide <multidimensional_scaling>`.
     )
     S_scaling = md_scaling.fit_transform(S_points)
 
-    plot_2d(S_scaling, S_color, "Multidimensional scaling")
+    plot_2d(S_scaling, S_color, "القياس متعدد الأبعاد")
 
 
 
 
 .. image-sg:: /auto_examples/manifold/images/sphx_glr_plot_compare_methods_004.png
-   :alt: Multidimensional scaling
+   :alt: القياس متعدد الأبعاد
    :srcset: /auto_examples/manifold/images/sphx_glr_plot_compare_methods_004.png
    :class: sphx-glr-single-img
 
@@ -311,16 +310,16 @@ Read more in the :ref:`User Guide <multidimensional_scaling>`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 178-184
+.. GENERATED FROM PYTHON SOURCE LINES 177-183
 
-Spectral embedding for non-linear dimensionality reduction
+التضمين الطيفي لخفض الأبعاد غير الخطي
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This implementation uses Laplacian Eigenmaps, which finds a low dimensional
-representation of the data using a spectral decomposition of the graph Laplacian.
-Read more in the :ref:`User Guide <spectral_embedding>`.
+يستخدم هذا التنفيذ خرائط Laplacian الذاتية، والتي تجد تمثيلًا منخفض الأبعاد
+للبيانات باستخدام تحليل طيفي لمصفوفة Laplacian للرسم البياني.
+اقرأ المزيد في :ref:`دليل المستخدم <spectral_embedding>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 184-192
+.. GENERATED FROM PYTHON SOURCE LINES 183-191
 
 .. code-block:: Python
 
@@ -330,13 +329,13 @@ Read more in the :ref:`User Guide <spectral_embedding>`.
     )
     S_spectral = spectral.fit_transform(S_points)
 
-    plot_2d(S_spectral, S_color, "Spectral Embedding")
+    plot_2d(S_spectral, S_color, "التضمين الطيفي")
 
 
 
 
 .. image-sg:: /auto_examples/manifold/images/sphx_glr_plot_compare_methods_005.png
-   :alt: Spectral Embedding
+   :alt: التضمين الطيفي
    :srcset: /auto_examples/manifold/images/sphx_glr_plot_compare_methods_005.png
    :class: sphx-glr-single-img
 
@@ -344,18 +343,18 @@ Read more in the :ref:`User Guide <spectral_embedding>`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 193-201
+.. GENERATED FROM PYTHON SOURCE LINES 192-200
 
-T-distributed Stochastic Neighbor Embedding
+تضمين الجوار العشوائي الموزع على شكل حرف T
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-It converts similarities between data points to joint probabilities and
-tries to minimize the Kullback-Leibler divergence between the joint probabilities
-of the low-dimensional embedding and the high-dimensional data. t-SNE has a cost
-function that is not convex, i.e. with different initializations we can get
-different results. Read more in the :ref:`User Guide <t_sne>`.
+يحول أوجه التشابه بين نقاط البيانات إلى احتمالات مشتركة و
+يحاول تقليل اختلاف Kullback-Leibler بين الاحتمالات المشتركة
+للتضمين منخفض الأبعاد والبيانات عالية الأبعاد. لدى t-SNE دالة تكلفة
+ليست محدبة، أي مع تهيئات أولية مختلفة يمكننا الحصول على
+نتائج مختلفة. اقرأ المزيد في :ref:`دليل المستخدم <t_sne>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 201-213
+.. GENERATED FROM PYTHON SOURCE LINES 200-212
 
 .. code-block:: Python
 
@@ -369,13 +368,13 @@ different results. Read more in the :ref:`User Guide <t_sne>`.
     )
     S_t_sne = t_sne.fit_transform(S_points)
 
-    plot_2d(S_t_sne, S_color, "T-distributed Stochastic  \n Neighbor Embedding")
+    plot_2d(S_t_sne, S_color, "تضمين الجوار العشوائي \n الموزع على شكل حرف T")
 
 
 
 
 .. image-sg:: /auto_examples/manifold/images/sphx_glr_plot_compare_methods_006.png
-   :alt: T-distributed Stochastic    Neighbor Embedding
+   :alt: تضمين الجوار العشوائي   الموزع على شكل حرف T
    :srcset: /auto_examples/manifold/images/sphx_glr_plot_compare_methods_006.png
    :class: sphx-glr-single-img
 
@@ -386,7 +385,7 @@ different results. Read more in the :ref:`User Guide <t_sne>`.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 15.725 seconds)
+   **Total running time of the script:** (0 minutes 17.568 seconds)
 
 
 .. _sphx_glr_download_auto_examples_manifold_plot_compare_methods.py:

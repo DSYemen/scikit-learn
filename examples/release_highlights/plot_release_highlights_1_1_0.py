@@ -1,21 +1,21 @@
 # ruff: noqa
 """
 =======================================
-Release Highlights for scikit-learn 1.1
+أبرز الميزات الجديدة في إصدار scikit-learn 1.1
 =======================================
 
 .. currentmodule:: sklearn
 
-We are pleased to announce the release of scikit-learn 1.1! Many bug fixes
-and improvements were added, as well as some new key features. We detail
-below a few of the major features of this release. **For an exhaustive list of
-all the changes**, please refer to the :ref:`release notes <release_notes_1_1>`.
+يسعدنا الإعلان عن إصدار scikit-learn 1.1! تم إصلاح العديد من الأخطاء
+وإجراء العديد من التحسينات، بالإضافة إلى بعض الميزات الرئيسية الجديدة. نستعرض
+أدناه بعض الميزات الرئيسية لهذا الإصدار. **للاطلاع على قائمة شاملة بجميع
+التغييرات**، يرجى الرجوع إلى :ref:`release notes <release_notes_1_1>`.
 
-To install the latest version (with pip)::
+لتثبيت أحدث إصدار (باستخدام pip)::
 
     pip install --upgrade scikit-learn
 
-or with conda::
+أو باستخدام conda::
 
     conda install -c conda-forge scikit-learn
 
@@ -24,15 +24,15 @@ or with conda::
 # %%
 # .. _quantile_support_hgbdt:
 #
-# Quantile loss in :class:`~ensemble.HistGradientBoostingRegressor`
+# خسارة الكمية في :class:`~ensemble.HistGradientBoostingRegressor`
 # -----------------------------------------------------------------
-# :class:`~ensemble.HistGradientBoostingRegressor` can model quantiles with
-# `loss="quantile"` and the new parameter `quantile`.
+# :class:`~ensemble.HistGradientBoostingRegressor` يمكنه نمذجة الكميات مع
+# `loss="quantile"` ومعامل `quantile` الجديد.
 from sklearn.ensemble import HistGradientBoostingRegressor
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Simple regression function for X * cos(X)
+# دالة انحدار بسيطة لـ X * cos(X)
 rng = np.random.RandomState(42)
 X_1d = np.linspace(0, 10, num=2000)
 X = X_1d.reshape(-1, 1)
@@ -54,15 +54,14 @@ for quantile, hist in hist_quantiles.items():
 _ = ax.legend(loc="lower left")
 
 # %%
-# For a usecase example, see
+# لمثال على الاستخدام، راجع
 # :ref:`sphx_glr_auto_examples_ensemble_plot_hgbt_regression.py`
 
 # %%
-# `get_feature_names_out` Available in all Transformers
+# `get_feature_names_out` متاحة في جميع المحولات
 # -----------------------------------------------------
-# :term:`get_feature_names_out` is now available in all Transformers. This enables
-# :class:`~pipeline.Pipeline` to construct the output feature names for more complex
-# pipelines:
+# :term:`get_feature_names_out` متاحة الآن في جميع المحولات. هذا يمكّن
+# :class:`~pipeline.Pipeline` من إنشاء أسماء الميزات الناتجة عن أنابيب أكثر تعقيدًا:
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.pipeline import make_pipeline
@@ -94,10 +93,9 @@ log_reg.fit(X, y)
 
 
 # %%
-# Here we slice the pipeline to include all the steps but the last one. The output
-# feature names of this pipeline slice are the features put into logistic
-# regression. These names correspond directly to the coefficients in the logistic
-# regression:
+# هنا نقوم بتقسيم الأنابيب لإدراج جميع الخطوات باستثناء الأخيرة. أسماء الميزات الناتجة
+# عن هذا الجزء من الأنابيب هي الميزات التي يتم إدخالها في الانحدار اللوجستي. هذه
+# الأسماء تقابل مباشرة المعاملات في الانحدار اللوجستي:
 import pandas as pd
 
 log_reg_input_features = log_reg[:-1].get_feature_names_out()
@@ -106,13 +104,12 @@ plt.tight_layout()
 
 
 # %%
-# Grouping infrequent categories in :class:`~preprocessing.OneHotEncoder`
+# تجميع الفئات غير المتكررة في :class:`~preprocessing.OneHotEncoder`
 # -----------------------------------------------------------------------
-# :class:`~preprocessing.OneHotEncoder` supports aggregating infrequent
-# categories into a single output for each feature. The parameters to enable
-# the gathering of infrequent categories are `min_frequency` and
-# `max_categories`. See the :ref:`User Guide <encoder_infrequent_categories>`
-# for more details.
+# :class:`~preprocessing.OneHotEncoder` يدعم تجميع الفئات غير المتكررة في ناتج
+# واحد لكل ميزة. المعاملات لتمكين تجميع الفئات غير المتكررة هي `min_frequency`
+# و `max_categories`. راجع :ref:`User Guide <encoder_infrequent_categories>`
+# لمزيد من التفاصيل.
 from sklearn.preprocessing import OneHotEncoder
 import numpy as np
 
@@ -123,20 +120,20 @@ enc = OneHotEncoder(min_frequency=6, sparse_output=False).fit(X)
 enc.infrequent_categories_
 
 # %%
-# Since dog and snake are infrequent categories, they are grouped together when
-# transformed:
+# نظرًا لأن الكلب والأفعى فئات غير متكررة، يتم تجميعها معًا عند
+# التحويل:
 encoded = enc.transform(np.array([["dog"], ["snake"], ["cat"], ["rabbit"]]))
 pd.DataFrame(encoded, columns=enc.get_feature_names_out())
 
 # %%
-# Performance improvements
+# تحسينات الأداء
 # ------------------------
-# Reductions on pairwise distances for dense float64 datasets has been refactored
-# to better take advantage of non-blocking thread parallelism. For example,
-# :meth:`neighbors.NearestNeighbors.kneighbors` and
-# :meth:`neighbors.NearestNeighbors.radius_neighbors` can respectively be up to ×20 and
-# ×5 faster than previously. In summary, the following functions and estimators
-# now benefit from improved performance:
+# تم إعادة هيكلة الحسابات على المسافات الزوجية للمجموعات الكثيفة من النوع
+# float64 للاستفادة بشكل أفضل من تعددية الخيوط غير الحاجبة. على سبيل
+# المثال، يمكن أن يكون :meth:`neighbors.NearestNeighbors.kneighbors` و
+# :meth:`neighbors.NearestNeighbors.radius_neighbors` أسرع بمقدار 20 و 5
+# مرة على التوالي من السابق. وباختصار، فإن الدوال والمقدرات التالية تستفيد
+# الآن من تحسينات الأداء:
 #
 # - :func:`metrics.pairwise_distances_argmin`
 # - :func:`metrics.pairwise_distances_argmin_min`
@@ -159,11 +156,11 @@ pd.DataFrame(encoded, columns=enc.get_feature_names_out())
 # - :class:`semi_supervised.LabelPropagation`
 # - :class:`semi_supervised.LabelSpreading`
 #
-# To know more about the technical details of this work, you can read
-# `this suite of blog posts <https://blog.scikit-learn.org/technical/performances/>`_.
+# لمعرفة المزيد عن التفاصيل التقنية لهذا العمل، يمكنك قراءة
+# `هذه السلسلة من المقالات <https://blog.scikit-learn.org/technical/performances/>`_.
 #
-# Moreover, the computation of loss functions has been refactored using
-# Cython resulting in performance improvements for the following estimators:
+# علاوة على ذلك، تم إعادة هيكلة حسابات دالات الخسارة باستخدام Cython، مما أدى
+# إلى تحسينات في الأداء للمقدرات التالية:
 #
 # - :class:`linear_model.LogisticRegression`
 # - :class:`linear_model.GammaRegressor`
@@ -171,16 +168,16 @@ pd.DataFrame(encoded, columns=enc.get_feature_names_out())
 # - :class:`linear_model.TweedieRegressor`
 
 # %%
-# :class:`~decomposition.MiniBatchNMF`: an online version of NMF
+# :class:`~decomposition.MiniBatchNMF`: نسخة عبر الإنترنت من NMF
 # --------------------------------------------------------------
-# The new class :class:`~decomposition.MiniBatchNMF` implements a faster but
-# less accurate version of non-negative matrix factorization
-# (:class:`~decomposition.NMF`). :class:`~decomposition.MiniBatchNMF` divides the
-# data into mini-batches and optimizes the NMF model in an online manner by
-# cycling over the mini-batches, making it better suited for large datasets. In
-# particular, it implements `partial_fit`, which can be used for online
-# learning when the data is not readily available from the start, or when the
-# data does not fit into memory.
+# الفئة الجديدة :class:`~decomposition.MiniBatchNMF` تنفذ نسخة أسرع ولكنها
+# أقل دقة من التحليل المصفوفي غير السلبي
+# (:class:`~decomposition.NMF`). :class:`~decomposition.MiniBatchNMF` تقسم
+# البيانات إلى مجموعات صغيرة وتُحسّن نموذج NMF بطريقة عبر الإنترنت عن طريق
+# الدوران عبر المجموعات الصغيرة، مما يجعلها أكثر ملاءمة للمجموعات الكبيرة.
+# على وجه الخصوص، تنفذ `partial_fit`، والتي يمكن استخدامها للتعلم عبر
+# الإنترنت عندما لا تكون البيانات متاحة بسهولة من البداية، أو عندما لا
+# تتناسب البيانات مع الذاكرة.
 import numpy as np
 from sklearn.decomposition import MiniBatchNMF
 
@@ -205,14 +202,14 @@ print(
 )
 
 # %%
-# :class:`~cluster.BisectingKMeans`: divide and cluster
+# :class:`~cluster.BisectingKMeans`: التقسيم والتجميع
 # -----------------------------------------------------
-# The new class :class:`~cluster.BisectingKMeans` is a variant of
-# :class:`~cluster.KMeans`, using divisive hierarchical clustering. Instead of
-# creating all centroids at once, centroids are picked progressively based on a
-# previous clustering: a cluster is split into two new clusters repeatedly
-# until the target number of clusters is reached, giving a hierarchical
-# structure to the clustering.
+# الفئة الجديدة :class:`~cluster.BisectingKMeans` هي نسخة من
+# :class:`~cluster.KMeans`، تستخدم التجميع الهرمي التقسيمي. بدلاً من
+# إنشاء جميع المراكز في وقت واحد، يتم اختيار المراكز تدريجياً بناءً على
+# التجميع السابق: يتم تقسيم التجميع إلى تجميعين جديدين بشكل متكرر حتى
+# يتم الوصول إلى عدد التجميعات المستهدف، مما يعطي هيكلًا هرميًا
+# للتجميع.
 from sklearn.datasets import make_blobs
 from sklearn.cluster import KMeans, BisectingKMeans
 import matplotlib.pyplot as plt

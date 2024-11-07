@@ -7,16 +7,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Evaluation of outlier detection estimators" />
+<meta property="og:title" content="تقييم خوارزميات كشف الشواذ" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/auto_examples/miscellaneous/plot_outlier_detection_bench.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="This example compares two outlier detection algorithms, namely مُعامل القيم المتطرفة المحلي(LOF) and غابة العزل(IForest), on real-world datasets available in sklearn.datasets. The goal is to show t..." />
+<meta property="og:description" content="يقارن هذا المثال بين خوارزميتين لكشف الشواذ، وهما مُعامل القيم المتطرفة المحلي(LOF) و غابة العزل(IForest)، على مجموعات بيانات واقعية متوفرة في sklearn.datasets. الهدف هو إظهار أن خوارزميات مختلفة ت..." />
 <meta property="og:image" content="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" />
 <meta property="og:image:alt" content="scikit-learn" />
-<meta name="description" content="This example compares two outlier detection algorithms, namely مُعامل القيم المتطرفة المحلي(LOF) and غابة العزل(IForest), on real-world datasets available in sklearn.datasets. The goal is to show t..." />
+<meta name="description" content="يقارن هذا المثال بين خوارزميتين لكشف الشواذ، وهما مُعامل القيم المتطرفة المحلي(LOF) و غابة العزل(IForest)، على مجموعات بيانات واقعية متوفرة في sklearn.datasets. الهدف هو إظهار أن خوارزميات مختلفة ت..." />
 
-    <title>Evaluation of outlier detection estimators &#8212; scikit-learn 1.6.dev0 documentation</title>
+    <title>تقييم خوارزميات كشف الشواذ &#8212; scikit-learn 1.6.dev0 documentation</title>
   
   
   
@@ -78,8 +78,8 @@
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="search" title="بحث" href="../../search.html" />
-    <link rel="next" title="Explicit feature map approximation for RBF kernels" href="plot_kernel_approximation.html" />
-    <link rel="prev" title="Displaying estimators and complex pipelines" href="plot_estimator_representation.html" />
+    <link rel="next" title="توجيه البيانات الوصفية" href="plot_metadata_routing.html" />
+    <link rel="prev" title="تقريب خريطة الميزات الصريحة لنواة RBF" href="plot_kernel_approximation.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="ar"/>
   <meta name="docsearch:version" content="1.6" />
@@ -549,160 +549,74 @@
      aria-label="Section Navigation">
   <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../release_highlights/index.html">Release Highlights</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_5_0.html">Release Highlights for scikit-learn 1.5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_4_0.html">Release Highlights for scikit-learn 1.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_3_0.html">Release Highlights for scikit-learn 1.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_2_0.html">Release Highlights for scikit-learn 1.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_1_0.html">Release Highlights for scikit-learn 1.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_0_0.html">Release Highlights for scikit-learn 1.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_24_0.html">Release Highlights for scikit-learn 0.24</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_23_0.html">Release Highlights for scikit-learn 0.23</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_22_0.html">Release Highlights for scikit-learn 0.22</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../manifold/index.html">(المتشعب)التعلم المتعدد</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_t_sne_perplexity.html">t-SNE: تأثير قيم الحيرة المختلفة على الشكل</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_mds.html">القياس متعدد الأبعاد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_lle_digits.html">تعلم متعدد الشعب على الأرقام المكتوبة بخط اليد: التضمين الخطي المحلي، Isomap...</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_swissroll.html">خفض اللفافة السويسرية واللفافة السويسرية ذات الثقب</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_manifold_sphere.html">طرق تعلم متعدد الشعب على كرة مقطوعة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_compare_methods.html">مقارنة طرق تعلم متعدد الشعب</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../tree/index.html">Decision Trees</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../tree/plot_tree_regression.html">Decision Tree Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tree/plot_iris_dtc.html">Plot the decision surface of decision trees trained on the iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tree/plot_cost_complexity_pruning.html">Post pruning decision trees with cost complexity pruning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tree/plot_unveil_tree_structure.html">Understanding the decision tree structure</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../svm/index.html">Support Vector Machines (SVM)</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_oneclass.html">One-class SVM with non-linear kernel (RBF)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_custom_kernel.html">SVM مع نواة مخصصة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_anova.html">SVM-Anova: SVM مع اختيار الميزات أحادية المتغير</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_weighted_samples.html">SVM: العينات ذات الأوزان</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_separating_hyperplane.html">SVM: المستوى الفاصل ذو الهامش الأقصى</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_separating_hyperplane_unbalanced.html">SVM: المستوي الفاصل للطبقات غير المتوازنة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_regression.html">دعم نموذج الانحدار باستخدام نواة خطية وغير خطية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_linearsvc_support_vectors.html">رسم المتجهات الداعمة في LinearSVC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_kernels.html">رسم حدود التصنيف مع نوى SVM مختلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_iris_svc.html">رسم مخططات لمصنفات SVM المختلفة في مجموعة بيانات الزهرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_scale_c.html">ضبط معامل الانتظام لخوارزمية SVC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_tie_breaking.html">مثال على كسر التعادل في SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_margin.html">مثال على هوامش SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svm/plot_rbf_parameters.html">معاملات SVM ذات الدالة الشعاعية الأساسية</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../mixture/index.html">Gaussian Mixture Models</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_concentration_prior.html">Concentration Prior Type Analysis of Variation Bayesian Gaussian Mixture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_pdf.html">Density Estimation for a Gaussian mixture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_init.html">GMM Initialization Methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_covariances.html">GMM covariances</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm.html">Gaussian Mixture Model Ellipsoids</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_selection.html">Gaussian Mixture Model Selection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_sin.html">Gaussian Mixture Model Sine Curve</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../tree/index.html">أشجار القرار-</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tree/plot_tree_regression.html">انحدار شجرة القرار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tree/plot_cost_complexity_pruning.html">تشذيب أشجار القرار بعد التدريب باستخدام تقنية تشذيب تعقيد التكلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tree/plot_iris_dtc.html">رسم سطح القرار لأشجار القرار المدربة على مجموعة بيانات الزهرة الآرغوانية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tree/plot_unveil_tree_structure.html">فهم بنية شجرة القرار</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../manifold/index.html">Manifold learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_compare_methods.html">Comparison of Manifold Learning methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_manifold_sphere.html">Manifold Learning methods on a severed sphere</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_lle_digits.html">Manifold learning on handwritten digits: Locally Linear Embedding, Isomap...</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_mds.html">Multi-dimensional scaling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_swissroll.html">Swiss Roll And Swiss-Hole Reduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../manifold/plot_t_sne_perplexity.html">t-SNE: The effect of various perplexity values on the shape</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Miscellaneous</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="plot_partial_dependence_visualization_api.html">Advanced Plotting With Partial Dependence</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_anomaly_comparison.html">Comparing anomaly detection algorithms for outlier detection on toy datasets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_kernel_ridge_regression.html">Comparison of kernel ridge regression and SVR</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_pipeline_display.html">Displaying Pipelines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_estimator_representation.html">Displaying estimators and complex pipelines</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Evaluation of outlier detection estimators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_kernel_approximation.html">Explicit feature map approximation for RBF kernels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_multioutput_face_completion.html">Face completion with a multi-output estimators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_set_output.html">Introducing the <code class="docutils literal notranslate"><span class="pre">set_output</span></code> API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_isotonic_regression.html">Isotonic Regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_metadata_routing.html">Metadata Routing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_multilabel.html">Multilabel classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_roc_curve_visualization_api.html">ROC Curve with Visualization API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_johnson_lindenstrauss_bound.html">The Johnson-Lindenstrauss bound for embedding with random projections</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_display_object_visualization.html">Visualizations with Display Objects</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../model_selection/index.html">Model Selection</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_grid_search_refit_callable.html">Balance model complexity and cross-validated score</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_likelihood_ratios.html">Class Likelihood Ratios to measure classification performance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_randomized_search.html">Comparing randomized search and grid search for hyperparameter estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_successive_halving_heatmap.html">Comparison between grid search and successive halving</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_confusion_matrix.html">Confusion matrix</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_grid_search_digits.html">Custom refit strategy of a grid search with cross-validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_multi_metric_evaluation.html">Demonstration of multi-metric evaluation on cross_val_score and GridSearchCV</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_det.html">Detection error tradeoff (DET) curve</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_train_error_vs_test_error.html">Effect of model regularization on training and test error</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_roc.html">Multiclass Receiver Operating Characteristic (ROC)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_nested_cross_validation_iris.html">Nested versus non-nested cross-validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_cv_predict.html">Plotting Cross-Validated Predictions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_learning_curve.html">Plotting Learning Curves and Checking Models' Scalability</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_tuned_decision_threshold.html">Post-hoc tuning the cut-off point of decision function</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_cost_sensitive_learning.html">Post-tuning the decision threshold for cost-sensitive learning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_precision_recall.html">Precision-Recall</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_roc_crossval.html">Receiver Operating Characteristic (ROC) with cross validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_grid_search_text_feature_extraction.html">Sample pipeline for text feature extraction and evaluation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_grid_search_stats.html">Statistical comparison of models using grid search</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_successive_halving_iterations.html">Successive Halving Iterations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_permutation_tests_for_classification.html">Test with permutations the significance of a classification score</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_underfitting_overfitting.html">Underfitting vs. Overfitting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_cv_indices.html">Visualizing cross-validation behavior in scikit-learn</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../multiclass/index.html">Multiclass methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../multiclass/plot_multiclass_overview.html">Overview of multiclass training meta-estimators</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../multioutput/index.html">Multioutput methods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../multioutput/plot_classifier_chain_yeast.html">Multilabel classification using a classifier chain</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../neighbors/index.html">Nearest Neighbors</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/approximate_nearest_neighbors.html">Approximate nearest neighbors in TSNE</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_caching_nearest_neighbors.html">Caching nearest neighbors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_classification.html">Comparing Nearest Neighbors with and without Neighborhood Components Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_dim_reduction.html">Dimensionality Reduction with Neighborhood Components Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_species_kde.html">Kernel Density Estimate of Species Distributions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_digits_kde_sampling.html">Kernel Density Estimation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nearest_centroid.html">Nearest Centroid Classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_classification.html">Nearest Neighbors Classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_regression.html">Nearest Neighbors regression</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_illustration.html">Neighborhood Components Analysis Illustration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_lof_novelty_detection.html">Novelty detection with Local Outlier Factor (LOF)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_lof_outlier_detection.html">Outlier detection with Local Outlier Factor (LOF)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_kde_1d.html">Simple 1D Kernel Density Estimation</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../neural_networks/index.html">Neural Networks</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mlp_training_curves.html">Compare Stochastic learning strategies for MLPClassifier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_rbm_logistic_classification.html">Restricted Boltzmann Machine features for digit classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mlp_alpha.html">Varying regularization in Multi-layer Perceptron</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mnist_filters.html">Visualization of MLP weights on MNIST</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../preprocessing/index.html">Preprocessing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_all_scaling.html">Compare the effect of different scalers on data with outliers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder.html">Comparing Target Encoder with Other Encoders</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization_strategies.html">Demonstrating the different strategies of KBinsDiscretizer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization_classification.html">Feature discretization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_scaling_importance.html">Importance of Feature Scaling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_map_data_to_normal.html">Map data to a normal distribution</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder_cross_val.html">Target Encoder's Internal Cross fitting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization.html">Using KBinsDiscretizer to discretize continuous features</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../release_highlights/index.html">أبرز ما جاء في الإصدار</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_5_0.html">أبرز الميزات الجديدة في الإصدار 1.5 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_4_0.html">أبرز ميزات الإصدار 1.4 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_3_0.html">أبرز ميزات الإصدار 1.3 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_2_0.html">أبرز ميزات الإصدار 1.2 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_1_0.html">أبرز الميزات الجديدة في إصدار scikit-learn 1.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_1_0_0.html">أبرز ميزات الإصدار 1.0 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_24_0.html">أبرز ميزات الإصدار 0.24 من scikit-learn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_23_0.html">أبرز الميزات الجديدة في إصدار scikit-learn 0.23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release_highlights/plot_release_highlights_0_22_0.html">أبرز ميزات الإصدار 0.22 من scikit-learn</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../semi_supervised/index.html">Semi Supervised Classification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_semi_supervised_versus_svm_iris.html">Decision boundary of semi-supervised classifiers versus SVM on the Iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_self_training_varying_threshold.html">Effect of varying threshold for self-training</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_digits_active_learning.html">Label Propagation digits active learning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_digits.html">Label Propagation digits: Demonstrating performance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_structure.html">Label Propagation learning a complex structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_semi_supervised_newsgroups.html">Semi-supervised Classification on a Text Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_semi_supervised_newsgroups.html">التصنيف شبه المُشرف على مجموعة بيانات نصية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_self_training_varying_threshold.html">تأثير تغيير العتبة في التدريب الذاتي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_structure.html">تعلم انتشار العلامات لهيكل معقد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_semi_supervised_versus_svm_iris.html">حدود القرار للمصنفات شبه المُشرفة مقابل SVM على مجموعة بيانات Iris</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_digits_active_learning.html">نشر التسمية للأرقام باستخدام التعلم النشط</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../semi_supervised/plot_label_propagation_digits.html">نشر العلامات على الأرقام: توضيح الأداء</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../svm/index.html">Support Vector Machines</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_oneclass.html">One-class SVM with non-linear kernel (RBF)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_kernels.html">Plot classification boundaries with different SVM Kernels</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_iris_svc.html">Plot different SVM classifiers in the iris dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_linearsvc_support_vectors.html">Plot the support vectors in LinearSVC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_rbf_parameters.html">RBF SVM parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_margin.html">SVM Margins Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_tie_breaking.html">SVM Tie Breaking Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_custom_kernel.html">SVM with custom kernel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_anova.html">SVM-Anova: SVM with univariate feature selection</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_separating_hyperplane.html">SVM: Maximum margin separating hyperplane</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_separating_hyperplane_unbalanced.html">SVM: Separating hyperplane for unbalanced classes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_weighted_samples.html">SVM: Weighted samples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_scale_c.html">Scaling the regularization parameter for SVCs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../svm/plot_svm_regression.html">Support Vector Regression (SVR) using linear and non-linear kernels</a></li>
-</ul>
-</details></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../text/index.html">Working with text documents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../text/plot_document_classification_20newsgroups.html">Classification of text documents using sparse features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../text/plot_document_clustering.html">Clustering text documents using k-means</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../text/plot_hashing_vs_dict_vectorizer.html">FeatureHasher and DictVectorizer Comparison</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../neighbors/index.html">أقرب الجيران</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/approximate_nearest_neighbors.html">أقرب النقاط المجاورة التقريبية في TSNE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_regression.html">أقرب جيران الانحدار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_caching_nearest_neighbors.html">الاحتفاظ بأقرب الجيران في الذاكرة المؤقتة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_dim_reduction.html">الحد من الأبعاد باستخدام تحليل مكونات الجوار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_lof_novelty_detection.html">الكشف عن البيانات الشاذة باستخدام عامل الانحراف المحلي (LOF)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_lof_outlier_detection.html">الكشف عن القيم الشاذة باستخدام عامل الانحراف المحلي (LOF)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_classification.html">تصنيف أقرب الجيران</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nearest_centroid.html">تصنيف أقرب مركز</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_digits_kde_sampling.html">تقدير كثافة النواة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_kde_1d.html">تقدير كثافة النواة البسيطة أحادية البعد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_species_kde.html">تقدير كثافة النواة لتوزيع الأنواع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_illustration.html">توضيح تحليل مكونات الأحياء المجاورة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neighbors/plot_nca_classification.html">مقارنة أقرب الجيران مع وبدون تحليل مكونات الحي</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../applications/index.html">أمثلة مبنية على مجموعات بيانات من العالم الحقيقي</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -730,6 +644,33 @@
 <li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_rfe_digits.html">إزالة الميزة المتكررة</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_feature_selection.html">اختيار الميزة أحادية المتغير</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../feature_selection/plot_f_test_vs_mi.html">مقارنة بين اختبار F والمعلومات المتبادلة</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../model_selection/index.html">إختيار النموذج</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_permutation_tests_for_classification.html">"</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_grid_search_digits.html">استراتيجية إعادة الضبط المخصصة للبحث الشبكي مع التحقق المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_nested_cross_validation_iris.html">التصنيف المتداخل مقابل غير المتداخل</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_grid_search_stats.html">المقارنة الإحصائية للنماذج باستخدام البحث الشبكي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_grid_search_refit_callable.html">الموازنة بين تعقيد النموذج ودرجة الدقة عبر التحقق المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_train_error_vs_test_error.html">تأثير تنظيم النموذج على خطأ التدريب والاختبار</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_cv_indices.html">تصور سلوك التحقق المتقاطع في سكايلرن</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_multi_metric_evaluation.html">توضيح التقييم متعدد المقاييس على cross_val_score و GridSearchCV</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_precision_recall.html">دقة-استدعاء</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_cv_predict.html">رسم تنبؤات الصندوق الأسود</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_learning_curve.html">رسم منحنيات التعلم وفحص قابلية التوسع للنماذج</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_cost_sensitive_learning.html">ضبط عتبة القرار للتعلم الحساس للتكلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_tuned_decision_threshold.html">ضبط نقطة القطع لوظيفة القرار بعد التدريب</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_underfitting_overfitting.html">عدم الملاءمة مقابل الإفراط في الملاءمة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_successive_halving_iterations.html">عمليات التقسيم المتتالية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_grid_search_text_feature_extraction.html">مثال على خط أنابيب لاستخراج ميزات النص وتقييمها</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_confusion_matrix.html">مصفوفة الارتباك</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_randomized_search.html">مقارنة البحث العشوائي والبحث الشبكي لتقدير فرط المعلمات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_successive_halving_heatmap.html">مقارنة بين البحث الشبكي وتقليص الخيارات المتتابع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_roc.html">منحنى استقبال التشغيل متعدد الفئات (ROC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_det.html">منحنى الخطأ الكشف (DET)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_roc_crossval.html">منحنى المستقبل التشغيلي (ROC) مع التحقق المتقاطع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../model_selection/plot_likelihood_ratios.html">نسب الاحتمال الطبقي لقياس أداء التصنيف</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../cluster/index.html">التجميع</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -785,12 +726,44 @@
 
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../neural_networks/index.html">الشبكات العصبية</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mnist_filters.html">تصور أوزان الشبكة العصبية متعددة الطبقات على مجموعة بيانات MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mlp_alpha.html">تغيير معامل التنظيم في الشبكة العصبية متعددة الطبقات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_mlp_training_curves.html">مقارنة استراتيجيات التعلم العشوائي لتصنيف الشبكة العصبية متعددة الطبقات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neural_networks/plot_rbm_logistic_classification.html">ميزات شبكة بولتزمان المقيدة لتصنيف الأرقام</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../multiclass/index.html">الطرق المتعددة الفئات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../multiclass/plot_multiclass_overview.html">نظرة عامة على الميتا-مقدّرات التدريب متعدد التصنيفات</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../multioutput/index.html">الطرق المتعددة المخرجات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../multioutput/plot_classifier_chain_yeast.html">التصنيف متعدد التصنيفات باستخدام سلسلة المصنفات</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../text/index.html">العمل مع المستندات النصية</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../text/plot_document_clustering.html">تجميع مستندات النص باستخدام k-means</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../text/plot_document_classification_20newsgroups.html">تصنيف وثائق النصوص باستخدام الميزات المتناثرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../text/plot_hashing_vs_dict_vectorizer.html">مقارنة بين FeatureHasher و DictVectorizer</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../inspection/index.html">الفحص</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance_multicollinear.html">أهمية التبديل مع الميزات متعددة الخطية أو المرتبطة</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_permutation_importance.html">أهمية التبديل مقابل أهمية ميزة الغابة العشوائية (MDI)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_linear_model_coefficient_interpretation.html">المزالق الشائعة في تفسير معاملات النماذج الخطية</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_causal_interpretation.html">فشل التعلم الآلي في استنتاج الآثار السببية</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../inspection/plot_partial_dependence.html">مخططات التبعية الجزئية والتوقع الشرطي الفردي</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../preprocessing/index.html">المعالجة المسبقة للبيانات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_scaling_importance.html">أهمية معايرة الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization.html">استخدام KBinsDiscretizer لتقسيم الخصائص المستمرة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder_cross_val.html">الترميز الداخلي للهدف عبر الملاءمة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization_classification.html">تجريد الميزات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_map_data_to_normal.html">تحويل البيانات إلى التوزيع الطبيعي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_discretization_strategies.html">عرض استراتيجيات KBinsDiscretizer المختلفة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_all_scaling.html">مقارنة تأثير المقياس المختلف على البيانات مع القيم الشاذة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../preprocessing/plot_target_encoder.html">مقارنة ترميز الهدف مع الترميزات الأخرى</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../linear_model/index.html">النماذج الخطية المعممة</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -926,11 +899,39 @@
 <li class="toctree-l2"><a class="reference internal" href="../gaussian_process/plot_compare_gpr_krr.html">مقارنة انحدار kernel ridge وانحدار العمليات الغاوسية</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">متنوع</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="plot_multioutput_face_completion.html">اكتمال الوجه باستخدام المُقدرات متعددة المخرجات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_isotonic_regression.html">الانحدار الأيزوتوني</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_multilabel.html">التصنيف متعدد التصنيفات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_display_object_visualization.html">التصورات باستخدام كائنات العرض</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_partial_dependence_visualization_api.html">الرسم المتقدم باستخدام الاعتمادية الجزئية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_set_output.html">تقديم واجهة برمجة التطبيقات <code class="docutils literal notranslate"><span class="pre">set_output</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_kernel_approximation.html">تقريب خريطة الميزات الصريحة لنواة RBF</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">تقييم خوارزميات كشف الشواذ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_metadata_routing.html">توجيه البيانات الوصفية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_johnson_lindenstrauss_bound.html">حدود جونسون-ليندستراوس للانغماس مع الإسقاطات العشوائية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_estimator_representation.html">عرض المنمذجات وأنابيب التوصيل المعقدة</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_pipeline_display.html">عرض خطوط الأنابيب</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_kernel_ridge_regression.html">مقارنة بين الانحدار النووي المنتظم والانحدار الداعم للمتجهات</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_anomaly_comparison.html">مقارنة خوارزميات الكشف عن الشذوذ لكشف القيم المتطرفة في مجموعات بيانات تجريبية</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_roc_curve_visualization_api.html">منحنى ROC مع واجهة برمجة التطبيقات للتصور</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../calibration/index.html">معايرة الإحتمالات</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration.html">معايرة احتمالات المصنفات</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration_multiclass.html">معايرة الاحتمالات لتصنيف ثلاثي الفئات</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../calibration/plot_compare_calibration.html">مقارنة معايرة المصنفات</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../calibration/plot_calibration_curve.html">منحنيات معايرة الاحتمالية</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../mixture/index.html">نماذج الخليط الجاوسي</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_selection.html">اختيار نموذج المزيج الغاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_concentration_prior.html">تحليل نوع أولوية التركيز لخوارزمية التباين بايزي غاوسي ميكسشر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_covariances.html">تشتتات GMM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_pdf.html">تقدير الكثافة لمزيج غاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_init.html">طرق تهيئة نماذج الخلط الغاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm.html">نموذج الإهليجيات لمزيج غاوسي</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mixture/plot_gmm_sin.html">نموذج مزيج غاوسي لمنحنى الجيب</a></li>
 </ul>
 </details></li>
 </ul>
@@ -972,9 +973,9 @@
     <li class="breadcrumb-item"><a href="../index.html" class="nav-link">Examples</a></li>
     
     
-    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Miscellaneous</a></li>
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">متنوع</a></li>
     
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Evaluation of outlier detection estimators</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">تقييم خوارزميات كشف الشواذ</span></li>
   </ul>
 </nav>
 </div>
@@ -996,37 +997,39 @@
 <p><a class="reference internal" href="#sphx-glr-download-auto-examples-miscellaneous-plot-outlier-detection-bench-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code. or to run this example in your browser via JupyterLite or Binder</p>
 </div>
-<section class="sphx-glr-example-title" id="evaluation-of-outlier-detection-estimators">
-<span id="sphx-glr-auto-examples-miscellaneous-plot-outlier-detection-bench-py"></span><h1>Evaluation of outlier detection estimators<a class="headerlink" href="#evaluation-of-outlier-detection-estimators" title="Link to this heading">#</a></h1>
-<p>This example compares two outlier detection algorithms, namely
-<a class="reference internal" href="../../modules/outlier_detection.html#local-outlier-factor"><span class="std std-ref">مُعامل القيم المتطرفة المحلي</span></a> (LOF) and <a class="reference internal" href="../../modules/outlier_detection.html#isolation-forest"><span class="std std-ref">غابة العزل</span></a> (IForest), on
-real-world datasets available in <a class="reference internal" href="../../api/sklearn.datasets.html#module-sklearn.datasets" title="sklearn.datasets"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.datasets</span></code></a>. The goal is to show
-that different algorithms perform well on different datasets and contrast their
-training speed and sensitivity to hyperparameters.</p>
-<p>The algorithms are trained (without labels) on the whole dataset assumed to
-contain outliers.</p>
-<p>1. The ROC curves are computed using knowledge of the ground-truth labels
-and displayed using <a class="reference internal" href="../../modules/generated/sklearn.metrics.RocCurveDisplay.html#sklearn.metrics.RocCurveDisplay" title="sklearn.metrics.RocCurveDisplay"><code class="xref py py-class docutils literal notranslate"><span class="pre">RocCurveDisplay</span></code></a>.</p>
+<section class="sphx-glr-example-title" id="sphx-glr-auto-examples-miscellaneous-plot-outlier-detection-bench-py">
+<span id="id1"></span><h1>تقييم خوارزميات كشف الشواذ<a class="headerlink" href="#sphx-glr-auto-examples-miscellaneous-plot-outlier-detection-bench-py" title="Link to this heading">#</a></h1>
+<p>يقارن هذا المثال بين خوارزميتين لكشف الشواذ، وهما
+<a class="reference internal" href="../../modules/outlier_detection.html#local-outlier-factor"><span class="std std-ref">مُعامل القيم المتطرفة المحلي</span></a> (LOF) و <a class="reference internal" href="../../modules/outlier_detection.html#isolation-forest"><span class="std std-ref">غابة العزل</span></a> (IForest)، على
+مجموعات بيانات واقعية متوفرة في <a class="reference internal" href="../../api/sklearn.datasets.html#module-sklearn.datasets" title="sklearn.datasets"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.datasets</span></code></a>. الهدف هو إظهار
+أن خوارزميات مختلفة تؤدي أداءً جيدًا على مجموعات بيانات مختلفة وتوضيح سرعة
+تدريبها وحساسيتها لضبط المعلمات.</p>
+<p>تتم تدريب الخوارزميات (بدون تسميات) على مجموعة البيانات الكاملة المفترضة
+أنها تحتوي على شواذ.</p>
+<p>1. يتم حساب منحنيات ROC باستخدام معرفة التسميات الحقيقية
+وعرضها باستخدام <a class="reference internal" href="../../modules/generated/sklearn.metrics.RocCurveDisplay.html#sklearn.metrics.RocCurveDisplay" title="sklearn.metrics.RocCurveDisplay"><code class="xref py py-class docutils literal notranslate"><span class="pre">RocCurveDisplay</span></code></a>.</p>
 <ol class="arabic simple" start="2">
-<li><p>The performance is assessed in terms of the ROC-AUC.</p></li>
+<li><p>يتم تقييم الأداء من حيث ROC-AUC.</p></li>
 </ol>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Authors: The scikit-learn developers</span>
-<span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># المؤلفون: مطوري scikit-learn</span>
+<span class="c1"># معرف SPDX-License: BSD-3-Clause</span>
 </pre></div>
 </div>
-<section id="dataset-preprocessing-and-model-training">
-<h2>Dataset preprocessing and model training<a class="headerlink" href="#dataset-preprocessing-and-model-training" title="Link to this heading">#</a></h2>
-<p>Different outlier detection models require different preprocessing. In the
-presence of categorical variables,
-<a class="reference internal" href="../../modules/generated/sklearn.preprocessing.OrdinalEncoder.html#sklearn.preprocessing.OrdinalEncoder" title="sklearn.preprocessing.OrdinalEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrdinalEncoder</span></code></a> is often a good strategy for
-tree-based models such as <a class="reference internal" href="../../modules/generated/sklearn.ensemble.IsolationForest.html#sklearn.ensemble.IsolationForest" title="sklearn.ensemble.IsolationForest"><code class="xref py py-class docutils literal notranslate"><span class="pre">IsolationForest</span></code></a>, whereas
-neighbors-based models such as <a class="reference internal" href="../../modules/generated/sklearn.neighbors.LocalOutlierFactor.html#sklearn.neighbors.LocalOutlierFactor" title="sklearn.neighbors.LocalOutlierFactor"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalOutlierFactor</span></code></a>
-would be impacted by the ordering induced by ordinal encoding. To avoid
-inducing an ordering, on should rather use
+<section id="id2">
+<h2>معالجة البيانات وتدريب النموذج<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>تتطلب نماذج كشف الشواذ المختلفة معالجة مسبقة مختلفة. في
+وجود متغيرات فئوية،
+<a class="reference internal" href="../../modules/generated/sklearn.preprocessing.OrdinalEncoder.html#sklearn.preprocessing.OrdinalEncoder" title="sklearn.preprocessing.OrdinalEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrdinalEncoder</span></code></a> هي استراتيجية جيدة غالبًا
+للنماذج القائمة على الأشجار مثل <a class="reference internal" href="../../modules/generated/sklearn.ensemble.IsolationForest.html#sklearn.ensemble.IsolationForest" title="sklearn.ensemble.IsolationForest"><code class="xref py py-class docutils literal notranslate"><span class="pre">IsolationForest</span></code></a>،
+في حين أن النماذج القائمة على الجيران مثل
+<a class="reference internal" href="../../modules/generated/sklearn.neighbors.LocalOutlierFactor.html#sklearn.neighbors.LocalOutlierFactor" title="sklearn.neighbors.LocalOutlierFactor"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalOutlierFactor</span></code></a>
+ستتأثر بالترتيب الناتج عن الترميز الترتيبي. لتجنب
+فرض ترتيب، يجب استخدام
 <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.OneHotEncoder.html#sklearn.preprocessing.OneHotEncoder" title="sklearn.preprocessing.OneHotEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">OneHotEncoder</span></code></a>.</p>
-<p>Neighbors-based models may also require scaling of the numerical features (see
-for instance <a class="reference internal" href="../preprocessing/plot_scaling_importance.html#neighbors-scaling"><span class="std std-ref">Effect of rescaling on a k-neighbors models</span></a>). In the presence of outliers, a good
-option is to use a <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.RobustScaler.html#sklearn.preprocessing.RobustScaler" title="sklearn.preprocessing.RobustScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">RobustScaler</span></code></a>.</p>
+<p>قد تتطلب النماذج القائمة على الجيران أيضًا معايرة الميزات الرقمية (انظر
+على سبيل المثال <a class="reference internal" href="../preprocessing/plot_scaling_importance.html#neighbors-scaling"><span class="std std-ref">تأثير إعادة المعايرة على نماذج k-neighbors</span></a>). في وجود شواذ، يعد
+<a class="reference internal" href="../../modules/generated/sklearn.preprocessing.RobustScaler.html#sklearn.preprocessing.RobustScaler" title="sklearn.preprocessing.RobustScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">RobustScaler</span></code></a>
+خيارًا جيدًا.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.compose.ColumnTransformer.html#sklearn.compose.ColumnTransformer" title="sklearn.compose.ColumnTransformer" class="sphx-glr-backref-module-sklearn-compose sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ColumnTransformer</span></a>
 <span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.ensemble.IsolationForest.html#sklearn.ensemble.IsolationForest" title="sklearn.ensemble.IsolationForest" class="sphx-glr-backref-module-sklearn-ensemble sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">IsolationForest</span></a>
 <span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.neighbors.LocalOutlierFactor.html#sklearn.neighbors.LocalOutlierFactor" title="sklearn.neighbors.LocalOutlierFactor" class="sphx-glr-backref-module-sklearn-neighbors sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">LocalOutlierFactor</span></a>
@@ -1039,7 +1042,7 @@ option is to use a <a class="reference internal" href="../../modules/generated/s
 
 
 <span class="k">def</span> <span class="nf">make_estimator</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">categorical_columns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">iforest_kw</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lof_kw</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create an outlier detection estimator based on its name.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;إنشاء نموذج كشف شواذ بناءً على اسمه.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;LOF&quot;</span><span class="p">:</span>
         <span class="n">outlier_detector</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.neighbors.LocalOutlierFactor.html#sklearn.neighbors.LocalOutlierFactor" title="sklearn.neighbors.LocalOutlierFactor" class="sphx-glr-backref-module-sklearn-neighbors sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">LocalOutlierFactor</span></a><span class="p">(</span><span class="o">**</span><span class="p">(</span><span class="n">lof_kw</span> <span class="ow">or</span> <span class="p">{}))</span>
         <span class="k">if</span> <span class="n">categorical_columns</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -1067,7 +1070,7 @@ option is to use a <a class="reference internal" href="../../modules/generated/s
     <span class="k">return</span> <a href="../../modules/generated/sklearn.pipeline.make_pipeline.html#sklearn.pipeline.make_pipeline" title="sklearn.pipeline.make_pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-function"><span class="n">make_pipeline</span></a><span class="p">(</span><span class="n">preprocessor</span><span class="p">,</span> <span class="n">outlier_detector</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The following <code class="docutils literal notranslate"><span class="pre">fit_predict</span></code> function returns the average outlier score of X.</p>
+<p>تقوم دالة <code class="docutils literal notranslate"><span class="pre">fit_predict</span></code> التالية بإرجاع متوسط درجة الشذوذ لـ X.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/time.html#time.perf_counter" title="time.perf_counter" class="sphx-glr-backref-module-time sphx-glr-backref-type-py-function"><span class="n">perf_counter</span></a>
 
 
@@ -1083,22 +1086,22 @@ option is to use a <a class="reference internal" href="../../modules/generated/s
     <span class="k">return</span> <span class="n">y_pred</span>
 </pre></div>
 </div>
-<p>On the rest of the example we process one dataset per section. After loading
-the data, the targets are modified to consist of two classes: 0 representing
-inliers and 1 representing outliers. Due to computational constraints of the
-scikit-learn documentation, the sample size of some datasets is reduced using
-a stratified <a class="reference internal" href="../../modules/generated/sklearn.model_selection.train_test_split.html#sklearn.model_selection.train_test_split" title="sklearn.model_selection.train_test_split"><code class="xref py py-class docutils literal notranslate"><span class="pre">train_test_split</span></code></a>.</p>
-<p>Furthermore, we set <code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code> to match the expected number of anomalies
-<code class="docutils literal notranslate"><span class="pre">expected_n_anomalies</span> <span class="pre">=</span> <span class="pre">n_samples</span> <span class="pre">*</span> <span class="pre">expected_anomaly_fraction</span></code>. This is a good
-heuristic as long as the proportion of outliers is not very low, the reason
-being that <code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code> should be at least greater than the number of samples
-in the less populated cluster (see
-<a class="reference internal" href="../neighbors/plot_lof_outlier_detection.html#sphx-glr-auto-examples-neighbors-plot-lof-outlier-detection-py"><span class="std std-ref">Outlier detection with Local Outlier Factor (LOF)</span></a>).</p>
-<section id="kddcup99-sa-dataset">
-<h3>KDDCup99 - SA dataset<a class="headerlink" href="#kddcup99-sa-dataset" title="Link to this heading">#</a></h3>
-<p>The <a class="reference internal" href="../../datasets/real_world.html#kddcup99-dataset"><span class="std std-ref">Kddcup 99 dataset</span></a> was generated using a closed network and
-hand-injected attacks. The SA dataset is a subset of it obtained by simply
-selecting all the normal data and an anomaly proportion of around 3%.</p>
+<p>في بقية المثال، نقوم بمعالجة مجموعة بيانات واحدة لكل قسم. بعد تحميل
+البيانات، يتم تعديل الأهداف لتشمل فئتين: 0 تمثل
+القيم العادية و 1 تمثل الشواذ. بسبب القيود الحسابية لوثائق scikit-learn،
+يتم تقليل حجم العينة لبعض مجموعات البيانات باستخدام
+<a class="reference internal" href="../../modules/generated/sklearn.model_selection.train_test_split.html#sklearn.model_selection.train_test_split" title="sklearn.model_selection.train_test_split"><code class="xref py py-class docutils literal notranslate"><span class="pre">train_test_split</span></code></a>.</p>
+<p>علاوة على ذلك، نقوم بضبط <code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code> ليتناسب مع العدد المتوقع للشواذ
+<code class="docutils literal notranslate"><span class="pre">expected_n_anomalies</span> <span class="pre">=</span> <span class="pre">n_samples</span> <span class="pre">*</span> <span class="pre">expected_anomaly_fraction</span></code>. هذه هي
+استراتيجية جيدة طالما أن نسبة الشواذ ليست منخفضة جدًا، والسبب
+هو أن <code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code> يجب أن يكون أكبر من عدد العينات
+في المجموعة الأقل كثافة (انظر
+<a class="reference internal" href="../neighbors/plot_lof_outlier_detection.html#sphx-glr-auto-examples-neighbors-plot-lof-outlier-detection-py"><span class="std std-ref">الكشف عن القيم الشاذة باستخدام عامل الانحراف المحلي (LOF)</span></a>).</p>
+<section id="kddcup99-sa">
+<h3>KDDCup99 - مجموعة بيانات SA<a class="headerlink" href="#kddcup99-sa" title="Link to this heading">#</a></h3>
+<p>تم إنشاء مجموعة بيانات <a class="reference internal" href="../../datasets/real_world.html#kddcup99-dataset"><span class="std std-ref">Kddcup 99 dataset</span></a> باستخدام شبكة مغلقة
+وهجمات محقونة يدويًا. مجموعة بيانات SA هي جزء فرعي منها تم الحصول عليه
+ببساطة عن طريق اختيار جميع البيانات العادية ونسبة شواذ تبلغ حوالي 3%.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.datasets.fetch_kddcup99.html#sklearn.datasets.fetch_kddcup99" title="sklearn.datasets.fetch_kddcup99" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_kddcup99</span></a>
@@ -1117,8 +1120,8 @@ selecting all the normal data and an anomaly proportion of around 3%.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>10065 datapoints with 338 anomalies (3.36%)
 </pre></div>
 </div>
-<p>The SA dataset contains 41 features out of which 3 are categorical:
-&quot;protocol_type&quot;, &quot;service&quot; and &quot;flag&quot;.</p>
+<p>تحتوي مجموعة بيانات SA على 41 ميزة، منها 3 فئوية:
+&quot;protocol_type&quot;، &quot;service&quot; و &quot;flag&quot;.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">y_true</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">y_pred</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;LOF&quot;</span><span class="p">:</span> <span class="p">{},</span> <span class="s2">&quot;IForest&quot;</span><span class="p">:</span> <span class="p">{}}</span>
 <span class="n">model_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;LOF&quot;</span><span class="p">,</span> <span class="s2">&quot;IForest&quot;</span><span class="p">]</span>
@@ -1135,18 +1138,18 @@ selecting all the normal data and an anomaly proportion of around 3%.</p>
     <span class="n">y_pred</span><span class="p">[</span><span class="n">model_name</span><span class="p">][</span><span class="s2">&quot;KDDCup99 - SA&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fit_predict</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Duration for LOF: 1.08 s
-Duration for IForest: 0.33 s
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Duration for LOF: 1.35 s
+Duration for IForest: 0.43 s
 </pre></div>
 </div>
 </section>
-<section id="forest-covertypes-dataset">
-<h3>Forest covertypes dataset<a class="headerlink" href="#forest-covertypes-dataset" title="Link to this heading">#</a></h3>
-<p>The <a class="reference internal" href="../../datasets/real_world.html#covtype-dataset"><span class="std std-ref">Forest covertypes</span></a> is a multiclass dataset where the target is the
-dominant species of tree in a given patch of forest. It contains 54 features,
-some of which (&quot;Wilderness_Area&quot; and &quot;Soil_Type&quot;) are already binary encoded.
-Though originally meant as a classification task, one can regard inliers as
-samples encoded with label 2 and outliers as those with label 4.</p>
+<section id="id3">
+<h3>مجموعة بيانات غطاء الغابات<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>مجموعة بيانات <a class="reference internal" href="../../datasets/real_world.html#covtype-dataset"><span class="std std-ref">Forest covertypes</span></a> هي مجموعة بيانات متعددة الفئات حيث
+الهدف هو النوع السائد من الأشجار في رقعة معينة من الغابة. تحتوي على 54
+ميزة، بعضها (&quot;Wilderness_Area&quot; و &quot;Soil_Type&quot;) مشفرة بالفعل بشكل ثنائي.
+على الرغم من أنها كانت في الأصل مهمة تصنيف، يمكن اعتبار القيم العادية
+كعينات مشفرة بالعلامة 2 والشواذ كعينات مشفرة بالعلامة 4.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.datasets.fetch_covtype.html#sklearn.datasets.fetch_covtype" title="sklearn.datasets.fetch_covtype" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_covtype</span></a>
 
 <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.datasets.fetch_covtype.html#sklearn.datasets.fetch_covtype" title="sklearn.datasets.fetch_covtype" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_covtype</span></a><span class="p">(</span><span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1175,18 +1178,18 @@ samples encoded with label 2 and outliers as those with label 4.</p>
     <span class="n">y_pred</span><span class="p">[</span><span class="n">model_name</span><span class="p">][</span><span class="s2">&quot;forestcover&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fit_predict</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Duration for LOF: 1.08 s
-Duration for IForest: 0.23 s
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Duration for LOF: 1.46 s
+Duration for IForest: 0.26 s
 </pre></div>
 </div>
 </section>
-<section id="ames-housing-dataset">
-<h3>Ames Housing dataset<a class="headerlink" href="#ames-housing-dataset" title="Link to this heading">#</a></h3>
-<p>The <a class="reference external" href="http://www.openml.org/d/43926">Ames housing dataset</a> is originally a
-regression dataset where the target are sales prices of houses in Ames, Iowa.
-Here we convert it into an outlier detection problem by regarding houses with
-price over 70 USD/sqft. To make the problem easier, we drop intermediate
-prices between 40 and 70 USD/sqft.</p>
+<section id="ames-housing">
+<h3>مجموعة بيانات Ames Housing<a class="headerlink" href="#ames-housing" title="Link to this heading">#</a></h3>
+<p>مجموعة بيانات Ames housing dataset &lt;<a class="reference external" href="http://www.openml.org/d/43926">http://www.openml.org/d/43926</a>&gt;`_ هي
+في الأصل مجموعة بيانات للتنبؤ حيث الهدف هو أسعار بيع المنازل في Ames،
+أيوا. هنا نحولها إلى مشكلة كشف شواذ من خلال اعتبار المنازل التي يزيد سعرها
+عن 70 دولار/قدم مربع كشواذ. لجعل المشكلة أسهل، نقوم بإسقاط الأسعار
+المتوسطة بين 40 و 70 دولار/قدم مربع.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.datasets.fetch_openml.html#sklearn.datasets.fetch_openml" title="sklearn.datasets.fetch_openml" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_openml</span></a>
@@ -1216,9 +1219,9 @@ prices between 40 and 70 USD/sqft.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>2714 datapoints with 30 anomalies (1.11%)
 </pre></div>
 </div>
-<p>The dataset contains 46 categorical features. In this case it is easier use a
-<a class="reference internal" href="../../modules/generated/sklearn.compose.make_column_selector.html#sklearn.compose.make_column_selector" title="sklearn.compose.make_column_selector"><code class="xref py py-class docutils literal notranslate"><span class="pre">make_column_selector</span></code></a> to find them instead of passing
-a list made by hand.</p>
+<p>تحتوي مجموعة البيانات على 46 ميزة فئوية. في هذه الحالة، من الأسهل استخدام
+<a class="reference internal" href="../../modules/generated/sklearn.compose.make_column_selector.html#sklearn.compose.make_column_selector" title="sklearn.compose.make_column_selector"><code class="xref py py-class docutils literal notranslate"><span class="pre">make_column_selector</span></code></a> للعثور عليها بدلاً من تمرير
+قائمة تم إنشاؤها يدويًا.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">make_column_selector</span> <span class="k">as</span> <a href="../../modules/generated/sklearn.compose.make_column_selector.html#sklearn.compose.make_column_selector" title="sklearn.compose.make_column_selector" class="sphx-glr-backref-module-sklearn-compose sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">selector</span></a>
 
 <span class="n">categorical_columns_selector</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.compose.make_column_selector.html#sklearn.compose.make_column_selector" title="sklearn.compose.make_column_selector" class="sphx-glr-backref-module-sklearn-compose sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">selector</span></a><span class="p">(</span><span class="n">dtype_include</span><span class="o">=</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
@@ -1235,18 +1238,18 @@ a list made by hand.</p>
     <span class="n">y_pred</span><span class="p">[</span><span class="n">model_name</span><span class="p">][</span><span class="s2">&quot;ames_housing&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fit_predict</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Duration for LOF: 0.84 s
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Duration for LOF: 0.86 s
 Duration for IForest: 0.27 s
 </pre></div>
 </div>
 </section>
-<section id="cardiotocography-dataset">
-<h3>Cardiotocography dataset<a class="headerlink" href="#cardiotocography-dataset" title="Link to this heading">#</a></h3>
-<p>The <a class="reference external" href="http://www.openml.org/d/1466">Cardiotocography dataset</a> is a multiclass
-dataset of fetal cardiotocograms, the classes being the fetal heart rate (FHR)
-pattern encoded with labels from 1 to 10. Here we set class 3 (the minority
-class) to represent the outliers. It contains 30 numerical features, some of
-which are binary encoded and some are continuous.</p>
+<section id="cardiotocography">
+<h3>مجموعة بيانات Cardiotocography<a class="headerlink" href="#cardiotocography" title="Link to this heading">#</a></h3>
+<p>مجموعة بيانات Cardiotocography dataset &lt;<a class="reference external" href="http://www.openml.org/d/1466">http://www.openml.org/d/1466</a>&gt;`_ هي
+مجموعة بيانات متعددة الفئات من تخطيط القلب للجنين، حيث الفئات هي نمط معدل
+ضربات القلب الجنيني (FHR) مشفرة بعلامات من 1 إلى 10. هنا نحدد الفئة 3
+(الفئة الأقلية) لتمثل الشواذ. تحتوي على 30 ميزة رقمية، بعضها مشفر بشكل
+ثنائي وبعضها مستمر.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <a href="../../modules/generated/sklearn.datasets.fetch_openml.html#sklearn.datasets.fetch_openml" title="sklearn.datasets.fetch_openml" class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function"><span class="n">fetch_openml</span></a><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;cardiotocography&quot;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">as_frame</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">X_cardiotocography</span> <span class="o">=</span> <span class="n">X</span>  <span class="c1"># save X for later use</span>
 <span class="n">s</span> <span class="o">=</span> <span class="n">y</span> <span class="o">==</span> <span class="s2">&quot;3&quot;</span>
@@ -1269,19 +1272,18 @@ which are binary encoded and some are continuous.</p>
     <span class="n">y_pred</span><span class="p">[</span><span class="n">model_name</span><span class="p">][</span><span class="s2">&quot;cardiotocography&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fit_predict</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Duration for LOF: 0.05 s
-Duration for IForest: 0.16 s
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Duration for LOF: 0.04 s
+Duration for IForest: 0.17 s
 </pre></div>
 </div>
 </section>
 </section>
-<section id="plot-and-interpret-results">
-<h2>Plot and interpret results<a class="headerlink" href="#plot-and-interpret-results" title="Link to this heading">#</a></h2>
-<p>The algorithm performance relates to how good the true positive rate (TPR) is
-at low value of the false positive rate (FPR). The best algorithms have the
-curve on the top-left of the plot and the area under curve (AUC) close to 1.
-The diagonal dashed line represents a random classification of outliers and
-inliers.</p>
+<section id="id4">
+<h2>رسم وتفسير النتائج<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>يرتبط أداء الخوارزمية بمدى جودة معدل الإيجابيات الحقيقية (TPR)
+عند قيم منخفضة لمعدل الإيجابيات الخاطئة (FPR). أفضل الخوارزميات لديها
+المنحنى في أعلى يسار الرسم البياني ومساحة تحت المنحنى (AUC) قريبة من 1.
+الخط المتقطع المائل يمثل تصنيفًا عشوائيًا للشواذ والقيم العادية.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
 
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">RocCurveDisplay</span>
@@ -1308,25 +1310,24 @@ inliers.</p>
 <span class="n">_</span> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.tight_layout.html#matplotlib.pyplot.tight_layout" title="matplotlib.pyplot.tight_layout" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span></a><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>  <span class="c1"># spacing between subplots</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_outlier_detection_bench_002.png" srcset="../../_images/sphx_glr_plot_outlier_detection_bench_002.png" alt="KDDCup99 - SA, forestcover, ames_housing, cardiotocography" class = "sphx-glr-single-img"/><p>We observe that once the number of neighbors is tuned, LOF and IForest perform
-similarly in terms of ROC AUC for the forestcover and cardiotocography
-datasets. The score for IForest is slightly better for the SA dataset and LOF
-performs considerably better on the Ames housing dataset than IForest.</p>
-<p>Recall however that Isolation Forest tends to train much faster than LOF on
-datasets with a large number of samples. LOF needs to compute pairwise
-distances to find nearest neighbors, which has a quadratic complexity with respect
-to the number of observations. This can make this method prohibitive on large
-datasets.</p>
+<img src="../../_images/sphx_glr_plot_outlier_detection_bench_002.png" srcset="../../_images/sphx_glr_plot_outlier_detection_bench_002.png" alt="KDDCup99 - SA, forestcover, ames_housing, cardiotocography" class = "sphx-glr-single-img"/><p>نلاحظ أنه بمجرد ضبط عدد الجيران، يؤدي LOF و IForest
+أداءً مشابهًا من حيث ROC AUC لمجموعات بيانات forestcover و cardiotocography.
+النتيجة أفضل قليلاً لـ IForest في مجموعة بيانات SA، بينما يؤدي LOF
+أداءً أفضل بكثير في مجموعة بيانات Ames housing مقارنة بـ IForest.</p>
+<p>تذكر مع ذلك أن Isolation Forest تميل إلى التدريب بشكل أسرع من LOF
+على مجموعات البيانات ذات العدد الكبير من العينات. يحتاج LOF إلى حساب
+المسافات الزوجية لإيجاد الجيران الأقرب، مما له تعقيد تربيعي فيما يتعلق
+بعدد الملاحظات. يمكن أن يجعل هذا الأسلوب محظورًا على مجموعات البيانات
+الكبيرة.</p>
 </section>
-<section id="ablation-study">
-<h2>Ablation study<a class="headerlink" href="#ablation-study" title="Link to this heading">#</a></h2>
-<p>In this section we explore the impact of the hyperparameter <code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code> and
-the choice of scaling the numerical variables on the LOF model. Here we use
-the <a class="reference internal" href="../../datasets/real_world.html#covtype-dataset"><span class="std std-ref">Forest covertypes</span></a> dataset as the binary encoded categories introduce
-a natural scale of euclidean distances between 0 and 1. We then want a scaling
-method to avoid granting a privilege to non-binary features and that is robust
-enough to outliers so that the task of finding them does not become too
-difficult.</p>
+<section id="id5">
+<h2>دراسة التخفيف<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>في هذا القسم، نستكشف تأثير المعلمة <code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code>
+واختيار معايرة الميزات الرقمية على نموذج LOF. هنا نستخدم
+<a class="reference internal" href="../../datasets/real_world.html#covtype-dataset"><span class="std std-ref">Forest covertypes</span></a> حيث يتم إدخال الفئات المشفرة بشكل ثنائي
+مقياسًا طبيعيًا للمسافات الإقليدية بين 0 و 1. بعد ذلك، نريد طريقة
+للمعايرة لتجنب منح امتياز للميزات غير الثنائية وأن تكون قوية بما يكفي
+للشواذ بحيث لا تصبح مهمة العثور عليها صعبة للغاية.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">X_forestcover</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">y_true</span><span class="p">[</span><span class="s2">&quot;forestcover&quot;</span><span class="p">]</span>
 
@@ -1355,11 +1356,11 @@ difficult.</p>
 <span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;RobustScaler with varying n_neighbors</span><span class="se">\n</span><span class="s2">on forestcover dataset&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_outlier_detection_bench_003.png" srcset="../../_images/sphx_glr_plot_outlier_detection_bench_003.png" alt="RobustScaler with varying n_neighbors on forestcover dataset" class = "sphx-glr-single-img"/><p>We observe that the number of neighbors has a big impact on the performance of
-the model. If one has access to (at least some) ground truth labels, it is
-then important to tune <code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code> accordingly. A convenient way to do so is
-to explore values for <code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code> of the order of magnitud of the expected
-contamination.</p>
+<img src="../../_images/sphx_glr_plot_outlier_detection_bench_003.png" srcset="../../_images/sphx_glr_plot_outlier_detection_bench_003.png" alt="RobustScaler with varying n_neighbors on forestcover dataset" class = "sphx-glr-single-img"/><p>نلاحظ أن عدد الجيران له تأثير كبير على أداء
+النموذج. إذا كان لدى المرء إمكانية الوصول إلى (بعض على الأقل) تصنيفات أرضية حقيقية،
+فمن المهم عندئذٍ ضبط <code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code> وفقًا لذلك. تتمثل إحدى الطرق الملائمة للقيام بذلك
+في استكشاف قيم <code class="docutils literal notranslate"><span class="pre">n_neighbors</span></code> من حيث الحجم المتوقع
+للتلوث.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="../../modules/generated/sklearn.preprocessing.MinMaxScaler.html#sklearn.preprocessing.MinMaxScaler" title="sklearn.preprocessing.MinMaxScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">MinMaxScaler</span></a><span class="p">,</span> <a href="../../modules/generated/sklearn.preprocessing.SplineTransformer.html#sklearn.preprocessing.SplineTransformer" title="sklearn.preprocessing.SplineTransformer" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">SplineTransformer</span></a><span class="p">,</span> <a href="../../modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">StandardScaler</span></a>
 
 <span class="n">preprocessor_list</span> <span class="o">=</span> <span class="p">[</span>
@@ -1390,29 +1391,29 @@ contamination.</p>
         <span class="n">linestyle</span><span class="o">=</span><span class="n">linestyle</span><span class="p">,</span>
         <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Fixed n_neighbors with varying preprocessing</span><span class="se">\n</span><span class="s2">on forestcover dataset&quot;</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;n_neighbors ثابت مع معالجة مسبقة متغيرة</span><span class="se">\n</span><span class="s2">على مجموعة بيانات forestcover&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_outlier_detection_bench_004.png" srcset="../../_images/sphx_glr_plot_outlier_detection_bench_004.png" alt="Fixed n_neighbors with varying preprocessing on forestcover dataset" class = "sphx-glr-single-img"/><p>On the one hand, <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.RobustScaler.html#sklearn.preprocessing.RobustScaler" title="sklearn.preprocessing.RobustScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">RobustScaler</span></code></a> scales each
-feature independently by using the interquartile range (IQR) by default, which
-is the range between the 25th and 75th percentiles of the data. It centers the
-data by subtracting the median and then scale it by dividing by the IQR. The
-IQR is robust to outliers: the median and interquartile range are less
-affected by extreme values than the range, the mean and the standard
-deviation. Furthermore, <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.RobustScaler.html#sklearn.preprocessing.RobustScaler" title="sklearn.preprocessing.RobustScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">RobustScaler</span></code></a> does not
-squash marginal outlier values, contrary to
+<img src="../../_images/sphx_glr_plot_outlier_detection_bench_004.png" srcset="../../_images/sphx_glr_plot_outlier_detection_bench_004.png" alt="n_neighbors ثابت مع معالجة مسبقة متغيرة على مجموعة بيانات forestcover" class = "sphx-glr-single-img"/><p>من ناحية، يقوم <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.RobustScaler.html#sklearn.preprocessing.RobustScaler" title="sklearn.preprocessing.RobustScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">RobustScaler</span></code></a> بقياس
+كل ميزة بشكل مستقل باستخدام النطاق الربيعي (IQR) افتراضيًا، وهو
+النطاق بين النسبتين المئويتين 25 و 75 من البيانات. يقوم بتركيز
+البيانات عن طريق طرح الوسيط ثم قياسها بالقسمة على IQR. IQR
+مقاوم للقيم المتطرفة: يتأثر الوسيط والنطاق الربيعي بالقيم
+المتطرفة بدرجة أقل من النطاق والمتوسط ​​والانحراف
+المعياري. علاوة على ذلك، لا يقوم <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.RobustScaler.html#sklearn.preprocessing.RobustScaler" title="sklearn.preprocessing.RobustScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">RobustScaler</span></code></a>
+بسحق القيم المتطرفة الهامشية، على عكس
 <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">StandardScaler</span></code></a>.</p>
-<p>On the other hand, <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.MinMaxScaler.html#sklearn.preprocessing.MinMaxScaler" title="sklearn.preprocessing.MinMaxScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinMaxScaler</span></code></a> scales each
-feature individually such that its range maps into the range between zero and
-one. If there are outliers in the data, they can skew it towards either the
-minimum or maximum values, leading to a completely different distribution of
-data with large marginal outliers: all non-outlier values can be collapsed
-almost together as a result.</p>
-<p>We also evaluated no preprocessing at all (by passing <code class="docutils literal notranslate"><span class="pre">None</span></code> to the pipeline),
-<a class="reference internal" href="../../modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">StandardScaler</span></code></a> and
-<a class="reference internal" href="../../modules/generated/sklearn.preprocessing.SplineTransformer.html#sklearn.preprocessing.SplineTransformer" title="sklearn.preprocessing.SplineTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SplineTransformer</span></code></a>. Please refer to their
-respective documentation for more details.</p>
-<p>Note that the optimal preprocessing depends on the dataset, as shown below:</p>
+<p>من ناحية أخرى، يقوم <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.MinMaxScaler.html#sklearn.preprocessing.MinMaxScaler" title="sklearn.preprocessing.MinMaxScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinMaxScaler</span></code></a> بقياس
+كل ميزة بشكل فردي بحيث يتم تعيين نطاقها في النطاق بين الصفر
+والواحد. إذا كانت هناك قيم متطرفة في البيانات، فيمكنها تحريفها نحو
+الحد الأدنى أو الحد الأقصى للقيم، مما يؤدي إلى توزيع مختلف تمامًا
+للبيانات مع قيم متطرفة هامشية كبيرة: يمكن طي جميع القيم غير المتطرفة
+تقريبًا معًا نتيجة لذلك.</p>
+<p>قمنا أيضًا بتقييم عدم وجود معالجة مسبقة على الإطلاق (عن طريق تمرير <code class="docutils literal notranslate"><span class="pre">None</span></code>
+إلى خط الأنابيب)، و <a class="reference internal" href="../../modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler"><code class="xref py py-class docutils literal notranslate"><span class="pre">StandardScaler</span></code></a> و
+<a class="reference internal" href="../../modules/generated/sklearn.preprocessing.SplineTransformer.html#sklearn.preprocessing.SplineTransformer" title="sklearn.preprocessing.SplineTransformer"><code class="xref py py-class docutils literal notranslate"><span class="pre">SplineTransformer</span></code></a>. يرجى الرجوع إلى
+وثائق كل منها لمزيد من التفاصيل.</p>
+<p>لاحظ أن المعالجة المسبقة المثلى تعتمد على مجموعة البيانات، كما هو موضح أدناه:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">X_cardiotocography</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">y_true</span><span class="p">[</span><span class="s2">&quot;cardiotocography&quot;</span><span class="p">]</span>
 
@@ -1438,12 +1439,12 @@ respective documentation for more details.</p>
         <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span>
-    <span class="s2">&quot;Fixed n_neighbors with varying preprocessing</span><span class="se">\n</span><span class="s2">on cardiotocography dataset&quot;</span>
+    <span class="s2">&quot;n_neighbors ثابت مع معالجة مسبقة متغيرة</span><span class="se">\n</span><span class="s2">على مجموعة بيانات cardiotocography&quot;</span>
 <span class="p">)</span>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_outlier_detection_bench_005.png" srcset="../../_images/sphx_glr_plot_outlier_detection_bench_005.png" alt="Fixed n_neighbors with varying preprocessing on cardiotocography dataset" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 45.214 seconds)</p>
+<img src="../../_images/sphx_glr_plot_outlier_detection_bench_005.png" srcset="../../_images/sphx_glr_plot_outlier_detection_bench_005.png" alt="n_neighbors ثابت مع معالجة مسبقة متغيرة على مجموعة بيانات cardiotocography" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 48.741 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-miscellaneous-plot-outlier-detection-bench-py">
 <div class="binder-badge docutils container">
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/scikit-learn/scikit-learn/main?urlpath=lab/tree/notebooks/auto_examples/miscellaneous/plot_outlier_detection_bench.ipynb"><img alt="Launch binder" src="../../_images/binder_badge_logo20.svg" style="width: 150px;" />
@@ -1464,18 +1465,18 @@ respective documentation for more details.</p>
 </div>
 </div>
 <p class="rubric">Related examples</p>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The Local Outlier Factor (LOF) algorithm is an unsupervised anomaly detection method which computes the local density deviation of a given data point with respect to its neighbors. It considers as outliers the samples that have a substantially lower density than their neighbors. This example shows how to use LOF for outlier detection which is the default use case of this estimator in scikit-learn. Note that when LOF is used for outlier detection it has no predict, decision_function and score_samples methods. See the User Guide &lt;outlier_detection&gt; for details on the difference between outlier detection and novelty detection and how to use LOF for novelty detection."><img alt="" src="../../_images/sphx_glr_plot_lof_outlier_detection_thumb.png" />
-<p><a class="reference internal" href="../neighbors/plot_lof_outlier_detection.html#sphx-glr-auto-examples-neighbors-plot-lof-outlier-detection-py"><span class="std std-ref">Outlier detection with Local Outlier Factor (LOF)</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Outlier detection with Local Outlier Factor (LOF)</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows characteristics of different anomaly detection algorithms on 2D datasets. Datasets contain one or two modes (regions of high density) to illustrate the ability of algorithms to cope with multimodal data."><img alt="" src="../../_images/sphx_glr_plot_anomaly_comparison_thumb.png" />
-<p><a class="reference internal" href="plot_anomaly_comparison.html#sphx-glr-auto-examples-miscellaneous-plot-anomaly-comparison-py"><span class="std std-ref">Comparing anomaly detection algorithms for outlier detection on toy datasets</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Comparing anomaly detection algorithms for outlier detection on toy datasets</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Feature 0 (median income in a block) and feature 5 (average house occupancy) of the california_housing_dataset have very different scales and contain some very large outliers. These two characteristics lead to difficulties to visualize the data and, more importantly, they can degrade the predictive performance of many machine learning algorithms. Unscaled data can also slow down or even prevent the convergence of many gradient-based estimators."><img alt="" src="../../_images/sphx_glr_plot_all_scaling_thumb.png" />
-<p><a class="reference internal" href="../preprocessing/plot_all_scaling.html#sphx-glr-auto-examples-preprocessing-plot-all-scaling-py"><span class="std std-ref">Compare the effect of different scalers on data with outliers</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Compare the effect of different scalers on data with outliers</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The Local Outlier Factor (LOF) algorithm is an unsupervised anomaly detection method which computes the local density deviation of a given data point with respect to its neighbors. It considers as outliers the samples that have a substantially lower density than their neighbors. This example shows how to use LOF for novelty detection. Note that when LOF is used for novelty detection you MUST not use predict, decision_function and score_samples on the training set as this would lead to wrong results. You must only use these methods on new unseen data (which are not in the training set). See User Guide &lt;outlier_detection&gt;: for details on the difference between outlier detection and novelty detection and how to use LOF for outlier detection."><img alt="" src="../../_images/sphx_glr_plot_lof_novelty_detection_thumb.png" />
-<p><a class="reference internal" href="../neighbors/plot_lof_novelty_detection.html#sphx-glr-auto-examples-neighbors-plot-lof-novelty-detection-py"><span class="std std-ref">Novelty detection with Local Outlier Factor (LOF)</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Novelty detection with Local Outlier Factor (LOF)</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="خوارزمية عامل الانحراف المحلي (LOF) هي طريقة غير خاضعة للإشراف للكشف عن الانحرافات والتي تحسب انحراف الكثافة المحلية لنقطة بيانات معينة فيما يتعلق بجيرانها. تعتبر هذه الخوارزمية العينات التي لها كثافة أقل بكثير من جيرانها كقيم شاذة. يوضح هذا المثال كيفية استخدام LOF للكشف عن القيم الشاذة، وهو الاستخدام الافتراضي لهذا المقدر في مكتبة ساي كيت ليرن (scikit-learn). تجدر الإشارة إلى أنه عند استخدام LOF للكشف عن القيم الشاذة، لا تتوفر له طرق &#x27;predict&#x27; و &#x27;decision_function&#x27; و &#x27;score_samples&#x27;. راجع دليل المستخدم &lt;outlier_detection&gt; للحصول على التفاصيل حول الفرق بين الكشف عن القيم الشاذة والكشف عن البيانات الجديدة وكيفية استخدام LOF للكشف عن البيانات الجديدة."><img alt="" src="../../_images/sphx_glr_plot_lof_outlier_detection_thumb.png" />
+<p><a class="reference internal" href="../neighbors/plot_lof_outlier_detection.html#sphx-glr-auto-examples-neighbors-plot-lof-outlier-detection-py"><span class="std std-ref">الكشف عن القيم الشاذة باستخدام عامل الانحراف المحلي (LOF)</span></a></p>
+  <div class="sphx-glr-thumbnail-title">الكشف عن القيم الشاذة باستخدام عامل الانحراف المحلي (LOF)</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال خصائص خوارزميات مختلفة للكشف عن الشذوذ على مجموعات بيانات ثنائية الأبعاد. تحتوي مجموعات البيانات على نمط واحد أو نمطين (مناطق ذات كثافة عالية) لتوضيح قدرة الخوارزميات على التعامل مع البيانات متعددة الأنماط."><img alt="" src="../../_images/sphx_glr_plot_anomaly_comparison_thumb.png" />
+<p><a class="reference internal" href="plot_anomaly_comparison.html#sphx-glr-auto-examples-miscellaneous-plot-anomaly-comparison-py"><span class="std std-ref">مقارنة خوارزميات الكشف عن الشذوذ لكشف القيم المتطرفة في مجموعات بيانات تجريبية</span></a></p>
+  <div class="sphx-glr-thumbnail-title">مقارنة خوارزميات الكشف عن الشذوذ لكشف القيم المتطرفة في مجموعات بيانات تجريبية</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="بمجرد تدريب المصنف، فإن ناتج طريقة predict ينتج تنبؤات تسمية الفئة المقابلة لعتبة إما decision_function أو ناتج predict_proba. بالنسبة للمصنف الثنائي، فإن العتبة الافتراضية محددة كتقدير احتمالية لاحقة تبلغ 0.5 أو درجة قرار تبلغ 0.0."><img alt="" src="../../_images/sphx_glr_plot_cost_sensitive_learning_thumb.png" />
+<p><a class="reference internal" href="../model_selection/plot_cost_sensitive_learning.html#sphx-glr-auto-examples-model-selection-plot-cost-sensitive-learning-py"><span class="std std-ref">ضبط عتبة القرار للتعلم الحساس للتكلفة</span></a></p>
+  <div class="sphx-glr-thumbnail-title">ضبط عتبة القرار للتعلم الحساس للتكلفة</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="تتميز الخاصية 0 (متوسط الدخل في الكتلة) والخاصية 5 (متوسط شغل المنزل) في california_housing_dataset بمقاييس مختلفة جداً وتحتوي على بعض القيم الشاذة الكبيرة جدًا. تؤدي هاتان الخاصيتان إلى صعوبات في تصور البيانات, والأهم من ذلك, يمكن أن تتدهور الأداء التنبؤي للعديد من خوارزميات التعلم الآلي. يمكن أن تؤدي البيانات غير المقاسة أيضًا إلى إبطاء أو حتى منع تقارب العديد من المقدرات القائمة على التدرج."><img alt="" src="../../_images/sphx_glr_plot_all_scaling_thumb.png" />
+<p><a class="reference internal" href="../preprocessing/plot_all_scaling.html#sphx-glr-auto-examples-preprocessing-plot-all-scaling-py"><span class="std std-ref">مقارنة تأثير المقياس المختلف على البيانات مع القيم الشاذة</span></a></p>
+  <div class="sphx-glr-thumbnail-title">مقارنة تأثير المقياس المختلف على البيانات مع القيم الشاذة</div>
 </div></div><p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
 </section>
 </section>
@@ -1491,20 +1492,20 @@ respective documentation for more details.</p>
     <div class="footer-article-item">
 <div class="prev-next-area">
     <a class="left-prev"
-       href="plot_estimator_representation.html"
+       href="plot_kernel_approximation.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">السابق</p>
-        <p class="prev-next-title">Displaying estimators and complex pipelines</p>
+        <p class="prev-next-title">تقريب خريطة الميزات الصريحة لنواة RBF</p>
       </div>
     </a>
     <a class="right-next"
-       href="plot_kernel_approximation.html"
+       href="plot_metadata_routing.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">التالي</p>
-        <p class="prev-next-title">Explicit feature map approximation for RBF kernels</p>
+        <p class="prev-next-title">توجيه البيانات الوصفية</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1531,15 +1532,15 @@ respective documentation for more details.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-preprocessing-and-model-training">Dataset preprocessing and model training</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kddcup99-sa-dataset">KDDCup99 - SA dataset</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forest-covertypes-dataset">Forest covertypes dataset</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ames-housing-dataset">Ames Housing dataset</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cardiotocography-dataset">Cardiotocography dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">معالجة البيانات وتدريب النموذج</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kddcup99-sa">KDDCup99 - مجموعة بيانات SA</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">مجموعة بيانات غطاء الغابات</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ames-housing">مجموعة بيانات Ames Housing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cardiotocography">مجموعة بيانات Cardiotocography</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-and-interpret-results">Plot and interpret results</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ablation-study">Ablation study</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">رسم وتفسير النتائج</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">دراسة التخفيف</a></li>
 </ul>
   </nav></div>
 

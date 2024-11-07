@@ -18,23 +18,19 @@
 .. _sphx_glr_auto_examples_miscellaneous_plot_set_output.py:
 
 
-================================
-Introducing the `set_output` API
-================================
+============================================
+تقديم واجهة برمجة التطبيقات `set_output`
+============================================
 
 .. currentmodule:: sklearn
 
-This example will demonstrate the `set_output` API to configure transformers to
-output pandas DataFrames. `set_output` can be configured per estimator by calling
-the `set_output` method or globally by setting `set_config(transform_output="pandas")`.
-For details, see
-`SLEP018 <https://scikit-learn-enhancement-proposals.readthedocs.io/en/latest/slep018/proposal.html>`__.
+هذا المثال سيوضح واجهة برمجة التطبيقات `set_output` لتكوين المحولات لإخراج إطارات بيانات باندا. يمكن تكوين `set_output` لكل مقدر عن طريق استدعاء طريقة `set_output` أو بشكل عام عن طريق تعيين `set_config(transform_output="pandas")`. للحصول على التفاصيل، راجع `SLEP018 <https://scikit-learn-enhancement-proposals.readthedocs.io/en/latest/slep018/proposal.html>`__.
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-17
+.. GENERATED FROM PYTHON SOURCE LINES 11-12
 
-First, we load the iris dataset as a DataFrame to demonstrate the `set_output` API.
+أولاً، نقوم بتحميل مجموعة بيانات إيريس كإطار بيانات لإظهار واجهة برمجة التطبيقات `set_output`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-24
+.. GENERATED FROM PYTHON SOURCE LINES 12-19
 
 .. code-block:: Python
 
@@ -120,12 +116,12 @@ First, we load the iris dataset as a DataFrame to demonstrate the `set_output` A
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 25-27
+.. GENERATED FROM PYTHON SOURCE LINES 20-22
 
-To configure an estimator such as :class:`preprocessing.StandardScaler` to return
-DataFrames, call `set_output`. This feature requires pandas to be installed.
+لتكوين مقدر مثل :class:`preprocessing.StandardScaler` لإرجاع
+إطارات البيانات، استدع `set_output`. تتطلب هذه الميزة تثبيت باندا.
 
-.. GENERATED FROM PYTHON SOURCE LINES 27-36
+.. GENERATED FROM PYTHON SOURCE LINES 22-31
 
 .. code-block:: Python
 
@@ -213,11 +209,11 @@ DataFrames, call `set_output`. This feature requires pandas to be installed.
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 37-38
+.. GENERATED FROM PYTHON SOURCE LINES 32-33
 
-`set_output` can be called after `fit` to configure `transform` after the fact.
+يمكن استدعاء `set_output` بعد `fit` لتكوين `transform` بعد ذلك.
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-48
+.. GENERATED FROM PYTHON SOURCE LINES 33-43
 
 .. code-block:: Python
 
@@ -225,11 +221,11 @@ DataFrames, call `set_output`. This feature requires pandas to be installed.
 
     scaler2.fit(X_train)
     X_test_np = scaler2.transform(X_test)
-    print(f"Default output type: {type(X_test_np).__name__}")
+    print(f"نوع الإخراج الافتراضي: {type(X_test_np).__name__}")
 
     scaler2.set_output(transform="pandas")
     X_test_df = scaler2.transform(X_test)
-    print(f"Configured pandas output type: {type(X_test_df).__name__}")
+    print(f"نوع الإخراج المُهيأ من باندا: {type(X_test_df).__name__}")
 
 
 
@@ -239,18 +235,18 @@ DataFrames, call `set_output`. This feature requires pandas to be installed.
 
  .. code-block:: none
 
-    Default output type: ndarray
-    Configured pandas output type: DataFrame
+    نوع الإخراج الافتراضي: ndarray
+    نوع الإخراج المُهيأ من باندا: DataFrame
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 49-51
+.. GENERATED FROM PYTHON SOURCE LINES 44-46
 
-In a :class:`pipeline.Pipeline`, `set_output` configures all steps to output
-DataFrames.
+في :class:`pipeline.Pipeline`، يقوم `set_output` بتكوين جميع الخطوات لإخراج
+إطارات البيانات.
 
-.. GENERATED FROM PYTHON SOURCE LINES 51-61
+.. GENERATED FROM PYTHON SOURCE LINES 46-56
 
 .. code-block:: Python
 
@@ -272,7 +268,7 @@ DataFrames.
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-46 {
+    <style>#sk-container-id-27 {
       /* Definition of color scheme common for light and dark mode */
       --sklearn-color-text: #000;
       --sklearn-color-text-muted: #666;
@@ -303,15 +299,15 @@ DataFrames.
       }
     }
 
-    #sk-container-id-46 {
+    #sk-container-id-27 {
       color: var(--sklearn-color-text);
     }
 
-    #sk-container-id-46 pre {
+    #sk-container-id-27 pre {
       padding: 0;
     }
 
-    #sk-container-id-46 input.sk-hidden--visually {
+    #sk-container-id-27 input.sk-hidden--visually {
       border: 0;
       clip: rect(1px 1px 1px 1px);
       clip: rect(1px, 1px, 1px, 1px);
@@ -323,7 +319,7 @@ DataFrames.
       width: 1px;
     }
 
-    #sk-container-id-46 div.sk-dashed-wrapped {
+    #sk-container-id-27 div.sk-dashed-wrapped {
       border: 1px dashed var(--sklearn-color-line);
       margin: 0 0.4em 0.5em 0.4em;
       box-sizing: border-box;
@@ -331,7 +327,7 @@ DataFrames.
       background-color: var(--sklearn-color-background);
     }
 
-    #sk-container-id-46 div.sk-container {
+    #sk-container-id-27 div.sk-container {
       /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
          but bootstrap.min.css set `[hidden] { display: none !important; }`
          so we also need the `!important` here to be able to override the
@@ -341,7 +337,7 @@ DataFrames.
       position: relative;
     }
 
-    #sk-container-id-46 div.sk-text-repr-fallback {
+    #sk-container-id-27 div.sk-text-repr-fallback {
       display: none;
     }
 
@@ -357,14 +353,14 @@ DataFrames.
 
     /* Parallel-specific style estimator block */
 
-    #sk-container-id-46 div.sk-parallel-item::after {
+    #sk-container-id-27 div.sk-parallel-item::after {
       content: "";
       width: 100%;
       border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
       flex-grow: 1;
     }
 
-    #sk-container-id-46 div.sk-parallel {
+    #sk-container-id-27 div.sk-parallel {
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -372,28 +368,28 @@ DataFrames.
       position: relative;
     }
 
-    #sk-container-id-46 div.sk-parallel-item {
+    #sk-container-id-27 div.sk-parallel-item {
       display: flex;
       flex-direction: column;
     }
 
-    #sk-container-id-46 div.sk-parallel-item:first-child::after {
+    #sk-container-id-27 div.sk-parallel-item:first-child::after {
       align-self: flex-end;
       width: 50%;
     }
 
-    #sk-container-id-46 div.sk-parallel-item:last-child::after {
+    #sk-container-id-27 div.sk-parallel-item:last-child::after {
       align-self: flex-start;
       width: 50%;
     }
 
-    #sk-container-id-46 div.sk-parallel-item:only-child::after {
+    #sk-container-id-27 div.sk-parallel-item:only-child::after {
       width: 0;
     }
 
     /* Serial-specific style estimator block */
 
-    #sk-container-id-46 div.sk-serial {
+    #sk-container-id-27 div.sk-serial {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -411,14 +407,14 @@ DataFrames.
 
     /* Pipeline and ColumnTransformer style (default) */
 
-    #sk-container-id-46 div.sk-toggleable {
+    #sk-container-id-27 div.sk-toggleable {
       /* Default theme specific background. It is overwritten whether we have a
       specific estimator or a Pipeline/ColumnTransformer */
       background-color: var(--sklearn-color-background);
     }
 
     /* Toggleable label */
-    #sk-container-id-46 label.sk-toggleable__label {
+    #sk-container-id-27 label.sk-toggleable__label {
       cursor: pointer;
       display: flex;
       width: 100%;
@@ -431,13 +427,13 @@ DataFrames.
       gap: 0.5em;
     }
 
-    #sk-container-id-46 label.sk-toggleable__label .caption {
+    #sk-container-id-27 label.sk-toggleable__label .caption {
       font-size: 0.6rem;
       font-weight: lighter;
       color: var(--sklearn-color-text-muted);
     }
 
-    #sk-container-id-46 label.sk-toggleable__label-arrow:before {
+    #sk-container-id-27 label.sk-toggleable__label-arrow:before {
       /* Arrow on the left of the label */
       content: "▸";
       float: left;
@@ -445,13 +441,13 @@ DataFrames.
       color: var(--sklearn-color-icon);
     }
 
-    #sk-container-id-46 label.sk-toggleable__label-arrow:hover:before {
+    #sk-container-id-27 label.sk-toggleable__label-arrow:hover:before {
       color: var(--sklearn-color-text);
     }
 
     /* Toggleable content - dropdown */
 
-    #sk-container-id-46 div.sk-toggleable__content {
+    #sk-container-id-27 div.sk-toggleable__content {
       max-height: 0;
       max-width: 0;
       overflow: hidden;
@@ -460,12 +456,12 @@ DataFrames.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-46 div.sk-toggleable__content.fitted {
+    #sk-container-id-27 div.sk-toggleable__content.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-46 div.sk-toggleable__content pre {
+    #sk-container-id-27 div.sk-toggleable__content pre {
       margin: 0.2em;
       border-radius: 0.25em;
       color: var(--sklearn-color-text);
@@ -473,79 +469,79 @@ DataFrames.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-46 div.sk-toggleable__content.fitted pre {
+    #sk-container-id-27 div.sk-toggleable__content.fitted pre {
       /* unfitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-46 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    #sk-container-id-27 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
       max-height: 200px;
       max-width: 100%;
       overflow: auto;
     }
 
-    #sk-container-id-46 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    #sk-container-id-27 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
       content: "▾";
     }
 
     /* Pipeline/ColumnTransformer-specific style */
 
-    #sk-container-id-46 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-27 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-46 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-27 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator-specific style */
 
     /* Colorize estimator box */
-    #sk-container-id-46 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-27 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-46 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-27 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
-    #sk-container-id-46 div.sk-label label.sk-toggleable__label,
-    #sk-container-id-46 div.sk-label label {
+    #sk-container-id-27 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-27 div.sk-label label {
       /* The background is the default theme color */
       color: var(--sklearn-color-text-on-default-background);
     }
 
     /* On hover, darken the color of the background */
-    #sk-container-id-46 div.sk-label:hover label.sk-toggleable__label {
+    #sk-container-id-27 div.sk-label:hover label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
     /* Label box, darken color on hover, fitted */
-    #sk-container-id-46 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+    #sk-container-id-27 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator label */
 
-    #sk-container-id-46 div.sk-label label {
+    #sk-container-id-27 div.sk-label label {
       font-family: monospace;
       font-weight: bold;
       display: inline-block;
       line-height: 1.2em;
     }
 
-    #sk-container-id-46 div.sk-label-container {
+    #sk-container-id-27 div.sk-label-container {
       text-align: center;
     }
 
     /* Estimator-specific */
-    #sk-container-id-46 div.sk-estimator {
+    #sk-container-id-27 div.sk-estimator {
       font-family: monospace;
       border: 1px dotted var(--sklearn-color-border-box);
       border-radius: 0.25em;
@@ -555,18 +551,18 @@ DataFrames.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-46 div.sk-estimator.fitted {
+    #sk-container-id-27 div.sk-estimator.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
     /* on hover */
-    #sk-container-id-46 div.sk-estimator:hover {
+    #sk-container-id-27 div.sk-estimator:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-46 div.sk-estimator.fitted:hover {
+    #sk-container-id-27 div.sk-estimator.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
@@ -654,7 +650,7 @@ DataFrames.
 
     /* "?"-specific style due to the `<a>` HTML tag */
 
-    #sk-container-id-46 a.estimator_doc_link {
+    #sk-container-id-27 a.estimator_doc_link {
       float: right;
       font-size: 1rem;
       line-height: 1em;
@@ -669,39 +665,39 @@ DataFrames.
       border: var(--sklearn-color-unfitted-level-1) 1pt solid;
     }
 
-    #sk-container-id-46 a.estimator_doc_link.fitted {
+    #sk-container-id-27 a.estimator_doc_link.fitted {
       /* fitted */
       border: var(--sklearn-color-fitted-level-1) 1pt solid;
       color: var(--sklearn-color-fitted-level-1);
     }
 
     /* On hover */
-    #sk-container-id-46 a.estimator_doc_link:hover {
+    #sk-container-id-27 a.estimator_doc_link:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-3);
       color: var(--sklearn-color-background);
       text-decoration: none;
     }
 
-    #sk-container-id-46 a.estimator_doc_link.fitted:hover {
+    #sk-container-id-27 a.estimator_doc_link.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-46" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler()),
+    </style><div id="sk-container-id-27" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler()),
                     (&#x27;selectpercentile&#x27;, SelectPercentile(percentile=75)),
-                    (&#x27;logisticregression&#x27;, LogisticRegression())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-207" type="checkbox" ><label for="sk-estimator-id-207" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler()),
+                    (&#x27;logisticregression&#x27;, LogisticRegression())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-77" type="checkbox" ><label for="sk-estimator-id-77" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler()),
                     (&#x27;selectpercentile&#x27;, SelectPercentile(percentile=75)),
-                    (&#x27;logisticregression&#x27;, LogisticRegression())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-208" type="checkbox" ><label for="sk-estimator-id-208" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content fitted"><pre>StandardScaler()</pre></div> </div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-209" type="checkbox" ><label for="sk-estimator-id-209" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SelectPercentile</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.feature_selection.SelectPercentile.html">?<span>Documentation for SelectPercentile</span></a></div></label><div class="sk-toggleable__content fitted"><pre>SelectPercentile(percentile=75)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-210" type="checkbox" ><label for="sk-estimator-id-210" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LogisticRegression</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a></div></label><div class="sk-toggleable__content fitted"><pre>LogisticRegression()</pre></div> </div></div></div></div></div></div>
+                    (&#x27;logisticregression&#x27;, LogisticRegression())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-78" type="checkbox" ><label for="sk-estimator-id-78" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content fitted"><pre>StandardScaler()</pre></div> </div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-79" type="checkbox" ><label for="sk-estimator-id-79" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SelectPercentile</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.feature_selection.SelectPercentile.html">?<span>Documentation for SelectPercentile</span></a></div></label><div class="sk-toggleable__content fitted"><pre>SelectPercentile(percentile=75)</pre></div> </div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-80" type="checkbox" ><label for="sk-estimator-id-80" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LogisticRegression</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a></div></label><div class="sk-toggleable__content fitted"><pre>LogisticRegression()</pre></div> </div></div></div></div></div></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 62-64
+.. GENERATED FROM PYTHON SOURCE LINES 57-59
 
-Each transformer in the pipeline is configured to return DataFrames. This
-means that the final logistic regression step contains the feature names of the input.
+يتم تكوين كل محول في خط الأنابيب لإرجاع إطارات البيانات. هذا
+يعني أن خطوة الانحدار اللوجستي النهائي تحتوي على أسماء ميزات الإدخال.
 
-.. GENERATED FROM PYTHON SOURCE LINES 64-66
+.. GENERATED FROM PYTHON SOURCE LINES 59-61
 
 .. code-block:: Python
 
@@ -721,12 +717,12 @@ means that the final logistic regression step contains the feature names of the 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 67-69
+.. GENERATED FROM PYTHON SOURCE LINES 62-64
 
-.. note:: If one uses the method `set_params`, the transformer will be
-   replaced by a new one with the default output format.
+.. note:: إذا استخدم المرء طريقة `set_params`، فسيتم استبدال المحول
+   بآخر بتنسيق الإخراج الافتراضي.
 
-.. GENERATED FROM PYTHON SOURCE LINES 69-73
+.. GENERATED FROM PYTHON SOURCE LINES 64-68
 
 .. code-block:: Python
 
@@ -747,12 +743,12 @@ means that the final logistic regression step contains the feature names of the 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 74-76
+.. GENERATED FROM PYTHON SOURCE LINES 69-71
 
-To keep the intended behavior, use `set_output` on the new transformer
-beforehand
+للحفاظ على السلوك المقصود، استخدم `set_output` على المحول الجديد
+مسبقاً
 
-.. GENERATED FROM PYTHON SOURCE LINES 76-81
+.. GENERATED FROM PYTHON SOURCE LINES 71-76
 
 .. code-block:: Python
 
@@ -775,12 +771,12 @@ beforehand
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 82-84
+.. GENERATED FROM PYTHON SOURCE LINES 77-79
 
-Next we load the titanic dataset to demonstrate `set_output` with
-:class:`compose.ColumnTransformer` and heterogeneous data.
+بعد ذلك، نقوم بتحميل مجموعة بيانات تيتانيك لإظهار `set_output` مع
+:class:`compose.ColumnTransformer` والبيانات غير المتجانسة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 84-89
+.. GENERATED FROM PYTHON SOURCE LINES 79-84
 
 .. code-block:: Python
 
@@ -796,12 +792,12 @@ Next we load the titanic dataset to demonstrate `set_output` with
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 90-92
+.. GENERATED FROM PYTHON SOURCE LINES 85-87
 
-The `set_output` API can be configured globally by using :func:`set_config` and
-setting `transform_output` to `"pandas"`.
+يمكن تكوين واجهة برمجة التطبيقات `set_output` بشكل عام باستخدام :func:`set_config` و
+تعيين `transform_output` إلى `"pandas"`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 92-118
+.. GENERATED FROM PYTHON SOURCE LINES 87-113
 
 .. code-block:: Python
 
@@ -840,16 +836,16 @@ setting `transform_output` to `"pandas"`.
  .. code-block:: none
 
 
-    0.7621951219512195
+    0.7804878048780488
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 119-121
+.. GENERATED FROM PYTHON SOURCE LINES 114-116
 
-With the global configuration, all transformers output DataFrames. This allows us to
-easily plot the logistic regression coefficients with the corresponding feature names.
+مع التهيئة العامة، تخرج جميع المحولات إطارات بيانات. هذا يسمح لنا
+بسهولة رسم معاملات الانحدار اللوجستي مع أسماء الميزات المقابلة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 121-127
+.. GENERATED FROM PYTHON SOURCE LINES 116-122
 
 .. code-block:: Python
 
@@ -871,12 +867,12 @@ easily plot the logistic regression coefficients with the corresponding feature 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 128-130
+.. GENERATED FROM PYTHON SOURCE LINES 123-125
 
-In order to demonstrate the :func:`config_context` functionality below, let
-us first reset `transform_output` to its default value.
+من أجل توضيح وظيفة :func:`config_context` أدناه، دعنا
+أولاً إعادة تعيين `transform_output` إلى قيمته الافتراضية.
 
-.. GENERATED FROM PYTHON SOURCE LINES 130-132
+.. GENERATED FROM PYTHON SOURCE LINES 125-127
 
 .. code-block:: Python
 
@@ -889,14 +885,13 @@ us first reset `transform_output` to its default value.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 133-137
+.. GENERATED FROM PYTHON SOURCE LINES 128-131
 
-When configuring the output type with :func:`config_context` the
-configuration at the time when `transform` or `fit_transform` are
-called is what counts. Setting these only when you construct or fit
-the transformer has no effect.
+عند تكوين نوع الإخراج باستخدام :func:`config_context` فإن
+التهيئة في الوقت الذي يتم فيه استدعاء `transform` أو `fit_transform` هي ما يهم. تعيين هذه فقط عند إنشاء أو تكييف
+المحول ليس له أي تأثير.
 
-.. GENERATED FROM PYTHON SOURCE LINES 137-142
+.. GENERATED FROM PYTHON SOURCE LINES 131-136
 
 .. code-block:: Python
 
@@ -913,7 +908,7 @@ the transformer has no effect.
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-47 {
+    <style>#sk-container-id-28 {
       /* Definition of color scheme common for light and dark mode */
       --sklearn-color-text: #000;
       --sklearn-color-text-muted: #666;
@@ -944,15 +939,15 @@ the transformer has no effect.
       }
     }
 
-    #sk-container-id-47 {
+    #sk-container-id-28 {
       color: var(--sklearn-color-text);
     }
 
-    #sk-container-id-47 pre {
+    #sk-container-id-28 pre {
       padding: 0;
     }
 
-    #sk-container-id-47 input.sk-hidden--visually {
+    #sk-container-id-28 input.sk-hidden--visually {
       border: 0;
       clip: rect(1px 1px 1px 1px);
       clip: rect(1px, 1px, 1px, 1px);
@@ -964,7 +959,7 @@ the transformer has no effect.
       width: 1px;
     }
 
-    #sk-container-id-47 div.sk-dashed-wrapped {
+    #sk-container-id-28 div.sk-dashed-wrapped {
       border: 1px dashed var(--sklearn-color-line);
       margin: 0 0.4em 0.5em 0.4em;
       box-sizing: border-box;
@@ -972,7 +967,7 @@ the transformer has no effect.
       background-color: var(--sklearn-color-background);
     }
 
-    #sk-container-id-47 div.sk-container {
+    #sk-container-id-28 div.sk-container {
       /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
          but bootstrap.min.css set `[hidden] { display: none !important; }`
          so we also need the `!important` here to be able to override the
@@ -982,7 +977,7 @@ the transformer has no effect.
       position: relative;
     }
 
-    #sk-container-id-47 div.sk-text-repr-fallback {
+    #sk-container-id-28 div.sk-text-repr-fallback {
       display: none;
     }
 
@@ -998,14 +993,14 @@ the transformer has no effect.
 
     /* Parallel-specific style estimator block */
 
-    #sk-container-id-47 div.sk-parallel-item::after {
+    #sk-container-id-28 div.sk-parallel-item::after {
       content: "";
       width: 100%;
       border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
       flex-grow: 1;
     }
 
-    #sk-container-id-47 div.sk-parallel {
+    #sk-container-id-28 div.sk-parallel {
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -1013,28 +1008,28 @@ the transformer has no effect.
       position: relative;
     }
 
-    #sk-container-id-47 div.sk-parallel-item {
+    #sk-container-id-28 div.sk-parallel-item {
       display: flex;
       flex-direction: column;
     }
 
-    #sk-container-id-47 div.sk-parallel-item:first-child::after {
+    #sk-container-id-28 div.sk-parallel-item:first-child::after {
       align-self: flex-end;
       width: 50%;
     }
 
-    #sk-container-id-47 div.sk-parallel-item:last-child::after {
+    #sk-container-id-28 div.sk-parallel-item:last-child::after {
       align-self: flex-start;
       width: 50%;
     }
 
-    #sk-container-id-47 div.sk-parallel-item:only-child::after {
+    #sk-container-id-28 div.sk-parallel-item:only-child::after {
       width: 0;
     }
 
     /* Serial-specific style estimator block */
 
-    #sk-container-id-47 div.sk-serial {
+    #sk-container-id-28 div.sk-serial {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -1052,14 +1047,14 @@ the transformer has no effect.
 
     /* Pipeline and ColumnTransformer style (default) */
 
-    #sk-container-id-47 div.sk-toggleable {
+    #sk-container-id-28 div.sk-toggleable {
       /* Default theme specific background. It is overwritten whether we have a
       specific estimator or a Pipeline/ColumnTransformer */
       background-color: var(--sklearn-color-background);
     }
 
     /* Toggleable label */
-    #sk-container-id-47 label.sk-toggleable__label {
+    #sk-container-id-28 label.sk-toggleable__label {
       cursor: pointer;
       display: flex;
       width: 100%;
@@ -1072,13 +1067,13 @@ the transformer has no effect.
       gap: 0.5em;
     }
 
-    #sk-container-id-47 label.sk-toggleable__label .caption {
+    #sk-container-id-28 label.sk-toggleable__label .caption {
       font-size: 0.6rem;
       font-weight: lighter;
       color: var(--sklearn-color-text-muted);
     }
 
-    #sk-container-id-47 label.sk-toggleable__label-arrow:before {
+    #sk-container-id-28 label.sk-toggleable__label-arrow:before {
       /* Arrow on the left of the label */
       content: "▸";
       float: left;
@@ -1086,13 +1081,13 @@ the transformer has no effect.
       color: var(--sklearn-color-icon);
     }
 
-    #sk-container-id-47 label.sk-toggleable__label-arrow:hover:before {
+    #sk-container-id-28 label.sk-toggleable__label-arrow:hover:before {
       color: var(--sklearn-color-text);
     }
 
     /* Toggleable content - dropdown */
 
-    #sk-container-id-47 div.sk-toggleable__content {
+    #sk-container-id-28 div.sk-toggleable__content {
       max-height: 0;
       max-width: 0;
       overflow: hidden;
@@ -1101,12 +1096,12 @@ the transformer has no effect.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-47 div.sk-toggleable__content.fitted {
+    #sk-container-id-28 div.sk-toggleable__content.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-47 div.sk-toggleable__content pre {
+    #sk-container-id-28 div.sk-toggleable__content pre {
       margin: 0.2em;
       border-radius: 0.25em;
       color: var(--sklearn-color-text);
@@ -1114,79 +1109,79 @@ the transformer has no effect.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-47 div.sk-toggleable__content.fitted pre {
+    #sk-container-id-28 div.sk-toggleable__content.fitted pre {
       /* unfitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-47 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    #sk-container-id-28 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
       max-height: 200px;
       max-width: 100%;
       overflow: auto;
     }
 
-    #sk-container-id-47 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    #sk-container-id-28 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
       content: "▾";
     }
 
     /* Pipeline/ColumnTransformer-specific style */
 
-    #sk-container-id-47 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-28 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-47 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-28 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator-specific style */
 
     /* Colorize estimator box */
-    #sk-container-id-47 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-28 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-47 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-28 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
-    #sk-container-id-47 div.sk-label label.sk-toggleable__label,
-    #sk-container-id-47 div.sk-label label {
+    #sk-container-id-28 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-28 div.sk-label label {
       /* The background is the default theme color */
       color: var(--sklearn-color-text-on-default-background);
     }
 
     /* On hover, darken the color of the background */
-    #sk-container-id-47 div.sk-label:hover label.sk-toggleable__label {
+    #sk-container-id-28 div.sk-label:hover label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
     /* Label box, darken color on hover, fitted */
-    #sk-container-id-47 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+    #sk-container-id-28 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator label */
 
-    #sk-container-id-47 div.sk-label label {
+    #sk-container-id-28 div.sk-label label {
       font-family: monospace;
       font-weight: bold;
       display: inline-block;
       line-height: 1.2em;
     }
 
-    #sk-container-id-47 div.sk-label-container {
+    #sk-container-id-28 div.sk-label-container {
       text-align: center;
     }
 
     /* Estimator-specific */
-    #sk-container-id-47 div.sk-estimator {
+    #sk-container-id-28 div.sk-estimator {
       font-family: monospace;
       border: 1px dotted var(--sklearn-color-border-box);
       border-radius: 0.25em;
@@ -1196,18 +1191,18 @@ the transformer has no effect.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-47 div.sk-estimator.fitted {
+    #sk-container-id-28 div.sk-estimator.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
     /* on hover */
-    #sk-container-id-47 div.sk-estimator:hover {
+    #sk-container-id-28 div.sk-estimator:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-47 div.sk-estimator.fitted:hover {
+    #sk-container-id-28 div.sk-estimator.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
@@ -1295,7 +1290,7 @@ the transformer has no effect.
 
     /* "?"-specific style due to the `<a>` HTML tag */
 
-    #sk-container-id-47 a.estimator_doc_link {
+    #sk-container-id-28 a.estimator_doc_link {
       float: right;
       font-size: 1rem;
       line-height: 1em;
@@ -1310,35 +1305,35 @@ the transformer has no effect.
       border: var(--sklearn-color-unfitted-level-1) 1pt solid;
     }
 
-    #sk-container-id-47 a.estimator_doc_link.fitted {
+    #sk-container-id-28 a.estimator_doc_link.fitted {
       /* fitted */
       border: var(--sklearn-color-fitted-level-1) 1pt solid;
       color: var(--sklearn-color-fitted-level-1);
     }
 
     /* On hover */
-    #sk-container-id-47 a.estimator_doc_link:hover {
+    #sk-container-id-28 a.estimator_doc_link:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-3);
       color: var(--sklearn-color-background);
       text-decoration: none;
     }
 
-    #sk-container-id-47 a.estimator_doc_link.fitted:hover {
+    #sk-container-id-28 a.estimator_doc_link.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-47" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>StandardScaler()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-211" type="checkbox" checked><label for="sk-estimator-id-211" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>StandardScaler()</pre></div> </div></div></div></div>
+    </style><div id="sk-container-id-28" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>StandardScaler()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-81" type="checkbox" checked><label for="sk-estimator-id-81" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>StandardScaler()</pre></div> </div></div></div></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 143-148
+.. GENERATED FROM PYTHON SOURCE LINES 137-142
 
 .. code-block:: Python
 
     with config_context(transform_output="pandas"):
-        # the output of transform will be a Pandas DataFrame
+        # سيكون إخراج التحويل إطار بيانات باندا
         X_test_scaled = scaler.transform(X_test[num_cols])
     X_test_scaled.head()
 
@@ -1374,29 +1369,29 @@ the transformer has no effect.
       </thead>
       <tbody>
         <tr>
-          <th>1088</th>
-          <td>0.151101</td>
-          <td>-0.479229</td>
+          <th>714</th>
+          <td>0.139067</td>
+          <td>0.446265</td>
         </tr>
         <tr>
-          <th>1001</th>
+          <th>101</th>
+          <td>0.627743</td>
+          <td>-0.081671</td>
+        </tr>
+        <tr>
+          <th>721</th>
+          <td>0.418311</td>
+          <td>-0.519142</td>
+        </tr>
+        <tr>
+          <th>147</th>
           <td>NaN</td>
-          <td>-0.188153</td>
+          <td>0.168547</td>
         </tr>
         <tr>
-          <th>660</th>
-          <td>-0.393297</td>
-          <td>-0.263234</td>
-        </tr>
-        <tr>
-          <th>657</th>
-          <td>-1.975455</td>
-          <td>-0.263234</td>
-        </tr>
-        <tr>
-          <th>285</th>
-          <td>2.532843</td>
-          <td>3.546068</td>
+          <th>661</th>
+          <td>-0.838285</td>
+          <td>-0.508223</td>
         </tr>
       </tbody>
     </table>
@@ -1405,11 +1400,11 @@ the transformer has no effect.
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 149-150
+.. GENERATED FROM PYTHON SOURCE LINES 143-144
 
-outside of the context manager, the output will be a NumPy array
+خارج مدير السياق، سيكون الإخراج مصفوفة نومبي
 
-.. GENERATED FROM PYTHON SOURCE LINES 150-152
+.. GENERATED FROM PYTHON SOURCE LINES 144-145
 
 .. code-block:: Python
 
@@ -1418,24 +1413,23 @@ outside of the context manager, the output will be a NumPy array
 
 
 
-
 .. rst-class:: sphx-glr-script-out
 
  .. code-block:: none
 
 
-    array([[ 0.1511007 , -0.47922861],
-           [        nan, -0.18815268],
-           [-0.39329747, -0.26323428],
-           [-1.97545464, -0.26323428],
-           [ 2.53284267,  3.54606834]])
+    array([[ 0.14,  0.45],
+           [ 0.63, -0.08],
+           [ 0.42, -0.52],
+           [  nan,  0.17],
+           [-0.84, -0.51]])
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.165 seconds)
+   **Total running time of the script:** (0 minutes 0.191 seconds)
 
 
 .. _sphx_glr_download_auto_examples_miscellaneous_plot_set_output.py:

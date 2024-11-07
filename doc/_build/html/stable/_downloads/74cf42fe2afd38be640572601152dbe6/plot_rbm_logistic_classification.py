@@ -1,26 +1,23 @@
 """
 ==============================================================
-Restricted Boltzmann Machine features for digit classification
+ميزات شبكة بولتزمان المقيدة لتصنيف الأرقام
 ==============================================================
 
-For greyscale image data where pixel values can be interpreted as degrees of
-blackness on a white background, like handwritten digit recognition, the
-Bernoulli Restricted Boltzmann machine model (:class:`BernoulliRBM
-<sklearn.neural_network.BernoulliRBM>`) can perform effective non-linear
-feature extraction.
+بالنسبة لبيانات الصور الرمادية، حيث يمكن تفسير قيم البكسل على أنها درجات من السواد على خلفية بيضاء، مثل التعرف على الأرقام المكتوبة بخط اليد، يمكن لنموذج شبكة بولتزمان المقيدة ذات التوزيع البرنولي (:class:`BernoulliRBM
+<sklearn.neural_network.BernoulliRBM>`) أن يقوم باستخراج الميزات غير الخطية بشكل فعال.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري مكتبة سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# Generate data
+# توليد البيانات
 # -------------
 #
-# In order to learn good latent representations from a small dataset, we
-# artificially generate more labeled data by perturbing the training data with
-# linear shifts of 1 pixel in each direction.
+# من أجل تعلم تمثيلات كامنة جيدة من مجموعة بيانات صغيرة، نقوم
+# بتوليد المزيد من البيانات المُعَلَّمة بشكل اصطناعي عن طريق إزعاج بيانات التدريب مع
+# تحولات خطية بمقدار 1 بكسل في كل اتجاه.
 
 import numpy as np
 from scipy.ndimage import convolve
@@ -32,8 +29,8 @@ from sklearn.preprocessing import minmax_scale
 
 def nudge_dataset(X, Y):
     """
-    This produces a dataset 5 times bigger than the original one,
-    by moving the 8x8 images in X around by 1px to left, right, down, up
+    هذا ينتج مجموعة بيانات أكبر بخمس مرات من الأصلية،
+    عن طريق تحريك الصور 8x8 في X حولها بمقدار 1px إلى اليسار، اليمين، الأسفل، الأعلى
     """
     direction_vectors = [
         [[0, 1, 0], [0, 0, 0], [0, 0, 0]],
@@ -60,12 +57,12 @@ X = minmax_scale(X, feature_range=(0, 1))  # 0-1 scaling
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=0)
 
 # %%
-# Models definition
+# تعريف النماذج
 # -----------------
 #
-# We build a classification pipeline with a BernoulliRBM feature extractor and
-# a :class:`LogisticRegression <sklearn.linear_model.LogisticRegression>`
-# classifier.
+# نقوم ببناء خط أنابيب التصنيف مع مستخرج ميزات BernoulliRBM و
+# مصنف :class:`LogisticRegression <sklearn.linear_model.LogisticRegression>`
+#
 
 from sklearn import linear_model
 from sklearn.neural_network import BernoulliRBM
@@ -77,59 +74,58 @@ rbm = BernoulliRBM(random_state=0, verbose=True)
 rbm_features_classifier = Pipeline(steps=[("rbm", rbm), ("logistic", logistic)])
 
 # %%
-# Training
+# التدريب
 # --------
 #
-# The hyperparameters of the entire model (learning rate, hidden layer size,
-# regularization) were optimized by grid search, but the search is not
-# reproduced here because of runtime constraints.
+# تم تحسين فرط معاملات النموذج بالكامل (معدل التعلم، حجم الطبقة المخفية،
+# التنظيم) عن طريق البحث الشبكي، ولكن البحث غير
+# مستنسخ هنا بسبب قيود وقت التشغيل.
 
 from sklearn.base import clone
 
-# Hyper-parameters. These were set by cross-validation,
-# using a GridSearchCV. Here we are not performing cross-validation to
-# save time.
+# فرط المعاملات. تم ضبط هذه القيم عن طريق التحقق من الصحة المتقاطعة،
+# باستخدام GridSearchCV. هنا لا نقوم بالتحقق من الصحة المتقاطعة لتوفير الوقت.
 rbm.learning_rate = 0.06
 rbm.n_iter = 10
 
-# More components tend to give better prediction performance, but larger
-# fitting time
+# المزيد من المكونات تميل إلى إعطاء أداء تنبؤ أفضل، ولكن وقت
+# ملاءمة أكبر
 rbm.n_components = 100
 logistic.C = 6000
 
-# Training RBM-Logistic Pipeline
+# تدريب خط أنابيب RBM-Logistic
 rbm_features_classifier.fit(X_train, Y_train)
 
-# Training the Logistic regression classifier directly on the pixel
+# تدريب مصنف الانحدار اللوجستي مباشرة على البكسل
 raw_pixel_classifier = clone(logistic)
 raw_pixel_classifier.C = 100.0
 raw_pixel_classifier.fit(X_train, Y_train)
 
 # %%
-# Evaluation
+# التقييم
 # ----------
 
 from sklearn import metrics
 
 Y_pred = rbm_features_classifier.predict(X_test)
 print(
-    "Logistic regression using RBM features:\n%s\n"
+    "انحدار لوجستي باستخدام ميزات RBM:\n%s\n"
     % (metrics.classification_report(Y_test, Y_pred))
 )
 
 # %%
 Y_pred = raw_pixel_classifier.predict(X_test)
 print(
-    "Logistic regression using raw pixel features:\n%s\n"
+    "انحدار لوجستي باستخدام ميزات البكسل الخام:\n%s\n"
     % (metrics.classification_report(Y_test, Y_pred))
 )
 
 # %%
-# The features extracted by the BernoulliRBM help improve the classification
-# accuracy with respect to the logistic regression on raw pixels.
+# تساعد الميزات المستخرجة بواسطة BernoulliRBM في تحسين دقة التصنيف
+# فيما يتعلق بالانحدار اللوجستي على البكسل الخام.
 
 # %%
-# Plotting
+# الرسم
 # --------
 
 import matplotlib.pyplot as plt
@@ -140,7 +136,7 @@ for i, comp in enumerate(rbm.components_):
     plt.imshow(comp.reshape((8, 8)), cmap=plt.cm.gray_r, interpolation="nearest")
     plt.xticks(())
     plt.yticks(())
-plt.suptitle("100 components extracted by RBM", fontsize=16)
+plt.suptitle("100 مكون مستخرج بواسطة RBM", fontsize=16)
 plt.subplots_adjust(0.08, 0.02, 0.92, 0.85, 0.08, 0.23)
 
 plt.show()

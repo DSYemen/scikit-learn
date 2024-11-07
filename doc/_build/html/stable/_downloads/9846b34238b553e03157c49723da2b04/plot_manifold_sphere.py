@@ -1,27 +1,27 @@
 """
 =============================================
-Manifold Learning methods on a severed sphere
+طرق تعلم متعدد الشعب على كرة مقطوعة
 =============================================
 
-An application of the different :ref:`manifold` techniques
-on a spherical data-set. Here one can see the use of
-dimensionality reduction in order to gain some intuition
-regarding the manifold learning methods. Regarding the dataset,
-the poles are cut from the sphere, as well as a thin slice down its
-side. This enables the manifold learning techniques to
-'spread it open' whilst projecting it onto two dimensions.
+تطبيق مختلف تقنيات :ref:`متعدد الشعب`
+على مجموعة بيانات كروية. هنا يمكن للمرء أن يرى استخدام
+خفض الأبعاد من أجل اكتساب بعض الحدس
+بخصوص طرق تعلم متعدد الشعب. فيما يتعلق بمجموعة البيانات،
+يتم قطع القطبين من الكرة، بالإضافة إلى شريحة رقيقة على جانبها.
+هذا يتيح لتقنيات تعلم متعدد الشعب
+"فردها" أثناء إسقاطها على بُعدين.
 
-For a similar example, where the methods are applied to the
-S-curve dataset, see :ref:`sphx_glr_auto_examples_manifold_plot_compare_methods.py`
+لمثال مماثل، حيث يتم تطبيق الطرق على
+مجموعة بيانات المنحنى S، انظر :ref:`sphx_glr_auto_examples_manifold_plot_compare_methods.py`
 
-Note that the purpose of the :ref:`MDS <multidimensional_scaling>` is
-to find a low-dimensional representation of the data (here 2D) in
-which the distances respect well the distances in the original
-high-dimensional space, unlike other manifold-learning algorithms,
-it does not seeks an isotropic representation of the data in
-the low-dimensional space. Here the manifold problem matches fairly
-that of representing a flat map of the Earth, as with
-`map projection <https://en.wikipedia.org/wiki/Map_projection>`_
+لاحظ أن الغرض من :ref:`MDS <multidimensional_scaling>` هو
+إيجاد تمثيل منخفض الأبعاد للبيانات (هنا 2D) فيه
+المسافات تحترم جيدًا المسافات في
+الفضاء الأصلي عالي الأبعاد، على عكس خوارزميات تعلم متعدد الشعب الأخرى،
+فهي لا تسعى إلى تمثيل متماثل للبيانات في
+الفضاء منخفض الأبعاد. هنا تتطابق مشكلة متعدد الشعب بشكل كبير
+مع تمثيل خريطة مسطحة للأرض، كما هو الحال مع
+`إسقاط الخريطة <https://en.wikipedia.org/wiki/Map_projection>`_
 
 """
 
@@ -40,16 +40,16 @@ from matplotlib.ticker import NullFormatter
 from sklearn import manifold
 from sklearn.utils import check_random_state
 
-# Variables for manifold learning.
+# متغيرات لتعلم متعدد الشعب.
 n_neighbors = 10
 n_samples = 1000
 
-# Create our sphere.
+# إنشاء الكرة.
 random_state = check_random_state(0)
 p = random_state.rand(n_samples) * (2 * np.pi - 0.55)
 t = random_state.rand(n_samples) * np.pi
 
-# Sever the poles from the sphere.
+# قطع القطبين من الكرة.
 indices = (t < (np.pi - (np.pi / 8))) & (t > ((np.pi / 8)))
 colors = p[indices]
 x, y, z = (
@@ -58,10 +58,10 @@ x, y, z = (
     np.cos(t[indices]),
 )
 
-# Plot our dataset.
+# رسم مجموعة البيانات.
 fig = plt.figure(figsize=(15, 8))
 plt.suptitle(
-    "Manifold Learning with %i points, %i neighbors" % (1000, n_neighbors), fontsize=14
+    "تعلم متعدد الشعب مع %i نقطة، %i جار" % (1000, n_neighbors), fontsize=14
 )
 
 ax = fig.add_subplot(251, projection="3d")
@@ -70,7 +70,7 @@ ax.view_init(40, -10)
 
 sphere_data = np.array([x, y, z]).T
 
-# Perform Locally Linear Embedding Manifold learning
+# إجراء تعلم متعدد الشعب بالتضمين الخطي المحلي
 methods = ["standard", "ltsa", "hessian", "modified"]
 labels = ["LLE", "LTSA", "Hessian LLE", "Modified LLE"]
 
@@ -93,7 +93,7 @@ for i, method in enumerate(methods):
     ax.yaxis.set_major_formatter(NullFormatter())
     plt.axis("tight")
 
-# Perform Isomap Manifold learning.
+# إجراء تعلم متعدد الشعب باستخدام Isomap.
 t0 = time()
 trans_data = (
     manifold.Isomap(n_neighbors=n_neighbors, n_components=2)
@@ -110,7 +110,7 @@ ax.xaxis.set_major_formatter(NullFormatter())
 ax.yaxis.set_major_formatter(NullFormatter())
 plt.axis("tight")
 
-# Perform Multi-dimensional scaling.
+# إجراء القياس متعدد الأبعاد.
 t0 = time()
 mds = manifold.MDS(2, max_iter=100, n_init=1, random_state=42)
 trans_data = mds.fit_transform(sphere_data).T
@@ -124,7 +124,7 @@ ax.xaxis.set_major_formatter(NullFormatter())
 ax.yaxis.set_major_formatter(NullFormatter())
 plt.axis("tight")
 
-# Perform Spectral Embedding.
+# إجراء التضمين الطيفي.
 t0 = time()
 se = manifold.SpectralEmbedding(
     n_components=2, n_neighbors=n_neighbors, random_state=42
@@ -135,12 +135,12 @@ print("Spectral Embedding: %.2g sec" % (t1 - t0))
 
 ax = fig.add_subplot(259)
 plt.scatter(trans_data[0], trans_data[1], c=colors, cmap=plt.cm.rainbow)
-plt.title("Spectral Embedding (%.2g sec)" % (t1 - t0))
+plt.title("التضمين الطيفي (%.2g sec)" % (t1 - t0))
 ax.xaxis.set_major_formatter(NullFormatter())
 ax.yaxis.set_major_formatter(NullFormatter())
 plt.axis("tight")
 
-# Perform t-distributed stochastic neighbor embedding.
+# إجراء تضمين الجوار العشوائي الموزع على شكل حرف t.
 t0 = time()
 tsne = manifold.TSNE(n_components=2, random_state=0)
 trans_data = tsne.fit_transform(sphere_data).T

@@ -19,34 +19,25 @@
 
 
 =========================
-Multilabel classification
+التصنيف متعدد التصنيفات
 =========================
 
-This example simulates a multi-label document classification problem. The
-dataset is generated randomly based on the following process:
+هذا المثال يحاكي مشكلة تصنيف المستندات متعددة التصنيفات. يتم توليد مجموعة البيانات بشكل عشوائي بناءً على العملية التالية:
 
-- pick the number of labels: n ~ Poisson(n_labels)
-- n times, choose a class c: c ~ Multinomial(theta)
-- pick the document length: k ~ Poisson(length)
-- k times, choose a word: w ~ Multinomial(theta_c)
+- اختيار عدد التصنيفات: n ~ Poisson(n_labels)
+- n مرات، اختيار تصنيف c: c ~ Multinomial(theta)
+- اختيار طول المستند: k ~ Poisson(length)
+- k مرات، اختيار كلمة: w ~ Multinomial(theta_c)
 
-In the above process, rejection sampling is used to make sure that n is more
-than 2, and that the document length is never zero. Likewise, we reject classes
-which have already been chosen.  The documents that are assigned to both
-classes are plotted surrounded by two colored circles.
+في العملية أعلاه، يتم استخدام عينة الرفض لضمان أن n أكبر من 2، وأن طول المستند لا يكون أبدًا صفرًا. وبالمثل، نرفض التصنيفات التي تم اختيارها بالفعل. يتم تمثيل المستندات التي تم تعيينها لكلا التصنيفين محاطة بدائرتين ملونتين.
 
-The classification is performed by projecting to the first two principal
-components found by PCA and CCA for visualisation purposes, followed by using
-the :class:`~sklearn.multiclass.OneVsRestClassifier` metaclassifier using two
-SVCs with linear kernels to learn a discriminative model for each class.
-Note that PCA is used to perform an unsupervised dimensionality reduction,
-while CCA is used to perform a supervised one.
+يتم تنفيذ التصنيف من خلال إسقاطه على أول مكونين رئيسيين تم العثور عليهما بواسطة PCA وCCA لأغراض العرض المرئي، يليه استخدام
+التصنيف الفائق :class:`~sklearn.multiclass.OneVsRestClassifier` باستخدام SVCs مع نوى خطية لتعلم نموذج تمييزي لكل تصنيف.
+ملاحظة: يتم استخدام PCA لإجراء تقليل أبعاد غير مشرف، بينما يتم استخدام CCA لإجراء تقليل أبعاد مشرف.
 
-Note: in the plot, "unlabeled samples" does not mean that we don't know the
-labels (as in semi-supervised learning) but that the samples simply do *not*
-have a label.
+ملاحظة: في الرسم البياني، لا تعني "العينات غير المصنفة" أننا لا نعرف التصنيفات (كما في التعلم شبه المشرف)، ولكن أن العينات ببساطة لا تحتوي على تصنيف.
 
-.. GENERATED FROM PYTHON SOURCE LINES 31-131
+.. GENERATED FROM PYTHON SOURCE LINES 22-121
 
 
 
@@ -62,8 +53,8 @@ have a label.
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري scikit-learn
+    # معرف الترخيص: BSD-3-Clause
 
     import matplotlib.pyplot as plt
     import numpy as np
@@ -76,10 +67,10 @@ have a label.
 
 
     def plot_hyperplane(clf, min_x, max_x, linestyle, label):
-        # get the separating hyperplane
+        # الحصول على المستوي الفاصل
         w = clf.coef_[0]
         a = -w[0] / w[1]
-        xx = np.linspace(min_x - 5, max_x + 5)  # make sure the line is long enough
+        xx = np.linspace(min_x - 5, max_x + 5)  # التأكد من أن الخط طويل بما يكفي
         yy = a * xx - (clf.intercept_[0]) / w[1]
         plt.plot(xx, yy, linestyle, label=label)
 
@@ -162,10 +153,9 @@ have a label.
     plt.subplots_adjust(0.04, 0.02, 0.97, 0.94, 0.09, 0.2)
     plt.show()
 
-
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.201 seconds)
+   **Total running time of the script:** (0 minutes 0.212 seconds)
 
 
 .. _sphx_glr_download_auto_examples_miscellaneous_plot_multilabel.py:

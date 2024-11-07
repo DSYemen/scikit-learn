@@ -1,22 +1,22 @@
 """
 =========================================
-Comparison of Manifold Learning methods
+مقارنة طرق تعلم متعدد الشعب
 =========================================
 
-An illustration of dimensionality reduction on the S-curve dataset
-with various manifold learning methods.
+توضيح لخفض الأبعاد على مجموعة بيانات المنحنى S
+مع طرق تعلم متعدد الشعب المختلفة.
 
-For a discussion and comparison of these algorithms, see the
-:ref:`manifold module page <manifold>`
+لنقاش ومقارنة هذه الخوارزميات، انظر
+:ref:`صفحة وحدة متعدد الشعب <manifold>`
 
-For a similar example, where the methods are applied to a
-sphere dataset, see :ref:`sphx_glr_auto_examples_manifold_plot_manifold_sphere.py`
+لمثال مماثل، حيث يتم تطبيق الطرق على
+مجموعة بيانات كروية، انظر :ref:`sphx_glr_auto_examples_manifold_plot_manifold_sphere.py`
 
-Note that the purpose of the MDS is to find a low-dimensional
-representation of the data (here 2D) in which the distances respect well
-the distances in the original high-dimensional space, unlike other
-manifold-learning algorithms, it does not seeks an isotropic
-representation of the data in the low-dimensional space.
+لاحظ أن الغرض من MDS هو إيجاد تمثيل منخفض الأبعاد
+للبيانات (هنا 2D) حيث تحترم المسافات جيدًا
+المسافات في الفضاء الأصلي عالي الأبعاد، على عكس أخرى
+خوارزميات تعلم متعدد الشعب، فهي لا تسعى إلى تمثيل متماثل
+للبيانات في الفضاء منخفض الأبعاد.
 
 """
 
@@ -24,10 +24,10 @@ representation of the data in the low-dimensional space.
 # SPDX-License-Identifier: BSD-3-Clause
 
 # %%
-# Dataset preparation
+# إعداد مجموعة البيانات
 # -------------------
 #
-# We start by generating the S-curve dataset.
+# نبدأ بتوليد مجموعة بيانات المنحنى S.
 
 import matplotlib.pyplot as plt
 
@@ -41,8 +41,8 @@ n_samples = 1500
 S_points, S_color = datasets.make_s_curve(n_samples, random_state=0)
 
 # %%
-# Let's look at the original data. Also define some helping
-# functions, which we will use further on.
+# لنلقِ نظرة على البيانات الأصلية. ونعرّف أيضًا بعض الدوال المساعدة،
+# والتي سنستخدمها لاحقًا.
 
 
 def plot_3d(points, points_color, title):
@@ -80,29 +80,28 @@ def add_2d_scatter(ax, points, points_color, title=None):
     ax.yaxis.set_major_formatter(ticker.NullFormatter())
 
 
-plot_3d(S_points, S_color, "Original S-curve samples")
+plot_3d(S_points, S_color, "عينات المنحنى S الأصلية")
 
 # %%
-# Define algorithms for the manifold learning
+# تعريف خوارزميات لتعلم متعدد الشعب
 # -------------------------------------------
 #
-# Manifold learning is an approach to non-linear dimensionality reduction.
-# Algorithms for this task are based on the idea that the dimensionality of
-# many data sets is only artificially high.
+# تعلم متعدد الشعب هو نهج لخفض الأبعاد غير الخطي.
+# تعتمد خوارزميات هذه المهمة على فكرة أن أبعاد
+# العديد من مجموعات البيانات مرتفعة بشكل مصطنع فقط.
 #
-# Read more in the :ref:`User Guide <manifold>`.
+# اقرأ المزيد في :ref:`دليل المستخدم <manifold>`.
 
-n_neighbors = 12  # neighborhood which is used to recover the locally linear structure
-n_components = 2  # number of coordinates for the manifold
+n_neighbors = 12  # الجوار الذي يتم استخدامه لاستعادة الهيكل الخطي المحلي
+n_components = 2  # عدد الإحداثيات لمتعدد الشعب
 
 # %%
-# Locally Linear Embeddings
+# تضمينات خطية محليًا
 # ^^^^^^^^^^^^^^^^^^^^^^^^^
 #
-# Locally linear embedding (LLE) can be thought of as a series of local
-# Principal Component Analyses which are globally compared to find the
-# best non-linear embedding.
-# Read more in the :ref:`User Guide <locally_linear_embedding>`.
+# يمكن اعتبار التضمين الخطي المحلي (LLE) سلسلة من تحليلات المكونات
+# الرئيسية المحلية التي تتم مقارنتها عالميًا لإيجاد أفضل تضمين غير خطي.
+# اقرأ المزيد في :ref:`دليل المستخدم <locally_linear_embedding>`.
 
 params = {
     "n_neighbors": n_neighbors,
@@ -127,13 +126,13 @@ S_mod = lle_mod.fit_transform(S_points)
 fig, axs = plt.subplots(
     nrows=2, ncols=2, figsize=(7, 7), facecolor="white", constrained_layout=True
 )
-fig.suptitle("Locally Linear Embeddings", size=16)
+fig.suptitle("التضمينات الخطية المحلية", size=16)
 
 lle_methods = [
-    ("Standard locally linear embedding", S_standard),
-    ("Local tangent space alignment", S_ltsa),
-    ("Hessian eigenmap", S_hessian),
-    ("Modified locally linear embedding", S_mod),
+    ("التضمين الخطي المحلي القياسي", S_standard),
+    ("محاذاة مساحة الظماس المحلي", S_ltsa),
+    ("خريطة Hessian الذاتية", S_hessian),
+    ("التضمين الخطي المحلي المعدل", S_mod),
 ]
 for ax, method in zip(axs.flat, lle_methods):
     name, points = method
@@ -142,26 +141,26 @@ for ax, method in zip(axs.flat, lle_methods):
 plt.show()
 
 # %%
-# Isomap Embedding
+# تضمين Isomap
 # ^^^^^^^^^^^^^^^^
 #
-# Non-linear dimensionality reduction through Isometric Mapping.
-# Isomap seeks a lower-dimensional embedding which maintains geodesic
-# distances between all points. Read more in the :ref:`User Guide <isomap>`.
+# خفض الأبعاد غير الخطي من خلال التعيين المتساوي القياس.
+# يبحث Isomap عن تضمين منخفض الأبعاد يحافظ على المسافات الجيوديسية
+# بين جميع النقاط. اقرأ المزيد في :ref:`دليل المستخدم <isomap>`.
 
 isomap = manifold.Isomap(n_neighbors=n_neighbors, n_components=n_components, p=1)
 S_isomap = isomap.fit_transform(S_points)
 
-plot_2d(S_isomap, S_color, "Isomap Embedding")
+plot_2d(S_isomap, S_color, "تضمين Isomap")
 
 # %%
-# Multidimensional scaling
+# القياس متعدد الأبعاد
 # ^^^^^^^^^^^^^^^^^^^^^^^^
 #
-# Multidimensional scaling (MDS) seeks a low-dimensional representation
-# of the data in which the distances respect well the distances in the
-# original high-dimensional space.
-# Read more in the :ref:`User Guide <multidimensional_scaling>`.
+# يبحث القياس متعدد الأبعاد (MDS) عن تمثيل منخفض الأبعاد
+# للبيانات حيث تحترم المسافات جيدًا المسافات في
+# الفضاء الأصلي عالي الأبعاد.
+# اقرأ المزيد في :ref:`دليل المستخدم <multidimensional_scaling>`.
 
 md_scaling = manifold.MDS(
     n_components=n_components,
@@ -172,32 +171,32 @@ md_scaling = manifold.MDS(
 )
 S_scaling = md_scaling.fit_transform(S_points)
 
-plot_2d(S_scaling, S_color, "Multidimensional scaling")
+plot_2d(S_scaling, S_color, "القياس متعدد الأبعاد")
 
 # %%
-# Spectral embedding for non-linear dimensionality reduction
+# التضمين الطيفي لخفض الأبعاد غير الخطي
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #
-# This implementation uses Laplacian Eigenmaps, which finds a low dimensional
-# representation of the data using a spectral decomposition of the graph Laplacian.
-# Read more in the :ref:`User Guide <spectral_embedding>`.
+# يستخدم هذا التنفيذ خرائط Laplacian الذاتية، والتي تجد تمثيلًا منخفض الأبعاد
+# للبيانات باستخدام تحليل طيفي لمصفوفة Laplacian للرسم البياني.
+# اقرأ المزيد في :ref:`دليل المستخدم <spectral_embedding>`.
 
 spectral = manifold.SpectralEmbedding(
     n_components=n_components, n_neighbors=n_neighbors, random_state=42
 )
 S_spectral = spectral.fit_transform(S_points)
 
-plot_2d(S_spectral, S_color, "Spectral Embedding")
+plot_2d(S_spectral, S_color, "التضمين الطيفي")
 
 # %%
-# T-distributed Stochastic Neighbor Embedding
+# تضمين الجوار العشوائي الموزع على شكل حرف T
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #
-# It converts similarities between data points to joint probabilities and
-# tries to minimize the Kullback-Leibler divergence between the joint probabilities
-# of the low-dimensional embedding and the high-dimensional data. t-SNE has a cost
-# function that is not convex, i.e. with different initializations we can get
-# different results. Read more in the :ref:`User Guide <t_sne>`.
+# يحول أوجه التشابه بين نقاط البيانات إلى احتمالات مشتركة و
+# يحاول تقليل اختلاف Kullback-Leibler بين الاحتمالات المشتركة
+# للتضمين منخفض الأبعاد والبيانات عالية الأبعاد. لدى t-SNE دالة تكلفة
+# ليست محدبة، أي مع تهيئات أولية مختلفة يمكننا الحصول على
+# نتائج مختلفة. اقرأ المزيد في :ref:`دليل المستخدم <t_sne>`.
 
 t_sne = manifold.TSNE(
     n_components=n_components,
@@ -208,6 +207,8 @@ t_sne = manifold.TSNE(
 )
 S_t_sne = t_sne.fit_transform(S_points)
 
-plot_2d(S_t_sne, S_color, "T-distributed Stochastic  \n Neighbor Embedding")
+plot_2d(S_t_sne, S_color, "تضمين الجوار العشوائي \n الموزع على شكل حرف T")
 
 # %%
+
+

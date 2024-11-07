@@ -1,24 +1,24 @@
 """
 ==============================================
-Label Propagation learning a complex structure
+تعلم انتشار العلامات لهيكل معقد
 ==============================================
 
-Example of LabelPropagation learning a complex internal structure
-to demonstrate "manifold learning". The outer circle should be
-labeled "red" and the inner circle "blue". Because both label groups
-lie inside their own distinct shape, we can see that the labels
-propagate correctly around the circle.
+مثال على تعلم انتشار العلامات لهيكل داخلي معقد
+لتوضيح "تعلم المنحنى". يجب أن تكون الدائرة الخارجية
+مُعَلَّمة باللون "الأحمر" والدائرة الداخلية "باللون الأزرق". لأن كل مجموعة من العلامات
+تقع داخل شكلها المميز، يمكننا أن نرى أن العلامات
+تنتشر بشكل صحيح حول الدائرة.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# We generate a dataset with two concentric circles. In addition, a label
-# is associated with each sample of the dataset that is: 0 (belonging to
-# the outer circle), 1 (belonging to the inner circle), and -1 (unknown).
-# Here, all labels but two are tagged as unknown.
+# نقوم بتوليد مجموعة بيانات بدائرتين متحدتي المركز. بالإضافة إلى ذلك، يتم ربط علامة
+# بكل عينة من مجموعة البيانات وهي: 0 (تابعة
+# للدائرة الخارجية)، 1 (تابعة للدائرة الداخلية)، و -1 (غير معروفة).
+# هنا، جميع العلامات ما عدا اثنتين تم وسمها على أنها غير معروفة.
 
 import numpy as np
 
@@ -32,7 +32,7 @@ labels[0] = outer
 labels[-1] = inner
 
 # %%
-# Plot raw data
+# رسم البيانات الخام
 import matplotlib.pyplot as plt
 
 plt.figure(figsize=(4, 4))
@@ -66,16 +66,16 @@ _ = plt.title("Raw data (2 classes=outer and inner)")
 
 # %%
 #
-# The aim of :class:`~sklearn.semi_supervised.LabelSpreading` is to associate
-# a label to sample where the label is initially unknown.
+# الهدف من :class:`~sklearn.semi_supervised.LabelSpreading` هو ربط
+# علامة بعينة حيث تكون العلامة غير معروفة في البداية.
 from sklearn.semi_supervised import LabelSpreading
 
 label_spread = LabelSpreading(kernel="knn", alpha=0.8)
 label_spread.fit(X, labels)
 
 # %%
-# Now, we can check which labels have been associated with each sample
-# when the label was unknown.
+# الآن، يمكننا التحقق من العلامات التي تم ربطها بكل عينة
+# عندما كانت العلامة غير معروفة.
 output_labels = label_spread.transduction_
 output_label_array = np.asarray(output_labels)
 outer_numbers = np.where(output_label_array == outer)[0]

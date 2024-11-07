@@ -1,21 +1,16 @@
 """
 ========================================================
-Compare Stochastic learning strategies for MLPClassifier
+مقارنة استراتيجيات التعلم العشوائي لتصنيف الشبكة العصبية متعددة الطبقات
 ========================================================
 
-This example visualizes some training loss curves for different stochastic
-learning strategies, including SGD and Adam. Because of time-constraints, we
-use several small datasets, for which L-BFGS might be more suitable. The
-general trend shown in these examples seems to carry over to larger datasets,
-however.
+هذا المثال يوضح بعض منحنيات الخسارة التدريبية لاستراتيجيات التعلم العشوائي المختلفة، بما في ذلك SGD و Adam. بسبب قيود الوقت، نستخدم عدة مجموعات بيانات صغيرة، والتي قد تكون مناسبة أكثر لخوارزمية L-BFGS. ومع ذلك، يبدو أن الاتجاه العام الموضح في هذه الأمثلة ينطبق أيضًا على مجموعات البيانات الأكبر.
 
-Note that those results can be highly dependent on the value of
-``learning_rate_init``.
+ملاحظة: يمكن أن تعتمد هذه النتائج بشكل كبير على قيمة "learning_rate_init".
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري مكتبة ساي كيت ليرن
+# معرف الترخيص: BSD-3-Clause
 
 import warnings
 
@@ -26,7 +21,7 @@ from sklearn.exceptions import ConvergenceWarning
 from sklearn.neural_network import MLPClassifier
 from sklearn.preprocessing import MinMaxScaler
 
-# different learning rate schedules and momentum parameters
+# معدلات تعلم مختلفة وجداول زمنية ومعاملات الزخم
 params = [
     {
         "solver": "sgd",
@@ -72,13 +67,13 @@ params = [
 ]
 
 labels = [
-    "constant learning-rate",
-    "constant with momentum",
-    "constant with Nesterov's momentum",
-    "inv-scaling learning-rate",
-    "inv-scaling with momentum",
-    "inv-scaling with Nesterov's momentum",
-    "adam",
+    "معدل التعلم الثابت",
+    "الثابت مع الزخم",
+    "الثابت مع زخم نيستروف",
+    "معدل التعلم مع التوسيع العكسي",
+    "التوسيع العكسي مع الزخم",
+    "التوسيع العكسي مع زخم نيستروف",
+    "آدم",
 ]
 
 plot_args = [
@@ -93,24 +88,23 @@ plot_args = [
 
 
 def plot_on_dataset(X, y, ax, name):
-    # for each dataset, plot learning for each learning strategy
-    print("\nlearning on dataset %s" % name)
+    # لكل مجموعة بيانات، قم برسم منحنى التعلم لكل استراتيجية تعلم
+    print("\nالتعلم على مجموعة البيانات %s" % name)
     ax.set_title(name)
 
     X = MinMaxScaler().fit_transform(X)
     mlps = []
     if name == "digits":
-        # digits is larger but converges fairly quickly
+        # مجموعة digits أكبر ولكن تتقارب بشكل سريع نسبيًا
         max_iter = 15
     else:
         max_iter = 400
 
     for label, param in zip(labels, params):
-        print("training: %s" % label)
+        print("التدريب: %s" % label)
         mlp = MLPClassifier(random_state=0, max_iter=max_iter, **param)
 
-        # some parameter combinations will not converge as can be seen on the
-        # plots so they are ignored here
+        # بعض تركيبات المعاملات لن تتقارب كما هو موضح في الرسوم البيانية، لذلك يتم تجاهلها هنا
         with warnings.catch_warnings():
             warnings.filterwarnings(
                 "ignore", category=ConvergenceWarning, module="sklearn"
@@ -118,14 +112,14 @@ def plot_on_dataset(X, y, ax, name):
             mlp.fit(X, y)
 
         mlps.append(mlp)
-        print("Training set score: %f" % mlp.score(X, y))
-        print("Training set loss: %f" % mlp.loss_)
+        print("درجة مجموعة التدريب: %f" % mlp.score(X, y))
+        print("خسارة مجموعة التدريب: %f" % mlp.loss_)
     for mlp, label, args in zip(mlps, labels, plot_args):
         ax.plot(mlp.loss_curve_, label=label, **args)
 
 
 fig, axes = plt.subplots(2, 2, figsize=(15, 10))
-# load / generate some toy datasets
+# تحميل / توليد بعض مجموعات البيانات التجريبية
 iris = datasets.load_iris()
 X_digits, y_digits = datasets.load_digits(return_X_y=True)
 data_sets = [

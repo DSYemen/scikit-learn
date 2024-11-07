@@ -1,75 +1,76 @@
 # ruff: noqa
 """
 =======================================
-Release Highlights for scikit-learn 1.3
+أبرز ميزات الإصدار 1.3 من scikit-learn
 =======================================
 
 .. currentmodule:: sklearn
 
-We are pleased to announce the release of scikit-learn 1.3! Many bug fixes
-and improvements were added, as well as some new key features. We detail
-below a few of the major features of this release. **For an exhaustive list of
-all the changes**, please refer to the :ref:`release notes <release_notes_1_3>`.
+يسعدنا الإعلان عن إصدار scikit-learn 1.3! تم إصلاح العديد من الأخطاء
+وإجراء تحسينات، بالإضافة إلى بعض الميزات الرئيسية الجديدة. نستعرض
+أدناه بعض الميزات الرئيسية لهذا الإصدار. **للاطلاع على قائمة شاملة
+بجميع التغييرات**، يرجى الرجوع إلى :ref:`ملاحظات الإصدار <release_notes_1_3>`.
 
-To install the latest version (with pip)::
+لتثبيت أحدث إصدار (باستخدام pip)::
 
     pip install --upgrade scikit-learn
 
-or with conda::
+أو باستخدام conda::
 
     conda install -c conda-forge scikit-learn
 
 """
 
 # %%
-# Metadata Routing
+# توجيه البيانات الوصفية
 # ----------------
-# We are in the process of introducing a new way to route metadata such as
-# ``sample_weight`` throughout the codebase, which would affect how
-# meta-estimators such as :class:`pipeline.Pipeline` and
-# :class:`model_selection.GridSearchCV` route metadata. While the
-# infrastructure for this feature is already included in this release, the work
-# is ongoing and not all meta-estimators support this new feature. You can read
-# more about this feature in the :ref:`Metadata Routing User Guide
-# <metadata_routing>`. Note that this feature is still under development and
-# not implemented for most meta-estimators.
+# نحن بصدد تقديم طريقة جديدة لتوجيه البيانات الوصفية مثل
+# ``sample_weight`` في جميع أنحاء قاعدة الكود، والتي ستؤثر على كيفية
+# توجيه البيانات الوصفية في المُقدرات الفوقية مثل :class:`pipeline.Pipeline`
+# و :class:`model_selection.GridSearchCV`. على الرغم من أن البنية التحتية
+# لهذه الميزة موجودة بالفعل في هذا الإصدار، إلا أن العمل لا يزال جارياً
+# ولا تدعم جميع المُقدرات الفوقية هذه الميزة الجديدة. يمكنك قراءة
+# المزيد عن هذه الميزة في :ref:`دليل المستخدم لتوجيه البيانات الوصفية
+# <metadata_routing>`. يرجى ملاحظة أن هذه الميزة لا تزال قيد التطوير
+# ولم يتم تنفيذها لمعظم المُقدرات الفوقية.
 #
-# Third party developers can already start incorporating this into their
-# meta-estimators. For more details, see
-# :ref:`metadata routing developer guide
+# يمكن لمطوري الجهات الخارجية البدء بالفعل في دمج هذه الميزة في
+# المُقدرات الفوقية الخاصة بهم. لمزيد من التفاصيل، راجع
+# :ref:`دليل المطور لتوجيه البيانات الوصفية
 # <sphx_glr_auto_examples_miscellaneous_plot_metadata_routing.py>`.
 
 # %%
-# HDBSCAN: hierarchical density-based clustering
+# HDBSCAN: التجميع القائم على الكثافة الهرمية
 # ----------------------------------------------
-# Originally hosted in the scikit-learn-contrib repository, :class:`cluster.HDBSCAN`
-# has been adpoted into scikit-learn. It's missing a few features from the original
-# implementation which will be added in future releases.
-# By performing a modified version of :class:`cluster.DBSCAN` over multiple epsilon
-# values simultaneously, :class:`cluster.HDBSCAN` finds clusters of varying densities
-# making it more robust to parameter selection than :class:`cluster.DBSCAN`.
-# More details in the :ref:`User Guide <hdbscan>`.
+# تم استضافة :class:`cluster.HDBSCAN` في مستودع scikit-learn-contrib
+# في الأصل، وتم اعتماده الآن في scikit-learn. يفتقد بعض الميزات من
+# التنفيذ الأصلي والتي سيتم إضافتها في الإصدارات المستقبلية.
+# من خلال تنفيذ نسخة معدلة من :class:`cluster.DBSCAN` على عدة قيم
+# epsilon في نفس الوقت، يقوم :class:`cluster.HDBSCAN` باكتشاف مجموعات
+# ذات كثافات متنوعة، مما يجعله أكثر مرونة في اختيار المعلمات
+# مقارنة بـ :class:`cluster.DBSCAN`.
+# لمزيد من التفاصيل، راجع :ref:`دليل المستخدم <hdbscan>`.
 import numpy as np
 from sklearn.cluster import HDBSCAN
 from sklearn.datasets import load_digits
 from sklearn.metrics import v_measure_score
 
 X, true_labels = load_digits(return_X_y=True)
-print(f"number of digits: {len(np.unique(true_labels))}")
+print(f"عدد الأرقام: {len(np.unique(true_labels))}")
 
 hdbscan = HDBSCAN(min_cluster_size=15).fit(X)
 non_noisy_labels = hdbscan.labels_[hdbscan.labels_ != -1]
-print(f"number of clusters found: {len(np.unique(non_noisy_labels))}")
+print(f"عدد المجموعات المكتشفة: {len(np.unique(non_noisy_labels))}")
 
 print(v_measure_score(true_labels[hdbscan.labels_ != -1], non_noisy_labels))
 
 # %%
-# TargetEncoder: a new category encoding strategy
+# TargetEncoder: استراتيجية ترميز فئات جديدة
 # -----------------------------------------------
-# Well suited for categorical features with high cardinality,
-# :class:`preprocessing.TargetEncoder` encodes the categories based on a shrunk
-# estimate of the average target values for observations belonging to that category.
-# More details in the :ref:`User Guide <target_encoder>`.
+# مناسب للفئات ذات الكاردينالية العالية،
+# :class:`preprocessing.TargetEncoder` يقوم بترميز الفئات بناءً على تقدير
+# منكمش للقيم المتوسطة للهدف للملاحظات التي تنتمي إلى تلك الفئة.
+# لمزيد من التفاصيل، راجع :ref:`دليل المستخدم <target_encoder>`.
 import numpy as np
 from sklearn.preprocessing import TargetEncoder
 
@@ -82,15 +83,16 @@ X_trans = enc.fit_transform(X, y)
 enc.encodings_
 
 # %%
-# Missing values support in decision trees
+# دعم القيم المفقودة في أشجار القرار
 # ----------------------------------------
-# The classes :class:`tree.DecisionTreeClassifier` and
-# :class:`tree.DecisionTreeRegressor` now support missing values. For each potential
-# threshold on the non-missing data, the splitter will evaluate the split with all the
-# missing values going to the left node or the right node.
-# See more details in the :ref:`User Guide <tree_missing_value_support>` or see
-# :ref:`sphx_glr_auto_examples_ensemble_plot_hgbt_regression.py` for a usecase
-# example of this feature in :class:`~ensemble.HistGradientBoostingRegressor`.
+# تدعم الفئات :class:`tree.DecisionTreeClassifier` و
+# :class:`tree.DecisionTreeRegressor` الآن القيم المفقودة. بالنسبة لكل عتبة
+# محتملة على البيانات غير المفقودة، سيقوم المقسم بتقييم التقسيم مع
+# جميع القيم المفقودة التي تذهب إلى العقدة اليسرى أو العقدة اليمنى.
+# لمزيد من التفاصيل، راجع :ref:`دليل المستخدم <tree_missing_value_support>`
+# أو راجع :ref:`sphx_glr_auto_examples_ensemble_plot_hgbt_regression.py`
+# لمثال على حالة استخدام هذه الميزة في
+# :class:`~ensemble.HistGradientBoostingRegressor`.
 import numpy as np
 from sklearn.tree import DecisionTreeClassifier
 
@@ -101,10 +103,10 @@ tree = DecisionTreeClassifier(random_state=0).fit(X, y)
 tree.predict(X)
 
 # %%
-# New display :class:`~model_selection.ValidationCurveDisplay`
+# عرض جديد :class:`~model_selection.ValidationCurveDisplay`
 # ------------------------------------------------------------
-# :class:`model_selection.ValidationCurveDisplay` is now available to plot results
-# from :func:`model_selection.validation_curve`.
+# :class:`model_selection.ValidationCurveDisplay` متاح الآن لرسم النتائج
+# من :func:`model_selection.validation_curve`.
 from sklearn.datasets import make_classification
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import ValidationCurveDisplay
@@ -122,11 +124,11 @@ _ = ValidationCurveDisplay.from_estimator(
 )
 
 # %%
-# Gamma loss for gradient boosting
+# خسارة Gamma للتعزيز التدريجي
 # --------------------------------
-# The class :class:`ensemble.HistGradientBoostingRegressor` supports the
-# Gamma deviance loss function via `loss="gamma"`. This loss function is useful for
-# modeling strictly positive targets with a right-skewed distribution.
+# تدعم الفئة :class:`ensemble.HistGradientBoostingRegressor`
+# دالة خسارة الانحراف Gamma عبر `loss="gamma"`. هذه دالة خسارة مفيدة
+# لنمذجة الأهداف الإيجابية الصارمة مع توزيع منحرف إلى اليمين.
 import numpy as np
 from sklearn.model_selection import cross_val_score
 from sklearn.datasets import make_low_rank_matrix
@@ -141,13 +143,13 @@ gbdt = HistGradientBoostingRegressor(loss="gamma")
 cross_val_score(gbdt, X, y).mean()
 
 # %%
-# Grouping infrequent categories in :class:`~preprocessing.OrdinalEncoder`
+# تجميع الفئات غير المتكررة في :class:`~preprocessing.OrdinalEncoder`
 # ------------------------------------------------------------------------
-# Similarly to :class:`preprocessing.OneHotEncoder`, the class
-# :class:`preprocessing.OrdinalEncoder` now supports aggregating infrequent categories
-# into a single output for each feature. The parameters to enable the gathering of
-# infrequent categories are `min_frequency` and `max_categories`.
-# See the :ref:`User Guide <encoder_infrequent_categories>` for more details.
+# على غرار :class:`preprocessing.OneHotEncoder`، تدعم الفئة
+# :class:`preprocessing.OrdinalEncoder` الآن تجميع الفئات غير المتكررة
+# في ناتج واحد لكل ميزة. المعاملات لتمكين تجميع الفئات غير المتكررة
+# هي `min_frequency` و `max_categories`.
+# راجع :ref:`دليل المستخدم <encoder_infrequent_categories>` لمزيد من التفاصيل.
 from sklearn.preprocessing import OrdinalEncoder
 import numpy as np
 

@@ -1,7 +1,6 @@
 .. _miscellaneous_examples:
 
-Miscellaneous
--------------
+متنوع
+-------
 
-Miscellaneous and introductory examples for scikit-learn.
-
+أمثلة متنوعة ومقدمة لـ scikit-learn

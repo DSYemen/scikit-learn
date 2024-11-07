@@ -1,23 +1,18 @@
 """
 ==========================================================
-Demonstrating the different strategies of KBinsDiscretizer
+عرض استراتيجيات KBinsDiscretizer المختلفة
 ==========================================================
 
-This example presents the different strategies implemented in KBinsDiscretizer:
+يقدم هذا المثال الاستراتيجيات المختلفة المنفذة في KBinsDiscretizer:
 
-- 'uniform': The discretization is uniform in each feature, which means that
-  the bin widths are constant in each dimension.
-- quantile': The discretization is done on the quantiled values, which means
-  that each bin has approximately the same number of samples.
-- 'kmeans': The discretization is based on the centroids of a KMeans clustering
-  procedure.
+- 'uniform': التجزئة موحدة في كل خاصية، مما يعني أن عرض الفئات ثابت في كل بُعد.
+- 'quantile': تتم التجزئة على القيم المئينية، مما يعني أن كل فئة تحتوي على نفس العدد تقريبًا من العينات.
+- 'kmeans': تستند التجزئة على النقط المركزية لإجراء التجميع KMeans.
 
-The plot shows the regions where the discretized encoding is constant.
-
+يوضح الرسم البياني المناطق التي يكون فيها الترميز المُجزأ ثابتًا.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -31,7 +26,7 @@ n_samples = 200
 centers_0 = np.array([[0, 0], [0, 5], [2, 4], [8, 8]])
 centers_1 = np.array([[0, 0], [3, 1]])
 
-# construct the datasets
+# إنشاء مجموعات البيانات
 random_state = 42
 X_list = [
     np.random.RandomState(random_state).uniform(-3, 3, size=(n_samples, 2)),
@@ -74,7 +69,7 @@ for ds_cnt, X in enumerate(X_list):
     ax.set_yticks(())
 
     i += 1
-    # transform the dataset with KBinsDiscretizer
+    # تحويل مجموعة البيانات باستخدام KBinsDiscretizer
     for strategy in strategies:
         enc = KBinsDiscretizer(n_bins=4, encode="ordinal", strategy=strategy)
         enc.fit(X)
@@ -82,10 +77,10 @@ for ds_cnt, X in enumerate(X_list):
 
         ax = plt.subplot(len(X_list), len(strategies) + 1, i)
 
-        # horizontal stripes
+        # خطوط أفقية
         horizontal = grid_encoded[:, 0].reshape(xx.shape)
         ax.contourf(xx, yy, horizontal, alpha=0.5)
-        # vertical stripes
+        # خطوط عمودية
         vertical = grid_encoded[:, 1].reshape(xx.shape)
         ax.contourf(xx, yy, vertical, alpha=0.5)
 

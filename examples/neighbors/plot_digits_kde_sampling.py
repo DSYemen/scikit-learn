@@ -1,18 +1,14 @@
 """
 =========================
-Kernel Density Estimation
+تقدير كثافة النواة
 =========================
 
-This example shows how kernel density estimation (KDE), a powerful
-non-parametric density estimation technique, can be used to learn
-a generative model for a dataset.  With this generative model in place,
-new samples can be drawn.  These new samples reflect the underlying model
-of the data.
+يوضح هذا المثال كيفية استخدام تقدير كثافة النواة (KDE)، وهي تقنية قوية لتقدير الكثافة غير المعلمية، لتعلم نموذج توليدي لمجموعة بيانات. مع وجود هذا النموذج التوليدي، يمكن رسم عينات جديدة. وتعكس هذه العينات الجديدة النموذج الأساسي للبيانات.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايت-ليرن
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -22,32 +18,32 @@ from sklearn.decomposition import PCA
 from sklearn.model_selection import GridSearchCV
 from sklearn.neighbors import KernelDensity
 
-# load the data
+# تحميل البيانات
 digits = load_digits()
 
-# project the 64-dimensional data to a lower dimension
+# إسقاط البيانات ذات الأبعاد 64 إلى بعد أقل
 pca = PCA(n_components=15, whiten=False)
 data = pca.fit_transform(digits.data)
 
-# use grid search cross-validation to optimize the bandwidth
+# استخدام البحث الشبكي والتحقق المتقاطع لضبط عرض النطاق الترددي
 params = {"bandwidth": np.logspace(-1, 1, 20)}
 grid = GridSearchCV(KernelDensity(), params)
 grid.fit(data)
 
-print("best bandwidth: {0}".format(grid.best_estimator_.bandwidth))
+print("أفضل عرض نطاق ترددي: {0}".format(grid.best_estimator_.bandwidth))
 
-# use the best estimator to compute the kernel density estimate
+# استخدام أفضل مقدر لحساب تقدير كثافة النواة
 kde = grid.best_estimator_
 
-# sample 44 new points from the data
+# أخذ 44 عينة جديدة من البيانات
 new_data = kde.sample(44, random_state=0)
 new_data = pca.inverse_transform(new_data)
 
-# turn data into a 4x11 grid
+# تحويل البيانات إلى شبكة 4x11
 new_data = new_data.reshape((4, 11, -1))
 real_data = digits.data[:44].reshape((4, 11, -1))
 
-# plot real digits and resampled digits
+# رسم الأرقام الحقيقية والأرقام المعاد أخذ عينات منها
 fig, ax = plt.subplots(9, 11, subplot_kw=dict(xticks=[], yticks=[]))
 for j in range(11):
     ax[4, j].set_visible(False)
@@ -61,7 +57,7 @@ for j in range(11):
         )
         im.set_clim(0, 16)
 
-ax[0, 5].set_title("Selection from the input data")
-ax[5, 5].set_title('"New" digits drawn from the kernel density model')
+ax[0, 5].set_title("اختيار من بيانات الإدخال")
+ax[5, 5].set_title('الأرقام "الجديدة" المرسومة من نموذج كثافة النواة')
 
 plt.show()

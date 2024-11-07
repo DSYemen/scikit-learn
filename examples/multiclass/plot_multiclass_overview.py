@@ -1,76 +1,61 @@
 """
-===============================================
-Overview of multiclass training meta-estimators
-===============================================
+=========================================================
+نظرة عامة على الميتا-مقدّرات التدريب متعدد التصنيفات
+=========================================================
 
-In this example, we discuss the problem of classification when the target
-variable is composed of more than two classes. This is called multiclass
-classification.
+في هذا المثال، نناقش مشكلة التصنيف عندما تكون المتغيرات المستهدفة مكونة من أكثر من فئتين. يُطلق على ذلك التصنيف متعدد الفئات.
 
-In scikit-learn, all estimators support multiclass classification out of the
-box: the most sensible strategy was implemented for the end-user. The
-:mod:`sklearn.multiclass` module implements various strategies that one can use
-for experimenting or developing third-party estimators that only support binary
-classification.
+في مكتبة ساي كيت ليرن، تدعم جميع المُقدّرات التصنيف متعدد الفئات بشكل افتراضي: حيث تم تنفيذ الاستراتيجية الأكثر ملاءمة للمستخدم النهائي. تُنفذ وحدة :mod:`sklearn.multiclass` استراتيجيات مختلفة يمكن استخدامها للتجربة أو لتطوير مُقدّرات تابعة لطرف ثالث تدعم التصنيف الثنائي فقط.
 
-:mod:`sklearn.multiclass` includes OvO/OvR strategies used to train a
-multiclass classifier by fitting a set of binary classifiers (the
-:class:`~sklearn.multiclass.OneVsOneClassifier` and
-:class:`~sklearn.multiclass.OneVsRestClassifier` meta-estimators). This example
-will review them.
+تتضمن وحدة :mod:`sklearn.multiclass` استراتيجيات OvO/OvR المستخدمة لتدريب مُقدّر متعدد التصنيفات من خلال ملاءمة مجموعة من المُقدّرات الثنائية (المُقدّرات الفوقية :class:`~sklearn.multiclass.OneVsOneClassifier` و :class:`~sklearn.multiclass.OneVsRestClassifier`). سيقوم هذا المثال بمراجعة هذه الاستراتيجيات.
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوّرو ساي كيت ليرن
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# The Yeast UCI dataset
+# مجموعة بيانات الخميرة من UCI
 # ---------------------
 #
-# In this example, we use a UCI dataset [1]_, generally referred as the Yeast
-# dataset. We use the :func:`sklearn.datasets.fetch_openml` function to load
-# the dataset from OpenML.
+# في هذا المثال، نستخدم مجموعة بيانات UCI [1]_، والتي يُشار إليها عمومًا بمجموعة بيانات الخميرة. نستخدم الدالة :func:`sklearn.datasets.fetch_openml` لتحميل المجموعة من OpenML.
 from sklearn.datasets import fetch_openml
 
 X, y = fetch_openml(data_id=181, as_frame=True, return_X_y=True)
 
 # %%
-# To know the type of data science problem we are dealing with, we can check
-# the target for which we want to build a predictive model.
+# لمعرفة نوع مشكلة علم البيانات التي نتعامل معها، يمكننا التحقق
+# من الهدف الذي نريد بناء نموذج تنبؤي له.
 y.value_counts().sort_index()
 
 # %%
-# We see that the target is discrete and composed of 10 classes. We therefore
-# deal with a multiclass classification problem.
+# نرى أن الهدف منفصل ويتكون من 10 فئات. لذلك،
+# نتعامل مع مشكلة التصنيف متعدد الفئات.
 #
-# Strategies comparison
+# مقارنة الاستراتيجيات
 # ---------------------
 #
-# In the following experiment, we use a
-# :class:`~sklearn.tree.DecisionTreeClassifier` and a
-# :class:`~sklearn.model_selection.RepeatedStratifiedKFold` cross-validation
-# with 3 splits and 5 repetitions.
+# في التجربة التالية، نستخدم
+# :class:`~sklearn.tree.DecisionTreeClassifier` و
+# :class:`~sklearn.model_selection.RepeatedStratifiedKFold` للتحقق المتقاطع
+# مع 3 تقسيمات و5 تكرارات.
 #
-# We compare the following strategies:
+# نقارن الاستراتيجيات التالية:
 #
-# * :class:~sklearn.tree.DecisionTreeClassifier can handle multiclass
-#   classification without needing any special adjustments. It works by breaking
-#   down the training data into smaller subsets and focusing on the most common
-#   class in each subset. By repeating this process, the model can accurately
-#   classify input data into multiple different classes.
-# * :class:`~sklearn.multiclass.OneVsOneClassifier` trains a set of binary
-#   classifiers where each classifier is trained to distinguish between
-#   two classes.
-# * :class:`~sklearn.multiclass.OneVsRestClassifier`: trains a set of binary
-#   classifiers where each classifier is trained to distinguish between
-#   one class and the rest of the classes.
-# * :class:`~sklearn.multiclass.OutputCodeClassifier`: trains a set of binary
-#   classifiers where each classifier is trained to distinguish between
-#   a set of classes from the rest of the classes. The set of classes is
-#   defined by a codebook, which is randomly generated in scikit-learn. This
-#   method exposes a parameter `code_size` to control the size of the codebook.
-#   We set it above one since we are not interested in compressing the class
-#   representation.
+# * :class:~sklearn.tree.DecisionTreeClassifier يمكنه التعامل مع التصنيف متعدد الفئات
+#   بدون الحاجة إلى أي تعديلات خاصة. يعمل عن طريق تقسيم بيانات التدريب إلى مجموعات فرعية أصغر والتركيز على الفئة الأكثر شيوعًا
+#   في كل مجموعة فرعية. من خلال تكرار هذه العملية، يمكن للنموذج تصنيف بيانات الإدخال بدقة
+#   إلى فئات متعددة مختلفة.
+# * :class:`~sklearn.multiclass.OneVsOneClassifier` يدرب مجموعة من المُقدّرات الثنائية
+#   حيث يتم تدريب كل مُقدّر للتمييز بين فئتين.
+# * :class:`~sklearn.multiclass.OneVsRestClassifier`: يدرب مجموعة من المُقدّرات الثنائية
+#   حيث يتم تدريب كل مُقدّر للتمييز بين
+#   فئة واحدة وبقية الفئات.
+# * :class:`~sklearn.multiclass.OutputCodeClassifier`: يدرب مجموعة من المُقدّرات الثنائية
+#   حيث يتم تدريب كل مُقدّر للتمييز بين
+#   مجموعة من الفئات من بقية الفئات. يتم تحديد مجموعة الفئات
+#   بواسطة كتاب الشفرات، والذي يتم إنشاؤه بشكل عشوائي في ساي كيت ليرن. تعرض هذه
+#   الطريقة معامل `code_size` للتحكم في حجم كتاب الشفرات.
+#   نقوم بضبطه فوق واحد لأننا غير مهتمين بضغط تمثيل الفئة.
 import pandas as pd
 
 from sklearn.model_selection import RepeatedStratifiedKFold, cross_validate
@@ -94,8 +79,8 @@ cv_results_ovr = cross_validate(ovr_tree, X, y, cv=cv, n_jobs=2)
 cv_results_ecoc = cross_validate(ecoc, X, y, cv=cv, n_jobs=2)
 
 # %%
-# We can now compare the statistical performance of the different strategies.
-# We plot the score distribution of the different strategies.
+# يمكننا الآن مقارنة الأداء الإحصائي للاستراتيجيات المختلفة.
+# نرسم توزيع الدرجات لمختلف الاستراتيجيات.
 from matplotlib import pyplot as plt
 
 scores = pd.DataFrame(
@@ -107,29 +92,27 @@ scores = pd.DataFrame(
     }
 )
 ax = scores.plot.kde(legend=True)
-ax.set_xlabel("Accuracy score")
+ax.set_xlabel("درجة الدقة")
 ax.set_xlim([0, 0.7])
 _ = ax.set_title(
-    "Density of the accuracy scores for the different multiclass strategies"
+    "كثافة درجات الدقة لمختلف استراتيجيات التصنيف متعدد الفئات"
 )
 
 # %%
-# At a first glance, we can see that the built-in strategy of the decision
-# tree classifier is working quite well. One-vs-one and the error-correcting
-# output code strategies are working even better. However, the
-# one-vs-rest strategy is not working as well as the other strategies.
+# للوهلة الأولى، يمكننا أن نرى أن الاستراتيجية المدمجة لمُقدّر شجرة القرار تعمل بشكل جيد جدًا. تعمل استراتيجية واحد مقابل واحد واستراتيجية تصحيح الأخطاء
+# بشكل أفضل. ومع ذلك، فإن استراتيجية واحد مقابل البقية لا تعمل بشكل جيد مثل الاستراتيجيات الأخرى.
 #
-# Indeed, these results reproduce something reported in the literature
-# as in [2]_. However, the story is not as simple as it seems.
+# في الواقع، تُعيد هذه النتائج شيئًا تم الإبلاغ عنه في الأدبيات
+# كما في [2]_. ومع ذلك، القصة ليست بسيطة كما تبدو.
 #
-# The importance of hyperparameters search
+# أهمية البحث عن المعاملات الفائقة
 # ----------------------------------------
 #
-# It was later shown in [3]_ that the multiclass strategies would show similar
-# scores if the hyperparameters of the base classifiers are first optimized.
+# تم إظهار لاحقًا في [3]_ أن استراتيجيات التصنيف متعدد الفئات ستظهر درجات مماثلة
+# إذا تم تحسين المعاملات الفائقة للمُقدّرات الأساسية أولاً.
 #
-# Here we try to reproduce such result by at least optimizing the depth of the
-# base decision tree.
+# هنا نحاول إعادة إنتاج مثل هذه النتيجة من خلال تحسين عمق
+# شجرة القرار الأساسية على الأقل.
 from sklearn.model_selection import GridSearchCV
 
 param_grid = {"max_depth": [3, 5, 8]}
@@ -152,42 +135,40 @@ scores = pd.DataFrame(
     }
 )
 ax = scores.plot.kde(legend=True)
-ax.set_xlabel("Accuracy score")
+ax.set_xlabel("درجة الدقة")
 ax.set_xlim([0, 0.7])
 _ = ax.set_title(
-    "Density of the accuracy scores for the different multiclass strategies"
+    "كثافة درجات الدقة لمختلف استراتيجيات التصنيف متعدد الفئات"
 )
 
 plt.show()
 
 # %%
-# We can see that once the hyperparameters are optimized, all multiclass
-# strategies have similar performance as discussed in [3]_.
+# يمكننا أن نرى أنه بمجرد تحسين المعاملات الفائقة، فإن جميع استراتيجيات التصنيف متعدد الفئات
+# لها أداء مماثل كما هو موضح في [3]_.
 #
-# Conclusion
+# الخاتمة
 # ----------
 #
-# We can get some intuition behind those results.
+# يمكننا الحصول على بعض الحدس وراء هذه النتائج.
 #
-# First, the reason for which one-vs-one and error-correcting output code are
-# outperforming the tree when the hyperparameters are not optimized relies on
-# fact that they ensemble a larger number of classifiers. The ensembling
-# improves the generalization performance. This is a bit similar why a bagging
-# classifier generally performs better than a single decision tree if no care
-# is taken to optimize the hyperparameters.
+# أولاً، السبب الذي يجعل استراتيجية واحد مقابل واحد وتصحيح الأخطاء
+# تتفوق على شجرة القرار عندما لا يتم تحسين المعاملات الفائقة يعتمد على
+# حقيقة أنها تجمع عددًا أكبر من المُقدّرات. يؤدي التجميع
+# إلى تحسين أداء التعميم. هذا مشابه إلى حد ما لسبب أداء مُقدّر التجميع
+# بشكل أفضل من شجرة قرار واحدة إذا لم يتم الاهتمام بتحسين المعاملات الفائقة.
 #
-# Then, we see the importance of optimizing the hyperparameters. Indeed, it
-# should be regularly explored when developing predictive models even if
-# techniques such as ensembling help at reducing this impact.
+# بعد ذلك، نرى أهمية تحسين المعاملات الفائقة. في الواقع،
+# يجب استكشافها بانتظام عند تطوير نماذج تنبؤية حتى إذا
+# كانت تقنيات مثل التجميع تساعد على تقليل هذا التأثير.
 #
-# Finally, it is important to recall that the estimators in scikit-learn
-# are developed with a specific strategy to handle multiclass classification
-# out of the box. So for these estimators, it means that there is no need to
-# use different strategies. These strategies are mainly useful for third-party
-# estimators supporting only binary classification. In all cases, we also show
-# that the hyperparameters should be optimized.
+# أخيرًا، من المهم التذكير بأن المُقدّرات في ساي كيت ليرن
+# يتم تطويرها مع استراتيجية محددة للتعامل مع التصنيف متعدد الفئات
+# بشكل افتراضي. لذلك، بالنسبة لهذه المُقدّرات، لا توجد حاجة
+# لاستخدام استراتيجيات مختلفة. هذه الاستراتيجيات مفيدة بشكل أساسي للمُقدّرات التابعة لطرف ثالث والتي تدعم التصنيف الثنائي فقط. في جميع الحالات، نُظهر أيضًا
+# أنه يجب تحسين المعاملات الفائقة.
 #
-# References
+# المراجع
 # ----------
 #
 # .. [1] https://archive.ics.uci.edu/ml/datasets/Yeast

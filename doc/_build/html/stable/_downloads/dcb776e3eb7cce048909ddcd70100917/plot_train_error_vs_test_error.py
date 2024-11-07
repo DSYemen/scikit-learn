@@ -1,31 +1,24 @@
 """
 =========================================================
-Effect of model regularization on training and test error
+تأثير تنظيم النموذج على خطأ التدريب والاختبار
 =========================================================
 
-In this example, we evaluate the impact of the regularization parameter in a
-linear model called :class:`~sklearn.linear_model.ElasticNet`. To carry out this
-evaluation, we use a validation curve using
-:class:`~sklearn.model_selection.ValidationCurveDisplay`. This curve shows the
-training and test scores of the model for different values of the regularization
-parameter.
+في هذا المثال، نقيم تأثير معامل التنظيم في نموذج خطي يسمى :class:`~sklearn.linear_model.ElasticNet`. ولإجراء هذا التقييم، نستخدم منحنى التحقق باستخدام :class:`~sklearn.model_selection.ValidationCurveDisplay`. يُظهر هذا المنحنى درجات التدريب والاختبار للنموذج لقيم مختلفة لمعامل التنظيم.
 
-Once we identify the optimal regularization parameter, we compare the true and
-estimated coefficients of the model to determine if the model is able to recover
-the coefficients from the noisy input data.
+بمجرد تحديد معامل التنظيم الأمثل، نقارن المعاملات الحقيقية والمقدرة للنموذج لتحديد ما إذا كان النموذج قادرًا على استرداد المعاملات من بيانات الإدخال المشوشة.
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# Generate sample data
+# توليد بيانات العينة
 # --------------------
 #
-# We generate a regression dataset that contains many features relative to the
-# number of samples. However, only 10% of the features are informative. In this context,
-# linear models exposing L1 penalization are commonly used to recover a sparse
-# set of coefficients.
+# نولد مجموعة بيانات انحدار تحتوي على العديد من الميزات النسبية
+# لعدد العينات. ومع ذلك، فإن 10% فقط من الميزات هي ميزات مفيدة. في هذا السياق،
+# تستخدم النماذج الخطية التي تعرض عقوبة L1 بشكل شائع لاسترداد مجموعة متفرقة
+# من المعاملات.
 from sklearn.datasets import make_regression
 from sklearn.model_selection import train_test_split
 
@@ -44,20 +37,19 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 
 # %%
-# Model definition
+# تعريف النموذج
 # ----------------
 #
-# Here, we do not use a model that only exposes an L1 penalty. Instead, we use
-# an :class:`~sklearn.linear_model.ElasticNet` model that exposes both L1 and L2
-# penalties.
+# هنا، لا نستخدم نموذجًا يعرض عقوبة L1 فقط. بدلاً من ذلك، نستخدم
+# نموذج :class:`~sklearn.linear_model.ElasticNet` الذي يعرض كل من عقوبات L1 و L2
 #
-# We fix the `l1_ratio` parameter such that the solution found by the model is still
-# sparse. Therefore, this type of model tries to find a sparse solution but at the same
-# time also tries to shrink all coefficients towards zero.
+# نقوم بتثبيت معامل `l1_ratio` بحيث تكون الحل الذي يجده النموذج لا يزال
+# متفرق. لذلك، يحاول هذا النوع من النماذج إيجاد حل متفرق ولكن في نفس الوقت
+# يحاول أيضًا تقليص جميع المعاملات إلى الصفر.
 #
-# In addition, we force the coefficients of the model to be positive since we know that
-# `make_regression` generates a response with a positive signal. So we use this
-# pre-knowledge to get a better model.
+# بالإضافة إلى ذلك، نجبر معاملات النموذج على أن تكون إيجابية لأننا نعلم أن
+# `make_regression` يولد استجابة بإشارة إيجابية. لذا نستخدم هذه
+# المعرفة المسبقة للحصول على نموذج أفضل.
 
 from sklearn.linear_model import ElasticNet
 
@@ -65,26 +57,24 @@ enet = ElasticNet(l1_ratio=0.9, positive=True, max_iter=10_000)
 
 
 # %%
-# Evaluate the impact of the regularization parameter
+# تقييم تأثير معامل التنظيم
 # ---------------------------------------------------
 #
-# To evaluate the impact of the regularization parameter, we use a validation
-# curve. This curve shows the training and test scores of the model for different
-# values of the regularization parameter.
+# لتقييم تأثير معامل التنظيم، نستخدم منحنى التحقق. يُظهر هذا المنحنى درجات التدريب والاختبار للنموذج لقيم
+# مختلفة لمعامل التنظيم.
 #
-# The regularization `alpha` is a parameter applied to the coefficients of the model:
-# when it tends to zero, no regularization is applied and the model tries to fit the
-# training data with the least amount of error. However, it leads to overfitting when
-# features are noisy. When `alpha` increases, the model coefficients are constrained,
-# and thus the model cannot fit the training data as closely, avoiding overfitting.
-# However, if too much regularization is applied, the model underfits the data and
-# is not able to properly capture the signal.
+# معامل التنظيم `alpha` هو معامل يطبق على معاملات النموذج:
+# عندما يميل إلى الصفر، لا يتم تطبيق أي تنظيم ويحاول النموذج ملاءمة
+# بيانات التدريب مع أقل قدر من الخطأ. ومع ذلك، يؤدي ذلك إلى الإفراط في الملاءمة عندما
+# تكون الميزات مشوشة. عندما يزيد `alpha`، يتم تقييد معاملات النموذج،
+# وبالتالي لا يستطيع النموذج ملاءمة بيانات التدريب عن كثب، مما يتجنب الإفراط في الملاءمة.
+# ومع ذلك، إذا تم تطبيق الكثير من التنظيم، فإن النموذج لا يلائم البيانات بشكل كافٍ
+# ولا يستطيع التقاط الإشارة بشكل صحيح.
 #
-# The validation curve helps in finding a good trade-off between both extremes: the
-# model is not regularized and thus flexible enough to fit the signal, but not too
-# flexible to overfit. The :class:`~sklearn.model_selection.ValidationCurveDisplay`
-# allows us to display the training and validation scores across a range of alpha
-# values.
+# يساعد منحنى التحقق في إيجاد توازن جيد بين كلا الطرفين:
+# النموذج غير منظم وبالتالي مرن بما يكفي لملاءمة الإشارة، ولكن ليس مرنًا للغاية لدرجة الإفراط في الملاءمة. يسمح لنا :class:`~sklearn.model_selection.ValidationCurveDisplay`
+# بعرض درجات التدريب والتحقق عبر نطاق من قيم alpha
+#
 import numpy as np
 
 from sklearn.model_selection import ValidationCurveDisplay
@@ -101,8 +91,8 @@ disp = ValidationCurveDisplay.from_estimator(
     score_type="both",
 )
 disp.ax_.set(
-    title=r"Validation Curve for ElasticNet (R$^2$ Score)",
-    xlabel=r"alpha (regularization strength)",
+    title=r"منحنى التحقق لنموذج ElasticNet (R$^2$ Score)",
+    xlabel=r"alpha (قوة التنظيم)",
     ylabel="R$^2$ Score",
 )
 
@@ -120,24 +110,24 @@ disp.ax_.vlines(
 _ = disp.ax_.legend(loc="lower right")
 
 # %%
-# To find the optimal regularization parameter, we can select the value of `alpha`
-# that maximizes the validation score.
+# لإيجاد معامل التنظيم الأمثل، يمكننا اختيار قيمة `alpha`
+# التي تعظم درجة التحقق.
 #
-# Coefficients comparison
+# مقارنة المعاملات
 # -----------------------
 #
-# Now that we have identified the optimal regularization parameter, we can compare the
-# true coefficients and the estimated coefficients.
+# الآن بعد أن حددنا معامل التنظيم الأمثل، يمكننا مقارنة
+# المعاملات الحقيقية والمقدرة.
 #
-# First, let's set the regularization parameter to the optimal value and fit the
-# model on the training data. In addition, we'll show the test score for this model.
+# أولاً، دعنا نحدد معامل التنظيم إلى القيمة المثلى ونلائم
+# النموذج على بيانات التدريب. بالإضافة إلى ذلك، سنعرض درجة الاختبار لهذا النموذج.
 enet.set_params(alpha=alphas[idx_avg_max_test_score]).fit(X_train, y_train)
 print(
     f"Test score: {enet.score(X_test, y_test):.3f}",
 )
 
 # %%
-# Now, we plot the true coefficients and the estimated coefficients.
+# الآن، نرسم المعاملات الحقيقية والمقدرة.
 import matplotlib.pyplot as plt
 
 fig, axs = plt.subplots(ncols=2, figsize=(12, 6), sharex=True, sharey=True)
@@ -149,18 +139,18 @@ for ax, coef, title in zip(axs, [true_coef, enet.coef_], ["True", "Model"]):
         ylabel="Coefficient Value",
     )
 fig.suptitle(
-    "Comparison of the coefficients of the true generative model and \n"
-    "the estimated elastic net coefficients"
+    "مقارنة معاملات النموذج الحقيقي والمولد\n"
+    "معاملات نموذج الشبكة المرنة المقدرة"
 )
 
 plt.show()
 
 # %%
-# While the original coefficients are sparse, the estimated coefficients are not
-# as sparse. The reason is that we fixed the `l1_ratio` parameter to 0.9. We could
-# force the model to get a sparser solution by increasing the `l1_ratio` parameter.
+# في حين أن المعاملات الأصلية متفرقة، فإن المعاملات المقدرة ليست
+# متفرقة كما ينبغي. والسبب هو أننا ثبتنا معامل `l1_ratio` إلى 0.9. يمكننا
+# إجبار النموذج على الحصول على حل أكثر تفرقاً عن طريق زيادة معامل `l1_ratio`.
 #
-# However, we observed that for the estimated coefficients that are close to zero in
-# the true generative model, our model shrinks them towards zero. So we don't recover
-# the true coefficients, but we get a sensible outcome in line with the performance
-# obtained on the test set.
+# ومع ذلك، لاحظنا أنه بالنسبة للمعاملات المقدرة التي تقترب من الصفر في
+# النموذج المولد الحقيقي، فإن نموذجنا يقلصها نحو الصفر. لذلك لا نستعيد
+# المعاملات الحقيقية، ولكننا نحصل على نتيجة منطقية تتماشى مع الأداء
+# الذي تم الحصول عليه على مجموعة الاختبار.

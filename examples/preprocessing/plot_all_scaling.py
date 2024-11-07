@@ -1,47 +1,44 @@
 """
 =============================================================
-Compare the effect of different scalers on data with outliers
+مقارنة تأثير المقياس المختلف على البيانات مع القيم الشاذة
 =============================================================
 
-Feature 0 (median income in a block) and feature 5 (average house occupancy) of
-the :ref:`california_housing_dataset` have very
-different scales and contain some very large outliers. These two
-characteristics lead to difficulties to visualize the data and, more
-importantly, they can degrade the predictive performance of many machine
-learning algorithms. Unscaled data can also slow down or even prevent the
-convergence of many gradient-based estimators.
+تتميز الخاصية 0 (متوسط الدخل في الكتلة) والخاصية 5 (متوسط شغل المنزل) في
+:ref:`california_housing_dataset` بمقاييس مختلفة جداً وتحتوي على بعض القيم الشاذة الكبيرة جدًا. تؤدي هاتان
+الخاصيتان إلى صعوبات في تصور البيانات, والأهم من ذلك, يمكن أن تتدهور
+الأداء التنبؤي للعديد من خوارزميات التعلم الآلي. يمكن أن تؤدي البيانات غير
+المقاسة أيضًا إلى إبطاء أو حتى منع تقارب العديد من المقدرات القائمة على
+التدرج.
 
-Indeed many estimators are designed with the assumption that each feature takes
-values close to zero or more importantly that all features vary on comparable
-scales. In particular, metric-based and gradient-based estimators often assume
-approximately standardized data (centered features with unit variances). A
-notable exception are decision tree-based estimators that are robust to
-arbitrary scaling of the data.
+في الواقع, تم تصميم العديد من المقدرات بافتراض أن كل ميزة تأخذ
+القيم القريبة من الصفر أو, بشكل أكثر أهمية, أن جميع الميزات تختلف على نطاقات
+قابلة للمقارنة. على وجه الخصوص, غالبًا ما تفترض المقدرات المترية والقائمة
+على التدرج بيانات تقريبية قياسية (ميزات مركزية مع تباينات الوحدة). الاستثناء
+الملحوظ هو المقدرات القائمة على شجرة القرار التي تكون قوية للتدرج التعسفي
+للبيانات.
 
-This example uses different scalers, transformers, and normalizers to bring the
-data within a pre-defined range.
+يستخدم هذا المثال مقاييس ودوال تحويل وتطبيع مختلفة لجلب
+البيانات ضمن نطاق محدد مسبقًا.
 
-Scalers are linear (or more precisely affine) transformers and differ from each
-other in the way they estimate the parameters used to shift and scale each
-feature.
+المقاييس هي محولات خطية (أو أكثر دقة محولات أفينية) وتختلف عن بعضها
+البعض في الطريقة التي تقدر بها المعلمات المستخدمة لنقل وتوسيع كل
+ميزة.
 
-:class:`~sklearn.preprocessing.QuantileTransformer` provides non-linear
-transformations in which distances
-between marginal outliers and inliers are shrunk.
-:class:`~sklearn.preprocessing.PowerTransformer` provides
-non-linear transformations in which data is mapped to a normal distribution to
-stabilize variance and minimize skewness.
+:class:`~sklearn.preprocessing.QuantileTransformer` يوفر تحولات غير خطية
+في المسافات
+بين القيم الشاذة الهامشية والقيم الداخلية يتم تقليصها.
+:class:`~sklearn.preprocessing.PowerTransformer` يوفر
+تحولات غير خطية يتم فيها رسم البيانات إلى توزيع طبيعي لتثبيت
+التباين وتقليل الانحراف.
 
-Unlike the previous transformations, normalization refers to a per sample
-transformation instead of a per feature transformation.
+على عكس التحولات السابقة, يشير التطبيع إلى تحويل لكل عينة
+بدلاً من تحويل لكل ميزة.
 
-The following code is a bit verbose, feel free to jump directly to the analysis
-of the results_.
-
+قد يكون الكود التالي طويلاً بعض الشيء, لذا لا تتردد في الانتقال مباشرةً إلى تحليل
+النتائج_.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف SPDX-License: BSD-3-Clause
 
 import matplotlib as mpl
 import numpy as np
@@ -75,48 +72,48 @@ feature_mapping = {
     "Longitude": "House block longitude",
 }
 
-# Take only 2 features to make visualization easier
-# Feature MedInc has a long tail distribution.
-# Feature AveOccup has a few but very large outliers.
+# خذ فقط ميزتين لجعل التصوير أسهل
+# تحتوي ميزة MedInc على توزيع طويل الذيل.
+# تحتوي الميزة AveOccup على عدد قليل من القيم الشاذة ولكنها كبيرة جدًا.
 features = ["MedInc", "AveOccup"]
 features_idx = [feature_names.index(feature) for feature in features]
 X = X_full[:, features_idx]
 distributions = [
-    ("Unscaled data", X),
-    ("Data after standard scaling", StandardScaler().fit_transform(X)),
-    ("Data after min-max scaling", MinMaxScaler().fit_transform(X)),
-    ("Data after max-abs scaling", MaxAbsScaler().fit_transform(X)),
+    ("البيانات غير المقاسة", X),
+    ("البيانات بعد التوسيع القياسي", StandardScaler().fit_transform(X)),
+    ("البيانات بعد التوسيع من الحد الأدنى إلى الحد الأقصى", MinMaxScaler().fit_transform(X)),
+    ("البيانات بعد التوسيع من الحد الأقصى إلى الحد الأدنى", MaxAbsScaler().fit_transform(X)),
     (
-        "Data after robust scaling",
+        "البيانات بعد التوسيع المتين",
         RobustScaler(quantile_range=(25, 75)).fit_transform(X),
     ),
     (
-        "Data after power transformation (Yeo-Johnson)",
+        "البيانات بعد التحول بالقوة (Yeo-Johnson)",
         PowerTransformer(method="yeo-johnson").fit_transform(X),
     ),
     (
-        "Data after power transformation (Box-Cox)",
+        "البيانات بعد التحول بالقوة (Box-Cox)",
         PowerTransformer(method="box-cox").fit_transform(X),
     ),
     (
-        "Data after quantile transformation (uniform pdf)",
+        "البيانات بعد التحول الكمي (توزيع احتمالي موحد)",
         QuantileTransformer(
             output_distribution="uniform", random_state=42
         ).fit_transform(X),
     ),
     (
-        "Data after quantile transformation (gaussian pdf)",
+        "البيانات بعد التحول الكمي (توزيع احتمالي طبيعي)",
         QuantileTransformer(
             output_distribution="normal", random_state=42
         ).fit_transform(X),
     ),
-    ("Data after sample-wise L2 normalizing", Normalizer().fit_transform(X)),
+    ("البيانات بعد التطبيع العيني L2", Normalizer().fit_transform(X)),
 ]
 
-# scale the output between 0 and 1 for the colorbar
+# قم بتوسيع الإخراج بين 0 و 1 لشريط الألوان
 y = minmax_scale(y_full)
 
-# plasma does not exist in matplotlib < 1.5
+# البلازما غير موجودة في ماتبلوتليب <1.5
 cmap = getattr(cm, "plasma_r", cm.hot_r)
 
 
@@ -124,7 +121,7 @@ def create_axes(title, figsize=(16, 6)):
     fig = plt.figure(figsize=figsize)
     fig.suptitle(title)
 
-    # define the axis for the first plot
+    # تحديد المحور للرسم الأول
     left, width = 0.1, 0.22
     bottom, height = 0.1, 0.7
     bottom_h = height + 0.15
@@ -138,7 +135,7 @@ def create_axes(title, figsize=(16, 6)):
     ax_histx = plt.axes(rect_histx)
     ax_histy = plt.axes(rect_histy)
 
-    # define the axis for the zoomed-in plot
+    # تحديد المحور للرسم المكبر
     left = width + left + 0.2
     left_h = left + width + 0.02
 
@@ -150,7 +147,7 @@ def create_axes(title, figsize=(16, 6)):
     ax_histx_zoom = plt.axes(rect_histx)
     ax_histy_zoom = plt.axes(rect_histy)
 
-    # define the axis for the colorbar
+    # تحديد المحور لشريط الألوان
     left, width = width + left + 0.13, 0.01
 
     rect_colorbar = [left, bottom, width, height]
@@ -170,12 +167,12 @@ def plot_distribution(axes, X, y, hist_nbins=50, title="", x0_label="", x1_label
     ax.set_xlabel(x0_label)
     ax.set_ylabel(x1_label)
 
-    # The scatter plot
+    # رسم التبعثر
     colors = cmap(y)
     ax.scatter(X[:, 0], X[:, 1], alpha=0.5, marker="o", s=5, lw=0, c=colors)
 
-    # Removing the top and the right spine for aesthetics
-    # make nice axis layout
+    # إزالة العمود الفقري العلوي والأيمن من أجل الجماليات
+    # إجراء تخطيط محور لطيف
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     ax.get_xaxis().tick_bottom()
@@ -183,14 +180,14 @@ def plot_distribution(axes, X, y, hist_nbins=50, title="", x0_label="", x1_label
     ax.spines["left"].set_position(("outward", 10))
     ax.spines["bottom"].set_position(("outward", 10))
 
-    # Histogram for axis X1 (feature 5)
+    # رسم بياني للتاريخ X1 (الميزة 5)
     hist_X1.set_ylim(ax.get_ylim())
     hist_X1.hist(
         X[:, 1], bins=hist_nbins, orientation="horizontal", color="grey", ec="grey"
     )
     hist_X1.axis("off")
 
-    # Histogram for axis X0 (feature 0)
+    # رسم بياني للتاريخ X0 (الميزة 0)
     hist_X0.set_xlim(ax.get_xlim())
     hist_X0.hist(
         X[:, 0], bins=hist_nbins, orientation="vertical", color="grey", ec="grey"
@@ -199,11 +196,11 @@ def plot_distribution(axes, X, y, hist_nbins=50, title="", x0_label="", x1_label
 
 
 # %%
-# Two plots will be shown for each scaler/normalizer/transformer. The left
-# figure will show a scatter plot of the full data set while the right figure
-# will exclude the extreme values considering only 99 % of the data set,
-# excluding marginal outliers. In addition, the marginal distributions for each
-# feature will be shown on the sides of the scatter plot.
+# سيتم عرض رسمين لكل مقياس/مطبق/محول. سيظهر الرسم الأيسر
+# رسمًا نقطيًا لمجموعة البيانات الكاملة بينما سيستبعد الرسم الأيمن القيم
+# المتطرفة بالنظر فقط إلى 99% من مجموعة البيانات, واستبعاد القيم الشاذة
+# الهامشية. بالإضافة إلى ذلك, سيتم عرض التوزيعات الهامشية لكل
+# ميزة على جانبي الرسم البياني.
 
 
 def make_plot(item_idx):
@@ -220,7 +217,7 @@ def make_plot(item_idx):
         title="Full data",
     )
 
-    # zoom-in
+    # التكبير
     zoom_in_percentile_range = (0, 99)
     cutoffs_X0 = np.percentile(X[:, 0], zoom_in_percentile_range)
     cutoffs_X1 = np.percentile(X[:, 1], zoom_in_percentile_range)
@@ -251,18 +248,17 @@ def make_plot(item_idx):
 # %%
 # .. _results:
 #
-# Original data
+# البيانات الأصلية
 # -------------
 #
-# Each transformation is plotted showing two transformed features, with the
-# left plot showing the entire dataset, and the right zoomed-in to show the
-# dataset without the marginal outliers. A large majority of the samples are
-# compacted to a specific range, [0, 10] for the median income and [0, 6] for
-# the average house occupancy. Note that there are some marginal outliers (some
-# blocks have average occupancy of more than 1200). Therefore, a specific
-# pre-processing can be very beneficial depending of the application. In the
-# following, we present some insights and behaviors of those pre-processing
-# methods in the presence of marginal outliers.
+# يتم رسم كل تحول لإظهار ميزتين محولتين, مع
+# عرض الرسم الأيسر لمجموعة البيانات الكاملة, واليمين مكبر لإظهار
+# مجموعة البيانات بدون القيم الشاذة الهامشية. يتم ضغط الغالبية العظمى من
+# العينات إلى نطاق محدد, [0, 10] للدخل المتوسط و [0, 6] لشغل المنزل
+# المتوسط. لاحظ أنه هناك بعض القيم الشاذة الهامشية (بعض
+# الكتل بها متوسط شغل أكثر من 1200). لذلك, يمكن أن يكون معالجة محددة
+# مفيدًا جدًا اعتمادًا على التطبيق. في ما يلي, نقدم بعض الأفكار وسلوكيات
+# أساليب المعالجة المسبقة هذه في وجود القيم الشاذة الهامشية.
 
 make_plot(0)
 
@@ -272,19 +268,19 @@ make_plot(0)
 # StandardScaler
 # --------------
 #
-# :class:`~sklearn.preprocessing.StandardScaler` removes the mean and scales
-# the data to unit variance. The scaling shrinks the range of the feature
-# values as shown in the left figure below.
-# However, the outliers have an influence when computing the empirical mean and
-# standard deviation. Note in particular that because the outliers on each
-# feature have different magnitudes, the spread of the transformed data on
-# each feature is very different: most of the data lie in the [-2, 4] range for
-# the transformed median income feature while the same data is squeezed in the
-# smaller [-0.2, 0.2] range for the transformed average house occupancy.
+# :class:`~sklearn.preprocessing.StandardScaler` يزيل المتوسط ويوسع
+# البيانات إلى تباين الوحدة. يقلل التوسيع من نطاق قيم الميزة كما هو موضح في
+# الرسم الأيسر أدناه.
+# ومع ذلك, يكون للقيم الشاذة تأثير عند حساب المتوسط التجريبي
+# والانحراف المعياري. لاحظ على وجه الخصوص أنه لأن القيم الشاذة في كل
+# ميزة لها أحجام مختلفة, فإن انتشار البيانات المحولة على
+# كل ميزة مختلفة جدًا: تقع معظم البيانات في النطاق [-2, 4] للميزة
+# الدخل المتوسط المحولة في حين يتم ضغط نفس البيانات في
+# النطاق الأصغر [-0.2, 0.2] لشغل المنزل المتوسط المحول.
 #
-# :class:`~sklearn.preprocessing.StandardScaler` therefore cannot guarantee
-# balanced feature scales in the
-# presence of outliers.
+# :class:`~sklearn.preprocessing.StandardScaler` لذلك لا يمكن أن يضمن
+# نطاقات ميزات متوازنة في
+# وجود القيم الشاذة.
 
 make_plot(1)
 
@@ -294,15 +290,14 @@ make_plot(1)
 # MinMaxScaler
 # ------------
 #
-# :class:`~sklearn.preprocessing.MinMaxScaler` rescales the data set such that
-# all feature values are in
-# the range [0, 1] as shown in the right panel below. However, this scaling
-# compresses all inliers into the narrow range [0, 0.005] for the transformed
-# average house occupancy.
+# :class:`~sklearn.preprocessing.MinMaxScaler` يعيد توسيع مجموعة البيانات بحيث
+# جميع قيم الميزات في
+# النطاق [0, 1] كما هو موضح في اللوحة اليمنى أدناه. ومع ذلك, يضغط هذا التوسيع
+# جميع القيم الداخلية إلى النطاق الضيق [0, 0.005] لشغل المنزل المحول.
 #
-# Both :class:`~sklearn.preprocessing.StandardScaler` and
-# :class:`~sklearn.preprocessing.MinMaxScaler` are very sensitive to the
-# presence of outliers.
+# كل من :class:`~sklearn.preprocessing.StandardScaler` و
+# :class:`~sklearn.preprocessing.MinMaxScaler` حساسة للغاية لوجود
+# القيم الشاذة.
 
 make_plot(2)
 
@@ -312,16 +307,16 @@ make_plot(2)
 # MaxAbsScaler
 # ------------
 #
-# :class:`~sklearn.preprocessing.MaxAbsScaler` is similar to
-# :class:`~sklearn.preprocessing.MinMaxScaler` except that the
-# values are mapped across several ranges depending on whether negative
-# OR positive values are present. If only positive values are present, the
-# range is [0, 1]. If only negative values are present, the range is [-1, 0].
-# If both negative and positive values are present, the range is [-1, 1].
-# On positive only data, both :class:`~sklearn.preprocessing.MinMaxScaler`
-# and :class:`~sklearn.preprocessing.MaxAbsScaler` behave similarly.
-# :class:`~sklearn.preprocessing.MaxAbsScaler` therefore also suffers from
-# the presence of large outliers.
+# :class:`~sklearn.preprocessing.MaxAbsScaler` مشابه
+# :class:`~sklearn.preprocessing.MinMaxScaler` باستثناء أن
+# القيم يتم رسمها عبر نطاقات متعددة اعتمادًا على ما إذا كانت القيم السلبية
+# أو الإيجابية موجودة. إذا كانت القيم الإيجابية فقط موجودة, يكون
+# النطاق [0, 1]. إذا كانت القيم السلبية فقط موجودة, يكون النطاق [-1, 0].
+# إذا كانت القيم السلبية والإيجابية موجودة, يكون النطاق [-1, 1].
+# على البيانات الإيجابية فقط, كل من :class:`~sklearn.preprocessing.MinMaxScaler`
+# و :class:`~sklearn.preprocessing.MaxAbsScaler` تتصرف بشكل مشابه.
+# :class:`~sklearn.preprocessing.MaxAbsScaler` لذلك يعاني أيضًا من
+# وجود القيم الشاذة الكبيرة.
 
 make_plot(3)
 
@@ -331,16 +326,16 @@ make_plot(3)
 # RobustScaler
 # ------------
 #
-# Unlike the previous scalers, the centering and scaling statistics of
+# على عكس المقاييس السابقة, فإن إحصائيات التوسيط والتوسيع
 # :class:`~sklearn.preprocessing.RobustScaler`
-# are based on percentiles and are therefore not influenced by a small
-# number of very large marginal outliers. Consequently, the resulting range of
-# the transformed feature values is larger than for the previous scalers and,
-# more importantly, are approximately similar: for both features most of the
-# transformed values lie in a [-2, 3] range as seen in the zoomed-in figure.
-# Note that the outliers themselves are still present in the transformed data.
-# If a separate outlier clipping is desirable, a non-linear transformation is
-# required (see below).
+# تعتمد على المئينات وبالتالي لا تتأثر بعدد صغير
+# من القيم الشاذة الهامشية الكبيرة جدًا. وبالتالي, فإن النطاق الناتج
+# لقيم الميزات المحولة أكبر من المقاييس السابقة, والأهم من ذلك,
+# تكون متشابهة تقريبًا: بالنسبة لكلتا الميزتين تقع معظم
+# القيم المحولة في نطاق [-2, 3] كما هو موضح في الرسم المكبر.
+# لاحظ أن القيم الشاذة نفسها لا تزال موجودة في البيانات المحولة.
+# إذا كان قص القيم الشاذة مرغوبًا فيه بشكل منفصل, فمن الضروري إجراء تحول غير خطي
+# (انظر أدناه).
 
 make_plot(4)
 
@@ -350,16 +345,16 @@ make_plot(4)
 # PowerTransformer
 # ----------------
 #
-# :class:`~sklearn.preprocessing.PowerTransformer` applies a power
-# transformation to each feature to make the data more Gaussian-like in order
-# to stabilize variance and minimize skewness. Currently the Yeo-Johnson
-# and Box-Cox transforms are supported and the optimal
-# scaling factor is determined via maximum likelihood estimation in both
-# methods. By default, :class:`~sklearn.preprocessing.PowerTransformer` applies
-# zero-mean, unit variance normalization. Note that
-# Box-Cox can only be applied to strictly positive data. Income and average
-# house occupancy happen to be strictly positive, but if negative values are
-# present the Yeo-Johnson transformed is preferred.
+# يطبق :class:`~sklearn.preprocessing.PowerTransformer` تحويلًا قويًا
+# على كل ميزة لجعل البيانات أشبه بالتوزيع الغاوسي من أجل
+# استقرار التباين وتقليل الانحراف. حاليًا، يتم دعم تحويلات Yeo-Johnson
+# و Box-Cox ويتم تحديد عامل القياس الأمثل عن طريق تقدير
+# الاحتمالية القصوى في كلتا الطريقتين. افتراضيًا، يطبق
+# :class:`~sklearn.preprocessing.PowerTransformer` تطبيعًا صفريًا
+# ومتوسطًا لوحدة التباين. لاحظ أنه لا يمكن تطبيق Box-Cox إلا على البيانات
+# الموجبة تمامًا. يحدث أن يكون الدخل ومتوسط ​​إشغال المنزل موجبين
+# تمامًا، ولكن إذا كانت القيم السالبة موجودة، فإن تحويل Yeo-Johnson هو
+# المفضل.
 
 make_plot(5)
 make_plot(6)
@@ -367,32 +362,33 @@ make_plot(6)
 # %%
 # .. _plot_all_scaling_quantile_transformer_section:
 #
-# QuantileTransformer (uniform output)
+# QuantileTransformer (مخرجات موحدة)
 # ------------------------------------
 #
-# :class:`~sklearn.preprocessing.QuantileTransformer` applies a non-linear
-# transformation such that the
-# probability density function of each feature will be mapped to a uniform
-# or Gaussian distribution. In this case, all the data, including outliers,
-# will be mapped to a uniform distribution with the range [0, 1], making
-# outliers indistinguishable from inliers.
+# يطبق :class:`~sklearn.preprocessing.QuantileTransformer` تحويلًا غير خطي
+# بحيث يتم تعيين دالة كثافة الاحتمال لكل ميزة إلى توزيع
+# موحد أو غاوسي. في هذه الحالة، سيتم تعيين جميع البيانات، بما في ذلك
+# القيم المتطرفة، إلى توزيع موحد مع النطاق [0، 1]، مما يجعل
+# القيم المتطرفة لا يمكن تمييزها عن القيم الداخلية.
 #
-# :class:`~sklearn.preprocessing.RobustScaler` and
-# :class:`~sklearn.preprocessing.QuantileTransformer` are robust to outliers in
-# the sense that adding or removing outliers in the training set will yield
-# approximately the same transformation. But contrary to
-# :class:`~sklearn.preprocessing.RobustScaler`,
-# :class:`~sklearn.preprocessing.QuantileTransformer` will also automatically
-# collapse any outlier by setting them to the a priori defined range boundaries
-# (0 and 1). This can result in saturation artifacts for extreme values.
+# :class:`~sklearn.preprocessing.RobustScaler` و
+# :class:`~sklearn.preprocessing.QuantileTransformer` مقاومان للقيم
+# المتطرفة بمعنى أن إضافة أو إزالة القيم المتطرفة في مجموعة التدريب
+# سينتج عنهما نفس التحويل تقريبًا. ولكن على عكس
+# :class:`~sklearn.preprocessing.RobustScaler`، فإن
+# :class:`~sklearn.preprocessing.QuantileTransformer` سيقوم أيضًا
+# تلقائيًا بطي أي قيمة متطرفة عن طريق تعيينها على حدود النطاق المحددة
+# مسبقًا (0 و 1). يمكن أن يؤدي هذا إلى تشبع القطع الأثرية للقيم
+# المتطرفة.
+
 
 make_plot(7)
 
 ##############################################################################
-# QuantileTransformer (Gaussian output)
+# QuantileTransformer (مخرجات غاوسية)
 # -------------------------------------
 #
-# To map to a Gaussian distribution, set the parameter
+# للتعيين إلى توزيع غاوسي، قم بتعيين المعلمة
 # ``output_distribution='normal'``.
 
 make_plot(8)
@@ -403,13 +399,13 @@ make_plot(8)
 # Normalizer
 # ----------
 #
-# The :class:`~sklearn.preprocessing.Normalizer` rescales the vector for each
-# sample to have unit norm,
-# independently of the distribution of the samples. It can be seen on both
-# figures below where all samples are mapped onto the unit circle. In our
-# example the two selected features have only positive values; therefore the
-# transformed data only lie in the positive quadrant. This would not be the
-# case if some original features had a mix of positive and negative values.
+# يقوم :class:`~sklearn.preprocessing.Normalizer` بإعادة قياس المتجه لكل
+# عينة ليكون له معيار وحدة، بشكل مستقل عن توزيع العينات. يمكن رؤيته
+# في كلا الشكلين أدناه حيث يتم تعيين جميع العينات على دائرة الوحدة. في
+# مثالنا، تحتوي الميزتان المحددتان على قيم موجبة فقط؛ لذلك تقع البيانات
+# المحولة فقط في الربع الموجب. لن يكون هذا هو الحال إذا كانت بعض
+# الميزات الأصلية تحتوي على مزيج من القيم الموجبة والسالبة.
+
 
 make_plot(9)
 

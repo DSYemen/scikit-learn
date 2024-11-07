@@ -1,55 +1,52 @@
 """
 ======================================================
-Post-hoc tuning the cut-off point of decision function
+ضبط نقطة القطع لوظيفة القرار بعد التدريب
 ======================================================
 
-Once a binary classifier is trained, the :term:`predict` method outputs class label
-predictions corresponding to a thresholding of either the :term:`decision_function` or
-the :term:`predict_proba` output. The default threshold is defined as a posterior
-probability estimate of 0.5 or a decision score of 0.0. However, this default strategy
-may not be optimal for the task at hand.
+بمجرد تدريب مصنف ثنائي، تقوم طريقة :term:`predict` بإخراج تنبؤات تسمية الفئة المقابلة لعملية عتبية إما لـ :term:`decision_function` أو
+لـ :term:`predict_proba` الإخراج. ويتم تعريف العتبة الافتراضية على أنها تقدير احتمالي لاحق يبلغ 0.5 أو درجة قرار تبلغ 0.0. ومع ذلك، قد لا تكون هذه الاستراتيجية الافتراضية مثالية للمهمة قيد التنفيذ.
 
-This example shows how to use the
-:class:`~sklearn.model_selection.TunedThresholdClassifierCV` to tune the decision
-threshold, depending on a metric of interest.
+يوضح هذا المثال كيفية استخدام
+:class:`~sklearn.model_selection.TunedThresholdClassifierCV` لضبط عتبة القرار، اعتمادًا على مقياس الاهتمام.
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# The diabetes dataset
+# مجموعة بيانات مرض السكري
 # --------------------
 #
-# To illustrate the tuning of the decision threshold, we will use the diabetes dataset.
-# This dataset is available on OpenML: https://www.openml.org/d/37. We use the
-# :func:`~sklearn.datasets.fetch_openml` function to fetch this dataset.
+# لتوضيح ضبط عتبة القرار، سنستخدم مجموعة بيانات مرض السكري.
+# هذه المجموعة متاحة على OpenML: https://www.openml.org/d/37. نستخدم
+# :func:`~sklearn.datasets.fetch_openml` الدالة لاسترجاع هذه المجموعة.
+
 from sklearn.datasets import fetch_openml
 
 diabetes = fetch_openml(data_id=37, as_frame=True, parser="pandas")
 data, target = diabetes.data, diabetes.target
 
 # %%
-# We look at the target to understand the type of problem we are dealing with.
+# نلقي نظرة على الهدف لفهم نوع المشكلة التي نتعامل معها.
 target.value_counts()
 
 # %%
-# We can see that we are dealing with a binary classification problem. Since the
-# labels are not encoded as 0 and 1, we make it explicit that we consider the class
-# labeled "tested_negative" as the negative class (which is also the most frequent)
-# and the class labeled "tested_positive" the positive as the positive class:
+# يمكننا أن نرى أننا نتعامل مع مشكلة تصنيف ثنائي. نظرًا لأن
+# التصنيفات غير مشفرة على أنها 0 و 1، فإننا نجعلها صريحة بأننا نعتبر الفئة
+# المسماة "tested_negative" كالفئة السلبية (وهي أيضًا الأكثر تكرارًا)
+# والفئة المسماة "tested_positive" كالفئة الإيجابية:
 neg_label, pos_label = target.value_counts().index
 
 # %%
-# We can also observe that this binary problem is slightly imbalanced where we have
-# around twice more samples from the negative class than from the positive class. When
-# it comes to evaluation, we should consider this aspect to interpret the results.
+# يمكننا أيضًا ملاحظة أن هذه المشكلة الثنائية غير متوازنة إلى حد ما حيث لدينا
+# حوالي ضعف عدد العينات من الفئة السلبية مقارنة بالفئة الإيجابية. عندما
+# يتعلق الأمر بالتقييم، يجب أن نأخذ هذا الجانب في الاعتبار لتفسير النتائج.
 #
-# Our vanilla classifier
+# مصنفنا الأساسي
 # ----------------------
 #
-# We define a basic predictive model composed of a scaler followed by a logistic
-# regression classifier.
+# نحدد نموذجًا تنبؤيًا أساسيًا يتكون من مقياس متبوعًا بمصنف
+# الانحدار اللوجستي.
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
@@ -58,16 +55,16 @@ model = make_pipeline(StandardScaler(), LogisticRegression())
 model
 
 # %%
-# We evaluate our model using cross-validation. We use the accuracy and the balanced
-# accuracy to report the performance of our model. The balanced accuracy is a metric
-# that is less sensitive to class imbalance and will allow us to put the accuracy
-# score in perspective.
+# نقيم نموذجنا باستخدام التحقق المتقاطع. نستخدم الدقة والدقة المتوازنة
+# للإبلاغ عن أداء نموذجنا. الدقة المتوازنة هي مقياس
+# أقل حساسية لاختلال التوازن في الفئة وسيسمح لنا بوضع درجة الدقة
+# في المنظور.
 #
-# Cross-validation allows us to study the variance of the decision threshold across
-# different splits of the data. However, the dataset is rather small and it would be
-# detrimental to use more than 5 folds to evaluate the dispersion. Therefore, we use
-# a :class:`~sklearn.model_selection.RepeatedStratifiedKFold` where we apply several
-# repetitions of 5-fold cross-validation.
+# يسمح لنا التحقق المتقاطع بدراسة تباين عتبة القرار عبر
+# تقسيمات مختلفة للبيانات. ومع ذلك، فإن مجموعة البيانات صغيرة إلى حد ما وسيكون
+# من الضار استخدام أكثر من 5 طيات لتقييم التشتت. لذلك، نستخدم
+# :class:`~sklearn.model_selection.RepeatedStratifiedKFold` حيث نطبق عدة
+# تكرارات من التحقق المتقاطع 5-fold.
 import pandas as pd
 
 from sklearn.model_selection import RepeatedStratifiedKFold, cross_validate
@@ -94,25 +91,24 @@ cv_results_vanilla_model = pd.DataFrame(
 cv_results_vanilla_model[cv_scores].aggregate(["mean", "std"]).T
 
 # %%
-# Our predictive model succeeds to grasp the relationship between the data and the
-# target. The training and testing scores are close to each other, meaning that our
-# predictive model is not overfitting. We can also observe that the balanced accuracy is
-# lower than the accuracy, due to the class imbalance previously mentioned.
+# ينجح نموذجنا التنبؤي في فهم العلاقة بين البيانات والهدف. درجات التدريب والاختبار قريبة من بعضها البعض، مما يعني أن
+# نموذجنا التنبؤي لا يعاني من الإفراط في الملاءمة. يمكننا أيضًا ملاحظة أن الدقة المتوازنة هي
+# أقل من الدقة، بسبب اختلال التوازن في الفئة المذكور سابقًا.
 #
-# For this classifier, we let the decision threshold, used convert the probability of
-# the positive class into a class prediction, to its default value: 0.5. However, this
-# threshold might not be optimal. If our interest is to maximize the balanced accuracy,
-# we should select another threshold that would maximize this metric.
+# بالنسبة لهذا المصنف، نترك عتبة القرار، المستخدمة لتحويل احتمال
+# الفئة الإيجابية إلى تنبؤ الفئة، إلى قيمتها الافتراضية: 0.5. ومع ذلك، قد لا تكون هذه
+# العتبة مثالية. إذا كان اهتمامنا هو تعظيم الدقة المتوازنة،
+# يجب أن نختار عتبة أخرى من شأنها أن تعظم هذا المقياس.
 #
-# The :class:`~sklearn.model_selection.TunedThresholdClassifierCV` meta-estimator allows
-# to tune the decision threshold of a classifier given a metric of interest.
+# يسمح المقيّم :class:`~sklearn.model_selection.TunedThresholdClassifierCV`
+# بضبط عتبة القرار لمصنف معين بناءً على مقياس الاهتمام.
 #
-# Tuning the decision threshold
+# ضبط عتبة القرار
 # -----------------------------
 #
-# We create a :class:`~sklearn.model_selection.TunedThresholdClassifierCV` and
-# configure it to maximize the balanced accuracy. We evaluate the model using the same
-# cross-validation strategy as previously.
+# ننشئ :class:`~sklearn.model_selection.TunedThresholdClassifierCV` ونقوم
+# بتهيئته لتعظيم الدقة المتوازنة. نقيم النموذج باستخدام نفس
+# استراتيجية التحقق المتقاطع كما في السابق.
 from sklearn.model_selection import TunedThresholdClassifierCV
 
 tuned_model = TunedThresholdClassifierCV(estimator=model, scoring="balanced_accuracy")
@@ -130,13 +126,13 @@ cv_results_tuned_model = pd.DataFrame(
 cv_results_tuned_model[cv_scores].aggregate(["mean", "std"]).T
 
 # %%
-# In comparison with the vanilla model, we observe that the balanced accuracy score
-# increased. Of course, it comes at the cost of a lower accuracy score. It means that
-# our model is now more sensitive to the positive class but makes more mistakes on the
-# negative class.
+# بالمقارنة مع النموذج الأساسي، نلاحظ أن درجة الدقة المتوازنة
+# زادت. بالطبع، يأتي ذلك على حساب انخفاض درجة الدقة. هذا يعني أن
+# نموذجنا أصبح الآن أكثر حساسية للفئة الإيجابية ولكنه يرتكب أخطاء أكثر على
+# الفئة السلبية.
 #
-# However, it is important to note that this tuned predictive model is internally the
-# same model as the vanilla model: they have the same fitted coefficients.
+# ومع ذلك، من المهم ملاحظة أن هذا النموذج التنبؤي المضبوط هو داخليًا نفس
+# النموذج الأساسي: لديهم نفس المعاملات المناسبة.
 import matplotlib.pyplot as plt
 
 vanilla_model_coef = pd.DataFrame(
@@ -150,14 +146,14 @@ tuned_model_coef = pd.DataFrame(
 
 fig, ax = plt.subplots(ncols=2, figsize=(12, 4), sharex=True, sharey=True)
 vanilla_model_coef.boxplot(ax=ax[0])
-ax[0].set_ylabel("Coefficient value")
-ax[0].set_title("Vanilla model")
+ax[0].set_ylabel("قيمة المعامل")
+ax[0].set_title("النموذج الأساسي")
 tuned_model_coef.boxplot(ax=ax[1])
-ax[1].set_title("Tuned model")
-_ = fig.suptitle("Coefficients of the predictive models")
+ax[1].set_title("النموذج المضبوط")
+_ = fig.suptitle("معاملات النماذج التنبؤية")
 
 # %%
-# Only the decision threshold of each model was changed during the cross-validation.
+# تم تغيير عتبة القرار لكل نموذج فقط أثناء التحقق المتقاطع.
 decision_threshold = pd.Series(
     [est.best_threshold_ for est in cv_results_tuned_model["estimator"]],
 )
@@ -166,22 +162,21 @@ ax.axvline(
     decision_threshold.mean(),
     color="k",
     linestyle="--",
-    label=f"Mean decision threshold: {decision_threshold.mean():.2f}",
+    label=f"عتبة القرار المتوسطة: {decision_threshold.mean():.2f}",
 )
-ax.set_xlabel("Decision threshold")
+ax.set_xlabel("عتبة القرار")
 ax.legend(loc="upper right")
 _ = ax.set_title(
-    "Distribution of the decision threshold \nacross different cross-validation folds"
+    "توزيع عتبة القرار \nعبر طيات التحقق المتقاطع المختلفة"
 )
 
 # %%
-# In average, a decision threshold around 0.32 maximizes the balanced accuracy, which is
-# different from the default decision threshold of 0.5. Thus tuning the decision
-# threshold is particularly important when the output of the predictive model
-# is used to make decisions. Besides, the metric used to tune the decision threshold
-# should be chosen carefully. Here, we used the balanced accuracy but it might not be
-# the most appropriate metric for the problem at hand. The choice of the "right" metric
-# is usually problem-dependent and might require some domain knowledge. Refer to the
-# example entitled,
-# :ref:`sphx_glr_auto_examples_model_selection_plot_cost_sensitive_learning.py`,
-# for more details.
+# في المتوسط، تعظم عتبة القرار التي تبلغ حوالي 0.32 الدقة المتوازنة، والتي تختلف
+# عن عتبة القرار الافتراضية البالغة 0.5. وبالتالي، فإن ضبط عتبة القرار مهم بشكل خاص عندما
+# يتم استخدام ناتج النموذج التنبؤي
+# لاتخاذ القرارات. بالإضافة إلى ذلك، يجب اختيار المقياس المستخدم لضبط عتبة القرار
+# بعناية. هنا، استخدمنا الدقة المتوازنة ولكن قد لا يكون
+# المقياس الأنسب للمشكلة قيد التنفيذ. عادةً ما يعتمد اختيار المقياس "الصحيح"
+# على المشكلة وقد يتطلب بعض المعرفة بالمجال. راجع المثال المعنون،
+# :ref:`sphx_glr_auto_examples_model_selection_plot_cost_sensitive_learning.py`،
+# لمزيد من التفاصيل.

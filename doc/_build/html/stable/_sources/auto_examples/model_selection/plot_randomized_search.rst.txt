@@ -19,25 +19,22 @@
 
 
 =========================================================================
-Comparing randomized search and grid search for hyperparameter estimation
+مقارنة البحث العشوائي والبحث الشبكي لتقدير فرط المعلمات
 =========================================================================
 
-Compare randomized search and grid search for optimizing hyperparameters of a
-linear SVM with SGD training.
-All parameters that influence the learning are searched simultaneously
-(except for the number of estimators, which poses a time / quality tradeoff).
+قارن بين البحث العشوائي والبحث الشبكي لتحسين فرط معلمات SVM الخطي مع التدريب SGD.
+يتم البحث عن جميع المعلمات التي تؤثر على التعلم في نفس الوقت
+(باستثناء عدد المعلمات، والذي يمثل مفاضلة بين الوقت والجودة).
 
-The randomized search and the grid search explore exactly the same space of
-parameters. The result in parameter settings is quite similar, while the run
-time for randomized search is drastically lower.
+يستكشف البحث العشوائي والبحث الشبكي نفس مساحة المعلمات بالضبط. النتيجة في إعدادات المعلمات متشابهة جدًا، في حين أن وقت التشغيل للبحث العشوائي أقل بشكل كبير.
 
-The performance is may slightly worse for the randomized search, and is likely
-due to a noise effect and would not carry over to a held-out test set.
+قد يكون الأداء أسوأ قليلاً بالنسبة للبحث العشوائي، ومن المحتمل
+أن يكون ذلك بسبب تأثير الضوضاء ولن ينتقل إلى مجموعة اختبار محفوظة.
 
-Note that in practice, one would not search over this many different parameters
-simultaneously using grid search, but pick only the ones deemed most important.
+لاحظ أنه في الممارسة العملية، لن يتم البحث عن هذا العدد الكبير من المعلمات المختلفة
+في نفس الوقت باستخدام البحث الشبكي، ولكن سيتم اختيار المعلمات التي تعتبر الأكثر أهمية فقط.
 
-.. GENERATED FROM PYTHON SOURCE LINES 22-96
+.. GENERATED FROM PYTHON SOURCE LINES 19-92
 
 
 
@@ -46,31 +43,35 @@ simultaneously using grid search, but pick only the ones deemed most important.
 
  .. code-block:: none
 
-    RandomizedSearchCV took 0.98 seconds for 15 candidates parameter settings.
-    Model with rank: 1
-    Mean validation score: 0.991 (std: 0.006)
-    Parameters: {'alpha': np.float64(0.05063247886572012), 'average': False, 'l1_ratio': np.float64(0.13822072286080167)}
+    استغرق البحث العشوائي RandomizedSearchCV 0.65 ثانية لـ 15 إعدادات المعلمات المرشحة.
+    نموذج مع الترتيب: 1
+    متوسط درجة التحقق: 0.989 (الانحراف المعياري: 0.007)
+    المعلمات: {'alpha': np.float64(0.015412781495004139), 'average': False, 'l1_ratio': np.float64(0.08311249263060239)}
 
-    Model with rank: 2
-    Mean validation score: 0.987 (std: 0.014)
-    Parameters: {'alpha': np.float64(0.010877306503748912), 'average': True, 'l1_ratio': np.float64(0.9226260871125187)}
+    نموذج مع الترتيب: 2
+    متوسط درجة التحقق: 0.989 (الانحراف المعياري: 0.009)
+    المعلمات: {'alpha': np.float64(0.018348295456200724), 'average': True, 'l1_ratio': np.float64(0.8413861191973544)}
 
-    Model with rank: 3
-    Mean validation score: 0.976 (std: 0.023)
-    Parameters: {'alpha': np.float64(0.727148206404819), 'average': False, 'l1_ratio': np.float64(0.25183501383331797)}
+    نموذج مع الترتيب: 3
+    متوسط درجة التحقق: 0.985 (الانحراف المعياري: 0.016)
+    المعلمات: {'alpha': np.float64(0.01563876852642779), 'average': True, 'l1_ratio': np.float64(0.6736596308357894)}
 
-    GridSearchCV took 3.27 seconds for 60 candidate parameter settings.
-    Model with rank: 1
-    Mean validation score: 0.993 (std: 0.011)
-    Parameters: {'alpha': np.float64(0.1), 'average': False, 'l1_ratio': np.float64(0.1111111111111111)}
+    استغرق البحث الشبكي GridSearchCV 3.73 ثانية لـ 60 إعدادات المعلمات المرشحة.
+    نموذج مع الترتيب: 1
+    متوسط درجة التحقق: 0.993 (الانحراف المعياري: 0.007)
+    المعلمات: {'alpha': np.float64(0.01), 'average': False, 'l1_ratio': np.float64(0.4444444444444444)}
 
-    Model with rank: 2
-    Mean validation score: 0.987 (std: 0.013)
-    Parameters: {'alpha': np.float64(0.01), 'average': False, 'l1_ratio': np.float64(0.5555555555555556)}
+    نموذج مع الترتيب: 2
+    متوسط درجة التحقق: 0.991 (الانحراف المعياري: 0.014)
+    المعلمات: {'alpha': np.float64(0.1), 'average': False, 'l1_ratio': np.float64(0.0)}
 
-    Model with rank: 3
-    Mean validation score: 0.987 (std: 0.007)
-    Parameters: {'alpha': np.float64(0.01), 'average': False, 'l1_ratio': np.float64(0.0)}
+    نموذج مع الترتيب: 3
+    متوسط درجة التحقق: 0.991 (الانحراف المعياري: 0.008)
+    المعلمات: {'alpha': np.float64(0.01), 'average': False, 'l1_ratio': np.float64(0.6666666666666666)}
+
+    نموذج مع الترتيب: 3
+    متوسط درجة التحقق: 0.991 (الانحراف المعياري: 0.010)
+    المعلمات: {'alpha': np.float64(1.0), 'average': False, 'l1_ratio': np.float64(0.0)}
 
 
 
@@ -83,8 +84,8 @@ simultaneously using grid search, but pick only the ones deemed most important.
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري سكايلرن
+    # معرف الترخيص: BSD-3-Clause
 
     from time import time
 
@@ -95,37 +96,37 @@ simultaneously using grid search, but pick only the ones deemed most important.
     from sklearn.linear_model import SGDClassifier
     from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
 
-    # get some data
+    # الحصول على بعض البيانات
     X, y = load_digits(return_X_y=True, n_class=3)
 
-    # build a classifier
+    # بناء مصنف
     clf = SGDClassifier(loss="hinge", penalty="elasticnet", fit_intercept=True)
 
 
-    # Utility function to report best scores
+    # دالة مساعدة للإبلاغ عن أفضل النتائج
     def report(results, n_top=3):
         for i in range(1, n_top + 1):
             candidates = np.flatnonzero(results["rank_test_score"] == i)
             for candidate in candidates:
-                print("Model with rank: {0}".format(i))
+                print("نموذج مع الترتيب: {0}".format(i))
                 print(
-                    "Mean validation score: {0:.3f} (std: {1:.3f})".format(
+                    "متوسط درجة التحقق: {0:.3f} (الانحراف المعياري: {1:.3f})".format(
                         results["mean_test_score"][candidate],
                         results["std_test_score"][candidate],
                     )
                 )
-                print("Parameters: {0}".format(results["params"][candidate]))
+                print("المعلمات: {0}".format(results["params"][candidate]))
                 print("")
 
 
-    # specify parameters and distributions to sample from
+    # تحديد المعلمات والتوزيعات للعينة منها
     param_dist = {
         "average": [True, False],
         "l1_ratio": stats.uniform(0, 1),
         "alpha": stats.loguniform(1e-2, 1e0),
     }
 
-    # run randomized search
+    # تشغيل البحث العشوائي
     n_iter_search = 15
     random_search = RandomizedSearchCV(
         clf, param_distributions=param_dist, n_iter=n_iter_search
@@ -134,33 +135,32 @@ simultaneously using grid search, but pick only the ones deemed most important.
     start = time()
     random_search.fit(X, y)
     print(
-        "RandomizedSearchCV took %.2f seconds for %d candidates parameter settings."
+        "استغرق البحث العشوائي RandomizedSearchCV %.2f ثانية لـ %d إعدادات المعلمات المرشحة."
         % ((time() - start), n_iter_search)
     )
     report(random_search.cv_results_)
 
-    # use a full grid over all parameters
+    # استخدام شبكة كاملة عبر جميع المعلمات
     param_grid = {
         "average": [True, False],
         "l1_ratio": np.linspace(0, 1, num=10),
         "alpha": np.power(10, np.arange(-2, 1, dtype=float)),
     }
 
-    # run grid search
+    # تشغيل البحث الشبكي
     grid_search = GridSearchCV(clf, param_grid=param_grid)
     start = time()
     grid_search.fit(X, y)
 
     print(
-        "GridSearchCV took %.2f seconds for %d candidate parameter settings."
+        "استغرق البحث الشبكي GridSearchCV %.2f ثانية لـ %d إعدادات المعلمات المرشحة."
         % (time() - start, len(grid_search.cv_results_["params"]))
     )
     report(grid_search.cv_results_)
 
-
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 4.262 seconds)
+   **Total running time of the script:** (0 minutes 4.398 seconds)
 
 
 .. _sphx_glr_download_auto_examples_model_selection_plot_randomized_search.py:

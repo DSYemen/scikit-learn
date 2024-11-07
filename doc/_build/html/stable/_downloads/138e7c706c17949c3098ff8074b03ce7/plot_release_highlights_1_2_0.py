@@ -1,34 +1,31 @@
 # ruff: noqa
 """
 =======================================
-Release Highlights for scikit-learn 1.2
+أبرز ميزات الإصدار 1.2 من scikit-learn
 =======================================
 
 .. currentmodule:: sklearn
 
-We are pleased to announce the release of scikit-learn 1.2! Many bug fixes
-and improvements were added, as well as some new key features. We detail
-below a few of the major features of this release. **For an exhaustive list of
-all the changes**, please refer to the :ref:`release notes <release_notes_1_2>`.
+يسعدنا الإعلان عن إصدار scikit-learn 1.2! تم إجراء العديد من الإصلاحات والتحسينات، بالإضافة إلى بعض الميزات الرئيسية الجديدة. نستعرض أدناه بعض الميزات الرئيسية لهذا الإصدار. **للاطلاع على قائمة شاملة بجميع التغييرات**، يرجى الرجوع إلى :ref:`ملاحظات الإصدار <release_notes_1_2>`.
 
-To install the latest version (with pip)::
+لتثبيت أحدث إصدار (باستخدام pip)::
 
     pip install --upgrade scikit-learn
 
-or with conda::
+أو باستخدام conda::
 
     conda install -c conda-forge scikit-learn
 
 """
 
 # %%
-# Pandas output with `set_output` API
+# إخراج Pandas مع واجهة برمجة التطبيقات set_output
 # -----------------------------------
-# scikit-learn's transformers now support pandas output with the `set_output` API.
-# To learn more about the `set_output` API see the example:
-# :ref:`sphx_glr_auto_examples_miscellaneous_plot_set_output.py` and
-# # this `video, pandas DataFrame output for scikit-learn transformers
-# (some examples) <https://youtu.be/5bCg8VfX2x8>`__.
+# تدعم محولات scikit-learn الآن إخراج Pandas مع واجهة برمجة التطبيقات set_output.
+# لمزيد من المعلومات حول واجهة برمجة التطبيقات set_output، راجع المثال:
+# :ref:`sphx_glr_auto_examples_miscellaneous_plot_set_output.py` و
+# # هذا الفيديو، إخراج DataFrame لـ Pandas لمحولات scikit-learn
+# (بعض الأمثلة) <https://youtu.be/5bCg8VfX2x8>`__.
 
 import numpy as np
 from sklearn.datasets import load_iris
@@ -51,13 +48,12 @@ X_out = preprocessor.fit_transform(X)
 X_out.sample(n=5, random_state=0)
 
 # %%
-# Interaction constraints in Histogram-based Gradient Boosting Trees
+# قيود التفاعل في أشجار التدرج التدريجي القائمة على التوزيع التكراري
 # ------------------------------------------------------------------
-# :class:`~ensemble.HistGradientBoostingRegressor` and
-# :class:`~ensemble.HistGradientBoostingClassifier` now supports interaction constraints
-# with the `interaction_cst` parameter. For details, see the
-# :ref:`User Guide <interaction_cst_hgbt>`. In the following example, features are not
-# allowed to interact.
+# :class:`~ensemble.HistGradientBoostingRegressor` و
+# :class:`~ensemble.HistGradientBoostingClassifier` يدعمان الآن قيود التفاعل
+# مع معلمة `interaction_cst`. لمزيد من التفاصيل، راجع
+# :ref:`دليل المستخدم <interaction_cst_hgbt>`. في المثال التالي، لا يُسمح للميزات بالتفاعل.
 from sklearn.datasets import load_diabetes
 from sklearn.ensemble import HistGradientBoostingRegressor
 
@@ -69,10 +65,10 @@ hist_no_interact = HistGradientBoostingRegressor(
 hist_no_interact.fit(X, y)
 
 # %%
-# New and enhanced displays
+# شاشات العرض الجديدة والمحسنة
 # -------------------------
-# :class:`~metrics.PredictionErrorDisplay` provides a way to analyze regression
-# models in a qualitative manner.
+# :class:`~metrics.PredictionErrorDisplay` توفر طريقة لتحليل نماذج الانحدار
+# بطريقة نوعية.
 import matplotlib.pyplot as plt
 from sklearn.metrics import PredictionErrorDisplay
 
@@ -85,8 +81,8 @@ _ = PredictionErrorDisplay.from_estimator(
 )
 
 # %%
-# :class:`~model_selection.LearningCurveDisplay` is now available to plot
-# results from :func:`~model_selection.learning_curve`.
+# :class:`~model_selection.LearningCurveDisplay` متاح الآن لعرض
+# النتائج من :func:`~model_selection.learning_curve`.
 from sklearn.model_selection import LearningCurveDisplay
 
 _ = LearningCurveDisplay.from_estimator(
@@ -94,9 +90,9 @@ _ = LearningCurveDisplay.from_estimator(
 )
 
 # %%
-# :class:`~inspection.PartialDependenceDisplay` exposes a new parameter
-# `categorical_features` to display partial dependence for categorical features
-# using bar plots and heatmaps.
+# :class:`~inspection.PartialDependenceDisplay` تعرض معلمة جديدة
+# `categorical_features` لعرض الاعتماد الجزئي للميزات التصنيفية
+# باستخدام مخططات الأعمدة والخرائط الحرارية.
 from sklearn.datasets import fetch_openml
 
 X, y = fetch_openml(
@@ -130,37 +126,36 @@ _ = PartialDependenceDisplay.from_estimator(
 )
 
 # %%
-# Faster parser in :func:`~datasets.fetch_openml`
+# معالج أسرع في :func:`~datasets.fetch_openml`
 # -----------------------------------------------
-# :func:`~datasets.fetch_openml` now supports a new `"pandas"` parser that is
-# more memory and CPU efficient. In v1.4, the default will change to
-# `parser="auto"` which will automatically use the `"pandas"` parser for dense
-# data and `"liac-arff"` for sparse data.
+# :func:`~datasets.fetch_openml` يدعم الآن معالج جديد "pandas" وهو أكثر
+# كفاءة في الذاكرة والمعالجة. في الإصدار 1.4، سيتم تغيير المعالج الافتراضي إلى
+# `parser="auto"` والذي سيستخدم تلقائيًا معالج "pandas" للبيانات الكثيفة
+# و"liac-arff" للبيانات المتناثرة.
 X, y = fetch_openml(
     "titanic", version=1, as_frame=True, return_X_y=True, parser="pandas"
 )
 X.head()
 
 # %%
-# Experimental Array API support in :class:`~discriminant_analysis.LinearDiscriminantAnalysis`
+# دعم تجريبي لواجهة برمجة التطبيقات Array في :class:`~discriminant_analysis.LinearDiscriminantAnalysis`
 # --------------------------------------------------------------------------------------------
-# Experimental support for the `Array API <https://data-apis.org/array-api/latest/>`_
-# specification was added to :class:`~discriminant_analysis.LinearDiscriminantAnalysis`.
-# The estimator can now run on any Array API compliant libraries such as
-# `CuPy <https://docs.cupy.dev/en/stable/overview.html>`__, a GPU-accelerated array
-# library. For details, see the :ref:`User Guide <array_api>`.
+# تمت إضافة دعم تجريبي لمواصفات `Array API <https://data-apis.org/array-api/latest/>`_
+# إلى :class:`~discriminant_analysis.LinearDiscriminantAnalysis`.
+# يمكن للمقدر الآن العمل على أي مكتبات متوافقة مع واجهة برمجة التطبيقات Array مثل
+# `CuPy <https://docs.cupy.dev/en/stable/overview.html>`__، وهي مكتبة صفائف معجلة بواسطة GPU. لمزيد من التفاصيل، راجع :ref:`دليل المستخدم <array_api>`.
 
 # %%
-# Improved efficiency of many estimators
+# تحسين كفاءة العديد من المقدرات
 # --------------------------------------
-# In version 1.1 the efficiency of many estimators relying on the computation of
-# pairwise distances (essentially estimators related to clustering, manifold
-# learning and neighbors search algorithms) was greatly improved for float64
-# dense input. Efficiency improvement especially were a reduced memory footprint
-# and a much better scalability on multi-core machines.
-# In version 1.2, the efficiency of these estimators was further improved for all
-# combinations of dense and sparse inputs on float32 and float64 datasets, except
-# the sparse-dense and dense-sparse combinations for the Euclidean and Squared
-# Euclidean Distance metrics.
-# A detailed list of the impacted estimators can be found in the
-# :ref:`changelog <release_notes_1_2>`.
+# في الإصدار 1.1، تم تحسين كفاءة العديد من المقدرات التي تعتمد على حساب
+# المسافات الزوجية (بشكل أساسي المقدرات المتعلقة بالتجمع، وتعلم المانيفولد،
+# وخوارزميات البحث عن الجيران) بشكل كبير للمدخلات float64 الكثيفة.
+# شملت تحسينات الكفاءة بشكل خاص تقليل استهلاك الذاكرة وتحسين قابلية التوسع
+# على أجهزة متعددة النواة.
+# في الإصدار 1.2، تم تحسين كفاءة هذه المقدرات بشكل أكبر لجميع
+# مجموعات المدخلات الكثيفة والمبعثرة على مجموعات البيانات float32 وfloat64،
+# باستثناء مجموعات البيانات المبعثرة-الكثيفة والكثيفة-المبعثرة لمقاييس المسافة
+# Euclidean وSquared Euclidean.
+# يمكن العثور على قائمة مفصلة بالمقدرات المتأثرة في
+# :ref:`سجل التغييرات <release_notes_1_2>`.

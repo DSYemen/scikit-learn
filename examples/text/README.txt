@@ -1,6 +1,6 @@
 .. _text_examples:
 
-Working with text documents
+العمل مع المستندات النصية
 ----------------------------
 
-Examples concerning the :mod:`sklearn.feature_extraction.text` module.
+أمثلة تتعلق بوحدة  :mod:`sklearn.feature_extraction.text` .

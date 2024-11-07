@@ -1,7 +1,7 @@
 .. _manifold_examples:
 
-Manifold learning
------------------------
+(المتشعب)التعلم المتعدد
+-------------------------
 
-Examples concerning the :mod:`sklearn.manifold` module.
+أمثلة متعلقة بوحدة :mod:`sklearn.manifold` .
 

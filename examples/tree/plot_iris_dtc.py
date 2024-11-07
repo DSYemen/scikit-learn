@@ -1,32 +1,32 @@
 """
 =======================================================================
-Plot the decision surface of decision trees trained on the iris dataset
+رسم سطح القرار لأشجار القرار المدربة على مجموعة بيانات الزهرة الآرغوانية
 =======================================================================
 
-Plot the decision surface of a decision tree trained on pairs
-of features of the iris dataset.
+ارسم سطح القرار لشجرة قرار مدربة على أزواج
+من ميزات مجموعة بيانات الزهرة الآرغوانية.
 
-See :ref:`decision tree <tree>` for more information on the estimator.
+راجع :ref:`decision tree <tree>` لمزيد من المعلومات حول أداة التقدير.
 
-For each pair of iris features, the decision tree learns decision
-boundaries made of combinations of simple thresholding rules inferred from
-the training samples.
+بالنسبة لكل زوج من ميزات الزهرة الآرغوانية، تتعلم شجرة القرار حدود القرار
+المكونة من مجموعات من قواعد العتبة البسيطة المستنبطة من
+عينات التدريب.
 
-We also show the tree structure of a model built on all of the features.
+نحن أيضًا نعرض بنية الشجرة لنموذج مبني على جميع الميزات.
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# First load the copy of the Iris dataset shipped with scikit-learn:
+# قم أولاً بتحميل نسخة مجموعة بيانات الزهرة الآرغوانية المرفقة مع سكايلرن:
 from sklearn.datasets import load_iris
 
 iris = load_iris()
 
 
 # %%
-# Display the decision functions of trees trained on all pairs of features.
+# عرض وظائف القرار للأشجار المدربة على جميع أزواج الميزات.
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -34,21 +34,21 @@ from sklearn.datasets import load_iris
 from sklearn.inspection import DecisionBoundaryDisplay
 from sklearn.tree import DecisionTreeClassifier
 
-# Parameters
+# المعاملات
 n_classes = 3
 plot_colors = "ryb"
 plot_step = 0.02
 
 
 for pairidx, pair in enumerate([[0, 1], [0, 2], [0, 3], [1, 2], [1, 3], [2, 3]]):
-    # We only take the two corresponding features
+    # نأخذ فقط الميزتين المقابلتين
     X = iris.data[:, pair]
     y = iris.target
 
-    # Train
+    # التدريب
     clf = DecisionTreeClassifier().fit(X, y)
 
-    # Plot the decision boundary
+    # رسم حدود القرار
     ax = plt.subplot(2, 3, pairidx + 1)
     plt.tight_layout(h_pad=0.5, w_pad=0.5, pad=2.5)
     DecisionBoundaryDisplay.from_estimator(
@@ -61,7 +61,7 @@ for pairidx, pair in enumerate([[0, 1], [0, 2], [0, 3], [1, 2], [1, 3], [2, 3]])
         ylabel=iris.feature_names[pair[1]],
     )
 
-    # Plot the training points
+    # رسم نقاط التدريب
     for i, color in zip(range(n_classes), plot_colors):
         idx = np.where(y == i)
         plt.scatter(
@@ -73,17 +73,17 @@ for pairidx, pair in enumerate([[0, 1], [0, 2], [0, 3], [1, 2], [1, 3], [2, 3]])
             s=15,
         )
 
-plt.suptitle("Decision surface of decision trees trained on pairs of features")
+plt.suptitle("سطح القرار لأشجار القرار المدربة على أزواج من الميزات")
 plt.legend(loc="lower right", borderpad=0, handletextpad=0)
 _ = plt.axis("tight")
 
 # %%
-# Display the structure of a single decision tree trained on all the features
-# together.
+# عرض بنية شجرة قرار واحدة مدربة على جميع الميزات
+# معًا.
 from sklearn.tree import plot_tree
 
 plt.figure()
 clf = DecisionTreeClassifier().fit(iris.data, iris.target)
 plot_tree(clf, filled=True)
-plt.title("Decision tree trained on all the iris features")
+plt.title("شجرة القرار المدربة على جميع ميزات الزهرة الآرغوانية")
 plt.show()

@@ -19,26 +19,24 @@
 
 
 ==========================================================
-Sample pipeline for text feature extraction and evaluation
+مثال على خط أنابيب لاستخراج ميزات النص وتقييمها
 ==========================================================
 
-The dataset used in this example is :ref:`20newsgroups_dataset` which will be
-automatically downloaded, cached and reused for the document classification
-example.
+مجموعة البيانات المستخدمة في هذا المثال هي :ref:`20newsgroups_dataset` والتي سيتم
+تنزيلها تلقائيًا وتخزينها مؤقتًا وإعادة استخدامها لمثال تصنيف المستند.
 
-In this example, we tune the hyperparameters of a particular classifier using a
-:class:`~sklearn.model_selection.RandomizedSearchCV`. For a demo on the
-performance of some other classifiers, see the
+في هذا المثال، نقوم بضبط معلمات نموذج معين باستخدام
+:class:`~sklearn.model_selection.RandomizedSearchCV`. لمشاهدة أداء بعض المصنفات الأخرى، راجع
 :ref:`sphx_glr_auto_examples_text_plot_document_classification_20newsgroups.py`
-notebook.
+دفتر الملاحظات.
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-20
+.. GENERATED FROM PYTHON SOURCE LINES 14-18
 
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري scikit-learn
+    # معرف الترخيص: BSD-3-Clause
 
 
 
@@ -47,16 +45,15 @@ notebook.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 21-27
+.. GENERATED FROM PYTHON SOURCE LINES 19-24
 
-Data loading
+تحميل البيانات
 ------------
-We load two categories from the training set. You can adjust the number of
-categories by adding their names to the list or setting `categories=None` when
-calling the dataset loader :func:`~sklearn.datasets.fetch_20newsgroups` to get
-the 20 of them.
+نقوم بتحميل فئتين من مجموعة التدريب. يمكنك ضبط عدد الفئات عن طريق إضافة أسمائها إلى القائمة أو تعيين `categories=None` عند
+استدعاء محمل مجموعة البيانات :func:`~sklearn.datasets.fetch_20newsgroups` للحصول
+على 20 منها.
 
-.. GENERATED FROM PYTHON SOURCE LINES 27-55
+.. GENERATED FROM PYTHON SOURCE LINES 24-52
 
 .. code-block:: Python
 
@@ -84,9 +81,9 @@ the 20 of them.
         remove=("headers", "footers", "quotes"),
     )
 
-    print(f"Loading 20 newsgroups dataset for {len(data_train.target_names)} categories:")
+    print(f"تحميل مجموعة بيانات 20 newsgroups لـ {len(data_train.target_names)} فئات:")
     print(data_train.target_names)
-    print(f"{len(data_train.data)} documents")
+    print(f"{len(data_train.data)} وثائق")
 
 
 
@@ -96,22 +93,22 @@ the 20 of them.
 
  .. code-block:: none
 
-    Loading 20 newsgroups dataset for 2 categories:
+    تحميل مجموعة بيانات 20 newsgroups لـ 2 فئات:
     ['alt.atheism', 'talk.religion.misc']
-    857 documents
+    857 وثائق
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 56-61
+.. GENERATED FROM PYTHON SOURCE LINES 53-58
 
-Pipeline with hyperparameter tuning
+خط أنابيب مع ضبط المعلمات
 -----------------------------------
 
-We define a pipeline combining a text feature vectorizer with a simple
-classifier yet effective for text classification.
+نحن نحدد خط أنابيب يجمع بين مستخرج ميزات النص مع مصنف بسيط
+ولكن فعال لتصنيف النص.
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-74
+.. GENERATED FROM PYTHON SOURCE LINES 58-71
 
 .. code-block:: Python
 
@@ -136,7 +133,7 @@ classifier yet effective for text classification.
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-62 {
+    <style>#sk-container-id-21 {
       /* Definition of color scheme common for light and dark mode */
       --sklearn-color-text: #000;
       --sklearn-color-text-muted: #666;
@@ -167,15 +164,15 @@ classifier yet effective for text classification.
       }
     }
 
-    #sk-container-id-62 {
+    #sk-container-id-21 {
       color: var(--sklearn-color-text);
     }
 
-    #sk-container-id-62 pre {
+    #sk-container-id-21 pre {
       padding: 0;
     }
 
-    #sk-container-id-62 input.sk-hidden--visually {
+    #sk-container-id-21 input.sk-hidden--visually {
       border: 0;
       clip: rect(1px 1px 1px 1px);
       clip: rect(1px, 1px, 1px, 1px);
@@ -187,7 +184,7 @@ classifier yet effective for text classification.
       width: 1px;
     }
 
-    #sk-container-id-62 div.sk-dashed-wrapped {
+    #sk-container-id-21 div.sk-dashed-wrapped {
       border: 1px dashed var(--sklearn-color-line);
       margin: 0 0.4em 0.5em 0.4em;
       box-sizing: border-box;
@@ -195,7 +192,7 @@ classifier yet effective for text classification.
       background-color: var(--sklearn-color-background);
     }
 
-    #sk-container-id-62 div.sk-container {
+    #sk-container-id-21 div.sk-container {
       /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
          but bootstrap.min.css set `[hidden] { display: none !important; }`
          so we also need the `!important` here to be able to override the
@@ -205,7 +202,7 @@ classifier yet effective for text classification.
       position: relative;
     }
 
-    #sk-container-id-62 div.sk-text-repr-fallback {
+    #sk-container-id-21 div.sk-text-repr-fallback {
       display: none;
     }
 
@@ -221,14 +218,14 @@ classifier yet effective for text classification.
 
     /* Parallel-specific style estimator block */
 
-    #sk-container-id-62 div.sk-parallel-item::after {
+    #sk-container-id-21 div.sk-parallel-item::after {
       content: "";
       width: 100%;
       border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
       flex-grow: 1;
     }
 
-    #sk-container-id-62 div.sk-parallel {
+    #sk-container-id-21 div.sk-parallel {
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -236,28 +233,28 @@ classifier yet effective for text classification.
       position: relative;
     }
 
-    #sk-container-id-62 div.sk-parallel-item {
+    #sk-container-id-21 div.sk-parallel-item {
       display: flex;
       flex-direction: column;
     }
 
-    #sk-container-id-62 div.sk-parallel-item:first-child::after {
+    #sk-container-id-21 div.sk-parallel-item:first-child::after {
       align-self: flex-end;
       width: 50%;
     }
 
-    #sk-container-id-62 div.sk-parallel-item:last-child::after {
+    #sk-container-id-21 div.sk-parallel-item:last-child::after {
       align-self: flex-start;
       width: 50%;
     }
 
-    #sk-container-id-62 div.sk-parallel-item:only-child::after {
+    #sk-container-id-21 div.sk-parallel-item:only-child::after {
       width: 0;
     }
 
     /* Serial-specific style estimator block */
 
-    #sk-container-id-62 div.sk-serial {
+    #sk-container-id-21 div.sk-serial {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -275,14 +272,14 @@ classifier yet effective for text classification.
 
     /* Pipeline and ColumnTransformer style (default) */
 
-    #sk-container-id-62 div.sk-toggleable {
+    #sk-container-id-21 div.sk-toggleable {
       /* Default theme specific background. It is overwritten whether we have a
       specific estimator or a Pipeline/ColumnTransformer */
       background-color: var(--sklearn-color-background);
     }
 
     /* Toggleable label */
-    #sk-container-id-62 label.sk-toggleable__label {
+    #sk-container-id-21 label.sk-toggleable__label {
       cursor: pointer;
       display: flex;
       width: 100%;
@@ -295,13 +292,13 @@ classifier yet effective for text classification.
       gap: 0.5em;
     }
 
-    #sk-container-id-62 label.sk-toggleable__label .caption {
+    #sk-container-id-21 label.sk-toggleable__label .caption {
       font-size: 0.6rem;
       font-weight: lighter;
       color: var(--sklearn-color-text-muted);
     }
 
-    #sk-container-id-62 label.sk-toggleable__label-arrow:before {
+    #sk-container-id-21 label.sk-toggleable__label-arrow:before {
       /* Arrow on the left of the label */
       content: "▸";
       float: left;
@@ -309,13 +306,13 @@ classifier yet effective for text classification.
       color: var(--sklearn-color-icon);
     }
 
-    #sk-container-id-62 label.sk-toggleable__label-arrow:hover:before {
+    #sk-container-id-21 label.sk-toggleable__label-arrow:hover:before {
       color: var(--sklearn-color-text);
     }
 
     /* Toggleable content - dropdown */
 
-    #sk-container-id-62 div.sk-toggleable__content {
+    #sk-container-id-21 div.sk-toggleable__content {
       max-height: 0;
       max-width: 0;
       overflow: hidden;
@@ -324,12 +321,12 @@ classifier yet effective for text classification.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-62 div.sk-toggleable__content.fitted {
+    #sk-container-id-21 div.sk-toggleable__content.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-62 div.sk-toggleable__content pre {
+    #sk-container-id-21 div.sk-toggleable__content pre {
       margin: 0.2em;
       border-radius: 0.25em;
       color: var(--sklearn-color-text);
@@ -337,79 +334,79 @@ classifier yet effective for text classification.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-62 div.sk-toggleable__content.fitted pre {
+    #sk-container-id-21 div.sk-toggleable__content.fitted pre {
       /* unfitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-62 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    #sk-container-id-21 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
       max-height: 200px;
       max-width: 100%;
       overflow: auto;
     }
 
-    #sk-container-id-62 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    #sk-container-id-21 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
       content: "▾";
     }
 
     /* Pipeline/ColumnTransformer-specific style */
 
-    #sk-container-id-62 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-21 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-62 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-21 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator-specific style */
 
     /* Colorize estimator box */
-    #sk-container-id-62 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-21 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-62 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-21 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
-    #sk-container-id-62 div.sk-label label.sk-toggleable__label,
-    #sk-container-id-62 div.sk-label label {
+    #sk-container-id-21 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-21 div.sk-label label {
       /* The background is the default theme color */
       color: var(--sklearn-color-text-on-default-background);
     }
 
     /* On hover, darken the color of the background */
-    #sk-container-id-62 div.sk-label:hover label.sk-toggleable__label {
+    #sk-container-id-21 div.sk-label:hover label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
     /* Label box, darken color on hover, fitted */
-    #sk-container-id-62 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+    #sk-container-id-21 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator label */
 
-    #sk-container-id-62 div.sk-label label {
+    #sk-container-id-21 div.sk-label label {
       font-family: monospace;
       font-weight: bold;
       display: inline-block;
       line-height: 1.2em;
     }
 
-    #sk-container-id-62 div.sk-label-container {
+    #sk-container-id-21 div.sk-label-container {
       text-align: center;
     }
 
     /* Estimator-specific */
-    #sk-container-id-62 div.sk-estimator {
+    #sk-container-id-21 div.sk-estimator {
       font-family: monospace;
       border: 1px dotted var(--sklearn-color-border-box);
       border-radius: 0.25em;
@@ -419,18 +416,18 @@ classifier yet effective for text classification.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-62 div.sk-estimator.fitted {
+    #sk-container-id-21 div.sk-estimator.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
     /* on hover */
-    #sk-container-id-62 div.sk-estimator:hover {
+    #sk-container-id-21 div.sk-estimator:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-62 div.sk-estimator.fitted:hover {
+    #sk-container-id-21 div.sk-estimator.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
@@ -518,7 +515,7 @@ classifier yet effective for text classification.
 
     /* "?"-specific style due to the `<a>` HTML tag */
 
-    #sk-container-id-62 a.estimator_doc_link {
+    #sk-container-id-21 a.estimator_doc_link {
       float: right;
       font-size: 1rem;
       line-height: 1em;
@@ -533,43 +530,42 @@ classifier yet effective for text classification.
       border: var(--sklearn-color-unfitted-level-1) 1pt solid;
     }
 
-    #sk-container-id-62 a.estimator_doc_link.fitted {
+    #sk-container-id-21 a.estimator_doc_link.fitted {
       /* fitted */
       border: var(--sklearn-color-fitted-level-1) 1pt solid;
       color: var(--sklearn-color-fitted-level-1);
     }
 
     /* On hover */
-    #sk-container-id-62 a.estimator_doc_link:hover {
+    #sk-container-id-21 a.estimator_doc_link:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-3);
       color: var(--sklearn-color-background);
       text-decoration: none;
     }
 
-    #sk-container-id-62 a.estimator_doc_link.fitted:hover {
+    #sk-container-id-21 a.estimator_doc_link.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-62" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;vect&#x27;, TfidfVectorizer()), (&#x27;clf&#x27;, ComplementNB())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-250" type="checkbox" ><label for="sk-estimator-id-250" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;vect&#x27;, TfidfVectorizer()), (&#x27;clf&#x27;, ComplementNB())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-251" type="checkbox" ><label for="sk-estimator-id-251" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>TfidfVectorizer</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html">?<span>Documentation for TfidfVectorizer</span></a></div></label><div class="sk-toggleable__content "><pre>TfidfVectorizer()</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-252" type="checkbox" ><label for="sk-estimator-id-252" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>ComplementNB</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.naive_bayes.ComplementNB.html">?<span>Documentation for ComplementNB</span></a></div></label><div class="sk-toggleable__content "><pre>ComplementNB()</pre></div> </div></div></div></div></div></div>
+    </style><div id="sk-container-id-21" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;vect&#x27;, TfidfVectorizer()), (&#x27;clf&#x27;, ComplementNB())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-57" type="checkbox" ><label for="sk-estimator-id-57" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;vect&#x27;, TfidfVectorizer()), (&#x27;clf&#x27;, ComplementNB())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-58" type="checkbox" ><label for="sk-estimator-id-58" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>TfidfVectorizer</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html">?<span>Documentation for TfidfVectorizer</span></a></div></label><div class="sk-toggleable__content "><pre>TfidfVectorizer()</pre></div> </div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-59" type="checkbox" ><label for="sk-estimator-id-59" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>ComplementNB</div></div><div><a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.naive_bayes.ComplementNB.html">?<span>Documentation for ComplementNB</span></a></div></label><div class="sk-toggleable__content "><pre>ComplementNB()</pre></div> </div></div></div></div></div></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 75-85
+.. GENERATED FROM PYTHON SOURCE LINES 72-81
 
-We define a grid of hyperparameters to be explored by the
-:class:`~sklearn.model_selection.RandomizedSearchCV`. Using a
-:class:`~sklearn.model_selection.GridSearchCV` instead would explore all the
-possible combinations on the grid, which can be costly to compute, whereas the
-parameter `n_iter` of the :class:`~sklearn.model_selection.RandomizedSearchCV`
-controls the number of different random combination that are evaluated. Notice
-that setting `n_iter` larger than the number of possible combinations in a
-grid would lead to repeating already-explored combinations. We search for the
-best parameter combination for both the feature extraction (`vect__`) and the
-classifier (`clf__`).
+نحن نحدد شبكة من المعلمات ليتم استكشافها بواسطة
+:class:`~sklearn.model_selection.RandomizedSearchCV`. استخدام
+:class:`~sklearn.model_selection.GridSearchCV` بدلاً من ذلك سيستكشف جميع
+المجموعات الممكنة على الشبكة، والتي يمكن أن تكون مكلفة في الحساب، في حين أن
+المعلمة `n_iter` من :class:`~sklearn.model_selection.RandomizedSearchCV`
+تتحكم في عدد المجموعات العشوائية المختلفة التي يتم تقييمها. لاحظ
+أن تعيين `n_iter` أكبر من عدد المجموعات الممكنة في
+الشبكة سيؤدي إلى تكرار المجموعات التي تم استكشافها بالفعل. نبحث عن
+أفضل مجموعة من المعلمات لكل من استخراج الميزات (`vect__`) والمصنف (`clf__`).
 
-.. GENERATED FROM PYTHON SOURCE LINES 85-96
+.. GENERATED FROM PYTHON SOURCE LINES 81-92
 
 .. code-block:: Python
 
@@ -579,7 +575,7 @@ classifier (`clf__`).
     parameter_grid = {
         "vect__max_df": (0.2, 0.4, 0.6, 0.8, 1.0),
         "vect__min_df": (1, 3, 5, 10),
-        "vect__ngram_range": ((1, 1), (1, 2)),  # unigrams or bigrams
+        "vect__ngram_range": ((1, 1), (1, 2)),  # كلمات مفردة أو ثنائية
         "vect__norm": ("l1", "l2"),
         "clf__alpha": np.logspace(-6, 6, 13),
     }
@@ -591,16 +587,14 @@ classifier (`clf__`).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 97-103
+.. GENERATED FROM PYTHON SOURCE LINES 93-97
 
-In this case `n_iter=40` is not an exhaustive search of the hyperparameters'
-grid. In practice it would be interesting to increase the parameter `n_iter`
-to get a more informative analysis. As a consequence, the computional time
-increases. We can reduce it by taking advantage of the parallelisation over
-the parameter combinations evaluation by increasing the number of CPUs used
-via the parameter `n_jobs`.
+في هذه الحالة، `n_iter=40` ليس بحثًا شاملًا لشبكة المعلمات. في الواقع، سيكون من المثير للاهتمام زيادة المعلمة `n_iter`
+للحصول على تحليل أكثر إفادة. ونتيجة لذلك، يزيد وقت الحساب. يمكننا تقليله عن طريق الاستفادة من التوازي على
+تقييم مجموعات المعلمات عن طريق زيادة عدد وحدات المعالجة المركزية المستخدمة
+عبر المعلمة `n_jobs`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 103-121
+.. GENERATED FROM PYTHON SOURCE LINES 97-115
 
 .. code-block:: Python
 
@@ -618,8 +612,8 @@ via the parameter `n_jobs`.
         verbose=1,
     )
 
-    print("Performing grid search...")
-    print("Hyperparameters to be evaluated:")
+    print("أداء البحث الشبكي...")
+    print("معلمات ليتم تقييمها:")
     pprint(parameter_grid)
 
 
@@ -630,8 +624,8 @@ via the parameter `n_jobs`.
 
  .. code-block:: none
 
-    Performing grid search...
-    Hyperparameters to be evaluated:
+    أداء البحث الشبكي...
+    معلمات ليتم تقييمها:
     {'clf__alpha': array([1.e-06, 1.e-05, 1.e-04, 1.e-03, 1.e-02, 1.e-01, 1.e+00, 1.e+01,
            1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06]),
      'vect__max_df': (0.2, 0.4, 0.6, 0.8, 1.0),
@@ -642,7 +636,7 @@ via the parameter `n_jobs`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 122-128
+.. GENERATED FROM PYTHON SOURCE LINES 116-122
 
 .. code-block:: Python
 
@@ -650,7 +644,7 @@ via the parameter `n_jobs`.
 
     t0 = time()
     random_search.fit(data_train.data, data_train.target)
-    print(f"Done in {time() - t0:.3f}s")
+    print(f"تم الانتهاء في {time() - t0:.3f}s")
 
 
 
@@ -661,16 +655,16 @@ via the parameter `n_jobs`.
  .. code-block:: none
 
     Fitting 5 folds for each of 40 candidates, totalling 200 fits
-    Done in 30.381s
+    تم الانتهاء في 35.163s
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 129-134
+.. GENERATED FROM PYTHON SOURCE LINES 123-128
 
 .. code-block:: Python
 
-    print("Best parameters combination found:")
+    print("أفضل مجموعة من المعلمات التي تم العثور عليها:")
     best_parameters = random_search.best_estimator_.get_params()
     for param_name in sorted(parameter_grid.keys()):
         print(f"{param_name}: {best_parameters[param_name]}")
@@ -683,7 +677,7 @@ via the parameter `n_jobs`.
 
  .. code-block:: none
 
-    Best parameters combination found:
+    أفضل مجموعة من المعلمات التي تم العثور عليها:
     clf__alpha: 0.01
     vect__max_df: 0.2
     vect__min_df: 1
@@ -693,16 +687,16 @@ via the parameter `n_jobs`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 135-142
+.. GENERATED FROM PYTHON SOURCE LINES 129-136
 
 .. code-block:: Python
 
     test_accuracy = random_search.score(data_test.data, data_test.target)
     print(
-        "Accuracy of the best parameters using the inner CV of "
-        f"the random search: {random_search.best_score_:.3f}"
+        "دقة أفضل المعلمات باستخدام CV الداخلي لـ "
+        f"البحث العشوائي: {random_search.best_score_:.3f}"
     )
-    print(f"Accuracy on test set: {test_accuracy:.3f}")
+    print(f"الدقة على مجموعة الاختبار: {test_accuracy:.3f}")
 
 
 
@@ -712,20 +706,19 @@ via the parameter `n_jobs`.
 
  .. code-block:: none
 
-    Accuracy of the best parameters using the inner CV of the random search: 0.816
-    Accuracy on test set: 0.709
+    دقة أفضل المعلمات باستخدام CV الداخلي لـ البحث العشوائي: 0.816
+    الدقة على مجموعة الاختبار: 0.709
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 143-147
+.. GENERATED FROM PYTHON SOURCE LINES 137-140
 
-The prefixes `vect` and `clf` are required to avoid possible ambiguities in
-the pipeline, but are not necessary for visualizing the results. Because of
-this, we define a function that will rename the tuned hyperparameters and
-improve the readability.
+البادئات `vect` و `clf` مطلوبة لتجنب الغموض المحتمل في
+خط الأنابيب، ولكنها غير ضرورية لعرض النتائج. بسبب
+هذا، نحن نحدد دالة ستعيد تسمية المعلمات التي تم ضبطها وتحسين قابلية القراءة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 147-161
+.. GENERATED FROM PYTHON SOURCE LINES 140-154
 
 .. code-block:: Python
 
@@ -734,7 +727,7 @@ improve the readability.
 
 
     def shorten_param(param_name):
-        """Remove components' prefixes in param_name."""
+        """إزالة بادئات المكونات في param_name."""
         if "__" in param_name:
             return param_name.rsplit("__", 1)[1]
         return param_name
@@ -750,16 +743,15 @@ improve the readability.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 162-168
+.. GENERATED FROM PYTHON SOURCE LINES 155-160
 
-We can use a `plotly.express.scatter
+يمكننا استخدام `plotly.express.scatter
 <https://plotly.com/python-api-reference/generated/plotly.express.scatter.html>`_
-to visualize the trade-off between scoring time and mean test score (i.e. "CV
-score"). Passing the cursor over a given point displays the corresponding
-parameters. Error bars correspond to one standard deviation as computed in the
-different folds of the cross-validation.
+لعرض المقايضة بين وقت التسجيل ومتوسط درجة الاختبار (أي "درجة CV"). تمرير المؤشر فوق نقطة معينة يعرض المعلمات
+المقابلة. أشرطة الخطأ تقابل انحرافًا معياريًا واحدًا كما تم حسابه في
+الطيات المختلفة للتحقق المتقاطع.
 
-.. GENERATED FROM PYTHON SOURCE LINES 168-196
+.. GENERATED FROM PYTHON SOURCE LINES 160-188
 
 .. code-block:: Python
 
@@ -768,8 +760,8 @@ different folds of the cross-validation.
 
     param_names = [shorten_param(name) for name in parameter_grid.keys()]
     labels = {
-        "mean_score_time": "CV Score time (s)",
-        "mean_test_score": "CV score (accuracy)",
+        "mean_score_time": "وقت درجة CV (ثانية)",
+        "mean_test_score": "درجة CV (الدقة)",
     }
     fig = px.scatter(
         cv_results,
@@ -782,7 +774,7 @@ different folds of the cross-validation.
     )
     fig.update_layout(
         title={
-            "text": "trade-off between scoring time and mean test score",
+            "text": "المقايضة بين وقت التسجيل ومتوسط درجة الاختبار",
             "y": 0.95,
             "x": 0.5,
             "xanchor": "center",
@@ -800,34 +792,30 @@ different folds of the cross-validation.
 
     <div class="output_subarea output_html rendered_html output_result">
     <div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
-            <script charset="utf-8" src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>                <div id="cd3c28ea-94bb-41c9-ae49-ee8afe9c2881" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("cd3c28ea-94bb-41c9-ae49-ee8afe9c2881")) {                    Plotly.newPlot(                        "cd3c28ea-94bb-41c9-ae49-ee8afe9c2881",                        [{"customdata":[[1.0,3,[1,2],"l2",10.0],[0.6,3,[1,2],"l2",100.0],[0.6,10,[1,1],"l1",0.01],[1.0,10,[1,2],"l2",0.001],[0.2,3,[1,2],"l2",1.0],[0.2,1,[1,2],"l2",1000.0],[0.2,1,[1,2],"l2",1.0],[1.0,5,[1,2],"l1",100000.0],[0.2,5,[1,2],"l2",0.001],[0.4,10,[1,2],"l1",0.001],[1.0,5,[1,2],"l2",1e-06],[0.4,10,[1,2],"l2",100.0],[0.6,3,[1,2],"l1",100.0],[0.2,1,[1,1],"l1",0.01],[0.6,10,[1,2],"l2",0.01],[0.8,3,[1,2],"l1",0.001],[0.8,5,[1,1],"l1",10000.0],[0.8,1,[1,1],"l2",100.0],[0.4,5,[1,2],"l1",1.0],[0.8,1,[1,2],"l1",1.0],[0.2,1,[1,1],"l2",1e-06],[0.4,5,[1,2],"l2",1e-06],[0.8,1,[1,2],"l2",1.0],[0.4,10,[1,2],"l2",1e-06],[0.6,1,[1,1],"l2",1.0],[1.0,1,[1,2],"l1",1.0],[0.2,1,[1,2],"l1",1000000.0],[0.8,1,[1,2],"l2",10000.0],[0.8,10,[1,1],"l1",0.01],[1.0,5,[1,1],"l1",0.001],[0.2,5,[1,2],"l2",0.01],[0.8,10,[1,2],"l2",100000.0],[0.4,1,[1,2],"l1",1e-06],[0.6,3,[1,2],"l1",100000.0],[0.2,5,[1,1],"l2",10000.0],[1.0,1,[1,1],"l2",10000.0],[0.6,3,[1,2],"l1",1.0],[0.8,3,[1,2],"l2",1000000.0],[0.8,3,[1,2],"l2",0.001],[0.2,1,[1,2],"l2",0.1]],"error_x":{"array":[0.009600557777567582,0.0078166180676753,0.004410015187798034,0.007425575140088329,0.00700784545738719,0.009739602861406066,0.012336916536927036,0.010055011161505104,0.0112548724570367,0.006185463984878707,0.025683830904975516,0.012480624595497225,0.008642905552346555,0.005053809080849647,0.008718890219772336,0.004615877032321394,0.005282782042771348,0.006562539588130369,0.006754029817353726,0.007852175009711335,0.004137106257801124,0.0053000029645033425,0.009026266560511155,0.00950469277460377,0.003389626624811909,0.00787764551500347,0.011285408361010732,0.019072502570054883,0.005104442927772217,0.0053082278953230895,0.013037366882799935,0.00712244047467823,0.00996321932682657,0.008752295512118764,0.004757611088705968,0.0032920948993376596,0.008374539360737203,0.006544023227643529,0.01455649439339008,0.010021929413749226]},"error_y":{"array":[0.021709462916372543,0.019660424372293657,0.02280701551644583,0.04141503839481188,0.025197247740550304,0.02185207140572817,0.03919239713819249,0.0064363918745756095,0.04904124161348298,0.05189316457318038,0.048501681550639386,0.03741855291831512,0.017469874157429344,0.02173863377120521,0.03542621298833128,0.025243761085853186,0.006667969931544837,0.006180189207600158,0.03507679946932842,0.011860875164389911,0.03629456169941096,0.04938433795727698,0.03192696045040785,0.039585633198194775,0.03748169491939798,0.008394295296711565,0.024477745202560856,0.009089774981294351,0.017562478457491922,0.023480916167601486,0.0422343170600075,0.0070716818832471,0.02787646303524185,0.017469874157429344,0.02866436715108689,0.0030358844335549935,0.024286892696920713,0.006307564442123955,0.03887461994008526,0.028260891331683496]},"hovertemplate":"CV Score time (s)=%{x}\u003cbr\u003eCV score (accuracy)=%{y}\u003cbr\u003emax_df=%{customdata[0]}\u003cbr\u003emin_df=%{customdata[1]}\u003cbr\u003engram_range=%{customdata[2]}\u003cbr\u003enorm=%{customdata[3]}\u003cbr\u003ealpha=%{customdata[4]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"","marker":{"color":"#636efa","symbol":"circle"},"mode":"markers","name":"","orientation":"v","showlegend":false,"x":[0.04830036163330078,0.04827790260314942,0.024559974670410156,0.05042233467102051,0.04829392433166504,0.056260204315185545,0.0617161750793457,0.046843338012695315,0.05392060279846191,0.04958653450012207,0.05928654670715332,0.0536557674407959,0.04839630126953125,0.02506985664367676,0.047777318954467775,0.04955039024353027,0.023177576065063477,0.029156589508056642,0.04859271049499512,0.049886465072631836,0.024286985397338867,0.05305337905883789,0.05089659690856933,0.0474952220916748,0.02335829734802246,0.05174713134765625,0.05933899879455566,0.0602447509765625,0.027872133255004882,0.024499893188476562,0.05784869194030762,0.04590420722961426,0.05548100471496582,0.050384807586669925,0.025026988983154298,0.024747085571289063,0.04858431816101074,0.048443269729614255,0.0520082950592041,0.05369696617126465],"xaxis":"x","y":[0.6067319461444309,0.6114035087719298,0.7444308445532435,0.7385624915000679,0.7735890112879098,0.6988916088671291,0.7350537195702435,0.5775873793009656,0.7723922208622331,0.7327281381748946,0.76890384876921,0.6603835169318646,0.599734802121583,0.8156262749898001,0.73625050999592,0.7958044335645316,0.5729294165646674,0.5705902352781178,0.6661906704746362,0.5857405140758873,0.7841425268597851,0.7665714674282607,0.670875832993336,0.7304229566163472,0.7000271997824018,0.5810825513395892,0.6673806609547123,0.5775873793009656,0.7479464164286685,0.7770909832721339,0.7747314021487828,0.5845913232694139,0.8109547123623011,0.599734802121583,0.7280769753841969,0.5624303005575955,0.6195498436012512,0.5752685978512172,0.7829389364885082,0.8132666938664489],"yaxis":"y","type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"CV Score time (s)"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"CV score (accuracy)"}},"legend":{"tracegroupgap":0},"margin":{"t":60},"title":{"text":"trade-off between scoring time and mean test score","y":0.95,"x":0.5,"xanchor":"center","yanchor":"top"}},                        {"responsive": true}                    )                };                            </script>        </div>
+            <script charset="utf-8" src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>                <div id="4e9fd55d-65b0-4aa4-a0cd-34e77d3576f1" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("4e9fd55d-65b0-4aa4-a0cd-34e77d3576f1")) {                    Plotly.newPlot(                        "4e9fd55d-65b0-4aa4-a0cd-34e77d3576f1",                        [{"customdata":[[1.0,3,[1,2],"l2",10.0],[0.6,3,[1,2],"l2",100.0],[0.6,10,[1,1],"l1",0.01],[1.0,10,[1,2],"l2",0.001],[0.2,3,[1,2],"l2",1.0],[0.2,1,[1,2],"l2",1000.0],[0.2,1,[1,2],"l2",1.0],[1.0,5,[1,2],"l1",100000.0],[0.2,5,[1,2],"l2",0.001],[0.4,10,[1,2],"l1",0.001],[1.0,5,[1,2],"l2",1e-06],[0.4,10,[1,2],"l2",100.0],[0.6,3,[1,2],"l1",100.0],[0.2,1,[1,1],"l1",0.01],[0.6,10,[1,2],"l2",0.01],[0.8,3,[1,2],"l1",0.001],[0.8,5,[1,1],"l1",10000.0],[0.8,1,[1,1],"l2",100.0],[0.4,5,[1,2],"l1",1.0],[0.8,1,[1,2],"l1",1.0],[0.2,1,[1,1],"l2",1e-06],[0.4,5,[1,2],"l2",1e-06],[0.8,1,[1,2],"l2",1.0],[0.4,10,[1,2],"l2",1e-06],[0.6,1,[1,1],"l2",1.0],[1.0,1,[1,2],"l1",1.0],[0.2,1,[1,2],"l1",1000000.0],[0.8,1,[1,2],"l2",10000.0],[0.8,10,[1,1],"l1",0.01],[1.0,5,[1,1],"l1",0.001],[0.2,5,[1,2],"l2",0.01],[0.8,10,[1,2],"l2",100000.0],[0.4,1,[1,2],"l1",1e-06],[0.6,3,[1,2],"l1",100000.0],[0.2,5,[1,1],"l2",10000.0],[1.0,1,[1,1],"l2",10000.0],[0.6,3,[1,2],"l1",1.0],[0.8,3,[1,2],"l2",1000000.0],[0.8,3,[1,2],"l2",0.001],[0.2,1,[1,2],"l2",0.1]],"error_x":{"array":[0.0075730485876572586,0.01408678654739881,0.006009249581702589,0.0052953576013489755,0.015480468361281979,0.027055194009082364,0.01618555380993029,0.008571222749842355,0.010162323671419194,0.010872438543753835,0.008908262694621367,0.015010657578316815,0.010281340433271901,0.006015473051094477,0.008391244680249564,0.015122916062375641,0.010935565932477055,0.005643558836193575,0.009514070900982581,0.015639030684252223,0.006712662392314476,0.009583269402135027,0.008823270721095344,0.012961768570906449,0.004629913079239891,0.014284717691560277,0.00857207436256733,0.0140000836791386,0.0074337850227247084,0.022062944842982622,0.006717027392190577,0.007440878896220146,0.009427470646379828,0.008173684944894928,0.005247438029438685,0.00452586978040652,0.011553415574419591,0.024955866842302398,0.00848070534531441,0.009524299431777105]},"error_y":{"array":[0.021709462916372543,0.019660424372293657,0.02280701551644583,0.04141503839481188,0.025197247740550304,0.02185207140572817,0.03919239713819249,0.0064363918745756095,0.04904124161348298,0.05189316457318038,0.048501681550639386,0.03741855291831512,0.017469874157429344,0.02173863377120521,0.03542621298833128,0.025243761085853186,0.006667969931544837,0.006180189207600158,0.03507679946932842,0.011860875164389911,0.03629456169941096,0.04938433795727698,0.03192696045040785,0.039585633198194775,0.03748169491939798,0.008394295296711565,0.024477745202560856,0.009089774981294351,0.017562478457491922,0.023480916167601486,0.0422343170600075,0.0070716818832471,0.02787646303524185,0.017469874157429344,0.02866436715108689,0.0030358844335549935,0.024286892696920713,0.006307564442123955,0.03887461994008526,0.028260891331683496]},"hovertemplate":"\u0648\u0642\u062a \u062f\u0631\u062c\u0629 CV (\u062b\u0627\u0646\u064a\u0629)=%{x}\u003cbr\u003e\u062f\u0631\u062c\u0629 CV (\u0627\u0644\u062f\u0642\u0629)=%{y}\u003cbr\u003emax_df=%{customdata[0]}\u003cbr\u003emin_df=%{customdata[1]}\u003cbr\u003engram_range=%{customdata[2]}\u003cbr\u003enorm=%{customdata[3]}\u003cbr\u003ealpha=%{customdata[4]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"","marker":{"color":"#636efa","symbol":"circle"},"mode":"markers","name":"","orientation":"v","showlegend":false,"x":[0.049802970886230466,0.05775508880615234,0.026769542694091798,0.05328555107116699,0.06785764694213867,0.06785993576049805,0.07484245300292969,0.05466561317443848,0.05639228820800781,0.05134363174438476,0.056037378311157224,0.06313252449035645,0.05298714637756348,0.027535009384155273,0.04838905334472656,0.055112171173095706,0.029671287536621092,0.02597813606262207,0.05261859893798828,0.06648907661437989,0.03102712631225586,0.0496248722076416,0.05515499114990234,0.053194856643676756,0.0264376163482666,0.05533437728881836,0.06214499473571777,0.06770682334899902,0.027333974838256836,0.035304021835327146,0.05307836532592773,0.05023646354675293,0.06775932312011719,0.05649080276489258,0.028168869018554688,0.024794578552246094,0.05276999473571777,0.060771846771240236,0.05565400123596191,0.05832695960998535],"xaxis":"x","y":[0.6067319461444309,0.6114035087719298,0.7444308445532435,0.7385624915000679,0.7735890112879098,0.6988916088671291,0.7350537195702435,0.5775873793009656,0.7723922208622331,0.7327281381748946,0.76890384876921,0.6603835169318646,0.599734802121583,0.8156262749898001,0.73625050999592,0.7958044335645316,0.5729294165646674,0.5705902352781178,0.6661906704746362,0.5857405140758873,0.7841425268597851,0.7665714674282607,0.670875832993336,0.7304229566163472,0.7000271997824018,0.5810825513395892,0.6673806609547123,0.5775873793009656,0.7479464164286685,0.7770909832721339,0.7747314021487828,0.5845913232694139,0.8109547123623011,0.599734802121583,0.7280769753841969,0.5624303005575955,0.6195498436012512,0.5752685978512172,0.7829389364885082,0.8132666938664489],"yaxis":"y","type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"\u0648\u0642\u062a \u062f\u0631\u062c\u0629 CV (\u062b\u0627\u0646\u064a\u0629)"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"\u062f\u0631\u062c\u0629 CV (\u0627\u0644\u062f\u0642\u0629)"}},"legend":{"tracegroupgap":0},"margin":{"t":60},"title":{"text":"\u0627\u0644\u0645\u0642\u0627\u064a\u0636\u0629 \u0628\u064a\u0646 \u0648\u0642\u062a \u0627\u0644\u062a\u0633\u062c\u064a\u0644 \u0648\u0645\u062a\u0648\u0633\u0637 \u062f\u0631\u062c\u0629 \u0627\u0644\u0627\u062e\u062a\u0628\u0627\u0631","y":0.95,"x":0.5,"xanchor":"center","yanchor":"top"}},                        {"responsive": true}                    )                };                            </script>        </div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 197-216
+.. GENERATED FROM PYTHON SOURCE LINES 189-204
 
-Notice that the cluster of models in the upper-left corner of the plot have
-the best trade-off between accuracy and scoring time. In this case, using
-bigrams increases the required scoring time without improving considerably the
-accuracy of the pipeline.
+لاحظ أن مجموعة النماذج في الركن العلوي الأيسر من الرسم البياني لها
+أفضل مقايضة بين الدقة ووقت التسجيل. في هذه الحالة، يؤدي استخدام
+الكلمات الثنائية إلى زيادة وقت التسجيل المطلوب دون تحسين دقة خط الأنابيب بشكل كبير.
 
-.. note:: For more information on how to customize an automated tuning to
-   maximize score and minimize scoring time, see the example notebook
-   :ref:`sphx_glr_auto_examples_model_selection_plot_grid_search_digits.py`.
+.. note:: للحصول على مزيد من المعلومات حول كيفية تخصيص ضبط تلقائي لتحقيق أقصى قدر من الدقة وتقليل وقت التسجيل، راجع دفتر الملاحظات
+   المثال: :ref:`sphx_glr_auto_examples_model_selection_plot_grid_search_digits.py`.
 
-We can also use a `plotly.express.parallel_coordinates
+يمكننا أيضًا استخدام `plotly.express.parallel_coordinates
 <https://plotly.com/python-api-reference/generated/plotly.express.parallel_coordinates.html>`_
-to further visualize the mean test score as a function of the tuned
-hyperparameters. This helps finding interactions between more than two
-hyperparameters and provide intuition on their relevance for improving the
-performance of a pipeline.
+لعرض متوسط درجة الاختبار كدالة للمعلمات التي تم ضبطها. يساعد هذا في العثور على التفاعلات بين أكثر من
+معلمتين وتوفير الحدس حول أهميتها لتحسين أداء خط الأنابيب.
 
-We apply a `math.log10` transformation on the `alpha` axis to spread the
-active range and improve the readability of the plot. A value :math:`x` on
-said axis is to be understood as :math:`10^x`.
+نطبق تحويل `math.log10` على محور "alpha" لنشر النطاق النشط وتحسين
+قابلية قراءة الرسم البياني. يتم فهم القيمة :math:`x` على
+المحور المذكور على أنها :math:`10^x`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 216-246
+.. GENERATED FROM PYTHON SOURCE LINES 204-234
 
 .. code-block:: Python
 
@@ -837,11 +825,11 @@ said axis is to be understood as :math:`10^x`.
     column_results = param_names + ["mean_test_score", "mean_score_time"]
 
     transform_funcs = dict.fromkeys(column_results, lambda x: x)
-    # Using a logarithmic scale for alpha
+    # استخدام مقياس لوغاريتمي لـ alpha
     transform_funcs["alpha"] = math.log10
-    # L1 norms are mapped to index 1, and L2 norms to index 2
+    # يتم تعيين المعايير L1 إلى الفهرس 1، والمعايير L2 إلى الفهرس 2
     transform_funcs["norm"] = lambda x: 2 if x == "l2" else 1
-    # Unigrams are mapped to index 1 and bigrams to index 2
+    # يتم تعيين الكلمات المفردة إلى الفهرس 1 والكلمات الثنائية إلى الفهرس 2
     transform_funcs["ngram_range"] = lambda x: x[1]
 
     fig = px.parallel_coordinates(
@@ -852,7 +840,7 @@ said axis is to be understood as :math:`10^x`.
     )
     fig.update_layout(
         title={
-            "text": "Parallel coordinates plot of text classifier pipeline",
+            "text": "رسم تنسيق متوازي لخط أنابيب مصنف النص",
             "y": 0.99,
             "x": 0.5,
             "xanchor": "center",
@@ -870,35 +858,34 @@ said axis is to be understood as :math:`10^x`.
 
     <div class="output_subarea output_html rendered_html output_result">
     <div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
-            <script charset="utf-8" src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>                <div id="92e1f055-528f-4bfb-b761-5d15324d7ce2" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("92e1f055-528f-4bfb-b761-5d15324d7ce2")) {                    Plotly.newPlot(                        "92e1f055-528f-4bfb-b761-5d15324d7ce2",                        [{"dimensions":[{"label":"max_df","values":[1.0,0.6,0.6,1.0,0.2,0.2,0.2,1.0,0.2,0.4,1.0,0.4,0.6,0.2,0.6,0.8,0.8,0.8,0.4,0.8,0.2,0.4,0.8,0.4,0.6,1.0,0.2,0.8,0.8,1.0,0.2,0.8,0.4,0.6,0.2,1.0,0.6,0.8,0.8,0.2]},{"label":"min_df","values":[3,3,10,10,3,1,1,5,5,10,5,10,3,1,10,3,5,1,5,1,1,5,1,10,1,1,1,1,10,5,5,10,1,3,5,1,3,3,3,1]},{"label":"ngram_range","values":[2,2,1,2,2,2,2,2,2,2,2,2,2,1,2,2,1,1,2,2,1,2,2,2,1,2,2,2,1,1,2,2,2,2,1,1,2,2,2,2]},{"label":"norm","values":[2,2,1,2,2,2,2,1,2,1,2,2,1,1,2,1,1,2,1,1,2,2,2,2,2,1,1,2,1,1,2,2,1,1,2,2,1,2,2,2]},{"label":"alpha","values":[1.0,2.0,-2.0,-3.0,0.0,3.0,0.0,5.0,-3.0,-3.0,-6.0,2.0,2.0,-2.0,-2.0,-3.0,4.0,2.0,0.0,0.0,-6.0,-6.0,0.0,-6.0,0.0,0.0,6.0,4.0,-2.0,-3.0,-2.0,5.0,-6.0,5.0,4.0,4.0,0.0,6.0,-3.0,-1.0]},{"label":"CV score (accuracy)","values":[0.6067319461444309,0.6114035087719298,0.7444308445532435,0.7385624915000679,0.7735890112879098,0.6988916088671291,0.7350537195702435,0.5775873793009656,0.7723922208622331,0.7327281381748946,0.76890384876921,0.6603835169318646,0.599734802121583,0.8156262749898001,0.73625050999592,0.7958044335645316,0.5729294165646674,0.5705902352781178,0.6661906704746362,0.5857405140758873,0.7841425268597851,0.7665714674282607,0.670875832993336,0.7304229566163472,0.7000271997824018,0.5810825513395892,0.6673806609547123,0.5775873793009656,0.7479464164286685,0.7770909832721339,0.7747314021487828,0.5845913232694139,0.8109547123623011,0.599734802121583,0.7280769753841969,0.5624303005575955,0.6195498436012512,0.5752685978512172,0.7829389364885082,0.8132666938664489]},{"label":"CV Score time (s)","values":[0.04830036163330078,0.04827790260314942,0.024559974670410156,0.05042233467102051,0.04829392433166504,0.056260204315185545,0.0617161750793457,0.046843338012695315,0.05392060279846191,0.04958653450012207,0.05928654670715332,0.0536557674407959,0.04839630126953125,0.02506985664367676,0.047777318954467775,0.04955039024353027,0.023177576065063477,0.029156589508056642,0.04859271049499512,0.049886465072631836,0.024286985397338867,0.05305337905883789,0.05089659690856933,0.0474952220916748,0.02335829734802246,0.05174713134765625,0.05933899879455566,0.0602447509765625,0.027872133255004882,0.024499893188476562,0.05784869194030762,0.04590420722961426,0.05548100471496582,0.050384807586669925,0.025026988983154298,0.024747085571289063,0.04858431816101074,0.048443269729614255,0.0520082950592041,0.05369696617126465]}],"domain":{"x":[0.0,1.0],"y":[0.0,1.0]},"line":{"color":[0.6067319461444309,0.6114035087719298,0.7444308445532435,0.7385624915000679,0.7735890112879098,0.6988916088671291,0.7350537195702435,0.5775873793009656,0.7723922208622331,0.7327281381748946,0.76890384876921,0.6603835169318646,0.599734802121583,0.8156262749898001,0.73625050999592,0.7958044335645316,0.5729294165646674,0.5705902352781178,0.6661906704746362,0.5857405140758873,0.7841425268597851,0.7665714674282607,0.670875832993336,0.7304229566163472,0.7000271997824018,0.5810825513395892,0.6673806609547123,0.5775873793009656,0.7479464164286685,0.7770909832721339,0.7747314021487828,0.5845913232694139,0.8109547123623011,0.599734802121583,0.7280769753841969,0.5624303005575955,0.6195498436012512,0.5752685978512172,0.7829389364885082,0.8132666938664489],"coloraxis":"coloraxis"},"name":"","type":"parcoords"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"coloraxis":{"colorbar":{"title":{"text":"CV score (accuracy)"}},"colorscale":[[0.0,"#fde725"],[0.1111111111111111,"#b5de2b"],[0.2222222222222222,"#6ece58"],[0.3333333333333333,"#35b779"],[0.4444444444444444,"#1f9e89"],[0.5555555555555556,"#26828e"],[0.6666666666666666,"#31688e"],[0.7777777777777778,"#3e4989"],[0.8888888888888888,"#482878"],[1.0,"#440154"]]},"legend":{"tracegroupgap":0},"margin":{"t":60},"title":{"text":"Parallel coordinates plot of text classifier pipeline","y":0.99,"x":0.5,"xanchor":"center","yanchor":"top"}},                        {"responsive": true}                    )                };                            </script>        </div>
+            <script charset="utf-8" src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>                <div id="6e018200-66eb-496b-886a-ab281034716f" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("6e018200-66eb-496b-886a-ab281034716f")) {                    Plotly.newPlot(                        "6e018200-66eb-496b-886a-ab281034716f",                        [{"dimensions":[{"label":"max_df","values":[1.0,0.6,0.6,1.0,0.2,0.2,0.2,1.0,0.2,0.4,1.0,0.4,0.6,0.2,0.6,0.8,0.8,0.8,0.4,0.8,0.2,0.4,0.8,0.4,0.6,1.0,0.2,0.8,0.8,1.0,0.2,0.8,0.4,0.6,0.2,1.0,0.6,0.8,0.8,0.2]},{"label":"min_df","values":[3,3,10,10,3,1,1,5,5,10,5,10,3,1,10,3,5,1,5,1,1,5,1,10,1,1,1,1,10,5,5,10,1,3,5,1,3,3,3,1]},{"label":"ngram_range","values":[2,2,1,2,2,2,2,2,2,2,2,2,2,1,2,2,1,1,2,2,1,2,2,2,1,2,2,2,1,1,2,2,2,2,1,1,2,2,2,2]},{"label":"norm","values":[2,2,1,2,2,2,2,1,2,1,2,2,1,1,2,1,1,2,1,1,2,2,2,2,2,1,1,2,1,1,2,2,1,1,2,2,1,2,2,2]},{"label":"alpha","values":[1.0,2.0,-2.0,-3.0,0.0,3.0,0.0,5.0,-3.0,-3.0,-6.0,2.0,2.0,-2.0,-2.0,-3.0,4.0,2.0,0.0,0.0,-6.0,-6.0,0.0,-6.0,0.0,0.0,6.0,4.0,-2.0,-3.0,-2.0,5.0,-6.0,5.0,4.0,4.0,0.0,6.0,-3.0,-1.0]},{"label":"\u062f\u0631\u062c\u0629 CV (\u0627\u0644\u062f\u0642\u0629)","values":[0.6067319461444309,0.6114035087719298,0.7444308445532435,0.7385624915000679,0.7735890112879098,0.6988916088671291,0.7350537195702435,0.5775873793009656,0.7723922208622331,0.7327281381748946,0.76890384876921,0.6603835169318646,0.599734802121583,0.8156262749898001,0.73625050999592,0.7958044335645316,0.5729294165646674,0.5705902352781178,0.6661906704746362,0.5857405140758873,0.7841425268597851,0.7665714674282607,0.670875832993336,0.7304229566163472,0.7000271997824018,0.5810825513395892,0.6673806609547123,0.5775873793009656,0.7479464164286685,0.7770909832721339,0.7747314021487828,0.5845913232694139,0.8109547123623011,0.599734802121583,0.7280769753841969,0.5624303005575955,0.6195498436012512,0.5752685978512172,0.7829389364885082,0.8132666938664489]},{"label":"\u0648\u0642\u062a \u062f\u0631\u062c\u0629 CV (\u062b\u0627\u0646\u064a\u0629)","values":[0.049802970886230466,0.05775508880615234,0.026769542694091798,0.05328555107116699,0.06785764694213867,0.06785993576049805,0.07484245300292969,0.05466561317443848,0.05639228820800781,0.05134363174438476,0.056037378311157224,0.06313252449035645,0.05298714637756348,0.027535009384155273,0.04838905334472656,0.055112171173095706,0.029671287536621092,0.02597813606262207,0.05261859893798828,0.06648907661437989,0.03102712631225586,0.0496248722076416,0.05515499114990234,0.053194856643676756,0.0264376163482666,0.05533437728881836,0.06214499473571777,0.06770682334899902,0.027333974838256836,0.035304021835327146,0.05307836532592773,0.05023646354675293,0.06775932312011719,0.05649080276489258,0.028168869018554688,0.024794578552246094,0.05276999473571777,0.060771846771240236,0.05565400123596191,0.05832695960998535]}],"domain":{"x":[0.0,1.0],"y":[0.0,1.0]},"line":{"color":[0.6067319461444309,0.6114035087719298,0.7444308445532435,0.7385624915000679,0.7735890112879098,0.6988916088671291,0.7350537195702435,0.5775873793009656,0.7723922208622331,0.7327281381748946,0.76890384876921,0.6603835169318646,0.599734802121583,0.8156262749898001,0.73625050999592,0.7958044335645316,0.5729294165646674,0.5705902352781178,0.6661906704746362,0.5857405140758873,0.7841425268597851,0.7665714674282607,0.670875832993336,0.7304229566163472,0.7000271997824018,0.5810825513395892,0.6673806609547123,0.5775873793009656,0.7479464164286685,0.7770909832721339,0.7747314021487828,0.5845913232694139,0.8109547123623011,0.599734802121583,0.7280769753841969,0.5624303005575955,0.6195498436012512,0.5752685978512172,0.7829389364885082,0.8132666938664489],"coloraxis":"coloraxis"},"name":"","type":"parcoords"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"coloraxis":{"colorbar":{"title":{"text":"\u062f\u0631\u062c\u0629 CV (\u0627\u0644\u062f\u0642\u0629)"}},"colorscale":[[0.0,"#fde725"],[0.1111111111111111,"#b5de2b"],[0.2222222222222222,"#6ece58"],[0.3333333333333333,"#35b779"],[0.4444444444444444,"#1f9e89"],[0.5555555555555556,"#26828e"],[0.6666666666666666,"#31688e"],[0.7777777777777778,"#3e4989"],[0.8888888888888888,"#482878"],[1.0,"#440154"]]},"legend":{"tracegroupgap":0},"margin":{"t":60},"title":{"text":"\u0631\u0633\u0645 \u062a\u0646\u0633\u064a\u0642 \u0645\u062a\u0648\u0627\u0632\u064a \u0644\u062e\u0637 \u0623\u0646\u0627\u0628\u064a\u0628 \u0645\u0635\u0646\u0641 \u0627\u0644\u0646\u0635","y":0.99,"x":0.5,"xanchor":"center","yanchor":"top"}},                        {"responsive": true}                    )                };                            </script>        </div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 247-264
+.. GENERATED FROM PYTHON SOURCE LINES 235-250
 
-The parallel coordinates plot displays the values of the hyperparameters on
-different columns while the performance metric is color coded. It is possible
-to select a range of results by clicking and holding on any axis of the
-parallel coordinate plot. You can then slide (move) the range selection and
-cross two selections to see the intersections. You can undo a selection by
-clicking once again on the same axis.
+يعرض رسم التنسيق المتوازي قيم المعلمات على
+أعمدة مختلفة في حين يتم ترميز مقياس الأداء بالألوان. من الممكن
+تحديد نطاق من النتائج عن طريق النقر والضغط على أي محور من
+رسم التنسيق المتوازي. يمكنك بعد ذلك تحريك (نقل) نطاق التحديد والتقاطع
+بين نطاقين لمشاهدة التقاطعات. يمكنك إلغاء تحديد عن طريق
+النقر مرة أخرى على نفس المحور.
 
-In particular for this hyperparameter search, it is interesting to notice that
-the top performing models do not seem to depend on the regularization `norm`,
-but they do depend on a trade-off between `max_df`, `min_df` and the
-regularization strength `alpha`. The reason is that including noisy features
-(i.e. `max_df` close to :math:`1.0` or `min_df` close to :math:`0`) tend to
-overfit and therefore require a stronger regularization to compensate. Having
-less features require less regularization and less scoring time.
+على وجه الخصوص لهذا البحث عن المعلمات، من المثير للاهتمام ملاحظة أن
+النماذج ذات الأداء الأعلى لا تعتمد على المعيار `norm`، ولكنها تعتمد على
+المقايضة بين `max_df`، و`min_df`، وقوة المعايرة `alpha`. والسبب هو أن تضمين الميزات الضجيجية (أي
+`max_df` قريب من :math:`1.0` أو `min_df` قريب من :math:`0`) يميل إلى
+الإفراط في التكيف وبالتالي يتطلب معايرة أقوى للتعويض. وجود
+ميزات أقل تتطلب معايرة أقل ووقت تسجيل أقل.
 
-The best accuracy scores are obtained when `alpha` is between :math:`10^{-6}`
-and :math:`10^0`, regardless of the hyperparameter `norm`.
+يتم الحصول على أفضل درجات الدقة عندما تكون `alpha` بين :math:`10^{-6}`
+و :math:`10^0`، بغض النظر عن المعلمة `norm`.
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 32.573 seconds)
+   **Total running time of the script:** (0 minutes 38.440 seconds)
 
 
 .. _sphx_glr_download_auto_examples_model_selection_plot_grid_search_text_feature_extraction.py:

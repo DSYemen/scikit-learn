@@ -1,17 +1,11 @@
 """
-=============================================
-Neighborhood Components Analysis Illustration
-=============================================
-
-This example illustrates a learned distance metric that maximizes
-the nearest neighbors classification accuracy. It provides a visual
-representation of this metric compared to the original point
-space. Please refer to the :ref:`User Guide <nca>` for more information.
-
+======================================
+توضيح تحليل مكونات الأحياء المجاورة
+======================================
+يوضح هذا المثال مقياس مسافة مُتعلم يُعظم دقة تصنيف أقرب الجيران. ويقدم تمثيلًا مرئيًا لهذا المقياس مقارنةً بالمساحة الأصلية للنقاط. يرجى الرجوع إلى دليل المستخدم لمزيد من المعلومات.
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -21,13 +15,12 @@ from scipy.special import logsumexp
 from sklearn.datasets import make_classification
 from sklearn.neighbors import NeighborhoodComponentsAnalysis
 
-# %%
-# Original points
+# النقاط الأصلية
 # ---------------
-# First we create a data set of 9 samples from 3 classes, and plot the points
-# in the original space. For this example, we focus on the classification of
-# point no. 3. The thickness of a link between point no. 3 and another point
-# is proportional to their distance.
+# أولًا، نقوم بإنشاء مجموعة بيانات من 9 عينات من 3 فئات، ونرسم النقاط
+# في المساحة الأصلية. بالنسبة لهذا المثال، نركز على تصنيف
+# النقطة رقم 3. يتناسب سمك الرابط بين النقطة رقم 3 ونقطة أخرى
+# مع المسافة بينهما.
 
 X, y = make_classification(
     n_samples=9,
@@ -49,20 +42,19 @@ for i in range(X.shape[0]):
 ax.set_title("Original points")
 ax.axes.get_xaxis().set_visible(False)
 ax.axes.get_yaxis().set_visible(False)
-ax.axis("equal")  # so that boundaries are displayed correctly as circles
+ax.axis("equal")  # لعرض الحدود بشكل صحيح كدوائر
 
-
+# تعريف دالة سمك الرابط
 def link_thickness_i(X, i):
     diff_embedded = X[i] - X
     dist_embedded = np.einsum("ij,ij->i", diff_embedded, diff_embedded)
     dist_embedded[i] = np.inf
 
-    # compute exponentiated distances (use the log-sum-exp trick to
-    # avoid numerical instabilities
+    # حساب المسافات الأسية (استخدام خدعة log-sum-exp لتجنب عدم الاستقرار العددي)
     exp_dist_embedded = np.exp(-dist_embedded - logsumexp(-dist_embedded))
     return exp_dist_embedded
 
-
+# تعريف دالة ربط النقاط
 def relate_point(X, i, ax):
     pt_i = X[i]
     for j, pt_j in enumerate(X):
@@ -71,17 +63,16 @@ def relate_point(X, i, ax):
             line = ([pt_i[0], pt_j[0]], [pt_i[1], pt_j[1]])
             ax.plot(*line, c=cm.Set1(y[j]), linewidth=5 * thickness[j])
 
-
+# تحديد النقطة المراد ربطها
 i = 3
+# ربط النقطة المحددة
 relate_point(X, i, ax)
 plt.show()
 
-# %%
-# Learning an embedding
+# تعلم التضمين
 # ---------------------
-# We use :class:`~sklearn.neighbors.NeighborhoodComponentsAnalysis` to learn an
-# embedding and plot the points after the transformation. We then take the
-# embedding and find the nearest neighbors.
+# نستخدم NeighborhoodComponentsAnalysis لتعلم التضمين
+# ورسم النقاط بعد التحويل. ثم نأخذ التضمين ونحدد الجيران الأقرب.
 
 nca = NeighborhoodComponentsAnalysis(max_iter=30, random_state=0)
 nca = nca.fit(X, y)

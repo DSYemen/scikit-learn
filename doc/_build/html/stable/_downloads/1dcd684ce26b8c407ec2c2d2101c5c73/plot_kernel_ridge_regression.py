@@ -1,44 +1,41 @@
 """
 =============================================
-Comparison of kernel ridge regression and SVR
+مقارنة بين الانحدار النووي المنتظم والانحدار الداعم للمتجهات
 =============================================
 
-Both kernel ridge regression (KRR) and SVR learn a non-linear function by
-employing the kernel trick, i.e., they learn a linear function in the space
-induced by the respective kernel which corresponds to a non-linear function in
-the original space. They differ in the loss functions (ridge versus
-epsilon-insensitive loss). In contrast to SVR, fitting a KRR can be done in
-closed-form and is typically faster for medium-sized datasets. On the other
-hand, the learned model is non-sparse and thus slower than SVR at
-prediction-time.
+كل من الانحدار النووي المنتظم (KRR) والانحدار الداعم للمتجهات (SVR) يتعلمان دالة غير خطية من خلال
+استخدام خدعة النواة، أي أنهما يتعلمان دالة خطية في الفضاء
+الذي تسببه النواة المقابلة، والتي تقابل دالة غير خطية في
+المساحة الأصلية. يختلفان في دالات الخسارة (ridge مقابل
+epsilon-insensitive loss). على عكس الانحدار الداعم للمتجهات، يمكن إجراء الانحدار النووي المنتظم في
+شكل مغلق وعادة ما يكون أسرع للمجموعات المتوسطة الحجم. من ناحية أخرى، فإن النموذج المُتعلم غير متفرق، وبالتالي فهو أبطأ من الانحدار الداعم للمتجهات
+في وقت التنبؤ.
 
-This example illustrates both methods on an artificial dataset, which
-consists of a sinusoidal target function and strong noise added to every fifth
-datapoint.
+يوضح هذا المثال كلتا الطريقتين على مجموعة بيانات اصطناعية، والتي
+تتكون من دالة هدف جيبية وضوضاء قوية تضاف إلى كل نقطة بيانات خامسة.
 
 """
 
 # %%
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# Generate sample data
+# توليد بيانات العينة
 # --------------------
 import numpy as np
-
 rng = np.random.RandomState(42)
 
 X = 5 * rng.rand(10000, 1)
 y = np.sin(X).ravel()
 
-# Add noise to targets
+# أضف ضوضاء إلى الأهداف
 y[::5] += 3 * (0.5 - rng.rand(X.shape[0] // 5))
 
 X_plot = np.linspace(0, 5, 100000)[:, None]
 
 # %%
-# Construct the kernel-based regression models
+# إنشاء نماذج الانحدار القائمة على النواة
 # --------------------------------------------
 
 from sklearn.kernel_ridge import KernelRidge
@@ -58,7 +55,7 @@ kr = GridSearchCV(
 )
 
 # %%
-# Compare times of SVR and Kernel Ridge Regression
+# مقارنة أوقات الانحدار الداعم للمتجهات والانحدار النووي المنتظم
 # ------------------------------------------------
 
 import time
@@ -89,7 +86,7 @@ kr_predict = time.time() - t0
 print("KRR prediction for %d inputs in %.3f s" % (X_plot.shape[0], kr_predict))
 
 # %%
-# Look at the results
+# النظر في النتائج
 # -------------------
 
 import matplotlib.pyplot as plt
@@ -120,21 +117,20 @@ plt.title("SVR versus Kernel Ridge")
 _ = plt.legend()
 
 # %%
-# The previous figure compares the learned model of KRR and SVR when both
-# complexity/regularization and bandwidth of the RBF kernel are optimized using
-# grid-search. The learned functions are very similar; however, fitting KRR is
-# approximately 3-4 times faster than fitting SVR (both with grid-search).
+# الشكل السابق يقارن النموذج المُتعلم للانحدار النووي المنتظم والانحدار الداعم للمتجهات عندما يكون كل من
+# التعقيد/الانتظام وعرض نطاق نواة RBF مُحسن باستخدام
+# grid-search. الدالات المُتعلمة متشابهة جداً؛ ومع ذلك، فإن الانحدار النووي المنتظم أسرع
+# تقريباً 3-4 مرات من الانحدار الداعم للمتجهات (كلاهما مع grid-search).
 #
-# Prediction of 100000 target values could be in theory approximately three
-# times faster with SVR since it has learned a sparse model using only
-# approximately 1/3 of the training datapoints as support vectors. However, in
-# practice, this is not necessarily the case because of implementation details
-# in the way the kernel function is computed for each model that can make the
-# KRR model as fast or even faster despite computing more arithmetic
-# operations.
+# يمكن أن يكون التنبؤ بـ 100000 قيمة مستهدفة في النظرية تقريباً ثلاثة
+# مرات أسرع مع الانحدار الداعم للمتجهات منذ أنه تعلم نموذج متفرق باستخدام فقط
+# تقريباً 1/3 من نقاط البيانات التدريبية كمتجهات دعم. ومع ذلك، في
+# الممارسة، هذا ليس بالضرورة هو الحال بسبب تفاصيل التنفيذ
+# في الطريقة التي يتم بها حساب دالة النواة لكل نموذج والتي يمكن أن تجعل
+# نموذج الانحدار النووي المنتظم سريعًا أو حتى أسرع على الرغم من إجراء المزيد من العمليات الحسابية.
 
 # %%
-# Visualize training and prediction times
+# تصور أوقات التدريب والتنبؤ
 # ---------------------------------------
 
 plt.figure()
@@ -178,17 +174,14 @@ plt.title("Execution Time")
 _ = plt.legend(loc="best")
 
 # %%
-# This figure compares the time for fitting and prediction of KRR and SVR for
-# different sizes of the training set. Fitting KRR is faster than SVR for
-# medium-sized training sets (less than a few thousand samples); however, for
-# larger training sets SVR scales better. With regard to prediction time, SVR
-# should be faster than KRR for all sizes of the training set because of the
-# learned sparse solution, however this is not necessarily the case in practice
-# because of implementation details. Note that the degree of sparsity and thus
-# the prediction time depends on the parameters epsilon and C of the SVR.
+# هذا الشكل يقارن الوقت اللازم للتدريب والتنبؤ للانحدار النووي المنتظم والانحدار الداعم للمتجهات
+# لمختلف أحجام مجموعة التدريب. الانحدار النووي المنتظم أسرع من الانحدار الداعم للمتجهات
+# لمجموعات التدريب المتوسطة الحجم (أقل من بضعة آلاف من العينات)؛ ومع ذلك، لمجموعات التدريب الأكبر، فإن الانحدار الداعم للمتجهات يتدرج بشكل أفضل. فيما يتعلق بوقت التنبؤ، يجب أن يكون الانحدار الداعم للمتجهات أسرع من الانحدار النووي المنتظم لجميع أحجام مجموعة التدريب بسبب الحل المتفرق المُتعلم، ومع ذلك، هذا ليس بالضرورة هو الحال في الممارسة
+# بسبب تفاصيل التنفيذ. لاحظ أن درجة التفرق وبالتالي
+# يعتمد وقت التنبؤ على معاملات الانحدار الداعم للمتجهات epsilon و C.
 
 # %%
-# Visualize the learning curves
+# تصور منحنيات التعلم
 # -----------------------------
 from sklearn.model_selection import LearningCurveDisplay
 

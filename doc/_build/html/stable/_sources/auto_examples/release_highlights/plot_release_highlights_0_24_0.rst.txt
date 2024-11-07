@@ -19,54 +19,46 @@
 
 
 ========================================
-Release Highlights for scikit-learn 0.24
+أبرز ميزات الإصدار 0.24 من scikit-learn
 ========================================
 
 .. currentmodule:: sklearn
 
-We are pleased to announce the release of scikit-learn 0.24! Many bug fixes
-and improvements were added, as well as some new key features. We detail
-below a few of the major features of this release. **For an exhaustive list of
-all the changes**, please refer to the :ref:`release notes <release_notes_0_24>`.
+يسعدنا الإعلان عن إصدار scikit-learn 0.24! تم إجراء العديد من الإصلاحات والتحسينات، بالإضافة إلى بعض الميزات الرئيسية الجديدة. نستعرض أدناه بعض الميزات الرئيسية لهذا الإصدار. **للاطلاع على قائمة شاملة بجميع التغييرات**، يرجى الرجوع إلى :ref:`ملاحظات الإصدار <release_notes_0_24>`.
 
-To install the latest version (with pip)::
+لتثبيت أحدث إصدار (باستخدام pip)::
 
     pip install --upgrade scikit-learn
 
-or with conda::
+أو باستخدام conda::
 
     conda install -c conda-forge scikit-learn
 
-.. GENERATED FROM PYTHON SOURCE LINES 25-51
+.. GENERATED FROM PYTHON SOURCE LINES 22-43
 
-Successive Halving estimators for tuning hyper-parameters
+خوارزميات Successive Halving لضبط المعاملات
 ---------------------------------------------------------
-Successive Halving, a state of the art method, is now available to
-explore the space of the parameters and identify their best combination.
-:class:`~sklearn.model_selection.HalvingGridSearchCV` and
-:class:`~sklearn.model_selection.HalvingRandomSearchCV` can be
-used as drop-in replacement for
-:class:`~sklearn.model_selection.GridSearchCV` and
+أصبحت خوارزمية Successive Halving، وهي طريقة متطورة، متاحة الآن لاستكشاف مساحة المعاملات وتحديد أفضل تركيبة لها.
+:class:`~sklearn.model_selection.HalvingGridSearchCV` و
+:class:`~sklearn.model_selection.HalvingRandomSearchCV` يمكن استخدامهما
+كبديل مباشر لـ
+:class:`~sklearn.model_selection.GridSearchCV` و
 :class:`~sklearn.model_selection.RandomizedSearchCV`.
-Successive Halving is an iterative selection process illustrated in the
-figure below. The first iteration is run with a small amount of resources,
-where the resource typically corresponds to the number of training samples,
-but can also be an arbitrary integer parameter such as `n_estimators` in a
-random forest. Only a subset of the parameter candidates are selected for the
-next iteration, which will be run with an increasing amount of allocated
-resources. Only a subset of candidates will last until the end of the
-iteration process, and the best parameter candidate is the one that has the
-highest score on the last iteration.
+خوارزمية Successive Halving هي عملية اختيار تكرارية موضحة في الشكل أدناه. يتم تشغيل التكرار الأول باستخدام كمية صغيرة من الموارد،
+حيث عادةً ما تتوافق الموارد مع عدد العينات التدريبية،
+ولكن يمكن أن تكون أيضًا معلمة عدد صحيح تعسفية مثل `n_estimators` في
+غابة عشوائية. يتم اختيار مجموعة فرعية فقط من مرشحي المعاملات للتكرار التالي، والذي سيتم تشغيله بكمية متزايدة من الموارد المخصصة.
+ستستمر مجموعة فرعية فقط من المرشحين حتى نهاية عملية التكرار، وأفضل مرشح للمعاملات هو الذي يحقق أعلى نتيجة في التكرار الأخير.
 
-Read more in the :ref:`User Guide <successive_halving_user_guide>` (note:
-the Successive Halving estimators are still :term:`experimental
+اقرأ المزيد في :ref:`دليل المستخدم <successive_halving_user_guide>` (ملاحظة:
+خوارزميات Successive Halving ما زالت :term:`تجريبية
 <experimental>`).
 
 .. figure:: ../model_selection/images/sphx_glr_plot_successive_halving_iterations_001.png
   :target: ../model_selection/plot_successive_halving_iterations.html
   :align: center
 
-.. GENERATED FROM PYTHON SOURCE LINES 51-79
+.. GENERATED FROM PYTHON SOURCE LINES 43-71
 
 .. code-block:: Python
 
@@ -111,51 +103,49 @@ the Successive Halving estimators are still :term:`experimental
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 80-99
+.. GENERATED FROM PYTHON SOURCE LINES 72-91
 
-Native support for categorical features in HistGradientBoosting estimators
+الدعم الأصلي للخصائص التصنيفية في خوارزميات HistGradientBoosting
 --------------------------------------------------------------------------
-:class:`~sklearn.ensemble.HistGradientBoostingClassifier` and
-:class:`~sklearn.ensemble.HistGradientBoostingRegressor` now have native
-support for categorical features: they can consider splits on non-ordered,
-categorical data. Read more in the :ref:`User Guide
+:class:`~sklearn.ensemble.HistGradientBoostingClassifier` و
+:class:`~sklearn.ensemble.HistGradientBoostingRegressor` أصبح لديهما دعم أصلي
+للخصائص التصنيفية: يمكنهما الآن التعامل مع الانقسامات على البيانات غير المرتبة،
+والبيانات التصنيفية. اقرأ المزيد في :ref:`دليل المستخدم
 <categorical_support_gbdt>`.
 
 .. figure:: ../ensemble/images/sphx_glr_plot_gradient_boosting_categorical_001.png
   :target: ../ensemble/plot_gradient_boosting_categorical.html
   :align: center
 
-The plot shows that the new native support for categorical features leads to
-fitting times that are comparable to models where the categories are treated
-as ordered quantities, i.e. simply ordinal-encoded. Native support is also
-more expressive than both one-hot encoding and ordinal encoding. However, to
-use the new `categorical_features` parameter, it is still required to
-preprocess the data within a pipeline as demonstrated in this :ref:`example
+يوضح الرسم البياني أن الدعم الأصلي الجديد للخصائص التصنيفية يؤدي إلى
+أوقات ملائمة قابلة للمقارنة مع النماذج التي يتم فيها التعامل مع الفئات
+ككميات مرتبة، أي ببساطة الترميز الترتيبي. الدعم الأصلي هو أيضًا
+أكثر تعبيرًا من الترميز الثنائي والترميز الترتيبي. ومع ذلك، لاستخدام
+المعلمة الجديدة `categorical_features`، لا يزال من الضروري
+معالجة البيانات ضمن خط أنابيب كما هو موضح في هذا المثال:
 <sphx_glr_auto_examples_ensemble_plot_gradient_boosting_categorical.py>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 101-109
+.. GENERATED FROM PYTHON SOURCE LINES 93-100
 
-Improved performances of HistGradientBoosting estimators
+تحسين أداء خوارزميات HistGradientBoosting
 --------------------------------------------------------
-The memory footprint of :class:`ensemble.HistGradientBoostingRegressor` and
-:class:`ensemble.HistGradientBoostingClassifier` has been significantly
-improved during calls to `fit`. In addition, histogram initialization is now
-done in parallel which results in slight speed improvements.
-See more in the `Benchmark page
+تم تحسين بصمة الذاكرة بشكل كبير لـ :class:`ensemble.HistGradientBoostingRegressor` و
+:class:`ensemble.HistGradientBoostingClassifier` أثناء المكالمات إلى `fit`. بالإضافة إلى ذلك، يتم الآن
+تهيئة المخطط البياني بشكل متوازي مما يؤدي إلى تحسينات طفيفة في السرعة.
+اقرأ المزيد في صفحة المعايير
 <https://scikit-learn.org/scikit-learn-benchmarks/>`_.
 
-.. GENERATED FROM PYTHON SOURCE LINES 111-119
+.. GENERATED FROM PYTHON SOURCE LINES 102-109
 
-New self-training meta-estimator
+خوارزمية جديدة للتعلم الذاتي
 --------------------------------
-A new self-training implementation, based on `Yarowski's algorithm
-<https://doi.org/10.3115/981658.981684>`_ can now be used with any
-classifier that implements :term:`predict_proba`. The sub-classifier
-will behave as a
-semi-supervised classifier, allowing it to learn from unlabeled data.
-Read more in the :ref:`User guide <self_training>`.
+يمكن الآن استخدام خوارزمية جديدة للتعلم الذاتي، تعتمد على خوارزمية ياروسكي
+<https://doi.org/10.3115/981658.981684>`_ مع أي
+مصنف ينفذ :term:`predict_proba`. سيتصرف المصنف الفرعي
+كمصنف شبه مشرف، مما يسمح له بالتعلم من البيانات غير المصنفة.
+اقرأ المزيد في :ref:`دليل المستخدم <self_training>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 119-133
+.. GENERATED FROM PYTHON SOURCE LINES 109-123
 
 .. code-block:: Python
 
@@ -181,7 +171,7 @@ Read more in the :ref:`User guide <self_training>`.
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-5 {
+    <style>#sk-container-id-8 {
       /* Definition of color scheme common for light and dark mode */
       --sklearn-color-text: #000;
       --sklearn-color-text-muted: #666;
@@ -212,15 +202,15 @@ Read more in the :ref:`User guide <self_training>`.
       }
     }
 
-    #sk-container-id-5 {
+    #sk-container-id-8 {
       color: var(--sklearn-color-text);
     }
 
-    #sk-container-id-5 pre {
+    #sk-container-id-8 pre {
       padding: 0;
     }
 
-    #sk-container-id-5 input.sk-hidden--visually {
+    #sk-container-id-8 input.sk-hidden--visually {
       border: 0;
       clip: rect(1px 1px 1px 1px);
       clip: rect(1px, 1px, 1px, 1px);
@@ -232,7 +222,7 @@ Read more in the :ref:`User guide <self_training>`.
       width: 1px;
     }
 
-    #sk-container-id-5 div.sk-dashed-wrapped {
+    #sk-container-id-8 div.sk-dashed-wrapped {
       border: 1px dashed var(--sklearn-color-line);
       margin: 0 0.4em 0.5em 0.4em;
       box-sizing: border-box;
@@ -240,7 +230,7 @@ Read more in the :ref:`User guide <self_training>`.
       background-color: var(--sklearn-color-background);
     }
 
-    #sk-container-id-5 div.sk-container {
+    #sk-container-id-8 div.sk-container {
       /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
          but bootstrap.min.css set `[hidden] { display: none !important; }`
          so we also need the `!important` here to be able to override the
@@ -250,7 +240,7 @@ Read more in the :ref:`User guide <self_training>`.
       position: relative;
     }
 
-    #sk-container-id-5 div.sk-text-repr-fallback {
+    #sk-container-id-8 div.sk-text-repr-fallback {
       display: none;
     }
 
@@ -266,14 +256,14 @@ Read more in the :ref:`User guide <self_training>`.
 
     /* Parallel-specific style estimator block */
 
-    #sk-container-id-5 div.sk-parallel-item::after {
+    #sk-container-id-8 div.sk-parallel-item::after {
       content: "";
       width: 100%;
       border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
       flex-grow: 1;
     }
 
-    #sk-container-id-5 div.sk-parallel {
+    #sk-container-id-8 div.sk-parallel {
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -281,28 +271,28 @@ Read more in the :ref:`User guide <self_training>`.
       position: relative;
     }
 
-    #sk-container-id-5 div.sk-parallel-item {
+    #sk-container-id-8 div.sk-parallel-item {
       display: flex;
       flex-direction: column;
     }
 
-    #sk-container-id-5 div.sk-parallel-item:first-child::after {
+    #sk-container-id-8 div.sk-parallel-item:first-child::after {
       align-self: flex-end;
       width: 50%;
     }
 
-    #sk-container-id-5 div.sk-parallel-item:last-child::after {
+    #sk-container-id-8 div.sk-parallel-item:last-child::after {
       align-self: flex-start;
       width: 50%;
     }
 
-    #sk-container-id-5 div.sk-parallel-item:only-child::after {
+    #sk-container-id-8 div.sk-parallel-item:only-child::after {
       width: 0;
     }
 
     /* Serial-specific style estimator block */
 
-    #sk-container-id-5 div.sk-serial {
+    #sk-container-id-8 div.sk-serial {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -320,14 +310,14 @@ Read more in the :ref:`User guide <self_training>`.
 
     /* Pipeline and ColumnTransformer style (default) */
 
-    #sk-container-id-5 div.sk-toggleable {
+    #sk-container-id-8 div.sk-toggleable {
       /* Default theme specific background. It is overwritten whether we have a
       specific estimator or a Pipeline/ColumnTransformer */
       background-color: var(--sklearn-color-background);
     }
 
     /* Toggleable label */
-    #sk-container-id-5 label.sk-toggleable__label {
+    #sk-container-id-8 label.sk-toggleable__label {
       cursor: pointer;
       display: flex;
       width: 100%;
@@ -340,13 +330,13 @@ Read more in the :ref:`User guide <self_training>`.
       gap: 0.5em;
     }
 
-    #sk-container-id-5 label.sk-toggleable__label .caption {
+    #sk-container-id-8 label.sk-toggleable__label .caption {
       font-size: 0.6rem;
       font-weight: lighter;
       color: var(--sklearn-color-text-muted);
     }
 
-    #sk-container-id-5 label.sk-toggleable__label-arrow:before {
+    #sk-container-id-8 label.sk-toggleable__label-arrow:before {
       /* Arrow on the left of the label */
       content: "▸";
       float: left;
@@ -354,13 +344,13 @@ Read more in the :ref:`User guide <self_training>`.
       color: var(--sklearn-color-icon);
     }
 
-    #sk-container-id-5 label.sk-toggleable__label-arrow:hover:before {
+    #sk-container-id-8 label.sk-toggleable__label-arrow:hover:before {
       color: var(--sklearn-color-text);
     }
 
     /* Toggleable content - dropdown */
 
-    #sk-container-id-5 div.sk-toggleable__content {
+    #sk-container-id-8 div.sk-toggleable__content {
       max-height: 0;
       max-width: 0;
       overflow: hidden;
@@ -369,12 +359,12 @@ Read more in the :ref:`User guide <self_training>`.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-5 div.sk-toggleable__content.fitted {
+    #sk-container-id-8 div.sk-toggleable__content.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-5 div.sk-toggleable__content pre {
+    #sk-container-id-8 div.sk-toggleable__content pre {
       margin: 0.2em;
       border-radius: 0.25em;
       color: var(--sklearn-color-text);
@@ -382,79 +372,79 @@ Read more in the :ref:`User guide <self_training>`.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-5 div.sk-toggleable__content.fitted pre {
+    #sk-container-id-8 div.sk-toggleable__content.fitted pre {
       /* unfitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-5 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    #sk-container-id-8 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
       max-height: 200px;
       max-width: 100%;
       overflow: auto;
     }
 
-    #sk-container-id-5 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    #sk-container-id-8 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
       content: "▾";
     }
 
     /* Pipeline/ColumnTransformer-specific style */
 
-    #sk-container-id-5 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-8 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-5 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-8 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator-specific style */
 
     /* Colorize estimator box */
-    #sk-container-id-5 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-8 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-5 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-8 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
-    #sk-container-id-5 div.sk-label label.sk-toggleable__label,
-    #sk-container-id-5 div.sk-label label {
+    #sk-container-id-8 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-8 div.sk-label label {
       /* The background is the default theme color */
       color: var(--sklearn-color-text-on-default-background);
     }
 
     /* On hover, darken the color of the background */
-    #sk-container-id-5 div.sk-label:hover label.sk-toggleable__label {
+    #sk-container-id-8 div.sk-label:hover label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
     /* Label box, darken color on hover, fitted */
-    #sk-container-id-5 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+    #sk-container-id-8 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator label */
 
-    #sk-container-id-5 div.sk-label label {
+    #sk-container-id-8 div.sk-label label {
       font-family: monospace;
       font-weight: bold;
       display: inline-block;
       line-height: 1.2em;
     }
 
-    #sk-container-id-5 div.sk-label-container {
+    #sk-container-id-8 div.sk-label-container {
       text-align: center;
     }
 
     /* Estimator-specific */
-    #sk-container-id-5 div.sk-estimator {
+    #sk-container-id-8 div.sk-estimator {
       font-family: monospace;
       border: 1px dotted var(--sklearn-color-border-box);
       border-radius: 0.25em;
@@ -464,18 +454,18 @@ Read more in the :ref:`User guide <self_training>`.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-5 div.sk-estimator.fitted {
+    #sk-container-id-8 div.sk-estimator.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
     /* on hover */
-    #sk-container-id-5 div.sk-estimator:hover {
+    #sk-container-id-8 div.sk-estimator:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-5 div.sk-estimator.fitted:hover {
+    #sk-container-id-8 div.sk-estimator.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
@@ -563,7 +553,7 @@ Read more in the :ref:`User guide <self_training>`.
 
     /* "?"-specific style due to the `<a>` HTML tag */
 
-    #sk-container-id-5 a.estimator_doc_link {
+    #sk-container-id-8 a.estimator_doc_link {
       float: right;
       font-size: 1rem;
       line-height: 1em;
@@ -578,41 +568,41 @@ Read more in the :ref:`User guide <self_training>`.
       border: var(--sklearn-color-unfitted-level-1) 1pt solid;
     }
 
-    #sk-container-id-5 a.estimator_doc_link.fitted {
+    #sk-container-id-8 a.estimator_doc_link.fitted {
       /* fitted */
       border: var(--sklearn-color-fitted-level-1) 1pt solid;
       color: var(--sklearn-color-fitted-level-1);
     }
 
     /* On hover */
-    #sk-container-id-5 a.estimator_doc_link:hover {
+    #sk-container-id-8 a.estimator_doc_link:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-3);
       color: var(--sklearn-color-background);
       text-decoration: none;
     }
 
-    #sk-container-id-5 a.estimator_doc_link.fitted:hover {
+    #sk-container-id-8 a.estimator_doc_link.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-5" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>SelfTrainingClassifier(estimator=SVC(gamma=&#x27;auto&#x27;, probability=True))</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-13" type="checkbox" ><label for="sk-estimator-id-13" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SelfTrainingClassifier</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.semi_supervised.SelfTrainingClassifier.html">?<span>Documentation for SelfTrainingClassifier</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>SelfTrainingClassifier(estimator=SVC(gamma=&#x27;auto&#x27;, probability=True))</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-14" type="checkbox" ><label for="sk-estimator-id-14" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>estimator: SVC</div></div></label><div class="sk-toggleable__content fitted"><pre>SVC(gamma=&#x27;auto&#x27;, probability=True)</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-15" type="checkbox" ><label for="sk-estimator-id-15" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SVC</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.svm.SVC.html">?<span>Documentation for SVC</span></a></div></label><div class="sk-toggleable__content fitted"><pre>SVC(gamma=&#x27;auto&#x27;, probability=True)</pre></div> </div></div></div></div></div></div></div></div></div>
+    </style><div id="sk-container-id-8" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>SelfTrainingClassifier(estimator=SVC(gamma=&#x27;auto&#x27;, probability=True))</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-16" type="checkbox" ><label for="sk-estimator-id-16" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SelfTrainingClassifier</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.semi_supervised.SelfTrainingClassifier.html">?<span>Documentation for SelfTrainingClassifier</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>SelfTrainingClassifier(estimator=SVC(gamma=&#x27;auto&#x27;, probability=True))</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-17" type="checkbox" ><label for="sk-estimator-id-17" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>estimator: SVC</div></div></label><div class="sk-toggleable__content fitted"><pre>SVC(gamma=&#x27;auto&#x27;, probability=True)</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-18" type="checkbox" ><label for="sk-estimator-id-18" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SVC</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.svm.SVC.html">?<span>Documentation for SVC</span></a></div></label><div class="sk-toggleable__content fitted"><pre>SVC(gamma=&#x27;auto&#x27;, probability=True)</pre></div> </div></div></div></div></div></div></div></div></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 134-142
+.. GENERATED FROM PYTHON SOURCE LINES 124-132
 
-New SequentialFeatureSelector transformer
+محول SequentialFeatureSelector جديد
 -----------------------------------------
-A new iterative transformer to select features is available:
+متاح محول تكراري جديد لاختيار الخصائص:
 :class:`~sklearn.feature_selection.SequentialFeatureSelector`.
-Sequential Feature Selection can add features one at a time (forward
-selection) or remove features from the list of the available features
-(backward selection), based on a cross-validated score maximization.
-See the :ref:`User Guide <sequential_feature_selection>`.
+يمكن لاختيار الخصائص التتابعي إضافة خصائص واحدة تلو الأخرى (الاختيار الأمامي) أو
+إزالة الخصائص من قائمة الخصائص المتاحة
+(الاختيار العكسي)، بناءً على تعظيم النتيجة عبر التحقق.
+اقرأ المزيد في :ref:`دليل المستخدم <sequential_feature_selection>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 142-157
+.. GENERATED FROM PYTHON SOURCE LINES 132-147
 
 .. code-block:: Python
 
@@ -644,16 +634,15 @@ See the :ref:`User Guide <sequential_feature_selection>`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 158-164
+.. GENERATED FROM PYTHON SOURCE LINES 148-153
 
-New PolynomialCountSketch kernel approximation function
+دالة تقريب Kernel جديدة PolynomialCountSketch
 -------------------------------------------------------
-The new :class:`~sklearn.kernel_approximation.PolynomialCountSketch`
-approximates a polynomial expansion of a feature space when used with linear
-models, but uses much less memory than
+تقوم دالة التقريب الجديدة :class:`~sklearn.kernel_approximation.PolynomialCountSketch`
+بتقريب توسيع متعدد الحدود لمساحة الخصائص عند استخدامها مع النماذج الخطية، ولكنها تستخدم ذاكرة أقل بكثير من
 :class:`~sklearn.preprocessing.PolynomialFeatures`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 164-183
+.. GENERATED FROM PYTHON SOURCE LINES 153-172
 
 .. code-block:: Python
 
@@ -685,15 +674,15 @@ models, but uses much less memory than
  .. code-block:: none
 
 
-    0.7356
+    0.7364
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 184-185
+.. GENERATED FROM PYTHON SOURCE LINES 173-174
 
-For comparison, here is the score of a linear baseline for the same data:
+للمقارنة، إليك نتيجة خط الأساس الخطي لنفس البيانات:
 
-.. GENERATED FROM PYTHON SOURCE LINES 185-189
+.. GENERATED FROM PYTHON SOURCE LINES 174-178
 
 .. code-block:: Python
 
@@ -714,16 +703,16 @@ For comparison, here is the score of a linear baseline for the same data:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 190-196
+.. GENERATED FROM PYTHON SOURCE LINES 179-185
 
-Individual Conditional Expectation plots
+مخططات Individual Conditional Expectation
 ----------------------------------------
-A new kind of partial dependence plot is available: the Individual
-Conditional Expectation (ICE) plot. ICE plots visualize the dependence of the
-prediction on a feature for each sample separately, with one line per sample.
-See the :ref:`User Guide <individual_conditional>`
+متاح نوع جديد من مخططات الاعتماد الجزئي: مخطط Individual
+Conditional Expectation (ICE). توضح مخططات ICE اعتماد التنبؤ على خاصية
+لكل عينة بشكل منفصل، مع خط واحد لكل عينة.
+اقرأ المزيد في :ref:`دليل المستخدم <individual_conditional>`
 
-.. GENERATED FROM PYTHON SOURCE LINES 196-227
+.. GENERATED FROM PYTHON SOURCE LINES 185-216
 
 .. code-block:: Python
 
@@ -770,16 +759,16 @@ See the :ref:`User Guide <individual_conditional>`
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 228-234
+.. GENERATED FROM PYTHON SOURCE LINES 217-223
 
-New Poisson splitting criterion for DecisionTreeRegressor
+معيار تقسيم Poisson جديد لخوارزمية DecisionTreeRegressor
 ---------------------------------------------------------
-The integration of Poisson regression estimation continues from version 0.23.
-:class:`~sklearn.tree.DecisionTreeRegressor` now supports a new `'poisson'`
-splitting criterion. Setting `criterion="poisson"` might be a good choice
-if your target is a count or a frequency.
+يستمر دمج تقدير الانحدار الشعاعي من الإصدار 0.23.
+:class:`~sklearn.tree.DecisionTreeRegressor` يدعم الآن معيار تقسيم جديد `'poisson'`.
+قد يكون تعيين `criterion="poisson"` خيارًا جيدًا
+إذا كان الهدف هو عدد أو تكرار.
 
-.. GENERATED FROM PYTHON SOURCE LINES 234-248
+.. GENERATED FROM PYTHON SOURCE LINES 223-237
 
 .. code-block:: Python
 
@@ -791,7 +780,7 @@ if your target is a count or a frequency.
     n_samples, n_features = 1000, 20
     rng = np.random.RandomState(0)
     X = rng.randn(n_samples, n_features)
-    # positive integer target correlated with X[:, 5] with many zeros:
+    # هدف عدد صحيح إيجابي مرتبط بـ X[:, 5] مع العديد من الأصفار:
     y = rng.poisson(lam=np.exp(X[:, 5]) / 2)
     X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=rng)
     regressor = DecisionTreeRegressor(criterion="poisson", random_state=0)
@@ -805,7 +794,7 @@ if your target is a count or a frequency.
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-6 {
+    <style>#sk-container-id-9 {
       /* Definition of color scheme common for light and dark mode */
       --sklearn-color-text: #000;
       --sklearn-color-text-muted: #666;
@@ -836,15 +825,15 @@ if your target is a count or a frequency.
       }
     }
 
-    #sk-container-id-6 {
+    #sk-container-id-9 {
       color: var(--sklearn-color-text);
     }
 
-    #sk-container-id-6 pre {
+    #sk-container-id-9 pre {
       padding: 0;
     }
 
-    #sk-container-id-6 input.sk-hidden--visually {
+    #sk-container-id-9 input.sk-hidden--visually {
       border: 0;
       clip: rect(1px 1px 1px 1px);
       clip: rect(1px, 1px, 1px, 1px);
@@ -856,7 +845,7 @@ if your target is a count or a frequency.
       width: 1px;
     }
 
-    #sk-container-id-6 div.sk-dashed-wrapped {
+    #sk-container-id-9 div.sk-dashed-wrapped {
       border: 1px dashed var(--sklearn-color-line);
       margin: 0 0.4em 0.5em 0.4em;
       box-sizing: border-box;
@@ -864,7 +853,7 @@ if your target is a count or a frequency.
       background-color: var(--sklearn-color-background);
     }
 
-    #sk-container-id-6 div.sk-container {
+    #sk-container-id-9 div.sk-container {
       /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
          but bootstrap.min.css set `[hidden] { display: none !important; }`
          so we also need the `!important` here to be able to override the
@@ -874,7 +863,7 @@ if your target is a count or a frequency.
       position: relative;
     }
 
-    #sk-container-id-6 div.sk-text-repr-fallback {
+    #sk-container-id-9 div.sk-text-repr-fallback {
       display: none;
     }
 
@@ -890,14 +879,14 @@ if your target is a count or a frequency.
 
     /* Parallel-specific style estimator block */
 
-    #sk-container-id-6 div.sk-parallel-item::after {
+    #sk-container-id-9 div.sk-parallel-item::after {
       content: "";
       width: 100%;
       border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
       flex-grow: 1;
     }
 
-    #sk-container-id-6 div.sk-parallel {
+    #sk-container-id-9 div.sk-parallel {
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -905,28 +894,28 @@ if your target is a count or a frequency.
       position: relative;
     }
 
-    #sk-container-id-6 div.sk-parallel-item {
+    #sk-container-id-9 div.sk-parallel-item {
       display: flex;
       flex-direction: column;
     }
 
-    #sk-container-id-6 div.sk-parallel-item:first-child::after {
+    #sk-container-id-9 div.sk-parallel-item:first-child::after {
       align-self: flex-end;
       width: 50%;
     }
 
-    #sk-container-id-6 div.sk-parallel-item:last-child::after {
+    #sk-container-id-9 div.sk-parallel-item:last-child::after {
       align-self: flex-start;
       width: 50%;
     }
 
-    #sk-container-id-6 div.sk-parallel-item:only-child::after {
+    #sk-container-id-9 div.sk-parallel-item:only-child::after {
       width: 0;
     }
 
     /* Serial-specific style estimator block */
 
-    #sk-container-id-6 div.sk-serial {
+    #sk-container-id-9 div.sk-serial {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -944,14 +933,14 @@ if your target is a count or a frequency.
 
     /* Pipeline and ColumnTransformer style (default) */
 
-    #sk-container-id-6 div.sk-toggleable {
+    #sk-container-id-9 div.sk-toggleable {
       /* Default theme specific background. It is overwritten whether we have a
       specific estimator or a Pipeline/ColumnTransformer */
       background-color: var(--sklearn-color-background);
     }
 
     /* Toggleable label */
-    #sk-container-id-6 label.sk-toggleable__label {
+    #sk-container-id-9 label.sk-toggleable__label {
       cursor: pointer;
       display: flex;
       width: 100%;
@@ -964,13 +953,13 @@ if your target is a count or a frequency.
       gap: 0.5em;
     }
 
-    #sk-container-id-6 label.sk-toggleable__label .caption {
+    #sk-container-id-9 label.sk-toggleable__label .caption {
       font-size: 0.6rem;
       font-weight: lighter;
       color: var(--sklearn-color-text-muted);
     }
 
-    #sk-container-id-6 label.sk-toggleable__label-arrow:before {
+    #sk-container-id-9 label.sk-toggleable__label-arrow:before {
       /* Arrow on the left of the label */
       content: "▸";
       float: left;
@@ -978,13 +967,13 @@ if your target is a count or a frequency.
       color: var(--sklearn-color-icon);
     }
 
-    #sk-container-id-6 label.sk-toggleable__label-arrow:hover:before {
+    #sk-container-id-9 label.sk-toggleable__label-arrow:hover:before {
       color: var(--sklearn-color-text);
     }
 
     /* Toggleable content - dropdown */
 
-    #sk-container-id-6 div.sk-toggleable__content {
+    #sk-container-id-9 div.sk-toggleable__content {
       max-height: 0;
       max-width: 0;
       overflow: hidden;
@@ -993,12 +982,12 @@ if your target is a count or a frequency.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-6 div.sk-toggleable__content.fitted {
+    #sk-container-id-9 div.sk-toggleable__content.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-6 div.sk-toggleable__content pre {
+    #sk-container-id-9 div.sk-toggleable__content pre {
       margin: 0.2em;
       border-radius: 0.25em;
       color: var(--sklearn-color-text);
@@ -1006,79 +995,79 @@ if your target is a count or a frequency.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-6 div.sk-toggleable__content.fitted pre {
+    #sk-container-id-9 div.sk-toggleable__content.fitted pre {
       /* unfitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-6 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    #sk-container-id-9 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
       max-height: 200px;
       max-width: 100%;
       overflow: auto;
     }
 
-    #sk-container-id-6 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    #sk-container-id-9 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
       content: "▾";
     }
 
     /* Pipeline/ColumnTransformer-specific style */
 
-    #sk-container-id-6 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-9 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-6 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-9 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator-specific style */
 
     /* Colorize estimator box */
-    #sk-container-id-6 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-9 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-6 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-9 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
-    #sk-container-id-6 div.sk-label label.sk-toggleable__label,
-    #sk-container-id-6 div.sk-label label {
+    #sk-container-id-9 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-9 div.sk-label label {
       /* The background is the default theme color */
       color: var(--sklearn-color-text-on-default-background);
     }
 
     /* On hover, darken the color of the background */
-    #sk-container-id-6 div.sk-label:hover label.sk-toggleable__label {
+    #sk-container-id-9 div.sk-label:hover label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
     /* Label box, darken color on hover, fitted */
-    #sk-container-id-6 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+    #sk-container-id-9 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator label */
 
-    #sk-container-id-6 div.sk-label label {
+    #sk-container-id-9 div.sk-label label {
       font-family: monospace;
       font-weight: bold;
       display: inline-block;
       line-height: 1.2em;
     }
 
-    #sk-container-id-6 div.sk-label-container {
+    #sk-container-id-9 div.sk-label-container {
       text-align: center;
     }
 
     /* Estimator-specific */
-    #sk-container-id-6 div.sk-estimator {
+    #sk-container-id-9 div.sk-estimator {
       font-family: monospace;
       border: 1px dotted var(--sklearn-color-border-box);
       border-radius: 0.25em;
@@ -1088,18 +1077,18 @@ if your target is a count or a frequency.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-6 div.sk-estimator.fitted {
+    #sk-container-id-9 div.sk-estimator.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
     /* on hover */
-    #sk-container-id-6 div.sk-estimator:hover {
+    #sk-container-id-9 div.sk-estimator:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-6 div.sk-estimator.fitted:hover {
+    #sk-container-id-9 div.sk-estimator.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
@@ -1187,7 +1176,7 @@ if your target is a count or a frequency.
 
     /* "?"-specific style due to the `<a>` HTML tag */
 
-    #sk-container-id-6 a.estimator_doc_link {
+    #sk-container-id-9 a.estimator_doc_link {
       float: right;
       font-size: 1rem;
       line-height: 1em;
@@ -1202,52 +1191,52 @@ if your target is a count or a frequency.
       border: var(--sklearn-color-unfitted-level-1) 1pt solid;
     }
 
-    #sk-container-id-6 a.estimator_doc_link.fitted {
+    #sk-container-id-9 a.estimator_doc_link.fitted {
       /* fitted */
       border: var(--sklearn-color-fitted-level-1) 1pt solid;
       color: var(--sklearn-color-fitted-level-1);
     }
 
     /* On hover */
-    #sk-container-id-6 a.estimator_doc_link:hover {
+    #sk-container-id-9 a.estimator_doc_link:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-3);
       color: var(--sklearn-color-background);
       text-decoration: none;
     }
 
-    #sk-container-id-6 a.estimator_doc_link.fitted:hover {
+    #sk-container-id-9 a.estimator_doc_link.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-6" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>DecisionTreeRegressor(criterion=&#x27;poisson&#x27;, random_state=0)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-16" type="checkbox" checked><label for="sk-estimator-id-16" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>DecisionTreeRegressor</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.tree.DecisionTreeRegressor.html">?<span>Documentation for DecisionTreeRegressor</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>DecisionTreeRegressor(criterion=&#x27;poisson&#x27;, random_state=0)</pre></div> </div></div></div></div>
+    </style><div id="sk-container-id-9" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>DecisionTreeRegressor(criterion=&#x27;poisson&#x27;, random_state=0)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-19" type="checkbox" checked><label for="sk-estimator-id-19" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>DecisionTreeRegressor</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.tree.DecisionTreeRegressor.html">?<span>Documentation for DecisionTreeRegressor</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>DecisionTreeRegressor(criterion=&#x27;poisson&#x27;, random_state=0)</pre></div> </div></div></div></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 249-265
+.. GENERATED FROM PYTHON SOURCE LINES 238-253
 
-New documentation improvements
+تحسينات توثيق جديدة
 ------------------------------
 
-New examples and documentation pages have been added, in a continuous effort
-to improve the understanding of machine learning practices:
+تم إضافة أمثلة وصفحات توثيق جديدة، في جهد مستمر
+لتحسين فهم ممارسات التعلم الآلي:
 
-- a new section about :ref:`common pitfalls and recommended
-  practices <common_pitfalls>`,
-- an example illustrating how to :ref:`statistically compare the performance of
-  models <sphx_glr_auto_examples_model_selection_plot_grid_search_stats.py>`
-  evaluated using :class:`~sklearn.model_selection.GridSearchCV`,
-- an example on how to :ref:`interpret coefficients of linear models
-  <sphx_glr_auto_examples_inspection_plot_linear_model_coefficient_interpretation.py>`,
-- an :ref:`example
+- قسم جديد حول :ref:`المشاكل الشائعة والممارسات الموصى بها
+  <common_pitfalls>`،
+- مثال يوضح كيفية :ref:`المقارنة الإحصائية لأداء
+  النماذج <sphx_glr_auto_examples_model_selection_plot_grid_search_stats.py>`
+  التي تم تقييمها باستخدام :class:`~sklearn.model_selection.GridSearchCV`،
+- مثال حول كيفية :ref:`تفسير معاملات النماذج الخطية
+  <sphx_glr_auto_examples_inspection_plot_linear_model_coefficient_interpretation.py>`،
+- :ref:`مثال
   <sphx_glr_auto_examples_cross_decomposition_plot_pcr_vs_pls.py>`
-  comparing Principal Component Regression and Partial Least Squares.
+  يقارن بين Principal Component Regression و Partial Least Squares.
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (1 minutes 19.072 seconds)
+   **Total running time of the script:** (1 minutes 27.782 seconds)
 
 
 .. _sphx_glr_download_auto_examples_release_highlights_plot_release_highlights_0_24_0.py:

@@ -11,10 +11,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://scikit-learn/stable/modules/generated/sklearn.datasets.load_breast_cancer.html" />
 <meta property="og:site_name" content="scikit-learn" />
-<meta property="og:description" content="Gallery examples: Model-based and sequential feature selection أهمية التبديل مع الميزات متعددة الخطية أو المرتبطة" />
-<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_select_from_model_diabetes_thumb.png" />
+<meta property="og:description" content="Gallery examples: تشذيب أشجار القرار بعد التدريب باستخدام تقنية تشذيب تعقيد التكلفة تأثير تغيير العتبة في التدريب الذاتي" />
+<meta property="og:image" content="https://scikit-learn/stable/_images/sphx_glr_plot_cost_complexity_pruning_thumb.png" />
 <meta property="og:image:alt" content="" />
-<meta name="description" content="Gallery examples: Model-based and sequential feature selection أهمية التبديل مع الميزات متعددة الخطية أو المرتبطة" />
+<meta name="description" content="Gallery examples: تشذيب أشجار القرار بعد التدريب باستخدام تقنية تشذيب تعقيد التكلفة تأثير تغيير العتبة في التدريب الذاتي" />
 
     <title>load_breast_cancer &#8212; scikit-learn 1.6.dev0 documentation</title>
   
@@ -1304,7 +1304,7 @@
 <h1>load_breast_cancer<a class="headerlink" href="#load-breast-cancer" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="sklearn.datasets.load_breast_cancer">
-<span class="sig-prename descclassname"><span class="pre">sklearn.datasets.</span></span><span class="sig-name descname"><span class="pre">load_breast_cancer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_X_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/d6d4571215/sklearn/datasets/_base.py#L749"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.datasets.load_breast_cancer" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">sklearn.datasets.</span></span><span class="sig-name descname"><span class="pre">load_breast_cancer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_X_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/AhmedAlmaghz/scikit-learn/blob/ea2d8086cc/sklearn/datasets/_base.py#L749"><span class="viewcode-link"><span class="pre">[المصدر]</span></span></a><a class="headerlink" href="#sklearn.datasets.load_breast_cancer" title="Link to this definition">#</a></dt>
 <dd><p>Load and return the breast cancer wisconsin dataset (classification).</p>
 <p>The breast cancer dataset is a classic and very easy binary classification
 dataset.</p>
@@ -1408,12 +1408,12 @@ know their class name.</p>
 
 <section id="gallery-examples">
 <h2>Gallery examples<a class="headerlink" href="#gallery-examples" title="Link to this heading">#</a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال ويقارن نهجين لاختيار الميزات: SelectFromModel الذي يعتمد على أهمية الميزات، و SequentialFeatureSelector الذي يعتمد على نهج جشع."><img alt="" src="../../_images/sphx_glr_plot_select_from_model_diabetes_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/feature_selection/plot_select_from_model_diabetes.html#sphx-glr-auto-examples-feature-selection-plot-select-from-model-diabetes-py"><span class="std std-ref">Model-based and sequential feature selection</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Model-based and sequential feature selection</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="في هذا المثال، نحسب permutation_importance للميزات لـ RandomForestClassifier مدربة باستخدام breast_cancer_dataset. يمكن للنموذج بسهولة الحصول على دقة تبلغ حوالي 97% على مجموعة بيانات الاختبار. نظرًا لأن مجموعة البيانات هذه تحتوي على ميزات متعددة الخطية، فإن أهمية التبديل تُظهر أنه لا توجد أي من الميزات مهمة، في تناقض مع دقة الاختبار العالية."><img alt="" src="../../_images/sphx_glr_plot_permutation_importance_multicollinear_thumb.png" />
-<p><a class="reference internal" href="../../auto_examples/inspection/plot_permutation_importance_multicollinear.html#sphx-glr-auto-examples-inspection-plot-permutation-importance-multicollinear-py"><span class="std std-ref">أهمية التبديل مع الميزات متعددة الخطية أو المرتبطة</span></a></p>
-  <div class="sphx-glr-thumbnail-title">أهمية التبديل مع الميزات متعددة الخطية أو المرتبطة</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="يوفر DecisionTreeClassifier معاملات مثل min_samples_leaf و max_depth لمنع شجرة القرار من الإفراط في الملاءمة. وتقدم تقنية تشذيب تعقيد التكلفة خيارًا آخر للتحكم في حجم الشجرة. في DecisionTreeClassifier، يتم تحديد هذه التقنية بمعامل تعقيد التكلفة، ccp_alpha. وتؤدي القيم الأكبر لـ ccp_alpha إلى زيادة عدد العقد التي يتم تشذيبها. هنا، نعرض فقط تأثير ccp_alpha على تنظيم الشجرة وكيفية اختيار قيمة ccp_alpha استنادًا إلى درجات التحقق."><img alt="" src="../../_images/sphx_glr_plot_cost_complexity_pruning_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/tree/plot_cost_complexity_pruning.html#sphx-glr-auto-examples-tree-plot-cost-complexity-pruning-py"><span class="std std-ref">تشذيب أشجار القرار بعد التدريب باستخدام تقنية تشذيب تعقيد التكلفة</span></a></p>
+  <div class="sphx-glr-thumbnail-title">تشذيب أشجار القرار بعد التدريب باستخدام تقنية تشذيب تعقيد التكلفة</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="يوضح هذا المثال تأثير تغيير العتبة على التدريب الذاتي. يتم تحميل مجموعة بيانات breast_cancer، ويتم حذف التصنيفات بحيث يكون 50 عينة فقط من أصل 569 عينة لديها تصنيفات. يتم تثبيت SelfTrainingClassifier على هذه مجموعة البيانات، مع عتبات مختلفة."><img alt="" src="../../_images/sphx_glr_plot_self_training_varying_threshold_thumb.png" />
+<p><a class="reference internal" href="../../auto_examples/semi_supervised/plot_self_training_varying_threshold.html#sphx-glr-auto-examples-semi-supervised-plot-self-training-varying-threshold-py"><span class="std std-ref">تأثير تغيير العتبة في التدريب الذاتي</span></a></p>
+  <div class="sphx-glr-thumbnail-title">تأثير تغيير العتبة في التدريب الذاتي</div>
 </div></div></section>
 </section>
 

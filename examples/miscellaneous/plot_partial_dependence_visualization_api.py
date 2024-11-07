@@ -1,20 +1,16 @@
 """
-=========================================
-Advanced Plotting With Partial Dependence
-=========================================
-The :class:`~sklearn.inspection.PartialDependenceDisplay` object can be used
-for plotting without needing to recalculate the partial dependence. In this
-example, we show how to plot partial dependence plots and how to quickly
-customize the plot with the visualization API.
+============================================
+الرسم المتقدم باستخدام الاعتمادية الجزئية
+============================================
+يمكن استخدام كائن :class:`~sklearn.inspection.PartialDependenceDisplay` للرسم دون الحاجة إلى إعادة حساب الاعتمادية الجزئية. في هذا المثال، نوضح كيفية رسم مخططات الاعتمادية الجزئية وكيفية تخصيص المخطط بسرعة باستخدام واجهة برمجة التطبيقات (API) للتصور.
 
 .. note::
 
-    See also :ref:`sphx_glr_auto_examples_miscellaneous_plot_roc_curve_visualization_api.py`
+    راجع أيضًا :ref:`sphx_glr_auto_examples_miscellaneous_plot_roc_curve_visualization_api.py`
+"""
 
-"""  # noqa: E501
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف SPDX-License: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -27,11 +23,10 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeRegressor
 
 # %%
-# Train models on the diabetes dataset
+# تدريب النماذج على مجموعة بيانات مرض السكري
 # ================================================
 #
-# First, we train a decision tree and a multi-layer perceptron on the diabetes
-# dataset.
+# أولاً، نقوم بتدريب شجرة قرار وشبكة عصبية متعددة الطبقات على مجموعة بيانات مرض السكري.
 
 diabetes = load_diabetes()
 X = pd.DataFrame(diabetes.data, columns=diabetes.feature_names)
@@ -46,23 +41,22 @@ tree.fit(X, y)
 mlp.fit(X, y)
 
 # %%
-# Plotting partial dependence for two features
+# رسم الاعتمادية الجزئية لميزتين
 # ============================================
 #
-# We plot partial dependence curves for features "age" and "bmi" (body mass
-# index) for the decision tree. With two features,
-# :func:`~sklearn.inspection.PartialDependenceDisplay.from_estimator` expects to plot
-# two curves. Here the plot function place a grid of two plots using the space
-# defined by `ax` .
+# نرسم منحنيات الاعتمادية الجزئية للميزتين "العمر" و"مؤشر كتلة الجسم" لشجرة القرار. مع ميزتين،
+# :func:`~sklearn.inspection.PartialDependenceDisplay.from_estimator` يتوقع رسم
+# منحنيين. هنا تقوم دالة الرسم بوضع شبكة من مخططين باستخدام المساحة
+# المحددة بواسطة `ax` .
 fig, ax = plt.subplots(figsize=(12, 6))
 ax.set_title("Decision Tree")
 tree_disp = PartialDependenceDisplay.from_estimator(tree, X, ["age", "bmi"], ax=ax)
 
 # %%
-# The partial dependence curves can be plotted for the multi-layer perceptron.
-# In this case, `line_kw` is passed to
-# :func:`~sklearn.inspection.PartialDependenceDisplay.from_estimator` to change the
-# color of the curve.
+# يمكن رسم منحنيات الاعتمادية الجزئية للشبكة العصبية متعددة الطبقات.
+# في هذه الحالة، يتم تمرير `line_kw` إلى
+# :func:`~sklearn.inspection.PartialDependenceDisplay.from_estimator` لتغيير
+# لون المنحنى.
 fig, ax = plt.subplots(figsize=(12, 6))
 ax.set_title("Multi-layer Perceptron")
 mlp_disp = PartialDependenceDisplay.from_estimator(
@@ -70,23 +64,19 @@ mlp_disp = PartialDependenceDisplay.from_estimator(
 )
 
 # %%
-# Plotting partial dependence of the two models together
+# رسم الاعتمادية الجزئية للنموذجين معًا
 # ======================================================
 #
-# The `tree_disp` and `mlp_disp`
-# :class:`~sklearn.inspection.PartialDependenceDisplay` objects contain all the
-# computed information needed to recreate the partial dependence curves. This
-# means we can easily create additional plots without needing to recompute the
-# curves.
+# تحتوي كائنات `tree_disp` و`mlp_disp`
+# :class:`~sklearn.inspection.PartialDependenceDisplay` على جميع المعلومات المحسوبة اللازمة لإعادة إنشاء منحنيات الاعتمادية الجزئية. هذا
+# يعني أنه يمكننا بسهولة إنشاء مخططات إضافية دون الحاجة إلى إعادة حساب
+# المنحنيات.
 #
-# One way to plot the curves is to place them in the same figure, with the
-# curves of each model on each row. First, we create a figure with two axes
-# within two rows and one column. The two axes are passed to the
-# :func:`~sklearn.inspection.PartialDependenceDisplay.plot` functions of
-# `tree_disp` and `mlp_disp`. The given axes will be used by the plotting
-# function to draw the partial dependence. The resulting plot places the
-# decision tree partial dependence curves in the first row of the
-# multi-layer perceptron in the second row.
+# إحدى طرق رسم المنحنيات هي وضعها في نفس الشكل، مع
+# منحنيات كل نموذج في كل صف. أولاً، نقوم بإنشاء شكل مع محورين
+# داخل صفين وعمود واحد. يتم تمرير المحورين إلى
+# :func:`~sklearn.inspection.PartialDependenceDisplay.plot` وظائف `tree_disp` و`mlp_disp`. سيتم استخدام المحاور المعطاة بواسطة دالة الرسم لرسم الاعتمادية الجزئية. يضع المخطط الناتج منحنيات الاعتمادية الجزئية لشجرة القرار في الصف الأول من
+# الشبكة العصبية متعددة الطبقات في الصف الثاني.
 
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 10))
 tree_disp.plot(ax=ax1)
@@ -95,11 +85,11 @@ mlp_disp.plot(ax=ax2, line_kw={"color": "red"})
 ax2.set_title("Multi-layer Perceptron")
 
 # %%
-# Another way to compare the curves is to plot them on top of each other. Here,
-# we create a figure with one row and two columns. The axes are passed into the
-# :func:`~sklearn.inspection.PartialDependenceDisplay.plot` function as a list,
-# which will plot the partial dependence curves of each model on the same axes.
-# The length of the axes list must be equal to the number of plots drawn.
+# طريقة أخرى لمقارنة المنحنيات هي رسمها فوق بعضها البعض. هنا،
+# نقوم بإنشاء شكل مع صف واحد وعمودين. يتم تمرير المحاور إلى
+# :func:`~sklearn.inspection.PartialDependenceDisplay.plot` الدالة كقائمة،
+# والتي سترسم منحنيات الاعتمادية الجزئية لكل نموذج على نفس المحاور.
+# يجب أن يكون طول قائمة المحاور مساويًا لعدد المخططات المرسومة.
 
 # sphinx_gallery_thumbnail_number = 4
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 6))
@@ -111,12 +101,12 @@ ax1.legend()
 ax2.legend()
 
 # %%
-# `tree_disp.axes_` is a numpy array container the axes used to draw the
-# partial dependence plots. This can be passed to `mlp_disp` to have the same
-# affect of drawing the plots on top of each other. Furthermore, the
-# `mlp_disp.figure_` stores the figure, which allows for resizing the figure
-# after calling `plot`. In this case `tree_disp.axes_` has two dimensions, thus
-# `plot` will only show the y label and y ticks on the left most plot.
+# `tree_disp.axes_` هو حاوية مصفوفة numpy للمحاور المستخدمة لرسم
+# مخططات الاعتمادية الجزئية. يمكن تمرير هذا إلى `mlp_disp` للحصول على نفس
+# تأثير رسم المخططات فوق بعضها البعض. علاوة على ذلك، فإن
+# `mlp_disp.figure_` يحفظ الشكل، مما يسمح بتغيير حجم الشكل
+# بعد استدعاء `plot`. في هذه الحالة، يكون لـ `tree_disp.axes_` بعدين، وبالتالي
+# لن تعرض الدالة `plot` سوى تسمية المحور y وعلامات المحور y على المخطط الأيسر.
 
 tree_disp.plot(line_kw={"label": "Decision Tree"})
 mlp_disp.plot(
@@ -128,12 +118,11 @@ tree_disp.axes_[0, 1].legend()
 plt.show()
 
 # %%
-# Plotting partial dependence for one feature
+# رسم الاعتمادية الجزئية لميزة واحدة
 # ===========================================
 #
-# Here, we plot the partial dependence curves for a single feature, "age", on
-# the same axes. In this case, `tree_disp.axes_` is passed into the second
-# plot function.
+# هنا، نرسم منحنيات الاعتمادية الجزئية لميزة واحدة، "العمر"، على
+# نفس المحاور. في هذه الحالة، يتم تمرير `tree_disp.axes_` إلى دالة الرسم الثانية.
 tree_disp = PartialDependenceDisplay.from_estimator(tree, X, ["age"])
 mlp_disp = PartialDependenceDisplay.from_estimator(
     mlp, X, ["age"], ax=tree_disp.axes_, line_kw={"color": "red"}

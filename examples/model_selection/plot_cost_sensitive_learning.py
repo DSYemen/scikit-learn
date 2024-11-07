@@ -1,57 +1,44 @@
 """
-==============================================================
-Post-tuning the decision threshold for cost-sensitive learning
-==============================================================
+==============================================
+ضبط عتبة القرار للتعلم الحساس للتكلفة
+==============================================
 
-Once a classifier is trained, the output of the :term:`predict` method outputs class
-label predictions corresponding to a thresholding of either the
-:term:`decision_function` or the :term:`predict_proba` output. For a binary classifier,
-the default threshold is defined as a posterior probability estimate of 0.5 or a
-decision score of 0.0.
+بمجرد تدريب المصنف، فإن ناتج طريقة :term:`predict` ينتج تنبؤات تسمية الفئة المقابلة لعتبة إما :term:`decision_function` أو ناتج :term:`predict_proba`. بالنسبة للمصنف الثنائي، فإن العتبة الافتراضية محددة كتقدير احتمالية لاحقة تبلغ 0.5 أو درجة قرار تبلغ 0.0.
 
-However, this default strategy is most likely not optimal for the task at hand.
-Here, we use the "Statlog" German credit dataset [1]_ to illustrate a use case.
-In this dataset, the task is to predict whether a person has a "good" or "bad" credit.
-In addition, a cost-matrix is provided that specifies the cost of
-misclassification. Specifically, misclassifying a "bad" credit as "good" is five
-times more costly on average than misclassifying a "good" credit as "bad".
+ومع ذلك، من المحتمل ألا تكون هذه الاستراتيجية الافتراضية هي الأمثل للمهمة قيد التنفيذ. هنا، نستخدم مجموعة بيانات "Statlog" الألمانية للائتمان [1]_ لتوضيح حالة استخدام.
 
-We use the :class:`~sklearn.model_selection.TunedThresholdClassifierCV` to select the
-cut-off point of the decision function that minimizes the provided business
-cost.
+في هذه المجموعة من البيانات، تتمثل المهمة في التنبؤ بما إذا كان الشخص لديه ائتمان "جيد" أو "سيء". بالإضافة إلى ذلك، يتم توفير مصفوفة التكلفة التي تحدد تكلفة التصنيف الخاطئ. على وجه التحديد، فإن تصنيف ائتمان "سيء" على أنه "جيد" هو خمسة أضعاف متوسط تكلفة تصنيف ائتمان "جيد" على أنه "سيء".
 
-In the second part of the example, we further extend this approach by
-considering the problem of fraud detection in credit card transactions: in this
-case, the business metric depends on the amount of each individual transaction.
+نستخدم :class:`~sklearn.model_selection.TunedThresholdClassifierCV` لتحديد نقطة قطع وظيفة القرار التي تقلل التكلفة التجارية المقدمة.
 
-.. rubric :: References
+في الجزء الثاني من المثال، نقوم بتوسيع هذا النهج أكثر من خلال النظر في مشكلة اكتشاف الاحتيال في معاملات بطاقات الائتمان: في هذه الحالة، تعتمد المقياس التجاري على مبلغ كل معاملة فردية.
 
-.. [1] "Statlog (German Credit Data) Data Set", UCI Machine Learning Repository,
+.. rubric :: المراجع
+
+.. [1] "Statlog (German Credit Data) Data Set"، مستودع تعلم الآلة UCI،
     `Link <https://archive.ics.uci.edu/ml/datasets/Statlog+%28German+Credit+Data%29>`_.
 
-.. [2] `Charles Elkan, "The Foundations of Cost-Sensitive Learning",
-    International joint conference on artificial intelligence.
-    Vol. 17. No. 1. Lawrence Erlbaum Associates Ltd, 2001.
+.. [2] `Charles Elkan, "The Foundations of Cost-Sensitive Learning"،
+    المؤتمر المشترك الدولي حول الذكاء الاصطناعي.
+    المجلد. 17. رقم 1. Lawrence Erlbaum Associates Ltd، 2001.
     <https://cseweb.ucsd.edu/~elkan/rescale.pdf>`_
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري scikit-learn
+# معرف SPDX-License: BSD-3-Clause
 
 # %%
-# Cost-sensitive learning with constant gains and costs
+# التعلم الحساس للتكلفة مع المكاسب والتكاليف الثابتة
 # -----------------------------------------------------
 #
-# In this first section, we illustrate the use of the
-# :class:`~sklearn.model_selection.TunedThresholdClassifierCV` in a setting of
-# cost-sensitive learning when the gains and costs associated to each entry of the
-# confusion matrix are constant. We use the problematic presented in [2]_ using the
-# "Statlog" German credit dataset [1]_.
+# في هذا القسم الأول، نوضح استخدام
+# :class:`~sklearn.model_selection.TunedThresholdClassifierCV` في إعداد
+# التعلم الحساس للتكلفة عندما تكون المكاسب والتكاليف المرتبطة بكل إدخال في مصفوفة الارتباك ثابتة. نستخدم المشكلة المقدمة في [2]_ باستخدام
+# مجموعة بيانات "Statlog" الألمانية للائتمان [1]_.
 #
-# "Statlog" German credit dataset
+# مجموعة بيانات "Statlog" الألمانية للائتمان
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #
-# We fetch the German credit dataset from OpenML.
+# نستخرج مجموعة بيانات الائتمان الألمانية من OpenML.
 import sklearn
 from sklearn.datasets import fetch_openml
 
@@ -61,47 +48,47 @@ german_credit = fetch_openml(data_id=31, as_frame=True, parser="pandas")
 X, y = german_credit.data, german_credit.target
 
 # %%
-# We check the feature types available in `X`.
+# نتحقق من أنواع الميزات المتوفرة في `X`.
 X.info()
 
 # %%
-# Many features are categorical and usually string-encoded. We need to encode
-# these categories when we develop our predictive model. Let's check the targets.
+# العديد من الميزات هي فئات وعادة ما تكون مشفرة بالسلاسل. نحتاج إلى تشفير
+# هذه الفئات عندما نطور نموذجنا التنبؤي. دعنا نتحقق من الأهداف.
 y.value_counts()
 
 # %%
-# Another observation is that the dataset is imbalanced. We would need to be careful
-# when evaluating our predictive model and use a family of metrics that are adapted
-# to this setting.
+# ملاحظة أخرى هي أن مجموعة البيانات غير متوازنة. نحتاج إلى توخي الحذر
+# عند تقييم نموذجنا التنبؤي واستخدام عائلة من المقاييس
+# التي تتكيف مع هذا الإعداد.
 #
-# In addition, we observe that the target is string-encoded. Some metrics
-# (e.g. precision and recall) require to provide the label of interest also called
-# the "positive label". Here, we define that our goal is to predict whether or not
-# a sample is a "bad" credit.
+# بالإضافة إلى ذلك، نلاحظ أن الهدف مشفر بالسلاسل. بعض المقاييس
+# (مثل الدقة والاستدعاء) تتطلب توفير تسمية "الإيجابية" أيضًا تسمى
+# "التسمية الإيجابية". هنا، نحدد أن هدفنا هو التنبؤ بما إذا كان أو لم يكن
+# عينة "ائتمان سيء".
 pos_label, neg_label = "bad", "good"
 
 # %%
-# To carry our analysis, we split our dataset using a single stratified split.
+# للقيام بتحليلنا، نقسم مجموعتنا باستخدام تقسيم مفرد متوازن.
 from sklearn.model_selection import train_test_split
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, stratify=y, random_state=0)
 
 # %%
-# We are ready to design our predictive model and the associated evaluation strategy.
+# نحن مستعدون لتصميم نموذجنا التنبؤي واستراتيجية التقييم المرتبطة به.
 #
-# Evaluation metrics
+# مقاييس التقييم
 # ^^^^^^^^^^^^^^^^^^
 #
-# In this section, we define a set of metrics that we use later. To see
-# the effect of tuning the cut-off point, we evaluate the predictive model using
-# the Receiver Operating Characteristic (ROC) curve and the Precision-Recall curve.
-# The values reported on these plots are therefore the true positive rate (TPR),
-# also known as the recall or the sensitivity, and the false positive rate (FPR),
-# also known as the specificity, for the ROC curve and the precision and recall for
-# the Precision-Recall curve.
+# في هذا القسم، نحدد مجموعة من المقاييس التي نستخدمها لاحقًا. لرؤية
+# تأثير ضبط نقطة القطع، نقيم النموذج التنبؤي باستخدام
+# منحنى خصائص التشغيل المتلقي (ROC) ومنحنى الدقة والاستدعاء.
+# القيم المبلغ عنها على هذه الرسوم البيانية هي لذلك معدل الإيجابية الحقيقية (TPR)،
+# المعروف أيضًا بالاستدعاء أو الحساسية، ومعدل الإيجابية الخاطئة (FPR)،
+# المعروف أيضًا بالخصوصية، بالنسبة لمنحنى ROC والدقة والاستدعاء لمنحنى
+# الدقة والاستدعاء.
 #
-# From these four metrics, scikit-learn does not provide a scorer for the FPR. We
-# therefore need to define a small custom function to compute it.
+# من بين هذه المقاييس الأربعة، لا يوفر scikit-learn أداة تسجيل نقاط لـ FPR. نحن
+# لذلك نحتاج إلى تعريف دالة مخصصة صغيرة لحسابها.
 from sklearn.metrics import confusion_matrix
 
 
@@ -113,17 +100,17 @@ def fpr_score(y, y_pred, neg_label, pos_label):
 
 
 # %%
-# As previously stated, the "positive label" is not defined as the value "1" and calling
-# some of the metrics with this non-standard value raise an error. We need to
-# provide the indication of the "positive label" to the metrics.
+# كما ذكر سابقًا، لا يتم تعريف "التسمية الإيجابية" على أنها القيمة "1" واستدعاء بعض
+# المقاييس مع هذه القيمة غير القياسية ترفع خطأ. نحتاج إلى
+# تقديم مؤشر "التسمية الإيجابية" إلى المقاييس.
 #
-# We therefore need to define a scikit-learn scorer using
-# :func:`~sklearn.metrics.make_scorer` where the information is passed. We store all
-# the custom scorers in a dictionary. To use them, we need to pass the fitted model,
-# the data and the target on which we want to evaluate the predictive model.
+# لذلك نحتاج إلى تعريف أداة تسجيل نقاط scikit-learn باستخدام
+# :func:`~sklearn.metrics.make_scorer` حيث يتم تمرير المعلومات. نحن نخزن جميع
+# أدوات تسجيل النقاط المخصصة في قاموس. لاستخدامها، نحتاج إلى تمرير النموذج المناسب،
+# البيانات والهدف الذي نريد تقييم النموذج التنبؤي عليه.
 from sklearn.metrics import make_scorer, precision_score, recall_score
 
-tpr_score = recall_score  # TPR and recall are the same metric
+tpr_score = recall_score  # TPR والاستدعاء هما نفس المقياس
 scoring = {
     "precision": make_scorer(precision_score, pos_label=pos_label),
     "recall": make_scorer(recall_score, pos_label=pos_label),
@@ -132,44 +119,42 @@ scoring = {
 }
 
 # %%
-# In addition, the original research [1]_ defines a custom business metric. We
-# call a "business metric" any metric function that aims at quantifying how the
-# predictions (correct or wrong) might impact the business value of deploying a
-# given machine learning model in a specific application context. For our
-# credit prediction task, the authors provide a custom cost-matrix which
-# encodes that classifying a a "bad" credit as "good" is 5 times more costly on
-# average than the opposite: it is less costly for the financing institution to
-# not grant a credit to a potential customer that will not default (and
-# therefore miss a good customer that would have otherwise both reimbursed the
-# credit and payed interests) than to grant a credit to a customer that will
-# default.
+# بالإضافة إلى ذلك، تحدد الأبحاث الأصلية [1]_ مقياسًا تجاريًا مخصصًا. نحن
+# ندعو "المقياس التجاري" أي دالة مقياس تهدف إلى تحديد الكمية
+# كيف يمكن للتنبؤات (الصحيحة أو الخاطئة) أن تؤثر على القيمة التجارية لنشر
+# نموذج تعلم آلي معين في سياق تطبيق محدد. لمهمتنا
+# مهمة التنبؤ بالائتمان، يقدم المؤلفون مصفوفة تكلفة مخصصة والتي
+# تشفر أن تصنيف ائتمان "سيء" على أنه "جيد" هو 5 مرات أكثر تكلفة في المتوسط من
+# العكس: إنه أقل تكلفة لمؤسسة التمويل
+# لعدم منح ائتمان لعميل محتمل لن يتخلف عن السداد (وبالتالي
+# تفويت عميل جيد كان سيسدد الائتمان ويدفع الفوائد) من منح
+# الائتمان لعميل سيتخلف عن السداد.
 #
-# We define a python function that weight the confusion matrix and return the
-# overall cost.
+# نحن نحدد دالة بايثون تزن مصفوفة الارتباك وتعيد التكلفة الإجمالية.
 import numpy as np
 
 
 def credit_gain_score(y, y_pred, neg_label, pos_label):
     cm = confusion_matrix(y, y_pred, labels=[neg_label, pos_label])
-    # The rows of the confusion matrix hold the counts of observed classes
-    # while the columns hold counts of predicted classes. Recall that here we
-    # consider "bad" as the positive class (second row and column).
-    # Scikit-learn model selection tools expect that we follow a convention
-    # that "higher" means "better", hence the following gain matrix assigns
-    # negative gains (costs) to the two kinds of prediction errors:
-    # - a gain of -1 for each false positive ("good" credit labeled as "bad"),
-    # - a gain of -5 for each false negative ("bad" credit labeled as "good"),
-    # The true positives and true negatives are assigned null gains in this
-    # metric.
+    # تحتوي صفوف مصفوفة الارتباك على عدد الفئات الملاحظة
+    # في حين تحتوي الأعمدة على عدد الفئات المتوقعة. تذكر أننا هنا
+    # نعتبر "سيء" على أنه الفئة الإيجابية (الصف الثاني والعمود).
+    # تتوقع أدوات اختيار النموذج في scikit-learn أننا نتبع اتفاقية
+    # أن "الأعلى" يعني "الأفضل"، وبالتالي فإن مصفوفة المكاسب التالية تعين
+    # مكاسب سلبية (تكاليف) لنوعين من أخطاء التنبؤ:
+    # - مكسب -1 لكل إيجابية خاطئة ("ائتمان جيد" مصنف على أنه "سيء")،
+    # - مكسب -5 لكل سلبية خاطئة ("ائتمان سيء" مصنف على أنه "جيد")،
+    # يتم تعيين المكاسب الصحيحة والسلبيات على مكاسب صفرية في هذا
+    # المقياس.
     #
-    # Note that theoretically, given that our model is calibrated and our data
-    # set representative and large enough, we do not need to tune the
-    # threshold, but can safely set it to the cost ration 1/5, as stated by Eq.
-    # (2) in Elkan paper [2]_.
+    # لاحظ أنه نظريًا، نظرًا لأن نموذجنا معايرة ومجموعة بياناتنا
+    # ممثل وكبير بما فيه الكفاية، لا نحتاج إلى ضبط العتبة، ولكن يمكننا تعيينها بأمان
+    # إلى نسبة التكلفة 1/5، كما ذكرت المعادلة.
+    # (2) في ورقة Elkan [2]_.
     gain_matrix = np.array(
         [
-            [0, -1],  # -1 gain for false positives
-            [-5, 0],  # -5 gain for false negatives
+            [0, -1],  # مكسب -1 للإيجابيات الخاطئة
+            [-5, 0],  # مكسب -5 للسلبيات الخاطئة
         ]
     )
     return np.sum(cm * gain_matrix)
@@ -179,11 +164,11 @@ scoring["credit_gain"] = make_scorer(
     credit_gain_score, neg_label=neg_label, pos_label=pos_label
 )
 # %%
-# Vanilla predictive model
+# نموذج تنبؤي بسيط
 # ^^^^^^^^^^^^^^^^^^^^^^^^
 #
-# We use :class:`~sklearn.ensemble.HistGradientBoostingClassifier` as a predictive model
-# that natively handles categorical features and missing values.
+# نستخدم :class:`~sklearn.ensemble.HistGradientBoostingClassifier` كنموذج تنبؤي
+# الذي يتعامل بشكل أصلي مع الميزات الفئوية والقيم المفقودة.
 from sklearn.ensemble import HistGradientBoostingClassifier
 
 model = HistGradientBoostingClassifier(
@@ -192,8 +177,7 @@ model = HistGradientBoostingClassifier(
 model
 
 # %%
-# We evaluate the performance of our predictive model using the ROC and Precision-Recall
-# curves.
+# نقيم أداء نموذجنا التنبؤي باستخدام منحنى ROC ومنحنى الدقة والاستدعاء.
 import matplotlib.pyplot as plt
 
 from sklearn.metrics import PrecisionRecallDisplay, RocCurveDisplay
@@ -209,9 +193,9 @@ axs[0].plot(
     marker="o",
     markersize=10,
     color="tab:blue",
-    label="Default cut-off point at a probability of 0.5",
+    label="نقطة قطع افتراضية عند احتمال 0.5",
 )
-axs[0].set_title("Precision-Recall curve")
+axs[0].set_title("منحنى الدقة والاستدعاء")
 axs[0].legend()
 
 RocCurveDisplay.from_estimator(
@@ -229,62 +213,57 @@ axs[1].plot(
     marker="o",
     markersize=10,
     color="tab:blue",
-    label="Default cut-off point at a probability of 0.5",
+    label="نقطة قطع افتراضية عند احتمال 0.5",
 )
-axs[1].set_title("ROC curve")
+axs[1].set_title("منحنى ROC")
 axs[1].legend()
-_ = fig.suptitle("Evaluation of the vanilla GBDT model")
+_ = fig.suptitle("تقييم نموذج GBDT البسيط")
 
 # %%
-# We recall that these curves give insights on the statistical performance of the
-# predictive model for different cut-off points. For the Precision-Recall curve, the
-# reported metrics are the precision and recall and for the ROC curve, the reported
-# metrics are the TPR (same as recall) and FPR.
+# نذكر أن هذه المنحنيات توفر نظرة ثاقبة على الأداء الإحصائي
+# النموذج التنبؤي لنقاط القطع المختلفة. بالنسبة لمنحنى الدقة والاستدعاء،
+# المقاييس المبلغ عنها هي الدقة والاستدعاء ولمنحنى ROC، المقاييس المبلغ عنها هي
+# TPR (نفس الاستدعاء) وFPR.
 #
-# Here, the different cut-off points correspond to different levels of posterior
-# probability estimates ranging between 0 and 1. By default, `model.predict` uses a
-# cut-off point at a probability estimate of 0.5. The metrics for such a cut-off point
-# are reported with the blue dot on the curves: it corresponds to the statistical
-# performance of the model when using `model.predict`.
+# هنا، تتوافق نقاط القطع المختلفة مع مستويات مختلفة من تقديرات الاحتمالية اللاحقة تتراوح بين 0 و1. بشكل افتراضي، يستخدم `model.predict` نقطة قطع عند تقدير الاحتمالية 0.5. يتم الإبلاغ عن المقاييس لمثل هذه نقطة القطع
+# مع النقطة الزرقاء على المنحنيات: إنه يتوافق مع الأداء الإحصائي
+# النموذج عند استخدام `model.predict`.
 #
-# However, we recall that the original aim was to minimize the cost (or maximize the
-# gain) as defined by the business metric. We can compute the value of the business
-# metric:
-print(f"Business defined metric: {scoring['credit_gain'](model, X_test, y_test)}")
+# ومع ذلك، نذكر أن الهدف الأصلي كان تقليل التكلفة (أو زيادة المكاسب) كما هو محدد
+# بالمقياس التجاري. يمكننا حساب قيمة المقياس التجاري:
+print(f"المقياس التجاري المحدد: {scoring['credit_gain'](model, X_test, y_test)}")
 
 # %%
-# At this stage we don't know if any other cut-off can lead to a greater gain. To find
-# the optimal one, we need to compute the cost-gain using the business metric for all
-# possible cut-off points and choose the best. This strategy can be quite tedious to
-# implement by hand, but the
-# :class:`~sklearn.model_selection.TunedThresholdClassifierCV` class is here to help us.
-# It automatically computes the cost-gain for all possible cut-off points and optimizes
-# for the `scoring`.
+# في هذه المرحلة، لا نعرف ما إذا كانت أي نقطة قطع أخرى يمكن أن تؤدي إلى مكاسب أكبر. للعثور على
+# نقطة القطع المثلى، نحتاج إلى حساب التكلفة-المكسب باستخدام المقياس التجاري لجميع
+# نقاط القطع الممكنة واختيار الأفضل. يمكن أن تكون هذه الاستراتيجية مرهقة للغاية لتنفيذها
+# باليد، ولكن
+# :class:`~sklearn.model_selection.TunedThresholdClassifierCV` هنا لمساعدتنا.
+# يحسب تلقائيًا التكلفة-المكسب لجميع نقاط القطع الممكنة ويحسن
+# للـ `scoring`.
 #
 # .. _cost_sensitive_learning_example:
 #
-# Tuning the cut-off point
+# ضبط نقطة القطع
 # ^^^^^^^^^^^^^^^^^^^^^^^^
 #
-# We use :class:`~sklearn.model_selection.TunedThresholdClassifierCV` to tune the
-# cut-off point. We need to provide the business metric to optimize as well as the
-# positive label. Internally, the optimum cut-off point is chosen such that it maximizes
-# the business metric via cross-validation. By default a 5-fold stratified
-# cross-validation is used.
+# نستخدم :class:`~sklearn.model_selection.TunedThresholdClassifierCV` لضبط
+# نقطة القطع. نحتاج إلى توفير المقياس التجاري لتحسينه بالإضافة إلى
+# التسمية الإيجابية. داخليًا، يتم اختيار نقطة القطع المثلى بحيث تزيد من
+# المقياس التجاري عبر التحقق من الصحة. بشكل افتراضي، يتم استخدام التحقق من الصحة المتقاطع 5 أضعاف.
 from sklearn.model_selection import TunedThresholdClassifierCV
 
 tuned_model = TunedThresholdClassifierCV(
     estimator=model,
     scoring=scoring["credit_gain"],
-    store_cv_results=True,  # necessary to inspect all results
+    store_cv_results=True,  # ضروري لفحص جميع النتائج
 )
 tuned_model.fit(X_train, y_train)
 print(f"{tuned_model.best_threshold_=:0.2f}")
 
 # %%
-# We plot the ROC and Precision-Recall curves for the vanilla model and the tuned model.
-# Also we plot the cut-off points that would be used by each model. Because, we are
-# reusing the same code later, we define a function that generates the plots.
+# نرسم منحنى ROC ومنحنى الدقة والاستدعاء للنموذج البسيط والنموذج المضبوط.
+# أيضًا نرسم نقاط القطع التي سيستخدمها كل نموذج. نظرًا لأننا نعيد استخدام نفس الكود لاحقًا، فإننا نحدد دالة تولد الرسوم البيانية.
 
 
 def plot_roc_pr_curves(vanilla_model, tuned_model, *, title):
@@ -366,147 +345,146 @@ title = "Comparison of the cut-off point for the vanilla and tuned GBDT model"
 plot_roc_pr_curves(model, tuned_model, title=title)
 
 # %%
-# The first remark is that both classifiers have exactly the same ROC and
-# Precision-Recall curves. It is expected because by default, the classifier is fitted
-# on the same training data. In a later section, we discuss more in detail the
-# available options regarding model refitting and cross-validation.
+# نلاحظ أن كلا المصنفين لهما نفس منحنيات ROC و Precision-Recall تمامًا. هذا متوقع لأن
+# المصنف، افتراضيًا، ملائم على نفس بيانات التدريب. في قسم لاحق، نناقش بمزيد من
+# التفصيل الخيارات المتاحة فيما يتعلق بإعادة ملاءمة النموذج والتحقق المتقاطع.
 #
-# The second remark is that the cut-off points of the vanilla and tuned model are
-# different. To understand why the tuned model has chosen this cut-off point, we can
-# look at the right-hand side plot that plots the objective score that is our exactly
-# the same as our business metric. We see that the optimum threshold corresponds to the
-# maximum of the objective score. This maximum is reached for a decision threshold
-# much lower than 0.5: the tuned model enjoys a much higher recall at the cost of
-# of significantly lower precision: the tuned model is much more eager to
-# predict the "bad" class label to larger fraction of individuals.
+# الملاحظة الثانية هي أن نقاط القطع للنموذج العادي والنموذج المضبوط
+# مختلفة. لفهم سبب اختيار النموذج المضبوط لنقطة القطع هذه، يمكننا
+# إلقاء نظرة على الرسم البياني على الجانب الأيمن الذي يرسم درجة الهدف
+# التي هي نفسها تمامًا مقياس أعمالنا. نرى أن العتبة المثلى تتوافق مع
+# الحد الأقصى لدرجة الهدف. يتم الوصول إلى هذا الحد الأقصى لعتبة قرار
+# أقل بكثير من 0.5: يتمتع النموذج المضبوط باستدعاء أعلى بكثير على حساب
+# دقة أقل بكثير: النموذج المضبوط أكثر حرصًا على
+# التنبؤ بتصنيف "سيئ" لنسبة أكبر من الأفراد.
 #
-# We can now check if choosing this cut-off point leads to a better score on the testing
-# set:
-print(f"Business defined metric: {scoring['credit_gain'](tuned_model, X_test, y_test)}")
+# يمكننا الآن التحقق مما إذا كان اختيار نقطة القطع هذه يؤدي إلى درجة أفضل على
+# مجموعة الاختبار:
+print(f"المقياس المحدد للأعمال: {scoring['credit_gain'](tuned_model, X_test, y_test)}")
 
 # %%
-# We observe that tuning the decision threshold almost improves our business gains
-# by factor of 2.
+# نلاحظ أن ضبط عتبة القرار يحسن تقريبًا مكاسب أعمالنا
+# بمعامل 2.
 #
 # .. _TunedThresholdClassifierCV_no_cv:
 #
-# Consideration regarding model refitting and cross-validation
+# اعتبارات تتعلق بإعادة ملاءمة النموذج والتحقق المتقاطع
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #
-# In the above experiment, we used the default setting of the
-# :class:`~sklearn.model_selection.TunedThresholdClassifierCV`. In particular, the
-# cut-off point is tuned using a 5-fold stratified cross-validation. Also, the
-# underlying predictive model is refitted on the entire training data once the cut-off
-# point is chosen.
+# في التجربة أعلاه، استخدمنا الإعداد الافتراضي لـ
+# :class:`~sklearn.model_selection.TunedThresholdClassifierCV`. على وجه الخصوص،
+# يتم ضبط نقطة القطع باستخدام تحقق متقاطع طبقي من 5 طيات. أيضًا،
+# تتم إعادة ملاءمة نموذج التنبؤ الأساسي على بيانات التدريب بأكملها بمجرد
+# اختيار نقطة القطع.
 #
-# These two strategies can be changed by providing the `refit` and `cv` parameters.
-# For instance, one could provide a fitted `estimator` and set `cv="prefit"`, in which
-# case the cut-off point is found on the entire dataset provided at fitting time.
-# Also, the underlying classifier is not be refitted by setting `refit=False`. Here, we
-# can try to do such experiment.
+# يمكن تغيير هاتين الاستراتيجيتين من خلال توفير معلمات `refit` و `cv`.
+# على سبيل المثال، يمكن للمرء توفير `estimator` ملائم وتعيين `cv="prefit"`، وفي
+# هذه الحالة يتم العثور على نقطة القطع على مجموعة البيانات بأكملها المقدمة في وقت
+# الملاءمة. أيضًا، لا تتم إعادة ملاءمة المصنف الأساسي عن طريق تعيين `refit=False`.
+# هنا، يمكننا محاولة إجراء مثل هذه التجربة.
 model.fit(X_train, y_train)
 tuned_model.set_params(cv="prefit", refit=False).fit(X_train, y_train)
 print(f"{tuned_model.best_threshold_=:0.2f}")
 
 
 # %%
-# Then, we evaluate our model with the same approach as before:
-title = "Tuned GBDT model without refitting and using the entire dataset"
+# ثم نقوم بتقييم نموذجنا بنفس الطريقة السابقة:
+title = "نموذج GBDT مضبوط بدون إعادة ملاءمة وباستخدام مجموعة البيانات بأكملها"
 plot_roc_pr_curves(model, tuned_model, title=title)
 
 # %%
-# We observe the that the optimum cut-off point is different from the one found
-# in the previous experiment. If we look at the right-hand side plot, we
-# observe that the business gain has large plateau of near-optimal 0 gain for a
-# large span of decision thresholds. This behavior is symptomatic of an
-# overfitting. Because we disable cross-validation, we tuned the cut-off point
-# on the same set as the model was trained on, and this is the reason for the
-# observed overfitting.
+# نلاحظ أن نقطة القطع المثلى تختلف عن تلك التي تم العثور عليها
+# في التجربة السابقة. إذا نظرنا إلى الرسم البياني على الجانب الأيمن،
+# نلاحظ أن مكسب العمل له هضبة كبيرة من المكاسب شبه المثلى 0 لفترة
+# زمنية كبيرة من عتبات القرار. هذا السلوك من أعراض
+# فرط التخصيص. نظرًا لأننا قمنا بتعطيل التحقق المتقاطع، فقد قمنا بضبط نقطة
+# القطع على نفس المجموعة التي تم تدريب النموذج عليها، وهذا هو سبب
+# فرط التخصيص الملحوظ.
 #
-# This option should therefore be used with caution. One needs to make sure that the
-# data provided at fitting time to the
-# :class:`~sklearn.model_selection.TunedThresholdClassifierCV` is not the same as the
-# data used to train the underlying classifier. This could happen sometimes when the
-# idea is just to tune the predictive model on a completely new validation set without a
-# costly complete refit.
+# لذلك يجب استخدام هذا الخيار بحذر. يجب على المرء التأكد من أن
+# البيانات المقدمة في وقت الملاءمة إلى
+# :class:`~sklearn.model_selection.TunedThresholdClassifierCV` ليست هي نفس
+# البيانات المستخدمة لتدريب المصنف الأساسي. قد يحدث هذا أحيانًا عندما تكون
+# الفكرة هي مجرد ضبط نموذج التنبؤ على مجموعة تحقق جديدة تمامًا بدون
+# إعادة ملاءمة كاملة مكلفة.
 #
-# When cross-validation is too costly, a potential alternative is to use a
-# single train-test split by providing a floating number in range `[0, 1]` to the `cv`
-# parameter. It splits the data into a training and testing set. Let's explore this
-# option:
+# عندما يكون التحقق المتقاطع مكلفًا للغاية، يتمثل أحد البدائل المحتملة في استخدام
+# تقسيم واحد للتدريب والاختبار من خلال توفير رقم عائم في النطاق `[0، 1]` لمعلمة `cv`.
+# يقوم بتقسيم البيانات إلى مجموعة تدريب ومجموعة اختبار. دعونا نستكشف هذا
+# الخيار:
 tuned_model.set_params(cv=0.75).fit(X_train, y_train)
 
 # %%
-title = "Tuned GBDT model without refitting and using the entire dataset"
+title = "نموذج GBDT مضبوط بدون إعادة ملاءمة وباستخدام مجموعة البيانات بأكملها"
 plot_roc_pr_curves(model, tuned_model, title=title)
 
 # %%
-# Regarding the cut-off point, we observe that the optimum is similar to the multiple
-# repeated cross-validation case. However, be aware that a single split does not account
-# for the variability of the fit/predict process and thus we are unable to know if there
-# is any variance in the cut-off point. The repeated cross-validation averages out
-# this effect.
+# فيما يتعلق بنقطة القطع، نلاحظ أن النقطة المثلى تشبه حالة التحقق
+# المتقاطع المتكرر المتعدد. ومع ذلك، يجب أن تدرك أن التقسيم الفردي لا يفسر
+# تقلب عملية الملاءمة / التنبؤ، وبالتالي لا يمكننا معرفة ما إذا كان هناك أي
+# تباين في نقطة القطع. يقوم التحقق المتقاطع المتكرر بمتوسط ​​هذا
+# التأثير.
 #
-# Another observation concerns the ROC and Precision-Recall curves of the tuned model.
-# As expected, these curves differ from those of the vanilla model, given that we
-# trained the underlying classifier on a subset of the data provided during fitting and
-# reserved a validation set for tuning the cut-off point.
+# تتعلق ملاحظة أخرى بمنحنيات ROC و Precision-Recall للنموذج المضبوط.
+# كما هو متوقع، تختلف هذه المنحنيات عن منحنيات النموذج العادي، نظرًا لأننا
+# دربنا المصنف الأساسي على مجموعة فرعية من البيانات المقدمة أثناء الملاءمة
+# وحجزنا مجموعة تحقق لضبط نقطة القطع.
 #
-# Cost-sensitive learning when gains and costs are not constant
+# التعلم الحساس للتكلفة عندما لا تكون المكاسب والتكاليف ثابتة
 # -------------------------------------------------------------
 #
-# As stated in [2]_, gains and costs are generally not constant in real-world problems.
-# In this section, we use a similar example as in [2]_ for the problem of
-# detecting fraud in credit card transaction records.
+# كما هو مذكور في [2]_، فإن المكاسب والتكاليف ليست ثابتة بشكل عام في مشاكل
+# العالم الحقيقي. في هذا القسم، نستخدم مثالًا مشابهًا كما في [2]_ لمشكلة
+# اكتشاف الاحتيال في سجلات معاملات بطاقات الائتمان.
 #
-# The credit card dataset
+# مجموعة بيانات بطاقة الائتمان
 # ^^^^^^^^^^^^^^^^^^^^^^^
 credit_card = fetch_openml(data_id=1597, as_frame=True, parser="pandas")
 credit_card.frame.info()
 
 # %%
-# The dataset contains information about credit card records from which some are
-# fraudulent and others are legitimate. The goal is therefore to predict whether or
-# not a credit card record is fraudulent.
+# تحتوي مجموعة البيانات على معلومات حول سجلات بطاقات الائتمان التي يكون بعضها
+# احتياليًا والبعض الآخر شرعيًا. الهدف إذن هو التنبؤ بما إذا كان
+# سجل بطاقة الائتمان احتياليًا أم لا.
 columns_to_drop = ["Class"]
 data = credit_card.frame.drop(columns=columns_to_drop)
 target = credit_card.frame["Class"].astype(int)
 
 # %%
-# First, we check the class distribution of the datasets.
+# أولاً، نتحقق من توزيع الفئات لمجموعات البيانات.
 target.value_counts(normalize=True)
 
 # %%
-# The dataset is highly imbalanced with fraudulent transaction representing only 0.17%
-# of the data. Since we are interested in training a machine learning model, we should
-# also make sure that we have enough samples in the minority class to train the model.
+# مجموعة البيانات غير متوازنة للغاية حيث تمثل المعاملة الاحتيالية 0.17% فقط
+# من البيانات. نظرًا لأننا مهتمون بتدريب نموذج تعلم آلي، يجب أن نتأكد
+# أيضًا من أن لدينا عينات كافية في فئة الأقلية لتدريب النموذج.
 target.value_counts()
 
 # %%
-# We observe that we have around 500 samples that is on the low end of the number of
-# samples required to train a machine learning model. In addition of the target
-# distribution, we check the distribution of the amount of the
-# fraudulent transactions.
+# نلاحظ أن لدينا حوالي 500 عينة وهي في الطرف الأدنى من عدد
+# العينات المطلوبة لتدريب نموذج تعلم آلي. بالإضافة إلى توزيع الهدف،
+# نتحقق من توزيع مقدار المعاملات الاحتيالية.
+
 fraud = target == 1
 amount_fraud = data["Amount"][fraud]
 _, ax = plt.subplots()
 ax.hist(amount_fraud, bins=30)
-ax.set_title("Amount of fraud transaction")
-_ = ax.set_xlabel("Amount (€)")
+ax.set_title("مقدار المعاملة الاحتيالية")
+_ = ax.set_xlabel("المبلغ (€)")
 
 # %%
-# Addressing the problem with a business metric
+# معالجة المشكلة بمقياس أعمال
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #
-# Now, we create the business metric that depends on the amount of each transaction. We
-# define the cost matrix similarly to [2]_. Accepting a legitimate transaction provides
-# a gain of 2% of the amount of the transaction. However, accepting a fraudulent
-# transaction result in a loss of the amount of the transaction. As stated in [2]_, the
-# gain and loss related to refusals (of fraudulent and legitimate transactions) are not
-# trivial to define. Here, we define that a refusal of a legitimate transaction
-# is estimated to a loss of 5€ while the refusal of a fraudulent transaction is
-# estimated to a gain of 50€. Therefore, we define the following function to
-# compute the total benefit of a given decision:
+# الآن، نقوم بإنشاء مقياس أعمال يعتمد على مقدار كل معاملة. نحدد
+# مصفوفة التكلفة بشكل مشابه لـ [2]_. يوفر قبول معاملة شرعية
+# ربحًا بنسبة 2% من مبلغ المعاملة. ومع ذلك، فإن قبول معاملة
+# احتيالية يؤدي إلى خسارة مبلغ المعاملة. كما هو مذكور في [2]_،
+# فإن الربح والخسارة المتعلقين بالرفض (للمعاملات الاحتيالية والشرعية)
+# ليس من السهل تعريفها. هنا، نحدد أن رفض معاملة شرعية
+# يُقدر بخسارة 5 يورو بينما يُقدر رفض معاملة احتيالية
+# بربح 50 يورو. لذلك، نحدد الوظيفة التالية لحساب
+# إجمالي فائدة قرار معين:
 
 
 def business_metric(y_true, y_pred, amount):
@@ -522,22 +500,23 @@ def business_metric(y_true, y_pred, amount):
 
 
 # %%
-# From this business metric, we create a scikit-learn scorer that given a fitted
-# classifier and a test set compute the business metric. In this regard, we use
-# the :func:`~sklearn.metrics.make_scorer` factory. The variable `amount` is an
-# additional metadata to be passed to the scorer and we need to use
-# :ref:`metadata routing <metadata_routing>` to take into account this information.
+# من مقياس الأعمال هذا، نقوم بإنشاء مسجل scikit-learn الذي يقوم، نظرًا لمصنف
+# ملائم ومجموعة اختبار، بحساب مقياس الأعمال. في هذا الصدد، نستخدم
+# المصنع :func:`~sklearn.metrics.make_scorer`. المتغير `amount` هو
+# بيانات وصفية إضافية يتم تمريرها إلى المسجل ونحتاج إلى استخدام
+# :ref:`توجيه البيانات الوصفية <metadata_routing>` لمراعاة هذه المعلومات.
 sklearn.set_config(enable_metadata_routing=True)
 business_scorer = make_scorer(business_metric).set_score_request(amount=True)
 
 # %%
-# So at this stage, we observe that the amount of the transaction is used twice: once
-# as a feature to train our predictive model and once as a metadata to compute the
-# the business metric and thus the statistical performance of our model. When used as a
-# feature, we are only required to have a column in `data` that contains the amount of
-# each transaction. To use this information as metadata, we need to have an external
-# variable that we can pass to the scorer or the model that internally routes this
-# metadata to the scorer. So let's create this variable.
+# لذلك في هذه المرحلة، نلاحظ أن مقدار المعاملة يُستخدم مرتين: مرة
+# واحدة كميزة لتدريب نموذج التنبؤ الخاص بنا ومرة ​​واحدة كبيانات وصفية
+# لحساب مقياس الأعمال وبالتالي الأداء الإحصائي لنموذجنا. عند استخدامه
+# كميزة، لا يُطلب منا سوى أن يكون لدينا عمود في `data` يحتوي على مقدار
+# كل معاملة. لاستخدام هذه المعلومات كبيانات وصفية، نحتاج إلى متغير
+# خارجي يمكننا تمريره إلى المسجل أو النموذج الذي يقوم داخليًا بتوجيه
+# هذه البيانات الوصفية إلى المسجل. لذلك دعونا ننشئ هذا المتغير.
+
 amount = credit_card.frame["Amount"].to_numpy()
 
 # %%
@@ -550,8 +529,8 @@ data_train, data_test, target_train, target_test, amount_train, amount_test = (
 )
 
 # %%
-# We first evaluate some baseline policies to serve as reference. Recall that
-# class "0" is the legitimate class and class "1" is the fraudulent class.
+# نقوم أولاً بتقييم بعض سياسات خط الأساس لتكون بمثابة مرجع. تذكر أن
+# الفئة "0" هي الفئة الشرعية والفئة "1" هي الفئة الاحتيالية.
 from sklearn.dummy import DummyClassifier
 
 always_accept_policy = DummyClassifier(strategy="constant", constant=0)
@@ -559,35 +538,38 @@ always_accept_policy.fit(data_train, target_train)
 benefit = business_scorer(
     always_accept_policy, data_test, target_test, amount=amount_test
 )
-print(f"Benefit of the 'always accept' policy: {benefit:,.2f}€")
+print(f"فائدة سياسة 'قبول دائمًا': {benefit:,.2f} يورو")
 
 # %%
-# A policy that considers all transactions as legitimate would create a profit of
-# around 220,000€. We make the same evaluation for a classifier that predicts all
-# transactions as fraudulent.
+# ستحقق السياسة التي تعتبر جميع المعاملات شرعية ربحًا قدره
+# حوالي 220.000 يورو. نجري نفس التقييم لمصنف يتوقع جميع
+# المعاملات على أنها احتيالية.
+
 always_reject_policy = DummyClassifier(strategy="constant", constant=1)
 always_reject_policy.fit(data_train, target_train)
 benefit = business_scorer(
     always_reject_policy, data_test, target_test, amount=amount_test
 )
-print(f"Benefit of the 'always reject' policy: {benefit:,.2f}€")
+print(f"فائدة سياسة 'رفض دائمًا': {benefit:,.2f} يورو")
+
 
 
 # %%
-# Such a policy would entail a catastrophic loss: around 670,000€. This is
-# expected since the vast majority of the transactions are legitimate and the
-# policy would refuse them at a non-trivial cost.
+# ستؤدي مثل هذه السياسة إلى خسارة فادحة: حوالي 670.000 يورو. هذا
+# متوقع لأن الغالبية العظمى من المعاملات شرعية وسترفضها
+# السياسة بتكلفة غير تافهة.
 #
-# A predictive model that adapts the accept/reject decisions on a per
-# transaction basis should ideally allow us to make a profit larger than the
-# 220,000€ of the best of our constant baseline policies.
+# من الناحية المثالية، سيسمح لنا نموذج التنبؤ الذي يقوم بتكييف قرارات
+# القبول / الرفض على أساس كل معاملة بتحقيق ربح أكبر من
+# 220.000 يورو من أفضل سياسات خط الأساس الثابتة لدينا.
 #
-# We start with a logistic regression model with the default decision threshold
-# at 0.5. Here we tune the hyperparameter `C` of the logistic regression with a
-# proper scoring rule (the log loss) to ensure that the model's probabilistic
-# predictions returned by its `predict_proba` method are as accurate as
-# possible, irrespectively of the choice of the value of the decision
-# threshold.
+# نبدأ بنموذج انحدار لوجستي مع عتبة القرار الافتراضية
+# عند 0.5. هنا نقوم بضبط المعلمة الفائقة `C` للانحدار اللوجستي بقاعدة
+# تسجيل مناسبة (خسارة السجل) لضمان أن تنبؤات النموذج الاحتمالية
+# التي يتم إرجاعها بواسطة أسلوب `predict_proba` الخاص به دقيقة قدر
+# الإمكان، بغض النظر عن اختيار قيمة عتبة القرار.
+
+
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import GridSearchCV
 from sklearn.pipeline import make_pipeline
@@ -602,24 +584,24 @@ model
 
 # %%
 print(
-    "Benefit of logistic regression with default threshold: "
-    f"{business_scorer(model, data_test, target_test, amount=amount_test):,.2f}€"
+    "فائدة الانحدار اللوجستي مع العتبة الافتراضية: "
+    f"{business_scorer(model, data_test, target_test, amount=amount_test):,.2f} يورو"
 )
 
 # %%
-# The business metric shows that our predictive model with a default decision
-# threshold is already winning over the baseline in terms of profit and it would be
-# already beneficial to use it to accept or reject transactions instead of
-# accepting all transactions.
+# يُظهر مقياس الأعمال أن نموذج التنبؤ الخاص بنا مع عتبة القرار
+# الافتراضية يفوز بالفعل على خط الأساس من حيث الربح، وسيكون من
+# المفيد بالفعل استخدامه لقبول أو رفض المعاملات بدلاً من
+# قبول جميع المعاملات.
 #
-# Tuning the decision threshold
+# ضبط عتبة القرار
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #
-# Now the question is: is our model optimum for the type of decision that we want to do?
-# Up to now, we did not optimize the decision threshold. We use the
-# :class:`~sklearn.model_selection.TunedThresholdClassifierCV` to optimize the decision
-# given our business scorer. To avoid a nested cross-validation, we will use the
-# best estimator found during the previous grid-search.
+# السؤال الآن هو: هل نموذجنا هو الأمثل لنوع القرار الذي نريد اتخاذه؟
+# حتى الآن، لم نقم بتحسين عتبة القرار. نستخدم
+# :class:`~sklearn.model_selection.TunedThresholdClassifierCV` لتحسين القرار
+# نظرًا لمسجل أعمالنا. لتجنب التحقق المتقاطع المتداخل، سنستخدم أفضل
+# مقدر تم العثور عليه أثناء بحث الشبكة السابق.
 tuned_model = TunedThresholdClassifierCV(
     estimator=model.best_estimator_,
     scoring=business_scorer,
@@ -628,42 +610,46 @@ tuned_model = TunedThresholdClassifierCV(
 )
 
 # %%
-# Since our business scorer requires the amount of each transaction, we need to pass
-# this information in the `fit` method. The
-# :class:`~sklearn.model_selection.TunedThresholdClassifierCV` is in charge of
-# automatically dispatching this metadata to the underlying scorer.
+# نظرًا لأن مسجل أعمالنا يتطلب مقدار كل معاملة، فإننا نحتاج إلى تمرير
+# هذه المعلومات في أسلوب `fit`. :class:`~sklearn.model_selection.TunedThresholdClassifierCV`
+# مسؤول عن إرسال هذه البيانات الوصفية تلقائيًا إلى المسجل الأساسي.
+
 tuned_model.fit(data_train, target_train, amount=amount_train)
 
 # %%
-# We observe that the tuned decision threshold is far away from the default 0.5:
-print(f"Tuned decision threshold: {tuned_model.best_threshold_:.2f}")
+# نلاحظ أن عتبة القرار المضبوطة بعيدة عن 0.5 الافتراضية:
+print(f"عتبة القرار المضبوطة: {tuned_model.best_threshold_:.2f}")
 
 # %%
 print(
-    "Benefit of logistic regression with a tuned threshold: "
-    f"{business_scorer(tuned_model, data_test, target_test, amount=amount_test):,.2f}€"
+    "فائدة الانحدار اللوجستي مع عتبة مضبوطة: "
+    f"{business_scorer(tuned_model, data_test, target_test, amount=amount_test):,.2f} يورو"
 )
 
+
 # %%
-# We observe that tuning the decision threshold increases the expected profit
-# when deploying our model - as indicated by the business metric. It is therefore
-# valuable, whenever possible, to optimize the decision threshold with respect
-# to the business metric.
+# نلاحظ أن ضبط عتبة القرار يزيد من الربح المتوقع
+# عند نشر نموذجنا - كما هو موضح بواسطة مقياس الأعمال. لذلك من
+# المفيد، كلما أمكن، تحسين عتبة القرار فيما يتعلق
+# بمقياس الأعمال.
 #
-# Manually setting the decision threshold instead of tuning it
+# تعيين عتبة القرار يدويًا بدلاً من ضبطها
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #
-# In the previous example, we used the
-# :class:`~sklearn.model_selection.TunedThresholdClassifierCV` to find the optimal
-# decision threshold. However, in some cases, we might have some prior knowledge about
-# the problem at hand and we might be happy to set the decision threshold manually.
+# في المثال السابق، استخدمنا
+# :class:`~sklearn.model_selection.TunedThresholdClassifierCV` للعثور على عتبة
+# القرار المثلى. ومع ذلك، في بعض الحالات، قد يكون لدينا بعض المعرفة المسبقة
+# بالمشكلة المطروحة وقد نكون سعداء بتعيين عتبة القرار يدويًا.
 #
-# The class :class:`~sklearn.model_selection.FixedThresholdClassifier` allows us to
-# manually set the decision threshold. At prediction time, it behave as the previous
-# tuned model but no search is performed during the fitting process.
+# تسمح لنا الفئة :class:`~sklearn.model_selection.FixedThresholdClassifier` بتعيين
+# عتبة القرار يدويًا. في وقت التنبؤ، يتصرف كنموذج مضبوط سابق، ولكن لا يتم
+# إجراء بحث أثناء عملية الملاءمة. لاحظ أننا هنا نستخدم
+# :class:`~sklearn.frozen.FrozenEstimator` لتغليف نموذج التنبؤ
+# لتجنب أي إعادة ملاءمة.
 #
-# Here, we will reuse the decision threshold found in the previous section to create a
-# new model and check that it gives the same results.
+# هنا، سنعيد استخدام عتبة القرار الموجودة في القسم السابق لإنشاء
+# نموذج جديد والتحقق من أنه يعطي نفس النتائج.
+
 from sklearn.model_selection import FixedThresholdClassifier
 
 model_fixed_threshold = FixedThresholdClassifier(
@@ -674,15 +660,15 @@ model_fixed_threshold = FixedThresholdClassifier(
 business_score = business_scorer(
     model_fixed_threshold, data_test, target_test, amount=amount_test
 )
-print(f"Benefit of logistic regression with a tuned threshold:  {business_score:,.2f}€")
+print(f"فوائد الانحدار اللوجستي مع عتبة مضبوطة :  {business_score:,.2f}€")
 
 # %%
-# We observe that we obtained the exact same results but the fitting process
-# was much faster since we did not perform any hyper-parameter search.
+# نلاحظ أننا حصلنا على نفس النتائج بالضبط ولكن عملية الملاءمة
+# كانت أسرع بكثير لأننا لم نقم بأي بحث عن المعلمات الفائقة.
 #
-# Finally, the estimate of the (average) business metric itself can be unreliable, in
-# particular when the number of data points in the minority class is very small.
-# Any business impact estimated by cross-validation of a business metric on
-# historical data (offline evaluation) should ideally be confirmed by A/B testing
-# on live data (online evaluation). Note however that A/B testing models is
-# beyond the scope of the scikit-learn library itself.
+# أخيرًا، قد يكون تقدير مقياس الأعمال (المتوسط) نفسه غير موثوق، لا سيما
+# عندما يكون عدد نقاط البيانات في فئة الأقلية صغيرًا جدًا. يجب
+# أن يتم تأكيد أي تأثير تجاري يقدره التحقق المتقاطع لمقياس الأعمال على
+# البيانات التاريخية (التقييم غير المتصل) بشكل مثالي عن طريق اختبار A / B
+# على البيانات الحية (التقييم عبر الإنترنت). لاحظ مع ذلك أن اختبار نماذج A / B
+# خارج نطاق مكتبة scikit-learn نفسها.

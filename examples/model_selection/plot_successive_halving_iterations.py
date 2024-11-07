@@ -1,18 +1,13 @@
 """
-Successive Halving Iterations
+=============================
+عمليات التقسيم المتتالية
 =============================
 
-This example illustrates how a successive halving search
-(:class:`~sklearn.model_selection.HalvingGridSearchCV` and
-:class:`~sklearn.model_selection.HalvingRandomSearchCV`)
-iteratively chooses the best parameter combination out of
-multiple candidates.
+يوضح هذا المثال كيف تبحث عملية التقسيم المتتالية (:class:`~sklearn.model_selection.HalvingGridSearchCV` و :class:`~sklearn.model_selection.HalvingRandomSearchCV`) بشكل تكراري عن أفضل مجموعة من المعلمات من بين العديد من المرشحين.
 
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
-
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -24,8 +19,8 @@ from sklearn.experimental import enable_halving_search_cv  # noqa
 from sklearn.model_selection import HalvingRandomSearchCV
 
 # %%
-# We first define the parameter space and train a
-# :class:`~sklearn.model_selection.HalvingRandomSearchCV` instance.
+# نحن نحدد أولاً مساحة المعلمات وندرب مثالاً على:
+# :class:`~sklearn.model_selection.HalvingRandomSearchCV`.
 
 rng = np.random.RandomState(0)
 
@@ -47,8 +42,7 @@ rsh = HalvingRandomSearchCV(
 rsh.fit(X, y)
 
 # %%
-# We can now use the `cv_results_` attribute of the search estimator to inspect
-# and plot the evolution of the search.
+# يمكننا الآن استخدام خاصية `cv_results_` لمُقدر البحث لفحص وتصوير تطور البحث.
 
 results = pd.DataFrame(rsh.cv_results_)
 results["params_str"] = results.params.apply(str)
@@ -72,17 +66,12 @@ plt.tight_layout()
 plt.show()
 
 # %%
-# Number of candidates and amount of resource at each iteration
+# عدد المرشحين وكمية الموارد في كل تكرار
 # -------------------------------------------------------------
 #
-# At the first iteration, a small amount of resources is used. The resource
-# here is the number of samples that the estimators are trained on. All
-# candidates are evaluated.
+# في التكرار الأول، يتم استخدام كمية صغيرة من الموارد. المورد هنا هو عدد العينات التي يتم تدريب المُقدرات عليها. يتم تقييم جميع المرشحين.
 #
-# At the second iteration, only the best half of the candidates is evaluated.
-# The number of allocated resources is doubled: candidates are evaluated on
-# twice as many samples.
+# في التكرار الثاني، يتم تقييم نصف أفضل المرشحين فقط.
+# يتم مضاعفة عدد الموارد المخصصة: يتم تقييم المرشحين على ضعف عدد العينات.
 #
-# This process is repeated until the last iteration, where only 2 candidates
-# are left. The best candidate is the candidate that has the best score at the
-# last iteration.
+# تتكرر هذه العملية حتى التكرار الأخير، حيث يتبقى مرشحان فقط. المرشح الأفضل هو المرشح الذي يحصل على أفضل نتيجة في التكرار الأخير.

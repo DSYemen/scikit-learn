@@ -688,7 +688,7 @@
   <section id="preprocessing">
 <span id="id1"></span><h1><span class="section-number">6.3. </span>المعالجة المسبقة للبيانات<a class="headerlink" href="#preprocessing" title="Link to this heading">#</a></h1>
 <p>تُوفر حزمة <code class="docutils literal notranslate"><span class="pre">sklearn.preprocessing</span></code> العديد من وظائف الأداة المساعدة وفئات المحولات الشائعة لتغيير متجهات الميزات الأولية إلى تمثيل أكثر ملاءمة لمقدرات المراحل اللاحقة.</p>
-<p>بشكل عام، تستفيد العديد من خوارزميات التعلم مثل النماذج الخطية من توحيد مجموعة البيانات (انظر <a class="reference internal" href="../auto_examples/preprocessing/plot_scaling_importance.html#sphx-glr-auto-examples-preprocessing-plot-scaling-importance-py"><span class="std std-ref">Importance of Feature Scaling</span></a>). إذا كانت بعض القيم المتطرفة موجودة في المجموعة، فقد تكون أدوات التحجيم(قياس) القوية أو المحولات الأخرى أكثر ملاءمة. يتم تمييز سلوكيات أدوات التحجيم(قياس) والمحولات والمعيّرات المختلفة على مجموعة بيانات تحتوي على قيم متطرفة هامشية في <a class="reference internal" href="../auto_examples/preprocessing/plot_all_scaling.html#sphx-glr-auto-examples-preprocessing-plot-all-scaling-py"><span class="std std-ref">Compare the effect of different scalers on data with outliers</span></a>.</p>
+<p>بشكل عام، تستفيد العديد من خوارزميات التعلم مثل النماذج الخطية من توحيد مجموعة البيانات (انظر <a class="reference internal" href="../auto_examples/preprocessing/plot_scaling_importance.html#sphx-glr-auto-examples-preprocessing-plot-scaling-importance-py"><span class="std std-ref">أهمية معايرة الميزات</span></a>). إذا كانت بعض القيم المتطرفة موجودة في المجموعة، فقد تكون أدوات التحجيم(قياس) القوية أو المحولات الأخرى أكثر ملاءمة. يتم تمييز سلوكيات أدوات التحجيم(قياس) والمحولات والمعيّرات المختلفة على مجموعة بيانات تحتوي على قيم متطرفة هامشية في <a class="reference internal" href="../auto_examples/preprocessing/plot_all_scaling.html#sphx-glr-auto-examples-preprocessing-plot-all-scaling-py"><span class="std std-ref">مقارنة تأثير المقياس المختلف على البيانات مع القيم الشاذة</span></a>.</p>
 <section id="preprocessing-scaler">
 <span id="id2"></span><h2><span class="section-number">6.3.1. </span>التوحيد التحجيم(قياس)ي، أو إزالة المتوسط وتحجيم(قياس) التباين<a class="headerlink" href="#preprocessing-scaler" title="Link to this heading">#</a></h2>
 <p><strong>توحيد</strong> مجموعات البيانات هو <strong>شرط شائع للعديد من مقدرات تعلم الآلة</strong> المُطبقة في scikit-learn؛ قد تُسيء التصرف إذا لم تكن الميزات الفردية تُشبه إلى حد ما البيانات الموزعة بشكل طبيعي تحجيم(قياس)ي: غاوسي بـ <strong>متوسط صفر وتباين وحدة</strong>.</p>
@@ -1302,8 +1302,8 @@ Neural computation 10.5 (1998): 1299-1319.</p>
 </div>
 <p class="rubric">أمثلة</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../auto_examples/preprocessing/plot_target_encoder.html#sphx-glr-auto-examples-preprocessing-plot-target-encoder-py"><span class="std std-ref">Comparing Target Encoder with Other Encoders</span></a></p></li>
-<li><p><a class="reference internal" href="../auto_examples/preprocessing/plot_target_encoder_cross_val.html#sphx-glr-auto-examples-preprocessing-plot-target-encoder-cross-val-py"><span class="std std-ref">Target Encoder's Internal Cross fitting</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/preprocessing/plot_target_encoder.html#sphx-glr-auto-examples-preprocessing-plot-target-encoder-py"><span class="std std-ref">مقارنة ترميز الهدف مع الترميزات الأخرى</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/preprocessing/plot_target_encoder_cross_val.html#sphx-glr-auto-examples-preprocessing-plot-target-encoder-cross-val-py"><span class="std std-ref">الترميز الداخلي للهدف عبر الملاءمة</span></a></p></li>
 </ul>
 <p class="rubric">المراجع</p>
 <div role="list" class="citation-list">
@@ -1369,9 +1369,9 @@ high cardinality features&quot; Comput Stat 37, 2671-2692 (2022)</a></p>
 </div>
 <p class="rubric">أمثلة</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../auto_examples/preprocessing/plot_discretization.html#sphx-glr-auto-examples-preprocessing-plot-discretization-py"><span class="std std-ref">Using KBinsDiscretizer to discretize continuous features</span></a></p></li>
-<li><p><a class="reference internal" href="../auto_examples/preprocessing/plot_discretization_classification.html#sphx-glr-auto-examples-preprocessing-plot-discretization-classification-py"><span class="std std-ref">Feature discretization</span></a></p></li>
-<li><p><a class="reference internal" href="../auto_examples/preprocessing/plot_discretization_strategies.html#sphx-glr-auto-examples-preprocessing-plot-discretization-strategies-py"><span class="std std-ref">Demonstrating the different strategies of KBinsDiscretizer</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/preprocessing/plot_discretization.html#sphx-glr-auto-examples-preprocessing-plot-discretization-py"><span class="std std-ref">استخدام KBinsDiscretizer لتقسيم الخصائص المستمرة</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/preprocessing/plot_discretization_classification.html#sphx-glr-auto-examples-preprocessing-plot-discretization-classification-py"><span class="std std-ref">تجريد الميزات</span></a></p></li>
+<li><p><a class="reference internal" href="../auto_examples/preprocessing/plot_discretization_strategies.html#sphx-glr-auto-examples-preprocessing-plot-discretization-strategies-py"><span class="std std-ref">عرض استراتيجيات KBinsDiscretizer المختلفة</span></a></p></li>
 </ul>
 </section>
 <section id="preprocessing-binarization">

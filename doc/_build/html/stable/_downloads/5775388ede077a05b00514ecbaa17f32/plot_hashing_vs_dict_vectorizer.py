@@ -1,42 +1,34 @@
 """
 ===========================================
-FeatureHasher and DictVectorizer Comparison
+مقارنة بين FeatureHasher و DictVectorizer
 ===========================================
 
-In this example we illustrate text vectorization, which is the process of
-representing non-numerical input data (such as dictionaries or text documents)
-as vectors of real numbers.
+في هذا المثال، نوضح عملية تمثيل ناقلات النصوص، وهي عملية تمثيل بيانات الإدخال غير الرقمية (مثل القواميس أو وثائق النصوص) كمتجهات من الأعداد الحقيقية.
 
-We first compare :func:`~sklearn.feature_extraction.FeatureHasher` and
-:func:`~sklearn.feature_extraction.DictVectorizer` by using both methods to
-vectorize text documents that are preprocessed (tokenized) with the help of a
-custom Python function.
+نقارن أولاً بين :func:`~sklearn.feature_extraction.FeatureHasher` و
+:func:`~sklearn.feature_extraction.DictVectorizer` باستخدام كلتا الطريقتين لتمثيل ناقلات وثائق النصوص التي تتم معالجتها مسبقًا (تجزيئها) بمساعدة دالة بايثون مخصصة.
 
-Later we introduce and analyze the text-specific vectorizers
-:func:`~sklearn.feature_extraction.text.HashingVectorizer`,
-:func:`~sklearn.feature_extraction.text.CountVectorizer` and
-:func:`~sklearn.feature_extraction.text.TfidfVectorizer` that handle both the
-tokenization and the assembling of the feature matrix within a single class.
+فيما بعد، نقدم ونحلل ناقلات النصوص المخصصة:
+:func:`~sklearn.feature_extraction.text.HashingVectorizer`،
+:func:`~sklearn.feature_extraction.text.CountVectorizer` و
+:func:`~sklearn.feature_extraction.text.TfidfVectorizer` التي تتعامل مع كل من تجزيء النصوص وتجميع مصفوفة الخصائص ضمن فئة واحدة.
 
-The objective of the example is to demonstrate the usage of text vectorization
-API and to compare their processing time. See the example scripts
+هدف المثال هو توضيح استخدام واجهة برمجة التطبيقات (API) لتمثيل ناقلات النصوص ومقارنة أوقات معالجتها. راجع نصوص الأمثلة
 :ref:`sphx_glr_auto_examples_text_plot_document_classification_20newsgroups.py`
-and :ref:`sphx_glr_auto_examples_text_plot_document_clustering.py` for actual
-learning on text documents.
+و :ref:`sphx_glr_auto_examples_text_plot_document_clustering.py` للتعلم الفعلي على وثائق النصوص.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 # %%
-# Load Data
+# تحميل البيانات
 # ---------
 #
-# We load data from :ref:`20newsgroups_dataset`, which comprises around
-# 18000 newsgroups posts on 20 topics split in two subsets: one for training and
-# one for testing. For the sake of simplicity and reducing the computational
-# cost, we select a subset of 7 topics and use the training set only.
+# نقوم بتحميل البيانات من :ref:`20newsgroups_dataset`، والتي تتضمن حوالي
+# 18000 منشورات مجموعات الأخبار حول 20 موضوعًا مقسمة إلى مجموعتين: واحدة للتدريب
+# والأخرى للاختبار. من أجل البساطة وتقليل التكلفة الحسابية، نختار مجموعة فرعية من 7 مواضيع ونستخدم مجموعة التدريب فقط.
 
 from sklearn.datasets import fetch_20newsgroups
 
@@ -50,29 +42,28 @@ categories = [
     "talk.religion.misc",
 ]
 
-print("Loading 20 newsgroups training data")
+print("تحميل بيانات تدريب مجموعات الأخبار 20")
 raw_data, _ = fetch_20newsgroups(subset="train", categories=categories, return_X_y=True)
 data_size_mb = sum(len(s.encode("utf-8")) for s in raw_data) / 1e6
-print(f"{len(raw_data)} documents - {data_size_mb:.3f}MB")
+print(f"{len(raw_data)} وثائق - {data_size_mb:.3f}MB")
 
 # %%
-# Define preprocessing functions
+# تحديد دالات ما قبل المعالجة
 # ------------------------------
 #
-# A token may be a word, part of a word or anything comprised between spaces or
-# symbols in a string. Here we define a function that extracts the tokens using
-# a simple regular expression (regex) that matches Unicode word characters. This
-# includes most characters that can be part of a word in any language, as well
-# as numbers and the underscore:
+# قد يكون الرمز عبارة عن كلمة، أو جزء من كلمة، أو أي شيء يقع بين المسافات أو
+# الرموز في سلسلة. هنا، نحدد دالة تستخرج الرموز باستخدام
+# تعبير عادي (regex) بسيط يطابق حروف الكلمات. وهذا يشمل معظم الرموز التي يمكن أن تكون جزءًا من كلمة في أي لغة،
+# بالإضافة إلى الأرقام وخط التحتية:
 
 import re
 
 
 def tokenize(doc):
-    """Extract tokens from doc.
+    """استخراج الرموز من doc.
 
-    This uses a simple regex that matches word characters to break strings
-    into tokens. For a more principled approach, see CountVectorizer or
+    يستخدم هذا تعبيرًا عاديًا بسيطًا يطابق حروف الكلمات لتقسيم السلاسل
+    إلى رموز. للحصول على نهج أكثر مبدأية، راجع CountVectorizer أو
     TfidfVectorizer.
     """
     return (tok.lower() for tok in re.findall(r"\w+", doc))
@@ -81,15 +72,15 @@ def tokenize(doc):
 list(tokenize("This is a simple example, isn't it?"))
 
 # %%
-# We define an additional function that counts the (frequency of) occurrence of
-# each token in a given document. It returns a frequency dictionary to be used
-# by the vectorizers.
+# نحدد دالة إضافية تحسب (تكرار) حدوث
+# كل رمز في وثيقة معينة. تعيد دالة قاموس الترددات لاستخدامها
+# بواسطة ناقلات النصوص.
 
 from collections import defaultdict
 
 
 def token_freqs(doc):
-    """Extract a dict mapping tokens from doc to their occurrences."""
+    """استخراج قاموس يُمَثِل خريطة من الرموز في doc إلى تكراراتها."""
 
     freq = defaultdict(int)
     for tok in tokenize(doc):
@@ -100,20 +91,20 @@ def token_freqs(doc):
 token_freqs("That is one example, but this is another one")
 
 # %%
-# Observe in particular that the repeated token `"is"` is counted twice for
-# instance.
+# لاحظ على وجه الخصوص أن الرمز المتكرر `"is"` يتم حسابه مرتين على سبيل
+# المثال.
 #
-# Breaking a text document into word tokens, potentially losing the order
-# information between the words in a sentence is often called a `Bag of Words
-# representation <https://en.wikipedia.org/wiki/Bag-of-words_model>`_.
+# إن تقسيم وثيقة نصية إلى رموز كلمات، مع فقدان محتمل لمعلومات الترتيب
+# بين الكلمات في جملة، يُطلق عليه غالبًا تمثيل "حقيبة الكلمات
+# <https://en.wikipedia.org/wiki/Bag-of-words_model>`_".
 
 # %%
 # DictVectorizer
 # --------------
 #
-# First we benchmark the :func:`~sklearn.feature_extraction.DictVectorizer`,
-# then we compare it to :func:`~sklearn.feature_extraction.FeatureHasher` as
-# both of them receive dictionaries as input.
+# أولاً، نقوم باختبار أداء :func:`~sklearn.feature_extraction.DictVectorizer`،
+# ثم نقارنه بـ :func:`~sklearn.feature_extraction.FeatureHasher` حيث أن كلاهما
+# يستقبل القواميس كمدخلات.
 
 from time import time
 
@@ -133,9 +124,8 @@ print(f"done in {duration:.3f} s at {data_size_mb / duration:.1f} MB/s")
 print(f"Found {len(vectorizer.get_feature_names_out())} unique terms")
 
 # %%
-# The actual mapping from text token to column index is explicitly stored in
-# the `.vocabulary_` attribute which is a potentially very large Python
-# dictionary:
+# يتم تخزين الخريطة الفعلية من رموز النص إلى فهرس العمود بشكل صريح في
+# سمة `.vocabulary_` والتي هي عبارة عن قاموس بايثون كبير محتمل:
 type(vectorizer.vocabulary_)
 
 # %%
@@ -148,38 +138,36 @@ vectorizer.vocabulary_["example"]
 # FeatureHasher
 # -------------
 #
-# Dictionaries take up a large amount of storage space and grow in size as the
-# training set grows. Instead of growing the vectors along with a dictionary,
-# feature hashing builds a vector of pre-defined length by applying a hash
-# function `h` to the features (e.g., tokens), then using the hash values
-# directly as feature indices and updating the resulting vector at those
-# indices. When the feature space is not large enough, hashing functions tend to
-# map distinct values to the same hash code (hash collisions). As a result, it
-# is impossible to determine what object generated any particular hash code.
+# تأخذ القواميس مساحة تخزين كبيرة وتنمو في الحجم مع نمو مجموعة التدريب. بدلاً من
+# زيادة حجم المتجهات مع القاموس، يقوم تمثيل الخصائص الهاشة ببناء متجه من
+# طول محدد مسبقًا عن طريق تطبيق دالة هاش `h` على الخصائص (مثل الرموز)، ثم
+# استخدام قيم الهاش مباشرةً كفهرس للخصائص وتحديث المتجه الناتج عند تلك
+# الفهارس. عندما لا تكون مساحة الخصائص كبيرة بما يكفي، تميل دالات الهاش إلى
+# تعيين قيم متميزة إلى نفس كود الهاش (اصطدامات الهاش). ونتيجة لذلك، من
+# المستحيل تحديد الكائن الذي أنتج أي كود هاش معين.
 #
-# Because of the above it is impossible to recover the original tokens from the
-# feature matrix and the best approach to estimate the number of unique terms in
-# the original dictionary is to count the number of active columns in the
-# encoded feature matrix. For such a purpose we define the following function:
+# بسبب ما سبق، من المستحيل استعادة الرموز الأصلية من مصفوفة الخصائص، وأفضل
+# نهج لتقدير عدد المصطلحات الفريدة في القاموس الأصلي هو حساب عدد الأعمدة
+# النشطة في مصفوفة الخصائص المشفرة. لهذا الغرض، نحدد الدالة التالية:
 
 import numpy as np
 
 
 def n_nonzero_columns(X):
-    """Number of columns with at least one non-zero value in a CSR matrix.
+    """عدد الأعمدة التي تحتوي على قيمة غير صفرية واحدة على الأقل في مصفوفة CSR.
 
-    This is useful to count the number of features columns that are effectively
-    active when using the FeatureHasher.
+    هذا مفيد لحساب عدد أعمدة الخصائص التي تكون نشطة بشكل فعال عند استخدام
+    FeatureHasher.
     """
     return len(np.unique(X.nonzero()[1]))
 
 
 # %%
-# The default number of features for the
-# :func:`~sklearn.feature_extraction.FeatureHasher` is 2**20. Here we set
-# `n_features = 2**18` to illustrate hash collisions.
+# العدد الافتراضي للخصائص لـ
+# :func:`~sklearn.feature_extraction.FeatureHasher` هو 2**20. هنا نحدد
+# `n_features = 2**18` لتوضيح اصطدامات الهاش.
 #
-# **FeatureHasher on frequency dictionaries**
+# **FeatureHasher على قواميس الترددات**
 
 from sklearn.feature_extraction import FeatureHasher
 
@@ -195,16 +183,15 @@ print(f"done in {duration:.3f} s at {data_size_mb / duration:.1f} MB/s")
 print(f"Found {n_nonzero_columns(X)} unique tokens")
 
 # %%
-# The number of unique tokens when using the
-# :func:`~sklearn.feature_extraction.FeatureHasher` is lower than those obtained
-# using the :func:`~sklearn.feature_extraction.DictVectorizer`. This is due to
-# hash collisions.
+# عدد الرموز الفريدة عند استخدام
+# :func:`~sklearn.feature_extraction.FeatureHasher` أقل من تلك التي تم الحصول عليها
+# باستخدام :func:`~sklearn.feature_extraction.DictVectorizer`. ويرجع ذلك إلى
+# اصطدامات الهاش.
 #
-# The number of collisions can be reduced by increasing the feature space.
-# Notice that the speed of the vectorizer does not change significantly when
-# setting a large number of features, though it causes larger coefficient
-# dimensions and then requires more memory usage to store them, even if a
-# majority of them is inactive.
+# يمكن تقليل عدد الاصطدامات عن طريق زيادة مساحة الخصائص. لاحظ أن سرعة
+# ناقلة الخصائص لا تتغير بشكل كبير عند تحديد عدد كبير من الخصائص، على الرغم
+# من أنها تسبب أبعاد معاملات أكبر وتتطلب بالتالي استخدام ذاكرة أكبر لتخزينها،
+# حتى لو كانت أغلبيتها غير نشطة.
 
 t0 = time()
 hasher = FeatureHasher(n_features=2**22)
@@ -215,15 +202,15 @@ print(f"done in {duration:.3f} s at {data_size_mb / duration:.1f} MB/s")
 print(f"Found {n_nonzero_columns(X)} unique tokens")
 
 # %%
-# We confirm that the number of unique tokens gets closer to the number of
-# unique terms found by the :func:`~sklearn.feature_extraction.DictVectorizer`.
+# نؤكد أن عدد الرموز الفريدة يقترب من عدد المصطلحات الفريدة التي وجدها
+# :func:`~sklearn.feature_extraction.DictVectorizer`.
 #
-# **FeatureHasher on raw tokens**
+# **FeatureHasher على الرموز الخام**
 #
-# Alternatively, one can set `input_type="string"` in the
-# :func:`~sklearn.feature_extraction.FeatureHasher` to vectorize the strings
-# output directly from the customized `tokenize` function. This is equivalent to
-# passing a dictionary with an implied frequency of 1 for each feature name.
+# بدلاً من ذلك، يمكنك تحديد `input_type="string"` في
+# :func:`~sklearn.feature_extraction.FeatureHasher` لتمثيل ناقلات السلاسل
+# الناتجة مباشرة من دالة `tokenize` المخصصة. وهذا يعادل تمرير قاموس مع
+# تكرار ضمني يساوي 1 لكل اسم خاصية.
 
 t0 = time()
 hasher = FeatureHasher(n_features=2**18, input_type="string")
@@ -237,7 +224,7 @@ print(f"done in {duration:.3f} s at {data_size_mb / duration:.1f} MB/s")
 print(f"Found {n_nonzero_columns(X)} unique tokens")
 
 # %%
-# We now plot the speed of the above methods for vectorizing.
+# نحن الآن نرسم سرعة الطرق المذكورة أعلاه لتمثيل ناقلات النصوص.
 
 import matplotlib.pyplot as plt
 
@@ -248,32 +235,30 @@ ax.barh(y_pos, dict_count_vectorizers["speed"], align="center")
 ax.set_yticks(y_pos)
 ax.set_yticklabels(dict_count_vectorizers["vectorizer"])
 ax.invert_yaxis()
-_ = ax.set_xlabel("speed (MB/s)")
+_ = ax.set_xlabel("السرعة (MB/s)")
 
 # %%
-# In both cases :func:`~sklearn.feature_extraction.FeatureHasher` is
-# approximately twice as fast as
-# :func:`~sklearn.feature_extraction.DictVectorizer`. This is handy when dealing
-# with large amounts of data, with the downside of losing the invertibility of
-# the transformation, which in turn makes the interpretation of a model a more
-# complex task.
+# في كلتا الحالتين، :func:`~sklearn.feature_extraction.FeatureHasher`
+# أسرع مرتين تقريبًا من
+# :func:`~sklearn.feature_extraction.DictVectorizer`. وهذا مفيد عند التعامل
+# مع كميات كبيرة من البيانات، مع الجانب السلبي المتمثل في فقدان إمكانية
+# عكس التحويل، مما يجعل تفسير النموذج مهمة أكثر تعقيدًا.
 #
-# The `FeatureHeasher` with `input_type="string"` is slightly faster than the
-# variant that works on frequency dict because it does not count repeated
-# tokens: each token is implicitly counted once, even if it was repeated.
-# Depending on the downstream machine learning task, it can be a limitation or
-# not.
+# إن `FeatureHeasher` مع `input_type="string"` أسرع قليلاً من المتغير الذي
+# يعمل على قاموس الترددات لأنه لا يحسب الرموز المتكررة: يتم حساب كل رمز
+# ضمنيًا مرة واحدة، حتى لو تكرر. وهذا يعتمد على مهمة التعلم الآلي
+# النهائية، فقد يكون هذا عيبًا أو لا.
 #
-# Comparison with special purpose text vectorizers
+# المقارنة مع ناقلات النصوص المخصصة
 # ------------------------------------------------
 #
-# :func:`~sklearn.feature_extraction.text.CountVectorizer` accepts raw data as
-# it internally implements tokenization and occurrence counting. It is similar
-# to the :func:`~sklearn.feature_extraction.DictVectorizer` when used along with
-# the customized function `token_freqs` as done in the previous section. The
-# difference being that :func:`~sklearn.feature_extraction.text.CountVectorizer`
-# is more flexible. In particular it accepts various regex patterns through the
-# `token_pattern` parameter.
+# :func:`~sklearn.feature_extraction.text.CountVectorizer` يقبل البيانات الخام
+# حيث أنه ينفذ تجزيء النصوص وحساب الترددات داخليًا. وهو مشابه
+# لـ :func:`~sklearn.feature_extraction.DictVectorizer` عند استخدامه مع
+# دالة `token_freqs` المخصصة كما هو الحال في القسم السابق. الفرق هو أن
+# :func:`~sklearn.feature_extraction.text.CountVectorizer` أكثر مرونة.
+# على وجه الخصوص، يقبل أنماط تعبيرات عادية مختلفة من خلال معامل
+# `token_pattern`.
 
 from sklearn.feature_extraction.text import CountVectorizer
 
@@ -287,19 +272,19 @@ print(f"done in {duration:.3f} s at {data_size_mb / duration:.1f} MB/s")
 print(f"Found {len(vectorizer.get_feature_names_out())} unique terms")
 
 # %%
-# We see that using the :func:`~sklearn.feature_extraction.text.CountVectorizer`
-# implementation is approximately twice as fast as using the
-# :func:`~sklearn.feature_extraction.DictVectorizer` along with the simple
-# function we defined for mapping the tokens. The reason is that
-# :func:`~sklearn.feature_extraction.text.CountVectorizer` is optimized by
-# reusing a compiled regular expression for the full training set instead of
-# creating one per document as done in our naive tokenize function.
+# نلاحظ أن استخدام :func:`~sklearn.feature_extraction.text.CountVectorizer`
+# أسرع مرتين تقريبًا من استخدام
+# :func:`~sklearn.feature_extraction.DictVectorizer` مع الدالة البسيطة التي
+# حددناها لتمثيل خريطة الرموز. والسبب هو أن
+# :func:`~sklearn.feature_extraction.text.CountVectorizer` يتم تحسينه عن طريق
+# إعادة استخدام تعبير عادي مجمع للمجموعة التدريبية بالكامل بدلاً من
+# إنشاء واحد لكل وثيقة كما هو الحال في دالة `tokenize` البسيطة التي حددناها.
 #
-# Now we make a similar experiment with the
-# :func:`~sklearn.feature_extraction.text.HashingVectorizer`, which is
-# equivalent to combining the "hashing trick" implemented by the
-# :func:`~sklearn.feature_extraction.FeatureHasher` class and the text
-# preprocessing and tokenization of the
+# الآن، نجري تجربة مماثلة مع
+# :func:`~sklearn.feature_extraction.text.HashingVectorizer`، والتي
+# تعادل الجمع بين "خدعة الهاش" التي ينفذها
+# :func:`~sklearn.feature_extraction.FeatureHasher` ومعالجة النصوص
+# وتجزيئها في
 # :func:`~sklearn.feature_extraction.text.CountVectorizer`.
 
 from sklearn.feature_extraction.text import HashingVectorizer
@@ -313,28 +298,27 @@ dict_count_vectorizers["speed"].append(data_size_mb / duration)
 print(f"done in {duration:.3f} s at {data_size_mb / duration:.1f} MB/s")
 
 # %%
-# We can observe that this is the fastest text tokenization strategy so far,
-# assuming that the downstream machine learning task can tolerate a few
-# collisions.
+# يمكننا ملاحظة أن هذه هي أسرع استراتيجية لتجزيء النصوص حتى الآن،
+# بافتراض أن مهمة التعلم الآلي النهائية يمكنها تحمل بعض الاصطدامات.
 #
 # TfidfVectorizer
 # ---------------
 #
-# In a large text corpus, some words appear with higher frequency (e.g. "the",
-# "a", "is" in English) and do not carry meaningful information about the actual
-# contents of a document. If we were to feed the word count data directly to a
-# classifier, those very common terms would shadow the frequencies of rarer yet
-# more informative terms. In order to re-weight the count features into floating
-# point values suitable for usage by a classifier it is very common to use the
-# tf-idf transform as implemented by the
-# :func:`~sklearn.feature_extraction.text.TfidfTransformer`. TF stands for
-# "term-frequency" while "tf-idf" means term-frequency times inverse
-# document-frequency.
+# في مجموعة نصوص كبيرة، تظهر بعض الكلمات بتردد أعلى (مثل "the"،
+# "a"، "is" في اللغة الإنجليزية) ولا تحمل معلومات ذات معنى حول المحتوى
+# الفعلي لوثيقة ما. إذا كنا سنقوم بتغذية بيانات تكرار الكلمات مباشرةً
+# إلى مصنف، فإن هذه المصطلحات الشائعة جدًا ستطغى على ترددات المصطلحات
+# النادرة ولكنها أكثر إفادة. من أجل إعادة وزن ميزات تكرار الكلمات إلى
+# قيم ذات أعداد عائمة مناسبة للاستخدام بواسطة مصنف، من الشائع جدًا
+# استخدام تحويل tf-idf كما ينفذه
+# :func:`~sklearn.feature_extraction.text.TfidfTransformer`. TF تعني
+# "تردد المصطلح" بينما "tf-idf" تعني تردد المصطلح مضروبًا في عكس
+# تردد الوثيقة.
 #
-# We now benchmark the :func:`~sklearn.feature_extraction.text.TfidfVectorizer`,
-# which is equivalent to combining the tokenization and occurrence counting of
-# the :func:`~sklearn.feature_extraction.text.CountVectorizer` along with the
-# normalizing and weighting from a
+# نقوم الآن باختبار أداء :func:`~sklearn.feature_extraction.text.TfidfVectorizer`،
+# والذي يعادل الجمع بين تجزيء النصوص وحساب تردداتها في
+# :func:`~sklearn.feature_extraction.text.CountVectorizer` إلى جانب
+# التطبيع والوزن من
 # :func:`~sklearn.feature_extraction.text.TfidfTransformer`.
 
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -349,10 +333,10 @@ print(f"done in {duration:.3f} s at {data_size_mb / duration:.1f} MB/s")
 print(f"Found {len(vectorizer.get_feature_names_out())} unique terms")
 
 # %%
-# Summary
+# ملخص
 # -------
-# Let's conclude this notebook by summarizing all the recorded processing speeds
-# in a single plot:
+# دعونا نختتم هذا الدفتر بتلخيص جميع سرعات المعالجة المسجلة
+# في مخطط واحد:
 
 fig, ax = plt.subplots(figsize=(12, 6))
 
@@ -361,23 +345,23 @@ ax.barh(y_pos, dict_count_vectorizers["speed"], align="center")
 ax.set_yticks(y_pos)
 ax.set_yticklabels(dict_count_vectorizers["vectorizer"])
 ax.invert_yaxis()
-_ = ax.set_xlabel("speed (MB/s)")
+_ = ax.set_xlabel("السرعة (MB/s)")
 
 # %%
-# Notice from the plot that
-# :func:`~sklearn.feature_extraction.text.TfidfVectorizer` is slightly slower
-# than :func:`~sklearn.feature_extraction.text.CountVectorizer` because of the
-# extra operation induced by the
+# لاحظ من الرسم البياني أن
+# :func:`~sklearn.feature_extraction.text.TfidfVectorizer` أبطأ قليلاً
+# من :func:`~sklearn.feature_extraction.text.CountVectorizer` بسبب
+# العملية الإضافية الناتجة عن
 # :func:`~sklearn.feature_extraction.text.TfidfTransformer`.
 #
-# Also notice that, by setting the number of features `n_features = 2**18`, the
-# :func:`~sklearn.feature_extraction.text.HashingVectorizer` performs better
-# than the :func:`~sklearn.feature_extraction.text.CountVectorizer` at the
-# expense of inversibility of the transformation due to hash collisions.
+# لاحظ أيضًا أنه من خلال تعيين عدد الميزات `n_features = 2**18`، فإن
+# :func:`~sklearn.feature_extraction.text.HashingVectorizer` يعمل بشكل
+# أفضل من :func:`~sklearn.feature_extraction.text.CountVectorizer` على
+# حساب انعكاس التحويل بسبب تصادمات التجزئة.
 #
-# We highlight that :func:`~sklearn.feature_extraction.text.CountVectorizer` and
-# :func:`~sklearn.feature_extraction.text.HashingVectorizer` perform better than
-# their equivalent :func:`~sklearn.feature_extraction.DictVectorizer` and
-# :func:`~sklearn.feature_extraction.FeatureHasher` on manually tokenized
-# documents since the internal tokenization step of the former vectorizers
-# compiles a regular expression once and then reuses it for all the documents.
+# نسلط الضوء على أن :func:`~sklearn.feature_extraction.text.CountVectorizer` و
+# :func:`~sklearn.feature_extraction.text.HashingVectorizer` يعملان بشكل
+# أفضل من :func:`~sklearn.feature_extraction.DictVectorizer` و
+# :func:`~sklearn.feature_extraction.FeatureHasher` على المستندات
+# المميزة يدويًا لأن خطوة التمييز الداخلية للناقلات الأولى
+# تقوم بتجميع تعبير عادي مرة واحدة ثم تعيد استخدامه لجميع المستندات.

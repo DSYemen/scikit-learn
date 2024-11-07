@@ -1,20 +1,16 @@
-r"""
+"""
 =====================================================================
-The Johnson-Lindenstrauss bound for embedding with random projections
+حدود جونسون-ليندستراوس للانغماس مع الإسقاطات العشوائية
 =====================================================================
 
 
-The `Johnson-Lindenstrauss lemma`_ states that any high dimensional
-dataset can be randomly projected into a lower dimensional Euclidean
-space while controlling the distortion in the pairwise distances.
+تنص مبرهنة جونسون-ليندستراوس على أنه يمكن إسقاط أي مجموعة بيانات ذات أبعاد عالية بشكل عشوائي إلى فضاء إقليدي ذي أبعاد أقل مع التحكم في التشوه في المسافات الزوجية.
 
 .. _`Johnson-Lindenstrauss lemma`: https://en.wikipedia.org/wiki/\
     Johnson%E2%80%93Lindenstrauss_lemma
-
 """
-
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايت-ليرن
+# معرف الترخيص: BSD-3-Clause
 
 import sys
 from time import time
@@ -26,39 +22,39 @@ from sklearn.datasets import fetch_20newsgroups_vectorized, load_digits
 from sklearn.metrics.pairwise import euclidean_distances
 from sklearn.random_projection import (
     SparseRandomProjection,
-    johnson_lindenstrauss_min_dim,
+    johnson_lindenstrauss_min_dim
 )
 
 # %%
-# Theoretical bounds
+# الحدود النظرية
 # ==================
-# The distortion introduced by a random projection `p` is asserted by
-# the fact that `p` is defining an eps-embedding with good probability
-# as defined by:
+# التشوه الذي يسببه الإسقاط العشوائي 'p' يتم تأكيده من خلال
+# حقيقة أن 'p' تحدد غرس eps مع احتمال جيد
+# كما هو محدد بواسطة:
 #
 # .. math::
 #    (1 - eps) \|u - v\|^2 < \|p(u) - p(v)\|^2 < (1 + eps) \|u - v\|^2
 #
-# Where `u` and `v` are any rows taken from a dataset of shape `(n_samples,
-# n_features)` and `p` is a projection by a random Gaussian `N(0, 1)` matrix
-# of shape `(n_components, n_features)` (or a sparse Achlioptas matrix).
+# حيث 'u' و 'v' هما أي صفين مأخوذين من مجموعة بيانات ذات شكل (n_samples،
+# n_features) و 'p' هو إسقاط بواسطة مصفوفة غاوسية عشوائية 'N(0, 1)'
+# ذات شكل (n_components، n_features) (أو مصفوفة Achlioptas نادرة).
 #
-# The minimum number of components to guarantees the eps-embedding is
-# given by:
+# الحد الأدنى لعدد المكونات لضمان غرس eps هو
+# معطى بواسطة:
 #
 # .. math::
 #    n\_components \geq 4 log(n\_samples) / (eps^2 / 2 - eps^3 / 3)
 #
 #
-# The first plot shows that with an increasing number of samples ``n_samples``,
-# the minimal number of dimensions ``n_components`` increased logarithmically
-# in order to guarantee an ``eps``-embedding.
+# يظهر المخطط الأول أنه مع زيادة عدد العينات "n_samples"،
+# يزداد الحد الأدنى لعدد الأبعاد "n_components" بشكل لوغاريتمي
+# لضمان غرس "eps".
 
-# range of admissible distortions
+# نطاق التشوهات المسموح بها
 eps_range = np.linspace(0.1, 0.99, 5)
 colors = plt.cm.Blues(np.linspace(0.3, 1.0, len(eps_range)))
 
-# range of number of samples (observation) to embed
+# نطاق عدد العينات (الملاحظة) لإدراجها
 n_samples_range = np.logspace(1, 9, 9)
 
 plt.figure()
@@ -67,23 +63,23 @@ for eps, color in zip(eps_range, colors):
     plt.loglog(n_samples_range, min_n_components, color=color)
 
 plt.legend([f"eps = {eps:0.1f}" for eps in eps_range], loc="lower right")
-plt.xlabel("Number of observations to eps-embed")
-plt.ylabel("Minimum number of dimensions")
-plt.title("Johnson-Lindenstrauss bounds:\nn_samples vs n_components")
+plt.xlabel("عدد الملاحظات لإدراجها")
+plt.ylabel("الحد الأدنى لعدد الأبعاد")
+plt.title("حدود جونسون-ليندستراوس:\nn_samples مقابل n_components")
 plt.show()
 
 
 # %%
-# The second plot shows that an increase of the admissible
-# distortion ``eps`` allows to reduce drastically the minimal number of
-# dimensions ``n_components`` for a given number of samples ``n_samples``
+# يظهر المخطط الثاني أنه مع زيادة التشوه المسموح به
+# "eps" يسمح بخفض الحد الأدنى بشكل كبير
+# عدد الأبعاد "n_components" لعدد معين من العينات "n_samples"
 
-# range of admissible distortions
+# نطاق التشوهات المسموح بها
 eps_range = np.linspace(0.01, 0.99, 100)
 
-# range of number of samples (observation) to embed
+# نطاق عدد العينات (الملاحظة) لإدراجها
 n_samples_range = np.logspace(2, 6, 5)
-colors = plt.cm.Blues(np.linspace(0.3, 1.0, len(n_samples_range)))
+الألوان = plt.cm.Blues(np.linspace(0.3, 1.0, len(n_samples_range)))
 
 plt.figure()
 for n_samples, color in zip(n_samples_range, colors):
@@ -91,30 +87,30 @@ for n_samples, color in zip(n_samples_range, colors):
     plt.semilogy(eps_range, min_n_components, color=color)
 
 plt.legend([f"n_samples = {n}" for n in n_samples_range], loc="upper right")
-plt.xlabel("Distortion eps")
-plt.ylabel("Minimum number of dimensions")
-plt.title("Johnson-Lindenstrauss bounds:\nn_components vs eps")
+plt.xlabel("التشوه eps")
+plt.ylabel("الحد الأدنى لعدد الأبعاد")
+plt.title("حدود جونسون-ليندستراوس:\nn_components مقابل eps")
 plt.show()
 
 # %%
-# Empirical validation
+# التحقق التجريبي
 # ====================
 #
-# We validate the above bounds on the 20 newsgroups text document
-# (TF-IDF word frequencies) dataset or on the digits dataset:
+# نتحقق من الحدود أعلاه على مجموعة بيانات وثائق الأخبار العشرين
+# (ترددات الكلمات TF-IDF) أو على مجموعة بيانات الأرقام:
 #
-# - for the 20 newsgroups dataset some 300 documents with 100k
-#   features in total are projected using a sparse random matrix to smaller
-#   euclidean spaces with various values for the target number of dimensions
-#   ``n_components``.
+# - لمجموعة بيانات الأخبار العشرين، يتم إسقاط بعض الوثائق 300
+#   الميزات في المجموع باستخدام مصفوفة عشوائية نادرة إلى مساحات إقليدية أصغر
+#   مع قيم مختلفة للعدد المستهدف من الأبعاد
+#   "n_components".
 #
-# - for the digits dataset, some 8x8 gray level pixels data for 300
-#   handwritten digits pictures are randomly projected to spaces for various
-#   larger number of dimensions ``n_components``.
+# - لمجموعة بيانات الأرقام، يتم إسقاط بعض بيانات البكسل بمستوى رمادي 8x8 لصور 300
+#   أرقام مكتوبة بخط اليد بشكل عشوائي إلى مساحات لمختلف
+#   عدد أكبر من الأبعاد "n_components".
 #
-# The default dataset is the 20 newsgroups dataset. To run the example on the
-# digits dataset, pass the ``--use-digits-dataset`` command line argument to
-# this script.
+# مجموعة البيانات الافتراضية هي مجموعة بيانات الأخبار العشرين. لتشغيل المثال على
+# مجموعة بيانات الأرقام، قم بتمرير حجة سطر الأوامر "use-digits-dataset"
+# إلى هذا البرنامج النصي.
 
 if "--use-digits-dataset" in sys.argv:
     data = load_digits().data[:300]
@@ -122,12 +118,12 @@ else:
     data = fetch_20newsgroups_vectorized().data[:300]
 
 # %%
-# For each value of ``n_components``, we plot:
+# لكل قيمة من "n_components"، نحن نرسم:
 #
-# - 2D distribution of sample pairs with pairwise distances in original
-#   and projected spaces as x- and y-axis respectively.
+# - توزيع ثنائي الأبعاد لأزواج العينات مع المسافات الزوجية في
+#   المساحات الأصلية والمشروعة كمحور سيني ومحور صادي على التوالي.
 #
-# - 1D histogram of the ratio of those distances (projected / original).
+# - مخطط ترددي أحادي البعد لنسبة تلك المسافات (مشروعة / أصلية).
 
 n_samples, n_features = data.shape
 print(
@@ -138,7 +134,7 @@ print(
 n_components_range = np.array([300, 1_000, 10_000])
 dists = euclidean_distances(data, squared=True).ravel()
 
-# select only non-identical samples pairs
+# حدد فقط أزواج العينات غير المتطابقة
 nonzero = dists != 0
 dists = dists[nonzero]
 
@@ -167,45 +163,45 @@ for n_components in n_components_range:
         cmap=plt.cm.PuBu,
         extent=[min_dist, max_dist, min_dist, max_dist],
     )
-    plt.xlabel("Pairwise squared distances in original space")
-    plt.ylabel("Pairwise squared distances in projected space")
-    plt.title("Pairwise distances distribution for n_components=%d" % n_components)
+    plt.xlabel("المسافات الزوجية المربعة في المساحة الأصلية")
+    plt.ylabel("المسافات الزوجية المربعة في المساحة المشروعة")
+    plt.title("توزيع المسافات الزوجية لـ n_components=%d" % n_components)
     cb = plt.colorbar()
-    cb.set_label("Sample pairs counts")
+    cb.set_label("عدد أزواج العينات")
 
     rates = projected_dists / dists
     print(f"Mean distances rate: {np.mean(rates):.2f} ({np.std(rates):.2f})")
 
     plt.figure()
     plt.hist(rates, bins=50, range=(0.0, 2.0), edgecolor="k", density=True)
-    plt.xlabel("Squared distances rate: projected / original")
-    plt.ylabel("Distribution of samples pairs")
-    plt.title("Histogram of pairwise distance rates for n_components=%d" % n_components)
+    plt.xlabel("معدل المسافات المربعة: مشروعة / أصلية")
+    plt.ylabel("توزيع أزواج العينات")
+    plt.title("مخطط ترددي للمسافات الزوجية لـ n_components=%d" % n_components)
 
-    # TODO: compute the expected value of eps and add them to the previous plot
-    # as vertical lines / region
+    # TODO: حساب القيمة المتوقعة لـ eps وإضافتها إلى المخطط السابق
+# كخطوط عمودية / منطقة
 
 plt.show()
 
 
 # %%
-# We can see that for low values of ``n_components`` the distribution is wide
-# with many distorted pairs and a skewed distribution (due to the hard
-# limit of zero ratio on the left as distances are always positives)
-# while for larger values of `n_components` the distortion is controlled
-# and the distances are well preserved by the random projection.
+# يمكننا أن نرى أنه بالنسبة للقيم المنخفضة من "n_components" التوزيع واسع
+# مع العديد من الأزواج المشوهة وتوزيع منحرف (بسبب الحد الصلب
+# نسبة الصفر على اليسار حيث تكون المسافات دائمًا إيجابية)
+# في حين أنه بالنسبة للقيم الأكبر من 'n_components' يتم التحكم في التشوه
+# وتحفظ المسافات جيدًا بواسطة الإسقاط العشوائي.
 #
-# Remarks
+# ملاحظات
 # =======
 #
-# According to the JL lemma, projecting 300 samples without too much distortion
-# will require at least several thousands dimensions, irrespective of the
-# number of features of the original dataset.
+# وفقًا لمبرهنة JL، سيتطلب إسقاط 300 عينة بدون تشوه كبير
+# سيتطلب ذلك الآلاف من الأبعاد، بغض النظر عن
+# عدد ميزات مجموعة البيانات الأصلية.
 #
-# Hence using random projections on the digits dataset which only has 64
-# features in the input space does not make sense: it does not allow
-# for dimensionality reduction in this case.
+# وبالتالي، لا معنى لاستخدام الإسقاطات العشوائية على مجموعة بيانات الأرقام التي تحتوي فقط على 64
+# الميزات في مساحة الإدخال: لا تسمح
+# تقليل الأبعاد في هذه الحالة.
 #
-# On the twenty newsgroups on the other hand the dimensionality can be
-# decreased from 56,436 down to 10,000 while reasonably preserving
-# pairwise distances.
+# على مجموعة الأخبار العشرين من ناحية أخرى، يمكن تقليل الأبعاد
+# من 56,436 إلى 10,000 مع الحفاظ بشكل معقول على
+# المسافات الزوجية.

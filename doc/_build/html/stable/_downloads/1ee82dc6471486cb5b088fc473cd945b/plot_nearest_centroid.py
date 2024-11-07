@@ -1,15 +1,15 @@
 """
 ===============================
-Nearest Centroid Classification
+تصنيف أقرب مركز
 ===============================
 
-Sample usage of Nearest Centroid classification.
-It will plot the decision boundaries for each class.
+استخدام عينة لتصنيف أقرب مركز.
+سيقوم برسم حدود القرار لكل فئة.
 
 """
 
-# Authors: The scikit-learn developers
-# SPDX-License-Identifier: BSD-3-Clause
+# المؤلفون: مطوري سكايلرن
+# معرف الترخيص: BSD-3-Clause
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -19,19 +19,19 @@ from sklearn import datasets
 from sklearn.inspection import DecisionBoundaryDisplay
 from sklearn.neighbors import NearestCentroid
 
-# import some data to play with
+# استيراد بعض البيانات للتجربة
 iris = datasets.load_iris()
-# we only take the first two features. We could avoid this ugly
-# slicing by using a two-dim dataset
+# نأخذ فقط أول ميزتين. يمكننا تجنب هذا التقطيع غير المناسب
+# باستخدام مجموعة بيانات ثنائية الأبعاد
 X = iris.data[:, :2]
 y = iris.target
 
-# Create color maps
+# إنشاء خرائط الألوان
 cmap_light = ListedColormap(["orange", "cyan", "cornflowerblue"])
 cmap_bold = ListedColormap(["darkorange", "c", "darkblue"])
 
 for shrinkage in [None, 0.2]:
-    # we create an instance of Nearest Centroid Classifier and fit the data.
+    # ننشئ مثالاً لتصنيف أقرب مركز ونقوم بضبط البيانات.
     clf = NearestCentroid(shrink_threshold=shrinkage)
     clf.fit(X, y)
     y_pred = clf.predict(X)
@@ -42,9 +42,9 @@ for shrinkage in [None, 0.2]:
         clf, X, cmap=cmap_light, ax=ax, response_method="predict"
     )
 
-    # Plot also the training points
+    # رسم نقاط التدريب أيضًا
     plt.scatter(X[:, 0], X[:, 1], c=y, cmap=cmap_bold, edgecolor="k", s=20)
-    plt.title("3-Class classification (shrink_threshold=%r)" % shrinkage)
+    plt.title("تصنيف من 3 فئات (shrink_threshold=%r)" % shrinkage)
     plt.axis("tight")
 
 plt.show()

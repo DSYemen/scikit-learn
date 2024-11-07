@@ -19,37 +19,24 @@
 
 
 =============================
-Importance of Feature Scaling
+أهمية معايرة الميزات
 =============================
 
-Feature scaling through standardization, also called Z-score normalization, is
-an important preprocessing step for many machine learning algorithms. It
-involves rescaling each feature such that it has a standard deviation of 1 and a
-mean of 0.
+تعد معايرة الميزات من خلال التوحيد القياسي، والتي تسمى أيضًا التوحيد القياسي Z-score، خطوة معالجة مسبقة مهمة للعديد من خوارزميات التعلم الآلي. تتضمن إعادة معايرة كل ميزة بحيث يكون لها انحراف معياري يساوي 1 ومتوسط يساوي 0.
 
-Even if tree based models are (almost) not affected by scaling, many other
-algorithms require features to be normalized, often for different reasons: to
-ease the convergence (such as a non-penalized logistic regression), to create a
-completely different model fit compared to the fit with unscaled data (such as
-KNeighbors models). The latter is demoed on the first part of the present
-example.
+حتى إذا كانت النماذج القائمة على الشجرة (تقريبًا) غير متأثرة بالمعايرة، فإن العديد من الخوارزميات الأخرى تتطلب معايرة الميزات، غالبًا لأسباب مختلفة: لتسهيل التقارب (مثل الانحدار اللوجستي غير المعاقب)، لإنشاء نموذج مختلف تمامًا مقارنةً بالملاءمة مع البيانات غير المعايرة (مثل نماذج KNeighbors). يتم توضيح الأخير في الجزء الأول من المثال الحالي.
 
-On the second part of the example we show how Principal Component Analysis (PCA)
-is impacted by normalization of features. To illustrate this, we compare the
-principal components found using :class:`~sklearn.decomposition.PCA` on unscaled
-data with those obatined when using a
-:class:`~sklearn.preprocessing.StandardScaler` to scale data first.
+في الجزء الثاني من المثال، نوضح كيف يتأثر التحليل الرئيسي للمكونات (PCA) بتطبيع الميزات. لتوضيح ذلك، نقارن المكونات الرئيسية التي تم العثور عليها باستخدام :class:`~sklearn.decomposition.PCA` على البيانات غير المعايرة بتلك التي تم الحصول عليها عند استخدام :class:`~sklearn.preprocessing.StandardScaler` لمعايرة البيانات أولاً.
 
-In the last part of the example we show the effect of the normalization on the
-accuracy of a model trained on PCA-reduced data.
+في الجزء الأخير من المثال، نوضح تأثير التطبيع على دقة النموذج الذي تم تدريبه على البيانات المخفضة باستخدام PCA.
 
-.. GENERATED FROM PYTHON SOURCE LINES 28-32
+.. GENERATED FROM PYTHON SOURCE LINES 15-19
 
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
-    # SPDX-License-Identifier: BSD-3-Clause
+    # المؤلفون: مطوري scikit-learn
+    # معرف الترخيص: BSD-3-Clause
 
 
 
@@ -58,16 +45,16 @@ accuracy of a model trained on PCA-reduced data.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 33-39
+.. GENERATED FROM PYTHON SOURCE LINES 20-26
 
-Load and prepare data
+تحميل وإعداد البيانات
 =====================
 
-The dataset used is the :ref:`wine_dataset` available at UCI. This dataset has
-continuous features that are heterogeneous in scale due to differing
-properties that they measure (e.g. alcohol content and malic acid).
+مجموعة البيانات المستخدمة هي :ref:`wine_dataset` المتاحة في UCI. تحتوي هذه المجموعة من البيانات على
+ميزات مستمرة ذات مقاييس متغايرة بسبب الخصائص المختلفة
+التي تقيسها (مثل محتوى الكحول وحمض الماليك).
 
-.. GENERATED FROM PYTHON SOURCE LINES 39-52
+.. GENERATED FROM PYTHON SOURCE LINES 26-39
 
 .. code-block:: Python
 
@@ -91,23 +78,21 @@ properties that they measure (e.g. alcohol content and malic acid).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 53-66
+.. GENERATED FROM PYTHON SOURCE LINES 40-51
 
 .. _neighbors_scaling:
 
-Effect of rescaling on a k-neighbors models
+تأثير إعادة المعايرة على نماذج k-neighbors
 ===========================================
 
-For the sake of visualizing the decision boundary of a
-:class:`~sklearn.neighbors.KNeighborsClassifier`, in this section we select a
-subset of 2 features that have values with different orders of magnitude.
+من أجل تصور حدود القرار لتصنيف
+:class:`~sklearn.neighbors.KNeighborsClassifier`، في هذا القسم، نختار
+مجموعة فرعية من ميزتين لهما قيم ذات ترتيبات مختلفة من حيث الحجم.
 
-Keep in mind that using a subset of the features to train the model may likely
-leave out feature with high predictive impact, resulting in a decision
-boundary that is much worse in comparison to a model trained on the full set
-of features.
+ضع في اعتبارك أن استخدام مجموعة فرعية من الميزات لتدريب النموذج قد يؤدي إلى ترك ميزات ذات تأثير تنبؤي عالٍ، مما يؤدي إلى حدود قرار أسوأ بكثير مقارنةً بالنموذج الذي تم تدريبه على المجموعة الكاملة
+من الميزات.
 
-.. GENERATED FROM PYTHON SOURCE LINES 66-102
+.. GENERATED FROM PYTHON SOURCE LINES 51-87
 
 .. code-block:: Python
 
@@ -140,18 +125,18 @@ of features.
     fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(12, 6))
 
     fit_and_plot_model(X_plot, y, clf, ax1)
-    ax1.set_title("KNN without scaling")
+    ax1.set_title("KNN بدون معايرة")
 
     fit_and_plot_model(X_plot_scaled, y, clf, ax2)
-    ax2.set_xlabel("scaled proline")
-    ax2.set_ylabel("scaled hue")
-    _ = ax2.set_title("KNN with scaling")
+    ax2.set_xlabel("proline المعاير")
+    ax2.set_ylabel("hue المعاير")
+    _ = ax2.set_title("KNN مع المعايرة")
 
 
 
 
 .. image-sg:: /auto_examples/preprocessing/images/sphx_glr_plot_scaling_importance_001.png
-   :alt: KNN without scaling, KNN with scaling
+   :alt: KNN بدون معايرة, KNN مع المعايرة
    :srcset: /auto_examples/preprocessing/images/sphx_glr_plot_scaling_importance_001.png
    :class: sphx-glr-single-img
 
@@ -159,30 +144,30 @@ of features.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 103-123
+.. GENERATED FROM PYTHON SOURCE LINES 88-108
 
-Here the decision boundary shows that fitting scaled or non-scaled data lead
-to completely different models. The reason is that the variable "proline" has
-values which vary between 0 and 1,000; whereas the variable "hue" varies
-between 1 and 10. Because of this, distances between samples are mostly
-impacted by differences in values of "proline", while values of the "hue" will
-be comparatively ignored. If one uses
-:class:`~sklearn.preprocessing.StandardScaler` to normalize this database,
-both scaled values lay approximately between -3 and 3 and the neighbors
-structure will be impacted more or less equivalently by both variables.
+هنا، توضح حدود القرار أن ملاءمة البيانات المعايرة أو غير المعايرة تؤدي
+إلى نماذج مختلفة تمامًا. والسبب هو أن المتغير "proline" له
+قيم تتراوح بين 0 و 1,000؛ في حين أن المتغير "hue" يتراوح
+بين 1 و 10. بسبب هذا، تتأثر المسافات بين العينات بشكل أساسي
+بالاختلافات في قيم "proline"، في حين يتم تجاهل قيم "hue"
+بشكل نسبي. إذا استخدم المرء
+:class:`~sklearn.preprocessing.StandardScaler` لتطبيع هذه القاعدة البيانات،
+كلتا القيمتين المعايرتين تقع تقريبًا بين -3 و 3، وتتأثر بنية الجيران
+بشكل متساوٍ تقريبًا من خلال كلا المتغيرين.
 
-Effect of rescaling on a PCA dimensional reduction
+تأثير إعادة المعايرة على خفض الأبعاد باستخدام PCA
 ==================================================
 
-Dimensional reduction using :class:`~sklearn.decomposition.PCA` consists of
-finding the features that maximize the variance. If one feature varies more
-than the others only because of their respective scales,
-:class:`~sklearn.decomposition.PCA` would determine that such feature
-dominates the direction of the principal components.
+يتكون خفض الأبعاد باستخدام :class:`~sklearn.decomposition.PCA` من
+العثور على الميزات التي تزيد من التباين. إذا كانت إحدى الميزات تختلف أكثر
+من غيرها فقط بسبب مقاييسها،
+:class:`~sklearn.decomposition.PCA` سيحدد أن هذه الميزة
+تهيمن على اتجاه المكونات الرئيسية.
 
-We can inspect the first principal components using all the original features:
+يمكننا فحص المكونات الرئيسية الأولى باستخدام جميع الميزات الأصلية:
 
-.. GENERATED FROM PYTHON SOURCE LINES 123-143
+.. GENERATED FROM PYTHON SOURCE LINES 108-128
 
 .. code-block:: Python
 
@@ -197,11 +182,11 @@ We can inspect the first principal components using all the original features:
     X_train_std_transformed = scaled_pca.transform(scaled_X_train)
 
     first_pca_component = pd.DataFrame(
-        pca.components_[0], index=X.columns, columns=["without scaling"]
+        pca.components_[0], index=X.columns, columns=["بدون معايرة"]
     )
-    first_pca_component["with scaling"] = scaled_pca.components_[0]
+    first_pca_component["مع المعايرة"] = scaled_pca.components_[0]
     first_pca_component.plot.bar(
-        title="Weights of the first principal component", figsize=(6, 8)
+        title="أوزان المكون الرئيسي الأول", figsize=(6, 8)
     )
 
     _ = plt.tight_layout()
@@ -210,7 +195,7 @@ We can inspect the first principal components using all the original features:
 
 
 .. image-sg:: /auto_examples/preprocessing/images/sphx_glr_plot_scaling_importance_002.png
-   :alt: Weights of the first principal component
+   :alt: أوزان المكون الرئيسي الأول
    :srcset: /auto_examples/preprocessing/images/sphx_glr_plot_scaling_importance_002.png
    :class: sphx-glr-single-img
 
@@ -218,17 +203,16 @@ We can inspect the first principal components using all the original features:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 144-151
+.. GENERATED FROM PYTHON SOURCE LINES 129-135
 
-Indeed we find that the "proline" feature dominates the direction of the first
-principal component without scaling, being about two orders of magnitude above
-the other features. This is contrasted when observing the first principal
-component for the scaled version of the data, where the orders of magnitude
-are roughly the same across all the features.
+بالفعل نجد أن ميزة "proline" تهيمن على اتجاه المكون الرئيسي الأول بدون معايرة، حيث تكون أعلى بحوالي مرتبتين من الحجم
+من الميزات الأخرى. وهذا يتناقض عند ملاحظة المكون الرئيسي الأول
+لنسخة البيانات المعايرة، حيث تكون مراتب الحجم
+متشابهة تقريبًا عبر جميع الميزات.
 
-We can visualize the distribution of the principal components in both cases:
+يمكننا تصور توزيع المكونات الرئيسية في كلتا الحالتين:
 
-.. GENERATED FROM PYTHON SOURCE LINES 151-188
+.. GENERATED FROM PYTHON SOURCE LINES 135-172
 
 .. code-block:: Python
 
@@ -258,12 +242,12 @@ We can visualize the distribution of the principal components in both cases:
             marker=marker,
         )
 
-    ax1.set_title("Unscaled training dataset after PCA")
-    ax2.set_title("Standardized training dataset after PCA")
+    ax1.set_title("مجموعة البيانات التدريبية غير المعايرة بعد PCA")
+    ax2.set_title("مجموعة البيانات التدريبية المعايرة بعد PCA")
 
     for ax in (ax1, ax2):
-        ax.set_xlabel("1st principal component")
-        ax.set_ylabel("2nd principal component")
+        ax.set_xlabel("المكون الرئيسي الأول")
+        ax.set_ylabel("المكون الرئيسي الثاني")
         ax.legend(loc="upper right")
         ax.grid()
 
@@ -273,7 +257,7 @@ We can visualize the distribution of the principal components in both cases:
 
 
 .. image-sg:: /auto_examples/preprocessing/images/sphx_glr_plot_scaling_importance_003.png
-   :alt: Unscaled training dataset after PCA, Standardized training dataset after PCA
+   :alt: مجموعة البيانات التدريبية غير المعايرة بعد PCA, مجموعة البيانات التدريبية المعايرة بعد PCA
    :srcset: /auto_examples/preprocessing/images/sphx_glr_plot_scaling_importance_003.png
    :class: sphx-glr-single-img
 
@@ -281,22 +265,21 @@ We can visualize the distribution of the principal components in both cases:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 189-201
+.. GENERATED FROM PYTHON SOURCE LINES 173-184
 
-From the plot above we observe that scaling the features before reducing the
-dimensionality results in components with the same order of magnitude. In this
-case it also improves the separability of the classes. Indeed, in the next
-section we confirm that a better separability has a good repercussion on the
-overall model's performance.
+من الرسم البياني أعلاه، نلاحظ أن معايرة الميزات قبل خفض الأبعاد يؤدي إلى مكونات بنفس ترتيب الحجم. في هذه
+الحالة، يحسن أيضًا قابلية فصل الفئات. بالفعل، في القسم التالي
+نؤكد أن قابلية الفصل الأفضل لها تأثير جيد على
+الأداء العام للنموذج.
 
-Effect of rescaling on model's performance
+تأثير إعادة المعايرة على أداء النموذج
 ==========================================
 
-First we show how the optimal regularization of a
-:class:`~sklearn.linear_model.LogisticRegressionCV` depends on the scaling or
-non-scaling of the data:
+أولاً، نوضح كيف يعتمد التنظيم الأمثل لتصنيف
+:class:`~sklearn.linear_model.LogisticRegressionCV` على معايرة البيانات أو
+عدم معايرتها:
 
-.. GENERATED FROM PYTHON SOURCE LINES 201-218
+.. GENERATED FROM PYTHON SOURCE LINES 184-201
 
 .. code-block:: Python
 
@@ -314,8 +297,8 @@ non-scaling of the data:
     scaled_clf = make_pipeline(scaler, pca, LogisticRegressionCV(Cs=Cs))
     scaled_clf.fit(X_train, y_train)
 
-    print(f"Optimal C for the unscaled PCA: {unscaled_clf[-1].C_[0]:.4f}\n")
-    print(f"Optimal C for the standardized data with PCA: {scaled_clf[-1].C_[0]:.2f}")
+    print(f"القيمة المثلى C للـ PCA غير المعاير: {unscaled_clf[-1].C_[0]:.4f}\n")
+    print(f"القيمة المثلى C للبيانات المعايرة مع PCA: {scaled_clf[-1].C_[0]:.2f}")
 
 
 
@@ -325,20 +308,20 @@ non-scaling of the data:
 
  .. code-block:: none
 
-    Optimal C for the unscaled PCA: 0.0004
+    القيمة المثلى C للـ PCA غير المعاير: 0.0004
 
-    Optimal C for the standardized data with PCA: 20.69
-
-
+    القيمة المثلى C للبيانات المعايرة مع PCA: 20.69
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 219-222
 
-The need for regularization is higher (lower values of `C`) for the data that
-was not scaled before applying PCA. We now evaluate the effect of scaling on
-the accuracy and the mean log-loss of the optimal models:
 
-.. GENERATED FROM PYTHON SOURCE LINES 222-239
+.. GENERATED FROM PYTHON SOURCE LINES 202-205
+
+الحاجة إلى التنظيم أعلى (قيم أقل لـ `C`) للبيانات التي
+لم يتم معايرتها قبل تطبيق PCA. نقوم الآن بتقييم تأثير المعايرة على
+دقة ومتوسط خسارة اللوغاريتم للنموذجين الأمثلين:
+
+.. GENERATED FROM PYTHON SOURCE LINES 205-222
 
 .. code-block:: Python
 
@@ -350,13 +333,13 @@ the accuracy and the mean log-loss of the optimal models:
     y_proba = unscaled_clf.predict_proba(X_test)
     y_proba_scaled = scaled_clf.predict_proba(X_test)
 
-    print("Test accuracy for the unscaled PCA")
+    print("دقة الاختبار لـ PCA غير المعاير")
     print(f"{accuracy_score(y_test, y_pred):.2%}\n")
-    print("Test accuracy for the standardized data with PCA")
+    print("دقة الاختبار للبيانات المعايرة مع PCA")
     print(f"{accuracy_score(y_test, y_pred_scaled):.2%}\n")
-    print("Log-loss for the unscaled PCA")
+    print("خسارة اللوغاريتم لـ PCA غير المعاير")
     print(f"{log_loss(y_test, y_proba):.3}\n")
-    print("Log-loss for the standardized data with PCA")
+    print("خسارة اللوغاريتم للبيانات المعايرة مع PCA")
     print(f"{log_loss(y_test, y_proba_scaled):.3}")
 
 
@@ -367,45 +350,42 @@ the accuracy and the mean log-loss of the optimal models:
 
  .. code-block:: none
 
-    Test accuracy for the unscaled PCA
+    دقة الاختبار لـ PCA غير المعاير
     35.19%
 
-    Test accuracy for the standardized data with PCA
+    دقة الاختبار للبيانات المعايرة مع PCA
     96.30%
 
-    Log-loss for the unscaled PCA
+    خسارة اللوغاريتم لـ PCA غير المعاير
     0.957
 
-    Log-loss for the standardized data with PCA
+    خسارة اللوغاريتم للبيانات المعايرة مع PCA
     0.0825
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 240-257
+.. GENERATED FROM PYTHON SOURCE LINES 223-236
 
-A clear difference in prediction accuracies is observed when the data is
-scaled before :class:`~sklearn.decomposition.PCA`, as it vastly outperforms
-the unscaled version. This corresponds to the intuition obtained from the plot
-in the previous section, where the components become linearly separable when
-scaling before using :class:`~sklearn.decomposition.PCA`.
+يتم ملاحظة اختلاف واضح في دقة التنبؤ عند معايرة البيانات
+قبل :class:`~sklearn.decomposition.PCA`، حيث تتفوق بشكل كبير
+على النسخة غير المعايرة. ويتوافق هذا مع الحدس الذي تم الحصول عليه من الرسم البياني
+في القسم السابق، حيث تصبح المكونات قابلة للفصل خطيًا عند المعايرة قبل استخدام :class:`~sklearn.decomposition.PCA`.
 
-Notice that in this case the models with scaled features perform better than
-the models with non-scaled features because all the variables are expected to
-be predictive and we rather avoid some of them being comparatively ignored.
+لاحظ أنه في هذه الحالة، تؤدي النماذج ذات الميزات المعايرة أداءً أفضل
+من النماذج ذات الميزات غير المعايرة لأن جميع المتغيرات من المتوقع أن
+تكون تنبؤية ونحن نتجنب بعضها أن يتم تجاهلها نسبيًا.
 
-If the variables in lower scales were not predictive, one may experience a
-decrease of the performance after scaling the features: noisy features would
-contribute more to the prediction after scaling and therefore scaling would
-increase overfitting.
+إذا كانت المتغيرات في المقاييس المنخفضة غير تنبؤية، فقد يواجه المرء
+انخفاضًا في الأداء بعد معايرة الميزات: ستساهم الميزات الضجيجية أكثر في التنبؤ بعد المعايرة وبالتالي ستزيد المعايرة من الإفراط في الملاءمة.
 
-Last but not least, we observe that one achieves a lower log-loss by means of
-the scaling step.
+وأخيرًا وليس آخرًا، نلاحظ أننا نحقق خسارة لوغاريتم أقل من خلال
+خطوة المعايرة.
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 2.237 seconds)
+   **Total running time of the script:** (0 minutes 2.429 seconds)
 
 
 .. _sphx_glr_download_auto_examples_preprocessing_plot_scaling_importance.py:

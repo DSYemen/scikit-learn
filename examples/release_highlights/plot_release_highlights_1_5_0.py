@@ -1,34 +1,32 @@
 # ruff: noqa
 """
 =======================================
-Release Highlights for scikit-learn 1.5
+أبرز الميزات الجديدة في الإصدار 1.5 من scikit-learn
 =======================================
 
 .. currentmodule:: sklearn
 
-We are pleased to announce the release of scikit-learn 1.5! Many bug fixes
-and improvements were added, as well as some key new features. Below we
-detail the highlights of this release. **For an exhaustive list of
-all the changes**, please refer to the :ref:`release notes <release_notes_1_5>`.
+يسعدنا الإعلان عن إصدار scikit-learn 1.5! تم إصلاح العديد من الأخطاء
+وإضافة العديد من التحسينات، بالإضافة إلى بعض الميزات الجديدة الرئيسية. فيما يلي
+نقدم أبرز ميزات هذا الإصدار. **للحصول على قائمة شاملة بجميع التغييرات**، يرجى الرجوع إلى :ref:`ملاحظات الإصدار <release_notes_1_5>`.
 
-To install the latest version (with pip)::
+لتثبيت أحدث إصدار (باستخدام pip)::
 
     pip install --upgrade scikit-learn
 
-or with conda::
+أو باستخدام conda::
 
     conda install -c conda-forge scikit-learn
 
 """
 
 # %%
-# FixedThresholdClassifier: Setting the decision threshold of a binary classifier
+# FixedThresholdClassifier: ضبط عتبة القرار لمصنّف ثنائي
 # -------------------------------------------------------------------------------
-# All binary classifiers of scikit-learn use a fixed decision threshold of 0.5
-# to convert probability estimates (i.e. output of `predict_proba`) into class
-# predictions. However, 0.5 is almost never the desired threshold for a given
-# problem. :class:`~model_selection.FixedThresholdClassifier` allows wrapping any
-# binary classifier and setting a custom decision threshold.
+# تستخدم جميع المصنفات الثنائية في scikit-learn عتبة قرار ثابتة تبلغ 0.5
+# لتحويل تقديرات الاحتمال (أي ناتج `predict_proba`) إلى تنبؤات
+# الفئة. ومع ذلك، فإن 0.5 نادراً ما يكون العتبة المرغوبة لمشكلة معينة. :class:`~model_selection.FixedThresholdClassifier` يسمح بتغليف أي
+# مصنف ثنائي وضبط عتبة قرار مخصصة.
 from sklearn.datasets import make_classification
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
@@ -42,9 +40,9 @@ classifier_05 = LogisticRegression(C=1e6, random_state=0).fit(X_train, y_train)
 _ = ConfusionMatrixDisplay.from_estimator(classifier_05, X_test, y_test)
 
 # %%
-# Lowering the threshold, i.e. allowing more samples to be classified as the positive
-# class, increases the number of true positives at the cost of more false positives
-# (as is well known from the concavity of the ROC curve).
+# يؤدي خفض العتبة، أي السماح للمزيد من العينات بالتصنيف على أنها الفئة الإيجابية،
+# إلى زيادة عدد الإيجابيات الحقيقية على حساب المزيد من الإيجابيات الخاطئة
+# (كما هو معروف جيداً من تقعر منحنى ROC).
 from sklearn.model_selection import FixedThresholdClassifier
 
 classifier_01 = FixedThresholdClassifier(classifier_05, threshold=0.1)
@@ -52,26 +50,24 @@ classifier_01.fit(X_train, y_train)
 _ = ConfusionMatrixDisplay.from_estimator(classifier_01, X_test, y_test)
 
 # %%
-# TunedThresholdClassifierCV: Tuning the decision threshold of a binary classifier
+# TunedThresholdClassifierCV: ضبط عتبة القرار لمصنّف ثنائي
 # --------------------------------------------------------------------------------
-# The decision threshold of a binary classifier can be tuned to optimize a
-# given metric, using :class:`~model_selection.TunedThresholdClassifierCV`.
+# يمكن ضبط عتبة القرار لمصنّف ثنائي لتحسين مقياس معين، باستخدام :class:`~model_selection.TunedThresholdClassifierCV`.
 #
-# It is particularly useful to find the best decision threshold when the model
-# is meant to be deployed in a specific application context where we can assign
-# different gains or costs for true positives, true negatives, false positives,
-# and false negatives.
+# إنه مفيد بشكل خاص للعثور على أفضل عتبة قرار عندما يكون النموذج
+# مخصصاً للعمل في سياق تطبيق محدد حيث يمكننا تعيين
+# مكاسب أو تكاليف مختلفة للإيجابيات الحقيقية، والإيجابيات الخاطئة، والسلبيات الخاطئة،
+# والسلبيات الحقيقية.
 #
-# Let's illustrate this by considering an arbitrary case where:
+# دعنا نوضح ذلك من خلال النظر في حالة تعسفية حيث:
 #
-# - each true positive gains 1 unit of profit, e.g. euro, year of life in good
-#   health, etc.;
-# - true negatives gain or cost nothing;
-# - each false negative costs 2;
-# - each false positive costs 0.1.
+# - كل إيجابية حقيقية تحقق مكسباً قدره 1 وحدة، على سبيل المثال، يورو، سنة من الحياة في صحة جيدة، إلخ؛
+# - لا تحقق الإيجابيات الحقيقية أي مكاسب أو تكاليف؛
+# - كل سلبية خاطئة تكلف 2؛
+# - كل إيجابية خاطئة تكلف 0.1.
 #
-# Our metric quantifies the average profit per sample, which is defined by the
-# following Python function:
+# يحدد مقياسنا متوسط الربح لكل عينة، والذي يتم تعريفه بواسطة
+# دالة Python التالية:
 from sklearn.metrics import confusion_matrix
 
 
@@ -84,12 +80,12 @@ print("Untuned decision threshold: 0.5")
 print(f"Custom score: {custom_score(y_test, classifier_05.predict(X_test)):.2f}")
 
 # %%
-# It is interesting to observe that the average gain per prediction is negative
-# which means that this decision system is making a loss on average.
+# من المثير للاهتمام ملاحظة أن متوسط الربح لكل تنبؤ سلبي، مما يعني أن هذا النظام
+# القرار يسبب خسارة في المتوسط.
 #
-# Tuning the threshold to optimize this custom metric gives a smaller threshold
-# that allows more samples to be classified as the positive class. As a result,
-# the average gain per prediction improves.
+# يؤدي ضبط العتبة لتحسين هذا المقياس المخصص إلى عتبة أصغر
+# تسمح للمزيد من العينات بالتصنيف على أنها الفئة الإيجابية. ونتيجة لذلك،
+# يتحسن متوسط الربح لكل تنبؤ.
 from sklearn.model_selection import TunedThresholdClassifierCV
 from sklearn.metrics import make_scorer
 
@@ -104,27 +100,26 @@ print(f"Tuned decision threshold: {tuned_classifier.best_threshold_:.3f}")
 print(f"Custom score: {custom_score(y_test, tuned_classifier.predict(X_test)):.2f}")
 
 # %%
-# We observe that tuning the decision threshold can turn a machine
-# learning-based system that makes a loss on average into a beneficial one.
+# نلاحظ أن ضبط عتبة القرار يمكن أن يحول نظام التعلم الآلي
+# الذي يسبب خسارة في المتوسط إلى نظام مفيد.
 #
-# In practice, defining a meaningful application-specific metric might involve
-# making those costs for bad predictions and gains for good predictions depend on
-# auxiliary metadata specific to each individual data point such as the amount
-# of a transaction in a fraud detection system.
+# في الممارسة العملية، قد يتضمن تعريف مقياس محدد للتطبيق
+# جعل تلك التكاليف للتنبؤات الخاطئة والمكاسب للتنبؤات الصحيحة تعتمد على
+# البيانات الوصفية المساعدة المحددة لكل نقطة بيانات فردية مثل المبلغ
+# من المعاملة في نظام كشف الاحتيال.
 #
-# To achieve this, :class:`~model_selection.TunedThresholdClassifierCV`
-# leverages metadata routing support (:ref:`Metadata Routing User
-# Guide<metadata_routing>`) allowing to optimize complex business metrics as
-# detailed in :ref:`Post-tuning the decision threshold for cost-sensitive
+# لتحقيق ذلك، :class:`~model_selection.TunedThresholdClassifierCV`
+# يستفيد من دعم توجيه البيانات الوصفية (:ref:`Metadata Routing User
+# Guide<metadata_routing>`) مما يسمح بتحسين مقاييس الأعمال المعقدة كما
+# هو مفصل في :ref:`Post-tuning the decision threshold for cost-sensitive
 # learning
 # <sphx_glr_auto_examples_model_selection_plot_cost_sensitive_learning.py>`.
 
 # %%
-# Performance improvements in PCA
+# تحسينات الأداء في PCA
 # -------------------------------
-# :class:`~decomposition.PCA` has a new solver, `"covariance_eigh"`, which is
-# up to an order of magnitude faster and more memory efficient than the other
-# solvers for datasets with many data points and few features.
+# :class:`~decomposition.PCA` لديه محدد جديد، `"covariance_eigh"`، والذي هو
+# أسرع وأكثر كفاءة في الذاكرة من المحددات الأخرى بمقدار يصل إلى 10 مرات للمجموعات ذات البيانات الكثيرة والميزات القليلة.
 from sklearn.datasets import make_low_rank_matrix
 from sklearn.decomposition import PCA
 
@@ -137,7 +132,7 @@ print(f"Explained variance: {pca.explained_variance_ratio_.sum():.2f}")
 
 
 # %%
-# The new solver also accepts sparse input data:
+# يقبل المحدد الجديد أيضاً بيانات الإدخال الناقصة:
 from scipy.sparse import random
 
 X = random(10_000, 100, format="csr", random_state=0)
@@ -146,20 +141,20 @@ pca = PCA(n_components=10, svd_solver="covariance_eigh").fit(X)
 print(f"Explained variance: {pca.explained_variance_ratio_.sum():.2f}")
 
 # %%
-# The `"full"` solver has also been improved to use less memory and allows
-# faster transformation. The default `svd_solver="auto"`` option takes
-# advantage of the new solver and is now able to select an appropriate solver
-# for sparse datasets.
+# تم تحسين محدد `"full"` أيضاً لاستخدام ذاكرة أقل ويسمح
+# بالتحويل الأسرع. خيار `svd_solver="auto"`` الافتراضي يستفيد
+# من المحدد الجديد ويمكنه الآن اختيار محدد مناسب
+# للمجموعات الناقصة.
 #
-# Similarly to most other PCA solvers, the new `"covariance_eigh"` solver can leverage
-# GPU computation if the input data is passed as a PyTorch or CuPy array by
-# enabling the experimental support for :ref:`Array API <array_api>`.
+# وعلى غرار معظم محددات PCA الأخرى، يمكن للمحدد الجديد `"covariance_eigh"` أن يستفيد
+# من حسابات GPU إذا تم تمرير بيانات الإدخال كصفيف PyTorch أو CuPy من خلال
+# تمكين الدعم التجريبي لـ :ref:`Array API <array_api>`.
 
 # %%
-# ColumnTransformer is subscriptable
+# إمكانية الوصول إلى المحولات في ColumnTransformer
 # ----------------------------------
-# The transformers of a :class:`~compose.ColumnTransformer` can now be directly
-# accessed using indexing by name.
+# يمكن الآن الوصول إلى المحولات في :class:`~compose.ColumnTransformer` مباشرة
+# باستخدام الفهرسة حسب الاسم.
 import numpy as np
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
@@ -175,11 +170,11 @@ print(column_transformer["std_scaler"])
 print(column_transformer["one_hot"])
 
 # %%
-# Custom imputation strategies for the SimpleImputer
+# استراتيجيات الإكمال المخصصة لـ SimpleImputer
 # --------------------------------------------------
-# :class:`~impute.SimpleImputer` now supports custom strategies for imputation,
-# using a callable that computes a scalar value from the non missing values of
-# a column vector.
+# :class:`~impute.SimpleImputer` يدعم الآن استراتيجيات مخصصة للإكمال،
+# باستخدام دالة قابلة للاستدعاء تحسب قيمة قياسية من القيم غير المفقودة في
+# متجه عمودي.
 from sklearn.impute import SimpleImputer
 
 X = np.array(
@@ -204,10 +199,10 @@ imputer = SimpleImputer(strategy=smallest_abs)
 imputer.fit_transform(X)
 
 # %%
-# Pairwise distances with non-numeric arrays
+# المسافات الزوجية مع المصفوفات غير الرقمية
 # ------------------------------------------
-# :func:`~metrics.pairwise_distances` can now compute distances between
-# non-numeric arrays using a callable metric.
+# :func:`~metrics.pairwise_distances` يمكنه الآن حساب المسافات بين
+# المصفوفات غير الرقمية باستخدام دالة قياس قابلة للاستدعاء.
 from sklearn.metrics import pairwise_distances
 
 X = ["cat", "dog"]

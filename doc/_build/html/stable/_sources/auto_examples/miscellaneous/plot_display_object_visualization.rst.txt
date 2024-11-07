@@ -19,25 +19,24 @@
 
 
 ===================================
-Visualizations with Display Objects
+التصورات باستخدام كائنات العرض
 ===================================
 
 .. currentmodule:: sklearn.metrics
 
-In this example, we will construct display objects,
-:class:`ConfusionMatrixDisplay`, :class:`RocCurveDisplay`, and
-:class:`PrecisionRecallDisplay` directly from their respective metrics. This
-is an alternative to using their corresponding plot functions when
-a model's predictions are already computed or expensive to compute. Note that
-this is advanced usage, and in general we recommend using their respective
-plot functions.
+في هذا المثال، سنقوم بإنشاء كائنات عرض،
+:class:`ConfusionMatrixDisplay`، :class:`RocCurveDisplay`، و
+:class:`PrecisionRecallDisplay` مباشرة من مقاييسها الخاصة. هذا
+بديل لاستخدام وظائف الرسم الخاصة بها عندما
+تكون تنبؤات النموذج محسوبة بالفعل أو مكلفة في الحساب. لاحظ أن
+هذا استخدام متقدم، ونحن نوصي عمومًا باستخدام وظائف الرسم الخاصة بها.
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-21
+.. GENERATED FROM PYTHON SOURCE LINES 16-20
 
 .. code-block:: Python
 
 
-    # Authors: The scikit-learn developers
+    # المؤلفون: مطوري scikit-learn
     # SPDX-License-Identifier: BSD-3-Clause
 
 
@@ -47,17 +46,17 @@ plot functions.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 22-29
+.. GENERATED FROM PYTHON SOURCE LINES 21-28
 
-Load Data and train model
+تحميل البيانات وتدريب النموذج
 -------------------------
-For this example, we load a blood transfusion service center data set from
-`OpenML <https://www.openml.org/d/1464>`_. This is a binary classification
-problem where the target is whether an individual donated blood. Then the
-data is split into a train and test dataset and a logistic regression is
-fitted with the train dataset.
+في هذا المثال، نقوم بتحميل مجموعة بيانات مركز خدمة نقل الدم من
+`OpenML <https://www.openml.org/d/1464>`_. هذه مشكلة تصنيف ثنائي
+حيث الهدف هو ما إذا كان الفرد قد تبرع بالدم. ثم يتم تقسيم
+البيانات إلى مجموعة بيانات تدريب واختبار ويتم تثبيت الانحدار اللوجستي
+باستخدام مجموعة بيانات التدريب.
 
-.. GENERATED FROM PYTHON SOURCE LINES 29-41
+.. GENERATED FROM PYTHON SOURCE LINES 28-40
 
 .. code-block:: Python
 
@@ -81,7 +80,7 @@ fitted with the train dataset.
 .. raw:: html
 
     <div class="output_subarea output_html rendered_html output_result">
-    <style>#sk-container-id-54 {
+    <style>#sk-container-id-25 {
       /* Definition of color scheme common for light and dark mode */
       --sklearn-color-text: #000;
       --sklearn-color-text-muted: #666;
@@ -112,15 +111,15 @@ fitted with the train dataset.
       }
     }
 
-    #sk-container-id-54 {
+    #sk-container-id-25 {
       color: var(--sklearn-color-text);
     }
 
-    #sk-container-id-54 pre {
+    #sk-container-id-25 pre {
       padding: 0;
     }
 
-    #sk-container-id-54 input.sk-hidden--visually {
+    #sk-container-id-25 input.sk-hidden--visually {
       border: 0;
       clip: rect(1px 1px 1px 1px);
       clip: rect(1px, 1px, 1px, 1px);
@@ -132,7 +131,7 @@ fitted with the train dataset.
       width: 1px;
     }
 
-    #sk-container-id-54 div.sk-dashed-wrapped {
+    #sk-container-id-25 div.sk-dashed-wrapped {
       border: 1px dashed var(--sklearn-color-line);
       margin: 0 0.4em 0.5em 0.4em;
       box-sizing: border-box;
@@ -140,7 +139,7 @@ fitted with the train dataset.
       background-color: var(--sklearn-color-background);
     }
 
-    #sk-container-id-54 div.sk-container {
+    #sk-container-id-25 div.sk-container {
       /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
          but bootstrap.min.css set `[hidden] { display: none !important; }`
          so we also need the `!important` here to be able to override the
@@ -150,7 +149,7 @@ fitted with the train dataset.
       position: relative;
     }
 
-    #sk-container-id-54 div.sk-text-repr-fallback {
+    #sk-container-id-25 div.sk-text-repr-fallback {
       display: none;
     }
 
@@ -166,14 +165,14 @@ fitted with the train dataset.
 
     /* Parallel-specific style estimator block */
 
-    #sk-container-id-54 div.sk-parallel-item::after {
+    #sk-container-id-25 div.sk-parallel-item::after {
       content: "";
       width: 100%;
       border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
       flex-grow: 1;
     }
 
-    #sk-container-id-54 div.sk-parallel {
+    #sk-container-id-25 div.sk-parallel {
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -181,28 +180,28 @@ fitted with the train dataset.
       position: relative;
     }
 
-    #sk-container-id-54 div.sk-parallel-item {
+    #sk-container-id-25 div.sk-parallel-item {
       display: flex;
       flex-direction: column;
     }
 
-    #sk-container-id-54 div.sk-parallel-item:first-child::after {
+    #sk-container-id-25 div.sk-parallel-item:first-child::after {
       align-self: flex-end;
       width: 50%;
     }
 
-    #sk-container-id-54 div.sk-parallel-item:last-child::after {
+    #sk-container-id-25 div.sk-parallel-item:last-child::after {
       align-self: flex-start;
       width: 50%;
     }
 
-    #sk-container-id-54 div.sk-parallel-item:only-child::after {
+    #sk-container-id-25 div.sk-parallel-item:only-child::after {
       width: 0;
     }
 
     /* Serial-specific style estimator block */
 
-    #sk-container-id-54 div.sk-serial {
+    #sk-container-id-25 div.sk-serial {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -220,14 +219,14 @@ fitted with the train dataset.
 
     /* Pipeline and ColumnTransformer style (default) */
 
-    #sk-container-id-54 div.sk-toggleable {
+    #sk-container-id-25 div.sk-toggleable {
       /* Default theme specific background. It is overwritten whether we have a
       specific estimator or a Pipeline/ColumnTransformer */
       background-color: var(--sklearn-color-background);
     }
 
     /* Toggleable label */
-    #sk-container-id-54 label.sk-toggleable__label {
+    #sk-container-id-25 label.sk-toggleable__label {
       cursor: pointer;
       display: flex;
       width: 100%;
@@ -240,13 +239,13 @@ fitted with the train dataset.
       gap: 0.5em;
     }
 
-    #sk-container-id-54 label.sk-toggleable__label .caption {
+    #sk-container-id-25 label.sk-toggleable__label .caption {
       font-size: 0.6rem;
       font-weight: lighter;
       color: var(--sklearn-color-text-muted);
     }
 
-    #sk-container-id-54 label.sk-toggleable__label-arrow:before {
+    #sk-container-id-25 label.sk-toggleable__label-arrow:before {
       /* Arrow on the left of the label */
       content: "▸";
       float: left;
@@ -254,13 +253,13 @@ fitted with the train dataset.
       color: var(--sklearn-color-icon);
     }
 
-    #sk-container-id-54 label.sk-toggleable__label-arrow:hover:before {
+    #sk-container-id-25 label.sk-toggleable__label-arrow:hover:before {
       color: var(--sklearn-color-text);
     }
 
     /* Toggleable content - dropdown */
 
-    #sk-container-id-54 div.sk-toggleable__content {
+    #sk-container-id-25 div.sk-toggleable__content {
       max-height: 0;
       max-width: 0;
       overflow: hidden;
@@ -269,12 +268,12 @@ fitted with the train dataset.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-54 div.sk-toggleable__content.fitted {
+    #sk-container-id-25 div.sk-toggleable__content.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-54 div.sk-toggleable__content pre {
+    #sk-container-id-25 div.sk-toggleable__content pre {
       margin: 0.2em;
       border-radius: 0.25em;
       color: var(--sklearn-color-text);
@@ -282,79 +281,79 @@ fitted with the train dataset.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-54 div.sk-toggleable__content.fitted pre {
+    #sk-container-id-25 div.sk-toggleable__content.fitted pre {
       /* unfitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
-    #sk-container-id-54 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+    #sk-container-id-25 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
       max-height: 200px;
       max-width: 100%;
       overflow: auto;
     }
 
-    #sk-container-id-54 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+    #sk-container-id-25 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
       content: "▾";
     }
 
     /* Pipeline/ColumnTransformer-specific style */
 
-    #sk-container-id-54 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-25 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-54 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-25 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator-specific style */
 
     /* Colorize estimator box */
-    #sk-container-id-54 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-25 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-54 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+    #sk-container-id-25 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
-    #sk-container-id-54 div.sk-label label.sk-toggleable__label,
-    #sk-container-id-54 div.sk-label label {
+    #sk-container-id-25 div.sk-label label.sk-toggleable__label,
+    #sk-container-id-25 div.sk-label label {
       /* The background is the default theme color */
       color: var(--sklearn-color-text-on-default-background);
     }
 
     /* On hover, darken the color of the background */
-    #sk-container-id-54 div.sk-label:hover label.sk-toggleable__label {
+    #sk-container-id-25 div.sk-label:hover label.sk-toggleable__label {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
     /* Label box, darken color on hover, fitted */
-    #sk-container-id-54 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+    #sk-container-id-25 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
       color: var(--sklearn-color-text);
       background-color: var(--sklearn-color-fitted-level-2);
     }
 
     /* Estimator label */
 
-    #sk-container-id-54 div.sk-label label {
+    #sk-container-id-25 div.sk-label label {
       font-family: monospace;
       font-weight: bold;
       display: inline-block;
       line-height: 1.2em;
     }
 
-    #sk-container-id-54 div.sk-label-container {
+    #sk-container-id-25 div.sk-label-container {
       text-align: center;
     }
 
     /* Estimator-specific */
-    #sk-container-id-54 div.sk-estimator {
+    #sk-container-id-25 div.sk-estimator {
       font-family: monospace;
       border: 1px dotted var(--sklearn-color-border-box);
       border-radius: 0.25em;
@@ -364,18 +363,18 @@ fitted with the train dataset.
       background-color: var(--sklearn-color-unfitted-level-0);
     }
 
-    #sk-container-id-54 div.sk-estimator.fitted {
+    #sk-container-id-25 div.sk-estimator.fitted {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-0);
     }
 
     /* on hover */
-    #sk-container-id-54 div.sk-estimator:hover {
+    #sk-container-id-25 div.sk-estimator:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-2);
     }
 
-    #sk-container-id-54 div.sk-estimator.fitted:hover {
+    #sk-container-id-25 div.sk-estimator.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-2);
     }
@@ -463,7 +462,7 @@ fitted with the train dataset.
 
     /* "?"-specific style due to the `<a>` HTML tag */
 
-    #sk-container-id-54 a.estimator_doc_link {
+    #sk-container-id-25 a.estimator_doc_link {
       float: right;
       font-size: 1rem;
       line-height: 1em;
@@ -478,40 +477,40 @@ fitted with the train dataset.
       border: var(--sklearn-color-unfitted-level-1) 1pt solid;
     }
 
-    #sk-container-id-54 a.estimator_doc_link.fitted {
+    #sk-container-id-25 a.estimator_doc_link.fitted {
       /* fitted */
       border: var(--sklearn-color-fitted-level-1) 1pt solid;
       color: var(--sklearn-color-fitted-level-1);
     }
 
     /* On hover */
-    #sk-container-id-54 a.estimator_doc_link:hover {
+    #sk-container-id-25 a.estimator_doc_link:hover {
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-3);
       color: var(--sklearn-color-background);
       text-decoration: none;
     }
 
-    #sk-container-id-54 a.estimator_doc_link.fitted:hover {
+    #sk-container-id-25 a.estimator_doc_link.fitted:hover {
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-54" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler()),
-                    (&#x27;logisticregression&#x27;, LogisticRegression(random_state=0))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-226" type="checkbox" ><label for="sk-estimator-id-226" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler()),
-                    (&#x27;logisticregression&#x27;, LogisticRegression(random_state=0))])</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-227" type="checkbox" ><label for="sk-estimator-id-227" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content fitted"><pre>StandardScaler()</pre></div> </div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-228" type="checkbox" ><label for="sk-estimator-id-228" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LogisticRegression</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a></div></label><div class="sk-toggleable__content fitted"><pre>LogisticRegression(random_state=0)</pre></div> </div></div></div></div></div></div>
+    </style><div id="sk-container-id-25" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler()),
+                    (&#x27;logisticregression&#x27;, LogisticRegression(random_state=0))])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-71" type="checkbox" ><label for="sk-estimator-id-71" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>Pipeline</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>Pipeline(steps=[(&#x27;standardscaler&#x27;, StandardScaler()),
+                    (&#x27;logisticregression&#x27;, LogisticRegression(random_state=0))])</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-72" type="checkbox" ><label for="sk-estimator-id-72" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>StandardScaler</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></div></label><div class="sk-toggleable__content fitted"><pre>StandardScaler()</pre></div> </div></div><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-73" type="checkbox" ><label for="sk-estimator-id-73" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>LogisticRegression</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/dev/modules/generated/sklearn.linear_model.LogisticRegression.html">?<span>Documentation for LogisticRegression</span></a></div></label><div class="sk-toggleable__content fitted"><pre>LogisticRegression(random_state=0)</pre></div> </div></div></div></div></div></div>
     </div>
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 42-47
+.. GENERATED FROM PYTHON SOURCE LINES 41-46
 
-Create :class:`ConfusionMatrixDisplay`
+إنشاء :class:`ConfusionMatrixDisplay`
 ######################################
-With the fitted model, we compute the predictions of the model on the test
-dataset. These predictions are used to compute the confusion matrix which
-is plotted with the :class:`ConfusionMatrixDisplay`
+باستخدام النموذج المدرب، نقوم بحساب تنبؤات النموذج على مجموعة الاختبار.
+يتم استخدام هذه التنبؤات لحساب مصفوفة الارتباك التي
+يتم رسمها باستخدام :class:`ConfusionMatrixDisplay`
 
-.. GENERATED FROM PYTHON SOURCE LINES 47-55
+.. GENERATED FROM PYTHON SOURCE LINES 46-54
 
 .. code-block:: Python
 
@@ -535,15 +534,15 @@ is plotted with the :class:`ConfusionMatrixDisplay`
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 56-61
+.. GENERATED FROM PYTHON SOURCE LINES 55-60
 
-Create :class:`RocCurveDisplay`
+إنشاء :class:`RocCurveDisplay`
 ###############################
-The roc curve requires either the probabilities or the non-thresholded
-decision values from the estimator. Since the logistic regression provides
-a decision function, we will use it to plot the roc curve:
+يتطلب منحنى ROC إما الاحتمالات أو قيم القرار غير المحددة
+من المقدر. نظرًا لأن الانحدار اللوجستي يوفر
+دالة قرار، فسنستخدمها لرسم منحنى ROC:
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-68
+.. GENERATED FROM PYTHON SOURCE LINES 60-67
 
 .. code-block:: Python
 
@@ -575,14 +574,14 @@ a decision function, we will use it to plot the roc curve:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 69-73
+.. GENERATED FROM PYTHON SOURCE LINES 68-72
 
-Create :class:`PrecisionRecallDisplay`
+إنشاء :class:`PrecisionRecallDisplay`
 ######################################
-Similarly, the precision recall curve can be plotted using `y_score` from
-the prevision sections.
+وبالمثل، يمكن رسم منحنى الدقة والاستدعاء باستخدام `y_score` من
+أقسام التقدير السابقة.
 
-.. GENERATED FROM PYTHON SOURCE LINES 73-78
+.. GENERATED FROM PYTHON SOURCE LINES 72-77
 
 .. code-block:: Python
 
@@ -603,16 +602,16 @@ the prevision sections.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 79-85
+.. GENERATED FROM PYTHON SOURCE LINES 78-84
 
-Combining the display objects into a single plot
+دمج كائنات العرض في رسم واحد
 ################################################
-The display objects store the computed values that were passed as arguments.
-This allows for the visualizations to be easliy combined using matplotlib's
-API. In the following example, we place the displays next to each other in a
-row.
+تقوم كائنات العرض بتخزين القيم المحسوبة التي تم تمريرها كحجج.
+يسمح هذا بدمج التصورات بسهولة باستخدام واجهة برمجة التطبيقات الخاصة بـ Matplotlib.
+في المثال التالي، نقوم بوضع العروض بجانب بعضها البعض في
+صف.
 
-.. GENERATED FROM PYTHON SOURCE LINES 85-93
+.. GENERATED FROM PYTHON SOURCE LINES 84-91
 
 .. code-block:: Python
 
@@ -624,7 +623,6 @@ row.
     roc_display.plot(ax=ax1)
     pr_display.plot(ax=ax2)
     plt.show()
-
 
 
 .. image-sg:: /auto_examples/miscellaneous/images/sphx_glr_plot_display_object_visualization_004.png
@@ -648,7 +646,7 @@ row.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.719 seconds)
+   **Total running time of the script:** (0 minutes 0.748 seconds)
 
 
 .. _sphx_glr_download_auto_examples_miscellaneous_plot_display_object_visualization.py:
